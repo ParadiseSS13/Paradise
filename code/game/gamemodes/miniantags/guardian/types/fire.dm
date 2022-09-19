@@ -30,9 +30,8 @@
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	. = ..()
 	if(toggle)
-		if(. && ishuman(target) && !summoner)
-			spawn(0)
-				new /obj/effect/hallucination/delusion(target.loc, target, force_kind = "custom", duration = 200, skip_nearby = 0, custom_icon = icon_state, custom_icon_file = icon)
+		if(. && iscarbon(target))
+			new /obj/effect/hallucination/delusion(get_turf(target), target, icon, icon_state)
 	else
 		if(prob(45))
 			if(ismovable(target))

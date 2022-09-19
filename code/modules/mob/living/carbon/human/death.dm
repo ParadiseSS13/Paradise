@@ -2,8 +2,7 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	if(!ismachineperson(src))
@@ -49,33 +48,26 @@
 /mob/living/carbon/human/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
+	notransform = TRUE
 	dust_animation()
-	QDEL_IN(src, 15)
+	QDEL_IN(src, 20)
 	return TRUE
 
 /mob/living/carbon/human/dust_animation()
-	var/atom/movable/overlay/animation = null
+	// Animate them being dusted out of existence
+	var/obj/effect/dusting_anim/dust_effect = new(loc, UID())
+	filters += filter(type = "displace", size = 256, render_source = "*snap[UID()]")
+	animate(src, alpha = 0, time = 20, easing = (EASE_IN | SINE_EASING))
 
-	animation = new(loc)
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = src
-
-	flick("dust-h", animation)
 	new dna.species.remains_type(get_turf(src))
-	QDEL_IN(animation, 15)
+	QDEL_IN(dust_effect, 20)
 	return TRUE
 
 /mob/living/carbon/human/melt()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -91,8 +83,6 @@
 	return TRUE
 
 /mob/living/carbon/human/death(gibbed)
-	if(can_die() && !gibbed && deathgasp_on_death)
-		emote("deathgasp", force = TRUE) //let the world KNOW WE ARE DEAD
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
@@ -106,9 +96,9 @@
 		dna.species.handle_death(gibbed, src)
 
 	if(SSticker && SSticker.mode)
-		SSblackbox.ReportDeath(src)
+		INVOKE_ASYNC(SSblackbox, /datum/controller/subsystem/blackbox/proc/ReportDeath, src)
 
-/mob/living/carbon/human/update_revive()
+/mob/living/carbon/human/update_revive(updating)
 	. = ..()
 	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll
@@ -119,12 +109,12 @@
 		dna.species.update_sight(src)
 
 /mob/living/carbon/human/proc/makeSkeleton()
-	var/obj/item/organ/external/head/H = get_organ("head")
-	if(SKELETON in src.mutations)
+	if(HAS_TRAIT(src, TRAIT_SKELETONIZED))
 		return
+	var/obj/item/organ/external/head/H = get_organ("head")
 
 	if(istype(H))
-		H.disfigured = TRUE
+		H.status |= ORGAN_DISFIGURED
 		if(H.f_style)
 			H.f_style = initial(H.f_style)
 		if(H.h_style)
@@ -140,45 +130,39 @@
 	update_head_accessory()
 	update_markings()
 
-	mutations.Add(SKELETON)
-	mutations.Add(NOCLONE)
+	ADD_TRAIT(src, TRAIT_SKELETONIZED, "skeletonization")
+	ADD_TRAIT(src, TRAIT_BADDNA, "skeletonization")
 	update_body()
 	update_mutantrace()
-	return
 
-/mob/living/carbon/human/proc/ChangeToHusk()
-
-	// If the target has no DNA to begin with, its DNA can't be damaged beyond repair.
-	if(NO_DNA in dna.species.species_traits)
-		return
-	if(HUSK in mutations)
-		return
-
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(istype(H))
-		H.disfigured = TRUE //makes them unknown without fucking up other stuff like admintools
-		if(H.f_style)
-			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
-		if(H.h_style)
-			H.h_style = "Bald"
-	update_fhair()
-	update_hair()
-
-	mutations.Add(HUSK)
-	update_body()
-	update_mutantrace()
-	return
+/mob/living/carbon/human/proc/become_husk(source)
+	if(!HAS_TRAIT(src, TRAIT_HUSK))
+		ADD_TRAIT(src, TRAIT_HUSK, source)
+		var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
+		if(istype(H))
+			H.status |= ORGAN_DISFIGURED //makes them unknown without fucking up other stuff like admintools
+			if(H.f_style)
+				H.f_style = "Shaved" //we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
+			if(H.h_style)
+				H.h_style = "Bald"
+		update_fhair()
+		update_hair()
+		update_body()
+		update_mutantrace()
+	else
+		ADD_TRAIT(src, TRAIT_HUSK, source)
 
 /mob/living/carbon/human/proc/Drain()
-	ChangeToHusk()
-	mutations |= NOCLONE
-	return
+	become_husk(CHANGELING_DRAIN)
+	ADD_TRAIT(src, TRAIT_BADDNA, CHANGELING_DRAIN)
+	blood_volume = 0
 
-/mob/living/carbon/human/proc/cure_husk()
-	mutations.Remove(HUSK)
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(istype(H))
-		H.disfigured = FALSE
-	update_body()
-	update_mutantrace()
-	UpdateAppearance() // reset hair from DNA
+/mob/living/carbon/human/proc/cure_husk(source)
+	REMOVE_TRAIT(src, TRAIT_HUSK, source)
+	if(!HAS_TRAIT(src, TRAIT_HUSK))
+		var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
+		if(istype(H))
+			H.status &= ~ORGAN_DISFIGURED
+		update_body()
+		update_mutantrace()
+		UpdateAppearance() // reset hair from DNA

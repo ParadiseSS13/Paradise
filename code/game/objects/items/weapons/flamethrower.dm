@@ -48,14 +48,8 @@
 		igniter.flamethrower_process(location)
 
 
-/obj/item/flamethrower/update_icon()
-	cut_overlays()
-	if(igniter)
-		add_overlay("+igniter[status]")
-	if(ptank)
-		add_overlay("+ptank")
+/obj/item/flamethrower/update_icon_state()
 	if(lit)
-		add_overlay("+lit")
 		item_state = "flamethrower_1"
 	else
 		item_state = "flamethrower_0"
@@ -64,11 +58,35 @@
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
+/obj/item/flamethrower/update_overlays()
+	. = ..()
+	if(igniter)
+		. += "+igniter[status]"
+	if(ptank)
+		. += "+ptank"
+	if(lit)
+		. += "+lit"
+
+/obj/item/flamethrower/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
+
 /obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)
 		return // too close
-	if(user && user.get_active_hand() == src) // Make sure our user is still holding us
+	if(!user)
+		return
+	if(user.mind?.martial_art?.no_guns)
+		to_chat(user, "<span class='warning'>[user.mind.martial_art.no_guns_message]</span>")
+		return
+	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
+		to_chat(user, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
+		return
+	if(user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
 			var/turflist = getline(user, target_turf)

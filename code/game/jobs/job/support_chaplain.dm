@@ -80,7 +80,7 @@
 	B.deity_name = new_deity
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
 
-	user.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/chaplain_bless(null))
+	user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
 
 	if(SSticker)
 		SSticker.Bible_deity_name = B.deity_name

@@ -24,7 +24,7 @@
 
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
-		if(PIERCEIMMUNE in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			return
 
 		if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
@@ -56,4 +56,4 @@
 				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", "<span class='userdanger'>You slide on [A]!</span>")
 
 			cooldown = world.time
-		H.Weaken(3)
+		H.Weaken(6 SECONDS)

@@ -9,8 +9,8 @@
 	actions_types = list(/datum/action/item_action/accessory/storage)
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
-/obj/item/clothing/accessory/storage/New()
-	..()
+/obj/item/clothing/accessory/storage/Initialize(mapload)
+	. = ..()
 	hold = new/obj/item/storage/internal(src)
 	hold.storage_slots = slots
 
@@ -44,7 +44,7 @@
 	hold.hear_talk(M, message_pieces, verb)
 	..()
 
-/obj/item/clothing/accessory/storage/hear_message(mob/M, var/msg, verb, datum/language/speaking)
+/obj/item/clothing/accessory/storage/hear_message(mob/M, msg, verb, datum/language/speaking)
 	hold.hear_message(M, msg)
 	..()
 
@@ -80,7 +80,7 @@
 	item_color = "webbing"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/storage/black_vest
@@ -104,8 +104,8 @@
 	item_color = "unathiharness2"
 	slots = 2
 
-/obj/item/clothing/accessory/storage/knifeharness/New()
-	..()
+/obj/item/clothing/accessory/storage/knifeharness/Initialize(mapload)
+	. = ..()
 	hold.max_combined_w_class = 4
 	hold.can_hold = list(/obj/item/hatchet/unathiknife, /obj/item/kitchen/knife)
 

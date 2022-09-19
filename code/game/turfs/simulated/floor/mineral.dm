@@ -18,9 +18,7 @@
 	. = ..()
 	broken_states = list("[initial(icon_state)]_dam")
 
-/turf/simulated/floor/mineral/update_icon()
-	if(!..())
-		return 0
+/turf/simulated/floor/mineral/update_icon_state()
 	if(!broken && !burnt)
 		if(!(icon_state in icons))
 			icon_state = initial(icon_state)
@@ -180,7 +178,7 @@
 
 /turf/simulated/floor/mineral/bananium/proc/squeek()
 	if(spam_flag < world.time)
-		playsound(src, "clownstep", 50, 1)
+		playsound(src, 'sound/effects/clownstep1.ogg', 50, 1)
 		spam_flag = world.time + 10
 
 /turf/simulated/floor/mineral/bananium/airless
@@ -197,7 +195,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
-		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
 //TRANQUILLITE
@@ -205,8 +203,10 @@
 	name = "silent floor"
 	icon_state = "tranquillite"
 	floor_tile = /obj/item/stack/tile/mineral/tranquillite
-	shoe_running_volume = 0
-	shoe_walking_volume = 0
+	footstep = null
+	barefootstep = null
+	clawfootstep = null
+	heavyfootstep = null
 
 //DIAMOND
 /turf/simulated/floor/mineral/diamond
@@ -222,7 +222,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
 	var/last_event = 0
-	var/active = null
+	var/active = FALSE
 
 /turf/simulated/floor/mineral/uranium/Entered(mob/AM)
 	.=..()

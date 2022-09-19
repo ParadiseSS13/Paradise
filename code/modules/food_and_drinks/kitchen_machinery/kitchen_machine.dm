@@ -3,13 +3,13 @@
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
 	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	container_type = OPENCONTAINER
-	var/operating = 0 // Is it on?
+	var/operating = FALSE // Is it on?
 	var/dirty = 0 // = {0..100} Does it need cleaning?
 	var/broken = 0 // ={0,1,2} How broken is it???
 	var/efficiency = 0
@@ -28,8 +28,8 @@
 *   Initialising
 ********************/
 
-/obj/machinery/kitchen_machine/New()
-	..()
+/obj/machinery/kitchen_machine/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	reagents.set_reacting(FALSE)
 	init_lists()
@@ -70,11 +70,11 @@
 	if(!broken && istype(O, /obj/item/wrench))
 		playsound(src, O.usesound, 50, 1)
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
 			return
 		else if(!anchored)
-			anchored = 1
+			anchored = TRUE
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
 			return
 
@@ -115,7 +115,7 @@
 			return 1
 		if(istype(O,/obj/item/stack))
 			var/obj/item/stack/S = O
-			if(S.amount > 1)
+			if(S.get_amount() > 1)
 				var/obj/item/stack/to_add = S.split(user, 1)
 				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
@@ -134,7 +134,7 @@
 	else if(istype(O,/obj/item/grab))
 		return special_attack(O, user)
 	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
+		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return 1
 	updateUsrDialog()
 
@@ -161,6 +161,51 @@
 *   Machine Menu	*
 ********************/
 
+/obj/machinery/kitchen_machine/proc/format_content_descs()
+	. = ""
+	var/list/items_counts = new
+	var/list/items_measures = new
+	var/list/items_measures_p = new
+	for(var/obj/O in contents)
+		var/display_name = O.name
+		if(istype(O,/obj/item/reagent_containers/food/snacks/egg))
+			items_measures[display_name] = "egg"
+			items_measures_p[display_name] = "eggs"
+		if(istype(O,/obj/item/reagent_containers/food/snacks/tofu))
+			items_measures[display_name] = "tofu chunk"
+			items_measures_p[display_name] = "tofu chunks"
+		if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
+			items_measures[display_name] = "slab of meat"
+			items_measures_p[display_name] = "slabs of meat"
+		if(istype(O,/obj/item/reagent_containers/food/snacks/donkpocket))
+			display_name = "Turnovers"
+			items_measures[display_name] = "turnover"
+			items_measures_p[display_name] = "turnovers"
+		if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
+			items_measures[display_name] = "fillet of meat"
+			items_measures_p[display_name] = "fillets of meat"
+		items_counts[display_name]++
+
+	for(var/O in items_counts)
+		var/N = items_counts[O]
+		if(!(O in items_measures))
+			. += {"<B>[capitalize(O)]:</B> [N] [lowertext(O)]\s<BR>"}
+		else
+			if(N==1)
+				. += {"<B>[capitalize(O)]:</B> [N] [items_measures[O]]<BR>"}
+			else
+				. += {"<B>[capitalize(O)]:</B> [N] [items_measures_p[O]]<BR>"}
+
+	for(var/datum/reagent/R in reagents.reagent_list)
+		var/display_name = R.name
+		if(R.id == "capsaicin")
+			display_name = "Hotsauce"
+		if(R.id == "frostoil")
+			display_name = "Coldsauce"
+
+		. += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
+
+
 /obj/machinery/kitchen_machine/interact(mob/user) // The microwave Menu
 	if(panel_open || !anchored)
 		return
@@ -172,50 +217,12 @@
 	else if(dirty==100)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
-		var/list/items_counts = new
-		var/list/items_measures = new
-		var/list/items_measures_p = new
-		for(var/obj/O in contents)
-			var/display_name = O.name
-			if(istype(O,/obj/item/reagent_containers/food/snacks/egg))
-				items_measures[display_name] = "egg"
-				items_measures_p[display_name] = "eggs"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/tofu))
-				items_measures[display_name] = "tofu chunk"
-				items_measures_p[display_name] = "tofu chunks"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
-				items_measures[display_name] = "slab of meat"
-				items_measures_p[display_name] = "slabs of meat"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/donkpocket))
-				display_name = "Turnovers"
-				items_measures[display_name] = "turnover"
-				items_measures_p[display_name] = "turnovers"
-			if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
-				items_measures[display_name] = "fillet of meat"
-				items_measures_p[display_name] = "fillets of meat"
-			items_counts[display_name]++
-		for(var/O in items_counts)
-			var/N = items_counts[O]
-			if(!(O in items_measures))
-				dat += {"<B>[capitalize(O)]:</B> [N] [lowertext(O)]\s<BR>"}
-			else
-				if(N==1)
-					dat += {"<B>[capitalize(O)]:</B> [N] [items_measures[O]]<BR>"}
-				else
-					dat += {"<B>[capitalize(O)]:</B> [N] [items_measures_p[O]]<BR>"}
-
-		for(var/datum/reagent/R in reagents.reagent_list)
-			var/display_name = R.name
-			if(R.id == "capsaicin")
-				display_name = "Hotsauce"
-			if(R.id == "frostoil")
-				display_name = "Coldsauce"
-			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
-
-		if(items_counts.len==0 && reagents.reagent_list.len==0)
-			dat = {"<B>The [src] is empty</B><BR>"}
-		else
+		dat += format_content_descs()
+		if(dat)
 			dat = {"<b>Ingredients:</b><br>[dat]"}
+		else
+			dat = {"<B>[src] is empty</B><BR>"}
+
 		dat += {"<HR><BR>\
 <A href='?src=[UID()];action=cook'>Turn on!</A><BR>\
 <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>\
@@ -354,18 +361,18 @@
 
 /obj/machinery/kitchen_machine/proc/start()
 	visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
-	operating = 1
+	operating = TRUE
 	icon_state = on_icon
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/abort()
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
 	icon_state = off_icon
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/stop()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
 	icon_state = off_icon
 	updateUsrDialog()
 
@@ -388,16 +395,16 @@
 	dirty = 100 // Make it dirty so it can't be used util cleaned
 	flags = null //So you can't add condiments
 	icon_state = dirty_icon // Make it look dirty too
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
 	do_sparks(2, 1, src)
 	icon_state = broken_icon // Make it look all busted up and shit
-	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
+	visible_message("<span class='alert'>[src] breaks!</span>") //Let them know they're stupid
 	broken = 2 // Make it broken so it can't be used util fixed
 	flags = null //So you can't add condiments
-	operating = 0 // Turn it off again aferwards
+	operating = FALSE // Turn it off again aferwards
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/fail()
@@ -439,3 +446,12 @@
 		if("dispose")
 			dispose()
 	return
+
+/obj/machinery/kitchen_machine/build_reagent_description(mob/user)
+	return
+
+/obj/machinery/kitchen_machine/examine(mob/user, infix = "", suffix = "")
+	. = ..()
+	var/dat = format_content_descs()
+	if(dat)
+		. += "It contains: <BR>[dat]"

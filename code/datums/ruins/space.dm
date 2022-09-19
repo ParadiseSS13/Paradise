@@ -2,6 +2,7 @@
 /datum/map_template/ruin/space
 	prefix = "_maps/map_files/RandomRuins/SpaceRuins/"
 	cost = 1
+	ci_exclude = /datum/map_template/ruin/space
 
 /datum/map_template/ruin/space/zoo
 	id = "zoo"
@@ -113,14 +114,6 @@
 	description = "Cosy, rural property availible for young professional \
 		couple. Only twelve parsecs from the nearest hyperspace lane!"
 
-/datum/map_template/ruin/space/gas_the_lizards
-	id = "gas-the-lizards"
-	suffix = "gasthelizards.dmm"
-	name = "Disposal Facility 17"
-	description = "Gas efficiency at 95.6%, fluid elimination at 96.2%. \
-		Will require renewed supplies of 'carpet' before the end of the \
-		quarter."
-
 /datum/map_template/ruin/space/intact_empty_ship
 	id = "intact-empty-ship"
 	suffix = "intactemptyship.dmm"
@@ -217,6 +210,14 @@
 	name = "Drug Lab"
 	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."
 
+/datum/map_template/ruin/space/syndicatedruglab
+	id = "syndicatedruglab"
+	suffix = "syndicatedruglab.dmm"
+	name = "Suspicious Station"
+	description = "A syndicate drug laboratory hidden on an asteroid. It is strangely well-protected."
+	allow_duplicates = FALSE
+	cost = 3
+
 /datum/map_template/ruin/space/syndiedepot
 	id = "syndiedepot"
 	suffix = "syndiedepot.dmm"
@@ -258,6 +259,15 @@
 	always_place = TRUE
 	cost = 0
 
+/datum/map_template/ruin/space/syndicate_space_base
+	name = "Syndicate Space Base"
+	id = "syndie-space-base"
+	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
+	suffix = "syndie_space_base.dmm"
+	cost = 0
+	always_place = TRUE
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/space/syndiecakesfactory
 	id = "Syndiecakes Factory"
 	suffix = "syndiecakesfactory.dmm"
@@ -283,3 +293,19 @@
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
+
+/datum/map_template/ruin/space/meatpackers
+	id = "meatpackers"
+	suffix = "meatpackers.dmm"
+	name = "Meat Packers"
+	description = "An old transport ship, possibly with a dubious past. It smells faintly of meat."
+	allow_duplicates = FALSE
+	cost = 2 // Pretty big
+
+/datum/map_template/ruin/space/mo19
+	id = "mo19"
+	suffix = "moonoutpost19.dmm"
+	name = "Moon Outpost 19"
+	description = "A now-defunct outpost, with the last received signal being that of distress."
+	allow_duplicates = FALSE
+	cost = 2 // Also pretty big

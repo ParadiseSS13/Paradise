@@ -8,24 +8,26 @@
 	Returns
 	standard 0 if fail
 */
-/mob/living/proc/apply_damage(var/damage = 0, var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/used_weapon = null)
-	blocked = (100-blocked)/100
-	if(!damage || (blocked <= 0))	return 0
+/mob/living/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, sharp = FALSE, used_weapon, spread_damage = FALSE)
+	var/hit_percent = (100 - blocked) / 100
+	if(!damage || (hit_percent <= 0))
+		return FALSE
+	var/damage_amount =  damage * hit_percent
 	switch(damagetype)
 		if(BRUTE)
-			adjustBruteLoss(damage * blocked)
+			adjustBruteLoss(damage_amount)
 		if(BURN)
-			adjustFireLoss(damage * blocked)
+			adjustFireLoss(damage_amount)
 		if(TOX)
-			adjustToxLoss(damage * blocked)
+			adjustToxLoss(damage_amount)
 		if(OXY)
-			adjustOxyLoss(damage * blocked)
+			adjustOxyLoss(damage_amount)
 		if(CLONE)
-			adjustCloneLoss(damage * blocked)
+			adjustCloneLoss(damage_amount)
 		if(STAMINA)
-			adjustStaminaLoss(damage * blocked)
+			adjustStaminaLoss(damage_amount)
 	updatehealth("apply damage")
-	return 1
+	return TRUE
 
 /mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
 	switch(damagetype)
@@ -60,7 +62,7 @@
 			return getStaminaLoss()
 
 
-/mob/living/proc/apply_damages(var/brute = 0, var/burn = 0, var/tox = 0, var/oxy = 0, var/clone = 0, var/def_zone = null, var/blocked = 0, var/stamina = 0)
+/mob/living/proc/apply_damages(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = 0, stamina = 0)
 	if(blocked >= 100)	return 0
 	if(brute)	apply_damage(brute, BRUTE, def_zone, blocked)
 	if(burn)	apply_damage(burn, BURN, def_zone, blocked)
@@ -81,10 +83,13 @@
 			Stun(effect * blocked)
 		if(WEAKEN)
 			Weaken(effect * blocked)
+		if(KNOCKDOWN)
+			KnockDown(effect * blocked)
 		if(PARALYZE)
 			Paralyse(effect * blocked)
 		if(IRRADIATE)
-			radiation += max(effect * blocked, 0)
+			if(!HAS_TRAIT(src, TRAIT_RADIMMUNE))
+				radiation += max(effect * blocked, 0)
 		if(SLUR)
 			Slur(effect * blocked)
 		if(STUTTER)
@@ -94,18 +99,19 @@
 		if(DROWSY)
 			Drowsy(effect * blocked)
 		if(JITTER)
-			if(status_flags & CANSTUN)
-				Jitter(effect * blocked)
+			Jitter(effect * blocked)
 	updatehealth("apply effect")
 	return TRUE
 
-/mob/living/proc/apply_effects(stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0)
+/mob/living/proc/apply_effects(stun = 0, weaken = 0, knockdown = 0, paralyze = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)
 		apply_effect(stun, STUN, blocked)
 	if(weaken)
 		apply_effect(weaken, WEAKEN, blocked)
+	if(knockdown)
+		apply_effect(knockdown, KNOCKDOWN, blocked)
 	if(paralyze)
 		apply_effect(paralyze, PARALYZE, blocked)
 	if(irradiate)
@@ -148,7 +154,7 @@
 	if(status_flags & GODMODE)
 		oxyloss = 0
 		return FALSE	//godmode
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		oxyloss = 0
 		return FALSE
 	var/old_oxyloss = oxyloss
@@ -165,7 +171,7 @@
 	if(status_flags & GODMODE)
 		oxyloss = 0
 		return FALSE	//godmode
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		oxyloss = 0
 		return FALSE
 	var/old_oxyloss = oxyloss
@@ -299,7 +305,7 @@
 /mob/living/proc/getMaxHealth()
 	return maxHealth
 
-/mob/living/proc/setMaxHealth(var/newMaxHealth)
+/mob/living/proc/setMaxHealth(newMaxHealth)
 	maxHealth = newMaxHealth
 
 

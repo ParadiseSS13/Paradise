@@ -8,15 +8,14 @@
 	var/list/hit_sounds = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg',\
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 
-/obj/structure/punching_bag/attack_hand(mob/user as mob)
+/obj/structure/punching_bag/attack_hand(mob/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	. = ..()
 	if(.)
 		return
 	flick("[icon_state]2", src)
 	playsound(loc, pick(hit_sounds), 25, 1, -1)
-	if(isliving(user))
-		var/mob/living/L = user
-		L.apply_status_effect(STATUS_EFFECT_EXERCISED)
+
 
 /obj/structure/weightmachine
 	name = "weight machine"
@@ -39,7 +38,7 @@
 		in_use = TRUE
 		icon_state = icon_state_inuse
 		user.setDir(SOUTH)
-		user.Stun(4)
+		user.Stun(8 SECONDS)
 		user.forceMove(src.loc)
 		var/bragmessage = pick("pushing it to the limit","going into overdrive","burning with determination","rising up to the challenge", "getting strong now","getting ripped")
 		user.visible_message("<B>[user] is [bragmessage]!</B>")
@@ -51,7 +50,6 @@
 		var/finishmessage = pick("You feel stronger!","You feel like you can take on the world!","You feel robust!","You feel indestructible!")
 		icon_state = initial(icon_state)
 		to_chat(user, finishmessage)
-		user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
 /obj/structure/weightmachine/stacklifter
 	icon = 'icons/goonstation/objects/fitness.dmi'

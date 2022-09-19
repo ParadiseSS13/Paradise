@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			return
 	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
 	var/tcamount = text2num(tctext)
-	tcamount = between(0, tcamount, 1000)
+	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
@@ -66,15 +66,12 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	var/list/sit_spawns = list()
 	var/list/sit_spawns_leader = list()
-	var/list/sit_spawns_mgmt = list()
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/L = thing
-		if(L.name == "Syndicate-Infiltrator")
+		if(istype(L, /obj/effect/landmark/spawner/syndicate_infiltrator))
 			sit_spawns += L
-		if(L.name == "Syndicate-Infiltrator-Leader")
+		if(istype(L, /obj/effect/landmark/spawner/syndicate_infiltrator_leader))
 			sit_spawns_leader += L
-		if(L.name == "Syndicate-Infiltrator-Admin")
-			sit_spawns_mgmt += L
 
 	var/num_spawned = 1
 	var/team_leader = null
@@ -124,9 +121,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
 
-	var/datum/preferences/A = new() //Randomize appearance
-	A.real_name = syndicate_infiltrator_name
-	A.copy_to(new_syndicate_infiltrator)
+	var/datum/character_save/S = new //Randomize appearance
+	S.randomise()
+	S.real_name = syndicate_infiltrator_name
+	S.copy_to(new_syndicate_infiltrator)
 	new_syndicate_infiltrator.dna.ready_dna(new_syndicate_infiltrator)
 
 	//Creates mind stuff.
@@ -180,8 +178,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	else
 		W.icon_state = "id"
 	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
-	W.assignment = "Civilian"
-	W.access += get_access("Civilian")
+	W.assignment = "Assistant"
+	W.access += get_access("Assistant")
 	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"

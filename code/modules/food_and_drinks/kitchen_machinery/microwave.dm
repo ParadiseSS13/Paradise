@@ -19,8 +19,8 @@
 *   Initialising
 ********************/
 
-/obj/machinery/kitchen_machine/microwave/New()
-	..()
+/obj/machinery/kitchen_machine/microwave/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/microwave(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -28,8 +28,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/kitchen_machine/microwave/upgraded/New()
-	..()
+/obj/machinery/kitchen_machine/microwave/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/microwave(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)

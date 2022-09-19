@@ -10,11 +10,11 @@ on:
 jobs:
   run_linters:
     name: Run Linters
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
@@ -24,7 +24,7 @@ jobs:
           bash tools/ci/install_dreamchecker.sh
       - name: Run Linters
         run: |
-          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
+          tools/ci/check_json.sh
           tools/ci/build_tgui.sh
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py
@@ -37,11 +37,11 @@ jobs:
 
   compile_all_maps:
     name: Compile All Maps
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -50,11 +50,14 @@ jobs:
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          tools/ci/dm.sh -Mci_map_testing paradise.dme
+          tools/ci/dm.sh -DCIMAP paradise.dme
 
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation']
     services:
       mariadb:
         image: mariadb:latest
@@ -64,9 +67,9 @@ jobs:
           - 3306
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -80,10 +83,26 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo apt update || true
           sudo apt install libssl1.1:i386
+          ldd librust_g.so
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: 6
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
+          echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
 
+  windows_dll_tests:
+    name: Windows RUSTG Validation
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.8.2' # Script was made for 3.8.2
+        architecture: 'x86' # This MUST be x86
+    - run: python tools/ci/validate_rustg_windows.py

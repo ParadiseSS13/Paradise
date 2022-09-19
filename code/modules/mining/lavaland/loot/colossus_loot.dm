@@ -24,7 +24,7 @@
 	icon_state = "anomaly_crystal"
 	light_range = 8
 	use_power = NO_POWER_USE
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/activation_method = "touch"
 	var/activation_damage_type = null
@@ -33,9 +33,10 @@
 	var/list/affected_targets = list()
 	var/activation_sound = 'sound/effects/break_stone.ogg'
 
-/obj/machinery/anomalous_crystal/New()
+/obj/machinery/anomalous_crystal/Initialize(mapload)
+	. = ..()
 	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech") // "heat" removed due to lack of is_hot()
-	..()
+
 
 /obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
 	..()
@@ -76,28 +77,11 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/New() //Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/Initialize() //Just a random crysal spawner for loot
 	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
-	qdel(src)
-
-/obj/machinery/anomalous_crystal/honk //Strips and equips you as a clown. I apologize for nothing
-	activation_method = "mob_bump"
-	activation_sound = 'sound/items/bikehorn.ogg'
-
-/obj/machinery/anomalous_crystal/honk/ActivationReaction(mob/user)
-	if(..() && ishuman(user) && !(user in affected_targets))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/W in H)
-			H.unEquip(W)
-		var/datum/job/clown/C = SSjobs.GetJob("Clown")
-		C.equip(H)
-		affected_targets.Add(H)
-
-/obj/machinery/anomalous_crystal/honk/New()
-	..()
-	activation_method = pick("mob_bump","speech")
+	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
 	activation_method = "touch"
@@ -110,8 +94,8 @@
 	var/list/NewFlora = list()
 	var/florachance = 8
 
-/obj/machinery/anomalous_crystal/theme_warp/New()
-	..()
+/obj/machinery/anomalous_crystal/theme_warp/Initialize(mapload)
+	. = ..()
 	terrain_theme = pick("lavaland","winter","jungle","alien")
 	switch(terrain_theme)
 		if("lavaland")//Depressurizes the place... and free cult metal, I guess.
@@ -156,7 +140,7 @@
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
-					if(iswallturf(T) && NewTerrainWalls)
+					if(iswallturf(T) && NewTerrainWalls && !istype(T, /turf/simulated/wall/indestructible))
 						T.ChangeTurf(NewTerrainWalls)
 						continue
 				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)
@@ -178,9 +162,9 @@
 	cooldown_add = 50
 	var/generated_projectile = /obj/item/projectile/beam/emitter
 
-/obj/machinery/anomalous_crystal/emitter/New()
-	..()
-	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,/obj/item/projectile/magic/spellblade,
+/obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
+	. = ..()
+	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,
 								 /obj/item/projectile/bullet/meteorshot, /obj/item/projectile/beam/xray, /obj/item/projectile/colossus)
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
@@ -217,7 +201,7 @@
 				if(H.stat == DEAD)
 					H.set_species(/datum/species/shadow)
 					H.revive()
-					H.mutations |= NOCLONE //Free revives, but significantly limits your options for reviving except via the crystal
+					ADD_TRAIT(H, TRAIT_BADDNA, MAGIC_TRAIT) //Free revives, but significantly limits your options for reviving except via the crystal
 					H.grab_ghost(force = TRUE)
 
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
@@ -232,8 +216,17 @@
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	..()
 	if(ready_to_deploy)
+		if(!istype(user)) // No revs allowed
+			return
+		if(cannotPossess(user))
+			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return
 		var/be_helper = alert("Become a Lightgeist? (Warning, You can no longer be cloned!)",,"Yes","No")
 		if(be_helper == "No")
+			return
+		if(!loc || QDELETED(src) || QDELETED(user))
+			if(user)
+				to_chat(user, "<span class='warning'>[src] is no longer usable!</span>")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
 		W.key = user.key
@@ -259,7 +252,7 @@
 	health = 2
 	harm_intent_damage = 1
 	friendly = "mends"
-	density = 0
+	density = FALSE
 	flying = TRUE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -270,19 +263,19 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
 	faction = list("neutral")
-	universal_understand = 1
-	del_on_death = 1
+	universal_understand = TRUE
+	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
-	flying = 1
+	flying = TRUE
 	minbodytemp = 0
 	maxbodytemp = 1500
 	environment_smash = 0
 	AIStatus = AI_OFF
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	var/heal_power = 5
 
-/mob/living/simple_animal/hostile/lightgeist/New()
-	..()
+/mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
+	. = ..()
 	verbs -= /mob/living/verb/pulled
 	verbs -= /mob/verb/me_verb
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
@@ -307,8 +300,8 @@
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
 
-/obj/machinery/anomalous_crystal/refresher/New()
-	..()
+/obj/machinery/anomalous_crystal/refresher/Initialize(mapload)
+	. = ..()
 	banned_items_typecache = typecacheof(banned_items_typecache)
 
 
@@ -335,7 +328,7 @@
 		if(ishuman(user))
 			var/mobcheck = 0
 			for(var/mob/living/simple_animal/A in range(1, src))
-				if(A.melee_damage_upper > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat)
+				if(A.melee_damage_upper > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat || isbot(A))
 					break
 				var/obj/structure/closet/stasis/S = new /obj/structure/closet/stasis(A)
 				user.forceMove(S)
@@ -348,8 +341,8 @@
 	name = "quantum entanglement stasis warp field"
 	desc = "You can hardly comprehend this thing... which is why you can't see it."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
 
@@ -369,23 +362,23 @@
 /obj/structure/closet/stasis/Entered(atom/A)
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
-		L.notransform = 1
-		L.mutations |= MUTE
+		L.notransform = TRUE
+		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags |= GODMODE
 		L.mind.transfer_to(holder_animal)
-		var/obj/effect/proc_holder/spell/targeted/exit_possession/P = new /obj/effect/proc_holder/spell/targeted/exit_possession
+		var/obj/effect/proc_holder/spell/exit_possession/P = new /obj/effect/proc_holder/spell/exit_possession
 		holder_animal.mind.AddSpell(P)
 		holder_animal.verbs -= /mob/living/verb/pulled
 
-/obj/structure/closet/stasis/dump_contents(var/kill = 1)
+/obj/structure/closet/stasis/dump_contents(kill = 1)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.mutations -=MUTE
+		REMOVE_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags &= ~GODMODE
-		L.notransform = 0
+		L.notransform = FALSE
 		if(holder_animal && !QDELETED(holder_animal))
 			holder_animal.mind.transfer_to(L)
-			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
+			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
 		if(kill || !isanimal(loc))
 			L.death(0)
 	..()
@@ -396,20 +389,19 @@
 /obj/structure/closet/stasis/ex_act()
 	return
 
-/obj/effect/proc_holder/spell/targeted/exit_possession
+/obj/effect/proc_holder/spell/exit_possession
 	name = "Exit Possession"
 	desc = "Exits the body you are possessing"
-	charge_max = 60
-	clothes_req = 0
+	base_cooldown = 60
+	clothes_req = FALSE
 	invocation_type = "none"
-	max_targets = 1
-	range = -1
-	include_user = 1
-	selection_type = "view"
 	action_icon_state = "exit_possession"
 	sound = null
 
-/obj/effect/proc_holder/spell/targeted/exit_possession/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/exit_possession/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/exit_possession/cast(list/targets, mob/user = usr)
 	if(!isfloorturf(user.loc))
 		return
 	var/datum/mind/target_mind = user.mind
@@ -421,4 +413,4 @@
 			qdel(S)
 			break
 	current.gib()
-	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
+	target_mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)

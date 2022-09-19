@@ -14,10 +14,12 @@
 	var/repeat = FALSE
 	var/set_time = 10
 
-/obj/item/assembly/timer/describe()
+/obj/item/assembly/timer/examine(mob/user)
+	. = ..()
 	if(timing)
-		return "The timer is counting down from [time]!"
-	return "The timer is set for [time] seconds."
+		. += "The timer is counting down from [time]!"
+	else
+		. += "The timer is set for [time] seconds."
 
 /obj/item/assembly/timer/activate()
 	if(!..())
@@ -53,18 +55,18 @@
 		timer_end()
 		time = set_time
 
-/obj/item/assembly/timer/update_icon()
-	overlays.Cut()
+/obj/item/assembly/timer/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(timing)
-		overlays += "timer_timing"
+		. += "timer_timing"
 		attached_overlays += "timer_timing"
 	if(holder)
 		holder.update_icon()
 
 /obj/item/assembly/timer/interact(mob/user as mob)//TODO: Have this use the wires
 	if(!secured)
-		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
+		user.show_message("<span class='warning'>[src] is unsecured!</span>")
 		return FALSE
 	var/second = time % 60
 	var/minute = (time - second) / 60

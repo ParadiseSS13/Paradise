@@ -19,11 +19,11 @@
 	if(ispath(holder))
 		holder = new holder(src)
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	slot = parent_organ + "_device"
 	items_list = contents.Copy()
 
-/obj/item/organ/internal/cyberimp/arm/update_icon()
+/obj/item/organ/internal/cyberimp/arm/update_icon_state()
 	if(parent_organ == "r_arm")
 		transform = null
 	else // Mirroring the icon
@@ -43,7 +43,7 @@
 		parent_organ = "r_arm"
 	slot = parent_organ + "_device"
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
@@ -51,7 +51,7 @@
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/arm/emag_act()
-	return 0
+	return FALSE
 
 /obj/item/organ/internal/cyberimp/arm/emp_act(severity)
 	if(emp_proof)
@@ -62,8 +62,13 @@
 		Retract()
 	..()
 
+/obj/item/organ/internal/cyberimp/arm/proc/check_cuffs()
+	if(owner.handcuffed)
+		to_chat(owner, "<span class='warning'>The handcuffs interfere with [src]!</span>")
+		return TRUE
+
 /obj/item/organ/internal/cyberimp/arm/proc/Retract()
-	if(!holder || (holder in src))
+	if(!holder || (holder in src) || check_cuffs())
 		return
 
 	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
@@ -79,10 +84,9 @@
 	holder = null
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
-/obj/item/organ/internal/cyberimp/arm/proc/Extend(var/obj/item/item)
-	if(!(item in src))
+/obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/item)
+	if(!(item in src) || check_cuffs())
 		return
-
 
 	holder = item
 
@@ -138,7 +142,7 @@
 	else
 		Retract()
 
-/obj/item/organ/internal/cyberimp/arm/proc/check_menu(var/mob/user)
+/obj/item/organ/internal/cyberimp/arm/proc/check_menu(mob/user)
 	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !holder)
 
 /obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)
@@ -167,7 +171,7 @@
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
-		crit_fail = 1
+		crit_fail = TRUE
 	else // The gun will still discharge anyway.
 		..()
 
@@ -292,7 +296,7 @@
 /obj/item/organ/internal/cyberimp/arm/janitorial
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
-	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
@@ -376,7 +380,7 @@
 		if(A.cell.charge == 0)
 			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
 			break
-		A.charging = 1
+		A.charging = APC_IS_CHARGING
 		if(A.cell.charge >= 500)
 			H.adjust_nutrition(50)
 			A.cell.charge -= 500

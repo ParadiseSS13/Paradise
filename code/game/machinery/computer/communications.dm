@@ -33,7 +33,7 @@
 
 	var/stat_msg1
 	var/stat_msg2
-	var/display_type = "blank"
+	var/display_type = STATUS_DISPLAY_TIME
 	var/display_icon
 
 	var/datum/announcement/priority/crew_announcement = new
@@ -43,9 +43,12 @@
 /obj/machinery/computer/communications/New()
 	GLOB.shuttle_caller_list += src
 	..()
+
+/obj/machinery/computer/communications/Initialize(mapload)
+	. = ..()
 	crew_announcement.newscast = 0
 
-/obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
+/obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
 	if(user.can_admin_interact())
 		return COMM_AUTHENTICATION_AGHOST
 	if(authenticated == COMM_AUTHENTICATION_CAPT)
@@ -56,7 +59,7 @@
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 	return COMM_AUTHENTICATION_NONE
 
-/obj/machinery/computer/communications/proc/change_security_level(var/new_level)
+/obj/machinery/computer/communications/proc/change_security_level(new_level)
 	tmp_alertlevel = new_level
 	var/old_level = GLOB.security_level
 	if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
@@ -137,7 +140,7 @@
 				if(message_cooldown > world.time)
 					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
 					return
-				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
+				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement") as null|message
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(usr) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
@@ -147,12 +150,12 @@
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
-			var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
+			var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
 			if(!input || ..() || !is_authenticated(usr))
 				return
 			call_shuttle_proc(usr, input)
 			if(SSshuttle.emergency.timer)
-				post_status("shuttle")
+				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("cancelshuttle")
@@ -163,7 +166,7 @@
 			if(response == "Yes")
 				cancel_call_proc(usr)
 				if(SSshuttle.emergency.timer)
-					post_status("shuttle")
+					post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("messagelist")
@@ -195,17 +198,17 @@
 
 		// Status display stuff
 		if("setstat")
-			display_type = params["statdisp"]
+			display_type = text2num(params["statdisp"])
 			switch(display_type)
-				if("message")
+				if(STATUS_DISPLAY_MESSAGE)
 					display_icon = null
-					post_status("message", stat_msg1, stat_msg2, usr)
-				if("alert")
+					post_status(STATUS_DISPLAY_MESSAGE, stat_msg1, stat_msg2)
+				if(STATUS_DISPLAY_ALERT)
 					display_icon = params["alert"]
-					post_status("alert", params["alert"], user = usr)
+					post_status(STATUS_DISPLAY_ALERT, params["alert"])
 				else
 					display_icon = null
-					post_status(params["statdisp"], user = usr)
+					post_status(display_type)
 			setMenuState(usr, COMM_SCREEN_STAT)
 
 		if("setmsg1")
@@ -272,7 +275,7 @@
 
 		if("RestoreBackup")
 			to_chat(usr, "Backup routing data restored!")
-			src.emagged = 0
+			emagged = FALSE
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("RestartNanoMob")
@@ -291,14 +294,14 @@
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
-		src.emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
 		SStgui.update_uis(src)
 
-/obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/communications/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/computer/communications/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/communications/attack_hand(mob/user as mob)
 	if(..(user))
 		return
 
@@ -334,9 +337,9 @@
 		"line_2" = (stat_msg2 ? stat_msg2 : "-----"),
 
 		"presets" = list(
-			list("name" = "blank",    "label" = "Clear",       "desc" = "Blank slate"),
-			list("name" = "shuttle",  "label" = "Shuttle ETA", "desc" = "Display how much time is left."),
-			list("name" = "message",  "label" = "Message",     "desc" = "A custom message.")
+			list("name" = STATUS_DISPLAY_BLANK,    "label" = "Clear",       "desc" = "Blank slate"),
+			list("name" = STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME,  "label" = "Shuttle ETA", "desc" = "Display how much time is left."),
+			list("name" = STATUS_DISPLAY_MESSAGE,  "label" = "Message",     "desc" = "A custom message.")
 		),
 
 		"alerts"=list(
@@ -392,27 +395,27 @@
 	data["esc_section"] = data["esc_status"] || data["esc_callable"] || data["esc_recallable"] || data["lastCallLoc"]
 	return data
 
-/obj/machinery/computer/communications/proc/setCurrentMessage(var/mob/user,var/value)
+/obj/machinery/computer/communications/proc/setCurrentMessage(mob/user, value)
 	if(isAI(user) || isrobot(user))
 		aicurrmsg = value
 	else
 		currmsg = value
 
-/obj/machinery/computer/communications/proc/getCurrentMessage(var/mob/user)
+/obj/machinery/computer/communications/proc/getCurrentMessage(mob/user)
 	if(isAI(user) || isrobot(user))
 		return aicurrmsg
 	else
 		return currmsg
 
-/obj/machinery/computer/communications/proc/setMenuState(var/mob/user,var/value)
+/obj/machinery/computer/communications/proc/setMenuState(mob/user, value)
 	if(isAI(user) || isrobot(user))
 		ai_menu_state=value
 	else
 		menu_state=value
 
-/proc/call_shuttle_proc(var/mob/user, var/reason)
-	if(GLOB.sent_strike_team == 1)
-		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
+/proc/call_shuttle_proc(mob/user, reason, sanitized = FALSE)
+	if(GLOB.deathsquad_sent)
+		to_chat(user, "<span class='warning'>Central Command does not allow the shuttle to be called at this time. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 		return
 
 	if(SSshuttle.emergencyNoEscape)
@@ -427,23 +430,27 @@
 		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
 		return
 
+	if(!sanitized)
+		reason = trim_strip_html_properly(reason, allow_lines = TRUE)
+
 	SSshuttle.requestEvac(user, reason)
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
 
 	return
 
-/proc/init_shift_change(var/mob/user, var/force = 0)
+/proc/init_shift_change(mob/user, force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
 		if(SSshuttle.emergencyNoEscape)
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
-		if(GLOB.sent_strike_team == 1)
-			to_chat(user, "Central Command will not allow the shuttle to be called. Consider all contracts terminated.")
+		if(GLOB.deathsquad_sent)
+			to_chat(user, "<span class='warning'>Central Command does not allow the shuttle to be called at this time. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 			return
 
+		// AA 2022-08-18 - Why is this not a round time offset??
 		if(world.time < 54000) // 30 minute grace period to let the game get going
 			to_chat(user, "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again.")
 			return
@@ -453,21 +460,18 @@
 			return
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+		SSshuttle.emergency.canRecall = FALSE
 		SSshuttle.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
-		SSshuttle.emergency.canRecall = FALSE
 	else
-		SSshuttle.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
 		SSshuttle.emergency.canRecall = FALSE
+		SSshuttle.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
 	if(user)
 		log_game("[key_name(user)] has called the shuttle.")
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
 	return
 
-
-/proc/cancel_call_proc(var/mob/user)
-	if(SSticker.mode.name == "meteor")
-		return
-
+// Why the hell are all these procs global?
+/proc/cancel_call_proc(mob/user)
 	if(SSshuttle.cancelEvac(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
 		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
@@ -475,28 +479,6 @@
 		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
 		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
 		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
-
-/proc/post_status(command, data1, data2, mob/user = null)
-
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-
-	if(!frequency) return
-
-	var/datum/signal/status_signal = new
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	switch(command)
-		if("message")
-			status_signal.data["msg1"] = data1
-			status_signal.data["msg2"] = data2
-			log_admin("STATUS: [user] set status screen message: [data1] [data2]")
-			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
-		if("alert")
-			status_signal.data["picture_state"] = data1
-
-	spawn(0)
-		frequency.post_signal(null, status_signal)
 
 
 /obj/machinery/computer/communications/Destroy()

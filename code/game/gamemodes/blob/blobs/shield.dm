@@ -7,24 +7,47 @@
 	brute_resist = 0.25
 	explosion_block = 3
 	atmosblock = TRUE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
 
 /obj/structure/blob/shield/core
 	point_return = 0
 
-/obj/structure/blob/shield/update_icon()
-	..()
+/obj/structure/blob/shield/check_integrity()
+	var/old_compromised_integrity = compromised_integrity
 	if(obj_integrity < max_integrity * 0.5)
-		icon_state = "[initial(icon_state)]_damaged"
-		name = "weakened [initial(name)]"
-		desc = "A wall of twitching tendrils."
+		compromised_integrity = TRUE
+	else
+		compromised_integrity = FALSE
+	if(old_compromised_integrity != compromised_integrity)
+		update_state()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+
+/obj/structure/blob/shield/update_state()
+	if(compromised_integrity)
 		atmosblock = FALSE
 	else
-		icon_state = initial(icon_state)
-		name = initial(name)
-		desc = initial(desc)
 		atmosblock = TRUE
 	air_update_turf(1)
+
+/obj/structure/blob/shield/update_name()
+	. = ..()
+	if(compromised_integrity)
+		name = "weakened [initial(name)]"
+	else
+		name = initial(name)
+
+/obj/structure/blob/shield/update_desc()
+	. = ..()
+	if(compromised_integrity)
+		desc = "A wall of twitching tendrils."
+	else
+		desc = initial(desc)
+
+/obj/structure/blob/shield/update_icon_state()
+	if(compromised_integrity)
+		icon_state = "[initial(icon_state)]_damaged"
+	else
+		icon_state = initial(icon_state)
 
 /obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
@@ -48,6 +71,6 @@
 	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
 		return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-	P.setAngle(new_angle_s)
+	P.set_angle(new_angle_s)
 	visible_message("<span class='warning'>[P] reflects off [src]!</span>")
 	return TRUE

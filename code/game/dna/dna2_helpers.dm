@@ -60,7 +60,7 @@
 			if(prob(prob))
 				M.dna.SetSEValue(i, rand(1, 4095), 1)
 		M.dna.UpdateSE()
-		domutcheck(M, null)
+		domutcheck(M)
 
 // I haven't yet figured out what the fuck this is supposed to do.
 /proc/miniscramble(input, rs, rd)
@@ -171,6 +171,10 @@
 		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
 			H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
 
+		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
+		if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
+			H.body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+
 		H.regenerate_icons()
 
 		return TRUE
@@ -205,15 +209,23 @@
 	head_organ.sec_facial_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD2_B, 255))
 
 	//Head Accessories
-	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE,GLOB.head_accessory_styles_list.len)
-	if((headacc > 0) && (headacc <= GLOB.head_accessory_styles_list.len))
-		head_organ.ha_style = GLOB.head_accessory_styles_list[headacc]
+	var/list/available = list()
+	for(var/head_accessory in GLOB.head_accessory_styles_list)
+		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
+		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
+			continue
+		available += head_accessory
+	var/list/sorted = sortTim(available, /proc/cmp_text_asc)
+
+	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE, length(sorted))
+	if(headacc > 0 && headacc <= length(sorted))
+		head_organ.ha_style = sorted[headacc]
 
 	head_organ.headacc_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HACC_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HACC_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HACC_B, 255))
 
 // This proc gives the DNA info for eye color to the given eyes
 /datum/dna/proc/write_eyes_attributes(obj/item/organ/internal/eyes/eyes_organ)
-	eyes_organ.eye_colour = rgb(eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_R, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_G, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_B, 255))
+	eyes_organ.eye_color = rgb(eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_R, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_G, 255), eyes_organ.dna.GetUIValueRange(DNA_UI_EYES_B, 255))
 
 /*
 	TRAIT CHANGING PROCS
@@ -223,14 +235,13 @@
 		// In absence of eyes, possibly randomize the eye color DNA?
 		return
 
-	SetUIValueRange(DNA_UI_EYES_R,	color2R(eyes_organ.eye_colour),	255, 1)
-	SetUIValueRange(DNA_UI_EYES_G,	color2G(eyes_organ.eye_colour),	255, 1)
-	SetUIValueRange(DNA_UI_EYES_B,	color2B(eyes_organ.eye_colour),	255, 1)
+	SetUIValueRange(DNA_UI_EYES_R,	color2R(eyes_organ.eye_color),	255, 1)
+	SetUIValueRange(DNA_UI_EYES_G,	color2G(eyes_organ.eye_color),	255, 1)
+	SetUIValueRange(DNA_UI_EYES_B,	color2B(eyes_organ.eye_color),	255, 1)
 
-/datum/dna/proc/head_traits_to_dna(obj/item/organ/external/head/head_organ)
+/datum/dna/proc/head_traits_to_dna(mob/living/carbon/human/character, obj/item/organ/external/head/head_organ)
 	if(!head_organ)
-		log_runtime(EXCEPTION("Attempting to reset DNA from a missing head!"), src)
-		return
+		CRASH("Attempting to reset DNA from a missing head!")
 	if(!head_organ.h_style)
 		head_organ.h_style = "Skinhead"
 	var/hair = GLOB.hair_styles_full_list.Find(head_organ.h_style)
@@ -243,7 +254,6 @@
 	// Head Accessory
 	if(!head_organ.ha_style)
 		head_organ.ha_style = "None"
-	var/headacc	= GLOB.head_accessory_styles_list.Find(head_organ.ha_style)
 
 	SetUIValueRange(DNA_UI_HAIR_R,		color2R(head_organ.hair_colour),		255,	 1)
 	SetUIValueRange(DNA_UI_HAIR_G,		color2G(head_organ.hair_colour),		255,	 1)
@@ -267,4 +277,6 @@
 
 	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		GLOB.hair_styles_full_list.len,		 1)
 	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		GLOB.facial_hair_styles_list.len,	 1)
-	SetUIValueRange(DNA_UI_HACC_STYLE,	headacc,	GLOB.head_accessory_styles_list.len, 1)
+
+	var/list/available = character.generate_valid_head_accessories()
+	SetUIValueRange(DNA_UI_HACC_STYLE, available.Find(head_organ.ha_style), max(length(available), 1), 1)

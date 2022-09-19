@@ -1,34 +1,36 @@
 // code\modules\power\gravitygenerator.dm
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const GravityGen = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    charging_state,
-    charge_count,
-    breaker,
-    ext_power,
-  } = data;
+  const { charging_state, charge_count, breaker, ext_power } = data;
 
-  let chargeStatus = state => {
+  let chargeStatus = (state) => {
     if (state > 0) {
       return (
         <Box inline color="average">
-          [ {state === 1 ? "Charging" : "Discharging"} ]
+          [ {state === 1 ? 'Charging' : 'Discharging'} ]
         </Box>
       );
     } else {
       return (
         <Box inline color={ext_power ? 'good' : 'bad'}>
-          [ {ext_power ? "Powered" : "Unpowered"} ]
+          [ {ext_power ? 'Powered' : 'Unpowered'} ]
         </Box>
       );
     }
   };
 
-  let radWarning = state => {
+  let radWarning = (state) => {
     if (state > 0) {
       return (
         <NoticeBox danger p={1.5}>
@@ -47,15 +49,18 @@ export const GravityGen = (props, context) => {
           buttons={
             <Button
               icon={breaker ? 'power-off' : 'times'}
-              content={breaker ? "Online" : "Offline"}
+              content={breaker ? 'Online' : 'Offline'}
               color={breaker ? 'green' : 'red'}
               px={1.5}
-              onClick={() => act('breaker')} />
-          }>
+              onClick={() => act('breaker')}
+            />
+          }
+        >
           <LabeledList>
             <LabeledList.Item
               label="Power Status"
-              color={ext_power ? 'good' : 'bad'}>
+              color={ext_power ? 'good' : 'bad'}
+            >
               {chargeStatus(charging_state)}
             </LabeledList.Item>
             <LabeledList.Item label="Gravity Charge">
@@ -65,7 +70,8 @@ export const GravityGen = (props, context) => {
                   good: [0.9, Infinity],
                   average: [0.5, 0.9],
                   bad: [-Infinity, 0.5],
-                }} />
+                }}
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>

@@ -28,7 +28,7 @@
 		return
 	switch(controller)
 		if("Configuration")
-			debug_variables(config)
+			debug_variables(GLOB.configuration)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Config")
 		if("pAI")
 			debug_variables(GLOB.paiController)

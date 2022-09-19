@@ -47,10 +47,10 @@
 			if(prob(3))
 				to_chat(affected_mob, "<span class='danger'>You lose consciousness...</span>")
 				affected_mob.visible_message("<span class='warning'>[affected_mob] suddenly collapses</span>")
-				affected_mob.Paralyse(rand(5,10))
+				affected_mob.Paralyse(rand(10 SECONDS, 20 SECONDS))
 				if(prob(1))
 					affected_mob.emote("snore")
 			if(prob(15))
-				affected_mob.stuttering += 3
+				affected_mob.AdjustStuttering(6 SECONDS)
 
 	return

@@ -29,4 +29,9 @@
 	network_id = "CENTCOMM-RELAY"
 	autolink_id = "STATION-CORE"
 	hidden_link = TRUE
+	password_bypass = TRUE
 
+GLOBAL_VAR(cc_tcomms_relay_uid)
+/obj/machinery/tcomms/relay/cc/Initialize(mapload)
+	. = ..()
+	GLOB.cc_tcomms_relay_uid = UID()

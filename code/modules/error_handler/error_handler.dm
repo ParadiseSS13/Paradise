@@ -6,7 +6,7 @@ GLOBAL_VAR_INIT(total_runtimes, 0)
 GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 // The ifdef needs to be down here, since the error viewer references total_runtimes
 #ifdef DEBUG
-/world/Error(var/exception/e, var/datum/e_src)
+/world/Error(exception/e, datum/e_src)
 	if(!istype(e)) // Something threw an unusual exception
 		log_world("\[[time_stamp()]] Uncaught exception: [e]")
 		return ..()
@@ -106,17 +106,3 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	if(GLOB.error_cache)
 		GLOB.error_cache.logError(e, desclines, e_src = e_src)
 #endif
-
-/proc/log_runtime(exception/e, datum/e_src, extra_info)
-	if(!istype(e))
-		world.Error(e, e_src)
-		return
-
-	if(extra_info)
-		// Adding extra info adds two newlines, because parsing runtimes is funky
-		if(islist(extra_info))
-			e.desc = "  [jointext(extra_info, "\n  ")]\n\n" + e.desc
-		else
-			e.desc = "  [extra_info]\n\n" + e.desc
-
-	world.Error(e, e_src)

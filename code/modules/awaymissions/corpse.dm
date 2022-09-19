@@ -33,9 +33,9 @@
 	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
+	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	var/mob/dead/observer/O = user
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
@@ -47,8 +47,7 @@
 	if(cannotPossess(user))
 		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
-	if(!O.can_reenter_corpse)
-		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
+	if(time_check(user))
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
@@ -86,11 +85,32 @@
 /obj/effect/mob_spawn/proc/equip(mob/M)
 	return
 
+/obj/effect/mob_spawn/proc/time_check(mob/user)
+	var/deathtime = world.time - user.timeofdeath
+	var/joinedasobserver = FALSE
+	if(isobserver(user))
+		var/mob/dead/observer/G = user
+		if(G.started_as_observer)
+			joinedasobserver = TRUE
+
+	var/deathtimeminutes = round(deathtime / 600)
+	var/pluralcheck = "minute"
+	if(deathtimeminutes == 0)
+		pluralcheck = ""
+	else if(deathtimeminutes == 1)
+		pluralcheck = " [deathtimeminutes] minute and"
+	else if(deathtimeminutes > 1)
+		pluralcheck = " [deathtimeminutes] minutes and"
+	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
+
+	if(deathtime <= death_cooldown && !joinedasobserver)
+		to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
+		return TRUE
+	return FALSE
+
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
-	var/mob/living/carbon/human/H = M
-	if(H && !H.dna)
-		H.Initialize(null)
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
 		if(!mob_gender)
@@ -127,13 +147,15 @@
 	if(!permanent && !uses)
 		qdel(src)
 
+	return M
+
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
-	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
+	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Nian")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -194,9 +216,9 @@
 		H.set_species(mob_species)
 
 	if(husk)
-		H.ChangeToHusk()
+		H.Drain()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
-		H.mutations.Remove(HUSK)
+		H.cure_husk()
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
@@ -231,7 +253,8 @@
 		H.equipOutfit(outfit)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
-			qdel(I)
+			if(I)
+				qdel(I)
 
 		if(disable_pda)
 			// We don't want corpse PDAs to show up in the messenger list.
@@ -419,7 +442,7 @@
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
 	back = /obj/item/storage/backpack/clown
-	head = /obj/item/clothing/head/naziofficer
+	head = /obj/item/clothing/head/armyofficer
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"

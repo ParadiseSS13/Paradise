@@ -2,7 +2,6 @@
 	name = "Vulpkanin"
 	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
-	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 	language = "Canilunzt"
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
@@ -41,7 +40,7 @@
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",

@@ -8,9 +8,14 @@ SUBSYSTEM_DEF(acid)
 	var/list/currentrun = list()
 	var/list/processing = list()
 
-/datum/controller/subsystem/acid/stat_entry()
-	..("P:[processing.len]")
+/datum/controller/subsystem/acid/get_stat_details()
+	return "P:[length(processing)]"
 
+/datum/controller/subsystem/acid/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
 
 /datum/controller/subsystem/acid/fire(resumed = 0)
 	if(!resumed)

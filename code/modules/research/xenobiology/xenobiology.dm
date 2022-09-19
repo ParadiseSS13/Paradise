@@ -13,7 +13,10 @@
 	throw_speed = 3
 	throw_range = 6
 	origin_tech = "biotech=3"
-	var/Uses = 1 // uses before it goes inert
+	/// Uses before it goes inert
+	var/Uses = 1
+	/// The mob who last injected the extract with plasma, water or blood. Used for logging.
+	var/mob/living/injector_mob
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
@@ -23,6 +26,8 @@
 		to_chat(user, "<span class='notice'>You apply the enhancer to the slime extract. It may now be reused one more time.</span>")
 		Uses++
 		qdel(O)
+	if(istype(O, /obj/item/reagent_containers/syringe))
+		injector_mob = user
 	..()
 
 /obj/item/slime_extract/New()
@@ -137,7 +142,7 @@
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
-	var/being_used = 0
+	var/being_used = FALSE
 
 /obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
@@ -155,11 +160,11 @@
 		M.rabid = FALSE
 		qdel(src)
 		return
-	M.docile = 1
+	M.docile = TRUE
 	M.set_nutrition(700)
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
-	being_used = 1
+	being_used = TRUE
 	var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
 	if(!newname)
@@ -175,7 +180,7 @@
 	icon_state = "bottle19"
 	origin_tech = "biotech=6"
 	var/list/not_interested = list()
-	var/being_used = 0
+	var/being_used = FALSE
 	var/sentience_type = SENTIENCE_ORGANIC
 
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
@@ -183,7 +188,7 @@
 		return
 	if(being_used || !ismob(M))
 		return
-	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
+	if(!isanimal(M) || M.mind) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return ..()
 	if(M.stat)
@@ -195,22 +200,22 @@
 		return ..()
 
 	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
-	being_used = 1
+	being_used = TRUE
 
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
 	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
 
-	if(!src)
+	if(QDELETED(src) || QDELETED(SM))
 		return
 
 	if(candidates.len)
 		var/mob/C = pick(candidates)
 		SM.key = C.key
-		SM.universal_speak = 1
+		SM.universal_speak = TRUE
 		SM.faction = user.faction
 		SM.master_commander = user
 		SM.sentience_act()
-		SM.can_collar = 1
+		SM.can_collar = TRUE
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
@@ -220,7 +225,7 @@
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
-		being_used = 0
+		being_used = FALSE
 		..()
 
 /obj/item/slimepotion/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
@@ -261,10 +266,10 @@
 
 	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
 	user.mind.transfer_to(SM)
-	SM.universal_speak = 1
+	SM.universal_speak = TRUE
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
-	SM.can_collar = 1
+	SM.can_collar = TRUE
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")
@@ -370,7 +375,7 @@
 
 	if(istype(O, /obj/vehicle))
 		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = config.run_speed
+		var/vehicle_speed_mod = GLOB.configuration.movement.base_run_speed
 		if(V.vehicle_move_delay <= vehicle_speed_mod)
 			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
 			return ..()
@@ -426,7 +431,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/effect/timestop
-	anchored = 1
+	anchored = TRUE
 	name = "chronofield"
 	desc = "ZA WARUDO"
 	icon = 'icons/effects/160x160.dmi'
@@ -457,8 +462,8 @@
 				var/mob/living/M = A
 				if(M in immune)
 					continue
-				M.notransform = 1
-				M.anchored = 1
+				M.notransform = TRUE
+				M.anchored = TRUE
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
@@ -485,8 +490,8 @@
 	return
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
-	M.notransform = 0
-	M.anchored = 0
+	M.notransform = FALSE
+	M.anchored = FALSE
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)

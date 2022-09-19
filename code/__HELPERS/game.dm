@@ -51,7 +51,7 @@
 
 // Like view but bypasses luminosity check
 
-/proc/hear(var/range, var/atom/source)
+/proc/hear(range, atom/source)
 	var/lum = source.luminosity
 	source.luminosity = 6
 
@@ -145,7 +145,7 @@
 // It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
 // being unable to hear people due to being in a box within a bag.
 
-/proc/recursive_mob_check(var/atom/O,  var/list/L = list(), var/recursion_limit = 3, var/client_check = 1, var/sight_check = 1, var/include_radio = 1)
+/proc/recursive_mob_check(atom/O,  list/L = list(), recursion_limit = 3, client_check = 1, sight_check = 1, include_radio = 1)
 
 	//GLOB.debug_mob += O.contents.len
 	if(!recursion_limit)
@@ -174,7 +174,7 @@
 // The old system would loop through lists for a total of 5000 per function call, in an empty server.
 // This new system will loop at around 1000 in an empty server.
 
-/proc/get_mobs_in_view(var/R, var/atom/source, var/include_clientless = FALSE)
+/proc/get_mobs_in_view(R, atom/source, include_clientless = FALSE)
 	// Returns a list of mobs in range of R from source. Used in radio and say code.
 
 	var/turf/T = get_turf(source)
@@ -200,7 +200,7 @@
 	return hear
 
 
-/proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
+/proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
@@ -263,7 +263,7 @@
 				return 0
 	return 1
 
-/proc/isInSight(var/atom/A, var/atom/B)
+/proc/isInSight(atom/A, atom/B)
 	var/turf/Aturf = get_turf(A)
 	var/turf/Bturf = get_turf(B)
 
@@ -293,7 +293,7 @@
 		if(AM.Move(get_step(T, direction)))
 			break
 
-/proc/get_mob_by_key(var/key)
+/proc/get_mob_by_key(key)
 	for(var/mob/M in GLOB.mob_list)
 		if(M.ckey == lowertext(key))
 			return M
@@ -308,7 +308,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
+						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -324,7 +324,7 @@
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
-						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G,"Syndicate")))
+						if(!override_jobban || (!jobban_isbanned(G, roletext) && !jobban_isbanned(G, ROLE_SYNDICATE)))
 							if(override_age || player_old_enough_antag(G.client,be_special_type))
 								candidates += G
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt
@@ -338,16 +338,6 @@
 	O.maptext_width = maptext_width
 	O.screen_loc = screen_loc
 	return O
-
-/proc/Show2Group4Delay(obj/O, list/group, delay=0)
-	if(!isobj(O))	return
-	if(!group)	group = GLOB.clients
-	for(var/client/C in group)
-		C.screen += O
-	if(delay)
-		spawn(delay)
-			for(var/client/C in group)
-				C.screen -= O
 
 /proc/remove_images_from_clients(image/I, list/show_to)
 	for(var/client/C in show_to)
@@ -402,7 +392,7 @@
 	src.dest_x = dest_x
 	src.dest_y = dest_y
 
-/proc/projectile_trajectory(var/src_x, var/src_y, var/rotation, var/angle, var/power)
+/proc/projectile_trajectory(src_x, src_y, rotation, angle, power)
 
 	// returns the destination (Vx,y) that a projectile shot at [src_x], [src_y], with an angle of [angle],
 	// rotated at [rotation] and with the power of [power]
@@ -420,7 +410,7 @@
 	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 
 
-/proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=GLOB.mob_list)
+/proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
 	var/area/our_area = get_area(the_area)
 	for(var/mob/M in moblist)
@@ -431,7 +421,7 @@
 		mobs_found += M
 	return mobs_found
 
-/proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
+/proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)
 	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
@@ -461,10 +451,10 @@
 
 	var/list/candidate_ghosts = willing_ghosts.Copy()
 
-	to_chat(adminusr, "Candidate Ghosts:");
+	to_chat(adminclient, "Candidate Ghosts:");
 	for(var/mob/dead/observer/G in candidate_ghosts)
 		if(G.key && G.client)
-			to_chat(adminusr, "- [G] ([G.key])");
+			to_chat(adminclient, "- [G] ([G.key])");
 		else
 			candidate_ghosts -= G
 
@@ -489,48 +479,31 @@
   * Will not include parent-less vents to the returned list.
   * Arguments:
   * * unwelded_only - Whether the list should only include vents that are unwelded
-  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
-  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
-  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
+  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs
   * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
-  * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
-  * * z_level - The Z-level number to look for vents in. Defaults to all
   */
-/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
+/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, min_network_size = 50)
 	ASSERT(min_network_size >= 0)
-	ASSERT(z_level >= 0)
-
-	var/num_z_levels = length(GLOB.space_manager.z_list)
-	var/list/non_station_levels[num_z_levels] // Cache so we don't do is_station_level for every vent!
 
 	. = list()
 	for(var/object in GLOB.all_vent_pumps) // This only contains vent_pumps so don't bother with type checking
 		var/obj/machinery/atmospherics/unary/vent_pump/vent = object
 		var/vent_z = vent.z
-		if(z_level && vent_z != z_level)
-			continue
-		if(station_levels_only && (non_station_levels[vent_z] || !is_station_level(vent_z)))
-			non_station_levels[vent_z] = TRUE
+		if(!is_station_level(vent_z))
 			continue
 		if(unwelded_only && vent.welded)
 			continue
 		if(exclude_mobs_nearby)
 			var/turf/T = get_turf(vent)
 			var/mobs_nearby = FALSE
-			for(var/mob/living/M in orange(nearby_mobs_range, T))
-				if(!M.is_dead())
-					mobs_nearby = TRUE
-					break
+			for(var/mob/living/M in orange(7, T))
+				if(M.is_dead()) //we don't care about dead mobs
+					continue
+				if(!M.client && !istype(get_area(T), /area/toxins/xenobiology)) //we add an exception here for clientless mobs (apart from ones near xenobiology vents because it's usually filled with gold slime mobs who attack hostile mobs)
+					continue
+				mobs_nearby = TRUE
+				break
 			if(mobs_nearby)
-				continue
-		if(exclude_visible_by_mobs)
-			var/turf/T = get_turf(vent)
-			var/visible_by_mobs = FALSE
-			for(var/mob/living/M in viewers(world.view, T))
-				if(!M.is_dead())
-					visible_by_mobs = TRUE
-					break
-			if(visible_by_mobs)
 				continue
 		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
 			// Can cause heavy message spam in some situations (e.g. pipenets breaking)

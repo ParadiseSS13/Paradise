@@ -36,17 +36,16 @@
 	if(.)
 		if(W == front_id)
 			front_id = null
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/wallet/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
 	. = ..(W, prevent_warning)
 	if(.)
 		if(!front_id && istype(W, /obj/item/card/id))
 			front_id = W
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/storage/wallet/update_icon()
-
+/obj/item/storage/wallet/update_icon_state()
 	if(front_id)
 		switch(front_id.icon_state)
 			if("silver")
@@ -74,29 +73,20 @@
 	else
 		return ..()
 
-/obj/item/storage/wallet/random/New()
-	..()
-	var/item1_type = pick(/obj/item/stack/spacecash,
+/obj/item/storage/wallet/random/populate_contents()
+	var/cash = pick(/obj/item/stack/spacecash,
 		/obj/item/stack/spacecash/c10,
 		/obj/item/stack/spacecash/c100,
 		/obj/item/stack/spacecash/c500,
 		/obj/item/stack/spacecash/c1000)
-	var/item2_type
-	if(prob(50))
-		item2_type = pick(/obj/item/stack/spacecash,
-		/obj/item/stack/spacecash/c10,
-		/obj/item/stack/spacecash/c100,
-		/obj/item/stack/spacecash/c500,
-		/obj/item/stack/spacecash/c1000)
-	var/item3_type = pick( /obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/gold, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/iron )
+	var/coin = pickweight(list(/obj/item/coin/iron = 3,
+							   /obj/item/coin/silver = 2,
+							   /obj/item/coin/gold = 1))
 
-	spawn(2)
-		if(item1_type)
-			new item1_type(src)
-		if(item2_type)
-			new item2_type(src)
-		if(item3_type)
-			new item3_type(src)
+	new cash(src)
+	if(prob(50)) // 50% chance of a second
+		new cash(src)
+	new coin(src)
 
 //////////////////////////////////////
 //			Color Wallets			//
@@ -107,11 +97,11 @@
 	desc = "A cheap wallet from the arcade."
 	storage_slots = 5		//smaller storage than normal wallets
 
-/obj/item/storage/wallet/color/New()
-	..()
+/obj/item/storage/wallet/color/Initialize(mapload)
+	. = ..()
 	if(!item_color)
 		var/color_wallet = pick(subtypesof(/obj/item/storage/wallet/color))
-		new color_wallet(src.loc)
+		new color_wallet(loc)
 		qdel(src)
 		return
 	UpdateDesc()
@@ -121,7 +111,7 @@
 	desc = "A cheap, [item_color] wallet from the arcade."
 	icon_state = "[item_color]_wallet"
 
-/obj/item/storage/wallet/color/update_icon()
+/obj/item/storage/wallet/color/update_icon_state()
 	if(front_id)
 		switch(front_id.icon_state)
 			if("silver")

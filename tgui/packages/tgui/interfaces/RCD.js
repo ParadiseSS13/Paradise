@@ -1,9 +1,18 @@
-import { useBackend } from "../backend";
-import { Button, Section, LabeledList, Box, ProgressBar, Flex, Tabs, Icon } from "../components";
-import { Window } from "../layouts";
-import { ComplexModal, modalOpen } from "./common/ComplexModal";
+import { useBackend } from '../backend';
+import {
+  Button,
+  Section,
+  LabeledList,
+  Box,
+  ProgressBar,
+  Flex,
+  Tabs,
+  Icon,
+} from '../components';
+import { Window } from '../layouts';
+import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { AccessList } from './common/AccessList';
-import { Fragment } from "inferno";
+import { Fragment } from 'inferno';
 
 export const RCD = (props, context) => {
   return (
@@ -21,16 +30,11 @@ export const RCD = (props, context) => {
 
 const MatterReadout = (props, context) => {
   const { data } = useBackend(context);
-  const {
-    matter,
-    max_matter,
-  } = data;
-  const good_matter = max_matter * 0.70;
+  const { matter, max_matter } = data;
+  const good_matter = max_matter * 0.7;
   const average_matter = max_matter * 0.25;
   return (
-    <Section
-      title="Matter Storage"
-      flexBasis="content">
+    <Section title="Matter Storage" flexBasis="content">
       <ProgressBar
         ranges={{
           good: [good_matter, Infinity],
@@ -38,10 +42,9 @@ const MatterReadout = (props, context) => {
           bad: [-Infinity, average_matter],
         }}
         value={matter}
-        maxValue={max_matter}>
-        <Box textAlign="center">
-          {matter + " / " + max_matter + " units"}
-        </Box>
+        maxValue={max_matter}
+      >
+        <Box textAlign="center">{matter + ' / ' + max_matter + ' units'}</Box>
       </ProgressBar>
     </Section>
   );
@@ -49,9 +52,7 @@ const MatterReadout = (props, context) => {
 
 const ConstructionType = () => {
   return (
-    <Section
-      title="Construction Type"
-      flexBasis="content">
+    <Section title="Construction Type" flexBasis="content">
       <Flex>
         <Flex.Item>
           <ConstructionTypeCheckbox mode_type="Floors and Walls" />
@@ -72,20 +73,20 @@ const ConstructionTypeCheckbox = (props, context) => {
     <Button.Checkbox
       content={mode_type}
       checked={mode === mode_type ? 1 : 0}
-      onClick={() => act('mode', {
-        mode: mode_type,
-      })} />
+      onClick={() =>
+        act('mode', {
+          mode: mode_type,
+        })
+      }
+    />
   );
 };
 
 const AirlockSettings = (props, context) => {
-  const { data } = useBackend(context);
-  const { door_name } = data;
+  const { act, data } = useBackend(context);
+  const { door_name, electrochromic, airlock_glass } = data;
   return (
-    <Section
-      title="Airlock Settings"
-      flexBasis="content"
-      height={5.5}>
+    <Section title="Airlock Settings" flexBasis="content" height={airlock_glass ? 7.5 : 5.5}>
       <LabeledList>
         <LabeledList.Item color="silver" label="Name">
           {door_name}
@@ -97,19 +98,25 @@ const AirlockSettings = (props, context) => {
           />
         </LabeledList.Item>
       </LabeledList>
+      {airlock_glass === 1 &&
+        <LabeledList>
+          <LabeledList.Item color="silver" label="Electrochromic">
+            <Button
+              icon={electrochromic ? 'toggle-on' : 'toggle-off'}
+              content={electrochromic ? "On" : "Off"}
+              selected={electrochromic}
+              onClick={() => act('electrochromic')}
+            />
+          </LabeledList.Item>
+        </LabeledList>
+      }
     </Section>
   );
 };
 
 const TypesAndAccess = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    tab,
-    locked,
-    one_access,
-    selected_accesses,
-    regions,
-  } = data;
+  const { tab, locked, one_access, selected_accesses, regions } = data;
   return (
     <Fragment>
       <Tabs>
@@ -117,23 +124,25 @@ const TypesAndAccess = (props, context) => {
           content="Airlock Types"
           icon="cog"
           selected={tab === 1}
-          onClick={() => act('set_tab', {
-            tab: 1,
-          })}
+          onClick={() =>
+            act('set_tab', {
+              tab: 1,
+            })
+          }
         />
         <Tabs.Tab
           selected={tab === 2}
           content="Airlock Access"
           icon="list"
-          onClick={() => act('set_tab', {
-            tab: 2,
-          })}
+          onClick={() =>
+            act('set_tab', {
+              tab: 2,
+            })
+          }
         />
       </Tabs>
       {tab === 1 ? (
-        <Section
-          title="Types"
-          flexGrow="1">
+        <Section title="Types" flexGrow="1">
           <Flex>
             <Flex.Item width="50%" mr={1}>
               <AirlockTypeList check_number={0} />
@@ -143,7 +152,7 @@ const TypesAndAccess = (props, context) => {
             </Flex.Item>
           </Flex>
         </Section>
-      ) : (tab === 2 && locked) ? (
+      ) : tab === 2 && locked ? (
         <Section
           title="Access"
           flexGrow="1"
@@ -151,22 +160,18 @@ const TypesAndAccess = (props, context) => {
             <Button
               icon="lock-open"
               content="Unlock"
-              onClick={() => act('set_lock', {
-                new_lock: "unlock",
-              })}
+              onClick={() =>
+                act('set_lock', {
+                  new_lock: 'unlock',
+                })
+              }
             />
-          }>
+          }
+        >
           <Flex height="100%">
-            <Flex.Item
-              grow="1"
-              textAlign="center"
-              align="center"
-              color="label">
-              <Icon
-                name="lock"
-                size="5"
-                mb={3}
-              /><br />
+            <Flex.Item grow="1" textAlign="center" align="center" color="label">
+              <Icon name="lock" size="5" mb={3} />
+              <br />
               Airlock access selection is currently locked.
             </Flex.Item>
           </Flex>
@@ -178,9 +183,11 @@ const TypesAndAccess = (props, context) => {
             <Button
               icon="lock"
               content="Lock"
-              onClick={() => act('set_lock', {
-                new_lock: "lock",
-              })}
+              onClick={() =>
+                act('set_lock', {
+                  new_lock: 'lock',
+                })
+              }
             />
           }
           usedByRcd={1}
@@ -189,33 +196,43 @@ const TypesAndAccess = (props, context) => {
               <Button.Checkbox
                 checked={one_access}
                 content="One"
-                onClick={() => act('set_one_access', {
-                  access: "one",
-                })}
+                onClick={() =>
+                  act('set_one_access', {
+                    access: 'one',
+                  })
+                }
               />
               <Button.Checkbox
                 checked={!one_access}
                 width={4}
                 content="All"
-                onClick={() => act('set_one_access', {
-                  access: "all",
-                })}
+                onClick={() =>
+                  act('set_one_access', {
+                    access: 'all',
+                  })
+                }
               />
             </Fragment>
           }
           accesses={regions}
           selectedList={selected_accesses}
-          accessMod={ref => act('set', {
-            access: ref,
-          })}
+          accessMod={(ref) =>
+            act('set', {
+              access: ref,
+            })
+          }
           grantAll={() => act('grant_all')}
           denyAll={() => act('clear_all')}
-          grantDep={ref => act('grant_region', {
-            region: ref,
-          })}
-          denyDep={ref => act('deny_region', {
-            region: ref,
-          })}
+          grantDep={(ref) =>
+            act('grant_region', {
+              region: ref,
+            })
+          }
+          denyDep={(ref) =>
+            act('deny_region', {
+              region: ref,
+            })
+          }
         />
       )}
     </Fragment>
@@ -224,10 +241,7 @@ const TypesAndAccess = (props, context) => {
 
 const AirlockTypeList = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    door_types_ui_list,
-    door_type,
-  } = data;
+  const { door_types_ui_list, door_type } = data;
   const { check_number } = props;
   // Filter either odd or even airlocks in the list, based on what `check_number` is.
   const doors_filtered = [];
@@ -258,9 +272,11 @@ const AirlockTypeList = (props, context) => {
               width={14}
               checked={door_type === entry.type}
               content={entry.name}
-              onClick={() => act('door_type', {
-                door_type: entry.type,
-              })}
+              onClick={() =>
+                act('door_type', {
+                  door_type: entry.type,
+                })
+              }
             />
           </Flex.Item>
         </Flex>

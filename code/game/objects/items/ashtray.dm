@@ -20,29 +20,35 @@
 
 		if(istype(I, /obj/item/clothing/mask/cigarette))
 			var/obj/item/clothing/mask/cigarette/cig = I
-			if(cig.lit == 1)
+			if(cig.lit)
 				visible_message("[user] crushes [cig] in [src], putting it out.")
 				var/obj/item/butt = new cig.type_butt(src)
 				cig.transfer_fingerprints_to(butt)
 				qdel(cig)
-			else if(cig.lit == 0)
+			else
 				to_chat(user, "You place [cig] in [src] without even smoking it. Why would you do that?")
 
 		visible_message("[user] places [I] in [src].")
 		add_fingerprint(user)
-		update_icon()
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 	else
 		return ..()
 
-/obj/item/ashtray/update_icon()
+/obj/item/ashtray/update_icon_state()
 	if(contents.len == max_butts)
 		icon_state = icon_full
-		desc = initial(desc) + " It's stuffed full."
-	if(contents.len > max_butts * 0.5)
+	else if(contents.len > max_butts * 0.5)
 		icon_state = icon_half
-		desc = initial(desc) + " It's half-filled."
 	else
 		icon_state = initial(icon_state)
+
+/obj/item/ashtray/update_desc()
+	. = ..()
+	if(contents.len == max_butts)
+		desc = initial(desc) + " It's stuffed full."
+	else if(contents.len > max_butts * 0.5)
+		desc = initial(desc) + " It's half-filled."
+	else
 		desc = initial(desc)
 
 /obj/item/ashtray/deconstruct()
@@ -52,7 +58,7 @@
 /obj/item/ashtray/proc/empty_tray()
 	for(var/obj/item/I in contents)
 		I.forceMove(loc)
-	update_icon()
+	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/ashtray/throw_impact(atom/hit_atom)
 	if(contents.len)

@@ -6,7 +6,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	var/list/part = null
-	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
+	var/sabotaged = FALSE //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
 	dir = SOUTH
 
@@ -22,6 +22,8 @@
 				icon = R.icon
 	else
 		name = "robot [initial(name)]"
+
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/attack_self(mob/user)
 	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
@@ -102,7 +104,7 @@
 
 /obj/item/robot_parts/robot_suit/New()
 	..()
-	updateicon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/robot_parts/robot_suit/Destroy()
 	QDEL_NULL(l_arm)
@@ -117,20 +119,20 @@
 /obj/item/robot_parts/robot_suit/attack_self(mob/user)
 	return
 
-/obj/item/robot_parts/robot_suit/proc/updateicon()
-	overlays.Cut()
+/obj/item/robot_parts/robot_suit/update_overlays()
+	. = ..()
 	if(l_arm)
-		overlays += "l_arm+o"
+		. += "l_arm+o"
 	if(r_arm)
-		overlays += "r_arm+o"
+		. += "r_arm+o"
 	if(chest)
-		overlays += "chest+o"
+		. += "chest+o"
 	if(l_leg)
-		overlays += "l_leg+o"
+		. += "l_leg+o"
 	if(r_leg)
-		overlays += "r_leg+o"
+		. += "r_leg+o"
 	if(head)
-		overlays += "head+o"
+		. += "head+o"
 
 /obj/item/robot_parts/robot_suit/proc/check_completion()
 	if(l_arm && r_arm)
@@ -158,7 +160,7 @@
 		user.drop_item()
 		W.forceMove(src)
 		l_leg = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/r_leg))
 		if(r_leg)
@@ -166,7 +168,7 @@
 		user.drop_item()
 		W.forceMove(src)
 		r_leg = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/l_arm))
 		if(l_arm)
@@ -174,7 +176,7 @@
 		user.drop_item()
 		W.forceMove(src)
 		l_arm = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/r_arm))
 		if(r_arm)
@@ -182,7 +184,7 @@
 		user.drop_item()
 		W.forceMove(src)
 		r_arm = W
-		updateicon()
+		update_icon(UPDATE_OVERLAYS)
 
 	if(istype(W, /obj/item/robot_parts/chest))
 		var/obj/item/robot_parts/chest/CH = W
@@ -192,7 +194,7 @@
 			user.drop_item()
 			W.forceMove(src)
 			chest = W
-			updateicon()
+			update_icon(UPDATE_OVERLAYS)
 		else if(!CH.wired)
 			to_chat(user, "<span class='notice'>You need to attach wires to it first!</span>")
 		else
@@ -206,7 +208,7 @@
 			user.drop_item()
 			W.forceMove(src)
 			head = W
-			updateicon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='notice'>You need to attach a flash to it first!</span>")
 
@@ -226,7 +228,7 @@
 				to_chat(user, "<span class='warning'>Sticking an empty [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
-			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob,"nonhumandept"))
+			if(jobban_isbanned(M.brainmob, "Cyborg") || jobban_isbanned(M.brainmob, "nonhumandept"))
 				to_chat(user, "<span class='warning'>This [W] is not fit to serve as a cyborg!</span>")
 				return
 
@@ -251,15 +253,11 @@
 				return
 
 			if(M.brainmob.mind in SSticker.mode.head_revolutionaries)
-				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [M].</span>")
+				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [M].</span>")
 				return
 
 
 			var/datum/ai_laws/laws_to_give
-			if(M.syndiemmi)
-				aisync = FALSE
-				lawsync = FALSE
-				laws_to_give = new /datum/ai_laws/syndicate_override
 
 			if(!aisync)
 				lawsync = FALSE
@@ -283,28 +281,31 @@
 			if(laws_to_give)
 				O.laws = laws_to_give
 			else if(!lawsync)
-				O.lawupdate = 0
+				O.lawupdate = FALSE
 				O.make_laws()
 
 			M.brainmob.mind.transfer_to(O)
 
-			if(O.mind && O.mind.special_role)
+			if(O.mind && O.mind.special_role && !M.syndiemmi)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
 				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
 
 			O.job = "Cyborg"
 
-			O.cell = chest.cell
+			var/datum/robot_component/cell_component = O.components["power cell"]
+			cell_component.install(chest.cell)
 			chest.cell.forceMove(O)
 			chest.cell = null
+
 			M.forceMove(O) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
-			// Since we "magically" installed a cell, we also have to update the correct component.
-			if(O.cell)
-				var/datum/robot_component/cell_component = O.components["power cell"]
-				cell_component.wrapped = O.cell
-				cell_component.installed = 1
 			O.mmi = W
+			if(O.mmi.syndiemmi)
+				O.syndiemmi_override()
+				to_chat(O, "<span class='warning'>ALERT: Foreign hardware detected.</span>")
+				to_chat(O, "<span class='warning'>ERRORERRORERROR</span>")
+				to_chat(O, "<span class='boldwarning'>Obey these laws:</span>")
+				O.laws.show_laws(O)
 			O.Namepick()
 
 			SSblackbox.record_feedback("amount", "cyborg_birth", 1)
@@ -314,7 +315,6 @@
 
 			if(!locomotion)
 				O.lockcharge = 1
-				O.update_canmove()
 				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
 
 		else
@@ -337,10 +337,9 @@
 			popup.open()
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
-	if(usr.lying || usr.stat || usr.stunned || !Adjacent(usr))
-		return
-
 	var/mob/living/living_user = usr
+	if(HAS_TRAIT(living_user, TRAIT_HANDS_BLOCKED) || living_user.stat || !Adjacent(living_user))
+		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(!istype(item_in_hand, /obj/item/multitool))
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
@@ -426,4 +425,4 @@
 		to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
 	else
 		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
-		sabotaged = 1
+		sabotaged = TRUE

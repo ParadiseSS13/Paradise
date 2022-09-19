@@ -10,22 +10,45 @@
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 
-/obj/item/gun/projectile/New()
-	..()
+/obj/item/gun/projectile/Initialize(mapload)
+	. = ..()
 	if(!magazine)
 		magazine = new mag_type(src)
 	chamber_round()
 	update_icon()
-	return
 
-/obj/item/gun/projectile/update_icon()
-	..()
-	if(current_skin)
-		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+/obj/item/gun/projectile/Destroy()
+	QDEL_NULL(magazine)
+	return ..()
+
+/obj/item/gun/projectile/detailed_examine()
+	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
+			will tell you what caliber you need."
+
+/obj/item/gun/projectile/update_name()
+	. = ..()
+	if(sawn_state)
+		name = "sawn-off [name]"
 	else
-		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		name = initial(name)
+
+/obj/item/gun/projectile/update_desc()
+	. = ..()
+	if(sawn_state)
+		desc = sawn_desc
+	else
+		desc = initial(desc)
+
+/obj/item/gun/projectile/update_icon_state()
+	if(current_skin)
+		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
+	else
+		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "_sawn" : ""]"
+
+/obj/item/gun/projectile/update_overlays()
+	. = ..()
 	if(bayonet && can_bayonet)
-		overlays += knife_overlay
+		. += knife_overlay
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
@@ -35,7 +58,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -67,7 +90,7 @@
 		update_icon()
 		return
 
-/obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -125,7 +148,7 @@
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
 			w_class = S.initial_w_class
-			suppressed = 0
+			suppressed = FALSE
 			update_icon()
 			return
 	..()
@@ -164,17 +187,17 @@
 
 /obj/item/gun/projectile/suicide_act(mob/user)
 	if(chambered && chambered.BB && !chambered.BB.nodamage)
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")
-			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with the [name]!</span>")
+			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with [src]!</span>")
 			return BRUTELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return OXYLOSS
 
@@ -197,14 +220,12 @@
 		if(sawn_state == SAWN_OFF)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
-		name = "sawn-off [name]"
-		desc = sawn_desc
 		w_class = WEIGHT_CLASS_NORMAL
 		item_state = "gun"//phil235 is it different with different skin?
 		slot_flags &= ~SLOT_BACK	//you can't sling it on your back
 		slot_flags |= SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF
-		update_icon()
+		update_appearance()
 		return 1
 
 // Sawing guns related proc

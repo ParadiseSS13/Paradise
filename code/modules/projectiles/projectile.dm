@@ -2,9 +2,9 @@
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
-	density = 0
+	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = 1 //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
+	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -12,8 +12,9 @@
 	var/hitsound_wall = ""
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
+	var/atom/firer_source_atom = null //the gun or object this came from
 	var/obj/item/ammo_casing/ammo_casing = null
-	var/suppressed = 0	//Attack message
+	var/suppressed = FALSE	//Attack message
 	var/yo = null
 	var/xo = null
 	var/current = null
@@ -35,14 +36,16 @@
 	var/tile_dropoff_s = 0	//same as above but for stamina
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
+	var/flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
-	var/is_reflectable = FALSE // Can it be reflected or not?
+	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
+	var/reflectability = REFLECTABILITY_PHYSICAL
 	var/alwayslog = FALSE // ALWAYS log this projectile on hit even if it doesn't hit a living target. Useful for AOE explosion / EMP.
 	//Effects
 	var/stun = 0
 	var/weaken = 0
+	var/knockdown = 0
 	var/paralyze = 0
 	var/irradiate = 0
 	var/stutter = 0
@@ -60,8 +63,22 @@
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
+	/// For when you want your projectile to have a chain coming out of the gun
+	var/chain = null
+
+	/// Last world.time the projectile proper moved
+	var/last_projectile_move = 0
+	/// Left over ticks in movement calculation
+	var/time_offset = 0
+	/// The projectile's trajectory
+	var/datum/point_precise/vector/trajectory
+	/// Instructs forceMove to NOT reset our trajectory to the new location!
+	var/trajectory_ignore_forcemove = FALSE
+
+	/// Does this projectile do extra damage to / break shields?
+	var/shield_buster = FALSE
+
 /obj/item/projectile/New()
-	permutated = list()
 	return ..()
 
 /obj/item/projectile/proc/Range()
@@ -106,7 +123,7 @@
 		return 0
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
-	if(blocked < 100) // not completely blocked
+	if(blocked != INFINITY) // not completely blocked
 		if(damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
 			if(starting)
@@ -150,7 +167,7 @@
 
 	var/additional_log_text
 	if(blocked)
-		additional_log_text = " [blocked]% blocked"
+		additional_log_text = " [ARMOUR_VALUE_TO_PERCENTAGE(blocked)]% blocked"
 	if(reagents && reagents.reagent_list)
 		var/reagent_note = "REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -160,9 +177,9 @@
 
 	if(!log_override && firer && !alwayslog)
 		add_attack_logs(firer, L, "Shot with a [type][additional_log_text]")
-	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
+	return L.apply_effects(stun, weaken, knockdown, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
-/obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
+/obj/item/projectile/proc/get_splatter_blockage(turf/step_over, atom/target, splatter_dir, target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
 	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
@@ -181,7 +198,7 @@
 	if(!yes) //prevents double bumps.
 		return
 
-	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
+	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
@@ -226,84 +243,103 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
+/obj/item/projectile/Process_Spacemove(movement_dir = 0)
 	return 1 //Bullets don't drift in space
 
-/obj/item/projectile/proc/fire(var/setAngle)
-	set waitfor = FALSE
+/obj/item/projectile/process()
+	if(!loc || !trajectory)
+		return PROCESS_KILL
+	if(paused || !isturf(loc))
+		last_projectile_move = world.time
+		return
+	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
+	time_offset = 0
+	var/required_moves = FLOOR(elapsed_time_deciseconds / speed, 1)
+	if(required_moves > SSprojectiles.global_max_tick_moves)
+		var/overrun = required_moves - SSprojectiles.global_max_tick_moves
+		required_moves = SSprojectiles.global_max_tick_moves
+		time_offset += overrun * speed
+	time_offset += MODULUS(elapsed_time_deciseconds, speed)
+
+	for(var/i in 1 to required_moves)
+		pixel_move(1)
+
+/obj/item/projectile/proc/pixel_move(trajectory_multiplier)
+	if(!loc || !trajectory)
+		return
+	last_projectile_move = world.time
+	// Keep on course
+	var/matrix/M = new
+	M.Turn(Angle)
+	transform = M
+	// Iterate
+	var/forcemoved = FALSE
+	for(var/i in 1 to SSprojectiles.global_iterations_per_move)
+		if(QDELETED(src))
+			return
+		trajectory.increment(trajectory_multiplier)
+		var/turf/T = trajectory.return_turf()
+		if(!istype(T))
+			qdel(src)
+			return
+		if(T.z != loc.z)
+			trajectory_ignore_forcemove = TRUE
+			forceMove(T)
+			trajectory_ignore_forcemove = FALSE
+			pixel_x = trajectory.return_px()
+			pixel_y = trajectory.return_py()
+			forcemoved = TRUE
+		else if(T != loc)
+			step_towards(src, T)
+		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
+			if(loc == get_turf(original) && !(original in permutated))
+				Bump(original, TRUE)
+	if(QDELETED(src)) //deleted on last move
+		return
+	if(!forcemoved)
+		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
+	Range()
+
+/obj/item/projectile/proc/fire(setAngle)
 	if(setAngle)
 		Angle = setAngle
-
-	while(!QDELETED(src))
-		if(!paused)
-			if((!current || loc == current))
-				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
-			if(isnull(Angle))
-				Angle = round(Get_Angle(src, current))
-			if(spread)
-				Angle += (rand() - 0.5) * spread
-			var/matrix/M = new
-			M.Turn(Angle)
-			transform = M
-
-			var/Pixel_x = round(sin(Angle) + 16 * sin(Angle) * 2, 1)
-			var/Pixel_y = round(cos(Angle) + 16 * cos(Angle) * 2, 1)
-			var/pixel_x_offset = pixel_x + Pixel_x
-			var/pixel_y_offset = pixel_y + Pixel_y
-			var/new_x = x
-			var/new_y = y
-
-			while(pixel_x_offset > 16)
-				pixel_x_offset -= 32
-				pixel_x -= 32
-				new_x++ // x++
-			while(pixel_x_offset < -16)
-				pixel_x_offset += 32
-				pixel_x += 32
-				new_x--
-
-			while(pixel_y_offset > 16)
-				pixel_y_offset -= 32
-				pixel_y -= 32
-				new_y++
-			while(pixel_y_offset < -16)
-				pixel_y_offset += 32
-				pixel_y += 32
-				new_y--
-
-			speed = round(speed)
-			step_towards(src, locate(new_x, new_y, z))
-			if(speed <= 1)
-				pixel_x = pixel_x_offset
-				pixel_y = pixel_y_offset
-			else
-				animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
-
-			if(original && (original.layer >= 2.75 || ismob(original)))
-				if(loc == get_turf(original))
-					if(!(original in permutated))
-						Bump(original, TRUE)
-			Range()
-		sleep(max(1, speed))
+	if(!current || loc == current)
+		current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
+	if(isnull(Angle))
+		Angle = round(get_angle(src, current))
+	if(spread)
+		Angle += (rand() - 0.5) * spread
+	// Turn right away
+	var/matrix/M = new
+	M.Turn(Angle)
+	transform = M
+	// Start flying
+	trajectory = new(x, y, z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
+	last_projectile_move = world.time
+	START_PROCESSING(SSprojectiles, src)
+	pixel_move(1, FALSE)
 
 /obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
-	if(starting)
-		var/new_x = starting.x + pick(position_modifiers)
-		var/new_y = starting.y + pick(position_modifiers)
-		var/turf/curloc = get_turf(source)
+	if(!starting)
+		return
+	var/new_x = starting.x + pick(position_modifiers)
+	var/new_y = starting.y + pick(position_modifiers)
+	var/turf/curloc = get_turf(source)
+	if(!curloc)
+		return
 
-		if(ismob(source))
-			firer = source // The reflecting mob will be the new firer
-		else
-			firer = null // Reflected by something other than a mob so firer will be null
+	if(ismob(source))
+		firer = source // The reflecting mob will be the new firer
 
-		// redirect the projectile
-		original = locate(new_x, new_y, z)
-		starting = curloc
-		current = curloc
-		yo = new_y - curloc.y
-		xo = new_x - curloc.x
-		Angle = null // Will be calculated in fire()
+	// redirect the projectile
+	original = locate(new_x, new_y, z)
+	starting = curloc
+	current = curloc
+	yo = new_y - curloc.y
+	xo = new_x - curloc.x
+	set_angle(get_angle(curloc, original))
 
 /obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
@@ -311,10 +347,13 @@
 		Bump(AM, 1)
 
 /obj/item/projectile/Destroy()
+	STOP_PROCESSING(SSprojectiles, src)
 	ammo_casing = null
+	firer_source_atom = null
+	firer = null
 	return ..()
 
-/obj/item/projectile/proc/dumbfire(var/dir)
+/obj/item/projectile/proc/dumbfire(dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 
@@ -332,9 +371,29 @@
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+/obj/item/projectile/set_angle(new_angle)
+	..()
 	Angle = new_angle
-	return TRUE
+	trajectory.set_angle(new_angle)
+
+/obj/item/projectile/proc/set_angle_centered(new_angle)
+	set_angle(new_angle)
+	var/list/coordinates = trajectory.return_coordinates()
+	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
 
 /obj/item/projectile/experience_pressure_difference()
 	return
+
+/obj/item/projectile/forceMove(atom/target)
+	. = ..()
+	if(QDELETED(src)) // we coulda bumped something
+		return
+	if(trajectory && !trajectory_ignore_forcemove && isturf(target))
+		trajectory.initialize_location(target.x, target.y, target.z, 0, 0)
+
+/obj/item/projectile/proc/is_reflectable(desired_reflectability_level)
+	if(reflectability == REFLECTABILITY_NEVER) //You'd trust coders not to try and override never reflectable things, but heaven help us I do not
+		return FALSE
+	if(reflectability < desired_reflectability_level)
+		return FALSE
+	return TRUE

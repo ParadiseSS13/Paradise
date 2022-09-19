@@ -27,7 +27,7 @@
 	GLOB.navigation_computers += src
 	if(access_station)
 		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
-	if(access_mining)
+	if(access_mining && GLOB.configuration.ruins.enable_lavaland)
 		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
@@ -264,6 +264,8 @@
 	visible_icon = FALSE
 	use_static = FALSE
 	simulated = FALSE
+	// The Shuttle Docker does not trigger the AI Detector
+	ai_detector_visible = FALSE
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 

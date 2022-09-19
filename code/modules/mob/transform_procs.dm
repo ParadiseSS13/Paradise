@@ -1,10 +1,10 @@
 /mob/living/carbon/human/proc/monkeyize()
 	var/mob/H = src
 	H.dna.SetSEState(GLOB.monkeyblock,1)
-	genemutcheck(H,GLOB.monkeyblock,null,MUTCHK_FORCED)
+	singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /mob/new_player/AIize()
-	spawning = 1
+	spawning = TRUE
 	return ..()
 
 /mob/living/carbon/AIize()
@@ -12,8 +12,7 @@
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	return ..()
@@ -28,7 +27,7 @@
 
 	if(mind)
 		mind.transfer_to(O)
-		O.mind.original = O
+		O.mind.set_original_mob(O)
 	else
 		O.key = key
 
@@ -57,8 +56,7 @@
 	for(var/obj/item/W in src)
 		unEquip(W)
 
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -81,7 +79,7 @@
 	if(mind)		//TODO
 		mind.transfer_to(O)
 		if(O.mind.assigned_role == "Cyborg")
-			O.mind.original = O
+			O.mind.set_original_mob(O)
 		else if(mind && mind.special_role)
 			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
 	else
@@ -91,13 +89,21 @@
 	O.job = "Cyborg"
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
-		if(O.mind.role_alt_title == "Robot")
-			O.mmi = new /obj/item/mmi/robotic_brain(O)
-			if(O.mmi.brainmob)
-				O.mmi.brainmob.name = O.name
-		else
-			O.mmi = new /obj/item/mmi(O)
-		O.mmi.transfer_identity(src) //Does not transfer key/client.
+		var/obj/item/mmi/new_mmi
+		switch(O.mind.role_alt_title)
+			if("Robot")
+				new_mmi = new /obj/item/mmi/robotic_brain(O)
+				if(new_mmi.brainmob)
+					new_mmi.brainmob.name = O.name
+			if("Cyborg")
+				new_mmi = new /obj/item/mmi(O)
+			else
+				// This should never happen, but oh well
+				new_mmi = new /obj/item/mmi(O)
+		new_mmi.transfer_identity(src) //Does not transfer key/client.
+		// Replace the MMI.
+		QDEL_NULL(O.mmi)
+		O.mmi = new_mmi
 
 	O.update_pipe_vision()
 
@@ -113,8 +119,7 @@
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	for(var/t in bodyparts)
@@ -141,7 +146,6 @@
 	if(notransform)
 		return
 	notransform = TRUE
-	canmove = FALSE
 	for(var/obj/item/I in src)
 		unEquip(I)
 	regenerate_icons()
@@ -176,8 +180,7 @@
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	for(var/t in bodyparts)	//this really should not be necessary
@@ -201,8 +204,7 @@
 		unEquip(W)
 
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -234,14 +236,13 @@
 	qdel(src)
 
 
-/mob/living/carbon/human/proc/paize(var/name)
+/mob/living/carbon/human/proc/paize(name)
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	for(var/t in bodyparts)	//this really should not be necessary
@@ -259,42 +260,3 @@
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
 	pai.update_pipe_vision()
 	qdel(src)
-
-/mob/proc/safe_respawn(var/MP)
-	if(!MP)
-		return 0
-
-	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/cat/Syndi))
-			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/cat))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/crab))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/chicken))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/cow))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/parrot))
-		return 1
-	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/Syndifox))
-			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/chick))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/dog/pug))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/butterfly))
-		return 1
-
-	if(ispath(MP, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, "Syndicate"))
-		return 1
-
-	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))
-		return 1
-
-	return 0

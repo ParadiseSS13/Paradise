@@ -104,7 +104,7 @@
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list("flightpotion" = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -189,14 +189,14 @@
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
-	result = /obj/item/oar
+	result = list(/obj/item/oar)
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	time = 15
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boat
 	name = "goliath hide boat"
-	result = /obj/vehicle/lavaboat
+	result = list(/obj/vehicle/lavaboat)
 	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
 	time = 50
 	category = CAT_PRIMAL
@@ -300,6 +300,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
 	var/obj/item/warp_cube/linked
+	var/cooldown = FALSE
 
 /obj/item/warp_cube/Destroy()
 	if(linked)
@@ -315,6 +316,9 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
+	if(cooldown)
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, 0, user.loc)
@@ -326,6 +330,13 @@
 	var/datum/effect_system/smoke_spread/smoke2 = new
 	smoke2.set_up(1, 0, user.loc)
 	smoke2.start()
+	cooldown = TRUE
+	linked.cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/reset), 20 SECONDS)
+
+/obj/item/warp_cube/proc/reset()
+	cooldown = FALSE
+	linked.cooldown = FALSE
 
 /obj/item/warp_cube/red
 	name = "red cube"
@@ -366,11 +377,11 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	pass_flags = PASSTABLE
 	damage = 25
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
-	weaken = 3
-	var/chain
+	weaken = 1 SECONDS
+	knockdown = 6 SECONDS
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)
@@ -423,11 +434,11 @@
 		Z.desc = "It's shaped an awful lot like [user.name]."
 		Z.setDir(user.dir)
 		user.forceMove(Z)
-		user.notransform = 1
+		user.notransform = TRUE
 		user.status_flags |= GODMODE
 		spawn(100)
 			user.status_flags &= ~GODMODE
-			user.notransform = 0
+			user.notransform = FALSE
 			user.forceMove(get_turf(Z))
 			user.visible_message("<span class='danger'>[user] pops back into reality!</span>")
 			Z.can_destroy = TRUE

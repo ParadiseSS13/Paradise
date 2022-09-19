@@ -8,13 +8,14 @@
 	desc = "The by-product of human farming."
 	singular_name = "human skin piece"
 	icon_state = "sheet-hide"
+	item_state = "sheet-leather"
 
 GLOBAL_LIST_INIT(human_recipes, list( \
 	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = TRUE), \
 	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE), \
 	))
 
-/obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/animalhide/human/New(loc, amount=null)
 	recipes = GLOB.human_recipes
 	return ..()
 
@@ -23,6 +24,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	desc = "A piece of generic skin."
 	singular_name = "generic skin piece"
 	icon_state = "sheet-hide"
+	item_state = "sheet-leather"
 
 /obj/item/stack/sheet/animalhide/corgi
 	name = "corgi hide"
@@ -55,6 +57,14 @@ GLOBAL_LIST_INIT(lizard_recipes, list( \
 /obj/item/stack/sheet/animalhide/lizard/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.lizard_recipes
 	return ..()
+
+/obj/item/stack/sheet/fur //basic fur sheets
+	name = "pile of fur"
+	desc = "Vulp remains."
+	singular_name = "fur piece"
+	icon_state = "sheet-fur"
+	origin_tech = "materials=2"
+	max_amount = 50
 
 /obj/item/stack/sheet/animalhide/xeno
 	name = "alien hide"
@@ -98,6 +108,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	desc = "This hide was stripped of it's hair, but still needs tanning."
 	singular_name = "hairless hide piece"
 	icon_state = "sheet-hairlesshide"
+	item_state = "sheet-leather"
 	origin_tech = ""
 
 /obj/item/stack/sheet/wetleather
@@ -105,6 +116,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	desc = "This leather has been cleaned but still needs to be dried."
 	singular_name = "wet leather piece"
 	icon_state = "sheet-wetleather"
+	item_state = "sheet-leather"
 	origin_tech = ""
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
@@ -114,6 +126,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	desc = "The by-product of mob grinding."
 	singular_name = "leather piece"
 	icon_state = "sheet-leather"
+	item_state = "sheet-leather"
 	origin_tech = "materials=2"
 
 GLOBAL_LIST_INIT(leather_recipes, list (
@@ -138,13 +151,14 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	desc = "Long stringy filaments which presumably came from a watcher's wings."
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
+	item_state = "sinew"
 	origin_tech = "biotech=4"
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
 	))
 
-/obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/sinew/New(loc, amount=null)
 	recipes = GLOB.sinew_recipes
 	return ..()
 
@@ -153,6 +167,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "goliath_hide"
+	item_state = "goliath_hide"
 	singular_name = "hide plate"
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
@@ -170,8 +185,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
-		if(current_armor.getRating("melee") < 60)
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
+		if(current_armor.getRating(MELEE) < 60)
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
@@ -180,15 +195,11 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < 3)
 			D.hides++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
-			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
-			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-			D.update_icon()
-			if(D.hides == 3)
-				D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
-			else
-				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
@@ -198,6 +209,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	desc = "The strong, scaled hide of an ash drake."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "dragon_hide"
+	item_state = "dragon_hide"
 	singular_name = "drake plate"
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL

@@ -6,6 +6,7 @@
 	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	mob_biotypes = MOB_ORGANIC | MOB_EPIC
 	obj_damage = 400
 	light_range = 3
 	faction = list("mining", "boss")
@@ -29,10 +30,9 @@
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE
-	var/elimination = 0
+	var/elimination = FALSE
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
-	var/internal_type
 	var/recovery_time = 0
 	var/true_spawn = TRUE // if this is a megafauna that should grant achievements, or have a gps signal
 	var/nest_range = 10
@@ -41,8 +41,8 @@
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
-	if(internal_type && true_spawn)
-		internal = new internal_type(src)
+	if(internal_gps && true_spawn)
+		internal_gps = new internal_gps(src)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)

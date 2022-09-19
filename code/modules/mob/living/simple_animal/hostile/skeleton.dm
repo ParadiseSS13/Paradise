@@ -4,6 +4,7 @@
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton"
 	icon_living = "skeleton"
+	mob_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	turns_per_move = 5
 	speak_emote = list("rattles")
 	emote_see = list("rattles")
@@ -21,7 +22,7 @@
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 10
-	robust_searching = 1
+	robust_searching = TRUE
 	stat_attack = UNCONSCIOUS
 	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("skeleton")
@@ -31,11 +32,11 @@
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
 
-/mob/living/simple_animal/hostile/skeleton/eskimo
-	name = "undead eskimo"
+/mob/living/simple_animal/hostile/skeleton/arctic
+	name = "undead arctic explorer"
 	desc = "The reanimated remains of some poor traveler."
-	icon_state = "eskimo"
-	icon_living = "eskimo"
+	icon_state = "arctic_skeleton"
+	icon_living = "arctic_skeleton"
 	maxHealth = 55
 	health = 55
 	weather_immunities = list("snow")

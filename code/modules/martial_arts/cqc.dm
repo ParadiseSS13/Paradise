@@ -35,7 +35,7 @@
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
 	var/bonus_damage = 13
-	if(D.IsWeakened() || D.resting || D.lying)
+	if(D.IsWeakened() || IS_HORIZONTAL(D))
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, BRUTE)
@@ -46,12 +46,12 @@
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
-	if(A.resting && !D.stat && !D.IsWeakened())
+	if(IS_HORIZONTAL(A) && !D.stat && !D.IsWeakened())
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
-		D.Weaken(3)
+		D.Weaken(6 SECONDS)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
@@ -61,7 +61,7 @@
 	if(restraining && istype(G) && G.affecting == D)
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
 							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
-		D.SetSleeping(20)
+		D.SetSleeping(40 SECONDS)
 		restraining = FALSE
 		if(G.state < GRAB_NECK)
 			G.state = GRAB_NECK
@@ -76,10 +76,10 @@
 			I = D.get_active_hand()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
-			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-			if(I && D.drop_item())
+			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
+			if(D.unEquip(I) && !(QDELETED(I) || (I.flags & ABSTRACT)))
 				A.put_in_hands(I)
-			D.Jitter(2)
+			D.Jitter(4 SECONDS)
 			D.apply_damage(5, BRUTE)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")

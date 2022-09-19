@@ -12,11 +12,12 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			AdjustSleeping(-5)
-			StopResting()
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
+			AdjustSleeping(-10 SECONDS)
+			AdjustParalysis(-6 SECONDS)
+			AdjustStunned(-6 SECONDS)
+			AdjustWeakened(-6 SECONDS)
+			AdjustKnockDown(-6 SECONDS)
+			stand_up()
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		if(INTENT_GRAB)
@@ -42,7 +43,10 @@ In all, this is a lot like the monkey code. /N
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			help_shake_act(M)
+			if(M.on_fire)
+				pat_out(M)
+			else
+				help_shake_act(M)
 		if(INTENT_GRAB)
 			grabbedby(M)
 		if(INTENT_HARM)

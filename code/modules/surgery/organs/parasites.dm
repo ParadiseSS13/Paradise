@@ -5,6 +5,8 @@
 	name = "spider eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
+	destroy_on_removal = TRUE
+
 	var/stage = 1
 
 /obj/item/organ/internal/body_egg/spider_eggs/on_life()
@@ -32,14 +34,9 @@
 				owner.visible_message("<span class='danger'>[owner] bursts open! Holy fuck!</span>")
 				owner.gib()
 
-/obj/item/organ/internal/body_egg/spider_eggs/remove(var/mob/living/carbon/M, var/special = 0)
-	..()
+/obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = 0)
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
-	if(!QDELETED(src))
-		qdel(src) // prevent people re-implanting them into others
-	return null
-
-
+	return ..()
 
 // Terror Spiders - white spider infection
 
@@ -47,18 +44,12 @@
 	name = "terror eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
+	destroy_on_removal = TRUE
 
 	var/cycle_num = 0 // # of on_life() cycles completed, never reset
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
 	var/egg_progress_per_hatch = 90 // if egg_progress > this, chance to hatch and reset egg_progress
 	var/eggs_hatched = 0 // num of hatch events completed
-	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
-
-/obj/item/organ/internal/body_egg/terror_eggs/Initialize(mapload)
-	. = ..()
-	var/turf/T = get_turf(src)
-	if(istype(T) && is_away_level(T.z))
-		awaymission_infection = TRUE
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
 	// Safety first.
@@ -69,14 +60,6 @@
 	cycle_num += 1
 	egg_progress += pick(0, 1, 2)
 	egg_progress += calc_variable_progress()
-
-	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
-	if(awaymission_infection)
-		var/turf/T = get_turf(owner)
-		if(istype(T) && !is_away_level(T.z))
-			owner.gib()
-			qdel(src)
-			return
 
 	// Once at least one egg has hatched from you, you'll need help to reach medbay.
 	if(eggs_hatched >= 1)
@@ -116,12 +99,6 @@
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
-	owner.Paralyse(10)
-	if(infection_completed && !QDELETED(src))
-		qdel(src)
-
-/obj/item/organ/internal/body_egg/terror_eggs/remove(var/mob/living/carbon/M, var/special = 0)
-	..()
-	if(!QDELETED(src))
-		qdel(src) // prevent people re-implanting them into others
-	return null
+	owner.Paralyse(20 SECONDS)
+	if(infection_completed)
+		remove(owner)

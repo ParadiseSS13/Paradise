@@ -25,8 +25,7 @@ const tridentVersion = (() => {
  *
  * (Actually, no, it also includes IE9 and IE10).
  */
-export const IS_IE8 = tridentVersion !== null
-  && tridentVersion <= 6;
+export const IS_IE8 = tridentVersion !== null && tridentVersion <= 6;
 
 /**
  * Makes a BYOND call.
@@ -50,7 +49,7 @@ export const callByondAsync = (path, params = {}) => {
   window.__callbacks__ = window.__callbacks__ || [];
   // Create a Promise and push its resolve function into callback array
   const callbackIndex = window.__callbacks__.length;
-  const promise = new Promise(resolve => {
+  const promise = new Promise((resolve) => {
     // TODO: Fix a potential memory leak
     window.__callbacks__.push(resolve);
   });
@@ -67,7 +66,7 @@ export const callByondAsync = (path, params = {}) => {
  *
  * See: https://secure.byond.com/docs/ref/skinparams.html
  */
-export const runCommand = command => callByond('winset', { command });
+export const runCommand = (command) => callByond('winset', { command });
 
 /**
  * Calls 'winget' on a BYOND skin element, retrieving value by the 'key'.
@@ -83,6 +82,7 @@ export const winget = async (id, key) => {
 /**
  * Calls 'winset' on a BYOND skin element, setting 'key' to 'value'.
  */
-export const winset = (id, key, value) => callByond('winset', {
-  [`${id}.${key}`]: value,
-});
+export const winset = (id, key, value) =>
+  callByond('winset', {
+    [`${id}.${key}`]: value,
+  });

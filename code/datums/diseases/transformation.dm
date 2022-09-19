@@ -15,7 +15,9 @@
 	var/list/stage3 = list("You feel utterly plain.")
 	var/list/stage4 = list("You feel white bread.")
 	var/list/stage5 = list("Oh the humanity!")
+	var/transformation_text = null
 	var/new_form = /mob/living/carbon/human
+	var/job_role = null
 
 /datum/disease/transformation/stage_act()
 	..()
@@ -39,13 +41,14 @@
 	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
 		if(stage5)
 			to_chat(affected_mob, pick(stage5))
-		if(jobban_isbanned(affected_mob, new_form))
-			affected_mob.death(1)
+		if(jobban_isbanned(affected_mob, job_role))
+			affected_mob.death()
 			return
 		if(affected_mob.notransform)
 			return
-		affected_mob.notransform = 1
-		affected_mob.canmove = 0
+		if(transformation_text)
+			to_chat(affected_mob, transformation_text)
+		affected_mob.notransform = TRUE
 		affected_mob.icon = null
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101
@@ -108,7 +111,7 @@
 		if(3)
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.AdjustConfused(10)
+				affected_mob.AdjustConfused(20 SECONDS)
 		if(4)
 			if(prob(3))
 				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."))
@@ -130,6 +133,7 @@
 	stage4	= list("<span class='danger'>Your skin feels very loose.</span>", "<span class='danger'>You can feel... something...inside you.</span>")
 	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
 	new_form = /mob/living/silicon/robot
+	job_role = "Cyborg"
 
 
 /datum/disease/transformation/robot/stage_act()
@@ -140,7 +144,7 @@
 				affected_mob.say(pick("Beep, boop", "beep, beep!", "Boop...bop"))
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.Paralyse(2)
+				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
 				affected_mob.say(pick("beep, beep!", "Boop bop boop beep.", "kkkiiiill mmme", "I wwwaaannntt tttoo dddiiieeee..."))
@@ -162,6 +166,7 @@
 	stage4	= list("<span class='danger'>Your skin feels very tight.</span>", "<span class='danger'>Your blood boils!</span>", "<span class='danger'>You can feel... something...inside you.</span>")
 	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
 	new_form = /mob/living/carbon/alien/humanoid/hunter
+	job_role = ROLE_ALIEN
 
 /datum/disease/transformation/xeno/stage_act()
 	..()
@@ -169,7 +174,7 @@
 		if(3)
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.Paralyse(2)
+				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
 				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"))
@@ -243,4 +248,6 @@
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You're ravenous.</span>")
 	stage5	= list("<span class='danger'>You have become a morph.</span>")
+	transformation_text = "<span class='userdanger'>This transformation does NOT make you an antagonist if you were not one already. If you were not an antagonist, you should not eat any steal objectives or the contents of the armory.</span>"
 	new_form = /mob/living/simple_animal/hostile/morph
+	job_role = ROLE_MORPH

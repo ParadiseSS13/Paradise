@@ -5,8 +5,8 @@
 	desc = "A simple yet bulky storage device for gas tanks. Has room for up to ten oxygen tanks, and ten plasma tanks."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "dispenser"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	var/starting_oxygen_tanks = MAX_TANK_STORAGE // The starting amount of oxygen tanks the dispenser gets when it's spawned
 	var/starting_plasma_tanks = MAX_TANK_STORAGE // Starting amount of plasma tanks
 	var/list/stored_oxygen_tanks = list() // List of currently stored oxygen tanks
@@ -21,7 +21,7 @@
 /obj/structure/dispenser/Initialize(mapload)
 	. = ..()
 	initialize_tanks()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/dispenser/Destroy()
 	QDEL_LIST(stored_plasma_tanks)
@@ -37,21 +37,21 @@
 		var/obj/item/tank/internals/oxygen/O = new(src)
 		stored_oxygen_tanks.Add(O)
 
-/obj/structure/dispenser/update_icon()
-	cut_overlays()
+/obj/structure/dispenser/update_overlays()
+	. = ..()
 	var/oxy_tank_amount = LAZYLEN(stored_oxygen_tanks)
 	switch(oxy_tank_amount)
 		if(1 to 3)
-			overlays += "oxygen-[oxy_tank_amount]"
+			. += "oxygen-[oxy_tank_amount]"
 		if(4 to INFINITY)
-			overlays += "oxygen-4"
+			. += "oxygen-4"
 
 	var/pla_tank_amount = LAZYLEN(stored_plasma_tanks)
 	switch(pla_tank_amount)
 		if(1 to 4)
-			overlays += "plasma-[pla_tank_amount]"
+			. += "plasma-[pla_tank_amount]"
 		if(5 to INFINITY)
-			overlays += "plasma-5"
+			. += "plasma-5"
 
 /obj/structure/dispenser/attack_hand(mob/user)
 	if(..())
@@ -100,10 +100,10 @@
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
-			anchored = 0
+			anchored = FALSE
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = 1
+			anchored = TRUE
 		return
 	return ..()
 
@@ -119,7 +119,7 @@
 		T.forceMove(loc) // If the user's hands are full, place it on the tile of the dispenser.
 
 	to_chat(user, "<span class='notice'>You take [T] out of [src].</span>")
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
 /obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
@@ -133,7 +133,7 @@
 
 	T.forceMove(src)
 	tank_list.Add(T)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
 	SStgui.update_uis(src)
 

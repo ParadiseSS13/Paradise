@@ -14,10 +14,11 @@
 	container_type = OPENCONTAINER
 	has_lid = TRUE
 	resistance_flags = ACID_PROOF
+	blocks_emissive = FALSE
 	var/label_text = ""
 
-/obj/item/reagent_containers/glass/New()
-	..()
+/obj/item/reagent_containers/glass/Initialize(mapload)
+	. = ..()
 	base_name = name
 
 /obj/item/reagent_containers/glass/examine(mob/user)
@@ -68,10 +69,13 @@
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
-	if((!proximity) ||  !check_allowed_items(target,target_self = TRUE))
+	if((!proximity) || !check_allowed_items(target, target_self = TRUE))
 		return
 
 	if(!is_open_container())
+		return
+
+	if(!reagents)
 		return
 
 	if(target.is_refillable()) //Something like a glass. Player probably wants to transfer TO it.
@@ -119,16 +123,16 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
+	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/beaker/update_icon()
-	overlays.Cut()
-
+/obj/item/reagent_containers/glass/beaker/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
@@ -150,14 +154,14 @@
 				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
+		. += filling
 
 	if(!is_open_container())
-		var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
-		overlays += lid
+		. += "lid_[initial(icon_state)]"
+		if(blocks_emissive == FALSE)
+			. += emissive_blocker(icon, "lid_[initial(icon_state)]")
 	if(assembly)
-		overlays += "assembly"
-	..()
+		. += "assembly"
 
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Remove Assembly"
@@ -169,8 +173,7 @@
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
-		qdel(GetComponent(/datum/component/proximity_monitor))
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else
 		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
 
@@ -186,9 +189,7 @@
 		assembly = W
 		user.drop_item()
 		W.forceMove(src)
-		if(assembly.has_prox_sensors())
-			AddComponent(/datum/component/proximity_monitor)
-		overlays += "assembly"
+		update_icon(UPDATE_OVERLAYS)
 	else
 		..()
 
@@ -226,6 +227,7 @@
 	name = "vial"
 	desc = "A small glass vial. Can hold up to 25 units."
 	icon_state = "vial"
+	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
 	volume = 25
 	amount_per_transfer_from_this = 10
@@ -238,7 +240,7 @@
 	desc = "A baggie. Can hold up to 10 units."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
-	possible_transfer_amounts = 2
+	possible_transfer_amounts = null
 	volume = 10
 	container_type = OPENCONTAINER
 	can_assembly = 0
@@ -252,9 +254,10 @@
 	amount_per_transfer_from_this = 10
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
 	container_type = OPENCONTAINER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-/obj/item/reagent_containers/glass/beaker/noreact/New()
-	..()
+/obj/item/reagent_containers/glass/beaker/noreact/Initialize(mapload)
+	. = ..()
 	reagents.set_reacting(FALSE)
 
 /obj/item/reagent_containers/glass/beaker/bluespace
@@ -266,6 +269,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	container_type = OPENCONTAINER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
@@ -281,7 +285,6 @@
 /obj/item/reagent_containers/glass/beaker/drugs/meth
 	list_reagents = list("methamphetamine" = 10)
 
-
 /obj/item/reagent_containers/glass/bucket
 	desc = "It's a bucket."
 	name = "bucket"
@@ -293,17 +296,19 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50) //Weak melee protection, because you can wear it on your head
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
+	dog_fashion = /datum/dog_fashion/head/bucket
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
 	icon_state = "woodbucket"
 	item_state = "woodbucket"
 	materials = null
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
 	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
@@ -314,6 +319,10 @@
         reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
+	if(istype(D, /obj/item/mop))
+		var/obj/item/mop/m = D
+		m.wet_mop(src, user)
+		return
 	if(isprox(D))
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)

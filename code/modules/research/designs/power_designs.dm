@@ -7,10 +7,10 @@
 	desc = "A basic power cell that holds 1 kW of power."
 	id = "basic_cell"
 	req_tech = list("powerstorage" = 1)
-	build_type = PROTOLATHE | AUTOLATHE | MECHFAB | PODFAB
+	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
 	construction_time=100
-	build_path = /obj/item/stock_parts/cell
+	build_path = /obj/item/stock_parts/cell/empty
 	category = list("Misc","Power","Machinery","initial")
 
 /datum/design/high_cell
@@ -18,10 +18,10 @@
 	desc = "A power cell that holds 10 kW of power."
 	id = "high_cell"
 	req_tech = list("powerstorage" = 2)
-	build_type = PROTOLATHE | AUTOLATHE | MECHFAB | PODFAB
+	build_type = PROTOLATHE | AUTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 700, MAT_GLASS = 60)
 	construction_time=100
-	build_path = /obj/item/stock_parts/cell/high
+	build_path = /obj/item/stock_parts/cell/high/empty
 	category = list("Misc","Power")
 
 /datum/design/hyper_cell
@@ -29,10 +29,10 @@
 	desc = "A power cell that holds 30 kW of power."
 	id = "hyper_cell"
 	req_tech = list("powerstorage" = 5, "materials" = 5, "engineering" = 5)
-	build_type = PROTOLATHE | MECHFAB | PODFAB
+	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 70)
 	construction_time=100
-	build_path = /obj/item/stock_parts/cell/hyper
+	build_path = /obj/item/stock_parts/cell/hyper/empty
 	category = list("Misc","Power")
 
 /datum/design/super_cell
@@ -40,10 +40,10 @@
 	desc = "A power cell that holds 20 kW of power."
 	id = "super_cell"
 	req_tech = list("powerstorage" = 3, "materials" = 3)
-	build_type = PROTOLATHE | MECHFAB | PODFAB
+	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 700, MAT_GLASS = 70)
 	construction_time=100
-	build_path = /obj/item/stock_parts/cell/super
+	build_path = /obj/item/stock_parts/cell/super/empty
 	category = list("Misc","Power")
 
 /datum/design/bluespace_cell
@@ -54,7 +54,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 160, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
 	construction_time=100
-	build_path = /obj/item/stock_parts/cell/bluespace
+	build_path = /obj/item/stock_parts/cell/bluespace/empty
 	category = list("Misc","Power")
 
 /datum/design/pacman

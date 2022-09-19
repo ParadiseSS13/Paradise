@@ -19,6 +19,7 @@
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 50
 	light_range = 0
@@ -52,19 +53,22 @@
 
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
+	desc = "A security Nanotrasen-licensed newsfeed handler for use in commercial space stations. It comes with a small slot for inserting photos."
 	is_security = TRUE
 
-/obj/machinery/newscaster/New()
+/obj/machinery/newscaster/Initialize(mapload)
+	. = ..()
+
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
 	update_icon() //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
-	..()
 
-/obj/machinery/newscaster/Initialize(mapload)
-	. = ..()
+	if(is_security)
+		name = "security newscaster"
+	else
+		name = "newscaster"
 	if(!jobblacklist)
 		jobblacklist = list(
 			/datum/job/ai,
@@ -73,14 +77,12 @@
 			/datum/job/judge,
 			/datum/job/blueshield,
 			/datum/job/nanotrasenrep,
-			/datum/job/pilot,
-			/datum/job/brigdoc,
-			/datum/job/mechanic,
 			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntspecops,
-			/datum/job/civilian,
+			/datum/job/ntspecops/solgovspecops,
+			/datum/job/assistant,
 			/datum/job/syndicateofficer
 		)
 
@@ -90,28 +92,41 @@
 	QDEL_NULL(photo)
 	return ..()
 
-/obj/machinery/newscaster/update_icon()
-	cut_overlays()
+/obj/machinery/newscaster/update_icon_state()
 	if(inoperable())
 		icon_state = "newscaster_off"
+		return
+	if(GLOB.news_network.wanted_issue)
+		icon_state = "newscaster_wanted"
 	else
-		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
-			icon_state = "newscaster_normal"
-			if(alert) //new message alert overlay
-				add_overlay("newscaster_alert")
+		icon_state = "newscaster_normal"
+
+/obj/machinery/newscaster/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(!(stat & NOPOWER))
+		underlays += emissive_appearance(icon, "newscaster_lightmask")
+
+	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
+		. += "newscaster_alert"
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
-		if(75 to INFINITY)
+		if(75 to 200)
 			return
 		if(50 to 75)
-			add_overlay("crack1")
+			. += "crack1"
 		if(25 to 50)
-			add_overlay("crack2")
-		else
-			add_overlay("crack3")
+			. += "crack2"
+		if(1 to 25)
+			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
 	..()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir)
@@ -226,7 +241,8 @@
 					if(now >= m["publish_time"])
 						var/datum/feed_message/FM = locateUID(m["uid"])
 						if(FM && !(FM.censor_flags & CENSOR_STORY))
-							FM.view_count++
+							if(isliving(user))
+								FM.view_count++
 							m["view_count"] = FM.view_count
 				// Update the last viewed times for the user
 				LAZYINITLIST(last_views[user_name])
@@ -416,6 +432,8 @@
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Wanted notice cleared.", update_now = TRUE)
+			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
+				NC.update_icon()
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
@@ -527,8 +545,7 @@
 					SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 					var/announcement = FC.get_announce_text(title)
 					// Announce it
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(announcement)
 					// Redirect and eject photo
 					LAZYINITLIST(last_views[user_name])
@@ -561,8 +578,7 @@
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
 					WN.publish_time = world.time
 					// Announce it and eject photo
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Wanted notice distributed.", "good")

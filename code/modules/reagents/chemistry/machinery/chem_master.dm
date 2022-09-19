@@ -27,8 +27,8 @@
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
 
-/obj/machinery/chem_master/New()
-	..()
+/obj/machinery/chem_master/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_master(null)
@@ -66,11 +66,13 @@
 	else if(A == loaded_pill_bottle)
 		loaded_pill_bottle = null
 
-/obj/machinery/chem_master/update_icon()
-	overlays.Cut()
+/obj/machinery/chem_master/update_icon_state()
 	icon_state = "mixer[beaker ? "1" : "0"][powered() ? "" : "_nopower"]"
+
+/obj/machinery/chem_master/update_overlays()
+	. = ..()
 	if(powered())
-		overlays += "waitlight"
+		. += "waitlight"
 
 /obj/machinery/chem_master/blob_act(obj/structure/blob/B)
 	if(prob(50))
@@ -80,8 +82,7 @@
 	if(powered())
 		stat &= ~NOPOWER
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
+		stat |= NOPOWER
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
@@ -89,7 +90,7 @@
 		return
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
+		to_chat(user, "<span class='warning'>You can't use [src] while it's panel is opened!</span>")
 		return TRUE
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
@@ -156,7 +157,6 @@
 		return TRUE
 
 	add_fingerprint(usr)
-	usr.set_machine(src)
 
 	. = TRUE
 	switch(action)
@@ -548,8 +548,8 @@
 	name = "\improper CondiMaster 3000"
 	condi = TRUE
 
-/obj/machinery/chem_master/condimaster/New()
-	..()
+/obj/machinery/chem_master/condimaster/Initialize(mapload)
+	. = ..()
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)

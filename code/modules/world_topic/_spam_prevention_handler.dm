@@ -2,6 +2,8 @@
 #define WORLD_TOPIC_LOCKOUT_TIME 1 MINUTES
 
 /datum/world_topic_spam_prevention_handler
+	/// IP. Used purely for select purposes.
+	var/ip = null
 	/// Amount of strikes. [WORLD_TOPIC_STRIKES_THRESHOLD] strikes is a lockout of [WORLD_TOPIC_LOCKOUT_TIME]
 	var/strikes = 0
 	/// Time of last request
@@ -10,6 +12,9 @@
 	var/locked_out = FALSE
 	/// Unlock time
 	var/unlock_time = 0
+
+/datum/world_topic_spam_prevention_handler/New(_ip)
+	ip = _ip
 
 /**
   * Lockout handler

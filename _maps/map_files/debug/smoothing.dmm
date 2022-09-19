@@ -96,7 +96,8 @@
 /turf/simulated/floor/snow,
 /area/centcom)
 "B" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/centcom)
 "C" = (
 /turf/simulated/wall/mineral/uranium,
@@ -120,7 +121,8 @@
 /turf/simulated/floor/snow,
 /area/centcom)
 "I" = (
-/turf/simulated/wall/r_wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
 /area/centcom)
 
 (1,1,1) = {"

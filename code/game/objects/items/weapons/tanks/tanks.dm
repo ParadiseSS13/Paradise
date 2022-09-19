@@ -10,7 +10,7 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
@@ -61,7 +61,7 @@
 				if(!silent)
 					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
 				return FALSE
-			if(M.mask_adjusted) // If the mask is equipped but pushed down
+			if(M.up) // If the mask is equipped but pushed away
 				M.adjustmask(C) // Adjust it back
 
 		if(!silent)
@@ -102,6 +102,7 @@
 		descriptive = "furiously hot"
 
 	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
+	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
@@ -113,6 +114,20 @@
 			location.assume_air(air_contents)
 
 		qdel(src)
+
+/obj/item/tank/suicide_act(mob/user)
+	var/mob/living/carbon/human/H = user
+	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+
+	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		head.disfigure()
+		H.inflate_gib()
+		return OBLITERATION
+
+	to_chat(user, "<span class='warning'>There isn't enough pressure in [src] to commit suicide with...</span>")
+	return SHAME
 
 /obj/item/tank/deconstruct(disassembled = TRUE)
 	if(!disassembled)

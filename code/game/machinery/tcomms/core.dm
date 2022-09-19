@@ -43,6 +43,13 @@
 		visible_message("<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
 	update_icon()
 
+	if(mapload) //Automatically links new midround tcomms cores to the cc relay
+		return
+	var/obj/machinery/tcomms/relay/cc/cc_relay = locateUID(GLOB.cc_tcomms_relay_uid)
+	if(cc_relay?.linked_core) //if we are already linked, ignore!
+		return
+	cc_relay.AddLink(src)
+
 /**
   * Destructor for the core.
   *
@@ -99,7 +106,7 @@
 		return TRUE
 
 	// Now we generate the list of where that signal should go to
-	tcm.zlevels = reachable_zlevels
+	tcm.zlevels = reachable_zlevels.Copy()
 	tcm.zlevels |= tcm.source_level
 
 	// Now check if they actually have pieces, if so, broadcast
@@ -307,7 +314,7 @@
 
 		if("add_filter")
 			// This is a stripped input because I did NOT come this far for this system to be abused by HTML injection
-			var/name_to_add = stripped_input(usr, "Enter a name to add to the filtering list", "Name Entry")
+			var/name_to_add = html_decode(stripped_input(usr, "Enter a name to add to the filtering list", "Name Entry"))
 			if(name_to_add == "")
 				return
 			if(name_to_add in nttc.filtering)

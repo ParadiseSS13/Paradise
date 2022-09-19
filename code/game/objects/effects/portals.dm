@@ -3,10 +3,12 @@
 	desc = "Looks unstable. Best to test it with the clown."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
-	anchored = TRUE
 
 	var/obj/item/target = null
-	var/creator = null
+	/// The UID and `name` of the object that created this portal. For example, a wormhole jaunter.
+	var/list/creation_obj_data
+	/// The ckey of the mob which was responsible for the creation of the portal. For example, the mob who used a wormhole jaunter.
+	var/creation_mob_ckey
 
 	var/failchance = 5
 	var/fail_icon = "portal1"
@@ -14,27 +16,28 @@
 	var/precision = TRUE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
+	var/one_use = FALSE // Does this portal go away after one teleport?
 
-/obj/effect/portal/New(loc, turf/target, creator = null, lifespan = 300)
+/obj/effect/portal/New(loc, turf/_target, obj/creation_object = null, lifespan = 300, mob/creation_mob = null)
 	..()
 
 	GLOB.portals += src
 
-	src.target = target
-	src.creator = creator
+	target = _target
+	if(creation_object)
+		creation_obj_data = list(creation_object.UID(), "[creation_object.name]") // Store the name incase the object is deleted.
+	else
+		creation_obj_data = list(null, null)
+	creation_mob_ckey = creation_mob?.ckey
 
 	if(lifespan > 0)
-		spawn(lifespan)
-			qdel(src)
+		QDEL_IN(src, lifespan)
 
 /obj/effect/portal/Destroy()
 	GLOB.portals -= src
-
-	if(isobj(creator))
-		var/obj/O = creator
+	var/obj/O = locateUID(creation_obj_data[1])
+	if(!QDELETED(O))
 		O.portal_destroyed(src)
-
-	creator = null
 	target = null
 	return ..()
 
@@ -97,18 +100,27 @@
 		return FALSE
 
 	if(ismegafauna(M))
-		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)] made by [key_name_admin(usr)].")
+		var/creator_string = ""
+		var/obj_name = creation_obj_data[2]
+		if(creation_mob_ckey)
+			creator_string = " created by [key_name_admin(GLOB.directory[creation_mob_ckey])][obj_name ? " using \a [obj_name]" : ""]"
+		else if(obj_name)
+			creator_string = " created by \a [obj_name]"
+		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)][creator_string].")
 
 	if(prob(failchance))
 		icon_state = fail_icon
-		if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
+		var/list/target_z = levels_by_trait(SPAWN_RUINS)
+		target_z -= M.z
+		if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), pick(target_z)), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
 			invalid_teleport()
 			return FALSE
 	else
 		if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
 			invalid_teleport()
 			return FALSE
-
+	if(one_use)
+		qdel(src)
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	item_state = "rcl-0"
-	opacity = 0
+	opacity = FALSE
 	force = 5 //Plastic is soft
 	throwforce = 5
 	throw_speed = 1
@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=4;materials=2"
 	var/max_amount = 90
-	var/active = 0
+	var/active = FALSE
 	var/obj/structure/cable/last = null
 	var/obj/item/stack/cable_coil/loaded = null
 
@@ -29,13 +29,13 @@
 				return
 		else
 			if(loaded.amount < max_amount)
-				var/amount = min(loaded.amount + C.amount, max_amount)
+				var/amount = min(loaded.amount + C.get_amount(), max_amount)
 				C.use(amount - loaded.amount)
 				loaded.amount = amount
 			else
 				return
-		update_icon()
-		to_chat(user, "<span class='notice'>You add the cables to the [src]. It now contains [loaded.amount].</span>")
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
 	else
 		..()
 
@@ -58,7 +58,7 @@
 	loaded.forceMove(user.loc)
 	user.put_in_hands(loaded)
 	loaded = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/twohanded/rcl/examine(mob/user)
 	. = ..()
@@ -68,10 +68,10 @@
 /obj/item/twohanded/rcl/Destroy()
 	QDEL_NULL(loaded)
 	last = null
-	active = 0
+	active = FALSE
 	return ..()
 
-/obj/item/twohanded/rcl/update_icon()
+/obj/item/twohanded/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
 		item_state = "rcl-0"
@@ -89,10 +89,9 @@
 		else
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
-	..()
 
 /obj/item/twohanded/rcl/proc/is_empty(mob/user, loud = 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(!loaded || !loaded.amount)
 		if(loud)
 			to_chat(user, "<span class='notice'>The last of the cables unreel from [src].</span>")
@@ -106,7 +105,7 @@
 
 /obj/item/twohanded/rcl/dropped(mob/wearer)
 	..()
-	active = 0
+	active = FALSE
 	last = null
 
 /obj/item/twohanded/rcl/attack_self(mob/user)
@@ -151,4 +150,4 @@
 	loaded = new()
 	loaded.max_amount = max_amount
 	loaded.amount = max_amount
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)

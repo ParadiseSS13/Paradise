@@ -33,37 +33,8 @@
 	screen_loc = ui_lingstingdisplay
 
 /obj/screen/ling/sting/Click()
-	var/mob/living/carbon/U = usr
-	U.unset_sting()
-
-/obj/screen/devil
-	invisibility = INVISIBILITY_ABSTRACT
-
-/obj/screen/devil/soul_counter
-	icon = 'icons/mob/screen_gen.dmi'
-	name = "souls owned"
-	icon_state = "Devil-6"
-	screen_loc = ui_devilsouldisplay
-
-/obj/screen/devil/soul_counter/proc/update_counter(souls = 0)
-	invisibility = 0
-	maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#FF0000'>[souls]</font></div>"
-	switch(souls)
-		if(0,null)
-			icon_state = "Devil-1"
-		if(1,2)
-			icon_state = "Devil-2"
-		if(3 to 5)
-			icon_state = "Devil-3"
-		if(6 to 8)
-			icon_state = "Devil-4"
-		if(9 to INFINITY)
-			icon_state = "Devil-5"
-		else
-			icon_state = "Devil-6"
-
-/obj/screen/devil/soul_counter/proc/clear()
-	invisibility = INVISIBILITY_ABSTRACT
+	var/datum/antagonist/changeling/cling = usr.mind.has_antag_datum(/datum/antagonist/changeling)
+	cling?.chosen_sting?.unset_sting()
 
 /obj/screen/ling/chems
 	name = "chemical storage"
@@ -85,7 +56,7 @@
 /datum/hud/human
 	var/hud_alpha = 255
 
-/datum/hud/human/New(mob/living/carbon/human/owner, var/ui_style = 'icons/mob/screen_white.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
+/datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
 	..()
 	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 
@@ -362,7 +333,8 @@
 
 	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.hud = src
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
@@ -372,14 +344,12 @@
 	lingstingdisplay = new /obj/screen/ling/sting()
 	infodisplay += lingstingdisplay
 
-	devilsouldisplay = new /obj/screen/devil/soul_counter
-	infodisplay += devilsouldisplay
-
 	zone_select =  new /obj/screen/zone_sel()
 	zone_select.color = ui_color
 	zone_select.icon = ui_style
 	zone_select.alpha = ui_alpha
-	zone_select.update_icon(mymob)
+	zone_select.hud = src
+	zone_select.update_icon(UPDATE_OVERLAYS)
 	static_inventory += zone_select
 
 	inventory_shown = FALSE
@@ -408,7 +378,7 @@
 	for(var/obj/screen/craft/crafting in static_inventory)
 		if(!S.can_craft)
 			crafting.invisibility = INVISIBILITY_ABSTRACT
-			H.handcrafting.close(H)
+			H.handcrafting?.close(H)
 		else
 			crafting.invisibility = initial(crafting.invisibility)
 

@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(blackbox)
 			sqlversion = versions[FV.key]
 
 		var/datum/db_query/query_feedback_save = SSdbcore.NewQuery({"
-		INSERT DELAYED IGNORE INTO [format_table_name("feedback")] (datetime, round_id, key_name, key_type, version, json)
+		INSERT IGNORE INTO feedback (datetime, round_id, key_name, key_type, version, json)
 		VALUES (NOW(), :rid, :keyname, :keytype, :version, :json)"}, list(
 			"rid" = text2num(GLOB.round_id),
 			"keyname" = FV.key,
@@ -176,9 +176,10 @@ SUBSYSTEM_DEF(blackbox)
   * * increment - If using "amount", how much to increment why
   * * data - The actual data to logged
   * * overwrite - Do we want to overwrite the existing key
+  * * ignore_seal - Does the feedback go in regardless of blackbox sealed status? (EG: map vote results)
   */
-/datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
-	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
+/datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite, ignore_seal)
+	if((sealed && !ignore_seal) || !key_type || !istext(key) || !isnum(increment || !data))
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
 	switch(key_type)
@@ -287,8 +288,8 @@ SUBSYSTEM_DEF(blackbox)
 		lakey = L.lastattackerckey
 
 	var/datum/db_query/deathquery = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("death")] (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord)
-		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord)"},
+		INSERT INTO death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord, server_id, death_rid)
+		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord, :server_id, :rid)"},
 		list(
 			"name" = L.real_name,
 			"key" = L.key,
@@ -302,7 +303,9 @@ SUBSYSTEM_DEF(blackbox)
 			"fireloss" = L.getFireLoss(),
 			"brainloss" = L.getBrainLoss(),
 			"oxyloss" = L.getOxyLoss(),
-			"coord" = "[L.x], [L.y], [L.z]"
+			"coord" = "[L.x], [L.y], [L.z]",
+			"server_id" = GLOB.configuration.system.instance_id,
+			"rid" = GLOB.round_id
 		)
 	)
 	deathquery.warn_execute()

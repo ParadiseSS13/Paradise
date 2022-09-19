@@ -3,19 +3,19 @@
 	desc = "A bluespace quantum-linked telepad used for teleporting objects to other quantum pads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
 	var/teleport_speed = 50
 	var/last_teleport //to handle the cooldown
-	var/teleporting = 0 //if it's in the process of teleporting
+	var/teleporting = FALSE //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/obj/machinery/quantumpad/linked_pad = null
 
-/obj/machinery/quantumpad/New()
-	..()
+/obj/machinery/quantumpad/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
@@ -63,7 +63,7 @@
 		M.set_multitool_buffer(user, src)
 	else
 		linked_pad = M.buffer
-		to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
+		to_chat(user, "<span class='notice'>You link [src] to the one in [I]'s buffer.</span>")
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -108,22 +108,22 @@
 /obj/machinery/quantumpad/proc/doteleport(mob/user)
 	if(linked_pad)
 		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
-		teleporting = 1
+		teleporting = TRUE
 
 		spawn(teleport_speed)
 			if(!src || QDELETED(src))
-				teleporting = 0
+				teleporting = FALSE
 				return
 			if(stat & NOPOWER)
 				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
-				teleporting = 0
+				teleporting = FALSE
 				return
 			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
 				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
-				teleporting = 0
+				teleporting = FALSE
 				return
 
-			teleporting = 0
+			teleporting = FALSE
 			last_teleport = world.time
 
 			// use a lot of power
@@ -132,9 +132,9 @@
 			linked_pad.sparks()
 
 			flick("qpad-beam", src)
-			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			flick("qpad-beam", linked_pad)
-			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			var/tele_success = TRUE
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is anchored, don't let through

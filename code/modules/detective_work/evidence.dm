@@ -18,7 +18,7 @@
 		return 1
 
 /obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)
-	if(!istype(I) || I.anchored == 1)
+	if(!istype(I) || I.anchored)
 		return
 
 	if(istype(I, /obj/item/storage/box))
@@ -76,6 +76,7 @@
 		"<span class='notice'>You hear someone rustle around in a plastic bag, and remove something.</span>")
 		overlays.Cut()	//remove the overlays
 		user.put_in_hands(I)
+		I.pickup(user)
 		w_class = WEIGHT_CLASS_TINY
 		icon_state = "evidenceobj"
 		desc = "An empty evidence bag."
@@ -83,4 +84,3 @@
 	else
 		to_chat(user, "[src] is empty.")
 		icon_state = "evidenceobj"
-

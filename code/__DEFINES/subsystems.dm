@@ -1,22 +1,25 @@
 //Timing subsystem
 //Don't run if there is an identical unique timer active
 //if the arguments to addtimer are the same as an existing timer, it doesn't create a new timer, and returns the id of the existing timer
-#define TIMER_UNIQUE		1
+#define TIMER_UNIQUE		(1<<0)
 //For unique timers: Replace the old timer rather then not start this one
-#define TIMER_OVERRIDE		2
+#define TIMER_OVERRIDE		(1<<1)
 //Timing should be based on how timing progresses on clients, not the sever.
 //	tracking this is more expensive,
 //	should only be used in conjuction with things that have to progress client side, such as animate() or sound()
-#define TIMER_CLIENT_TIME	4
+#define TIMER_CLIENT_TIME	(1<<2)
 //Timer can be stopped using deltimer()
-#define TIMER_STOPPABLE		8
+#define TIMER_STOPPABLE		(1<<3)
 //To be used with TIMER_UNIQUE
 //prevents distinguishing identical timers with the wait variable
-#define TIMER_NO_HASH_WAIT  16
+#define TIMER_NO_HASH_WAIT  (1<<4)
 
 //Loops the timer repeatedly until qdeleted
 //In most cases you want a subsystem instead
-#define TIMER_LOOP			32
+#define TIMER_LOOP			(1<<5)
+
+///Delete the timer on parent datum Destroy() and when deltimer'd
+#define TIMER_DELETE_ME 	(1<<6)
 
 #define TIMER_ID_NULL -1
 
@@ -45,9 +48,11 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_PROFILER	101
-#define INIT_ORDER_TITLE 100 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_GARBAGE 21
-#define INIT_ORDER_DBCORE 20
+#define INIT_ORDER_QUEUE 100 // Load this quickly so people cant queue skip
+#define INIT_ORDER_TITLE 99 // Load this quickly so people dont see a blank lobby screen
+#define INIT_ORDER_GARBAGE 22
+#define INIT_ORDER_DBCORE 21
+#define INIT_ORDER_REDIS 20 // Make sure we dont miss any events
 #define INIT_ORDER_BLACKBOX 19
 #define INIT_ORDER_CLEANUP 18
 #define INIT_ORDER_INPUT 17
@@ -81,7 +86,7 @@
 #define INIT_ORDER_SHUTTLE -21
 #define INIT_ORDER_NIGHTSHIFT -22
 #define INIT_ORDER_NANOMOB -23
-#define INIT_ORDER_SQUEAK -40
+#define INIT_ORDER_LATE_MAPPING -40
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
 
@@ -94,6 +99,7 @@
 #define FIRE_PRIORITY_CLEANUP		10
 #define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_RESEARCH		10
+#define FIRE_PRIORITY_AMBIENCE		10
 #define FIRE_PRIORITY_GARBAGE		15
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20

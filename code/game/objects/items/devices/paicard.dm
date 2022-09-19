@@ -268,7 +268,7 @@
 				to_chat(M, "<font color = #ffc4c4><h5>oblivion... </h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
-					if(P.resting || P.canmove)
+					if(IS_HORIZONTAL(P))
 						P.close_up()
 				M.death(0, 1)
 			removePersonality()
@@ -303,7 +303,7 @@
 
 /obj/item/paicard
 	var/current_emotion = 1
-/obj/item/paicard/proc/setEmotion(var/emotion)
+/obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		overlays.Cut()
 		switch(emotion)
@@ -329,5 +329,6 @@
 	..()
 
 /obj/item/paicard/extinguish_light()
-	pai.extinguish_light()
-	set_light(0)
+	if(pai)
+		pai.extinguish_light()
+		set_light(0)

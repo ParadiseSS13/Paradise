@@ -20,12 +20,12 @@
 #define RCS_SHIP_LOG 10	// View Shipping Label Log
 
 //Radio list
-#define ENGI_ROLES list("Atmospherics","Mechanic","Engineering","Chief Engineer's Desk","Telecoms Admin")
-#define SEC_ROLES list("Warden","Security","Brig Medbay","Head of Security's Desk")
-#define MISC_ROLES list("Bar","Chapel","Kitchen","Hydroponics","Janitorial")
-#define MED_ROLES list("Virology","Chief Medical Officer's Desk","Medbay")
-#define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
-#define SCI_ROLES list("Robotics","Science","Research Director's Desk")
+#define ENGI_ROLES list("Atmospherics", "Engineering", "Chief Engineer's Desk")
+#define SEC_ROLES list("Warden", "Security", "Detective", "Head of Security's Desk")
+#define MISC_ROLES list("Bar", "Chapel", "Kitchen", "Hydroponics", "Janitorial")
+#define MED_ROLES list("Virology", "Chief Medical Officer's Desk", "Medbay")
+#define COM_ROLES list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge")
+#define SCI_ROLES list("Robotics", "Science", "Research Director's Desk")
 
 #define RQ_NONEW_MESSAGES 0
 #define RQ_NORMALPRIORITY 1
@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
 	max_integrity = 300
-	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/message_log = list() //List of all messages
 	var/departmentType = 0 		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
@@ -73,14 +73,31 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/power_change()
 	..()
-	update_icon()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/machinery/requests_console/update_icon()
+/obj/machinery/requests_console/update_icon_state()
 	if(stat & NOPOWER)
 		if(icon_state != "req_comp_off")
 			icon_state = "req_comp_off"
 	else
 		icon_state = "req_comp[newmessagepriority]"
+
+/obj/machinery/requests_console/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	if(newmessagepriority == RQ_NONEW_MESSAGES)
+		underlays += emissive_appearance(icon, "req_comp_lightmask")
+	else
+		underlays += emissive_appearance(icon, "req_comp2_lightmask")
+
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
@@ -193,7 +210,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					reset_message(TRUE)
 
 		if("writeAnnouncement")
-			var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
+			var/new_message = input("Write your message:", "Awaiting Input", message) as message|null
 			if(new_message)
 				message = new_message
 			else
@@ -202,7 +219,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcement.Announce(message, msg_sanitized = TRUE)
+			announcement.Announce(message)
 			reset_message(TRUE)
 
 		if("department")
@@ -235,7 +252,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					radiochannel = "AI Private"
 				else if(recipient == "Cargo Bay")
 					radiochannel = "Supply"
-				message_log += "Message sent to [recipient] at [station_time_timestamp()] - [message]"
+				message_log.Add(list(list("Message sent to [recipient] at [station_time_timestamp()]", "[message]")))
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
 				atom_say("No server detected!")
@@ -273,7 +290,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				atom_say("[error_message]")
 				return
 			print_label(ship_tag_name, ship_tag_index)
-			shipping_log += "Shipping Label printed for [ship_tag_name] - [msgVerified]"
+			shipping_log.Add(list(list("Shipping Label printed for [ship_tag_name]", "[msgVerified]"))) // List in a list for passing into TGUI
 			reset_message(TRUE)
 
 		//Handle silencing the console
@@ -336,16 +353,16 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
-		update_icon()
+		update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
 
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			message_log += "High Priority - From: [linkedSender] - [message]"
+			message_log.Add(list(list("High Priority - From: [linkedSender]") + message)) // List in a list for passing into TGUI
 		else // Normal
-			message_log += "From: [linkedSender] - [message]"
+			message_log.Add(list(list("From: [linkedSender]") + message)) // List in a list for passing into TGUI
 	set_light(2)
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)

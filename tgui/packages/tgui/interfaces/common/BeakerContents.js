@@ -1,25 +1,20 @@
 import { Box } from '../../components';
 const PropTypes = require('prop-types');
 
-const formatUnits = a => a + ' unit' + (a === 1 ? '' : 's');
+const formatUnits = (a) => a + ' unit' + (a === 1 ? '' : 's');
 
 /**
  * Displays a beaker's contents
  * @property {object} props
  */
-export const BeakerContents = props => {
+export const BeakerContents = (props) => {
   const { beakerLoaded, beakerContents = [], buttons } = props;
   return (
     <Box>
-      {!beakerLoaded && (
-        <Box color="label">
-          No beaker loaded.
-        </Box>
-      ) || beakerContents.length === 0 && (
-        <Box color="label">
-          Beaker is empty.
-        </Box>
-      )}
+      {(!beakerLoaded && <Box color="label">No beaker loaded.</Box>) ||
+        (beakerContents.length === 0 && (
+          <Box color="label">Beaker is empty.</Box>
+        ))}
       {beakerContents.map((chemical, i) => (
         <Box key={chemical.name} width="100%">
           <Box color="label" display="inline" verticalAlign="middle">

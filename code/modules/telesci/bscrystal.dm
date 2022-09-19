@@ -4,6 +4,7 @@
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "bluespace_crystal"
+	item_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "bluespace=6;materials=3"
@@ -18,17 +19,18 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
+/obj/item/stack/ore/bluespace_crystal/attack_self(mob/user)
 	if(use(1))
 		blink_mob(user)
 		user.visible_message("<span class='notice'>[user] crushes a [singular_name]!</span>")
 
-/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
+/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
 	if(!is_teleport_allowed(L.z))
 		src.visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
 		qdel(src)
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
+	L.apply_status_effect(STATUS_EFFECT_TELEPORTSICK)
 
 /obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom)
 	..()
@@ -60,6 +62,7 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	name = "bluespace polycrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "polycrystal"
+	item_state = "polycrystal"
 	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
 	origin_tech = "bluespace=6;materials=3"
 	merge_type = /obj/item/stack/sheet/bluespace_crystal

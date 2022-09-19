@@ -11,15 +11,15 @@
 	var/cooldown_high = 300
 	var/next_activation = 0
 	var/uses // -1 For inifinite
-	var/human_only = 0
-	var/active = 0
+	var/human_only = FALSE
+	var/active = FALSE
 	tough = TRUE //not easily broken by combat damage
 
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
 	var/active_mind_control = FALSE
 
-/obj/item/organ/internal/heart/gland/update_icon()
+/obj/item/organ/internal/heart/gland/update_icon_state()
 	return
 
 /obj/item/organ/internal/heart/gland/proc/ownerCheck()
@@ -30,15 +30,13 @@
 	return FALSE
 
 /obj/item/organ/internal/heart/gland/proc/Start()
-	active = 1
+	active = TRUE
 	next_activation = world.time + rand(cooldown_low,cooldown_high)
 
 /obj/item/organ/internal/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
 	var/image/holder = owner.hud_list[GLAND_HUD]
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	holder.pixel_y = I.Height() - world.icon_size
 	if(active_mind_control)
 		holder.icon_state = "hudgland_active"
 	else if(mind_control_uses)
@@ -68,8 +66,8 @@
 	active_mind_control = FALSE
 	update_gland_hud()
 
-/obj/item/organ/internal/heart/gland/remove(var/mob/living/carbon/M, special = 0)
-	active = 0
+/obj/item/organ/internal/heart/gland/remove(mob/living/carbon/M, special = 0)
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -77,7 +75,7 @@
 	clear_mind_control()
 	. = ..()
 
-/obj/item/organ/internal/heart/gland/insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/gland/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
@@ -92,14 +90,14 @@
 	if(!active)
 		return
 	if(!ownerCheck())
-		active = 0
+		active = FALSE
 		return
 	if(next_activation <= world.time)
 		activate()
 		uses--
 		next_activation  = world.time + rand(cooldown_low,cooldown_high)
 	if(!uses)
-		active = 0
+		active = FALSE
 
 /obj/item/organ/internal/heart/gland/proc/activate()
 	return
@@ -113,6 +111,8 @@
 	mind_control_duration = 3000
 
 /obj/item/organ/internal/heart/gland/heals/activate()
+	if(!(owner.mob_biotypes & MOB_ORGANIC))
+		return
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
 	owner.adjustToxLoss(-20)
 	owner.adjustBruteLoss(-20)
@@ -159,13 +159,13 @@
 		switch(pick(1,3))
 			if(1)
 				to_chat(H, "<span class='userdanger'>You hear a loud buzz in your head, silencing your thoughts!</span>")
-				H.Stun(3)
+				H.Stun(6 SECONDS)
 			if(2)
 				to_chat(H, "<span class='warning'>You hear an annoying buzz in your head.</span>")
-				H.AdjustConfused(15)
+				H.AdjustConfused(30 SECONDS)
 				H.adjustBrainLoss(5, 15)
 			if(3)
-				H.hallucination += 60
+				H.AdjustHallucinate(60 SECONDS)
 
 /obj/item/organ/internal/heart/gland/pop
 	cooldown_low = 900
@@ -281,19 +281,19 @@
 	if(ishuman(owner))
 		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
 		owner.dna.SetSEState(GLOB.shockimmunityblock, TRUE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		singlemutcheck(owner, GLOB.shockimmunityblock, MUTCHK_FORCED)
 
 /obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = 0)
 	if(ishuman(owner))
 		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
 		owner.dna.SetSEState(GLOB.shockimmunityblock, FALSE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		singlemutcheck(owner, GLOB.shockimmunityblock, MUTCHK_FORCED)
 	return ..()
 
 /obj/item/organ/internal/heart/gland/electric/activate()
 	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
 	"<span class='warning'>You feel electric energy building up inside you!</span>")
-	playsound(get_turf(owner), "sparks", 100, 1, -1)
+	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, .proc/zap), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()

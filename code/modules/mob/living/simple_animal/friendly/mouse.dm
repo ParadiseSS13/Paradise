@@ -20,25 +20,26 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	density = 0
+	density = FALSE
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
-	universal_speak = 0
-	can_hide = 1
+	universal_speak = FALSE
+	can_hide = TRUE
 	holder_type = /obj/item/holder/mouse
-	can_collar = 1
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
+	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -46,7 +47,7 @@
 		if(istype(F) && !F.intact)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
-				if(C.avail())
+				if(C.avail() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
 					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
 					toast() // mmmm toasty.
@@ -62,13 +63,13 @@
 
 /mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
-	if(resting)
+	if(IS_HORIZONTAL(src))
 		if(prob(1))
-			StopResting()
+			stand_up()
 		else if(prob(5))
-			custom_emote(2, "snuffles")
+			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
-		StartResting()
+		lay_down()
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -82,7 +83,7 @@
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
 	if(M.a_intent == INTENT_HELP)
-		get_scooped(M)
+		get_scooped(M, TRUE)
 	..()
 
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
@@ -118,31 +119,6 @@
 	if(client)
 		client.time_died_as_mouse = world.time
 
-/mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("squeak")		//Mouse time
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("squeak")
-			message = "<B>\The [src]</B> [pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, squeak_sound, 40, 1)
-		if("help")
-			to_chat(src, "scream, squeak")
-
-	..()
-
 /*
  * Mouse types
  */
@@ -162,6 +138,7 @@
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/Tom
 	name = "Tom"
+	real_name = "Tom"
 	desc = "Jerry the cat is not amused."
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -169,6 +146,10 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
+/mob/living/simple_animal/mouse/brown/Tom/Initialize(mapload)
+	. = ..()
+	// Tom fears no cable.
+	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
@@ -206,9 +187,9 @@
 	var/datum/mind/blobmind = mind
 	var/client/C = client
 	if(istype(blobmind) && istype(C))
-		blobmind.special_role = SPECIAL_ROLE_BLOB
 		var/obj/structure/blob/core/core = new(T, C, 3)
 		core.lateblobtimer()
+		qdel(blobmind) // Delete the old mind. THe blob will make a new one
 	else
 		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
 	if(ismob(loc)) // in case some taj/etc ate the mouse.
@@ -220,18 +201,6 @@
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
-
-/mob/living/simple_animal/mouse/fluff/clockwork
-	name = "Chip"
-	real_name = "Chip"
-	mouse_color = "clockwork"
-	icon_state = "mouse_clockwork"
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "stamps on"
-	gold_core_spawnable = NO_SPAWN
-	can_collar = 0
-	butcher_results = list(/obj/item/stack/sheet/metal = 1)
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!(istype(user, /mob/living/silicon/robot/drone)))

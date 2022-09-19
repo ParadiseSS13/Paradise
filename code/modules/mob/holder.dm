@@ -29,19 +29,19 @@
 	for(var/mob/M in src.contents)
 		M.attackby(W,user, params)
 
-/obj/item/holder/proc/show_message(var/message, var/m_type)
+/obj/item/holder/proc/show_message(message, m_type)
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
 
-/obj/item/holder/emp_act(var/intensity)
+/obj/item/holder/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
-/obj/item/holder/ex_act(var/intensity)
+/obj/item/holder/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-/obj/item/holder/container_resist(var/mob/living/L)
+/obj/item/holder/container_resist(mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
@@ -54,7 +54,7 @@
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
-			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/holder))
+			if(istype(A, /obj/item/holder))
 				return
 		M.status_flags &= ~PASSEMOTES
 
@@ -63,14 +63,17 @@
 //Mob procs and vars for scooping up
 /mob/living/var/holder_type
 
-/mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
-	if(!holder_type)	return
+/mob/living/proc/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)
+	if(!holder_type)
+		return
 
 	var/obj/item/holder/H = new holder_type(loc)
-	src.forceMove(H)
+	forceMove(H)
 	H.name = name
-	if(istype(H, /obj/item/holder/mouse))	H.icon_state = icon_state
-	if(desc)	H.desc = desc
+	if(has_variant)
+		H.icon_state = icon_state
+	if(desc)
+		H.desc = desc
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
@@ -104,3 +107,15 @@
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
+
+/obj/item/holder/bunny
+	name = "bunny"
+	desc = "Awww a cute bunny"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "m_bunny"
+
+/obj/item/holder/chicken
+	name = "chicken"
+	desc = "Hopefully the eggs are good this season."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "chicken_brown"

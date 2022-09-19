@@ -22,8 +22,8 @@
 	e_cost = 83
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 100
+/obj/item/ammo_casing/energy/laser/hos
+	e_cost = 120
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/item/projectile/beam/practice
@@ -102,21 +102,17 @@
 	select_name = "stun"
 	fire_sound = 'sound/weapons/taser.ogg'
 	e_cost = 200
-	delay = 15
 	harmful = FALSE
-
-/obj/item/ammo_casing/energy/electrode/gun
-	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	e_cost = 100
-
-/obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 200
 
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
+
+/obj/item/ammo_casing/energy/ion/hos
+	projectile_type = /obj/item/projectile/ion/weak
+	e_cost = 300
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/item/projectile/energy/declone
@@ -125,9 +121,10 @@
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/mindflayer
-	projectile_type = /obj/item/projectile/beam/mindflayer
-	select_name = "MINDFUCK"
-	fire_sound = 'sound/weapons/laser.ogg'
+	projectile_type = /obj/item/projectile/energy/mindflayer
+	muzzle_flash_color = LIGHT_COLOR_PURPLE
+	select_name = "mindflayer"
+	fire_sound = 'sound/weapons/pulse3.ogg'
 
 /obj/item/ammo_casing/energy/flora
 	fire_sound = 'sound/effects/stealthoff.ogg'
@@ -171,6 +168,9 @@
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
 	e_cost = 250
 
+/obj/item/ammo_casing/energy/disabler/hos
+	e_cost = 60
+
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma
 	muzzle_flash_color = LIGHT_COLOR_PURPLE
@@ -194,7 +194,7 @@
 	select_name = "blue"
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/wormhole/New(var/obj/item/gun/energy/wormhole_projector/wh)
+/obj/item/ammo_casing/energy/wormhole/New(obj/item/gun/energy/wormhole_projector/wh)
 	. = ..()
 	gun = wh
 
@@ -214,12 +214,6 @@
 /obj/item/ammo_casing/energy/bolt/large
 	projectile_type = /obj/item/projectile/energy/bolt/large
 	select_name = "heavy bolt"
-
-/obj/item/ammo_casing/energy/dart
-	projectile_type = /obj/item/projectile/energy/dart
-	fire_sound = 'sound/weapons/genhit.ogg'
-	e_cost = 500
-	select_name = "toxic dart"
 
 /obj/item/ammo_casing/energy/instakill
 	projectile_type = /obj/item/projectile/beam/instakill
@@ -251,11 +245,19 @@
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	projectile_type = /obj/item/projectile/energy/shock_revolver
 
-/obj/item/ammo_casing/energy/toxplasma
-	projectile_type = /obj/item/projectile/energy/toxplasma
+/obj/item/ammo_casing/energy/weak_plasma
+	projectile_type = /obj/item/projectile/energy/weak_plasma
+	e_cost = 75 // With no charging, 162.5 damage from 13 shots.
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
 	fire_sound = 'sound/weapons/taser2.ogg'
-	select_name = "plasma dart"
+	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
+
+/obj/item/ammo_casing/energy/charged_plasma
+	projectile_type = /obj/item/projectile/energy/charged_plasma
+	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
+	select_name = null
 
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
@@ -263,12 +265,26 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	select_name = "clown"
 
-/obj/item/ammo_casing/energy/sniper
-	projectile_type = /obj/item/projectile/beam/sniper
-	muzzle_flash_color = LIGHT_COLOR_PINK
-	fire_sound = 'sound/weapons/marauder.ogg'
-	delay = 50
-	select_name = "snipe"
+/obj/item/ammo_casing/energy/emitter
+	projectile_type = /obj/item/projectile/beam/emitter
+	muzzle_flash_color = LIGHT_COLOR_GREEN
+	fire_sound = 'sound/weapons/emitter.ogg'
+	e_cost = 100
+	delay = 2 SECONDS // Lasers fire twice every second for 40 dps, this fires every 2 seconds for 15 dps. Seems fair, since every cyborg will have this with more shots?
+	select_name = "emitter"
+
+/obj/item/ammo_casing/energy/emitter/cyborg
+	e_cost = 500 // about 28 shots on an engineering borg from a borging machine, assuming some power is used for lights / movement. May need to change.
+
+/obj/item/ammo_casing/energy/bsg
+	projectile_type = /obj/item/projectile/energy/bsg
+	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	fire_sound = 'sound/weapons/wave.ogg'
+	e_cost = 10000
+	select_name = "the experimental setting"
+	delay = 10 SECONDS //Looooooong cooldown
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
@@ -298,3 +314,18 @@
 
 /obj/item/ammo_casing/energy/mimic/newshot()
 	..(mimic_type)
+
+/obj/item/ammo_casing/energy/detective
+	projectile_type = /obj/item/projectile/beam/laser/detective
+	fire_sound = 'sound/weapons/gunshots/gunshot_det_energy.ogg'
+	select_name = "disabler"
+
+/obj/item/ammo_casing/energy/detective/tracker_warrant
+	projectile_type = /obj/item/projectile/beam/laser/detective/tracker_warrant_shot
+	e_cost = 50
+	select_name = "tracker and warrant generator"
+
+/obj/item/ammo_casing/energy/detective/overcharge
+	projectile_type = /obj/item/projectile/beam/laser/detective/overcharged
+	e_cost = 200
+	select_name = "overcharged"

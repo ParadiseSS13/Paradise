@@ -13,14 +13,14 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 360
-	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
+	universal_speak = TRUE //So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
 	gold_core_spawnable = NO_SPAWN
 	can_be_on_fire = TRUE
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
 
-/mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
+/mob/living/simple_animal/hostile/blob/proc/adjustcolors(a_color)
 	if(a_color)
 		color = a_color
 
@@ -30,10 +30,17 @@
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src)) //hello yes you are being healed
 			if(overmind)
 				H.color = overmind.blob_reagent_datum.complementary_color
+				if(H.color == COMPLEMENTARY_COLOR_RIPPING_TENDRILS) //the colour define for ripping tendrils
+					H.color = COLOR_HEALING_GREEN //bye red cross
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		adjustHealth(-maxHealth * 0.0125)
 
+/mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
+	// Use any nearby blob structures to allow space moves.
+	for(var/obj/structure/blob/B in range(1, src))
+		return TRUE
+	return ..()
 
 ////////////////
 // BLOB SPORE //
@@ -64,11 +71,11 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, var/obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, obj/structure/blob/factory/linked_node)
+	. = ..()
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
-	..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -86,18 +93,19 @@
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
-		if(A.armor && A.armor.getRating("melee"))
-			maxHealth += A.armor.getRating("melee") //That zombie's got armor, I want armor!
+		if(A.armor && A.armor.getRating(MELEE))
+			maxHealth += A.armor.getRating(MELEE) //That zombie's got armor, I want armor!
 	maxHealth += 40
 	health = maxHealth
 	name = "blob zombie"
 	desc = "A shambling corpse animated by the blob."
+	mob_biotypes |= MOB_HUMANOID
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	icon = H.icon
 	speak_emote = list("groans")
 	icon_state = "zombie2_s"
-	if(head_organ)
+	if(head_organ && !(NO_HAIR in H.dna.species.species_traits))
 		head_organ.h_style = null
 	H.update_hair()
 	human_overlays = H.overlays
@@ -143,7 +151,7 @@
 
 	adjustcolors(overmind?.blob_reagent_datum?.complementary_color)
 
-/mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(var/a_color)
+/mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(a_color)
 	color = a_color
 
 	if(is_zombie)
@@ -180,6 +188,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
+	a_intent = INTENT_HARM
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
@@ -193,8 +202,8 @@
 			adjustFireLoss(0.2)
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/New()
-	..()
+/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
+	. = ..()
 	if(name == "blobbernaut")
 		name = text("blobbernaut ([rand(1, 1000)])")
 

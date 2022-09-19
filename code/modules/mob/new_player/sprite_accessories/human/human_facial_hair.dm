@@ -60,7 +60,7 @@
 
 /datum/sprite_accessory/facial_hair/chinstrap
 	name = "Chinstrap"
-	icon_state = "chim"
+	icon_state = "chin"
 
 /datum/sprite_accessory/facial_hair/hip
 	name = "Hipster Beard"

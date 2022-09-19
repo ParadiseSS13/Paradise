@@ -137,7 +137,7 @@
 		if(prob(50))
 			ChangeTurf(baseturf)
 
-/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	. = ..()
 	//Do this *after* the turf has changed as qdel in spacevines will call changeturf again if it hasn't
 	for(var/obj/structure/spacevine/SV in src)
@@ -274,7 +274,7 @@
 	// Bust through windows or other stuff blocking the way
 	if(!target.Enter(holder))
 		for(var/atom/movable/AM in target)
-			if(istype(AM, /obj/structure/spacevine) || !AM.density)
+			if(!AM.density || isvineimmune(AM))
 				continue
 			AM.ex_act(severity)
 	target.ex_act(severity) // vine immunity handled at /mob/ex_act
@@ -487,7 +487,7 @@
 			damage_dealt *= 4
 			for(var/obj/structure/spacevine/B in range(1,src))
 				if(B.obj_integrity > damage_dealt)	//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
-					B.take_damage(damage_dealt, I.damtype, "melee", 1)
+					B.take_damage(damage_dealt, I.damtype, MELEE, 1)
 				else
 					B.wither()
 			return
@@ -498,7 +498,7 @@
 
 	for(var/datum/spacevine_mutation/SM in mutations)
 		damage_dealt = SM.on_hit(src, user, I, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
-	take_damage(damage_dealt, I.damtype, "melee", 1)
+	take_damage(damage_dealt, I.damtype, MELEE, 1)
 
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -697,8 +697,10 @@
 		. = ..()
 
 /proc/isvineimmune(atom/A)
-	. = FALSE
 	if(isliving(A))
 		var/mob/living/M = A
 		if(("vines" in M.faction) || ("plants" in M.faction))
-			. = TRUE
+			return TRUE
+	else if(istype(A, /obj/structure/spacevine) || istype(A, /obj/structure/alien/resin/flower_bud_enemy))
+		return TRUE
+	return FALSE

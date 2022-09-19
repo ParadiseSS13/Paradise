@@ -41,5 +41,26 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/screen/plane_master/lighting/backdrop(mob/mymob)
+	. = ..()
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /obj/screen/fullscreen/lighting_backdrop/lit)
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /obj/screen/fullscreen/lighting_backdrop/unlit)
+
+/obj/screen/plane_master/lighting/Initialize()
+	. = ..()
+	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
+
+/**
+  * Things placed on this mask the lighting plane. Doesn't render directly.
+  *
+  * Gets masked by blocking plane. Use for things that you want blocked by
+  * mobs, items, etc.
+  */
+/obj/screen/plane_master/emissive
+	name = "emissive plane master"
+	plane = EMISSIVE_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_target = EMISSIVE_RENDER_TARGET
+
+/obj/screen/plane_master/emissive/Initialize()
+	. = ..()
+	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))

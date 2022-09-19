@@ -4,6 +4,7 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
 	item_state = "electronic"
+	belt_icon = "soulstone"
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY
@@ -66,12 +67,12 @@
 	return ..()
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
-/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(M == user)
 		return
 
 	if(!can_use(user))
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		user.emote("scream")
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return
@@ -83,8 +84,8 @@
 	if(!ishuman(M)) //If target is not a human
 		return ..()
 
-	if(M.has_brain_worms()) //Borer stuff - RR
-		to_chat(user, "<span class='warning'>This being is corrupted by an alien intelligence and cannot be soul trapped.</span>")
+	if(!M.mind)
+		to_chat(user, "<span class='warning'>This being has no soul!</span>")
 		return ..()
 
 	if(jobban_isbanned(M, ROLE_CULTIST) || jobban_isbanned(M, ROLE_SYNDICATE))
@@ -93,6 +94,10 @@
 
 	if(iscultist(user) && iscultist(M))
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
+		return ..()
+
+	if(M.mind.offstation_role && M.mind.special_role != SPECIAL_ROLE_ERT)
+		to_chat(user, "<span class='warning'>This being's soul seems worthless. Not even the stone will absorb it.</span>")
 		return ..()
 
 	if(optional)
@@ -108,7 +113,7 @@
 			player_mob = ghost
 		var/client/player_client = player_mob.client
 		to_chat(player_mob, "<span class='warning'>[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond.</span>")
-		player_client << 'sound/misc/notice2.ogg'
+		SEND_SOUND(player_client, sound('sound/misc/notice2.ogg'))
 		window_flash(player_client)
 
 		var/obj/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /obj/screen/alert/notify_soulstone)
@@ -194,12 +199,12 @@
 	else
 		..()
 
-/obj/item/soulstone/attack_self(mob/user)
+/obj/item/soulstone/attack_self(mob/living/user)
 	if(!in_range(src, user))
 		return
 
 	if(!can_use(user))
-		user.Weaken(5)
+		user.Weaken(10 SECONDS)
 		user.emote("scream")
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return
@@ -240,12 +245,12 @@
 		. += "<span class='cultitalic'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>"
 		. += "<span class='cultitalic'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
-/obj/structure/constructshell/attackby(obj/item/I, mob/user, params)
+/obj/structure/constructshell/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = I
 		if(!SS.can_use(user))
 			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell.</span>")
-			user.Confused(10)
+			user.Confused(20 SECONDS)
 			return
 		SS.transfer_soul("CONSTRUCT", src, user)
 		SS.was_used()
@@ -253,17 +258,18 @@
 		return ..()
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
-
-/obj/item/soulstone/proc/transfer_soul(choice, target, mob/user)
+// this whole proc is pain
+/obj/item/soulstone/proc/transfer_soul(choice, target, mob/living/user)
 	switch(choice)
 		if("FORCE")
 			var/mob/living/T = target
-			if(T.client != null)
+			T.grab_ghost(FALSE) // If they haven't DC'd or ahudded, put them back in their body
+			if(T.client) // If there's someone in the body
 				init_shade(T, user)
-			else
+			else // Poll ghosts
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
-				T.Paralyse(20)
-				if(!get_cult_ghost(T, user))
+				T.Paralyse(40 SECONDS)
+				if(!get_cult_ghost(T, user, TRUE))
 					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
 
 		if("VICTIM")
@@ -276,7 +282,7 @@
 				else
 					if(T.client == null)
 						to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
-						get_cult_ghost(T, user)
+						get_cult_ghost(T, user, get_new_player = !T.ghost_can_reenter())
 					else
 						if(length(contents))
 							to_chat(user, "<span class='danger'>Capture failed!</span> The soul stone is full! Use or free an existing soul to make room.")
@@ -286,7 +292,7 @@
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
 			if(!can_use(user))
-				user.Weaken(5)
+				user.Weaken(10 SECONDS)
 				to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 				return
 			if(T.stat == DEAD)
@@ -297,8 +303,7 @@
 				if(length(contents))
 					to_chat(user, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
-					T.loc = src //put shade in stone
-					T.canmove = 0
+					T.forceMove(src) // Put the shade into the stone.
 					T.health = T.maxHealth
 					icon_state = icon_state_full
 					name = "soulstone : [T.name]"
@@ -312,9 +317,9 @@
 											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
 											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
 			/// Custom construct icons for different cults
-			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
-											"Wraith" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
-											"Artificer" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
+			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
+											"Wraith" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
+											"Artificer" = image(icon = 'icons/mob/cult.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
 
 			if(shade)
 				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, .proc/radial_check, user), require_near = TRUE)
@@ -323,6 +328,7 @@
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
+					to_chat(C, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Construct)</span>")
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 
@@ -339,13 +345,11 @@
 	if(shade.mind)
 		shade.mind.transfer_to(src)
 	if(SS.purified)
-		set_light(3, 5, LIGHT_COLOR_DARK_BLUE)
-		name = "Holy [name]"
-		real_name = "Holy [real_name]"
-
+		make_holy()
 		// Replace regular soulstone summoning with purified soulstones
-		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
-		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
+		if(is_type_in_list(/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone, mob_spell_list))
+			RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone)
+			AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone/holy)
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
@@ -362,7 +366,7 @@
 	qdel(SS)
 
 /proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE)
-	if(jobban_isbanned(target, "cultist"))
+	if(jobban_isbanned(target, ROLE_CULTIST))
 		return
 	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
 	C.faction |= "\ref[user]"
@@ -379,7 +383,6 @@
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)
 	var/type = get_shade_type()
 	var/mob/living/simple_animal/shade/S = new type(src)
-	S.canmove = FALSE // Can't move out of the soul stone
 	S.name = "Shade of [M.real_name]"
 	S.real_name = "Shade of [M.real_name]"
 	S.key = M.key
@@ -414,20 +417,21 @@
 		return /mob/living/simple_animal/shade/holy
 	return /mob/living/simple_animal/shade/cult
 
-/obj/item/soulstone/proc/get_cult_ghost(mob/living/M, mob/user)
+/obj/item/soulstone/proc/get_cult_ghost(mob/living/M, mob/user, get_new_player = FALSE)
 	var/mob/dead/observer/chosen_ghost
 
-	for(var/mob/dead/observer/ghost in GLOB.player_list) // We put them back in their body
-		if(ghost.mind && ghost.mind.current == M && ghost.client)
-			chosen_ghost = ghost
-			break
+	if(!get_new_player)
+		for(var/mob/dead/observer/ghost in GLOB.player_list) // We put them back in their body
+			if(ghost.mind && ghost.mind.current == M && ghost.client)
+				chosen_ghost = ghost
+				break
 
 	if(!chosen_ghost) // Failing that, we grab a ghost
 		var/list/consenting_candidates
 		if(purified)
-			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Holy Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade/holy)
+			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Holy Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade/holy, role_cleanname = "holy shade")
 		else
-			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade)
+			consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_SENTIENT, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade, role_cleanname = "shade")
 		if(length(consenting_candidates))
 			chosen_ghost = pick(consenting_candidates)
 	if(!M)

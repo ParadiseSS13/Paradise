@@ -3,7 +3,9 @@
 	desc = "Used for repairing or building APCs"
 	icon = 'icons/obj/apc_repair.dmi'
 	icon_state = "apc_frame"
-	mount_reqs = list("simfloor", "nospace")
+
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	metal_sheets_refunded = 2
 
 /obj/item/mounted/frame/apc_frame/try_build(turf/on_wall, mob/user)
 	if(!..())
@@ -28,5 +30,5 @@
 	return TRUE
 
 /obj/item/mounted/frame/apc_frame/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/power/apc(get_turf(src), get_dir(user, on_wall), 1)
+	new /obj/machinery/power/apc(get_turf(src), get_dir(user, on_wall), TRUE)
 	qdel(src)

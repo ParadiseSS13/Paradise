@@ -86,15 +86,3 @@
 	name = "basilisk den"
 	desc = "A den housing a nest of basilisks, bring a coat."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk)
-
-/obj/structure/spawner/headcrab
-	name = "headcrab nest"
-	desc = "A living nest for headcrabs. It is moving ominously."
-	icon_state = "headcrab_nest"
-	icon = 'icons/mob/headcrab.dmi'
-	max_integrity = 200
-	max_mobs = 15
-	spawn_time = 600
-	mob_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
-	spawn_text = "crawls out of"
-	faction = list("hostile")

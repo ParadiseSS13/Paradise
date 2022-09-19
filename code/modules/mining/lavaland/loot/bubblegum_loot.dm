@@ -4,7 +4,7 @@
 /obj/structure/closet/crate/necropolis/bubblegum/populate_contents()
 	new /obj/item/clothing/suit/space/hostile_environment(src)
 	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
-	new /obj/item/gun/magic/staff/spellblade(src)
+	new /obj/item/melee/spellblade/random(src)
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher
 	name = "bloody bubblegum chest"

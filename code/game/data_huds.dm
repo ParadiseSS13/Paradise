@@ -20,11 +20,11 @@
 /datum/atom_hud/data/human/medical/basic
 
 /datum/atom_hud/data/human/medical/basic/proc/check_sensors(mob/living/carbon/human/H)
-	if(!istype(H)) return 0
+	if(!istype(H)) return
 	var/obj/item/clothing/under/U = H.w_uniform
-	if(!istype(U)) return 0
-	if(U.sensor_mode <= 2) return 0
-	return 1
+	if(!istype(U)) return
+	if(U.sensor_mode <= SENSOR_VITALS) return
+	return TRUE
 
 /datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
 	if(check_sensors(H) || istype(M,/mob/dead/observer) )
@@ -44,10 +44,12 @@
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD, WANTED_HUD)
 
 /datum/atom_hud/data/diagnostic
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD)
+
+/datum/atom_hud/data/diagnostic/basic
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD)
 
 /datum/atom_hud/data/diagnostic/advanced
-	hud_icons = list (DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_PATH_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_PATH_HUD)
 
 /datum/atom_hud/data/bot_path
 	hud_icons = list(DIAG_PATH_HUD)
@@ -84,19 +86,23 @@
 		return TRUE
 	if(undergoing_cardiac_arrest())
 		return TRUE
+	if(ismachineperson(src) && health < 0)
+		return TRUE
 	return FALSE
 
 /// Whether a virus worthy displaying on the HUD is present.
 /mob/living/carbon/proc/has_virus()
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
+		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
+			continue
 		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
 			return TRUE
 	return FALSE
 
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
-	if(M.stat == DEAD || (M.status_flags & FAKEDEATH))
+	if(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_FAKEDEATH)))
 		return "health-100-dead" //what's our health? it doesn't matter, we're dead, or faking
 
 	var/maxi_health = M.maxHealth
@@ -163,8 +169,9 @@
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
+	if(ismachineperson(src))
+		holder = hud_list[DIAG_HUD]
 	holder.icon_state = "hud[RoundHealth(src)]"
-
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
@@ -177,19 +184,26 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	var/dead = stat == DEAD || (status_flags & FAKEDEATH)
+	if(ismachineperson(src))
+		holder = hud_list[DIAG_STAT_HUD]
+
 	// To the right of health bar
-	if(dead)
-		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
+	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		var/revivable
+		if(!ghost_can_reenter()) // DNR or AntagHUD
+			revivable = FALSE
+		else if(ismachineperson(src))
+			revivable = TRUE
+		else if(timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT))
+			revivable = TRUE
+
 		if(revivable)
 			holder.icon_state = "hudflatline"
 		else
 			holder.icon_state = "huddead"
-	else if(status_flags & XENO_HOST)
+
+	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
-	else if(B && B.controlling)
-		holder.icon_state = "hudbrainworm"
 	else if(is_in_crit())
 		holder.icon_state = "huddefib"
 	else if(has_virus())
@@ -465,6 +479,16 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
+
+/*~~~~~~~~~~~~
+	Airlocks!
+~~~~~~~~~~~~~*/
+/obj/machinery/door/airlock/proc/diag_hud_set_electrified()
+	var/image/holder = hud_list[DIAG_AIRLOCK_HUD]
+	if(isElectrified())
+		holder.icon_state = "electrified"
+	else
+		holder.icon_state = ""
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

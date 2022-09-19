@@ -5,6 +5,7 @@
 	icon_state = "piratemelee"
 	icon_living = "piratemelee"
 	icon_dead = "piratemelee_dead" // Does not actually exist. del_on_death.
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pushes the"
@@ -26,9 +27,10 @@
 	speak_emote = list("yarrs")
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 			/obj/item/melee/energy/sword/pirate)
-	del_on_death = 1
+	del_on_death = TRUE
 	faction = list("pirate")
 	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/pirate/ranged
 	name = "Pirate Gunner"
@@ -36,7 +38,7 @@
 	icon_living = "pirateranged"
 	icon_dead = "piratemelee_dead" // Does not actually exist. del_on_death.
 	projectilesound = 'sound/weapons/laser.ogg'
-	ranged = 1
+	ranged = TRUE
 	rapid = 2
 	retreat_distance = 5
 	minimum_distance = 5

@@ -15,8 +15,8 @@
 	/// The higher this number, the faster reagents will heat/cool.
 	var/speed_increase = 0
 
-/obj/machinery/chem_heater/New()
-	..()
+/obj/machinery/chem_heater/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_heater(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -58,8 +58,7 @@
 	if(powered())
 		stat &= ~NOPOWER
 	else
-		spawn(rand(0, 15))
-			stat |= NOPOWER
+		stat |= NOPOWER
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
 	if(isrobot(user))

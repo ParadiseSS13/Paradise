@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
 
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
+
 	// Health
 	maxHealth = 120
 	health = 120
@@ -38,6 +40,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	// Movement
 	pass_flags = PASSTABLE
+	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
@@ -57,7 +60,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
 	var/freq_ventcrawl_idle =  9000 // 15 minutes
 	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
-	var/ai_ventbreaker = 0
+	var/ai_ventbreaker = FALSE
 
 	// AI movement tracking
 	var/spider_steps_taken = 0 // leave at 0, its a counter for ai steps taken.
@@ -116,11 +119,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
-	var/spider_awaymission = 0 // if 1, limits certain behavior in away missions
-	var/spider_uo71 = 0 // if 1, spider is in the UO71 away mission
-	var/spider_unlock_id_tag = "" // if defined, unlock awaymission blast doors with this tag on death
 	var/spider_role_summary = "UNDEFINED"
-	var/spider_placed = 0
+	var/spider_placed = FALSE
 
 	// AI variables designed for use in procs
 	var/atom/movable/cocoon_target // for queen and nurse
@@ -128,13 +128,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/obj/machinery/atmospherics/unary/vent_pump/exit_vent // remote vent they intend to come out of
 	var/obj/machinery/atmospherics/unary/vent_pump/nest_vent // home vent, usually used by queens
 	var/fed = 0
-	var/travelling_in_vent = 0
+	var/travelling_in_vent = FALSE
 	var/list/enemies = list()
-	var/path_to_vent = 0
+	var/path_to_vent = FALSE
 	var/killcount = 0
 	var/busy = 0 // leave this alone!
 	var/spider_tier = TS_TIER_1 // 1 for red,gray,green. 2 for purple,black,white, 3 for prince, mother. 4 for queen
-	var/hasdied = 0
+	/// Does this terror speak loudly on the terror hivemind?
+	var/loudspeaker = FALSE
+	var/hasdied = FALSE
 	var/list/spider_special_drops = list()
 	var/attackstep = 0
 	var/attackcycles = 0
@@ -142,12 +144,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null
 	var/mylocation = null
 	var/chasecycles = 0
-	var/web_infects = 0
 	var/spider_creation_time = 0
 
-	var/datum/action/innate/terrorspider/web/web_action
 	var/web_type = /obj/structure/spider/terrorweb
-	var/datum/action/innate/terrorspider/wrap/wrap_action
 
 	// Breathing - require some oxygen, and no toxins
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -158,6 +157,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
 	var/spider_debug = FALSE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 
 // --------------------------------------------------------------------------------
@@ -258,8 +258,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(killcount >= 1)
 			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
 
-/mob/living/simple_animal/hostile/poison/terror_spider/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
 	GLOB.ts_spiderlist += src
 	add_language("Spider Hivemind")
 	if(spider_tier >= TS_TIER_2)
@@ -267,28 +267,16 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	default_language = GLOB.all_languages["Spider Hivemind"]
 
 	if(web_type)
-		web_action = new()
-		web_action.Grant(src)
+		var/datum/action/innate/terrorspider/web/web_act = new
+		web_act.Grant(src)
 	if(regen_points_per_tick < regen_points_per_hp)
 		// Only grant the Wrap action button to spiders who need to use it to regenerate their health
-		wrap_action = new()
-		wrap_action.Grant(src)
+		var/datum/action/innate/terrorspider/wrap/wrap_act = new
+		wrap_act.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
-	if(is_away_level(z))
-		spider_awaymission = 1
-		GLOB.ts_count_alive_awaymission++
-		if(spider_tier >= 3)
-			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
-		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
-			spider_uo71 = 1
-			if(world.time < 600)
-				// these are static spiders, specifically for the UO71 away mission, make them stay in place
-				ai_ventcrawls = FALSE
-				spider_placed = 1
-	else
-		GLOB.ts_count_alive_station++
+	GLOB.ts_count_alive_station++
 	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
 	addtimer(CALLBACK(src, .proc/CheckFaction), 20)
 	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
@@ -297,8 +285,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
-	if(spider_awaymission)
-		return
 	if(stat == DEAD)
 		return
 	if(ckey)
@@ -309,7 +295,18 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	GLOB.ts_spiderlist -= src
+	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	U.remove_hud_from(src)
 	handle_dying()
+
+	spider_mymother = null
+	spider_myqueen = null
+
+	entry_vent = null
+	exit_vent = null
+	nest_vent = null
+
+	cocoon_target = null
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
@@ -317,11 +314,11 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(prob(2))
 			// 2% chance every cycle to decompose
-			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
+			visible_message("<span class='notice'>The dead body of [src] decomposes!</span>")
 			gib()
 	else
 		if(degenerate)
-			adjustToxLoss(rand(1,10))
+			adjustToxLoss(rand(1, 10))
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick
 		if(getBruteLoss() || getFireLoss())
@@ -332,18 +329,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 				else if(getFireLoss())
 					adjustFireLoss(-1)
 					regen_points -= regen_points_per_hp
-		if(prob(5))
+		if(prob(5)) // AA 2022-08-11 - This gives me prob(80) vibes. Should probably be refactored.
 			CheckFaction()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
 	if(!hasdied)
-		hasdied = 1
+		hasdied = TRUE
 		GLOB.ts_count_dead++
 		GLOB.ts_death_last = world.time
-		if(spider_awaymission)
-			GLOB.ts_count_alive_awaymission--
-		else
-			GLOB.ts_count_alive_station--
+		GLOB.ts_count_alive_station--
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())
@@ -376,7 +370,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
 		to_chat(src, "<span class='userdanger'>Your connection to the hive mind has been severed!</span>")
-		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
+		stack_trace("Terror spider with incorrect faction list at: [atom_loc_line(src)]")
 		gib()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(obj/machinery/door/airlock/D)
@@ -398,7 +392,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
 	else
 		visible_message("<span class='danger'>[src] forces the door!</span>")
-		playsound(src.loc, "sparks", 100, 1)
+		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(D.density)
 			D.open(TRUE)
 		else
@@ -455,8 +449,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat == DEAD)
-			continue
-		if(T.spider_awaymission != spider_awaymission)
 			continue
 		targets |= T // we use |= instead of += to avoid adding src to the list twice
 	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets

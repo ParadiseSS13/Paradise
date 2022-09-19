@@ -12,11 +12,11 @@
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
-	if(!(M.mind in SSticker.mode.vampires))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
-				H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
+	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && !is_vamp)
+		var/mob/living/carbon/human/H = M
+		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+			H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
 
 /datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective
@@ -31,13 +31,13 @@
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(!(M.mind in SSticker.mode.vampires))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
-				if(prob(50))
-					update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
-					update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
+	var/is_vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && !is_vamp)
+		var/mob/living/carbon/human/H = M
+		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
+			if(prob(50))
+				update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
+				update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
@@ -101,13 +101,9 @@
 
 /datum/reagent/consumable/sugar/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
+	M.AdjustDrowsy(-10 SECONDS)
 	if(current_cycle >= 90)
-		M.AdjustJitter(2)
-	if(prob(50))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
+		M.AdjustJitter(4 SECONDS)
 	if(prob(4))
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
@@ -119,8 +115,8 @@
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.Paralyse(3 * severity, FALSE)
-	update_flags |= M.Weaken(4 * severity, FALSE)
+	M.Paralyse(6 SECONDS * severity)
+	M.Weaken(8 SECONDS * severity)
 	if(prob(8))
 		update_flags |= M.adjustToxLoss(severity, FALSE)
 	return list(0, update_flags)
@@ -223,27 +219,27 @@
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
 				if(prob(5))
 					victim.emote("scream")
-				victim.EyeBlurry(3)
-				victim.EyeBlind(1)
-				victim.Confused(3)
+				victim.EyeBlurry(6 SECONDS)
+				victim.EyeBlind(2 SECONDS)
+				victim.Confused(6 SECONDS)
 				victim.damageoverlaytemp = 60
-				victim.Weaken(3)
+				victim.Weaken(6 SECONDS)
 				victim.drop_item()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
-				victim.EyeBlurry(3)
+				victim.EyeBlurry(6 SECONDS)
 				victim.damageoverlaytemp = 30
 				return
 			else // Oh dear :D
 				if(prob(5))
 					victim.emote("scream")
 				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
-				victim.EyeBlurry(5)
-				victim.EyeBlind(2)
-				victim.Confused(6)
+				victim.EyeBlurry(10 SECONDS)
+				victim.EyeBlind(4 SECONDS)
+				victim.Confused(12 SECONDS)
 				victim.damageoverlaytemp = 75
-				victim.Weaken(5)
+				victim.Weaken(10 SECONDS)
 				victim.drop_item()
 
 /datum/reagent/consumable/frostoil
@@ -354,17 +350,9 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
-			if(prob(min(25, current_cycle)))
-				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
-				H.Weaken(1)
-				H.Jitter(10)
-				H.fakevomit()
-		else
-			if(H.job == "Chef")
-				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
-					update_flags |= H.adjustBruteLoss(-1, FALSE)
-					update_flags |= H.adjustFireLoss(-1, FALSE)
+		if(H.job == "Chef" && prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
+			update_flags |= H.adjustBruteLoss(-1, FALSE)
+			update_flags |= H.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/sprinkles
@@ -376,7 +364,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list("Security Officer", "Detective", "Warden", "Head of Security", "Internal Affairs Agent", "Magistrate")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -447,7 +435,7 @@
 	return ..()
 
 /datum/reagent/consumable/flour
-	name = "flour"
+	name = "Flour"
 	id = "flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
 	reagent_state = SOLID
@@ -558,10 +546,10 @@
 			if(!M.get_organ_slot("eyes"))	//can't blind somebody with no eyes
 				to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
 			else
-				if(!M.eye_blurry)
+				if(!M.AmountEyeBlurry())
 					to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-				M.EyeBlind(2)
-				M.EyeBlurry(5)
+				M.EyeBlind(4 SECONDS)
+				M.EyeBlurry(10 SECONDS)
 	..()
 
 /datum/reagent/consumable/chocolate
@@ -591,15 +579,18 @@
 	reagent_state = LIQUID
 	color = "#21170E"
 	taste_description = "tea"
+	harmless = TRUE
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && M.mind)
-		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
-			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(ishuman(M) && M.mind?.special_role == SPECIAL_ROLE_WIZARD)
+		update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		for(var/datum/reagent/R in M.reagents.reagent_list)
+			if(!R.harmless)
+				M.reagents.remove_reagent(R.id, 5) // purge those meme chems
 	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium
@@ -753,8 +744,8 @@
 	if(prob(5))
 		to_chat(M, "<span class='warning'>You feel a sharp pain in your chest!</span>")
 		update_flags |= M.adjustOxyLoss(25, FALSE)
-		update_flags |= M.Stun(5, FALSE)
-		update_flags |= M.Paralyse(10, FALSE)
+		M.Stun(10 SECONDS)
+		M.Paralyse(20 SECONDS)
 	return list(0, update_flags)
 
 /datum/reagent/consumable/meatslurry
@@ -791,6 +782,21 @@
 	color = "#B4641B"
 	taste_description = "gravy"
 
+/datum/reagent/consumable/wasabi
+	name = "Wasabi"
+	id = "wasabi"
+	description = "A pungent green paste often served with sushi. Consuming too much causes an uncomfortable burning sensation in the nostrils."
+	reagent_state = LIQUID
+	color = "#80942F"
+	taste_description = "pungency"
+
+/datum/reagent/consumable/wasabi/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
+		if(volume <= 1)
+			to_chat(M, "<span class='notice'>Your nostrils tingle briefly.</span>")
+		else
+			to_chat(M, "<span class='warning'>Your nostrils burn uncomfortably!</span>")
+			M.adjustFireLoss(1)
 
 ///Food Related, but non-nutritious
 
@@ -805,11 +811,9 @@
 /datum/reagent/questionmark/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
-			H.Stun(2, FALSE)
-			H.Weaken(2, FALSE)
-			H.update_canmove()
+			H.Weaken(4 SECONDS)
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
-		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
+		if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //If you don't eat, then you can't get food poisoning
 			return
 		H.ForceContractDisease(new /datum/disease/food_poisoning(0))
 
@@ -830,11 +834,11 @@
 			update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
 		if(prob(7))
 			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
-			update_flags |= M.Stun(rand(2,5), FALSE)
+			M.Stun(rand(4 SECONDS, 10 SECONDS))
 	return ..() | update_flags
 
 /datum/reagent/cholesterol
-	name = "cholesterol"
+	name = "Cholesterol"
 	id = "cholesterol"
 	description = "Pure cholesterol. Probably not very good for you."
 	reagent_state = LIQUID
@@ -849,11 +853,10 @@
 	else if(volume >= 45 && prob(volume*0.08))
 		to_chat(M, "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>")
 		update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
-		update_flags |= M.Stun(1, FALSE)
+		M.Stun(2 SECONDS)
 	else if(volume >= 150 && prob(volume*0.01))
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
-		update_flags |= M.Stun(1, FALSE)
-		update_flags |= M.Weaken(1, FALSE)
+		M.Weaken(2 SECONDS)
 		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 	return ..() | update_flags
 
@@ -943,13 +946,13 @@
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 10)
-		update_flags |= M.Paralyse(2, FALSE)
+		M.Paralyse(4 SECONDS)
 	if(prob(20))
-		update_flags |= M.LoseBreath(4, FALSE)
+		M.LoseBreath(8 SECONDS)
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.EyeBlurry(5, FALSE)
+		M.EyeBlurry(10 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/consumable/tinlux

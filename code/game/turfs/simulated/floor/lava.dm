@@ -7,6 +7,10 @@
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
+	footstep = FOOTSTEP_LAVA
+	barefootstep = FOOTSTEP_LAVA
+	clawfootstep = FOOTSTEP_LAVA
+	heavyfootstep = FOOTSTEP_LAVA
 
 /turf/simulated/floor/plating/lava/ex_act()
 	return
@@ -46,18 +50,15 @@
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/plating/lava/proc/is_safe()
-	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
-	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
-	for(var/obj/structure/stone_tile/S in found_safeties)
-		if(S.fallen)
-			LAZYREMOVE(found_safeties, S)
-	return LAZYLEN(found_safeties)
+/turf/simulated/floor/plating/lava/is_safe()
+	if(find_safeties() && ..())
+		return TRUE
+	return FALSE
 
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
 	. = 0
 
-	if(is_safe())
+	if(find_safeties())
 		return FALSE
 
 	var/thing_to_check = src
@@ -77,7 +78,7 @@
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
 			if(O.resistance_flags & FIRE_PROOF)
 				O.resistance_flags &= ~FIRE_PROOF
-			if(O.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
+			if(O.armor.getRating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
 				O.armor = O.armor.setRating(fire_value = 50)
 			O.fire_act(10000, 1000)
 
@@ -126,9 +127,11 @@
 	name = "lava"
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/floor/plating/lava/smooth)
+	icon_state = "lava-255"
+	base_icon_state = "lava"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_LAVA)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	temperature = 300

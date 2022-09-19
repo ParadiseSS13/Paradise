@@ -16,11 +16,15 @@
 	// Settings
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
-	/// The stun time (in life cycles) for non-silicons
-	var/stun_time = 6 SECONDS_TO_LIFE_CYCLES
-	/// The stun time (in life cycles) for silicons
-	var/stun_time_silicon = 10 SECONDS_TO_LIFE_CYCLES
-	/// Cooldown in deciseconds between two knockdowns
+	/// The amount of stamina damage the baton does per swing
+	var/stamina_damage = 30
+	/// How much melee armour is ignored by the stamina damage
+	var/stamina_armour_pen = 0
+	/// The stun time (in seconds) for non-silicons
+	var/knockdown_duration = 6 SECONDS
+	/// The stun time (in seconds) for silicons
+	var/stun_time_silicon = 10 SECONDS
+	/// Cooldown in seconds between two knockdowns
 	var/cooldown = 4 SECONDS
 	/// Sound to play when knocking someone down
 	var/stun_sound = 'sound/effects/woodhit.ogg'
@@ -35,10 +39,10 @@
 		return ..()
 
 	add_fingerprint(user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
 							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
-		user.Weaken(force * 3)
+		user.KnockDown(knockdown_duration)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(force * 2, BRUTE, "head")
@@ -53,7 +57,7 @@
 	if(issilicon(target) && !affect_silicon)
 		return ..()
 	else
-		stun(target, user)
+		baton_knockdown(target, user)
 
 /**
   * Called when a target is about to be hit non-lethally.
@@ -62,7 +66,7 @@
   * * target - The mob about to be hit
   * * user - The attacking user
   */
-/obj/item/melee/classic_baton/proc/stun(mob/living/target, mob/living/user)
+/obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
 							 "<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
@@ -81,12 +85,12 @@
 	// Visuals and sound
 	user.do_attack_animation(target)
 	playsound(target, stun_sound, 75, TRUE, -1)
-	add_attack_logs(user, target, "Stunned with [src]")
+	add_attack_logs(user, target, "Knocked down with [src]")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
-	target.Weaken(stun_time)
+	target.KnockDown(knockdown_duration)
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
+	addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), cooldown)
 	return TRUE
 
 /**
@@ -108,13 +112,13 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
-	return
-
-/**
-  * Called some time after a non-lethal attack
-  */
-/obj/item/melee/classic_baton/proc/cooldown_finished()
-	on_cooldown = FALSE
+	var/armour = target.run_armor_check("chest", armour_penetration_percentage = stamina_armour_pen) // returns their chest melee armour
+	var/percentage_reduction = 0
+	if(ishuman(target))
+		percentage_reduction = (100 - ARMOUR_VALUE_TO_PERCENTAGE(armour)) / 100
+	else
+		percentage_reduction = (100 - armour) / 100 // converts the % into a decimal
+	target.adjustStaminaLoss(stamina_damage * percentage_reduction)
 
 /**
   * # Fancy Cane
@@ -135,6 +139,7 @@
 /obj/item/melee/classic_baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
+	icon_state = "telebaton_0" // For telling what it is when mapping
 	item_state = null
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -145,7 +150,7 @@
 	/// Force when extended
 	var/force_on = 10
 	/// Item state when extended
-	var/item_state_on = "nullrod"
+	var/item_state_on = "tele_baton"
 	/// Icon state when concealed
 	var/icon_state_off = "telebaton_0"
 	/// Icon state when extended
@@ -187,28 +192,5 @@
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
-	// Update blood splatter
-	if(blood_overlay)
-		cut_overlay(blood_overlay)
-		qdel(blood_overlay)
-		add_blood_overlay(blood_overlay_color)
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
-
-/obj/item/melee/classic_baton/telescopic/blood_splatter_index()
-	return "\ref[icon]-[icon_state]"
-
-/obj/item/melee/classic_baton/telescopic/add_blood_overlay(color)
-	var/index = blood_splatter_index()
-	var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-	if(!blood_splatter_icon)
-		blood_splatter_icon = icon(icon, icon_state)
-		blood_splatter_icon.Blend("#ffffff", ICON_ADD)
-		blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
-		blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-		GLOB.blood_splatter_icons[index] = blood_splatter_icon
-
-	blood_overlay = image(blood_splatter_icon)
-	blood_overlay.color = color
-	blood_overlay_color = color
-	add_overlay(blood_overlay)

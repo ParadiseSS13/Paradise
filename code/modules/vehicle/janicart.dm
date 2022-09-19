@@ -49,9 +49,9 @@
 		var/turf/tile = loc
 		if(isturf(tile))
 			tile.clean_blood()
-			for(var/A in tile)
-				if(is_cleanable(A))
-					qdel(A)
+			for(var/obj/effect/E in tile)
+				if(E.is_cleanable())
+					qdel(E)
 
 
 
@@ -68,22 +68,22 @@
 		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
 		I.forceMove(src)
 		mybag = I
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	if(istype(I, /obj/item/janiupgrade))
 		floorbuffer = TRUE
 		qdel(I)
 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	return ..()
 
-/obj/vehicle/janicart/update_icon()
-	cut_overlays()
+/obj/vehicle/janicart/update_overlays()
+	. = ..()
 	if(mybag)
-		add_overlay("cart_garbage")
+		. += "cart_garbage"
 	if(floorbuffer)
-		add_overlay("cart_buffer")
+		. += "cart_buffer"
 
 
 /obj/vehicle/janicart/attack_hand(mob/user)
@@ -93,4 +93,4 @@
 		mybag.forceMove(get_turf(user))
 		user.put_in_hands(mybag)
 		mybag = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)

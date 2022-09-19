@@ -7,7 +7,7 @@ SAFE CODES
 */
 
 #define DRILL_SPARK_CHANCE 15
-#define DRILL_TIME 300 SECONDS
+#define DRILL_TIME 120 SECONDS
 #define SOUND_CHANCE 10
 
 GLOBAL_LIST_EMPTY(safes)
@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/examine_status(mob/user)
 	return
 
-/obj/structure/safe/update_icon()
+/obj/structure/safe/update_icon_state()
 	if(open)
 		if(broken)
 			icon_state = "[initial(icon_state)]-open-broken"
@@ -124,17 +124,13 @@ GLOBAL_LIST_EMPTY(safes)
 		else
 			icon_state = initial(icon_state)
 
-	var/list/overlays_to_cut = list(drill_overlay)
-	if(!drill_timer)
-		overlays_to_cut += progress_bar
-
-	cut_overlay(overlays_to_cut)
-
+/obj/structure/safe/update_overlays()
+	. = ..()
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		var/state = "[initial(icon_state)]_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
 		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state, pixel_x = drill_x_offset, pixel_y = drill_y_offset)
-		add_overlay(drill_overlay)
+		. += drill_overlay
 
 /obj/structure/safe/attack_ghost(mob/user)
 	if(..() || drill)
@@ -145,7 +141,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(..())
 		return TRUE
 
-	if(drill)
+	if(drill && !broken)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
@@ -159,6 +155,7 @@ GLOBAL_LIST_EMPTY(safes)
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
+					cut_overlay(progress_bar)
 					update_icon()
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
@@ -170,11 +167,17 @@ GLOBAL_LIST_EMPTY(safes)
 					update_icon()
 			if("Cancel")
 				return
+	else if(drill && broken)
+		user.put_in_hands(drill)
+		drill = null
+		update_icon()
 	else
 		ui_interact(user)
 
 /obj/structure/safe/attackby(obj/item/I, mob/user, params)
 	if(open)
+		if(I.flags && ABSTRACT)
+			return
 		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
@@ -348,9 +351,11 @@ GLOBAL_LIST_EMPTY(safes)
 	broken = TRUE
 	drill_timer = null
 	drill.soundloop.stop()
+	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	cut_overlay(progress_bar)
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
-
+	
 /**
   * # Floor Safe
   *
@@ -368,7 +373,8 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/floor/Initialize()
 	. = ..()
 	var/turf/T = loc
-	hide(T.intact)
+	if(!T.transparent_floor)
+		hide(T.intact)
 
 /obj/structure/safe/floor/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
@@ -402,7 +408,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
 		if(owner in S.known_by)
-			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.get_combination()]<br>"
+			info += "<br> The combination for the safe located in the [get_area_name(S, TRUE)] is: [S.get_combination()]<br>"
 			info_links = info
 			update_icon()
 

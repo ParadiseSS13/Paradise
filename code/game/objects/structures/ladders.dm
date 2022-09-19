@@ -55,7 +55,7 @@
 		down.update_icon()
 	up = down = null
 
-/obj/structure/ladder/update_icon()
+/obj/structure/ladder/update_icon_state()
 	if(up && down)
 		icon_state = "ladder11"
 
@@ -198,5 +198,5 @@
 	. = ..()
 	set_light(light_range, light_power)		//magical glowing anchor
 
-/obj/structure/ladder/unbreakable/dive_point/update_icon()
+/obj/structure/ladder/unbreakable/dive_point/update_icon_state()
 	return

@@ -6,7 +6,7 @@
 	icon = 'icons/effects/effects.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
-	anchored = 1
+	anchored = TRUE
 	can_be_hit = FALSE
 
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -24,6 +24,9 @@
 
 /obj/effect/acid_act()
 	return
+
+/obj/effect/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
+	return FALSE
 
 /obj/effect/mech_melee_attack(obj/mecha/M)
 	return 0
@@ -58,11 +61,9 @@
 	density = FALSE
 	icon = null
 	icon_state = null
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 
 // Most of these overrides procs below are overkill, but better safe than sorry.
-/obj/effect/abstract/swarmer_act()
-	return
-
 /obj/effect/abstract/bullet_act(obj/item/projectile/P)
 	return
 
@@ -76,6 +77,15 @@
 	return
 
 /obj/effect/abstract/ex_act(severity)
+	return
+
+/obj/effect/abstract/blob_act()
+	return
+
+/obj/effect/abstract/acid_act()
+	return
+
+/obj/effect/abstract/fire_act()
 	return
 
 /obj/effect/decal

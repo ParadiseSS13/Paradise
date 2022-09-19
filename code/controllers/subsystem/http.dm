@@ -12,13 +12,16 @@ SUBSYSTEM_DEF(http)
 	/// Total requests the SS has processed in a round
 	var/total_requests
 
-/datum/controller/subsystem/http/Initialize(start_timeofday)
+/datum/controller/subsystem/http/PreInit()
+	. = ..()
 	rustg_create_async_http_client() // Open the door
+
+/datum/controller/subsystem/http/Initialize(start_timeofday)
 	active_async_requests = list()
 	return ..()
 
-/datum/controller/subsystem/http/stat_entry()
-	..("P: [length(active_async_requests)] | T: [total_requests]")
+/datum/controller/subsystem/http/get_stat_details()
+	return "P: [length(active_async_requests)] | T: [total_requests]"
 
 /datum/controller/subsystem/http/fire(resumed)
 	for(var/r in active_async_requests)

@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
 	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
-	icon = 'icons/obj/tcomms.dmi'
+	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/machinery/tcomms/Initialize(mapload)
 	. = ..()
 	GLOB.tcomms_machines += src
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if((!mapload) && (usr))
 		// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD?" Well, ill tell you
 		// get_area_name is fucking broken and uses a for(x in world) search
@@ -82,13 +82,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   *
   * Ensures that the icon updates properly based on if the machine is active or not. This removes the need for this check in many other places.
   */
-/obj/machinery/tcomms/update_icon()
-	. = ..()
+/obj/machinery/tcomms/update_icon_state()
 	// Show the off sprite if were inactive, ion'd or unpowered
-	if(!active || (stat & NOPOWER) || ion)
-		icon_state = "[initial(icon_state)]_off"
-	else
-		icon_state = initial(icon_state)
+	var/functioning = (active && !(stat & NOPOWER) && !ion)
+	icon_state = "[initial(icon_state)][panel_open ? "_o" : null][functioning ? null : "_off"]"
 
 
 // Attack overrides. These are needed so the UIs can be opened up //
@@ -116,7 +113,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/proc/start_ion()
 	ion = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * End of Ion Anomaly Event
@@ -125,7 +122,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/proc/end_ion()
 	ion = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Z-Level transit change helper
@@ -138,7 +135,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
 		addtimer(CALLBACK(src, /atom.proc/visible_message, "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /**
@@ -162,7 +159,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * # Telecommunications Message
@@ -450,7 +447,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(C.network_id == "STATION-CORE")
 			info = "<center><h2>Telecommunications Key</h2></center>\n\t<br>The station core linkage password is '[C.link_password]'.<br>Should this paper be misplaced or destroyed, fear not, as the password is visible under the core linkage section. Should you wish to modify this password, it can be modified from the core."
 			info_links = info
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			// Save time, even though there should only be one STATION-CORE in the world
 			break
 	return ..()

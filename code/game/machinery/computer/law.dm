@@ -5,7 +5,7 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
-	var/opened = 0
+	var/opened = FALSE
 
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
@@ -16,7 +16,7 @@
 	set category = "Object"
 	set name = "Access Computer's Internals"
 	set src in oview(1)
-	if(get_dist(src, usr) > 1 || usr.restrained() || usr.lying || usr.stat || istype(usr, /mob/living/silicon))
+	if(get_dist(src, usr) > 1 || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || istype(usr, /mob/living/silicon))
 		return
 
 	opened = !opened
@@ -42,7 +42,7 @@
 	return ..()
 
 
-/obj/machinery/computer/aiupload/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/aiupload/attack_hand(mob/user as mob)
 	if(src.stat & NOPOWER)
 		to_chat(usr, "The upload computer has no power!")
 		return
@@ -85,7 +85,7 @@
 	return ..()
 
 
-/obj/machinery/computer/borgupload/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/borgupload/attack_hand(mob/user as mob)
 	if(src.stat & NOPOWER)
 		to_chat(usr, "The upload computer has no power!")
 		return

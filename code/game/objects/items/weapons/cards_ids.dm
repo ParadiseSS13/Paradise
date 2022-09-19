@@ -80,6 +80,27 @@
 		return
 	A.emag_act(user)
 
+/obj/item/card/cmag
+	desc = "It's a card coated in a slurry of electromagnetic bananium."
+	name = "jestographic sequencer"
+	icon_state = "cmag"
+	item_state = "card-id"
+	origin_tech = "magnets=2;syndicate=2"
+	flags = NOBLUDGEON
+	flags_2 = NO_MAT_REDEMPTION_2
+
+/obj/item/card/cmag/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
+
+/obj/item/card/cmag/attack()
+	return
+
+/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+	target.cmag_act(user)
+
 /obj/item/card/id
 	name = "identification card"
 	desc = "A card used to provide ID and determine access across the station."
@@ -89,7 +110,7 @@
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -157,7 +178,7 @@
 /obj/item/card/id/proc/UpdateName()
 	name = "[src.registered_name]'s ID Card ([src.assignment])"
 
-/obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
+/obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
 		return
 
@@ -243,6 +264,11 @@
 		qdel(W)
 		return
 
+	else if(istype(W, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = W
+		B.scanID(src, user)
+		return
+
 	else if(istype (W,/obj/item/stamp))
 		if(!stamped)
 			dat+="<img src=large_[W.icon_state].png>"
@@ -274,7 +300,7 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_UI_BLOCKED) || usr.restrained())
 		return
 
 	if(guest_pass)
@@ -332,11 +358,12 @@
 	var/list/initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
 	origin_tech = "syndicate=1"
 	var/registered_user = null
-	untrackable = 1
-	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
+	untrackable = TRUE
 
-/obj/item/card/id/syndicate/anyone
-	anyone = TRUE
+/obj/item/card/id/syndicate/researcher
+	initial_access = list(ACCESS_SYNDICATE)
+	assignment = "Syndicate Researcher"
+	icon_state = "syndie"
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -350,19 +377,19 @@
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 	icon_state = "commander"
 
-/obj/item/card/id/syndicate/afterattack(var/obj/item/O as obj, mob/user as mob, proximity)
+/obj/item/card/id/syndicate/afterattack(obj/item/O as obj, mob/user as mob, proximity)
 	if(!proximity)
 		return
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
 		if(istype(user, /mob/living) && user.mind)
-			if(user.mind.special_role || anyone)
+			if(user.mind.special_role)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
-		var/t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
+		var/t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name), TRUE)
 		if(!t)
 			to_chat(user, "<span class='warning'>Invalid name.</span>")
 			return
@@ -415,7 +442,6 @@
 							"gold",
 							"silver",
 							"centcom",
-							"centcom_old",
 							"security",
 							"medical",
 							"HoS",
@@ -483,7 +509,7 @@
 
 					if("Occupation")
 						var/list/departments =list(
-							"Civilian",
+							"Assistant",
 							"Engineering",
 							"Medical",
 							"Science",
@@ -494,11 +520,11 @@
 						)
 
 						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
-						var/new_job = "Civilian"
+						var/new_job = "Assistant"
 
 						if(department == "Custom")
-							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
-						else if(department != "Civilian")
+							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
+						else if(department != "Assistant")
 							switch(department)
 								if("Engineering")
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
@@ -601,7 +627,7 @@
 	registered_name = "Syndicate"
 	icon_state = "syndie"
 	assignment = "Syndicate Overlord"
-	untrackable = 1
+	untrackable = TRUE
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 
 /obj/item/card/id/captains_spare
@@ -623,7 +649,7 @@
 	item_state = "gold_id"
 	registered_name = "Admin"
 	assignment = "Testing Shit"
-	untrackable = 1
+	untrackable = TRUE
 
 /obj/item/card/id/admin/New()
 	access = get_absolutely_all_accesses()
@@ -652,10 +678,11 @@
 	assignment = "Prisoner"
 	registered_name = "Scum"
 	var/goal = 0 //How far from freedom?
-	var/points = 0
 
-/obj/item/card/id/prisoner/attack_self(mob/user as mob)
-	to_chat(usr, "You have accumulated [points] out of the [goal] points you need for freedom.")
+/obj/item/card/id/prisoner/examine(mob/user)
+	. = ..()
+	if(goal)
+		. += "\nYou have accumulated [mining_points] out of the [goal] points assigned to gain freedom."
 
 /obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
@@ -721,7 +748,7 @@
 	name = "Supply ID"
 	registered_name = "Cargonian"
 	icon_state = "cargo"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/engineering
 	name = "Engineering ID"
@@ -734,7 +761,7 @@
 	registered_name = "HoS"
 	icon_state = "HoS"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+			            ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
 
@@ -762,7 +789,7 @@
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
 			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
-			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
+			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/clown
 	name = "Pink ID"
@@ -807,12 +834,18 @@
 
 /obj/item/card/id/ert/commander
 	icon_state = "ERT_leader"
+
 /obj/item/card/id/ert/security
 	icon_state = "ERT_security"
+
 /obj/item/card/id/ert/engineering
 	icon_state = "ERT_engineering"
+
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
+
+/obj/item/card/id/ert/deathsquad
+	icon_state = "deathsquad"
 
 /obj/item/card/id/golem
 	name = "Free Golem ID"
@@ -890,7 +923,7 @@
 	return list("data","id","gold","silver","security","medical","research","cargo","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
-	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
+	return list("centcom","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
 
 /proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
@@ -909,8 +942,6 @@
 			return "Research Director"
 		if("CE")
 			return "Chief Engineer"
-		if("centcom_old")
-			return "Centcom Old"
 		if("ERT_leader")
 			return "ERT Leader"
 		if("ERT_empty")
@@ -923,6 +954,8 @@
 			return "ERT Medical"
 		if("ERT_janitorial")
 			return "ERT Janitorial"
+		if("deathsquad")
+			return "Deathsquad"
 		if("syndie")
 			return "Syndicate"
 		if("TDred")

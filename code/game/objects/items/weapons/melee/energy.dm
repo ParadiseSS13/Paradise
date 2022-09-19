@@ -1,9 +1,12 @@
 /obj/item/melee/energy
-	var/active = 0
+	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
+	var/force_off //Used to properly reset the force
+	var/throwforce_off
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
 	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
+	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on
@@ -11,12 +14,17 @@
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	toolspeed = 1
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+
+/obj/item/melee/energy/Initialize(mapload)
+	. = ..()
+	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
+	throwforce_off = initial(throwforce)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -32,12 +40,12 @@
 		force -= faction_bonus_force
 
 /obj/item/melee/energy/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
-						"<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
+	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
+						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
 	active = !active
@@ -58,8 +66,8 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
-		force = initial(force)
-		throwforce = initial(throwforce)
+		force = force_off
+		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)
@@ -91,15 +99,15 @@
 	w_class_on = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	origin_tech = "combat=4;magnets=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
-	sharp = 1
+	sharp = TRUE
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swings the [name] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/sword
@@ -113,16 +121,22 @@
 	hitsound = "swing_hit"
 	embed_chance = 75
 	embedded_impact_pain_multiplier = 10
-	armour_penetration = 35
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
-	sharp = 1
-	var/hacked = 0
+	sharp = TRUE
+	var/hacked = FALSE
 
 /obj/item/melee/energy/sword/New()
 	..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
+
+/obj/item/melee/energy/sword/detailed_examine()
+	return "The energy sword is a very strong melee weapon, capable of severing limbs easily, if they are targeted. It can also has a chance \
+			to block projectiles and melee attacks while it is on and being held. The sword can be toggled on or off by using it in your hand. While it is off, \
+			it can be concealed in your pocket or bag."
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
@@ -132,7 +146,7 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
+/obj/item/melee/energy/sword/cyborg/attack(mob/M, mob/living/silicon/robot/R)
 	if(R.cell)
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))
@@ -147,7 +161,7 @@
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30
 	force = 18 //About as much as a spear
-	sharp = 1
+	sharp = TRUE
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
@@ -156,6 +170,7 @@
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
+	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
 	..()
@@ -189,7 +204,7 @@
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
 			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
-				newSaber.hacked = 1
+				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
 			user.unEquip(W)
 			user.unEquip(src)
@@ -197,8 +212,8 @@
 			qdel(src)
 			user.put_in_hands(newSaber)
 	else if(istype(W, /obj/item/multitool))
-		if(hacked == 0)
-			hacked = 1
+		if(!hacked)
+			hacked = TRUE
 			item_color = "rainbow"
 			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
 
@@ -227,12 +242,12 @@
 	icon_state = "blade"
 	force = 30	//Normal attacks deal esword damage
 	hitsound = 'sound/weapons/blade1.ogg'
-	active = 1
+	active = TRUE
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
 	return
@@ -272,6 +287,8 @@
 	var/swiping = FALSE
 
 /obj/item/melee/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite)) // you get the bonus damage, but the bleed buildup is too much.
+		return
 	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
 	if(!B)
 		if(!active) //This isn't in the above if-check so that the else doesn't care about active
@@ -291,7 +308,7 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((CLUMSY in H.mutations) && prob(50))
+		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
 			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 			H.take_organ_damage(10,10)
 	active = !active
@@ -312,8 +329,8 @@
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
 	else
-		force = initial(force)
-		throwforce = initial(throwforce)
+		force = force_off
+		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)

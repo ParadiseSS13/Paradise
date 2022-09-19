@@ -28,9 +28,9 @@
 	return FALSE
 
 /obj/machinery/bsa
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	density = 1
-	anchored = 1
+	icon = 'icons/obj/machines/particle_accelerator.dmi'
+	density = TRUE
+	anchored = TRUE
 
 /obj/machinery/bsa/back
 	name = "Bluespace Artillery Generator"
@@ -225,7 +225,7 @@
 	last_fire_time = world.time / 10
 
 /obj/item/circuitboard/machine/bsa/back
-	name = "Bluespace Artillery Generator (Machine Board)"
+	board_name = "Bluespace Artillery Generator"
 	build_path = /obj/machinery/bsa/back
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -233,7 +233,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/machine/bsa/middle
-	name = "Bluespace Artillery Fusor (Machine Board)"
+	board_name = "Bluespace Artillery Fusor"
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -241,7 +241,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/machine/bsa/front
-	name = "Bluespace Artillery Bore (Machine Board)"
+	board_name = "Bluespace Artillery Bore"
 	build_path = /obj/machinery/bsa/front
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -249,7 +249,7 @@
 							/obj/item/stack/cable_coil = 2)
 
 /obj/item/circuitboard/computer/bsa_control
-	name = "Bluespace Artillery Controls (Computer Board)"
+	board_name = "Bluespace Artillery Controls"
 	build_path = /obj/machinery/computer/bsa_control
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 
@@ -260,7 +260,7 @@
 	var/target
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"
 	var/icon_state_broken = "control_box"
 	var/icon_state_nopower = "control_boxw"
@@ -288,9 +288,9 @@
 
 /obj/machinery/computer/bsa_control/process()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/computer/bsa_control/update_icon()
+/obj/machinery/computer/bsa_control/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = icon_state_broken
 	else if(stat & NOPOWER)
@@ -301,6 +301,9 @@
 		icon_state = icon_state_active
 	else
 		icon_state = initial(icon_state)
+
+/obj/machinery/computer/bsa_control/update_overlays()
+	return list()
 
 /obj/machinery/computer/bsa_control/attack_hand(mob/user)
 	if(..())
@@ -342,7 +345,7 @@
 			fire(usr)
 		if("recalibrate")
 			calibrate(usr)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
@@ -352,7 +355,7 @@
 
 	var/list/options = gps_locators
 	if(area_aim)
-		options += target_all_areas ? GLOB.ghostteleportlocs : GLOB.teleportlocs
+		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
 

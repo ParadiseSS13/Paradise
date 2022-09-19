@@ -24,12 +24,12 @@ field_generator power level display
 	desc = "A large thermal battery that projects a high amount of energy when powered."
 	icon = 'icons/obj/machines/field_generator.dmi'
 	icon_state = "Field_Gen"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70)
 	var/const/num_power_levels = 6	// Total number of power level icon has
 	var/power_level = 0
 	var/active = FG_OFFLINE
@@ -38,17 +38,16 @@ field_generator power level display
 	var/warming_up = 0
 	var/list/obj/machinery/field/containment/fields
 	var/list/obj/machinery/field/generator/connected_gens
-	var/clean_up = 0
+	var/clean_up = FALSE
 
-/obj/machinery/field/generator/update_icon()
-	overlays.Cut()
+/obj/machinery/field/generator/update_overlays()
+	. = ..()
 	if(warming_up)
-		overlays += "+a[warming_up]"
+		. += "+a[warming_up]"
 	if(fields.len)
-		overlays += "+on"
+		. += "+on"
 	if(power_level)
-		overlays += "+p[power_level]"
-
+		. += "+p[power_level]"
 
 /obj/machinery/field/generator/Initialize(mapload)
 	. = ..()
@@ -64,11 +63,11 @@ field_generator power level display
 	if(state == FG_WELDED)
 		if(get_dist(src, user) <= 1)//Need to actually touch the thing to turn it on
 			if(active >= FG_CHARGING)
-				to_chat(user, "<span class='warning'>You are unable to turn off the [name] once it is online!</span>")
+				to_chat(user, "<span class='warning'>You are unable to turn off [src] once it is online!</span>")
 				return 1
 			else
-				user.visible_message("[user.name] turns on the [name].", \
-					"<span class='notice'>You turn on the [name].</span>", \
+				user.visible_message("[user] turns on [src].", \
+					"<span class='notice'>You turn on [src].</span>", \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
 				investigate_log("<font color='green'>activated</font> by [user.key].","singulo")
@@ -91,16 +90,16 @@ field_generator power level display
 				user.visible_message("[user.name] secures [name] to the floor.", \
 					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = 1
+				anchored = TRUE
 			if(FG_SECURED)
 				state = FG_UNSECURED
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = 0
+				anchored = FALSE
 			if(FG_WELDED)
-				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
+				to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
 	else
 		return ..()
 
@@ -144,7 +143,7 @@ field_generator power level display
 		..()
 
 /obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
-	if(Proj.flag != "bullet" && !Proj.nodamage)
+	if(Proj.flag != BULLET && !Proj.nodamage)
 		power = min(power + Proj.damage, field_generator_max_power)
 		check_power_level()
 	return 0
@@ -188,7 +187,7 @@ field_generator power level display
 		check_power_level()
 		return 1
 	else
-		visible_message("<span class='danger'>The [name] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
+		visible_message("<span class='danger'>[src] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
 		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
 		power = 0
@@ -294,7 +293,7 @@ field_generator power level display
 
 
 /obj/machinery/field/generator/proc/cleanup()
-	clean_up = 1
+	clean_up = TRUE
 	for(var/F in fields)
 		qdel(F)
 
@@ -304,7 +303,7 @@ field_generator power level display
 		if(!FG.clean_up)//Makes the other gens clean up as well
 			FG.cleanup()
 		connected_gens -= FG
-	clean_up = 0
+	clean_up = FALSE
 	update_icon()
 
 	//This is here to help fight the "hurr durr, release singulo cos nobody will notice before the

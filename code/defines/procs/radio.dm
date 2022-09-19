@@ -3,7 +3,7 @@
 #define TELECOMMS_RECEPTION_RECEIVER 2
 #define TELECOMMS_RECEPTION_BOTH 3
 
-/proc/get_frequency_name(var/display_freq)
+/proc/get_frequency_name(display_freq)
 	var/freq_text
 
 	// the name of the channel
@@ -23,10 +23,3 @@
 		freq_text = format_frequency(display_freq)
 
 	return freq_text
-
-/proc/get_message_server()
-	if(GLOB.message_servers)
-		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
-			if(MS.active)
-				return MS
-	return null

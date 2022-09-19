@@ -26,7 +26,7 @@
 		/obj/item/storage/belt/military/traitor,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/toolbox/syndicate,
-		/obj/item/storage/backpack/duffel/syndie/surgery,
+		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/multitool/ai_detect,
 		/obj/item/encryptionkey/binary,
 		/obj/item/jammer,
@@ -34,8 +34,7 @@
 	)
 
 
-/obj/item/storage/box/syndie_kit/contractor/New()
-	..()
+/obj/item/storage/box/syndie_kit/contractor/populate_contents()
 	new /obj/item/paper/contractor_guide(src)
 	new /obj/item/contractor_uplink(src)
 	new /obj/item/storage/box/syndie_kit/contractor_loadout(src)
@@ -48,8 +47,7 @@
 	name = "contractor standard loadout box"
 	desc = "A standard issue box included in a contractor kit."
 
-/obj/item/storage/box/syndie_kit/contractor_loadout/New()
-	..()
+/obj/item/storage/box/syndie_kit/contractor_loadout/populate_contents()
 	new /obj/item/clothing/head/helmet/space/syndicate/contractor(src)
 	new /obj/item/clothing/suit/space/syndicate/contractor(src)
 	new /obj/item/melee/classic_baton/telescopic/contractor(src)

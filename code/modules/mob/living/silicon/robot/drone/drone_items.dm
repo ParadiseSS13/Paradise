@@ -38,7 +38,7 @@
 
 /obj/item/gripper/medical
 	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete."
+	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_hold = list()
 
 /obj/item/gripper/medical/attack_self(mob/user)
@@ -48,13 +48,13 @@
 	var/mob/living/carbon/human/H
 	if(!gripped_item && proximity && target && ishuman(target))
 		H = target
-		if(H.lying)
-			H.AdjustSleeping(-5)
-			if(H.sleeping == 0)
-				H.StopResting()
-			H.AdjustParalysis(-3)
-			H.AdjustStunned(-3)
-			H.AdjustWeakened(-3)
+		if(IS_HORIZONTAL(H))
+			H.AdjustSleeping(-10 SECONDS)
+			H.AdjustParalysis(-6 SECONDS)
+			H.AdjustStunned(-6 SECONDS)
+			H.AdjustWeakened(-6 SECONDS)
+			H.AdjustKnockDown(-6 SECONDS)
+			H.stand_up()
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
@@ -134,7 +134,7 @@
 				A.cell.forceMove(src)
 				A.cell = null
 
-				A.charging = 0
+				A.charging = APC_NOT_CHARGING
 				A.update_icon()
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
@@ -178,62 +178,6 @@
 	else
 		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
 	return
-
-//PRETTIER TOOL LIST.
-/mob/living/silicon/robot/drone/installed_modules()
-
-	if(weapon_lock)
-		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
-		return
-
-	if(!module)
-		module = new /obj/item/robot_module/drone(src)
-
-	var/dat = "<HEAD><TITLE>Drone modules</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
-	dat += {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
-	<BR>
-	<BR>
-	<B>Activated Modules</B>
-	<BR>
-	Module 1: [module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]<BR>
-	Module 2: [module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]<BR>
-	Module 3: [module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]<BR>
-	<BR>
-	<B>Installed Modules</B><BR><BR>"}
-
-
-	var/tools = "<B>Tools and devices</B><BR>"
-	var/resources = "<BR><B>Resources</B><BR>"
-
-	for(var/O in module.modules)
-
-		var/module_string = ""
-
-		if(!O)
-			module_string += text("<B>Resource depleted</B><BR>")
-		else if(activated(O))
-			module_string += text("[O]: <B>Activated</B><BR>")
-		else
-			module_string += text("[O]: <A HREF=?src=[UID()];act=\ref[O]>Activate</A><BR>")
-
-		if((istype(O,/obj/item) || istype(O,/obj/item)) && !(istype(O,/obj/item/stack/cable_coil)))
-			tools += module_string
-		else
-			resources += module_string
-
-	dat += tools
-
-	if(emagged)
-		if(!module.emag)
-			dat += text("<B>Resource depleted</B><BR>")
-		else if(activated(module.emag))
-			dat += text("[module.emag]: <B>Activated</B><BR>")
-		else
-			dat += text("[module.emag]: <A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A><BR>")
-
-	dat += resources
-
-	src << browse(dat, "window=robotmod&can_close=0")
 
 //Putting the decompiler here to avoid doing list checks every tick.
 /mob/living/silicon/robot/drone/use_power()

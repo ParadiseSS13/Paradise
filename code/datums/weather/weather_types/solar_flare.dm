@@ -2,22 +2,23 @@
 	name = "solar flare"
 	desc = "An intense blast of light and heat from the sun, affecting all space around the station."
 
-	telegraph_duration = 30 SECONDS
+	telegraph_duration = 40 SECONDS
 	telegraph_message = null // handled via event announcement
 
-	weather_message = "<span class='userdanger'><i>A solar flare has arrived! Find shelter!</i></span>"
+	weather_message = "<span class='userdanger'><i>A solar flare has arrived! Do not conduct space walks or approach windows until the flare has passed!</i></span>"
 	weather_overlay = "light_ash"
-	weather_duration_lower = 5 MINUTES
-	weather_duration_upper = 10 MINUTES
+	weather_duration_lower = 1 MINUTES
+	weather_duration_upper = 5 MINUTES
 	weather_color = COLOR_YELLOW
 	weather_sound = 'sound/misc/bloblarm.ogg' // also used by radiation storm and SM
 
 	end_duration = 10 // wind_down() does not do anything for this event, so we just trigger end() semi-immediately
 	end_message = null
 	area_type = /area/space // read generate_area_list() as well below
-	protected_areas = list()
+	protected_areas = list(/area/shuttle/arrival/station, /area/hallway/secondary/entry)
 	target_trait = STATION_LEVEL
 	immunity_type = "burn"
+	var/damage = 4
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
@@ -35,9 +36,26 @@
 	// Solars produce 40x as much power. 240KW becomes 9.6MW. Enough to cause APCs to arc all over the station if >=2 solars are hotwired.
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate) * 40
 
+/datum/weather/solar_flare/can_weather_act(mob/living/L)
+	. = ..()
+	if(.) //If true the mob is already affected, no need to keep processing
+		return TRUE
+	if(istype(L, /mob/living/simple_animal)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
+		return FALSE
+	if(istype(L, /mob/living/silicon/robot/drone)) //same with poor maint drones who just wanna have fun
+		return FALSE
+	for(var/turf/T in oview(get_turf(L)))
+		if(isspaceturf(T) || istransparentturf(T))
+			return TRUE
+	return FALSE
+
 /datum/weather/solar_flare/weather_act(mob/living/L)
-	L.adjustFireLoss(1)
-	if(prob(10))
+	var/adjusted_damage = damage
+	if(get_area(L) in protected_areas) //we do wanna protect new arrivals from horrible death
+		adjusted_damage = 1
+	L.adjustFireLoss(adjusted_damage)
+	L.flash_eyes()
+	if(prob(25))
 		to_chat(L, "<span class='warning'>The solar flare burns you! Seek shelter!</span>")
 
 /datum/weather/solar_flare/end()

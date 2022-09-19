@@ -1,9 +1,11 @@
 /datum/map_template/ruin/lavaland
 	prefix = "_maps/map_files/RandomRuins/LavaRuins/"
+	ci_exclude = /datum/map_template/ruin/lavaland
 
 /datum/map_template/ruin/lavaland/biodome
 	cost = 5
 	allow_duplicates = FALSE
+	ci_exclude = /datum/map_template/ruin/lavaland/biodome // This is a parent holder, not a ruin itself
 
 /datum/map_template/ruin/lavaland/biodome/beach
 	name = "Biodome Beach"
@@ -51,14 +53,6 @@
 	cost = 20
 	allow_duplicates = FALSE
 
-/datum/map_template/ruin/lavaland/syndicate_base
-	name = "Syndicate Lava Base"
-	id = "lava-base"
-	description = "A secret base researching illegal bioweapons, it is closely guarded by an elite team of syndicate agents."
-	suffix = "lavaland_surface_syndicate_base1.dmm"
-	cost = 20
-	allow_duplicates = FALSE
-
 /datum/map_template/ruin/lavaland/free_golem
 	name = "Free Golem Ship"
 	id = "golem-ship"
@@ -79,6 +73,7 @@
 /datum/map_template/ruin/lavaland/sin
 	cost = 10
 	allow_duplicates = FALSE
+	ci_exclude = /datum/map_template/ruin/lavaland/sin // This is a parent holder, not a ruin itself
 
 /datum/map_template/ruin/lavaland/sin/envy
 	name = "Ruin of Envy"
@@ -196,14 +191,6 @@
 	allow_duplicates = FALSE
 	cost = 10
 
-/datum/map_template/ruin/lavaland/swarmer_boss
-	name = "Crashed Shuttle"
-	id = "swarmerboss"
-	description = "A Syndicate shuttle had an unfortunate stowaway..."
-	suffix = "lavaland_surface_swarmer_crash.dmm"
-	allow_duplicates = FALSE
-	cost = 20
-
 /datum/map_template/ruin/lavaland/miningripley
 	name = "Ripley"
 	id = "ripley"
@@ -217,4 +204,20 @@
 	id = "puzzle"
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
+	cost = 5
+
+/datum/map_template/ruin/lavaland/tumor
+	name = "Elite Tumor"
+	id = "tumor"
+	description = "The victor freed, the loser the next fighter. The ghosts, the endless spectators. And thus the cycle loops..."
+	suffix = "lavaland_surface_elite_tumor.dmm"
+	cost = 5
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/monster_nest
+	name = "Monster Nest"
+	id = "monsternest"
+	description = "A cave of several tunnels, housing the local fauna deep underground."
+	suffix = "lavaland_surface_monster_nest.dmm"
+	allow_duplicates = FALSE
 	cost = 5

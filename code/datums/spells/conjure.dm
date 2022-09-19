@@ -1,5 +1,4 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure
-	name = "Conjure"
 	desc = "This spell conjures objs of the specified types in range."
 
 	var/list/summon_type = list() //determines what exactly will be summoned
@@ -44,15 +43,9 @@
 				summoned_object.admin_spawned = TRUE
 
 				if(summon_lifespan)
-					spawn(summon_lifespan)
-						if(summoned_object)
-							qdel(summoned_object)
+					QDEL_IN(summoned_object, summon_lifespan)
 	else
-		switch(charge_type)
-			if("recharge")
-				charge_counter = charge_max - 5//So you don't lose charge for a failed spell(Also prevents most over-fill)
-			if("charges")
-				charge_counter++//Ditto, just for different spell types
+		cooldown_handler.start_recharge(0.5 SECONDS)
 
 
 	return
@@ -63,5 +56,9 @@
 
 	summon_type = list(/mob/living/simple_animal/bot/ed209)
 	summon_amt = 10
-	range = 3
 	newVars = list("emagged" = 1,"name" = "Wizard's Justicebot")
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/summonEdSwarm/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 3
+	return T

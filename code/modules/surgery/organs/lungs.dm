@@ -56,7 +56,7 @@
 	if(!is_robotic() || emp_proof)
 		return
 	if(owner)
-		owner.LoseBreath(20)
+		owner.LoseBreath(40 SECONDS)
 
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
@@ -76,19 +76,22 @@
 			owner.emote("cough")		//respitory tract infection
 
 	if(is_bruised())
-		if(prob(2))
-			owner.custom_emote(1, "coughs up blood!")
+		if(prob(2) && !(NO_BLOOD in owner.dna.species.species_traits))
+			owner.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 			owner.bleed(1)
 		if(prob(4))
-			owner.custom_emote(1, "gasps for air!")
-			owner.AdjustLoseBreath(5)
+			owner.custom_emote(EMOTE_VISIBLE, "gasps for air!")
+			owner.AdjustLoseBreath(10 SECONDS)
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 	if((H.status_flags & GODMODE))
 		return
 
+	if(HAS_TRAIT(H, TRAIT_NOBREATH))
+		return
+
 	if(!breath || (breath.total_moles() == 0))
-		if(isspaceturf(loc))
+		if(isspaceturf(H.loc))
 			H.adjustOxyLoss(10)
 		else
 			H.adjustOxyLoss(5)
@@ -177,7 +180,7 @@
 			if(!H.co2overloadtime) // If it's the first breath with too much CO2 in it, lets start a counter, then have them pass out after 12s or so.
 				H.co2overloadtime = world.time
 			else if(world.time - H.co2overloadtime > 120)
-				H.Paralyse(3)
+				H.Paralyse(6 SECONDS)
 				H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
 				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 					H.apply_damage_type(15, co2_damage_type)
@@ -237,9 +240,9 @@
 
 	if(breath.sleeping_agent)	// If there's some other shit in the air lets deal with it here.
 		if(SA_pp > SA_para_min)
-			H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
+			H.Paralyse(6 SECONDS) // 6 seconds gives them one second to wake up and run away a bit!
 			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
-				H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
+				H.AdjustSleeping(16 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
 			if(prob(20))
 				H.emote(pick("giggle", "laugh"))
@@ -267,11 +270,7 @@
 /obj/item/organ/internal/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.temperature
 
-	var/species_traits = list()
-	if(H && H.dna.species && H.dna.species.species_traits)
-		species_traits = H.dna.species.species_traits
-
-	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
+	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE
 		var/CM = abs(H.dna.species.coldmod)
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
@@ -287,7 +286,7 @@
 			if(prob(20))
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
-	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
+	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod)
 		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
@@ -305,8 +304,9 @@
 
 /obj/item/organ/internal/lungs/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("salbutamol", 5)
-	return S
+	if(S)
+		S.reagents.add_reagent("salbutamol", 5)
+		return S
 
 /obj/item/organ/internal/lungs/plasmaman
 	name = "plasma filter"
@@ -345,6 +345,38 @@
 	icon_state = "lungs-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	var/species_state = "human"
+
+/obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] is configured for [species_state] standards of atmosphere.</span>"
+
+/obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(species_state)
+		if("human") // from human to vox
+			safe_oxygen_min = 0
+			safe_oxygen_max = safe_toxins_max
+			safe_nitro_min = 16
+			oxy_damage_type = TOX
+			to_chat(user, "<span class='notice'>You configure [src] to replace vox lungs.</span>")
+			species_state = "vox"
+		if("vox") // from vox to plasmamen
+			safe_oxygen_max = initial(safe_oxygen_max)
+			safe_toxins_min = 16
+			safe_toxins_max = 0
+			safe_nitro_min = initial(safe_nitro_min)
+			oxy_damage_type = OXY
+			to_chat(user, "<span class='notice'>You configure [src] to replace plasmamen lungs.</span>")
+			species_state = "plasmamen"
+		if("plasmamen") // from plasmamen to human
+			safe_oxygen_min = initial(safe_oxygen_min)
+			safe_toxins_min = initial(safe_toxins_min)
+			safe_toxins_max = initial(safe_toxins_max)
+			to_chat(user, "<span class='notice'>You configure [src] back to default settings.</span>")
+			species_state = "human"
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"

@@ -4,6 +4,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
+	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
@@ -78,10 +79,12 @@
 		for(var/atom/T in get_turf(D))
 			D.reagents.reaction(T)
 		sleep(3)
+		if(QDELETED(D))
+			return
 	qdel(D)
 
 
-/obj/item/reagent_containers/spray/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/attack_self(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -97,7 +100,7 @@
 	set name = "Empty Spray Bottle"
 	set category = "Object"
 	set src in usr
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
@@ -131,6 +134,9 @@
 	volume = 50
 	list_reagents = list("cleaner" = 50)
 
+/obj/item/reagent_containers/spray/cleaner/drone/cyborg_recharge(coeff, emagged)
+	reagents.check_and_add("cleaner", volume, 3 * coeff)
+
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"
@@ -145,6 +151,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
+	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
 	amount_per_transfer_from_this = 5
@@ -157,6 +164,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
 	item_state = "sunflower"
+	belt_icon = null
 	amount_per_transfer_from_this = 1
 	volume = 10
 	list_reagents = list("water" = 10)
@@ -180,7 +188,7 @@
 	origin_tech = "combat=3;materials=3;engineering=3"
 
 
-/obj/item/reagent_containers/spray/chemsprayer/spray(var/atom/A)
+/obj/item/reagent_containers/spray/chemsprayer/spray(atom/A)
 	var/Sprays[3]
 	for(var/i=1, i<=3, i++) // intialize sprays
 		if(reagents.total_volume < 1) break
@@ -217,7 +225,7 @@
 
 
 
-/obj/item/reagent_containers/spray/chemsprayer/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
@@ -230,5 +238,6 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
+	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)

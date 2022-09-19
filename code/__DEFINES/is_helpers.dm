@@ -18,13 +18,13 @@
 
 #define ismecha(A) (istype(A, /obj/mecha))
 
-#define isspacepod(A) (istype(A, /obj/spacepod))
-
 #define iseffect(A) (istype(A, /obj/effect))
 
-#define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
+#define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
+
+#define isstorage(A) (istype(A, /obj/item/storage))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -49,9 +49,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isspaceturf(A) istype(A, /turf/space)
 
-#define isfloorturf(A) istype(A, /turf/simulated/floor)
+#define istransparentturf(A) istype(A, /turf/simulated/floor/transparent)
 
-#define isunsimulatedturf(A) istype(A, /turf/unsimulated)
+#define isfloorturf(A) istype(A, /turf/simulated/floor)
 
 #define iswallturf(A) istype(A, /turf/simulated/wall)
 

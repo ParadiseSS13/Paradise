@@ -2,7 +2,7 @@
 	var/obj/item/container = null
 	var/timeofhostdeath = 0
 	var/emp_damage = 0//Handles a type of MMI damage
-	use_me = 0 //Can't use the me verb, it's a freaking immobile brain
+	use_me = FALSE //Can't use the me verb, it's a freaking immobile brain
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "brain1"
 
@@ -43,20 +43,6 @@
 	if(istype(other, /mob/living/simple_animal/slime))
 		return 1
 	return ..()
-
-
-/mob/living/carbon/brain/update_canmove(delay_action_updates = 0)
-	if(in_contents_of(/obj/mecha))
-		canmove = 1
-		use_me = 1 //If it can move, let it emote
-	else if(istype(loc, /obj/item/mmi))
-		canmove = 1 //mmi won't move anyways so whatever
-	else
-		canmove = 0
-
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
 
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return
@@ -108,3 +94,11 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 /mob/living/carbon/brain/can_hear()
 	. = TRUE
+
+/mob/living/carbon/brain/update_runechat_msg_location()
+	if(ismecha(loc))
+		runechat_msg_location = loc.UID()
+	else if(container)
+		runechat_msg_location = container.UID()
+	else
+		return ..()

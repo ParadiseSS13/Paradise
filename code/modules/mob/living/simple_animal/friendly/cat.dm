@@ -11,7 +11,6 @@
 	speak_emote = list("purrs", "meows")
 	emote_hear = list("meows", "mews")
 	emote_see = list("shakes its head", "shivers")
-	var/meow_sound = 'sound/creatures/cat_meow.ogg'	//Used in emote.
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -27,6 +26,7 @@
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	var/eats_mice = 1
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
@@ -93,6 +93,9 @@
 			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
 				new cat_type(loc)
 
+/mob/living/simple_animal/pet/cat/npc_safe(mob/user)
+	return TRUE
+
 /mob/living/simple_animal/pet/cat/Life()
 	..()
 	make_babies()
@@ -100,91 +103,57 @@
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
 		if(prob(1))
-			custom_emote(1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-			StartResting()
+			custom_emote(EMOTE_VISIBLE, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+			lay_down()
 		else if(prob(1))
-			custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+			custom_emote(EMOTE_VISIBLE, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 			icon_state = "[icon_living]_sit"
 			collar_type = "[initial(collar_type)]_sit"
-			resting = TRUE
-			update_canmove()
+			lay_down()
 		else if(prob(1))
-			if(resting)
-				custom_emote(1, pick("gets up and meows.", "walks around.", "stops resting."))
-				StopResting()
+			if(IS_HORIZONTAL(src))
+				custom_emote(EMOTE_VISIBLE, pick("gets up and meows.", "walks around.", "stops resting."))
+				stand_up()
 			else
-				custom_emote(1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
+				custom_emote(EMOTE_VISIBLE, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
 		for(var/mob/living/simple_animal/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
-				custom_emote(1, "splats \the [M]!")
+				custom_emote(EMOTE_VISIBLE, "splats \the [M]!")
 				M.death()
 				M.splat()
 				movement_target = null
-				stop_automated_movement = 0
+				stop_automated_movement = FALSE
 				break
 		for(var/obj/item/toy/cattoy/T in view(1, src))
 			if(T.cooldown < (world.time - 400))
-				custom_emote(1, "bats \the [T] around with its paw!")
+				custom_emote(EMOTE_VISIBLE, "bats \the [T] around with its paw!")
 				T.cooldown = world.time
 
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()
-	if(!stat && !resting && !buckled)
-		turns_since_scan++
-		if(turns_since_scan > 5)
-			walk_to(src,0)
-			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
-				movement_target = null
-				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
-				movement_target = null
-				stop_automated_movement = 0
-				for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
-					if(isturf(snack.loc) && !snack.stat)
-						movement_target = snack
-						break
-			if(movement_target)
-				stop_automated_movement = 1
-				walk_to(src,movement_target,0,3)
-
-/mob/living/simple_animal/pet/cat/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
+	if(stat || IS_HORIZONTAL(src) || buckled)
 		return
 
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("meow")
-			on_CD = handle_emote_CD()
-		if("hiss")
-			on_CD = handle_emote_CD()
-		if("purr")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act)
-		if("meow")
-			message = "<B>[src]</B> [pick(emote_hear)]!"
-			m_type = 2 //audible
-			playsound(src, meow_sound, 50, 0.75)
-		if("hiss")
-			message = "<B>[src]</B> hisses!"
-			m_type = 2
-		if("purr")
-			message = "<B>[src]</B> purrs."
-			m_type = 2
-		if("help")
-			to_chat(src, "scream, meow, hiss, purr")
-
-	..()
+	turns_since_scan++
+	if(turns_since_scan > 5)
+		walk_to(src,0)
+		turns_since_scan = 0
+	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
+		movement_target = null
+		stop_automated_movement = FALSE
+	if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+		movement_target = null
+		stop_automated_movement = FALSE
+		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
+			if(isturf(snack.loc) && !snack.stat)
+				movement_target = snack
+				break
+	if(movement_target)
+		stop_automated_movement = TRUE
+		walk_to(src,movement_target,0,3)
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
@@ -200,7 +169,7 @@
 	icon_dead = "kitten_dead"
 	icon_resting = null
 	gender = NEUTER
-	density = 0
+	density = FALSE
 	pass_flags = PASSMOB
 	collar_type = "kitten"
 
@@ -211,9 +180,7 @@
 	icon_living = "Syndicat"
 	icon_dead = "Syndicat_dead"
 	icon_resting = "Syndicat_rest"
-	meow_sound = null	//Need robo-meow.
 	gender = FEMALE
-	mutations = list(BREATHLESS)
 	faction = list("syndicate")
 	gold_core_spawnable = NO_SPAWN
 	eats_mice = 0
@@ -221,6 +188,15 @@
 	minbodytemp = 0
 	melee_damage_lower = 5
 	melee_damage_upper = 15
+
+/mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+
+/mob/living/simple_animal/pet/cat/Syndi/npc_safe(mob/user)
+	if(GAMEMODE_IS_NUCLEAR)
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"

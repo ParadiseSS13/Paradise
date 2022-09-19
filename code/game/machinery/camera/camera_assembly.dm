@@ -13,8 +13,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	anchored = FALSE
 	materials = list(MAT_METAL=400, MAT_GLASS=250)
-	//	Motion, EMP-Proof, X-Ray
-	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma, /obj/item/analyzer)
+	//	Motion, EMP-Proof
+	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma)
 	var/list/upgrades = list()
 	var/state = ASSEMBLY_UNBUILT
 
@@ -127,12 +127,12 @@
 		WRENCH_ANCHOR_TO_WALL_MESSAGE
 		anchored = TRUE
 		state = ASSEMBLY_WRENCHED
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		auto_turn()
 	else if(state == ASSEMBLY_WRENCHED)
 		WRENCH_UNANCHOR_WALL_MESSAGE
 		anchored = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		state = ASSEMBLY_UNBUILT
 	else
 		to_chat(user, "<span class='warning'>[src] can't fit here!</span>")
@@ -155,7 +155,7 @@
 		to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
 		state = ASSEMBLY_WRENCHED
 
-/obj/item/camera_assembly/update_icon()
+/obj/item/camera_assembly/update_icon_state()
 	if(anchored)
 		icon_state = "camera1"
 	else

@@ -49,8 +49,7 @@
 			colour = BlendRGB(owner.m_colours["body"], owner.m_colours["head"], 0.65)	//then again im pretty bad at theoretics
 
 		if(new_light != glowing)
-			var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ))
-			lbody.set_light(new_light,l_color = colour)
+			owner.set_light(new_light, l_color = colour)
 			glowing = new_light
 
 	return
@@ -62,25 +61,23 @@
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You cannot alter your bioluminescence in your current state.</span>")
-		return 0
+		return FALSE
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 		to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
-		return 0
+		return FALSE
 
 	if(!colour)
 		colour = BlendRGB(owner.m_colours["head"], owner.m_colours["body"], 0.65)
 
 	if(!glowing)
 		var/light = calculate_glow(KIDAN_LANTERN_LIGHT)
-		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ))
-		lbody.set_light(light,l_color = colour)
+		owner.set_light(light, l_color = colour)
 		glowing = light
 		return 1
 
 	else
-		var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ))
-		lbody.set_light(0)
+		owner.set_light(0)
 		glowing = 0
 		return 1
 

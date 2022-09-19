@@ -2,38 +2,25 @@ import { classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { Button } from './Button';
 
-export const Tabs = props => {
-  const {
-    className,
-    vertical,
-    children,
-    ...rest
-  } = props;
+export const Tabs = (props) => {
+  const { className, vertical, children, ...rest } = props;
   return (
     <div
       className={classes([
         'Tabs',
-        vertical
-          ? 'Tabs--vertical'
-          : 'Tabs--horizontal',
+        vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
         className,
         computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}>
-      <div className="Tabs__tabBox">
-        {children}
-      </div>
+      {...computeBoxProps(rest)}
+    >
+      <div className="Tabs__tabBox">{children}</div>
     </div>
   );
 };
 
-const Tab = props => {
-  const {
-    className,
-    selected,
-    altSelection,
-    ...rest
-  } = props;
+const Tab = (props) => {
+  const { className, selected, altSelection, ...rest } = props;
   return (
     <Button
       className={classes([
@@ -44,7 +31,8 @@ const Tab = props => {
       ])}
       selected={!altSelection && selected}
       color="transparent"
-      {...rest} />
+      {...rest}
+    />
   );
 };
 

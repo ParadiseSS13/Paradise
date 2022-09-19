@@ -6,6 +6,7 @@
 	icon_living = "russianmelee"
 	icon_dead = "russianmelee_dead" // Does not actually exist. del_on_death.
 	icon_gib = "russianmelee_gib" // Does not actually exist. del_on_death.
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -25,13 +26,14 @@
 	status_flags = CANPUSH
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian,
 			/obj/item/kitchen/knife)
-	del_on_death = 1
+	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/russian/ranged
 	icon_state = "russianranged"
 	icon_living = "russianranged"
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'

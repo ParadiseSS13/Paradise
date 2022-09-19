@@ -18,7 +18,7 @@
 		var/text_output = from.generate_taste_message(taste_sensitivity)
 		// We dont want to spam the same message over and over again at the
 		// person. Give it a bit of a buffer.
-		if(hallucination > 50 && prob(25))
+		if(AmountHallucinate() > 50 SECONDS && prob(25))
 			text_output = pick("spiders","dreams","nightmares","the future","the past","victory",\
 			"defeat","pain","bliss","revenge","poison","time","space","death","life","truth","lies","justice","memory",\
 			"regrets","your soul","suffering","music","noise","blood","hunger","the american way")

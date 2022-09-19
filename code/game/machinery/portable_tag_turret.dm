@@ -25,7 +25,7 @@
 	. = ..()
 	icon_state = "[lasercolor]grey_target_prism"
 
-/obj/machinery/porta_turret/tag/weapon_setup(var/obj/item/gun/energy/E)
+/obj/machinery/porta_turret/tag/weapon_setup(obj/item/gun/energy/E)
 	return
 
 /obj/machinery/porta_turret/tag/ui_data(mob/user)
@@ -37,7 +37,7 @@
 	)
 	return data
 
-/obj/machinery/porta_turret/tag/update_icon()
+/obj/machinery/porta_turret/tag/update_icon_state()
 	if(!anchored)
 		icon_state = "turretCover"
 		return
@@ -71,11 +71,11 @@
 				spawn(100)
 					disabled  = FALSE
 
-/obj/machinery/porta_turret/tag/assess_living(var/mob/living/L)
+/obj/machinery/porta_turret/tag/assess_living(mob/living/L)
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	if(L.lying)
+	if(IS_HORIZONTAL(L))
 		return TURRET_NOT_TARGET
 
 	var/target_suit

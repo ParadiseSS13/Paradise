@@ -1,4 +1,4 @@
-/proc/GetOppositeDir(var/dir)
+/proc/GetOppositeDir(dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH
@@ -46,7 +46,7 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_hair_style(gender, species = "Human", datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
@@ -75,7 +75,7 @@
 
 	return h_style
 
-/proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_facial_hair_style(gender, species = "Human", datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
@@ -119,7 +119,7 @@
 
 	return ha_style
 
-/proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
+/proc/random_marking_style(location = "body", species = "Human", datum/robolimb/robohead, body_accessory, alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
@@ -158,21 +158,23 @@
 
 	return m_style
 
-/proc/random_body_accessory(species = "Vulpkanin")
-	var/body_accessory = null
+/**
+  * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
+  *
+  * Arguments:
+  * * species - The name of the species to filter valid body accessories.
+  * * is_optional - Whether *no* body accessory (null) is an option.
+ */
+/proc/random_body_accessory(species = "Vulpkanin", is_optional = TRUE)
 	var/list/valid_body_accessories = list()
-	for(var/B in GLOB.body_accessory_by_name)
-		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(!istype(A))
-			valid_body_accessories += "None" //The only null entry should be the "None" option.
-			continue
-		if(species in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-			valid_body_accessories += B
+	if(is_optional)
+		valid_body_accessories += null
 
-	if(valid_body_accessories.len)
-		body_accessory = pick(valid_body_accessories)
+	if(GLOB.body_accessory_by_species[species])
+		for(var/name in GLOB.body_accessory_by_species[species])
+			valid_body_accessories += name
 
-	return body_accessory
+	return length(valid_body_accessories) ? pick(valid_body_accessories) : null
 
 /proc/random_name(gender, species = "Human")
 
@@ -272,15 +274,19 @@
 	update_all_mob_security_hud()
 	return 1
 
-/*
-Proc for attack log creation, because really why not
-1 argument is the actor
-2 argument is the target of action
-3 is the full description of the action
-4 is whether or not to message admins
-This is always put in the attack log.
-*/
-
+/**
+ * Creates attack (old and new) logs for the user and defense logs for the target.
+ * Will message admins depending on the custom_level, user and target.
+ *
+ * custom_level will determine the log level set. Unless the target is SSD and there is a user doing it
+ * If custom_level is not set then the log level will be determined using the user and the target.
+ *
+ * * Arguments:
+ * * user - The thing doing it. Can be null
+ * * target - The target of the attack
+ * * what_done - What has happened
+ * * custom_level - The log level override
+ */
 /proc/add_attack_logs(atom/user, target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
@@ -288,7 +294,7 @@ This is always put in the attack log.
 			add_attack_logs(user, t, what_done, custom_level)
 		return
 
-	var/user_str = key_name_log(user) + COORD(user)
+	var/user_str = key_name_log(user) + (istype(user) ? COORD(user) : "")
 	var/target_str
 	var/target_info
 	if(isatom(target))
@@ -323,13 +329,13 @@ This is always put in the attack log.
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
-	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
+	if(user && isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 
 
 	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
-/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
+/proc/do_mob(mob/user, mob/target, time = 30, progress = 1, list/extra_checks = list(), only_use_extra_checks = FALSE)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -348,6 +354,11 @@ This is always put in the attack log.
 	var/endtime = world.time+time
 	var/starttime = world.time
 	. = 1
+
+	var/mob/living/L
+	if(isliving(user))
+		L = user
+
 	while(world.time < endtime)
 		sleep(1)
 		if(progress)
@@ -355,14 +366,17 @@ This is always put in the attack log.
 		if(!user || !target)
 			. = 0
 			break
-		if(uninterruptible)
+		if(only_use_extra_checks)
+			if(check_for_true_callbacks(extra_checks))
+				. = 0
+				break
 			continue
 
 		if(drifting && !user.inertia_dir)
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || check_for_true_callbacks(extra_checks))
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || (L && IS_HORIZONTAL(L)) || check_for_true_callbacks(extra_checks))
 			. = 0
 			break
 	if(progress)
@@ -409,8 +423,8 @@ This is always put in the attack log.
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
-		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
+		extra_checks += CALLBACK(user, /mob/living.proc/IsWeakened)
+		extra_checks += CALLBACK(user, /mob/living.proc/IsStunned)
 
 	while(world.time < endtime)
 		sleep(1)
@@ -570,7 +584,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		log_admin("[key_name(usr)] attempted to use a mouse macro: [verbused] [params]")
 		message_admins("[key_name_admin(usr)] attempted to use a mouse macro: [verbused] [html_encode(params)]")
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
-		usr << 'sound/misc/sadtrombone.ogg'
+		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1
@@ -637,7 +651,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
  * 	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
-	var/sec_positions = GLOB.security_positions - "Magistrate" - "Brig Physician"
+	var/sec_positions = GLOB.security_positions - "Magistrate"
 	var/total = 0
 	var/active = 0
 	var/dead = 0
@@ -655,3 +669,35 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 			if(player.stat == CONSCIOUS)
 				active++
 	return list(total, active, dead, antag)
+
+/**
+  * Safe ckey getter
+  *
+  * Should be used whenever broadcasting public information about a mob,
+  * as this proc will make a best effort to hide the users ckey if they request it.
+  * It will first check the mob for a client, then use the mobs last ckey as a directory lookup.
+  * If a client cant be found to check preferences on, it will just show as DC'd.
+  * This proc should only be used for public facing stuff, not administration related things.
+  *
+  * Arguments:
+  * * M - Mob to get a safe ckey of
+  */
+/proc/safe_get_ckey(mob/M)
+	var/client/C = null
+	if(M.client)
+		C = M.client
+	else if(M.last_known_ckey in GLOB.directory)
+		C = GLOB.directory[M.last_known_ckey]
+
+	// Now we see if we need to respect their privacy
+	var/out_ckey
+	if(C)
+		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
+			out_ckey = "(Anon)"
+		else
+			out_ckey = C.ckey
+	else
+		// No client. Just mark as DC'd.
+		out_ckey = "(Disconnected)"
+
+	return out_ckey

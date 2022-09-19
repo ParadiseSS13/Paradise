@@ -1,5 +1,4 @@
 
-#define DISPLAY_FREQ 1435 //status displays
 #define ATMOS_FIRE_FREQ 1437 //air alarms
 #define ENGINE_FREQ 1438 //engine components
 #define ATMOS_VENTSCRUB 1439 //vents, scrubbers, atmos control

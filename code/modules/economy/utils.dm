@@ -4,7 +4,7 @@
 // Economy system is such a mess of spaghetti.  This should help.
 ////////////////////////
 
-/proc/get_money_account(var/account_number, var/from_z=-1)
+/proc/get_money_account(account_number, from_z=-1)
 	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
 		if(from_z > -1 && DB.z != from_z) continue
 		if((DB.stat & NOPOWER) || !DB.activated ) continue
@@ -13,32 +13,20 @@
 		return acct
 
 
-/obj/proc/get_card_account(var/obj/item/card/I, var/mob/user=null, var/terminal_name="", var/transaction_purpose="", var/require_pin=0)
-	if(terminal_name=="")
-		terminal_name=src.name
+/obj/proc/get_card_account(obj/item/card/I)
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/C = I
-		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(C.associated_account_number)
-		if(require_pin && user)
-			attempt_pin = input(user,"Enter pin code", "Transaction") as num
-			if(D.remote_access_pin != attempt_pin)
-				return null
 		if(D)
 			return D
 
-/mob/proc/get_worn_id_account(var/require_pin=0, var/mob/user=null)
+/mob/proc/get_worn_id_account()
 	if(ishuman(src))
 		var/mob/living/carbon/human/H=src
 		var/obj/item/card/id/I=H.get_idcard()
 		if(!I || !istype(I))
 			return null
-		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(I.associated_account_number)
-		if(require_pin && user)
-			attempt_pin = input(user,"Enter pin code", "Transaction") as num
-			if(D.remote_access_pin != attempt_pin)
-				return null
 		return D
 	else if(issilicon(src))
 		return GLOB.station_account

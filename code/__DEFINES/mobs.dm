@@ -1,11 +1,17 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN     1
-#define ORGAN_ROBOT      2
-#define ORGAN_SPLINTED   4
-#define ORGAN_DEAD       8
-#define ORGAN_MUTATED    16
+#define ORGAN_BROKEN       (1 << 0)
+#define ORGAN_ROBOT        (1 << 1)
+#define ORGAN_SPLINTED     (1 << 2)
+#define ORGAN_DEAD         (1 << 3)
+#define ORGAN_MUTATED      (1 << 4)
+#define ORGAN_INT_BLEEDING (1 << 5)
+#define ORGAN_DISFIGURED   (1 << 6)
+
+// For limb resistance flags
+#define CANNOT_BREAK		(1 << 0)
+#define CANNOT_DISMEMBER 	(1 << 1)
 
 #define PROCESS_ACCURACY 10
 
@@ -13,9 +19,29 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
+//Mob bio-types flags
+#define MOB_ORGANIC 	(1 << 0)
+#define MOB_MINERAL		(1 << 1)
+#define MOB_ROBOTIC 	(1 << 2)
+#define MOB_UNDEAD		(1 << 3)
+#define MOB_HUMANOID 	(1 << 4)
+#define MOB_BUG 		(1 << 5)
+#define MOB_BEAST		(1 << 6)  // Not meant for human species, generally
+#define MOB_EPIC		(1 << 7) //megafauna
+#define MOB_REPTILE		(1 << 8)
+#define MOB_SPIRIT		(1 << 9)
+#define MOB_PLANT		(1 << 10)
+
 #define AGE_MIN 17			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
+/// Mob is standing up, usually associated with lying_angle value of 0.
+#define STANDING_UP 0
+/// Mob is lying down, usually associated with lying_angle values of 90 or 270.
+#define LYING_DOWN 1
+
+///How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -6
 
 #define LEFT 1
 #define RIGHT 2
@@ -139,6 +165,9 @@
 #define ENVIRONMENT_SMASH_WALLS 2   //walls
 #define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
 
+// Reproduction
+#define DEFAULT_MAX_OFFSPRING 8
+
 ///Flags used by the flags parameter of electrocute act.
 
 ///Makes it so that the shock doesn't take gloves into account.
@@ -162,21 +191,18 @@
 #define HOSTILE_SPAWN 1
 #define FRIENDLY_SPAWN 2
 
+///Max amount of living Xenobio mobs allowed at any given time (excluding slimes).
+#define MAX_GOLD_CORE_MOBS 45
+
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
-#define EMOTE_VISUAL 1  //A mob emote is visual
-#define EMOTE_SOUND 2  //A mob emote is sound
-
 #define STATUS_UPDATE_HEALTH 1
 #define STATUS_UPDATE_STAT 2
-#define STATUS_UPDATE_CANMOVE 4
 #define STATUS_UPDATE_STAMINA 8
 #define STATUS_UPDATE_BLIND 16
-#define STATUS_UPDATE_BLURRY 32
 #define STATUS_UPDATE_NEARSIGHTED 64
-#define STATUS_UPDATE_DRUGGY 128
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
@@ -184,8 +210,6 @@
 #define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species
-#define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
-#define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
 #define ismonkeybasic(A) (is_species(A, /datum/species/monkey))
@@ -209,17 +233,18 @@
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
+#define ismoth(A) (is_species(A, /datum/species/moth))
 
-#define isanimal(A)		(istype((A), /mob/living/simple_animal))
-#define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
-#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
-#define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
-#define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
-#define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
-#define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
-#define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
-#define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
-#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isanimal(A)			(istype((A), /mob/living/simple_animal))
+#define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
+#define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
+#define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
+#define isbot(A)			(istype((A), /mob/living/simple_animal/bot))
+#define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
+#define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
+#define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
+#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/slaughter))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -262,3 +287,17 @@
 #define HEARING_PROTECTION_MINOR	1
 #define HEARING_PROTECTION_MAJOR	2
 #define HEARING_PROTECTION_TOTAL	3
+
+// Defines used in /mob/living/carbon/human/update_health_hud to override the health status
+#define HEALTH_HUD_OVERRIDE_NONE 0
+#define HEALTH_HUD_OVERRIDE_CRIT 1
+#define HEALTH_HUD_OVERRIDE_DEAD 2
+#define HEALTH_HUD_OVERRIDE_HEALTHY 3
+// Eye protection
+#define FLASH_PROTECTION_SENSITIVE -1
+#define FLASH_PROTECTION_NONE 0
+#define FLASH_PROTECTION_FLASH 1
+#define FLASH_PROTECTION_WELDER 2
+
+#define MAX_EYE_BLURRY_FILTER_SIZE 2
+#define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.005

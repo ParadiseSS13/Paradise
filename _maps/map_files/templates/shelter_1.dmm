@@ -4,8 +4,6 @@
 /area/survivalpod)
 "b" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (NORTH)";
-	icon_state = "survival";
 	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/survival,
@@ -45,8 +43,6 @@
 /area/survivalpod)
 "j" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (EAST)";
-	icon_state = "survival";
 	dir = 4
 	},
 /turf/simulated/wall/mineral/titanium/survival,

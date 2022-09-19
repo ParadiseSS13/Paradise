@@ -7,7 +7,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	for(var/itempath in subtypesof(/datum/prize_item))
 		prizes += new itempath()
 
-/datum/prizes/proc/PlaceOrder(var/obj/machinery/prize_counter/prize_counter, var/itemID)
+/datum/prizes/proc/PlaceOrder(obj/machinery/prize_counter/prize_counter, itemID)
 	if(!prize_counter.Adjacent(usr))
 		to_chat(usr, "<span class='warning'>You need to be closer!</span>")
 		return
@@ -80,6 +80,18 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "Anyone fancy a game of 52-card Pickup?"
 	typepath = /obj/item/deck/cards
 	cost = 25
+
+/datum/prize_item/tiny_cards
+	name = "Deck of Tiny Cards"
+	desc = "Anyone fancy a tiny game of 52-card Pickup?"
+	typepath = /obj/item/deck/cards/tiny
+	cost = 25
+
+/datum/prize_item/double_tiny_cards
+	name = "Double Deck of Tiny Cards"
+	desc = "Anyone fancy a tiny game of 108-card Pickup?"
+	typepath = /obj/item/deck/cards/tiny/doublecards
+	cost = 50
 
 /datum/prize_item/crayons
 	name = "Box of Crayons"
@@ -200,7 +212,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/toy_xeno
 	name = "Xeno Action Figure"
 	desc = "A lifelike replica of the horrific xeno scourge."
-	typepath = /obj/item/toy/toy_xeno
+	typepath = /obj/item/toy/figure/xeno
 	cost = 80
 
 /datum/prize_item/rubberducky
@@ -251,6 +263,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/foamblade
 	cost = 100
 
+/datum/prize_item/wind_up_toolbox
+	name = "Wind Up Toolbox"
+	desc = "A replica toolbox that rumbles when you turn the key."
+	typepath = /obj/item/toy/windup_toolbox
+	cost = 100
+
 /datum/prize_item/redbutton
 	name = "Shiny Red Button"
 	desc = "PRESS IT!"
@@ -272,13 +290,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/owl
 	name = "Owl Action Figure"
 	desc = "Remember: heroes don't grief!"
-	typepath = /obj/item/toy/owl
+	typepath = /obj/item/toy/figure/owl
 	cost = 125
 
 /datum/prize_item/griffin
 	name = "Griffin Action Figure"
 	desc = "If you can't be the best, you can always be the WORST."
-	typepath = /obj/item/toy/griffin
+	typepath = /obj/item/toy/figure/griffin
 	cost = 125
 
 /datum/prize_item/codex_gigas

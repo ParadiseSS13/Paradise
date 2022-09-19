@@ -15,23 +15,23 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "injector"
 	attack_verb = list("poked", "prodded")
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/creeping_widow_injector/attack_self(mob/living/carbon/human/user as mob)
 	if(!used)
-		user.visible_message("<span class='warning'>You stick the [src]'s needle into your arm and press the button.", \
-			  "<span class='warning'>[user] sticks the [src]'s needle [user.p_their()] arm and presses the button.")
-		to_chat(user, "<span class='info'>The nanomachines in the [src] flow through your bloodstream.")
+		user.visible_message("<span class='warning'>You stick [src]'s needle into your arm and press the button.", \
+			  "<span class='warning'>[user] sticks [src]'s needle [user.p_their()] arm and presses the button.")
+		to_chat(user, "<span class='info'>The nanomachines in [src] flow through your bloodstream.")
 
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
 		N.teach(user)
 
-		used = 1
+		used = TRUE
 		icon_state = "injector-used"
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
 		return 0
 	else
-		to_chat(user, "<span class='warning'>The [src] has been used already!</span>")
+		to_chat(user, "<span class='warning'>[src] has been used already!</span>")
 		return 1
 
 // Ninja martial art datum
@@ -42,7 +42,7 @@
 	var/has_choke_hold = 0 	// Are we current choking a bitch?
 	var/has_focus = 1		//Can we user our special moves?
 
-/datum/martial_art/ninja_martial_art/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
+/datum/martial_art/ninja_martial_art/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
 	H.middleClickOverride = new /datum/middleClickOverride/ninja_martial_art()
 		to_chat(H, "You have been taught the ways of the <i>Creeping Widow</i>.<br>\)
@@ -50,7 +50,7 @@
 			Your grabs will instantly be aggressive while you are using this style.<br>Using middle mouse button while on harm intent and behind a person will put them in a silencing choke hold.<br>\
 			Using middle mouse button on a nearby person while on disarm intent will wrench their wrist, causing them to drop what they are holding.</span>"
 
-/datum/martial_art/ninja_martial_art/proc/wrist_wrench(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/ninja_martial_art/proc/wrist_wrench(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.weakened)
 		if(has_focus)
 			has_focus = 0
@@ -61,14 +61,15 @@
 			D.emote("scream")
 			D.drop_item()
 			D.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
-			D.Stun(1)
-			spawn(50) has_focus = 1
+			D.Stun(2 SECONDS)
+			spawn(50)
+				has_focus = 1
 			return 1
 		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
 		return 0
 	return A.pointed(D)
 
-/datum/martial_art/ninja_martial_art/proc/choke_hold(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/ninja_martial_art/proc/choke_hold(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.weakened)
 		A.face_atom(D)
 		if(A.dir != D.dir) // If the user's direction is not the same as the target's after A.face_atom(D) you are not behind them, and cannot use this ability.
@@ -106,14 +107,14 @@
 
 		to_chat(A, "<span class='warning'>You feel [D] go limp in your grip.</span>")
 		to_chat(D, "<span class='userdanger'>You feel your consciousness slip away as [A] strangles you!</span>")
-		D.AdjustParalysis(20)
+		D.AdjustParalysis(40 SECONDS)
 
 		has_choke_hold = 0
 
 		return 1
 	return A.pointed(D)
 
-/datum/martial_art/ninja_martial_art/proc/palm_strike(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/ninja_martial_art/proc/palm_strike(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.weakened)
 		if(has_focus)
 			has_focus = 0
@@ -126,22 +127,23 @@
 			var/atom/throw_target = get_ranged_target_turf(D, get_dir(D, get_step_away(D, A)), 3) // Get a turf 3 tiles away from the target relative to our direction from him.
 			D.throw_at(throw_target, 200, 4) // Throw the poor bastard at the target we just gabbed.
 
-			D.Weaken(2)
+			D.Weaken(4 SECONDS)
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
-			spawn(50) has_focus = 1
+			spawn(50)
+				has_focus = 1
 			return 1
 		to_chat(A, "<span class='warning'>You are not focused enough to use that move yet!</span>")
 		return 0
 	return A.pointed(D)
 
-/datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D) //Instant aggressive grab
+/datum/martial_art/ninja_martial_art/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D) //Instant aggressive grab
 	var/obj/item/grab/G = D.grabbedby(A)
 	if(G)
 		G.state = GRAB_AGGRESSIVE
 
 	return 1
 
-/datum/martial_art/ninja_martial_art/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D) // 10 damage punches
+/datum/martial_art/ninja_martial_art/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D) // 10 damage punches
 	var/strike_name = "[pick(attack_names)] [pick("punches", "kicks", "chops", "slams", "strikes")]"
 	D.visible_message("<span class='danger'>[A] [strike_name] on [D]!</span>", \
 					  "<span class='userdanger'>[A] [strike_name] you!</span>")
@@ -153,7 +155,7 @@
 
 /datum/middleClickOverride/ninja_martial_art
 
-/datum/middleClickOverride/ninja_martial_art/onClick(var/atom/A, var/mob/living/carbon/human/user)
+/datum/middleClickOverride/ninja_martial_art/onClick(atom/A, mob/living/carbon/human/user)
 	if(!istype(user.martial_art, /datum/martial_art/ninja_martial_art))
 		user.pointed(A) // If they don't have the required martial art just point at the target.
 

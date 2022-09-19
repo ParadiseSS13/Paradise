@@ -61,6 +61,13 @@
 	glass_type = /obj/machinery/door/airlock/medical/glass
 	airlock_type = /obj/machinery/door/airlock/medical
 
+/obj/structure/door_assembly/door_assembly_viro
+	name = "virology airlock assembly"
+	icon = 'icons/obj/doors/airlocks/station/virology.dmi'
+	base_name = "virology airlock"
+	glass_type = /obj/machinery/door/airlock/virology/glass
+	airlock_type = /obj/machinery/door/airlock/virology
+
 /obj/structure/door_assembly/door_assembly_mai
 	name = "maintenance airlock assembly"
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'

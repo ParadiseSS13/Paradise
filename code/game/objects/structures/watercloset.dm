@@ -5,17 +5,17 @@
 	desc = "The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
-	density = 0
-	anchored = 1
-	var/open = 0			//if the lid is up
-	var/cistern = 0			//if the cistern bit is open
+	density = FALSE
+	anchored = TRUE
+	var/open = FALSE			//if the lid is up
+	var/cistern = FALSE			//if the cistern bit is open
 	var/w_items = 0			//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
-	open = round(rand(0, 1))
+	open = prob(50)
 	update_icon()
 
 /obj/structure/toilet/Destroy()
@@ -47,7 +47,7 @@
 	open = !open
 	update_icon()
 
-/obj/structure/toilet/update_icon()
+/obj/structure/toilet/update_icon_state()
 	icon_state = "toilet[open][cistern]"
 	if(!anchored)
 		pixel_x = 0
@@ -148,14 +148,14 @@
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-				anchored = 0
+				anchored = FALSE
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-				anchored = 1
+				anchored = TRUE
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 			var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
@@ -195,8 +195,8 @@
 	desc = "The HU-452, an experimental urinal."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "urinal"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 
 
 /obj/structure/urinal/attackby(obj/item/I, mob/user, params)
@@ -227,7 +227,7 @@
 			if(!loc || !anchored)
 				return
 			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-			anchored = 0
+			anchored = FALSE
 			pixel_x = 0
 			pixel_y = 0
 	else
@@ -236,7 +236,7 @@
 			if(!loc || anchored)
 				return
 			user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-			anchored = 1
+			anchored = TRUE
 			pixel_x = 0
 			pixel_y = 32
 
@@ -249,8 +249,8 @@
 	desc = "The HS-451. Installed in the 2550s by the Nanotrasen Hygiene Division."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	use_power = NO_POWER_USE
 	///Is the shower on or off?
 	var/on = FALSE
@@ -275,6 +275,9 @@
 
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
+	var/obj/effect/mist/mist = locate() in loc
+	if(!QDELETED(mist))
+		QDEL_IN(mist, 25 SECONDS)
 	return ..()
 
 //add heat controls? when emagged, you can freeze to death in it?
@@ -337,11 +340,11 @@
 		transfer_prints_to(S, TRUE)
 		qdel(src)
 
-/obj/machinery/shower/update_icon()
-	cut_overlays()
+/obj/machinery/shower/update_overlays()
+	. = ..()
 	if(on)
 		var/mutable_appearance/water_falling = mutable_appearance('icons/obj/watercloset.dmi', "water", ABOVE_MOB_LAYER)
-		add_overlay(water_falling)
+		. += water_falling
 
 /obj/machinery/shower/proc/handle_mist()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
@@ -401,7 +404,7 @@
 			tile.water_act(100, convertHeat(), src)
 			tile.clean_blood(radiation_clean = TRUE)
 			for(var/obj/effect/E in tile)
-				if(is_cleanable(E))
+				if(E.is_cleanable())
 					qdel(E)
 		for(var/A in loc)
 			wash(A)
@@ -444,8 +447,8 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "sink"
 	desc = "A sink used for washing one's hands and face."
-	anchored = 1
-	var/busy = 0 	//Something's being washed at the moment
+	anchored = TRUE
+	var/busy = FALSE 	//Something's being washed at the moment
 	var/can_move = 1	//if the sink can be disconnected and moved
 	var/can_rotate = 1	//if the sink can be rotated to face alternate directions
 
@@ -477,13 +480,13 @@
 		washing_face = 1
 	user.visible_message("<span class='notice'>[user] starts washing [user.p_their()] [washing_face ? "face" : "hands"]...</span>", \
 						"<span class='notice'>You start washing your [washing_face ? "face" : "hands"]...</span>")
-	busy = 1
+	busy = TRUE
 
 	if(!do_after(user, 40, target = src))
-		busy = 0
+		busy = FALSE
 		return
 
-	busy = 0
+	busy = FALSE
 
 	user.visible_message("<span class='notice'>[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src].</span>", \
 						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
@@ -493,7 +496,7 @@
 			H.lip_style = null //Washes off lipstick
 			H.lip_color = initial(H.lip_color)
 			H.regenerate_icons()
-		user.AdjustDrowsy(-rand(2,3)) //Washing your face wakes you up if you're falling asleep
+			H.AdjustDrowsy(-rand(4 SECONDS, 6 SECONDS)) //Washing your face wakes you up if you're falling asleep
 	else
 		user.clean_blood()
 
@@ -510,10 +513,10 @@
 		to_chat(user, "<span class='warning'>[src] isn't connected, wrench it into position first!</span>")
 		return
 
-	busy = 1
+	busy = TRUE
 	var/wateract = 0
-	wateract = (O.wash(user, src))
-	busy = 0
+	wateract = O.wash(user, src)
+	busy = FALSE
 	if(wateract)
 		O.water_act(20, COLD_WATER_TEMPERATURE, src)
 
@@ -536,10 +539,10 @@
 		return
 	switch(response)
 		if("Wash")
-			busy = 1
+			busy = TRUE
 			var/wateract = 0
 			wateract = (I.wash(user, src))
-			busy = 0
+			busy = FALSE
 			if(wateract)
 				I.water_act(20, COLD_WATER_TEMPERATURE, src)
 		if("Disconnect")
@@ -562,8 +565,7 @@
 			dir = dir_choices[selected]
 	update_icon()	//is this necessary? probably not
 
-/obj/structure/sink/update_icon()
-	..()
+/obj/structure/sink/update_icon_state()
 	layer = OBJ_LAYER
 	if(!anchored)
 		pixel_x = 0
@@ -675,7 +677,7 @@
 	if(do_after(user, 30, target = user))
 		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
-		S.anchored = 0
+		S.anchored = FALSE
 		S.dir = user.dir
 		S.update_icon()
 		user.unEquip(src, 1)

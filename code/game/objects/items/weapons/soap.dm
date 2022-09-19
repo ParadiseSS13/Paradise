@@ -13,8 +13,9 @@
 	discrete = 1
 	var/cleanspeed = 50 //slower than mop
 
-/obj/item/soap/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 4, 2, 100, 0, FALSE)
+/obj/item/soap/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, src, 8 SECONDS, 100, 0, FALSE)
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
@@ -25,7 +26,7 @@
 	else if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && isdrask(muncher))
-			to_chat(user, "You take a bite of the [name]. Delicious!")
+			to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
@@ -52,7 +53,7 @@
 /obj/item/soap/proc/clean_turf(turf/simulated/T)
 	T.clean_blood()
 	for(var/obj/effect/O in T)
-		if(is_cleanable(O))
+		if(O.is_cleanable())
 			qdel(O)
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)

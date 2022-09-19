@@ -1,8 +1,8 @@
 /obj/structure/girder
 	name = "girder"
 	icon_state = "girder"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	layer = BELOW_OBJ_LAYER
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
@@ -27,6 +27,11 @@
 			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
 		if(GIRDER_DISASSEMBLED)
 			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
+
+/obj/structure/girder/detailed_examine()
+	return "Use metal sheets on this to build a normal wall. Adding plasteel instead will make a reinforced wall.<br>\
+			A false wall can be made by using a crowbar on this girder, and then adding metal or plasteel.<br>\
+			You can dismantle the girder with a wrench."
 
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
 	for(var/i=0;i < metalAmount;i++)
@@ -58,6 +63,12 @@
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You disintegrate the girder!</span>")
+		refundMetal(metalUsed)
+		qdel(src)
+
+	else if(istype(W, /obj/item/twohanded/required/pyro_claws))
+		playsound(loc, W.usesound, 100, 1)
+		to_chat(user, "<span class='notice'>You melt the girder!</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
@@ -393,7 +404,7 @@
 /obj/structure/girder/displaced
 	name = "displaced girder"
 	icon_state = "displaced"
-	anchored = 0
+	anchored = FALSE
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
 	max_integrity = 120
@@ -404,6 +415,9 @@
 	state = GIRDER_REINF
 	girderpasschance = 0
 	max_integrity = 350
+
+/obj/structure/girder/reinforced/detailed_examine()
+	return "Add another sheet of plasteel to finish."
 
 /obj/structure/girder/cult
 	name = "runed girder"

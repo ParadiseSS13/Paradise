@@ -3,8 +3,8 @@
 
 /obj/machinery/icemachine
 	name = "\improper Cream-Master Deluxe"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "icecream_vat"
 	use_power = IDLE_POWER_USE
@@ -24,8 +24,8 @@
 	return cone_name
 
 
-/obj/machinery/icemachine/New()
-	..()
+/obj/machinery/icemachine/Initialize(mapload)
+	. = ..()
 	create_reagents(500)
 
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
@@ -256,3 +256,10 @@
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 4)
 	qdel(src)
+
+/obj/machinery/icemachine/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 30)
+

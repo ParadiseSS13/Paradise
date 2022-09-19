@@ -6,18 +6,31 @@
 	var/streak = ""
 	var/max_streak_length = 6
 	var/temporary = FALSE
-	var/datum/martial_art/base = null // The permanent style
-	var/deflection_chance = 0 //Chance to deflect projectiles
-	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
+	/// The permanent style.
+	var/datum/martial_art/base = null
+	/// Chance to deflect projectiles while on throw mode.
+	var/deflection_chance = 0
+	/// Can it reflect projectiles in a random direction?
+	var/reroute_deflection = FALSE
+	///Chance to block melee attacks using items while on throw mode.
+	var/block_chance = 0
 	var/help_verb = null
-	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
-	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
+	/// Set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
+	var/no_guns = FALSE
+	/// Message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
+	var/no_guns_message = ""
 
-	var/has_explaination_verb = FALSE	// If the martial art has it's own explaination verb
+	/// If the martial art has it's own explaination verb.
+	var/has_explaination_verb = FALSE
 
-	var/list/combos = list()							// What combos can the user do? List of combo types
-	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
-	var/last_hit = 0									// When the last hit happened
+	/// What combos can the user do? List of combo types.
+	var/list/combos = list()
+	/// What combos are currently (possibly) being performed.
+	var/list/datum/martial_art/current_combos = list()
+	/// When the last hit happened.
+	var/last_hit = 0
+	/// If the user is preparing a martial arts stance.
+	var/in_stance = FALSE
 
 /datum/martial_art/New()
 	. = ..()
@@ -36,7 +49,7 @@
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
-	return TRUE
+	return !HAS_TRAIT(H, TRAIT_PACIFISM)
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
@@ -87,7 +100,7 @@
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
-	if(D.lying)
+	if(IS_HORIZONTAL(D))
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -102,7 +115,7 @@
 		return FALSE
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, attack.attack_sound, 25, 1, -1)
 	D.visible_message("<span class='danger'>[A] has [atk_verb]ed [D]!</span>", \
@@ -115,9 +128,9 @@
 	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
-		D.apply_effect(4, WEAKEN, armor_block)
+		D.apply_effect(8 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
-	else if(D.lying)
+	else if(IS_HORIZONTAL(D))
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
@@ -135,7 +148,7 @@
 		base = src
 	H.mind.martial_art = src
 
-/datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
+/datum/martial_art/proc/remove(mob/living/carbon/human/H)
 	if(!H.mind)
 		return
 	if(H.mind.martial_art != src)
@@ -144,6 +157,7 @@
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 	if(base)
 		base.teach(H)
+		base = null
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -175,6 +189,9 @@
 /datum/martial_art/proc/explaination_footer(user)
 	return
 
+/datum/martial_art/proc/try_deflect(mob/user)
+		return prob(deflection_chance)
+
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
@@ -189,12 +206,12 @@
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_gloves) == src)
 		style.remove(H)
-	return
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
@@ -205,25 +222,28 @@
 		return
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat("<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
+			return
 		style.teach(H,1)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_belt) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
-	return
 
 /obj/item/plasma_fist_scroll
 	name = "frayed scroll"
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
@@ -234,7 +254,7 @@
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
-		used = 1
+		used = TRUE
 		desc = "It's completely blank."
 		name = "empty scroll"
 		icon_state = "blankscroll"
@@ -248,19 +268,13 @@
 /obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
-	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
-		if(user.mind && user.mind.changeling) //Changelings
+	if(user.mind) //Prevents changelings and vampires from being able to learn it
+		if(ischangeling(user))
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
-		else //Vampires
+		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
-
-	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
-					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
-					However, you are also unable to use any ranged weaponry. \
-					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
-
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
@@ -278,8 +292,18 @@
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	if(user.mind) //Prevents changelings and vampires from being able to learn it
+		if(ischangeling(user))
+			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
+			return
+		else if(user.mind.has_antag_datum(/datum/antagonist/vampire)) //Vampires
+			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			return
+		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
+			return
 
+	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.drop_item()
@@ -301,15 +325,14 @@
 	icon_state = "bostaff0"
 	block_chance = 50
 
-/obj/item/twohanded/bostaff/update_icon()
+/obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[wielded]"
-	return
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
-		user.Weaken(3)
+		user.Weaken(6 SECONDS)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(2*force, BRUTE, "head")
@@ -324,12 +347,16 @@
 	if(C.stat)
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate.</span>")
 		return
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You feel violence is not the answer.</span>")
+		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
 			if(!wielded)
 				return ..()
 			if(!ishuman(target))
 				return ..()
+
 			var/mob/living/carbon/human/H = target
 			var/list/fluffmessages = list("[user] clubs [H] with [src]!", \
 										  "[user] smacks [H] with the butt of [src]!", \
@@ -344,13 +371,13 @@
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									   "<span class='userdanger'>Your legs give out!</span>")
-				H.Weaken(4)
-			if(H.staminaloss && !H.sleeping)
+				H.Weaken(8 SECONDS)
+			if(H.staminaloss && !H.IsSleeping())
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
 					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
 										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
-					H.SetSleeping(30)
+					H.SetSleeping(60 SECONDS)
 					H.adjustBrainLoss(25)
 			return
 		else

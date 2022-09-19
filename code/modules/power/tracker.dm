@@ -6,7 +6,7 @@
 /obj/machinery/power/tracker
 	name = "solar tracker"
 	desc = "A solar directional tracker."
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "tracker"
 	density = TRUE
 	use_power = NO_POWER_USE
@@ -50,7 +50,7 @@
 	update_icon()
 
 //updates the tracker icon and the facing angle for the control computer
-/obj/machinery/power/tracker/proc/set_angle(angle)
+/obj/machinery/power/tracker/proc/modify_angle(angle)
 	sun_angle = angle
 
 	//set icon dir to show sun illumination

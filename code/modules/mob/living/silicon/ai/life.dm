@@ -37,9 +37,6 @@
 	else
 		adjustOxyLoss(-1)
 
-	if(stunned)
-		AdjustStunned(-1, updating = 1, force = 1)
-
 	var/area/my_area = get_area(src)
 
 	if(!lacks_power())
@@ -134,7 +131,7 @@
 /mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 100
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		update_stat("updatehealth([reason])")

@@ -3,8 +3,8 @@
 	desc = "Used for advanced medical procedures."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 1
 	active_power_usage = 5
@@ -16,8 +16,8 @@
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
 
-/obj/machinery/optable/New()
-	..()
+/obj/machinery/optable/Initialize(mapload)
+	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
 		if(computer)
@@ -30,6 +30,9 @@
 		computer = null
 	patient = null
 	return ..()
+
+/obj/machinery/optable/detailed_examine()
+	return "Click your target and drag them onto the table to place them onto it."
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
@@ -62,7 +65,7 @@
   */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && M.lying)
+	if(M && IS_HORIZONTAL(M))
 		patient = M
 	else
 		patient = null
@@ -91,7 +94,7 @@
 	else
 		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
 	new_patient.resting = TRUE
-	new_patient.update_canmove()
+	new_patient.lay_down()
 	new_patient.forceMove(loc)
 	if(user.pulling == new_patient)
 		user.stop_pulling()

@@ -36,7 +36,7 @@
 			return 0
 
 		if(over_object == user && Adjacent(user)) // this must come before the screen objects only block
-			src.open(user)
+			open(user)
 			return 0
 
 		if(!( istype(over_object, /obj/screen) ))
@@ -50,10 +50,10 @@
 		if(!( user.restrained() ) && !( user.stat ))
 			switch(over_object.name)
 				if("r_hand")
-					user.unEquip(master_item)
+					user.unEquip(master_item, silent = TRUE)
 					user.put_in_r_hand(master_item)
 				if("l_hand")
-					user.unEquip(master_item)
+					user.unEquip(master_item, silent = TRUE)
 					user.put_in_l_hand(master_item)
 			master_item.add_fingerprint(user)
 			return 0
@@ -75,15 +75,15 @@
 			H.r_store = null
 			return 0
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if(master_item.loc == user)
-		src.open(user)
+		open(user)
 		return 0
 
 	for(var/mob/M in range(1, master_item.loc))
 		if(M.s_active == src)
-			src.close(M)
+			close(M)
 	return 1
 
-/obj/item/storage/internal/Adjacent(var/atom/neighbor)
+/obj/item/storage/internal/Adjacent(atom/neighbor)
 	return master_item.Adjacent(neighbor)

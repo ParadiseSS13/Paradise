@@ -1,9 +1,8 @@
-
 /obj/structure/closet/secure_closet/syndicate/depot
 	name = "depot supply closet"
 	desc = ""
-	locked = 0
-	anchored = 1
+	locked = FALSE
+	anchored = TRUE
 	req_access = list()
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	var/is_armory = FALSE
@@ -32,13 +31,13 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/M)
 	if(isanimal(M) && ("syndicate" in M.faction))
-		to_chat(M, "<span class='warning'>The [src] resists your attack!</span>")
+		to_chat(M, "<span class='warning'>[src] resists your attack!</span>")
 		return
 	return ..()
 
 /obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs))
-		to_chat(user, "<span class='warning'>Bluespace interference prevents the [W] from locking onto [src]!</span>")
+		to_chat(user, "<span class='warning'>Bluespace interference prevents [W] from locking onto [src]!</span>")
 		return
 	return ..()
 

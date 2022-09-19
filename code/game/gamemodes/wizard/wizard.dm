@@ -8,10 +8,10 @@
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
-	var/use_huds = 1
+	var/use_huds = TRUE
 
-	var/finished = 0
-	var/but_wait_theres_more = 0
+	var/finished = FALSE
+	var/but_wait_theres_more = FALSE
 
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
@@ -29,7 +29,7 @@
 	modePlayer += wizard
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
-	wizard.original = wizard.current
+	wizard.set_original_mob(wizard.current)
 	if(GLOB.wizardstart.len == 0)
 		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return 0
@@ -77,7 +77,7 @@
 	wizhud.leave_hud(wiz_mind.current)
 	set_antag_hud(wiz_mind.current, null)
 
-/datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
+/datum/game_mode/proc/forge_wizard_objectives(datum/mind/wizard)
 	var/datum/objective/wizchaos/wiz_objective = new
 	wiz_objective.owner = wizard
 	wizard.objectives += wiz_objective
@@ -98,7 +98,7 @@
 	if(wizard_mob.mind)
 		wizard_mob.mind.name = newname
 
-/datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+/datum/game_mode/proc/greet_wizard(datum/mind/wizard, you_are=1)
 	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
@@ -108,17 +108,8 @@
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
+	to_chat(wizard.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")
 	return
-
-/*/datum/game_mode/proc/learn_basic_spells(mob/living/carbon/human/wizard_mob)
-	if(!istype(wizard_mob))
-		return
-	if(!config.feature_object_spell_system)
-		wizard_mob.verbs += /client/proc/jaunt
-		wizard_mob.mind.special_verbs += /client/proc/jaunt
-	else
-		wizard_mob.spell_list += new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(usr)
-*/
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
 	if(!istype(wizard_mob))
@@ -195,10 +186,10 @@
 	if(wizards_alive || apprentices_alive || but_wait_theres_more)
 		return ..()
 	else
-		finished = 1
+		finished = TRUE
 		return 1
 
-/datum/game_mode/wizard/declare_completion(var/ragin = 0)
+/datum/game_mode/wizard/declare_completion(ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
@@ -211,7 +202,7 @@
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br><b>[wizard.key]</b> was <b>[wizard.name]</b> ("
+			text += "<br><b>[wizard.get_display_key()]</b> was <b>[wizard.name]</b> ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"

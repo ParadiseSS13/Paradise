@@ -77,7 +77,7 @@
 /obj/machinery/door_control/ticket_machine_button/attack_hand(mob/user)
 	if(allowed(usr) || user.can_advanced_admin_interact())
 		icon_state = "doorctrl1"
-		addtimer(CALLBACK(src, /obj/machinery/door_control/ticket_machine_button/.proc/update_icon), 15)
+		addtimer(CALLBACK(src, /atom/.proc/update_icon), 15)
 		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
 			if(M.id == id)
 				if(cooldown)
@@ -89,11 +89,11 @@
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		flick("doorctrl-denied", src)
 
-/obj/machinery/door_control/ticket_machine_button/update_icon()
+/obj/machinery/door_control/ticket_machine_button/update_icon_state()
 	if(!(stat & NOPOWER))
 		icon_state = "doorctrl0"
 
-/obj/machinery/ticket_machine/update_icon()
+/obj/machinery/ticket_machine/update_icon_state()
 	switch(ticket_number) //Gives you an idea of how many tickets are left
 		if(0 to 49)
 			icon_state = "ticketmachine_100"
@@ -215,7 +215,7 @@
 /obj/item/ticket_machine_ticket/attackby(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
 	..()
 	if(is_hot(P))
-		if((CLUMSY in user.mutations) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.drop_item()

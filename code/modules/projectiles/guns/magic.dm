@@ -12,12 +12,13 @@
 	var/charges = 0
 	var/recharge_rate = 4
 	var/charge_tick = 0
-	var/can_charge = 1
+	var/can_charge = TRUE
 	var/ammo_type
 	var/no_den_usage
 	origin_tech = null
-	clumsy_check = 0
+	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
+	can_holster = FALSE // Nothing here is a gun, and therefore shouldn't really fit into a holster
 
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -49,8 +50,8 @@
 		charges--//... drain a charge
 	return
 
-/obj/item/gun/magic/New()
-	..()
+/obj/item/gun/magic/Initialize(mapload)
+	. = ..()
 	charges = max_charges
 	chambered = new ammo_type(src)
 	if(can_charge)
@@ -71,14 +72,14 @@
 	charges++
 	return 1
 
-/obj/item/gun/magic/update_icon()
+/obj/item/gun/magic/update_icon_state()
 	return
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] whizzles quietly.</span>")
+	to_chat(user, "<span class='warning'>[src] whizzles quietly.</span>")
 	return
 
 /obj/item/gun/magic/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is twisting the [name] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is twisting [src] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, fire_sound, 50, 1, -1)
 	return FIRELOSS

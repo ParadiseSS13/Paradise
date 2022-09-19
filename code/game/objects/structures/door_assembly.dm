@@ -12,9 +12,10 @@
 	var/obj/item/airlock_electronics/electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
 	var/glass_type = /obj/machinery/door/airlock/glass
-	var/glass = 0 // 0 = glass can be installed. 1 = glass is already installed.
+	var/glass = FALSE // FALSE = glass can be installed. TRUE = glass is already installed.
+	var/polarized_glass = FALSE
 	var/created_name
-	var/heat_proof_finished = 0 //whether to heat-proof the finished airlock
+	var/heat_proof_finished = FALSE //whether to heat-proof the finished airlock
 	var/previous_assembly = /obj/structure/door_assembly
 	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
 	var/material_type = /obj/item/stack/sheet/metal
@@ -22,8 +23,7 @@
 
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()
-	update_icon()
-	update_name()
+	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/Destroy()
 	QDEL_NULL(electronics)
@@ -75,7 +75,7 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
 
-	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && W.icon_state != "door_electronics_smoked")
+	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && !istype(W, /obj/item/airlock_electronics/destroyed))
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
@@ -130,8 +130,7 @@
 					to_chat(user, "<span class='warning'>You cannot add [S] to [src]!</span>")
 	else
 		return ..()
-	update_name()
-	update_icon()
+	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
@@ -152,8 +151,7 @@
 		ae = electronics
 		electronics = null
 		ae.forceMove(loc)
-	update_icon()
-	update_name()
+	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
@@ -170,6 +168,7 @@
 	var/obj/machinery/door/airlock/door
 	if(glass)
 		door = new glass_type(loc)
+		door.polarized_glass = polarized_glass
 	else
 		door = new airlock_type(loc)
 	door.setDir(dir)
@@ -187,8 +186,9 @@
 		door.name = base_name
 	door.previous_airlock = previous_assembly
 	electronics.forceMove(door)
+	electronics = null
 	qdel(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/wirecutter_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
@@ -202,7 +202,7 @@
 	to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
 	state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/wrench_act(mob/user, obj/item/I)
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -225,7 +225,7 @@
 		return
 	if(mineral)
 		var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-		visible_message("<span class='notice'>[user] welds the [mineral] plating off [src].</span>",\
+		user.visible_message("<span class='notice'>[user] welds the [mineral] plating off [src].</span>",\
 			"<span class='notice'>You start to weld the [mineral] plating off [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
@@ -235,7 +235,7 @@
 		var/obj/structure/door_assembly/PA = new previous_assembly(loc)
 		transfer_assembly_vars(src, PA)
 	else if(glass)
-		visible_message("<span class='notice'>[user] welds the glass panel out of [src].</span>",\
+		user.visible_message("<span class='notice'>[user] welds the glass panel out of [src].</span>",\
 			"<span class='notice'>You start to weld the glass panel out of the [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
@@ -247,6 +247,7 @@
 		else
 			new /obj/item/stack/sheet/glass(get_turf(src))
 		glass = FALSE
+		polarized_glass = FALSE
 	else if(!anchored)
 		visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 			"<span class='notice'>You start to disassemble [src]...</span>",\
@@ -255,17 +256,39 @@
 			return
 		to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
 		deconstruct(TRUE)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/door_assembly/update_icon()
-	overlays.Cut()
+/obj/structure/door_assembly/multitool_act(mob/user, obj/item/I)
+	if(noglass)
+		return
+	. = TRUE
+	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+		to_chat(user, "<span class='notice'>The airlock assembly needs its electronics before you can configure the electrochromic windows.</span>")
+		return
+	if(!glass && !noglass)
+		to_chat(user, "<span class='notice'>The airlock assembly needs glass before you can configure the electrochromic windows.</span>")
+		return
+
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("[user] is configuring the windows in the airlock assembly...", "You start to configure the windows in the airlock assembly...")
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
+		return
+
+	polarized_glass = !polarized_glass
+
+	to_chat(user, "<span class='notice'>You [polarized_glass ? "enable" : "disable"] the electrochromic windows in the airlock assembly.</span>")
+
+/obj/structure/door_assembly/update_overlays()
+	. = ..()
 	if(!glass)
-		overlays += get_airlock_overlay("fill_construction", icon)
+		. += get_airlock_overlay("fill_construction", icon)
 	else if(glass)
-		overlays += get_airlock_overlay("glass_construction", overlays_file)
-	overlays += get_airlock_overlay("panel_c[state+1]", overlays_file)
+		. += get_airlock_overlay("glass_construction", overlays_file)
+	. += get_airlock_overlay("panel_c[state+1]", overlays_file)
 
-/obj/structure/door_assembly/proc/update_name()
+/obj/structure/door_assembly/update_name()
+	. = ..()
 	name = ""
 	switch(state)
 		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -288,7 +311,7 @@
 	if(electronics)
 		target.electronics = source.electronics
 		source.electronics.forceMove(target)
-	target.update_icon()
+	target.update_icon(UPDATE_OVERLAYS)
 	target.update_name()
 	qdel(source)
 

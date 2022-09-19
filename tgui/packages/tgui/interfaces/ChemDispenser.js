@@ -1,8 +1,15 @@
 import { Fragment } from 'inferno';
-import { useBackend } from "../backend";
-import { Box, Button, Flex, LabeledList, ProgressBar, Section } from "../components";
-import { BeakerContents } from "../interfaces/common/BeakerContents";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  Flex,
+  LabeledList,
+  ProgressBar,
+  Section,
+} from '../components';
+import { BeakerContents } from '../interfaces/common/BeakerContents';
+import { Window } from '../layouts';
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];
@@ -21,11 +28,7 @@ export const ChemDispenser = (props, context) => {
 
 const ChemDispenserSettings = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    amount,
-    energy,
-    maxEnergy,
-  } = data;
+  const { amount, energy, maxEnergy } = data;
   return (
     <Section title="Settings" flex="content">
       <LabeledList>
@@ -38,7 +41,8 @@ const ChemDispenserSettings = (properties, context) => {
               good: [maxEnergy * 0.5, Infinity],
               average: [maxEnergy * 0.25, maxEnergy * 0.5],
               bad: [-Infinity, maxEnergy * 0.25],
-            }}>
+            }}
+          >
             {energy} / {maxEnergy} Units
           </ProgressBar>
         </LabeledList.Item>
@@ -52,9 +56,11 @@ const ChemDispenserSettings = (properties, context) => {
                   content={a}
                   m="0"
                   width="100%"
-                  onClick={() => act('amount', {
-                    amount: a,
-                  })}
+                  onClick={() =>
+                    act('amount', {
+                      amount: a,
+                    })
+                  }
                 />
               </Flex.Item>
             ))}
@@ -67,9 +73,7 @@ const ChemDispenserSettings = (properties, context) => {
 
 const ChemDispenserChemicals = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    chemicals = [],
-  } = data;
+  const { chemicals = [] } = data;
   const flexFillers = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
     flexFillers.push(true);
@@ -77,14 +81,16 @@ const ChemDispenserChemicals = (properties, context) => {
   return (
     <Section
       title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
-      flexGrow="1">
+      flexGrow="1"
+    >
       <Flex
         direction="row"
         wrap="wrap"
         height="100%"
         spacingPrecise="2"
         align="flex-start"
-        alignContent="flex-start">
+        alignContent="flex-start"
+      >
         {chemicals.map((c, i) => (
           <Flex.Item
             key={i}
@@ -92,7 +98,8 @@ const ChemDispenserChemicals = (properties, context) => {
             basis="25%"
             height="20px"
             width="30%"
-            display="inline-block">
+            display="inline-block"
+          >
             <Button
               icon="arrow-circle-down"
               overflow="hidden"
@@ -101,9 +108,11 @@ const ChemDispenserChemicals = (properties, context) => {
               height="100%"
               align="flex-start"
               content={c.title}
-              onClick={() => act('dispense', {
-                reagent: c.id,
-              })}
+              onClick={() =>
+                act('dispense', {
+                  reagent: c.id,
+                })
+              }
             />
           </Flex.Item>
         ))}
@@ -128,7 +137,7 @@ const ChemDispenserBeaker = (properties, context) => {
       title={data.glass ? 'Glass' : 'Beaker'}
       flex="content"
       minHeight="25%"
-      buttons={(
+      buttons={
         <Box>
           {!!isBeakerLoaded && (
             <Box inline color="label" mr={2}>
@@ -142,36 +151,43 @@ const ChemDispenserBeaker = (properties, context) => {
             onClick={() => act('ejectBeaker')}
           />
         </Box>
-      )}>
+      }
+    >
       <BeakerContents
         beakerLoaded={isBeakerLoaded}
         beakerContents={beakerContents}
-        buttons={chemical => (
+        buttons={(chemical) => (
           <Fragment>
             <Button
               content="Isolate"
               icon="compress-arrows-alt"
-              onClick={() => act('remove', {
-                reagent: chemical.id,
-                amount: -1,
-              })}
+              onClick={() =>
+                act('remove', {
+                  reagent: chemical.id,
+                  amount: -1,
+                })
+              }
             />
             {removeAmounts.map((a, i) => (
               <Button
                 key={i}
                 content={a}
-                onClick={() => act('remove', {
-                  reagent: chemical.id,
-                  amount: a,
-                })}
+                onClick={() =>
+                  act('remove', {
+                    reagent: chemical.id,
+                    amount: a,
+                  })
+                }
               />
             ))}
             <Button
               content="ALL"
-              onClick={() => act('remove', {
-                reagent: chemical.id,
-                amount: chemical.volume,
-              })}
+              onClick={() =>
+                act('remove', {
+                  reagent: chemical.id,
+                  amount: chemical.volume,
+                })
+              }
             />
           </Fragment>
         )}

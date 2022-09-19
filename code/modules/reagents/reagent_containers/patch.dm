@@ -18,7 +18,8 @@
 		return FALSE
 	bitesize = 0
 	if(M.eat(src, user))
-		user.drop_item()
+		if(user.get_active_hand() == src)
+			user.drop_item() // Only drop if they're holding the patch directly
 		forceMove(M)
 		LAZYADD(M.processing_patches, src)
 		return TRUE
@@ -28,14 +29,14 @@
 	return // thanks inheritance again
 
 /obj/item/reagent_containers/food/pill/patch/styptic
-	name = "healing patch"
+	name = "brute patch"
 	desc = "Helps with brute injuries."
 	icon_state = "bandaid_brute"
 	instant_application = 1
 	list_reagents = list("styptic_powder" = 30)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small
-	name = "healing mini-patch"
+	name = "brute mini-patch"
 	list_reagents = list("styptic_powder" = 15)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf

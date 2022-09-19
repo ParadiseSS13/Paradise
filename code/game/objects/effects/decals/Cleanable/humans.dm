@@ -9,7 +9,6 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	var/drydesc = "It's dry and crusty. Someone is not doing their job."
 	gender = PLURAL
 	density = FALSE
-	anchored = TRUE
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	icon = 'icons/effects/blood.dmi'
@@ -51,6 +50,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(basecolor == "rainbow")
 		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	color = basecolor
+	..()
 
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
-	desc = "It's red."
+	desc = "A drop of blood in an ocean of mess."
 	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
@@ -137,27 +137,31 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	desc = "They look bloody and gruesome."
 	gender = PLURAL
 	density = FALSE
-	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "gibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
 	mergeable_decal = FALSE
-
+	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
 
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	giblets = null
+	return ..()
+
 /obj/effect/decal/cleanable/blood/gibs/update_icon()
-	var/image/giblets = new(base_icon, "[icon_state]_flesh", dir)
+	giblets = new(base_icon, "[icon_state]_flesh", dir)
 	if(!fleshcolor || fleshcolor == "rainbow")
 		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	giblets.color = fleshcolor
 	var/icon/blood = new(base_icon,"[icon_state]",dir)
-
 	icon = blood
-	overlays.Cut()
-	overlays += giblets
 	. = ..()
+
+/obj/effect/decal/cleanable/blood/gibs/update_overlays()
+	. = ..()
+	. += giblets
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity)
 	return
@@ -182,7 +186,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 	scoop_reagents = null
 
-/obj/effect/decal/cleanable/blood/gibs/proc/streak(var/list/directions)
+/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
 	set waitfor = 0
 	var/direction = pick(directions)
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)

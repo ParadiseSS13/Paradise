@@ -11,7 +11,7 @@
 
 /datum/event/spider_terror/announce()
 	if(successSpawn)
-		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg')
+		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
@@ -50,14 +50,18 @@
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a terror spider?", null, TRUE, source = spider_type)
 	if(length(candidates) < spawncount)
 		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")
-	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)
+	if(!length(vents))
+		message_admins("Warning: No suitable vents detected for spawning terrors. Force picking from station vents regardless of state!")
+		vents = get_valid_vent_spawns(unwelded_only = FALSE, min_network_size = 0)
 	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
+		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
+		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")
 		spawncount--
 		successSpawn = TRUE
 
 #undef TS_HIGHPOP_TRIGGER
-

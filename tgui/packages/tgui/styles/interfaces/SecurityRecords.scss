@@ -13,7 +13,8 @@
     cursor: pointer;
 
     transition: background-color 50ms;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: rgba(base.$color-bg, 1);
     }
   }

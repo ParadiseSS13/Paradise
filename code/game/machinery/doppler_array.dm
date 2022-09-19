@@ -5,8 +5,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	desc = "A highly precise directional sensor array which measures the release of quants from decaying tachyons. The doppler shifting of the mirror-image formed by these quants can reveal the size, location and temporal affects of energetic disturbances within a large radius ahead of the array."
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "tdoppler"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	atom_say_verb = "states coldly"
 	var/list/logged_explosions = list()
 	var/explosion_target
@@ -19,15 +19,15 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/actual_size_message
 	var/theoretical_size_message
 
-/datum/explosion_log/New(var/log_time, var/log_epicenter, var/log_actual_size_message, var/log_theoretical_size_message)
+/datum/explosion_log/New(log_time, log_epicenter, log_actual_size_message, log_theoretical_size_message)
 	..()
 	logged_time = log_time
 	epicenter = log_epicenter
 	actual_size_message = log_actual_size_message
 	theoretical_size_message = log_theoretical_size_message
 
-/obj/machinery/doppler_array/New()
-	..()
+/obj/machinery/doppler_array/Initialize(mapload)
+	. = ..()
 	GLOB.doppler_arrays += src
 	explosion_target = rand(8, 20)
 	toxins_tech = new /datum/tech/toxins(src)

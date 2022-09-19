@@ -1,16 +1,23 @@
 import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from "../backend";
-import { Button, LabeledList, Box, Section, NoticeBox, Tabs, Icon, Table } from "../components";
-import { Window } from "../layouts";
+import { useBackend, useLocalState } from '../backend';
+import {
+  Button,
+  LabeledList,
+  Box,
+  Section,
+  NoticeBox,
+  Tabs,
+  Icon,
+  Table,
+} from '../components';
+import { Window } from '../layouts';
 
 export const TcommsCore = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    ion,
-  } = data;
+  const { ion } = data;
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
 
-  const PickTab = index => {
+  const PickTab = (index) => {
     switch (index) {
       case 0:
         return <ConfigPage />;
@@ -19,34 +26,38 @@ export const TcommsCore = (props, context) => {
       case 2:
         return <FilteringPage />;
       default:
-        return "SOMETHING WENT VERY WRONG PLEASE AHELP";
+        return 'SOMETHING WENT VERY WRONG PLEASE AHELP';
     }
   };
 
   return (
     <Window resizable>
       <Window.Content scrollable>
-        {ion === 1 && (
-          <IonBanner />
-        )}
+        {ion === 1 && <IonBanner />}
         <Tabs>
           <Tabs.Tab
             key="ConfigPage"
             selected={tabIndex === 0}
-            onClick={() => setTabIndex(0)}>
-            <Icon name="wrench" />Configuration
+            onClick={() => setTabIndex(0)}
+          >
+            <Icon name="wrench" />
+            Configuration
           </Tabs.Tab>
           <Tabs.Tab
             key="LinkagePage"
             selected={tabIndex === 1}
-            onClick={() => setTabIndex(1)}>
-            <Icon name="link" />Device Linkage
+            onClick={() => setTabIndex(1)}
+          >
+            <Icon name="link" />
+            Device Linkage
           </Tabs.Tab>
           <Tabs.Tab
             key="FilterPage"
             selected={tabIndex === 2}
-            onClick={() => setTabIndex(2)}>
-            <Icon name="user-times" />User Filtering
+            onClick={() => setTabIndex(2)}
+          >
+            <Icon name="user-times" />
+            User Filtering
           </Tabs.Tab>
         </Tabs>
         {PickTab(tabIndex)}
@@ -61,9 +72,8 @@ const IonBanner = () => {
   // the 80 char line limit
   return (
     <NoticeBox>
-      ERROR: An Ionospheric overload has occured.
-      Please wait for the machine to reboot.
-      This cannot be manually done.
+      ERROR: An Ionospheric overload has occured. Please wait for the machine to
+      reboot. This cannot be manually done.
     </NoticeBox>
   );
 };
@@ -87,10 +97,10 @@ const ConfigPage = (_properties, context) => {
         <LabeledList>
           <LabeledList.Item label="Machine Power">
             <Button
-              content={active ? "On" : "Off"}
+              content={active ? 'On' : 'Off'}
               selected={active}
               icon="power-off"
-              onClick={() => act("toggle_active")}
+              onClick={() => act('toggle_active')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Sector Coverage">
@@ -103,34 +113,34 @@ const ConfigPage = (_properties, context) => {
         <LabeledList>
           <LabeledList.Item label="Job Announcements">
             <Button
-              content={nttc_toggle_jobs ? "On" : "Off"}
+              content={nttc_toggle_jobs ? 'On' : 'Off'}
               selected={nttc_toggle_jobs}
               icon="user-tag"
-              onClick={() => act("nttc_toggle_jobs")}
+              onClick={() => act('nttc_toggle_jobs')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Job Departmentalisation">
             <Button
-              content={nttc_toggle_job_color ? "On" : "Off"}
+              content={nttc_toggle_job_color ? 'On' : 'Off'}
               selected={nttc_toggle_job_color}
               icon="clipboard-list"
-              onClick={() => act("nttc_toggle_job_color")}
+              onClick={() => act('nttc_toggle_job_color')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Name Departmentalisation">
             <Button
-              content={nttc_toggle_name_color ? "On" : "Off"}
+              content={nttc_toggle_name_color ? 'On' : 'Off'}
               selected={nttc_toggle_name_color}
               icon="user-tag"
-              onClick={() => act("nttc_toggle_name_color")}
+              onClick={() => act('nttc_toggle_name_color')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Command Amplification">
             <Button
-              content={nttc_toggle_command_bold ? "On" : "Off"}
+              content={nttc_toggle_command_bold ? 'On' : 'Off'}
               selected={nttc_toggle_command_bold}
               icon="volume-up"
-              onClick={() => act("nttc_toggle_command_bold")}
+              onClick={() => act('nttc_toggle_command_bold')}
             />
           </LabeledList.Item>
         </LabeledList>
@@ -141,27 +151,27 @@ const ConfigPage = (_properties, context) => {
           <LabeledList.Item label="Job Announcement Format">
             <Button
               content={
-                nttc_job_indicator_type ? nttc_job_indicator_type : "Unset"
+                nttc_job_indicator_type ? nttc_job_indicator_type : 'Unset'
               }
               selected={nttc_job_indicator_type}
               icon="pencil-alt"
-              onClick={() => act("nttc_job_indicator_type")}
+              onClick={() => act('nttc_job_indicator_type')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Language Conversion">
             <Button
-              content={nttc_setting_language ? nttc_setting_language : "Unset"}
+              content={nttc_setting_language ? nttc_setting_language : 'Unset'}
               selected={nttc_setting_language}
               icon="globe"
-              onClick={() => act("nttc_setting_language")}
+              onClick={() => act('nttc_setting_language')}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Network ID">
             <Button
-              content={network_id ? network_id : "Unset"}
+              content={network_id ? network_id : 'Unset'}
               selected={network_id}
               icon="server"
-              onClick={() => act("network_id")}
+              onClick={() => act('network_id')}
             />
           </LabeledList.Item>
         </LabeledList>
@@ -171,12 +181,12 @@ const ConfigPage = (_properties, context) => {
         <Button
           content="Import Configuration"
           icon="file-import"
-          onClick={() => act("import")}
+          onClick={() => act('import')}
         />
         <Button
           content="Export Configuration"
           icon="file-export"
-          onClick={() => act("export")}
+          onClick={() => act('export')}
         />
       </Section>
     </Fragment>
@@ -185,70 +195,49 @@ const ConfigPage = (_properties, context) => {
 
 const LinkagePage = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    link_password,
-    relay_entries,
-  } = data;
+  const { link_password, relay_entries } = data;
   return (
     <Section title="Device Linkage">
       <LabeledList>
         <LabeledList.Item label="Linkage Password">
           <Button
-            content={link_password ? link_password : "Unset"}
+            content={link_password ? link_password : 'Unset'}
             selected={link_password}
             icon="lock"
-            onClick={() => act("change_password")}
+            onClick={() => act('change_password')}
           />
         </LabeledList.Item>
       </LabeledList>
 
       <Table m="0.5rem">
         <Table.Row header>
-          <Table.Cell>
-            Network Address
-          </Table.Cell>
-          <Table.Cell>
-            Network ID
-          </Table.Cell>
-          <Table.Cell>
-            Sector
-          </Table.Cell>
-          <Table.Cell>
-            Status
-          </Table.Cell>
-          <Table.Cell>
-            Unlink
-          </Table.Cell>
+          <Table.Cell>Network Address</Table.Cell>
+          <Table.Cell>Network ID</Table.Cell>
+          <Table.Cell>Sector</Table.Cell>
+          <Table.Cell>Status</Table.Cell>
+          <Table.Cell>Unlink</Table.Cell>
         </Table.Row>
-        {relay_entries.map(r => (
+        {relay_entries.map((r) => (
           <Table.Row key={r.addr}>
-            <Table.Cell>
-              {r.addr}
-            </Table.Cell>
-            <Table.Cell>
-              {r.net_id}
-            </Table.Cell>
-            <Table.Cell>
-              {r.sector}
-            </Table.Cell>
+            <Table.Cell>{r.addr}</Table.Cell>
+            <Table.Cell>{r.net_id}</Table.Cell>
+            <Table.Cell>{r.sector}</Table.Cell>
             <Table.Cell>
               {r.status === 1 ? (
-                <Box color="green">
-                  Online
-                </Box>
+                <Box color="green">Online</Box>
               ) : (
-                <Box color="red">
-                  Offline
-                </Box>
+                <Box color="red">Offline</Box>
               )}
             </Table.Cell>
             <Table.Cell>
               <Button
                 content="Unlink"
                 icon="unlink"
-                onClick={() => act("unlink", {
-                  addr: r.addr,
-                })}
+                onClick={() =>
+                  act('unlink', {
+                    addr: r.addr,
+                  })
+                }
               />
             </Table.Cell>
           </Table.Row>
@@ -260,9 +249,7 @@ const LinkagePage = (_properties, context) => {
 
 const FilteringPage = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    filtered_users,
-  } = data;
+  const { filtered_users } = data;
   return (
     <Section
       title="User Filtering"
@@ -270,30 +257,27 @@ const FilteringPage = (_properties, context) => {
         <Button
           content="Add User"
           icon="user-plus"
-          onClick={() => act("add_filter")}
+          onClick={() => act('add_filter')}
         />
-      }>
+      }
+    >
       <Table m="0.5rem">
         <Table.Row header>
-          <Table.Cell style={{ width: "90%" }}>
-            User
-          </Table.Cell>
-          <Table.Cell style={{ width: "10%" }}>
-            Actions
-          </Table.Cell>
+          <Table.Cell style={{ width: '90%' }}>User</Table.Cell>
+          <Table.Cell style={{ width: '10%' }}>Actions</Table.Cell>
         </Table.Row>
-        {filtered_users.map(u => (
+        {filtered_users.map((u) => (
           <Table.Row key={u}>
-            <Table.Cell>
-              {u}
-            </Table.Cell>
+            <Table.Cell>{u}</Table.Cell>
             <Table.Cell>
               <Button
                 content="Remove"
                 icon="user-times"
-                onClick={() => act("remove_filter", {
-                  user: u,
-                })}
+                onClick={() =>
+                  act('remove_filter', {
+                    user: u,
+                  })
+                }
               />
             </Table.Cell>
           </Table.Row>

@@ -8,19 +8,19 @@
 #define INVESTIGATE_DIR "data/investigate/"
 
 //SYSTEM
-/proc/investigate_subject2file(var/subject)
-	return file("[INVESTIGATE_DIR][subject].html")
+/proc/investigate_subject2file(subject)
+	return wrap_file("[INVESTIGATE_DIR][subject].html")
 
 /proc/investigate_reset()
 	if(fdel(INVESTIGATE_DIR))	return 1
 	return 0
 
-/atom/proc/investigate_log(var/message, var/subject)
+/atom/proc/investigate_log(message, subject)
 	if(!message)	return
 	var/F = investigate_subject2file(subject)
 	if(!F)	return
 	GLOB.investigate_log_subjects |= subject
-	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>"
+	F << "<small>[time_stamp()] \ref[src] [ADMIN_COORDJMP(src)] </small> || [src] [message]<br>"
 
 /proc/log_investigate(message, subject)
 	if(!message) return
@@ -43,7 +43,7 @@
 			watchlist_show()
 
 		if("hrefs")				//persistant logs and stuff
-			if(config && config.log_hrefs)
+			if(GLOB.configuration.logging.href_logging)
 				if(GLOB.world_href_log)
 					src << browse(file(GLOB.world_href_log), "window=investigate[subject];size=800x300")
 				else

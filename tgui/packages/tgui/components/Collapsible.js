@@ -14,13 +14,7 @@ export class Collapsible extends Component {
   render() {
     const { props } = this;
     const { open } = this.state;
-    const {
-      children,
-      color = 'default',
-      title,
-      buttons,
-      ...rest
-    } = props;
+    const { children, color = 'default', title, buttons, ...rest } = props;
     return (
       <div className="Collapsible">
         <div className="Table">
@@ -30,21 +24,16 @@ export class Collapsible extends Component {
               color={color}
               icon={open ? 'chevron-down' : 'chevron-right'}
               onClick={() => this.setState({ open: !open })}
-              {...rest}>
+              {...rest}
+            >
               {title}
             </Button>
           </div>
           {buttons && (
-            <div className="Table__cell Table__cell--collapsing">
-              {buttons}
-            </div>
+            <div className="Table__cell Table__cell--collapsing">{buttons}</div>
           )}
         </div>
-        {open && (
-          <Box mt={1}>
-            {children}
-          </Box>
-        )}
+        {open && <Box mt={1}>{children}</Box>}
       </div>
     );
   }

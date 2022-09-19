@@ -35,9 +35,9 @@
 	var/dresscode = input("Select Outfit", "Dress-a-mob") as null|anything in outfit_list
 	if(isnull(dresscode))
 		return
-	var/is_syndicate = 0
+	var/is_syndicate = FALSE
 	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
-		is_syndicate = 1
+		is_syndicate = TRUE
 
 	var/datum/outfit/O = outfit_list[dresscode]
 	var/list/players_to_spawn = list()
@@ -63,9 +63,10 @@
 	for(var/mob/thisplayer in players_to_spawn)
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(T)
 		H.name = random_name(pick(MALE,FEMALE))
-		var/datum/preferences/A = new() //Randomize appearance
-		A.real_name = H.name
-		A.copy_to(H)
+		var/datum/character_save/S = new //Randomize appearance
+		S.randomise()
+		S.real_name = H.name
+		S.copy_to(H)
 		H.dna.ready_dna(H)
 
 		H.mind_initialize()

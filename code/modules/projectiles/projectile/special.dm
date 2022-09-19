@@ -7,18 +7,17 @@
 	nodamage = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
+	var/strong_emp = 1
+	var/weak_emp = 1
 
-/obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/ion/on_hit(atom/target, blocked = 0)
 	..()
-	empulse(target, 1, 1, 1, cause = "[type] fired by [key_name(firer)]")
+	empulse(target, strong_emp, weak_emp, TRUE, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/item/projectile/ion/weak
-
-/obj/item/projectile/ion/weak/on_hit(atom/target, blocked = 0)
-	..()
-	empulse(target, 0, 0, 1, cause = "[type] fired by [key_name(firer)]")
-	return 1
+	strong_emp = 0
+	weak_emp = 0
 
 /obj/item/projectile/bullet/gyro
 	name ="explosive bolt"
@@ -27,7 +26,7 @@
 	alwayslog = TRUE
 	flag = "bullet"
 
-/obj/item/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
 	return 1
@@ -92,7 +91,7 @@
 			icon_state = "temp_4"
 
 
-/obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
+/obj/item/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
 	..()
 	if(isliving(target))
 		var/mob/living/M = target
@@ -133,30 +132,6 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
-/obj/item/projectile/energy/floramut/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	var/mob/living/M = target
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			if(prob(15))
-				H.rad_act(rand(30, 80))
-				H.Weaken(5)
-				H.visible_message("<span class='warning'>[H] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-				if(prob(80))
-					randmutb(H)
-					domutcheck(H, null)
-				else
-					randmutg(H)
-					domutcheck(H, null)
-			else
-				H.adjustFireLoss(rand(5, 15))
-				H.show_message("<span class='warning'>The radiation beam singes you!</span>")
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
-	else
-		return 1
-
 /obj/item/projectile/energy/florayield
 	name = "beta somatoray"
 	icon_state = "energy2"
@@ -165,28 +140,15 @@
 	nodamage = 1
 	flag = "energy"
 
-/obj/item/projectile/energy/florayield/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	var/mob/M = target
-	if(ishuman(target)) //These rays make plantmen fat.
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
-	else
-		return 1
-
-
-/obj/item/projectile/beam/mindflayer
+/obj/item/projectile/energy/mindflayer
 	name = "flayer ray"
 
-/obj/item/projectile/beam/mindflayer/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/mindflayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
 		M.adjustBrainLoss(20)
-		M.AdjustHallucinate(20)
+		M.AdjustHallucinate(20 SECONDS)
 
 /obj/item/projectile/clown
 	name = "snap-pop"
@@ -196,7 +158,7 @@
 /obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
+	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -213,7 +175,7 @@
 	name = "orange bluespace beam"
 	color = "#FF6600"
 
-/obj/item/projectile/beam/wormhole/New(var/obj/item/ammo_casing/energy/wormhole/casing)
+/obj/item/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
 	. = ..()
 	if(casing)
 		gun = casing.gun
@@ -230,14 +192,13 @@
 
 /obj/item/projectile/bullet/frag12
 	name ="explosive slug"
-	damage = 25
-	weaken = 5
+	damage = 15
 	alwayslog = TRUE
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 1)
-	return 1
+	return TRUE
 
 /obj/item/projectile/plasma
 	name = "plasma blast"
@@ -279,7 +240,7 @@
 	if(tele_target)
 		teleport_target = tele_target
 
-/obj/item/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
+/obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
 	if(isliving(target))
 		if(teleport_target)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon

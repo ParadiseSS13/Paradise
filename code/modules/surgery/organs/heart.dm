@@ -9,7 +9,7 @@
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
 
-/obj/item/organ/internal/heart/update_icon()
+/obj/item/organ/internal/heart/update_icon_state()
 	if(beating)
 		icon_state = "[icon_base]-on"
 	else
@@ -54,18 +54,19 @@
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/organ/internal/heart/proc/Restart()
 	beating = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/organ/internal/heart/prepare_eat()
 	var/obj/S = ..()
-	S.icon_state = dead_icon
-	return S
+	if(S)
+		S.icon_state = dead_icon
+		return S
 
 /obj/item/organ/internal/heart/cursed
 	name = "cursed heart"
@@ -77,6 +78,16 @@
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
 	var/blood_loss = 100 //600 blood is human default, so 5 failures (below 122 blood is where humans die because reasons?)
+
+	// Give the user a chance to be shocked to life with the heart in, since defibs put them to sleep.
+	/// How long the shock pumps their heart for them.
+	var/revival_grace_period = 10 SECONDS
+	/// If true, the user doesn't need to pump their heart.
+	var/in_grace_period = FALSE
+	/// Times that it's been shocked.
+	var/times_shocked = 0
+	/// Max times that the shock will work before it'll just refuse.
+	var/max_shocks_allowed = 5
 
 	//How much to heal per pump, negative numbers would HURT the player
 	var/heal_brute = 0
@@ -95,13 +106,13 @@
 		return ..()
 
 /obj/item/organ/internal/heart/cursed/on_life()
-	if(world.time > (last_pump + pump_delay))
+	if(world.time > (last_pump + pump_delay) && !in_grace_period)
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
 			if(!(NO_BLOOD in H.dna.species.species_traits))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
 				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
-				if(H.client)
+				if(H?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
 					H.client.color = "red" //bloody screen so real
 		else
 			last_pump = world.time //lets be extra fair *sigh*
@@ -110,9 +121,61 @@
 	..()
 	if(owner)
 		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
+		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, .proc/just_before_revive)
+		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, .proc/on_defib_revive)
+
+/obj/item/organ/internal/heart/cursed/proc/on_defib_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, obj/item/defib, mob/dead/observer/ghost = null)
+	SIGNAL_HANDLER  // COMSIG_LIVING_DEFIBBED
+
+	if(!owner || !istype(owner) || owner.stat != DEAD)
+		return
+
+	if(times_shocked >= max_shocks_allowed)
+		shocker.visible_message(
+			"<span class='userdanger'>Tendrils of ghastly electricity surge from [shocked] as [shocked.p_their()] heart seems to outright refuse defibrillation!<span>",
+			blind_message = "<span class='danger'>You hear a loud shock.</span>"
+		)
+		tesla_zap(owner, 4, 8000, ZAP_MOB_STUN | ZAP_MOB_DAMAGE)
+		// NO, YOU!
+		playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
+
+		defib.audible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Anomalous heart activity detected while administering shock.</span>")
+		playsound(defib, "defib_saftyon.ogg", 50, FALSE)
+
+		return COMPONENT_DEFIB_OVERRIDE
+
+	in_grace_period = TRUE
+	times_shocked++
+	// wake up
+	addtimer(CALLBACK(src, .proc/after_revive), 2 SECONDS)  // grab a brush and put a little make-up
+	addtimer(CALLBACK(src, .proc/on_end_grace_period), revival_grace_period)  // hide the scars to fade away the shake-up
+
+/obj/item/organ/internal/heart/cursed/proc/after_revive()
+	owner.SetSleeping(0)
+	owner.SetParalysis(0)
+
+/// Run this just before the shock is applied so we end up with enough blood to revive.
+/obj/item/organ/internal/heart/cursed/proc/just_before_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, mob/dead/observer/ghost = null)
+	SIGNAL_HANDLER  // COMSIG_LIVING_PRE_DEFIB
+
+	if(owner.stat == DEAD)
+		owner.blood_volume = BLOOD_VOLUME_OKAY
+
+/obj/item/organ/internal/heart/cursed/proc/on_end_grace_period()
+	in_grace_period = FALSE
+	if(!owner)
+		return
+	to_chat(owner, "<span class='userdanger'>The effects of the shock seem to wear off, and you feel a familiar tightness in your chest! Get pumping!</span>")
+
+	if(times_shocked < max_shocks_allowed - 1)
+		to_chat(owner, "<span class='warning'>It doesn't feel like your [name] enjoyed that.</span>")
+	else if(times_shocked == max_shocks_allowed - 1)
+		to_chat(owner, "<span class='danger'>Your [name] starts to feel heavy in your chest. It doesn't seem like it'll be able to take many more shocks!</span>")
+	else
+		to_chat(owner, "<span class='userdanger'>Your [name] feels like lead. Something tells you that if you die with it again, you won't get another chance!</span>")
 
 /datum/action/item_action/organ_action/cursed_heart
-	name = "pump your blood"
+	name = "Pump your heart"
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_heart/Trigger()
@@ -126,13 +189,13 @@
 
 		cursed_heart.last_pump = world.time
 		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-		to_chat(owner, "<span class = 'notice'>Your heart beats.</span>")
+		to_chat(owner, "<span class='notice'>Your heart beats.</span>")
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
 			if(!(NO_BLOOD in H.dna.species.species_traits))
 				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss * 0.5, BLOOD_VOLUME_NORMAL)
-				if(owner.client)
+				if(owner?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
 					owner.client.color = ""
 
 				H.adjustBruteLoss(-cursed_heart.heal_brute)
@@ -154,6 +217,17 @@
 	icon_base = "heart-c-u"
 	dead_icon = "heart-c-u-off"
 	var/attempted_restart = FALSE
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	RegisterSignal(M, COMSIG_LIVING_MINOR_SHOCK, .proc/shock_heart)
+	RegisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT, .proc/shock_heart)
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/remove(mob/living/carbon/M, special = FALSE)
+	UnregisterSignal(M, COMSIG_LIVING_MINOR_SHOCK)
+	UnregisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT)
+	return  ..()
+
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/on_life()
 	if(!ishuman(owner))
@@ -203,12 +277,11 @@
 
 	if(!(status & ORGAN_DEAD))
 		var/boost = emagged ? 2 : 1
-		owner.AdjustDrowsy(-4 * boost)
-		owner.AdjustParalysis(-1 * boost)
-		owner.AdjustStunned(-1 * boost)
-		owner.AdjustWeakened(-1 * boost)
-		owner.SetSleeping(0)
-		owner.adjustStaminaLoss(-1 * boost)
+		owner.AdjustParalysis(-2 SECONDS * boost)
+		owner.AdjustStunned(-2 SECONDS * boost)
+		owner.AdjustWeakened(-2 SECONDS * boost)
+		owner.AdjustKnockDown(-2 SECONDS * boost)
+		owner.adjustStaminaLoss(-10 * boost)
 
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/message_to_owner(mob/M, message)
@@ -234,8 +307,9 @@
 		return
 	necrotize()
 
+/obj/item/organ/internal/heart/cybernetic/upgraded/proc/shock_heart(mob/living/carbon/human/source, intensity)
+	SIGNAL_HANDLER_DOES_SLEEP
 
-/obj/item/organ/internal/heart/cybernetic/upgraded/shock_organ(intensity)
 	if(!ishuman(owner))
 		return
 	if(emp_proof)

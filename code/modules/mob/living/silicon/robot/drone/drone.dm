@@ -8,6 +8,7 @@
 	health = 35
 	bubble_icon = "machine"
 	pass_flags = PASSTABLE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	braintype = "Robot"
 	lawupdate = FALSE
 	density = FALSE
@@ -127,10 +128,15 @@
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
-/mob/living/silicon/robot/drone/can_be_revived()
-	. = ..()
-	if(emagged)
-		return FALSE
+/mob/living/silicon/robot/drone/detailed_examine()
+	return "Drones are player-controlled synthetics which are lawed to maintain the station and not \
+			interact with anyone else, except for other drones. They hold a wide array of tools to build, repair, maintain, and clean. \
+			They function similarly to other synthetics, in that they require recharging regularly, have laws, and are resilient to many hazards, \
+			such as fire, radiation, vacuum, and more. Ghosts can join the round as a maintenance drone by using the appropriate verb in the 'ghost' tab. \
+			An inactive drone can be rebooted by swiping an ID card on it with engineering or robotics access."
+
+/mob/living/silicon/robot/drone/detailed_examine_antag()
+	return "An Electromagnetic Sequencer can be used to subvert the drone to your cause."
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
@@ -236,9 +242,9 @@
 /mob/living/silicon/robot/drone/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 35
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 		return
-	health = 35 - (getBruteLoss() + getFireLoss())
+	health = 35 - (getBruteLoss() + getFireLoss() + getOxyLoss())
 	update_stat("updatehealth([reason])")
 
 /mob/living/silicon/robot/drone/death(gibbed)
@@ -299,11 +305,7 @@
 	if(!player)
 		return
 
-	if(player.mob?.mind)
-		player.mob.mind.transfer_to(src)
-		player.mob.mind.assigned_role = "Drone"
-	else
-		ckey = player.ckey
+	ckey = player.ckey
 
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
 	full_law_reset()
@@ -321,7 +323,6 @@
 	var/icontype
 	icontype = input(player,"Pick an icon") in sprite
 	icon_state = sprite[icontype]
-	updateicon()
 
 	choose_icon(6,sprite)
 */
@@ -357,9 +358,9 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	verbs -= silicon_subsystems
 
-/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = FALSE)
-	. = ..()
-	density = emagged //this is reset every canmove update otherwise
+/mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
+	..()
+	update_headlamp(TRUE, 0, FALSE)
 
 /mob/living/silicon/robot/drone/flash_eyes(intensity = 1, override_blindness_check = FALSE, affect_silicon = FALSE, visual = FALSE)
 	if(affect_silicon)

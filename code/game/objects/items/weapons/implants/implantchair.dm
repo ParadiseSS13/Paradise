@@ -3,42 +3,42 @@
 	desc = "Used to implant occupants with mindshield implants."
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
-	density = 1
-	opacity = 0
-	anchored = 1
+	density = TRUE
+	opacity = FALSE
+	anchored = TRUE
 
-	var/ready = 1
+	var/ready = TRUE
 	var/malfunction = 0
 	var/list/obj/item/implant/mindshield/implant_list = list()
 	var/max_implants = 5
 	var/injection_cooldown = 600
 	var/replenish_cooldown = 6000
 	var/replenishing = 0
-	var/mob/living/carbon/occupant = null
-	var/injecting = 0
+	var/mob/living/carbon/occupant
+	var/injecting = FALSE
 
-/obj/machinery/implantchair/New()
-	..()
+/obj/machinery/implantchair/Initialize(mapload)
+	. = ..()
 	add_implants()
 
 
 /obj/machinery/implantchair/attack_hand(mob/user)
 	user.set_machine(src)
 	var/health_text = ""
-	if(src.occupant)
-		if(src.occupant.health <= -100)
+	if(occupant)
+		if(occupant.health <= -100)
 			health_text = "<FONT color=red>Dead</FONT>"
-		else if(src.occupant.health < 0)
-			health_text = "<FONT color=red>[round(src.occupant.health,0.1)]</FONT>"
+		else if(occupant.health < 0)
+			health_text = "<FONT color=red>[round(occupant.health, 0.1)]</FONT>"
 		else
-			health_text = "[round(src.occupant.health,0.1)]"
+			health_text = "[round(occupant.health,0.1)]"
 
 	var/dat ="<B>Implanter Status</B><BR>"
 
-	dat +="<B>Current occupant:</B> [src.occupant ? "<BR>Name: [src.occupant]<BR>Health: [health_text]<BR>" : "<FONT color=red>None</FONT>"]<BR>"
-	dat += "<B>Implants:</B> [src.implant_list.len ? "[implant_list.len]" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
-	if(src.occupant)
-		dat += "[src.ready ? "<A href='?src=[UID()];implant=1'>Implant</A>" : "Recharging"]<BR>"
+	dat +="<B>Current occupant:</B> [occupant ? "<BR>Name: [occupant]<BR>Health: [health_text]<BR>" : "<FONT color=red>None</FONT>"]<BR>"
+	dat += "<B>Implants:</B> [length(implant_list) ? "[length(implant_list)]" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
+	if(occupant)
+		dat += "[ready ? "<A href='?src=[UID()];implant=1'>Implant</A>" : "Recharging"]<BR>"
 	user.set_machine(src)
 	user << browse(dat, "window=implant")
 	onclose(user, "implant")
@@ -48,20 +48,20 @@
 	if(..())
 		return
 	if(href_list["implant"])
-		if(src.occupant)
-			injecting = 1
+		if(occupant)
+			injecting = TRUE
 			go_out()
-			ready = 0
+			ready = FALSE
 			spawn(injection_cooldown)
-				ready = 1
+				ready = TRUE
 
 	if(href_list["replenish"])
-		ready = 0
+		ready = FALSE
 		spawn(replenish_cooldown)
 			add_implants()
-			ready = 1
+			ready = TRUE
 
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return
 
 
@@ -76,59 +76,59 @@
 			return
 		if(put_mob(M))
 			qdel(G)
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return
 
 
 /obj/machinery/implantchair/proc/go_out(mob/M)
-	if(!( src.occupant ))
+	if(!(occupant))
 		return
 	if(M == occupant) // so that the guy inside can't eject himself -Agouri
 		return
 	occupant.forceMove(loc)
 	if(injecting)
-		implant(src.occupant)
-		injecting = 0
-	src.occupant = null
+		implant(occupant)
+		injecting = FALSE
+	occupant = null
 	icon_state = "implantchair"
 	return
 
 
 /obj/machinery/implantchair/proc/put_mob(mob/living/carbon/M)
 	if(!iscarbon(M))
-		to_chat(usr, "<span class='warning'>The [src.name] cannot hold this!</span>")
+		to_chat(usr, "<span class='warning'>[src] cannot hold this!</span>")
 		return
-	if(src.occupant)
-		to_chat(usr, "<span class='warning'>The [src.name] is already occupied!</span>")
+	if(occupant)
+		to_chat(usr, "<span class='warning'>[src] is already occupied!</span>")
 		return
 	M.stop_pulling()
 	M.forceMove(src)
-	src.occupant = M
-	src.add_fingerprint(usr)
+	occupant = M
+	add_fingerprint(usr)
 	icon_state = "implantchair_on"
-	return 1
+	return TRUE
 
 
 /obj/machinery/implantchair/proc/implant(mob/M)
-	if(!istype(M, /mob/living/carbon))
+	if(!iscarbon(M))
 		return
-	if(!implant_list.len)	return
+	if(!length(implant_list))
+		return
 	for(var/obj/item/implant/mindshield/imp in implant_list)
-		if(!imp)	continue
+		if(!imp)
+			continue
 		if(istype(imp, /obj/item/implant/mindshield))
-			M.visible_message("<span class='warning'>[M] has been implanted by the [src.name].</span>")
+			visible_message("<span class='warning'>[src] implants [M].</span>")
 
 			if(imp.implant(M))
 				implant_list -= imp
 			break
-	return
 
 
 /obj/machinery/implantchair/proc/add_implants()
-	for(var/i=0, i<src.max_implants, i++)
-		var/obj/item/implant/mindshield/I = new /obj/item/implant/mindshield(src)
-		implant_list += I
-	return
+	for(var/i in 1 to max_implants)
+		var/obj/item/implant/mindshield/new_implant = new /obj/item/implant/mindshield(src)
+		implant_list += new_implant
 
 /obj/machinery/implantchair/verb/get_out()
 	set name = "Eject occupant"
@@ -136,10 +136,9 @@
 	set src in oview(1)
 	if(usr.stat != 0)
 		return
-	src.go_out(usr)
+	go_out(usr)
 	add_fingerprint(usr)
 	return
-
 
 /obj/machinery/implantchair/verb/move_inside()
 	set name = "Move Inside"

@@ -13,9 +13,9 @@
 	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
-	opacity = 0
-	density = 0
-	anchored = 0
+	opacity = FALSE
+	density = FALSE
+	anchored = FALSE
 	flags = CONDUCT
 	force = 10
 	throwforce = 10
@@ -23,7 +23,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
 	var/datum/effect_system/spark_spread/spark_system
@@ -86,7 +86,7 @@
 	if(delay)
 		lastused = world.time
 
-/obj/item/rpd/proc/can_dispense_pipe(var/pipe_id, var/pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
+/obj/item/rpd/proc/can_dispense_pipe(pipe_id, pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
 	for(var/list/L in GLOB.rpd_pipe_list)
 		if(pipe_type != L["pipe_type"]) //Sometimes pipes in different categories have the same pipe_id, so we need to skip anything not in the category we want
 			continue
@@ -95,8 +95,7 @@
 
 /obj/item/rpd/proc/create_atmos_pipe(mob/user, turf/T) //Make an atmos pipe, meter, or gas sensor
 	if(!can_dispense_pipe(whatpipe, RPD_ATMOS_MODE))
-		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatpipe, PIPETYPE_ATMOS)] - possible tampering detected")) //Damn dirty apes -- I mean hackers
-		return
+		CRASH("Failed to spawn [get_pipe_name(whatpipe, PIPETYPE_ATMOS)] - possible tampering detected") //Damn dirty apes -- I mean hackers
 	var/obj/item/pipe/P
 	if(whatpipe == PIPE_GAS_SENSOR)
 		P = new /obj/item/pipe_gsensor(T)
@@ -117,8 +116,7 @@
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
-		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected"))
-		return
+		CRASH("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected")
 	var/obj/structure/disposalconstruct/P = new(T, whatdpipe, iconrotation)
 	if(!iconrotation) //Automatic rotation
 		P.dir = user.dir
@@ -142,6 +140,8 @@
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
 	var/eaten
 	for(var/obj/item/pipe/P in T)
+		if(P.pipe_type == PIPE_CIRCULATOR) //Skip TEG heat circulators, they aren't really pipes
+			continue
 		QDEL_NULL(P)
 		eaten = TRUE
 	for(var/obj/item/pipe_gsensor/G in T)
@@ -171,7 +171,6 @@
 	ui_interact(user)
 
 /obj/item/rpd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "RPD", name, 450, 650, master_ui, state)
@@ -274,12 +273,19 @@
 
 	for(var/obj/O in T)
 		if(O.rpd_blocksusage() == TRUE)
-			to_chat(user, "<span class='warning'>[O] blocks the [src]!</span>")
+			to_chat(user, "<span class='warning'>[O] blocks [src]!</span>")
 			return
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		user.Beam(T,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		if(get_dist(src, T) <= (user.client.view + 2))\
+			user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+		else
+			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
+			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
+			return
+
 	T.rpd_act(user, src)
 
 #undef RPD_COOLDOWN_TIME

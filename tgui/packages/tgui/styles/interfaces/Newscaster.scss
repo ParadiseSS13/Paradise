@@ -44,7 +44,7 @@
       color: colors.$white;
 
       &:after {
-        content: "";
+        content: '';
         background-color: colors.$primary;
         width: 2px;
         height: 24px;
@@ -145,7 +145,7 @@ $_gen_map: (
   -ms-interpolation-mode: nearest-neighbor;
 
   &:hover {
-    border-color: color.scale(colors.$black, $lightness: 50%);;
+    border-color: color.scale(colors.$black, $lightness: 50%);
   }
 }
 

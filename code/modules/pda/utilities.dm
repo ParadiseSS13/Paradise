@@ -14,6 +14,8 @@
 		pda.overlays += image('icons/obj/pda.dmi', "pda-light")
 	else
 		pda.overlays -= image('icons/obj/pda.dmi', "pda-light")
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"
@@ -39,6 +41,8 @@
 				M.open()
 			else
 				M.close()
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 /datum/data/pda/utility/scanmode/medical
 	base_name = "Med Scanner"
@@ -117,8 +121,8 @@
 	if(istype(A, /obj/item/tank))
 		var/obj/item/tank/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
-	else if(istype(A, /obj/machinery/portable_atmospherics))
-		var/obj/machinery/portable_atmospherics/T = A
+	else if(istype(A, /obj/machinery/atmospherics/portable))
+		var/obj/machinery/atmospherics/portable/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
 	else if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/T = A
@@ -131,8 +135,8 @@
 		var/obj/item/flamethrower/T = A
 		if(T.ptank)
 			pda.atmosanalyzer_scan(T.ptank.air_contents, user, T)
-	else if(istype(A, /obj/machinery/portable_atmospherics/scrubber/huge))
-		var/obj/machinery/portable_atmospherics/scrubber/huge/T = A
+	else if(istype(A, /obj/machinery/atmospherics/portable/scrubber/huge))
+		var/obj/machinery/atmospherics/portable/scrubber/huge/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
 	else if(istype(A, /obj/machinery/atmospherics/unary/tank))
 		var/obj/machinery/atmospherics/unary/tank/T = A

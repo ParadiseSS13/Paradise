@@ -4,8 +4,8 @@
 	desc = "A little medical robot. He looks somewhat underwhelmed."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
-	density = 0
-	anchored = 0
+	density = FALSE
+	anchored = FALSE
 	health = 20
 	maxHealth = 20
 	pass_flags = PASSMOB
@@ -16,7 +16,7 @@
 	bot_filter = RADIO_MEDBOT
 	model = "Medibot"
 	bot_purpose = "seek out hurt crewmembers and ensure that they are healed"
-	bot_core_type = /obj/machinery/bot_core/medbot
+	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 	window_id = "automed"
 	window_name = "Automatic Medical Unit v1.1"
 	path_image_color = "#DDDDFF"
@@ -87,13 +87,13 @@
 	treatment_fire = "kelotane"
 	treatment_tox = "charcoal"
 	syndicate_aligned = TRUE
-	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
+	req_access = list(ACCESS_SYNDICATE)
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = "Syndicate"
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
 
-/mob/living/simple_animal/bot/medbot/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload)
+	. = ..()
 	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
@@ -101,10 +101,7 @@
 	declare_crit = 0
 	drops_parts = FALSE
 
-/mob/living/simple_animal/bot/medbot/update_icon()
-	overlays.Cut()
-	if(skin)
-		overlays += "medskin_[skin]"
+/mob/living/simple_animal/bot/medbot/update_icon_state()
 	if(!on)
 		icon_state = "medibot0"
 		return
@@ -116,8 +113,13 @@
 	else
 		icon_state = "medibot1"
 
-/mob/living/simple_animal/bot/medbot/New(loc, new_skin)
-	..()
+/mob/living/simple_animal/bot/medbot/update_overlays()
+	. = ..()
+	if(skin)
+		. += "medskin_[skin]"
+
+/mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
+	. = ..()
 	var/datum/job/doctor/J = new /datum/job/doctor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
@@ -301,19 +303,6 @@
 	if(mode == BOT_HEALING)
 		return
 
-	if(stunned)
-		icon_state = "medibota"
-		stunned--
-
-		oldpatient = patient
-		patient = null
-		mode = BOT_IDLE
-
-		if(stunned <= 0)
-			update_icon()
-			stunned = 0
-		return
-
 	if(frustration > 8)
 		oldpatient = patient
 		soft_reset()
@@ -458,7 +447,7 @@
 		soft_reset()
 		return
 
-	if(C.stat == DEAD || (C.status_flags & FAKEDEATH))
+	if(C.stat == DEAD || HAS_TRAIT(C, TRAIT_FAKEDEATH))
 		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/mno.ogg', "Live, damnit! LIVE!" = 'sound/voice/mlive.ogg', "I...I've never lost a patient before. Not today, I mean." = 'sound/voice/mlost.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
@@ -519,31 +508,31 @@
 		bot_reset()
 		return
 	else
-		if(!emagged && check_overdose(patient,reagent_id,injection_amount))
+		if(!emagged && check_overdose(patient, reagent_id, injection_amount))
 			soft_reset()
 			return
 		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
-		spawn(30)//replace with do mob
-			if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
-				if(inject_beaker)
-					if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
-						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
-						reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
-						reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
-				else
-					patient.reagents.add_reagent(reagent_id,injection_amount)
-				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-					"<span class='userdanger'>[src] injects you with its syringe!</span>")
-			else
-				visible_message("[src] retracts its syringe.")
-			update_icon()
-			soft_reset()
-			return
+		addtimer(CALLBACK(src, .proc/do_inject, C, inject_beaker, reagent_id), 3 SECONDS)
+		return
 
-	reagent_id = null
-	return
+/mob/living/simple_animal/bot/medbot/proc/do_inject(mob/living/carbon/C, inject_beaker, reagent_id)
+	if((get_dist(src, patient) <= 1) && on && assess_patient(patient))
+		if(inject_beaker)
+			if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
+				var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+				reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
+				reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
+		else
+			patient.reagents.add_reagent(reagent_id, injection_amount)
+
+		C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", "<span class='userdanger'>[src] injects you with its syringe!</span>")
+	else
+		visible_message("[src] retracts its syringe.")
+
+	update_icon()
+	soft_reset()
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
 	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
@@ -554,13 +543,8 @@
 		return 1
 	return 0
 
-/mob/living/simple_animal/bot/medbot/bullet_act(obj/item/projectile/Proj)
-	if(Proj.flag == "taser")
-		stunned = min(stunned+10,20)
-	..()
-
 /mob/living/simple_animal/bot/medbot/explode()
-	on = 0
+	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -614,8 +598,3 @@
 	spawn(200) //Twenty seconds
 		declare_cooldown = 0
 
-/obj/machinery/bot_core/medbot
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
-
-/obj/machinery/bot_core/medbot/syndicate
-	req_one_access = list(ACCESS_SYNDICATE)

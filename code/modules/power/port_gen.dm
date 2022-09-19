@@ -6,14 +6,12 @@
 	desc = "A portable generator for emergency backup power"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "portgen0_0"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	use_power = NO_POWER_USE
 
-	var/active = 0
+	var/active = FALSE
 	var/power_gen = 5000
-	var/open = 0
-	var/recent_fault = 0
 	var/power_output = 1
 	var/base_icon = "portgen0"
 
@@ -32,7 +30,7 @@
 /obj/machinery/power/port_gen/proc/handleInactive()
 	return
 
-/obj/machinery/power/port_gen/update_icon()
+/obj/machinery/power/port_gen/update_icon_state()
 	icon_state = "[base_icon]_[active]"
 
 /obj/machinery/power/port_gen/process()
@@ -40,7 +38,7 @@
 		add_avail(power_gen * power_output)
 		UseFuel()
 	else
-		active = 0
+		active = FALSE
 		handleInactive()
 		update_icon()
 
@@ -114,13 +112,11 @@
 	var/temperature = 0		//The current temperature
 	var/overheating = 0		//if this gets high enough the generator explodes
 
-/obj/machinery/power/port_gen/pacman/Initialize()
-	..()
+/obj/machinery/power/port_gen/pacman/Initialize(mapload)
+	. = ..()
 	if(anchored)
 		connect_to_network()
 
-/obj/machinery/power/port_gen/pacman/New()
-	..()
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -130,8 +126,8 @@
 	component_parts += new board_path(null)
 	RefreshParts()
 
-/obj/machinery/power/port_gen/pacman/upgraded/New()
-	..()
+/obj/machinery/power/port_gen/pacman/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -222,7 +218,7 @@
 	//or if it is already above upper_limit, limit the increase to 0.
 	var/inc_limit = max(upper_limit - temperature, 0)
 	var/dec_limit = min(temperature - lower_limit, 0)
-	temperature += between(dec_limit, rand(-7 + bias, 7 + bias), inc_limit)
+	temperature += clamp(rand(-7 + bias, 7 + bias), dec_limit, inc_limit)
 
 	if(temperature > max_temperature)
 		overheat()
@@ -239,7 +235,7 @@
 
 	if(temperature > cooling_temperature)
 		var/temp_loss = (temperature - cooling_temperature)/TEMPERATURE_DIVISOR
-		temp_loss = between(2, round(temp_loss, 1), TEMPERATURE_CHANGE_MAX)
+		temp_loss = clamp(round(temp_loss, 1), 2, TEMPERATURE_CHANGE_MAX)
 		temperature = max(temperature - temp_loss, cooling_temperature)
 		SStgui.update_uis(src)
 
@@ -249,6 +245,8 @@
 /obj/machinery/power/port_gen/pacman/proc/overheat()
 	overheating++
 	if(overheating > 60)
+		message_admins("Pacman overheated at [ADMIN_JMP(loc)]. Last touched by: [fingerprintslast ? "[fingerprintslast]" : "*null*"].")
+		log_game("Pacman overheated at [COORD(loc)]. Last touched by: [fingerprintslast ? "[fingerprintslast]" : "*null*"].")
 		explode()
 
 /obj/machinery/power/port_gen/pacman/explode()
@@ -264,22 +262,22 @@
 	sheet_left = 0
 	..()
 
-/obj/machinery/power/port_gen/pacman/emag_act(var/remaining_charges, var/mob/user)
+/obj/machinery/power/port_gen/pacman/emag_act(remaining_charges, mob/user)
 	if(active && prob(25))
 		explode() //if they're foolish enough to emag while it's running
 
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		return 1
 
-/obj/machinery/power/port_gen/pacman/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attackby(obj/item/O as obj, mob/user as mob)
 	if(istype(O, sheet_path))
 		var/obj/item/stack/addstack = O
 		var/amount = min((max_sheets - sheets), addstack.amount)
 		if(amount < 1)
-			to_chat(user, "<span class='notice'>The [src.name] is full!</span>")
+			to_chat(user, "<span class='notice'>[src] is full!</span>")
 			return
-		to_chat(user, "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>")
+		to_chat(user, "<span class='notice'>You add [amount] sheet\s to [src].</span>")
 		sheets += amount
 		addstack.use(amount)
 		SStgui.update_uis(src)
@@ -316,11 +314,11 @@
 	..()
 	ui_interact(user)
 
-/obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
+/obj/machinery/power/port_gen/pacman/attack_ai(mob/user as mob)
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
+/obj/machinery/power/port_gen/pacman/attack_ghost(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/power/port_gen/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -388,8 +386,8 @@
 	time_per_sheet = 576 //same power output, but a 50 sheet stack will last 2 hours at max safe power
 	board_path = /obj/item/circuitboard/pacman/super
 
-/obj/machinery/power/port_gen/pacman/super/upgraded/New()
-	..()
+/obj/machinery/power/port_gen/pacman/super/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -429,8 +427,8 @@
 	temperature_gain = 90
 	board_path = /obj/item/circuitboard/pacman/mrs
 
-/obj/machinery/power/port_gen/pacman/mrs/upgraded/New()
-	..()
+/obj/machinery/power/port_gen/pacman/mrs/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)

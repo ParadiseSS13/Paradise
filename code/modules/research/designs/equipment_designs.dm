@@ -311,3 +311,13 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	category = list("Equipment")
+
+/datum/design/gravboots
+	name = "Gravitational Boots"
+	desc = "Expermimental magboots that use miniture gravity generators instead"
+	id = "gravboots"
+	req_tech = list("materials" = 7, "magnets" = 7, "engineering" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/clothing/shoes/magboots/gravity
+	category = list("Equipment")

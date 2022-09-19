@@ -4,62 +4,62 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/mineral,
-/area/space/nearstation)
+/area/ruin/space/methlab)
 "c" = (
 /obj/machinery/floodlight{
 	in_use = 1
 	},
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "d" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "e" = (
 /obj/structure/closet,
 /obj/item/clothing/head/bio_hood,
 /obj/item/clothing/suit/bio_suit,
 /obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "f" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "g" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "h" = (
 /obj/machinery/door/airlock/external{
 	name = "Crackden Airlock"
 	},
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "i" = (
 /obj/item/grenade/chem_grenade/drugs,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "j" = (
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "k" = (
 /obj/machinery/door/airlock/external{
 	name = "Plain Airlock"
 	},
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "l" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/chips,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "m" = (
 /obj/item/ammo_casing{
 	pixel_y = 3
 	},
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "n" = (
 /obj/effect/decal/cleanable/blood/oil,
 /obj/item/ammo_casing{
@@ -67,19 +67,18 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "o" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "p" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
 	dir = 4;
@@ -88,45 +87,45 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "q" = (
 /obj/machinery/floodlight,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "r" = (
 /obj/machinery/chem_master,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "s" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "t" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "u" = (
 /obj/machinery/chem_dispenser,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "v" = (
 /obj/structure/chair,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "w" = (
 /obj/machinery/chem_heater,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "x" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 "y" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plating,
-/area/exploration/methlab)
+/area/ruin/space/methlab)
 
 (1,1,1) = {"
 a

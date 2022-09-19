@@ -38,15 +38,15 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
-	icon_state = "miningsec1"
-	icon_closed = "miningsec"
-	icon_locked = "miningsec1"
-	icon_opened = "miningsecopen"
-	icon_broken = "miningsecbroken"
-	icon_off = "miningsecoff"
+	icon_state = "mining"
+	open_door_sprite = "mining_door"
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()
@@ -87,6 +87,6 @@
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "mining car (not for rails)"
 	icon_state = "miningcar"
-	density = 1
-	icon_opened = "miningcaropen"
+	density = TRUE
+	icon_opened = "miningcar_open"
 	icon_closed = "miningcar"

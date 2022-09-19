@@ -287,7 +287,7 @@
 	reqform.info += "<hr>"
 	reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
 
-	reqform.update_icon()	//Fix for appearing blank when printed.
+	reqform.update_icon(UPDATE_ICON_STATE)	//Fix for appearing blank when printed.
 
 	return reqform
 
@@ -311,7 +311,7 @@
 	var/packagesAmt = SSshuttle.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
-	slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
+	slip.info = "<h3>NAS Trurl Shipping Manifest</h3><hr><br>"
 	slip.info +="Order: #[ordernum]<br>"
 	slip.info +="Destination: [stationName]<br>"
 	slip.info +="Requested By: [orderedby]<br>"
@@ -399,15 +399,14 @@
 	req_access = list()
 	is_public = TRUE
 
-/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_hand(mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return 1
 
-	post_signal("supply")
 	ui_interact(user)
 	return
 
@@ -505,9 +504,8 @@
 				to_chat(usr, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
 			else if(SSshuttle.supply.getDockedId() == "supply_home")
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
-				investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
+				investigate_log("| [key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
-				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
@@ -527,7 +525,6 @@
 				if(!num_input || (!is_public && !is_authorized(usr)) || ..()) // Make sure they dont walk away
 					return
 				amount = clamp(round(num_input), 1, 20)
-
 
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
@@ -557,6 +554,7 @@
 					return
 				if(i == 1)
 					O.generateRequisition(loc)
+					investigate_log("| [key_name(usr)] has placed an order for [amount] [O.object.name] with reason: '[reason]'", "cargo")
 
 		if("approve")
 			// Public consoles cant approve stuff
@@ -577,7 +575,8 @@
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						SSshuttle.shoppinglist += O
-						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
+						investigate_log("| [key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
+						SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, P.name)
 					else
 						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
 					break
@@ -596,6 +595,7 @@
 					// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
 					else
 						SSshuttle.requestlist.Cut(i,i+1)
+						investigate_log("| [key_name(usr)] has denied an order for [SO.object.name]. Remaining points: [SSshuttle.points].", "cargo")
 						break
 
 		// Popup to show CC message logs. Its easier this way to avoid box-spam in TGUI
@@ -606,15 +606,3 @@
 			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Central Command Cargo Message Log", 800, 600)
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
-
-/obj/machinery/computer/supplycomp/proc/post_signal(var/command)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-
-	if(!frequency) return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	frequency.post_signal(src, status_signal)

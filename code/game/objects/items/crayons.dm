@@ -28,7 +28,6 @@
 
 /obj/item/toy/crayon/New()
 	..()
-	name = "[colourName] crayon" //Makes crayons identifiable in things like grinders
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
 /obj/item/toy/crayon/attack_self(mob/living/user as mob)
@@ -69,7 +68,7 @@
 		if("letter")
 			temp = input("Choose the letter.", "Scribbles") in letters
 		if("random_rune")
-			temp = "rune[rand(1,10)]"
+			temp = "rune[rand(1, 8)]"
 		if("random_graffiti")
 			temp = pick(graffiti)
 		else
@@ -122,31 +121,37 @@
 
 
 /obj/item/toy/crayon/red
+	name = "red crayon"
 	icon_state = "crayonred"
 	colour = COLOR_RED
 	colourName = "red"
 
 /obj/item/toy/crayon/orange
+	name = "orange crayon"
 	icon_state = "crayonorange"
 	colour = COLOR_ORANGE
 	colourName = "orange"
 
 /obj/item/toy/crayon/yellow
+	name = "yellow crayon"
 	icon_state = "crayonyellow"
 	colour = COLOR_YELLOW
 	colourName = "yellow"
 
 /obj/item/toy/crayon/green
+	name = "green crayon"
 	icon_state = "crayongreen"
 	colour = COLOR_GREEN
 	colourName = "green"
 
 /obj/item/toy/crayon/blue
+	name = "blue crayon"
 	icon_state = "crayonblue"
 	colour = COLOR_BLUE
 	colourName = "blue"
 
 /obj/item/toy/crayon/purple
+	name = "purple crayon"
 	icon_state = "crayonpurple"
 	colour = COLOR_PURPLE
 	colourName = "purple"
@@ -155,33 +160,47 @@
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
 	switch(icon_state)
 		if("crayonred")
+			name = "red crayon"
 			colour = COLOR_RED
 			colourName = "red"
 		if("crayonorange")
+			name = "orange crayon"
 			colour = COLOR_ORANGE
 			colourName = "orange"
 		if("crayonyellow")
+			name = "yellow crayon"
 			colour = COLOR_YELLOW
 			colourName = "yellow"
 		if("crayongreen")
+			name = "green crayon"
 			colour =COLOR_GREEN
 			colourName = "green"
 		if("crayonblue")
+			name = "blue crayon"
 			colour = COLOR_BLUE
 			colourName = "blue"
 		if("crayonpurple")
+			name = "purple crayon"
 			colour = COLOR_PURPLE
 			colourName = "purple"
 	..()
 
+/obj/item/toy/crayon/black
+	name = "black crayon"
+	icon_state = "crayonblack"
+	colour = "#000000"
+	colourName = "black"
+
 /obj/item/toy/crayon/white
+	name = "white crayon"
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
 	colourName = "white"
 
 /obj/item/toy/crayon/mime
-	icon_state = "crayonmime"
+	name = "mime crayon"
 	desc = "A very sad-looking crayon."
+	icon_state = "crayonmime"
 	colour = "#FFFFFF"
 	colourName = "mime"
 	uses = 0
@@ -206,6 +225,7 @@
 		..()
 
 /obj/item/toy/crayon/rainbow
+	name = "rainbow crayon"
 	icon_state = "crayonrainbow"
 	colour = "#FFF000"
 	colourName = "rainbow"
@@ -232,30 +252,29 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
-	icon_state = "spraycan_cap"
+	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing tasty paint."
+	icon_state = "spraycan_cap"
 	var/capped = 1
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
 /obj/item/toy/crayon/spraycan/New()
 	..()
-	name = "Nanotrasen-brand Rapid Paint Applicator"
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
 	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, "<span class='notice'>You [capped ? "Remove" : "Replace"] the cap of the [src]</span>")
-			capped = capped ? 0 : 1
-			icon_state = "spraycan[capped ? "_cap" : ""]"
-			update_icon()
+			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
+			capped = !capped
+			update_icon(UPDATE_ICON_STATE)
 		if("Change Drawing")
 			..()
 		if("Change Color")
 			colour = input(user,"Choose Color") as color
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity)
@@ -266,22 +285,27 @@
 		if(iscarbon(target))
 			if(uses-10 > 0)
 				uses = uses - 10
-				var/mob/living/carbon/human/C = target
+				var/mob/living/carbon/C = target
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 				if(C.client)
-					C.EyeBlurry(3)
-					C.EyeBlind(1)
-					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
-						C.Confused(3)
-						C.Weaken(3)
-				C.lip_style = "spray_face"
-				C.lip_color = colour
-				C.update_body()
+					C.EyeBlurry(6 SECONDS)
+					C.EyeBlind(2 SECONDS)
+					if(ishuman(target))
+						var/mob/living/carbon/human/H = target
+						if(H.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
+							H.Confused(6 SECONDS)
+							H.KnockDown(6 SECONDS)
+						H.lip_style = "spray_face"
+						H.lip_color = colour
+						H.update_body()
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
-/obj/item/toy/crayon/spraycan/update_icon()
-	overlays.Cut()
+/obj/item/toy/crayon/spraycan/update_icon_state()
+	icon_state = "spraycan[capped ? "_cap" : ""]"
+
+/obj/item/toy/crayon/spraycan/update_overlays()
+	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi',icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
-	overlays += I
+	. += I

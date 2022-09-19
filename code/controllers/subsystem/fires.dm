@@ -8,9 +8,15 @@ SUBSYSTEM_DEF(fires)
 	var/list/currentrun = list()
 	var/list/processing = list()
 
-/datum/controller/subsystem/fires/stat_entry()
-	..("P:[processing.len]")
+/datum/controller/subsystem/fires/get_stat_details()
+	return "P:[length(processing)]"
 
+
+/datum/controller/subsystem/fires/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
 
 /datum/controller/subsystem/fires/fire(resumed = 0)
 	if(!resumed)
@@ -30,7 +36,7 @@ SUBSYSTEM_DEF(fires)
 
 		if(O.resistance_flags & ON_FIRE) //in case an object is extinguished while still in currentrun
 			if(!(O.resistance_flags & FIRE_PROOF))
-				O.take_damage(20, BURN, "fire", 0)
+				O.take_damage(20, BURN, FIRE, 0)
 			else
 				O.extinguish()
 

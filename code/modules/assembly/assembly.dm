@@ -18,6 +18,8 @@
 	origin_tech = "magnets=1;engineering=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound =  'sound/items/handling/component_pickup.ogg'
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
@@ -45,9 +47,6 @@
 
 /obj/item/assembly/proc/holder_movement()							//Called when the holder is moved
 	return
-
-/obj/item/assembly/proc/describe()                  // Called by grenades to describe the state of the trigger (time left, etc)
-	return "The trigger assembly looks broken!"
 
 /obj/item/assembly/interact(mob/user)					//Called when attack_self is called
 	return

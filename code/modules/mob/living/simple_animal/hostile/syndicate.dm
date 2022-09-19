@@ -6,6 +6,7 @@
 	icon_living = "syndicate"
 	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
 	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -22,11 +23,12 @@
 	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
 	faction = list("syndicate")
-	check_friendly_fire = 1
+	check_friendly_fire = TRUE
 	status_flags = CANPUSH
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
-	del_on_death = 1
+	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 ///////////////Sword and shield////////////
 
@@ -37,18 +39,19 @@
 	icon_living = "syndicate_sword"
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	armour_penetration = 28
+	armour_penetration_percentage = 40
+	armour_penetration_flat = 10
 	status_flags = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/O as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(O.force)
 		if(prob(melee_block_chance))
-			visible_message("<span class='boldwarning'>[src] blocks the [O] with its shield! </span>")
+			visible_message("<span class='boldwarning'>[src] blocks [O] with its shield! </span>")
 		else
 			var/damage = O.force
 			if(O.damtype == STAMINA)
@@ -57,14 +60,14 @@
 				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
 				return
 			adjustHealth(damage)
-			visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
+			visible_message("<span class='boldwarning'>[src] has been attacked with [O] by [user]. </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
 		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>")
+		visible_message("<span class='warning'>[user] gently taps [src] with [O]. </span>")
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
@@ -80,14 +83,14 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot
 	name = "Syndicate Operative"
 	force_threshold = 6 // Prevents people using punches to bypass eshield
-	robust_searching = 1 // Together with stat_attack, ensures dionae/etc that regen are killed properly
+	robust_searching = TRUE // Together with stat_attack, ensures dionae/etc that regen are killed properly
 	stat_attack = UNCONSCIOUS
-	universal_speak = 1
+	universal_speak = TRUE
 	icon_state = "syndicate_swordonly"
 	icon_living = "syndicate_swordonly"
 	melee_block_chance = 0
 	ranged_block_chance = 0
-	del_on_death = 1
+	del_on_death = TRUE
 	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
 	var/alert_on_death = FALSE
@@ -137,8 +140,6 @@
 		seen_enemy_name = target.name
 		if(istype(target, /obj/mecha))
 			depotarea.saw_mech(target)
-		if(istype(target, /obj/spacepod))
-			depotarea.saw_pod(target)
 		if(depotarea.list_includes(target, depotarea.dead_list))
 			seen_revived_enemy = TRUE
 			raise_alert("[name] reports intruder [target] has returned from death!")
@@ -185,11 +186,11 @@
 	else
 		scan_cycles++
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(list/possible_targets)
 	FindTarget(possible_targets, 1)
 	return FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
 		raised_alert = TRUE
 		say("Intruder!")
@@ -236,7 +237,7 @@
 		melee_damage_upper = 10
 		attacktext = "punches"
 		attack_sound = 'sound/weapons/punch1.ogg'
-		ranged = 1
+		ranged = TRUE
 		rapid = 3
 		retreat_distance = 3
 		minimum_distance = 3
@@ -266,7 +267,7 @@
 		melee_damage_upper = 10
 		attacktext = "punches"
 		attack_sound = 'sound/weapons/punch1.ogg'
-		ranged = 1
+		ranged = TRUE
 		retreat_distance = 3
 		minimum_distance = 3
 		melee_block_chance = 0
@@ -295,10 +296,10 @@
 	icon_state = "syndicate_space_sword"
 	icon_living = "syndicate_space_sword"
 	speed = 1
-	wander = 0
+	wander = FALSE
 	alert_on_spacing = FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 
@@ -312,12 +313,12 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 
 /mob/living/simple_animal/hostile/syndicate/ranged
-	ranged = 1
+	ranged = TRUE
 	rapid = 2
 	retreat_distance = 5
 	minimum_distance = 5
@@ -336,7 +337,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
@@ -350,6 +351,7 @@
 	icon_living = "viscerator_attack"
 	pass_flags = PASSTABLE | PASSMOB
 	a_intent = INTENT_HARM
+	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
 	obj_damage = 0
@@ -364,7 +366,7 @@
 	flying = TRUE
 	bubble_icon = "syndibot"
 	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "is smashed into pieces!"
 
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)

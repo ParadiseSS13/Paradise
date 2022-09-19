@@ -18,7 +18,7 @@ orderedSqlFiles = sorted(orderedSqlFiles)
 for index in orderedSqlFiles:
     # Yes I know half of the casts below this are probably not necassary, but python is very picky
     # AND YES I KNOW THIS IS SNOWFLAKEY AS HELL, BUT IT MUST BE DONE FOR PROPER CI
-    if index in [16, 17]:
+    if index in [16, 17, 31, 38]:
         orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".py"
     else:
         orderedSqlFiles[index] = str(index) + "-" + (str(int(index)+1)) + ".sql"
@@ -45,7 +45,7 @@ scriptLines = [
     "#!/bin/bash\n",
     "set -euo pipefail\n"
     "python3 -m pip install setuptools\n" # Yes I know you can PIP multiple things but they need to happen in this order
-    "python3 -m pip install mysql-connector\n"
+    "python3 -m pip install mysql-connector-python\n"
     "mysql -u root -proot < tools/ci/sql_v0.sql\n"
 ]
 
@@ -54,9 +54,13 @@ for file in orderedSqlFiles:
     if file.endswith(".py"):
         # Begin snowflakery
         if file == "16-17.py":
-            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root feedback feedback round\n")
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb feedback round\n")
         elif file == "17-18.py":
-            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root feedback feedback feedback_2\n")
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb feedback feedback_2\n")
+        elif file == "31-32.py":
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb\n")
+        elif file == "38-39.py":
+            scriptLines.append("python3 SQL/updates/" + str(file) + " 127.0.0.1 root root paradise_gamedb\n")
         else:
             print("ERROR: CI failed due to invalid python file in SQL/updates")
             exit(1)
@@ -64,8 +68,8 @@ for file in orderedSqlFiles:
         inFile = open("SQL/updates/" + file, "r")
         fileLines = inFile.readlines()
         inFile.close()
-        # Add in a line which tells it to use the feedback DB
-        fileLines.insert(0, "USE `feedback`;\n")
+        # Add in a line which tells it to use the paradise DB
+        fileLines.insert(0, "USE `paradise_gamedb`;\n")
 
         # Write new files to be used by the testing script
         outFile = open("tools/ci/sql_tmp/" + file, "w+")
@@ -75,11 +79,8 @@ for file in orderedSqlFiles:
         # Add a line to the script being made that tells it to use this SQL file
         scriptLines.append("mysql -u root -proot < tools/ci/sql_tmp/" + str(file) + "\n")
 
-scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
-scriptLines.append("mysql -u root -proot < SQL/paradise_schema_prefixed.sql\n")
-scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
+scriptLines.append("mysql -u root -proot -e 'DROP DATABASE paradise_gamedb;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
-scriptLines.append("mysql -u root -proot -e 'GRANT ALL on feedback.* TO `ci_sql`@`127.0.0.1` IDENTIFIED BY \"not_a_strong_password\";'\n")
 
 outputScript = open("tools/ci/validate_sql.sh", "w+")
 outputScript.writelines(scriptLines)

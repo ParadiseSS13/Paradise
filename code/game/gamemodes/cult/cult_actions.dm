@@ -27,11 +27,15 @@
 /datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
 	if(!user || !message)
 		return
+
+	if(user.holy_check())
+		return
+
 	if(!user.can_speak())
 		to_chat(user, "<span class='warning'>You can't speak!</span>")
 		return
 
-	if((MUTE in user.mutations) || user.mind.miming) //Under vow of silence/mute?
+	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
 		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
 		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
 		sleep(10)
@@ -40,16 +44,21 @@
 		sleep(10)
 		user.whisper(message) // And whisper the actual message
 
-	var/my_message
+	var/title
+	var/large = FALSE
+	var/living_message
 	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
+		title = "<b>Harbringer of the Slaughter</b>"
+		large = TRUE
 	else
-		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]</span>"
+		title = "<b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]</b>"
+
+	living_message = "<span class='cult[(large ? "large" : "speech")]'>[title]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
-			to_chat(M, my_message)
+			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, "<span class='cult[(large ? "large" : "speech")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
 
 	log_say("(CULT) [message]", user)
 
@@ -61,15 +70,18 @@
 	return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
-	var/my_message
+
+	var/living_message
 	if(!message)
 		return
-	my_message = "<span class='cultlarge'>The [user.name]: [message]</span>"
+	var/title = "The [user.name]"
+	living_message = "<span class='cultlarge'>[title]: [message]</span>"
+
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
-			to_chat(M, my_message)
+			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, "<span class='cultlarge'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
 
 
 //Objectives

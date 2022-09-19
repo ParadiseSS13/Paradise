@@ -56,10 +56,7 @@
 				continue
 			if(varname in ignored_vars)
 				continue
-			var/vval = I.vars[varname]
-			//Does it even work ?
-			if(vval == initial(I.vars[varname]))
-				continue
+			var/vval = I.vars[varname] // Can't check initial() because it doesn't work on a list index
 			//Only text/numbers and icons variables to make it less weirdness prone.
 			if(!istext(vval) && !isnum(vval) && !isicon(vval))
 				continue
@@ -125,9 +122,9 @@
 
 	// Copy cybernetic implants
 	O.cybernetic_implants = list()
-	for(var/obj/item/organ/internal/CI in contents)
-		if(istype(CI))
-			O.cybernetic_implants |= CI.type
+	for(var/org in internal_organs)
+		var/obj/item/organ/internal/aug = org
+		O.cybernetic_implants |= aug.type
 
 	// Copy accessories
 	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(slot_w_uniform)

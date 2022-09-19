@@ -15,7 +15,8 @@
 	icon_living = "daemon"
 	speed = 1
 	a_intent = INTENT_HARM
-	stop_automated_movement = 1
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	stop_automated_movement = TRUE
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
@@ -28,7 +29,6 @@
 	maxHealth = 200
 	health = 200
 	environment_smash = 1
-	//universal_understand = 1
 	obj_damage = 50
 	melee_damage_lower = 30
 	melee_damage_upper = 30
@@ -49,7 +49,7 @@
 						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
 						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
 	var/datum/action/innate/demon/whisper/whisper_action
@@ -64,7 +64,7 @@
 	whisper_action = new()
 	whisper_action.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
-		bloodspell.phased = 1
+		bloodspell.phased = TRUE
 	addtimer(CALLBACK(src, .proc/attempt_objectives), 5 SECONDS)
 
 
@@ -79,7 +79,7 @@
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
-		src << 'sound/misc/demon_dies.ogg'
+		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new
@@ -91,6 +91,7 @@
 			mind.objectives += fluffObjective
 			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
 			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
+		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
 
 
 /obj/effect/decal/cleanable/blood/innards
@@ -113,6 +114,12 @@
 	speed = 0
 	boost = world.time + 60
 
+// Midround slaughter demon, less tanky
+
+/mob/living/simple_animal/slaughter/lesser
+	maxHealth = 130
+	health = 130
+
 // Cult slaughter demon
 /mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
@@ -129,34 +136,32 @@
 	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
 	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</span></b>"
 
-/obj/effect/proc_holder/spell/targeted/sense_victims
+/obj/effect/proc_holder/spell/sense_victims
 	name = "Sense Victims"
 	desc = "Sense the location of heretics"
-	charge_max = 0
-	clothes_req = 0
-	range = 20
+	base_cooldown = 0
+	clothes_req = FALSE
 	cooldown_min = 0
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
 	panel = "Demon"
 
-/obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets, mob/user)
-	var/list/victims = targets
-	for(var/mob/living/L in GLOB.alive_mob_list)
-		if(!L.stat && !iscultist(L) && L.key && L != usr)
-			victims.Add(L)
-	if(!targets.len)
-		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
-		return 0
-	var/mob/living/victim = pick(victims)
+/obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
+	return new /datum/spell_targeting/alive_mob_list
+
+/obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
+	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players
+
+/obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
+	var/mob/living/victim = targets[1]
 	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
-	victim.Stun(3) //HUE
+	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
 		return 0
-	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
 
 /mob/living/simple_animal/slaughter/cult/New()
 	..()
@@ -165,6 +170,8 @@
 		if(!demon_candidates.len)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
+			return
+		if(QDELETED(src)) // Just in case
 			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/slaughter/cult/S = src
@@ -179,7 +186,7 @@
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
 		SSticker.mode.add_cultist(S.mind)
-		var/obj/effect/proc_holder/spell/targeted/sense_victims/SV = new
+		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
 		var/datum/objective/new_objective = new /datum/objective
 		new_objective.owner = S.mind
@@ -241,7 +248,7 @@
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
 
-/obj/item/organ/internal/heart/demon/update_icon()
+/obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
 
 /obj/item/organ/internal/heart/demon/prepare_eat()
@@ -337,7 +344,7 @@
 	..()
 
 /datum/objective/slaughter/check_completion()
-	if(!istype(owner.current, /mob/living/simple_animal/slaughter) || !owner.current)
+	if(!isslaughterdemon(owner.current) || !owner.current)
 		return 0
 	var/mob/living/simple_animal/slaughter/R = owner.current
 	if(!R || R.stat == DEAD)

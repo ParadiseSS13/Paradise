@@ -10,15 +10,16 @@
 
 # Useful Links
 
-- [Website](https://www.paradisestation.org/)
 - [Discord](https://discordapp.com/invite/YJDsXFE)
 - [Documentation](https://codedocs.paradisestation.org)
+- [Website](https://www.paradisestation.org/)
 
 # Useful Documents
 
-- [Installation Guide](.github/DOWNLOADING.md)
-- [Contribution Guide](.github/CONTRIBUTING.md)
 - [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Contribution Guide](.github/CONTRIBUTING.md)
+- [Installation Guide](.github/DOWNLOADING.md)
 
 ---
 

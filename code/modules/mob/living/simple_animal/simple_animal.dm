@@ -5,8 +5,8 @@
 	maxHealth = 20
 	gender = PLURAL //placeholder
 
-	universal_understand = 1
-	universal_speak = 0
+	universal_understand = TRUE
+	universal_speak = FALSE
 	status_flags = CANPUSH
 
 	var/icon_living = ""
@@ -22,9 +22,9 @@
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
-	var/stop_automated_movement = 0 //Use this to temporarely stop random movement or to if you write special movement code for animals.
-	var/wander = 1	// Does the mob wander around when idle?
-	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
+	var/stop_automated_movement = FALSE //Use this to temporarely stop random movement or to if you write special movement code for animals.
+	var/wander = TRUE	// Does the mob wander around when idle?
+	var/stop_automated_movement_when_pulled = TRUE //When set to TRUE this stops the animal from moving when someone is pulling it.
 
 	//Interaction
 	var/response_help   = "pokes"
@@ -46,7 +46,7 @@
 	var/fire_damage = 2
 
 	//Healable by medical stacks? Defaults to yes.
-	var/healable = 1
+	var/healable = TRUE
 
 	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
@@ -56,7 +56,10 @@
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
 	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
-	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
+	/// Flat armour reduction, occurs after percentage armour penetration.
+	var/armour_penetration_flat = 0
+	/// Percentage armour reduction, happens before flat armour reduction.
+	var/armour_penetration_percentage = 0
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
 	var/attacktext = "attacks"
@@ -65,7 +68,7 @@
 	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
-	var/can_hide    = 0
+	var/can_hide = FALSE
 
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
@@ -76,8 +79,11 @@
 	var/list/childtype = null
 	var/next_scan_time = 0
 	var/animal_species //Sorry, no spider+corgi buttbabies.
+	var/current_offspring = 0
+	var/max_offspring = DEFAULT_MAX_OFFSPRING
 
-	var/buffed = 0 //In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to 1, so we have something to check against
+	///Was this mob spawned by xenobiology magic? Used for mobcapping.
+	var/xenobiology_spawned = FALSE
 	var/gold_core_spawnable = NO_SPAWN //If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
 
 	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
@@ -87,7 +93,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
-	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/del_on_death = FALSE //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 
@@ -100,10 +106,9 @@
 
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
 
-	//domestication
-	var/tame = 0
-
 	var/my_z // I don't want to confuse this with client registered_z
+	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	var/footstep_type
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -120,6 +125,8 @@
 	if(pcollar)
 		pcollar = new(src)
 		regenerate_icons()
+	if(footstep_type)
+		AddComponent(/datum/component/footstep, footstep_type)
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
@@ -147,21 +154,25 @@
 	. = ..()
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		return
+	if(IsSleeping())
+		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
 	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
-/mob/living/simple_animal/StartResting(updating = 1)
+/mob/living/simple_animal/on_lying_down(new_lying_angle)
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_resting
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
 			regenerate_icons()
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl
 
-/mob/living/simple_animal/StopResting(updating = 1)
+/mob/living/simple_animal/on_standing_up()
 	..()
 	if(icon_resting && stat != DEAD)
 		icon_state = icon_living
@@ -177,8 +188,13 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 		else
-			WakeUp()
-			create_debug_log("woke up, trigger reason: [reason]")
+			if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+				if(stat == CONSCIOUS)
+					KnockOut()
+					create_debug_log("knocked out, trigger reason: [reason]")
+			else if(stat == UNCONSCIOUS)
+				WakeUp()
+				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
 /mob/living/simple_animal/proc/handle_automated_action()
@@ -188,7 +204,7 @@
 /mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
 	if(!stop_automated_movement && wander)
-		if((isturf(loc) || allow_movement_on_non_turfs) && !resting && !buckled && canmove)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
+		if((isturf(loc) || allow_movement_on_non_turfs) && !IS_HORIZONTAL(src) && !buckled && (mobility_flags & MOBILITY_MOVE))		//This is so it only moves if it's not inside a closet, gentics machine, etc.
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
@@ -215,23 +231,23 @@
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
-							custom_emote(1, pick(emote_see))
+							custom_emote(EMOTE_VISIBLE, pick(emote_see))
 						else
-							custom_emote(2, pick(emote_hear))
+							custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				else
 					say(pick(speak))
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
-					custom_emote(1, pick(emote_see))
+					custom_emote(EMOTE_VISIBLE, pick(emote_see))
 				if((emote_hear && emote_hear.len) && !(emote_see && emote_see.len))
-					custom_emote(2, pick(emote_hear))
+					custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 				if((emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					var/length = emote_hear.len + emote_see.len
 					var/pick = rand(1,length)
 					if(pick <= emote_see.len)
-						custom_emote(1, pick(emote_see))
+						custom_emote(EMOTE_VISIBLE, pick(emote_see))
 					else
-						custom_emote(2,pick(emote_hear))
+						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
@@ -239,7 +255,7 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
+	if(abs(areatemp - bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NOBREATH))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		bodytemperature += diff
@@ -302,20 +318,6 @@
 		pcollar.forceMove(drop_location())
 		pcollar = null
 	..()
-
-/mob/living/simple_animal/emote(act, m_type = 1, message = null, force)
-	if(stat)
-		return
-	act = lowertext(act)
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("scream")
-			message = "<B>\The [src]</B> whimpers."
-			m_type = 2
-		if("help")
-			to_chat(src, "scream")
-
-	..()
-
 /mob/living/simple_animal/say_quote(message)
 	var/verb = "says"
 
@@ -328,7 +330,7 @@
 	. = speed
 	if(forced_look)
 		. += 3
-	. += config.animal_delay
+	. += GLOB.configuration.movement.animal_delay
 
 /mob/living/simple_animal/Stat()
 	..()
@@ -362,6 +364,8 @@
 			visible_message("<span class='danger'>\The [src] [deathmessage]</span>")
 		else if(!del_on_death)
 			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+	if(xenobiology_spawned)
+		SSmobs.xenobiology_mobs--
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
@@ -373,7 +377,7 @@
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
-		density = 0
+		density = FALSE
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_dead"
 			regenerate_icons()
@@ -392,10 +396,6 @@
 	if(ismecha(the_target))
 		var/obj/mecha/M = the_target
 		if(M.occupant)
-			return FALSE
-	if(isspacepod(the_target))
-		var/obj/spacepod/S = the_target
-		if(S.pilot)
 			return FALSE
 	return TRUE
 
@@ -431,18 +431,18 @@
 	icon = initial(icon)
 	icon_state = icon_living
 	density = initial(density)
-	update_canmove()
 	flying = initial(flying)
 	if(collar_type)
 		collar_type = "[initial(collar_type)]"
 		regenerate_icons()
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
+	if(current_offspring >= max_offspring)
+		return FALSE
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return FALSE
 	next_scan_time = world.time + 400
 
-	var/alone = TRUE
 	var/mob/living/simple_animal/partner
 	var/children = 0
 
@@ -459,10 +459,14 @@
 		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
 			return //we never mate when not alone, so just abort early
 
-	if(alone && partner && children < 3)
+	// The children check here isn't the total number of offspring, but the
+	// number of offspring within a visible 7-tile radius. It doesn't seem very
+	// effective at preventing population explosions but there you go.
+	if(partner && children < 3)
 		var/childspawn = pickweight(childtype)
 		var/turf/target = get_turf(loc)
 		if(target)
+			current_offspring += 1
 			return new childspawn(target)
 
 /mob/living/simple_animal/show_inv(mob/user as mob)
@@ -470,7 +474,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = "<table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"
+	var/dat = "<table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr></table>"
 	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -495,7 +499,7 @@
 				return FALSE
 			return TRUE
 
-/mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
+/mob/living/simple_animal/equip_to_slot(obj/item/W, slot, initial = FALSE)
 	if(!istype(W))
 		return FALSE
 
@@ -509,7 +513,7 @@
 		if(slot_collar)
 			add_collar(W)
 
-/mob/living/simple_animal/unEquip(obj/item/I, force)
+/mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)
 	. = ..()
 	if(!. || !I)
 		return
@@ -522,23 +526,6 @@
 	. = ..()
 	if(pcollar)
 		. |= pcollar.GetAccess()
-
-/mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || IsWeakened() || stat || resting)
-		drop_r_hand()
-		drop_l_hand()
-		canmove = 0
-	else if(buckled)
-		canmove = 0
-	else
-		canmove = 1
-	if(!canmove)
-		walk(src, 0) //stop mid walk
-
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
@@ -642,3 +629,5 @@
 	..()
 	walk(src, 0) // if mob is moving under ai control, then stop AI movement
 
+/mob/living/simple_animal/proc/npc_safe(mob/user)
+	return FALSE

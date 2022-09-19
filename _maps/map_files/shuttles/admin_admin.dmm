@@ -60,7 +60,6 @@
 	req_access_txt = "101"
 	},
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -88,8 +87,6 @@
 /area/shuttle/administration)
 "aq" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -110,8 +107,6 @@
 /area/shuttle/administration)
 "as" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -178,15 +173,12 @@
 "aC" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "propulsion_l";
-	tag = "icon-propulsion_l (EAST)"
+	icon_state = "propulsion_l"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
 "aD" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
-	icon_state = "heater";
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
@@ -224,8 +216,7 @@
 "aK" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "propulsion_r";
-	tag = "icon-propulsion_r (EAST)"
+	icon_state = "propulsion_r"
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -261,7 +252,6 @@
 "aU" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
-	dir = 4;
 	icon_state = "open";
 	id_tag = "adminshuttleshutters";
 	name = "Blast Shutters";
@@ -272,8 +262,6 @@
 /area/shuttle/administration)
 "aV" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /obj/machinery/door_control{
@@ -281,16 +269,14 @@
 	name = "Blast door control";
 	pixel_x = -5;
 	pixel_y = 35;
-	req_access = list(101);
-	req_access_txt = "0"
+	req_access = list(101)
 	},
 /obj/machinery/door_control{
 	id = "adminshuttleshutters";
 	name = "Shutter control";
 	pixel_x = 5;
 	pixel_y = 35;
-	req_access = list(101);
-	req_access_txt = "0"
+	req_access = list(101)
 	},
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -326,8 +312,6 @@
 "bb" = (
 /obj/machinery/clonepod/upgraded,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -376,8 +360,6 @@
 /area/shuttle/administration)
 "bl" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -427,8 +409,6 @@
 /area/shuttle/administration)
 "bt" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -437,8 +417,6 @@
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,

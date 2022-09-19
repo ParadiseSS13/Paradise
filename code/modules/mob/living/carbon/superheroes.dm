@@ -7,35 +7,34 @@
 	var/name
 	var/desc
 	var/class
-	var/list/default_genes = list(REGEN, BREATHLESS, COLDRES)
 	var/list/default_spells = list()
 	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
 
-/datum/superheroes/proc/create(var/mob/living/carbon/human/H)
-	assign_genes(H)
+/datum/superheroes/proc/create(mob/living/carbon/human/H)
+	assign_mutations(H)
 	assign_spells(H)
 	equip(H)
 	fixflags(H)
 	assign_id(H)
 	H.mind.special_role = SPECIAL_ROLE_SUPER
 
-/datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/equip(mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
 	for(var/obj/item/W in H.get_all_slots())
 		H.unEquip(W)
 	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), slot_l_ear)
 
-/datum/superheroes/proc/fixflags(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/fixflags(mob/living/carbon/human/H)
 	for(var/obj/item/W in H.get_all_slots())
 		W.flags |= NODROP
 
-/datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
-	if(default_genes.len)
-		for(var/gene in default_genes)
-			H.mutations |= gene
-		H.update_mutations()
+/datum/superheroes/proc/assign_mutations(mob/living/carbon/human/H)
+	var/list/default_mutations = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
+	for(var/mutation in default_mutations)
+		H.dna.SetSEState(mutation, 1)
+		singlemutcheck(H, mutation, MUTCHK_FORCED)
 
-/datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
 	if(default_spells.len)
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/S = spell
@@ -43,7 +42,7 @@
 				return
 			H.mind.AddSpell(new S(null))
 
-/datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/assign_id(mob/living/carbon/human/H)
 	var/obj/item/card/id/syndicate/W = new(H)
 	W.registered_name = H.real_name
 	W.access = list(ACCESS_MAINT_TUNNELS)
@@ -71,7 +70,7 @@
 	foes, and protected the station for years. Your tech gadgets make you a force to be reckoned with. You are the hero this \
 	station deserves."
 
-/datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/owlman/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
@@ -84,13 +83,13 @@
 
 /datum/superheroes/griffin
 	name = "The Griffin"
-	default_spells = list(/obj/effect/proc_holder/spell/targeted/click/recruit)
+	default_spells = list(/obj/effect/proc_holder/spell/recruit)
 	class = "Supervillain"
 	desc = "You are The Griffin, the ultimate supervillain. You thrive on chaos and have no respect for the supposed authority \
 	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
 	the most dastardly plans."
 
-/datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/griffin/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
@@ -108,9 +107,9 @@
 	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
 	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
 	station's hero roster, you intend to leave your mark."
-	default_spells = list(/obj/effect/proc_holder/spell/targeted/lightning/lightnian)
+	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian)
 
-/datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
@@ -127,9 +126,9 @@
 	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
 	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
-	default_spells = list(/obj/effect/proc_holder/spell/targeted/magnet)
+	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/magnet)
 
-/datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
@@ -145,21 +144,24 @@
 
 
 //The Griffin's special recruit abilitiy
-/obj/effect/proc_holder/spell/targeted/click/recruit
+/obj/effect/proc_holder/spell/recruit
 	name = "Recruit Greyshirt"
-	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
-	charge_max = 450
+	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Assistants only and you can recruit a maximum of 3!."
+	base_cooldown = 450
 	clothes_req = FALSE
-	range = 1 //Adjacent to user
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	click_radius = -1
 	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
-	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/recruit/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.click_radius = -1
+	T.range = 1
+	return T
+
+/obj/effect/proc_holder/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(SSticker.mode.greyshirts.len >= 3)
 		if(show_message)
 			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
@@ -170,16 +172,13 @@
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
-
+/obj/effect/proc_holder/spell/recruit/valid_target(mob/living/carbon/human/target, user)
 	return target.ckey && !target.stat
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/cast(list/targets,mob/living/user = usr)
+/obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
-	if(target.mind.assigned_role != "Civilian")
-		to_chat(user, "<span class='warning'>You can only recruit Civilians.</span>")
+	if(target.mind.assigned_role != "Assistant")
+		to_chat(user, "<span class='warning'>You can only recruit Assistants.</span>")
 		revert_cast(user)
 		return
 	recruiting = TRUE
@@ -195,7 +194,7 @@
 				to_chat(user, "<span class='notice'>You begin the recruitment of [target].</span>")
 				user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech.</span>")
 				to_chat(target, "<span class='danger'>You feel yourself agreeing with [user], and a surge of loyalty begins building.</span>")
-				target.Weaken(12)
+				target.Weaken(24 SECONDS)
 				sleep(20)
 				if(ismindshielded(target))
 					to_chat(user, "<span class='notice'>[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear.</span>")

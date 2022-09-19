@@ -4,19 +4,19 @@
 	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door1"
 	anchored = TRUE
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
 	max_integrity = 350
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
-	var/visible = 1
+	var/visible = TRUE
 	/// Is it currently in the process of opening or closing.
 	var/operating = FALSE
-	var/autoclose = 0
+	var/autoclose = FALSE
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
 	var/safe = TRUE
 	// Whether the door is bolted or not.
@@ -36,19 +36,32 @@
 	var/unres_sides = 0
 	//Multi-tile doors
 	var/width = 1
+	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
+	var/sound_ready = TRUE
+	var/sound_cooldown = 1 SECONDS
+
+	/// ID for the window tint button, or another external control
+	var/id
+	var/polarized_glass = FALSE
+	var/polarized_on
 
 /obj/machinery/door/New()
 	..()
+	GLOB.airlocks += src
+	update_freelook_sight()
+
+/obj/machinery/door/Initialize(mapload)
+	. = ..()
 	set_init_door_layer()
 	update_dir()
-	update_freelook_sight()
-	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+
+	air_update_turf(1)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -73,12 +86,8 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-/obj/machinery/door/Initialize()
-	air_update_turf(1)
-	..()
-
 /obj/machinery/door/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
@@ -110,8 +119,14 @@
 				if(world.time - mecha.occupant.last_bumped <= 10)
 					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE, mecha.occupant)
+					return
 				open()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE, mecha.occupant)
+					return
 				do_animate("deny")
 		return
 
@@ -143,12 +158,45 @@
 
 	if(density && !emagged)
 		if(allowed(user))
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				cmag_switch(FALSE, user)
+				return
 			open()
 			if(isbot(user))
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
+			if(pry_open_check(user))
+				return
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				cmag_switch(TRUE, user)
+				return
 			do_animate("deny")
+
+/obj/machinery/door/proc/pry_open_check(mob/user)
+	. = TRUE
+	if(isterrorspider(user))
+		return
+
+	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
+		return FALSE
+	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		if(!V.bloodusable)
+			REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+			return FALSE
+	if(welded)
+		to_chat(user, "<span class='warning'>The door is welded.</span>")
+		return FALSE
+	if(locked)
+		to_chat(user, "<span class='warning'>The door is bolted.</span>")
+		return FALSE
+	if(density)
+		visible_message("<span class='danger'>[user] forces the door open!</span>")
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		open(TRUE)
+	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		V.bloodusable = max(V.bloodusable - 5, 0)
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
@@ -171,9 +219,17 @@
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact()) //cmag should not prevent admin intervention
+				cmag_switch(FALSE, user)
+				return
 			open()
 		else
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+				return
 			close()
+		return TRUE
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		cmag_switch(TRUE, user)
 		return
 	if(density)
 		do_animate("deny")
@@ -193,7 +249,28 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
+/obj/machinery/door/proc/clean_cmag_ooze(obj/item/I, mob/user) //Emags are Engineering's problem, cmags are the janitor's problem
+	var/cleaning = FALSE
+	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+		var/obj/item/reagent_containers/spray/cleaner/C = I
+		if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+			cleaning = TRUE
+		else
+			return
+	if(istype(I, /obj/item/soap))
+		cleaning = TRUE
+
+	if(!cleaning)
+		return
+	user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
+	if(do_after(user, 50, target = src))
+		user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		clean_cmag_ooze(I, user)
+
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(user, I)
 		return 1
@@ -201,7 +278,6 @@
 		try_to_activate_door(user)
 		return 1
 	return ..()
-
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -236,14 +312,54 @@
 		flick("door_spark", src)
 		sleep(6)
 		open()
-		emagged = 1
-		return 1
+		emagged = TRUE
+		return TRUE
 
-/obj/machinery/door/update_icon()
+/obj/machinery/door/cmag_act(mob/user)
+	if(!density)
+		return
+	flick("door_spark", src)
+	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
+	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	return TRUE
+
+//Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
+/obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)
+	if(!canopen || locked || !hasPower())
+		if(density) //Windoors can still do their deny animation in unpowered environments, this bugs out if density isn't checked for
+			do_animate("deny")
+		if(hasPower() && sound_ready)
+			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+			soundcooldown()
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/card/id/idcard = H.get_idcard()
+		if(!idcard?.assignment) //Humans can't game inverted access by taking their ID off or using spare IDs.
+			if(!density)
+				return
+			do_animate("deny")
+			to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+			if(sound_ready)
+				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+				soundcooldown() //Thanks, mechs
+			return
 	if(density)
-		icon_state = "door1"
+		open()
 	else
-		icon_state = "door0"
+		close()
+
+/obj/machinery/door/proc/soundcooldown()
+	if(!sound_ready)
+		return
+	sound_ready = FALSE
+	addtimer(VARSET_CALLBACK(src, sound_ready, TRUE), sound_cooldown)
+
+/obj/machinery/door/proc/toggle_polarization()
+	return
+
+/obj/machinery/door/update_icon_state()
+	icon_state = "door[density]"
 
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
@@ -266,6 +382,7 @@
 		return TRUE
 	if(operating)
 		return
+	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
 	operating = TRUE
 	do_animate("opening")
 	set_opacity(0)
@@ -295,6 +412,7 @@
 						autoclose_in(60)
 					return
 
+	SEND_SIGNAL(src, COMSIG_DOOR_CLOSE)
 	operating = TRUE
 
 	do_animate("closing")
@@ -303,8 +421,8 @@
 	density = TRUE
 	sleep(5)
 	update_icon()
-	if(visible && !glass)
-		set_opacity(1)
+	if(!glass || polarized_on)
+		set_opacity(TRUE)
 	operating = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
@@ -329,7 +447,7 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 			if(L.stat == CONSCIOUS)
 				L.emote("scream")
-			L.Weaken(5)
+			L.Weaken(10 SECONDS)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)
@@ -359,6 +477,26 @@
 		return 1
 	return 0
 
+/obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
+	if(hasPower() && unres_sides)
+		set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+		if(unres_sides & NORTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
+			I.pixel_y = 32
+			add_overlay(I)
+		if(unres_sides & SOUTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
+			I.pixel_y = -32
+			add_overlay(I)
+		if(unres_sides & EAST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
+			I.pixel_x = 32
+			add_overlay(I)
+		if(unres_sides & WEST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
+			I.pixel_x = -32
+			add_overlay(I)
+
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'
 
@@ -375,11 +513,6 @@
 /obj/machinery/door/proc/disable_lockdown()
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
-
-/obj/machinery/door/ex_act(severity)
-	//if it blows up a wall it should blow up a door
-	..(severity ? max(1, severity - 1) : 0)
-
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0

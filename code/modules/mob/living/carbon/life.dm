@@ -25,8 +25,7 @@
 
 	if(LAZYLEN(processing_patches))
 		handle_patches()
-	if(mind)
-		handle_changeling()
+
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
@@ -63,11 +62,10 @@
 	var/datum/gas_mixture/breath
 
 	if(health <= HEALTH_THRESHOLD_CRIT && check_death_method())
-		AdjustLoseBreath(1)
+		AdjustLoseBreath(2 SECONDS)
 
 	//Suffocate
-	if(losebreath > 0)
-		AdjustLoseBreath(-1)
+	if(AmountLoseBreath())
 		if(prob(75))
 			emote("gasp")
 		if(istype(loc, /obj/))
@@ -99,6 +97,8 @@
 	if(breath)
 		loc.assume_air(breath)
 		air_update_turf()
+		if(ishuman(src) && !internal && environment.temperature < 273 && environment.return_pressure() > 20) //foggy breath :^)
+			new /obj/effect/frosty_breath(loc, src)
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
@@ -153,7 +153,7 @@
 		if(!co2overloadtime)
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
-			Paralyse(3)
+			Paralyse(6 SECONDS)
 			adjustOxyLoss(3)
 			if(world.time - co2overloadtime > 300)
 				adjustOxyLoss(8)
@@ -174,9 +174,9 @@
 	//TRACE GASES
 	if(breath.sleeping_agent)
 		if(SA_partialpressure > SA_para_min)
-			Paralyse(3)
+			Paralyse(6 SECONDS)
 			if(SA_partialpressure > SA_sleep_min)
-				AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
+				AdjustSleeping(4 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_partialpressure > 0.01)
 			if(prob(20))
 				emote(pick("giggle","laugh"))
@@ -222,9 +222,6 @@
 /mob/living/carbon/proc/handle_blood()
 	return
 
-/mob/living/carbon/proc/handle_changeling()
-	return
-
 /mob/living/carbon/handle_mutations_and_radiation()
 	radiation -= min(radiation, RAD_LOSS_PER_TICK)
 	if(radiation > RAD_MOB_SAFE)
@@ -253,7 +250,7 @@
 				M.adjustBruteLoss(5)
 				adjust_nutrition(10)
 
-//this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
+//this updates all special effects: only stamina for now
 /mob/living/carbon/handle_status_effects()
 	..()
 	if(stam_regen_start_time <= world.time)
@@ -263,94 +260,9 @@
 			setStaminaLoss(0, FALSE)
 			update_health_hud()
 
-	var/restingpwr = 1 + 4 * resting
-
-	//Dizziness
-	if(dizziness)
-		var/client/C = client
-		var/pixel_x_diff = 0
-		var/pixel_y_diff = 0
-		var/temp
-		var/saved_dizz = dizziness
-		if(C)
-			var/oldsrc = src
-			var/amplitude = dizziness*(sin(dizziness * 0.044 * world.time) + 1) / 70 // This shit is annoying at high strength
-			src = null
-			spawn(0)
-				if(C)
-					temp = amplitude * sin(0.008 * saved_dizz * world.time)
-					pixel_x_diff += temp
-					C.pixel_x += temp
-					temp = amplitude * cos(0.008 * saved_dizz * world.time)
-					pixel_y_diff += temp
-					C.pixel_y += temp
-					sleep(3)
-					if(C)
-						temp = amplitude * sin(0.008 * saved_dizz * world.time)
-						pixel_x_diff += temp
-						C.pixel_x += temp
-						temp = amplitude * cos(0.008 * saved_dizz * world.time)
-						pixel_y_diff += temp
-						C.pixel_y += temp
-					sleep(3)
-					if(C)
-						C.pixel_x -= pixel_x_diff
-						C.pixel_y -= pixel_y_diff
-			src = oldsrc
-		AdjustDizzy(-restingpwr)
-
-	if(drowsyness)
-		AdjustDrowsy(-restingpwr)
-		EyeBlurry(2)
-		if(prob(5))
-			AdjustSleeping(1)
-			Paralyse(5)
-
-	if(confused)
-		AdjustConfused(-1)
-
-	//Jitteryness
-	if(jitteriness)
-		do_jitter_animation(jitteriness)
-		AdjustJitter(-restingpwr)
-
-	if(hallucination)
-		spawn handle_hallucinations()
-
-		AdjustHallucinate(-2)
-
 	// Keep SSD people asleep
 	if(player_logged)
-		Sleeping(2)
-
-/mob/living/carbon/handle_sleeping()
-	if(..())
-		if(mind?.vampire)
-			if(istype(loc, /obj/structure/closet/coffin))
-				adjustBruteLoss(-1, FALSE)
-				adjustFireLoss(-1, FALSE)
-				adjustToxLoss(-1)
-		handle_dreams()
-		adjustStaminaLoss(-10)
-		var/comfort = 1
-		if(istype(buckled, /obj/structure/bed))
-			var/obj/structure/bed/bed = buckled
-			comfort+= bed.comfort
-		for(var/obj/item/bedsheet/bedsheet in range(loc,0))
-			if(bedsheet.loc != loc) //bedsheets in your backpack/neck don't give you comfort
-				continue
-			comfort+= bedsheet.comfort
-			break //Only count the first bedsheet
-		if(drunk)
-			comfort += 1 //Aren't naps SO much better when drunk?
-			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
-		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
-			adjustBruteLoss(-1 * comfort, FALSE)
-			adjustFireLoss(-1 * comfort)
-		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
-			emote("snore")
-
-	return sleeping
+		Sleeping(4 SECONDS)
 
 /mob/living/carbon/update_health_hud(shown_health_amount)
 	if(!client)

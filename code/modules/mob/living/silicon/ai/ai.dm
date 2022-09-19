@@ -35,30 +35,33 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				subject.attack_ai(M)
 	return is_in_use
 
+#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
+
 /mob/living/silicon/ai
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
 	move_resist = MOVE_FORCE_NORMAL
-	density = 1
+	density = TRUE
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
+	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	see_in_dark = 8
-	can_strip = 0
+	can_strip = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera", "Burglar")
-	var/viewalerts = 0
+	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Burglar")
+	var/viewalerts = FALSE
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/pda/silicon/ai/aiPDA = null
 	var/obj/item/multitool/aiMulti = null
-	var/custom_sprite = 0 //For our custom sprites
-	var/custom_hologram = 0 //For our custom holograms
+	var/custom_sprite = FALSE //For our custom sprites
+	var/custom_hologram = FALSE //For our custom holograms
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
@@ -66,31 +69,34 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/datum/module_picker/malf_picker
 	var/datum/action/innate/ai/choose_modules/modules_action
 	var/list/datum/AI_Module/current_modules = list()
-	var/can_dominate_mechs = 0
-	var/shunted = 0 //1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
+	var/can_dominate_mechs = FALSE
+	var/shunted = FALSE // TRUE if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
 
-	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
-	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
+	var/control_disabled = FALSE // Set to TRUE to stop AI from interacting via Click() -- TLE
+	var/malfhacking = null // A timer for when malf AIs can hack and get new cyborgs
 	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
 
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
 
+	/// List of modules the AI has purchased malf upgrades for.
+	var/list/purchased_modules = list()
+
 	var/mob/living/silicon/ai/parent = null
-	var/camera_light_on = 0
+	var/camera_light_on = FALSE
 	var/list/obj/machinery/camera/lit_cameras = list()
 
 	var/datum/trackable/track = new()
 
 	var/last_paper_seen = null
-	var/can_shunt = 1
+	var/can_shunt = TRUE
 	var/last_announcement = ""
 	var/datum/announcement/priority/announcement
 	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
-	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
+	var/waypoint_mode = FALSE //Waypoint mode is for selecting a turf via clicking.
 	var/apc_override = FALSE	//hack for letting the AI use its APC even when visionless
-	var/nuking = 0
+	var/nuking = FALSE
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
@@ -98,7 +104,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
-	var/tracking = 0 //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
+	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 
 	var/obj/machinery/camera/portable/builtInCamera
 
@@ -109,6 +115,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
 	var/list/all_eyes = list()
+	var/next_text_announcement
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
@@ -118,7 +125,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	verbs -= GLOB.ai_verbs_default
 	verbs -= silicon_subsystems
 
-/mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
+/mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcement = new()
 	announcement.title = "A.I. Announcement"
 	announcement.announcement_type = "A.I. Announcement"
@@ -137,9 +144,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
-	anchored = 1
-	canmove = 0
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	loc = loc
 
 	holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
@@ -156,7 +162,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiMulti = new(src)
 	aiRadio = new(src)
-	common_radio = aiRadio
 	aiRadio.myAi = src
 	additional_law_channels["Binary"] = ":b "
 	additional_law_channels["Holopad"] = ":h"
@@ -165,6 +170,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(isturf(loc))
 		add_ai_verbs(src)
+
+	// Remove inherited verbs that effectively do nothing for AIs, or lead to unintended behaviour.
+	verbs -= /mob/living/verb/rest
+	verbs -= /mob/living/verb/mob_sleep
+	verbs -= /mob/living/verb/resist
+	verbs -= /mob/living/verb/stop_pulling1
+	verbs -= /mob/living/silicon/verb/pose
+	verbs -= /mob/living/silicon/verb/set_flavor
 
 	//Languages
 	add_language("Robot Talk", 1)
@@ -184,6 +197,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Chittin", 1)
 	add_language("Bubblish", 1)
 	add_language("Clownish", 1)
+	add_language("Tkachi", 1)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -209,6 +223,23 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.shuttle_caller_list += src
 	..()
 
+/mob/living/silicon/ai/Destroy()
+	GLOB.ai_list -= src
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
+	if(malfhacking)
+		deltimer(malfhacking)
+		malfhacking = null
+	QDEL_NULL(eyeobj) // No AI, no Eye
+	QDEL_NULL(aiPDA)
+	QDEL_NULL(aiMulti)
+	QDEL_NULL(aiRadio)
+	QDEL_NULL(builtInCamera)
+	return ..()
+
+/mob/living/silicon/ai/get_radio()
+	return aiRadio
+
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
 	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
@@ -218,11 +249,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "For department channels, use the following say commands:")
 
 	var/radio_text = ""
-	for(var/i = 1 to common_radio.channels.len)
-		var/channel = common_radio.channels[i]
+	for(var/i = 1 to aiRadio.channels.len)
+		var/channel = aiRadio.channels[i]
 		var/key = get_radio_key_from_channel(channel)
 		radio_text += "[key] - [channel]"
-		if(i != common_radio.channels.len)
+		if(i != aiRadio.channels.len)
 			radio_text += ", "
 
 	to_chat(src, radio_text)
@@ -311,17 +342,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return TRUE
 
-/mob/living/silicon/ai/Destroy()
-	GLOB.ai_list -= src
-	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
-	QDEL_NULL(eyeobj) // No AI, no Eye
-	if(malfhacking)
-		deltimer(malfhacking)
-		malfhacking = null
-	malfhack = null
-	return ..()
-
 
 /*
 	The AI Power supply is a dummy object used for powering the AI since only machinery should be using power.
@@ -362,20 +382,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(stat || aiRestorePowerRoutine)
 		return
 	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2 || Entry[1] != "ai")			//ignore incorrectly formatted entries or entries that aren't marked for AI
-				continue
-
-			if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
-				custom_sprite = 1
+		if(ckey in GLOB.configuration.custom_sprites.ai_core_ckeys)
+			custom_sprite = TRUE
 
 	var/display_choices = list(
 		"Monochrome",
@@ -413,7 +421,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Glitchman",
 		"House",
 		"Database",
-		"Alien"
+		"Alien",
+		"Tiger",
+		"Fox",
+		"Vox",
+		"Lizard",
+		"Dark Matter",
+		"Cheese",
+		"Rainbow Slime",
+		"Void Donut",
+		"NAD Burn",
+		"Borb",
+		"Bee",
+		"Catamari"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -496,11 +516,36 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-database"
 		if("Alien")
 			icon_state = "ai-alien"
+		if("Tiger")
+			icon_state = "ai-tiger"
+		if("Fox")
+			icon_state = "ai-fox"
+		if("Vox")
+			icon_state = "ai-vox"
+		if("Lizard")
+			icon_state = "ai-liz"
+		if("Dark Matter")
+			icon_state = "ai-darkmatter"
+		if("Cheese")
+			icon_state = "ai-cheese"
+		if("Rainbow Slime")
+			icon_state = "ai-rainbowslime"
+		if("Void Donut")
+			icon_state = "ai-voiddonut"
+		if("NAD Burn")
+			icon_state = "ai-nadburn"
+		if("Borb")
+			icon_state = "ai-borb"
+		if("Bee")
+			icon_state = "ai-bee"
+		if("Catamari")
+			icon_state = "ai-catamari"
 		else
 			icon_state = "ai"
-	//else
-//			to_chat(usr, "You can only change your display once!")
-			//return
+
+	if(istype(loc, /obj/item/aicard/))
+		var/obj/item/aicard/AIC = loc
+		AIC.update_icon(UPDATE_OVERLAYS)
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
@@ -508,7 +553,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 	show_station_manifest()
 
-/mob/living/silicon/ai/var/message_cooldown = 0
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = "AI Commands"
 	set name = "Make Station Announcement"
@@ -516,7 +560,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(message_cooldown)
+	if(world.time < next_text_announcement)
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
@@ -528,9 +572,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	announcement.Announce(input)
-	message_cooldown = 1
-	spawn(600)//One minute cooldown
-		message_cooldown = 0
+	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Call Emergency Shuttle"
@@ -539,7 +581,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
+	var/input = input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.") as null|message
 	if(!input || stat)
 		return
 
@@ -582,8 +624,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
-/mob/living/silicon/ai/update_canmove()
-	return FALSE
 
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Announcement"
@@ -643,7 +683,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	..()
 	if(href_list["mach_close"])
 		if(href_list["mach_close"] == "aialerts")
-			viewalerts = 0
+			viewalerts = FALSE
 		var/t1 = text("window=[]", href_list["mach_close"])
 		unset_machine()
 		src << browse(null, t1)
@@ -687,7 +727,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		Bot = locate(href_list["callbot"]) in GLOB.bots_list
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
-		waypoint_mode = 1
+		waypoint_mode = TRUE
 		to_chat(src, "<span class='notice'>Set your waypoint by clicking on a valid location free of obstructions.</span>")
 		return
 
@@ -732,27 +772,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(M)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
 
-	else if(href_list["faketrack"])
-		var/mob/target = locate(href_list["track"]) in GLOB.mob_list
-		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in GLOB.mob_list
-		if(A && target)
-
-			A.cameraFollow = target
-			to_chat(A, "Now tracking [target.name] on camera.")
-			if(usr.machine == null)
-				usr.machine = usr
-
-			while(cameraFollow == target)
-				to_chat(usr, "Target is not on or near any active cameras on the station. We'll check again in 5 seconds (unless you use the cancel-camera verb).")
-				sleep(40)
-				continue
-
 	else if(href_list["open"])
 		var/mob/target = locate(href_list["open"]) in GLOB.mob_list
 		if(target)
 			open_nearest_door(target)
 
-/mob/living/silicon/ai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/ai/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
 	return 2
 
@@ -941,19 +966,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
-	for(var/obj/machinery/M in GLOB.machines) //change status
-		if(istype(M, /obj/machinery/ai_status_display))
-			var/obj/machinery/ai_status_display/AISD = M
-			AISD.emotion = emote
-		//if Friend Computer, change ALL displays
-		else if(istype(M, /obj/machinery/status_display))
-
-			var/obj/machinery/status_display/SD = M
-			if(emote=="Friend Computer")
-				SD.friendc = 1
-			else
-				SD.friendc = 0
-	return
+	for(var/obj/machinery/ai_status_display/AISD as anything in GLOB.ai_displays) //change status
+		AISD.emotion = emote
+		AISD.update_icon()
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
@@ -963,21 +978,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(check_unable())
 		return
-	if(!custom_hologram) //Check to see if custom sprite time, checking the appopriate file to change a var
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2 || Entry[1] != "hologram")
-				continue
-
-			if (Entry[2] == ckey) //Custom holograms
-				custom_hologram = 1  // option is given in hologram menu
+	if(!custom_hologram)
+		if(ckey in GLOB.configuration.custom_sprites.ai_hologram_ckeys)
+			custom_hologram = TRUE
 
 	var/input
 	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
@@ -1015,7 +1018,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"Pug",
 			"Seal",
 			"Spider",
-			"Turkey"
+			"Turkey",
+			"Shantak",
+			"Bunny",
+			"Hellhound",
+			"Lightgeist",
+			"Cockroach",
+			"Mecha-Cat",
+			"Mecha-Fairy",
+			"Mecha-Fox",
+			"Mecha-Monkey",
+			"Mecha-Mouse",
+			"Mecha-Snake",
+			"Roller-Mouse",
+			"Roller-Monkey"
 			)
 
 			input = input("Please select a hologram:") as null|anything in icon_list
@@ -1058,6 +1074,32 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"guard"))
 					if("Turkey")
 						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"turkey"))
+					if("Shantak")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"shantak"))
+					if("Bunny")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"m_bunny"))
+					if("Hellhound")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"hellhound"))
+					if("Lightgeist")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"lightgeist"))
+					if("Cockroach")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"cockroach"))
+					if("Mecha-Cat")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"cat"))
+					if("Mecha-Fairy")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"fairy"))
+					if("Mecha-Fox")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"fox"))
+					if("Mecha-Monkey")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"monkey"))
+					if("Mecha-Mouse")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"mouse"))
+					if("Mecha-Snake")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"snake"))
+					if("Roller-Mouse")
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi',"mk2"))
+					if("Roller-Monkey")
+						holo_icon = getHologramIcon(icon('icons/mob/robots.dmi',"mk3"))
 
 		else
 			var/icon_list[] = list(
@@ -1065,7 +1107,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			"floating face",
 			"xeno queen",
 			"eldritch",
-			"ancient machine"
+			"ancient machine",
+			"angel",
+			"borb",
+			"biggest fan",
+			"cloudkat",
+			"donut",
+			"frost phoenix",
+			"engi bot",
+			"drone",
+			"boxbot"
 			)
 			if(custom_hologram) //insert custom hologram
 				icon_list.Add("custom")
@@ -1082,6 +1133,24 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo3"))
 					if("eldritch")
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))
+					if("angel")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-angel"))
+					if("borb")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-borb"))
+					if("biggest fan")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-biggestfan"))
+					if("cloudkat")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-cloudkat"))
+					if("donut")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-donut"))
+					if("frost phoenix")
+						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo-frostphoenix"))
+					if("engi bot")
+						holo_icon = getHologramIcon(icon('icons/mob/hivebot.dmi',"EngBot"))
+					if("drone")
+						holo_icon = getHologramIcon(icon('icons/mob/animal.dmi',"drone0"))
+					if("boxbot")
+						holo_icon = getHologramIcon(icon('icons/mob/pai.dmi',"boxbot"))
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
@@ -1142,6 +1211,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = "AI Commands"
 
 	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
+	if(!newmsg)
+		return
+	newmsg = html_decode(newmsg) // This feels a bit redundant, but sanitisation is (probably) important.
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		to_chat(usr, "The arrival message has been successfully changed.")
@@ -1236,9 +1308,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		aiRestorePowerRoutine = 0//So the AI initially has power.
-		control_disabled = 1//Can't control things remotely if you're stuck in a card!
-		aiRadio.disabledAi = 1 	//No talking on the built-in radio for you either!
-		loc = card//Throw AI into the card.
+		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
+		aiRadio.disabledAi = TRUE //No talking on the built-in radio for you either!
+		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
@@ -1272,12 +1344,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 		var/message_clean = combine_message(message_pieces, null, M)
-		create_chat_message(M, message_clean)
+		create_chat_message(locateUID(M.runechat_msg_location), message_clean)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
 	malfhack = null
-	malfhacking = 0
+	malfhacking = null
 	clear_alert("hackingapc")
 
 	if(!istype(apc) || QDELETED(apc) || apc.stat & BROKEN)
@@ -1315,6 +1387,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
+		return
+
+	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
 	if(target && target.can_track())
@@ -1386,3 +1461,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/silicon/ai/update_runechat_msg_location()
+	if(istype(loc, /obj/item/aicard) || ismecha(loc))
+		runechat_msg_location = loc.UID()
+	else
+		return ..()
+
+#undef TEXT_ANNOUNCEMENT_COOLDOWN

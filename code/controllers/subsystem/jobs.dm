@@ -20,16 +20,16 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/Initialize(timeofday)
 	if(!occupations.len)
 		SetupOccupations()
-	LoadJobs("config/jobs.txt")
+	LoadJobs(FALSE)
 	return ..()
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
-	if(!SSdbcore.IsConnected() || !config.use_exp_tracking)
+	if(!SSdbcore.IsConnected() || !GLOB.configuration.jobs.enable_exp_tracking)
 		return
 	batch_update_player_exp(announce = FALSE) // Set this to true if you ever want to inform players about their EXP gains
 
-/datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
+/datum/controller/subsystem/jobs/proc/SetupOccupations(list/faction = list("Station"))
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
@@ -47,12 +47,8 @@ SUBSYSTEM_DEF(jobs)
 	return 1
 
 
-/datum/controller/subsystem/jobs/proc/Debug(var/text)
-	if(!GLOB.debug2)
-		return 0
+/datum/controller/subsystem/jobs/proc/Debug(text)
 	job_debug.Add(text)
-	return 1
-
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
 	if(!occupations.len)
@@ -65,24 +61,22 @@ SUBSYSTEM_DEF(jobs)
 	return type_occupations[jobtype]
 
 /datum/controller/subsystem/jobs/proc/GetPlayerAltTitle(mob/new_player/player, rank)
-	return player.client.prefs.GetPlayerAltTitle(GetJob(rank))
+	return player.client.prefs.active_character.GetPlayerAltTitle(GetJob(rank))
 
-/datum/controller/subsystem/jobs/proc/AssignRole(var/mob/new_player/player, var/rank, var/latejoin = 0)
+/datum/controller/subsystem/jobs/proc/AssignRole(mob/new_player/player, rank, latejoin = 0)
 	Debug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
-			return 0
+			return FALSE
 		if(jobban_isbanned(player, rank))
-			return 0
+			return FALSE
 		if(!job.player_old_enough(player.client))
-			return 0
-		if(job.available_in_playtime(player.client))
-			return 0
+			return FALSE
+		if(job.get_exp_restrictions(player.client))
+			return FALSE
 		if(job.barred_by_disability(player.client))
-			return 0
-		if(!is_job_whitelisted(player, rank))
-			return 0
+			return FALSE
 
 		var/position_limit = job.total_positions
 		if(!latejoin)
@@ -110,7 +104,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/subsystem/jobs/proc/FreeRole(var/rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(rank)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
 	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
@@ -121,14 +115,14 @@ SUBSYSTEM_DEF(jobs)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned)
-		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.available_in_playtime(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
+		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.get_exp_restrictions(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
 		if(jobban_isbanned(player, job.title))
 			Debug("FOC isbanned failed, Player: [player]")
 			continue
 		if(!job.player_old_enough(player.client))
 			Debug("FOC player not old enough, Player: [player]")
 			continue
-		if(job.available_in_playtime(player.client))
+		if(job.get_exp_restrictions(player.client))
 			Debug("FOC player not enough playtime, Player: [player]")
 			continue
 		if(job.barred_by_disability(player.client))
@@ -140,24 +134,21 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
-		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
+		if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/jobs/proc/GiveRandomJob(var/mob/new_player/player)
+/datum/controller/subsystem/jobs/proc/GiveRandomJob(mob/new_player/player)
 	Debug("GRJ Giving random job, Player: [player]")
 	for(var/datum/job/job in shuffle(occupations))
 		if(!job)
 			continue
 
-		if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
+		if(istype(job, GetJob("Assistant"))) // We don't want to give him assistant, that's boring!
 			continue
 
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
-			continue
-
-		if(job.title in GLOB.whitelisted_positions) // No random whitelisted job, sorry!
 			continue
 
 		if(job.admin_only) // No admin positions either.
@@ -171,7 +162,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player not old enough, Player: [player]")
 			continue
 
-		if(job.available_in_playtime(player.client))
+		if(job.get_exp_restrictions(player.client))
 			Debug("GRJ player not enough playtime, Player: [player]")
 			continue
 
@@ -229,7 +220,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
-/datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
+/datum/controller/subsystem/jobs/proc/CheckHeadPositions(level)
 	for(var/command_position in GLOB.command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
@@ -242,8 +233,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/FillAIPosition()
-	if(config && !config.allow_ai)
-		return 0
+	if(!GLOB.configuration.jobs.allow_ai)
+		return FALSE
 
 	var/ai_selected = 0
 	var/datum/job/job = GetJob("AI")
@@ -287,8 +278,6 @@ SUBSYSTEM_DEF(jobs)
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
 			unassigned += player
-			if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
-				player.client.prefs.load_random_character_slot(player.client)
 
 	Debug("DO, Len: [unassigned.len]")
 	if(unassigned.len == 0)
@@ -300,14 +289,14 @@ SUBSYSTEM_DEF(jobs)
 	HandleFeedbackGathering()
 
 	//People who wants to be assistants, sure, go on.
-	Debug("DO, Running Civilian Check 1")
-	var/datum/job/civ = new /datum/job/civilian()
-	var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
-	Debug("AC1, Candidates: [civilian_candidates.len]")
-	for(var/mob/new_player/player in civilian_candidates)
+	Debug("DO, Running Assistant Check 1")
+	var/datum/job/ast = new /datum/job/assistant()
+	var/list/assistant_candidates = FindOccupationCandidates(ast, 3)
+	Debug("AC1, Candidates: [assistant_candidates.len]")
+	for(var/mob/new_player/player in assistant_candidates)
 		Debug("AC1 pass, Player: [player]")
-		AssignRole(player, "Civilian")
-		civilian_candidates -= player
+		AssignRole(player, "Assistant")
+		assistant_candidates -= player
 	Debug("DO, AC1 end")
 
 	//Select one head
@@ -350,7 +339,7 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player not old enough, Player: [player], Job:[job.title]")
 					continue
 
-				if(job.available_in_playtime(player.client))
+				if(job.get_exp_restrictions(player.client))
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
 					continue
 
@@ -362,17 +351,13 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
 
-				if(!is_job_whitelisted(player, job.title))
-					Debug("DO player not whitelisted, Player: [player], Job:[job.title]")
-					continue
-
 				// If the player wants that job on this level, then try give it to him.
-				if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
+				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 
 					// If the job isn't filled
 					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
-						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
+						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
 						AssignRole(player, job.title)
 						unassigned -= player
 						break
@@ -380,7 +365,7 @@ SUBSYSTEM_DEF(jobs)
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == GET_RANDOM_JOB)
+		if(player.client.prefs.active_character.alternate_option == GET_RANDOM_JOB)
 			GiveRandomJob(player)
 
 	Debug("DO, Standard Check end")
@@ -390,26 +375,26 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			if(player.client.prefs.alternate_option != BE_ASSISTANT)
+			if(player.client.prefs.active_character.alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
-					AssignRole(player, "Civilian")
+					AssignRole(player, "Assistant")
 			else
-				AssignRole(player, "Civilian")
+				AssignRole(player, "Assistant")
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == BE_ASSISTANT)
+		if(player.client.prefs.active_character.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
-			AssignRole(player, "Civilian")
-		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
-			player.ready = 0
+			AssignRole(player, "Assistant")
+		else if(player.client.prefs.active_character.alternate_option == RETURN_TO_LOBBY)
+			player.ready = FALSE
 			unassigned -= player
 
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
-/datum/controller/subsystem/jobs/proc/AssignRank(var/mob/living/carbon/human/H, var/rank, var/joined_late = 0)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE, log_to_db = TRUE)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -424,29 +409,38 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 
-	to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
-	to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
-	to_chat(H, "<b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
+	to_chat(H, "<center><br><br><span class='green'>----------------</span>")
+	to_chat(H, "<center><b>Your role on the station is: [alt_title ? alt_title : rank].<br></b></center>")
+	to_chat(H, "<center><b>You answer directly to [job.supervisors]. Special circumstances may change this.</b></center>")
+	to_chat(H, "<center><b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a>.</b></center>")
 	if(job.is_service)
-		to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
+		to_chat(H, "<center><b>As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>.</center>")
 	if(job.is_supply)
-		to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
+		to_chat(H, "<center><b>As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>.</center>")
 	if(job.is_command)
-		to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
+		to_chat(H, "<center><b>As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>.</center>")
 	if(job.is_legal)
-		to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
+		to_chat(H, "<center><b>Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>.</center>")
 	if(job.is_engineering)
-		to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
+		to_chat(H, "<center><b>As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>.</center>")
 	if(job.is_medical)
-		to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
+		to_chat(H, "<center><b>As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>.</center>")
 	if(job.is_science)
-		to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
+		to_chat(H, "<center><b>As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>.</center>")
 	if(job.is_security)
-		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
+		to_chat(H, "<center><b>As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a>.</b></center>")
 	if(job.req_admin_notify)
-		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b>")
+		to_chat(H, "<center><b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b></center>")
+	to_chat(H, "<br><b><center>If you need help, check the <a href=\"https://paradisestation.org/wiki/index.php/Main_Page\">wiki</a> or use Mentorhelp(F1)!</b></center>")
+	if(job.important_information)
+		to_chat(H, "<center><div class='userdanger' style='width: 80%'>[job.important_information]</div></center>")
+	to_chat(H, "<center><span class='green'>----------------</span><br><br></center>")
+
+	if(log_to_db)
+		SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (joined_late ? "latejoin" : "roundstart")))
 
 	return H
+
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
 	if(!H)
 		return null
@@ -500,7 +494,7 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(NEARSIGHTED in H.mutations)
+		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
@@ -514,39 +508,29 @@ SUBSYSTEM_DEF(jobs)
 
 
 
-/datum/controller/subsystem/jobs/proc/LoadJobs(jobsfile) //ran during round setup, reads info from jobs.txt -- Urist
-	if(!config.load_jobs_from_txt)
-		return 0
+/datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
+	if(!GLOB.configuration.jobs.enable_job_amount_overrides)
+		return FALSE
 
-	var/list/jobEntries = file2list(jobsfile)
+	var/list/joblist = list()
 
-	for(var/job in jobEntries)
-		if(!job)
+	if(highpop)
+		joblist = GLOB.configuration.jobs.highpop_job_map.Copy()
+	else
+		joblist = GLOB.configuration.jobs.lowpop_job_map.Copy()
+
+	for(var/job in joblist)
+		// Key: name | Value: Amount
+		var/datum/job/J = GetJob(job)
+		if(!J)
 			continue
+		J.total_positions = text2num(joblist[job])
+		J.spawn_positions = text2num(joblist[job])
 
-		job = trim(job)
-		if(!length(job))
-			continue
+		if(job == "AI" || job == "Cyborg") //I dont like this here but it will do for now
+			J.total_positions = 0
 
-		var/pos = findtext(job, "=")
-		var/name = null
-		var/value = null
-
-		if(pos)
-			name = copytext(job, 1, pos)
-			value = copytext(job, pos + 1)
-		else
-			continue
-
-		if(name && value)
-			var/datum/job/J = GetJob(name)
-			if(!J)	continue
-			J.total_positions = text2num(value)
-			J.spawn_positions = text2num(value)
-			if(name == "AI" || name == "Cyborg")//I dont like this here but it will do for now
-				J.total_positions = 0
-
-	return 1
+	return TRUE
 
 
 /datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
@@ -558,7 +542,7 @@ SUBSYSTEM_DEF(jobs)
 		var/never = 0 //never
 		var/banned = 0 //banned
 		var/young = 0 //account too young
-		var/disabled = 0 //has disability rendering them ineligible
+		var/disabled = FALSE //has disability rendering them ineligible
 		for(var/mob/new_player/player in GLOB.player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
@@ -568,17 +552,17 @@ SUBSYSTEM_DEF(jobs)
 			if(!job.player_old_enough(player.client))
 				young++
 				continue
-			if(job.available_in_playtime(player.client))
+			if(job.get_exp_restrictions(player.client))
 				young++
 				continue
 			if(job.barred_by_disability(player.client))
 				disabled++
 				continue
-			if(player.client.prefs.GetJobDepartment(job, 1) & job.flag)
+			if(player.client.prefs.active_character.GetJobDepartment(job, 1) & job.flag)
 				high++
-			else if(player.client.prefs.GetJobDepartment(job, 2) & job.flag)
+			else if(player.client.prefs.active_character.GetJobDepartment(job, 2) & job.flag)
 				medium++
-			else if(player.client.prefs.GetJobDepartment(job, 3) & job.flag)
+			else if(player.client.prefs.active_character.GetJobDepartment(job, 3) & job.flag)
 				low++
 			else never++ //not selected
 
@@ -630,11 +614,11 @@ SUBSYSTEM_DEF(jobs)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"
-			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
-			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
+			else if(!job.transfer_allowed)
+				jobs_to_formats[job.title] = "grey" // jobs which shouldnt be transferred into for whatever reason, likely due to high hour requirements
+			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.get_exp_restrictions(M.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
-			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
+			else if(job.total_positions && !job.current_positions && job.title != "Assistant")
 				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
 				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged
@@ -750,7 +734,7 @@ SUBSYSTEM_DEF(jobs)
 			continue // If a client logs out in the middle of this
 
 		var/datum/db_query/exp_read = SSdbcore.NewQuery(
-			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
+			"SELECT exp FROM player WHERE ckey=:ckey",
 			list("ckey" = C.ckey)
 		)
 
@@ -834,7 +818,7 @@ SUBSYSTEM_DEF(jobs)
 		C.prefs.exp = new_exp
 
 		var/datum/db_query/update_query = SSdbcore.NewQuery(
-			"UPDATE [format_table_name("player")] SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
+			"UPDATE player SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
 			list(
 				"newexp" = new_exp,
 				"ckey" = C.ckey
@@ -844,7 +828,7 @@ SUBSYSTEM_DEF(jobs)
 		player_update_queries += update_query
 
 		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
-			INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost)
+			INSERT INTO playtime_history (ckey, date, time_living, time_ghost)
 			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
 			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
 			list(

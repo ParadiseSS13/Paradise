@@ -10,9 +10,6 @@
 	name = "\improper Merchandise Computer Circuitboard"
 	build_path = /obj/machinery/computer/merch
 
-/obj/machinery/computer/merch/New()
-	..()
-
 /obj/machinery/computer/merch/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return attack_hand(user)
@@ -31,7 +28,7 @@
 	var/dat = {"
 <html>
 	<head>
-		<title>[command_name()] Merchandise</title>
+		<title>Nanotrasen Merchandise</title>
 		<style type="text/css">
 * {
 	font-family:sans-serif;
@@ -85,10 +82,10 @@ th.cost.toomuch {background:maroon;}
 	</head>
 	<body>
 	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance: $[balance]</b></p>
-	<h1>[command_name()] Merchandise</h1>
+	<h1>Nanotrasen Merchandise</h1>
 	<p>
 		<b>Doing your job and not getting any recognition at work?</b>  Well, welcome to the
-		merch shop!  Here, you can buy cool things in exchange for money you earn when you've
+		merch shop! Here, you can buy cool things in exchange for money you earn when you've
 		completed your Job Objectives.
 	</p>
 	<p>Work hard. Get cash. Acquire bragging rights.</p>
@@ -135,25 +132,27 @@ th.cost.toomuch {background:maroon;}
 
 /obj/machinery/computer/merch/Topic(href, href_list)
 	if(..())
-		return 1
+		return TRUE
 
-	//testing(href)
-
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 
 	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
 		var/datum/storeitem/item = GLOB.centcomm_store.items[itemID]
-		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
+		var/sure = alert(usr, "Are you sure you wish to purchase [item.name] for $[item.cost]?", "You sure?", "Yes", "No") in list("Yes", "No")
+
 		if(!Adjacent(usr))
 			to_chat(usr, "<span class='warning'>You are not close enough to do that.</span>")
 			return
-		if(sure=="No")
+
+		if(sure == "No")
 			updateUsrDialog()
 			return
-		if(!GLOB.centcomm_store.PlaceOrder(usr,itemID))
+
+		if(!GLOB.centcomm_store.PlaceOrder(usr, itemID))
 			to_chat(usr, "<span class='warning'>Unable to charge your account.</span>")
 		else
 			to_chat(usr, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")
-	src.updateUsrDialog()
+
+	updateUsrDialog()
 	return

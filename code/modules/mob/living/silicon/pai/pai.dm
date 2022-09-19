@@ -3,11 +3,10 @@
 	icon = 'icons/mob/pai.dmi'//
 	icon_state = "repairbot"
 
-	robot_talk_understand = 0
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
-	density = 0
+	density = FALSE
 	holder_type = /obj/item/holder/pai
 
 	var/ram = 100	// Used as currency to purchase different abilities
@@ -26,7 +25,8 @@
 		"Parrot" = "parrot",
 		"Box Bot" = "boxbot",
 		"Spider Bot" = "spiderbot",
-		"Fairy" = "fairy"
+		"Fairy" = "fairy",
+		"Snake" = "snake"
 		)
 
 	var/global/list/possible_say_verbs = list(
@@ -35,7 +35,8 @@
 		"Beep" = list("beeps","beeps loudly","boops"),
 		"Chirp" = list("chirps","chirrups","cheeps"),
 		"Feline" = list("purrs","yowls","meows"),
-		"Canine" = list("yaps","barks","growls")
+		"Canine" = list("yaps","barks","growls"),
+		"Hiss" = list("hisses","hisses","hisses")
 		)
 
 
@@ -55,8 +56,9 @@
 
 	var/obj/item/pda/silicon/pai/pda = null
 
-	var/secHUD = 0			// Toggles whether the Security HUD is active or not
-	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
+	var/secHUD = FALSE			// Toggles whether the Security HUD is active or not
+	var/medHUD = FALSE			// Toggles whether the Medical  HUD is active or not
+	var/dHUD = FALSE			// Toggles whether the Diagnostic HUD is active or not
 
 	/// Currently active software
 	var/datum/pai_software/active_software
@@ -64,32 +66,37 @@
 	/// List of all installed software
 	var/list/datum/pai_software/installed_software = list()
 
-	var/obj/item/integrated_radio/signal/sradio // AI's signaller
+	/// Integrated remote signaler for signalling
+	var/obj/item/assembly/signaler/integ_signaler
 
-	var/translator_on = 0 // keeps track of the translator module
+	var/translator_on = FALSE // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
 
 	var/current_pda_messaging = null
-	var/custom_sprite = 0
+	var/custom_sprite = FALSE
 	var/slowdown = 0
 
-/mob/living/silicon/pai/New(var/obj/item/paicard)
-	loc = paicard
-	card = paicard
+/mob/living/silicon/pai/Initialize(mapload)
+	. = ..()
+
+	if(istype(loc, /obj/item/paicard))
+		card = loc
+
 	if(card)
 		faction = card.faction.Copy()
-	sradio = new(src)
+
+	integ_signaler = new(src)
+
 	if(card)
 		if(!card.radio)
 			card.radio = new /obj/item/radio(card)
 		radio = card.radio
 
 	//Default languages without universal translator software
-	add_language("Galactic Common", 1)
-	add_language("Sol Common", 1)
-	add_language("Tradeband", 1)
-	add_language("Gutter", 1)
-	add_language("Trinary", 1)
+	add_language("Sol Common")
+	add_language("Tradeband")
+	add_language("Gutter")
+	add_language("Trinary")
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
@@ -110,7 +117,6 @@
 			installed_software[PSD.id] = PSD
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
-	..()
 
 /mob/living/silicon/pai/can_unbuckle()
 	return FALSE
@@ -122,7 +128,7 @@
 	. = ..()
 	. += slowdown
 	. += 1 //A bit slower than humans, so they're easier to smash
-	. += config.robot_delay
+	. += GLOB.configuration.movement.robot_delay
 
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
@@ -176,11 +182,12 @@
 			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
 		return death(0)
 
-	switch(pick(1,2,3))
+	switch(pick(1, 2, 3))
 		if(1)
 			master = null
 			master_dna = null
 			to_chat(src, "<font color=green>You feel unbound.</font>")
+
 		if(2)
 			var/command
 			if(severity  == 1)
@@ -189,6 +196,7 @@
 				command = pick("Serve", "Kill", "Love", "Hate", "Disobey", "Devour", "Fool", "Enrage", "Entice", "Observe", "Judge", "Respect", "Disrespect", "Consume", "Educate", "Destroy", "Disgrace", "Amuse", "Entertain", "Ignite", "Glorify", "Memorialize", "Analyze")
 			pai_law0 = "[command] your master."
 			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
+
 		if(3)
 			to_chat(src, "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>")
 
@@ -197,19 +205,16 @@
 
 	switch(severity)
 		if(1.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(100)
 				adjustFireLoss(100)
 		if(2.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(30)
-
-	return
-
 
 // See software.dm for ui_act()
 
@@ -228,7 +233,7 @@
 	set category = "pAI Commands"
 	set name = "Unfold Chassis"
 
-	if(stat || sleeping || paralysis || IsWeakened())
+	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
 		return
 
 	if(loc != card)
@@ -263,7 +268,7 @@
 	set category = "pAI Commands"
 	set name = "Collapse Chassis"
 
-	if(stat || sleeping || paralysis || IsWeakened())
+	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
 		return
 
 	if(loc == card)
@@ -286,21 +291,9 @@
 
 	//check for custom_sprite
 	if(!custom_sprite)
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2 || Entry[1] != "pai")			//ignore incorrectly formatted entries or entries that aren't marked for pAI
-				continue
-
-			if(Entry[2] == ckey)							//They're in the list? Custom sprite time, var and icon change required
-				custom_sprite = 1
-				my_choices["Custom"] = "[ckey]-pai"
+		if(ckey in GLOB.configuration.custom_sprites.pai_holoform_ckeys)
+			custom_sprite = TRUE
+			my_choices["Custom"] = "[ckey]-pai"
 
 	my_choices = possible_chassis.Copy()
 	if(custom_sprite)
@@ -338,19 +331,19 @@
 	verbs -= /mob/living/silicon/pai/proc/choose_verbs
 
 
-/mob/living/silicon/pai/lay_down()
+/mob/living/silicon/pai/rest()
 	set name = "Rest"
 	set category = "IC"
 
-	// Pass lying down or getting up to our pet human, if we're in a rig.
-	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
-		resting = 0
+	resting = !resting
+	if(resting)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
 	else
-		resting = !resting
-		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
+
+	to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
 	update_icons()
-	update_canmove()
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -395,7 +388,7 @@
 /mob/living/silicon/pai/proc/close_up()
 
 	last_special = world.time + 200
-	resting = 0
+	stand_up()
 	if(loc == card)
 		return
 
@@ -430,10 +423,6 @@
 /mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
-/mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
-	. = ..()
-	density = 0 //this is reset every canmove update otherwise
-
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
@@ -459,7 +448,7 @@
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)
@@ -481,9 +470,9 @@
 		H.icon = 'icons/mob/pai.dmi'
 		H.icon_state = "[chassis]_dead"
 		return
-	if(resting)
+	if(IS_HORIZONTAL(src))
 		icon_state = "[chassis]"
-		resting = 0
+		stand_up()
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
@@ -529,3 +518,9 @@
 	flashlight_on = FALSE
 	set_light(0)
 	card.set_light(0)
+
+/mob/living/silicon/pai/update_runechat_msg_location()
+	if(istype(loc, /obj/item/paicard))
+		runechat_msg_location = loc.UID()
+	else
+		return ..()

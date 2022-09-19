@@ -2,6 +2,7 @@
 	name = "flashbang"
 	icon_state = "flashbang"
 	item_state = "flashbang"
+	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
 	light_color = LIGHT_COLOR_WHITE
@@ -20,7 +21,7 @@
 		// Blob damage
 		for(var/obj/structure/blob/B in hear(range + 1, T))
 			var/damage = round(30 / (get_dist(B, T) + 1))
-			B.take_damage(damage, BURN, "melee", FALSE)
+			B.take_damage(damage, BURN, MELEE, FALSE)
 
 		// Stunning & damaging mechanic
 		bang(T, src, range)
@@ -46,35 +47,21 @@
 		M.show_message("<span class='warning'>BANG</span>", 2)
 
 		var/distance = max(1, get_dist(source_turf, get_turf(M)))
-		var/stun_amount = max(10 / distance, 3)
+		var/status_duration = max(10 SECONDS / distance, 4 SECONDS)
 
 		// Flash
 		if(flash)
-			if(M.weakeyes)
-				M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
-				to_chat(M, "<span class='userdanger'><font size=3>AAAAGH!</font></span>")
-				M.Weaken(15) //hella stunned
-				M.Stun(15)
-				if(ishuman(M))
-					M.emote("scream")
-					var/mob/living/carbon/human/H = M
-					var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-					if(E)
-						E.receive_damage(8, TRUE)
 			if(M.flash_eyes(affect_silicon = TRUE))
-				M.Stun(stun_amount)
-				M.Weaken(stun_amount)
+				M.Confused(status_duration * 2)
 
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
 			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.Stun(10)
-				M.Weaken(10)
+				M.KnockDown(10 SECONDS)
 			if(!ear_safety)
-				M.Stun(stun_amount)
-				M.Weaken(stun_amount)
-				M.AdjustEarDamage(rand(0, 5), 15)
+				M.KnockDown(status_duration)
+				M.AdjustEarDamage(5, 15)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
@@ -83,6 +70,5 @@
 							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 							if(prob(ears.ear_damage - 5))
 								to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-								M.BecomeDeaf()
 						else if(ears.ear_damage >= 5)
 							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")

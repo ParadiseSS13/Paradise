@@ -26,14 +26,14 @@
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
-	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/pierce.ogg'
 	projectiletype = /obj/item/projectile/terrorqueenspit
 	spider_tier = TS_TIER_4
+	loudspeaker = TRUE
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
 	var/spider_spawnfrequency = 1200 // 120 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
@@ -50,21 +50,16 @@
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
-	..()
-	ventsmash_action = new()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action = new
 	ventsmash_action.Grant(src)
-	remoteview_action = new()
+	var/datum/action/innate/terrorspider/remoteview/remoteview_action = new
 	remoteview_action.Grant(src)
 	grant_queen_subtype_abilities()
-	spider_myqueen = src
-	if(spider_awaymission)
-		spider_growinstantly = TRUE
-		spider_spawnfrequency = 150
+	spider_myqueen = src // ???
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/grant_queen_subtype_abilities()
@@ -98,8 +93,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if(can_die() && !hasdied)
-		if(spider_uo71)
-			UnlockBlastDoors("UO71_Caves")
 		// When a queen (or subtype!) dies, so do all of her spiderlings, and half of all her fully grown offspring
 		// This feature is intended to provide a way for crew to still win even if the queen has overwhelming numbers - by sniping the queen.
 		for(var/thing in GLOB.ts_spiderlist)
@@ -172,7 +165,7 @@
 				else if(entry_vent)
 					if(!path_to_vent)
 						visible_message("<span class='danger'>\The [src] looks around warily - then seeks a better nesting ground.</span>")
-						path_to_vent = 1
+						path_to_vent = TRUE
 				else
 					neststep = -1
 					message_admins("Warning: [key_name_admin(src)] was spawned in an area without a vent! This is likely a mapping/spawn mistake. This mob's AI has been permanently deactivated.")
@@ -196,8 +189,6 @@
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
 						if(ai_nest_is_full())
-							if(spider_awaymission)
-								spider_spawnfrequency = spider_spawnfrequency_stable
 							neststep = 4
 						else
 							spider_lastspawn = world.time

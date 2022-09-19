@@ -54,55 +54,63 @@
 	icon = 'icons/obj/doors/airlocks/station/science.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_science
 
+/obj/machinery/door/airlock/virology
+	icon = 'icons/obj/doors/airlocks/station/virology.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_viro
+
 //////////////////////////////////
 /*
 	Station Airlocks Glass
 */
 
 /obj/machinery/door/airlock/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/command/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400
 
 /obj/machinery/door/airlock/engineering/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/security/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 400
 
 /obj/machinery/door/airlock/medical/glass
-	opacity = 0
+	opacity = FALSE
+	glass = TRUE
+
+/obj/machinery/door/airlock/virology/glass
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/research/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/mining/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/atmos/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/science/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/maintenance/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/maintenance/external/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 	normal_integrity = 200
 
@@ -118,7 +126,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/gold/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/silver
@@ -128,7 +136,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/silver/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/diamond
@@ -141,7 +149,7 @@
 
 /obj/machinery/door/airlock/diamond/glass
 	normal_integrity = 950
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/uranium
@@ -164,7 +172,7 @@
 
 
 /obj/machinery/door/airlock/uranium/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/plasma
@@ -208,7 +216,7 @@
 	return 0
 
 /obj/machinery/door/airlock/plasma/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/bananium
@@ -221,12 +229,13 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/bananium/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/tranquillite
 	name = "tranquillite airlock"
 	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_tranquillite
 	doorOpen = null // it's silent!
 	doorClose = null
 	doorDeni = null
@@ -241,7 +250,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/wood
@@ -251,7 +260,7 @@
 	paintable = FALSE
 
 /obj/machinery/door/airlock/wood/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/titanium
@@ -264,7 +273,7 @@
 
 /obj/machinery/door/airlock/titanium/glass
 	normal_integrity = 350
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 //////////////////////////////////
@@ -278,7 +287,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_public
 
 /obj/machinery/door/airlock/public/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 //////////////////////////////////
@@ -296,7 +305,7 @@
 	doorClose = 'sound/machines/airlock_ext_close.ogg'
 
 /obj/machinery/door/airlock/external/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 //////////////////////////////////
@@ -307,11 +316,19 @@
 /obj/machinery/door/airlock/centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
-	opacity = 0
+	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
 	security_level = 6
+
+/obj/machinery/door/airlock/centcom/glass
+	glass = TRUE
+	opacity = FALSE
+
+/obj/machinery/door/airlock/centcom/glass/Initialize()
+	. = ..()
+	update_icon()
 
 //////////////////////////////////
 /*
@@ -528,9 +545,12 @@
 			var/atom/throwtarget
 			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
 			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
-			L.Weaken(2)
+			L.Weaken(4 SECONDS)
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
+
+/obj/machinery/door/airlock/cult/screwdriver_act(mob/user, obj/item/I)
+	return
 
 /obj/machinery/door/airlock/cult/cult_conceal()
 	icon = stealth_icon
@@ -562,7 +582,7 @@
 
 /obj/machinery/door/airlock/cult/glass
 	glass = TRUE
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/airlock/cult/glass/Initialize()
 	. = ..()
@@ -588,7 +608,7 @@
 
 /obj/machinery/door/airlock/cult/unruned/glass
 	glass = TRUE
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/airlock/cult/unruned/glass/Initialize()
 	. = ..()
@@ -602,7 +622,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 //////////////////////////////////
 /*
@@ -624,5 +644,5 @@
 	return
 
 /obj/machinery/door/airlock/multi_tile/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE

@@ -23,13 +23,12 @@
 	spider_opens_doors = 2 // Breach specialist.
 	environment_smash = ENVIRONMENT_SMASH_RWALLS // Breaks anything.
 	spider_tier = TS_TIER_2
-	ai_ventbreaker = 1
+	ai_ventbreaker = TRUE
 	freq_ventcrawl_combat = 600 // Ventcrawls very frequently, breaking open vents as it goes.
 	freq_ventcrawl_idle =  1800
 	web_type = null
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
-/mob/living/simple_animal/hostile/poison/terror_spider/brown/New()
-	..()
-	ventsmash_action = new()
-	ventsmash_action.Grant(src)
+/mob/living/simple_animal/hostile/poison/terror_spider/brown/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/terrorspider/ventsmash/act = new
+	act.Grant(src)

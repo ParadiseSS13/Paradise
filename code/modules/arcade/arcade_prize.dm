@@ -10,15 +10,15 @@
 	var/opening = 0
 	var/possible_contents = list(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure, /obj/item/toy/eight_ball, /obj/item/stack/tickets)
 
-/obj/item/toy/prizeball/New()
-	..()
+/obj/item/toy/prizeball/Initialize(mapload)
+	. = ..()
 	icon_state = pick("prizeball_1","prizeball_2","prizeball_3")
 
 /obj/item/toy/prizeball/attack_self(mob/user as mob)
 	if(opening)
 		return
 	opening = 1
-	playsound(src.loc, 'sound/items/bubblewrap.ogg', 30, 1, extrarange = -4, falloff = 10)
+	playsound(loc, 'sound/items/bubblewrap.ogg', 30, TRUE)
 	icon_state = "prizeconfetti"
 	src.color = pick(GLOB.random_color_list)
 	var/prize_inside = pick(possible_contents)
@@ -69,14 +69,14 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 9999	//Dang that's a lot of tickets
 
-/obj/item/stack/tickets/New(var/loc, var/amount=null)
+/obj/item/stack/tickets/New(loc, amount=null)
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tickets/attack_self(mob/user as mob)
 	return
 
-/obj/item/stack/tickets/update_icon()
+/obj/item/stack/tickets/update_icon_state()
 	switch(get_amount())
 		if(1 to 3)
 			icon_state = "tickets_1"	// One ticket

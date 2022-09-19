@@ -370,13 +370,13 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_DISPOSALS_JUNCTION_LEFT
 	pipe_icon = "pipe-j2"
 
-/proc/get_pipe_name(var/pipe_id, var/pipe_type)
+/proc/get_pipe_name(pipe_id, pipe_type)
 	for(var/datum/pipes/P in GLOB.construction_pipe_list)
 		if(P.pipe_id == pipe_id && P.pipe_type == pipe_type)
 			return P.pipe_name
 	return "unknown pipe"
 
-/proc/get_pipe_icon(var/pipe_id)
+/proc/get_pipe_icon(pipe_id)
 	for(var/datum/pipes/P in GLOB.construction_pipe_list)
 		if(P.pipe_id == pipe_id)
 			return P.pipe_icon

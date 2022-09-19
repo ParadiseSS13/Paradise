@@ -1,4 +1,4 @@
-/mob/living/carbon/human/say(var/message, var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
+/mob/living/carbon/human/say(message, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE)
 	..(message, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
 
 /mob/living/carbon/human/GetAltName()
@@ -38,10 +38,7 @@
 					say(temp)
 				winset(client, "input", "text=[null]")
 
-/mob/living/carbon/human/say_understands(var/mob/other, var/datum/language/speaking = null)
-	if(has_brain_worms()) //Brain worms translate everything. Even mice and alien speak.
-		return 1
-
+/mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
 	if(dna.species.can_understand(other))
 		return 1
 
@@ -83,8 +80,10 @@
 	if(has_changer)
 		return has_changer
 
-	if(mind && mind.changeling && mind.changeling.mimicing)
-		return mind.changeling.mimicing
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling?.mimicing)
+			return cling.mimicing
 
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
@@ -96,18 +95,20 @@
 	if(translator && translator.active)
 		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
-	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
+	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
+	if(HAS_TRAIT(src, TRAIT_MUTE))
+		return FALSE
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
-	if(getOxyLoss() > 10 || losebreath >= 4)
+	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
 		emote("gasp")
 		return FALSE
 	if(mind)
 		return !mind.miming
 	return TRUE
 
-/mob/living/carbon/human/proc/SetSpecialVoice(var/new_voice)
+/mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)
 		special_voice = new_voice
 	return
@@ -119,7 +120,7 @@
 /mob/living/carbon/human/proc/GetSpecialVoice()
 	return special_voice
 
-/mob/living/carbon/human/handle_speech_problems(list/message_pieces, var/verb)
+/mob/living/carbon/human/handle_speech_problems(list/message_pieces, verb)
 	var/span = ""
 	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
 	if(translator)
@@ -129,12 +130,10 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
-	if((COMIC in mutations) \
-		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| HAS_TRAIT(src, TRAIT_JESTER))
+	if(HAS_TRAIT(src, TRAIT_COMIC_SANS))
 		span = "sans"
 
-	if(WINGDINGS in mutations)
+	if(HAS_TRAIT(src, TRAIT_WINGDINGS))
 		span = "wingdings"
 
 	var/list/parent = ..()
@@ -144,21 +143,18 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || (MUTE in mutations))
+		if(HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
 			if(hoers.voicechange)
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
-				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/datum/dna/gene/gene in GLOB.dna_genes)
-				if(!gene.block)
-					continue
-				if(gene.is_active(src))
-					S.message = gene.OnSay(src, S.message)
+			for(var/mutation_type in active_mutations)
+				var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
+				S.message = mutation.on_say(src, S.message)
 
 		var/braindam = getBrainLoss()
 		if(braindam >= 60)
@@ -171,9 +167,15 @@
 
 		if(span)
 			S.message = "<span class='[span]'>[S.message]</span>"
+
+	if(wear_mask)
+		var/speech_verb_when_masked = wear_mask.change_speech_verb()
+		if(speech_verb_when_masked)
+			verb = speech_verb_when_masked
+
 	return list("verb" = verb)
 
-/mob/living/carbon/human/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
+/mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
 		if("intercom")
 			for(var/obj/item/radio/intercom/I in view(1, src))
@@ -197,20 +199,20 @@
 
 		if("right ear")
 			var/obj/item/radio/R
-			if(isradio(r_ear))
-				R = r_ear
-			else if(isradio(r_hand))
+			if(isradio(r_hand))
 				R = r_hand
+			else if(isradio(r_ear))
+				R = r_ear
 			if(R)
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)
 
 		if("left ear")
 			var/obj/item/radio/R
-			if(isradio(l_ear))
-				R = l_ear
-			else if(isradio(l_hand))
+			if(isradio(l_hand))
 				R = l_hand
+			else if(isradio(l_ear))
+				R = l_ear
 			if(R)
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)

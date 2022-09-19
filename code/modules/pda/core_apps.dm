@@ -28,6 +28,9 @@
 			pda.ownjob = pda.id.assignment
 			pda.ownrank = pda.id.rank
 			pda.name = "PDA-[pda.owner] ([pda.ownjob])"
+			if(!pda.silent)
+				playsound(pda, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+				addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, pda, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 		if("pai")
 			if(pda.pai)
 				if(pda.pai.loc != pda)
@@ -39,8 +42,9 @@
 						if(2)		// Eject pAI device
 							var/turf/T = get_turf_or_move(pda.loc)
 							if(T)
-								pda.pai.loc = T
+								pda.pai.forceMove(T)
 								pda.pai = null
+								playsound(pda, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 
 /datum/data/pda/app/notekeeper
 	name = "Notekeeper"
@@ -60,6 +64,9 @@
 /datum/data/pda/app/notekeeper/ui_act(action, params)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 
@@ -113,7 +120,7 @@
 				list("entry" = "Nitrogen", "units" = "%", "val" = "[round(n2_level*100,0.1)]", "bad_high" = 105, "poor_high" = 85, "poor_low" = 50, "bad_low" = 40),
 				list("entry" = "Carbon Dioxide", "units" = "%", "val" = "[round(co2_level*100,0.1)]", "bad_high" = 10, "poor_high" = 5, "poor_low" = 0, "bad_low" = 0),
 				list("entry" = "Plasma", "units" = "%", "val" = "[round(plasma_level*100,0.01)]", "bad_high" = 0.5, "poor_high" = 0, "poor_low" = 0, "bad_low" = 0),
-				list("entry" = "Other", "units" = "%", "val" = "[round(unknown_level, 0.01)]", "bad_high" = 1, "poor_high" = 0.5, "poor_low" = 0, "bad_low" = 0)
+				list("entry" = "Other", "units" = "%", "val" = "[round(unknown_level*100,0.01)]", "bad_high" = 1, "poor_high" = 0.5, "poor_low" = 0, "bad_low" = 0)
 			)
 
 	if(isnull(results))

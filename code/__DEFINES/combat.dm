@@ -10,8 +10,21 @@
 #define STAMINA 	"stamina"
 #define BRAIN		"brain"
 
+//damage flags
+#define MELEE 		"melee"
+#define BULLET 		"bullet"
+#define LASER 		"laser"
+#define ENERGY 		"energy"
+#define BOMB 		"bomb"
+#define BIO 		"bio"
+#define RAD 		"rad"
+#define FIRE 		"fire"
+#define ACID 		"acid"
+#define MAGIC		"magic"
+
 #define STUN		"stun"
 #define WEAKEN		"weaken"
+#define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
 #define IRRADIATE	"irradiate"
 #define STUTTER		"stutter"
@@ -32,18 +45,12 @@
 #define OBLITERATION 32
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		1
-#define CANWEAKEN	2
-#define CANPARALYSE	4
-#define CANPUSH		8
-#define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define GOTTAGOFAST	32
-#define IGNORESLOWDOWN	128
-#define IGNORE_SPEED_CHANGES	256
-#define GOTTAGONOTSOFAST 512 //This is used for nukacola, mormal meth is a "1" speed up, nuka is 0.5 and they don't stack, feel free to use this one somewhere else
-#define GODMODE		4096
-#define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
-#define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
+#define CANSTUN			1
+#define CANWEAKEN		2
+#define CANPARALYSE		4
+#define CANPUSH			8
+#define PASSEMOTES		16 //Mob has holders inside of it that need to see emotes.
+#define GODMODE			32
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -118,6 +125,17 @@
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
 
+//His Grace.
+#define HIS_GRACE_SATIATED 0 //He hungers not. If bloodthirst is set to this, His Grace is asleep.
+#define HIS_GRACE_PECKISH 20 //Slightly hungry.
+#define HIS_GRACE_HUNGRY 60 //Getting closer. Increases damage up to a minimum of 20.
+#define HIS_GRACE_FAMISHED 100 //Dangerous. Increases damage up to a minimum of 25 and cannot be dropped.
+#define HIS_GRACE_STARVING 120 //Incredibly close to breaking loose. Increases damage up to a minimum of 30.
+#define HIS_GRACE_CONSUME_OWNER 140 //His Grace consumes His owner at this point and becomes aggressive.
+#define HIS_GRACE_FALL_ASLEEP 160 //If it reaches this point, He falls asleep and resets.
+
+#define HIS_GRACE_FORCE_BONUS 4 //How much force is gained per kill.
+
 #define EXPLODE_NONE 0				//Don't even ask me why we need this.
 #define EXPLODE_DEVASTATE 1
 #define EXPLODE_HEAVY 2
@@ -125,3 +143,11 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+
+/*
+* converts life cycle values into deciseconds. try and avoid usage of this.
+* this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.
+*/
+#define STATUS_EFFECT_CONSTANT * 20
+
+#define IS_HORIZONTAL(x) x.body_position

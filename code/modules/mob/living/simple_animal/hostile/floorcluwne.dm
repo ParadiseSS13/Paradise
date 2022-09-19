@@ -11,6 +11,7 @@
 	icon_state = "cursedclown"
 	icon_living = "cursedclown"
 	icon_gib = "clown_gib"
+	mob_biotypes = NONE
 	maxHealth = 200
 	health = 200
 	speed = -1
@@ -43,7 +44,7 @@
 	var/admincluwne = FALSE
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/New()
+/mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
 	var/obj/item/card/id/access_card = new (src)
@@ -58,8 +59,8 @@
 			return
 		Acquire_Victim()
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/Destroy()
+	current_victim = null
 	return ..()
 
 
@@ -80,8 +81,8 @@
 	pixel_y = 8
 
 	if(is_type_in_typecache(get_area(loc), invalid_area_typecache))
-		var/area = pick(GLOB.teleportlocs)
-		var/area/tp = GLOB.teleportlocs[area]
+		var/area = pick(SSmapping.teleportlocs)
+		var/area/tp = SSmapping.teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
 
 	if((!current_victim && !admincluwne) || QDELETED(current_victim))
@@ -208,7 +209,7 @@
 		if(STAGE_HAUNT)
 
 			if(prob(5))
-				H.AdjustEyeBlurry(1)
+				H.AdjustEyeBlurry(2 SECONDS)
 
 			if(prob(5))
 				H.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
@@ -225,7 +226,7 @@
 		if(STAGE_SPOOK)
 
 			if(prob(4))
-				H.slip("???", 5, 2)
+				H.slip("???", 10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(3))
@@ -253,7 +254,7 @@
 		if(STAGE_TORMENT)
 
 			if(prob(5))
-				H.slip("???", 5, 2)
+				H.slip("???", 10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(5))
@@ -278,7 +279,7 @@
 				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
 				to_chat(H, "<span class='warning'>Something grabs your foot!</span>")
 				H.playsound_local(src,'sound/hallucinations/i_see_you1.ogg', 25)
-				H.Stun(10)
+				H.Stun(20 SECONDS)
 
 			if(prob(5))
 				to_chat(H, "<font face='Comic Sans MS'><i>!KNOH ?od nottub siht seod tahW</i></font>")
@@ -319,7 +320,7 @@
 				manifested = TRUE
 				Manifest()
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
-				H.Weaken(30)
+				H.Weaken(60 SECONDS)
 				H.emote("scream")
 				H.adjustBruteLoss(10)
 				if(!eating)
@@ -346,7 +347,7 @@
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
 		if(do_after(src, 50, target = H) && eating)
-			H.BecomeBlind()
+			H.become_blind(FLOORCLUWNE)
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = 0
@@ -369,7 +370,9 @@
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Kill(mob/living/carbon/human/H)
 	playsound(H, 'sound/spookoween/scary_horn2.ogg', 100, 0)
 	var/old_color = H.client?.color
-	client_kill_animation(H)
+
+	if(H?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
+		client_kill_animation(H)
 
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
@@ -388,7 +391,7 @@
 			O.droplimb()
 
 	Reset_View(FALSE, old_color, H)
-	H.CureBlind()
+	H.cure_blind(FLOORCLUWNE)
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)

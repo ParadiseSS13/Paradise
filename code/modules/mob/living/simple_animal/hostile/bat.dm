@@ -1,17 +1,18 @@
 /mob/living/simple_animal/hostile/scarybat
-	name = "space bats"
+	name = "\improper space bats"
 	desc = "A swarm of cute little blood sucking bats that looks pretty pissed."
 	icon = 'icons/mob/bats.dmi'
 	icon_state = "bat"
 	icon_living = "bat"
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm = "hits the"
+	response_help = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm = "hits"
 	speed = 4
 	maxHealth = 20
 	health = 20
@@ -32,37 +33,27 @@
 //	break_stuff_probability = 2
 
 	faction = list("scarybat")
-	var/mob/living/owner
 	gold_core_spawnable = HOSTILE_SPAWN
 
-/mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)
-	..()
+/mob/living/simple_animal/hostile/scarybat/Initialize(mapload, mob/living/L)
+	. = ..()
 	if(istype(L))
-		owner = L
+		faction += "\ref[L]"
 
-/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(var/check_drift = 0)
+/mob/living/simple_animal/hostile/scarybat/Process_Spacemove(check_drift = 0)
 	return ..()	//No drifting in space for space carp!	//original comments do not steal
-
-/mob/living/simple_animal/hostile/scarybat/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
-	if(istype(A) && A == owner)
-		return 0
-	return ..()
-
-/mob/living/simple_animal/hostile/scarybat/CanAttack(var/atom/the_target)//This is here as a potential override to pick a specific target if available
-	if(istype(the_target) && the_target == owner)
-		return 0
-	return ..()
 
 /mob/living/simple_animal/hostile/scarybat/AttackingTarget()
 	. =..()
 	var/mob/living/L = .
 	if(istype(L))
 		if(prob(15))
-			L.Stun(1)
+			L.Stun(2 SECONDS)
 			L.visible_message("<span class='danger'>\the [src] scares \the [L]!</span>")
 
 
-/mob/living/simple_animal/hostile/scarybat/batswarm
+//This mob is for the admin-only ancient vampire, DO NOT USE ELSEWHERE
+/mob/living/simple_animal/hostile/scarybat/adminvampire
 	name = "bat swarm"
 	desc = "A swarm of vicious, angry-looking space bats."
 	speed = 1
@@ -72,6 +63,6 @@
 	melee_damage_upper = 30
 	a_intent = INTENT_HARM
 	pass_flags = PASSTABLE
-	universal_speak = 1
-	universal_understand = 1
+	universal_speak = TRUE
+	universal_understand = TRUE
 	gold_core_spawnable = NO_SPAWN //badmin only

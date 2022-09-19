@@ -16,8 +16,6 @@ SUBSYSTEM_DEF(title)
 		else if(L.len > 1)
 			if(use_rare_screens && lowertext(L[1]) == "rare")
 				title_screens += S
-			else if(GLOB.using_map && (lowertext(L[1]) == lowertext(GLOB.using_map.name)))
-				title_screens += S
 
 	if(!isemptylist(title_screens))
 		if(length(title_screens) > 1)
@@ -32,7 +30,7 @@ SUBSYSTEM_DEF(title)
 
 		var/icon/icon = new(fcopy_rsc(file_path))
 
-		for(var/turf/unsimulated/wall/splashscreen/splash in world)
+		for(var/turf/simulated/wall/indestructible/splashscreen/splash in world)
 			splash.icon = icon
 
 	return ..()

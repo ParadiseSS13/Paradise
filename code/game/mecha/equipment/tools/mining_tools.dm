@@ -88,8 +88,8 @@
 /obj/item/mecha_parts/mecha_equipment/drill/can_attach(obj/mecha/M)
 	if(..())
 		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message("<span class='danger'>[chassis] is drilling [target] with [src]!</span>",
@@ -106,12 +106,10 @@
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			var/obj/item/organ/external/target_part = H.get_organ(ran_zone("chest"))
-			H.apply_damage(10, BRUTE, "chest", H.run_armor_check(target_part, "melee"))
+			H.apply_damage(10, BRUTE, "chest", H.run_armor_check(target_part, MELEE))
 
 			//blood splatters
-			blood_color = H.dna.species.blood_color
-
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(H.drop_location(), splatter_dir, blood_color)
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(H.drop_location(), splatter_dir, H.dna.species.blood_color)
 
 					//organs go everywhere
 			if(target_part && prob(10 * drill_level))

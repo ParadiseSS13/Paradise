@@ -13,39 +13,41 @@
 	// the person will not have either `deaf` or `ear_damage` decrease
 	// without external aid (earmuffs, drugs)
 	var/ear_damage = 0
+	// Multiplier for both long term and short term ear damage
+	var/damage_multiplier = 1
 
 /obj/item/organ/internal/ears/on_life()
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/C = owner
-	// genetic deafness prevents the body from using the ears, even if healthy
-	if(DEAF in C.mutations)
-		deaf = max(deaf, 1)
+	if(ear_damage < 100)
+		AdjustEarDamage(-0.1)
+
+	// if we have non-damage related deafness like mutations, quirks or clothing (earmuffs), don't bother processing here. Ear healing from earmuffs or chems happen elsewhere
+	if(HAS_TRAIT_NOT_FROM(C, TRAIT_DEAF, EAR_DAMAGE))
+		return
+
+	if(ear_damage >= 100)
+		deaf = max(deaf, 1) // if we're failing we always have at least 1 deaf stack (and thus deafness)
 	else
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			if((H.l_ear && H.l_ear.flags_2 & HEALS_EARS_2) || (H.r_ear && H.r_ear.flags_2 & HEALS_EARS_2))
-				deaf = max(deaf - 1, 1)
-				ear_damage = max(ear_damage - 0.10, 0)
-		// if higher than UNHEALING_EAR_DAMAGE, no natural healing occurs.
-		if(ear_damage < UNHEALING_EAR_DAMAGE)
-			ear_damage = max(ear_damage - 0.05, 0)
-			deaf = max(deaf - 1, 0)
+		deaf = max(deaf - 1, 0)
+		if((ear_damage > 10) && prob(ear_damage / 30))
+			AdjustEarDamage(0, 4)
+			SEND_SOUND(owner, sound('sound/weapons/flash_ring.ogg'))
+
+	if(deaf)
+		ADD_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+	else
+		REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
+
 
 /obj/item/organ/internal/ears/proc/RestoreEars()
 	deaf = 0
 	ear_damage = 0
 
-	var/mob/living/carbon/C = owner
-	if(istype(C) && (DEAF in C.mutations))
-		deaf = 1
-
 /obj/item/organ/internal/ears/proc/AdjustEarDamage(ddmg, ddeaf)
-	ear_damage = max(ear_damage + ddmg, 0)
-	deaf = max(deaf + ddeaf, 0)
-
-/obj/item/organ/internal/ears/proc/MinimumDeafTicks(value)
-	deaf = max(deaf, value)
+	ear_damage = clamp(ear_damage + (ddmg * damage_multiplier), 0, 100)
+	deaf = max(deaf + (ddeaf * damage_multiplier), 0)
 
 /obj/item/organ/internal/ears/surgeryize()
 	RestoreEars()
@@ -61,20 +63,16 @@
 	if(ears)
 		ears.AdjustEarDamage(ddmg, ddeaf)
 
-/mob/living/carbon/MinimumDeafTicks(value)
-	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
-	if(ears)
-		ears.MinimumDeafTicks(value)
-
 /obj/item/organ/internal/ears/cybernetic
 	name = "cybernetic ears"
 	icon_state = "ears-c"
 	desc = "a basic cybernetic designed to mimic the operation of ears."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	damage_multiplier = 0.9
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
 	if(emp_proof)
 		return
 	..()
-	AdjustEarDamage(30, 120)
+	ear_damage += 40 / severity

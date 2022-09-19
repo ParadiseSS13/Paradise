@@ -44,14 +44,9 @@ export const findCacheRoot = async () => {
   // Query the Windows Registry
   if (process.platform === 'win32') {
     logger.log('querying windows registry');
-    let userpath = await regQuery(
-      'HKCU\\Software\\Dantom\\BYOND',
-      'userpath');
+    let userpath = await regQuery('HKCU\\Software\\Dantom\\BYOND', 'userpath');
     if (userpath) {
-      cacheRoot = userpath
-        .replace(/\\$/, '')
-        .replace(/\\/g, '/')
-        + '/cache';
+      cacheRoot = userpath.replace(/\\$/, '').replace(/\\/g, '/') + '/cache';
       logger.log(`found cache at '${cacheRoot}'`);
       return cacheRoot;
     }
@@ -59,7 +54,7 @@ export const findCacheRoot = async () => {
   logger.log('found no cache directories');
 };
 
-export const reloadByondCache = async bundleDir => {
+export const reloadByondCache = async (bundleDir) => {
   const cacheRoot = await findCacheRoot();
   if (!cacheRoot) {
     return;

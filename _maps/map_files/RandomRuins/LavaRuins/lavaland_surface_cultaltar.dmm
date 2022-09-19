@@ -4,8 +4,8 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
 	nitrogen = 23;
+	oxygen = 24;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -26,8 +26,8 @@
 "g" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
 	nitrogen = 23;
+	oxygen = 24;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -39,8 +39,8 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
 	nitrogen = 23;
+	oxygen = 24;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -48,8 +48,8 @@
 /obj/effect/decal/remains/human,
 /obj/item/melee/cultblade,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
 	nitrogen = 23;
+	oxygen = 24;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -58,16 +58,16 @@
 /obj/item/clothing/shoes/cult,
 /obj/item/clothing/suit/hooded/cultrobes,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
 	nitrogen = 23;
+	oxygen = 24;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "m" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
 	nitrogen = 23;
+	oxygen = 24;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -90,8 +90,8 @@
 	name = "ohfuck"
 	},
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
 	nitrogen = 23;
+	oxygen = 24;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
@@ -101,8 +101,8 @@
 /obj/item/clothing/suit/hooded/cultrobes,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
 	nitrogen = 23;
+	oxygen = 24;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)

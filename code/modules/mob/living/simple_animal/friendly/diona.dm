@@ -11,6 +11,7 @@
 	icon_dead = "nymph_dead"
 	icon_resting = "nymph_sleep"
 	pass_flags = PASSTABLE | PASSMOB
+	mob_biotypes = MOB_ORGANIC | MOB_PLANT
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = 2
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -32,10 +33,9 @@
 	melee_damage_upper = 8
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	var/chirp_sound = 'sound/creatures/nymphchirp.ogg' //used in emote
 
 	speed = 0
-	stop_automated_movement = 0
+	stop_automated_movement = FALSE
 	turns_per_move = 4
 
 	var/list/donors = list()
@@ -64,7 +64,7 @@
 /datum/action/innate/diona/evolve
 	name = "Evolve"
 	icon_icon = 'icons/obj/cloning.dmi'
-	button_icon_state = "pod_1"
+	button_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -89,7 +89,7 @@
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
 
-/mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/diona/UnarmedAttack(atom/A)
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
 	else
@@ -107,6 +107,8 @@
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 			throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 			forceMove(M)
+		else if(isrobot(M))
+			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
 		else
 			get_scooped(M)
 	else
@@ -258,7 +260,7 @@
 	if(donors.len == evolve_donors)
 		to_chat(src, "<span class='noticealien'>You feel ready to move on to your next stage of growth.</span>")
 	else if(donors.len == awareness_donors)
-		universal_understand = 1
+		universal_understand = TRUE
 		to_chat(src, "<span class='noticealien'>You feel your awareness expand, and realize you know how to understand the creatures around you.</span>")
 	else
 		to_chat(src, "<span class='noticealien'>The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind.</span>")
@@ -274,27 +276,7 @@
 	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
 	return
 
-/mob/living/simple_animal/diona/emote(act, m_type = 1, message = null, force)
-	if(stat != CONSCIOUS)
-		return
-
-	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
-		if("chirp")
-			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
-	if(!force && on_CD == 1)
-		return
-
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("chirp")
-			message = "<B>\The [src]</B> chirps!"
-			m_type = 2 //audible
-			playsound(src, chirp_sound, 40, 1, 1)
-		if("help")
-			to_chat(src, "scream, chirp")
-
-	..()
+/mob/living/simple_animal/diona/npc_safe(mob/user)
+	if(!jobban_isbanned(user, ROLE_NYMPH))
+		return TRUE
+	return FALSE

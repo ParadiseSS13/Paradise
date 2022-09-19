@@ -2,21 +2,22 @@
 // Store Item
 /////////////////////////////
 /datum/storeitem
-	var/name="Thing"
-	var/desc="It's a thing."
-	var/typepath=/obj/item/storage/box
-	var/cost=0
+	var/name = "Thing"
+	var/desc = "It's a thing."
+	var/typepath = /obj/item/storage/box
+	var/cost = 0
 
-/datum/storeitem/proc/deliver(var/mob/usr)
+/datum/storeitem/proc/deliver(mob/user)
 	if(!istype(typepath,/obj/item/storage))
-		var/obj/item/storage/box/box=new(usr.loc)
+		var/obj/item/storage/box/box=new(user.loc)
 		new typepath(box)
 		box.name="[name] package"
 		box.desc="A special gift for doing your job."
-		usr.put_in_hands(box)
+		user.put_in_hands(box)
+
 	else
-		var/thing = new typepath(usr.loc)
-		usr.put_in_hands(thing)
+		var/thing = new typepath(user.loc)
+		user.put_in_hands(thing)
 
 
 /////////////////////////////
@@ -207,6 +208,12 @@
 	typepath = /obj/item/flag/species/plasma
 	cost = 500
 
+/datum/storeitem/flag_nian
+	name = "Nian Flag"
+	desc = "A well-crafted Nianen flag. Approved by the CDM and the Crafting Guild."
+	typepath = /obj/item/flag/species/nian
+	cost = 500
+
 /datum/storeitem/flag_ian
 	name = "Ian Flag"
 	desc = "The banner of Ian, because SQUEEEEE."
@@ -218,3 +225,4 @@
 	desc = "A Banhammer."
 	typepath = /obj/item/banhammer
 	cost = 1000
+
