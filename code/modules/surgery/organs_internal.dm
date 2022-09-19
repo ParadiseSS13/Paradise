@@ -50,9 +50,17 @@
 
 /datum/surgery/organ_manipulation/alien
 	name = "Alien Organ Manipulation"
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
+	requires_bodypart = FALSE  // xenos just don't have "bodyparts"
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	target_mobtypes = list(/mob/living/carbon/alien/humanoid)
-	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/proxy/manipulate_organs,)
+	steps = list(
+		/datum/surgery_step/saw_carapace,
+		/datum/surgery_step/cut_carapace,
+		/datum/surgery_step/retract_carapace,
+		/datum/surgery_step/proxy/manipulate_organs
+	)
+
+
 
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
@@ -146,7 +154,7 @@
 
 	return tool_name
 
-/datum/surgery_step/internal/manipulate_organs/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/internal/manipulate_organs/mend/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/tool_name = get_tool_name(tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -177,8 +185,8 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
-		var/mob/living/carbon/human/H = target
-		H.custom_pain("The pain in your [affected.name] is living hell!")
+		var/mob/living/carbon/C = target
+		C.custom_pain("The pain in your [affected.name] is living hell!")
 
 	return ..()
 
