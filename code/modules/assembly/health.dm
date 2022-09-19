@@ -40,7 +40,7 @@
 	if(connected && connected.holder)
 		A = connected.holder
 
-	for(A, A && !ismob(A), A=A.loc); // For A, check A exists and that its not a mob, if these are both true then set A to A.loc and repeat
+	for(A, A && !ismob(A), A = A.loc); // For A, check A exists and that its not a mob, if these are both true then set A to A.loc and repeat
 	// like get_turf(), but for mobs.
 
 	if(!isliving(A))

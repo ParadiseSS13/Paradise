@@ -6,7 +6,13 @@ import { Window } from '../layouts';
 export const HealthSensor = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {on, user_health, minHealth, maxHealth, alarm_health} = data;
+  const {
+    on,
+    user_health,
+    minHealth,
+    maxHealth,
+    alarm_health
+  } = data;
 
   return (
     <Window>
@@ -38,17 +44,16 @@ export const HealthSensor = (props, context) => {
               })
             }
           />
-        </LabeledList.Item>
-        {user_health && (
-          <LabeledList.Item
-          label="User health">
-          <Box color={Health2Color(user_health)}
-              bold={user_health >= 100 && 'good'}>
-              <AnimatedNumber value={user_health}/>
-          </Box>
           </LabeledList.Item>
-        )}
-        </LabeledList>
+          {user_health !== null && (
+            <LabeledList.Item label="User health">
+              <Box color={Health2Color(user_health)}
+                  bold={user_health >= 100 && 'good'}>
+                  <AnimatedNumber value={user_health}/>
+              </Box>
+            </LabeledList.Item>
+            )}
+          </LabeledList>
         </Section>
       </Window.Content>
     </Window>
@@ -56,10 +61,10 @@ export const HealthSensor = (props, context) => {
 }
 
 const Health2Color = (health) => {
-  if (health >= 50) {
+  if (health > 50) {
     return 'green';
   }
-  if (health >= 0) {
+  if (health > 0) {
     return 'orange';
   }
   return 'red';
