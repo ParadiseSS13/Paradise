@@ -256,7 +256,7 @@
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		S.message = stars(S.message, pr)
 
-/proc/slur(phrase, list/slurletters = ("'"), robot = FALSE) //use a different list as an input if you want to make robots slur with $#@%! characters
+/proc/slur(phrase, list/slurletters = ("'"), skip_replacement = FALSE) //use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
 	var/leng=length(phrase)
 	var/counter=length(phrase)
@@ -264,7 +264,7 @@
 	var/newletter=""
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(!robot)
+		if(!skip_replacement)
 			if(rand(1,3)==3)
 				if(lowertext(newletter)=="o")	newletter="u"
 				if(lowertext(newletter)=="s")	newletter="ch"
