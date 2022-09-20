@@ -1273,8 +1273,7 @@
 			if(prob(10))
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
 				update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			for(var/I in M.reagents.reagent_list)
-				var/datum/reagent/R = I
+			for(var/datum/reagent/R in M.reagents.reagent_list)
 				if(stimulant_list.Find(R.id))
 					M.reagents.remove_reagent(R.id, 0.5) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(20 to 43)
