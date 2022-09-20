@@ -41,3 +41,7 @@
 	icon_name = "sogtail_s"
 	max_damage = 30
 	min_broken_damage = 20
+
+/obj/item/organ/internal/lungs/unathi/ash_walker
+	name = "ash walker lungs"
+	safe_oxygen_min = 8 // can breathe on lavaland

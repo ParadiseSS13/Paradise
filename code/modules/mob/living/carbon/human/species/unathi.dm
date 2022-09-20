@@ -134,7 +134,17 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	species_traits = list(NO_BREATHE, NOGUNS)
+	species_traits = list(NOGUNS)
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/unathi,
+		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
+		"brain" =    /obj/item/organ/internal/brain/unathi,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		)
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
