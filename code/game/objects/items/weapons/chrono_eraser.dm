@@ -155,7 +155,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
-	blend_mode = BLEND_MULTIPLY
+	blend_mode = BLEND_ADD
 	var/mob/living/captured = null
 	var/obj/item/gun/energy/chrono_gun/gun = null
 	var/tickstokill = 15
