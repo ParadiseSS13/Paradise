@@ -3,7 +3,7 @@
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
-#define RETURN_BRUISE_CHANCE 50
+#define RETURN_INJURY_CHANCE 80
 #define RETURN_BRUISE_DAMAGE 20
 #define RETURN_SOUVENIR_CHANCE 10
 
@@ -518,14 +518,30 @@
 
 	QDEL_LIST(temp_objs)
 
-	// Chance for souvenir or bruises
+	// Injuries due to questioning and souvenirs
 	if(prob(RETURN_SOUVENIR_CHANCE))
 		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
-	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
-		to_chat(M, "<span class='warning'>You were roughed up a little by your captors before being sent back!</span>")
-		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
+	if(prob(RETURN_INJURY_CHANCE) && M.health >= 50)
+		var/item/organ/external/injurytarget = NULL
+		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back!</span>")
+		if(prob(10)) //remove a limb
+			if(prob(50))
+				injurytarget = M.get_organ(FOOT_RIGHT)
+				injurytarget.droplimb()
+			else
+				injurytarget = M.get_organ(HAND_LEFT)
+				injurytarget.droplimb()
+
+		else if(prob(50))//steal an organ
+			if(prob(50))
+
+			else
+
+
+		else//break a bone
+
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
@@ -590,6 +606,6 @@
 #undef EXTRACTION_PHASE_PREPARE
 #undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY
-#undef RETURN_BRUISE_CHANCE
+#undef RETURN_INJURY_CHANCE
 #undef RETURN_BRUISE_DAMAGE
 #undef RETURN_SOUVENIR_CHANCE
