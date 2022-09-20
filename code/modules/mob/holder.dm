@@ -74,6 +74,10 @@
 		H.icon_state = icon_state
 	if(desc)
 		H.desc = desc
+		if(stat == DEAD)
+			H.desc += "<span class='deadsay'> Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		if(IsSleeping())
+			H.desc += "<span class='notice'> Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
