@@ -29,26 +29,26 @@ export const HealthSensor = (props, context) => {
               />
             </LabeledList.Item>
           <LabeledList.Item label="Health activation">
-          <NumberInput
-            animate
-            step={2}
-            stepPixelSize={6}
-            minValue={minHealth}
-            maxValue={maxHealth}
-            value={alarm_health}
-            format={(value) => toFixed(value, 1)}
-            width="80px"
-            onDrag={(e, value) =>
-              act('alarm_health', {
-                alarm_health: value,
-              })
-            }
-          />
+            <NumberInput
+              animate
+              step={2}
+              stepPixelSize={6}
+              minValue={minHealth}
+              maxValue={maxHealth}
+              value={alarm_health}
+              format={(value) => toFixed(value, 1)}
+              width="80px"
+              onDrag={(e, value) =>
+                act('alarm_health', {
+                  alarm_health: value,
+                })
+              }
+            />
           </LabeledList.Item>
           {user_health !== null && (
             <LabeledList.Item label="User health">
               <Box color={Health2Color(user_health)}
-                  bold={user_health >= 100 && 'good'}>
+                  bold={user_health >= 100}>
                   <AnimatedNumber value={user_health}/>
               </Box>
             </LabeledList.Item>
