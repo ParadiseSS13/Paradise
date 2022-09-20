@@ -524,24 +524,21 @@
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
 	if(prob(RETURN_INJURY_CHANCE) && M.health >= 50)
-		var/item/organ/external/injurytarget = NULL
 		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back!</span>")
 		if(prob(10)) //remove a limb
 			if(prob(50))
-				injurytarget = M.get_organ(FOOT_RIGHT)
-				injurytarget.droplimb()
+				M.get_organ(ARM_RIGHT).droplimb()
 			else
-				injurytarget = M.get_organ(HAND_LEFT)
-				injurytarget.droplimb()
+				M.get_organ(LEG_LEFT).droplimb()
 
-		else if(prob(50))//steal an organ
-			if(prob(50))
-
+		else
+			if(prob(10))
+				M.get_organ(BODY_ZONE_CHEST).fracture()
+			else if(prob(25))
+				M.get_organ(LEG_RIGHT).fracture()
 			else
-
-
-		else//break a bone
-
+				M.get_organ(HAND_LEFT).fracture()
+		M.adjustBruteLoss(25)
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
