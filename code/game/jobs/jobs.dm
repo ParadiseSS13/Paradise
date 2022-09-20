@@ -85,6 +85,9 @@ GLOBAL_LIST_INIT(security_positions, list(
 	"Magistrate"
 ))
 
+GLOBAL_LIST_INIT(technically_security_positions,(
+	security_positions - list("Brig Physician") // Add here jobs, that are security, but **do not shitcurs** (or you dont want them give them exp)
+))
 
 GLOBAL_LIST_INIT(civilian_positions, list(
 	"Civilian"
@@ -144,7 +147,7 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_MEDICAL = list(titles = medical_positions | additional_medical_positions),
 	EXP_TYPE_SCIENCE = list(titles = science_positions),
 	EXP_TYPE_SUPPLY = list(titles = supply_positions),
-	EXP_TYPE_SECURITY = list(titles = security_positions),
+	EXP_TYPE_SECURITY = list(titles = technically_security_positions),
 	EXP_TYPE_SILICON = list(titles = list("AI","Cyborg")),
 	EXP_TYPE_SERVICE = list(titles = service_positions),
 	EXP_TYPE_WHITELIST = list(titles = whitelisted_positions) // karma-locked jobs
