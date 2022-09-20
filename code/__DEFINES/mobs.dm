@@ -274,7 +274,7 @@
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
 #define isorgan(A)		(istype((A), /obj/item/organ/external))
-#define hasorgans(A)	(ishuman(A))
+#define hasorgans(A)	(iscarbon(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
