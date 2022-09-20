@@ -1302,7 +1302,7 @@
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
 						I.heal_internal_damage(4)
-					if(H.blood_volume < BLOOD_VOLUME_NORMAL / 100 * 70)// If below 70% blood, regenerate 150 units total
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.7)// If below 70% blood, regenerate 150 units total
 						H.blood_volume += 10
 					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
