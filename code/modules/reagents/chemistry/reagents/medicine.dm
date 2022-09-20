@@ -1252,7 +1252,7 @@
 /datum/reagent/medicine/nanocalcium
 	name = "Nano-Calcium"
 	id = "nanocalcium"
-	description = "Highly advanced nanites equipped with an unknown payloads designed to repair a body. Nanomachines son."
+	description = "Highly advanced nanites equipped with an unknown payload designed to repair a body. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
 	can_synth = FALSE
