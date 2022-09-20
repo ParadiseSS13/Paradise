@@ -40616,7 +40616,15 @@
 /obj/machinery/button/windowtint{
 	pixel_x = 24;
 	id = "qm";
-	req_access_txt = "41"
+	req_access_txt = "41";
+	dir = 8;
+	pixel_y = 5
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24;
+	pixel_y = -5
 	},
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
@@ -76777,11 +76785,6 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
-	},
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
