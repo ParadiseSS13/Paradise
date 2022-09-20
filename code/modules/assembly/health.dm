@@ -45,7 +45,7 @@
 	// like get_turf(), but for mobs.
 
 	if(!isliving(A))
-		toggle_scan()
+		user_health = null // We aint on a living thing, remove the previous data
 		return
 
 	var/mob/living/M = A
