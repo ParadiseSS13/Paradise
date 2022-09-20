@@ -150,7 +150,6 @@ const Sheet = (properties, context) => {
       {sheets.map((sheet) => (
         <SheetLine key={sheet.id} ore={sheet} />
       ))}
-
     </Section>
   );
 };
@@ -260,10 +259,10 @@ const SheetLine = (properties, context) => {
           <Flex.Item basis="20%" textAlign="center" align="center">
             {ore.value}
           </Flex.Item>
-        </Flex>
-      </Box>
-    );
-  };
+      </Flex>
+    </Box>
+  );
+};
 
 /*
 ********* ALLOYS BOX PROPERTIES *********
@@ -284,7 +283,7 @@ const AlloyLine = (properties, context) => {
             ml="`0rem"
             />
             </Flex.Item>
-               <FlexItem
+                <FlexItem
                   basis="30%"
                   textAlign="middle"
                   align="center"
@@ -299,35 +298,35 @@ const AlloyLine = (properties, context) => {
                 >
                   {ore.description}
             </Flex.Item>
-          <Flex.Item
-            basis="10%"
-            textAlign="center"
-            color={ore.amount > 0 ? 'good' : 'gray'}
-            bold={ore.amount > 0}
-            align="center"
-          >
-            {ore.amount.toLocaleString('en-US')}
-          </Flex.Item>
-          <Flex.Item
-            basis="20%"
-            textAlign="center"
-            align="center"
-            lineHeight="32px"
-          >
-            <NumberInput
-              value={0}
-              minValue={0}
-              maxValue={Math.min(ore.amount, 50)}
-              stepPixelSize={6}
-              onChange={(_e, value) =>
-                act(ore.value ? 'sheet' : 'alloy', {
-                  'id': ore.id,
-                  'amount': value,
-                })
-              }
-            />
-          </Flex.Item>
-      </Flex>
+            <Flex.Item
+              basis="10%"
+              textAlign="center"
+              color={ore.amount > 0 ? 'good' : 'gray'}
+              bold={ore.amount > 0}
+              align="center"
+            >
+              {ore.amount.toLocaleString('en-US')}
+            </Flex.Item>
+            <Flex.Item
+              basis="20%"
+              textAlign="center"
+              align="center"
+              lineHeight="32px"
+            >
+              <NumberInput
+                value={0}
+                minValue={0}
+                maxValue={Math.min(ore.amount, 50)}
+                stepPixelSize={6}
+                onChange={(_e, value) =>
+                  act(ore.value ? 'sheet' : 'alloy', {
+                    'id': ore.id,
+                    'amount': value,
+                  })
+                }
+              />
+            </Flex.Item>
+       </Flex>
     </Box>
   );
 };
