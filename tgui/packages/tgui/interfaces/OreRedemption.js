@@ -329,5 +329,5 @@ const AlloyLine = (properties, context) => {
           </Flex.Item>
       </Flex>
     </Box>
-  )
+  );
 };
