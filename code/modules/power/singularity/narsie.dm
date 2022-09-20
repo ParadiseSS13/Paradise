@@ -62,8 +62,6 @@
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user)
 	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)
-	new /obj/effect/particle_effect/smoke/sleeping(user.loc)
-
 
 /obj/singularity/narsie/process()
 	eat()
