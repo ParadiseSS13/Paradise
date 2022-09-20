@@ -158,22 +158,23 @@
 			obj_count++
 		output += "</UL>"
 
-	// Кнопки для амбиций и их отображение
-	output += "<HR><B>Амбиции:</B><UL>"
-	if(LAZYLEN(ambition_objectives))
 
-		var/amb_count = 1
-		for(var/datum/ambition_objective/objective in ambition_objectives)
-			output += "<LI><B>Амбиция #[amb_count]</B>: [objective.description]</LI>"
-			output += "<a href='?src=[UID()];amb_delete=\ref[objective]'>Удалить</a> " // Удалить амбицию
-			output += "<a href='?src=[UID()];amb_completed=\ref[objective]'>" // Определить завершенность амбиции
-			output += "<font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Передумать" : "Выполнить"]</font>"
-			output += "</a>"
-			output += "<br>"
-			amb_count++
+	if (iscarbon(current))
+		// Кнопки для амбиций и их отображение
+		output += "<HR><B>Амбиции:</B><UL>"
+		if(LAZYLEN(ambition_objectives))
 
-	output += "<a href='?src=[UID()];amb_add=1'>Добавить амбицию</a><br><br>"
-	output += "</UL>"
+			var/amb_count = 1
+			for(var/datum/ambition_objective/objective in ambition_objectives)
+				output += "<LI><B>Амбиция #[amb_count]</B>: [objective.description]</LI>"
+				output += "<a href='?src=[UID()];amb_delete=\ref[objective]'>Удалить</a> " // Удалить амбицию
+				output += "<a href='?src=[UID()];amb_completed=\ref[objective]'>" // Определить завершенность амбиции
+				output += "<font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Передумать" : "Выполнить"]</font>"
+				output += "</a>"
+				output += "<br>"
+				amb_count++
+		output += "<a href='?src=[UID()];amb_add=1'>Добавить амбицию</a><br><br>"
+		output += "</UL>"
 
 	if(window)
 		recipient << browse(output, "window=memory")
