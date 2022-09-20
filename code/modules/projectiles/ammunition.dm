@@ -7,6 +7,7 @@
 	slot_flags = SLOT_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_METAL = 1000)
 	var/fire_sound = null						//What sound should play when this ammo is fired
 	var/drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
 	var/caliber = null							//Which kind of guns it can be loaded into
@@ -106,7 +107,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "syringe_kit"
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 500)
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
@@ -118,12 +119,13 @@
 	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
 	var/multiload = 1
-	var/list/initial_mats //For calculating refund values.
+	var/list/initial_mats
 
 /obj/item/ammo_box/New()
 	..()
-	for(var/i in 1 to max_ammo)
-		stored_ammo += new ammo_type(src)
+	if(ammo_type)
+		for(var/i in 1 to max_ammo)
+			stored_ammo += new ammo_type(src)
 	update_icon()
 	initial_mats = materials.Copy()
 	update_mat_value()
@@ -220,22 +222,27 @@
 			icon_state = "[icon_base]-[stored_ammo.len ? "[max_ammo]" : "0"]"
 	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
 
-/obj/item/ammo_box/proc/update_mat_value()
-	var/num_ammo = 0
-	for(var/B in stored_ammo)
-		var/obj/item/ammo_casing/AC = B
-		if(!AC.BB) //Skip any casing which are empty
+/obj/item/ammo_box/update_materials_coeff(new_coeff)
+	. = ..()
+	for(var/obj/item/ammo_casing/ammo in stored_ammo)
+		if(!ammo.BB || !length(ammo.materials)) //Skip any casing which are empty
 			continue
-		num_ammo++
-	for(var/M in initial_mats) //In case we have multiple types of materials
-		var/materials_per = initial_mats[M] / max_ammo
+		ammo.update_materials_coeff(materials_coeff)
+	update_mat_value()
 
-		var/value = max(materials_per * num_ammo, 500) //Enforce a minimum of 500 units even if empty.
-		materials[M] = value
+/obj/item/ammo_box/proc/update_mat_value()
+	materials = initial_mats.Copy()
+	for(var/material in materials)
+		materials[material] *= materials_coeff
+	for(var/obj/item/ammo_casing/ammo in stored_ammo)
+		if(!ammo.BB || !length(ammo.materials)) //Skip any casing which are empty
+			continue
+		for(var/material in ammo.materials)
+			materials[material] += ammo.materials[material]
 
 //Behavior for magazines
 /obj/item/ammo_box/magazine/proc/ammo_count()
-	return stored_ammo.len
+	return length(stored_ammo)
 
 /obj/item/ammo_box/magazine/proc/empty_magazine()
 	var/turf_mag = get_turf(src)

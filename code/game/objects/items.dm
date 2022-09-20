@@ -44,6 +44,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/list/action_icon_state = list() //list of icon states for a given action to override the icon_state.
 
 	var/list/materials = list()
+	var/materials_coeff = 1
 	//Since any item can now be a piece of clothing, this has to be put here so all items share it.
 	var/flags_inv //This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/item_color = null
@@ -747,3 +748,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/obj/item/proc/update_materials_coeff(new_coeff)
+	if(new_coeff <= 1)
+		materials_coeff = new_coeff
+	else
+		materials_coeff = 1 / new_coeff
+	for(var/material in materials)
+		materials[material] *= materials_coeff
