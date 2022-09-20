@@ -198,6 +198,7 @@
 				windoor.base_state = "right"
 		windoor.setDir(dir)
 		windoor.density = FALSE
+		windoor.unres_sides = electronics.unres_access_from
 
 		if(electronics.one_access)
 			windoor.req_one_access = electronics.selected_accesses
