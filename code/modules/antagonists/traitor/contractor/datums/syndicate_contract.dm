@@ -528,10 +528,7 @@
 		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back!</span>")
 		if(prob(20)) //remove a limb
 			if(prob(50))
-				injury_target = M.get_organ(BODY_ZONE_R_ARM)
-				injury_target.droplimb()
-			else
-				injury_target = M.get_organ(BODY_ZONE_L_LEG)
+				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_PRECISE_L_FOOT))
 				injury_target.droplimb()
 		else
 			if(prob(10))
