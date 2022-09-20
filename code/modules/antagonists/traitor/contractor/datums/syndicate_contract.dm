@@ -3,7 +3,7 @@
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
-#define RETURN_INJURY_CHANCE 80
+#define RETURN_INJURY_CHANCE 85
 #define RETURN_BRUISE_DAMAGE 20
 #define RETURN_SOUVENIR_CHANCE 10
 
@@ -461,7 +461,7 @@
 	// Narrate their kidnapping and torturing experience.
 	if(M.stat != DEAD)
 		// Heal them up - gets them out of crit/soft crit.
-		M.reagents.add_reagent("omnizine", 20)
+		M.reagents.add_reagent("omnizine", 10)
 
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
 		M.Paralyse(30 SECONDS)
@@ -525,12 +525,11 @@
 		new souvenir(closet)
 	if(prob(RETURN_INJURY_CHANCE) && M.health >= 50)
 		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back!</span>")
-		if(prob(10)) //remove a limb
+		if(prob(20)) //remove a limb
 			if(prob(50))
-				M.get_organ(ARM_RIGHT).droplimb()
+				M.get_organ(BODY_ZONE_R_ARM).droplimb()
 			else
-				M.get_organ(LEG_LEFT).droplimb()
-
+				M.get_organ(BODY_ZONE_L_LEG).droplimb()
 		else
 			if(prob(10))
 				M.get_organ(BODY_ZONE_CHEST).fracture()
@@ -538,7 +537,6 @@
 				M.get_organ(LEG_RIGHT).fracture()
 			else
 				M.get_organ(HAND_LEFT).fracture()
-		M.adjustBruteLoss(25)
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
