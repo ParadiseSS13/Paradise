@@ -194,6 +194,7 @@
 			dat += "Никто не выжил!<br>"
 
 	dat += mode.declare_job_completion()
+	dat += mode.declare_ambition_completion()
 
 	dat += {"
 	<hr><br>
