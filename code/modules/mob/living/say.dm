@@ -73,7 +73,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		if(AmountSluring())
 			if(robot)
-				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
+				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"), robot)
 			else
 				S.message = slur(S.message)
 			verb = "slurs"
