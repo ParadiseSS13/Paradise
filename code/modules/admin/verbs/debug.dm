@@ -390,17 +390,16 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
+		var/obj/item/card/id/id = null
 		if(H.wear_id)
-			var/obj/item/card/id/id = H.wear_id
-			if(istype(H.wear_id, /obj/item/pda))
-				var/obj/item/pda/pda = H.wear_id
-				id = pda.id
+			id = H.wear_id.GetID()
+		if(istype(id))
 			id.icon_state = "gold"
-			id:access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
-		else
-			var/obj/item/card/id/id = new/obj/item/card/id(M)
+			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
+		if(!H.wear_id || !istype(id))
+			id = new/obj/item/card/id(M)
 			id.icon_state = "gold"
-			id:access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
+			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"

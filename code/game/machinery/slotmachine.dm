@@ -23,13 +23,7 @@
 /obj/machinery/slot_machine/ui_data(mob/user)
 	var/list/data = list()
 	// Get account
-	account = user.get_worn_id_account()
-	if(!account)
-		if(istype(user.get_active_hand(), /obj/item/card/id))
-			account = get_card_account(user.get_active_hand())
-		else
-			account = null
-
+	account = get_card_account(user)
 
 	// Send data
 	data["working"] = working
@@ -49,7 +43,7 @@
 			return
 		if(!account || account.money < 50)
 			return
-		if(!account.charge(50, null, "Bet", "Slot Machine", "Slot Machine"))
+		if(!pay_with_card(usr, 50, "Slot Machine"))
 			return
 		plays++
 		working = TRUE

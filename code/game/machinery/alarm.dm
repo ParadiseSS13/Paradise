@@ -952,7 +952,7 @@
 
 	switch(buildstage)
 		if(2)
-			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
+			if(I.GetID() || ispda(I)) // trying to unlock the interface
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return

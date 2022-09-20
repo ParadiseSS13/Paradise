@@ -14,12 +14,12 @@
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
 
-/obj/item/storage/lockbox/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
+/obj/item/storage/lockbox/attackby(obj/item/I, mob/user, params)
+	if(I.GetID())
 		if(broken)
 			to_chat(user, "<span class='warning'>It appears to be broken.</span>")
 			return
-		if(check_access(W))
+		if(check_access(I))
 			locked = !locked
 			if(locked)
 				icon_state = icon_locked
@@ -35,7 +35,7 @@
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
-	else if((istype(W, /obj/item/card/emag) || (istype(W, /obj/item/melee/energy/blade)) && !broken))
+	else if((istype(I, /obj/item/card/emag) || (istype(I, /obj/item/melee/energy/blade)) && !broken))
 		emag_act(user)
 		return
 	if(!locked)
@@ -43,7 +43,6 @@
 	else
 		to_chat(user, "<span class='warning'>It's locked!</span>")
 	return
-
 
 /obj/item/storage/lockbox/show_to(mob/user as mob)
 	if(locked)

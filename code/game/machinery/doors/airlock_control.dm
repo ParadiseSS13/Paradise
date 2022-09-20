@@ -244,7 +244,7 @@
 
 /obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
 	//Swiping ID on the access button
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(I.GetID())
 		attack_hand(user)
 		return
 	return ..()

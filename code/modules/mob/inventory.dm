@@ -248,10 +248,16 @@
 	return list(wear_mask, back, l_hand, r_hand)
 
 /mob/proc/get_id_card()
-	for(var/obj/item/I in get_all_slots())
-		. = I.GetID()
-		if(.)
-			break
+	for(var/obj/item/I in get_access_locations())
+		if(I.GetID())
+			return I.GetID()
+
+/mob/proc/get_all_id_cards()
+	var/list/obj/item/card/id/id_cards = list()
+	for(var/obj/item/I in get_access_locations())
+		if(I.GetID())
+			id_cards += I.GetID()
+	return id_cards
 
 /mob/proc/get_item_by_slot(slot_id)
 	switch(slot_id)

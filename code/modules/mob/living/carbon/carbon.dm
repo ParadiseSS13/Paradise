@@ -1111,16 +1111,9 @@ so that different stomachs can handle things in different ways VB*/
 			toEat.reagents.reaction(src, toEat.apply_type, fraction)
 			toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
 
-/mob/living/carbon/get_access()
+/mob/living/carbon/get_access_locations()
 	. = ..()
-
-	var/obj/item/RH = get_active_hand()
-	if(RH)
-		. |= RH.GetAccess()
-
-	var/obj/item/LH = get_inactive_hand()
-	if(LH)
-		. |= LH.GetAccess()
+	. |= list(get_active_hand(), get_inactive_hand())
 
 /mob/living/carbon/proc/can_breathe_gas()
 	if(!wear_mask)

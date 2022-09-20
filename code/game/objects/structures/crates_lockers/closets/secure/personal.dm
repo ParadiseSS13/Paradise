@@ -53,14 +53,14 @@
 	new /obj/item/radio/headset(src)
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/W, mob/user, params)
-	if(opened || !istype(W, /obj/item/card/id))
+	if(opened || !W.GetID())
 		return ..()
 
 	if(broken)
 		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
 		return
 
-	var/obj/item/card/id/I = W
+	var/obj/item/card/id/I = W.GetID()
 	if(!I || !I.registered_name)
 		return
 

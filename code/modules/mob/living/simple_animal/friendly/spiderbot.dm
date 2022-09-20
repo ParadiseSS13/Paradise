@@ -87,7 +87,7 @@
 		update_icon()
 		return 1
 
-	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
+	else if(O.GetID())
 		if(!mmi)
 			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
 			return 0
@@ -96,13 +96,7 @@
 			to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
 			return 0
 
-		var/obj/item/card/id/id_card
-
-		if(istype(O, /obj/item/card/id))
-			id_card = O
-		else
-			var/obj/item/pda/pda = O
-			id_card = pda.id
+		var/obj/item/card/id/id_card = O.GetID()
 
 		if(ACCESS_ROBOTICS in id_card.access)
 			to_chat(user, "<span class='notice'>You swipe your access card and pop the brain out of [src].</span>")

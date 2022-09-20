@@ -136,8 +136,8 @@
 			max_number = initial(max_number)
 			update_icon()
 			return
-	else if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/heldID = I
+	else if(I.GetID())
+		var/obj/item/card/id/heldID = I.GetID()
 		if(ACCESS_HOP in heldID.access)
 			dispense_enabled = !dispense_enabled
 			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")

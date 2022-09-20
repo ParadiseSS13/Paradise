@@ -608,7 +608,7 @@ to destroy them and players will be able to make replacements.
 	id = 2
 
 /obj/item/circuitboard/chem_dispenser/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))
+	if(I.GetID())
 		if(allowed(user))
 			user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
 			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "Chem Dispenser") as null|anything in access_types

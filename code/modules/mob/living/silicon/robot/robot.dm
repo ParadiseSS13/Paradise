@@ -802,13 +802,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			diag_hud_set_borgcell()
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
-		if(radio)//sanityyyyyy
-			radio.attackby(W,user)//GTFO, you have your own procs
+		if(radio) //sanityyyyyy
+			radio.attackby(W,user) //GTFO, you have your own procs
 		else
 			to_chat(user, "Unable to locate a radio.")
 
-	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
-		if(emagged)//still allow them to open the cover
+	else if(W.GetID())	// trying to unlock the interface with an ID card
+		if(emagged) //still allow them to open the cover
 			to_chat(user, "The interface seems slightly damaged.")
 		if(opened)
 			to_chat(user, "You must close the cover to swipe an ID card.")

@@ -253,7 +253,7 @@
 			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
 
-	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	else if(I.GetID())
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
@@ -478,7 +478,7 @@
 			anchored = 0
 			return
 
-	if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
+	if(I.GetID() || ispda(I))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")

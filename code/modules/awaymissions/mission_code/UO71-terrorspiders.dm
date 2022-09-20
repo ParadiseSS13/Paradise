@@ -219,8 +219,8 @@
 	var/door_to_open = "UO71_Start"
 
 /obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/D = I
+	if(I.GetID())
+		var/obj/item/card/id/D = I.GetID()
 		if(!access_to_give.len)
 			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
 			return

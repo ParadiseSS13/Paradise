@@ -12,36 +12,65 @@
 		if(!acct) continue
 		return acct
 
-
-/obj/proc/get_card_account(var/obj/item/card/I, var/mob/user=null, var/terminal_name="", var/transaction_purpose="", var/require_pin=0)
-	if(terminal_name=="")
-		terminal_name=src.name
-	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/C = I
-		var/attempt_pin=0
-		var/datum/money_account/D = get_money_account(C.associated_account_number)
-		if(require_pin && user)
-			attempt_pin = input(user,"Enter pin code", "Transaction") as num
-			if(D.remote_access_pin != attempt_pin)
-				return null
-		if(D)
-			return D
-
-/mob/proc/get_worn_id_account(var/require_pin=0, var/mob/user=null)
-	if(ishuman(src))
-		var/mob/living/carbon/human/H=src
-		var/obj/item/card/id/I=H.get_idcard()
-		if(!I || !istype(I))
-			return null
-		var/attempt_pin=0
-		var/datum/money_account/D = get_money_account(I.associated_account_number)
-		if(require_pin && user)
-			attempt_pin = input(user,"Enter pin code", "Transaction") as num
-			if(D.remote_access_pin != attempt_pin)
-				return null
-		return D
-	else if(issilicon(src))
+/proc/get_card_account(mob/user)
+	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone))
 		return GLOB.station_account
+	var/obj/item/card/id/id = null
+	var/mob/living/carbon/human/H = null
+	if(ishuman(user))
+		H = user
+		id = H.get_id_card()
+	if(istype(id))
+		return get_money_account(id.associated_account_number)
+	return null
+
+/obj/machinery/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user, price, vended_name)
+	if(price > cashmoney.amount)
+		// This is not a status display message, since it's something the character
+		// themselves is meant to see BEFORE putting the money in
+		to_chat(user, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
+		return FALSE
+
+	// Bills (banknotes) cannot really have worth different than face value,
+	// so we have to eat the bill and spit out change in a bundle
+	// This is really dirty, but there's no superclass for all bills, so we
+	// just assume that all spacecash that's not something else is a bill
+
+	visible_message("<span class='notice'>[user] inserts a credit chip into [src].</span>")
+	cashmoney.use(price)
+
+	// Vending machines have no idea who paid with cash
+	GLOB.vendor_account.credit(price, "Sale of [vended_name]", name, "(cash)")
+	return TRUE
+
+/obj/machinery/proc/pay_with_card(mob/M, price, vended_name)
+	if(iscarbon(M))
+		visible_message("<span class='notice'>[M] swipes a card through [src].</span>")
+	var/datum/money_account/customer_account = get_card_account(M)
+	if(!customer_account)
+		to_chat(M, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
+		return FALSE
+	if(customer_account.suspended)
+		to_chat(M, "<span class='warning'>Unable to access account: account suspended.</span>")
+		return FALSE
+	// Have the customer punch in the PIN before checking if there's enough money.
+	// Prevents people from figuring out acct is empty at high security levels
+	if(customer_account.security_level)
+		// If card requires pin authentication (ie seclevel 1 or 2)
+		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
+		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
+			to_chat(M, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
+			return FALSE
+	if(price > customer_account.money)
+		to_chat(M, "<span class='warning'>Your bank account has insufficient money to purchase this.</span>")
+		return FALSE
+	// Okay to move the money at this point
+	customer_account.charge(price, GLOB.vendor_account,
+		"Purchase of [vended_name]", name, GLOB.vendor_account.owner_name,
+		"Sale of [vended_name]", customer_account.owner_name)
+	if(customer_account.owner_name == GLOB.station_account.owner_name)
+		log_game("Silicon \"[M]\":\"[key_name(M)]\" purchased [vended_name] in ([x], [y], [z])")
+	return TRUE
 
 /datum/money_account/proc/fmtBalance()
 	return "$[num2septext(money)]"

@@ -167,9 +167,9 @@
 	user.examinate(src)
 
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
-		if(istype(I, /obj/item/card/id/prisoner))
-			var/obj/item/card/id/prisoner/prisoner_id = I
+	if(I.GetID())
+		if(istype(I.GetID(), /obj/item/card/id/prisoner))
+			var/obj/item/card/id/prisoner/prisoner_id = I.GetID()
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
 			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
 			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")

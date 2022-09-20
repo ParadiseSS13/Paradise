@@ -465,105 +465,21 @@
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander")
 
-//gets the actual job rank (ignoring alt titles)
-//this is used solely for sechuds
-/obj/proc/GetJobRealName()
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/rank
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			rank = src:id:rank
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		rank = src:rank
-		assignment = src:assignment
-
-	if( rank in GLOB.joblist )
-		return rank
-
-	if( assignment in GLOB.joblist )
-		return assignment
-
-	return "Unknown"
-
-//gets the alt title, failing that the actual job rank
-//this is unused
-// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
-/obj/proc/sdsdsd()	//GetJobDisplayName
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		assignment = src:assignment
-
-	if(assignment)
-		return assignment
-
-	return "Unknown"
-
-/proc/GetIdCard(var/mob/living/carbon/human/H)
-	if(H.wear_id)
-		var/id = H.wear_id.GetID()
-		if(id)
-			return id
-	if(H.get_active_hand())
-		var/obj/item/I = H.get_active_hand()
-		return I.GetID()
-
-/proc/FindNameFromID(var/mob/living/carbon/human/H)
-	ASSERT(istype(H))
-	var/obj/item/card/id/C = H.get_active_hand()
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
-
-	C = H.wear_id
-
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
-
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
 
-/obj/proc/GetJobName() //Used in secHUD icon generation
+/obj/item/proc/GetJobName() //Used in secHUD icon generation
 	var/assignmentName = "Unknown"
 	var/rankName = "Unknown"
 	if(istype(src, /obj/item/pda))
 		var/obj/item/pda/P = src
 		assignmentName = P.ownjob
 		rankName = P.ownrank
-	else if(istype(src, /obj/item/card/id))
-		var/obj/item/card/id/I = src
-		assignmentName = I.assignment
-		rankName = I.rank
-	else if(istype(src, /obj/item/storage/wallet))
-		var/obj/item/storage/wallet/wallet = src
-		assignmentName = wallet.front_id?.assignment
-		rankName = wallet.front_id?.rank
+	else
+		var/obj/item/card/id/id = GetID()
+		if(istype(id))
+			assignmentName = id.assignment
+			rankName = id.rank
 
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
@@ -573,7 +489,7 @@
 	if(rankName in centcom)
 		return "Centcom"
 
-	if(assignmentName	in job_icons) //Check if the job has a hud icon
+	if(assignmentName in job_icons) //Check if the job has a hud icon
 		return assignmentName
 	if(rankName in job_icons)
 		return rankName

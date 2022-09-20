@@ -427,56 +427,6 @@
 	emagged = TRUE
 	to_chat(user, "You short out the product lock on [src]")
 
-
-/obj/machinery/vending/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user)
-	if(currently_vending.price > cashmoney.amount)
-		// This is not a status display message, since it's something the character
-		// themselves is meant to see BEFORE putting the money in
-		to_chat(usr, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
-		return FALSE
-
-	// Bills (banknotes) cannot really have worth different than face value,
-	// so we have to eat the bill and spit out change in a bundle
-	// This is really dirty, but there's no superclass for all bills, so we
-	// just assume that all spacecash that's not something else is a bill
-
-	visible_message("<span class='info'>[usr] inserts a credit chip into [src].</span>")
-	cashmoney.use(currently_vending.price)
-
-	// Vending machines have no idea who paid with cash
-	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",	name, "(cash)")
-	return TRUE
-
-
-/obj/machinery/vending/proc/pay_with_card(obj/item/card/id/I, mob/M)
-	visible_message("<span class='info'>[M] swipes a card through [src].</span>")
-	return pay_with_account(get_card_account(I), M)
-
-/obj/machinery/vending/proc/pay_with_account(datum/money_account/customer_account, mob/M)
-	if(!customer_account)
-		to_chat(M, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
-		return FALSE
-	if(customer_account.suspended)
-		to_chat(M, "<span class='warning'>Unable to access account: account suspended.</span>")
-		return FALSE
-	// Have the customer punch in the PIN before checking if there's enough money.
-	// Prevents people from figuring out acct is empty at high security levels
-	if(customer_account.security_level != 0)
-		// If card requires pin authentication (ie seclevel 1 or 2)
-		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
-			to_chat(M, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
-			return FALSE
-	if(currently_vending.price > customer_account.money)
-		to_chat(M, "<span class='warning'>Your bank account has insufficient money to purchase this.</span>")
-		return FALSE
-	// Okay to move the money at this point
-	customer_account.charge(currently_vending.price, GLOB.vendor_account,
-		"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
-		"Sale of [currently_vending.name]", customer_account.owner_name)
-	return TRUE
-
-
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
 
@@ -505,20 +455,25 @@
 
 /obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
+	var/datum/money_account/A = null
 	data["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
 	data["userMoney"] = 0
 	data["user"] = null
+	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
+		A = get_card_account(user)
+		data["user"] = list()
+		data["user"]["name"] = A.owner_name
+		data["userMoney"] = A.money
+		data["user"]["job"] = "Silicon"
 	if(ishuman(user))
-		H = user
-		C = H.get_idcard(TRUE)
+		A = get_card_account(user)
+		var/mob/living/carbon/human/H = user
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
 			data["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
-		else if(istype(C))
-			var/datum/money_account/A = get_card_account(C)
+		else if(istype(H))
+			var/obj/item/card/id/C = H.get_id_card()
 			if(istype(A))
 				data["user"] = list()
 				data["user"]["name"] = A.owner_name
@@ -653,8 +608,8 @@
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
-			if(!ishuman(usr) || R.price <= 0)
-				// Either the purchaser is not human, or the item is free.
+			if(!(ishuman(usr) || issilicon(usr)) || R.price <= 0)
+				// Either the purchaser is not human nor silicon, or the item is free.
 				// Skip all payment logic.
 				vend(R, usr)
 				add_fingerprint(usr)
@@ -663,10 +618,6 @@
 				return
 
 			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
-
-			var/mob/living/carbon/human/H = usr
-			var/obj/item/card/id/C = H.get_idcard(TRUE)
-
 			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
 				to_chat(usr, "Vendor account offline. Unable to process transaction.")
 				flick(icon_deny, src)
@@ -678,12 +629,12 @@
 
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
-				paid = pay_with_cash(S)
-			else if(istype(C, /obj/item/card))
-				// Because this uses H.get_idcard(TRUE), it will attempt to use:
-				// active hand, inactive hand, pda.id, and then wear_id ID in that order
+				paid = pay_with_cash(S, usr, currently_vending.price, currently_vending.name)
+			else if(get_card_account(usr))
+				// Because this uses H.get_id_card(), it will attempt to use:
+				// active hand, inactive hand, wear_id, pda, and then w_uniform ID in that order
 				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-				paid = pay_with_card(C, usr)
+				paid = pay_with_card(usr, currently_vending.price, currently_vending.name)
 			else if(usr.can_advanced_admin_interact())
 				to_chat(usr, "<span class='notice'>Vending object due to admin interaction.</span>")
 				paid = TRUE

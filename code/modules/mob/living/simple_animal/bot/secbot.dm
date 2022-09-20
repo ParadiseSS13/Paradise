@@ -433,8 +433,8 @@
 			continue
 /mob/living/simple_animal/bot/secbot/proc/check_for_weapons(var/obj/item/slot_item)
 	if(slot_item && slot_item.needs_permit)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bot/secbot/explode()
 	walk_to(src,0)

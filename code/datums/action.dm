@@ -478,6 +478,8 @@
 /datum/action/item_action/accessory/storage
 	name = "View Storage"
 
+/datum/action/item_action/accessory/petcollar
+	name = "Remove ID"
 
 //Preset for spells
 /datum/action/spell_action

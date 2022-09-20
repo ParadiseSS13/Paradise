@@ -102,7 +102,7 @@ log transactions
 
 			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
 
-			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
+			to_chat(user, "<span class='notice'>You insert [C] into [src].</span>")
 			SStgui.update_uis(src)
 			C.use(C.amount)
 	else
@@ -169,7 +169,7 @@ log transactions
 				var/target_account_number = text2num(params["target_acc_number"])
 				var/transfer_purpose = params["purpose"]
 				if(linked_db.charge_to_account(target_account_number, authenticated_account, transfer_purpose, machine_id, transfer_amount))
-					to_chat(usr, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")
+					to_chat(usr, "[bicon(src)]<span class='notice'>Funds transfer successful.</span>")
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>Funds transfer failed.</span>")
 			else

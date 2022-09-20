@@ -31,35 +31,24 @@
 	else
 		var/list/names = list()
 		var/list_size = 10
-		var/obj/item/card/id/ID
 
 		//IDs in hand
 		if(istype(user, /mob/living/carbon/human)) //Only 'humans' can hold ID cards
 			var/mob/living/carbon/human/H = user
-			ID = H.get_id_from_hands()
-			if(ID)
-				names += ID.registered_name
+			var/obj/item/card/id/id = H.get_id_from_hands()
+			if(istype(id))
+				names += id.registered_name
 				list_size-- //To stop list bloat
 
 		//IDs on body
-		var/list/ID_list = list()
+		var/list/id_list = list()
 		for(var/obj/item/I in range(0, target)) //Get ID cards
-			if(istype(I, /obj/item/card/id))
-				ID_list += I
-			else if(istype(I, /obj/item/pda))
-				var/obj/item/pda/PDA = I
-				if(PDA.id)
-					ID_list += PDA.id
-			else if(istype(I, /obj/item/storage/wallet))
-				var/obj/item/storage/wallet/W = I
-				if(W.front_id)
-					ID_list += W.front_id
+			if(I.GetID())
+				id_list += I.GetID()
 
-		for(var/I in ID_list) //Add card names to 'names'
-			var/obj/item/card/id/Card = I
-			ID = Card.registered_name
-			if(ID != target.real_name)
-				names += ID
+		for(var/obj/item/card/id/id in id_list) //Add card names to 'names'
+			if(id.registered_name != target.real_name)
+				names += id.registered_name
 				list_size--
 
 		if(!isabductor(user))

@@ -578,9 +578,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	var/obj/item/card/id/W = new /obj/item/card/id
 	if(duplicate_self)
-		var/duplicated_access = usr.get_item_by_slot(slot_wear_id)
-		if(duplicated_access && istype(duplicated_access, /obj/item/card/id))
-			var/obj/item/card/id/duplicated_id = duplicated_access
+		var/obj/item/duplicated_access = usr.get_item_by_slot(slot_wear_id)
+		if(duplicated_access && duplicated_access.GetID())
+			var/obj/item/card/id/duplicated_id = duplicated_access.GetID()
 			W.access = duplicated_id.access
 			W.icon_state = duplicated_id.icon_state
 		else

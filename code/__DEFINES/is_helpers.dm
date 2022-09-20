@@ -14,6 +14,8 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
+#define ispda(A) (istype(A, /obj/item/pda))
+
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))

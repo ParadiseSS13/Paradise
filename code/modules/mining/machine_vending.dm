@@ -379,9 +379,9 @@
 	var/points = 500
 
 /obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id))
+	if(I.GetID())
 		if(points)
-			var/obj/item/card/id/C = I
+			var/obj/item/card/id/C = I.GetID()
 			C.mining_points += points
 			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
 			points = 0

@@ -1307,8 +1307,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/IsVocal()
 	return 1
 
+/mob/proc/get_access_locations()
+	return list()
+
+//Must return list or IGNORE_ACCESS
 /mob/proc/get_access()
-	return list() //must return list or IGNORE_ACCESS
+	. = list()
+	for(var/obj/item/access_location in get_access_locations())
+		. |= access_location.GetAccess()
 
 /mob/proc/create_attack_log(text, collapse = TRUE)
 	LAZYINITLIST(attack_log_old)

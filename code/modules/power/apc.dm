@@ -484,7 +484,7 @@
 			chargecount = 0
 			update_icon()
 
-	else if(W.GetID())			// trying to unlock the interface with an ID card
+	else if(W.GetID() || ispda(W))			// trying to unlock the interface with an ID card
 		togglelock(user)
 
 	else if(istype(W, /obj/item/stack/cable_coil) && opened)

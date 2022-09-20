@@ -287,19 +287,11 @@
 		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-
-		var/obj/item/card/id/id_card = null
-
-		if(istype(I, /obj/item/card/id))
-			id_card = I
-		else
-			var/obj/item/pda/pda = I
-			id_card = pda.id
-
-		if(ACCESS_SEC_DOORS in id_card.access || emagged)
+	if(I.GetID())
+		var/obj/item/card/id/id = I.GetID()
+		if(ACCESS_SEC_DOORS in id.access || emagged)
 			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
-			stored_name = id_card.registered_name
+			stored_name = id.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
 		else
@@ -694,6 +686,7 @@
 	desc = "The latest fashion accessory for your favorite pets!"
 	icon_state = "petcollar"
 	item_color = "petcollar"
+	actions_types = list(/datum/action/item_action/accessory/petcollar)
 	var/tagname = null
 	var/obj/item/card/id/access_id
 
@@ -702,38 +695,42 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/accessory/petcollar/proc/remove_id(mob/living/user)
+	if(access_id)
+		to_chat(user, "<span class='notice'>You unclip \the [access_id] from \the [src].</span>")
+		access_id.forceMove(get_turf(user))
+		user.put_in_hands(access_id)
+		access_id = null
+		return
+	to_chat(user, "<span class='notice'>There is no ID card in \the [src].</span>")
+
 /obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
-	var/option = "Change Name"
-	if(access_id)
-		option = input(user, "What do you want to do?", "[src]", option) as null|anything in list("Change Name", "Remove ID")
+	remove_id(user)
 
-	switch(option)
-		if("Change Name")
-			var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
-			if(t)
-				tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
-				name = "[initial(name)] - [tagname]"
-		if("Remove ID")
-			if(access_id)
-				user.visible_message("<span class='warning'>[user] starts unclipping \the [access_id] from \the [src].</span>")
-				if(do_after(user, 50, target = user) && access_id)
-					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
-					access_id.forceMove(get_turf(user))
-					user.put_in_hands(access_id)
-					access_id = null
-
-/obj/item/clothing/accessory/petcollar/attackby(obj/item/card/id/W, mob/user, params)
-	if(!istype(W))
-		return ..()
-	if(access_id)
-		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>")
-	user.drop_item()
-	W.forceMove(src)
-	access_id = W
-	to_chat(user, "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>")
+/obj/item/clothing/accessory/petcollar/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pen))
+		if(istype(loc, /obj/item/clothing/under))
+			return ..()
+		var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
+		if(t)
+			tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
+			name = "[initial(name)] - [tagname]"
+		return
+	if(istype(I, /obj/item/card/id))
+		if(access_id)
+			to_chat(user, "<span class='notice'>There is already \a [access_id] clipped onto \the [src]</span>")
+		user.drop_item()
+		I.forceMove(src)
+		access_id = I
+		to_chat(user, "<span class='notice'>\The [I] clips onto \the [src] snugly.</span>")
+		return
+	. = ..()
 
 /obj/item/clothing/accessory/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()
+
+/obj/item/clothing/accessory/petcollar/GetID()
+	return access_id ? access_id : ..()
 
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
 	. = ..()

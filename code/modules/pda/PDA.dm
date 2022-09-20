@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return ..()
 
 /obj/item/pda/GetID()
-	return id
+	return id ? id : ..()
 
 /obj/item/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr

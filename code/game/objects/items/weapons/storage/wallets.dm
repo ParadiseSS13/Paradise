@@ -83,14 +83,10 @@
 		H.sec_hud_set_ID()
 
 /obj/item/storage/wallet/GetID()
-	return front_id
+	return front_id ? front_id : ..()
 
 /obj/item/storage/wallet/GetAccess()
-	var/obj/item/I = GetID()
-	if(I)
-		return I.GetAccess()
-	else
-		return ..()
+	return front_id ? front_id.GetAccess() : ..()
 
 /obj/item/storage/wallet/random/New()
 	..()

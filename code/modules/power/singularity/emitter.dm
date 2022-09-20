@@ -236,7 +236,7 @@
 				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
 		return
 
-	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
+	if(W.GetID() || ispda(W))
 		if(emagged)
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
 			return

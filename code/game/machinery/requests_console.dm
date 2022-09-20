@@ -282,26 +282,25 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 
 /obj/machinery/requests_console/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id))
+	if(I.GetID())
 		if(inoperable(MAINT))
 			return
+		var/obj/item/card/id/id = I.GetID()
 		if(screen == RCS_MESSAUTH)
-			var/obj/item/card/id/T = I
-			msgVerified = "Verified by [T.registered_name] ([T.assignment])"
+			msgVerified = "Verified by [id.registered_name] ([id.assignment])"
 			SStgui.update_uis(src)
 		if(screen == RCS_ANNOUNCE)
-			var/obj/item/card/id/ID = I
-			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
+			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
 				announceAuth = 1
-				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
+				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
 			else
 				reset_message()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
 			SStgui.update_uis(src)
 		if(screen == RCS_SHIPPING)
-			var/obj/item/card/id/T = I
-			msgVerified = "Sender verified as [T.registered_name] ([T.assignment])"
+			msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
 			SStgui.update_uis(src)
+		return
 	if(istype(I, /obj/item/stamp))
 		if(inoperable(MAINT))
 			return
@@ -309,8 +308,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			var/obj/item/stamp/T = I
 			msgStamped = "Stamped with the [T.name]"
 			SStgui.update_uis(src)
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/requests_console/proc/reset_message(mainmenu = FALSE)
 	message = ""

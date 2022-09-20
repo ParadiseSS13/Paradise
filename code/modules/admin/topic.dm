@@ -2807,10 +2807,11 @@
 						continue
 					H.Paralyse(5)
 					if(H.wear_id)
-						var/obj/item/card/id/id = H.get_idcard()
-						for(var/A in id.access)
-							if(A == ACCESS_SECURITY)
-								security++
+						var/obj/item/card/id/id = H.get_id_card()
+						if(istype(id))
+							for(var/A in id.access)
+								if(A == ACCESS_SECURITY)
+									security++
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
 						for(var/obj/item/W in H)
