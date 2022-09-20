@@ -290,3 +290,13 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	category = list("Equipment")
+
+/datum/design/atmos_holofan
+	name = "ATMOS holofan projector"
+	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions."
+	id = "signmaker_atmos"
+	req_tech = list("engineering" = 7, "programming" = 6, "bluespace" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/holosign_creator/atmos
+	category = list("Equipment")
