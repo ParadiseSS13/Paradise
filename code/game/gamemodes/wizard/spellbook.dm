@@ -536,6 +536,15 @@
 	category = "Summons"
 	limit = 3
 
+/datum/spellbook_entry/item/mayhembottle
+	name = "Mayhem in a Bottle"
+	desc = "A magically infused bottle of blood, the scent of which will drive anyone nearby into a murderous frenzy."
+	item_path = /obj/item/mayhem
+	log_name = "MB"
+	category = "Artefacts"
+	limit = 1
+	cost = 2
+
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
