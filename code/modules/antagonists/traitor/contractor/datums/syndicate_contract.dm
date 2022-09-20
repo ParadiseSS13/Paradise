@@ -535,7 +535,8 @@
 				injury_target = M.get_organ(BODY_ZONE_CHEST)
 				injury_target.fracture()
 			else
-			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_LEG,BODY_ZONE_R_LEG))
+				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_R_LEG,BODY_ZONE_R_LEG))
+				injury_target.fracture()
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
