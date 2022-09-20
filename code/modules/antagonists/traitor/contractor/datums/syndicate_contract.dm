@@ -530,8 +530,11 @@
 			if(prob(50))
 				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND,BODY_ZONE_PRECISE_L_HAND,BODY_ZONE_PRECISE_R_FOOT,BODY_ZONE_PRECISE_L_FOOT))
 				injury_target.droplimb()
-		else
-			if(prob(10))
+		else //fracture
+			if(ismachineperson(M) || isslime(M)) //They dont have bones, will need something here
+				return //TEMP
+
+			else if(prob(10))
 				injury_target = M.get_organ(BODY_ZONE_CHEST)
 				injury_target.fracture()
 			else
