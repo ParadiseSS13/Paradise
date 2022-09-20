@@ -197,7 +197,7 @@
 /obj/item/clothing/suit/space/syndicate/contractor
 	name = "contractor space suit"
 	desc = "A specialised black and gold space suit that's quicker, and more compact than its standard Syndicate counterpart. Can be ultra-compressed into even the tightest of spaces."
-	slowdown = 1
+	slowdown = 0
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "syndicate-contractor"
 	item_state = "syndicate-contractor"

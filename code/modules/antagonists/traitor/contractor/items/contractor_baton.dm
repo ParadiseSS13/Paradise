@@ -6,7 +6,8 @@
 	stun_time = 1
 	cooldown = 2.5 SECONDS
 	force_off = 5
-	force_on = 15
+	force_on = 20
+	block_chance = 40
 	item_state_on = "contractor_baton"
 	icon_state_off = "contractor_baton_0"
 	icon_state_on = "contractor_baton_1"
