@@ -25,10 +25,12 @@
 	log_say("(TTS) [input]", user)
 
 /obj/item/ttsdevice/AltClick(mob/living/user)
-	var/noisechoice = input(user, "What noise would you like to make?", "Robot Noises") as null|anything in list("Beep","Buzz","Ping")
-	if(!src.Adjacent(user))
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-
+	if(!Adjacent(user))
+		return
+	var/noisechoice = input(user, "What noise would you like to make?", "Robot Noises") as null|anything in list("Beep","Buzz","Ping")
 	switch(noisechoice)
 		if("Beep")
 			user.visible_message("<span class='notice'>[user] has made their TTS beep!</span>", "You make your TTS beep!")

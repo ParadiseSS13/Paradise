@@ -583,48 +583,45 @@ REAGENT SCANNER
 
 	add_fingerprint(user)
 
-/obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
-	if(!user.incapacitated() && Adjacent(user))
-
-		if(cooldown)
-			to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
+/obj/item/analyzer/AltClick(mob/living/user) //Barometer output for measuring when the next storm happens
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(cooldown)
+		to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
+		return
+	var/turf/T = get_turf(user)
+	if(!T)
+		return
+	playsound(src, 'sound/effects/pop.ogg', 100)
+	var/area/user_area = T.loc
+	var/datum/weather/ongoing_weather = null
+	if(!user_area.outdoors)
+		to_chat(user, "<span class='warning'>[src]'s barometer function won't work indoors!</span>")
+		return
+	for(var/V in SSweather.processing)
+		var/datum/weather/W = V
+		if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
+			ongoing_weather = W
+			break
+	if(ongoing_weather)
+		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
+			to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
 			return
-
-		var/turf/T = get_turf(user)
-		if(!T)
-			return
-
-		playsound(src, 'sound/effects/pop.ogg', 100)
-		var/area/user_area = T.loc
-		var/datum/weather/ongoing_weather = null
-
-		if(!user_area.outdoors)
-			to_chat(user, "<span class='warning'>[src]'s barometer function won't work indoors!</span>")
-			return
-
-		for(var/V in SSweather.processing)
-			var/datum/weather/W = V
-			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
-				ongoing_weather = W
-				break
-
-		if(ongoing_weather)
-			if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-				to_chat(user, "<span class='warning'>[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]</span>")
-				return
-
-			to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")
-			if(ongoing_weather.aesthetic)
-				to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
+		to_chat(user, "<span class='notice'>The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)].</span>")
+		if(ongoing_weather.aesthetic)
+			to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
+	else
+		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
+		var/fixed = next_hit ? next_hit - world.time : -1
+		if(fixed < 0)
+			to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
 		else
-			var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
-			var/fixed = next_hit ? next_hit - world.time : -1
-			if(fixed < 0)
-				to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")
-			else
-				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
-		cooldown = TRUE
-		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
+			to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
+	cooldown = TRUE
+	addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))

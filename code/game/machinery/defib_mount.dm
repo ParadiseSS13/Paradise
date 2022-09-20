@@ -134,14 +134,12 @@
 	new /obj/item/mounted/frame/defib_mount(get_turf(user))
 	qdel(src)
 
-/obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/)
-	var/mob/living/carbon/human/user = usr
+/obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/human/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	var/obj/item/organ/external/temp2 = user.bodyparts_by_name["r_hand"]
 	var/obj/item/organ/external/temp = user.bodyparts_by_name["l_hand"]
-	if(!istype(user))
-		return
-	if(user.incapacitated())
-		return
 	if(!Adjacent(user))
 		return
 	if(!defib)

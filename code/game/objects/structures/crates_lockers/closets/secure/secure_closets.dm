@@ -48,7 +48,10 @@
 				req_access += pick(get_all_accesses())
 	..()
 
-/obj/structure/closet/secure_closet/proc/togglelock(mob/user)
+/obj/structure/closet/secure_closet/proc/togglelock(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(opened)
 		to_chat(user, "<span class='notice'>Close the locker first.</span>")
 		return

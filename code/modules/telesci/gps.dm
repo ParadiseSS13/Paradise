@@ -54,7 +54,10 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	update_icon()
 	addtimer(CALLBACK(src, .proc/reboot), EMP_DISABLE_TIME)
 
-/obj/item/gps/AltClick(mob/user)
+/obj/item/gps/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
 		return //user not valid to use gps
 	if(emped)

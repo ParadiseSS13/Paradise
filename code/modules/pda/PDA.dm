@@ -157,10 +157,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
-/obj/item/pda/AltClick(mob/user)
+/obj/item/pda/AltClick(mob/living/user)
 	if(issilicon(user))
 		return
-
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(can_use(user))
 		if(id)
 			remove_id(user)

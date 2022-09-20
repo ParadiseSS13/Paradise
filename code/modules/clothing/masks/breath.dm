@@ -24,8 +24,11 @@
 /obj/item/clothing/mask/breath/attack_self(var/mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/breath/AltClick(mob/user)
-	if( (!in_range(src, user)) || user.stat || user.restrained() )
+/obj/item/clothing/mask/breath/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated() || user.restrained())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user))
 		return
 	adjustmask(user)
 

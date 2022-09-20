@@ -113,10 +113,12 @@
 
 	return connected
 
-/obj/machinery/hydroponics/AltClick()
-	if(wrenchable && !usr.stat && !usr.lying && Adjacent(usr))
-		toggle_lid(usr)
+/obj/machinery/hydroponics/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	if(wrenchable && !user.lying && Adjacent(user))
+		toggle_lid(user)
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
 	if(!user || user.stat || user.restrained())

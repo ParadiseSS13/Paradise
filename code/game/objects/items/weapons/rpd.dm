@@ -178,7 +178,10 @@
 		ui.open()
 
 
-/obj/item/rpd/AltClick(mob/user)
+/obj/item/rpd/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	radial_menu(user)
 
 /obj/item/rpd/ui_data(mob/user)

@@ -315,9 +315,12 @@ Pipelines + Other Objects -> Pipe network
 	spawn(1)
 		user.canmove = 1
 
-/obj/machinery/atmospherics/AltClick(var/mob/living/L)
+/obj/machinery/atmospherics/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery))
-		L.handle_ventcrawl(src)
+		user.handle_ventcrawl(src)
 		return
 
 /obj/machinery/atmospherics/proc/can_crawl_through()

@@ -141,8 +141,11 @@
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
 
-/obj/item/flamethrower/AltClick(mob/user)
-	if(ptank && isliving(user) && user.Adjacent(src))
+/obj/item/flamethrower/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(ptank && user.Adjacent(src))
 		user.put_in_hands(ptank)
 		ptank = null
 		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")

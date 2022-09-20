@@ -45,11 +45,13 @@
 	qdel(src)
 	return crushed_can
 
-/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/user)
-	var/mob/living/carbon/human/H
+/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(!can_shake || !ishuman(user))
 		return ..()
-	H = user
+	var/mob/living/carbon/human/H = user
 	if(canopened)
 		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
 		return ..()

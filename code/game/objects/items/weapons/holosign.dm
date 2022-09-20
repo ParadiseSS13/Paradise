@@ -64,7 +64,10 @@
 	holosign_type = /obj/structure/holosign/wetsign
 	var/wet_enabled = FALSE
 
-/obj/item/holosign_creator/janitor/AltClick(mob/user)
+/obj/item/holosign_creator/janitor/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	wet_enabled = !wet_enabled
 	playsound(loc, 'sound/weapons/empty.ogg', 20)
 	if(wet_enabled)

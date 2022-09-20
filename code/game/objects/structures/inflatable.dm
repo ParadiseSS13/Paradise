@@ -43,10 +43,11 @@
 /obj/structure/inflatable/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 
-/obj/structure/inflatable/AltClick()
-	if(usr.stat || usr.restrained())
+/obj/structure/inflatable/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated() || user.restrained())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 	deconstruct(TRUE)
 
