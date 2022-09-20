@@ -290,16 +290,15 @@ const AlloyLine = (properties, context) => {
                   align="center"
                 >
                   {ore.name}
-
-                </FlexItem>
+            </FlexItem>
                 <Flex.Item
                   basis="35%"
                   textAlign="middle"
                   color={ore.amount > 0 ? 'good' : 'gray'}
                   align="center"
-                  >
-                    {ore.description}
-                  </Flex.Item>
+                >
+                  {ore.description}
+            </Flex.Item>
           <Flex.Item
             basis="10%"
             textAlign="center"
@@ -326,9 +325,9 @@ const AlloyLine = (properties, context) => {
                   'amount': value,
                 })
               }
-              />
-
+            />
           </Flex.Item>
-  </Flex></Box>
+      </Flex>
+    </Box>
   )
 };
