@@ -34,6 +34,7 @@
 
 /obj/item/assembly/health/process()
 	if(!scanning || !secured)
+		STOP_PROCESSING(SSobj, src) // It should never reach here, but if it somehow does stop processing
 		return
 
 	var/atom/A = src
@@ -44,6 +45,7 @@
 	// like get_turf(), but for mobs.
 
 	if(!isliving(A))
+		toggle_scan()
 		return
 
 	var/mob/living/M = A
