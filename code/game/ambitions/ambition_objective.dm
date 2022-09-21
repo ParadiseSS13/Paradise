@@ -145,6 +145,10 @@
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > 10 MINUTES || player.mind == owner)
 			continue
+
+		if(owner.current.z != player.z)
+			continue
+
 		players += player.real_name
 	var/random_player = "Капитан"
 	if(players.len)
