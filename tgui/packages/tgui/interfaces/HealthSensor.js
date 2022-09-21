@@ -21,7 +21,7 @@ export const HealthSensor = (props, context) => {
           <LabeledList>
             <LabeledList.Item label="Scanning">
               <Button
-                icon={'power-off'}
+                icon='power-off'
                 content={on ? 'On' : 'Off'}
                 color={on ? null : 'red'}
                 selected={on}
