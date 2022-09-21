@@ -27234,6 +27234,9 @@
 /area/hydroponics)
 "box" = (
 /obj/effect/landmark/start/cargo_technician,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "boy" = (
@@ -30180,19 +30183,6 @@
 	icon_state = "darkred"
 	},
 /area/hallway/secondary/exit)
-"bvQ" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window{
-	base_state = "right";
-	dir = 8;
-	icon_state = "right";
-	name = "Mailing Room";
-	req_access_txt = "50"
-	},
-/obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/office)
 "bvR" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -32051,6 +32041,10 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -33679,11 +33673,8 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bEf" = (
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/structure/table/reinforced,
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -34222,9 +34213,8 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bFy" = (
-/obj/structure/chair{
-	dir = 4
-	},
+/obj/structure/table,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -34980,12 +34970,12 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bHn" = (
-/obj/item/folder/yellow,
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 4
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/cola{
+	pixel_y = 8;
+	pixel_x = -6
 	},
-/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/drinkingglass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -36375,6 +36365,15 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bKS" = (
@@ -76332,6 +76331,14 @@
 	icon_state = "dark"
 	},
 /area/maintenance/asmaint)
+"jOm" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "packageSort2"
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/turf/simulated/floor/plating,
+/area/quartermaster/office)
 "jPb" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom{
 	dir = 1
@@ -84420,6 +84427,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"qus" = (
+/obj/structure/table,
+/obj/item/toy/figure/crew/cargotech,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/office)
 "qvf" = (
 /obj/structure/table,
 /obj/item/melee/baton/cattleprod,
@@ -89719,6 +89731,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "uVj" = (
@@ -112056,8 +112069,8 @@ bTr
 bUg
 bKB
 bxb
-bxb
-bxb
+bKB
+bKB
 bxb
 aaa
 iBU
@@ -116662,7 +116675,7 @@ blT
 blT
 blT
 bvJ
-bxd
+jOm
 byk
 byz
 bzG
@@ -117695,7 +117708,7 @@ byB
 bzH
 bBo
 bIJ
-bBn
+qus
 box
 bBn
 bKC
@@ -118210,7 +118223,7 @@ bzJ
 bzJ
 bzJ
 bDX
-bvQ
+bDX
 bDX
 bzJ
 ccZ
