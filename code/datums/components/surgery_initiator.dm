@@ -97,7 +97,7 @@
 
 	if(!isnull(current_surgery) && !current_surgery.step_in_progress)
 		var/datum/surgery_step/current_step = current_surgery.get_surgery_step()
-		if(current_step.try_op(user, target, user.zone_selected, parent, current_surgery))
+		if(current_step.try_op(user, target, user.zone_selected, parent, current_surgery) == SURGERY_INITIATE_SUCCESS)
 			return
 		if(istype(parent, /obj/item/scalpel/laser/manager/debug))
 			return
