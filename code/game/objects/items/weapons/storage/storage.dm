@@ -59,7 +59,7 @@
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
 			if(M.s_active)
 				M.s_active.close(M)
-			show_to(M)
+			open(M)
 			return
 
 		if((istype(over_object, /obj/structure/table) || istype(over_object, /turf/simulated/floor)) \
@@ -102,14 +102,12 @@
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
 			if(usr.s_active)
 				usr.s_active.close(usr)
-			show_to(usr)
+			open(usr)
 			return
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
-		add_fingerprint(user)
+		open(user)
 	else if(isobserver(user))
 		show_to(user)
 
@@ -164,10 +162,10 @@
 			continue
 		hide_from(M)
 
-/obj/item/storage/proc/open(mob/user as mob)
-	if(use_sound)
+/obj/item/storage/proc/open(mob/user)
+	if(use_sound && isliving(user))
 		playsound(loc, use_sound, 50, TRUE, -5)
-
+		add_fingerprint(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -424,8 +422,6 @@
 	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(loc, "rustle", 50, TRUE, -5)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == src && !H.get_active_hand())	//Prevents opening if it's in a pocket.
@@ -441,7 +437,7 @@
 	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
-		show_to(user)
+		open(user)
 	else
 		..()
 	add_fingerprint(user)
