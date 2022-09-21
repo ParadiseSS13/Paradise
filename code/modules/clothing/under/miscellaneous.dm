@@ -278,77 +278,6 @@
 	item_state = "g_suit"
 	item_color = "teal_suit"
 
-/obj/item/clothing/under/suit_jacket
-	name = "black suit"
-	desc = "A black suit and red tie. Very formal."
-	icon_state = "black_suit"
-	item_state = "bl_suit"
-	item_color = "black_suit"
-
-/obj/item/clothing/under/suit_jacket/really_black
-	name = "executive suit"
-	desc = "A formal black suit and red tie, intended for the station's finest."
-	icon_state = "really_black_suit"
-	item_state = "bl_suit"
-	item_color = "really_black_suit"
-
-/obj/item/clothing/under/suit_jacket/female
-	name = "executive suit"
-	desc = "A formal trouser suit for women, intended for the station's finest."
-	icon_state = "black_suit_fem"
-	item_state = "black_suit_fem"
-	item_color = "black_suit_fem"
-
-/obj/item/clothing/under/suit_jacket/red
-	name = "red suit"
-	desc = "A red suit and blue tie. Somewhat formal."
-	icon_state = "red_suit"
-	item_state = "r_suit"
-	item_color = "red_suit"
-
-/obj/item/clothing/under/suit_jacket/navy
-	name = "navy suit"
-	desc = "A navy suit and red tie, intended for the station's finest."
-	icon_state = "navy_suit"
-	item_state = "navy_suit"
-	item_color = "navy_suit"
-
-/obj/item/clothing/under/suit_jacket/tan
-	name = "tan suit"
-	desc = "A tan suit with a yellow tie. Smart, but casual."
-	icon_state = "tan_suit"
-	item_state = "tan_suit"
-	item_color = "tan_suit"
-
-/obj/item/clothing/under/suit_jacket/burgundy
-	name = "burgundy suit"
-	desc = "A burgundy suit and black tie. Somewhat formal."
-	icon_state = "burgundy_suit"
-	item_state = "burgundy_suit"
-	item_color = "burgundy_suit"
-
-/obj/item/clothing/under/suit_jacket/charcoal
-	name = "charcoal suit"
-	desc = "A charcoal suit and blue tie. Very professional."
-	icon_state = "charcoal_suit"
-	item_state = "charcoal_suit"
-	item_color = "charcoal_suit"
-
-/obj/item/clothing/under/blackskirt
-	name = "black skirt"
-	desc = "A black skirt, very fancy!"
-	icon_state = "blackskirt"
-	item_color = "blackskirt"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-
-/obj/item/clothing/under/schoolgirl
-	name = "schoolgirl uniform"
-	desc = "It's just like one of my Japanese animes!"
-	icon_state = "schoolgirl"
-	item_state = "schoolgirl"
-	item_color = "schoolgirl"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-
 /obj/item/clothing/under/overalls
 	name = "laborer's overalls"
 	desc = "A set of durable overalls for getting the job done."
@@ -413,113 +342,6 @@
 	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
 	has_sensor = FALSE
 
-//dress
-
-/obj/item/clothing/under/dress/dress_fire
-	name = "flame dress"
-	desc = "A small black dress with blue flames print on it."
-	icon_state = "dress_fire"
-	item_color = "dress_fire"
-
-/obj/item/clothing/under/dress/dress_green
-	name = "green dress"
-	desc = "A simple, tight fitting green dress."
-	icon_state = "dress_green"
-	item_color = "dress_green"
-
-/obj/item/clothing/under/dress/dress_orange
-	name = "orange dress"
-	desc = "A fancy orange gown for those who like to show leg."
-	icon_state = "dress_orange"
-	item_color = "dress_orange"
-
-/obj/item/clothing/under/dress/dress_pink
-	name = "pink dress"
-	desc = "A simple, tight fitting pink dress."
-	icon_state = "dress_pink"
-	item_color = "dress_pink"
-
-/obj/item/clothing/under/dress/dress_yellow
-	name = "yellow dress"
-	desc = "A flirty, little yellow dress."
-	icon_state = "dress_yellow"
-	item_color = "dress_yellow"
-
-/obj/item/clothing/under/dress/dress_saloon
-	name = "saloon girl dress"
-	desc = "A old western inspired gown for the girl who likes to drink."
-	icon_state = "dress_saloon"
-	item_color = "dress_saloon"
-
-/obj/item/clothing/under/dress/dress_hop
-	name = "head of personal's dress uniform"
-	desc = "Feminine fashion for the style concious HoP."
-	icon_state = "dress_hop"
-	item_color = "dress_hop"
-
-/obj/item/clothing/under/dress/plaid_blue
-	name = "blue plaid skirt"
-	desc = "A preppy blue skirt with a white blouse."
-	icon_state = "plaid_blue"
-	item_color = "plaid_blue"
-
-/obj/item/clothing/under/dress/plaid_red
-	name = "red plaid skirt"
-	desc = "A preppy red skirt with a white blouse."
-	icon_state = "plaid_red"
-	item_color = "plaid_red"
-
-/obj/item/clothing/under/dress/plaid_purple
-	name = "blue purple skirt"
-	desc = "A preppy purple skirt with a white blouse."
-	icon_state = "plaid_purple"
-	item_color = "plaid_purple"
-
-//wedding stuff
-
-/obj/item/clothing/under/wedding/bride_orange
-	name = "orange wedding dress"
-	desc = "A big and puffy orange dress."
-	icon_state = "bride_orange"
-	item_color = "bride_orange"
-	flags_inv = HIDESHOES
-
-/obj/item/clothing/under/wedding/bride_purple
-	name = "purple wedding dress"
-	desc = "A big and puffy purple dress."
-	icon_state = "bride_purple"
-	item_color = "bride_purple"
-	flags_inv = HIDESHOES
-
-/obj/item/clothing/under/wedding/bride_blue
-	name = "blue wedding dress"
-	desc = "A big and puffy blue dress."
-	icon_state = "bride_blue"
-	item_color = "bride_blue"
-	flags_inv = HIDESHOES
-
-/obj/item/clothing/under/wedding/bride_red
-	name = "red wedding dress"
-	desc = "A big and puffy red dress."
-	icon_state = "bride_red"
-	item_color = "bride_red"
-	flags_inv = HIDESHOES
-
-/obj/item/clothing/under/wedding/bride_white
-	name = "white wedding dress"
-	desc = "A white wedding gown made from the finest silk."
-	icon_state = "bride_white"
-	item_color = "bride_white"
-	flags_inv = HIDESHOES
-
-/obj/item/clothing/under/sundress
-	name = "sundress"
-	desc = "Makes you want to frolic in a field of daisies."
-	icon_state = "sundress"
-	item_state = "sundress"
-	item_color = "sundress"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
 /obj/item/clothing/under/roman
 	name = "roman armor"
 	desc = "An ancient Roman armor. Made of metallic strips and leather straps."
@@ -571,42 +393,6 @@
 	icon_state = "flapper"
 	item_state = "flapper"
 	item_color = "flapper"
-
-/obj/item/clothing/under/mafia
-	name = "mafia outfit"
-	desc = "The business of the mafia is business."
-	icon_state = "mafia"
-	item_state = "mafia"
-	item_color = "mafia"
-
-/obj/item/clothing/under/mafia/vest
-	name = "mafia vest"
-	desc = "Extreme problems often require extreme solutions."
-	icon_state = "mafiavest"
-	item_state = "mafiavest"
-	item_color = "mafiavest"
-
-/obj/item/clothing/under/mafia/white
-	name = "white mafia outfit"
-	desc = "The best defense against the treacherous is treachery."
-	icon_state = "mafiawhite"
-	item_state = "mafiawhite"
-	item_color = "mafiawhite"
-
-/obj/item/clothing/under/mafia/sue
-	name = "mafia vest"
-	desc = "The business is born into."
-	icon_state = "suevest"
-	item_state = "suevest"
-	item_color = "suevest"
-
-/obj/item/clothing/under/mafia/tan
-	name = "leather mafia outfit"
-	desc = "The big drum sounds good only from a distance."
-	icon_state = "mafiatan"
-	item_state = "mafiatan"
-	item_color = "mafiatan"
-
 
 /obj/item/clothing/under/bane
 	name = "bane harness"
@@ -664,41 +450,6 @@
 	icon_state = "assistant_formal"
 	item_state = "gy_suit"
 	item_color = "assistant_formal"
-
-/obj/item/clothing/under/blacktango
-	name = "black tango dress"
-	desc = "Filled with Latin fire."
-	icon_state = "black_tango"
-	item_state = "wcoat"
-	item_color = "black_tango"
-
-/obj/item/clothing/under/stripeddress
-	name = "striped dress"
-	desc = "Fashion in space."
-	icon_state = "striped_dress"
-	item_state = "stripeddress"
-	item_color = "striped_dress"
-
-/obj/item/clothing/under/sailordress
-	name = "sailor dress"
-	desc = "Formal wear for a leading lady."
-	icon_state = "sailor_dress"
-	item_state = "sailordress"
-	item_color = "sailor_dress"
-
-/obj/item/clothing/under/redeveninggown
-	name = "red evening gown"
-	desc = "Fancy dress for space bar singers."
-	icon_state = "red_evening_gown"
-	item_state = "redeveninggown"
-	item_color = "red_evening_gown"
-
-/obj/item/clothing/under/suit_jacket/checkered
-	name = "checkered suit"
-	desc = "That's a very nice suit you have there. Shame if something were to happen to it, eh?"
-	icon_state = "checkered_suit"
-	item_state = "checkered_suit"
-	item_color = "checkered_suit"
 
 /obj/item/clothing/under/owl
 	name = "owl uniform"
@@ -759,40 +510,6 @@
 	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = FALSE // HUNKE
-
-/obj/item/clothing/under/victdress
-	name = "black victorian dress"
-	desc = "A victorian style dress, fancy!"
-	icon_state = "victorianblackdress"
-	item_state = "victorianblackdress"
-	item_color = "victorianblackdress"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/victdress/red
-	name = "red victorian dress"
-	icon_state = "victorianreddress"
-	item_state = "victorianreddress"
-	item_color = "victorianreddress"
-
-/obj/item/clothing/under/victsuit
-	name = "victorian suit"
-	desc = "A victorian style suit, fancy!"
-	icon_state = "victorianvest"
-	item_state = "victorianvest"
-	item_color = "victorianvest"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/victsuit/redblk
-	name = "red and black victorian suit"
-	icon_state = "victorianblred"
-	item_state = "victorianblred"
-	item_color = "victorianblred"
-
-/obj/item/clothing/under/victsuit/red
-	name = "red victorian suit"
-	icon_state = "victorianredvest"
-	item_state = "victorianredvest"
-	item_color = "victorianredvest"
 
 /obj/item/clothing/under/burial
 	name = "burial garments"

@@ -962,7 +962,7 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/clothing/under/suit_jacket,
+/obj/item/clothing/under/suit,
 /obj/item/clothing/suit/wcoat,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"

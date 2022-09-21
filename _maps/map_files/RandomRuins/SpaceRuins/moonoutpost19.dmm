@@ -3740,7 +3740,7 @@
 /area/ruin/space/unpowered)
 "hm" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/navy,
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "hn" = (
@@ -4913,7 +4913,7 @@
 /area/ruin/space/unpowered)
 "ke" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/suit_jacket/burgundy,
+/obj/item/clothing/under/suit/burgundy,
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "kf" = (

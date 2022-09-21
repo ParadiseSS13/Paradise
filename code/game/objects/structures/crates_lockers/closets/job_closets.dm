@@ -113,10 +113,10 @@
 	open_door_sprite = "generic_door"
 
 /obj/structure/closet/lawcloset/populate_contents()
-	new /obj/item/clothing/under/rank/civilian/lawyer/female(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/red(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/bluesuit(src)
+	new /obj/item/clothing/under/suit/female(src)
 	new /obj/item/clothing/suit/storage/lawyer/bluejacket(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/purpsuit(src)
 	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)

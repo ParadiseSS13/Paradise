@@ -153,11 +153,6 @@
 	item_state = "lawyer_black"
 	item_color = "lawyer_black"
 
-/obj/item/clothing/under/rank/civilian/lawyer/female
-	icon_state = "black_suit_fem"
-	item_state = "black_suit_fem"
-	item_color = "black_suit_fem"
-
 /obj/item/clothing/under/rank/civilian/lawyer/red
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"

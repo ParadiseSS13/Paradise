@@ -127,7 +127,7 @@
 
 /datum/gear/uniform/skirt/black
 	display_name = "Skirt, black"
-	path = /obj/item/clothing/under/blackskirt
+	path = /obj/item/clothing/under/dress/blackskirt
 
 /datum/gear/uniform/skirt/job
 	main_typepath = /datum/gear/uniform/skirt/job

@@ -11157,7 +11157,7 @@
 /obj/item/storage/box/evidence,
 /obj/item/clothing/suit/wcoat,
 /obj/item/clothing/suit/blacktrenchcoat,
-/obj/item/clothing/under/suit_jacket/tan,
+/obj/item/clothing/under/suit/tan,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
@@ -13310,7 +13310,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aIT" = (
-/obj/item/clothing/under/mafia,
+/obj/item/clothing/under/suit/mafia,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aIU" = (
@@ -13819,7 +13819,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aKf" = (
-/obj/item/clothing/under/mafia/sue,
+/obj/item/clothing/under/suit/mafia/vest,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aKg" = (

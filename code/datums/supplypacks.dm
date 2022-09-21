@@ -1630,11 +1630,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/head/fedora/brownfedora,
 					/obj/item/clothing/head/fedora,
 					/obj/item/clothing/under/flappers,
-					/obj/item/clothing/under/mafia,
-					/obj/item/clothing/under/mafia/vest,
-					/obj/item/clothing/under/mafia/white,
-					/obj/item/clothing/under/mafia/sue,
-					/obj/item/clothing/under/mafia/tan,
+					/obj/item/clothing/under/suit/mafia,
+					/obj/item/clothing/under/suit/mafia/vest,
+					/obj/item/clothing/under/suit/mafia/white,
+					/obj/item/clothing/under/suit/mafia/tan,
 					/obj/item/gun/projectile/shotgun/toy/tommygun,
 					/obj/item/gun/projectile/shotgun/toy/tommygun)
 	cost = 15
@@ -1731,7 +1730,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
-	contains = list(/obj/item/clothing/under/blacktango,
+	contains = list(/obj/item/clothing/under/dress/blacktango,
 					/obj/item/clothing/under/assistantformal,
 					/obj/item/clothing/under/assistantformal,
 					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
@@ -1752,11 +1751,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/laceup,
-					/obj/item/clothing/under/suit_jacket/charcoal,
-					/obj/item/clothing/under/suit_jacket/navy,
-					/obj/item/clothing/under/suit_jacket/burgundy,
-					/obj/item/clothing/under/suit_jacket/checkered,
-					/obj/item/clothing/under/suit_jacket/tan,
+					/obj/item/clothing/under/suit/charcoal,
+					/obj/item/clothing/under/suit/navy,
+					/obj/item/clothing/under/suit/burgundy,
+					/obj/item/clothing/under/suit/checkered,
+					/obj/item/clothing/under/suit/tan,
 					/obj/item/lipstick/random)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"

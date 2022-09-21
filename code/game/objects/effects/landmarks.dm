@@ -449,12 +449,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/schoolgirl/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/schoolgirl(src.loc)
+	new /obj/item/clothing/under/dress/schoolgirl(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/maid/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/blackskirt(src.loc)
+	new /obj/item/clothing/under/dress/blackskirt(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/beret , /obj/item/clothing/head/rabbitears )
 	new CHOICE(src.loc)
 	new /obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
@@ -463,7 +463,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/costume/butler/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(src.loc)
-	new /obj/item/clothing/under/suit_jacket(src.loc)
+	new /obj/item/clothing/under/suit(src.loc)
 	new /obj/item/clothing/head/that(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -550,7 +550,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/cutewitch/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/sundress(src.loc)
+	new /obj/item/clothing/under/dress/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
 	new /obj/item/twohanded/staff/broom(src.loc)
 	return INITIALIZE_HINT_QDEL

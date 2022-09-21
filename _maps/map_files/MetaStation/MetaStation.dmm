@@ -32496,7 +32496,7 @@
 "bSd" = (
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/laceup,
-/obj/item/clothing/under/suit_jacket/really_black,
+/obj/item/clothing/under/suit/really_black,
 /obj/item/clothing/glasses/sunglasses,
 /obj/machinery/light{
 	dir = 1

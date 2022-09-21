@@ -14,7 +14,7 @@
 	new /obj/item/clothing/suit/witchhunter(src)
 	new /obj/item/clothing/head/witchhunter_hat(src)
 	new /obj/item/clothing/suit/holidaypriest(src)
-	new /obj/item/clothing/under/wedding/bride_white(src)
+	new /obj/item/clothing/under/dress/wedding/bride_white(src)
 	new /obj/item/storage/backpack/cultpack(src)
 	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
 	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
