@@ -48,8 +48,8 @@ export const HealthSensor = (props, context) => {
             {user_health !== null && (
               <LabeledList.Item label="User health">
                 <Box color={Health2Color(user_health)}
-                    bold={user_health >= 100}>
-                    <AnimatedNumber value={user_health}/>
+                  bold={user_health >= 100}>
+                  <AnimatedNumber value={user_health}/>
                 </Box>
               </LabeledList.Item>
             )}
