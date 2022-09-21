@@ -1487,16 +1487,6 @@
 /turf/space,
 /turf/simulated/shuttle/plating,
 /area/shuttle/vox)
-"afY" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	frequency = 1331;
-	id_tag = "synd_pump"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "afZ" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion_l";
@@ -59575,9 +59565,9 @@
 /area/chapel/office)
 "gGF" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
 	frequency = 1331;
-	id_tag = "vox_east_vent";
-	dir = 1
+	id_tag = "vox_east_vent"
 	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -95887,8 +95877,8 @@
 	},
 /obj/item/gun/energy/gun/advtaser,
 /obj/item/gun/energy/gun/advtaser{
-	pixel_y = 3;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -96804,19 +96794,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/lab)
-"pCr" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "BridgeLockdown";
-	name = "Bridge Lockdown"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
-/area/bridge)
 "pCs" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -103822,9 +103799,9 @@
 /area/bridge/checkpoint/south)
 "reZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
 	frequency = 1331;
-	id_tag = "vox_west_vent";
-	dir = 1
+	id_tag = "vox_west_vent"
 	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -122713,9 +122690,9 @@
 	})
 "vDG" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
 	frequency = 1331;
-	id_tag = "synd_pump";
-	dir = 1
+	id_tag = "synd_pump"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -142431,7 +142408,7 @@ aaa
 anx
 vDG
 afq
-afY
+vDG
 anx
 akA
 abB
@@ -143202,7 +143179,7 @@ aaa
 aeT
 aft
 aoX
-afY
+vDG
 anx
 akJ
 abB
@@ -171803,7 +171780,7 @@ nqM
 hhH
 luQ
 aaa
-pCr
+qws
 jJO
 cEn
 cGm
