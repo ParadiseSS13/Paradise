@@ -85,7 +85,7 @@
 		else if(isliving(thing))
 			. = 1
 			var/mob/living/L = thing
-			if(L.flying)
+			if(L.flying || L.incorporeal_move)
 				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckling
 			if(!buckle_check)

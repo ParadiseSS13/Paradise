@@ -99,7 +99,7 @@
 	//Flies right over the chasm
 	if(isliving(AM))
 		var/mob/living/M = AM
-		if(M.flying || M.floating)
+		if(M.flying || M.floating || M.incorporeal_move)
 			return FALSE
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM

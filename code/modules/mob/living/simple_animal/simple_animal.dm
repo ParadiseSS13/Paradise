@@ -393,6 +393,8 @@
 		var/mob/living/L = the_target
 		if(L.stat != CONSCIOUS)
 			return FALSE
+		if(L.incorporeal_move)
+			return FALSE
 	if(ismecha(the_target))
 		var/obj/mecha/M = the_target
 		if(M.occupant)
