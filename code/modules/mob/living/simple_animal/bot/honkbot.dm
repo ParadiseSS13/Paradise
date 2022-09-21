@@ -13,7 +13,7 @@
 	bot_type = HONK_BOT
 	bot_filter = RADIO_HONKBOT
 	model = "Honkbot"
-	bot_core_type = /obj/machinery/bot_core/honkbot
+	req_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 	window_id = "autohonk"
 	window_name = "Honkomatic Bike Horn Unit v1.0.7"
 	data_hud_type = DATA_HUD_SECURITY_BASIC // show jobs
@@ -29,9 +29,6 @@
 	var/last_found = FALSE	//There's a delay
 	var/threatlevel = FALSE
 	var/arrest_type = FALSE
-
-/obj/machinery/bot_core/honkbot
-	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 
 /mob/living/simple_animal/bot/honkbot/Initialize(mapload)
 	. = ..()

@@ -4,6 +4,7 @@
 	maxHealth = 125
 	health = 125
 	icon_state = "alienh_s"
+	alien_movement_delay = -1 //hunters are faster than normal xenomorphs, and people
 
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	. = ..()
@@ -15,9 +16,6 @@
 	. = ..()
 	. += /obj/item/organ/internal/xenos/plasmavessel/hunter
 
-/mob/living/carbon/alien/humanoid/hunter/movement_delay()
-	. = -1		//hunters are sanic
-	. += ..()	//but they still need to slow down on stun
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
 	if(m_intent == MOVE_INTENT_RUN || IS_HORIZONTAL(src))

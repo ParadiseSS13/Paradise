@@ -57,7 +57,7 @@
 
 /obj/item/weaponcrafting/gunkit/ebow
 	name = "\improper energy crossbow parts kit"
-	desc = "Highly illegal weapons refurbishment kit that allows you to turn the standard proto-kinetic accelerator into a near-duplicate energy crossbow. Almost like the real thing!"
+	desc = "Highly illegal weapons refurbishment kit that allows you to turn a laser gun into a near-duplicate energy crossbow. Almost like the real thing!"
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 
 /obj/item/weaponcrafting/gunkit/immolator
