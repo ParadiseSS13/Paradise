@@ -227,10 +227,9 @@
 	if(is_valid_tool(user, tool))
 		if(target_zone == surgery.location)
 			if(get_location_accessible(target, target_zone) || surgery.ignore_clothes)
-				initiate(user, target, target_zone, tool, surgery)
-			else
-				to_chat(user, "<span class='warning'>You need to expose [target]'s [parse_zone(target_zone)] before you can perform surgery on it!")
-			return TRUE //returns TRUE so we don't stab the guy in the dick or wherever.
+				return initiate(user, target, target_zone, tool, surgery)
+			to_chat(user, "<span class='warning'>You need to expose [target]'s [parse_zone(target_zone)] before you can perform surgery on it!")
+			return SURGERY_INITIATE_FAILURE //returns TRUE so we don't stab the guy in the dick or wherever.
 
 	if(repeatable)
 		// you can continuously, manually, perform a step, so long as you continue to use the correct tool.
@@ -241,11 +240,11 @@
 		if(next_step)
 			surgery.step_number++
 			if(next_step.try_op(user, target, user.zone_selected, user.get_active_hand(), surgery))
-				return TRUE
+				return SURGERY_INITIATE_SUCCESS
 			else
 				surgery.step_number--
 
-	return FALSE
+	return SURGERY_INITIATE_CONTINUE_CHAIN
 
 /**
  * Determines whether or not this surgery step can repeat if its end/fail steps returned SURGERY_STEP_RETRY.
@@ -286,14 +285,15 @@
 	var/begin_step_result = begin_step(user, target, target_zone, tool, surgery)
 	if(begin_step_result == SURGERY_BEGINSTEP_ABORT)
 		surgery.step_in_progress = FALSE
-		return
+		return SURGERY_INITIATE_FAILURE
+
 	if(begin_step_result == SURGERY_BEGINSTEP_SKIP)
 		surgery.step_number++
 		if(surgery.step_number > length(surgery.steps))
 			surgery.complete(target)
 
 		surgery.step_in_progress = FALSE
-		return TRUE
+		return SURGERY_INITIATE_SUCCESS
 
 	if(tool)
 		speed_mod = tool.toolspeed
@@ -314,40 +314,45 @@
 		prob_success = allowed_tools[implement_type]
 	prob_success *= get_location_modifier(target)
 
-	if(do_after(user, modded_time, target = target))
+	if(!do_after(user, modded_time, target = target))
+		surgery.step_in_progress = FALSE
+		return SURGERY_INITIATE_INTERRUPTED
 
-		var/chem_check_result = chem_check(target)
-		var/pain_mod = deal_pain(user, target, target_zone, tool, surgery)
-		prob_success *= pain_mod
+	var/chem_check_result = chem_check(target)
+	var/pain_mod = deal_pain(user, target, target_zone, tool, surgery)
+	prob_success *= pain_mod
 
-		var/step_result
+	var/step_result
 
-		if((prob(prob_success) || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
-			step_result = end_step(user, target, target_zone, tool, surgery)
-		else
-			step_result = fail_step(user, target, target_zone, tool, surgery)
-		switch(step_result)
-			if(SURGERY_STEP_CONTINUE)
-				advance = TRUE
-			if(SURGERY_STEP_RETRY_ALWAYS)
+	if((prob(prob_success) || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
+		step_result = end_step(user, target, target_zone, tool, surgery)
+	else
+		step_result = fail_step(user, target, target_zone, tool, surgery)
+	switch(step_result)
+		if(SURGERY_STEP_CONTINUE)
+			advance = TRUE
+		if(SURGERY_STEP_RETRY_ALWAYS)
+			retry = TRUE
+		if(SURGERY_STEP_RETRY)
+			if(can_repeat(user, target, target_zone, tool, surgery))
 				retry = TRUE
-			if(SURGERY_STEP_RETRY)
-				if(can_repeat(user, target, target_zone, tool, surgery))
-					retry = TRUE
 
-		if(retry)
-			// if at first you don't succeed...
-			return .(user, target, target_zone, tool, surgery, try_to_fail)
+	if(retry)
+		// if at first you don't succeed...
+		return .(user, target, target_zone, tool, surgery, try_to_fail)
 
-		// Bump the surgery status
-		// if it's repeatable, don't let it truly "complete" though
-		if(advance && !repeatable)
-			surgery.step_number++
-			if(surgery.step_number > length(surgery.steps))
-				surgery.complete(target)
+	// Bump the surgery status
+	// if it's repeatable, don't let it truly "complete" though
+	if(advance && !repeatable)
+		surgery.step_number++
+		if(surgery.step_number > length(surgery.steps))
+			surgery.complete(target)
 
 	surgery.step_in_progress = FALSE
-	return advance
+	if(advance)
+		return SURGERY_INITIATE_SUCCESS
+	else
+		return SURGERY_INITIATE_FAILURE
 
 /**
  * Try to inflict pain during a surgery, a surgeon's dream come true.
