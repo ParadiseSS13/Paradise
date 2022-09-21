@@ -41,6 +41,10 @@
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
+/obj/item/holder/examine(mob/user)
+	for(var/mob/living/M in contents)
+		. += M.examine(user)
+
 /obj/item/holder/container_resist(mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
@@ -74,10 +78,6 @@
 		H.icon_state = icon_state
 	if(desc)
 		H.desc = desc
-		if(stat == DEAD)
-			H.desc += "<span class='deadsay'> Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
-		if(IsSleeping())
-			H.desc += "<span class='notice'> Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
