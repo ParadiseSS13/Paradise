@@ -38,7 +38,7 @@
 
 /obj/item/gripper/medical
 	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete."
+	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_hold = list()
 
 /obj/item/gripper/medical/attack_self(mob/user)
