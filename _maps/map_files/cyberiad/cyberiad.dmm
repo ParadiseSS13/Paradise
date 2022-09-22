@@ -35338,19 +35338,6 @@
 	icon_state = "dark"
 	},
 /area/assembly/chargebay)
-"bIf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/medical/medbay2)
 "bIh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -39624,7 +39611,7 @@
 "bSR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "medbayfoyerport";
+	id_tag = "MedbayFoyerPort";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
@@ -41820,7 +41807,7 @@
 "bYe" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "medbayfoyerport";
+	id_tag = "MedbayFoyerPort";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
@@ -68500,6 +68487,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dJl" = (
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -68507,12 +68497,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/door_control{
-	id = "medbayfoyerport";
-	pixel_y = 21;
-	name = "Medbay Doors Control";
-	normaldoorcontrol = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -72473,7 +72457,7 @@
 "gKS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "medbayfoyerport";
+	id_tag = "MedbayFoyerPort";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
@@ -76358,14 +76342,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/asmaint)
-"jOm" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "packageSort2"
-	},
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/turf/simulated/floor/plating,
-/area/quartermaster/office)
 "jPb" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom{
 	dir = 1
@@ -78697,7 +78673,7 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
-	id = "medbayfoyerport";
+	id = "MedbayFoyerPort";
 	name = "Medbay Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = -9;
@@ -116707,7 +116683,7 @@ blT
 blT
 blT
 bvJ
-jOm
+bxd
 byk
 byz
 bzG
@@ -131116,7 +131092,7 @@ bQU
 bSw
 bEp
 vAN
-bIf
+cbO
 bWd
 bXK
 ccA
