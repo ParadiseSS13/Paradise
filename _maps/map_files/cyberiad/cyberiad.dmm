@@ -38318,6 +38318,12 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	name = "Cargo Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
 "bPS" = (
@@ -76799,6 +76805,10 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/hologram/holopad,
+/obj/machinery/newscaster{
+	name = "east bump";
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
