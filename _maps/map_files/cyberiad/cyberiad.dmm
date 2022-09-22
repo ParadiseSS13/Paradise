@@ -53894,6 +53894,9 @@
 "cEJ" = (
 /obj/structure/chair/stool/bar,
 /mob/living/simple_animal/mouse,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -53903,9 +53906,6 @@
 /area/maintenance/apmaint2)
 "cEL" = (
 /obj/structure/table/wood/poker,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cEM" = (
@@ -113898,7 +113898,7 @@ aaa
 aaa
 cgQ
 cgQ
-cqF
+coL
 cvp
 cwA
 cwA
@@ -114157,8 +114157,8 @@ cgQ
 cwz
 coL
 cvp
-oBH
 efn
+oBH
 cvp
 cEv
 cEK
