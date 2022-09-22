@@ -38643,7 +38643,7 @@
 	dir = 4
 	},
 /obj/item/soap/deluxe,
-/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky/captainducky,
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
