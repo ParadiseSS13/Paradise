@@ -10,6 +10,10 @@
 	flags = CONDUCT
 	origin_tech = "programming=2;materials=2;engineering=2"
 
+/obj/item/mecha_parts/core
+	name = "mech power core"
+	icon = "anomaly_core"
+	desc = "A complex piece of electronics used to regulate the large amounts of power used by combat mechs delicate components"
 
 /obj/item/mecha_parts/chassis
 	name = "mecha chassis"

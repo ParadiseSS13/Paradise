@@ -307,15 +307,15 @@
 					 //6
 					 list("key"=/obj/item/stack/sheet/metal,
 					 		"backkey"=TOOL_SCREWDRIVER,
-					 		"desc"="Advanced capacitor is secured."),
+					 		"desc"="Mech power core is secured."),
 					 //7
 					 list("key"=TOOL_SCREWDRIVER,
 					 		"backkey"=TOOL_CROWBAR,
-					 		"desc"="Advanced capacitor is installed."),
+					 		"desc"="Mech power core is installed."),
 					 //8
-					 list("key"=/obj/item/stock_parts/capacitor/adv,
+					 list("key"=/obj/item/mecha_parts/core,
 					 		"backkey"=TOOL_SCREWDRIVER,
-					 		"desc"="Advanced scanner module is secured."),
+					 		"desc"="Mech power core is secured."),
 					 //9
 					 list("key"=TOOL_SCREWDRIVER,
 					 		"backkey"=TOOL_CROWBAR,
@@ -466,7 +466,7 @@
 				holder.icon_state = "gygax10"
 		if(8)
 			if(diff==FORWARD)
-				user.visible_message("[user] installs advanced capacitor to the [holder].", "You install advanced capacitor to the [holder].")
+				user.visible_message("[user] installs mech power core to the [holder].", "You install mech power core to the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "gygax13"
 			else
@@ -474,11 +474,11 @@
 				holder.icon_state = "gygax11"
 		if(7)
 			if(diff==FORWARD)
-				user.visible_message("[user] secures the advanced capacitor.", "You secure the advanced capacitor.")
+				user.visible_message("[user] secures the mech power core.", "You secure the mech power core.")
 				holder.icon_state = "gygax14"
 			else
-				user.visible_message("[user] removes the advanced capacitor from the [holder].", "You remove the advanced capacitor from the [holder].")
-				new /obj/item/stock_parts/capacitor/adv(get_turf(holder))
+				user.visible_message("[user] removes the mech power core from the [holder].", "You remove the mech power core from the [holder].")
+				new /obj/item/mecha_parts/core(get_turf(holder))
 				holder.icon_state = "gygax12"
 		if(6)
 			if(diff==FORWARD)
@@ -946,13 +946,13 @@
 					 //6
 					 list("key"=/obj/item/stack/sheet/metal,
 					 		"backkey"=TOOL_SCREWDRIVER,
-					 		"desc"="Super capacitor is secured."),
+					 		"desc"="Mech power core is secured."),
 					 //7
 					 list("key"=TOOL_SCREWDRIVER,
 					 		"backkey"=TOOL_CROWBAR,
-					 		"desc"="Super capacitor is installed."),
+					 		"desc"="Mech power core is installed."),
 					 //8
-					 list("key"=/obj/item/stock_parts/capacitor/super,
+					 list("key"=/obj/item/mecha_parts/core,
 					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Phasic scanner module is secured."),
 					 //9
@@ -1106,7 +1106,7 @@
 				holder.icon_state = "durand10"
 		if(8)
 			if(diff==FORWARD)
-				user.visible_message("[user] installs super capacitor to the [holder].", "You install super capacitor to the [holder].")
+				user.visible_message("[user] installs mech power core to the [holder].", "You install mech power core to the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "durand13"
 			else
@@ -1114,18 +1114,18 @@
 				holder.icon_state = "durand11"
 		if(7)
 			if(diff==FORWARD)
-				user.visible_message("[user] secures the super capacitor.", "You secure the super capacitor.")
+				user.visible_message("[user] secures the mech power core.", "You secure the mech power core.")
 				holder.icon_state = "durand14"
 			else
-				user.visible_message("[user] removes the super capacitor from the [holder].", "You remove the super capacitor from the [holder].")
-				new /obj/item/stock_parts/capacitor/super(get_turf(holder))
+				user.visible_message("[user] removes the mech power core from the [holder].", "You remove the mech power core from the [holder].")
+				new /obj/item/mecha_parts/core(get_turf(holder))
 				holder.icon_state = "durand12"
 		if(6)
 			if(diff==FORWARD)
 				user.visible_message("[user] installs the internal armor layer to the [holder].", "You install the internal armor layer to the [holder].")
 				holder.icon_state = "durand15"
 			else
-				user.visible_message("[user] unfastens the super capacitor.", "You unfasten the super capacitor.")
+				user.visible_message("[user] unfastens the mech power core.", "You unfasten the mech power core.")
 				holder.icon_state = "durand13"
 		if(5)
 			if(diff==FORWARD)
