@@ -1441,6 +1441,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
 
+/datum/supply_packs/misc/barberkit
+	name = "Barber Kit Crate"
+	contains = list(/obj/item/clothing/under/barber,
+					/obj/item/storage/box/lip_stick,
+					/obj/item/storage/box/barber)
+	cost = 20
+	containername = "barber kit crate"
+
 /datum/supply_packs/misc/carpet
 	name = "Carpet Crate"
 	cost = 20
