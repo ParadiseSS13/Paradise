@@ -12,7 +12,7 @@
 
 /obj/item/mecha_parts/core
 	name = "mech power core"
-	icon = 'icons/obj/assemblies.dmi'
+	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "anomaly_core"
 	desc = "A complex piece of electronics used to regulate the large amounts of power used by combat mechs delicate components"
 	w_class = WEIGHT_CLASS_SMALL
