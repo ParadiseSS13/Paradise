@@ -882,7 +882,7 @@
 	if(emag_proof)
 		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
 		return
-	user.visible_message("<span class='notice'>[user] slides a card through [src]'s id slot'.</span>", "<span class='notice'>You slide the card through [src]'s ID slot, resetting the DNA and access locks.</span>")
+	user.visible_message("<span class='notice'>[user] slides a card through [src]'s id slot.</span>", "<span class='notice'>You slide the card through [src]'s ID slot, resetting the DNA and access locks.</span>")
 	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	dna = null
 	operation_req_access = list()
