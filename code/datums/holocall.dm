@@ -173,7 +173,7 @@
 			if(!.)
 				calling_holopad.atom_say("No answer received.")
 				calling_holopad.temp = ""
-
+				qdel(src)
 	else if(!.)
 		qdel(src)
 
