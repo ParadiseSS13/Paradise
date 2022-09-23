@@ -393,7 +393,7 @@
 	..()
 	block = GLOB.swedeblock
 
-/datum/mutation/disability/speech/swedish/on_say(mob/M, message)
+/datum/mutation/disability/speech/swedish/on_say(mob/living/M, message)
 	// svedish
 	message = replacetextEx(message,"W","V")
 	message = replacetextEx(message,"w","v")
