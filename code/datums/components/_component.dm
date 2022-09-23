@@ -92,6 +92,8 @@
 	//set up the typecache
 	var/our_type = type
 	for(var/I in _GetInverseTypeList(our_type))
+		if (I == /datum/component)
+			continue
 		var/test = dc[I]
 		if(test)	//already another component of this type here
 			var/list/components_of_type
