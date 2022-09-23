@@ -39,7 +39,6 @@
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
-	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
@@ -50,35 +49,39 @@
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
 		if(user.unEquip(I))
-			add_fingerprint(user)
 			I.forceMove(src)
 			attached_badge = I
-			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
-			A.Grant(user)
-			icon_state = "armorsec"
-			user.update_inv_wear_suit()
-			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+			update_icon(UPDATE_ICON_STATE)
+			user.update_inv_wear_suit()
 		return
 	..()
 
-/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
+/obj/item/clothing/suit/armor/vest/security/AltClick(mob/user)
 	if(attached_badge)
-		add_fingerprint(user)
 		user.put_in_hands(attached_badge)
-
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.Remove(user)
-
-		icon_state = "armor"
-		user.update_inv_wear_suit()
-		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
-		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
 		attached_badge = null
-
+		add_fingerprint(user)
+		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
+		update_icon(UPDATE_ICON_STATE)
+		user.update_inv_wear_suit()
 		return
 	..()
+
+/obj/item/clothing/suit/armor/vest/security/update_icon_state()
+	. = ..()
+	if(attached_badge)
+		icon_state = "armorsec" // Good luck if you want to get rid of this, I tried.
+	else
+		icon_state = "armor"
+
+/obj/item/clothing/suit/armor/vest/security/examine(mob/user)
+	. = ..()
+	if(attached_badge)
+		. += "This one has [attached_badge] attached to it."
+	else
+		. += "This one has a clip for a holobadge."
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield's security armor"

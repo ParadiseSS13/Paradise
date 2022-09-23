@@ -430,11 +430,6 @@
 		return
 	return ..()
 
-
-/datum/action/item_action/remove_badge
-	name = "Remove Holobadge"
-
-
 // Clown Acrobat Shoes
 /datum/action/item_action/slipping
 	name = "Tactical Slip"
