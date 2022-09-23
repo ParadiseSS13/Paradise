@@ -636,7 +636,7 @@ emp_act
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 
-		if(M.a_intent == INTENT_DISARM) //If not absorbed, you get disarmed, knocked down, and hit with 30 stamina damage.
+		if(M.a_intent == INTENT_DISARM) //If not absorbed, you get disarmed, knocked down, and hit with stamina damage.
 			if(absorb_stun(0))
 				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
