@@ -44665,6 +44665,7 @@
 /obj/item/paper/monitorkey,
 /obj/item/megaphone,
 /obj/structure/table/glass,
+/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -81613,6 +81614,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
