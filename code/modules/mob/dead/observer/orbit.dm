@@ -88,6 +88,7 @@
 					- traitor
 					- mindslaves/vampire thralls
 					- vampire
+					- changelings
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
