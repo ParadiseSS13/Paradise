@@ -77,3 +77,6 @@ LAVALAND_BUDGET 60
 ## Cube monkey limit
 # Amount of cube monkeys that can be spawned before the game limits them
 CUBEMONKEY_CAP 32
+
+## Possibility of conversion by cultists (1 - YES / 0 - NO)
+CAN_CULT_CONVERT 1

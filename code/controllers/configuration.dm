@@ -253,6 +253,9 @@
 	//cube monkey limit
 	var/cubemonkeycap = 20
 
+	//Can cult convert or not
+	var/can_cult_convert = TRUE
+
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
@@ -916,6 +919,8 @@
 					config.lavaland_budget = text2num(value)
 				if("cubemonkey_cap")
 					config.cubemonkeycap = text2num(value)
+				if("can_cult_convert")
+					config.can_cult_convert = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
