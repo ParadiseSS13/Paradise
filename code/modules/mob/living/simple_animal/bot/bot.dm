@@ -482,7 +482,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return FALSE
 
 	dest = get_turf(dest) //We must always compare turfs, so get the turf of the dest var if dest was originally something else.
-	var/turf/last_node = get_turf(path[path.len]) //This is the turf at the end of the path, it should be equal to dest.
+	var/turf/last_node = get_turf(path[length(path)]) //This is the turf at the end of the path, it should be equal to dest.
 	if(get_turf(src) == dest) //We have arrived, no need to move again.
 		return TRUE
 
@@ -538,14 +538,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
-	if(path && path.len) //Ensures that a valid path is calculated!
+	if(path && length(path)) //Ensures that a valid path is calculated!
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
-			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
+			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[length(path)-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
-			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [path.len-1] meters to destination.</span>")
+			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [length(path)-1] meters to destination.</span>")
 		pathset = TRUE
 		mode = BOT_RESPONDING
 		tries = 0
@@ -772,7 +772,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		bot_reset()
 		return
 
-	else if(path.len > 0 && summon_target)		//Proper path acquired!
+	else if(length(path) && summon_target)		//Proper path acquired!
 		var/turf/next = path[1]
 		if(next == loc)
 			increment_path()

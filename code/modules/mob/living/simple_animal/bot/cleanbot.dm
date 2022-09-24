@@ -121,7 +121,7 @@
 		target = null
 
 	if(target)
-		if(!path || path.len == 0) //No path, need a new one
+		if(!path || !length(path)) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
 			path = get_path_to(src, target, 30, id=access_card)
 			if(!bot_move(target))

@@ -460,7 +460,7 @@
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()
 	var/area/dest_area
-	if(path && path.len)
+	if(path && length(path))
 		target = ai_waypoint //Target is the end point of the path, the waypoint set by the AI.
 		dest_area = get_area(target)
 		destination = format_text(dest_area.name)
