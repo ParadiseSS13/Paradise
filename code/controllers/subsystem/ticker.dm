@@ -132,7 +132,7 @@ SUBSYSTEM_DEF(ticker)
 			auto_toggle_ooc(TRUE) // Turn it on
 			declare_completion()
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
-			if(GLOB.configuration.vote.enable_map_voting)
+			if(SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)
 				SSvote.start_vote(new /datum/vote/map)
 			else
 				// Pick random map

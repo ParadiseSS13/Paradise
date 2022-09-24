@@ -23,7 +23,7 @@
 		var/datum/map/M = x
 		if(!initial(M.voteable))
 			continue
-		if(GLOB.configuration.vote.non_repeating_maps && istype(SSmapping.map_datum, M))
+		if((SSmaprotate.rotation_mode == MAPROTATION_MODE_NO_DUPLICATES) && istype(SSmapping.map_datum, M))
 			continue
 		choices.Add("[initial(M.fluff_name)] ([initial(M.technical_name)])")
 
