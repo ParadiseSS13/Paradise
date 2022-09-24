@@ -138,7 +138,10 @@
 					antag_serialized["antag"] = "Slaughter Demon"
 					antagonists += list(antag_serialized)
 		else
+			if(length(orbiters) >= 0.2 * length(get_observers())) // If a bunch of people are orbiting an object, like the nuke disk.
+				highlights += list(serialized)
 			misc += list(serialized)
+
 
 	data["antagonists"] = antagonists
 	data["highlights"] = highlights
