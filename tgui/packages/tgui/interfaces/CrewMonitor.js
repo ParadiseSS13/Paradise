@@ -145,7 +145,9 @@ const CrewMonitorDataView = (_properties, context) => {
                   cm.area + ' (' + cm.x + ', ' + cm.y + ')'
                 )
               ) : (
-                'Not Available'
+                <Box inline color='grey'>
+                  {'Not Available'}
+                </Box>
               )}
             </TableCell>
           </Table.Row>
