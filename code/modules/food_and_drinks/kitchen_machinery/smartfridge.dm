@@ -32,6 +32,8 @@
 	var/drying = FALSE
 	/// Whether the fridge's contents are visible on the world icon.
 	var/visible_contents = TRUE
+	/// Whether the fridge is electric and thus silicon controllable.
+	var/silicon_controllable = TRUE
 	/// The wires controlling the fridge.
 	var/datum/wires/smartfridge/wires
 	/// Typecache of accepted item types, init it in [/obj/machinery/smartfridge/Initialize].
@@ -206,7 +208,9 @@
 		return TRUE
 
 /obj/machinery/smartfridge/attack_ai(mob/user)
-	return FALSE
+	if(!silicon_controllable)
+		return FALSE
+	return attack_hand(user)
 
 /obj/machinery/smartfridge/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -220,6 +224,8 @@
 
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user)
+	if(issilicon(user))
+		return
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
 		return
 	if(stat & (BROKEN|NOPOWER))
@@ -455,6 +461,7 @@
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
 	face_while_pulling = FALSE
+	silicon_controllable = FALSE
 
 
 /obj/machinery/smartfridge/foodcart/Initialize(mapload)
@@ -778,6 +785,7 @@
 	visible_contents = FALSE
 	light_range_on = null
 	light_power_on = null
+	silicon_controllable = FALSE
 
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
