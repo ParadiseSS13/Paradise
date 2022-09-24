@@ -1365,7 +1365,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chaps"
 	item_color = "combat_pants"
-
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/donator.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/donator.dmi',
