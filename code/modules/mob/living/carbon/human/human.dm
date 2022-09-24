@@ -140,9 +140,6 @@
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
 
-/mob/living/carbon/human/wryn/Initialize(mapload)
-	. = ..(mapload, /datum/species/wryn)
-
 /mob/living/carbon/human/nucleation/Initialize(mapload)
 	. = ..(mapload, /datum/species/nucleation)
 
@@ -1295,7 +1292,6 @@
 		add_language(dna.species.default_language)
 
 	hunger_drain = dna.species.hunger_drain
-	digestion_ratio = dna.species.digestion_ratio
 
 	if(dna.species.base_color && use_default_color)
 		//Apply colour.

@@ -1,5 +1,5 @@
 /obj/item/implant/freedom
-	name = "freedom implant"
+	name = "freedom bio-chip"
 	desc = "Use this to escape from those evil Red Shirts."
 	icon_state = "freedom"
 	item_color = "r"
@@ -28,10 +28,10 @@
 		qdel(src)
 
 /obj/item/implanter/freedom
-	name = "implanter (freedom)"
+	name = "bio-chip implanter (freedom)"
 	implant_type = /obj/item/implant/freedom
 
 /obj/item/implantcase/freedom
-	name = "implant case - 'Freedom'"
-	desc = "A glass case containing a freedom implant."
+	name = "bio-chip case - 'Freedom'"
+	desc = "A glass case containing a freedom bio-chip."
 	implant_type = /obj/item/implant/freedom
