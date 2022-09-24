@@ -12,8 +12,11 @@ SUBSYSTEM_DEF(http)
 	/// Total requests the SS has processed in a round
 	var/total_requests
 
-/datum/controller/subsystem/http/Initialize(start_timeofday)
+/datum/controller/subsystem/http/PreInit()
+	. = ..()
 	rustg_create_async_http_client() // Open the door
+
+/datum/controller/subsystem/http/Initialize(start_timeofday)
 	active_async_requests = list()
 	return ..()
 
@@ -45,7 +48,7 @@ SUBSYSTEM_DEF(http)
 					log_data += "\tResponse body: [res.body]"
 					log_data += "\tResponse headers: [json_encode(res.headers)]"
 				log_data += "END ASYNC RESPONSE (ID: [req.id])"
-				rustg_log_write(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
+				WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 
 /**
   * Async request creator
@@ -74,7 +77,7 @@ SUBSYSTEM_DEF(http)
 		log_data += "END ASYNC REQUEST (ID: [req.id])"
 
 		// Write the log data
-		rustg_log_write(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
+		WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 
 /**
   * Blocking request creator
@@ -106,7 +109,7 @@ SUBSYSTEM_DEF(http)
 	log_data += "END BLOCKING REQUEST"
 
 	// Write the log data
-	rustg_log_write(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
+	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 
 	return res
 	*/
