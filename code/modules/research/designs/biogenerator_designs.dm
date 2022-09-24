@@ -210,3 +210,11 @@
 	materials = list(MAT_BIOMASS = 300)
 	build_path = /obj/item/clothing/head/rice_hat
 	category = list("initial","Leather and Cloth")
+
+/datum/design/rollingpapers
+	name = "Rolling paper pack"
+	id = "rolling_paper_pack"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/storage/fancy/rollingpapers
+	category = list("initial","Organic Materials")
