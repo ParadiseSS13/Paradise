@@ -248,10 +248,6 @@
 /mob/living/simple_animal/bot/handle_automated_action()
 	diag_hud_set_botmode()
 
-	if(!path)
-		stack_trace("Path got nulled in: [src] at ([x],[y],[z])")
-		path = list()
-
 	if(ignorelistcleanuptimer % 300 == 0) // Every 300 actions, clean up the ignore list from old junk
 		for(var/uid in ignore_list)
 			var/atom/referredatom = locateUID(uid)
