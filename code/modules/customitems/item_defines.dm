@@ -1054,6 +1054,15 @@
 	adjust_flavour = "unzip"
 
 //////////// Uniforms ////////////
+
+/obj/item/clothing/under/fluff
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/donator.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/donator.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/donator.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/donator.dmi'
+		)
+
 /obj/item/clothing/under/fluff/counterfeitguise_uniform 	// thatdanguy23 : Rissa Williams
 	icon = 'icons/obj/custom_items.dmi'
 	name = "Rissa's hand-me-downs"
@@ -1174,10 +1183,16 @@
 	name = "E.L.O's Turtleneck"
 	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
 	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
-	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"
 	displays_id = FALSE
+
+/obj/item/clothing/under/fluff/combat_pants
+	name = "combat pants"
+	desc = "Medium style tactical pants, for the fashion aware combat units out there."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "chaps"
+	item_color = "combat_pants"
 
 //////////// Masks ////////////
 
@@ -1350,12 +1365,6 @@
 	icon_state = "vest_black"
 	item_state = "vest_black"
 	sprite_sheets = null
-
-/obj/item/clothing/under/pants/fluff/combat
-	name = "combat pants"
-	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon_state = "chaps"
-	item_color = "combat_pants"
 
 /obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"
@@ -1618,7 +1627,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
@@ -1674,7 +1682,6 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"
