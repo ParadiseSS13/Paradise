@@ -131,6 +131,7 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	throw_range = 5
 	origin_tech = "materials=1"
 	sheettype = "sandstone"
+	assembly_type = /obj/structure/door_assembly/door_assembly_sandstone
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/sheet/mineral/sandstone/New()
@@ -182,6 +183,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "diamond"
 	origin_tech = "materials=6"
 	sheettype = "diamond"
+	assembly_type = /obj/structure/door_assembly/door_assembly_diamond
 	merge_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 	point_value = 25
@@ -200,6 +202,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "uranium sheet"
 	origin_tech = "materials=5"
 	sheettype = "uranium"
+	assembly_type = /obj/structure/door_assembly/door_assembly_uranium
 	merge_type = /obj/item/stack/sheet/mineral/uranium
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
@@ -215,6 +218,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "plasma sheet"
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
+	assembly_type = /obj/structure/door_assembly/door_assembly_plasma
 	merge_type = /obj/item/stack/sheet/mineral/plasma
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 	resistance_flags = FLAMMABLE
@@ -259,6 +263,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "gold bar"
 	origin_tech = "materials=4"
 	sheettype = "gold"
+	assembly_type = /obj/structure/door_assembly/door_assembly_gold
 	merge_type = /obj/item/stack/sheet/mineral/gold
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
@@ -274,6 +279,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "silver bar"
 	origin_tech = "materials=4"
 	sheettype = "silver"
+	assembly_type = /obj/structure/door_assembly/door_assembly_silver
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
@@ -289,6 +295,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "bananium sheet"
 	origin_tech = "materials=4"
 	sheettype = "bananium"
+	assembly_type = /obj/structure/door_assembly/door_assembly_bananium
 	merge_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 	point_value = 50
@@ -307,6 +314,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	singular_name = "beret"
 	origin_tech = "materials=4"
 	sheettype = "tranquillite"
+	assembly_type = /obj/structure/door_assembly/door_assembly_tranquillite
 	merge_type = /obj/item/stack/sheet/mineral/tranquillite
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 	wall_allowed = FALSE	//no tranquilite walls in code
@@ -333,6 +341,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	throw_speed = 1
 	throw_range = 3
 	sheettype = "titanium"
+	assembly_type = /obj/structure/door_assembly/door_assembly_titanium
 	merge_type = /obj/item/stack/sheet/mineral/titanium
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20

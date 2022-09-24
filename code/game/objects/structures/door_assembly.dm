@@ -7,8 +7,8 @@
 	max_integrity = 200
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
-	var/mineral
-	var/mineral_type
+	var/mineral // String value. Used in user chat messages
+	var/mineral_type // mineral object path.
 	var/base_name = "airlock"
 	var/obj/item/airlock_electronics/electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
@@ -110,7 +110,7 @@
 								S.use(1)
 								glass = TRUE
 					if(!mineral)
-						if(istype(S, /obj/item/stack/sheet/mineral) && S.sheettype)
+						if(istype(S, /obj/item/stack/sheet/mineral) && S.sheettype || istype(S, /obj/item/stack/sheet/wood) && S.sheettype)
 							var/M = S.sheettype
 							if(S.get_amount() >= 2)
 								playsound(loc, S.usesound, 100, 1)
@@ -120,7 +120,7 @@
 										return
 									to_chat(user, "<span class='notice'>You install [M] plating into the airlock assembly.</span>")
 									S.use(2)
-									var/mineralassembly = text2path("/obj/structure/door_assembly/door_assembly_[M]")
+									var/mineralassembly = S.assembly_type
 									var/obj/structure/door_assembly/MA = new mineralassembly(loc)
 									transfer_assembly_vars(src, MA, TRUE)
 							else
@@ -225,14 +225,13 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(mineral)
-		var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 		user.visible_message("<span class='notice'>[user] welds the [mineral] plating off [src].</span>",\
 			"<span class='notice'>You start to weld the [mineral] plating off [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 			return
 		to_chat(user, "<span class='notice'>You weld the [mineral] plating off.</span>")
-		new mineral_path(loc, 2)
+		new mineral_type(loc, 2)
 		var/obj/structure/door_assembly/PA = new previous_assembly(loc)
 		transfer_assembly_vars(src, PA)
 	else if(glass)

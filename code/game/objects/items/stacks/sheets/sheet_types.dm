@@ -236,6 +236,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
+	sheettype = "wood"
+	assembly_type = /obj/structure/door_assembly/door_assembly_wood
 
 /obj/item/stack/sheet/wood/New(loc, amount=null)
 	recipes = GLOB.wood_recipes
