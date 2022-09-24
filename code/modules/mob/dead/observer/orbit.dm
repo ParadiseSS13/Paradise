@@ -35,6 +35,7 @@
 	var/list/data = list()
 
 	var/list/alive = list()
+	var/list/highlights = list()
 	var/list/antagonists = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
@@ -72,6 +73,8 @@
 			else if(M.stat == DEAD)
 				dead += list(serialized)
 			else
+				if(length(orbiters) >= 0.2 * length(get_observers())) // They're important if 20% of observers are watching them
+					highlights += list(serialized)
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
@@ -136,8 +139,9 @@
 		else
 			misc += list(serialized)
 
-	data["alive"] = alive
 	data["antagonists"] = antagonists
+	data["highlights"] = highlights
+	data["alive"] = alive
 	data["dead"] = dead
 	data["ghosts"] = ghosts
 	data["misc"] = misc
