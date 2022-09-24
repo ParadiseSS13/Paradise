@@ -490,8 +490,6 @@
 	switch(action)
 		if("cook")
 			cook()
-
-
 		if("eject")
 			dispose()
 
