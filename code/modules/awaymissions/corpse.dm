@@ -505,7 +505,7 @@
 	mob_gender = "female"
 	name = "lifeguard sleeper"
 	id_job = "Lifeguard"
-	uniform = /obj/item/clothing/under/shorts/red
+	uniform = /obj/item/clothing/under/pants/shorts/red
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
@@ -536,7 +536,7 @@
 /datum/outfit/beachbum
 	name = "Beach Bum"
 	glasses = /obj/item/clothing/glasses/sunglasses
-	uniform = /obj/item/clothing/under/shorts/red
+	uniform = /obj/item/clothing/under/pants/shorts/red
 
 /////////////////Spooky Undead//////////////////////
 

@@ -255,23 +255,23 @@
 
 /datum/gear/uniform/shorts/red
 	display_name = "Shorts, red"
-	path = /obj/item/clothing/under/shorts/red
+	path = /obj/item/clothing/under/pants/shorts/red
 
 /datum/gear/uniform/shorts/green
 	display_name = "Shorts, green"
-	path = /obj/item/clothing/under/shorts/green
+	path = /obj/item/clothing/under/pants/shorts/green
 
 /datum/gear/uniform/shorts/blue
 	display_name = "Shorts, blue"
-	path = /obj/item/clothing/under/shorts/blue
+	path = /obj/item/clothing/under/pants/shorts/blue
 
 /datum/gear/uniform/shorts/black
 	display_name = "Shorts, black"
-	path = /obj/item/clothing/under/shorts/black
+	path = /obj/item/clothing/under/pants/shorts/black
 
 /datum/gear/uniform/shorts/grey
 	display_name = "Shorts, grey"
-	path = /obj/item/clothing/under/shorts/grey
+	path = /obj/item/clothing/under/pants/shorts/grey
 
 /datum/gear/uniform/pants
 	main_typepath = /datum/gear/uniform/pants

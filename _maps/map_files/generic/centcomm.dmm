@@ -3448,12 +3448,12 @@
 /area/syndicate_mothership/jail)
 "lY" = (
 /obj/structure/rack,
-/obj/item/clothing/under/shorts/black{
+/obj/item/clothing/under/pants/shorts/black{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/under/shorts/blue,
-/obj/item/clothing/under/shorts/red{
+/obj/item/clothing/under/pants/shorts/blue,
+/obj/item/clothing/under/pants/shorts/red{
 	pixel_x = 3;
 	pixel_y = -3
 	},
