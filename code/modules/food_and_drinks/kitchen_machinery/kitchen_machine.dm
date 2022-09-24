@@ -243,7 +243,7 @@
 	if(reagents.total_volume)
 		dirty++
 	reagents.clear_reagents()
-	to_chat(usr, "<span class='notice'>You eject of \the [src]'s contents.</span>")
+	to_chat(user, "<span class='notice'>You eject of \the [src]'s contents.</span>")
 	SStgui.update_uis(src)
 
 //choose_recipes(): picks out recipes for the machine and any mixing bowls it may contain.
@@ -485,7 +485,7 @@
 	data["name"] = name
 	return data
 
-/obj/machinery/kitchen_machine/ui_act(action, params)
+/obj/machinery/kitchen_machine/ui_act(action, params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return
@@ -494,7 +494,7 @@
 		if("cook")
 			cook()
 		if("eject")
-			dispose()
+			dispose(ui.user)
 
 /obj/machinery/kitchen_machine/AltClick(mob/user)
 	if(dirty >= 100)
