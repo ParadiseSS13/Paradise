@@ -41,6 +41,7 @@
 	var/list/ghosts = list()
 	var/list/misc = list()
 	var/list/npcs = list()
+	var/length_of_ghosts = length(get_observers())
 
 	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
 	for(var/name in pois)
@@ -73,7 +74,7 @@
 			else if(M.stat == DEAD)
 				dead += list(serialized)
 			else
-				if(length(orbiters) >= 0.2 * length(get_observers())) // They're important if 20% of observers are watching them
+				if(length(orbiters) >= 0.2 * length_of_ghosts) // They're important if 20% of observers are watching them
 					highlights += list(serialized)
 				alive += list(serialized)
 
@@ -138,7 +139,7 @@
 					antag_serialized["antag"] = "Slaughter Demon"
 					antagonists += list(antag_serialized)
 		else
-			if(length(orbiters) >= 0.2 * length(get_observers())) // If a bunch of people are orbiting an object, like the nuke disk.
+			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.
 				highlights += list(serialized)
 			misc += list(serialized)
 
