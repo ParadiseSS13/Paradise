@@ -20,7 +20,7 @@
 		if(target_turf)
 			break
 	if(!target_turf)
-		CRASH("Anomaly: No valid turfs found for [impact_area] - [impact_area.type]")
+		CRASH("Anomaly: Unable to find a valid turf to spawn the anomaly. Last area tried: [impact_area] - [impact_area.type]")
 
 /datum/event/anomaly/announce()
 	GLOB.event_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly_flux.ogg')
