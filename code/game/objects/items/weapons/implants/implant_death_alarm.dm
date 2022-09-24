@@ -1,8 +1,8 @@
 /obj/item/implant/death_alarm
-	name = "death alarm implant"
+	name = "death alarm bio-chip"
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
-	activated = IMPLANT_ACTIVATED_PASSIVE
-	trigger_causes = IMPLANT_TRIGGER_DEATH_ANY
+	activated = BIOCHIP_ACTIVATED_PASSIVE
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/death_alarm
 	implant_state = "implant-nanotrasen"
 
@@ -54,10 +54,10 @@
 	return FALSE
 
 /obj/item/implanter/death_alarm
-	name = "implanter (Death Alarm)"
+	name = "bio-chip implanter (Death Alarm)"
 	implant_type = /obj/item/implant/death_alarm
 
 /obj/item/implantcase/death_alarm
-	name = "Implant Case - 'Death Alarm'"
-	desc = "A case containing a death alarm implant."
+	name = "bio-chip Case - 'Death Alarm'"
+	desc = "A case containing a death alarm bio-chip."
 	implant_type = /obj/item/implant/death_alarm

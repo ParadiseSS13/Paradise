@@ -1,5 +1,5 @@
 /obj/item/implant/traitor
-	name = "Mindslave Implant"
+	name = "Mindslave Bio-chip"
 	desc = "Divide and Conquer"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
 	activated = FALSE
@@ -22,7 +22,7 @@
 	// Fails if they're already a mindslave of someone, or if they're mindshielded.
 	if(ismindslave(mindslave_target) || ismindshielded(mindslave_target))
 		mindslave_target.visible_message(
-			"<span class='warning'>[mindslave_target] seems to resist the implant!</span>", \
+			"<span class='warning'>[mindslave_target] seems to resist the bio-chip!</span>", \
 			"<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
 		removed(mindslave_target)
 		qdel(src)
