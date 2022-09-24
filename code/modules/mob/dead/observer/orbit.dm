@@ -142,7 +142,6 @@
 				highlights += list(serialized)
 			misc += list(serialized)
 
-
 	data["antagonists"] = antagonists
 	data["highlights"] = highlights
 	data["alive"] = alive
