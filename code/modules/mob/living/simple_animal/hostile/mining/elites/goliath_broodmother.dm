@@ -159,7 +159,7 @@
 		var/turf/T = get_step(src, spawndir)
 		if(T)
 			child.forceMove(T)
-			child.revive() // at most this is a 29 hp heal.
+			child.revive() // at most this is a 49 hp heal.
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1)
 
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
@@ -222,7 +222,7 @@
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
 		L.Stun(1 SECONDS)
-		L.KnockDown(3 SECONDS)
+		L.KnockDown(2.5 SECONDS)
 		L.adjustBruteLoss(rand(20,25))
 		latched = TRUE
 	if(!latched)
