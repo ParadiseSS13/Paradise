@@ -18,10 +18,10 @@
 
 /datum/game_mode/space_ninja/can_start()
 	if(!..())
-		return 0
+		return FALSE
 	var/list/datum/mind/possible_ninjas = get_players_for_role(ROLE_NINJA)
-	if(possible_ninjas.len==0)
-		return 0
+	if(!length(possible_ninjas))
+		return FALSE
 	var/datum/mind/space_ninja = pick(possible_ninjas)
 
 	space_ninjas += space_ninja
@@ -29,16 +29,16 @@
 	space_ninja.assigned_role = SPECIAL_ROLE_SPACE_NINJA //So they aren't chosen for other jobs.
 	space_ninja.special_role = SPECIAL_ROLE_SPACE_NINJA
 	space_ninja.original = space_ninja.current
-	if(GLOB.ninjastart.len == 0)
+	if(!length(GLOB.ninjastart))
 		to_chat(space_ninja.current, span_danger("A starting location for you could not be found, please report this bug!"))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/game_mode/space_ninja/pre_setup()
 	for(var/datum/mind/ninja in space_ninjas)
 		ninja.current.loc = pick(GLOB.ninjastart)
 	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/space_ninja/post_setup()
 	for(var/datum/mind/space_ninja_mind in space_ninjas)
@@ -424,14 +424,14 @@
 		return ..()
 	else
 		finished = 1
-		return 1
+		return TRUE
 
 /datum/game_mode/space_ninja/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "ninja loss - ninja killed"
 		to_chat(world, span_warning("<FONT size = 3><B> Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!</B></FONT>"))
 	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/auto_declare_completion_ninja()
 	if(space_ninjas.len)
@@ -451,7 +451,9 @@
 				text += "Тело уничтожено"
 			text += ")"
 			text += "<br>"
-			text += "Выбранные способности: [ninja.ninja.purchased_abilities]"
+			var/datum/ninja/ninja_datum = ninja.ninja
+			if(istype(ninja_datum)) // Защита от рантаймов в случае если по какой то причине он не прочитает датум
+				text += "Выбранные способности: [ninja_datum.purchased_abilities]"
 
 			var/count = 1
 			var/ninjawin = 1
@@ -474,7 +476,7 @@
 			text += "<br>"
 
 		to_chat(world, text)
-	return 1
+	return TRUE
 
 // Хранилище данных для ниндзя.
 // Необходимо для элементов интерфейса и добавления данных в статус панельке
@@ -494,7 +496,7 @@
 	return
 
 /datum/ninja/Destroy()
-	..()
+	. = ..()
 	if(owner.hud_used)
 		owner.hud_used.remove_ninja_hud()
 	owner = null

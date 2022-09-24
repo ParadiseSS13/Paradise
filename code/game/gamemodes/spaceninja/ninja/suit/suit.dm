@@ -343,7 +343,7 @@
 	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
 
 /obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
-	..()
+	. = ..()
 	if(jetpack)
 		if(slot == slot_wear_suit)
 			for(var/X in jetpack.actions)
@@ -351,7 +351,7 @@
 				A.Grant(user)
 
 /obj/item/clothing/suit/space/space_ninja/dropped(mob/user)
-	..()
+	. = ..()
 	if(jetpack)
 		for(var/X in jetpack.actions)
 			var/datum/action/A = X
@@ -372,6 +372,12 @@
 	if(!ninja || !ishuman(ninja) || !(ninja.wear_suit == src))
 		return
 
+	// Проверка во избежание потенциальных абузов инвиза
+	// Как например если после сканирования t-ray сканером сразу выключить инвиз...
+	// Что приводило к бесплатному инвизу.
+	if(ninja.alpha == NINJA_ALPHA_INVISIBILITY || ninja.alpha == NINJA_ALPHA_SPIRIT_FORM)
+		if(!stealth && !spirited)
+			ninja.alpha = NINJA_ALPHA_NORMAL
 	//Safe checks to prevent potential abuse of power.
 	if(!is_teleport_allowed(ninja.z) && spirited)
 		to_chat(ninja, span_warning("This place forcibly stabilizes your body somehow! You can't use \"Spirit Form\" there!"))

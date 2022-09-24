@@ -20,7 +20,8 @@ SUBSYSTEM_DEF(radio)
 	"AI Private"	= AI_FREQ,
 	"Medical(I)"	= MED_I_FREQ,
 	"Security(I)"	= SEC_I_FREQ,
-	"Spy Spider"	= SPY_SPIDER_FREQ
+	"Spy Spider"	= SPY_SPIDER_FREQ,
+	"Spider Clan"	= NINJA_FREQ
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ, SYND_TAIPAN_FREQ)
@@ -61,6 +62,8 @@ SUBSYSTEM_DEF(radio)
 			return "proradio"
 		if(SPY_SPIDER_FREQ)
 			return "spyradio"
+		if(NINJA_FREQ)
+			return "spider_clan"
 
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)

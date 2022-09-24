@@ -85,12 +85,84 @@ REAGENT SCANNER
 
 		var/mob/living/in_turf_mob = locate() in scan_turf
 
-		if(in_turf_mob && in_turf_mob.invisibility == 2)
+		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
 			in_turf_mob.invisibility = 0
 			spawn(2)
 				if(in_turf_mob)
 					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
 
+/obj/item/t_scanner/security
+	name = "Противо-маскировочное ТГц устройство"
+	desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство уязвимо для ЭМИ излучения."
+	icon = 'icons/obj/device.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	item_state = "sb_t-ray"
+	icon_state = "sb_t-ray0"
+	scan_range = 2
+	pulse_duration = 30
+	var/was_alerted = FALSE // Защита от спама алёртов от этого сканера
+	var/burnt = FALSE // Сломало ли нас емп?
+	var/datum/effect_system/spark_spread/spark_system	//The spark system, used for generating... sparks?
+	origin_tech = "combat=3;magnets=5;biotech=5"
+
+/obj/item/t_scanner/security/Initialize()
+	. = ..()
+	//Sets up a spark system
+	spark_system = new /datum/effect_system/spark_spread
+	spark_system.set_up(5, 0, src)
+	spark_system.attach(src)
+
+/obj/item/t_scanner/security/attack_self(mob/user)
+	if(!burnt)
+		on = !on
+		icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
+
+	if(on)
+		START_PROCESSING(SSobj, src)
+
+/obj/item/t_scanner/security/emp_act(severity)
+	. = ..()
+	if(prob(25) && !burnt)
+		burnt = TRUE
+		on = FALSE;
+		icon_state = copytext(icon_state, 1, length(icon_state))+"_burnt"
+		desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство сгорело, теперь можно обнаружить разве что крошки от пончика оставшиеся на нём..."
+		playsound(loc, "sparks", 50, TRUE, 5)
+		spark_system.start()
+
+/obj/item/t_scanner/security/scan()
+
+	new /obj/effect/temp_visual/scan(get_turf(src))
+
+	var/list/mobs_in_range = viewers(scan_range, get_turf(src))
+	for(var/mob/living/in_turf_mob in mobs_in_range)
+		var/oldalpha = in_turf_mob.alpha
+		if(in_turf_mob.alpha < 255 && istype(in_turf_mob))
+			in_turf_mob.alpha = 255
+			alert_searchers(in_turf_mob)
+			spawn(pulse_duration)
+				if(in_turf_mob)
+					in_turf_mob.alpha = oldalpha
+		if(in_turf_mob && in_turf_mob.invisibility == INVISIBILITY_LEVEL_TWO)
+			in_turf_mob.invisibility = 0
+			alert_searchers(in_turf_mob)
+			spawn(pulse_duration)
+				if(in_turf_mob)
+					in_turf_mob.invisibility = INVISIBILITY_LEVEL_TWO
+
+/obj/item/t_scanner/security/proc/alert_searchers(mob/living/found_mob)
+	var/list/alerted = viewers(7, found_mob)
+	if(alerted && !was_alerted)
+		for(var/mob/living/alerted_mob in alerted)
+			if(!alerted_mob.stat)
+				alerted_mob.do_alert_animation(alerted_mob)
+				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
+		was_alerted = TRUE
+		addtimer(CALLBACK(src, .proc/end_alert_cd), 1 MINUTES)
+
+/obj/item/t_scanner/security/proc/end_alert_cd()
+	was_alerted = FALSE
 
 /proc/chemscan(mob/living/user, mob/living/M)
 	if(ishuman(M))

@@ -300,3 +300,13 @@
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/holosign_creator/atmos
 	category = list("Equipment")
+
+/datum/design/sec_tray_scanner
+	name = "Security t-ray"
+	desc = "An advance use of a terahertz-ray to find any invisible biological creature nearby."
+	id = "sec_tray"
+	req_tech = list("combat" = 4, "magnets" = 7, "biotech" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_DIAMOND = 500)
+	build_path = /obj/item/t_scanner/security
+	category = list("Equipment")

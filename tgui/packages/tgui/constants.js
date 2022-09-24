@@ -67,6 +67,11 @@ export const RADIO_CHANNELS = [
     color: '#ffec8b',
   },
   {
+    name: 'Spider Clan',
+    freq: 1265,
+    color: '#3cfd1e',
+  },
+  {
     name: 'Red Team',
     freq: 1215,
     color: '#ff4444',

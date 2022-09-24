@@ -14,6 +14,11 @@
 #define NINJA_DEINIT_UNLOCK_PHASE 9
 #define NINJA_DEINIT_COMPLETE_PHASE 13
 
+//ninja alpha defines
+#define NINJA_ALPHA_NORMAL 255
+#define NINJA_ALPHA_SPIRIT_FORM 64
+#define NINJA_ALPHA_INVISIBILITY 0
+
 //ninja suit tgui related flags
 #define NINJA_TGUI_MAIN_SCREEN_STATE 0
 #define NINJA_TGUI_LOADING_STATE 1

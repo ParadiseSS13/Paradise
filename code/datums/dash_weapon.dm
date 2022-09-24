@@ -42,10 +42,10 @@
 	var/turf/target_turf = get_turf(target)
 	var/turf/starting_turf = get_turf(user)
 	if(target in view(user.client.view, user))
+		var/mob/living/pulled_mob = user.pulling
 		if(!do_teleport(user, target_turf))
 			to_chat(user, "<span class='warning'>Dash blocked by location!</span>")
 			return FALSE
-
 		var/obj/spot1 = new phaseout(starting_turf, user.dir)
 		playsound(target_turf, dash_sound, 25, TRUE)
 		var/obj/spot2 = new phasein(target_turf, user.dir)
@@ -55,6 +55,9 @@
 			owner.update_action_buttons_icon()
 		addtimer(CALLBACK(src, .proc/charge), charge_rate)
 		last_used = world.time
+		if(istype(pulled_mob))
+			pulled_mob.forceMove(target_turf)
+//			user.start_pulling(pulled_mob) // Не работает, как задумано... Персонаж просто не берёт другого в пул после телепортации. Пока оставлю так
 		return TRUE
 
 	return FALSE

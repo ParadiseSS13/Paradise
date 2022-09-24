@@ -6,11 +6,15 @@
 	flags = EARBANGPROTECT
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "headset_green"
-	ks2type = /obj/item/encryptionkey/binary
+	ks2type = /obj/item/encryptionkey/spider_clan
 	requires_tcomms = FALSE
 	instant = TRUE
 	freqlock = TRUE
 	translate_binary = TRUE
+
+/obj/item/radio/headset/ninja/Initialize()
+	..()
+	set_frequency(NINJA_FREQ)
 
 /obj/item/radio/headset/ninja/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/radio/headset))
@@ -52,3 +56,10 @@
 		return
 	user.set_machine(src)
 	to_chat(user, "У этого наушника нет даже одного винтика! Это просто бессмысленная трата времени...")
+
+/obj/item/encryptionkey/spider_clan
+	name = "Spider Clan Encryption Key"
+	desc = "An encryption key for a radio headset. Made by Spider Clan. (TM) To access the binary channel, use :+."
+	icon_state = "bin_cypherkey"
+	translate_binary = TRUE
+	channels = list("Spider Clan" = TRUE)

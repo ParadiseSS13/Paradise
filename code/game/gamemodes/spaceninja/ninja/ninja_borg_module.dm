@@ -28,12 +28,21 @@
 	QDEL_NULL(module)	//Удаление модуля саботёра который мы наследуем
 	module = new /obj/item/robot_module/ninja(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	radio = new /obj/item/radio/borg/syndicate(src)
+	radio = new /obj/item/radio/borg/ninja(src)
 	radio.recalculateChannels()
 	//languages
 	module.add_languages(src)
 	//subsystems
 	module.add_subsystems_and_actions(src)
+
+/obj/item/radio/borg/ninja
+	keyslot = new /obj/item/encryptionkey/spider_clan
+	freqlock = FALSE
+	freerange = TRUE
+
+/obj/item/radio/borg/ninja/Initialize()
+	..()
+	set_frequency(NINJA_FREQ)
 
 /obj/item/gun/energy/shuriken_emitter/borg
 	name = "robotic shuriken emitter"
