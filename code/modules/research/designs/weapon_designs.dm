@@ -24,7 +24,7 @@
 
 /datum/design/largecrossbow
 	name = "Energy Crossbow Parts Kit"
-	desc = "A kit to reverse-engineer a proto-kinetic accelerator into an energy crossbow, favored by syndicate infiltration teams and carp hunters."
+	desc = "A kit to reverse-engineer a laser gun into an energy crossbow, favored by syndicate infiltration teams and carp hunters."
 	id = "largecrossbow"
 	req_tech = list("combat" = 5, "engineering" = 3, "magnets" = 5, "syndicate" = 3)
 	build_type = PROTOLATHE
