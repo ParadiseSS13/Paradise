@@ -404,7 +404,8 @@
 	item_state = "assault"
 	storage_slots = 6
 
-/obj/item/storage/belt/military/assault/marines/full/populate_contents()
+/obj/item/storage/belt/military/assault/marines/full/New()
+	..()
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
@@ -413,7 +414,8 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
-/obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
+/obj/item/storage/belt/military/assault/marines/elite/full/New()
+	..()
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
