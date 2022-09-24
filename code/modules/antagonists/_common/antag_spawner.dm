@@ -14,7 +14,7 @@
 /obj/item/antag_spawner/nuke_ops
 	name = "syndicate operative teleporter"
 	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/implants.dmi'
 	icon_state = "locator"
 	var/borg_to_spawn
 	var/checking = FALSE
