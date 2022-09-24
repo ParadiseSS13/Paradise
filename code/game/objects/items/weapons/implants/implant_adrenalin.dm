@@ -1,5 +1,5 @@
 /obj/item/implant/adrenalin
-	name = "adrenal implant"
+	name = "adrenal bio-chip"
 	desc = "Removes all stuns and knockdowns."
 	icon_state = "adrenal"
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=4"
@@ -24,10 +24,10 @@
 		qdel(src)
 
 /obj/item/implanter/adrenalin
-	name = "implanter (adrenalin)"
+	name = "bio-chip implanter (adrenalin)"
 	implant_type = /obj/item/implant/adrenalin
 
 /obj/item/implantcase/adrenaline
-	name = "implant case - 'Adrenaline'"
-	desc = "A glass case containing an adrenaline implant."
+	name = "bio-chip case - 'Adrenaline'"
+	desc = "A glass case containing an adrenaline bio-chip."
 	implant_type = /obj/item/implant/adrenalin

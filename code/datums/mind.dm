@@ -240,9 +240,9 @@
 
 /datum/mind/proc/memory_edit_implant(mob/living/carbon/human/H)
 	if(ismindshielded(H))
-		. = "Mindshield Implant:<a href='?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
+		. = "Mindshield Bio-chip:<a href='?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
 	else
-		. = "Mindshield Implant:<b>No Implant</b>|<a href='?src=[UID()];implant=add'>Implant [H.p_them()]!</a></br>"
+		. = "Mindshield Bio-chip:<b>No Bio-chip</b>|<a href='?src=[UID()];implant=add'>Bio-chip [H.p_them()]!</a></br>"
 
 
 /datum/mind/proc/memory_edit_revolution(mob/living/carbon/human/H)
@@ -780,21 +780,21 @@
 				for(var/obj/item/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield implant has been deactivated.</B></FONT></span>")
-				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
-				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
+				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield bio-chip has been deactivated.</B></FONT></span>")
+				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield bio-chip")
+				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield bio-chip")
 			if("add")
 				var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
 				L.implant(H)
 
-				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield implant")
-				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield implant")
+				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield bio-chip")
+				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield bio-chip")
 
 				to_chat(H, "<span class='warning'><Font size =3><B>You somehow have become the recepient of a mindshield transplant, and it just activated!</B></FONT></span>")
 				if(src in SSticker.mode.revolutionaries)
 					special_role = null
 					SSticker.mode.revolutionaries -= src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
+					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield bio-chip remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
 				if(src in SSticker.mode.head_revolutionaries)
 					special_role = null
 					SSticker.mode.head_revolutionaries -=src
