@@ -20,7 +20,7 @@
 	var/on_icon
 	var/dirty_icon
 	var/open_icon
-	///	Sound used when starting and ending cooking
+	///Sound used when starting and ending cooking
 	var/datum/looping_sound/kitchen/soundloop
 	var/soundloop_type
 
@@ -99,7 +99,7 @@
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
 			return TRUE
 	else if(is_type_in_list(O, GLOB.cooking_ingredients[recipe_type]) || istype(O, /obj/item/mixing_bowl))
-		if(contents.len>=max_n_of_items)
+		if(length(contents) >= max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return TRUE
 		if(istype(O,/obj/item/stack))
@@ -119,7 +119,6 @@
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return TRUE
-		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
 	else if(istype(O,/obj/item/grab))
 		return special_attack(O, user)
 	else
@@ -130,18 +129,18 @@
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_item())
 		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
-		//return 0
-	else
-		I.forceMove(src)
-		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
-		SStgui.update_uis(src)
+		return
+
+	I.forceMove(src)
+	user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
-	return 0
+	return FALSE
 
 /obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
 	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
-	return 0
+	return FALSE
 
 /********************
 *   Machine Menu	*
@@ -199,7 +198,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	start()
-	if(reagents.total_volume == 0 && !(locate(/obj) in contents)) //dry run
+	if(has_cookables()) //dry run
 		if(!wzhzhzh(10))
 			abort()
 			return
@@ -238,7 +237,7 @@
 			return
 		make_recipes(recipes_to_make)
 
-/obj/machinery/kitchen_machine/proc/dispose()
+/obj/machinery/kitchen_machine/proc/dispose(mob/user)
 	for(var/obj/O in contents)
 		O.forceMove(loc)
 	if(reagents.total_volume)
@@ -366,10 +365,10 @@
 		amount += reagents.total_volume
 	reagents.clear_reagents()
 	if(amount)
-		var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
-		ffuu.reagents.add_reagent("carbon", amount/2)
-		ffuu.reagents.add_reagent("????", amount/15)
-		ffuu.forceMove(get_turf(src))
+		var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(src)
+		mysteryfood.reagents.add_reagent("carbon", amount/2)
+		mysteryfood.reagents.add_reagent("????", amount/15)
+		mysteryfood.forceMove(get_turf(src))
 
 /obj/machinery/kitchen_machine/update_icon_state()
 	. = ..()
@@ -388,7 +387,7 @@
 	. = ..()
 	var/dat = format_content_descs()
 	if(dat)
-		. += "It contains: <BR>[dat]"
+		. += "It contains: <br>[dat]"
 
 /obj/machinery/kitchen_machine/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER) || panel_open || !anchored)
@@ -404,7 +403,6 @@
 
 /obj/machinery/kitchen_machine/ui_data(mob/user)
 	var/list/data = list()
-	data["name"] = name
 	data["operating"] = operating
 	data["inactive"] = FALSE
 	data["no_eject"] = FALSE
@@ -412,10 +410,10 @@
 	if(dirty >= 100)
 		data["inactive"] = TRUE
 		data["tooltip"] = "It's too dirty."
-	else if(!length(contents))
+	else if(!has_cookables())
 		data["inactive"] = TRUE
 		data["no_eject"] = TRUE
-		data["tooltip"] = "Theres no contents."
+		data["tooltip"] = "There is no contents."
 
 	var/list/items_counts = list()
 	var/list/name_overrides = list()
@@ -482,6 +480,11 @@
 
 	return data
 
+/obj/machinery/kitchen_machine/ui_static_data(mob/user)
+	. = ..()
+	data["name"] = name
+	return data
+
 /obj/machinery/kitchen_machine/ui_act(action, params)
 	. = ..()
 	if(.)
@@ -497,9 +500,12 @@
 	if(dirty >= 100)
 		to_chat(user, "<span class='warning'>Its too dirty.</span>")
 		return
-	if(!length(contents))
+	if(!has_cookables())
 		to_chat(user, "<span class='warning'>Its empty!</span>")
 		return
 
 	cook()
 	to_chat(user, "<span class='notice'>You activate [src]</span>")
+
+/obj/machinery/kitchen_machine/proc/has_cookables()
+	return reagents.total_volume > 0 || length(contents)

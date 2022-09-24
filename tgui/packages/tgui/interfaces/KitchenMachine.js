@@ -1,16 +1,13 @@
-import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table, Flex, Icon, Dimmer } from '../components';
+import { Button, Section, Table, Flex, Icon, Dimmer } from '../components';
 import { Window } from '../layouts';
 
 export const KitchenMachine = (props, context) => {
   const { data } = useBackend(context);
-  const { ingredients = [],
-          name
-        } = data;
+  const { ingredients } = data;
 
   return (
-    <Window title= {name} resizable>
+    <Window resizable>
       <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
         <Operating/>
         <KitchenTop/>
@@ -103,7 +100,7 @@ export const IngredientRow = (props, context) => {
     <Table.Row>
       <Table.Cell bold>{product.name}</Table.Cell>
       <Table.Cell collapsing textAlign="center">
-      {product.amount} {product.units}
+        {product.amount} {product.units}
       </Table.Cell>
     </Table.Row>
   );
