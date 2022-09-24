@@ -115,6 +115,11 @@
 		if(mode == BOT_PATROL)
 			bot_patrol()
 
+	if(target && loc == get_turf(target))
+		start_clean(target)
+		path = list()
+		target = null
+
 	if(target)
 		if(!path || path.len == 0) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
@@ -129,11 +134,6 @@
 			target = null
 			mode = BOT_IDLE
 			return
-
-	if(target && loc == target.loc)
-		start_clean(target)
-		path = list()
-		target = null
 
 	oldloc = loc
 
