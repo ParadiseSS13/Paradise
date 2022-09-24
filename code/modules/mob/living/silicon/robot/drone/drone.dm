@@ -16,7 +16,7 @@
 	density = 0
 	has_camera = FALSE
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
@@ -124,6 +124,8 @@
 	else
 		overlays -= "eyes"
 
+	hat_icons()
+
 /mob/living/silicon/robot/drone/choose_icon()
 	return
 
@@ -138,7 +140,6 @@
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/W as obj, mob/user as mob, params)
-
 	if(istype(W, /obj/item/borg/upgrade/))
 		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
 		return

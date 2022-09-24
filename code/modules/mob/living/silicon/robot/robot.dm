@@ -325,6 +325,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
+		robot_module_hat_offset(icon_state)
 		return
 	designation = modtype
 	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
@@ -480,6 +481,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		radio.config(module.channels)
 	notify_ai(2)
 
+	robot_module_hat_offset(icon_state)
+
 /mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, var/robot_to_spawn, turf/T)
 
 	var/mob/living/silicon/robot/syndicate/R
@@ -531,6 +534,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	M.mind.transfer_to(R)
 	R.faction = list("syndicate")
 	SEND_SOUND(R.mind.current, 'sound/effects/contractstartup.ogg')
+
+	robot_module_hat_offset(icon_state)
 
 /mob/living/silicon/robot/proc/reset_module()
 	notify_ai(2)
@@ -1087,6 +1092,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			overlays += "[panelprefix]-openpanel +c"
 		else
 			overlays += "[panelprefix]-openpanel -c"
+
+	hat_icons()
 	borg_icons()
 	update_fire()
 
@@ -1140,9 +1147,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/Topic(href, href_list)
 	if(..())
-		return 1
-
-	if(usr != src)
 		return 1
 
 	if(href_list["mach_close"])
@@ -1262,6 +1266,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
+	unEquip(inventory_head)
 	qdel(src)
 
 /mob/living/silicon/robot/Move(a, b, flag)
@@ -1438,7 +1443,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return STATUS_UPDATE_NONE
 
 /mob/living/silicon/robot/regenerate_icons()
-	..()
+	. = ..()
 	update_module_icon()
 
 /mob/living/silicon/robot/emp_act(severity)

@@ -154,8 +154,15 @@
 
 		if("flip","flips")
 			m_type = 1
-			message = "does a flip!"
 			src.SpinAnimation(5,1)
+
+			if (src.inventory_head)
+				unEquip(src.inventory_head)
+				src.inventory_head = null
+				src.regenerate_icons()
+				message = "кувырком опрокинул шляпу!"
+			else
+				message = "does a flip!"
 
 		if("help")
 			to_chat(src, "salute, bow-(none)/mob, clap, flap, aflap, twitch, twitches, nod, deathgasp, glare-(none)/mob, stare-(none)/mob, look,\n law, halt")

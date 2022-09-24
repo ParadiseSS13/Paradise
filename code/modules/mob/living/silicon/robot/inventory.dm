@@ -249,6 +249,9 @@
 	return ..()
 
 /mob/living/silicon/robot/proc/update_module_icon()
+	if (!hands)
+		return
+
 	if(!module)
 		hands.icon_state = "nomod"
 	else

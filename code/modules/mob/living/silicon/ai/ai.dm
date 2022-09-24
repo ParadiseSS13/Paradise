@@ -1235,6 +1235,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!mind)
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
+		unEquip(inventory_head)
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.
