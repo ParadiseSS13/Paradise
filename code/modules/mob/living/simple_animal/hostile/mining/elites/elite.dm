@@ -174,6 +174,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		/mob/living/simple_animal/hostile/asteroid/elite/herald,
 	)
 
+	///List of invaders that have teleportes into the arena *multiple times*. They will be suffering.
+	var/list/invaders = list()
+
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!ishuman(user))
@@ -255,6 +258,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(gps)
+	invaders.Cut()
+	invaders = null
 	if(activator)
 		clear_activator(activator)
 	if(mychild)
@@ -309,6 +314,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	INVOKE_ASYNC(src, .proc/fighters_check)  //Checks to see if our fighters died.
 	INVOKE_ASYNC(src, .proc/arena_trap)  //Gets another arena trap queued up for when this one runs out.
 	INVOKE_ASYNC(src, .proc/border_check)  //Checks to see if our fighters got out of the arena somehow.
+	INVOKE_ASYNC(src, .proc/invaders_check)  //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 	addtimer(CALLBACK(src, .proc/arena_checks), 5 SECONDS)
 
 /obj/structure/elite_tumor/proc/fighters_check()
@@ -338,6 +344,29 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.forceMove(loc)
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+
+/obj/structure/elite_tumor/proc/invaders_check()
+	for(var/mob/living/M in range(12, src))
+		if(!ishuman(M) && !isrobot(M))
+			continue
+		if(M == activator)
+			continue
+		if(M in invaders)
+			to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</span></b>")
+			var/i = 0
+			while(i <= 3)
+				M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
+				i ++
+		else
+			to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
+			invaders += M
+		var/list/valid_turfs = list()
+		for(var/turf/T in RANGE_TURFS(13, src))
+			if(get_dist(T, src) == 13)
+				valid_turfs += T
+		M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
+		playsound(M,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
@@ -450,7 +479,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
 	. = ..()
-	if(mover == ourelite || mover == activator)
+	if(isliving(mover))
 		return FALSE
 
 /obj/item/gps/internal/tumor
