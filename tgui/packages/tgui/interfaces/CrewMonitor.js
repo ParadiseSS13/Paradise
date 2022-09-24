@@ -146,7 +146,7 @@ const CrewMonitorDataView = (_properties, context) => {
                 )
               ) : (
                 <Box inline color='grey'>
-                  {'Not Available'}
+                  Not Available
                 </Box>
               )}
             </TableCell>
