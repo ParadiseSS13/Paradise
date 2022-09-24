@@ -334,7 +334,7 @@
 
 /obj/machinery/kitchen_machine/proc/abort()
 	operating = FALSE // Turn it off again aferwards
-
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/stop()
