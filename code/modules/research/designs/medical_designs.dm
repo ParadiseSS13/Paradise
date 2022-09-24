@@ -323,6 +323,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
 	category = list("Medical")
 
+/datum/design/cyberimp_toolset
+	name = "Atmos Arm Implant"
+	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."
+	id = "ci-atmostoolset"
+	req_tech = list("materials" = 5, "engineering" = 7, "biotech" = 4, "bluespace" = 6, "powerstorage" = 4, "programming" = 6, "plasmatech" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 1000, MAT_DIAMOND = 600, MAT_BLUESPACE = 1000)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/atmostoolset
+	category = list("Medical")
+
 /datum/design/cyberimp_janitorial
 	name = "Janitorial Toolset Implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm."

@@ -213,6 +213,18 @@
 		return TRUE
 	return FALSE
 
+/obj/item/organ/internal/cyberimp/arm/atmostoolset
+	name = "integrated atmos toolset implant"
+	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
+	contents = newlist(/obj/item/holosign_creator/atmos, /obj/item/rpd, /obj/item/analyzer, /obj/item/destTagger, /obj/item/extinguisher/mini,
+		/obj/item/pipe_painter, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/tools.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "rpd")
+
+/obj/item/organ/internal/cyberimp/arm/atmostoolset/l
+	parent_organ = "l_arm"
+
 /obj/item/organ/internal/cyberimp/arm/hacking
 	name = "hacking arm implant"
 	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
