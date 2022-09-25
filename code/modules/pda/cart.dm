@@ -262,7 +262,7 @@
 
 /obj/item/cartridge/supervisor
 	name = "Easy-Record DELUXE"
-	desc = "A data cartridge for portable microcomputers. Has security records and status display controller."
+	desc = "A data cartridge for portable microcomputers. Has security records and a status display controller."
 	icon_state = "cart-h"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
