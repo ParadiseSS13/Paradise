@@ -39172,12 +39172,6 @@
 	icon_state = "blue"
 	},
 /area/crew_quarters/heads)
-"bSe" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "bSf" = (
 /obj/structure/table,
 /obj/item/paper,
@@ -39199,8 +39193,10 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel,
@@ -43352,14 +43348,12 @@
 	},
 /area/quartermaster/miningdock)
 "cbJ" = (
-/obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
 "cbK" = (
-/obj/effect/landmark/start/shaft_miner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -44075,7 +44069,6 @@
 	sortType = 3;
 	icon_state = "pipe-j2s"
 	},
-/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cdC" = (
@@ -44654,7 +44647,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/miner,
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -45661,7 +45655,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cis" = (
-/obj/effect/landmark/start/shaft_miner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -45670,6 +45663,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "ciu" = (
@@ -46345,7 +46339,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cjU" = (
-/obj/structure/closet/secure_closet/miner,
+/obj/structure/table,
+/obj/item/folder/yellow,
+/obj/item/gps/mining,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -46408,6 +46404,11 @@
 	c_tag = "Mining Dock";
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -46418,7 +46419,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ckq" = (
-/obj/effect/landmark/start/shaft_miner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -46429,6 +46429,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "ckr" = (
@@ -47667,6 +47668,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -70171,10 +70173,6 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/obj/item/coin/silver{
-	pixel_y = 5;
-	pixel_x = 3
-	},
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
 "faK" = (
@@ -77610,6 +77608,7 @@
 "kQY" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "kSv" = (
@@ -80748,7 +80747,6 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "nxm" = (
-/obj/effect/decal/warning_stripes/blue/hollow,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -86294,6 +86292,17 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"scB" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/stack/cable_coil{
+	amount = 15
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/quartermaster/miningdock)
 "scM" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -88680,11 +88689,16 @@
 	},
 /area/toxins/lab)
 "tZo" = (
-/obj/structure/closet,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/structure/table,
+/obj/item/coin/silver{
+	pixel_y = 5;
+	pixel_x = 3
+	},
+/obj/item/toy/figure/crew/qm,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -92176,6 +92190,7 @@
 	name = "Cargo Requests Console";
 	pixel_x = -30
 	},
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -112593,7 +112608,7 @@ bHb
 bMg
 bxb
 bPX
-bSe
+bKz
 bPO
 bRR
 bKz
@@ -116714,7 +116729,7 @@ bBn
 bYJ
 bzJ
 cbJ
-cjU
+scB
 cfc
 cjU
 clr
