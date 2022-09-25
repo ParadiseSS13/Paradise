@@ -37,8 +37,8 @@
 	init_lists()
 
 /obj/machinery/kitchen_machine/Destroy()
-	. = ..()
 	QDEL_NULL(soundloop)
+	return ..()
 
 /obj/machinery/kitchen_machine/proc/init_lists()
 	if(!GLOB.cooking_recipes[recipe_type])
@@ -124,7 +124,6 @@
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return TRUE
-	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_item())
@@ -133,7 +132,6 @@
 
 	I.forceMove(src)
 	user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
-	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return FALSE
@@ -244,7 +242,6 @@
 		dirty++
 	reagents.clear_reagents()
 	to_chat(user, "<span class='notice'>You eject of \the [src]'s contents.</span>")
-	SStgui.update_uis(src)
 
 //choose_recipes(): picks out recipes for the machine and any mixing bowls it may contain.
 	//builds a list of the selected recipes to be made in a later proc by associating the "source" of the ingredients (mixing bowl, machine) with the recipe for that source
@@ -323,7 +320,6 @@
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	operating = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/finish_sound()
 	if(soundloop)
@@ -334,13 +330,11 @@
 /obj/machinery/kitchen_machine/proc/abort()
 	operating = FALSE // Turn it off again aferwards
 	update_icon(UPDATE_ICON_STATE)
-	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/stop()
 	finish_sound()
 	operating = FALSE // Turn it off again aferwards
 	update_icon(UPDATE_ICON_STATE)
-	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/muck_start()
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1) // Play a splat sound
@@ -452,9 +446,9 @@
 			units = "[name_overrides[food]]"
 
 		var/list/data_pr = list(
-			name = capitalize(food),
-			amount = N,
-			units = units
+			"name" = capitalize(food),
+			"amount" = N,
+			"units" = units
 		)
 
 		data["ingredients"] += list(data_pr)
@@ -471,9 +465,9 @@
 			unitamt = "units"
 
 		var/list/data_pr = list(
-			name = display_name,
-			amount = R.volume,
-			units = unitamt
+			"name" = display_name,
+			"amount" = R.volume,
+			"units" = unitamt
 		)
 
 		data["ingredients"] += list(data_pr)

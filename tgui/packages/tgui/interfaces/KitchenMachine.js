@@ -14,11 +14,12 @@ export const KitchenMachine = (props, context) => {
         <Section title="Ingredients">
           <Table>
             {ingredients.map((product) => (
-              <IngredientRow
-                key={product.name}
-                product={product}
-                productStock={product.units}
-              />
+              <Table.Row key={product.name}>
+                <Table.Cell bold>{product.name}</Table.Cell>
+                <Table.Cell collapsing textAlign="center">
+                  {product.amount} {product.units}
+                </Table.Cell>
+              </Table.Row>
             ))}
           </Table>
         </Section>
@@ -27,7 +28,7 @@ export const KitchenMachine = (props, context) => {
   );
 };
 
-export const KitchenTop = (props, context) => {
+const KitchenTop = (props, context) => {
   const { act, data } = useBackend(context);
   const { inactive,
           tooltip
@@ -65,7 +66,7 @@ export const KitchenTop = (props, context) => {
   );
 }
 
-export const Operating = (props, context) => {
+const Operating = (props, context) => {
   const { data } = useBackend(context);
   const { operating,
           name
@@ -91,17 +92,4 @@ export const Operating = (props, context) => {
       </Dimmer>
     );
   }
-};
-
-export const IngredientRow = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { product } = props;
-  return (
-    <Table.Row>
-      <Table.Cell bold>{product.name}</Table.Cell>
-      <Table.Cell collapsing textAlign="center">
-        {product.amount} {product.units}
-      </Table.Cell>
-    </Table.Row>
-  );
 };

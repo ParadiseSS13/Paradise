@@ -27,8 +27,8 @@
 	soundloop = new(list(src), FALSE) // cereal machine, screw off
 
 /obj/machinery/cooker/Destroy()
-	. = ..()
 	QDEL_NULL(soundloop)
+	return ..()
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
