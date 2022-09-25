@@ -1648,7 +1648,7 @@
 /area/crew_quarters/arcade)
 "ama" = (
 /obj/structure/table,
-/obj/item/clothing/under/sl_suit{
+/obj/item/clothing/under/misc/sl_suit{
 	desc = "Whoever wears this makes the rules.";
 	name = "referee suit"
 	},
