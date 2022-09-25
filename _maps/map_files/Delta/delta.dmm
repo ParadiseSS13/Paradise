@@ -60475,7 +60475,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
 	name = "Xenobiology Lab";
-	req_access_txt = "7"
+	req_access_txt = "55"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -60584,7 +60584,7 @@
 	id_tag = "tox_airlock_exterior";
 	locked = 1;
 	name = "Xenobiology Kill Room";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -69011,7 +69011,7 @@
 "dgr" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Xenobiology Maintenance";
-	req_access_txt = "7"
+	req_access_txt = "55"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -69738,7 +69738,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass{
 	name = "Xenobiology Lab";
-	req_access_txt = "7"
+	req_access_txt = "55"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -71636,7 +71636,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass{
 	name = "Toxin Mixing";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
