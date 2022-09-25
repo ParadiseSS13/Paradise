@@ -526,7 +526,6 @@
 	if(prob(RETURN_INJURY_CHANCE) && M.health >= 50)
 		var/obj/item/organ/external/injury_target
 		var/nolimb = FALSE
-		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back!</span>")
 		if(prob(20)) //remove a limb
 			if(prob(50))
 				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
@@ -534,25 +533,23 @@
 					nolimb = TRUE
 					return
 				injury_target.droplimb()
+				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god something's missing!</span>")
 		else //fracture
 			if(ismachineperson(M))
-				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your componenets are loose!</span>")
 				M.emp_act(1)
 				M.adjustBrainLoss(30)
+				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your componenets are loose!</span>")
 
 			if(isslimeperson(M))
-				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
 				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 				if(!injury_target)
 					nolimb = TRUE
 					return
 				injury_target.cause_internal_bleeding()
 
-				injury_target = M.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST))
-				if(!injury_target)
-					nolimb = TRUE
-					return
+				injury_target = M.get_organ(BODY_ZONE_CHEST)
 				injury_target.cause_internal_bleeding()
+				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
 
 			else if(prob(10))
 				injury_target = M.get_organ(BODY_ZONE_CHEST)
@@ -563,6 +560,10 @@
 					nolimb = TRUE
 					return
 				injury_target.fracture()
+		if(nolimb)//if no limb is found, damage them..
+			M.adjustBruteLoss(40)
+			M.adjustBrainLoss(25)
+
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
