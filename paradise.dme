@@ -2258,6 +2258,7 @@
 #include "code\modules\pda\pdas.dm"
 #include "code\modules\pda\utilities.dm"
 #include "code\modules\persistence\persistence.dm"
+#include "code\modules\point\point.dm"
 #include "code\modules\power\apc.dm"
 #include "code\modules\power\cable.dm"
 #include "code\modules\power\cable_logic.dm"

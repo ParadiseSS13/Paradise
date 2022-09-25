@@ -199,14 +199,14 @@
 				if(ismindshielded(target))
 					to_chat(user, "<span class='notice'>[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear.</span>")
 					user.visible_message("<span class='danger'>[user] stops talking for a moment, then moves back away from [target].</span>")
-					to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
+					to_chat(target, "<span class='danger'>Your mindshield bio-chip activates, protecting you from conversion.</span>")
 					return
 			if(3)
 				to_chat(user, "<span class='notice'>You begin filling out the application form with [target].</span>")
 				user.visible_message("<span class='danger'>[user] pulls out a pen and paper and begins filling an application form with [target].</span>")
 				to_chat(target, "<span class='danger'>You are being convinced by [user] to fill out an application form to become a henchman.</span>")//Ow the edge
 
-		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
+		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield bio-chip
 			to_chat(user, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
 			to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [user]. The application form is null and void.</span>")
 			recruiting = FALSE
