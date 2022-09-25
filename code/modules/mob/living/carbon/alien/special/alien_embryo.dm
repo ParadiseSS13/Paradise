@@ -7,11 +7,11 @@
 	icon_state = "larva0_dead"
 	var/stage = 0
 	var/polling = FALSE
-	//How long it takes for an alien embryo to advance a stage in it's development// Pretend this is 70 seconds it basically is I swear
+	///How long it takes for an alien embryo to advance a stage in it's development
 	var/incubation_time_per_stage = 70 SECONDS
-	//The random deviation for how long the incubation period per stage will take, ranging from -15% to +15. NOTE! If you have a better name for this var, I'd love it
+	///The random deviation for how long the incubation period per stage will take, ranging from -15% to +15. NOTE! If you have a better name for this var, I'd love it
 	var/incubation_deviation = 0
-	//Used to keep track of when incubation progressed to the next stage
+	///Used to keep track of when incubation progressed to the next stage
 	var/last_stage_progress = 0
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
@@ -27,7 +27,7 @@
 	S.reagents.add_reagent("sacid", 10)
 	return S
 
-/obj/item/organ/internal/body_egg/alien_embryo/on_life() //I'm gonna do something about this, I swear
+/obj/item/organ/internal/body_egg/alien_embryo/on_life()
 	switch(stage)
 		if(2)
 			if(prob(2))
@@ -56,16 +56,16 @@
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
-	if(stage < 4 && world.time > last_stage_progress + incubation_deviation) //Time for incubation is increased or decreased by a deviation of 15%, then we check to see if we've passed the threshold to goto our next stage of development
+	if(stage < 4 && world.time > last_stage_progress + incubation_deviation) ///Time for incubation is increased or decreased by a deviation of 15%, then we check to see if we've passed the threshold to goto our next stage of development
 		stage++
 		RefreshInfectionImage()
-		incubation_deviation = PERCENT_OF(rand(85, 115), incubation_time_per_stage) //The actual deviation location, and where the magic happens
+		incubation_deviation = PERCENT_OF(rand(85, 115), incubation_time_per_stage) ///The actual deviation location, and where the magic happens
 		last_stage_progress = world.time
 
 	if(stage == 4)
 		for(var/datum/surgery/S in owner.surgeries)
 			if(S.location == "chest" && S.organ_to_manipulate.open >= ORGAN_ORGANIC_OPEN)
-				AttemptGrow(burst_on_success = FALSE) //If you managed to get this far, you deserve to be rewarded somewhat
+				AttemptGrow(burst_on_success = FALSE) ///If you managed to get this far, you deserve to be rewarded somewhat
 				return
 		AttemptGrow()
 
