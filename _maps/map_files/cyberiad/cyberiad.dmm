@@ -35577,7 +35577,9 @@
 /area/hallway/primary/central/east)
 "bIS" = (
 /obj/machinery/vending/cargodrobe,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
 /area/quartermaster/storage)
 "bIU" = (
 /obj/machinery/requests_console{
@@ -38365,9 +38367,6 @@
 /obj/structure/closet/emcloset,
 /obj/machinery/status_display/supply_display{
 	pixel_y = 32
-	},
-/obj/machinery/camera{
-	c_tag = "Cargo Recieving Dock"
 	},
 /obj/effect/turf_decal{
 	dir = 8
@@ -41928,15 +41927,14 @@
 /obj/effect/turf_decal{
 	dir = 8
 	},
-/obj/machinery/conveyor_switch/oneway{
-	id = "QMLoad"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bYy" = (
 /obj/machinery/conveyor/west{
-	id = "QMLoad"
+	id = "QMLoad";
+	icon_state = "conveyor_stopped_ccw";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -43348,6 +43346,9 @@
 	},
 /area/quartermaster/miningdock)
 "cbJ" = (
+/obj/structure/table,
+/obj/item/folder/yellow,
+/obj/item/gps/mining,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -44528,7 +44529,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
 /area/quartermaster/storage)
 "ceF" = (
 /obj/machinery/firealarm{
@@ -46339,9 +46342,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cjU" = (
-/obj/structure/table,
-/obj/item/folder/yellow,
-/obj/item/gps/mining,
+/obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -56166,6 +56167,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
+"cKV" = (
+/obj/machinery/camera{
+	c_tag = "Cargo Bay South";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "cKX" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -77468,6 +77479,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"kJQ" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	id_tag = "mining_home";
+	locked = 1;
+	name = "Mining Dock Airlock";
+	req_access_txt = "48"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/miningdock)
 "kKD" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/stripes/line{
@@ -79757,7 +79778,10 @@
 /obj/item/clothing/head/soft,
 /obj/item/hand_labeler,
 /obj/item/clothing/head/soft,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
 /area/quartermaster/storage)
 "mIM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -81575,6 +81599,12 @@
 	dir = 1
 	},
 /area/medical/virology)
+"ojs" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "ojz" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -81951,6 +81981,11 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
+"ozC" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "browncorner"
+	},
+/area/quartermaster/storage)
 "ozX" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags{
@@ -83145,7 +83180,9 @@
 /area/maintenance/asmaint2)
 "prX" = (
 /obj/structure/closet/secure_closet/cargotech,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
 /area/quartermaster/storage)
 "psa" = (
 /obj/structure/closet/secure_closet/brig,
@@ -86371,6 +86408,15 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
+"sft" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "supply_home";
+	locked = 1;
+	name = "Cargo Docking Hatch";
+	req_access_txt = "31"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "sgt" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -90321,6 +90367,13 @@
 /obj/item/flag/rnd,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
+"vsR" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "vtf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -90614,14 +90667,13 @@
 	},
 /area/medical/medbay2)
 "vAZ" = (
-/obj/machinery/camera{
-	c_tag = "Cargo Bay South";
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
 /area/quartermaster/storage)
 "vBs" = (
 /obj/machinery/firealarm{
@@ -111583,9 +111635,9 @@ aaa
 aaa
 bPT
 bRI
-bTr
+sft
 bPT
-bTr
+sft
 bUg
 bPT
 aaa
@@ -112616,8 +112668,8 @@ bWV
 bTu
 bYx
 oWJ
-oWJ
 qMY
+oWJ
 sFm
 bKB
 aaa
@@ -114151,15 +114203,15 @@ bIX
 bQf
 bKz
 bOh
-bKz
-bKz
+ozC
+ojs
 vAZ
-byw
-bKz
-bKz
-bKz
-bKz
-bKz
+vsR
+ojs
+ojs
+cKV
+ojs
+ojs
 mIA
 bxb
 aaa
@@ -114937,7 +114989,7 @@ aaa
 aaa
 bYP
 bYP
-esD
+kJQ
 bYP
 bYP
 aaa
