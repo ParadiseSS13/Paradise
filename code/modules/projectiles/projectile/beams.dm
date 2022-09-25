@@ -232,7 +232,7 @@
 	name = "energy beam" //Keep it vague? It's not a laser, but it's silenced, does a person know what it is?
 	icon_state = "omnilaser"
 	stamina = 30
-	damage = 15 //Bit less than 20, but more than 15, since passive regen of oxygen + oxygen medicine.
+	damage = 15
 	damage_type = OXY
 	flag = "energy"
 	hitsound = 'sound/weapons/tap.ogg'
