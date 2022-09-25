@@ -5739,7 +5739,7 @@
 "aAU" = (
 /obj/item/clothing/gloves/color/rainbow,
 /obj/item/clothing/shoes/rainbow,
-/obj/item/clothing/under/rainbow,
+/obj/item/clothing/under/color/rainbow,
 /obj/item/clothing/head/soft/rainbow,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)

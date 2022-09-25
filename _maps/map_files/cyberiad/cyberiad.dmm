@@ -23940,7 +23940,7 @@
 	pixel_x = 24
 	},
 /obj/item/clothing/suit/soldiercoat,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/costume/soldieruniform,
 /obj/item/clothing/head/stalhelm,
 /obj/machinery/newscaster{
 	name = "south bump";
@@ -45566,7 +45566,7 @@
 /obj/item/clothing/gloves/color/rainbow,
 /obj/item/clothing/shoes/rainbow,
 /obj/item/clothing/head/soft/rainbow,
-/obj/item/clothing/under/rainbow,
+/obj/item/clothing/under/color/rainbow,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "chp" = (

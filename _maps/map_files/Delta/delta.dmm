@@ -67394,7 +67394,7 @@
 "dcK" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/toggle/owlwings,
-/obj/item/clothing/under/owl,
+/obj/item/clothing/under/costume/owl,
 /obj/item/clothing/mask/gas/owl_mask,
 /turf/simulated/floor/wood,
 /area/maintenance/starboard)
@@ -76456,7 +76456,7 @@
 /area/medical/medbay)
 "dwQ" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costume/maid,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
@@ -78606,7 +78606,7 @@
 /area/medical/medbay)
 "dBu" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/jester,
+/obj/item/clothing/under/costume/jester,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -90176,7 +90176,7 @@
 	pixel_y = -24
 	},
 /obj/item/clothing/suit/soldiercoat,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/costume/soldieruniform,
 /obj/item/clothing/head/stalhelm,
 /turf/simulated/floor/wood,
 /area/clownoffice)
