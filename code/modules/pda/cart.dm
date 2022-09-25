@@ -223,7 +223,7 @@
 
 /obj/item/cartridge/rd
 	name = "Signal Ace DELUXE"
-	desc = "A data cartridge for portable microcomputers. Has a reagent scanner, gas scanner status display controller and signaler system."
+	desc = "A data cartridge for portable microcomputers. Has a reagent scanner, gas scanner, a status display controller and signaler system."
 	icon_state = "cart-rd"
 	programs = list(
 		new /datum/data/pda/utility/scanmode/gas,
