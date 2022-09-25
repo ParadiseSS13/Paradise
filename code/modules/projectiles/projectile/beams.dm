@@ -227,3 +227,15 @@
 		to_chat(firer, "<span class='danger'>Weapon Alert: unable to generate warrant on [target]!</span>")
 		return
 	to_chat(firer, "<span class='danger'>Weapon Alert: unable to track [target]!</span>")
+
+/obj/item/projectile/beam/silencer
+	name = "energy beam" //Keep it vague? It's not a laser, but it's silenced, does a person know what it is?
+	icon_state = "omnilaser"
+	stamina = 30
+	damage = 15 //Bit less than 20, but more than 15, since passive regen of oxygen + oxygen medicine.
+	damage_type = OXY
+	flag = "energy"
+	hitsound = 'sound/weapons/tap.ogg'
+	eyeblur = 0
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_CYAN

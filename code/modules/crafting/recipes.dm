@@ -218,6 +218,17 @@
 	..()
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
+/datum/crafting_recipe/silencer
+	name = "u-ION Silencer"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/disabler/silencer)
+	reqs = list(/obj/item/gun/energy/gun = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/silencer = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/ed209
 	name = "ED209"
 	result = list(/mob/living/simple_animal/bot/ed209)
