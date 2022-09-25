@@ -9360,7 +9360,7 @@
 /area/quartermaster/storage)
 "aFq" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/pennywise,
+/obj/item/clothing/under/costume/pennywise,
 /obj/item/toy/syndicateballoon,
 /obj/item/clothing/shoes/clown_shoes,
 /obj/item/clothing/mask/gas/clown_hat/pennywise,
