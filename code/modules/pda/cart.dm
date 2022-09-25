@@ -163,7 +163,7 @@
 
 /obj/item/cartridge/head
 	name = "Easy-Record"
-	desc = "A data cartridge for portable microcomputers. Has status display controller."
+	desc = "A data cartridge for portable microcomputers. Has a status display controller."
 	icon_state = "cart-h"
 	programs = list(
 		new /datum/data/pda/app/status_display
