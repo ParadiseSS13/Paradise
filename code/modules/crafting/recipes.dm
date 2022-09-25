@@ -229,6 +229,10 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/silencer/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/gun)
+
 /datum/crafting_recipe/ed209
 	name = "ED209"
 	result = list(/mob/living/simple_animal/bot/ed209)

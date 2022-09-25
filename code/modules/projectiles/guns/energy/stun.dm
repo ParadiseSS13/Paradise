@@ -70,7 +70,7 @@
 
 /obj/item/gun/energy/disabler/silencer
 	name = "u-ION Silencer"
-	desc = "Nanotrasens take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
+	desc = "Nanotrasen's take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
 	icon_state = "tesla"
 	item_state = "tesla"
 	origin_tech = "combat=6;syndicate=2"
