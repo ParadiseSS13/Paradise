@@ -133,6 +133,9 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/is_cleanable()
 	return TRUE
 
+/obj/effect/rune/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text1 = "scrub out", text2 = " with [src].", text3 = "scrub out")
+	..()
+
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.

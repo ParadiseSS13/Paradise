@@ -7,6 +7,9 @@
 	if(mergeable_decal)
 		return TRUE
 
+/obj/effect/decal/cleanable/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text1 = "scrub out", text2 = " with [cleaner].", text3 = "scrub out")
+	..()
+
 //Add "bloodiness" of this blood's type, to the human's shoes
 //This is on /cleanable because fuck this ancient mess
 /obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)

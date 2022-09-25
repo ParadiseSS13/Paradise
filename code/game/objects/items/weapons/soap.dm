@@ -27,7 +27,7 @@
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
 		return
-	cleaning_act(target, user, src, cleanspeed)
+	target.cleaning_act(user, src, cleanspeed)
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
