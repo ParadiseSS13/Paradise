@@ -187,7 +187,7 @@
 
 /obj/item/cartridge/hos
 	name = "R.O.B.U.S.T. DELUXE"
-	desc = "A data cartridge for portable microcomputers. Has security records, security bot control and status display controller."
+	desc = "A data cartridge for portable microcomputers. Has security records, security bot control and a status display controller."
 	icon_state = "cart-hos"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
