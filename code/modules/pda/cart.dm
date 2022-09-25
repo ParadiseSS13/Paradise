@@ -171,7 +171,7 @@
 
 /obj/item/cartridge/hop
 	name = "HumanResources9001"
-	desc = "A data cartridge for portable microcomputers. Has supply records, MULEbot control, custodial locator and status display controller."
+	desc = "A data cartridge for portable microcomputers. Has supply records, MULEbot control, a custodial locator and a status display controller."
 	icon_state = "cart-h"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
