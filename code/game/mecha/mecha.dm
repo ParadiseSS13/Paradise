@@ -40,6 +40,7 @@
 	var/frozen = FALSE
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
+	var/emag_proof = FALSE //If it is immune to emagging. Used by CC mechs.
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -878,8 +879,14 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
-	return
+	if(emag_proof)
+		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+		return
+	user.visible_message("<span class='notice'>[user] slides a card through [src]'s id slot.</span>", "<span class='notice'>You slide the card through [src]'s ID slot, resetting the DNA and access locks.</span>")
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	dna = null
+	operation_req_access = list()
+
 
 
 /////////////////////////////////////
