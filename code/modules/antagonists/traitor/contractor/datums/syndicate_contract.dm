@@ -525,23 +525,14 @@
 		new souvenir(closet)
 	if(prob(RETURN_INJURY_CHANCE) && M.health >= 50)
 		var/obj/item/organ/external/injury_target
+		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back!</span>")
 		if(prob(20)) //remove a limb
 			if(prob(50))
-				to_chat(M, "<span class='warning'>You were interrogated by your captors severely before being sent back!</span>")
 				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 				injury_target.droplimb()
-		else //fracture and/or interrogate
-			if(ismachineperson(M))
-				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your componenets are loose!</span>")
-				M.emp_act(1)
-				M.adjustBrainLoss(30)
-
-			if(isslimeperson(M))
-				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-				injury_target.cause_internal_bleeding()
-
-				injury_target = M.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST))
-				injury_target.cause_internal_bleeding()
+		else //fracture
+			if(ismachineperson(M) || isslime(M)) //They dont have bones, will need something here
+				return //TEMP
 
 			else if(prob(10))
 				injury_target = M.get_organ(BODY_ZONE_CHEST)
