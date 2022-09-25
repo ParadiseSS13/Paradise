@@ -130,14 +130,6 @@
 	item_state = "hosblackf"
 	item_color = "hosblackf"
 
-//Jensen cosplay gear
-/obj/item/clothing/under/rank/security/head_of_security/jensen
-	name = "head of security's jumpsuit"
-	desc = "You never asked for anything that stylish."
-	icon_state = "jensen"
-	item_state = "jensen"
-	item_color = "jensen"
-
 /obj/item/clothing/under/rank/security/formal
 	name = "security suit"
 	desc = "A formal security suit for officers complete with nanotrasen belt buckle."

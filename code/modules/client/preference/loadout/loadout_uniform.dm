@@ -104,11 +104,11 @@
 
 /datum/gear/uniform/suit/soviet
 	display_name = "USSP uniform"
-	path = /obj/item/clothing/under/soviet
+	path = /obj/item/clothing/under/costume/soviet
 
 /datum/gear/uniform/suit/kilt
 	display_name = "Kilt"
-	path = /obj/item/clothing/under/kilt
+	path = /obj/item/clothing/under/costume/kilt
 
 /datum/gear/uniform/skirt
 	main_typepath = /datum/gear/uniform/skirt

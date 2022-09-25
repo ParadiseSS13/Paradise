@@ -32,6 +32,30 @@
 	item_color = "atmos"
 	resistance_flags = NONE
 
+/obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist
+	name = "atmospheric technician's jumpsuit"
+	desc = "A light jumpsuit useful for squeezing through narrow vents."
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/equipped(mob/living/carbon/human/user, slot)
+	if(!user.ventcrawler)
+		user.ventcrawler = 2
+	..()
+
+/obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/dropped(mob/living/carbon/human/user)
+	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
+		user.ventcrawler = 0
+	..()
+
+/obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/proc/check_clothing(mob/user as mob)
+	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
+	var/list/slot_must_be_empty = list(slot_back,slot_handcuffed,slot_legcuffed,slot_l_hand,slot_r_hand,slot_belt,slot_head,slot_wear_suit)
+	for(var/slot_id in slot_must_be_empty)
+		if(user.get_item_by_slot(slot_id))
+			to_chat(user,"<span class='warning'>You can't fit inside while wearing \the [user.get_item_by_slot(slot_id)].</span>")
+			return 0
+	return 1
+
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt
 	desc = "It's a jumpskirt worn by atmospheric technicians."
 	name = "atmospheric technician's jumpskirt"

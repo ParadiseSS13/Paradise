@@ -424,7 +424,7 @@
 
 /datum/outfit/clownsoldier
 	name = "Clown Soldier"
-	uniform = /obj/item/clothing/under/soldieruniform
+	uniform = /obj/item/clothing/under/costume/soldieruniform
 	suit = /obj/item/clothing/suit/soldiercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	l_ear = /obj/item/radio/headset
@@ -435,7 +435,7 @@
 
 /datum/outfit/clownofficer
 	name = "Clown Officer"
-	uniform = /obj/item/clothing/under/officeruniform
+	uniform = /obj/item/clothing/under/costume/officeruniform
 	suit = /obj/item/clothing/suit/officercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	l_ear = /obj/item/radio/headset

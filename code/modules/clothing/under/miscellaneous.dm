@@ -12,20 +12,6 @@
 	item_color = "blue_pyjamas"
 	item_state = "w_suit"
 
-/obj/item/clothing/under/patriotsuit
-	name = "Patriotic Suit"
-	desc = "Motorcycle not included."
-	icon_state = "ek"
-	item_state = "ek"
-	item_color = "ek"
-
-/obj/item/clothing/under/captain_fly
-	name = "rogue captains uniform"
-	desc = "For the man who doesn't care because he's still free."
-	icon_state = "captain_fly"
-	item_state = "captain_fly"
-	item_color = "captain_fly"
-
 /obj/item/clothing/under/scratch
 	name = "white suit"
 	desc = "A white suit, suitable for an excellent host"
@@ -34,8 +20,8 @@
 	item_color = "scratch"
 
 /obj/item/clothing/under/sl_suit
-	desc = "It's a very amish looking suit."
 	name = "amish suit"
+	desc = "It's a very amish looking suit."
 	icon_state = "sl_suit"
 	item_color = "sl_suit"
 
@@ -68,6 +54,7 @@
 	item_color = "solgov"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
 	displays_id = FALSE
+
 /obj/item/clothing/under/solgov/elite
 	name = "\improper Trans-Solar Federation Specops marine uniform"
 	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
@@ -204,79 +191,12 @@
 	item_state = "blueshieldf"
 	item_color = "blueshieldf"
 
-/obj/item/clothing/under/space
-	name = "\improper NASA jumpsuit"
-	desc = "It has a NASA logo on it and is made of space-proofed materials."
-	icon_state = "black"
-	item_state = "bl_suit"
-	item_color = "black"
-	w_class = WEIGHT_CLASS_BULKY
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.02
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS //Needs gloves and shoes with cold protection to be fully protected.
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	resistance_flags = NONE
-
-/obj/item/clothing/under/acj
-	name = "administrative cybernetic jumpsuit"
-	icon_state = "syndicate"
-	item_state = "bl_suit"
-	item_color = "syndicate"
-	desc = "it's a cybernetically enhanced jumpsuit used for administrative duties."
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
-	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	slowdown = -10
-	siemens_coefficient = 0
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
-
-/obj/item/clothing/under/johnny
-	name = "johnny~~ jumpsuit"
-	desc = "Johnny~~"
-	icon_state = "johnny"
-	item_color = "johnny"
-
-/obj/item/clothing/under/rainbow
-	name = "rainbow"
-	desc = "rainbow"
-	icon_state = "rainbow"
-	item_state = "rainbow"
-	item_color = "rainbow"
-
-/obj/item/clothing/under/cloud
-	name = "cloud"
-	desc = "cloud"
-	icon_state = "cloud"
-	item_color = "cloud"
-
-/obj/item/clothing/under/psysuit
-	name = "dark undersuit"
-	desc = "A thick, layered grey undersuit lined with power cables. Feels a little like wearing an electrical storm."
-	icon_state = "psysuit"
-	item_state = "psysuit"
-	item_color = "psysuit"
-
 /obj/item/clothing/under/gimmick/rank/captain/suit
 	name = "captain's suit"
 	desc = "A green suit and yellow necktie. Exemplifies authority."
 	icon_state = "green_suit"
 	item_state = "dg_suit"
 	item_color = "green_suit"
-
-/obj/item/clothing/under/gimmick/rank/head_of_personnel/suit
-	name = "head of personnel's suit"
-	desc = "A teal suit and yellow necktie. An authoritative yet tacky ensemble."
-	icon_state = "teal_suit"
-	item_state = "g_suit"
-	item_color = "teal_suit"
 
 /obj/item/clothing/under/overalls
 	name = "laborer's overalls"
@@ -285,217 +205,12 @@
 	item_state = "lb_suit"
 	item_color = "overalls"
 
-/obj/item/clothing/under/pirate
-	name = "pirate outfit"
-	desc = "Yarr."
-	icon_state = "pirate"
-	item_state = "pirate"
-	item_color = "pirate"
-
-/obj/item/clothing/under/pirate_rags
-	name = "pirate rags"
-	desc = "an old ragged set of clothing"
-	icon_state = "piraterags"
-	item_state = "piraterags"
-	item_color = "piraterags"
-
-/obj/item/clothing/under/soviet
-	name = "soviet uniform"
-	desc = "For the Motherland!"
-	icon_state = "soviet"
-	item_state = "soviet"
-	item_color = "soviet"
-
-/obj/item/clothing/under/redcoat
-	name = "redcoat uniform"
-	desc = "Looks old."
-	icon_state = "redcoat"
-	item_state = "redcoat"
-	item_color = "redcoat"
-
-/obj/item/clothing/under/kilt
-	name = "kilt"
-	desc = "Includes shoes and plaid"
-	icon_state = "kilt"
-	item_state = "kilt"
-	item_color = "kilt"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|FEET
-
-/obj/item/clothing/under/sexymime
-	name = "sexy mime outfit"
-	desc = "The only time when you DON'T enjoy looking at someone's rack."
-	icon_state = "sexymime"
-	item_state = "sexymime"
-	item_color = "sexymime"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/gladiator
-	name = "gladiator uniform"
-	desc = "Are you not entertained? Is that not why you are here?"
-	icon_state = "gladiator"
-	item_state = "gladiator"
-	item_color = "gladiator"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	resistance_flags = NONE
-
-/obj/item/clothing/under/gladiator/ash_walker
-	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
-	has_sensor = FALSE
-
-/obj/item/clothing/under/roman
-	name = "roman armor"
-	desc = "An ancient Roman armor. Made of metallic strips and leather straps."
-	icon_state = "roman"
-	item_color = "roman"
-	item_state = "armor"
-	strip_delay = 100
-	resistance_flags = NONE
-
-/obj/item/clothing/under/maid
-	name = "maid costume"
-	desc = "Maid in China."
-	icon_state = "meido"
-	item_state = "meido"
-	item_color = "meido"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/janimaid
-	name = "maid uniform"
-	desc = "A simple maid uniform for housekeeping."
-	icon_state = "janimaid"
-	item_state = "janimaid"
-	item_color = "janimaid"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/singery
-	name = "yellow performer's outfit"
-	desc = "Just looking at this makes you want to sing."
-	icon_state = "ysing"
-	item_state = "ysing"
-	item_color = "ysing"
-
-/obj/item/clothing/under/singerb
-	name = "blue performer's outfit"
-	desc = "Just looking at this makes you want to sing."
-	icon_state = "bsing"
-	item_state = "bsing"
-	item_color = "bsing"
-
-/obj/item/clothing/under/jester
-	name = "jester suit"
-	desc = "A jolly dress, well suited to entertain your master, nuncle."
-	icon_state = "jester"
-	item_color = "jester"
-
-/obj/item/clothing/under/flappers
-	name = "flappers"
-	desc = "Nothing like the roarin' '20s, flapping the night away on the dance floor."
-	icon_state = "flapper"
-	item_state = "flapper"
-	item_color = "flapper"
-
-/obj/item/clothing/under/bane
-	name = "bane harness"
-	desc = "Wear this harness to become the bane of the station."
-	icon_state = "bane"
-	item_state = "bane"
-	item_color = "bane"
-
-/obj/item/clothing/under/vox
-	name = "ripped jumpsuit"
-	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
-	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
-	icon_state = "vgrey"
-	item_state = "vgrey"
-	item_color = "vgrey"
-
-/obj/item/clothing/under/psyjump
-	name = "psychic amp jumpsuit"
-	desc = "A suit made of strange materials."
-	icon_state = "psyamp"
-	item_state = "psyamp"
-	item_color = "psyamp"
-
-/obj/item/clothing/under/rebeloutfit
-	name = "rebel outfit"
-	desc = "Made in Seattle, 2216."
-	icon_state = "colin_earle"
-	item_state = "colin_earle"
-	item_color = "colin_earle"
-
-/obj/item/clothing/under/officeruniform
-	name = "clown officer's uniform"
-	desc = "For the officers of the Clown army."
-	icon_state = "officeruniform"
-	item_color = "officeruniform"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/soldieruniform
-	name = "clown soldier's uniform"
-	desc = "For the basic grunt of the Clown army."
-	icon_state = "soldieruniform"
-	item_color = "soldieruniform"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/pennywise
-	name = "\improper Pennywise costume"
-	desc = "It's everything you ever were afraid of."
-	icon_state = "pennywise"
-	item_color = "pennywise"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
 	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."
 	icon_state = "assistant_formal"
 	item_state = "gy_suit"
 	item_color = "assistant_formal"
-
-/obj/item/clothing/under/owl
-	name = "owl uniform"
-	desc = "A soft brown jumpsuit made of synthetic feathers and strong conviction."
-	icon_state = "owl"
-	item_color = "owl"
-
-/obj/item/clothing/under/griffin
-	name = "griffon uniform"
-	desc = "A soft brown jumpsuit with a white feather collar made of synthetic feathers and a lust for mayhem."
-	icon_state = "griffin"
-	item_color = "griffin"
-
-/obj/item/clothing/under/noble_clothes
-	name = "noble clothes"
-	desc = "They fall just short of majestic."
-	icon_state = "noble_clothes"
-	item_color = "noble_clothes"
-	item_state = "noble_clothes"
-
-/obj/item/clothing/under/contortionist
-	name = "atmospheric technician's jumpsuit"
-	desc = "A light jumpsuit useful for squeezing through narrow vents."
-	icon_state = "atmos"
-	item_state = "atmos_suit"
-	item_color = "atmos"
-	resistance_flags = FIRE_PROOF
-
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
-	if(!user.ventcrawler)
-		user.ventcrawler = 2
-	..()
-
-/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
-	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
-		user.ventcrawler = 0
-	..()
-
-/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user as mob)
-	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(slot_back,slot_handcuffed,slot_legcuffed,slot_l_hand,slot_r_hand,slot_belt,slot_head,slot_wear_suit)
-	for(var/slot_id in slot_must_be_empty)
-		if(user.get_item_by_slot(slot_id))
-			to_chat(user,"<span class='warning'>You can't fit inside while wearing \the [user.get_item_by_slot(slot_id)].</span>")
-			return 0
-	return 1
 
 /obj/item/clothing/under/cursedclown
 	name = "cursed clown suit"
@@ -554,16 +269,20 @@
 	item_color = "durathread"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 5, ENERGY = 0, BOMB = 5, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
-/obj/item/clothing/under/cuban_suit
-	name = "rhumba outfit"
-	desc = "A satin shirt and high-waisted pants, worn by dancers in the Rhumba style. It smells oddly like... sulfur?"
-	icon_state = "cuban_suit"
-	item_state = "cuban_suit"
-	item_color = "cuban_suit"
-
-/obj/item/clothing/under/tourist_suit
-	name = "tourist outfit"
-	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
-	icon_state = "tourist"
-	icon_state = "tourist"
-	item_color = "tourist"
+/obj/item/clothing/under/acj
+	name = "administrative cybernetic jumpsuit"
+	icon_state = "syndicate"
+	item_state = "bl_suit"
+	item_color = "syndicate"
+	desc = "it's a cybernetically enhanced jumpsuit used for administrative duties."
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
+	armor = list(MELEE = INFINITY, BULLET = INFINITY, LASER = INFINITY, ENERGY = INFINITY, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	slowdown = -10
+	siemens_coefficient = 0
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF

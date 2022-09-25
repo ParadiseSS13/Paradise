@@ -203,7 +203,7 @@
 				/obj/item/soap/syndie = 50,
 				/obj/item/lighter/zippo/gonzofist = 50,
 				/obj/item/stack/nanopaste = 50,
-				/obj/item/clothing/under/psyjump = 50,
+				/obj/item/clothing/under/costume/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
 				/obj/item/grenade/clusterbuster/smoke = 50
 				)

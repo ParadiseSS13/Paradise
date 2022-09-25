@@ -174,6 +174,13 @@
 	icon_state = "darkred"
 	item_color = "darkred"
 
+/obj/item/clothing/under/color/rainbow
+	name = "rainbow"
+	desc = "rainbow"
+	icon_state = "rainbow"
+	item_state = "rainbow"
+	item_color = "rainbow"
+
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"
 	desc = "The jersey of the Nanotrasen Phi-ghters!"

@@ -319,7 +319,7 @@
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
 
-	uniform = /obj/item/clothing/under/pirate
+	uniform = /obj/item/clothing/under/costume/pirate
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/combat
@@ -547,7 +547,7 @@
 /datum/outfit/admin/musician
 	name = "Musician"
 
-	uniform = /obj/item/clothing/under/singerb
+	uniform = /obj/item/clothing/under/costume/singerb
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/singerb
 	gloves = /obj/item/clothing/gloves/color/white
@@ -584,7 +584,7 @@
 /datum/outfit/admin/soviet
 	name = "Soviet Generic"
 	gloves = /obj/item/clothing/gloves/combat
-	uniform = /obj/item/clothing/under/soviet
+	uniform = /obj/item/clothing/under/costume/soviet
 	back = /obj/item/storage/backpack/satchel
 	head = /obj/item/clothing/head/ushanka
 	id = /obj/item/card/id
