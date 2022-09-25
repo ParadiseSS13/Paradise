@@ -207,7 +207,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[active_character.language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[active_character.autohiss_mode == AUTOHISS_FULL ? "Full" : (active_character.autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
-			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[active_character.b_type]</a><br>"
+			if(NO_BLOOD in S.species_traits) // unique blood type for species with no_blood/unique_blood
+				active_character.b_type = "None"
+			else
+				if(active_character.species == "Slime People")
+					active_character.b_type = "Slime Jelly"
+				else
+					if(active_character.b_type == "None" || active_character.b_type == "Slime Jelly")
+						active_character.b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
+					dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[active_character.b_type]</a><br>"
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[active_character.s_tone]" : "[-active_character.s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
@@ -258,7 +266,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<br>"
 				dat += "- <b>Gradient Offset:</b> <a href='?_src_=prefs;preference=h_grad_offset;task=input'>[active_character.h_grad_offset_x],[active_character.h_grad_offset_y]</a>"
 				dat += "<br>"
-
+			else
+				active_character.h_style = "Bald"
+			if(!(S.bodyflags & SHAVED))
 				dat += "<b>Facial Hair:</b> "
 				dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[active_character.f_style ? "[active_character.f_style]" : "Shaved"]</a>"
 				dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(active_character.f_colour)]"
@@ -266,6 +276,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
 					dat += " <a href='?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(active_character.f_sec_colour)]"
 				dat += "<br>"
+			else
+				active_character.f_style = "Shaved"
 
 
 			if(!(S.bodyflags & ALL_RPARTS))
@@ -415,6 +427,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Thought Bubble:</b> <a href='?_src_=prefs;preference=thought_bubble'>[(toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
