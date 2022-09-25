@@ -413,7 +413,7 @@
 	else if(!has_cookables())
 		data["inactive"] = TRUE
 		data["no_eject"] = TRUE
-		data["tooltip"] = "There is no contents."
+		data["tooltip"] = "There are no contents."
 
 	var/list/items_counts = list()
 	var/list/name_overrides = list()
