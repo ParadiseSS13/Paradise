@@ -1161,7 +1161,7 @@
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"
 	desc = "A set of chainmail adorned with a hide mantle. \"Greenwood\" is engraved into the right breast."
-	icon = 'icons/obj/clothing/uniforms.dmi'
+	icon = 'icons/obj/clothing/under/costumes.dmi'
 	icon_state = "roman"
 	item_state = "maximus_armor"
 	item_color = "maximus_armor"
@@ -1268,7 +1268,7 @@
 /obj/item/clothing/under/fluff/arachno_suit
 	name = "Arachno-Man costume"
 	desc = "It's what an evil genius would design if he switched brains with the Amazing Arachno-Man. Actually, he'd probably add weird tentacles that come out the back, too."
-	icon = 'icons/obj/clothing/uniforms.dmi'
+	icon = 'icons/obj/clothing/under/donator.dmi'
 	icon_state = "superior_suit"
 	item_state = "superior_suit"
 	item_color = "superior_suit"

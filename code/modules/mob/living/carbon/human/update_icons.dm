@@ -559,7 +559,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_color)
 			t_color = icon_state
 
-		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/uniform.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
+		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/under/misc.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
 
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override

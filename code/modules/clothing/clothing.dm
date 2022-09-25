@@ -670,7 +670,7 @@ BLIND     // can't see anything
 
 //Under clothing
 /obj/item/clothing/under
-	icon = 'icons/obj/clothing/uniforms.dmi'
+	icon = 'icons/obj/clothing/under/misc.dmi'
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
@@ -681,9 +681,9 @@ BLIND     // can't see anything
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
 		)
 
 	///For the crew computer 2 = unable to change mode
@@ -833,7 +833,7 @@ BLIND     // can't see anything
 	if(!usr.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-		if((basecolor + "_d_s") in icon_states('icons/mob/clothing/uniform.dmi'))
+		if((basecolor + "_d_s") in icon_states('icons/mob/clothing/under/misc.dmi'))
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 			usr.update_inv_w_uniform()
 		else
