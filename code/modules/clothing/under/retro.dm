@@ -1,4 +1,10 @@
-//Let's keep clothing sorting clean. This is for all the oldstation clothes.
+/obj/item/clothing/under/retro
+	displays_id = FALSE
+
+	icon = 'icons/obj/clothing/under/retro.dmi'
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/retro.dmi'
+		)
 
 /obj/item/clothing/under/retro/security
 	name = "retro security officer's uniform"
@@ -6,7 +12,6 @@
 	icon_state = "retro_sec"
 	item_state = "retro_sec"
 	item_color = "retro_sec"
-	displays_id = FALSE
 
 /obj/item/clothing/under/retro/medical
 	name = "retro medical officer's uniform"
@@ -14,7 +19,6 @@
 	icon_state = "retro_med"
 	item_state = "retro_med"
 	item_color = "retro_med"
-	displays_id = FALSE
 
 /obj/item/clothing/under/retro/engineering
 	name = "retro engineering uniform"
@@ -22,7 +26,6 @@
 	icon_state = "retro_eng"
 	item_state = "retro_eng"
 	item_color = "retro_eng"
-	displays_id = FALSE
 
 /obj/item/clothing/under/retro/science
 	name = "retro science officer's uniform"
@@ -30,4 +33,3 @@
 	icon_state = "retro_sci"
 	item_state = "retro_sci"
 	item_color = "retro_sci"
-	displays_id = FALSE
