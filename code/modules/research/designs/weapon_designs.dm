@@ -275,7 +275,7 @@
 	name = "u-ION Silencer Parts Kit"
 	desc = "Nanotrasens take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
 	id = "silencer"
-	req_tech = list("combat" = 7, "magnets" = 6, "syndicate")
+	req_tech = list("combat" = 7, "magnets" = 6, "syndicate" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/weaponcrafting/gunkit/silencer
