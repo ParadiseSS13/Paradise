@@ -1443,7 +1443,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/barberkit
 	name = "Barber Kit Crate"
-	contains = list(/obj/item/clothing/under/barber,
+	contains = list(/obj/item/clothing/under/rank/civilian/barber,
 					/obj/item/storage/box/lip_stick,
 					/obj/item/storage/box/barber)
 	cost = 20
