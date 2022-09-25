@@ -132,6 +132,7 @@
 
 	I.forceMove(src)
 	user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return FALSE
@@ -160,10 +161,6 @@
 		if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
 			items_measures[display_name] = "slab of meat"
 			items_measures_p[display_name] = "slabs of meat"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/donkpocket))
-			display_name = "Turnovers"
-			items_measures[display_name] = "turnover"
-			items_measures_p[display_name] = "turnovers"
 		if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
 			items_measures[display_name] = "fillet of meat"
 			items_measures_p[display_name] = "fillets of meat"
@@ -196,7 +193,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	start()
-	if(has_cookables()) //dry run
+	if(!has_cookables()) //dry run
 		if(!wzhzhzh(10))
 			abort()
 			return
@@ -242,6 +239,7 @@
 		dirty++
 	reagents.clear_reagents()
 	to_chat(user, "<span class='notice'>You eject of \the [src]'s contents.</span>")
+	SStgui.update_uis(src)
 
 //choose_recipes(): picks out recipes for the machine and any mixing bowls it may contain.
 	//builds a list of the selected recipes to be made in a later proc by associating the "source" of the ingredients (mixing bowl, machine) with the recipe for that source
@@ -320,6 +318,7 @@
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	operating = TRUE
 	update_icon(UPDATE_ICON_STATE)
+	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/finish_sound()
 	if(soundloop)
@@ -413,27 +412,19 @@
 	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O,/obj/item/reagent_containers/food/snacks/egg)) // God I fuckin hate this
-			name_overrides[display_name] = "egg"
-			if(items_counts[display_name])
-				name_overrides[display_name] = "eggs"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/tofu))
-			name_overrides[display_name] = "tofu chunk"
-			if(items_counts[display_name])
-				name_overrides[display_name] = "tofu chunks"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
-			name_overrides[display_name] = "slab of meat"
-			if(items_counts[display_name])
-				name_overrides[display_name] = "slabs of meat"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/donkpocket))
-			display_name = "Turnovers"
-			name_overrides[display_name] = "turnover"
-			if(items_counts[display_name])
-				name_overrides[display_name] = "turnovers"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
-			name_overrides[display_name] = "fillet of meat"
-			if(items_counts[display_name])
-				name_overrides[display_name] = "fillets of meat"
+		if(istype(O, /obj/item/reagent_containers/food))
+			var/obj/item/reagent_containers/food/food = O
+			if(!items_counts[display_name])
+				if(food.ingredient_name)
+					name_overrides[display_name] = food.ingredient_name
+				else
+					name_overrides[display_name] = display_name
+			else
+				if(food.ingredient_name_plural)
+					name_overrides[display_name] = food.ingredient_name_plural
+				else
+					name_overrides[display_name] = "[name_overrides[display_name]]\s" //name_overrides[display_name] Will be set on the first time as the singular form
+
 		items_counts[display_name]++
 
 	data["ingredients"] = list()
