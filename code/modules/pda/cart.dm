@@ -212,7 +212,7 @@
 
 /obj/item/cartridge/cmo
 	name = "Med-U DELUXE"
-	desc = "A data cartridge for portable microcomputers. Has medical records, reagent scanner, med scanner and status display controller."
+	desc = "A data cartridge for portable microcomputers. Has medical records, a reagent scanner, med scanner and status display controller."
 	icon_state = "cart-cmo"
 	programs = list(
 		new /datum/data/pda/app/crew_records/medical,
