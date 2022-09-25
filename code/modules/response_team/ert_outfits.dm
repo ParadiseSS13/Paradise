@@ -36,7 +36,7 @@
 	rt_job = "Emergency Response Team Leader"
 	rt_mob_job = "ERT Commander"
 
-	uniform = /obj/item/clothing/under/rank/centcom_officer/sensor
+	uniform = /obj/item/clothing/under/rank/centcom/sensor
 	back = /obj/item/storage/backpack/ert/commander
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 

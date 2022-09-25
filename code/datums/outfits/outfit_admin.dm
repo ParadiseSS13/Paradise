@@ -269,7 +269,7 @@
 	back = /obj/item/storage/backpack/ert/deathsquad
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat
-	uniform = /obj/item/clothing/under/rank/deathsquad
+	uniform = /obj/item/clothing/under/rank/centcom/deathsquad
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/deathsquad
 	suit_store = /obj/item/gun/energy/pulse

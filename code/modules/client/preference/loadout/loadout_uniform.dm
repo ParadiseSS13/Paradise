@@ -210,7 +210,7 @@
 
 /datum/gear/uniform/skirt/job/blueshield
 	display_name = "Skirt, blueshield"
-	path = /obj/item/clothing/under/rank/blueshield/skirt
+	path = /obj/item/clothing/under/rank/centcom/blueshield/skirt
 	allowed_roles = list("Blueshield")
 
 
