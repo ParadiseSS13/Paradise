@@ -69805,7 +69805,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Division";
-	req_access_txt = "7"
+	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -77636,7 +77636,7 @@
 "dzB" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxin Mixing";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/structure/cable{
 	d1 = 4;
