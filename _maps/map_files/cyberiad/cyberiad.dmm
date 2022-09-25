@@ -41931,10 +41931,9 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bYy" = (
-/obj/machinery/conveyor/west{
-	id = "QMLoad";
-	icon_state = "conveyor_stopped_ccw";
-	dir = 9
+/obj/machinery/conveyor/west/ccw{
+	dir = 9;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
