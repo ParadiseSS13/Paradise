@@ -34,14 +34,23 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/New(atom/start, atom/end, delay)
 	. = ..()
+	// Spawn and go from this place
 	loc = start
 	z_original = z
+	// To this place where we delete ourselves
 	destination = end
-	move_delay = delay
+	new /obj/effect/end_tile(destination)
+
+	// Notify ghosts about something interesting happening
 	if(notify)
 		notify_ghosts("\A [src] is inbound!",
 				enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>",
 				source = src, action = NOTIFY_FOLLOW)
+
+	// Setting speed here
+	move_delay = delay
+
+	// Start moving
 	GLOB.poi_list |= src
 	if(end?.z == z_original)
 		walk_towards(src, destination, move_delay)
@@ -100,5 +109,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		var/turf/simulated/floor/T = get_turf(oldloc)
 		if(istype(T))
 			T.ex_act(EXPLODE_HEAVY)
-	if(loc == destination)
+
+// If the rod reaches this, we need to delete it
+/obj/effect/end_tile/Crossed(atom/movable/AM)
+	if(istype(AM, /obj/effect/immovablerod/event))
+		qdel(AM)
 		qdel(src)
