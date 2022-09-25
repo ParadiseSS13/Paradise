@@ -204,6 +204,13 @@
 		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, 1)
 		cooldown = world.time
 
+/obj/item/clothing/mask/gas/navy_officer
+	name = "nanotrasen navy officer gas mask"
+	desc = "A durable gas mask designed for NanoTrasen Navy Officers."
+	icon_state = "navy_officer_gasmask"
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 10, ACID = 50)
+	strip_delay = 6 SECONDS
+
 // ********************************************************************
 
 // **** Security gas mask ****
