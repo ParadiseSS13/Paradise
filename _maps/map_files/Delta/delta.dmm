@@ -2887,7 +2887,7 @@
 	},
 /obj/item/wrench,
 /obj/item/wirerod,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/misc/waiter,
 /obj/item/clothing/accessory/waistcoat,
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/electrical_shop)

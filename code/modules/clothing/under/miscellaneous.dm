@@ -44,7 +44,7 @@
 	item_state = "waiter"
 	item_color = "waiter"
 
-/obj/item/clothing/under/misc/rank/mailman
+/obj/item/clothing/under/misc/mailman
 	name = "mailman's jumpsuit"
 	desc = "<i>'Special delivery!'</i>"
 	icon_state = "mailman"

@@ -85442,7 +85442,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "rfh" = (
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
