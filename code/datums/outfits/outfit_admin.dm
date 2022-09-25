@@ -993,7 +993,7 @@
 /datum/outfit/admin/survivor
 	name = "Survivor"
 
-	uniform = /obj/item/clothing/under/overalls
+	uniform = /obj/item/clothing/under/misc/overalls
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
 	shoes = /obj/item/clothing/shoes/white
@@ -1020,7 +1020,7 @@
 /datum/outfit/admin/masked_killer
 	name = "Masked Killer"
 
-	uniform = /obj/item/clothing/under/overalls
+	uniform = /obj/item/clothing/under/misc/overalls
 	suit = /obj/item/clothing/suit/apron
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex

@@ -1428,8 +1428,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/bible/booze,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
-					/obj/item/clothing/under/burial,
-					/obj/item/clothing/under/burial)
+					/obj/item/clothing/under/misc/burial,
+					/obj/item/clothing/under/misc/burial)
 	cost = 40
 	containername = "religious supplies crate"
 
@@ -1731,8 +1731,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
 	contains = list(/obj/item/clothing/under/dress/blacktango,
-					/obj/item/clothing/under/assistantformal,
-					/obj/item/clothing/under/assistantformal,
+					/obj/item/clothing/under/misc/assistantformal,
+					/obj/item/clothing/under/misc/assistantformal,
 					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket,
 					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit,

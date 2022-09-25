@@ -71,7 +71,7 @@
 				/obj/item/clothing/head/welding = 10,
 				/obj/item/clothing/mask/gas = 10,
 				/obj/item/clothing/suit/storage/hazardvest = 10,
-				/obj/item/clothing/under/rank/vice = 10,
+				/obj/item/clothing/under/misc/vice = 10,
 				/obj/item/assembly/prox_sensor = 40,
 				/obj/item/assembly/timer = 30,
 				/obj/item/flashlight = 40,

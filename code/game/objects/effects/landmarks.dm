@@ -433,7 +433,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/suit/storage/labcoat/mad(src.loc)
 	new /obj/item/clothing/glasses/gglasses(src.loc)
@@ -441,7 +441,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/mask/cigarette/cigar/havana(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
@@ -471,7 +471,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	. = ..()
 	new /obj/item/clothing/gloves/color/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)
-	new /obj/item/clothing/under/scratch(src.loc)
+	new /obj/item/clothing/under/misc/scratch(src.loc)
 	if(prob(30))
 		new /obj/item/clothing/head/cueball(src.loc)
 	return INITIALIZE_HINT_QDEL
@@ -490,7 +490,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new CHOICE(src.loc)
 	new /obj/item/clothing/shoes/black(src.loc)
 	new /obj/item/cane(src.loc)
-	new /obj/item/clothing/under/sl_suit(src.loc)
+	new /obj/item/clothing/under/misc/sl_suit(src.loc)
 	new /obj/item/clothing/mask/fakemoustache(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -508,7 +508,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/waiter/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/waiter(src.loc)
+	new /obj/item/clothing/under/misc/waiter(src.loc)
 	var/CHOICE= pick( /obj/item/clothing/head/kitty, /obj/item/clothing/head/rabbitears)
 	new CHOICE(src.loc)
 	new /obj/item/clothing/suit/apron(src.loc)

@@ -21,8 +21,8 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/head/hairflower
-	new /obj/item/clothing/under/sl_suit(src)
-	new /obj/item/clothing/under/sl_suit(src)
+	new /obj/item/clothing/under/misc/sl_suit(src)
+	new /obj/item/clothing/under/misc/sl_suit(src)
 	new /obj/item/clothing/under/rank/civilian/bartender(src)
 	new /obj/item/clothing/under/rank/civilian/bartender(src)
 	new /obj/item/clothing/under/dress/dress_saloon
@@ -44,8 +44,8 @@
 	open_door_sprite = "generic_door"
 
 /obj/structure/closet/chefcloset/populate_contents()
-	new /obj/item/clothing/under/waiter(src)
-	new /obj/item/clothing/under/waiter(src)
+	new /obj/item/clothing/under/misc/waiter(src)
+	new /obj/item/clothing/under/misc/waiter(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/accessory/waistcoat(src)

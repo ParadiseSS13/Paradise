@@ -3655,7 +3655,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/under/syndicate/combat,
-/obj/item/clothing/under/acj{
+/obj/item/clothing/under/misc/acj{
 	pixel_x = 3;
 	pixel_y = -3
 	},

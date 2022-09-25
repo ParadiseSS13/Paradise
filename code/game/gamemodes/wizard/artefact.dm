@@ -570,7 +570,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("killer")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/overalls(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/misc/overalls(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), slot_wear_mask)

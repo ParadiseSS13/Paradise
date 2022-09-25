@@ -253,10 +253,10 @@
 	icon_state = "white"
 
 /obj/structure/closet/wardrobe/pjs/populate_contents()
-	new /obj/item/clothing/under/pj/red(src)
-	new /obj/item/clothing/under/pj/red(src)
-	new /obj/item/clothing/under/pj/blue(src)
-	new /obj/item/clothing/under/pj/blue(src)
+	new /obj/item/clothing/under/misc/pj/red(src)
+	new /obj/item/clothing/under/misc/pj/red(src)
+	new /obj/item/clothing/under/misc/pj/blue(src)
+	new /obj/item/clothing/under/misc/pj/blue(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/slippers(src)
@@ -406,9 +406,9 @@
 	if(prob(50))
 		new /obj/item/storage/backpack/duffel(src)
 	if(prob(40))
-		new /obj/item/clothing/under/assistantformal(src)
+		new /obj/item/clothing/under/misc/assistantformal(src)
 	if(prob(40))
-		new /obj/item/clothing/under/assistantformal(src)
+		new /obj/item/clothing/under/misc/assistantformal(src)
 
 
 /obj/structure/closet/wardrobe/mixed

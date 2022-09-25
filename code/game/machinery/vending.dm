@@ -1450,7 +1450,7 @@
 					/obj/item/clothing/head/chicken = 1,
 					/obj/item/clothing/under/costume/gladiator = 1,
 					/obj/item/clothing/head/helmet/gladiator = 1,
-					/obj/item/clothing/under/gimmick/rank/captain/suit = 1,
+					/obj/item/clothing/under/misc/gimmick/rank/captain/suit = 1,
 					/obj/item/clothing/head/flatcap = 1,
 					/obj/item/clothing/suit/storage/labcoat/mad = 1,
 					/obj/item/clothing/glasses/gglasses = 1,
@@ -1472,13 +1472,13 @@
 					/obj/item/clothing/glasses/monocle =1,
 					/obj/item/clothing/head/bowlerhat = 1,
 					/obj/item/cane = 1,
-					/obj/item/clothing/under/sl_suit = 1,
+					/obj/item/clothing/under/misc/sl_suit = 1,
 					/obj/item/clothing/mask/fakemoustache = 1,
 					/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
 					/obj/item/clothing/head/plaguedoctorhat = 1,
 					/obj/item/clothing/mask/gas/plaguedoctor = 1,
 					/obj/item/clothing/suit/apron = 1,
-					/obj/item/clothing/under/waiter = 1,
+					/obj/item/clothing/under/misc/waiter = 1,
 					/obj/item/clothing/suit/jacket/miljacket = 1,
 					/obj/item/clothing/suit/jacket/miljacket/white = 1,
 					/obj/item/clothing/suit/jacket/miljacket/desert = 1,
@@ -1541,7 +1541,7 @@
 					/obj/item/clothing/suit/snowman = 1,
 					/obj/item/clothing/head/snowman = 1,
 					/obj/item/clothing/head/cueball = 1,
-					/obj/item/clothing/under/scratch = 1,
+					/obj/item/clothing/under/misc/scratch = 1,
 					/obj/item/clothing/under/dress/victdress = 1,
 					/obj/item/clothing/under/dress/victdress/red = 1,
 					/obj/item/clothing/suit/victcoat = 1,
@@ -1553,10 +1553,10 @@
 					/obj/item/clothing/under/costume/tourist_suit = 1,
 					/obj/item/clothing/suit/draculacoat = 1,
 					/obj/item/clothing/head/zepelli = 1,
-					/obj/item/clothing/under/redhawaiianshirt = 1,
-					/obj/item/clothing/under/pinkhawaiianshirt = 1,
-					/obj/item/clothing/under/bluehawaiianshirt = 1,
-					/obj/item/clothing/under/orangehawaiianshirt = 1)
+					/obj/item/clothing/under/misc/redhawaiianshirt = 1,
+					/obj/item/clothing/under/misc/pinkhawaiianshirt = 1,
+					/obj/item/clothing/under/misc/bluehawaiianshirt = 1,
+					/obj/item/clothing/under/misc/orangehawaiianshirt = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					  /obj/item/clothing/head/powdered_wig = 1,
 					  /obj/item/gun/magic/wand = 1,
@@ -1770,7 +1770,7 @@
 					/obj/item/clothing/glasses/monocle = 1,
 					/obj/item/clothing/under/suit/navy = 2,
 					/obj/item/clothing/under/costume/kilt = 1,
-					/obj/item/clothing/under/overalls = 1,
+					/obj/item/clothing/under/misc/overalls = 1,
 					/obj/item/clothing/under/suit/really_black = 2,
 					/obj/item/clothing/suit/storage/lawyer/blackjacket = 2,
 					/obj/item/clothing/under/pants/jeans = 3,
@@ -1846,7 +1846,7 @@
 
 	premium = list(/obj/item/clothing/under/suit/checkered = 1,
 				   /obj/item/clothing/head/mailman = 1,
-				   /obj/item/clothing/under/rank/mailman = 1,
+				   /obj/item/clothing/under/misc/rank/mailman = 1,
 				   /obj/item/clothing/suit/jacket/leather = 1,
 				   /obj/item/clothing/under/pants/mustangjeans = 1)
 
@@ -2209,7 +2209,7 @@
 	ads_list = list("Our clothes are guaranteed to protect you from food splatters!", "Comfortable enough for a CQC practice!")
 	vend_reply = "Thank you for using the ChefDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/chef = 2,
-					/obj/item/clothing/under/waiter = 2,
+					/obj/item/clothing/under/misc/waiter = 2,
 					/obj/item/clothing/suit/chef = 2,
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/clothing/head/chefhat = 2,
@@ -2232,7 +2232,7 @@
 	ads_list = list("Guaranteed to prevent stains from spilled drinks!")
 	vend_reply = "Thank you for using the BarDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/bartender = 2,
-					/obj/item/clothing/under/sl_suit = 2,
+					/obj/item/clothing/under/misc/sl_suit = 2,
 					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/soft/black = 2,
 					/obj/item/clothing/suit/blacktrenchcoat = 2,
