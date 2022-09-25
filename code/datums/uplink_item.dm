@@ -1375,8 +1375,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 
 /datum/uplink_item/device_tools/bonerepair
-	name = "Prototype Bone Repair Kit"
-	desc = "Stolen prototype bone repair nanites. Contains one nanocalcium autoinjector and guide."
+	name = "Prototype Nanite Autoinjector Kit"
+	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 4
