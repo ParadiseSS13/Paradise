@@ -293,7 +293,7 @@
 
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
-	desc = "Allows you to use the detonate function in the messenger program to attempt to remotely detonate other people's PDAs."
+	desc = "Allows you to remotely detonate other people's PDAs through the messenger program."
 	icon_state = "cart"
 	charges = 4
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
