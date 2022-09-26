@@ -52,7 +52,9 @@
 		return FALSE
 
 /obj/item/mop/post_clean(atom/target, mob/user)
-	reagents.reaction(target, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+	var/turf/T = get_turf(target)
+	if(issimulatedturf(T))
+		reagents.reaction(T, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 /obj/effect/attackby(obj/item/I, mob/user, params)

@@ -20,6 +20,8 @@
 	if(!do_after(user, cleanspeed, target = src) && src)
 		return FALSE
 
+	cleaner.post_clean(src, user)
+
 	if(!cleaner.can_clean())
 		return FALSE
 
@@ -27,7 +29,6 @@
 
 	if(text3 == "clean the ooze off") //If we've cleaned a cmagged object
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
-		cleaner.post_clean(src, user, cleaner)
 		return TRUE
 
 	else
@@ -43,10 +44,9 @@
 		for(var/obj/effect/O in src)
 			if(O.is_cleanable())
 				qdel(O)
-	cleaner.post_clean(src, user, cleaner)
 
 /atom/proc/can_clean() //For determining if a cleaning object can actually remove decals
 	return FALSE
 
-/atom/proc/post_clean(atom/target, mob/user, atom/cleaner) //For object-specifc behaviors after cleaning, such as mops making floors slippery
+/atom/proc/post_clean(atom/target, mob/user) //For specific cleaning object behaviors after cleaning, such as mops making floors slippery.
 	return
