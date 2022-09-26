@@ -15,7 +15,7 @@
 
 	robogibs(loc)
 
-	unEquip(inventory_head)
+	drop_hat()
 
 	GLOB.dead_mob_list -= src
 	spawn(15)

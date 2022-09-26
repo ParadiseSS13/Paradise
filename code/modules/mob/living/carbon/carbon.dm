@@ -507,8 +507,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(issilicon(src))
 				var/mob/living/silicon/S = src
 				if (S.inventory_head)
-					unEquip(S.inventory_head)
-					S.inventory_head = null
+					S.drop_hat()
 					visible_message("<b>[src.name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
 
 			visible_message("<b>[src.name] залез[genderize_ru(src.gender,"","ла","ло","ли")] в вентиляцию!</b>", "Вы залезли в вентиляцию.")

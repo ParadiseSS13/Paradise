@@ -1266,7 +1266,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
-	unEquip(inventory_head)
+	drop_hat()
 	qdel(src)
 
 /mob/living/silicon/robot/Move(a, b, flag)

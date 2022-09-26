@@ -18,7 +18,7 @@
 	flick("gibbed-r", animation)
 	robogibs(loc)
 
-	unEquip(inventory_head)
+	drop_hat()
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list -= src

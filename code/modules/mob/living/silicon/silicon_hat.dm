@@ -17,7 +17,10 @@
 		/obj/item/clothing/head/hardhat/pumpkinhead,
 		/obj/item/clothing/head/radiation,
 		/obj/item/clothing/head/papersack,
-		/obj/item/clothing/head/human_head
+		/obj/item/clothing/head/human_head,
+		/obj/item/clothing/head/kitty,
+		/obj/item/clothing/head/hardhat/reindeer,
+		/obj/item/clothing/head/cardborg
 	)
 
 	var/hat_icon_file = 'icons/mob/head.dmi'
@@ -117,11 +120,7 @@
 	if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		place_on_head(user.get_active_hand(), user)
 		return
-
-/mob/living/silicon/attack_hand(mob/user)
 	. = ..()
-	if(ishuman(user) && (user.a_intent == INTENT_GRAB))
-		remove_from_head(user)
 
 /mob/living/silicon/proc/hat_icons()
 	if(inventory_head)
@@ -235,10 +234,7 @@
 		to_chat(user, "<span class='warning'>Вы сняли [inventory_head] с головы [src].</span>")
 		user.put_in_hands(inventory_head)
 
-		inventory_head = null
-		hat_icon_state = null
-		hat_alpha = null
-		hat_color = null
+		null_hat()
 
 		regenerate_icons()
 	else
@@ -246,6 +242,19 @@
 		return 0
 
 	return 1
+
+/mob/living/silicon/proc/drop_hat()
+	if(inventory_head)
+		unEquip(inventory_head)
+		null_hat()
+		regenerate_icons()
+
+
+/mob/living/silicon/proc/null_hat()
+	inventory_head = null
+	hat_icon_state = null
+	hat_alpha = null
+	hat_color = null
 
 //Если вдруг кто-то захочет сразу спавнить боргов с шапками
 /mob/living/silicon/New()

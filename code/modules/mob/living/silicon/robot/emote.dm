@@ -157,9 +157,7 @@
 			src.SpinAnimation(5,1)
 
 			if (src.inventory_head)
-				unEquip(src.inventory_head)
-				src.inventory_head = null
-				src.regenerate_icons()
+				src.drop_hat()
 				message = "кувырком опрокинул шляпу!"
 			else
 				message = "does a flip!"
