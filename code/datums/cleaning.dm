@@ -8,49 +8,45 @@
 	var/cmag_cleantime = 50 //The cleaning time for cmagged objects is locked to this, for balance reasons
 
 	if(user.client && (src in user.client.screen)) //You can't clean items you're wearing for technical reasons
-		to_chat(user, "<span class='notice'>You need to take that [src.name] off before cleaning it.</span>")
-		return
+		to_chat(user, "<span class='notice'>You need to take that [name] off before cleaning it.</span>")
+		return FALSE
 
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(HAS_TRAIT(src, TRAIT_CMAGGED)) //So we don't need a cleaning_act for every cmaggable object
 		text1 = "clean the ooze off"
 		text3 = "clean the ooze off"
 		cleanspeed = cmag_cleantime
 
-	user.visible_message("<span class='warning'>[user] begins to [text1] \the [src.name][text2]</span>")
+	user.visible_message("<span class='warning'>[user] begins to [text1] \the [name][text2]</span>")
 	if(!do_after(user, cleanspeed, target = src) && src)
-		return
+		return FALSE
 
-	user.visible_message("<span class='notice'>You [text3] \the [src.name][text2]</span>")
+	if(!cleaner.can_clean())
+		return FALSE
+
+	user.visible_message("<span class='notice'>You [text3] \the [name][text2]</span>")
 
 	if(text3 == "clean the ooze off") //If we've cleaned a cmagged object
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
 		cleaner.post_clean(src, user, cleaner)
-		return
+		return TRUE
 
-	if(text3 == "scrub out") //If we're a decal (that can't get no love from me)
-		if(issimulatedturf(src.loc))
-			clean_turf(src.loc, user, cleaner)
-			return
-		qdel(src)
-
-	if(issimulatedturf(src)) //If we're cleaning turf
-		clean_turf(src, user, cleaner)
 	else
-		//What are we cleaning? IDK, but clean it anyways
+		//Generic cleaning functionality
 		var/obj/effect/decal/cleanable/C = locate() in src
 		qdel(C)
 		src.clean_blood()
+		return TRUE
 
-/atom/proc/clean_turf(turf/simulated/T, mob/user, atom/cleaner)
+/turf/simulated/proc/clean_turf(mob/user, atom/cleaner)
 	if(cleaner.can_clean())
-		T.clean_blood()
-		for(var/obj/effect/O in T)
+		clean_blood()
+		for(var/obj/effect/O in src)
 			if(O.is_cleanable())
 				qdel(O)
-	cleaner.post_clean(T, user, cleaner)
+	cleaner.post_clean(src, user, cleaner)
 
 /atom/proc/can_clean() //For determining if a cleaning object can actually remove decals
 	return FALSE
 
-/atom/proc/post_clean(src, mob/user, atom/cleaner) //For object-specifc behaviors after cleaning, such as mops making floors slippery
+/atom/proc/post_clean(atom/target, mob/user, atom/cleaner) //For object-specifc behaviors after cleaning, such as mops making floors slippery
 	return

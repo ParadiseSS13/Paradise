@@ -16,6 +16,10 @@
 /turf/simulated/proc/burn_tile()
 	return
 
+/turf/simulated/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text1 = "clean", text2 = " with [cleaner].", text3 = "clean")
+	if(..())
+		clean_turf(user, cleaner)
+
 /turf/simulated/water_act(volume, temperature, source)
 	. = ..()
 

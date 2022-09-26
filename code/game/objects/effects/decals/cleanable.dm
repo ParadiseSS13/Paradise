@@ -8,7 +8,12 @@
 		return TRUE
 
 /obj/effect/decal/cleanable/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text1 = "scrub out", text2 = " with [cleaner].", text3 = "scrub out")
-	..()
+	if(..())
+		if(issimulatedturf(src.loc))
+			var/turf/simulated/T = get_turf(src)
+			T.clean_turf(user, cleaner)
+			return
+		qdel(src)
 
 //Add "bloodiness" of this blood's type, to the human's shoes
 //This is on /cleanable because fuck this ancient mess

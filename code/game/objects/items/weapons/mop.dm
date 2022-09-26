@@ -46,10 +46,10 @@
 	A.cleaning_act(user, src, mopspeed, text1= "mop", text2 = ".", text3 = "finish mopping")
 
 /obj/item/mop/can_clean()
-	if(reagents.has_reagent("water", 0) && reagents.has_reagent("cleaner", 0) && reagents.has_reagent("holywater", 0))
-		return FALSE
-	else
+	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
 		return TRUE
+	else
+		return FALSE
 
 /obj/item/mop/post_clean(atom/target, mob/user)
 	reagents.reaction(target, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.

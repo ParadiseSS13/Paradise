@@ -133,8 +133,13 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/is_cleanable()
 	return TRUE
 
-/obj/effect/rune/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text1 = "scrub out", text2 = " with [src].", text3 = "scrub out")
-	..()
+/obj/effect/rune/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text1 = "scrub out", text2 = " with [cleaner].", text3 = "scrub out")
+	if(..())
+		if(issimulatedturf(src.loc))
+			var/turf/simulated/T = get_turf(src)
+			T.clean_turf(user, cleaner)
+			return
+		qdel(src)
 
 
 /*
