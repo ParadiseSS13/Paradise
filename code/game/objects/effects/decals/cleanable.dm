@@ -7,9 +7,9 @@
 	if(mergeable_decal)
 		return TRUE
 
-/obj/effect/decal/cleanable/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text1 = "scrub out", text2 = " with [cleaner].", text3 = "scrub out")
+/obj/effect/decal/cleanable/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text_verb = "scrub out", text_description = " with [cleaner].")
 	if(..())
-		if(issimulatedturf(src.loc))
+		if(issimulatedturf(loc))
 			var/turf/simulated/T = get_turf(src)
 			T.clean_turf(user, cleaner)
 			return
