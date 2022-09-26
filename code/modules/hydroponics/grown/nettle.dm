@@ -48,7 +48,7 @@
 	return BRUTELOSS|TOXLOSS
 
 /obj/item/grown/nettle/pickup(mob/living/user)
-	..()
+	. = ..()
 	if(!ishuman(user))
 		return TRUE
 	var/mob/living/carbon/human/H = user
@@ -63,8 +63,6 @@
 			H.UpdateDamageIcon()
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
 	return TRUE
-
-
 
 /obj/item/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)
@@ -100,6 +98,8 @@
 	. = ..()
 	if(. && ishuman(user)) // If the pickup succeeded and is humanoid
 		var/mob/living/carbon/human/H = user
+		if(PIERCEIMMUNE in H.dna.species.species_traits)
+			return
 		if(!H.gloves && prob(50))
 			user.Paralyse(2)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
