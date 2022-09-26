@@ -6,6 +6,11 @@
 // Can hold items and human size things, no other draggables
 // Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
 #define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
+#define UNSCREWED -1
+#define OFF 0
+#define SCREWED 1
+#define CHARGING 1
+#define CHARGED 2
 
 /obj/machinery/disposal
 	name = "disposal unit"
@@ -19,14 +24,13 @@
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF
 	var/datum/gas_mixture/air_contents	// internal reservoir
-	var/mode = 1	// item mode 0=off 1=charging 2=charged
-	var/flush = 0	// true if flush handle is pulled
+	var/mode = CHARGING	// item mode 0=off 1=charging 2=charged
+	var/flush = FALSE	// true if flush handle is pulled
 	var/obj/structure/disposalpipe/trunk/trunk = null // the attached pipe trunk
-	var/flushing = 0	// true if flushing in progress
+	var/flushing = FALSE	// true if flushing in progress
 	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
-	var/required_mode_to_deconstruct = -1
 	var/deconstructs_to = PIPE_DISPOSALS_BIN
 	var/storage_slots = 50 //The number of storage slots in this container.
 	var/max_combined_w_class = 50 //The sum of the w_classes of all the items in this storage item.
@@ -45,8 +49,8 @@
 /obj/machinery/disposal/proc/trunk_check()
 	var/obj/structure/disposalpipe/trunk/T = locate() in loc
 	if(!T)
-		mode = 0
-		flush = 0
+		mode = OFF
+		flush = FALSE
 	else
 		mode = initial(mode)
 		flush = initial(flush)
@@ -70,7 +74,8 @@
 	C.update()
 	C.anchored = 0
 	C.density = 1
-	qdel(src)
+	if(!QDELING(src))
+		qdel(src)
 
 /obj/machinery/disposal/Destroy()
 	eject()
@@ -186,7 +191,7 @@
 
 
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
-	if(mode>0) // It's on
+	if(mode > OFF) // It's on
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -194,15 +199,15 @@
 	if(contents.len > 0)
 		to_chat(user, "Eject the items first!")
 		return
-	if(mode==0) // It's off but still not unscrewed
-		mode=-1 // Set it to doubleoff l0l
-	else if(mode==-1)
-		mode=0
+	if(mode == OFF) // It's off but still not unscrewed
+		mode = UNSCREWED // Set it to doubleoff l0l
+	else if(mode == UNSCREWED)
+		mode = OFF
 	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(mode != required_mode_to_deconstruct)
+	if(mode != UNSCREWED)
 		return
 	if(contents.len > 0)
 		to_chat(user, "Eject the items first!")
@@ -327,7 +332,7 @@
 		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
 		return
 
-	if(mode==-1 && action != "eject") // If the mode is -1, only allow ejection
+	if(mode == UNSCREWED && action != "eject") // If the mode is -1, only allow ejection
 		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
 		return
 
@@ -341,18 +346,18 @@
 
 	if(istype(src.loc, /turf))
 		if(action == "pumpOn")
-			mode = 1
+			mode = CHARGING
 			update()
 		if(action == "pumpOff")
-			mode = 0
+			mode = OFF
 			update()
 
 		if(!issilicon(usr))
 			if(action == "engageHandle")
-				flush = 1
+				flush = TRUE
 				update()
 			if(action == "disengageHandle")
-				flush = 0
+				flush = FALSE
 				update()
 
 			if(action == "eject")
@@ -372,8 +377,8 @@
 	overlays.Cut()
 	if(stat & BROKEN)
 		icon_state = "disposal-broken"
-		mode = 0
-		flush = 0
+		mode = OFF
+		flush = FALSE
 		return
 
 	// flush handle
@@ -389,9 +394,9 @@
 		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-full")
 
 	// charging and ready light
-	if(mode == 1)
+	if(mode == CHARGING)
 		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-charge")
-	else if(mode == 2)
+	else if(mode == CHARGED)
 		overlays += image('icons/obj/pipes/disposal.dmi', "dispover-ready")
 
 // timed process
@@ -404,7 +409,7 @@
 	flush_count++
 	if( flush_count >= flush_every_ticks )
 		if( contents.len )
-			if(mode == 2)
+			if(mode == CHARGED)
 				spawn(0)
 					flush()
 		flush_count = 0
@@ -419,7 +424,7 @@
 
 	use_power = IDLE_POWER_USE
 
-	if(mode != 1)		// if off or ready, no need to charge
+	if(mode != CHARGING)		// if off or ready, no need to charge
 		return
 
 	// otherwise charge
@@ -441,50 +446,47 @@
 
 	// if full enough, switch to ready mode
 	if(air_contents.return_pressure() >= SEND_PRESSURE)
-		mode = 2
+		mode = CHARGED
 		update()
 	return
 
 // perform a flush
 /obj/machinery/disposal/proc/flush()
-
-	flushing = 1
-	flick("[icon_state]-flush", src)
-
-	var/wrapcheck = 0
+	flushing = TRUE
+	flush_animation()
 	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
 												// travels through the pipes.
-	//Hacky test to get drones to mail themselves through disposals.
-	for(var/mob/living/silicon/robot/drone/D in src)
-		wrapcheck = 1
-
-	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
-		wrapcheck = 1
-
-	for(var/obj/item/smallDelivery/O in src)
-		wrapcheck = 1
-
-	if(wrapcheck == 1)
-		H.tomail = 1
-
+	manage_wrapping(H)
 	sleep(10)
 	if(last_sound < world.time + 1)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
-
-
 	H.init(src)	// copy the contents of disposer to holder
 	air_contents = new() // The holder just took our gas; replace it
 	H.start(src) // start the holder processing movement
-	flushing = 0
+	flushing = FALSE
 	// now reset disposal state
-	flush = 0
-	if(mode == 2)	// if was ready,
-		mode = 1	// switch to charging
+	flush = FALSE
+	if(mode == CHARGED)	// if was ready,
+		mode = CHARGING	// switch to charging
 	update()
 	return
 
+/obj/machinery/disposal/proc/flush_animation()
+	flick("[icon_state]-flush", src)
+
+/obj/machinery/disposal/proc/manage_wrapping(obj/structure/disposalholder/H)
+	var/wrap_check = FALSE
+	//Hacky test to get drones to mail themselves through disposals.
+	for(var/mob/living/silicon/robot/drone/D in src)
+		wrap_check = TRUE
+	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
+		wrap_check = TRUE
+	for(var/obj/item/smallDelivery/O in src)
+		wrap_check = TRUE
+	if(wrap_check == TRUE)
+		H.tomail = 1
 
 // called when area power changes
 /obj/machinery/disposal/power_change()
@@ -1313,12 +1315,11 @@
 	var/active = 0
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
-	var/mode = 0
+	var/mode = SCREWED
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/setup), 0) // Wait of 0, but this wont actually do anything until the MC is firing
-
 
 /obj/structure/disposaloutlet/proc/setup()
 	target = get_ranged_target_turf(src, dir, 10)
@@ -1331,7 +1332,6 @@
 		linkedtrunk.remove_trunk_links()
 	expel(FALSE)
 	return ..()
-
 
 // expel the contents of the outlet
 /obj/structure/disposaloutlet/proc/expel(animation = TRUE)
@@ -1350,25 +1350,19 @@
 				return
 			AM.throw_at(target, 3, 1)
 
-
-/obj/structure/disposaloutlet/attackby(var/obj/item/I, var/mob/user, params)
-	if(!I || !user)
-		return
-	src.add_fingerprint(user)
-	if(istype(I, /obj/item/screwdriver))
-		if(mode==0)
-			mode=1
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(mode==1)
-			mode=0
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
+/obj/structure/disposaloutlet/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(mode == SCREWED)
+		mode = UNSCREWED
+	else
+		mode = SCREWED
+	playsound(src.loc, I.usesound, 50, 1)
+	to_chat(user, "You [mode == SCREWED ? "attach" : "remove"] the screws around the power connection.")
 
 /obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
 	. = TRUE
+	if(mode != UNSCREWED)
+		return
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
@@ -1423,3 +1417,10 @@
 		dirs = GLOB.alldirs.Copy()
 
 	src.streak(dirs)
+
+#undef SEND_PRESSURE
+#undef UNSCREWED
+#undef OFF
+#undef SCREWED
+#undef CHARGING
+#undef CHARGED

@@ -21,7 +21,6 @@
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	toggle()
-	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
 	toggle()
@@ -36,7 +35,6 @@
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 	set_max()
-	return
 
 /obj/machinery/atmospherics/trinary/mixer/AIAltClick()
 	set_max()

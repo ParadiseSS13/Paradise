@@ -8,6 +8,7 @@ export const RPD = (props, context) => {
   const {
     mainmenu,
     mode,
+    auto_wrench,
   } = data;
 
   const decideTab = index => {
@@ -41,6 +42,14 @@ export const RPD = (props, context) => {
                 () => act('mode', { mode: m.mode })
               } />
           ))}
+          <Button
+            fluid
+            textAlign="center"
+            content="Auto-wrench"
+            selected={auto_wrench === 1}
+            onClick={
+              () => act('auto_wrench', { auto_wrench: !auto_wrench })
+            } />
         </Tabs>
         {decideTab(mode)}
       </Window.Content>

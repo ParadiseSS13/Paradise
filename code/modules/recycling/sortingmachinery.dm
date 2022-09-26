@@ -268,9 +268,8 @@
 	desc = "A chute for big and small packages alike!"
 	density = 1
 	icon_state = "intake"
-	required_mode_to_deconstruct = 1
 	deconstructs_to = PIPE_DISPOSALS_CHUTE
-	var/can_deconstruct = FALSE
+	var/to_waste = TRUE
 
 /obj/machinery/disposal/deliveryChute/New()
 	..()
@@ -278,6 +277,19 @@
 		trunk = locate() in src.loc
 		if(trunk)
 			trunk.linked = src	// link the pipe trunk to self
+
+/obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/destTagger))
+		to_waste = !to_waste
+		playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
+		to_chat(user, "<span class='notice'>The chute is now set to [to_waste ? "waste" : "cargo"] disposals.</span>")
+		return
+	. = ..()
+
+/obj/machinery/disposal/deliveryChute/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The chute is set to [to_waste ? "waste" : "cargo"] disposals.</span>"
+	. += "<span class='info'>Use a destination tagger to change the disposal destination.</span>"
 
 /obj/machinery/disposal/deliveryChute/interact()
 	return
@@ -305,67 +317,27 @@
 		M.loc = src
 	src.flush()
 
-/obj/machinery/disposal/deliveryChute/flush()
-	flushing = 1
+/obj/machinery/disposal/deliveryChute/flush_animation()
 	flick("intake-closing", src)
-	var/deliveryCheck = 0
-	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
-													// travels through the pipes.
+
+/obj/machinery/disposal/deliveryChute/manage_wrapping(obj/structure/disposalholder/H)
+	var/wrap_check = FALSE
 	for(var/obj/structure/bigDelivery/O in src)
-		deliveryCheck = 1
+		wrap_check = TRUE
 		if(O.sortTag == 0)
 			O.sortTag = 1
 	for(var/obj/item/smallDelivery/O in src)
-		deliveryCheck = 1
+		wrap_check = TRUE
 		if(O.sortTag == 0)
 			O.sortTag = 1
 	for(var/obj/item/shippingPackage/O in src)
-		deliveryCheck = 1
+		wrap_check = TRUE
 		if(!O.sealed || O.sortTag == 0)		//unsealed or untagged shipping packages will default to disposals
 			O.sortTag = 1
-	if(deliveryCheck == 0)
+	if(wrap_check == TRUE)
+		H.tomail = 1
+	if(wrap_check == FALSE && to_waste)
 		H.destinationTag = 1
-
-	sleep(10)
-	playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
-	sleep(5) // wait for animation to finish
-
-	H.init(src)	// copy the contents of disposer to holder
-	air_contents = new() // The holder just took our gas; replace it
-	H.start(src) // start the holder processing movement
-	flushing = 0
-	// now reset disposal state
-	flush = 0
-	if(mode == 2)	// if was ready,
-		mode = 1	// switch to charging
-	update()
-	return
-
-/obj/machinery/disposal/deliveryChute/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	can_deconstruct = !can_deconstruct
-	to_chat(user, "You [can_deconstruct ? "unfasten": "fasten"] the screws around the power connection.")
-
-/obj/machinery/disposal/deliveryChute/welder_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!can_deconstruct)
-		return
-	if(contents.len > 0)
-		to_chat(user, "Eject the items first!")
-		return
-	if(!I.tool_use_check(user, 0))
-		return
-	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
-		var/obj/structure/disposalconstruct/C = new (loc)
-		C.ptype = deconstructs_to
-		C.update()
-		C.anchored = TRUE
-		C.density = TRUE
-		qdel(src)
 
 /obj/item/shippingPackage
 	name = "Shipping package"
