@@ -14,6 +14,7 @@ Thumbs.db
 *.cache
 *.pyc
 data/
+!data/logs/.keep
 cfg/
 tmp/
 tools/Runtime Condenser/Input.txt
@@ -35,7 +36,6 @@ tools/MapDaemon/logs/*.txt
 
 #ignore other, specific files and folers
 *.before
-data/
 /_maps/map_files/backup/*
 /_maps/map_files/**/backup/*
 /_maps/map_files/**/*.dmm.backup
