@@ -147,6 +147,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	returns[3] = null
 	return returns
 
+/mob/living/custom_emote(var/m_type=EMOTE_VISUAL,var/message = null)
+	if(client)
+		client.check_say_flood(5)
+		if(client.prefs.muted & MUTE_IC)
+			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+			return
+	. = ..()
 
 /mob/living/say(var/message, var/verb = "says", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
 	if(client)
@@ -333,6 +340,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/emote(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
 	if(client)
+		client.check_say_flood(5)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return

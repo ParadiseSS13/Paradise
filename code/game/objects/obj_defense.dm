@@ -88,6 +88,8 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if((M.a_intent == INTENT_HELP && M.ckey) || (!M.melee_damage_upper && !M.obj_damage))
+		if(M.handle_emote_CD())
+			return
 		M.custom_emote(1, "[M.friendly] [src].")
 		return 0
 	else

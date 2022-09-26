@@ -375,6 +375,8 @@
 
 		if("salute", "salutes")
 			if(!restrained())
+				if(handle_emote_CD())
+					return
 				var/M = handle_emote_param(param)
 
 				message = "салюту[pluralize_ru(src.gender,"ет","ют")][M ? " [M]" : ""]!"
