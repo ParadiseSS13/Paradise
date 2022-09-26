@@ -31,7 +31,7 @@
 
 	user.visible_message("<span class='notice'>You [text_verb] \the [name][text_description]</span>")
 
-	if(is_cmagged == TRUE) //If we've cleaned a cmagged object
+	if(is_cmagged) //If we've cleaned a cmagged object
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
 		return TRUE
 	else
