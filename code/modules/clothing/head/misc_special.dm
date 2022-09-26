@@ -22,7 +22,7 @@
 	flash_protect = 2
 	tint = 2
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60)
-	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	resistance_flags = FIRE_PROOF
@@ -76,6 +76,7 @@
 	var/mob/living/carbon/user = usr
 	user.update_tint()
 	user.update_inv_head()	//so our mob-overlays update
+	user.update_inv_wear_mask()
 
 	for(var/X in actions)
 		var/datum/action/A = X
