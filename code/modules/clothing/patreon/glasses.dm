@@ -9,7 +9,12 @@
 	item_state = "gar"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
 

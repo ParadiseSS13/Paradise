@@ -1,7 +1,12 @@
 //Unathi clothing.
 /obj/item/clothing/suit/unathi
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/unathi/robe
@@ -18,5 +23,10 @@
 	icon_state = "mantle-unathi"
 	body_parts_covered = UPPER_TORSO
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/neck.dmi'
+		"Vox" = 'icons/mob/species/vox/neck.dmi',
+		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/species/monkey/neck.dmi'
 		)

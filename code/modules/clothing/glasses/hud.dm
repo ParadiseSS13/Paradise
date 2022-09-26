@@ -38,7 +38,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/night
@@ -69,7 +74,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/diagnostic/night
@@ -102,7 +112,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
 
@@ -139,7 +154,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
@@ -159,7 +179,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/hydroponic/night
@@ -190,7 +215,12 @@
 	up = 0
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/security/tajblind/attack_self()
@@ -208,7 +238,12 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self()
@@ -224,7 +259,12 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/species/grey/eyes.dmi',
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -238,5 +278,10 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/species/grey/eyes.dmi',
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Monkey" = 'icons/mob/species/monkey/eyes.dmi',
+		"Farwa" = 'icons/mob/species/monkey/eyes.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/eyes.dmi',
+		"Neara" = 'icons/mob/species/monkey/eyes.dmi',
+		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 	)

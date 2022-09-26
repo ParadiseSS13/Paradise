@@ -15,7 +15,12 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/balaclava/attack_self(var/mob/user)
@@ -36,7 +41,12 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/luchador/tecnicos

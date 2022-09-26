@@ -20,7 +20,12 @@
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 	)
 
 /obj/item/clothing/head/hooded/explorer
@@ -40,7 +45,12 @@
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Drask" = 'icons/mob/species/drask/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi',
-		"Skrell" = 'icons/mob/species/skrell/head.dmi'
+		"Skrell" = 'icons/mob/species/skrell/head.dmi',
+		"Monkey" = 'icons/mob/species/monkey/head.dmi',
+		"Farwa" = 'icons/mob/species/monkey/head.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
+		"Neara" = 'icons/mob/species/monkey/head.dmi',
+		"Stok" = 'icons/mob/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/suit/space/hostile_environment

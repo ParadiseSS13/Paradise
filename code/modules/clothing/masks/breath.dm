@@ -18,8 +18,13 @@
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
-		)
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+	)
 
 /obj/item/clothing/mask/breath/attack_self(var/mob/user)
 	adjustmask(user)

@@ -12,7 +12,12 @@
 	species_exception = list(/datum/species/golem)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Grey" = 'icons/mob/species/grey/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"

@@ -19,7 +19,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	//Species-specific stuff.
-	species_restricted = list("exclude","Wryn")
+	species_restricted = list("exclude","Wryn", "lesser form")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
@@ -111,7 +111,7 @@
 	var/obj/item/tank/jetpack/suit/jetpack = null
 
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
-	species_restricted = list("exclude", "Wryn")
+	species_restricted = list("exclude", "Wryn", "lesser form")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',

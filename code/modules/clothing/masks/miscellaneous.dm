@@ -13,8 +13,13 @@
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi'
-		)
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+	)
 
 // Clumsy folks can't take the mask off themselves.
 /obj/item/clothing/mask/muzzle/attack_hand(mob/user as mob)
@@ -95,7 +100,12 @@
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
@@ -124,7 +134,12 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/muzzle/safety/shock
@@ -221,7 +236,12 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 		)
 
 
@@ -242,7 +262,12 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 		)
 
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
@@ -319,7 +344,12 @@
 
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 	)
 
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
@@ -433,7 +463,12 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 

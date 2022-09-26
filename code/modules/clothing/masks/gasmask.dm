@@ -17,8 +17,13 @@
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
-		)
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+	)
 
 // **** Welding gas mask ****
 
@@ -55,8 +60,13 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
-		)
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+		"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+		"Neara" = 'icons/mob/species/monkey/mask.dmi',
+		"Stok" = 'icons/mob/species/monkey/mask.dmi'
+	)
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)

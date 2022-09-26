@@ -110,7 +110,12 @@
 	item_color = "psyche"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',
+		"Farwa" = 'icons/mob/species/monkey/uniform.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/uniform.dmi',
+		"Neara" = 'icons/mob/species/monkey/uniform.dmi',
+		"Stok" = 'icons/mob/species/monkey/uniform.dmi'
 		)
 
 /obj/item/clothing/under/color/lightblue

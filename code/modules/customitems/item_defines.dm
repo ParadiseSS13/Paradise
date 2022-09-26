@@ -346,7 +346,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi'
+			"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+			"Monkey" = 'icons/mob/species/monkey/mask.dmi',
+			"Farwa" = 'icons/mob/species/monkey/mask.dmi',
+			"Wolpin" = 'icons/mob/species/monkey/mask.dmi',
+			"Neara" = 'icons/mob/species/monkey/mask.dmi',
+			"Stok" = 'icons/mob/species/monkey/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -941,7 +946,14 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
 
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+		)
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	suit_adjusted = 0
