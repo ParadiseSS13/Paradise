@@ -1139,7 +1139,7 @@
 	l_hand = null
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
-		/obj/item/clothing/suit/space/hardsuit/wizard/shielded/arch = 1,
+		/obj/item/clothing/suit/space/hardsuit/wizard/arch/shielded = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
 		/obj/item/clothing/suit/wizrobe/red = 1,

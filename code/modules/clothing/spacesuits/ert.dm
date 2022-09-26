@@ -325,7 +325,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
-	taser_proof = TRUE
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
