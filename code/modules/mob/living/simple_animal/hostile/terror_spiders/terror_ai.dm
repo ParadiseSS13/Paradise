@@ -55,7 +55,7 @@
 					else
 						targets3 += C
 		else
-			if(istype(H,/mob/living/simple_animal))
+			if(isanimal(H))
 				var/mob/living/simple_animal/S = H
 				if(S.force_threshold > melee_damage_upper)
 					continue
@@ -63,6 +63,11 @@
 				targets2 += H
 			else
 				targets3 += H
+		if(issilicon(H))
+			if(H in enemies)
+				targets3 += H
+			else
+				targets2 += H
 	for(var/obj/mecha/M in view(src, vision_range))
 		if(get_dist(M, src) <= 2)
 			targets2 += M
@@ -70,9 +75,9 @@
 			targets3 += M
 	for(var/obj/spacepod/S in view(src, vision_range))
 		targets3 += S
-	if(targets1.len)
+	if(length(targets1))
 		return targets1
-	if(targets2.len)
+	if(length(targets2))
 		return targets2
 	return targets3
 
