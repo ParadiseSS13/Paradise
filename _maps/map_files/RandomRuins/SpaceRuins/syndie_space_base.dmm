@@ -363,7 +363,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "dS" = (
-/obj/structure/closet/crate,
 /obj/item/extinguisher{
 	pixel_x = -5;
 	pixel_y = 5
@@ -387,6 +386,9 @@
 /obj/item/flashlight{
 	pixel_x = 1;
 	pixel_y = -1
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1377,7 +1379,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "oj" = (
-/obj/structure/closet/crate,
 /obj/item/storage/box/donkpockets{
 	pixel_x = -2;
 	pixel_y = 6
@@ -1397,6 +1398,9 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2044,7 +2048,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "wf" = (
-/obj/structure/closet/crate,
 /obj/item/vending_refill/snack{
 	pixel_x = -3;
 	pixel_y = 3
@@ -2055,6 +2058,9 @@
 	},
 /obj/item/vending_refill/coffee,
 /obj/item/vending_refill/cola,
+/obj/structure/rack{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -3159,7 +3165,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "HL" = (
-/obj/structure/closet/crate,
 /obj/item/storage/box/stockparts/deluxe,
 /obj/item/storage/box/stockparts/deluxe,
 /obj/item/stack/sheet/metal/fifty,
@@ -3167,6 +3172,9 @@
 /obj/item/circuitboard/gibber,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3444,7 +3452,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "KB" = (
 /mob/living/simple_animal/pig{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
@@ -4166,7 +4174,7 @@
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "SW" = (
 /mob/living/simple_animal/cow{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
@@ -4175,12 +4183,11 @@
 	dir = 4
 	},
 /mob/living/simple_animal/chicken{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Tc" = (
-/obj/structure/closet/crate,
 /obj/item/storage/box/donkpockets{
 	pixel_x = -2;
 	pixel_y = 6
@@ -4193,6 +4200,9 @@
 	},
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -4658,6 +4668,9 @@
 /obj/item/storage/part_replacer,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
