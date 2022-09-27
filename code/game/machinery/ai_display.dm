@@ -118,8 +118,5 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		deconstruct(disassembled = TRUE)
-
-/obj/machinery/ai_status_display/deconstruct(disassembled = FALSE)
-	new /obj/item/stack/sheet/metal(drop_location(), 1)
-	..()
+		new /obj/item/stack/sheet/metal(drop_location(), 1)
+		deconstruct()
