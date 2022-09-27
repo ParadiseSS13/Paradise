@@ -851,8 +851,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/is_muzzled()
 	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 
-/mob/living/carbon/is_facehugged() //The distinction is made because facehuggers will (eventually) be made mobs, and should not be treated as muzzles
-	return(istype(wear_mask, /obj/item/clothing/mask/facehugger))
+/mob/living/carbon/is_facehugged()
+	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
 
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, .proc/resist_muzzle)
