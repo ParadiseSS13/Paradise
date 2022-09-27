@@ -760,6 +760,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Backstage"
 	icon_state = "yellow"
 
+/area/maintenance/server
+	name = "Abandoned Server Room"
+	icon_state = "yellow"
+
 //Hallway
 
 /area/hallway
