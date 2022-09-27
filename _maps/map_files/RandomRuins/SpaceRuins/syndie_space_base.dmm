@@ -879,6 +879,7 @@
 /obj/structure/table,
 /obj/item/pen,
 /obj/item/paper_bin,
+/obj/item/stamp/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -987,9 +988,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "jW" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/beer/upgraded{
-	dir = 1
-	},
+/obj/machinery/chem_dispenser/beer/upgraded,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
@@ -1967,9 +1966,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "vv" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/soda/upgraded{
-	dir = 1
-	},
+/obj/machinery/chem_dispenser/soda/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3224,7 +3221,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "IA" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3446,7 +3443,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "KB" = (
-/mob/living/simple_animal/pig,
+/mob/living/simple_animal/pig{
+	faction = list("neutral", "syndicate")
+	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
 "KH" = (
@@ -3508,7 +3507,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Le" = (
-/obj/structure/reagent_dispensers/beerkeg,
+/obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -4166,14 +4165,18 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "SW" = (
-/mob/living/simple_animal/cow,
+/mob/living/simple_animal/cow{
+	faction = list("neutral", "syndicate")
+	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
 "SX" = (
 /obj/structure/window/basic{
 	dir = 4
 	},
-/mob/living/simple_animal/chicken,
+/mob/living/simple_animal/chicken{
+	faction = list("neutral", "syndicate")
+	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Tc" = (
@@ -4707,7 +4710,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor" = "Burn Mix")
+	sensors = list("burn_sensor"="Burn Mix")
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
