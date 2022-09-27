@@ -329,7 +329,10 @@ SUBSYSTEM_DEF(ticker)
 	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
-	RunUnitTests()
+	// Run map tests first in case unit tests futz with map state
+	GLOB.test_runner.RunMap()
+	GLOB.test_runner.Run()
+	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
