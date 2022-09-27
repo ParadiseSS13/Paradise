@@ -68,6 +68,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "No refunds if you end up dropping it."
 	typepath = /obj/item/clothing/gloves/ring/glass
 	cost = 15
+
 /datum/prize_item/spinningtoy
 	name = "Spinning Toy"
 	desc = "Looks like an authentic Singularity!"
