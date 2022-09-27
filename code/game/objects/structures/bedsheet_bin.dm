@@ -24,6 +24,14 @@ LINEN BINS
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
 
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/neck.dmi',
+		"Farwa" = 'icons/mob/species/monkey/neck.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/neck.dmi',
+		"Neara" = 'icons/mob/species/monkey/neck.dmi',
+		"Stok" = 'icons/mob/species/monkey/neck.dmi'
+		)
+
 
 
 /obj/item/bedsheet/attack_self(mob/user as mob)

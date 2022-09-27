@@ -66,6 +66,13 @@
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 	species_restricted = null
+	sprite_sheets = list(
+		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
+		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
+		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
+		"Neara" = 'icons/mob/species/monkey/suit.dmi',
+		"Stok" = 'icons/mob/species/monkey/suit.dmi'
+	)
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
