@@ -572,15 +572,17 @@
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
-	. = ..()
-	if(.)
-		KA.icon_state = chassis_icon
-		KA.name = chassis_name
+    . = ..()
+    if(.)
+        KA.current_skin = chassis_icon
+        KA.name = chassis_name
+        KA.update_icon()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
-	KA.icon_state = initial(KA.icon_state)
-	KA.name = initial(KA.name)
-	..()
+    KA.current_skin = initial(KA.current_skin)
+    KA.name = initial(KA.name)
+    KA.update_icon()
+    ..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange
 	name = "hyper chassis"

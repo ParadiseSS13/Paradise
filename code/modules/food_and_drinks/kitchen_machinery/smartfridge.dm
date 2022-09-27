@@ -453,10 +453,10 @@
   * Variant of the [Smart Fridge][/obj/machinery/smartfridge] that holds food and drinks in a mobile form
   */
 /obj/machinery/smartfridge/foodcart
-	name = "\improper Food and Drink Cart"
+	name = "food and drink cart"
 	desc = "A portable cart for hawking your food and drink wares around the station"
-	icon = 'icons/obj/foodcart.dmi'
-	icon_state = "cart"
+	icon = 'icons/obj/kitchen.dmi'
+	icon_state = "foodcart"
 	anchored = FALSE
 	use_power = NO_POWER_USE
 	visible_contents = FALSE

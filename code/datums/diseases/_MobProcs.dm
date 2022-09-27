@@ -51,6 +51,7 @@
 		else
 			DD.vars[V] = D.vars[V]
 
+	create_log(MISC_LOG, "has contacted the virus \"[DD]\"")
 	DD.affected_mob.med_hud_set_status()
 
 

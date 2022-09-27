@@ -1,12 +1,3 @@
-/obj/effect/temp_visual/point
-	name = "arrow"
-	desc = "It's an arrow hanging in mid-air. There may be a wizard about."
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "arrow"
-	layer = POINT_LAYER
-	duration = 20
-	randomdir = FALSE
-
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
 	duration = 5

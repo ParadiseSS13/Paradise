@@ -215,7 +215,7 @@ emp_act
 
 //End Here
 
-#define BLOCK_CHANCE_CALCULATION(hand_block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier) clamp((hand_block_chance * ((100-armour_penetration_percentage) / 100)) - armour_penetration_flat + block_chance_modifier, 0, 100)
+#define BLOCK_CHANCE_CALCULATION(hand_block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier) clamp((hand_block_chance * ((100-armour_penetration_percentage) / 100)) - max(armour_penetration_flat, 0) + block_chance_modifier, 0, 100)
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	var/block_chance_modifier = round(damage / -3)
@@ -636,23 +636,20 @@ emp_act
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 
-		if(M.a_intent == INTENT_DISARM) //If not absorbed, always drop item in hand, if no item, get stun instead.
+		if(M.a_intent == INTENT_DISARM) //If not absorbed, you get disarmed, knocked down, and hit with stamina damage.
 			if(absorb_stun(0))
 				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				return FALSE
 			var/obj/item/I = get_active_hand()
-			if(I && unEquip(I))
-				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
-				visible_message("<span class='danger'>[M] disarms [src]!</span>", "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
-				to_chat(M, "<span class='danger'>You disarm [src]!</span>")
-			else
-				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
-				adjustStaminaLoss(M.alien_disarm_damage)
-				add_attack_logs(M, src, "Alien tackled")
-				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+			if(I)
+				unEquip(I)
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
+			adjustStaminaLoss(M.alien_disarm_damage)
+			add_attack_logs(M, src, "Alien tackled")
+			visible_message("<span class='danger'>[M] has tackled down [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()

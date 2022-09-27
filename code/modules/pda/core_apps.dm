@@ -27,6 +27,7 @@
 		if("UpdateInfo")
 			pda.ownjob = pda.id.assignment
 			pda.ownrank = pda.id.rank
+			pda.owner = pda.id.registered_name
 			pda.name = "PDA-[pda.owner] ([pda.ownjob])"
 			if(!pda.silent)
 				playsound(pda, 'sound/machines/terminal_processing.ogg', 15, TRUE)
