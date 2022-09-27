@@ -35,6 +35,8 @@
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
+	/// Icon state for thought bubbles. Normally set by mobs.
+	var/thought_bubble_image = "thought_bubble"
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
