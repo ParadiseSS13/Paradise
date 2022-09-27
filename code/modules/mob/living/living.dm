@@ -251,15 +251,18 @@
 	if(!..())
 		return FALSE
 	var/obj/item/hand_item = get_active_hand()
+	var/pointed_object = "\the [A]"
+	if(A.loc in src)
+		pointed_object += " inside [A.loc]"
 	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src]</b> points to [A] with [hand_item]")
+			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
 			return TRUE
-		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
+		A.visible_message("<span class='danger'>[src] points [hand_item] at [pointed_object]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
 		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
-	visible_message("<b>[src]</b> points to [A]")
+	visible_message("<b>[src]</b> points to [pointed_object]")
 	return TRUE
 
 /mob/living/verb/succumb()

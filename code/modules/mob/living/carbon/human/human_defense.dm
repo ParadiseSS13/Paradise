@@ -215,7 +215,7 @@ emp_act
 
 //End Here
 
-#define BLOCK_CHANCE_CALCULATION(hand_block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier) clamp((hand_block_chance * ((100-armour_penetration_percentage) / 100)) - armour_penetration_flat + block_chance_modifier, 0, 100)
+#define BLOCK_CHANCE_CALCULATION(hand_block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier) clamp((hand_block_chance * ((100-armour_penetration_percentage) / 100)) - max(armour_penetration_flat, 0) + block_chance_modifier, 0, 100)
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	var/block_chance_modifier = round(damage / -3)
@@ -625,11 +625,6 @@ emp_act
 		if(M.a_intent == INTENT_HARM)
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
-			var/damage = prob(90) ? 20 : 0
-			if(!damage)
-				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
-				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
-				return 0
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			var/armor_block = run_armor_check(affecting, MELEE, armour_penetration_flat = 10)
 
@@ -637,7 +632,7 @@ emp_act
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
  				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			apply_damage(M.alien_slash_damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 
@@ -655,7 +650,7 @@ emp_act
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
-				adjustStaminaLoss(30)
+				adjustStaminaLoss(M.alien_disarm_damage)
 				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
 

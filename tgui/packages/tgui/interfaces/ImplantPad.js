@@ -13,7 +13,7 @@ export const ImplantPad = (props, context) => {
   return (
     <Window resizable>
       <Window.Content>
-        <Section title="Implant Mini-Computer">
+        <Section title="Bio-chip Mini-Computer">
           {implant && contains_case ?
               <>
                 <Box bold mb={2}>
@@ -33,8 +33,8 @@ export const ImplantPad = (props, context) => {
             :
               (
                 contains_case
-                ? <Box>This implant case has no implant!</Box>
-                : <Box>Please insert an implant casing!</Box>
+                ? <Box>This bio-chip case has no implant!</Box>
+                : <Box>Please insert a bio-chip casing!</Box>
               )
           }
           <Button mt={2}

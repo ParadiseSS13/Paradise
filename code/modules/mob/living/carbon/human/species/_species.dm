@@ -34,7 +34,6 @@
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
 	var/hunger_drain = HUNGER_FACTOR
-	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
 	var/hunger_type

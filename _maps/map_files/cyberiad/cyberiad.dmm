@@ -35345,6 +35345,19 @@
 	icon_state = "dark"
 	},
 /area/assembly/chargebay)
+"bIf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay2)
 "bIh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -39619,7 +39632,7 @@
 "bSR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
+	id_tag = "medbayfoyerport";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
@@ -41833,7 +41846,7 @@
 "bYe" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
+	id_tag = "medbayfoyerport";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
@@ -68898,9 +68911,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dJl" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -68908,6 +68918,12 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "medbayfoyerport";
+	pixel_y = 21;
+	name = "Medbay Doors Control";
+	normaldoorcontrol = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -72789,7 +72805,7 @@
 "gKS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "MedbayFoyerPort";
+	id_tag = "medbayfoyerport";
 	name = "Medbay Entrance";
 	req_access_txt = "5"
 	},
@@ -78883,7 +78899,7 @@
 	},
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
-	id = "MedbayFoyerPort";
+	id = "medbayfoyerport";
 	name = "Medbay Doors Control";
 	normaldoorcontrol = 1;
 	pixel_x = -9;
@@ -130747,7 +130763,7 @@ bQU
 bSw
 bEp
 vAN
-cbO
+bIf
 bWd
 bXK
 ccA

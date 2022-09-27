@@ -263,7 +263,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
-	if(hasorgans(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)
