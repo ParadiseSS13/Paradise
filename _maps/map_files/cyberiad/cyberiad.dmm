@@ -96381,6 +96381,18 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"xui" = (
+/obj/docking_port/stationary{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra_away";
+	name = "southwest of station";
+	width = 21
+	},
+/turf/space,
+/area/space)
 "xyo" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -107963,7 +107975,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+xui
 aaa
 aaa
 aaa

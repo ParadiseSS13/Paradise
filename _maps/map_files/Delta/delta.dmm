@@ -75932,6 +75932,18 @@
 	icon_state = "red"
 	},
 /area/security/processing)
+"jXn" = (
+/obj/docking_port/stationary{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra_away";
+	name = "southwest of station";
+	width = 21
+	},
+/turf/space,
+/area/space)
 "jXD" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/closet/crate,
@@ -149733,7 +149745,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+jXn
 aaa
 aaa
 aaa
