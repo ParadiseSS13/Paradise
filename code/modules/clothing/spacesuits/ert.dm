@@ -98,7 +98,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gcommander"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma
-	slowdown = 0
 
 //Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/security
@@ -126,7 +125,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gsecurity"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/security/gamma
-	slowdown = 0
 
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
@@ -158,7 +156,6 @@
 	icon_state = "ert_gengineer"
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
-	slowdown = 0
 
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
@@ -184,7 +181,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gmedical"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma
-	slowdown = 0
 
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
@@ -210,7 +206,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gjanitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor/gamma
-	slowdown = 0
 
 //Paranormal
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
@@ -260,7 +255,6 @@
 	icon_state = "hardsuit-inquisitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
 	armor = list(MELEE = 95, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
-	slowdown = 0
 
 
 // Solgov
@@ -281,7 +275,6 @@
 	icon_state = "ert_solgov_marine"
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
-	slowdown = 0
 	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
