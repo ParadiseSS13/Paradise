@@ -93,11 +93,6 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-	//SECHUD
-	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
-	permanent_huds |= secsensor
-
 /mob/living/simple_animal/bot/secbot/turn_on()
 	..()
 	icon_state = "[base_icon][on]"
