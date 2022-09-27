@@ -164,7 +164,7 @@
 				if("ears")
 					if(ears)
 						if(!stat) //DEAD PARROTS SHOULD NOT SPEAK (i hate that this is done in topic)
-							if(available_channels.len)
+							if(length(available_channels))
 								say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 							else
 								say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
