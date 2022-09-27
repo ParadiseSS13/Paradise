@@ -57,7 +57,7 @@
 	var/datum/jps_node/previous_node
 	/// The A* node weight (f_value = number_of_tiles + heuristic)
 	var/f_value
-	/// The A* node heuristic (a rough estimate of how far we are from the goal. Diagonals from the diagonal scan are more expensive as they're added to the f_value)
+	/// The A* node heuristic (a rough estimate of how far we are from the goal.)
 	var/heuristic
 	/// How many steps it's taken to get here from the start
 	var/number_tiles
@@ -314,7 +314,7 @@
 			return
 		lag_turf = current_turf
 		current_turf = get_step(current_turf, heading)
-		steps_taken += SQRT_2 // Diagonals are more expensive, with SQRT_2 being the movement delay multiplier for mobs
+		steps_taken++
 		if(!CAN_STEP(lag_turf, current_turf))
 			return
 

@@ -80,6 +80,9 @@
 	QDEL_NULL(cell)
 	return ..()
 
+/mob/living/simple_animal/bot/mulebot/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
+	return FALSE
+
 /mob/living/simple_animal/bot/mulebot/can_buckle()
 	return FALSE //no ma'am, you cannot buckle mulebots to chairs
 
