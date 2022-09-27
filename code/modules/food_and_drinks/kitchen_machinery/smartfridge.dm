@@ -683,7 +683,7 @@
 
 /obj/machinery/smartfridge/id
 	name = "identification card compartmentalizer"
-	desc = "A machine capable of storing identification cards and PDAs. It's great for storing lost and terminated cards."
+	desc = "A machine capable of storing identification cards and PDAs. It's great for lost and terminated cards."
 	icon_state = "idbox"
 	icon_lightmask = FALSE
 	pass_flags = PASSTABLE
