@@ -205,6 +205,7 @@
 	color = "#3C3C3C"
 	taste_description = "motor oil"
 	process_flags = ORGANIC | SYNTHETIC
+	var/convert_to_ash = TRUE
 
 /datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 600)
@@ -219,12 +220,20 @@
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
-		if(!QDELETED(old_holder))
+		if(!QDELETED(old_holder) && convert_to_ash)
 			old_holder.add_reagent("ash", round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
 		new /obj/effect/decal/cleanable/blood/oil(T)
+
+/datum/reagent/oil/cooking
+	name = "Cooking Oil"
+	id = "cooking_oil"
+	description = "Oil"
+	color = "#fbba16"
+	taste_description = "old french fries"
+	convert_to_ash = FALSE
 
 /datum/reagent/iodine
 	name = "Iodine"

@@ -43,6 +43,23 @@
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
+/obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/ice))
+		if(I.reagents.has_reagent("ice"))
+			var/ice_amount = I.reagents.get_reagent_amount("ice")
+			visible_message(
+				"<span class='danger'>[user] pours [I] into the deep frier! </span>",
+				"<span class='danger'>You hear a loud sizzle, followed by a growing and intimidating bubbling.</span>"
+			)
+			to_chat(user, "<span class='userdanger'>The deep frier starts to boil over dangerously!</span>")
+			I.reagents.remove_all(I.reagents.total_volume)
+			add_attack_logs(user, src, "poured ice into")
+			make_foam(ice_amount)
+			return TRUE
+
+	return ..()
+
+
 /obj/machinery/cooker/deepfryer/examine(mob/user)
 	. = ..()
 	if(emagged)
@@ -75,6 +92,19 @@
 		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
 		return 0
 	return 0
+
+/// Make foam consisting of burning oil.
+/obj/machinery/cooker/deepfryer/proc/make_foam(ice_amount)
+	if(!reagents)
+		create_reagents()
+	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp=1000)
+	reagents.chem_temp = 1000
+	var/datum/effect_system/foam_spread/s = new()
+	s.set_up(ice_amount * 2, loc, reagents, 0)
+	s.start()
+
+	reagents.remove_reagent("cooking_oil", ice_amount * 2)
+
 
 
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)
