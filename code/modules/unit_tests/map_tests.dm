@@ -64,3 +64,20 @@
 	if(disposal)
 		if(!locate(/obj/structure/disposalpipe/trunk) in T.contents)
 			Fail(T, "tile has disposal unit/chute but no pipe trunk")
+
+/datum/map_per_tile_test/invalid_objs_over_space_checker
+	var/list/invalid_types = list(
+		/obj/machinery/door/airlock,
+		/obj/structure/window
+	)
+
+/datum/map_per_tile_test/invalid_objs_over_space_checker/CheckTile(turf/T)
+	for(var/invalid_type in invalid_types)
+		if(isspaceturf(T) && locate(invalid_type) in T.contents)
+			Fail(T, "space turf contains at least one invalid object of type [invalid_type]")
+
+/datum/map_per_tile_test/structures_in_farspace_checker
+
+/datum/map_per_tile_test/structures_in_farspace_checker/CheckTile(turf/T)
+	if(T.loc.type == /area/space && locate(/obj/structure) in T.contents)
+		Fail(T, "tile contains at least one structure found in non-near space area")
