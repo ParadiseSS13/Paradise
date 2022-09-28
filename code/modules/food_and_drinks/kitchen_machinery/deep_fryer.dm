@@ -57,7 +57,7 @@
 			make_foam(ice_amount)
 			return TRUE
 
-	return ..() 
+	return ..()
 
 /obj/machinery/cooker/deepfryer/examine(mob/user)
 	. = ..()
@@ -103,8 +103,6 @@
 	s.start()
 
 	reagents.remove_reagent("cooking_oil", ice_amount * 2)
-
-
 
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)
 	if(!I)
