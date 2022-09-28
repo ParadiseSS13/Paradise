@@ -44,3 +44,23 @@
 	if(center_nodes > 1)
 		Fail(T, "tile has multiple center cable nodes")
 
+/datum/map_per_tile_test/apc_cable_node_checker
+
+/datum/map_per_tile_test/apc_cable_node_checker/CheckTile(turf/T)
+	var/missing_node = TRUE
+	var/obj/machinery/power/apc/apc = locate(/obj/machinery/power/apc) in T.contents
+	if(apc)
+		for(var/obj/structure/cable/cable in T.contents)
+			if(cable.d1 == 0 || cable.d2 == 0)
+				missing_node = FALSE
+
+		if(missing_node)
+			Fail(T, "tile has an APC bump but no center cable node")
+
+/datum/map_per_tile_test/disposal_with_trunk_checker
+
+/datum/map_per_tile_test/disposal_with_trunk_checker/CheckTile(turf/T)
+	var/obj/machinery/disposal/disposal = locate(/obj/machinery/disposal) in T.contents
+	if(disposal)
+		if(!locate(/obj/structure/disposalpipe/trunk) in T.contents)
+			Fail(T, "tile has disposal unit/chute but no pipe trunk")
