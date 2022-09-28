@@ -353,7 +353,7 @@
 						melted_something = TRUE
 
 					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
-						to_chat(H, "<span class='danger'>Your [H.head] melts away!</span>")
+						to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
 						QDEL_NULL(H.head)
 						H.update_inv_head()
 						melted_something = TRUE
