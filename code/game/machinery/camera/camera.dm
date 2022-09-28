@@ -71,13 +71,13 @@
 
 /obj/machinery/camera/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The [src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
+	. += "<span class='notice'>\The [src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
 	if(panel_open)
-		. += "<span class='notice'>Upgrades can be added to the [src] or <b>pried out</b>.</span>"
+		. += "<span class='notice'>Upgrades can be added to \the [src] or <b>pried out</b>.</span>"
 		if(!wires.CanDeconstruct())
-			. += "<span class='notice'>The [src]'s <b>internal wires</b> are preventing you from cutting it free.</span>"
+			. += "<span class='notice'>\The [src]'s <b>internal wires</b> are preventing you from cutting it free.</span>"
 		else
-			. += "<span class='notice'>The [src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.</span>"
+			. += "<span class='notice'>\The [src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.</span>"
 
 
 /obj/machinery/camera/emp_act(severity)
