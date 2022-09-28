@@ -7,7 +7,7 @@
 
 /datum/map_per_tile_test/proc/Fail(turf/T, reason)
 	succeeded = FALSE
-	LAZYADD(fail_reasons, "[T.x],[T.y],[T.x]: [reason]")
+	LAZYADD(fail_reasons, "[T.x],[T.y],[T.z]: [reason]")
 
 /datum/map_per_tile_test/pipe_vent_checker
 	var/list/pipe_roots = list(
