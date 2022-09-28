@@ -52,6 +52,7 @@
 				"<span class='danger'>You hear a loud sizzle, followed by a growing and intimidating bubbling.</span>"
 			)
 			to_chat(user, "<span class='userdanger'>The deep frier starts to boil over dangerously!</span>")
+			user.emote("scream")
 			I.reagents.remove_all(I.reagents.total_volume)
 			add_attack_logs(user, src, "poured ice into")
 			make_foam(ice_amount)
