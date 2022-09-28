@@ -71,7 +71,7 @@
 
 /obj/machinery/camera/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>\The [src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
+	. += "<span class='notice'>[src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
 	if(panel_open)
 		. += "<span class='notice'>Upgrades can be added to \the [src] or <b>pried out</b>.</span>"
 		if(!wires.CanDeconstruct())
