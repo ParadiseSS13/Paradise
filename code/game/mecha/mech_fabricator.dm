@@ -179,6 +179,9 @@
 	if(!can_afford_design(D))
 		atom_say("Error: Insufficient materials to build [D.name]!")
 		return
+	if(stat & NOPOWER)
+		atom_say("Error: Insufficient power!")
+		return
 
 	// Subtract the materials from the holder
 	var/list/final_cost = get_design_cost(D)
