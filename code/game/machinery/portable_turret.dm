@@ -945,7 +945,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		build_step = 5
 		to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
 
-	playsound(loc, I.usesound, 100, 1)
+	I.play_tool_sound(src)
 	return TRUE
 
 /obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)

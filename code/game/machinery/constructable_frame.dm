@@ -209,8 +209,8 @@
 			component_check = 0
 			break
 	if(component_check)
-		playsound(loc, I.usesound, 50, 1)
-		var/obj/machinery/new_machine = new circuit.build_path(src.loc)
+		I.play_tool_sound(src)
+		var/obj/machinery/new_machine = new circuit.build_path(loc)
 		new_machine.on_construction()
 		for(var/obj/O in new_machine.component_parts)
 			qdel(O)

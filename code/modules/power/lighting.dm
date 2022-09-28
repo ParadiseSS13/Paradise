@@ -504,7 +504,7 @@
 	if(status != LIGHT_EMPTY)
 		return
 
-	playsound(loc, I.usesound, I.tool_volume, 1)
+	I.play_tool_sound(src)
 	user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
 		"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
 	deconstruct()

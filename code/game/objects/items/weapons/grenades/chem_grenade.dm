@@ -192,37 +192,42 @@
 
 /obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/I)
 	if(stage == WIRED)
-		if(length(beakers))
-			to_chat(user, "<span class='notice'>You lock the assembly.</span>")
-			playsound(loc, prime_sound, 25, -3)
-			stage = READY
-			update_icon(UPDATE_ICON_STATE)
-			contained = ""
-			cores = "" // clear them out so no recursive logging by accidentally
-			for(var/obj/O in beakers)
-				if(!O.reagents)
-					continue
-				if(istype(O,/obj/item/slime_extract))
-					cores += " [O]"
-				for(var/R in O.reagents.reagent_list)
-					var/datum/reagent/reagent = R
-					contained += "[reagent.volume] [reagent], "
-			if(contained)
-				if(cores)
-					contained = "\[[cores]; [contained]\]"
-				else
-					contained = "\[ [contained]\]"
-			var/turf/bombturf = get_turf(loc)
-			add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
-			log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
-		else
+		if(!length(beakers))
 			to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
+			return TRUE
+
+		to_chat(user, "<span class='notice'>You lock the assembly.</span>")
+		playsound(loc, prime_sound, 25, -3)
+		stage = READY
+		update_icon(UPDATE_ICON_STATE)
+		contained = ""
+		cores = "" // clear them out so no recursive logging by accidentally
+		for(var/obj/O in beakers)
+			if(!O.reagents)
+				continue
+			if(istype(O,/obj/item/slime_extract))
+				cores += " [O]"
+			for(var/R in O.reagents.reagent_list)
+				var/datum/reagent/reagent = R
+				contained += "[reagent.volume] [reagent], "
+		if(contained)
+			if(cores)
+				contained = "\[[cores]; [contained]\]"
+			else
+				contained = "\[ [contained]\]"
+		var/turf/bombturf = get_turf(loc)
+		add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
+		log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
+		return TRUE
+
 	else if(stage == READY && !nadeassembly)
 		det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
 		to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
+		return TRUE
+
 	else if(stage == EMPTY)
 		to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
-
+		return TRUE
 
 //assembly stuff
 /obj/item/grenade/chem_grenade/receive_signal()

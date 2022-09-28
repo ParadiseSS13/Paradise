@@ -66,7 +66,7 @@
 /obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
 	if(do_after(user, 20 * I.toolspeed, target = src))
 		open = !open
-		user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
+		user.visible_message("<span class='notice'>[user] [open ? "opens" : "closes"] the service panel on [src].</span>", "<span class='notice'>You [open ? "open" : "close"] the service panel.</span>")
 	return TRUE
 
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)

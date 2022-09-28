@@ -101,6 +101,7 @@
 	user.put_in_hands(C)
 	to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
 	qdel(src)
+	return TRUE
 
 /obj/item/weaponcrafting/ishotgunconstruction2
 	name = "very conspicuous metal construction"

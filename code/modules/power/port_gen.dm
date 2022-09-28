@@ -308,7 +308,7 @@
 		return
 
 	panel_open = !panel_open
-	playsound(loc, I.usesound, 50, 1)
+	I.play_tool_sound(src)
 	if(panel_open)
 		to_chat(user, "<span class='notice'>You open the access panel.</span>")
 	else

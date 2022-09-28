@@ -325,8 +325,8 @@
 		return
 	to_chat(user, "<span class='notice'>You start screwing the vent [open ? "shut" : "open"].</span>")
 	if(do_after(user, 20 * I.toolspeed, target = src))
-		playsound(loc, I.usesound, I.tool_volume, 1)
-		user.visible_message("<span class='notice'>[user] screwdrivers the vent [open ? "shut" : "open"].</span>", "<span class='notice'>You screwdriver the vent [open ? "shut" : "open"].</span>", "You hear a screwdriver.")
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] screws the vent [open ? "shut" : "open"].</span>", "<span class='notice'>You screw the vent [open ? "shut" : "open"].</span>", "You hear a screwdriver.")
 		open = !open
 	return TRUE
 

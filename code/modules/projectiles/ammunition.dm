@@ -72,6 +72,7 @@
 		..()
 
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!BB)
 		to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		return
@@ -82,7 +83,6 @@
 	var/tmp_label = ""
 	var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
 
-	. = TRUE
 	if(length(label_text) > 20)
 		to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
 		return

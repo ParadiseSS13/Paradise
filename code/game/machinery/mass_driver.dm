@@ -159,7 +159,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You finalize the Mass Driver.</span>")
-	playsound(get_turf(src), I.usesound, 50, 1)
+	I.play_tool_sound(src)
 	var/obj/machinery/mass_driver/M = new(get_turf(src))
 	M.dir = dir
 	qdel(src)

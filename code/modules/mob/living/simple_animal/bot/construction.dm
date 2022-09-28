@@ -175,7 +175,7 @@
 /obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != 8)
 		return
-	playsound(loc, I.usesound, 100, 1)
+	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
 	if(do_after(user, 40 * I.toolspeed, target = src))
 		build_step++
@@ -528,7 +528,7 @@
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--
 
-	playsound(loc, I.usesound, I.tool_volume, 1)
+	I.play_tool_sound(src)
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 	return TRUE
 
@@ -603,7 +603,7 @@
 		new /obj/item/toy/sword(get_turf(src))
 		to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
 		toy_step--
-	playsound(loc, I.usesound, I.tool_volume, 1)
+	I.play_tool_sound(src)
 	return TRUE
 
 //Honkbot Assembly
