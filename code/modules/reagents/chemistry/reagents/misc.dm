@@ -230,7 +230,7 @@
 /datum/reagent/oil/cooking
 	name = "Cooking Oil"
 	id = "cooking_oil"
-	description = "Oil"
+	description = "You should probably pour this down the sink, where it belongs."
 	color = "#fbba16"
 	taste_description = "old french fries"
 	convert_to_ash = FALSE
