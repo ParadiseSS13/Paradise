@@ -48,6 +48,8 @@
 	if(istype(W, /obj/item/analyzer))
 		atmosanalyzer_scan(parent.air, user)
 		return
+	if(istype(W, /obj/item/rpd) && user.a_intent != INTENT_HARM)
+		return
 	return ..()
 
 /obj/machinery/atmospherics/proc/pipeline_expansion()
