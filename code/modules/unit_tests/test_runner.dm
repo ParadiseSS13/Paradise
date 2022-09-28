@@ -22,13 +22,11 @@
 		test_logs[I] = list()
 		durations[I] = 0
 
-	for(var/X in 1 to world.maxx)
-		for(var/Y in 1 to world.maxy)
-			var/loc = locate(X, Y, z_level)
-			for(var/datum/map_per_tile_test/t in tests)
-				var/duration = REALTIMEOFDAY
-				t.CheckTile(loc)
-				durations[t.type] += REALTIMEOFDAY - duration
+	for(var/turf/T in block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level)))
+		for(var/datum/map_per_tile_test/test in tests)
+			var/duration = REALTIMEOFDAY
+			test.CheckTile(T)
+			durations[test.type] += REALTIMEOFDAY - duration
 
 	for(var/datum/map_per_tile_test/test in tests)
 		if(!test.succeeded)
@@ -42,15 +40,15 @@
 	CHECK_TICK
 
 	for(var/I in subtypesof(/datum/unit_test))
-		test_logs[I] = list()
 		var/datum/unit_test/test = new I
+		test_logs[I] = list()
 
 		current_test = test
 		var/duration = REALTIMEOFDAY
 
 		test.Run()
 
-		duration = REALTIMEOFDAY - duration
+		durations[I] = REALTIMEOFDAY - duration
 		current_test = null
 
 		if(!test.succeeded)
@@ -98,7 +96,7 @@
 		log_world(entry)
 
 	if(emit_failures)
-		var/filename = "data/test_run-[time2text(time, "YYYY-MM-DD")]T[time2text(time, "hh_mm_ss")].lk"
+		var/filename = "data/test_run-[time2text(time, "YYYY-MM-DD")]T[time2text(time, "hh_mm_ss")].log"
 		text2file(result.Join("\n"), filename)
 
 	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
