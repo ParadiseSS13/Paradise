@@ -48,7 +48,7 @@
 		if(I.reagents.has_reagent("ice"))
 			var/ice_amount = I.reagents.get_reagent_amount("ice")
 			visible_message(
-				"<span class='danger'>[user] pours [I] into the deep frier! </span>",
+				"<span class='danger'>[user] pours [I] into the deep frier!</span>",
 				"<span class='danger'>You hear a loud sizzle, followed by a growing and intimidating bubbling.</span>"
 			)
 			to_chat(user, "<span class='userdanger'>The deep frier starts to boil over dangerously!</span>")
@@ -57,8 +57,7 @@
 			make_foam(ice_amount)
 			return TRUE
 
-	return ..()
-
+	return ..() 
 
 /obj/machinery/cooker/deepfryer/examine(mob/user)
 	. = ..()
