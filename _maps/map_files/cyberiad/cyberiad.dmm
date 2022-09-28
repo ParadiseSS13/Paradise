@@ -45212,12 +45212,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
-"che" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
 "chf" = (
 /turf/simulated/wall,
 /area/maintenance/aft)
@@ -79207,7 +79201,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
-/area/quartermaster/miningdock)
+/area/quartermaster/qm)
 "mlv" = (
 /obj/machinery/light/small,
 /obj/structure/closet,
@@ -84766,10 +84760,6 @@
 	icon_state = "white"
 	},
 /area/medical/sleeper)
-"qGa" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "qGn" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 4
@@ -89817,7 +89807,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "uVj" = (
@@ -92937,7 +92926,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/maintenance/apmaint)
 "xAn" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -112707,9 +112696,9 @@ bKB
 aaa
 aaa
 aaa
-qGa
-qGa
-qGa
+aab
+aab
+aab
 aaa
 cng
 cvn
@@ -112983,7 +112972,7 @@ cDO
 cwx
 ayi
 aab
-qGa
+aab
 ayi
 aab
 aaa
@@ -113224,7 +113213,7 @@ aaa
 aaa
 aaa
 aaa
-qGa
+aab
 cgQ
 gzN
 gzN
@@ -113475,15 +113464,15 @@ vmd
 bKz
 nxm
 bxb
-qGa
+aab
 aaa
 aaa
 aaa
 aaa
 aaa
-qGa
-qGa
-qGa
+aab
+aab
+aab
 cgQ
 coL
 coL
@@ -113732,7 +113721,7 @@ byw
 byw
 qot
 bxb
-qGa
+aab
 aaa
 aaa
 aaa
@@ -113989,7 +113978,7 @@ hMV
 gmz
 ljI
 bxb
-qGa
+aab
 aaa
 aaa
 aaa
@@ -113999,7 +113988,7 @@ aaa
 aaa
 aaa
 cgQ
-cgQ
+tGO
 coL
 cvp
 cwA
@@ -114503,7 +114492,7 @@ jdi
 fnX
 bYM
 bYM
-qGa
+aab
 aaa
 aaa
 aaa
@@ -115025,7 +115014,7 @@ kJQ
 bYP
 bYP
 aaa
-qGa
+aab
 cgQ
 iIO
 aBG
@@ -115282,7 +115271,7 @@ iZp
 wRz
 bYP
 aaa
-qGa
+aab
 iez
 sZe
 coL
@@ -115531,7 +115520,7 @@ vnZ
 gpa
 uuh
 bYM
-qGa
+aab
 aaa
 bYP
 cnm
@@ -115539,7 +115528,7 @@ qat
 lxA
 bYP
 aaa
-qGa
+aab
 cgQ
 cgQ
 cqF
@@ -115784,10 +115773,10 @@ bVr
 bWW
 bYG
 bzJ
-che
+jdi
 mkM
-che
-cam
+bYM
+bYM
 cam
 cam
 cam
@@ -116819,7 +116808,7 @@ cjU
 clr
 cko
 cnT
-cfb
+qat
 gAk
 cno
 cam
@@ -117335,7 +117324,7 @@ cam
 cam
 cam
 xzY
-cgQ
+cam
 cam
 qBT
 ajc
@@ -118352,7 +118341,7 @@ bUW
 bPW
 bDX
 bDX
-bME
+cgQ
 cgQ
 scY
 pqG
