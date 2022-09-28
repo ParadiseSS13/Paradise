@@ -67,8 +67,7 @@
 
 /datum/map_per_tile_test/invalid_objs_over_space_checker
 	var/list/invalid_types = list(
-		/obj/machinery/door/airlock,
-		/obj/structure/window
+		/obj/machinery/door/airlock
 	)
 
 /datum/map_per_tile_test/invalid_objs_over_space_checker/CheckTile(turf/T)
