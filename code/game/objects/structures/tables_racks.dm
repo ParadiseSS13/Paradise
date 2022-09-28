@@ -535,7 +535,7 @@
 		deconstruction_ready = !deconstruction_ready
 
 /obj/structure/table/glass/reinforced/check_break(mob/living/M)
-	if(has_gravity(M) && M.mob_size > MOB_SIZE_HUMAN) //big tables for big boys
+	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL && (obj_integrity < (max_integrity / 2))) //big tables for big boys, only breaks under 50% hp
 		table_shatter(M)
 
 /obj/structure/table/glass/reinforced/plasma
