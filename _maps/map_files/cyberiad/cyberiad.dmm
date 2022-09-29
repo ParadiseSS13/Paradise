@@ -43961,11 +43961,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/assembly/robotics)
-"cdD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "cdE" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random_spawners/blood_often,
@@ -82838,20 +82833,6 @@
 	icon_state = "dark"
 	},
 /area/assembly/chargebay)
-"pgF" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint2)
 "pgW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -114771,7 +114752,7 @@ heB
 cLi
 cLi
 wAW
-pgF
+qJc
 cOx
 aab
 aab
@@ -117573,7 +117554,7 @@ bYD
 cgQ
 cap
 cqs
-cdD
+cqs
 coL
 cqs
 pNz
