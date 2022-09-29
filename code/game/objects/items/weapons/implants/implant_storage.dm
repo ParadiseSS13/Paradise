@@ -64,6 +64,6 @@
 	implant_type = /obj/item/implant/storage
 
 /obj/item/implantcase/storage
-	name = "implant case - 'Storage'"
-	desc = "A glass case containing a storage implant."
+	name = "bio-chip case - 'Storage'"
+	desc = "A glass case containing a storage bio-chip."
 	implant_type = /obj/item/implant/storage
