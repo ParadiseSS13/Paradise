@@ -490,31 +490,26 @@
 
 /obj/machinery/economy/vending/ui_data(mob/user)
 	var/list/data = list()
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
-	data["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
+
 	data["userMoney"] = 0
+	data["inserted_cash"] = cash_transaction
 	data["user"] = null
 	if(ishuman(user))
-		H = user
+		var/obj/item/card/id/C
+		var/mob/living/carbon/human/H = user
 		C = H.get_idcard(TRUE)
 		if(!C && istype(H.wear_pda, /obj/item/pda))
 			var/obj/item/pda/P = H.wear_pda
 			if(istype(P.id, /obj/item/card/id))
 				C = P.id
-		var/obj/item/stack/spacecash/S = H.get_active_hand()
-		if(istype(S))
-			data["userMoney"] = S.amount
-			data["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
-		else if(istype(C))
+		if(istype(C))
 			var/datum/money_account/A = C.get_card_account()
-			if(istype(A))
+			if(A)
 				data["user"] = list()
 				data["user"]["name"] = A.account_name
-				data["userMoney"] = A.credit_balance
-				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
-			else
-				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
+				data["usermoney"] = A.credit_balance
+				data["user"]["job"] = C.rank ? C.rank : "No Job"
+
 	data["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		data["stock"][R.name] = R.amount
@@ -592,11 +587,11 @@
 				shut_up = !shut_up
 				. = TRUE
 		if("eject_item")
-			eject_item(usr)
+			eject_item(user)
 			. = TRUE
 		if("remove_coin")
 			if(!coin)
-				to_chat(usr, "<span class='warning'>There is no coin in this machine.</span>")
+				to_chat(user, "<span class='warning'>There is no coin in this machine.</span>")
 				return
 			if(istype(user, /mob/living/silicon))
 				to_chat(user, "<span class='warning'>You lack hands.</span>")
@@ -605,12 +600,15 @@
 			user.put_in_hands(coin)
 			coin = null
 			. = TRUE
+		if("change")
+			. = TRUE
+			give_change(user)
 		if("vend")
 			if(!vend_ready)
-				to_chat(usr, "<span class='warning'>The vending machine is busy!</span>")
+				to_chat(user, "<span class='warning'>The vending machine is busy!</span>")
 				return
 			if(panel_open)
-				to_chat(usr, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
+				to_chat(user, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
 				return
 			var/key = text2num(params["inum"])
 			var/list/display_records = product_records + coin_records
@@ -638,7 +636,7 @@
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(user)]!")
 				return
-			if (R.amount <= 0)
+			if(R.amount <= 0)
 				to_chat(user, "Sold out of [R.name].")
 				flick(icon_deny, src)
 				return
@@ -659,18 +657,17 @@
 			var/mob/living/carbon/human/H = user
 			var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-			if(!GLOB.station_money_database.vendor_account || GLOB.station_money_database.vendor_account.suspended)
+			currently_vending = R
+			var/paid = FALSE
+
+			if(cash_transaction < currently_vending.price && GLOB.station_money_database.vendor_account?.suspended)
 				to_chat(user, "Vendor account offline. Unable to process transaction.")
 				flick(icon_deny, src)
 				vend_ready = TRUE
 				return
 
-			currently_vending = R
-			var/paid = FALSE
-
-			if(cash_stored >= currently_vending.price)
+			if(cash_transaction >= currently_vending.price)
 				paid = pay_with_cash(currently_vending.price, "Vendor Transaction", machine_id, user, GLOB.station_money_database.vendor_account)
-				give_change(user)
 			else if(istype(C, /obj/item/card))
 				// Because this uses H.get_idcard(TRUE), it will attempt to use:
 				// active hand, inactive hand, pda.id, and then wear_id ID in that order
@@ -726,7 +723,7 @@
 	R.amount--
 
 	if(((last_reply + (vend_delay + 200)) <= world.time) && vend_reply)
-		speak(src.vend_reply)
+		speak(vend_reply)
 		last_reply = world.time
 
 	use_power(vend_power_usage)	//actuators and stuff

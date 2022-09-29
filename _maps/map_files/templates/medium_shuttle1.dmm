@@ -174,7 +174,7 @@
 	name = "Shuttle"
 	})
 "E" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -207,7 +207,7 @@
 	name = "Shuttle"
 	})
 "J" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -218,7 +218,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/vending/engivend,
+/obj/machinery/economy/vending/engivend,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -277,7 +277,7 @@
 	name = "Shuttle"
 	})
 "R" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

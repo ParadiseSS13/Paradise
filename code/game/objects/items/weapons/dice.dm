@@ -235,7 +235,7 @@
 			var/turf/Start = get_turf(src)
 			for(var/direction in GLOB.alldirs)
 				var/turf/dirturf = get_step(Start,direction)
-				if(rand(0,1))
+				if(prob(50))
 					new /obj/item/stack/spacecash/c1000(dirturf)
 				else
 					var/obj/item/storage/bag/money/M = new(dirturf)

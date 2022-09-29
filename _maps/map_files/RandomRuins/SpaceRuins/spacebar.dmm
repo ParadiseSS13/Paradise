@@ -53,7 +53,7 @@
 	})
 "aq" = (
 /obj/structure/table,
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered{
 	name = "Space Bar"
@@ -141,7 +141,7 @@
 	name = "Space Bar"
 	})
 "aE" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered{
 	name = "Space Bar"
@@ -290,25 +290,25 @@
 	name = "Space Bar"
 	})
 "ba" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered{
 	name = "Space Bar"
 	})
 "bb" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered{
 	name = "Space Bar"
 	})
 "bc" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered{
 	name = "Space Bar"
 	})
 "bd" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered{

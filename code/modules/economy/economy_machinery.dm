@@ -71,7 +71,7 @@
 	return TRUE
 
 /obj/machinery/economy/proc/pay_with_cash(item_cost, purpose, transactor, mob/user, datum/money_account/target)
-	if(item_cost > cash_stored)
+	if(item_cost > cash_transaction)
 		to_chat(user, "<span class='warning'>Unable to complete transaction: insufficient space cash inserted.</span>")
 		return FALSE
 

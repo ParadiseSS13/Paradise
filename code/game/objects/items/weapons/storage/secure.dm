@@ -220,7 +220,7 @@
 /obj/item/storage/secure/briefcase/syndie/populate_contents()
 	..()
 	for(var/I in 1 to 5)
-		new /obj/item/stack/spacecash/c1000(src)
+		new /obj/item/stack/spacecash/c100(src)
 
 // -----------------------------
 //        Secure Safe

@@ -477,7 +477,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "bX" = (
-/obj/machinery/vending/hydroseeds{
+/obj/machinery/economy/vending/hydroseeds{
 	slogan_delay = 700
 	},
 /turf/simulated/floor/plasteel{
@@ -486,7 +486,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "bY" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"

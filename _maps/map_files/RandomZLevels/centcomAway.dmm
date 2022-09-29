@@ -55,7 +55,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "aj" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -71,7 +71,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "am" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
@@ -514,7 +514,7 @@
 	},
 /area/awaymission/centcomAway/hangar)
 "bv" = (
-/obj/machinery/vending/boozeomat{
+/obj/machinery/economy/vending/boozeomat{
 	req_access_txt = ""
 	},
 /turf/simulated/wall/r_wall,
@@ -869,7 +869,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "cI" = (
-/obj/machinery/vending/hydroseeds{
+/obj/machinery/economy/vending/hydroseeds{
 	slogan_delay = 700
 	},
 /turf/simulated/floor/plasteel{
@@ -877,7 +877,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "cJ" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -1125,7 +1125,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/centcomAway/cafe)
 "dv" = (
-/obj/machinery/vending/boozeomat{
+/obj/machinery/economy/vending/boozeomat{
 	req_access_txt = ""
 	},
 /turf/simulated/wall,
@@ -1801,7 +1801,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "ft" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -2532,7 +2532,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcomAway/general)
 "hC" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2957,7 +2957,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/courtroom)
 "iI" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2971,7 +2971,7 @@
 	},
 /area/awaymission/centcomAway/courtroom)
 "iK" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4719,7 +4719,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcomAway/general)
 "nd" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -4729,7 +4729,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "ne" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -5153,14 +5153,14 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/thunderdome)
 "oj" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
 	},
 /area/awaymission/centcomAway/thunderdome)
 "ok" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -5354,7 +5354,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "oJ" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redbluefull"

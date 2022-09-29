@@ -206,7 +206,7 @@
 	var/datum/money_account/target_account = account_database.find_user_account(account_number)
 	if(attempt_account_authentification(target_account, account_pin, user))
 		if(!silent)
-			to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.account_name].'</span>")
+			to_chat(user, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.account_name].'</span>")
 		return TRUE
 	if(!silent)
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
