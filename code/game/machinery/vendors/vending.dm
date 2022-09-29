@@ -491,7 +491,7 @@
 /obj/machinery/economy/vending/ui_data(mob/user)
 	var/list/data = list()
 
-	data["userMoney"] = 0
+	data["usermoney"] = 0
 	data["inserted_cash"] = cash_transaction
 	data["user"] = null
 	if(ishuman(user))
@@ -672,7 +672,7 @@
 				// Because this uses H.get_idcard(TRUE), it will attempt to use:
 				// active hand, inactive hand, pda.id, and then wear_id ID in that order
 				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-				paid = pay_with_card(C, currently_vending.price, "Vendor transaction", machine_id, user, C.get_card_account())
+				paid = pay_with_card(C, currently_vending.price, "Vendor transaction", machine_id, user, GLOB.station_money_database.vendor_account)
 			else if(user.can_advanced_admin_interact())
 				to_chat(user, "<span class='notice'>Vending object due to admin interaction.</span>")
 				paid = TRUE

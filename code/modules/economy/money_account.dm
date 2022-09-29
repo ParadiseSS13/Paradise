@@ -42,7 +42,7 @@
   * * allow_overdraft - bool that if true, prevents withdrawals that bring the account balance below 0 credits
   * *
 */
-/datum/money_account/proc/try_withdraw_credits(amount = 0, allow_overdraft = FALSE)
+/datum/money_account/proc/try_withdraw_credits(amount, allow_overdraft = FALSE)
 	if(!allow_overdraft && (credit_balance - amount < 0))
 		return FALSE
 	credit_balance -= amount

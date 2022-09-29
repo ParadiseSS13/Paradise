@@ -10,6 +10,7 @@ const VendingRow = (props, context) => {
     chargesMoney,
     user,
     usermoney,
+    inserted_cash,
     vend_ready,
     coin_name,
     inserted_item_name,
@@ -31,7 +32,7 @@ const VendingRow = (props, context) => {
     !vend_ready ||
     (!coin_name && product.req_coin) ||
     productStock === 0 ||
-    (!free && product.price > usermoney);
+    (!free && (product.price > usermoney && product.price > inserted_cash));
   return (
     <Table.Row>
       <Table.Cell collapsing>
