@@ -205,7 +205,8 @@
 	color = "#3C3C3C"
 	taste_description = "motor oil"
 	process_flags = ORGANIC | SYNTHETIC
-	var/convert_to_ash = TRUE
+	/// What this becomes after burning.
+	var/reagent_after_burning = "ash"
 
 /datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 600)
@@ -220,8 +221,8 @@
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
-		if(!QDELETED(old_holder) && convert_to_ash)
-			old_holder.add_reagent("ash", round(volume * 0.5))
+		if(!QDELETED(old_holder) && reagent_after_burning)
+			old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
@@ -233,15 +234,21 @@
 	description = "You should probably pour this down the sink, where it belongs."
 	color = "#fbba16"
 	taste_description = "old french fries"
-	convert_to_ash = FALSE
+	reagent_after_burning = "cooking_oil_inert"
 
-/datum/reagent/iodine
-	name = "Iodine"
-	id = "iodine"
-	description = "A purple gaseous element."
-	reagent_state = GAS
-	color = "#493062"
-	taste_description = "chemtrail resistance"
+/datum/reagent/oil/cooking/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil/cooking) in T)
+		new /obj/effect/decal/cleanable/blood/oil/cooking(T)
+
+/datum/reagent/oil/cooking/inert
+	name = "Burned Cooking Oil"
+	description = "It's full of char and mixed with so much crud it's probably useless."
+	id = "cooking_oil_inert"
+	reagent_after_burning = null
+
+/datum/reagent/oil/cooking/inert/reaction_temperature(exposed_temperature, exposed_volume)
+	// don't do anything
+	return
 
 /datum/reagent/carpet
 	name = "Carpet"
