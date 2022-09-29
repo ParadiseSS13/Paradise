@@ -250,6 +250,14 @@
 	// don't do anything
 	return
 
+/datum/reagent/iodine
+	name = "Iodine"
+	id = "iodine"
+	description = "A purple gaseous element."
+	reagent_state = GAS
+	color = "#493062"
+	taste_description = "chemtrail resistance"
+
 /datum/reagent/carpet
 	name = "Carpet"
 	id = "carpet"
