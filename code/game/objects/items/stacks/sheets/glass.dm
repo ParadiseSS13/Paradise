@@ -19,7 +19,8 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, 1, time = 10), \
 	new/datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 20, on_floor = TRUE), \
-	new/datum/stack_recipe("wall aquarium", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE) \
+	new/datum/stack_recipe("wall aquarium", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE), \
+	new/datum/stack_recipe("glass ashtray", /obj/item/ashtray/glass, 1, time = 10), \
 ))
 
 /obj/item/stack/sheet/glass

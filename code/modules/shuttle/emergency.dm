@@ -13,6 +13,7 @@
 	desc = "For shuttle control."
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/auth_need = 3
 	var/list/authorized = list()
 	var/hijack_last_stage_increase = 0 SECONDS

@@ -107,7 +107,7 @@
 			dat = {"<B>[src] is empty</B><BR>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
-		dat += {"<HR><BR> <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
+		dat += {"<hr><br> <a href='?src=[UID()];action=dispose'>Dispose ingredients!</a><br>"}
 
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)
@@ -118,8 +118,9 @@
 /obj/item/mixing_bowl/Topic(href, href_list)
 	if(..())
 		return
-	if(href_list["dispose"])
-		dispose()
+	switch(href_list["action"])
+		if("dispose")
+			dispose()
 	return
 
 /obj/item/mixing_bowl/proc/dispose()
