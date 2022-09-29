@@ -33,7 +33,7 @@
 
 	species_traits = list(LIPS, IS_WHITELISTED, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
-	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
+	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS | BALD | SHAVED
 	has_gender = FALSE
 	dietflags = DIET_OMNI
 

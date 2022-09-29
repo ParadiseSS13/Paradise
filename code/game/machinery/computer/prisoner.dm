@@ -171,7 +171,7 @@
 					if(!implant)
 						return
 					if(implant.warn_cooldown >= world.time)
-						to_chat(user, "<span class='warning'>The warning system for that implant is still cooling down.</span>")
+						to_chat(user, "<span class='warning'>The warning system for that bio-chip is still cooling down.</span>")
 						return
 					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
 					if(implant.imp_in)

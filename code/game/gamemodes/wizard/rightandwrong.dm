@@ -124,7 +124,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		if(iswizard(H))
 			return
 
-	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors))
+	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors) && !jobban_isbanned(H, ROLE_SYNDICATE))
 		SSticker.mode.traitors += H.mind
 
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/magic)
