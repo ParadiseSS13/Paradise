@@ -65,12 +65,12 @@
 
 /obj/item/ashtray/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0))
-		return
-	if(I.use_tool(src, user, volume = I.tool_volume))
-		empty_tray()
-		new material(drop_location(), 1)
-		deconstruct()
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+	    return
+	    
+	empty_tray()
+	new material(drop_location(), 1)
+	deconstruct()
 
 /obj/item/ashtray/plastic
 	name = "plastic ashtray"

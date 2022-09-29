@@ -307,8 +307,8 @@ LINEN BINS
 
 /obj/structure/bedsheetbin/wrench_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		. = TRUE
 		default_unfasten_wrench(user, I, time = 20)
+		return TRUE
 
 /obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
