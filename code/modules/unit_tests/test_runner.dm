@@ -1,3 +1,10 @@
+// Logging large amounts of test failures can cause performance issues
+// significant enough to hit GitHub Actions timeout thresholds. This can happen
+// intentionally (if there's a lot of legitimate map errors), or accidentally if
+// a test condition is written incorrectly and starts e.g. logging failures for
+// every single tile.
+#define MAX_MAP_TEST_FAILURE_COUNT 20
+
 /datum/test_runner
 	var/datum/unit_test/current_test
 	var/failed_any_test = FALSE
@@ -24,9 +31,13 @@
 
 	for(var/turf/T in block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level)))
 		for(var/datum/map_per_tile_test/test in tests)
-			var/duration = REALTIMEOFDAY
-			test.CheckTile(T)
-			durations[test.type] += REALTIMEOFDAY - duration
+			if(test.failure_count < MAX_MAP_TEST_FAILURE_COUNT)
+				var/duration = REALTIMEOFDAY
+				test.CheckTile(T)
+				durations[test.type] += REALTIMEOFDAY - duration
+
+				if(test.failure_count >= MAX_MAP_TEST_FAILURE_COUNT)
+					test.Fail(T, "failure threshold reached at this tile")
 
 	for(var/datum/map_per_tile_test/test in tests)
 		if(!test.succeeded)

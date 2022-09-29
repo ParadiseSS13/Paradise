@@ -1,6 +1,7 @@
 /datum/map_per_tile_test
 	var/succeeded = TRUE
 	var/list/fail_reasons
+	var/failure_count = 0
 
 /datum/map_per_tile_test/proc/CheckTile(turf/T)
 	Fail("CheckTile() called parent or not implemented")
@@ -8,6 +9,7 @@
 /datum/map_per_tile_test/proc/Fail(turf/T, reason)
 	succeeded = FALSE
 	LAZYADD(fail_reasons, "[T.x],[T.y],[T.z]: [reason]")
+	failure_count++
 
 /datum/map_per_tile_test/pipe_vent_checker
 	var/list/pipe_roots = list(
