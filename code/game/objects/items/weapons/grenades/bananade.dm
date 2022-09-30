@@ -57,7 +57,7 @@
 
 /obj/item/grenade/bananade/casing/screwdriver_act(mob/living/user, obj/item/I)
 	if(!deliveryamt)
-		to_chat(user, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
+		to_chat(user, "<span class='notice'>You need to add banana peels before you can ready the grenade!</span>")
 		return TRUE
 
 	var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
