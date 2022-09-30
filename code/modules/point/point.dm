@@ -98,9 +98,13 @@
 	set name = "Point To"
 	set category = "Object"
 
+	if(next_move >= world.time)
+		return
+
 	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
 		return FALSE
 
+	changeNext_move(CLICK_CD_POINT)
 	if(A.loc in src) // Object is inside a container on the mob. It's not part of the verb's list since it's not in view and requires middle clicking.
 		point_at(A)
 		return TRUE
