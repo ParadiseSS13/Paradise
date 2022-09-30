@@ -453,10 +453,10 @@
   * Variant of the [Smart Fridge][/obj/machinery/smartfridge] that holds food and drinks in a mobile form
   */
 /obj/machinery/smartfridge/foodcart
-	name = "\improper Food and Drink Cart"
+	name = "food and drink cart"
 	desc = "A portable cart for hawking your food and drink wares around the station"
-	icon = 'icons/obj/foodcart.dmi'
-	icon_state = "cart"
+	icon = 'icons/obj/kitchen.dmi'
+	icon_state = "foodcart"
 	anchored = FALSE
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
@@ -686,6 +686,22 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/disk,
+	))
+
+/obj/machinery/smartfridge/id
+	name = "identification card compartmentalizer"
+	desc = "A machine capable of storing identification cards and PDAs. It's great for lost and terminated cards."
+	icon_state = "idbox"
+	icon_lightmask = FALSE
+	pass_flags = PASSTABLE
+	visible_contents = FALSE
+	board_type = /obj/machinery/smartfridge/id
+
+/obj/machinery/smartfridge/id/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/card/id,
+		/obj/item/pda,
 	))
 
 /**

@@ -91,7 +91,7 @@
 /obj/effect/hallucination/fake_item/attack_hand(mob/living/user)
 	if(user != target)
 		return
-	if(hasorgans(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)

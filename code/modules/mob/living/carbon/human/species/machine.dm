@@ -25,7 +25,7 @@
 	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
+	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = COLOR_BLOOD_MACHINE

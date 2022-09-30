@@ -26958,6 +26958,9 @@
 	},
 /obj/structure/table/wood,
 /obj/item/eftpos,
+/obj/item/storage/box/PDAs,
+/obj/item/storage/box/ids,
+/obj/item/storage/box/ids,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bCm" = (
@@ -51972,12 +51975,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/storage/box/PDAs{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/storage/box/ids,
-/obj/item/storage/box/ids,
+/obj/machinery/smartfridge/id,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "daf" = (
