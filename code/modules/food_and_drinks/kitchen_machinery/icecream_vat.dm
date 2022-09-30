@@ -15,8 +15,8 @@
 
 
 /obj/machinery/icemachine/proc/generate_name(reagent_name)
-	var/name_prefix = pick("Mr.","Mrs.","Super","Happy","Whippy")
-	var/name_suffix = pick(" Whippy "," Slappy "," Creamy "," Dippy "," Swirly "," Swirl ")
+	var/name_prefix = pick("Mr.","Mrs.","Super","Happy","Whippy", "Sugary", "Sweet", "Lawful", "Chaotic", "Neutral", "Drippy")
+	var/name_suffix = pick(" Whippy "," Slappy "," Creamy "," Dippy "," Swirly "," Swirl ", " Rootin'Tootin "," Frosty ", " Chilly "," Neutral ", " Good ", " Evil ", " Smooth ", " Chunky ", " Flaming ")
 	var/cone_name = null	//Heart failure prevention.
 	cone_name += name_prefix
 	cone_name += name_suffix
@@ -55,7 +55,7 @@
 
 
 /obj/machinery/icemachine/proc/validexchange(reag)
-	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "water")
+	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "vanilla" | reag == "whiskey" | reag == "brownstar")
 		return 1
 	else
 		if(reagents.total_volume < 500)
@@ -119,7 +119,7 @@
 				reagents.add_reagent("sprinkles",1)
 				*/ //Sprinkles are now created by using the ice cream on the machine
 			if(ID == 2 | ID == 3)
-				var/brand = pick(1,2,3,4)
+				var/brand = pick(1,2,3,4,5)
 				if(brand == 1)
 					if(ID == 2)
 						reagents.add_reagent("cola",5)
@@ -140,6 +140,11 @@
 						reagents.add_reagent("spacemountainwind",5)
 					else
 						reagents.add_reagent("gin",5)
+				else if(brand == 5)
+					if(ID == 2)
+						reagents.add_reagent("brownstar",5)
+					else
+						reagents.add_reagent("whiskey",5)
 			else if(ID == 4)
 				if(reagents.total_volume <= 500 & reagents.total_volume >= 15)
 					reagents.add_reagent("cream",(30 - reagents.total_volume))
@@ -147,11 +152,11 @@
 					reagents.add_reagent("cream",(15 - reagents.total_volume))
 			else if(ID == 5)
 				if(reagents.total_volume <= 500 & reagents.total_volume >= 15)
-					reagents.add_reagent("water",(30 - reagents.total_volume))
+					reagents.add_reagent("vanilla",(30 - reagents.total_volume))
 				else if(reagents.total_volume <= 15)
-					reagents.add_reagent("water",(15 - reagents.total_volume))
+					reagents.add_reagent("vanilla",(15 - reagents.total_volume))
 
-	else if(href_list["createcup"])
+	else if(href_list["createchoco"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Chocolate Cone"
 		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
@@ -172,7 +177,20 @@
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
-		reagents.trans_to(C,15)
+		reagents.trans_to(C,30)
+		if(reagents)
+			reagents.clear_reagents()
+		C.update_icon()
+
+	else if(href_list["createwaffle"])
+		var/name = generate_name(reagents.get_master_reagent_name())
+		name += " Waffle Cone"
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
+		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
+		C.name = "[name]"
+		C.pixel_x = rand(-8, 8)
+		C.pixel_y = -16
+		reagents.trans_to(C,30)
 		if(reagents)
 			reagents.clear_reagents()
 		C.update_icon()
@@ -192,10 +210,11 @@
 		dat += "<A href='?src=[UID()];synthcond=1;type=3'>Alcohol</A><BR>"
 		dat += "<strong>Finish With:</strong><BR>"
 		dat += "<A href='?src=[UID()];synthcond=1;type=4'>Cream</A><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=5'>Water</A><BR>"
+		dat += "<A href='?src=[UID()];synthcond=1;type=5'>Vanilla</A><BR>"
 		dat += "<strong>Dispense in:</strong><BR>"
-		dat += "<A href='?src=[UID()];createcup=1'>Chocolate Cone</A><BR>"
+		dat += "<A href='?src=[UID()];createchoco=1'>Chocolate Cone</A><BR>"
 		dat += "<A href='?src=[UID()];createcone=1'>Cone</A><BR>"
+		dat += "<A href='?src=[UID()];createwaffle=1'>Waffle Cone</A><BR>"
 	dat += "</center>"
 	return dat
 
