@@ -117,9 +117,9 @@
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
 	var/obj/structure/shadow_anchor/anchor
-	/// are we making an anchor?
+	/// Are we making an anchor?
 	var/making_anchor = FALSE
-	/// holds a reference to the timer until the caster is forced to recall
+	/// Holds a reference to the timer until the caster is forced to recall
 	var/timer
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/create_new_targeting()

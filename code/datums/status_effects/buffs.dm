@@ -98,7 +98,7 @@
 /datum/status_effect/void_price/refresh()
 	price++
 	return ..()
-	
+
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
 	duration = 10
@@ -488,8 +488,8 @@
 	var/datum/antagonist/vampire/vamp
 
 /datum/status_effect/thrall_net/on_creation(mob/living/new_owner, datum/antagonist/vampire/V, ...)
-	vamp = V
 	. = ..()
+	vamp = V
 	START_PROCESSING(SSfastprocess, src)
 	target_UIDs += owner.UID()
 	var/list/view_cache = view(7, owner)
@@ -535,9 +535,3 @@
 /datum/status_effect/thrall_net/on_remove()
 	. = ..()
 	vamp = null
-
-
-
-
-
-

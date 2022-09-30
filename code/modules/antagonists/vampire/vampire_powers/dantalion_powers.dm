@@ -221,8 +221,8 @@
 	var/datum/status_effect/thrall_net/T = user.has_status_effect(STATUS_EFFECT_THRALL_NET)
 	if(!T)
 		user.apply_status_effect(STATUS_EFFECT_THRALL_NET, user.mind.has_antag_datum(/datum/antagonist/vampire))
-	else
-		qdel(T)
+		return
+	qdel(T)
 
 /obj/effect/proc_holder/spell/vampire/hysteria
 	name = "Mass Hysteria (70)"
