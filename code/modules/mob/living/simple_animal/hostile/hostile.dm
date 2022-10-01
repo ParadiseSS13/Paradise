@@ -59,6 +59,8 @@
 	wanted_objects = typecacheof(wanted_objects)
 
 /mob/living/simple_animal/hostile/Destroy()
+	/// We need to clear the reference to where we're walking to properly GC
+	walk_to(src, 0)
 	if(lose_patience_timer_id)
 		deltimer(lose_patience_timer_id)
 	targets_from = null
