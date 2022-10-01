@@ -385,8 +385,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/voicemask = 0 // the speaker is wearing a voice mask
 	var/jobname // the mob's "job"
 
-	if(jammed)
-		return
+	if(jammed && !syndiekey)
+		return //All radio is jammed, meaning everything in the jammer radius will be muted.
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
