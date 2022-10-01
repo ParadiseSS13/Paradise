@@ -1542,7 +1542,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
-		if(!start_audio_emote_cooldown(10 SECONDS))
+		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))
 			to_chat(src, "<span class='warning'>The low-power capacitor for your speaker system is still recharging, please try again later.</span>")
 			return
 		visible_message("<span class='warning'>The power warning light on <span class='name'>[src]</span> flashes urgently.</span>",\
