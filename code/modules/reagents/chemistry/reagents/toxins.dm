@@ -348,8 +348,7 @@
 					var/melted_something = FALSE
 					if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
 						to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
-						QDEL_NULL(H.wear_mask)
-						H.update_inv_wear_mask()
+						qdel(H.wear_mask)
 						melted_something = TRUE
 
 					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
