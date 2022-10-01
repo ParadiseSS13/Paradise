@@ -151,4 +151,4 @@
 	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only."
 	icon = 'icons/obj/machines/pos.dmi'
 	icon_state = "pos"
-	attack_verb = list("bounced a check off","checked-out","tipped")
+	attack_verb = list("bounced a check off", "checked-out", "tipped")
