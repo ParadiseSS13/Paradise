@@ -67,8 +67,6 @@
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/candle/proc/get_wax_index()
-	if(wax_index == SHORT_CANDLE) // It's at its shortest
-		return
 	var/new_wax_index
 	if(wax > 150)
 		new_wax_index = TALL_CANDLE
@@ -94,7 +92,8 @@
 		return
 	if(!infinite)
 		wax--
-		get_wax_index()
+		if(wax_index != SHORT_CANDLE) // It's not at its shortest
+			get_wax_index()
 	if(!wax)
 		new/obj/item/trash/candle(src.loc)
 		if(istype(src.loc, /mob))
