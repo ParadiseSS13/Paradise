@@ -75,9 +75,9 @@
 	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into a plasma pistol. Wort, wort, wort!"
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 
-/obj/item/weaponcrafting/gunkit/silencer
+/obj/item/weaponcrafting/gunkit/u_ionsilencer
 	name = "\improper u-ion silencer parts kit"
-	desc = "A suitcase containing the necessary gun parts to transform a standard energy gun into a silenced disabling weapon. Look officer, he has no wounds from me!"
+	desc = "A suitcase containing the necessary gun parts to transform a standard disaler into a silenced and lethal disabling weapon. Look officer, he has no wounds from me!"
 	origin_tech = "combat=6;magnets=6;syndicate=2"
 
 // CRAFTING //

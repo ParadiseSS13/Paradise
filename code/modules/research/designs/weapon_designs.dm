@@ -278,5 +278,5 @@
 	req_tech = list("combat" = 7, "magnets" = 6, "syndicate" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
-	build_path = /obj/item/weaponcrafting/gunkit/silencer
+	build_path = /obj/item/weaponcrafting/gunkit/u_ionsilencer
 	category = list("Weapons")
