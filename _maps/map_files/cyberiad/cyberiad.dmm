@@ -54682,13 +54682,7 @@
 /area/maintenance/apmaint2)
 "cFL" = (
 /obj/structure/table/reinforced,
-/obj/item/phone{
-	attack_verb = list("bounced a check off","checked-out","tipped");
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
-	icon = 'icons/obj/machines/pos.dmi';
-	icon_state = "pos";
-	name = "point of sale"
-	},
+/obj/item/phone/pos,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint2)
 "cFM" = (
@@ -65863,13 +65857,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/phone{
-	attack_verb = list("bounced a check off","checked-out","tipped");
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
-	icon = 'icons/obj/machines/pos.dmi';
-	icon_state = "pos";
-	name = "point of sale"
-	},
+/obj/item/phone/pos,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -70173,13 +70161,7 @@
 "eIN" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/phone{
-	attack_verb = list("bounced a check off","checked-out","tipped");
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
-	icon = 'icons/obj/machines/pos.dmi';
-	icon_state = "pos";
-	name = "point of sale"
-	},
+/obj/item/phone/pos,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "eJr" = (
