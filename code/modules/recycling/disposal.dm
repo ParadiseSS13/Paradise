@@ -352,7 +352,6 @@
 			. += "dispover-unscrewed"
 		if(1)
 			. += "dispover-charge"
-			. += "dispover-panel"
 			underlays += emissive_appearance(icon, "dispover-charge")
 		if(2)
 			. += "dispover-ready"
@@ -763,28 +762,17 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
-		update_icon(UPDATE_ICON_STATE)
-		return
-	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
-	update_icon(UPDATE_ICON_STATE)
+	hide(T.intact && !istype(T, /turf/space) && !T.transparent_floor)	// space and transparent floors never hide pipes
 
 // hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
+// change visibility status
 /obj/structure/disposalpipe/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
-	update_icon(UPDATE_ICON_STATE)
-
-// update actual icon_state depending on visibility
-// if invisible, append "f" to icon_state to show faded version
-// this will be revealed if a T-scanner is used
-// if visible, use regular icon_state
-/obj/structure/disposalpipe/update_icon_state()
-	if(invisibility)
-		icon_state = "[base_icon_state]f"
-	else
-		icon_state = base_icon_state
-
+	if(intact)
+		invisibility = INVISIBILITY_MAXIMUM
+		alpha = 128
+		return
+	invisibility = INVISIBILITY_MINIMUM
+	alpha = 255
 
 // expel the held objects into a turf
 // called when there is a break in the pipe
@@ -964,11 +952,18 @@
 		dpdir = dir | turn(dir, -90)
 	update()
 
-
+/obj/structure/disposalpipe/segment/corner
+	icon_state = "pipe-c"
 
 //a three-way junction with dir being the dominant direction
 /obj/structure/disposalpipe/junction
 	icon_state = "pipe-j1"
+
+/obj/structure/disposalpipe/junction/reversed
+	icon_state = "pipe-j2"
+
+/obj/structure/disposalpipe/junction/y
+	icon_state = "pipe-y"
 
 /obj/structure/disposalpipe/junction/Initialize(mapload)
 	. = ..()
@@ -1011,12 +1006,14 @@
 
 //a three-way junction that sorts objects
 /obj/structure/disposalpipe/sortjunction
-
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
+	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
+
+/obj/structure/disposalpipe/sortjunction/reversed
+	icon_state = "pipe-j2s"
 
 /obj/structure/disposalpipe/sortjunction/proc/updatedesc()
 	desc = "An underfloor disposal pipe with a package sorting mechanism."
@@ -1102,6 +1099,9 @@
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
+
+/obj/structure/disposalpipe/wrapsortjunction/reversed
+	icon_state = "pipe-j2s"
 
 /obj/structure/disposalpipe/wrapsortjunction/Initialize(mapload)
 	. = ..()
