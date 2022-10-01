@@ -176,6 +176,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 	///List of invaders that have teleportes into the arena *multiple times*. They will be suffering.
 	var/list/invaders = list()
+	/// Is it actively checking for invaders? Automatticaly set by the tumor. Not using activity, as it is active after loosing.
+	var/invader_checking = FALSE
 
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -253,6 +255,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
 	gps = new /obj/item/gps/internal/tumor(src)
+	AddComponent(/datum/component/proximity_monitor, 12)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/elite_tumor/Destroy()
@@ -313,7 +316,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	INVOKE_ASYNC(src, .proc/fighters_check)  //Checks to see if our fighters died.
 	INVOKE_ASYNC(src, .proc/arena_trap)  //Gets another arena trap queued up for when this one runs out.
 	INVOKE_ASYNC(src, .proc/border_check)  //Checks to see if our fighters got out of the arena somehow.
-	INVOKE_ASYNC(src, .proc/invaders_check)  //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
+	invader_checking = TRUE  //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 	addtimer(CALLBACK(src, .proc/arena_checks), 5 SECONDS)
 
 /obj/structure/elite_tumor/proc/fighters_check()
@@ -344,18 +347,19 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
-/obj/structure/elite_tumor/proc/invaders_check()
-	for(var/mob/living/M in range(12, src))
+/obj/structure/elite_tumor/HasProximity(atom/movable/AM)
+	if(!invader_checking)
+		return
+	if(isliving(AM))
+		var/mob/living/M = AM
 		if(!ishuman(M) && !isrobot(M))
-			continue
+			return
 		if(M == activator)
-			continue
+			return
 		if(M in invaders)
 			to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
-			var/i = 0
-			while(i <= 3)
+			for(var/i in 1 to 4)
 				M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
-				i ++
 		else
 			to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
 			invaders += M
@@ -410,7 +414,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.\n\
 			Also, be weary of your fellow inhabitants, they likely won't be happy to see you!</b>")
 		to_chat(mychild, "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station. You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>")
-
+	invader_checking = FALSE
 /obj/item/tumor_shard
 	name = "tumor shard"
 	desc = "A strange, sharp, crystal shard from an odd tumor on Lavaland. Stabbing the corpse of a lavaland elite with this will revive them, assuming their soul still lingers. Revived lavaland elites only have half their max health, but are completely loyal to their reviver."

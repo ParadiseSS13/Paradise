@@ -156,9 +156,8 @@
 		return
 	forceMove(T)
 	playsound(src,'sound/effects/bang.ogg', 200, 1)
-	var/list/hit_things = list()
 	var/throwtarget = get_edge_target_turf(src, move_dir)
-	for(var/mob/living/L in T.contents - hit_things - src)
+	for(var/mob/living/L in T.contents - src)
 		if(faction_check_mob(L))
 			charging = FALSE
 			return
@@ -171,7 +170,6 @@
 		else
 			hit_targets += L
 			L.adjustBruteLoss(25)
-		hit_things += L
 
 	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1), hit_targets), 0.7)
 
