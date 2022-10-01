@@ -386,7 +386,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/jobname // the mob's "job"
 
 	if(jammed)
-		Gibberish_all(message_pieces, 100)
+		return
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
