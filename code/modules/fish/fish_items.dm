@@ -159,8 +159,8 @@
 /obj/item/shard/shark_teeth/Initialize(mapload)
 	. = ..()
 	icon_state = "teeth"
-	src.pixel_x = rand(-5,5)
-	src.pixel_y = rand(-5,5)
+	pixel_x = rand(-5,5)
+	pixel_y = rand(-5,5)
 
 /obj/item/fish/catfish
 	name = "catfish"
