@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		return
 	// Pick a module type
-	var/selected_module = show_radial_menu(src, src, get_module_types(), radius = 32)
+	var/selected_module = show_radial_menu(src, src, get_module_types(), radius = 42)
 	if(!selected_module || module)
 		return
 	// Pick a sprite
