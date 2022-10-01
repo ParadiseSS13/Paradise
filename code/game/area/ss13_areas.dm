@@ -736,13 +736,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Abandoned Fight Club"
 	icon_state = "yellow"
 
-/area/maintenance/gambling_den/casino
+/area/maintenance/casino
 	name = "Abandoned Casino"
 	icon_state = "yellow"
 
 /area/maintenance/consarea
 	name = "Alternate Construction Area"
 	icon_state = "yellow"
+
+/area/maintenance/detectives_office
+	name = "\improper Abandoned Detective's Office"
+	icon_state = "detective"
+	ambientsounds = list('sound/ambience/ambidet1.ogg', 'sound/ambience/ambidet2.ogg')
 
 /area/maintenance/engrooms
 	name = "Abandoned Engineers Rooms"
@@ -1780,6 +1785,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance/garden
 	name = "Old Garden"
+	icon_state = "hydro"
+	power_equip = 0
+	power_light = 0
+	power_environ = 0
+
+/area/maintenance/garden/north
+	name = "North Old Garden"
 	icon_state = "hydro"
 	power_equip = 0
 	power_light = 0
