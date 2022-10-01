@@ -41,6 +41,10 @@
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
+/obj/item/holder/examine(mob/user)
+	for(var/mob/living/M in contents)
+		. += M.examine(user)
+
 /obj/item/holder/container_resist(mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
