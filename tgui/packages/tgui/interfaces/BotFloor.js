@@ -28,6 +28,7 @@ export const BotFloor = (props, context) => {
     find,
     alert,
     magnet,
+    tiles,
   } = data;
   return (
     <Window>
@@ -90,8 +91,8 @@ export const BotFloor = (props, context) => {
         <Section title="Floor Settings">
           <LabeledList>
             <LabeledList.Item
-            label="Tiles Left">
-              {amount.amount}
+              label="Tiles Left">
+              {tiles}
             </LabeledList.Item>
           </LabeledList>
           <Button.Checkbox

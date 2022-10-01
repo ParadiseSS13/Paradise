@@ -94,7 +94,8 @@
 		"find" = eattiles,
 		"alert" = nag_on_empty,
 		"repair" = fixfloors,
-		"magnet" = anchored
+		"magnet" = anchored,
+		"tiles" = amount
 	)
 
 	return data
