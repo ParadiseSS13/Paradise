@@ -13,7 +13,7 @@
 //Can normally be left alone, but needs to be defined if the thing being cleaned isn't necessarily the thing being clicked on,
 //such as /obj/effect/rune/cleaning_act() bouncing to turf/simulated/cleaning_act().
 
-/atom/proc/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text_verb = "clean", text_description = " with [cleaner].", text_targetname = name)
+/atom/proc/cleaning_act(mob/user, atom/cleaner, cleanspeed = 5 SECONDS, text_verb = "clean", text_description = " with [cleaner].", text_targetname = name)
 	var/is_cmagged = FALSE
 
 	if(user.client && (src in user.client.screen)) //You can't clean items you're wearing for technical reasons

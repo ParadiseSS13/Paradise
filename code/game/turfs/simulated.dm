@@ -20,11 +20,13 @@
 	if(!..())
 		return
 
-	if(cleaner.can_clean())
-		clean_blood()
-		for(var/obj/effect/O in src)
-			if(O.is_cleanable())
-				qdel(O)
+	if(!cleaner.can_clean())
+		return
+
+	clean_blood()
+	for(var/obj/effect/O in src)
+		if(O.is_cleanable())
+			qdel(O)
 
 /turf/simulated/water_act(volume, temperature, source)
 	. = ..()
