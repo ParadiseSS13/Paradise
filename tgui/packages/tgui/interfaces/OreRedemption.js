@@ -142,9 +142,9 @@ const Sheet = (properties, context) => {
       <OreHeader
         title="Sheets"
         columns={[
-          ['Available', '20%'],
-          ['Smelt', '15%'],
-          ['Ore Value', '20%'],
+          ['Available', '25%'],
+          ['Ore Value', '15%'],
+          ['Smelt', '20%'],
         ]}
       />
       {sheets.map((sheet) => (
@@ -238,7 +238,14 @@ const SheetLine = (properties, context) => {
             {ore.amount.toLocaleString('en-US')}
           </Flex.Item>
           <Flex.Item
-            basis="15%"
+            basis="20%"
+            textAlign="center"
+            align="center"
+            >
+            {ore.value}
+          </Flex.Item>
+          <Flex.Item
+            basis="20%"
             textAlign="center"
             align="center"
             lineHeight="32px"
@@ -255,9 +262,6 @@ const SheetLine = (properties, context) => {
                 })
               }
             />
-          </Flex.Item>
-          <Flex.Item basis="20%" textAlign="center" align="center">
-            {ore.value}
           </Flex.Item>
       </Flex>
     </Box>
