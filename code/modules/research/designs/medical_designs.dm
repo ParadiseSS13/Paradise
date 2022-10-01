@@ -323,7 +323,7 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
 	category = list("Medical")
 
-/datum/design/cyberimp_toolset
+/datum/design/cyberimp_atmostoolset
 	name = "Atmos Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."
 	id = "ci-atmostoolset"
