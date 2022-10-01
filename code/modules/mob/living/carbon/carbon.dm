@@ -564,7 +564,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/atom/movable/AM = hit_atom
 			var/atom/throw_target = get_edge_target_turf(AM, dir)
 			if(!AM.anchored || ismecha(AM))
-				AM.throw_at(throw_target, 3, 14, src)
+				AM.throw_at(throw_target, 5, 12, src)
 				hit_something = TRUE
 		if(isobj(hit_atom))
 			var/obj/O = hit_atom
@@ -573,7 +573,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom
 			L.adjustBruteLoss(60)
-			L.Weaken(6 SECONDS)
+			L.KnockDown(12 SECONDS)
+			L.Confused(10 SECONDS)
 			shake_camera(L, 4, 3)
 			hit_something = TRUE
 		if(isturf(hit_atom))
