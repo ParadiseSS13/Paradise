@@ -1640,7 +1640,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/suit/hastur,
 					/obj/item/clothing/suit/corgisuit,
 					/obj/item/clothing/head/corgi,
-					/obj/item/clothing/suit/hooded/salmon_costume,
 					/obj/item/clothing/suit/corgisuit/en,
 					/obj/item/clothing/head/corgi/en)
 	cost = 30
