@@ -1,6 +1,12 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section, Box } from '../components';
+import {
+  Button,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Box,
+} from '../components';
 import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
 
@@ -82,6 +88,12 @@ export const BotFloor = (props, context) => {
           </LabeledList>
         </Section>
         <Section title="Floor Settings">
+          <LabeledList>
+            <LabeledList.Item
+            label="Tiles Left">
+              {amount.amount}
+            </LabeledList.Item>
+          </LabeledList>
           <Button.Checkbox
             fluid
             checked={hullplating}
