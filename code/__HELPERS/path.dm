@@ -425,6 +425,10 @@
 	for(var/obj/iter_object in destination_turf)
 		if(!iter_object.CanAStarPass(ID, reverse_dir, caller, no_id = no_id))
 			return TRUE
+	
+	for(var/mob/living/iter_mob in destination_turf)
+		if(!iter_mob.CanAStarPass(ID, reverse_dir, caller, no_id = no_id))
+			return TRUE
 
 	return FALSE
 
