@@ -544,6 +544,83 @@
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
 
+/obj/machinery/disposal/deliveryChute
+	name = "Delivery chute"
+	desc = "A chute for big and small packages alike!"
+	density = 1
+	icon_state = "intake"
+	deconstructs_to = PIPE_DISPOSALS_CHUTE
+	var/to_waste = TRUE
+
+/obj/machinery/disposal/deliveryChute/New()
+	..()
+	spawn(5)
+		trunk = locate() in src.loc
+		if(trunk)
+			trunk.linked = src	// link the pipe trunk to self
+
+/obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/destTagger))
+		to_waste = !to_waste
+		playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
+		to_chat(user, "<span class='notice'>The chute is now set to [to_waste ? "waste" : "cargo"] disposals.</span>")
+		return
+	. = ..()
+
+/obj/machinery/disposal/deliveryChute/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The chute is set to [to_waste ? "waste" : "cargo"] disposals.</span>"
+	. += "<span class='info'>Use a destination tagger to change the disposal destination.</span>"
+
+/obj/machinery/disposal/deliveryChute/interact()
+	return
+
+/obj/machinery/disposal/deliveryChute/update()
+	return
+
+/obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
+	if(istype(AM, /obj/item/projectile))  return
+	switch(dir)
+		if(NORTH)
+			if(AM.loc.y != src.loc.y+1) return
+		if(EAST)
+			if(AM.loc.x != src.loc.x+1) return
+		if(SOUTH)
+			if(AM.loc.y != src.loc.y-1) return
+		if(WEST)
+			if(AM.loc.x != src.loc.x-1) return
+
+	if(istype(AM, /obj))
+		var/obj/O = AM
+		O.loc = src
+	else if(istype(AM, /mob))
+		var/mob/M = AM
+		M.loc = src
+	if(mode != OFF)
+		flush()
+
+/obj/machinery/disposal/deliveryChute/flush_animation()
+	flick("intake-closing", src)
+
+/obj/machinery/disposal/deliveryChute/manage_wrapping(obj/structure/disposalholder/H)
+	var/wrap_check = FALSE
+	for(var/obj/structure/bigDelivery/O in src)
+		wrap_check = TRUE
+		if(O.sortTag == 0)
+			O.sortTag = 1
+	for(var/obj/item/smallDelivery/O in src)
+		wrap_check = TRUE
+		if(O.sortTag == 0)
+			O.sortTag = 1
+	for(var/obj/item/shippingPackage/O in src)
+		wrap_check = TRUE
+		if(!O.sealed || O.sortTag == 0)		//unsealed or untagged shipping packages will default to disposals
+			O.sortTag = 1
+	if(wrap_check == TRUE)
+		H.tomail = 1
+	if(wrap_check == FALSE && to_waste)
+		H.destinationTag = 1
+
 // virtual disposal object
 // travels through pipes in lieu of actual items
 // contents will be items flushed by the disposal
