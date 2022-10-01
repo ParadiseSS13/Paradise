@@ -42818,7 +42818,8 @@
 "bYP" = (
 /obj/machinery/door/airlock{
 	name = "Magistrate's Office";
-	req_access_txt = "74"
+	req_access_txt = "74";
+	id_tag = "magistrateofficedoor"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -45947,6 +45948,20 @@
 /obj/item/taperecorder,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
+	},
+/obj/machinery/button/windowtint{
+	id = "Magistrate";
+	pixel_y = -24;
+	dir = 1;
+	pixel_x = -6
+	},
+/obj/machinery/door_control{
+	id = "magistrateofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	pixel_x = 6;
+	pixel_y = -24;
+	req_access_txt = "74"
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -90258,10 +90273,6 @@
 /obj/machinery/computer/secure_data/laptop,
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/button/windowtint{
-	id = "Magistrate";
-	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"

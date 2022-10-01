@@ -9704,12 +9704,13 @@
 	c_tag = "Magistrate's Office";
 	dir = 4
 	},
-/obj/machinery/button/windowtint{
-	dir = 4;
-	id = "Magistrate";
-	pixel_x = -24;
-	pixel_y = 6;
-	req_access_txt = "74"
+/obj/item/radio/intercom/department/security{
+	pixel_x = -28;
+	pixel_y = -7
+	},
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -9717,13 +9718,21 @@
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
 /obj/item/megaphone,
-/obj/item/radio/intercom/department/security{
-	pixel_x = 28;
-	pixel_y = -7
+/obj/machinery/button/windowtint{
+	dir = 8;
+	id = "Magistrate";
+	pixel_x = 24;
+	pixel_y = 6;
+	req_access_txt = "74"
 	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+/obj/machinery/door_control{
+	id = "magistrateofficedoors";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	req_access_txt = "74";
+	dir = 1;
+	pixel_x = 24;
+	pixel_y = -4
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -13676,7 +13685,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
 	name = "Magistrate's Office";
-	req_access_txt = "74"
+	req_access_txt = "74";
+	id_tag = "magistrateofficedoors"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,

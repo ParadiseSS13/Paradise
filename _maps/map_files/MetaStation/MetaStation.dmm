@@ -54902,10 +54902,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+/obj/item/radio/intercom{
+	name = "custom placement";
+	pixel_x = -28;
+	pixel_y = 2
+	},
+/obj/item/radio/intercom/department/security{
+	pixel_x = -28;
+	pixel_y = -5
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -67061,21 +67065,19 @@
 "jXj" = (
 /obj/item/taperecorder,
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = -28;
-	pixel_y = -4
-	},
-/obj/item/radio/intercom/department/security{
-	pixel_x = -28;
-	pixel_y = -11
-	},
 /obj/machinery/button/windowtint{
 	dir = 4;
 	id = "Magistrate";
 	pixel_x = -24;
 	pixel_y = 9;
 	req_access_txt = "74"
+	},
+/obj/machinery/door_control{
+	id = "magistrateofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	req_access_txt = "74";
+	pixel_x = -24
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -71866,7 +71868,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	id_tag = "magistrateofficedoor"
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/magistrate,
 /turf/simulated/floor/plasteel{
@@ -77185,6 +77189,11 @@
 /obj/machinery/camera{
 	c_tag = "Magistrate's Office";
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "west bump";
+	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
