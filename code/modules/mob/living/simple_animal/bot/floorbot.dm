@@ -66,6 +66,7 @@
 	text_dehack = "You detect errors in [name] and reset [p_their()] programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
+/*
 /mob/living/simple_animal/bot/floorbot/get_controls(mob/user)
 	var/dat
 	dat += hack(user)
@@ -92,7 +93,63 @@
 		dat += "Bridge Mode : <A href='?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
 
 	return dat
+*/
 
+//TGUI
+/mob/living/simple_animal/bot/floorbot/show_controls(mob/M)
+	ui_interact(M)
+
+
+/mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotFloor", name, 500, 500)
+		ui.open()
+
+/mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
+	var/list/data = list(
+		"locked" = locked, // controls, locked or not
+		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
+		"maintpanel" = open,
+		"on" = on,
+		"autopatrol" = auto_patrol,
+		"painame" = paicard ? paicard.pai.name : null,
+		"canhack" = canhack(user),
+		"emagged" = emagged, // this is an int, NOT a boolean
+		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
+		"hullplating" = autotile,
+		"replace" = replacetiles,
+		"find" = eattiles,
+		"alert" = nag_on_empty,
+		"repair" = fixfloors,
+		"magnet" = anchored
+	)
+
+	return data
+
+/mob/living/simple_animal/bot/floorbot/ui_act(action, params)
+	if (..())
+		return
+	if(topic_denied(usr))
+		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(usr)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+
+//END
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
