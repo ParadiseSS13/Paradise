@@ -46,6 +46,8 @@ stddef.dm
 .atom-build.json
 .idea/
 
+/tools/bootstrap/.cache/
+
 # ignore DMI tool build cache
 /tools/dmitool/bin/
 /tools/dmitool/.gradle/
