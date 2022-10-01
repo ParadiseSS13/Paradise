@@ -9,6 +9,7 @@
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral // String value. Used in user chat messages
 	var/mineral_type // mineral object path.
+
 	var/base_name = "airlock"
 	var/obj/item/airlock_electronics/electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed

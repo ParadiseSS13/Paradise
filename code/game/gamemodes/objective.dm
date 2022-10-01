@@ -30,11 +30,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/check_completion()
 	return completed
 
-/datum/objective/proc/is_invalid_target(datum/mind/possible_target)
-	if(possible_target == owner)
-		return TARGET_INVALID_IS_OWNER
-	if(possible_target in owner.targets)
-		return TARGET_INVALID_IS_TARGET
+/datum/proc/is_invalid_target(datum/mind/possible_target) // Originally an Objective proc. Changed to a datum proc to allow for the proc to be run on minds, before the objective is created
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(possible_target.current.stat == DEAD)
@@ -49,6 +45,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_GOLEM
 	if(possible_target.offstation_role)
 		return TARGET_INVALID_EVENT
+
+/datum/objective/is_invalid_target(datum/mind/possible_target)
+	if(possible_target == owner)
+		return TARGET_INVALID_IS_OWNER
+	if(possible_target in owner.targets)
+		return TARGET_INVALID_IS_TARGET
+	return ..()
 
 
 /datum/objective/proc/find_target()
@@ -229,7 +232,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.
 	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
-	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive."
+	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
+	Alternatively, hack the shuttle console multiple times (by alt clicking on it) until the shuttle directions are corrupted."
 	needs_target = FALSE
 
 /datum/objective/hijack/check_completion()
@@ -279,7 +283,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return 0
 
 /datum/objective/block
-	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, Maintenance drones, and pAIs are not considered alive."
+	explanation_text = "Hijack the shuttle with no loyalist Nanotrasen crew on board and free. \
+	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
+	Using the doomsday device successfully is also an option."
 	martyr_compatible = 1
 	needs_target = FALSE
 
@@ -292,16 +298,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return FALSE
 	if(!owner.current)
 		return FALSE
-
-	var/area/A = SSshuttle.emergency.areaInstance
-
-	for(var/mob/living/player in GLOB.player_list)
-		if(issilicon(player))
-			continue // If they're silicon, they're not considered alive, skip them.
-
-		if(player.mind && player.stat != DEAD)
-			if(get_area(player) == A)
-				return FALSE // If there are any other organic mobs on the shuttle, you failed the objective.
+	if(!SSshuttle.emergency.is_hijacked(TRUE))
+		return FALSE
 
 	return TRUE
 

@@ -451,10 +451,16 @@
 	item_color = "dress_rd"
 
 /obj/item/clothing/under/dress/dress_cap
-	name = "captain's dress uniform"
+	name = "captain's dress"
 	desc = "Feminine fashion for the style concious captain."
-	icon_state = "dress_cap"
-	item_color = "dress_cap"
+	icon_state = "captain_dress"
+	item_color = "captain_dress"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		)
 
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal's dress uniform"
@@ -530,13 +536,6 @@
 	item_state = "sundress"
 	item_color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/captainparade
-	name = "captain's parade uniform"
-	desc = "A captain's luxury-wear, for special occasions."
-	icon_state = "captain_parade"
-	item_state = "by_suit"
-	item_color = "captain_parade"
 
 /obj/item/clothing/under/roman
 	name = "roman armor"

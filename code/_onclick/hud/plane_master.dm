@@ -49,6 +49,16 @@
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
 
+/obj/screen/plane_master/point
+	name = "point plane master"
+	plane = POINT_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/obj/screen/plane_master/point/backdrop(mob/mymob)
+	if(istype(mymob) && mymob.client && mymob.client.prefs)
+		alpha = (mymob.client.prefs.toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? 255 : 0
+
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
   *

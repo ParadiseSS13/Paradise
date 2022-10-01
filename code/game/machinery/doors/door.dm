@@ -14,8 +14,8 @@
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = TRUE
-	/// Is it currently in the process of opening or closing.
-	var/operating = FALSE
+	/// Is it currently in the process of opening, closing or being tampered
+	var/operating = NONE
 	var/autoclose = FALSE
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
 	var/safe = TRUE
@@ -383,7 +383,7 @@
 	if(operating)
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
-	operating = TRUE
+	operating = DOOR_OPENING
 	do_animate("opening")
 	set_opacity(0)
 	sleep(5)
@@ -392,7 +392,7 @@
 	layer = initial(layer)
 	update_icon()
 	set_opacity(0)
-	operating = FALSE
+	operating = NONE
 	air_update_turf(1)
 	update_freelook_sight()
 	if(autoclose)
@@ -413,7 +413,7 @@
 					return
 
 	SEND_SIGNAL(src, COMSIG_DOOR_CLOSE)
-	operating = TRUE
+	operating = DOOR_CLOSING
 
 	do_animate("closing")
 	layer = closingLayer
@@ -423,7 +423,7 @@
 	update_icon()
 	if(!glass || polarized_on)
 		set_opacity(TRUE)
-	operating = FALSE
+	operating = NONE
 	air_update_turf(1)
 	update_freelook_sight()
 	if(safe)

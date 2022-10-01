@@ -67,6 +67,8 @@
 	if(istype(owner,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair()
+	
+	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
 /obj/item/organ/internal/brain/insert(mob/living/target,special = 0)
