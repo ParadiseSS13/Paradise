@@ -41142,8 +41142,7 @@
 /area/crew_quarters/heads/hop)
 "bUU" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/ids,
-/obj/item/storage/box/PDAs,
+/obj/machinery/smartfridge/id,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "bUV" = (
@@ -45109,6 +45108,8 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/hop,
 /obj/item/megaphone,
+/obj/item/storage/box/PDAs,
+/obj/item/storage/box/ids,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "cdI" = (

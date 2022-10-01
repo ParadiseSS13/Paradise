@@ -21,8 +21,7 @@
 									/obj/effect/proc_holder/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
 									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
-									/datum/vampire_passive/regen = 200,
-									/obj/effect/proc_holder/spell/turf_teleport/shadow_step = 250)
+									/datum/vampire_passive/regen = 200)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()

@@ -688,6 +688,22 @@
 		/obj/item/disk,
 	))
 
+/obj/machinery/smartfridge/id
+	name = "identification card compartmentalizer"
+	desc = "A machine capable of storing identification cards and PDAs. It's great for lost and terminated cards."
+	icon_state = "idbox"
+	icon_lightmask = FALSE
+	pass_flags = PASSTABLE
+	visible_contents = FALSE
+	board_type = /obj/machinery/smartfridge/id
+
+/obj/machinery/smartfridge/id/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/card/id,
+		/obj/item/pda,
+	))
+
 /**
   * # Smart Virus Storage
   *
