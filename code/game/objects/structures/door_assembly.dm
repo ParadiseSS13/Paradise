@@ -8,6 +8,7 @@
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral
+	var/mineral_type
 	var/base_name = "airlock"
 	var/obj/item/airlock_electronics/electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
@@ -329,7 +330,6 @@
 					new /obj/item/stack/sheet/glass(T)
 			else
 				new /obj/item/shard(T)
-		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-			new mineral_path(T, 2)
+		if(mineral_type)
+			new mineral_type(T, 2)
 	qdel(src)
