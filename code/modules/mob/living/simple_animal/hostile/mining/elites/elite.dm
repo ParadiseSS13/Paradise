@@ -259,7 +259,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(gps)
 	invaders.Cut()
-	invaders = null
 	if(activator)
 		clear_activator(activator)
 	if(mychild)
@@ -352,7 +351,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(M == activator)
 			continue
 		if(M in invaders)
-			to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</span></b>")
+			to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
 			var/i = 0
 			while(i <= 3)
 				M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!

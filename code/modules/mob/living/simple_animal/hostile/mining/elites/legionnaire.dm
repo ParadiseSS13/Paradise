@@ -148,10 +148,10 @@
 		if(D.density)
 			charging = FALSE
 			return
-	if(T.x > world.maxx-2 || T.x < 2) //Keep them from runtiming
+	if(T.x > world.maxx - 2 || T.x < 2) //Keep them from runtiming
 		charging = FALSE
 		return
-	if(T.y > world.maxy-2 || T.y < 2)
+	if(T.y > world.maxy - 2 || T.y < 2)
 		charging = FALSE
 		return
 	forceMove(T)
