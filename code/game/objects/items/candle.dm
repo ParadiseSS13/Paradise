@@ -22,7 +22,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/candle/update_icon()
+/obj/item/candle/update_icon_state()
 	if(flickering)
 		icon_state = "candle[get_icon_index()]_flicker"
 	else
@@ -58,7 +58,7 @@
 			usr.visible_message(show_message)
 		set_light(CANDLE_LUM)
 		START_PROCESSING(SSobj, src)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/candle/proc/get_icon_index()
 	if(wax > 150)
@@ -70,12 +70,12 @@
 
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, .proc/stop_flickering), 4 SECONDS, TIMER_UNIQUE)
 
 /obj/item/candle/proc/stop_flickering()
 	flickering = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/candle/process()
 	if(!lit)
@@ -88,7 +88,7 @@
 			var/mob/M = src.loc
 			M.unEquip(src, 1) //src is being deleted anyway
 		qdel(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
@@ -98,7 +98,7 @@
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		lit = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		set_light(0)
 
 /obj/item/candle/eternal

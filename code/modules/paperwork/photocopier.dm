@@ -83,7 +83,7 @@
 	c.ico = copy.ico
 	c.offset_x = copy.offset_x
 	c.offset_y = copy.offset_y
-	var/list/temp_overlays = copy.overlays       //Iterates through stamps
+	var/list/temp_overlays = copy.stamp_overlays       //Iterates through stamps
 	var/image/img                                //and puts a matching
 	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
 		if(copy.ico.len)
@@ -95,7 +95,7 @@
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
 			img.pixel_x = copy.offset_x[j]
 			img.pixel_y = copy.offset_y[j]
-			c.overlays += img
+			c.stamp_overlays += img
 	c.updateinfolinks()
 	return c
 
@@ -495,7 +495,7 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target.move_resist > user.pull_force)
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return

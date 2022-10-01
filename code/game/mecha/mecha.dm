@@ -39,11 +39,13 @@
 	var/lights_power = 6
 	var/frozen = FALSE
 	var/repairing = FALSE
+	var/emp_proof = FALSE //If it is immune to emps
+	var/emag_proof = FALSE //If it is immune to emagging. Used by CC mechs.
 
 	//inner atmos
 	var/use_internal_tank = 0
 	var/internal_tank_valve = ONE_ATMOSPHERE
-	var/obj/machinery/portable_atmospherics/canister/internal_tank
+	var/obj/machinery/atmospherics/portable/canister/internal_tank
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port = null
 
@@ -57,7 +59,7 @@
 	var/list/operation_req_access = list()//required access level for mecha operation
 	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)//required access level to open cell compartment
 
-	var/wreckage
+	var/obj/structure/mecha_wreckage/wreckage = null  // type that the mecha becomes when destroyed
 
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
@@ -133,7 +135,7 @@
 	return cell
 
 /obj/mecha/proc/add_airtank()
-	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
+	internal_tank = new /obj/machinery/atmospherics/portable/canister/air(src)
 	return internal_tank
 
 /obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
@@ -543,16 +545,16 @@
 		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
 		return FALSE
 	else
-		var/play_soundeffect = 1
-		if(user.environment_smash)
-			play_soundeffect = 0
-			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
+		var/play_soundeffect = TRUE
 		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
 		if(user.obj_damage)
-			animal_damage = user.obj_damage
-		animal_damage = min(animal_damage, 20*user.environment_smash)
+			animal_damage = max(animal_damage, user.obj_damage)
+		animal_damage = max(animal_damage, min(20 * user.environment_smash, 40))
 		if(animal_damage)
 			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
+		if(user.environment_smash)
+			play_soundeffect = FALSE
+			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
 		return TRUE
 
@@ -609,25 +611,25 @@
 		trackers -= A
 
 /obj/mecha/Destroy()
+	STOP_PROCESSING(SSobj, src)
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
-	var/mob/living/silicon/ai/AI
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			var/mob/living/silicon/ai/AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			AI.gib() //No wreck, no AI to recover
 		else
 			M.forceMove(loc)
+	occupant = null
+	selected = null
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach(loc)
 		qdel(E)
 	equipment.Cut()
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	if(loc)
 		loc.assume_air(cabin_air)
@@ -635,14 +637,18 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
+	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
+	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
 //TODO
 /obj/mecha/emp_act(severity)
+	if(emp_proof)
+		return
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
@@ -724,9 +730,18 @@
 		if(!user.unEquip(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
-		W.forceMove(src)
+
+		// Check if a tracker exists
+		var/obj/item/mecha_parts/mecha_tracking/new_tracker = W
+		for(var/obj/item/mecha_parts/mecha_tracking/current_tracker in trackers)
+			if(new_tracker.ai_beacon == current_tracker.ai_beacon)
+				to_chat(user, "<span class='warning'>This exosuit already has \a [new_tracker.ai_beacon ? "AI" : "tracking"] beacon.</span>")
+				user.put_in_hands(new_tracker)
+				return
+
+		new_tracker.forceMove(src)
 		trackers += W
-		user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+		user.visible_message("[user] attaches [new_tracker] to [src].", "<span class='notice'>You attach [new_tracker] to [src].</span>")
 		diag_hud_set_mechtracking()
 		return
 
@@ -864,8 +879,14 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
-	return
+	if(emag_proof)
+		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+		return
+	user.visible_message("<span class='notice'>[user] slides a card through [src]'s id slot.</span>", "<span class='notice'>You slide the card through [src]'s ID slot, resetting the DNA and access locks.</span>")
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	dna = null
+	operation_req_access = list()
+
 
 
 /////////////////////////////////////

@@ -523,19 +523,18 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	mess = TRUE
 	update_icon()
 
-/obj/machinery/clonepod/update_icon()
-	..()
-	cut_overlays()
-
-	if(panel_open)
-		add_overlay("panel_open")
-
+/obj/machinery/clonepod/update_icon_state()
 	if(occupant && !(stat & NOPOWER))
 		icon_state = "pod_cloning"
 	else if(mess)
 		icon_state = "pod_mess"
 	else
 		icon_state = "pod_idle"
+
+/obj/machinery/clonepod/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += "panel_open"
 
 /obj/machinery/clonepod/relaymove(mob/user)
 	if(user.stat == CONSCIOUS)
@@ -627,7 +626,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	Using the H-87 is almost as simple as brain surgery! Simply insert the target humanoid into the scanning chamber and select the scan option to create a new profile!<br>
 	<b>That's all there is to it!</b><br>
 	<i>Notice, cloning system cannot scan inorganic life or small primates.  Scan may fail if subject has suffered extreme brain damage.</i><br>
-	<p>Clone profiles may be viewed through the profiles menu. Scanning implants a complementary HEALTH MONITOR IMPLANT into the subject, which may be viewed from each profile.
+	<p>Clone profiles may be viewed through the profiles menu. Scanning implants a complementary HEALTH MONITOR BIO-CHIP into the subject, which may be viewed from each profile.
 	Profile Deletion has been restricted to \[Station Head\] level access.</p>
 	<h4>Cloning from a profile</h4>
 	Cloning is as simple as pressing the CLONE option at the bottom of the desired profile.<br>

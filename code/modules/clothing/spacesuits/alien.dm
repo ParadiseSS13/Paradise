@@ -76,7 +76,7 @@
 /obj/item/clothing/suit/space/vox
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
+	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 200, ACID = 285)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
@@ -87,7 +87,7 @@
 		)
 
 /obj/item/clothing/head/helmet/space/vox
-	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
+	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 20, FIRE = 200, ACID = 285)
 	flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
@@ -147,7 +147,7 @@
 	desc = "An almost organic looking nonhuman pressure suit."
 
 /obj/item/clothing/under/vox
-	has_sensor = 0
+	has_sensor = FALSE
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(

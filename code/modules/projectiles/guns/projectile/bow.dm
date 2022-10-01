@@ -11,7 +11,7 @@
 	var/ready_to_fire = 0
 	var/slowdown_when_ready = 2
 
-/obj/item/gun/projectile/bow/update_icon()
+/obj/item/gun/projectile/bow/update_icon_state()
 	if(magazine.ammo_count() && !ready_to_fire)
 		icon_state = "bow_loaded"
 	else if(ready_to_fire)

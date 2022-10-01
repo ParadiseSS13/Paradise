@@ -16,7 +16,7 @@
 	var/mob/event_confirmed_by
 	var/ert_reason
 
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -24,6 +24,22 @@
 
 	req_access = list(ACCESS_KEYCARD_AUTH)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/machinery/keycard_auth/update_icon_state()
+	. = ..()
+
+	if(event_triggered_by || event_source)
+		icon_state = "auth_on"
+	else
+		icon_state = "auth_off"
+
+/obj/machinery/keycard_auth/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(event_triggered_by || event_source)
+		underlays += emissive_appearance(icon, "auth_lightmask")
+
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
@@ -57,9 +73,9 @@
 /obj/machinery/keycard_auth/power_change()
 	if(powered(ENVIRON))
 		stat &= ~NOPOWER
-		icon_state = "auth_off"
 	else
 		stat |= NOPOWER
+	update_icon()
 
 /obj/machinery/keycard_auth/attack_ghost(mob/user)
 	ui_interact(user)
@@ -115,12 +131,14 @@
 	swiping = FALSE
 	confirmed = FALSE
 	event_source = null
-	icon_state = "auth_off"
 	event_triggered_by = null
 	event_confirmed_by = null
+	set_light(0)
+	update_icon()
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
-	icon_state = "auth_on"
+	update_icon()
+	set_light(1, LIGHTING_MINIMUM_POWER)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
 		if(KA == src) continue
 		KA.reset()
@@ -138,18 +156,23 @@
 /obj/machinery/keycard_auth/proc/receive_request(obj/machinery/keycard_auth/source)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	set_light(1, LIGHTING_MINIMUM_POWER)
+
 	event_source = source
 	busy = TRUE
 	active = TRUE
 	SStgui.update_uis(src)
-	icon_state = "auth_on"
+	update_icon()
 
 	sleep(confirm_delay)
 
 	event_source = null
-	icon_state = "auth_off"
+	update_icon()
 	active = FALSE
 	busy = FALSE
+
+	set_light(0)
 
 /obj/machinery/keycard_auth/proc/trigger_event()
 	switch(event)
@@ -197,7 +220,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/area/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
-			D.update_icon(0)
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
 	GLOB.maint_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
@@ -206,7 +229,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/area/maintenance/A in world)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
-			D.update_icon(0)
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
 	GLOB.maint_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
@@ -215,7 +238,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 		if(is_station_level(D.z))
 			D.emergency = 1
-			D.update_icon(0)
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
 	GLOB.station_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
@@ -224,7 +247,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 		if(is_station_level(D.z))
 			D.emergency = 0
-			D.update_icon(0)
+			D.update_icon()
 	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
 	GLOB.station_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

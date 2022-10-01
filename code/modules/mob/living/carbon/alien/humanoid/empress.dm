@@ -9,6 +9,9 @@
 	bubble_icon = "alienroyal"
 	large = 1
 	ventcrawler = 0
+	move_resist = MOVE_FORCE_STRONG //Yes, big benos is huge and heavy
+	alien_disarm_damage = 60 //Empress do higher disarm stamina damage than normal aliens
+	alien_slash_damage = 30 //Empress do higher slashing damage to people
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
@@ -30,7 +33,8 @@
 	for(var/image/I in overlays_standing)
 		overlays += I
 
-/mob/living/carbon/alien/humanoid/empress/New()
+/mob/living/carbon/alien/humanoid/empress/Initialize(mapload)
+	. = ..()
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/empress/E in GLOB.alive_mob_list)
 		if(E == src)
@@ -42,12 +46,16 @@
 			break
 
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
-	alien_organs += new /obj/item/organ/internal/xenos/eggsac
-	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
-	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
-	..()
+
+/mob/living/carbon/alien/humanoid/empress/get_caste_organs()
+	. = ..()
+	. += list(
+		/obj/item/organ/internal/xenos/plasmavessel/queen,
+		/obj/item/organ/internal/xenos/acidgland,
+		/obj/item/organ/internal/xenos/eggsac,
+		/obj/item/organ/internal/xenos/resinspinner,
+		/obj/item/organ/internal/xenos/neurotoxin,
+	)
 
 /mob/living/carbon/alien/humanoid/empress/verb/lay_egg()
 	set name = "Lay Egg (250)"

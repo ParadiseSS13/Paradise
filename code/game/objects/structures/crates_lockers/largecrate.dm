@@ -10,11 +10,10 @@
 	. = ..()
 	update_icon()
 
-/obj/structure/largecrate/update_icon()
-	..()
-	overlays.Cut()
+/obj/structure/largecrate/update_overlays()
+	. = ..()
 	if(manifest)
-		overlays += "manifest"
+		. += "manifest"
 
 /obj/structure/largecrate/attack_hand(mob/user as mob)
 	if(manifest)

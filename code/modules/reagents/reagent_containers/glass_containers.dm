@@ -14,10 +14,11 @@
 	container_type = OPENCONTAINER
 	has_lid = TRUE
 	resistance_flags = ACID_PROOF
+	blocks_emissive = FALSE
 	var/label_text = ""
 
-/obj/item/reagent_containers/glass/New()
-	..()
+/obj/item/reagent_containers/glass/Initialize(mapload)
+	. = ..()
 	base_name = name
 
 /obj/item/reagent_containers/glass/examine(mob/user)
@@ -128,11 +129,10 @@
 	var/can_assembly = 1
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/beaker/update_icon()
-	overlays.Cut()
-
+/obj/item/reagent_containers/glass/beaker/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
@@ -154,14 +154,14 @@
 				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
+		. += filling
 
 	if(!is_open_container())
-		var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
-		overlays += lid
+		. += "lid_[initial(icon_state)]"
+		if(blocks_emissive == FALSE)
+			. += emissive_blocker(icon, "lid_[initial(icon_state)]")
 	if(assembly)
-		overlays += "assembly"
-	..()
+		. += "assembly"
 
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Remove Assembly"
@@ -173,7 +173,7 @@
 		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
 		usr.put_in_hands(assembly)
 		assembly = null
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else
 		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
 
@@ -189,7 +189,7 @@
 		assembly = W
 		user.drop_item()
 		W.forceMove(src)
-		overlays += "assembly"
+		update_icon(UPDATE_OVERLAYS)
 	else
 		..()
 
@@ -240,7 +240,7 @@
 	desc = "A baggie. Can hold up to 10 units."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
-	possible_transfer_amounts = 2
+	possible_transfer_amounts = null
 	volume = 10
 	container_type = OPENCONTAINER
 	can_assembly = 0
@@ -254,9 +254,10 @@
 	amount_per_transfer_from_this = 10
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
 	container_type = OPENCONTAINER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-/obj/item/reagent_containers/glass/beaker/noreact/New()
-	..()
+/obj/item/reagent_containers/glass/beaker/noreact/Initialize(mapload)
+	. = ..()
 	reagents.set_reacting(FALSE)
 
 /obj/item/reagent_containers/glass/beaker/bluespace
@@ -268,6 +269,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
 	container_type = OPENCONTAINER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
@@ -297,6 +299,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	container_type = OPENCONTAINER
 	dog_fashion = /datum/dog_fashion/head/bucket
 

@@ -48,6 +48,12 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
+/obj/machinery/bodyscanner/update_icon_state()
+	if(occupant)
+		icon_state = "bodyscanner"
+	else
+		icon_state = "bodyscanner-open"
+
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
 	if(exchange_parts(user, I))
 		return
@@ -71,7 +77,7 @@
 			return
 		M.forceMove(src)
 		occupant = M
-		icon_state = "bodyscanner"
+		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
 		SStgui.update_uis(src)
@@ -97,10 +103,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-	if(dir == EAST)
-		setDir(WEST)
-	else
-		setDir(EAST)
+
+	setDir(turn(dir, -90))
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
@@ -135,7 +139,7 @@
 
 	H.forceMove(src)
 	occupant = H
-	icon_state = "bodyscanner"
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 	SStgui.update_uis(src)
 
@@ -178,7 +182,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "bodyscanner-open"
+	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)
@@ -197,7 +201,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/bodyscanner/narsie_act()
 	go_out()
@@ -241,8 +245,7 @@
 		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
-		occupantData["paralysis"] = occupant.AmountParalyzed()
-		occupantData["paralysisSeconds"] = round(occupant.AmountParalyzed() * 0.25)
+		occupantData["drunkenness"] = (occupant.get_drunkenness() / 10)
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
@@ -405,7 +408,7 @@
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
 
-		dat += "Paralysis Summary %: [occupant.IsParalyzed()] ([round(occupant.AmountParalyzed() / 10)] seconds left!)<br>"
+		dat += "Inebriation Severity: [round(occupant.get_drunkenness() / 10)] seconds<br>"
 		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"

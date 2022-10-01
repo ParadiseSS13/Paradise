@@ -269,13 +269,12 @@
 		if("Toggle Cap")
 			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
 			capped = !capped
-			icon_state = "spraycan[capped ? "_cap" : ""]"
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		if("Change Drawing")
 			..()
 		if("Change Color")
 			colour = input(user,"Choose Color") as color
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity)
@@ -286,22 +285,27 @@
 		if(iscarbon(target))
 			if(uses-10 > 0)
 				uses = uses - 10
-				var/mob/living/carbon/human/C = target
+				var/mob/living/carbon/C = target
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)
-					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
-						C.Confused(6 SECONDS)
-						C.Weaken(6 SECONDS)
-				C.lip_style = "spray_face"
-				C.lip_color = colour
-				C.update_body()
+					if(ishuman(target))
+						var/mob/living/carbon/human/H = target
+						if(H.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
+							H.Confused(6 SECONDS)
+							H.KnockDown(6 SECONDS)
+						H.lip_style = "spray_face"
+						H.lip_color = colour
+						H.update_body()
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
-/obj/item/toy/crayon/spraycan/update_icon()
-	overlays.Cut()
+/obj/item/toy/crayon/spraycan/update_icon_state()
+	icon_state = "spraycan[capped ? "_cap" : ""]"
+
+/obj/item/toy/crayon/spraycan/update_overlays()
+	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi',icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
-	overlays += I
+	. += I

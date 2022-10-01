@@ -3,7 +3,9 @@
 	desc = "Used for building Fire Alarms"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "firealarm_frame"
-	mount_reqs = list("simfloor", "nospace")
+
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	metal_sheets_refunded = 2
 
 /obj/item/mounted/frame/firealarm/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/firealarm(get_turf(src), get_dir(user, on_wall), 1)

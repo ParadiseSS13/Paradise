@@ -60,6 +60,7 @@
 	///Was this egg laid by a xenobiology mob? Used for mob capping
 	var/xenobiology_spawned = FALSE
 	var/list/faction = list("spiders")
+	flags_2 = CRITICAL_ATOM_2
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	. = ..()
@@ -111,7 +112,8 @@
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	entry_vent = null
-	new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
+	if(amount_grown < 100)
+		new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
 
 /obj/structure/spider/spiderling/Bump(atom/user)

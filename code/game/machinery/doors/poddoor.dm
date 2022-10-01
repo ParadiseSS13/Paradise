@@ -24,6 +24,7 @@
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	move_resist = INFINITY
 
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
@@ -50,7 +51,7 @@
 			flick("closing", src)
 			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
 
-/obj/machinery/door/poddoor/update_icon()
+/obj/machinery/door/poddoor/update_icon_state()
 	if(density)
 		icon_state = "closed"
 	else
@@ -137,6 +138,7 @@
 /obj/machinery/door/poddoor/multi_tile/impassable
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	move_resist = INFINITY
 
 /obj/machinery/door/poddoor/multi_tile/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")

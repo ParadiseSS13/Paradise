@@ -4,17 +4,18 @@
 	maxHealth = 125
 	health = 125
 	icon_state = "alienh_s"
+	alien_movement_delay = -1 //hunters are faster than normal xenomorphs, and people
 
-/mob/living/carbon/alien/humanoid/hunter/New()
+/mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
+	. = ..()
 	if(name == "alien hunter")
-		name = text("alien hunter ([rand(1, 1000)])")
+		name = "alien hunter ([rand(1, 1000)])"
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
-	..()
 
-/mob/living/carbon/alien/humanoid/hunter/movement_delay()
-	. = -1		//hunters are sanic
-	. += ..()	//but they still need to slow down on stun
+/mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/xenos/plasmavessel/hunter
+
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
 	if(m_intent == MOVE_INTENT_RUN || IS_HORIZONTAL(src))
@@ -82,7 +83,8 @@
 				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					H.apply_effect(10 SECONDS, WEAKEN, H.run_armor_check(null, MELEE))
+					H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(null, MELEE))
+					H.adjustStaminaLoss(40)
 				else
 					L.Weaken(10 SECONDS)
 				sleep(2)//Runtime prevention (infinite bump() calls on hulks)

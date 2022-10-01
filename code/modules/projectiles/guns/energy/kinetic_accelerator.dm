@@ -149,19 +149,18 @@
 	update_icon()
 	overheat = FALSE
 
-/obj/item/gun/energy/kinetic_accelerator/update_icon()
-	cut_overlays()
+/obj/item/gun/energy/kinetic_accelerator/update_overlays()
+	. = ..()
 	if(empty_state && !can_shoot())
-		add_overlay(empty_state)
+		. += empty_state
 
 	if(gun_light && can_flashlight)
 		var/iconF = "flight"
 		if(gun_light.on)
 			iconF = "flight_on"
-		add_overlay(image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset))
+		. +=  image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(bayonet && can_bayonet)
-		add_overlay(knife_overlay)
-
+		. += knife_overlay
 
 /obj/item/gun/energy/kinetic_accelerator/experimental
 	name = "experimental kinetic accelerator"
@@ -414,7 +413,7 @@
 				M.gets_drilled(K.firer)
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
-			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
+			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armour_penetration_flat, K.armour_penetration_percentage)
 			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
 			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
 
@@ -520,7 +519,7 @@
 			var/kill_modifier = 1
 			if(K.pressure_decrease_active)
 				kill_modifier *= K.pressure_decrease
-			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
+			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armour_penetration_flat,  K.armour_penetration_percentage)
 			L.apply_damage(bounties_reaped[L.type]*kill_modifier, K.damage_type, K.def_zone, armor)
 
 /obj/item/borg/upgrade/modkit/bounty/proc/get_kill(mob/living/L)
@@ -573,15 +572,17 @@
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
-	. = ..()
-	if(.)
-		KA.icon_state = chassis_icon
-		KA.name = chassis_name
+    . = ..()
+    if(.)
+        KA.current_skin = chassis_icon
+        KA.name = chassis_name
+        KA.update_icon()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
-	KA.icon_state = initial(KA.icon_state)
-	KA.name = initial(KA.name)
-	..()
+    KA.current_skin = initial(KA.current_skin)
+    KA.name = initial(KA.name)
+    KA.update_icon()
+    ..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange
 	name = "hyper chassis"

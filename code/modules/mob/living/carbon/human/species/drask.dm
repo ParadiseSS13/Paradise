@@ -14,7 +14,7 @@
 	male_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 	female_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 
-	burn_mod = 2
+	burn_mod = 1.5
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
 
@@ -33,7 +33,7 @@
 
 	species_traits = list(LIPS, IS_WHITELISTED, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
-	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
+	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS | BALD | SHAVED
 	has_gender = FALSE
 	dietflags = DIET_OMNI
 
@@ -45,7 +45,7 @@
 	heat_level_1 = 310 //Default 370 - Higher is better
 	heat_level_2 = 340 //Default 400
 	heat_level_3 = 400 //Default 460
-	heatmod = 2
+	heatmod = 3 // 4.5 * more damage from body temp
 
 	flesh_color = "#a3d4eb"
 	reagent_tag = PROCESS_ORG

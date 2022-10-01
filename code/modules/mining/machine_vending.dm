@@ -40,7 +40,7 @@
 		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
 		EQUIPMENT("Mining Hardsuit", /obj/item/clothing/suit/space/hardsuit/mining, 2000),
-		EQUIPMENT("Tracking Implant Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", /obj/item/stack/marker_beacon/ten, 100),
@@ -95,12 +95,12 @@
 
 /obj/machinery/mineral/equipment_vendor/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(loc)
 
-/obj/machinery/mineral/equipment_vendor/update_icon()
+/obj/machinery/mineral/equipment_vendor/update_icon_state()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
@@ -340,7 +340,8 @@
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
 		EQUIPMENT("Guitar", /obj/item/instrument/guitar, 750),
 		EQUIPMENT("Synthesizer", /obj/item/instrument/piano_synth, 1500),
-		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000)
+		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
+		EQUIPMENT("Analyzer", /obj/item/analyzer, 50)
 	)
 
 /**********************Mining Equipment Datum**************************/

@@ -16,13 +16,16 @@
 	. = ..()
 	. += bombtank.examine(user)
 
-/obj/item/onetankbomb/update_icon()
+/obj/item/onetankbomb/update_icon_state()
 	if(bombtank)
 		icon_state = bombtank.icon_state
+
+/obj/item/onetankbomb/update_overlays()
+	. = ..()
 	if(bombassembly)
-		overlays += bombassembly.icon_state
-		overlays += bombassembly.overlays
-		overlays += "bomb_assembly"
+		. += bombassembly.icon_state
+		. += bombassembly.overlays
+		. += "bomb_assembly"
 
 /obj/item/onetankbomb/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))

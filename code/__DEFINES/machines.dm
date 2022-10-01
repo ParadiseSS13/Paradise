@@ -91,6 +91,11 @@
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
 
+//APC charging
+#define APC_NOT_CHARGING 0
+#define APC_IS_CHARGING 1
+#define APC_FULLY_CHARGED 2
+
 // Firelock states
 #define FD_OPEN 1
 #define FD_CLOSED 2
@@ -100,3 +105,29 @@
 #define LOGIN_TYPE_AI 2
 #define LOGIN_TYPE_ROBOT 3
 #define LOGIN_TYPE_ADMIN 4
+
+// Status display maptext stuff
+#define DISPLAY_CHARS_PER_LINE 5
+#define DISPLAY_FONT_SIZE "5pt"
+#define DISPLAY_FONT_COLOR "#09f"
+#define DISPLAY_WARNING_FONT_COLOR "#f90"
+#define DISPLAY_FONT_STYLE "Small Fonts"
+#define DISPLAY_SCROLL_SPEED 2
+
+// Status display mode types
+#define STATUS_DISPLAY_BLANK 0
+#define STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME 1
+#define STATUS_DISPLAY_MESSAGE 2
+#define STATUS_DISPLAY_ALERT 3
+#define STATUS_DISPLAY_TIME 4
+#define STATUS_DISPLAY_CUSTOM 5
+
+// AI display mode types
+#define AI_DISPLAY_MODE_BLANK 0
+#define AI_DISPLAY_MODE_EMOTE 1
+#define AI_DISPLAY_MODE_BSOD 2
+
+// Door operations
+#define DOOR_OPENING 1
+#define DOOR_CLOSING 2
+#define DOOR_MALF 3

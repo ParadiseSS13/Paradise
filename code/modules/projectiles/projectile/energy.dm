@@ -51,7 +51,7 @@
 	nodamage = FALSE
 	stamina = 60
 	eyeblur = 20 SECONDS
-	weaken = 2 SECONDS
+	knockdown = 2 SECONDS
 	slur = 10 SECONDS
 
 /obj/item/projectile/energy/bolt/large
@@ -84,7 +84,7 @@
 	damage = 60
 	damage_type = BURN
 	range = 9
-	weaken = 2 SECONDS //This is going to knock you off your feet
+	knockdown = 4 SECONDS //This is going to knock you off your feet
 	eyeblur = 10 SECONDS
 	speed = 2
 	alwayslog = TRUE
@@ -125,7 +125,7 @@
 			add_attack_logs(src, M, "Hit heavily by [src]")
 			if(floored)
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
-				M.Weaken(2 SECONDS)
+				M.KnockDown(4 SECONDS)
 			else
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
 		else
@@ -144,6 +144,6 @@
 	icon_state = "plasma_heavy"
 	damage = 45
 	damage_type = BURN
-	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
+	armour_penetration_flat = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
 	reflectability = REFLECTABILITY_PHYSICAL //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard. Carp still can reflect though, screw you.

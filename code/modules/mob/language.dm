@@ -207,6 +207,15 @@
 	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
 	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
 
+/datum/language/vulpkanin/get_random_name(gender)
+	var/new_name
+	if(gender == FEMALE)
+		new_name = pick(GLOB.first_names_female_vulp)
+	else
+		new_name = pick(GLOB.first_names_male_vulp)
+	new_name += " " + pick(GLOB.last_names_vulp)
+	return new_name
+
 /datum/language/skrell
 	name = "Skrellian"
 	desc = "A melodic and complex language spoken by the Skrell of Qerrbalak. Some of the notes are inaudible to humans."
@@ -305,6 +314,15 @@
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
+
+/datum/language/slime/get_random_name(gender)
+	var/new_name
+	if(gender == FEMALE)
+		new_name = pick(GLOB.first_names_female_slime)
+	else
+		new_name = pick(GLOB.first_names_male_slime)
+	new_name += " " + pick(GLOB.last_names_slime)
+	return new_name
 
 /datum/language/grey
 	name = "Psionic Communication"
@@ -458,26 +476,6 @@
 					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
 					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
-
-/datum/language/wryn
-	name = "Wryn Hivemind"
-	desc = "Wryn have the strange ability to commune over a psychic hivemind."
-	speech_verb = "chitters"
-	ask_verb = "chitters"
-	exclaim_verbs = list("buzzes")
-	colour = "alien"
-	key = "y"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
-/datum/language/wryn/check_special_condition(mob/other)
-	var/mob/living/carbon/M = other
-	if(!istype(M))
-		return TRUE
-	if(locate(/obj/item/organ/internal/wryn/hivenode) in M.internal_organs)
-		return TRUE
-
-	return FALSE
 
 /datum/language/xenocommon
 	name = "Xenomorph"
@@ -639,17 +637,6 @@
 	flags = RESTRICTED
 	follow = TRUE
 	syllables = list ("beep", "boop")
-
-/datum/language/swarmer
-	name = "Swarmer"
-	desc = "A heavily encoded alien binary pattern."
-	speech_verb = "tones"
-	ask_verb = "tones"
-	exclaim_verbs = list("tones")
-	colour = "say_quote"
-	key = "z"//Zwarmer...Or Zerg!
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
 
 // Language handling.
 /mob/proc/add_language(language)

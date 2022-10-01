@@ -20,7 +20,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	density = 0
+	density = FALSE
 	ventcrawler = 2
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
@@ -31,9 +31,9 @@
 	minbodytemp = 223		//Below -50 Degrees Celcius
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = FALSE
-	can_hide = 1
+	can_hide = TRUE
 	holder_type = /obj/item/holder/mouse
-	can_collar = 1
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
 

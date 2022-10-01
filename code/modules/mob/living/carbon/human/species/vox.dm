@@ -16,8 +16,6 @@
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
-	brute_mod = 1.2 //20% more brute damage. Fragile bird bones.
-
 	breathid = "n2"
 
 	eyes = "vox_eyes_s"
@@ -27,6 +25,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_BODYACC_COLOR
+	own_species_blood = TRUE
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"

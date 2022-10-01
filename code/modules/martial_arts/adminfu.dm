@@ -37,7 +37,7 @@
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
-	var/used = 0
+	var/used = FALSE
 
 /obj/item/adminfu_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
@@ -47,7 +47,7 @@
 		var/datum/martial_art/adminfu/F = new/datum/martial_art/adminfu(null)
 		F.teach(H)
 		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of the Admins.</span>")
-		used = 1
+		used = TRUE
 		desc = "It's completely blank."
 		name = "empty scroll"
 		icon_state = "blankscroll"

@@ -22,9 +22,9 @@
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
-	var/stop_automated_movement = 0 //Use this to temporarely stop random movement or to if you write special movement code for animals.
-	var/wander = 1	// Does the mob wander around when idle?
-	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
+	var/stop_automated_movement = FALSE //Use this to temporarely stop random movement or to if you write special movement code for animals.
+	var/wander = TRUE	// Does the mob wander around when idle?
+	var/stop_automated_movement_when_pulled = TRUE //When set to TRUE this stops the animal from moving when someone is pulling it.
 
 	//Interaction
 	var/response_help   = "pokes"
@@ -46,7 +46,7 @@
 	var/fire_damage = 2
 
 	//Healable by medical stacks? Defaults to yes.
-	var/healable = 1
+	var/healable = TRUE
 
 	//Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
@@ -56,7 +56,10 @@
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
 	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
-	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
+	/// Flat armour reduction, occurs after percentage armour penetration.
+	var/armour_penetration_flat = 0
+	/// Percentage armour reduction, happens before flat armour reduction.
+	var/armour_penetration_percentage = 0
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
 	var/attacktext = "attacks"
@@ -65,7 +68,7 @@
 	var/environment_smash = ENVIRONMENT_SMASH_NONE //Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
-	var/can_hide    = 0
+	var/can_hide = FALSE
 
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
@@ -90,7 +93,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
-	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/del_on_death = FALSE //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 
@@ -185,9 +188,11 @@
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
 		else
-			if(IsSleeping() && (stat == CONSCIOUS))
-				KnockOut()
-			else
+			if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+				if(stat == CONSCIOUS)
+					KnockOut()
+					create_debug_log("knocked out, trigger reason: [reason]")
+			else if(stat == UNCONSCIOUS)
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
@@ -372,7 +377,7 @@
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
-		density = 0
+		density = FALSE
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_dead"
 			regenerate_icons()

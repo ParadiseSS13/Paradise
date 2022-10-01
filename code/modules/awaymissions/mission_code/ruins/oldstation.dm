@@ -66,7 +66,7 @@
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"
 	desc = "Standard issue security helmet. Due to degradation the helmet's visor obstructs the users ability to see long distances."
-	tint = 2
+	tint = FLASH_PROTECTION_WELDER
 
 /obj/item/clothing/suit/armor/vest/old
 	name = "degrading armor vest"
@@ -157,7 +157,7 @@
 	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
 	icon_state = "hardsuit0-ancient"
 	item_state = "anc_helm"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = null
@@ -167,7 +167,7 @@
 	desc = "Prototype powered RIG hardsuit. Provides excellent protection from the elements of space while being comfortable to move around in, thanks to the powered locomotives. Remains very bulky however."
 	icon_state = "hardsuit-ancient"
 	item_state = "anc_hardsuit"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = null
@@ -289,7 +289,7 @@
 // Engines
 /obj/structure/shuttle/engine/large
 	name = "engine"
-	opacity = 1
+	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
 	desc = "A very large bluespace engine used to propel very large ships."
@@ -357,11 +357,11 @@
 
 /area/ruin/ancientstation/proto
 	name = "Theta Station Prototype Lab"
-	icon_state = "toxlab"
+	icon_state = "scilab"
 
 /area/ruin/ancientstation/rnd
 	name = "Theta Station Research and Development"
-	icon_state = "toxlab"
+	icon_state = "rnd"
 
 /area/ruin/ancientstation/hivebot
 	name = "Hivebot Mothership"

@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("bronze ashtray", /obj/item/ashtray/bronze, 1, time = 10),
 	null,
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/chair/office/dark, 5, one_per_turf = 1, on_floor = 1),
@@ -63,7 +64,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("rack parts", /obj/item/rack_parts),
 	new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 15, one_per_turf = 1, on_floor = 1),
 	null,
-	new /datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 15, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("canister", /obj/machinery/atmospherics/portable/canister, 10, time = 15, one_per_turf = 1, on_floor = 1),
 	null,
 	new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, 1, 4, 20),
 	new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, 1, 2, 50),
@@ -246,8 +247,9 @@ GLOBAL_LIST_INIT(wood_recipes, list(
  */
 GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("white jumpsuit", /obj/item/clothing/under/color/white, 3), \
-	new/datum/stack_recipe("white shoes", /obj/item/clothing/shoes/white, 2), \
 	new/datum/stack_recipe("white scarf", /obj/item/clothing/accessory/scarf/white, 1), \
+	new/datum/stack_recipe("white shoes", /obj/item/clothing/shoes/white, 2),
+	new/datum/stack_recipe("cloth footwraps", /obj/item/clothing/shoes/footwraps, 2), \
 	null, \
 	new/datum/stack_recipe("backpack", /obj/item/storage/backpack, 4), \
 	new/datum/stack_recipe("dufflebag", /obj/item/storage/backpack/duffel, 6), \
@@ -519,8 +521,16 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/empty), \
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty,3), \
+	new /datum/stack_recipe("first-aid kit", /obj/item/storage/firstaid/regular, 4), \
+	new /datum/stack_recipe("brute trauma treatment kit", /obj/item/storage/firstaid/brute, 4), \
+	new /datum/stack_recipe("fire first-aid kit", /obj/item/storage/firstaid/fire, 4), \
+	new /datum/stack_recipe("toxin first aid kit", /obj/item/storage/firstaid/toxin, 4), \
+	new /datum/stack_recipe("oxygen deprivation first aid kit", /obj/item/storage/firstaid/o2, 4), \
+	new /datum/stack_recipe("advanced first-aid kit", /obj/item/storage/firstaid/adv, 4), \
+	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle), \
+	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2), \
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
-	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 1, time = 10), \
 	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = 1), \
 	new /datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/pspork, 1, on_floor = 1), \

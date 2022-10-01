@@ -101,7 +101,7 @@
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
-			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
+			var/list/crazysay = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
 							   "without oxigen blob don't evoluate?",
 							   "CAPTAINS A COMDOM",
 							   "[pick("", "that damn traitor")] [pick("joerge", "george", "gorge", "gdoruge")] [pick("mellens", "melons", "mwrlins")] is grifing me HAL;P!!!",
@@ -119,13 +119,12 @@
 							   "qM blew my points on [pick("cOMbat Shtogun","inSuLated gloves","LOTS MASSHEEN!")]",
 							   "EI'NATH!",
 							   "WAKE UP SHEEPLES!",
-							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!")
-
-			var/list/s2 = list("FUS RO DAH",
+							   "et wus my [pick("wittle brother!!","fiancee","friend staying over","entiRe orphanage","love interest","wife","husband","liTTle kids","sentient cAT","accidentally")]!",
+							   "FUS RO DAH",
 							   "fuckin tangerines!!!",
-							   "stat me",
-							   ">my face",
-							   "roll it easy!",
+							   "stAT ME",
+							   "my FACE",
+							   "rOLl it eaSy!",
 							   "waaaaaagh!!!",
 							   "red wonz go fasta",
 							   "FOR TEH EMPRAH",
@@ -136,21 +135,19 @@
 							   "lifelike texture",
 							   "luv can bloooom",
 							   "PACKETS!!!",
-							   "[pick("WHERE MY","aYE need","giv me my","bath me inn.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlorine Hydrate","paRoxetine")]!",
+							   "[pick("WHERE MY","aYE need","giv me my","bath me inn.")] [pick("dermaline","alKkyZine","dylOvene","inAprovaline","biCaridine","Hyperzine","kELotane","lePorazine","bAcch Salts","tricord","clOnexazone","hydroChloric Acid","chlORine Hydrate","paRoxetine")]!",
 							   "mALPRACTICEBAY",
 							   "I HavE A pe H dee iN ENTerpriSE resOUrCE pLaNNIN",
 							   "h-h-HalP MaINT",
 							   "dey come, dey COME! DEY COME!!!",
 							   "THE END IS NIGH!",
-							   "I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gateway Loot")]",
-							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!")
-			switch(pick(1,2,3))
-				if(1)
-					say(pick(s1))
-				if(2)
-					say(pick(s2))
-				if(3)
-					emote("drool")
+							   "I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gATEway LoOt")]",
+							   "KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!",
+							   "I CAN FORCE YOU TO SAY WHATEREVE!!?!?!")
+			if(prob(66))
+				say(pick(crazysay))
+			else
+				emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	for(var/mutation_type in active_mutations)
@@ -603,8 +600,7 @@
 		return
 
 	if(getBrainLoss() >= 100) // braindeath
-		AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
-		Weaken(60 SECONDS)
+		dna.species.handle_brain_death(src)
 
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)

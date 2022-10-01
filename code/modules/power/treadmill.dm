@@ -22,7 +22,7 @@
 	if(anchored)
 		connect_to_network()
 
-/obj/machinery/power/treadmill/update_icon()
+/obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
 /obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
@@ -121,20 +121,20 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
 
-	var/on = 0					// if we should be metering or not
+	var/on = FALSE					// if we should be metering or not
 	var/id = null				// id of treadmill
 	var/obj/machinery/power/treadmill/treadmill = null
 	var/total_joules = 0		// total power from prisoner
 	var/J_per_ticket = 45000	// amt of power charged for a ticket
 	var/line1 = ""
 	var/line2 = ""
-	var/frame = 0				// on 0, show labels, on 1 show numbers
+	var/frame = FALSE				// on 0, show labels, on 1 show numbers
 	var/redeem_immediately = 0	// redeem immediately for holding cell
 
 /obj/machinery/treadmill_monitor/Initialize(mapload)
@@ -171,13 +171,13 @@
 	. = ..()
 	. += "The display reads:<div style='text-align: center'>[line1]<br>[line2]</div>"
 
-/obj/machinery/treadmill_monitor/update_icon()
-	overlays.Cut()
+/obj/machinery/treadmill_monitor/update_overlays()
+	. = ..()
 	if(stat & NOPOWER || !total_joules || !on)
 		line1 = ""
 		line2 = ""
 	else if(stat & BROKEN)
-		overlays += image('icons/obj/status_display.dmi', icon_state = "ai_bsod")
+		. += image('icons/obj/status_display.dmi', icon_state = "ai_bsod")
 		line1 = "A@#$A"
 		line2 = "729%!"
 	else

@@ -18,6 +18,7 @@
 	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+	var/custom_fire_overlay // Update_fire_overlay will check if a different icon state should be used
 
 	var/acid_level = 0 //how much acid is on that obj
 
@@ -53,6 +54,8 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	if(sharp)
+		AddComponent(/datum/component/surgery_initiator)
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -81,7 +84,6 @@
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
 		else
 			STOP_PROCESSING(SSfastprocess, src)
-	SStgui.close_uis(src)
 	return ..()
 
 //user: The mob that is suiciding
@@ -168,9 +170,6 @@
 
 /obj/proc/interact(mob/user)
 	return
-
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /mob/proc/unset_machine()
 	if(machine)
@@ -366,6 +365,15 @@ a {
 
 /obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
 	return
+
+/// Set whether the item should be sharp or not
+/obj/proc/set_sharpness(new_sharp_val)
+	if(sharp == new_sharp_val)
+		return
+	sharp = new_sharp_val
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
+	if(!sharp && new_sharp_val)
+		AddComponent(/datum/component/surgery_initiator)
 
 
 /obj/proc/force_eject_occupant(mob/target)

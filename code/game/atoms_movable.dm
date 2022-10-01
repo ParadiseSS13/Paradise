@@ -35,6 +35,8 @@
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
+	/// Icon state for thought bubbles. Normally set by mobs.
+	var/thought_bubble_image = "thought_bubble"
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -51,24 +53,17 @@
 			gen_emissive_blocker.color = EM_BLOCK_COLOR
 			gen_emissive_blocker.dir = dir
 			gen_emissive_blocker.appearance_flags |= appearance_flags
-			add_overlay(list(gen_emissive_blocker))
+			AddComponent(/datum/component/emissive_blocker, gen_emissive_blocker)
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
 			add_overlay(list(em_block))
 
 /atom/movable/proc/update_emissive_block()
-	if(!blocks_emissive)
-		return
-	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = emissive_blocker(icon, icon_state, alpha = src.alpha, appearance_flags = src.appearance_flags)
-		gen_emissive_blocker.dir = dir
-		return gen_emissive_blocker
-	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
-		if(!em_block && !QDELETED(src))
-			render_target = ref(src)
-			em_block = new(src, render_target)
-		add_overlay(list(em_block))
+	if(!em_block && !QDELETED(src))
+		render_target = ref(src)
+		em_block = new(src, render_target)
+	add_overlay(list(em_block))
 
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
@@ -153,6 +148,8 @@
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
 			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
+		return FALSE
+	if(user in buckled_mobs)
 		return FALSE
 	return TRUE
 
@@ -373,12 +370,16 @@
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
+/// called after an items throw is ended.
+/atom/movable/proc/end_throw()
+	return
+
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
@@ -418,6 +419,7 @@
 	TT.thrower = thrower
 	TT.diagonals_first = diagonals_first
 	TT.callback = callback
+	TT.dodgeable = dodgeable
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -617,4 +619,8 @@
 	return
 
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
+	return FALSE
+
+/// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
+/atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE

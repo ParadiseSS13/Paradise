@@ -153,7 +153,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 /atom/proc/smooth_icon()
 	smoothing_flags &= ~SMOOTH_QUEUED
 	if(!z) //nullspace are not sending their best
-		error("[type] called smooth_icon() without being on a z-level")
+		stack_trace("[type] called smooth_icon() without being on a z-level")
 		return
 	if(smoothing_flags & SMOOTH_CORNERS)
 		if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS)

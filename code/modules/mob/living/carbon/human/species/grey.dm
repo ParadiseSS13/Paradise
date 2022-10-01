@@ -16,11 +16,9 @@
 		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
 		)
 
-	brute_mod = 1.25 //greys are fragile
-
 	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags =  HAS_BODY_MARKINGS | HAS_BODYACC_COLOR
+	bodyflags =  HAS_BODY_MARKINGS | HAS_BODYACC_COLOR | SHAVED | BALD
 	dietflags = DIET_HERB
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
@@ -40,14 +38,8 @@
 	. = ..()
 
 	if(method == REAGENT_TOUCH)
-		if(H.wear_mask)
-			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 			return
-
-		if(H.head)
-			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
-			return
-
 		if(volume > 25)
 			if(prob(75))
 				H.take_organ_damage(5, 10)

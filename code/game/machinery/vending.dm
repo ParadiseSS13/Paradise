@@ -164,17 +164,17 @@
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
-/obj/machinery/vending/update_icon()
-	cut_overlays()
+/obj/machinery/vending/update_overlays()
+	. = ..()
 	underlays.Cut()
 	if(panel_open)
-		add_overlay("[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]")
+		. += "[icon_panel ? "[icon_panel]_panel" : "[icon_state]_panel"]"
 	if(icon_addon)
-		add_overlay("[icon_addon]")
+		. += "[icon_addon]"
 	if((stat & (BROKEN|NOPOWER)) || force_no_power_icon_state)
-		add_overlay("[icon_off ? "[icon_off]_off" : "[icon_state]_off"]")
+		. += "[icon_off ? "[icon_off]_off" : "[icon_state]_off"]"
 		if(stat & BROKEN)
-			add_overlay("[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]")
+			. += "[icon_broken ? "[icon_broken]_broken" : "[icon_state]_broken"]"
 		return
 	if(light)
 		underlays += emissive_appearance(icon, "[icon_lightmask ? "[icon_lightmask]_lightmask" : "[icon_state]_off"]")
@@ -203,14 +203,14 @@
 	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
 		set_light(0)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 3))
 
 		force_no_power_icon_state = FALSE
 		set_light(light_range_on, light_power_on)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		sleep(rand(1, 10))
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	flickering = FALSE
 
 /**
@@ -363,7 +363,7 @@
 	if(anchored)
 		panel_open = !panel_open
 		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
@@ -840,13 +840,13 @@
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(!(stat & BROKEN))
 		stat |= BROKEN
 		set_light(0)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 		var/dump_amount = 0
 		var/found_anything = TRUE
@@ -1218,16 +1218,39 @@
 	icon_panel = "wide_vendor"
 	ads_list = list("Go save some lives!","The best stuff for your medbay.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?","Ping!")
 	req_access_txt = "5"
-	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4, /obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
-					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
-					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/potassium_iodide =3, /obj/item/reagent_containers/glass/bottle/saline = 5,
-					/obj/item/reagent_containers/glass/bottle/morphine = 4, /obj/item/reagent_containers/glass/bottle/ether = 4, /obj/item/reagent_containers/glass/bottle/atropine = 3,
-					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/syringe/antiviral = 6,
-					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
-					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
-					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
-					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
-	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
+	products = list(/obj/item/reagent_containers/syringe = 12,
+					/obj/item/reagent_containers/food/pill/patch/styptic = 4,
+					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
+					/obj/item/reagent_containers/applicator/brute = 3,
+					/obj/item/reagent_containers/applicator/burn = 3,
+					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
+					/obj/item/reagent_containers/glass/bottle/epinephrine = 4,
+					/obj/item/reagent_containers/glass/bottle/salicylic = 4,
+					/obj/item/reagent_containers/glass/bottle/potassium_iodide = 3,
+					/obj/item/reagent_containers/glass/bottle/saline = 5,
+					/obj/item/reagent_containers/glass/bottle/morphine = 4,
+					/obj/item/reagent_containers/glass/bottle/atropine = 3,
+					/obj/item/reagent_containers/glass/bottle/oculine = 2,
+					/obj/item/reagent_containers/syringe/antiviral = 6,
+					/obj/item/reagent_containers/syringe/calomel = 10,
+					/obj/item/reagent_containers/syringe/heparin = 4,
+					/obj/item/reagent_containers/hypospray/autoinjector = 5,
+					/obj/item/reagent_containers/food/pill/salbutamol = 10,
+					/obj/item/reagent_containers/food/pill/mannitol = 10,
+					/obj/item/reagent_containers/food/pill/mutadone = 5,
+					/obj/item/stack/medical/bruise_pack/advanced = 4,
+					/obj/item/stack/medical/ointment/advanced = 4,
+					/obj/item/stack/medical/bruise_pack = 4,
+					/obj/item/stack/medical/splint = 4,
+					/obj/item/reagent_containers/glass/beaker = 4,
+					/obj/item/reagent_containers/dropper = 4,
+					/obj/item/healthanalyzer/advanced = 4,
+					/obj/item/reagent_containers/hypospray/safety = 2,
+					/obj/item/sensor_device = 2,
+					/obj/item/pinpointer/crew = 2)
+	contraband = list(/obj/item/reagent_containers/syringe/insulin = 6,
+					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
+					/obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
@@ -1299,6 +1322,20 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
+/obj/machinery/vending/hydronutrients/syndicate_druglab
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 12,
+					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 2,
+					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 3,
+					/obj/item/reagent_containers/spray/pestspray = 7,
+					/obj/item/reagent_containers/syringe = 11,
+					/obj/item/storage/bag/plants = 2,
+					/obj/item/cultivator = 3,
+					/obj/item/shovel/spade = 2,
+					/obj/item/plant_analyzer = 2,
+					/obj/item/reagent_containers/glass/bottle/ammonia = 6,
+					/obj/item/reagent_containers/glass/bottle/diethylamine = 8)
+	contraband = list()
+
 /obj/machinery/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
 	desc = "When you need seeds fast!"
@@ -1361,6 +1398,18 @@
 					  /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
+
+/obj/machinery/vending/hydroseeds/syndicate_druglab
+	products = list(/obj/item/seeds/ambrosia/deus = 2,
+					/obj/item/seeds/cannabis = 2,
+					/obj/item/seeds/coffee = 3,
+					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/cannabis/rainbow = 1,
+					/obj/item/seeds/reishi = 2,
+					/obj/item/seeds/tobacco = 1)
+	contraband = list()
+	premium = list()
+	refill_canister = null
 
 /obj/machinery/vending/magivend
 	name = "\improper MagiVend"
@@ -2078,6 +2127,7 @@
 	products = list(/obj/item/clothing/under/rank/engineer = 6,
 					/obj/item/clothing/under/rank/engineer/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
+					/obj/item/clothing/suit/jacket/engibomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/eng = 3,
 					/obj/item/clothing/head/hardhat = 2,
@@ -2107,6 +2157,7 @@
 	products = list(/obj/item/clothing/under/rank/atmospheric_technician  = 6,
 					/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
+					/obj/item/clothing/suit/jacket/atmosbomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/beret/atmos = 3,
 					/obj/item/clothing/head/hardhat = 2,
@@ -2117,8 +2168,8 @@
 					/obj/item/clothing/accessory/armband/engine = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/workboots = 3,
-					/obj/item/storage/backpack/industrial = 2,
-					/obj/item/storage/backpack/satchel_eng = 2,
+					/obj/item/storage/backpack/industrial/atmos = 2,
+					/obj/item/storage/backpack/satchel_atmos = 2,
 					/obj/item/storage/backpack/duffel/atmos = 2,
 					/obj/item/storage/belt/utility = 2)
 	contraband = list(/obj/item/toy/figure/crew/atmos = 1)
@@ -2136,6 +2187,7 @@
 	products = list(/obj/item/clothing/under/rank/cargotech = 6,
 					/obj/item/clothing/under/rank/cargotech/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
+					/obj/item/clothing/suit/jacket/cargobomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/soft = 3,
 					/obj/item/clothing/head/hardhat/orange = 2,
@@ -2168,6 +2220,7 @@
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/chef = 1)
+	premium = list(/obj/item/storage/box/dish_drive = 1)
 	refill_canister = /obj/item/vending_refill/chefdrobe
 
 /obj/machinery/vending/bardrobe
@@ -2188,6 +2241,7 @@
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/bartender = 1)
+	premium = list(/obj/item/storage/box/dish_drive = 1)
 	refill_canister = /obj/item/vending_refill/bardrobe
 
 /obj/machinery/vending/hydrodrobe

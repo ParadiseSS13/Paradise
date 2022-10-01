@@ -29,7 +29,7 @@
 		return
 	template = GLOB.shelter_templates[template_id]
 	if(!template)
-		log_runtime("Shelter template ([template_id]) not found!", src)
+		stack_trace("Shelter template ([template_id]) not found!")
 		qdel(src)
 
 /obj/item/survivalcapsule/examine(mob/user)
@@ -232,8 +232,11 @@
 		var/obj/item/instrument/guitar/G = new(src)
 		load(G)
 
-/obj/machinery/smartfridge/survival_pod/update_icon()
+/obj/machinery/smartfridge/survival_pod/update_icon_state()
 	return
+
+/obj/machinery/smartfridge/survival_pod/update_overlays()
+	return list()
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)

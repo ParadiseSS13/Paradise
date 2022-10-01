@@ -443,7 +443,7 @@
 		var/json_file = file("data/npc_saves/Ian.json")
 		if(!fexists(json_file))
 			return
-		var/list/json = json_decode(file2text(json_file))
+		var/list/json = json_decode(wrap_file2text(json_file))
 		age = json["age"]
 		record_age = json["record_age"]
 		saved_head = json["saved_head"]
@@ -661,18 +661,18 @@
 	icon_living = "borgi"
 	bark_sound = null	//No robo-bjork...
 	yelp_sound = null	//Or robo-Yelp.
-	var/emagged = 0
+	var/emagged = FALSE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "blows apart!"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(user as mob)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
 		addtimer(CALLBACK(src, .proc/explode), 1000)
 

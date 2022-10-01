@@ -33,29 +33,25 @@
 						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
 						  /obj/item/stack/ore/titanium)
 	healable = FALSE
-	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	var/mode = MINEDRONE_COLLECT
 	var/light_on = FALSE
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
-	var/datum/action/innate/minedrone/toggle_light/toggle_light_action
-	var/datum/action/innate/minedrone/toggle_meson_vision/toggle_meson_vision_action
-	var/datum/action/innate/minedrone/toggle_mode/toggle_mode_action
-	var/datum/action/innate/minedrone/dump_ore/dump_ore_action
 
-/mob/living/simple_animal/hostile/mining_drone/New()
-	..()
+/mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
+	. = ..()
 	stored_gun = new(src)
-	toggle_light_action = new()
-	toggle_light_action.Grant(src)
-	toggle_meson_vision_action = new()
-	toggle_meson_vision_action.Grant(src)
-	toggle_mode_action = new()
-	toggle_mode_action.Grant(src)
-	dump_ore_action = new()
-	dump_ore_action.Grant(src)
+	var/static/list/action_paths = list(
+		/datum/action/innate/minedrone/toggle_light,
+		/datum/action/innate/minedrone/toggle_meson_vision,
+		/datum/action/innate/minedrone/toggle_mode,
+		/datum/action/innate/minedrone/dump_ore,
+	)
+	for(var/action_path in action_paths)
+		var/datum/action/act = new action_path
+		act.Grant(src)
 
 	SetCollectBehavior()
 

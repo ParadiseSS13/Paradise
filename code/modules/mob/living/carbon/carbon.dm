@@ -164,18 +164,18 @@
 	//Stun
 	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 	if(should_stun)
-		Stun(4 SECONDS)
+		Stun(1 SECONDS)
 	//Jitter and other fluff.
 	AdjustJitter(2000 SECONDS)
 	AdjustStuttering(4 SECONDS)
-	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 2 SECONDS)
+	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 1 SECONDS)
 	return shock_damage
 
-///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
+///Called slightly after electrocute act to reduce jittering and apply a secondary knockdown.
 /mob/living/carbon/proc/secondary_shock(should_stun)
 	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
 	if(should_stun)
-		Weaken(6 SECONDS)
+		KnockDown(6 SECONDS)
 
 /mob/living/carbon/swap_hand()
 	var/obj/item/item_in_hand = get_active_hand()
@@ -231,6 +231,7 @@
 				AdjustStunned(-6 SECONDS)
 				AdjustWeakened(-6 SECONDS)
 				AdjustKnockDown(-6 SECONDS)
+				adjustStaminaLoss(-10)
 				resting = FALSE
 				stand_up() // help them up if possible
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -269,6 +270,9 @@
   * * target - The mob who is currently on fire
   */
 /mob/living/carbon/proc/pat_out(mob/living/target)
+	if(target == src) // stop drop and roll, no trying to put out fire on yourself for free.
+		to_chat(src, "<span class='warning'>Stop drop and roll!</span>")
+		return
 	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
 	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
 		var/mob/living/carbon/human/H = src
@@ -552,7 +556,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 //Throwing stuff
 
-/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum)
+/mob/living/carbon/throw_impact(atom/hit_atom, throwingdatum, speed = 1)
 	. = ..()
 	if(has_status_effect(STATUS_EFFECT_CHARGING))
 		var/hit_something = FALSE
@@ -560,7 +564,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/atom/movable/AM = hit_atom
 			var/atom/throw_target = get_edge_target_turf(AM, dir)
 			if(!AM.anchored || ismecha(AM))
-				AM.throw_at(throw_target, 3, 14, src)
+				AM.throw_at(throw_target, 5, 12, src)
 				hit_something = TRUE
 		if(isobj(hit_atom))
 			var/obj/O = hit_atom
@@ -569,7 +573,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom
 			L.adjustBruteLoss(60)
-			L.Weaken(6 SECONDS)
+			L.KnockDown(12 SECONDS)
+			L.Confused(10 SECONDS)
 			shake_camera(L, 4, 3)
 			hit_something = TRUE
 		if(isturf(hit_atom))
@@ -583,6 +588,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	var/hurt = TRUE
+	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
 		if(isrobot(D.thrower))
@@ -591,17 +597,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				hurt = FALSE*/
 	if(hit_atom.density && isturf(hit_atom))
 		if(hurt)
-			Weaken(2 SECONDS)
-			take_organ_damage(10)
+			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+			take_organ_damage(damage)
+			KnockDown(3 SECONDS)
+			playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
 		if(victim.flying)
 			return
 		if(hurt)
-			victim.take_organ_damage(10)
-			take_organ_damage(10)
-			victim.Weaken(2 SECONDS)
-			Weaken(2 SECONDS)
+			victim.take_organ_damage(damage)
+			take_organ_damage(damage)
+			victim.KnockDown(3 SECONDS)
+			KnockDown(3 SECONDS)
 			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
 		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
 
@@ -610,6 +618,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		throw_mode_off()
 	else
 		throw_mode_on()
+	var/obj/item/I = get_active_hand()
+	if(I)
+		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
 /mob/living/carbon/proc/throw_mode_off()
 	in_throw_mode = FALSE
@@ -862,7 +873,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Weaken(3, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
+	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	spin(32, 2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
@@ -931,7 +942,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				return
 			else
 				unEquip(I)
-				I.dropped()
+				I.dropped(src)
 				return
 		else
 			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
@@ -1076,7 +1087,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
-			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
+			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 	if(user == src)
 		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))

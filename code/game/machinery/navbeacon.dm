@@ -29,8 +29,8 @@
 	var/turf/T = loc
 	if(!T.transparent_floor)
 		hide(T.intact)
-	if(!codes || !codes.len)
-		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
+	if(!length(codes))
+		stack_trace("Empty codes datum at ([x],[y],[z]) (codes_txt: [codes_txt])")
 	if("patrol" in codes)
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()
@@ -76,17 +76,11 @@
 // hide the object if turf is intact
 /obj/machinery/navbeacon/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
-// update the icon_state
-/obj/machinery/navbeacon/proc/updateicon()
-	var/state="navbeacon[open]"
-
-	if(invisibility)
-		icon_state = "[state]-f"	// if invisible, set icon to faded version
-									// in case revealed by T-scanner
-	else
-		icon_state = "[state]"
+/obj/machinery/navbeacon/update_icon_state()
+	icon_state = "navbeacon[open][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
+																// in case revealed by T-scanner
 
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/T = loc
@@ -98,7 +92,7 @@
 
 		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
 
-		updateicon()
+		update_icon(UPDATE_ICON_STATE)
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(open)
@@ -221,4 +215,4 @@ Transponder Codes:<UL>"}
 
 /obj/machinery/navbeacon/invisible/hide(intact)
 	invisibility = INVISIBILITY_MAXIMUM
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)

@@ -3,7 +3,7 @@
 	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
 
 	school = "transmutation"
-	charge_max = 300
+	base_cooldown = 300
 	clothes_req = TRUE
 	invocation = "none"
 	invocation_type = "none"

@@ -39,7 +39,7 @@
 	name = "mounted turret"
 	scan_range = 7
 	emp_vulnerable = 1
-	density = 0
+	density = FALSE
 
 /obj/vehicle/atv/turret/Initialize(mapload)
 	. = ..()

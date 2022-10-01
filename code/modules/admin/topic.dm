@@ -37,9 +37,6 @@
 				return
 			SSmentor_tickets.showDetailUI(usr, ticketID)
 
-	if(href_list["stickyban"])
-		stickyban(href_list["stickyban"],href_list)
-
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
 			if("1")
@@ -1847,7 +1844,7 @@
 		P.myeffect = eviltype
 		P.mytarget = H
 		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
-			P.activate_on_timeout = 1
+			P.activate_on_timeout = TRUE
 		P.x = rand(-2, 0)
 		P.y = rand(-1, 2)
 		P.offset_x += P.x
@@ -1863,7 +1860,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.overlays += stampoverlay
+		P.stamp_overlays += stampoverlay
 		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
 		P.faxmachineid = fax.UID()
@@ -1954,7 +1951,7 @@
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
-					P.can_collar = 1
+					P.can_collar = TRUE
 					P.faction = list("neutral")
 					var/obj/item/clothing/accessory/petcollar/C = new
 					P.add_collar(C)
@@ -2157,26 +2154,27 @@
 				log_admin("[key_name(usr)] despawned [M] in cryo.")
 				message_admins("[key_name_admin(usr)] despawned [M] in cryo.")
 		else
-			var/fast_despawn = FALSE
-			if(href_list["fast_despawn"])
+			var/area/mob_area = get_area(M)
+			var/should_despawn = FALSE
+			if(mob_area.fast_despawn)
 				if(alert(owner, "[M] is an area where players being AFK cryo'd should be despawned immediately. \
 						Do you wish to immediately de-spawn them, or just continue moving them to the cryopod?", "Cryo or De-Spawn", "De-Spawn", "Move to Cryopod") == "De-Spawn")
-					fast_despawn = TRUE
+					should_despawn = TRUE
 			if(!cryo_ssd(M))
 				return
 
 			if(human)
 				var/mob/living/carbon/human/H = M
-				var/msg = "[key_name(usr)] [fast_despawn ? "despawned" : "sent"] [H.job] [H] [fast_despawn ? "in" : "to"] cryo."
+				var/msg = "[key_name(usr)] [should_despawn ? "despawned" : "sent"] [H.job] [H] [should_despawn ? "in" : "to"] cryo."
 				log_admin(msg)
 				message_admins(msg)
 			else
-				var/msg = "[key_name(usr)] [fast_despawn ? "despawned" : "sent"] [M] [fast_despawn ? "in" : "to"] cryo."
+				var/msg = "[key_name(usr)] [should_despawn ? "despawned" : "sent"] [M] [should_despawn ? "in" : "to"] cryo."
 				log_admin(msg)
 				message_admins(msg)
 
-			if(fast_despawn)
-				var/obj/machinery/cryopod/P = M.loc // They're already in the cryopod because of `cryo_ssd(M)` above.
+			if(should_despawn)
+				var/obj/machinery/cryopod/P = M.loc // They've already been placed in the cryopod because of `cryo_ssd(M)` above.
 				P.despawn_occupant()
 				return
 
@@ -2198,21 +2196,21 @@
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><br><br><br><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><br><br><br><font size='4'>NAS Trurl Communications Department Report</font></center><br><br>"
 		if(stype == "Handle it yourselves!")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<br><br><i><small>This is an automatic message.</small>"
 		else if(stype == "Illegible fax")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<BR><BR>Please consult your nearest dictionary and/or thesaurus and try again.<BR><BR><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<br><br>Please consult your nearest dictionary and/or thesaurus and try again.<br><br><i><small>This is an automatic message.</small>"
 		else if(stype == "Fax not signed")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax has not been correctly signed and, as such, we cannot verify your identity.<BR><BR>Please sign your faxes before sending them so that we may verify your identity.<BR><BR><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Your fax has not been correctly signed and, as such, we cannot verify your identity.<br><br>Please sign your faxes before sending them so that we may verify your identity.<br><br><i><small>This is an automatic message.</small>"
 		else if(stype == "Not Right Now")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<BR><BR>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<BR><BR>Please try again later.<BR><BR><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<br><br>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<br><br>Please try again later.<br><br><i><small>This is an automatic message.</small>"
 		else if(stype == "You are wasting our time")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<BR><BR>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of profesionalism. Do not test our patience.<BR><BR><i><small>This is an automatic message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<br><br>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of professionalism. Do not test our patience.<br><br><i><small>This is an automatic message.</i></small>"
 		else if(stype == "Keep up the good work")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<BR><BR>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<BR><BR><i><small>This is absolutely not an automated message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<br><br>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<br><br><i><small>This is absolutely not an automated message.</i></small>"
 		else if(stype == "ERT Instructions")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please utilize the Card Swipers if you wish to call for an ERT.<BR><BR><i><small>This is an automated message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Please utilize the Card Swipers if you wish to call for an ERT.<br><br><i><small>This is an automated message.</i></small>"
 		else
 			return
 		tmsg += "</font>"
@@ -2232,7 +2230,7 @@
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
-		P.overlays += stampoverlay
+		P.stamp_overlays += stampoverlay
 		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
 		fax.receivefax(P)
@@ -2444,14 +2442,14 @@
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp/centcom
-				P.overlays += stampoverlay
+				P.stamp_overlays += stampoverlay
 				P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
 				P.stamped += /obj/item/stamp
-				P.overlays += stampoverlay
+				P.stamp_overlays += stampoverlay
 				P.stamps += "<hr><i>[stampvalue]</i>"
 
 		if(destination != "All Departments")
@@ -3364,7 +3362,7 @@
 		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. Could not pick key.</span>")
 		return
 	var/datum/mind/hunter_mind = new /datum/mind(key_of_hunter)
-	hunter_mind.active = 1
+	hunter_mind.active = TRUE
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)

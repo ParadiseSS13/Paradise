@@ -11,6 +11,7 @@
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
+	bodyflags = BALD | SHAVED
 	reagent_tag = PROCESS_ORG
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
@@ -171,3 +172,23 @@
 		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 
 	return ..()
+
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
+		H.unEquip(H.wear_mask)
+
+	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), slot_wear_mask)
+	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.active_character.speciesprefs : null
+	var/obj/item/tank/internal_tank
+	if(tank_pref) //Diseasel, here you go
+		internal_tank = new /obj/item/tank/internals/plasmaman/full(H)
+	else
+		internal_tank = new /obj/item/tank/internals/plasmaman/belt/full(H)
+	if(!H.equip_to_appropriate_slot(internal_tank) && !H.put_in_any_hand_if_possible(internal_tank))
+		H.unEquip(H.l_hand)
+		H.equip_or_collect(internal_tank, slot_l_hand)
+		to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug.</span>")
+		stack_trace("Failed to equip plasmaman with a tank, with the job [J.type]")
+	H.internal = internal_tank
+	to_chat(H, "<span class='notice'>You are now running on plasma internals from [internal_tank]. Oxygen is toxic to your species, so you must breathe plasma only.</span>")
+	H.update_action_buttons_icon()

@@ -29,13 +29,10 @@
 	block_chance_melee = 1
 	block_chance_ranged = 1
 	stun_chance = 0
-	bot_core_type = /obj/machinery/bot_core/toy
+	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 	weapon = /obj/item/toy/sword
 	frustration_number = 5
-	locked = 0
-
-/obj/machinery/bot_core/toy
-	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
+	locked = FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/spam_flag_false() //used for addtimer to not spam comms
 	spam_flag = 0
@@ -53,15 +50,14 @@
 	if(ismob(AM) && AM == target)
 		var/mob/living/carbon/C = AM
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
-		C.Weaken(4 SECONDS)
+		C.KnockDown(4 SECONDS)
 
-/mob/living/simple_animal/bot/secbot/griefsky/New()
-	..()
+/mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
+	. = ..()
 	icon_state = "[base_icon][on]"
-	spawn(3)
-		var/datum/job/detective/J = new/datum/job/detective
-		access_card.access += J.get_access()
-		prev_access = access_card.access
+	var/datum/job/detective/J = new/datum/job/detective
+	access_card.access += J.get_access()
+	prev_access = access_card.access
 
 /mob/living/simple_animal/bot/secbot/griefsky/Destroy()
 	QDEL_NULL(weapon)
@@ -83,9 +79,11 @@
 		..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
-	src.do_attack_animation(C)
+	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
-	spawn(2)
+	addtimer(CALLBACK(src, .proc/do_sword_attack, C), 2)
+
+/mob/living/simple_animal/bot/secbot/griefsky/proc/do_sword_attack(mob/living/carbon/C)
 	icon_state = spin_icon
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))
@@ -153,7 +151,7 @@
 	return
 
 /mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
-	anchored = 0
+	anchored = FALSE
 	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue

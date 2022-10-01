@@ -42,7 +42,7 @@
 			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
 		if(DEAD)
 			if(!suiciding)
-				msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
+				msg += "<span class='deadsay'>It looks like its internal subsystems are beyond repair and require replacing.</span>\n"
 			else
 				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
 	msg += "*---------*</span>"

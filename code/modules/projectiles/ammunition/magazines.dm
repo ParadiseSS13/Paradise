@@ -228,13 +228,11 @@
 	multi_sprite_step = 1
 	caliber = "9mm"
 
-/obj/item/ammo_box/magazine/enforcer/update_icon()
-	..()
-	overlays.Cut()
-
+/obj/item/ammo_box/magazine/enforcer/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -308,12 +306,36 @@
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 	materials = list(MAT_METAL = 3000)
 
-/obj/item/ammo_box/magazine/apsm9mm
-	name = "stechkin aps magazine (9mm)"
-	icon_state = "9mmaps"
-	ammo_type = /obj/item/ammo_casing/c9mm
-	caliber = "9mm"
-	max_ammo = 15
+/obj/item/ammo_box/magazine/apsm10mm
+	name = "stechkin aps magazine (10mm)"
+	icon_state = "10mmaps"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	caliber = "10mm"
+	max_ammo = 20
+	multi_sprite_step = 5
+
+/obj/item/ammo_box/magazine/apsm10mm/fire
+	name = "stechkin aps magazine (10mm incendiary)"
+	icon_state = "10mmapsI"
+	ammo_type = /obj/item/ammo_casing/c10mm/fire
+	caliber = "10mm"
+	max_ammo = 20
+	multi_sprite_step = 5
+
+/obj/item/ammo_box/magazine/apsm10mm/hp
+	name = "stechkin aps magazine (10mm HP)"
+	icon_state = "10mmapsH"
+	ammo_type = /obj/item/ammo_casing/c10mm/hp
+	caliber = "10mm"
+	max_ammo = 20
+	multi_sprite_step = 5
+
+/obj/item/ammo_box/magazine/apsm10mm/ap
+	name = "stechkin aps magazine (10mm AP)"
+	icon_state = "10mmapsA"
+	ammo_type = /obj/item/ammo_casing/c10mm/ap
+	caliber = "10mm"
+	max_ammo = 20
 	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/smgm45
@@ -446,15 +468,13 @@
 	multi_sprite_step = 1
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
-/obj/item/ammo_box/magazine/toy/enforcer/update_icon()
-	..()
-	overlays.Cut()
-
+/obj/item/ammo_box/magazine/toy/enforcer/update_overlays()
+	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()
@@ -500,11 +520,14 @@
 	icon_state = "handgun_ammo_battery"
 	var/charge = 1000
 
-/obj/item/ammo_box/magazine/detective/speedcharger/update_icon()
+/obj/item/ammo_box/magazine/detective/speedcharger/update_icon_state()
+	return
+
+/obj/item/ammo_box/magazine/detective/speedcharger/update_overlays()
+	. = ..()
 	var/charge_percent_rounded = round(charge_percent(), 20) // to the nearest 20%
-	cut_overlays()
 	if(charge_percent_rounded)
-		add_overlay("hab_charge_[charge_percent_rounded]")
+		. += "hab_charge_[charge_percent_rounded]"
 
 /obj/item/ammo_box/magazine/detective/speedcharger/proc/charge_percent()
 	return (charge / initial(charge) * 100)

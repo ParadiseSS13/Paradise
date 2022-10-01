@@ -38,7 +38,7 @@
 
 /obj/item/gripper/medical
 	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete."
+	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_hold = list()
 
 /obj/item/gripper/medical/attack_self(mob/user)
@@ -134,7 +134,7 @@
 				A.cell.forceMove(src)
 				A.cell = null
 
-				A.charging = 0
+				A.charging = APC_NOT_CHARGING
 				A.update_icon()
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")

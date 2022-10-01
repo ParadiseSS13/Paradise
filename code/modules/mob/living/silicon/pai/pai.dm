@@ -6,7 +6,7 @@
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
-	density = 0
+	density = FALSE
 	holder_type = /obj/item/holder/pai
 
 	var/ram = 100	// Used as currency to purchase different abilities
@@ -56,8 +56,9 @@
 
 	var/obj/item/pda/silicon/pai/pda = null
 
-	var/secHUD = 0			// Toggles whether the Security HUD is active or not
-	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
+	var/secHUD = FALSE			// Toggles whether the Security HUD is active or not
+	var/medHUD = FALSE			// Toggles whether the Medical  HUD is active or not
+	var/dHUD = FALSE			// Toggles whether the Diagnostic HUD is active or not
 
 	/// Currently active software
 	var/datum/pai_software/active_software
@@ -65,32 +66,37 @@
 	/// List of all installed software
 	var/list/datum/pai_software/installed_software = list()
 
-	var/obj/item/integrated_radio/signal/sradio // AI's signaller
+	/// Integrated remote signaler for signalling
+	var/obj/item/assembly/signaler/integ_signaler
 
-	var/translator_on = 0 // keeps track of the translator module
+	var/translator_on = FALSE // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
 
 	var/current_pda_messaging = null
-	var/custom_sprite = 0
+	var/custom_sprite = FALSE
 	var/slowdown = 0
 
-/mob/living/silicon/pai/New(obj/item/paicard)
-	loc = paicard
-	card = paicard
+/mob/living/silicon/pai/Initialize(mapload)
+	. = ..()
+
+	if(istype(loc, /obj/item/paicard))
+		card = loc
+
 	if(card)
 		faction = card.faction.Copy()
-	sradio = new(src)
+
+	integ_signaler = new(src)
+
 	if(card)
 		if(!card.radio)
 			card.radio = new /obj/item/radio(card)
 		radio = card.radio
 
 	//Default languages without universal translator software
-	add_language("Galactic Common", 1)
-	add_language("Sol Common", 1)
-	add_language("Tradeband", 1)
-	add_language("Gutter", 1)
-	add_language("Trinary", 1)
+	add_language("Sol Common")
+	add_language("Tradeband")
+	add_language("Gutter")
+	add_language("Trinary")
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
@@ -111,7 +117,6 @@
 			installed_software[PSD.id] = PSD
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
-	..()
 
 /mob/living/silicon/pai/can_unbuckle()
 	return FALSE
@@ -177,11 +182,12 @@
 			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
 		return death(0)
 
-	switch(pick(1,2,3))
+	switch(pick(1, 2, 3))
 		if(1)
 			master = null
 			master_dna = null
 			to_chat(src, "<font color=green>You feel unbound.</font>")
+
 		if(2)
 			var/command
 			if(severity  == 1)
@@ -190,6 +196,7 @@
 				command = pick("Serve", "Kill", "Love", "Hate", "Disobey", "Devour", "Fool", "Enrage", "Entice", "Observe", "Judge", "Respect", "Disrespect", "Consume", "Educate", "Destroy", "Disgrace", "Amuse", "Entertain", "Ignite", "Glorify", "Memorialize", "Analyze")
 			pai_law0 = "[command] your master."
 			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
+
 		if(3)
 			to_chat(src, "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>")
 
@@ -198,19 +205,16 @@
 
 	switch(severity)
 		if(1.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(100)
 				adjustFireLoss(100)
 		if(2.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if(stat != 2)
+			if(stat != DEAD)
 				adjustBruteLoss(30)
-
-	return
-
 
 // See software.dm for ui_act()
 

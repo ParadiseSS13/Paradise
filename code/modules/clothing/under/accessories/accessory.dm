@@ -12,8 +12,8 @@
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
 	var/allow_duplicates = TRUE // Allow accessories of the same type.
 
-/obj/item/clothing/accessory/New()
-	..()
+/obj/item/clothing/accessory/Initialize(mapload)
+	. = ..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
 
 /obj/item/clothing/accessory/Moved(atom/OldLoc, Dir, Forced)
@@ -98,6 +98,12 @@
 	if(has_suit)
 		return	//we aren't an object on the ground so don't call parent
 	..()
+
+/obj/item/clothing/accessory/proc/attached_unequip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
+/obj/item/clothing/accessory/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
 
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
@@ -458,7 +464,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -467,7 +473,7 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket

@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(ticker)
 			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.autotransfer()
+				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -133,7 +133,18 @@ SUBSYSTEM_DEF(ticker)
 			declare_completion()
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
 			if(GLOB.configuration.vote.enable_map_voting)
-				SSvote.initiate_vote("map", "the server", TRUE) // Start a map vote. Timing is a little tight here but we should be good.
+				SSvote.start_vote(new /datum/vote/map)
+			else
+				// Pick random map
+				var/list/pickable_types = list()
+				for(var/x in subtypesof(/datum/map))
+					var/datum/map/M = x
+					if(initial(M.voteable))
+						pickable_types += M
+
+				var/datum/map/target_map = pick(pickable_types)
+				SSmapping.next_map = new target_map
+				to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)

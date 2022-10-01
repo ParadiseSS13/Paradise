@@ -32,6 +32,8 @@
 	var/list/item_reactions = list()
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items = list() //items that can cause critical reactions
+	/// Used for linking with rnd consoles
+	var/range = 5
 
 /obj/machinery/r_n_d/experimentor/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
@@ -102,9 +104,6 @@
 	return TRUE
 
 /obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
-	if(shocked)
-		shock(user,50)
-
 	if(exchange_parts(user, O))
 		return
 
@@ -112,14 +111,14 @@
 		to_chat(user, "<span class='warning'>[O] is not yet valid for [src] and must be completed!</span>")
 		return
 
-	if(disabled)
-		return
 	if(!linked_console)
 		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
 		return
+
 	if(loaded_item)
 		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
 		return
+
 	if(istype(O, /obj/item))
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
@@ -134,8 +133,6 @@
 		O.loc = src
 		to_chat(user, "<span class='notice'>You add [O] to the machine.</span>")
 		flick("h_lathe_load", src)
-
-	return
 
 /obj/machinery/r_n_d/experimentor/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -545,7 +542,7 @@
 		usr << browse(null, "window=experimentor")
 		return
 	else if(scantype == "search")
-		var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(3,src)
+		var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in orange(range, src)
 		if(D)
 			linked_console = D
 	else if(scantype == "eject")

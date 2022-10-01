@@ -13,14 +13,16 @@
 	var/timing = FALSE
 	var/time = 10
 
-/obj/item/assembly/prox_sensor/ComponentInitialize()
+/obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor, _always_active = TRUE)
 
-/obj/item/assembly/prox_sensor/describe()
+/obj/item/assembly/prox_sensor/examine(mob/user)
+	. = ..()
 	if(timing)
-		return "<span class='notice'>The proximity sensor is arming.</span>"
-	return "The proximity sensor is [scanning ? "armed" : "disarmed"]."
+		. += "<span class='notice'>The proximity sensor is arming.</span>"
+	else
+		. += "The proximity sensor is [scanning ? "armed" : "disarmed"]."
 
 /obj/item/assembly/prox_sensor/activate()
 	if(!..())
@@ -76,14 +78,14 @@
 	scanning = !scanning
 	update_icon()
 
-/obj/item/assembly/prox_sensor/update_icon()
-	overlays.Cut()
+/obj/item/assembly/prox_sensor/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(timing)
-		overlays += "prox_timing"
+		. += "prox_timing"
 		attached_overlays += "prox_timing"
 	if(scanning)
-		overlays += "prox_scanning"
+		. += "prox_scanning"
 		attached_overlays += "prox_scanning"
 	if(holder)
 		holder.update_icon()

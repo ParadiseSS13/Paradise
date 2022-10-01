@@ -34,7 +34,6 @@
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
 	var/hunger_drain = HUNGER_FACTOR
-	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
 	var/hunger_type
@@ -56,7 +55,7 @@
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
-	///Percentage modifier for overall defense of the race, or less defense, if it's negative.
+	///Additional armour value for the species.
 	var/armor = 0
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/total_health = 100
@@ -80,6 +79,7 @@
 
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
+	var/own_species_blood = FALSE // Can it only use blood from it's species?
 	var/skinned_type
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
@@ -357,9 +357,7 @@
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, mob/living/carbon/human/H, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
-	var/hit_percent = (100 - (blocked + armor)) / 100
-	hit_percent = (hit_percent * (100 - H.physiology.damage_resistance)) / 100
-	if(!damage || (hit_percent <= 0))
+	if(!damage)
 		return FALSE
 
 	var/obj/item/organ/external/organ = null
@@ -373,9 +371,11 @@
 			if(!organ)
 				organ = H.bodyparts[1]
 
+	var/total_armour = blocked + armor
+
 	switch(damagetype)
 		if(BRUTE)
-			var/damage_amount = damage * hit_percent * brute_mod * H.physiology.brute_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, brute_mod * H.physiology.brute_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -385,7 +385,7 @@
 			else //no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
-			var/damage_amount = damage * hit_percent * burn_mod * H.physiology.burn_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, burn_mod * H.physiology.burn_mod)
 			if(damage_amount)
 				H.damageoverlaytemp = 20
 
@@ -395,19 +395,19 @@
 			else
 				H.adjustFireLoss(damage_amount)
 		if(TOX)
-			var/damage_amount = damage * hit_percent * H.physiology.tox_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.tox_mod)
 			H.adjustToxLoss(damage_amount)
 		if(OXY)
-			var/damage_amount = damage * hit_percent * H.physiology.oxy_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.oxy_mod)
 			H.adjustOxyLoss(damage_amount)
 		if(CLONE)
-			var/damage_amount = damage * hit_percent * H.physiology.clone_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.clone_mod)
 			H.adjustCloneLoss(damage_amount)
 		if(STAMINA)
-			var/damage_amount = damage * hit_percent * H.physiology.stamina_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.stamina_mod)
 			H.adjustStaminaLoss(damage_amount)
 		if(BRAIN)
-			var/damage_amount = damage * hit_percent * H.physiology.brain_mod
+			var/damage_amount = ARMOUR_EQUATION(damage, total_armour, H.physiology.brain_mod)
 			H.adjustBrainLoss(damage_amount)
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
@@ -513,6 +513,8 @@
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(user == target)
+		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
@@ -523,59 +525,73 @@
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	if(target.move_resist > user.pull_force)
+		return FALSE
+	if(!(target.status_flags & CANPUSH))
+		return FALSE
+	if(target.anchored)
+		return FALSE
+	if(target.buckled)
+		target.buckled.unbuckle_mob(target)
+
+	var/shove_dir = get_dir(user.loc, target.loc)
+	var/turf/shove_to = get_step(target.loc, shove_dir)
+	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+
+	if(shove_to == user.loc)
+		return FALSE
+
+	//Directional checks to make sure that we're not shoving through a windoor or something like that
+	var/directional_blocked = FALSE
+	var/target_turf = get_turf(target)
+	if(shove_dir in list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)) // if we are moving diagonially, we need to check if there are dense walls either side of us
+		var/turf/T = get_step(target.loc, turn(shove_dir, 45)) // check to the left for a dense turf
+		if(T.density)
+			directional_blocked = TRUE
+		else
+			T = get_step(target.loc, turn(shove_dir, -45)) // check to the right for a dense turf
+			if(T.density)
+				directional_blocked = TRUE
+
+	if(!directional_blocked)
+		for(var/obj/obj_content in target_turf) // check the tile we are on for border
+			if(obj_content.flags & ON_BORDER && obj_content.dir & shove_dir && obj_content.density)
+				directional_blocked = TRUE
+				break
+	if(!directional_blocked)
+		for(var/obj/obj_content in shove_to) // check tile we are moving to for borders
+			if(obj_content.flags & ON_BORDER && obj_content.dir & turn(shove_dir, 180) && obj_content.density)
+				directional_blocked = TRUE
+				break
+
+	if(!directional_blocked)
+		for(var/atom/movable/AM in shove_to)
+			if(AM.shove_impact(target, user)) // check for special interactions EG. tabling someone
+				return TRUE
+
+	var/moved = target.Move(shove_to, shove_dir)
+	if(!moved) //they got pushed into a dense object
+		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
+		target.visible_message("<span class='warning'>[user] slams [target] into an obstacle!</span>", \
+								"<span class='userdanger'>You get slammed into the obstacle by [user]!</span>", \
+								"You hear a loud thud.")
+		if(!HAS_TRAIT(target, TRAIT_FLOORED))
+			target.KnockDown(3 SECONDS)
+			addtimer(CALLBACK(target, /mob/living.proc/SetKnockDown, 0), 3 SECONDS) // so you cannot chain stun someone
+		else if(!user.IsStunned())
+			target.Stun(0.5 SECONDS)
 	else
-		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
-		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
-		if(target.w_uniform)
-			target.w_uniform.add_fingerprint(user)
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/randn = rand(1, 100)
-		if(randn <= 25)
-			target.apply_effect(4 SECONDS, WEAKEN, target.run_armor_check(affecting, MELEE))
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
-			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
-			if(!iscarbon(user))
-				target.LAssailant = null
-			else
-				target.LAssailant = user
-			return
-
-		var/talked = 0	// BubbleWrap
-
-		if(randn <= 60)
-			//BubbleWrap: Disarming breaks a pull
-			if(target.pulling)
-				target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [target.pulling]!</span>")
-				talked = 1
-				target.stop_pulling()
-
-			//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
-			if(istype(target.l_hand, /obj/item/grab))
-				var/obj/item/grab/lgrab = target.l_hand
-				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [lgrab.affecting]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(lgrab)
-			if(istype(target.r_hand, /obj/item/grab))
-				var/obj/item/grab/rgrab = target.r_hand
-				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [rgrab.affecting]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(rgrab)
-			//End BubbleWrap
-
-			if(!talked)	//BubbleWrap
-				if(target.drop_item())
-					target.visible_message("<span class='danger'>[user] has disarmed [target]!</span>")
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			return
-
-
-	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
+		if(target.IsSlowed() && target.get_active_hand())
+			target.drop_item()
+			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
+		else
+			target.Slowed(2.5 SECONDS, 1)
+			var/obj/item/I = target.get_active_hand()
+			if(I)
+				to_chat(target, "<span class='warning'>Your grip on [I] loosens!</span>")
+			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
+	target.stop_pulling()
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
@@ -985,6 +1001,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_WakeUp(mob/living/carbon/human/H)
 	return FALSE
+
+/datum/species/proc/handle_brain_death(mob/living/carbon/human/H)
+	H.AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
+	H.Weaken(60 SECONDS)
 
 /**
   * Species-specific runechat colour handler

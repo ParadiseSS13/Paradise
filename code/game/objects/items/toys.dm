@@ -96,7 +96,7 @@
 				qdel(src)
 	return
 
-/obj/item/toy/balloon/update_icon()
+/obj/item/toy/balloon/update_icon_state()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "waterballoon"
@@ -572,7 +572,7 @@
 	name = "grumpy fox"
 	desc = "An ancient plushie that seems particularly grumpy."
 
-/obj/item/toy/plushie/orange_fox/grump/ComponentInitialize()
+/obj/item/toy/plushie/orange_fox/grump/Initialize(mapload)
 	. = ..()
 	var/static/list/grumps = list("Ahh, yes, you're so clever, var editing that.", "Really?", "If you make a runtime with var edits, it's your own damn fault.",
 	"Don't you dare post issues on the git when you don't even know how this works.", "Was that necessary?", "Ohhh, setting admin edited var must be your favorite pastime!",
@@ -772,21 +772,20 @@
 
 /obj/item/toy/windup_toolbox/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/toy/windup_toolbox/update_icon()
-	..()
-	cut_overlays()
+/obj/item/toy/windup_toolbox/update_overlays()
+	. = ..()
 	if(active)
-		add_overlay("single_latch_open")
+		. += "single_latch_open"
 	else
-		add_overlay("single_latch")
+		. += "single_latch"
 
 /obj/item/toy/windup_toolbox/attack_self(mob/user)
 	if(!active)
 		to_chat(user, "<span class='notice'>You wind up [src], it begins to rumble.</span>")
 		active = TRUE
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		playsound(src, 'sound/effects/pope_entry.ogg', 100)
 		animate_rumble(src)
 		addtimer(CALLBACK(src, .proc/stopRumble), 60 SECONDS)
@@ -795,7 +794,7 @@
 
 /obj/item/toy/windup_toolbox/proc/stopRumble()
 	active = FALSE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	visible_message("<span class='warning'>[src] slowly stops rattling and falls still, its latch snapping shut.</span>") //subtle difference
 	playsound(loc, 'sound/weapons/batonextend.ogg', 100, TRUE)
 	animate(src, transform = matrix())
@@ -1113,7 +1112,7 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 
-/obj/item/twohanded/toy/chainsaw/update_icon()
+/obj/item/twohanded/toy/chainsaw/update_icon_state()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else

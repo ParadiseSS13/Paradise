@@ -112,9 +112,13 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
-	var/armour = target.run_armor_check("chest", armour_penetration = stamina_armour_pen) // returns a % of their chest melee armour
-	var/factor = (100 - armour) / 100 // converts the % into a decimal
-	target.adjustStaminaLoss(stamina_damage * factor)
+	var/armour = target.run_armor_check("chest", armour_penetration_percentage = stamina_armour_pen) // returns their chest melee armour
+	var/percentage_reduction = 0
+	if(ishuman(target))
+		percentage_reduction = (100 - ARMOUR_VALUE_TO_PERCENTAGE(armour)) / 100
+	else
+		percentage_reduction = (100 - armour) / 100 // converts the % into a decimal
+	target.adjustStaminaLoss(stamina_damage * percentage_reduction)
 
 /**
   * # Fancy Cane
@@ -135,6 +139,7 @@
 /obj/item/melee/classic_baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
+	icon_state = "telebaton_0" // For telling what it is when mapping
 	item_state = null
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL

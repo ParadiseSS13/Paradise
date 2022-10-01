@@ -8,14 +8,14 @@
 	radio_channel = "Syndicate"
 	health = 300
 	maxHealth = 300
-	declare_arrests = 0
-	idcheck = 1
-	arrest_type = 1
-	auto_patrol = 1
+	declare_arrests = FALSE
+	idcheck = TRUE
+	arrest_type = TRUE
+	auto_patrol = TRUE
 	emagged = 2
 	faction = list("syndicate")
 	shoot_sound = 'sound/weapons/wave.ogg'
-	anchored = 1
+	anchored = TRUE
 	window_id = "syndiebot"
 	window_name = "Syndicate Bot Interface"
 	var/turf/saved_turf
@@ -25,8 +25,8 @@
 	var/pathing_failed = FALSE
 	var/turf/spawn_turf
 
-/mob/living/simple_animal/bot/ed209/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/ed209/syndicate/Initialize(mapload)
+	. = ..()
 	set_weapon()
 	update_icon()
 	spawn_turf = get_turf(src)
@@ -36,7 +36,7 @@
 		access_card.access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 		prev_access = access_card.access
 
-/mob/living/simple_animal/bot/ed209/syndicate/update_icon()
+/mob/living/simple_animal/bot/ed209/syndicate/update_icon_state()
 	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/bot/ed209/syndicate/turn_on()
@@ -173,7 +173,7 @@
 		return
 	shootAt(A)
 
-/mob/living/simple_animal/bot/ed209/syndicate/cuff(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)
 	shootAt(C)
 
 /mob/living/simple_animal/bot/ed209/syndicate/stun_attack(mob/living/carbon/C)

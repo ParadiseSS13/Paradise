@@ -17,6 +17,12 @@
 	eject_abductee()
 	return ..()
 
+/obj/machinery/abductor/experiment/update_icon_state()
+	if(occupant)
+		icon_state = "experiment"
+	else
+		icon_state = "experiment-open"
+
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
 		return
@@ -34,7 +40,7 @@
 
 	target.forceMove(src)
 	occupant = target
-	icon_state = "experiment"
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
@@ -196,7 +202,7 @@
 		var/mob/living/carbon/human/H = grabbed.affecting
 		H.forceMove(src)
 		occupant = H
-		icon_state = "experiment"
+		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(G)
 		return
@@ -212,11 +218,11 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/abductor/experiment/proc/eject_abductee()
 	if(!occupant)
 		return
 	occupant.forceMove(get_turf(src))
 	occupant = null
-	icon_state = "experiment-open"
+	update_icon(UPDATE_ICON_STATE)

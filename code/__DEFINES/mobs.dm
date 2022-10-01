@@ -233,19 +233,18 @@
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
-#define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
-#define isanimal(A)		(istype((A), /mob/living/simple_animal))
-#define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
-#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
-#define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
-#define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
-#define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
-#define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
-#define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
-#define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
-#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isanimal(A)			(istype((A), /mob/living/simple_animal))
+#define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
+#define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
+#define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
+#define isbot(A)			(istype((A), /mob/living/simple_animal/bot))
+#define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
+#define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
+#define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
+#define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
+#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/slaughter))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -274,7 +273,7 @@
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
 #define isorgan(A)		(istype((A), /obj/item/organ/external))
-#define hasorgans(A)	(ishuman(A))
+#define hasorgans(A)	(iscarbon(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 

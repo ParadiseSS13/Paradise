@@ -41,7 +41,7 @@
 	var/list/topiclimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
-	//control_freak = 1
+	control_freak = CONTROL_FREAK_ALL
 
 	var/ssd_warning_acknowledged = FALSE
 
@@ -55,8 +55,6 @@
 	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
 	var/global/obj/screen/click_catcher/void
-
-	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
 	var/ip_intel = "Disabled"
 

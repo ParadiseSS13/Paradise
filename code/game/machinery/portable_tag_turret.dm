@@ -37,7 +37,7 @@
 	)
 	return data
 
-/obj/machinery/porta_turret/tag/update_icon()
+/obj/machinery/porta_turret/tag/update_icon_state()
 	if(!anchored)
 		icon_state = "turretCover"
 		return

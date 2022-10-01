@@ -350,6 +350,7 @@
 	G.name_color = color_list[color]
 	var/picked_name = pick(name_list)
 	create_theme(G, user, picked_name, color)
+	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]")
 
 /obj/item/guardiancreator/proc/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"
@@ -465,9 +466,8 @@
  <b>Protector</b>: You will become leashed to your holoparasite instead of them to you. Has two modes, a medium attack/defense mode and a protection mode which greatly reduces incoming damage to the holoparasite.
 "}
 
-/obj/item/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
 	name = "holoparasite injector kit"

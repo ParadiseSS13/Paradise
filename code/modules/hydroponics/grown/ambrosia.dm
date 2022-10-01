@@ -9,6 +9,10 @@
 	bitesize_mod = 2
 	tastes = list("ambrosia" = 1)
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 // Ambrosia Vulgaris
 /obj/item/seeds/ambrosia
 	name = "pack of ambrosia vulgaris seeds"
@@ -54,6 +58,10 @@
 	origin_tech = "biotech=4;materials=3"
 	wine_power = 0.5
 	tastes = list("ambrosia deus" = 1)
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 //Ambrosia Gaia
 /obj/item/seeds/ambrosia/gaia

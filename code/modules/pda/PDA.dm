@@ -106,7 +106,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return attack_self(M)
 
 /obj/item/pda/attack_self(mob/user as mob)
-	user.set_machine(src)
 	if(active_uplink_check(user))
 		return
 	ui_interact(user)
@@ -251,7 +250,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	return
 
-/obj/item/pda/attackby(obj/item/C as obj, mob/user as mob, params)
+/obj/item/pda/attackby(obj/item/C, mob/user, params)
 	..()
 	if(istype(C, /obj/item/cartridge) && !cartridge)
 		cartridge = C
@@ -261,8 +260,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		update_shortcuts()
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
 		SStgui.update_uis(src)
-		if(cartridge.radio)
-			cartridge.radio.hostpda = src
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 	else if(istype(C, /obj/item/card/id))

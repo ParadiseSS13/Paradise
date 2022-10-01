@@ -170,15 +170,7 @@
 	else
 		to_chat(user, "<span class='warning'>There's not enough fuel in [A] to refuel [src]!</span>")
 
-/obj/item/weldingtool/proc/update_torch()
-	overlays.Cut()
-	if(tool_enabled)
-		overlays += "[initial(icon_state)]-on"
-		item_state = "[initial(item_state)]1"
-	else
-		item_state = "[initial(item_state)]"
-
-/obj/item/weldingtool/update_icon()
+/obj/item/weldingtool/update_icon_state()
 	if(low_fuel_changes_icon)
 		var/ratio = GET_FUEL / maximum_fuel
 		ratio = CEILING(ratio*4, 1) * 25
@@ -186,8 +178,15 @@
 			icon_state = initial(icon_state)
 		else
 			icon_state = "[initial(icon_state)][ratio]"
-	update_torch()
-	..()
+	if(tool_enabled)
+		item_state = "[initial(item_state)]1"
+	else
+		item_state = "[initial(item_state)]"
+
+/obj/item/weldingtool/update_overlays()
+	. = ..()
+	if(tool_enabled)
+		. += "[initial(icon_state)]-on"
 
 /obj/item/weldingtool/cyborg_recharge(coeff, emagged)
 	if(reagents.check_and_add("fuel", maximum_fuel, 2 * coeff))

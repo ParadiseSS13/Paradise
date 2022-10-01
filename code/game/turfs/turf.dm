@@ -88,6 +88,7 @@
 		for(var/A in B.contents)
 			qdel(A)
 		return
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	// Adds the adjacent turfs to the current atmos processing
 	for(var/turf/simulated/T in atmos_adjacent_turfs)
 		SSair.add_to_active(T)
@@ -269,7 +270,7 @@
 	levelupdate()
 	CalculateAdjacentTurfs()
 
-	if(SSair && !ignore_air)
+	if(!ignore_air)
 		SSair.add_to_active(src)
 
 	//update firedoor adjacency

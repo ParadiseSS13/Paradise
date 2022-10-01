@@ -55,12 +55,10 @@
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
 
-/obj/machinery/mineral/ore_redemption/ComponentInitialize()
-	..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert))
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert))
 	ore_buffer = list()
 	files = new /datum/research/smelter(src)
 	// Stock parts
@@ -156,13 +154,13 @@
 
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
-/obj/machinery/mineral/ore_redemption/update_icon()
+/obj/machinery/mineral/ore_redemption/update_icon_state()
 	if(powered())
 		icon_state = initial(icon_state)
 	else

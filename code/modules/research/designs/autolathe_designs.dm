@@ -676,7 +676,7 @@
 	id = "electropack"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
-	build_path = /obj/item/radio/electropack
+	build_path = /obj/item/electropack
 	category = list("hacked", "Tools")
 
 /datum/design/large_welding_tool
@@ -897,3 +897,12 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
+
+/datum/design/desk_bell
+	name = "Desk Bell"
+	desc = "Prints a ring-able bell."
+	id = "desk_bell"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/desk_bell
+	category = list("initial", "Miscellaneous")

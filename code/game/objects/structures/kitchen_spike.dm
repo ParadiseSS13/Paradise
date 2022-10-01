@@ -93,9 +93,8 @@
 	victim.adjustBruteLoss(30)
 	victim.setDir(2)
 	buckle_mob(victim, force = TRUE)
-	var/matrix/m180 = matrix(victim.transform)
-	m180.Turn(180)
-	animate(victim, transform = m180, time = 3)
+	victim.set_lying_angle(180)
+	victim.update_transform()
 	victim.pixel_y = victim.get_standard_pixel_y_offset(180)
 	return TRUE
 
@@ -136,11 +135,11 @@
 	M.emote("scream")
 	M.AdjustWeakened(20 SECONDS)
 
+
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
-	var/matrix/m180 = matrix(M.transform)
-	m180.Turn(180)
-	animate(M, transform = m180, time = 3)
+	M.set_lying_angle(0)
+	M.update_transform()
 
 /obj/structure/kitchenspike/Destroy()
 	if(has_buckled_mobs())

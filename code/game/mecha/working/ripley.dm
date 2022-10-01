@@ -42,24 +42,34 @@
 
 /obj/mecha/working/ripley/go_out()
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/ripley/moved_inside(mob/living/carbon/human/H)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/mecha/working/ripley/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/mecha/working/ripley/update_icon()
-	..()
-	if(hides)
-		cut_overlays()
-		if(hides < 3)
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
-		else
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+/obj/mecha/working/ripley/update_desc()
+	. = ..()
+	if(!hides) // Just in case if hides are somehow removed
+		desc = initial(desc)
+		return
+	if(hides == 3)
+		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
+	else
+		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+
+/obj/mecha/working/ripley/update_overlays()
+	. = ..()
+	if(!hides)
+		return
+	if(hides == 3)
+		. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+	else
+		. += occupant ? "ripley-g" : "ripley-g-open"
 
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
@@ -90,8 +100,8 @@
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
 
-/obj/mecha/working/ripley/deathripley/New()
-	..()
+/obj/mecha/working/ripley/deathripley/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
 	return
@@ -101,8 +111,8 @@
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/New()
-	..()
+/obj/mecha/working/ripley/mining/Initialize(mapload)
+	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
 	//Attach drill
@@ -199,8 +209,5 @@
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You slide the card through [src]'s ID slot.</span>")
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
-	else
-		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+	return ..()

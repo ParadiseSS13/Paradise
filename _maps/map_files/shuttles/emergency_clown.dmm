@@ -109,7 +109,7 @@
 	},
 /area/shuttle/escape)
 "aB" = (
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aC" = (
 /obj/machinery/status_display{
@@ -118,7 +118,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aD" = (
 /obj/structure/bed,
@@ -141,7 +141,7 @@
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
 	},
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aH" = (
 /obj/item/storage/bible{
@@ -153,11 +153,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aI" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Cell";
-	req_access_txt = "63"
-	},
-/turf/simulated/floor/noslip,
+/turf/simulated/wall/indestructible/fakedoor,
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/closet/walllocker/emerglocker{
@@ -172,7 +168,7 @@
 	dir = 4;
 	pixel_x = 28
 	},
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aP" = (
 /obj/docking_port/mobile/emergency{
@@ -250,7 +246,6 @@
 /obj/machinery/door/airlock/titanium{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	id_tag = null;
 	name = "Shuttle Cargo Hatch"
 	},
 /turf/simulated/floor/plasteel{
@@ -268,7 +263,6 @@
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
@@ -379,6 +373,12 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"tH" = (
+/turf/simulated/wall/indestructible/opsglass,
+/area/shuttle/escape)
+"Dr" = (
+/turf/simulated/wall/indestructible/syndicate,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -387,11 +387,11 @@ aa
 aa
 aa
 aa
-ab
-ab
-ab
-ab
-ab
+Dr
+Dr
+Dr
+Dr
+Dr
 aP
 ab
 ac
@@ -413,11 +413,11 @@ aa
 aa
 aa
 aa
-ab
+Dr
 aB
 aG
 aB
-ab
+tH
 am
 aQ
 aR
@@ -439,11 +439,11 @@ aa
 aa
 ab
 ab
-ab
+Dr
 aC
 aH
 aB
-ab
+tH
 am
 am
 am
@@ -465,11 +465,11 @@ ab
 ac
 ab
 as
-ab
+Dr
 aB
 aB
 aL
-ab
+tH
 am
 aD
 aD
@@ -491,11 +491,11 @@ ab
 ak
 ao
 at
-ab
-ac
+Dr
+tH
 aI
-ac
-ac
+tH
+tH
 am
 ac
 ac

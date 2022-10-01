@@ -37,7 +37,7 @@
 		state = 8
 	else
 		state = 5
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	sleep(200)
 	for(var/atom/A in contents)
 		A.clean_blood()
@@ -188,7 +188,7 @@
 		gibs_ready = 1
 	else
 		state = 4
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/washing_machine/verb/climb_out()
 	set name = "Climb out"
@@ -200,7 +200,7 @@
 		usr.loc = src.loc
 
 
-/obj/machinery/washing_machine/update_icon()
+/obj/machinery/washing_machine/update_icon_state()
 	icon_state = "wm_[state][panel]"
 
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -216,7 +216,7 @@
 				user.drop_item()
 				crayon = W
 				crayon.loc = src
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 			else
 				return ..()
 		else
@@ -228,7 +228,7 @@
 				G.affecting.loc = src
 				qdel(G)
 				state = 3
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		else
 			return ..()
 	else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \
@@ -296,7 +296,7 @@
 				to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")
 		else
 			to_chat(user, "<span class='notice'>The washing machine is full.</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		return ..()
 
@@ -332,7 +332,7 @@
 			state = 1
 
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)

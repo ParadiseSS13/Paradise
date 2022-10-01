@@ -7,7 +7,7 @@
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
 	summon_lifespan = 300
-	charge_max = 300
+	base_cooldown = 300
 	clothes_req = FALSE
 	cast_sound = null
 	human_req = TRUE
@@ -34,7 +34,7 @@
 	school = "mime"
 	panel = "Mime"
 	clothes_req = FALSE
-	charge_max = 3000
+	base_cooldown = 3000
 	human_req = TRUE
 
 	action_icon_state = "mime_silence"
@@ -70,7 +70,7 @@
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
-	charge_max = 600
+	base_cooldown = 600
 	sound =  null
 	clothes_req = FALSE
 
@@ -94,7 +94,7 @@
 	school = "mime"
 	panel = "Mime"
 	clothes_req = FALSE
-	charge_max = 300
+	base_cooldown = 300
 	human_req = TRUE
 
 	action_icon_state = "fingergun"

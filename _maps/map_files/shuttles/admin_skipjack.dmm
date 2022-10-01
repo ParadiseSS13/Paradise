@@ -275,7 +275,7 @@
 "bY" = (
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ca" = (
@@ -425,7 +425,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "sd" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/light,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
@@ -555,7 +555,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "XB" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "XK" = (

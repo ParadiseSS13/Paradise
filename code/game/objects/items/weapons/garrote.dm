@@ -10,32 +10,24 @@
 	icon_state = "garrot_wrap"
 	w_class = WEIGHT_CLASS_TINY
 	var/mob/living/carbon/human/strangling
-	var/improvised = 0
+	var/improvised = FALSE
 	var/garrote_time
 
 /obj/item/twohanded/garrote/Destroy()
 	strangling = null
 	return ..()
 
-/obj/item/twohanded/garrote/update_icon()
+/obj/item/twohanded/garrote/update_icon_state()
 	if(strangling) // If we're strangling someone we want our icon to stay wielded
-		icon_state = "garrot_unwrap"
-		return
-
-	icon_state = "garrot_[wielded ? "un" : ""]wrap"
+		icon_state = "garrot_[improvised ? "I_" : ""]unwrap"
+	else
+		icon_state = "garrot_[improvised ? "I_" : ""][wielded ? "un" : ""]wrap"
 
 /obj/item/twohanded/garrote/improvised // Made via tablecrafting
 	name = "garrote"
 	desc = "A length of cable with a shoddily-carved wooden handle tied to either end.<br>You suspect you'd have to be behind the target to use this weapon effectively."
 	icon_state = "garrot_I_wrap"
-	improvised = 1
-
-/obj/item/twohanded/garrote/improvised/update_icon()
-	if(strangling)
-		icon_state = "garrot_I_unwrap"
-		return
-
-	icon_state = "garrot_I_[wielded ? "un" : ""]wrap"
+	improvised = TRUE
 
 /obj/item/twohanded/garrote/wield(mob/living/carbon/user)
 	if(strangling)
@@ -43,7 +35,7 @@
 				"<span class='warning'>You remove [src] from [strangling]'s neck.</span>")
 
 		strangling = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 
 	else
@@ -99,7 +91,7 @@
 	garrote_time = world.time + 10
 	START_PROCESSING(SSobj, src)
 	strangling = M
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 
@@ -112,14 +104,14 @@
 /obj/item/twohanded/garrote/process()
 	if(!strangling)
 		// Our mark got gibbed or similar
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 		return
 
 
 	if(!istype(loc, /mob/living/carbon/human))
 		strangling = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 		return
 
@@ -137,7 +129,7 @@
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 
 		return
@@ -147,7 +139,7 @@
 				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 
 		return

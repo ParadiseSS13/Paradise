@@ -193,11 +193,21 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOPAIN			"no_pain"
 #define TRAIT_FORCE_DOORS 		"force_doors"
 #define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
+#define TRAIT_REPEATSURGERY		"master_surgeon"  // Lets you automatically repeat surgeries regardless of tool
+#define TRAIT_ELITE_CHALLENGER "elite_challenger"
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
+#define TRAIT_CMAGGED "cmagged"
+
+/// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
+#define TRAIT_SURGICAL			"surgical_tool"
+
+/// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
+#define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
+
 
 //
 // common trait sources
@@ -216,12 +226,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHANGELING_TRAIT "changeling"
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"
+#define BERSERK_TRAIT "berserk"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
 #define TRAIT_HULK "hulk"
 #define STASIS_MUTE "stasis"
+#define SCRYING "scrying" // for mobs that have ghosted, but their ghosts are allowed to return to their body outside of aghosting (spirit rune, scrying orb, etc)
 #define SCRYING_ORB "scrying-orb"
 #define CULT_EYES "cult_eyes"
 #define DOGGO_SPACESUIT "doggo_spacesuit"

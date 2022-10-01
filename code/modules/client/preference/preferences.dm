@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_ALIEN = 21,
 	ROLE_DEMON = 21,
 	ROLE_SENTIENT = 21,
+	ROLE_ELITE = 21,
 // 	ROLE_GANG = 21,
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
@@ -61,6 +62,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	//game-preferences
 	var/lastchangelog = "1"				//Saved changlog timestamp (unix epoch) to detect if there was a change. Dont set this to 0 unless you want the last changelog date to be 4x longer than the expected lifespan of the universe.
+	var/lastchangelog_2 = "1" // Clone of the above var for viewing changes since last connection. This is never overriden. Yes it needs to exist.
 	var/exp
 	var/ooccolor = "#b82e00"
 	var/list/be_special = list()				//Special role selection
@@ -121,6 +123,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/datum/keybindings = list()
 	/// Keybinding overrides ("name" => ["key"...])
 	var/list/keybindings_overrides = null
+	/// Player's region override for routing optimisation
+	var/server_region = null
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
@@ -195,13 +199,23 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
 			if(active_character.species == "Vox") // Purge these bastards
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+			if(active_character.species == "Plasmaman")
+				dat += "<b>Plasma Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large Plasma Tank" : "Specialized Plasma Tank"]</a><br>"
 			if(active_character.species == "Grey")
 				dat += "<b>Wingdings:</b> Set in disabilities<br>"
 				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Yes" : "No"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[active_character.language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[active_character.autohiss_mode == AUTOHISS_FULL ? "Full" : (active_character.autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
-			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[active_character.b_type]</a><br>"
+			if(NO_BLOOD in S.species_traits) // unique blood type for species with no_blood/unique_blood
+				active_character.b_type = "None"
+			else
+				if(active_character.species == "Slime People")
+					active_character.b_type = "Slime Jelly"
+				else
+					if(active_character.b_type == "None" || active_character.b_type == "Slime Jelly")
+						active_character.b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
+					dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[active_character.b_type]</a><br>"
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[active_character.s_tone]" : "[-active_character.s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
@@ -252,7 +266,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<br>"
 				dat += "- <b>Gradient Offset:</b> <a href='?_src_=prefs;preference=h_grad_offset;task=input'>[active_character.h_grad_offset_x],[active_character.h_grad_offset_y]</a>"
 				dat += "<br>"
-
+			else
+				active_character.h_style = "Bald"
+			if(!(S.bodyflags & SHAVED))
 				dat += "<b>Facial Hair:</b> "
 				dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[active_character.f_style ? "[active_character.f_style]" : "Shaved"]</a>"
 				dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(active_character.f_colour)]"
@@ -260,6 +276,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
 					dat += " <a href='?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(active_character.f_sec_colour)]"
 				dat += "<br>"
+			else
+				active_character.f_style = "Shaved"
 
 
 			if(!(S.bodyflags & ALL_RPARTS))
@@ -409,6 +427,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Thought Bubble:</b> <a href='?_src_=prefs;preference=thought_bubble'>[(toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
@@ -518,6 +537,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<td style='width: 25%'>[KB.name]</td>"
 					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
+					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
+						var/datum/keybinding/custom/custom_emote_keybind = kb
+						if(custom_emote_keybind.donor_exclusive && !(user.client.donator_level || user.client.holder || unlock_content))
+							dat += "</tr>"
+							dat += "<tr>"
+							dat += "<td><b>The use of this emote is restricted to patrons and byond members.</b></td>"
+							dat += "</tr>"
+							continue
+						dat += "</tr>"
+						dat += "<tr>"
+						var/emote_text = active_character.custom_emotes[custom_emote_keybind.name] //check if this emote keybind has an associated value on the character save
+						if(!emote_text)
+							dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
+						else
+							dat += "<td style='width: 25%'><i>\"[active_character.real_name] [emote_text]\"</i></td>"
+						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote_keybind.UID()];'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote_keybind.UID()];'>Reset to Default</a></td>"
+						dat += "<tr><td colspan=4><br></td></tr>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
 

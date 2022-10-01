@@ -105,8 +105,11 @@
 /obj/structure/closet/statue/verb_toggleopen()
 	return
 
-/obj/structure/closet/statue/update_icon()
+/obj/structure/closet/statue/update_icon_state()
 	return
+
+/obj/structure/closet/statue/update_overlays()
+	return list()
 
 /obj/structure/closet/statue/proc/shatter(mob/user)
 	if(user)

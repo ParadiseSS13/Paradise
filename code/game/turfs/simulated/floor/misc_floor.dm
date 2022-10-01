@@ -100,6 +100,7 @@
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	overlays += overlay_image
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, .proc/InitializedOn)
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
@@ -115,7 +116,7 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool -= AM
 
-/turf/simulated/floor/beach/water/InitializedOn(atom/A)
+/turf/simulated/floor/beach/water/proc/InitializedOn(atom/A)
 	if(!linkedcontroller)
 		return
 	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday

@@ -25,12 +25,9 @@
 		fire_location = null
 	return ..()
 
-/obj/item/assembly/infra/describe()
-	return "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
-
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
-	. += describe()
+	. += "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -61,13 +58,12 @@
 		toggle_secure()
 	on = TRUE
 
-/obj/item/assembly/infra/update_icon()
-	overlays.Cut()
+/obj/item/assembly/infra/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(on)
-		overlays += "infrared_on"
+		. += "infrared_on"
 		attached_overlays += "infrared_on"
-
 	if(holder)
 		holder.update_icon()
 
@@ -228,7 +224,7 @@
 	if(next)
 		next.vis_spread(v)
 
-/obj/effect/beam/i_beam/update_icon()
+/obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
 
 /obj/effect/beam/i_beam/process()

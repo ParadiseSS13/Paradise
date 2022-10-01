@@ -199,11 +199,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
-			D.update_icon()
-			if(D.hides == 3)
-				D.desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
-			else
-				D.desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")

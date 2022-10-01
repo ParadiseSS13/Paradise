@@ -59,7 +59,7 @@
 			if(animation)
 				qdel(animation)
 			var/sound
-			if(istype(src, /mob/living/simple_animal/slaughter))
+			if(isslaughterdemon(src))
 				var/mob/living/simple_animal/slaughter/SD = src
 				sound = SD.feast_sound
 			else
@@ -68,13 +68,18 @@
 			for(var/i in 1 to 3)
 				playsound(get_turf(src), sound, 100, 1)
 				sleep(30)
-			if(kidnapped)
-				to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
-				adjustBruteLoss(-1000)
-				adjustFireLoss(-1000)
-				adjustOxyLoss(-1000)
-				adjustToxLoss(-1000)
 
+			if(kidnapped)
+				if(ishuman(kidnapped) || isrobot(kidnapped))
+					to_chat(src, "<span class='warning'>You devour [kidnapped]. Your health is fully restored.</span>")
+					adjustBruteLoss(-1000)
+					adjustFireLoss(-1000)
+					adjustOxyLoss(-1000)
+					adjustToxLoss(-1000)
+				else
+					to_chat(src, "<span class='warning'>You devour [kidnapped], but this measly meal barely sates your appetite!</span>")
+					adjustBruteLoss(-25)
+					adjustFireLoss(-25)
 				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
@@ -128,7 +133,7 @@
 	animation.master = B.loc
 	animation.dir = dir
 
-	if(prob(25) && istype(src, /mob/living/simple_animal/slaughter))
+	if(prob(25) && isslaughterdemon(src))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
 		playsound(get_turf(src), pick(voice),50, 1, -1)
 	visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")

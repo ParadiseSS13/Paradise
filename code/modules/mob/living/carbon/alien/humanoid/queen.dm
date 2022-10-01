@@ -9,8 +9,14 @@
 	large = 1
 	ventcrawler = 0
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
+	move_resist = MOVE_FORCE_STRONG //Yes, queenos is huge and heavy
+	alien_disarm_damage = 60 //Queens do higher disarm stamina damage than normal aliens
+	alien_slash_damage = 30 //Queens do higher slashing damage to people
+	alien_movement_delay = 1 //This represents a movement delay of 1, or roughly 80% the movement speed of a normal carbon mob
 
-/mob/living/carbon/alien/humanoid/queen/New()
+
+/mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
+	. = ..()
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)
 		if(Q == src)
@@ -22,16 +28,17 @@
 			break
 
 	real_name = src.name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
-	alien_organs += new /obj/item/organ/internal/xenos/eggsac
-	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
-	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
-	..()
 
-/mob/living/carbon/alien/humanoid/queen/movement_delay()
+/mob/living/carbon/alien/humanoid/queen/get_caste_organs()
 	. = ..()
-	. += 3
+	. += list(
+		/obj/item/organ/internal/xenos/plasmavessel/queen,
+		/obj/item/organ/internal/xenos/acidgland,
+		/obj/item/organ/internal/xenos/eggsac,
+		/obj/item/organ/internal/xenos/resinspinner,
+		/obj/item/organ/internal/xenos/neurotoxin,
+	)
+
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE

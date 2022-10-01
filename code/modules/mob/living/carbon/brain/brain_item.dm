@@ -33,7 +33,7 @@
 /obj/item/organ/internal/brain/proc/transfer_identity(mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
-		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
+		stack_trace("[src] at [loc] did not contain a dna datum at time of removal.")
 		dna = H.dna.Clone()
 	name = "\the [dna.real_name]'s [initial(src.name)]"
 	brainmob.dna = dna.Clone() // Silly baycode, what you do
@@ -67,6 +67,8 @@
 	if(istype(owner,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair()
+	
+	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
 /obj/item/organ/internal/brain/insert(mob/living/target,special = 0)

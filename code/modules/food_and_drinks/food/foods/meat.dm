@@ -5,7 +5,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat
 	name = "meat"
-	desc = "A slab of meat"
+	desc = "A slab of meat."
 	icon_state = "meat"
 	filling_color = "#FF1C1C"
 	bitesize = 3
@@ -44,7 +44,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "corgi meat"
-	desc = "Tastes like the Head of Personnel's hopes and dreams"
+	desc = "Tastes like the Head of Personnel's hopes and dreams."
 
 /obj/item/reagent_containers/food/snacks/meat/pug
 	name = "pug meat"
@@ -192,9 +192,13 @@
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
 
-/obj/item/reagent_containers/food/snacks/telebacon/New()
-	..()
+/obj/item/reagent_containers/food/snacks/telebacon/Initialize(mapload)
+	. = ..()
 	baconbeacon = new /obj/item/radio/beacon/bacon(src)
+
+/obj/item/reagent_containers/food/snacks/telebacon/Destroy()
+	QDEL_NULL(baconbeacon)
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -408,8 +412,8 @@
 /obj/item/reagent_containers/food/snacks/egg/gland
 	desc = "An egg! It looks weird..."
 
-/obj/item/reagent_containers/food/snacks/egg/gland/New()
-	..()
+/obj/item/reagent_containers/food/snacks/egg/gland/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent(get_random_reagent_id(), 15)
 
 	var/reagent_color = mix_color_from_reagents(reagents.reagent_list)

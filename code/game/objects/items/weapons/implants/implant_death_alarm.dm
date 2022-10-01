@@ -1,22 +1,13 @@
 /obj/item/implant/death_alarm
-	name = "death alarm implant"
+	name = "death alarm bio-chip"
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
-	var/mobname = "Will Robinson"
-	activated = IMPLANT_ACTIVATED_PASSIVE
-	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
-	trigger_causes = IMPLANT_TRIGGER_DEATH_ANY
+	activated = BIOCHIP_ACTIVATED_PASSIVE
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
+	implant_data = /datum/implant_fluff/death_alarm
+	implant_state = "implant-nanotrasen"
 
-/obj/item/implant/death_alarm/get_data()
-	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Nanotrasen \"Profit Margin\" Class Employee Lifesign Sensor<BR>
-				<b>Life:</b> Activates upon death.<BR>
-				<b>Important Notes:</b> Alerts crew to crewmember death.<BR>
-				<HR>
-				<b>Implant Details:</b><BR>
-				<b>Function:</b> Contains a compact radio signaler that triggers when the host's lifesigns cease.<BR>
-				<b>Special Features:</b> Alerts crew to crewmember death.<BR>
-				<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
-	return dat
+	var/mobname = "Unknown"
+	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
 
 /obj/item/implant/death_alarm/implant(mob/target)
 	. = ..()
@@ -59,5 +50,14 @@
 /obj/item/implant/death_alarm/removed(mob/target)
 	if(..())
 		UnregisterSignal(target, COMSIG_MOB_DEATH)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
+
+/obj/item/implanter/death_alarm
+	name = "bio-chip implanter (Death Alarm)"
+	implant_type = /obj/item/implant/death_alarm
+
+/obj/item/implantcase/death_alarm
+	name = "bio-chip Case - 'Death Alarm'"
+	desc = "A case containing a death alarm bio-chip."
+	implant_type = /obj/item/implant/death_alarm

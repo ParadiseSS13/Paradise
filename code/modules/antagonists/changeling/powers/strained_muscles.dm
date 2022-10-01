@@ -9,7 +9,6 @@
 	chemical_cost = 0
 	dna_cost = 1
 	req_human = TRUE
-	max_genetic_damage = 0
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/strained_muscles/Remove(mob/living/L)

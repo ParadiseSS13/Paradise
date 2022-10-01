@@ -4,7 +4,7 @@
 	desc = "Blesses a single person."
 
 	school = "transmutation"
-	charge_max = 60
+	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"

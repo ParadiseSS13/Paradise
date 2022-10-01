@@ -137,3 +137,19 @@
 	. = ..()
 	icon_state = "snap3"
 	render_target = "*snap[id]"
+
+/obj/effect/frosty_breath
+	icon = 'icons/effects/effects.dmi'
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
+
+/obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
+	. = ..()
+	dir = C.dir
+	if(C.buckled)
+		pixel_y = (C.buckled.buckle_offset + 10)
+	if(dir == NORTH)
+		layer = BELOW_MOB_LAYER
+	flick("breath_[C.lying_prev]", src)
+	QDEL_IN(src, 2 SECONDS)

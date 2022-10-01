@@ -120,7 +120,7 @@
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(!istype(new_character))
-		log_runtime(EXCEPTION("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob."), src)
+		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
@@ -240,9 +240,9 @@
 
 /datum/mind/proc/memory_edit_implant(mob/living/carbon/human/H)
 	if(ismindshielded(H))
-		. = "Mindshield Implant:<a href='?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
+		. = "Mindshield Bio-chip:<a href='?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
 	else
-		. = "Mindshield Implant:<b>No Implant</b>|<a href='?src=[UID()];implant=add'>Implant [H.p_them()]!</a></br>"
+		. = "Mindshield Bio-chip:<b>No Bio-chip</b>|<a href='?src=[UID()];implant=add'>Bio-chip [H.p_them()]!</a></br>"
 
 
 /datum/mind/proc/memory_edit_revolution(mob/living/carbon/human/H)
@@ -606,9 +606,12 @@
 				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
 
 				var/list/possible_targets = list()
+				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
-						possible_targets += possible_target.current
+						possible_targets += possible_target.current // Allows for admins to pick off station roles
+						if(!is_invalid_target(possible_target))
+							possible_targets_random += possible_target.current // For random picking, only valid targets
 
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
@@ -617,12 +620,15 @@
 				possible_targets = sortAtom(possible_targets)
 
 				var/new_target
-				if(length(possible_targets) > 0)
+				if(length(possible_targets))
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
 						possible_targets += "Free objective"
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 					else
-						new_target = pick(possible_targets)
+						if(!length(possible_targets_random))
+							to_chat(usr, "<span class='warning'>No random target found. Pick one manually.</span>")
+							return
+						new_target = pick(possible_targets_random)
 
 					if(!new_target)
 						return
@@ -725,8 +731,7 @@
 					return
 				var/datum/mind/targ = new_target
 				if(!istype(targ))
-					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
-					return
+					CRASH("Invalid target for identity theft objective, cancelling")
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.owner = src
 				new_objective.target = new_target
@@ -781,21 +786,21 @@
 				for(var/obj/item/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield implant has been deactivated.</B></FONT></span>")
-				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
-				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
+				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield bio-chip has been deactivated.</B></FONT></span>")
+				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield bio-chip")
+				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield bio-chip")
 			if("add")
 				var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
 				L.implant(H)
 
-				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield implant")
-				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield implant")
+				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield bio-chip")
+				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield bio-chip")
 
 				to_chat(H, "<span class='warning'><Font size =3><B>You somehow have become the recepient of a mindshield transplant, and it just activated!</B></FONT></span>")
 				if(src in SSticker.mode.revolutionaries)
 					special_role = null
 					SSticker.mode.revolutionaries -= src
-					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield implant remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
+					to_chat(src, "<span class='warning'><Font size = 3><B>The nanobots in the mindshield bio-chip remove all thoughts about being a revolutionary.  Get back to work!</B></Font></span>")
 				if(src in SSticker.mode.head_revolutionaries)
 					special_role = null
 					SSticker.mode.head_revolutionaries -=src
@@ -1540,6 +1545,17 @@
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	QDEL_LIST(antag_datums)
 
+/// This proc sets the hijack speed for a mob. If greater than zero, they can hijack. Outputs in seconds.
+/datum/mind/proc/get_hijack_speed()
+	var/hijack_speed = 0
+	if(special_role)
+		hijack_speed = 15 SECONDS
+	if(locate(/datum/objective/hijack) in get_all_objectives())
+		hijack_speed = 10 SECONDS
+	return hijack_speed
+
+
+
 /**
  * Returns an antag datum instance if the src mind has the specified `datum_type`. Returns `null` otherwise.
  *
@@ -1711,6 +1727,7 @@
 			if("Scientist")
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
+		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
@@ -1872,17 +1889,17 @@
 	..()
 	mind.assigned_role = "Shade"
 
-/mob/living/simple_animal/construct/builder/mind_initialize()
+/mob/living/simple_animal/hostile/construct/builder/mind_initialize()
 	..()
 	mind.assigned_role = "Artificer"
 	mind.special_role = SPECIAL_ROLE_CULTIST
 
-/mob/living/simple_animal/construct/wraith/mind_initialize()
+/mob/living/simple_animal/hostile/construct/wraith/mind_initialize()
 	..()
 	mind.assigned_role = "Wraith"
 	mind.special_role = SPECIAL_ROLE_CULTIST
 
-/mob/living/simple_animal/construct/armoured/mind_initialize()
+/mob/living/simple_animal/hostile/construct/armoured/mind_initialize()
 	..()
 	mind.assigned_role = "Juggernaut"
 	mind.special_role = SPECIAL_ROLE_CULTIST

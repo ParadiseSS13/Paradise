@@ -41,16 +41,15 @@
 	sleep(10)
 	return BRUTELOSS
 
-/obj/item/paperplane/update_icon()
-	overlays.Cut()
+/obj/item/paperplane/update_overlays()
+	. = ..()
 	var/list/stamped = internal_paper.stamped
 	if(!stamped)
 		stamped = new
 	else if(stamped)
 		for(var/S in stamped)
 			var/obj/item/stamp = S
-			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi', "paperplane_[initial(stamp.icon_state)]")
-			overlays += stampoverlay
+			. += "paperplane_[initial(stamp.icon_state)]"
 
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
 	to_chat(user, "<span class='notice'>You unfold [src].</span>")
@@ -110,6 +109,11 @@
 		H.emote("scream")
 
 /obj/item/paper/AltClick(mob/user, obj/item/I)
+	if(in_range(user, src) && !user.incapacitated())
+		if(is_pen(user.get_active_hand()))
+			rename()
+			return
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		I = H.is_in_hands(/obj/item/paper)

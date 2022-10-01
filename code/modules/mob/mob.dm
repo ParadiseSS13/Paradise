@@ -9,6 +9,8 @@
 	mobspellremove(src)
 	QDEL_LIST(viruses)
 	QDEL_LIST(actions)
+	for(var/alert in alerts)
+		clear_alert(alert)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
@@ -106,6 +108,19 @@
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
 
 /mob/visible_message(message, self_message, blind_message)
+	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
+		for(var/mob/M in get_mobs_in_view(3, src))
+			if(M.see_invisible < invisibility)
+				continue //can't view the invisible
+			var/msg = message
+			if(self_message && M == src)
+				msg = self_message
+			if(M.loc != loc)
+				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
+					continue
+				msg = blind_message
+			M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		return
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
 			continue //can't view the invisible
@@ -594,33 +609,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/list/result = A.examine(src)
 	to_chat(src, result.Join("\n"))
 
-//same as above
-//note: ghosts can point, this is intended
-//visible_message will handle invisibility properly
-//overriden here and in /mob/dead/observer for different point span classes and sanity checks
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
-	set name = "Point To"
-	set category = "Object"
-
-	if(next_move >= world.time)
-		return
-	if(!isturf(loc) || istype(A, /obj/effect/temp_visual/point) || istype(A, /obj/effect/hallucination))
-		return FALSE
-
-	var/tile = get_turf(A)
-	if(!tile)
-		return FALSE
-
-	changeNext_move(CLICK_CD_POINT)
-	var/obj/P = new /obj/effect/temp_visual/point(tile)
-	P.invisibility = invisibility
-	if(get_turf(src) != tile)
-		// Start off from the pointer and make it slide to the pointee
-		P.pixel_x = (x - A.x) * 32
-		P.pixel_y = (y - A.y) * 32
-		animate(P, 0.5 SECONDS, pixel_x = A.pixel_x, pixel_y = A.pixel_y, easing = QUAD_EASING)
-	return TRUE
-
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
 		if(!( L ))
@@ -994,7 +982,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
-			stat("CPU:", "[Master.formatcpu()]")
+			stat("CPU:", "[Master.formatcpu(world.cpu)]")
+			stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
 			stat("Instances:", "[num2text(world.contents.len, 10)]")
 			GLOB.stat_entry()
 			stat("Server Time:", time_stamp())
@@ -1052,13 +1041,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			statpanel(listed_turf.name, null, statpanel_things)
 
 /mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
-	switch(S.charge_type)
-		if("recharge")
-			statpanel(S.panel,"[S.charge_counter/10.0]/[S.charge_max/10]",S)
-		if("charges")
-			statpanel(S.panel,"[S.charge_counter]/[S.charge_max]",S)
-		if("holdervar")
-			statpanel(S.panel,"[S.holder_var_type] [S.holder_var_amount]",S)
+	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
 
 // facing verbs
 /mob/proc/canface()

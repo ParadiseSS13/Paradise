@@ -257,7 +257,7 @@
 
 
 /obj/item/storage/box/trackimp
-	name = "tracking implant kit"
+	name = "tracking bio-chip kit"
 	desc = "Box full of scum-bag tracking utensils."
 	icon_state = "implant"
 
@@ -271,7 +271,7 @@
 	new /obj/item/locator(src)
 
 /obj/item/storage/box/minertracker
-	name = "boxed tracking implant kit"
+	name = "boxed tracking bio-chip kit"
 	desc = "For finding those who have died on the accursed lavaworld."
 	icon_state = "implant"
 
@@ -284,8 +284,8 @@
 	new /obj/item/locator(src)
 
 /obj/item/storage/box/chemimp
-	name = "chemical implant kit"
-	desc = "Box of stuff used to implant chemicals."
+	name = "chemical bio-chip kit"
+	desc = "Box of stuff used to bio-chip chemicals."
 	icon_state = "implant"
 
 /obj/item/storage/box/chemimp/populate_contents()
@@ -295,8 +295,8 @@
 	new /obj/item/implantpad(src)
 
 /obj/item/storage/box/exileimp
-	name = "boxed exile implant kit"
-	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
+	name = "boxed exile bio-chip kit"
+	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
 	icon_state = "implant"
 
 /obj/item/storage/box/exileimp/populate_contents()
@@ -305,8 +305,8 @@
 	new /obj/item/implanter(src)
 
 /obj/item/storage/box/deathimp
-	name = "death alarm implant kit"
-	desc = "Box of life sign monitoring implants."
+	name = "death alarm bio-chip kit"
+	desc = "Box of life sign monitoring bio-chips."
 	icon_state = "implant"
 
 /obj/item/storage/box/deathimp/populate_contents()
@@ -321,7 +321,7 @@
 
 /obj/item/storage/box/tapes/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/tape(src)
+		new /obj/item/tape/random(src)
 
 /obj/item/storage/box/rxglasses
 	name = "prescription glasses"
@@ -724,10 +724,26 @@
 	foldable = null
 	var/design = NODESIGN
 
-/obj/item/storage/box/papersack/update_icon()
-	if(!contents.len)
+/obj/item/storage/box/papersack/update_desc()
+	. = ..()
+	switch(design)
+		if(NODESIGN)
+			desc = "A sack neatly crafted out of paper."
+		if(NANOTRASEN)
+			desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+		if(SYNDI)
+			desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+		if(HEART)
+			desc = "A paper sack with a heart etched onto the side."
+		if(SMILE)
+			desc = "A paper sack with a crude smile etched onto the side."
+
+/obj/item/storage/box/papersack/update_icon_state()
+	item_state = "paperbag_[design]"
+	if(!length(contents))
 		icon_state = "[item_state]"
-	else icon_state = "[item_state]_closed"
+	else
+		icon_state = "[item_state]_closed"
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
@@ -746,19 +762,7 @@
 			return
 		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
 		design = switchDesign
-		icon_state = "paperbag_[design]"
-		item_state = "paperbag_[design]"
-		switch(design)
-			if(NODESIGN)
-				desc = "A sack neatly crafted out of paper."
-			if(NANOTRASEN)
-				desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
-			if(SYNDI)
-				desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
-			if(HEART)
-				desc = "A paper sack with a heart etched onto the side."
-			if(SMILE)
-				desc = "A paper sack with a crude smile etched onto the side."
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(is_sharp(W))
 		if(!contents.len)
@@ -912,6 +916,19 @@
 	for(var/I in 1 to 3)
 		new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implanter/mindshield(src)
+
+/obj/item/storage/box/dish_drive
+	name = "DIY Dish Drive Kit"
+	desc = "Contains everything you need to build your own Dish Drive!"
+
+/obj/item/storage/box/dish_drive/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	new /obj/item/circuitboard/dish_drive(src)
+	new /obj/item/stack/sheet/glass(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/screwdriver(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

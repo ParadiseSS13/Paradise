@@ -444,7 +444,7 @@
 					user_data.search_rating["max"] = clamp(text2num(answer), user_data.search_rating["min"], 10)
 					populate_booklist()
 				if("edit_search_ratingmin")
-					if(!text2num(answer))
+					if(isnull(text2num(answer)))
 						return
 					user_data.search_rating["min"] = clamp(text2num(answer), 0, user_data.search_rating["max"])
 					populate_booklist()
@@ -463,8 +463,8 @@
 				if("setpagenumber")
 					if(!text2num(answer))
 						return
-					archive_page_num = clamp(text2num(answer), 1, getmaxpages())
 					populate_booklist()
+					archive_page_num = clamp(text2num(answer), 1, getmaxpages())
 				else
 					return FALSE
 		else

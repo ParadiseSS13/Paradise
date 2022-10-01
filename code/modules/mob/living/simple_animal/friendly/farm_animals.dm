@@ -1,6 +1,6 @@
 //goat
 /mob/living/simple_animal/hostile/retaliate/goat
-	name = "goat"
+	name = "\improper goat"
 	desc = "Not known for their pleasant disposition."
 	icon_state = "goat"
 	icon_living = "goat"
@@ -18,23 +18,23 @@
 	response_harm   = "kicks"
 	faction = list("neutral")
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	attack_same = 1
+	attack_same = TRUE
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	maxHealth = 40
 	melee_damage_lower = 1
 	melee_damage_upper = 2
-	stop_automated_movement_when_pulled = 1
-	can_collar = 1
+	stop_automated_movement_when_pulled = TRUE
+	can_collar = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
 	gender = FEMALE
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/retaliate/goat/New()
-	udder = new()
+/mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	. = ..()
+	udder = new()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Destroy()
 	QDEL_NULL(udder)
@@ -109,7 +109,7 @@
 
 //cow
 /mob/living/simple_animal/cow
-	name = "cow"
+	name = "\improper cow"
 	desc = "Known for their milk, just don't tip them over."
 	icon_state = "cow"
 	icon_living = "cow"
@@ -123,14 +123,14 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
@@ -200,13 +200,13 @@
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps")
 	emote_see = list("pecks at the ground","flaps its tiny wings")
-	density = 0
+	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 3
 	maxHealth = 3
@@ -214,8 +214,8 @@
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
-	can_hide = 1
-	can_collar = 1
+	can_hide = TRUE
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
@@ -253,15 +253,15 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_emote = list("clucks","croons")
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
-	density = 0
+	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
 	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 15
 	maxHealth = 15
@@ -273,8 +273,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	holder_type = /obj/item/holder/chicken
-	can_hide = 1
-	can_collar = 1
+	can_hide = TRUE
+	can_collar = TRUE
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
 	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
@@ -370,7 +370,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	return FALSE
 
 /mob/living/simple_animal/pig
-	name = "pig"
+	name = "\improper pig"
 	desc = "Oink oink."
 	icon_state = "pig"
 	icon_living = "pig"
@@ -383,20 +383,20 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/turkey
-	name = "turkey"
+	name = "\improper turkey"
 	desc = "Benjamin Franklin would be proud."
 	icon_state = "turkey"
 	icon_living = "turkey"
@@ -409,19 +409,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "pecks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/goose
-	name = "goose"
+	name = "\improper goose"
 	desc = "A pretty goose. Would make a nice comforter."
 	icon_state = "goose"
 	icon_living = "goose"
@@ -434,19 +434,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal
-	name = "seal"
+	name = "\improper seal"
 	desc = "A beautiful white seal."
 	icon_state = "seal"
 	icon_living = "seal"
@@ -459,19 +459,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/walrus
-	name = "walrus"
+	name = "\improper walrus"
 	desc = "A big brown walrus."
 	icon_state = "walrus"
 	icon_living = "walrus"
@@ -484,13 +484,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL

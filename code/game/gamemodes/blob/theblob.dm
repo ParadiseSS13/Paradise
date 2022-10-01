@@ -9,18 +9,21 @@
 	anchored = TRUE
 	max_integrity = 30
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
+	flags_2 = CRITICAL_ATOM_2
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	var/health_timestamp = 0
 	var/brute_resist = 0.5 //multiplies brute damage by this
 	var/fire_resist = 1 //multiplies burn damage by this
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
+	/// If a threshold is reached, resulting in shifting variables
+	var/compromised_integrity = FALSE
 	var/mob/camera/blob/overmind
 
 /obj/structure/blob/Initialize(mapload)
 	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))
-	update_icon()
+	check_integrity()
 	if(atmosblock)
 		air_update_turf(TRUE)
 	ConsumeTile()
@@ -30,6 +33,7 @@
 		atmosblock = FALSE
 		air_update_turf(1)
 	GLOB.blobs -= src
+	overmind = null // let us not have gc issues
 	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
@@ -63,15 +67,33 @@
 /obj/structure/blob/proc/Life()
 	return
 
+/obj/structure/blob/proc/check_integrity()
+	return
+
+/obj/structure/blob/proc/update_state()
+	return
+
 /obj/structure/blob/proc/RegenHealth()
 	// All blobs heal over time when pulsed, but it has a cool down
 	if(health_timestamp > world.time)
 		return 0
+	var/turf/T = get_turf(src)
+	chemical_attack(T)
 	if(obj_integrity < max_integrity)
 		obj_integrity = min(max_integrity, obj_integrity + 1)
-		update_icon()
-		health_timestamp = world.time + 10 // 1 seconds
+		check_integrity()
+	health_timestamp = world.time + 10 // 1 seconds
 
+/obj/structure/blob/proc/chemical_attack(turf/T)
+	for(var/mob/living/L in T)
+		if(ROLE_BLOB in L.faction) //no friendly/dead fire
+			continue
+		if(!overmind)
+			continue
+		var/mob_protection = L.get_permeability_protection()
+		overmind.blob_reagent_datum.reaction_mob(L, REAGENT_TOUCH, 25, 1, mob_protection)
+		overmind.blob_reagent_datum.send_message(L)
+		L.blob_act(src)
 
 /obj/structure/blob/proc/Pulse(pulse = 0, origin_dir = 0, a_color)//Todo: Fix spaceblob expand
 	RegenHealth()
@@ -92,7 +114,7 @@
 		var/turf/T = get_step(src, dirn)
 		var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 		if(!B)
-			expand(T,1,a_color)//No blob here so try and expand
+			expand(T, 1, a_color, overmind)//No blob here so try and expand
 			return
 		B.adjustcolors(a_color)
 
@@ -110,7 +132,7 @@
 	if(iswallturf(loc))
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
-/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color)
+/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color, _overmind = null)
 	if(prob && !prob(obj_integrity))
 		return
 	if(istype(T, /turf/space) && prob(75)) 	return
@@ -127,6 +149,7 @@
 	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
 	B.density = TRUE
+	B.overmind = _overmind
 	if(T.Enter(B,src))//Attempt to move into the tile
 		B.density = initial(B.density)
 		B.loc = T
@@ -136,6 +159,11 @@
 		qdel(B)
 
 	for(var/atom/A in T)//Hit everything in the turf
+		if(isliving(A) && !A.density && overmind) // Crawling mob / small mob? Extra damage.
+			var/mob/living/M = A
+			var/mob_protection = M.get_permeability_protection()
+			overmind.blob_reagent_datum.reaction_mob(M, REAGENT_TOUCH, 25, 1, mob_protection)
+			overmind.blob_reagent_datum.send_message(M)
 		A.blob_act(src)
 	return 1
 
@@ -186,7 +214,7 @@
 /obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)
-		update_icon()
+		check_integrity()
 
 /obj/structure/blob/proc/change_to(type)
 	if(!ispath(type))
@@ -219,6 +247,7 @@
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.description
 	return "something unknown"
+
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0
@@ -226,20 +255,38 @@
 	max_integrity = 25
 	brute_resist = 0.25
 
-/obj/structure/blob/normal/update_icon()
-	..()
+/obj/structure/blob/normal/check_integrity()
+	var/old_compromised_integrity = compromised_integrity
 	if(obj_integrity <= 15)
-		icon_state = "blob_damaged"
-		name = "fragile blob"
-		desc = "A thin lattice of slightly twitching tendrils."
+		compromised_integrity = TRUE
+	else
+		compromised_integrity = FALSE
+	if(old_compromised_integrity != compromised_integrity)
+		update_state()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+
+/obj/structure/blob/normal/update_state()
+	if(compromised_integrity)
 		brute_resist = 0.5
-	else if(overmind)
-		icon_state = "blob"
-		name = "blob"
-		desc = "A thick wall of writhing tendrils."
+	else
 		brute_resist = 0.25
+
+/obj/structure/blob/normal/update_name()
+	. = ..()
+	if(compromised_integrity)
+		name = "fragile blob"
+	else
+		name = "[overmind ? "blob" : "dead blob"]"
+
+/obj/structure/blob/normal/update_desc()
+	. = ..()
+	if(compromised_integrity)
+		desc = "A thin lattice of slightly twitching tendrils."
+	else
+		desc = "A thick wall of [overmind ? "writhing" : "lifeless"] tendrils."
+
+/obj/structure/blob/normal/update_icon_state()
+	if(compromised_integrity)
+		icon_state = "blob_damaged"
 	else
 		icon_state = "blob"
-		name = "dead blob"
-		desc = "A thick wall of lifeless tendrils."
-		brute_resist = 0.25

@@ -110,8 +110,8 @@
 	id = /obj/item/card/id/engineering
 	pda = /obj/item/pda/atmos
 
-	backpack = /obj/item/storage/backpack/industrial
-	satchel = /obj/item/storage/backpack/satchel_eng
+	backpack = /obj/item/storage/backpack/industrial/atmos
+	satchel = /obj/item/storage/backpack/satchel_atmos
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/engineer
 

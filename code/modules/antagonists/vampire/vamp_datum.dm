@@ -21,8 +21,7 @@
 									/obj/effect/proc_holder/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
 									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
-									/datum/vampire_passive/regen = 200,
-									/obj/effect/proc_holder/spell/turf_teleport/shadow_step = 250)
+									/datum/vampire_passive/regen = 200)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
@@ -52,7 +51,6 @@
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
-	QDEL_LIST(powers)
 	return ..()
 
 /datum/antagonist/vampire/add_owner_to_gamemode()
@@ -116,7 +114,7 @@
 		draining = null
 		return
 	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
-	owner.current.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
+	owner.current.visible_message("<span class='danger'>[owner.current] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner.current))
 		H.LAssailant = null
 	else

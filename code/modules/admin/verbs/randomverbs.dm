@@ -89,6 +89,9 @@
 	var/missing_ages = 0
 	var/msg = ""
 	for(var/client/C in GLOB.clients)
+		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
+			continue // Skip those in stealth mode if an admin isnt viewing the panel
+
 		if(C.player_age == "Requires database")
 			missing_ages = 1
 			continue
@@ -482,7 +485,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				//Add aliens.
 				else
-					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
+					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, FALSE, FALSE)
 					SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
@@ -1070,8 +1073,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(istype(H.loc, /obj/machinery/cryopod))
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
 		else
-			var/area/A = get_area(H)
-			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1;fast_despawn=[A.fast_despawn]'>Cryo</A></TD>"
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
@@ -1085,12 +1087,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(SSticker.mode.ert_disabled)
-		SSticker.mode.ert_disabled = 0
+		SSticker.mode.ert_disabled = FALSE
 		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
 	else
-		SSticker.mode.ert_disabled = 1
+		SSticker.mode.ert_disabled = TRUE
 		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)

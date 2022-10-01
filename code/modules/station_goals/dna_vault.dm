@@ -130,8 +130,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 /obj/structure/filler
 	name = "big machinery part"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	invisibility = 101
 	var/obj/machinery/parent
 
@@ -147,8 +147,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	desc = "Break glass in case of apocalypse."
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	idle_power_usage = 5000
 	pixel_x = -32
 	pixel_y = -64
@@ -188,8 +188,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 			dna_max = G.human_count
 			break
 
-/obj/machinery/dna_vault/update_icon()
-	..()
+/obj/machinery/dna_vault/update_icon_state()
 	if(stat & NOPOWER)
 		icon_state = "vaultoff"
 		return
@@ -200,7 +199,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/dna_vault/Destroy()
