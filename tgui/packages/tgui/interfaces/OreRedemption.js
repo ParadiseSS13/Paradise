@@ -168,9 +168,8 @@ const Alloy = (properties, context) => {
         title="Alloys"
         columns={[
           ['Recipe', '50%'],
-          ['Available', '12%'],
+          ['Available', '11%'],
           ['Smelt', '20%'],
-
         ]}
       />
       {alloys.map((alloy) => (
@@ -302,15 +301,15 @@ const AlloyLine = (properties, context) => {
                 >
                   {ore.description}
             </Flex.Item>
-            <Flex.Item
-              basis="10%"
-              textAlign="center"
-              color={ore.amount > 0 ? 'good' : 'gray'}
-              bold={ore.amount > 0}
-              align="center"
-            >
-              {ore.amount.toLocaleString('en-US')}
-            </Flex.Item>
+              <Flex.Item
+                basis="10%"
+                textAlign="center"
+                color={ore.amount > 0 ? 'good' : 'gray'}
+                bold={ore.amount > 0}
+                align="center"
+               >
+                {ore.amount.toLocaleString('en-US')}
+              </Flex.Item>
             <Flex.Item
               basis="20%"
               textAlign="center"
