@@ -148,6 +148,7 @@
 
 	for(var/mob/M in contents)
 		M.loc = src.loc
+		M.status_flags &= ~GODMODE
 		if(istype(M, /mob/living))
 			var/mob/living/L = M
 			L.Paralyse(15)

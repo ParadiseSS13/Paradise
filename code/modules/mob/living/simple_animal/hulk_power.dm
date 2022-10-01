@@ -35,6 +35,7 @@
 	playsound(user, 'sound/effects/bamf.ogg', CHANNEL_BUZZ)
 	Monster.original_body = user
 	user.forceMove(Monster)
+	user.status_flags |= GODMODE
 	user.mind.transfer_to(Monster)
 	Monster.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
 	return
