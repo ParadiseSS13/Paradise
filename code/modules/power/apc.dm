@@ -157,7 +157,7 @@
 	cell.charge = 0
 
 /obj/item/apc_electronics
-	name = "power control module"
+	name = "APC Module"
 	desc = "Heavy-duty switching circuits for power control."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
