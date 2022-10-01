@@ -33,7 +33,7 @@ export const PrisonerImplantManager = (props, context) => {
       <ComplexModal />
       <Window.Content>
         <LoginInfo />
-        <Section title="Prisoner Points Manager System">
+        <Section title="Prisoner Implant Manager System" height={10}>
           <LabeledList>
             <LabeledListItem label="Prisoner">
               <Button
@@ -46,29 +46,23 @@ export const PrisonerImplantManager = (props, context) => {
             </LabeledListItem>
             <LabeledListItem label="Points">
               {prisonerInfo.points !== null ? prisonerInfo.points : "-/-"}
-              <Button ml={2}
-                icon="minus-square"
-                disabled={prisonerInfo.points === null}
-                content="Reset"
-                onClick={() => act('reset_points')}
-                />
+              {prisonerInfo.goal !== null &&
+                <Button ml={2}
+                  icon="minus-square"
+                  disable={!prisonerInfo.points}
+                  content="reset"
+                  onClick={() => act('reset_points')}
+                  />
+                }
             </LabeledListItem>
             <LabeledListItem label="Point Goal">
-              {prisonerInfo.goal !== null ? prisonerInfo.goal : "-/-"}
-              <Button ml={2}
+              <Button
                 icon="pen"
                 disabled={prisonerInfo.goal === null}
-                content="Edit"
+                content={prisonerInfo.goal !== null ? prisonerInfo.goal : "-/-"}
                 onClick={() => modalOpen(context, 'set_points')}
                 />
-            </LabeledListItem>
-            <LabeledListItem>
-              <box hidden={prisonerInfo.goal === null}>
-                1 minute of prison time should roughly equate to 150 points.<br /><br />
-                Sentences should not exceed 5000 points.<br /><br />
-                Permanent prisoners should not be given a point goal.<br /><br />
-                Prisoners who meet their point goal will be able to automatically access their locker and return to the station using the shuttle.
-              </box>
+
             </LabeledListItem>
           </LabeledList>
         </Section>
@@ -76,7 +70,7 @@ export const PrisonerImplantManager = (props, context) => {
           {trackingInfo
             .map(implant => (
               <>
-                <Box bold>Subject: {implant.subject}</Box><Box key={implant.subject}>
+                <Box bold>Subject: {implant.subject}</Box><Box key={implant.id}>
                   <LabeledList>
                     <LabeledListItem label="Location">{implant.location}</LabeledListItem>
                     <LabeledListItem label="Health">{implant.health}</LabeledListItem>

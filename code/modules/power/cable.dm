@@ -515,6 +515,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, paramcolor = null)
 	..()
+	amount = length
 	if(paramcolor)
 		color = paramcolor
 	pixel_x = rand(-2,2)
@@ -534,7 +535,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 		if(!S)
 			return
-		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == ORGAN_SYNTHETIC_OPEN)
+		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(S.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
@@ -833,13 +834,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	pixel_y = rand(-2,2)
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	update_wclass()
-
-
-/obj/item/stack/cable_coil/five
-
-// Passes '5' to the parent as `new_amount`, so 5 coils are created.
-/obj/item/stack/cable_coil/five/New(loc, new_amount = 5, merge = TRUE, paramcolor = null)
-	..()
 
 /obj/item/stack/cable_coil/yellow
 	color = COLOR_YELLOW

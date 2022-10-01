@@ -3,10 +3,8 @@
 	. = ..()
 	if(!.)
 		return FALSE
-
 	icon_state = "ai-crash"
-	for(var/obj/machinery/ai_status_display/O as anything in GLOB.ai_displays) //change status
+	for(var/obj/machinery/ai_status_display/O in GLOB.machines) //change status
 		if(atoms_share_level(O, src))
-			O.mode = AI_DISPLAY_MODE_BSOD
-
+			O.mode = 2
 	gib()

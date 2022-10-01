@@ -18,7 +18,6 @@
 	max_equip = 5
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 	destruction_sleep_duration = 2 SECONDS
-	emag_proof = TRUE //no stealing CC mechs.
 
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
@@ -56,7 +55,6 @@
 	max_temperature = 40000
 	wreckage = /obj/structure/mecha_wreckage/ares
 	max_equip = 4
-	emag_proof = FALSE //Gamma armory can be stolen however.
 
 /obj/mecha/combat/marauder/ares/loaded/Initialize(mapload)
 	. = ..()
@@ -114,7 +112,6 @@
 	operation_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
-	emag_proof = FALSE //The crew can steal a syndicate mech. As a treat.
 
 /obj/mecha/combat/marauder/mauler/loaded/Initialize(mapload)
 	. = ..()

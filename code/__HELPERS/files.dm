@@ -1,24 +1,3 @@
-// Security helpers to ensure you cant arbitrarily load stuff from disk
-/proc/wrap_file(filepath)
-	if(IsAdminAdvancedProcCall())
-		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
-		return
-
-	return file(filepath)
-
-/proc/wrap_file2text(filepath)
-	if(IsAdminAdvancedProcCall())
-		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to load files via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to load files via advanced proc-call")
-		return
-
-	return file2text(filepath)
-
 //checks if a file exists and contains text
 //returns text as a string if these conditions are met
 /proc/return_file_text(filename)
@@ -26,7 +5,7 @@
 		error("File not found ([filename])")
 		return
 
-	var/text = wrap_file2text(filename)
+	var/text = file2text(filename)
 	if(!text)
 		error("File empty ([filename])")
 		return

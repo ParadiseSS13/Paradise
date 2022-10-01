@@ -91,8 +91,6 @@
 /// The render target used by the emissive.
 #define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
 
-#define POINT_PLANE 14
-
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 

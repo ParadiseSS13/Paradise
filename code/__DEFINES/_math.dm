@@ -239,6 +239,3 @@
 
 /// Checks if a number is an integer, or a float
 #define IS_INT(x) (x == round(x))
-
-// Gives you the percent of two inputs
-#define PERCENT_OF(val1, val2) (val1 * (val2 / 100))

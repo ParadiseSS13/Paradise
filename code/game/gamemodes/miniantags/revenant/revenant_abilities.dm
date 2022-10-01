@@ -301,13 +301,13 @@
 		new /obj/effect/temp_visual/revenant(loc)
 		locked = FALSE
 		open = TRUE
-		emag_act(usr)
+		emag_act(null)
 
 /obj/rev_malfunction(cause_emp = TRUE)
 	if(prob(20))
 		if(prob(50))
 			new /obj/effect/temp_visual/revenant(loc)
-		emag_act(usr)
+		emag_act(null)
 	else if(cause_emp)
 		emp_act(1)
 

@@ -29,10 +29,13 @@
 	block_chance_melee = 1
 	block_chance_ranged = 1
 	stun_chance = 0
-	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
+	bot_core_type = /obj/machinery/bot_core/toy
 	weapon = /obj/item/toy/sword
 	frustration_number = 5
 	locked = FALSE
+
+/obj/machinery/bot_core/toy
+	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/spam_flag_false() //used for addtimer to not spam comms
 	spam_flag = 0
@@ -50,7 +53,7 @@
 	if(ismob(AM) && AM == target)
 		var/mob/living/carbon/C = AM
 		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
-		C.KnockDown(4 SECONDS)
+		C.Weaken(4 SECONDS)
 
 /mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
 	. = ..()
@@ -79,11 +82,9 @@
 		..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
-	do_attack_animation(C)
+	src.do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
-	addtimer(CALLBACK(src, .proc/do_sword_attack, C), 2)
-
-/mob/living/simple_animal/bot/secbot/griefsky/proc/do_sword_attack(mob/living/carbon/C)
+	spawn(2)
 	icon_state = spin_icon
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))

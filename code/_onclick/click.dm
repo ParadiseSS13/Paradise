@@ -223,8 +223,7 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(atom/A, params)
-	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
-		return TRUE
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
 /*
 	Restrained ClickOn
 

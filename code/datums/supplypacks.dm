@@ -446,28 +446,28 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
-	name = "Mindshield Bio-chips Crate"
+	name = "Mindshield Implants Crate"
 	contains = list (/obj/item/storage/lockbox/mindshield)
 	cost = 40
-	containername = "mindshield bio-chip crate"
+	containername = "mindshield implant crate"
 
 /datum/supply_packs/security/armory/trackingimp
-	name = "Tracking Bio-chips Crate"
+	name = "Tracking Implants Crate"
 	contains = list (/obj/item/storage/box/trackimp)
 	cost = 20
-	containername = "tracking bio-chip crate"
+	containername = "tracking implant crate"
 
 /datum/supply_packs/security/armory/chemimp
-	name = "Chemical Bio-chips Crate"
+	name = "Chemical Implants Crate"
 	contains = list (/obj/item/storage/box/chemimp)
 	cost = 20
-	containername = "chemical bio-chip crate"
+	containername = "chemical implant crate"
 
 /datum/supply_packs/security/armory/exileimp
-	name = "Exile Bio-chips Crate"
+	name = "Exile Implants Crate"
 	contains = list (/obj/item/storage/box/exileimp)
 	cost = 30
-	containername = "exile bio-chip crate"
+	containername = "exile implant crate"
 
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"
@@ -1440,14 +1440,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
-
-/datum/supply_packs/misc/barberkit
-	name = "Barber Kit Crate"
-	contains = list(/obj/item/clothing/under/barber,
-					/obj/item/storage/box/lip_stick,
-					/obj/item/storage/box/barber)
-	cost = 20
-	containername = "barber kit crate"
 
 /datum/supply_packs/misc/carpet
 	name = "Carpet Crate"

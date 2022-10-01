@@ -45,9 +45,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
 					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
 					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini", "flamingmoe",
-					"arnold_palmer","gimlet","sidecar","whiskeysour","mintjulep","pinacolada","sontse","ahdomaieclipse",
-					"beachfeast","fyrsskartears","junglevox","slimemold","dieseife","aciddreams","islaywhiskey","ultramatter",
-					"howler", "dionasmash"))
+					"arnold_palmer","gimlet","sidecar","whiskeysour","mintjulep","pinacolada"))
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))

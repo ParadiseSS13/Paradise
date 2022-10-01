@@ -40,7 +40,6 @@
 	var/frozen = FALSE
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
-	var/emag_proof = FALSE //If it is immune to emagging. Used by CC mechs.
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -730,18 +729,9 @@
 		if(!user.unEquip(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
 			return
-
-		// Check if a tracker exists
-		var/obj/item/mecha_parts/mecha_tracking/new_tracker = W
-		for(var/obj/item/mecha_parts/mecha_tracking/current_tracker in trackers)
-			if(new_tracker.ai_beacon == current_tracker.ai_beacon)
-				to_chat(user, "<span class='warning'>This exosuit already has \a [new_tracker.ai_beacon ? "AI" : "tracking"] beacon.</span>")
-				user.put_in_hands(new_tracker)
-				return
-
-		new_tracker.forceMove(src)
+		W.forceMove(src)
 		trackers += W
-		user.visible_message("[user] attaches [new_tracker] to [src].", "<span class='notice'>You attach [new_tracker] to [src].</span>")
+		user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
 		diag_hud_set_mechtracking()
 		return
 
@@ -879,14 +869,8 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	if(emag_proof)
-		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
-		return
-	user.visible_message("<span class='notice'>[user] slides a card through [src]'s id slot.</span>", "<span class='notice'>You slide the card through [src]'s ID slot, resetting the DNA and access locks.</span>")
-	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	dna = null
-	operation_req_access = list()
-
+	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+	return
 
 
 /////////////////////////////////////

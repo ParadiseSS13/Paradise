@@ -103,8 +103,10 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-
-	setDir(turn(dir, -90))
+	if(dir == EAST)
+		setDir(WEST)
+	else
+		setDir(EAST)
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
@@ -245,7 +247,8 @@
 		occupantData["radLoss"] = occupant.radiation
 		occupantData["cloneLoss"] = occupant.getCloneLoss()
 		occupantData["brainLoss"] = occupant.getBrainLoss()
-		occupantData["drunkenness"] = (occupant.get_drunkenness() / 10)
+		occupantData["paralysis"] = occupant.AmountParalyzed()
+		occupantData["paralysisSeconds"] = round(occupant.AmountParalyzed() * 0.25)
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
@@ -408,7 +411,7 @@
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
 
-		dat += "Inebriation Severity: [round(occupant.get_drunkenness() / 10)] seconds<br>"
+		dat += "Paralysis Summary: [round(occupant.AmountParalyzed() / 10)] seconds left.<br>"
 		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"

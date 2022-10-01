@@ -254,7 +254,9 @@
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	try_localhost_autoadmin()
+	if(GLOB.configuration.admin.enable_localhost_autoadmin)
+		if(is_connecting_from_localhost())
+			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
 
 	holder = GLOB.admin_datums[ckey]
 	if(holder)
@@ -1182,9 +1184,6 @@
 	else
 		SSambience.ambience_listening_clients -= src
 
-/client/proc/try_localhost_autoadmin()
-	if(GLOB.configuration.admin.enable_localhost_autoadmin && is_connecting_from_localhost())
-		return new /datum/admins("!LOCALHOST!", R_HOST, ckey)
 
 // Verb scoped to the client level so its ALWAYS available
 /client/verb/open_tos()

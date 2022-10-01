@@ -36,6 +36,11 @@
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+/mob/living/simple_animal/hostile/alien/xenobio
+	maxHealth = 60
+	health = 60
+	gold_core_spawnable = HOSTILE_SPAWN
+
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
 	icon_state = "aliend_running"
@@ -45,6 +50,11 @@
 	melee_damage_upper = 15
 	var/plant_cooldown = 30
 	var/plants_off = 0
+
+/mob/living/simple_animal/hostile/alien/drone/xenobio
+	maxHealth = 60
+	health = 60
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/alien/drone/handle_automated_action()
 	if(!..()) //AIStatus is off
@@ -70,6 +80,12 @@
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 
+
+/mob/living/simple_animal/hostile/alien/sentinel/xenobio
+	health = 75
+	maxHealth = 75
+	gold_core_spawnable = HOSTILE_SPAWN
+
 /mob/living/simple_animal/hostile/alien/queen
 	name = "alien queen"
 	icon_state = "alienq_running"
@@ -91,6 +107,11 @@
 	var/plants_off = 0
 	var/egg_cooldown = 30
 	var/plant_cooldown = 30
+
+/mob/living/simple_animal/hostile/alien/queen/xenobio
+	health = 100
+	maxHealth = 100
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/alien/queen/handle_automated_action()
 	if(!..())

@@ -33,7 +33,6 @@
 		atmosblock = FALSE
 		air_update_turf(1)
 	GLOB.blobs -= src
-	overmind = null // let us not have gc issues
 	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
@@ -77,23 +76,11 @@
 	// All blobs heal over time when pulsed, but it has a cool down
 	if(health_timestamp > world.time)
 		return 0
-	var/turf/T = get_turf(src)
-	chemical_attack(T)
 	if(obj_integrity < max_integrity)
 		obj_integrity = min(max_integrity, obj_integrity + 1)
 		check_integrity()
-	health_timestamp = world.time + 10 // 1 seconds
+		health_timestamp = world.time + 10 // 1 seconds
 
-/obj/structure/blob/proc/chemical_attack(turf/T)
-	for(var/mob/living/L in T)
-		if(ROLE_BLOB in L.faction) //no friendly/dead fire
-			continue
-		if(!overmind)
-			continue
-		var/mob_protection = L.get_permeability_protection()
-		overmind.blob_reagent_datum.reaction_mob(L, REAGENT_TOUCH, 25, 1, mob_protection)
-		overmind.blob_reagent_datum.send_message(L)
-		L.blob_act(src)
 
 /obj/structure/blob/proc/Pulse(pulse = 0, origin_dir = 0, a_color)//Todo: Fix spaceblob expand
 	RegenHealth()
@@ -114,7 +101,7 @@
 		var/turf/T = get_step(src, dirn)
 		var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 		if(!B)
-			expand(T, 1, a_color, overmind)//No blob here so try and expand
+			expand(T,1,a_color)//No blob here so try and expand
 			return
 		B.adjustcolors(a_color)
 
@@ -132,7 +119,7 @@
 	if(iswallturf(loc))
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
-/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color, _overmind = null)
+/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color)
 	if(prob && !prob(obj_integrity))
 		return
 	if(istype(T, /turf/space) && prob(75)) 	return
@@ -149,7 +136,6 @@
 	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
 	B.density = TRUE
-	B.overmind = _overmind
 	if(T.Enter(B,src))//Attempt to move into the tile
 		B.density = initial(B.density)
 		B.loc = T
@@ -159,11 +145,6 @@
 		qdel(B)
 
 	for(var/atom/A in T)//Hit everything in the turf
-		if(isliving(A) && !A.density && overmind) // Crawling mob / small mob? Extra damage.
-			var/mob/living/M = A
-			var/mob_protection = M.get_permeability_protection()
-			overmind.blob_reagent_datum.reaction_mob(M, REAGENT_TOUCH, 25, 1, mob_protection)
-			overmind.blob_reagent_datum.send_message(M)
 		A.blob_act(src)
 	return 1
 

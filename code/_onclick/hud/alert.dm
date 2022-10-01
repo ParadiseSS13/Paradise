@@ -3,21 +3,19 @@
 //PUBLIC -  call these wherever you want
 
 
-/**
- * Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already.
- * Each mob may only have one alert per category.
- *
- * Arguments:
- * * category - a text string corresponding to what type of alert it is
- * * type - a type path of the actual alert type to throw
- * * severity - is an optional number that will be placed at the end of the icon_state for this alert
-	 For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
- * * obj/new_master - optional argument. Sets the alert's icon state to "template" in the ui_style icons with the master as an overlay. Clicks are forwarded to master
- * * no_anim - whether the alert should play a small sliding animation when created on the player's screen
- * * icon_override - makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
- * * list/alert_args - a list of arguments to pass to the alert when creating it
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override)
+
+/*
+ Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
+ category is a text string. Each mob may only have one alert per category; the previous one will be replaced
+ path is a type path of the actual alert type to throw
+ severity is an optional number that will be placed at the end of the icon_state for this alert
+ For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
+ new_master is optional and sets the alert's icon state to "template" in the ui_style icons with the master as an overlay.
+ Clicks are forwarded to master
+ Override makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
  */
-/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override, list/alert_args)
+
 	if(!category)
 		return
 
@@ -39,11 +37,7 @@
 			else //no need to update
 				return 0
 	else
-		if(alert_args)
-			alert_args.Insert(1, null) // So it's still created in nullspace.
-			alert = new type(arglist(alert_args))
-		else
-			alert = new type()
+		alert = new type()
 		alert.override_alerts = override
 		if(override)
 			alert.timeout = null
@@ -198,10 +192,6 @@
 	icon_state = "starving"
 
 /// Machine "hunger"
-
-/obj/screen/alert/hunger/fat/machine
-	name = "Over Charged"
-	desc = "Your cell has excessive charge due to electrical shocks. Run around the station and spend some energy."
 
 /obj/screen/alert/hunger/full/machine
 	name = "Full Charge"

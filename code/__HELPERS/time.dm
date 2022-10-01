@@ -61,12 +61,6 @@
 /proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
 	return time2text(station_time(time, TRUE), format)
 
-/proc/all_timestamps()
-	var/real_time = time_stamp()
-	var/station_time = station_time_timestamp()
-	var/all = "[real_time] ST[station_time]"
-	return all
-
 /* Returns 1 if it is the selected month and day */
 /proc/isDay(month, day)
 	if(isnum(month) && isnum(day))

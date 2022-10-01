@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	var/outfit_file = input("Pick outfit json file:", "File") as null|file
 	if(!outfit_file)
 		return
-	var/filedata = wrap_file2text(outfit_file)
+	var/filedata = file2text(outfit_file)
 	var/json = json_decode(filedata)
 	if(!json)
 		to_chat(admin,"<span class='warning'>JSON decode error.</span>")

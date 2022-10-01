@@ -136,12 +136,7 @@
 			else
 				L.death()
 		break
-	addtimer(CALLBACK(src, .proc/finish_cook, I, user), cooktime)
-
-/obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
-	if(QDELETED(I)) //For situations where the item being cooked gets deleted mid-cook (primed grenades)
-		turnoff()
-		return
+	sleep(cooktime)
 	if(I && I.loc == src)
 		//New interaction to allow special foods to be made/cooked via deepfryer without removing original functionality
 		//Define the foods/results on the specific machine		--FalseIncarnate

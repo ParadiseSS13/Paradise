@@ -542,10 +542,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-catamari"
 		else
 			icon_state = "ai"
-
-	if(istype(loc, /obj/item/aicard/))
-		var/obj/item/aicard/AIC = loc
-		AIC.update_icon(UPDATE_OVERLAYS)
+	//else
+//			to_chat(usr, "You can only change your display once!")
+			//return
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
@@ -966,9 +965,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
-	for(var/obj/machinery/ai_status_display/AISD as anything in GLOB.ai_displays) //change status
-		AISD.emotion = emote
-		AISD.update_icon()
+	for(var/obj/machinery/M in GLOB.machines) //change status
+		if(istype(M, /obj/machinery/ai_status_display))
+			var/obj/machinery/ai_status_display/AISD = M
+			AISD.emotion = emote
+			AISD.update_icon()
+		//if Friend Computer, change ALL displays
+		else if(istype(M, /obj/machinery/status_display))
+
+			var/obj/machinery/status_display/SD = M
+			if(emote=="Friend Computer")
+				SD.friendc = TRUE
+			else
+				SD.friendc = FALSE
+	return
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()

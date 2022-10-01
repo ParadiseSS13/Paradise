@@ -39,13 +39,12 @@
 /obj/item/toy/carpplushie/dehy_carp/proc/Swell()
 	desc = "It's growing!"
 	visible_message("<span class='notice'>[src] swells up!</span>")
+
 	// Animation
 	icon = 'icons/mob/carp.dmi'
 	flick("carp_swell", src)
 	// Wait for animation to end
-	addtimer(CALLBACK(src, .proc/make_carp), 6)
-
-/obj/item/toy/carpplushie/dehy_carp/proc/make_carp()
+	sleep(6)
 	// Make space carp
 	var/mob/living/simple_animal/hostile/carp/C = new /mob/living/simple_animal/hostile/carp(get_turf(src))
 	// Make carp non-hostile to user, yes this means

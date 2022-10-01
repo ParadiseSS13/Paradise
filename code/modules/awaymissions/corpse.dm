@@ -155,7 +155,7 @@
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
-	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Nian")
+	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -253,8 +253,7 @@
 		H.equipOutfit(outfit)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
-			if(I)
-				qdel(I)
+			qdel(I)
 
 		if(disable_pda)
 			// We don't want corpse PDAs to show up in the messenger list.

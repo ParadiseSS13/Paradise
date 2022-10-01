@@ -11,7 +11,6 @@ FIRE ALARM
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "firealarm_on"
-	/// Whether or not the fire alarm will sound the alarm if its temperature rises above 200C
 	var/detecting = TRUE
 	var/working = TRUE
 	var/time = 10.0
@@ -51,18 +50,10 @@ FIRE ALARM
 		return
 	if(stat & BROKEN)
 		icon_state = "firealarm_broken"
-		return
-	if(stat & NOPOWER)
+	else if(stat & NOPOWER)
 		icon_state = "firealarm_off"
-		return
-	
-	var/area/area = get_area(src)
-	if(area.fire)
-		icon_state = "firealarm_alarming"
-		return
-	if(!detecting)
+	else if(!detecting)
 		icon_state = "firealarm_detect"
-		return
 	else
 		icon_state = "firealarm_on"
 
