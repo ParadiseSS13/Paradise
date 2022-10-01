@@ -172,6 +172,10 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	dog_fashion = /datum/dog_fashion/back
 
+/obj/item/clothing/suit/corgisuit/en
+	name = "\improper super-hero E-N suit"
+	icon_state = "ensuit"
+
 /obj/item/clothing/suit/corgisuit/super_hero
 	name = "super-hero corgi suit"
 	desc = "A suit made long ago by the ancient empire KFC. This one pulses with a strange power."

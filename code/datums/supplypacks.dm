@@ -241,6 +241,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Standard Justice Enforcer Crate"
 	contains = list(/obj/item/clothing/head/helmet/justice,
 					/obj/item/clothing/head/helmet/justice,
+					/obj/item/clothing/head/helmet/justice/escape,
 					/obj/item/clothing/mask/gas/sechailer,
 					/obj/item/clothing/mask/gas/sechailer)
 	cost = 60 //justice comes at a price. An expensive, noisy price.
@@ -253,6 +254,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/suit/armor/vest)
 	cost = 10
 	containername = "armor crate"
+
+/datum/supply_packs/security/armor/bonus
+	name = "Bloody Armor Crate"
+	contains = list(/obj/item/clothing/suit/armor/vest/bloody,
+					/obj/item/clothing/suit/armor/vest/bloody)
+	cost = 80
+	containername = "bloody armor crate"
+	contraband = 1
 
 ////// Weapons: Basic
 
@@ -1599,8 +1608,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 ///////////// Costumes
 
-/datum/supply_packs/misc/costume
-	name = "Standard Costume Crate"
+/datum/supply_packs/misc/servicecostume
+	name = "Service Costume Crate"
 	contains = list(/obj/item/storage/backpack/clown,
 					/obj/item/clothing/shoes/clown_shoes,
 					/obj/item/clothing/mask/gas/clown_hat,
@@ -1618,8 +1627,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
-	containername = "standard costumes"
+	containername = "service costumes"
 	access = ACCESS_THEATRE
+
+/datum/supply_packs/misc/costume
+	name = "Costume Crate"
+	contains = list(/obj/item/clothing/head/foragecap,
+					/obj/item/clothing/suit/officercoat,
+					/obj/item/clothing/under/officeruniform,
+					/obj/item/clothing/suit/lordadmiral,
+					/obj/item/clothing/head/lordadmiralhat,
+					/obj/item/clothing/suit/hastur,
+					/obj/item/clothing/suit/corgisuit,
+					/obj/item/clothing/head/corgi,
+					/obj/item/clothing/suit/hooded/salmon_costume,
+					/obj/item/clothing/suit/corgisuit/en,
+					/obj/item/clothing/head/corgi/en)
+	cost = 30
+	containername = "costume crate"
 
 /datum/supply_packs/misc/wizard
 	name = "Wizard Costume Crate"
@@ -1768,6 +1793,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/lipstick/random)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"
+
+/datum/supply_packs/misc/wedding
+	name = "Wedding Crate"
+	contains = list(/obj/item/clothing/gloves/ring/gold/blessed,
+					/obj/item/clothing/gloves/ring/gold/blessed,
+					/obj/item/clothing/under/wedding/bride_white,
+					/obj/item/clothing/under/wedding/bride_red,
+					/obj/item/clothing/under/wedding/bride_blue,
+					/obj/item/clothing/under/wedding/bride_purple,
+					/obj/item/clothing/under/wedding/bride_orange)
+	cost = 50
+	containername = "wedding crate"
 
 /datum/supply_packs/misc/teamcolors		//For team sports like space polo
 	name = "Team Jerseys Crate"
