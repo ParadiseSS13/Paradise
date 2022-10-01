@@ -18,9 +18,9 @@ export const BotFloor = (props, context) => {
     remote_disabled,
     hullplating,
     replace,
+    repair,
     find,
     alert,
-    repair,
     magnet,
   } = data;
   return (
@@ -82,14 +82,53 @@ export const BotFloor = (props, context) => {
           </LabeledList>
         </Section>
         <Section title="Floor Settings">
-          <Button.Checkbox>
-            content={}
+          <Button.Checkbox
+            fluid
+            checked={hullplating}
+            content="Add tiles to new hull plating"
             disabled={noaccess}
-          </Button.Checkbox>
+            onClick={() => act('autotile')}
+          />
+          <Button.Checkbox
+            fluid
+            checked={replace}
+            content="Replace floor tiles"
+            disabled={noaccess}
+            onClick={() => act('replacetiles')}
+          />
+          <Button.Checkbox
+            fluid
+            checked={repair}
+            content="Repair damaged tiles and platings"
+            disabled={noaccess}
+            onClick={() => act('fixfloors')}
+          />
+        </Section>
+        <Section title = "Miscellaneous">
+          <Button.Checkbox
+            fluid
+            checked={find}
+            content="Finds tiles"
+            disabled={noaccess}
+            onClick={() => act('eattiles')}
+          />
+          <Button.Checkbox
+            fluid
+            checked={alert}
+            content="Transmit notice when empty"
+            disabled={noaccess}
+            onClick={() => act('nagonempty')}
+          />          <Button.Checkbox
+          fluid
+          checked={magnet}
+          content="Traction Magnets"
+          disabled={noaccess}
+          onClick={() => act('anchored')}
+        />
         </Section>
         {painame && (
           <Section title="pAI">
-            <Button
+            <Button.Ch
               fluid
               icon="eject"
               content={painame}
