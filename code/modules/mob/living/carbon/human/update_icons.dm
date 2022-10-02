@@ -416,9 +416,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/obj/item/organ/external/hand/right/r_hand = get_limb_by_name("r_hand")
 
 	if(l_hand)
-		hands_appearance.overlays += icon(l_hand.icobase, "l_hand")
+		hands_appearance.overlays += l_hand.mob_icon
 	if(r_hand)
-		hands_appearance.overlays += icon(r_hand.icobase, "r_hand")
+		hands_appearance.overlays += r_hand.mob_icon
 
 	overlays_standing[HANDS_LAYER] = hands_appearance
 
