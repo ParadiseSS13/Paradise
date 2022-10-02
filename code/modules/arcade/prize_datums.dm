@@ -248,7 +248,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/codex_gigas
 	name = "Toy Codex Gigas"
 	desc = "For helping you come up with writing ideas for your diabolical adventures."
-	typepath = /obj/item/toy/codex_gigas/
+	typepath = /obj/item/toy/codex_gigas
 	cost = 75
 
 /datum/prize_item/pet_rock
