@@ -21708,7 +21708,7 @@
 	},
 /obj/item/soap/deluxe,
 /obj/effect/landmark/spawner/xeno,
-/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky/captainducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
