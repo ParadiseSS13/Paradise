@@ -563,8 +563,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override
-		else if(w_uniform.sprite_sheets && w_uniform.sprite_sheets[dna.species.name])
-			standing.icon = w_uniform.sprite_sheets[dna.species.name]
+		if(w_uniform.sprite_sheets)
+			standing.icon = w_uniform.sprite_sheets["Human"]
+			if(w_uniform.sprite_sheets[dna.species.name] && icon_exists(w_uniform.sprite_sheets[dna.species.name], "[t_color]_s"))
+				standing.icon = w_uniform.sprite_sheets[dna.species.name]
 
 		if(w_uniform.blood_DNA)
 			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")
