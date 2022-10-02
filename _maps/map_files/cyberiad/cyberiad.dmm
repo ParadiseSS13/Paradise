@@ -19195,7 +19195,7 @@
 /area/crew_quarters/dorms)
 "aWL" = (
 /obj/structure/table,
-/obj/item/clothing/under/swimsuit/red,
+/obj/item/clothing/under/misc/swimsuit/red,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -83940,7 +83940,7 @@
 	},
 /area/maintenance/aft)
 "pXs" = (
-/obj/item/clothing/under/swimsuit/black,
+/obj/item/clothing/under/misc/swimsuit/black,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)

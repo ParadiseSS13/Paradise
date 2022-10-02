@@ -136,6 +136,36 @@
 	item_color = "durathread"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 5, ENERGY = 0, BOMB = 5, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
+/obj/item/clothing/under/misc/swimsuit/black
+	name = "black swimsuit"
+	desc = "An oldfashioned black swimsuit."
+	icon_state = "swim_black"
+	item_color = "swim_black"
+
+/obj/item/clothing/under/misc/swimsuit/blue
+	name = "blue swimsuit"
+	desc = "An oldfashioned blue swimsuit."
+	icon_state = "swim_blue"
+	item_color = "swim_blue"
+
+/obj/item/clothing/under/misc/swimsuit/purple
+	name = "purple swimsuit"
+	desc = "An oldfashioned purple swimsuit."
+	icon_state = "swim_purp"
+	item_color = "swim_purp"
+
+/obj/item/clothing/under/misc/swimsuit/green
+	name = "green swimsuit"
+	desc = "An oldfashioned green swimsuit."
+	icon_state = "swim_green"
+	item_color = "swim_green"
+
+/obj/item/clothing/under/misc/swimsuit/red
+	name = "red swimsuit"
+	desc = "An oldfashioned red swimsuit."
+	icon_state = "swim_red"
+	item_color = "swim_red"
+
 /obj/item/clothing/under/misc/acj
 	name = "administrative cybernetic jumpsuit"
 	icon_state = "syndicate"
