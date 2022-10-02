@@ -131,7 +131,8 @@ export const BotFloor = (props, context) => {
             content="Transmit notice when empty"
             disabled={noaccess}
             onClick={() => act('nagonempty')}
-          />          <Button.Checkbox
+          />
+          <Button.Checkbox
           fluid
           checked={magnet}
           content="Traction Magnets"
