@@ -66,7 +66,7 @@
 /obj/machinery/cooker/deepfryer/proc/boil_step_1(mob/user)
 	visible_message(
 		"<span class='danger'>[src] starts to bubble and froth unnervingly!</span>",
-		"<span class='danger'>You hear a growling and intimidating bubbling!"
+		"<span class='danger'>You hear a growling and intimidating bubbling!</span>"
 	)
 
 	playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 75)
