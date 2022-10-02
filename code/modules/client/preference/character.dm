@@ -1457,7 +1457,7 @@
 
 	// Observers get tourist outfit.
 	if(for_observer)
-		clothes_s = new /icon('icons/mob/clothing/under/misc.dmi', "tourist_s")
+		clothes_s = new /icon('icons/mob/clothing/under/costumes.dmi', "tourist_s")
 		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if(backbag == 2)
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
