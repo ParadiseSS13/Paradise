@@ -100,7 +100,7 @@
 	return data
 
 /mob/living/simple_animal/bot/floorbot/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
