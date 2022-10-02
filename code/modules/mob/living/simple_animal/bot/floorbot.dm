@@ -66,9 +66,8 @@
 	text_dehack = "You detect errors in [name] and reset [p_their()] programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-
-
 //TGUI
+
 /mob/living/simple_animal/bot/floorbot/show_controls(mob/M) //Used for bypassing the other UI
 	ui_interact(M)
 
@@ -136,7 +135,6 @@
 		if("ejectpai")
 			ejectpai()
 
-
 //END OF TGUI
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
@@ -161,41 +159,6 @@
 	if(emagged == 2)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
-
-/mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
-	if(..())
-		return 1
-
-	switch(href_list["operation"])
-		if("replace")
-			replacetiles = !replacetiles
-		if("tiles")
-			eattiles = !eattiles
-		if("make")
-			maketiles = !maketiles
-		if("fix")
-			fixfloors = !fixfloors
-		if("autotile")
-			autotile = !autotile
-		if("emptynag")
-			nag_on_empty = !nag_on_empty
-		if("anchor")
-			anchored = !anchored
-
-		if("bridgemode")
-			var/setdir = input("Select construction direction:") as null|anything in list("north","east","south","west","disable")
-			switch(setdir)
-				if("north")
-					targetdirection = 1
-				if("south")
-					targetdirection = 2
-				if("east")
-					targetdirection = 4
-				if("west")
-					targetdirection = 8
-				if("disable")
-					targetdirection = null
-	update_controls()
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	if(!..())
