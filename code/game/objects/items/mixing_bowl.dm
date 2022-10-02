@@ -167,5 +167,5 @@
 	reagents.clear_reagents()
 	var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(get_turf(source))
 	mysteryfood.reagents.add_reagent("carbon", amount)
-	mysteryfood.reagents.add_reagent("????", amount/10)
+	mysteryfood.reagents.add_reagent("????", amount / 10)
 	make_dirty(75)

@@ -238,7 +238,7 @@
 	if(reagents.total_volume)
 		dirty++
 	reagents.clear_reagents()
-	to_chat(user, "<span class='notice'>You eject of \the [src]'s contents.</span>")
+	to_chat(user, "<span class='notice'>You eject the contents of [src].</span>")
 	SStgui.update_uis(src)
 
 //choose_recipes(): picks out recipes for the machine and any mixing bowls it may contain.
@@ -311,7 +311,7 @@
 	return 0
 
 /obj/machinery/kitchen_machine/proc/start()
-	visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
+	visible_message("<span class='notice'>[src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
 	if(soundloop)
 		soundloop.start()
 	else
@@ -359,8 +359,8 @@
 	reagents.clear_reagents()
 	if(amount)
 		var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(src)
-		mysteryfood.reagents.add_reagent("carbon", amount/2)
-		mysteryfood.reagents.add_reagent("????", amount/15)
+		mysteryfood.reagents.add_reagent("carbon", amount / 2)
+		mysteryfood.reagents.add_reagent("????", amount / 15)
 		mysteryfood.forceMove(get_turf(src))
 
 /obj/machinery/kitchen_machine/update_icon_state()
@@ -483,10 +483,10 @@
 
 /obj/machinery/kitchen_machine/AltClick(mob/user)
 	if(dirty >= 100)
-		to_chat(user, "<span class='warning'>Its too dirty.</span>")
+		to_chat(user, "<span class='warning'>It's too dirty.</span>")
 		return
 	if(!has_cookables())
-		to_chat(user, "<span class='warning'>Its empty!</span>")
+		to_chat(user, "<span class='warning'>It's empty!</span>")
 		return
 
 	cook()
