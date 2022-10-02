@@ -102,7 +102,8 @@
 /mob/living/simple_animal/bot/floorbot/ui_act(action, params)
 	if(..())
 		return
-	if(topic_denied(usr))
+	var/mob/user = ui.user
+	if(topic_denied(user))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
 		return
 	add_fingerprint(usr)
