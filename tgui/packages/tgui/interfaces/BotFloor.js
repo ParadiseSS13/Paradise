@@ -90,8 +90,7 @@ export const BotFloor = (props, context) => {
         </Section>
         <Section title="Floor Settings">
           <LabeledList>
-            <LabeledList.Item
-              label="Tiles Left">
+            <LabeledList.Item label="Tiles Left">
               {tiles}
             </LabeledList.Item>
           </LabeledList>
