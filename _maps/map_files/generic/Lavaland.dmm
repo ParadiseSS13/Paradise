@@ -2379,8 +2379,8 @@
 "fC" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 32
+	pixel_y = 28;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
