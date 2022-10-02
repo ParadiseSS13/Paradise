@@ -136,7 +136,7 @@ export const BotFloor = (props, context) => {
           content="Traction Magnets"
           disabled={noaccess}
           onClick={() => act('anchored')}
-        />
+          />
         </Section>
         {painame && (
           <Section title="pAI">
