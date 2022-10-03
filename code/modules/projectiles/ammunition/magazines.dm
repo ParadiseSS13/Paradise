@@ -352,7 +352,7 @@
 	icon_state = "50ae"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
-	caliber = ".50"
+	caliber = ".50ae"
 	max_ammo = 7
 	multiple_sprites = 1
 
