@@ -29847,6 +29847,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/item/reagent_containers/spray/waterflower,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_regular_floor = "yellowsiding";
@@ -39272,11 +39273,11 @@
 /obj/structure/mirror{
 	pixel_y = 26
 	},
-/obj/item/reagent_containers/spray/waterflower,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
+/obj/item/stamp/mime,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_regular_floor = "yellowsiding";

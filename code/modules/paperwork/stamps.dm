@@ -107,3 +107,7 @@
 	icon_state = "stamp-taipan"
 	item_color = "syndicate"
 
+/obj/item/stamp/mime
+	name = "mime's rubber stamp"
+	icon_state = "stamp-mime"
+	item_color = "mime"
