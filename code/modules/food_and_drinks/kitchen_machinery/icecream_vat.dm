@@ -119,7 +119,7 @@
 				reagents.add_reagent("sprinkles",1)
 				*/ //Sprinkles are now created by using the ice cream on the machine
 			if(ID == 2 | ID == 3)
-				var/brand = pick(1,2,3,4,5)
+				var/brand = pick(1,2,3,4)
 				if(brand == 1)
 					if(ID == 2)
 						reagents.add_reagent("cola",5)
@@ -140,21 +140,10 @@
 						reagents.add_reagent("spacemountainwind",5)
 					else
 						reagents.add_reagent("gin",5)
-				else if(brand == 5)
-					if(ID == 2)
-						reagents.add_reagent("brownstar",5)
-					else
-						reagents.add_reagent("whiskey",5)
 			else if(ID == 4)
-				if(reagents.total_volume <= 500 & reagents.total_volume >= 15)
-					reagents.add_reagent("cream",(30 - reagents.total_volume))
-				else if(reagents.total_volume <= 15)
-					reagents.add_reagent("cream",(15 - reagents.total_volume))
+				reagents.add_reagent("cream",5)
 			else if(ID == 5)
-				if(reagents.total_volume <= 500 & reagents.total_volume >= 15)
-					reagents.add_reagent("vanilla",(30 - reagents.total_volume))
-				else if(reagents.total_volume <= 15)
-					reagents.add_reagent("vanilla",(15 - reagents.total_volume))
+				reagents.add_reagent("vanilla",5)
 
 	else if(href_list["createchoco"])
 		var/name = generate_name(reagents.get_master_reagent_name())
@@ -185,8 +174,8 @@
 	else if(href_list["createwaffle"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Waffle Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
-		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamwafflecone/C
+		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamwafflecone(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
