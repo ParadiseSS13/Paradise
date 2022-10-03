@@ -24,6 +24,12 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage
+	var/datum/multitool_menu_host/menu
+
+/obj/item/multitool/Initialize()
+	. = ..()
+	req_one_access_txt = "[ACCESS_HEADS];[ACCESS_CONSTRUCTION]" // initialize it here to be able to use our macros
+	menu = new(src)
 
 /obj/item/multitool/proc/IsBufferA(typepath)
 	if(!buffer)
@@ -41,8 +47,12 @@
 	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
 	return TRUE
 
+/obj/item/multitool/attack_self(mob/user)
+	menu.interact(user)
+
 /obj/item/multitool/Destroy()
 	buffer = null
+	QDEL_NULL(menu)
 	return ..()
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.

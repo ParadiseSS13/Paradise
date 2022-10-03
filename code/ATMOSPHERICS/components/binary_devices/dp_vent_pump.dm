@@ -26,8 +26,6 @@
 	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
 
-	settagwhitelist = list("id_tag")
-
 	var/pressure_checks = 1
 	//1: Do not pass external_pressure_bound
 	//2: Do not pass input_pressure_min
@@ -45,6 +43,9 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
+
+/obj/machinery/atmospherics/binary/dp_vent_pump/init_multitool_menu()
+	multitool_menu = new /datum/multitool_menu/idtag/freq/dp_vent_pump(src)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/atmos_init()
 	..()
@@ -235,17 +236,6 @@
 		broadcast_status()
 	update_icon()
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	return ..()
-
-/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_menu(var/mob/user,var/obj/item/multitool/P)
-	return {"
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
-		<li><b>ID Tag:</b> <a href="?src=[UID()];set_id=1">[id_tag]</a></li>
-	</ul>
-	"}
+/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)

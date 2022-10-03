@@ -62,6 +62,9 @@
 	radio_connection = null
 	return ..()
 
+/obj/machinery/atmospherics/unary/vent_scrubber/init_multitool_menu()
+	multitool_menu = new /datum/multitool_menu/idtag/freq/vent_scrubber(src)
+
 /obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()
 	if(welded)
@@ -137,7 +140,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, radio_filter_in)
+	if(frequency)
+		radio_connection = SSradio.add_object(src, frequency, radio_filter_in)
 	if(frequency != ATMOS_VENTSCRUB)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
@@ -346,30 +350,12 @@
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/multitool_menu(var/mob/user,var/obj/item/multitool/P)
-	return {"
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag", "set_id")]</li>
-	</ul>
-	"}
-
-/obj/machinery/atmospherics/unary/vent_scrubber/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
-	if("set_id" in href_list)
-		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
-		if(!newid)
-			return
-
-		if(frequency == ATMOS_VENTSCRUB)
-			initial_loc.air_scrub_info -= id_tag
-			initial_loc.air_scrub_names -= id_tag
-
-		id_tag = newid
-		broadcast_status()
-
-		return TRUE
-
-	return ..()
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/set_tag(new_tag)
+	if(frequency == ATMOS_VENTSCRUB)
+		initial_loc.air_scrub_info -= id_tag
+		initial_loc.air_scrub_names -= id_tag
+	id_tag = new_tag
+	broadcast_status()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
 	return !welded
@@ -384,16 +370,17 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
+/obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1
 
 	return ..()
+
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	multitool_menu.interact(user, I)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/welder_act(mob/user, obj/item/I)
 	. = TRUE

@@ -11,7 +11,6 @@
 	var/area/area = null
 	var/otherarea = null
 	//	luminosity = 1
-	settagwhitelist = list("logic_id_tag")
 	var/light_connect = 1							//Allows the switch to control lights in its associated areas. When set to 0, using the switch won't affect the lights.
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
@@ -149,12 +148,6 @@
 		return
 	return ..()
 
-/obj/machinery/light_switch/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	update_multitool_menu(user)
-
 /obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -166,18 +159,3 @@
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new/obj/item/mounted/frame/light_switch(get_turf(src))
 	qdel(src)
-
-/obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
-	return {"
-	<ul>
-	<li><b>Light Circuit Connection:</b> <a href='?src=[UID()];toggle_light_connect=1'>[light_connect ? "On" : "Off"]</a></li>
-	<li><b>Logic Connection:</b> <a href='?src=[UID()];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
-	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
-	</ul>"}
-
-/obj/machinery/light_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
-	..()
-	if("toggle_light_connect" in href_list)
-		light_connect = !light_connect
-	if("toggle_logic" in href_list)
-		logic_connect = !logic_connect

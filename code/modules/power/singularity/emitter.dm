@@ -209,32 +209,6 @@
 	return P
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	if(istype(W, /obj/item/wrench))
-		if(active)
-			to_chat(user, "Turn off the [src] first.")
-			return
-		switch(state)
-			if(0)
-				state = 1
-				playsound(src.loc, W.usesound, 75, 1)
-				user.visible_message("[user.name] secures [src.name] to the floor.", \
-					"You secure the external reinforcing bolts to the floor.", \
-					"You hear a ratchet")
-				src.anchored = 1
-			if(1)
-				state = 0
-				playsound(src.loc,W.usesound, 75, 1)
-				user.visible_message("[user.name] unsecures [src.name] reinforcing bolts from the floor.", \
-					"You undo the external reinforcing bolts.", \
-					"You hear a ratchet")
-				src.anchored = 0
-			if(2)
-				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
-		return
 
 	if(W.GetID() || ispda(W))
 		if(emagged)
@@ -269,6 +243,28 @@
 		if(user)
 			user.visible_message("[user.name] emags the [src.name].","<span class='warning'>You short out the lock.</span>")
 
+/obj/machinery/power/emitter/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(active)
+		to_chat(user, "Turn off [src] first.")
+		return
+	switch(state)
+		if(0)
+			state = 1
+			playsound(loc, I.usesound, 75, 1)
+			user.visible_message("[user.name] secures [name] to the floor.", \
+				"You secure the external reinforcing bolts to the floor.", \
+				"You hear a ratchet")
+			src.anchored = 1
+		if(1)
+			state = 0
+			playsound(loc, I.usesound, 75, 1)
+			user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
+				"You undo the external reinforcing bolts.", \
+				"You hear a ratchet")
+			src.anchored = 0
+		if(2)
+			to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor.</span>")
 
 /obj/machinery/power/emitter/welder_act(mob/user, obj/item/I)
 	if(active)
