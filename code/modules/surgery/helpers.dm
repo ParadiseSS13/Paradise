@@ -8,7 +8,8 @@
 								/obj/item/cautery = 100,			\
 								/obj/item/clothing/mask/cigarette = 90,	\
 								/obj/item/lighter = 60,			\
-								/obj/item/weldingtool = 30
+								/obj/item/weldingtool = 30,     \
+								/obj/item/flashlight/flare/torch = 30
 								)
 
 		if(istype(M, /mob/living/carbon/human))
