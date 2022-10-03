@@ -567,14 +567,14 @@
 			to_chat(user, "<span class='warning'>You cannot put the board inside, the frame is damaged!</span>")
 			return
 
-		user.visible_message("[user.name] inserts the APC electronics into [src].", \
-							"<span class='notice'>You start to insert the APC electronics into the frame...</span>")
+		user.visible_message("[user.name] inserts [W] into [src].", \
+							"<span class='notice'>You start to insert [W] into the frame...</span>")
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 10, target = src))
 			if(!has_electronics())
 				electronics_state = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
-				to_chat(user, "<span class='notice'>You place the APC electronics inside the frame.</span>")
+				to_chat(user, "<span class='notice'>You place [W] inside the frame.</span>")
 				qdel(W)
 
 	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
@@ -617,7 +617,7 @@
 			if(terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
-			to_chat(user, "<span class='notice'>You are trying to remove the APC electronics...</span>" )
+			to_chat(user, "<span class='notice'>You start trying to remove the APC electronics...</span>" )
 			if(I.use_tool(src, user, 50, volume = I.tool_volume))
 				if(has_electronics())
 					electronics_state = APC_ELECTRONICS_NONE
