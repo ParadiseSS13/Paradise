@@ -1465,7 +1465,7 @@
 					/obj/item/clothing/shoes/griffin = 1,
 					/obj/item/clothing/head/griffin = 1,
 					/obj/item/clothing/accessory/waistcoat = 1,
-					/obj/item/clothing/under/suit = 1,
+					/obj/item/clothing/under/suit/black = 1,
 					/obj/item/clothing/head/that =1,
 					/obj/item/clothing/under/costume/kilt = 1,
 					/obj/item/clothing/accessory/waistcoat = 1,
