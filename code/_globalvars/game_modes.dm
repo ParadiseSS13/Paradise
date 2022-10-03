@@ -15,3 +15,5 @@ GLOBAL_VAR(custom_event_msg)
 GLOBAL_VAR(custom_event_admin_msg)
 
 GLOBAL_VAR_INIT(morphs_announced, FALSE)
+
+GLOBAL_VAR_INIT(disable_robotics_consoles, FALSE)

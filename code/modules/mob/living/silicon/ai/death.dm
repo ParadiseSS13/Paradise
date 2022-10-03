@@ -15,6 +15,9 @@
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 
+	if(mind in SSticker.mode.traitors)
+		GLOB.disable_robotics_consoles = FALSE
+
 	if(nuking)
 		set_security_level("red")
 		nuking = 0
