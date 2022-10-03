@@ -36,6 +36,7 @@
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
 	var/min_hours = 0 //Минимальное количество часов для игры на гост роли
 	var/exp_type = EXP_TYPE_LIVING
+	var/respawn_cooldown = 0
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	var/mob/dead/observer/O = user
@@ -52,6 +53,20 @@
 		return
 	if(!O.can_reenter_corpse)
 		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
+		return
+	var/deathtime = world.time - O.timeofdeath
+	if(respawn_cooldown && deathtime < respawn_cooldown && O.started_as_observer == 0)
+		var/deathtimeminutes = round(deathtime / 600)
+		var/pluralcheck = "minute"
+		if(deathtimeminutes == 0)
+			pluralcheck = ""
+		else if(deathtimeminutes == 1)
+			pluralcheck = " [deathtimeminutes] minute and"
+		else if(deathtimeminutes > 1)
+			pluralcheck = " [deathtimeminutes] minutes and"
+		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait [respawn_cooldown / 600] minutes to respawn as [mob_name]!</span>")
 		return
 	if(config.use_exp_restrictions && min_hours)
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
