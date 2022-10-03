@@ -47,7 +47,7 @@
 		return
 	if(isturf(AM))
 		return
-	if(istype(AM, /obj/item/storage))
+	if(isstorage(AM))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

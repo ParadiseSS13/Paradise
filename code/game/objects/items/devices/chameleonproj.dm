@@ -148,7 +148,7 @@
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/relaymove(mob/user, direction)
-	if(!isturf(loc) || istype(loc, /turf/space) || !direction)
+	if(!isturf(loc) || isspaceturf(loc) || !direction)
 		return // No magical movement!
 
 	if(can_move)
