@@ -258,8 +258,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armor/bonus
 	name = "Bloody Armor Crate"
 	contains = list(/obj/item/clothing/suit/armor/vest/bloody,
+					/obj/item/clothing/suit/armor/vest/bloody,
 					/obj/item/clothing/suit/armor/vest/bloody)
-	cost = 80
+	cost = 30
 	containername = "bloody armor crate"
 	contraband = 1
 
@@ -1638,6 +1639,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/suit/lordadmiral,
 					/obj/item/clothing/head/lordadmiralhat,
 					/obj/item/clothing/suit/hastur,
+					/obj/item/clothing/suit/monkeysuit,
+					/obj/item/clothing/mask/gas/monkeymask,
 					/obj/item/clothing/suit/corgisuit,
 					/obj/item/clothing/head/corgi,
 					/obj/item/clothing/suit/corgisuit/en,
