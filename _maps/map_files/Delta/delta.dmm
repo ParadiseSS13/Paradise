@@ -49756,8 +49756,8 @@
 	req_access_txt = "4"
 	},
 /obj/item/restraints/handcuffs/pinkcuffs,
-/obj/item/clothing/under/rank/security,
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
+/obj/item/clothing/under/rank/security/officer,
 /obj/item/grenade/barrier,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/effect/decal/cleanable/cobweb2,

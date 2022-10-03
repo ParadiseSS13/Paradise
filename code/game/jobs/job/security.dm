@@ -171,7 +171,7 @@
 /datum/outfit/job/officer
 	name = "Security Officer"
 	jobtype = /datum/job/officer
-	uniform = /obj/item/clothing/under/rank/security
+	uniform = /obj/item/clothing/under/rank/security/officer
 	suit = /obj/item/clothing/suit/armor/vest/security
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
