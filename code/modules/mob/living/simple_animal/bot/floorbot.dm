@@ -14,7 +14,7 @@
 	bot_filter = RADIO_FLOORBOT
 	model = "Floorbot"
 	bot_purpose = "seek out damaged or missing floor tiles, and repair or replace them as necessary"
-	bot_core_type = /obj/machinery/bot_core/floorbot
+	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
 	path_image_color = "#FFA500"
@@ -233,9 +233,9 @@
 
 		if(loc == target || loc == target.loc)
 			if(istype(target, /obj/item/stack/tile/plasteel))
-				eattile(target)
+				start_eattile(target)
 			else if(istype(target, /obj/item/stack/sheet/metal))
-				maketile(target)
+				start_maketile(target)
 			else if(istype(target, /turf/) && emagged < 2)
 				repair(target)
 			else if(emagged == 2 && istype(target,/turf/simulated/floor))
@@ -247,20 +247,23 @@
 				else
 					F.ReplaceWithLattice()
 				audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
-				spawn(50)
-					amount ++
-					anchored = FALSE
-					mode = BOT_IDLE
-					target = null
+				addtimer(CALLBACK(src, .proc/inc_amount_callback), 5 SECONDS)
+
 			path = list()
 			return
 
 	oldloc = loc
 
+/mob/living/simple_animal/bot/floorbot/proc/inc_amount_callback()
+	amount ++
+	anchored = FALSE
+	mode = BOT_IDLE
+	target = null
+
 /mob/living/simple_animal/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
 		speak("Requesting refill at <b>[get_area(src)]</b>!", radio_channel)
-		nagged = 1
+		nagged = TRUE
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	var/area/t_area = get_area(t)
@@ -299,90 +302,106 @@
 	return result
 
 /mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
-
 	if(istype(target_turf, /turf/space/))
 		 //Must be a hull breach or in bridge mode to continue.
 		if(!is_hull_breach(target_turf) && !targetdirection)
 			target = null
 			return
+
 	else if(!istype(target_turf, /turf/simulated/floor))
 		return
+
 	if(amount <= 0)
 		mode = BOT_IDLE
 		target = null
 		return
+
 	anchored = TRUE
+
 	if(istype(target_turf, /turf/space/)) //If we are fixing an area not part of pure space, it is
 		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
-		spawn(50)
-			if(mode == BOT_REPAIRING)
-				if(autotile) //Build the floor and include a tile.
-					target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
-				else //Build a hull plating without a floor tile.
-					target_turf.ChangeTurf(/turf/simulated/floor/plating)
-				mode = BOT_IDLE
-				amount -= 1
-				update_icon(UPDATE_ICON_STATE)
-				anchored = FALSE
-				target = null
+		addtimer(CALLBACK(src, .proc/make_bridge_plating, target_turf), 5 SECONDS)
+
 	else
 		var/turf/simulated/floor/F = target_turf
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
-		spawn(50)
-			if(mode == BOT_REPAIRING)
-				F.broken = FALSE
-				F.burnt = FALSE
-				F.ChangeTurf(/turf/simulated/floor/plasteel)
-				mode = BOT_IDLE
-				amount -= 1
-				update_icon(UPDATE_ICON_STATE)
-				anchored = FALSE
-				target = null
+		addtimer(CALLBACK(src, .proc/make_bridge_plating, F), 5 SECONDS)
 
-/mob/living/simple_animal/bot/floorbot/proc/eattile(obj/item/stack/tile/plasteel/T)
+/mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
+	if(mode != BOT_REPAIRING)
+		return
+
+	F.broken = FALSE
+	F.burnt = FALSE
+	F.ChangeTurf(/turf/simulated/floor/plasteel)
+	mode = BOT_IDLE
+	amount--
+	update_icon(UPDATE_ICON_STATE)
+	anchored = FALSE
+	target = null
+
+/mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
+	if(mode != BOT_REPAIRING)
+		return
+
+	if(autotile) //Build the floor and include a tile.
+		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
+	else //Build a hull plating without a floor tile.
+		target_turf.ChangeTurf(/turf/simulated/floor/plating)
+	mode = BOT_IDLE
+	amount--
+	update_icon(UPDATE_ICON_STATE)
+	anchored = FALSE
+	target = null
+
+/mob/living/simple_animal/bot/floorbot/proc/start_eattile(obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
 	mode = BOT_REPAIRING
-	spawn(20)
-		if(isnull(T))
-			target = null
-			mode = BOT_IDLE
-			return
-		if(amount + T.amount > 50)
-			var/i = 50 - amount
-			amount += i
-			T.amount -= i
-		else
-			amount += T.amount
-			qdel(T)
+	addtimer(CALLBACK(src, .proc/do_eattile, T), 2 SECONDS)
+
+/mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
+	if(isnull(T))
 		target = null
 		mode = BOT_IDLE
-		update_icon(UPDATE_ICON_STATE)
+		return
+	if(amount + T.amount > 50)
+		var/i = 50 - amount
+		amount += i
+		T.amount -= i
+	else
+		amount += T.amount
+		qdel(T)
+	target = null
+	mode = BOT_IDLE
+	update_icon(UPDATE_ICON_STATE)
 
-/mob/living/simple_animal/bot/floorbot/proc/maketile(obj/item/stack/sheet/metal/M)
+/mob/living/simple_animal/bot/floorbot/proc/start_maketile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
 	mode = BOT_REPAIRING
-	spawn(20)
-		if(isnull(M))
-			target = null
-			mode = BOT_IDLE
-			return
-		var/obj/item/stack/tile/plasteel/T = new /obj/item/stack/tile/plasteel
-		T.amount = 4
-		T.forceMove(M.loc)
-		if(M.amount > 1)
-			M.amount--
-		else
-			qdel(M)
+	addtimer(CALLBACK(src, .proc/do_maketile, M), 2 SECONDS)
+
+/mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
+	if(isnull(M))
 		target = null
 		mode = BOT_IDLE
+		return
+	var/obj/item/stack/tile/plasteel/T = new /obj/item/stack/tile/plasteel
+	T.amount = 4
+	T.forceMove(M.loc)
+	if(M.amount > 1)
+		M.amount--
+	else
+		qdel(M)
+	target = null
+	mode = BOT_IDLE
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
 	if(mode == BOT_REPAIRING)
@@ -416,15 +435,12 @@
 	do_sparks(3, 1, src)
 	..()
 
-/obj/machinery/bot_core/floorbot
-	req_one_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
-
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
 	if(isturf(A))
 		repair(A)
 	else if(istype(A,/obj/item/stack/tile/plasteel))
-		eattile(A)
+		start_eattile(A)
 	else if(istype(A,/obj/item/stack/sheet/metal))
-		maketile(A)
+		start_maketile(A)
 	else
 		..()

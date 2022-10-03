@@ -71,6 +71,7 @@
 	cooldown = 10 SECONDS
 	volume = 40
 	unintentional_stat_allowed = DEAD
+	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_alien = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_robot = "shudders violently for a moment before falling still, its eyes slowly darkening."

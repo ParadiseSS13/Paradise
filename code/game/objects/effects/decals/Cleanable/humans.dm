@@ -150,7 +150,9 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	giblets = null
 	return ..()
 
-/obj/effect/decal/cleanable/blood/gibs/update_icon()
+/obj/effect/decal/cleanable/blood/gibs/update_icon(updates = ALL)
+	if(!updates)
+		return
 	giblets = new(base_icon, "[icon_state]_flesh", dir)
 	if(!fleshcolor || fleshcolor == "rainbow")
 		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"

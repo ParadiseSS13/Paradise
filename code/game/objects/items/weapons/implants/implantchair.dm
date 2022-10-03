@@ -1,6 +1,6 @@
 /obj/machinery/implantchair
-	name = "mindshield implanter"
-	desc = "Used to implant occupants with mindshield implants."
+	name = "mindshield bio-chip implanter"
+	desc = "Used to implant occupants with mindshield bio-chips."
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
 	density = TRUE
@@ -33,12 +33,12 @@
 		else
 			health_text = "[round(occupant.health,0.1)]"
 
-	var/dat ="<B>Implanter Status</B><BR>"
+	var/dat ="<B>bio-chip implanter Status</B><BR>"
 
 	dat +="<B>Current occupant:</B> [occupant ? "<BR>Name: [occupant]<BR>Health: [health_text]<BR>" : "<FONT color=red>None</FONT>"]<BR>"
-	dat += "<B>Implants:</B> [length(implant_list) ? "[length(implant_list)]" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
+	dat += "<B>Bio-chips:</B> [length(implant_list) ? "[length(implant_list)]" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
 	if(occupant)
-		dat += "[ready ? "<A href='?src=[UID()];implant=1'>Implant</A>" : "Recharging"]<BR>"
+		dat += "[ready ? "<A href='?src=[UID()];implant=1'>Bio-chip</A>" : "Recharging"]<BR>"
 	user.set_machine(src)
 	user << browse(dat, "window=implant")
 	onclose(user, "implant")
@@ -118,7 +118,7 @@
 		if(!imp)
 			continue
 		if(istype(imp, /obj/item/implant/mindshield))
-			visible_message("<span class='warning'>[src] implants [M].</span>")
+			visible_message("<span class='warning'>[src] bio-chips [M].</span>")
 
 			if(imp.implant(M))
 				implant_list -= imp

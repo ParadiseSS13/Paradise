@@ -233,7 +233,6 @@
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
-#define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
 #define isanimal(A)			(istype((A), /mob/living/simple_animal))
@@ -274,7 +273,7 @@
 #define isnewplayer(A)  (istype((A), /mob/new_player))
 
 #define isorgan(A)		(istype((A), /obj/item/organ/external))
-#define hasorgans(A)	(ishuman(A))
+#define hasorgans(A)	(iscarbon(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 

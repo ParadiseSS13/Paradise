@@ -163,10 +163,11 @@
 			switch(remove_from)
 				if("ears")
 					if(ears)
-						if(available_channels.len)
-							say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
-						else
-							say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+						if(stat == CONSCIOUS) //DEAD PARROTS SHOULD NOT SPEAK (i hate that this is done in topic)
+							if(length(available_channels))
+								say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							else
+								say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 						ears.forceMove(loc)
 						ears = null
 						update_speak()

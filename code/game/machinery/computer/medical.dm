@@ -53,7 +53,7 @@
 		"p_stat" = list("*Deceased*", "*SSD*", "Active", "Physically Unfit", "Disabled"),
 		"m_stat" = list("*Insane*", "*Unstable*", "*Watch*", "Stable"),
 		// Medical
-		"blood_type" = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"),
+		"blood_type" = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "Slime Jelly", "None"),
 	)
 
 /obj/machinery/computer/med_data/Destroy()

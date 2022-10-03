@@ -126,3 +126,8 @@
 #define AI_DISPLAY_MODE_BLANK 0
 #define AI_DISPLAY_MODE_EMOTE 1
 #define AI_DISPLAY_MODE_BSOD 2
+
+// Door operations
+#define DOOR_OPENING 1
+#define DOOR_CLOSING 2
+#define DOOR_MALF 3
