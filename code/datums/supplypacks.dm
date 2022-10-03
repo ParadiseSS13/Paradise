@@ -1604,7 +1604,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/clown,
 					/obj/item/clothing/shoes/clown_shoes,
 					/obj/item/clothing/mask/gas/clown_hat,
-					/obj/item/clothing/under/rank/clown,
+					/obj/item/clothing/under/rank/civilian/clown,
 					/obj/item/bikehorn,
 					/obj/item/storage/backpack/mime,
 					/obj/item/clothing/under/rank/civilian/mime,

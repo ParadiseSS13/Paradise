@@ -386,7 +386,7 @@
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"
 
-	uniform = /obj/item/clothing/under/rank/clown
+	uniform = /obj/item/clothing/under/rank/civilian/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
@@ -1263,7 +1263,7 @@
 /datum/outfit/admin/honksquad
 	name = "Honksquad"
 
-	uniform = /obj/item/clothing/under/rank/clown
+	uniform = /obj/item/clothing/under/rank/civilian/clown
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	back = /obj/item/storage/backpack/clown
 	id = /obj/item/card/id/clown

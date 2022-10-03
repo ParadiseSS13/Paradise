@@ -109,7 +109,7 @@
 /obj/item/storage/backpack/clown/syndie
 
 /obj/item/storage/backpack/clown/syndie/populate_contents()
-	new /obj/item/clothing/under/rank/clown(src)
+	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/shoes/magboots/clown(src)
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/radio/headset/headset_service(src)

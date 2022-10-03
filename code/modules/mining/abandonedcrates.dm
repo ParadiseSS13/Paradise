@@ -106,7 +106,7 @@
 			new /obj/item/defibrillator/compact(src)
 		if(87 to 88)
 			new /obj/item/storage/backpack/clown(src)
-			new /obj/item/clothing/under/rank/clown(src)
+			new /obj/item/clothing/under/rank/civilian/clown(src)
 			new /obj/item/clothing/shoes/clown_shoes(src)
 			new /obj/item/pda/clown(src)
 			new /obj/item/clothing/mask/gas/clown_hat(src)
