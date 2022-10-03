@@ -1,4 +1,4 @@
-/obj/item/clothing/under/costume/costume
+/obj/item/clothing/under/costume
 	icon = 'icons/obj/clothing/under/costumes.dmi'
 
 	sprite_sheets = list(
