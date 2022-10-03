@@ -38,6 +38,7 @@
 
 	if(is_cmagged) //If we've cleaned a cmagged object
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+		uncmag()
 		return TRUE
 	else
 		//Generic cleaning functionality
