@@ -9509,6 +9509,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"aVX" = (
+/obj/structure/chair/sofa/left,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint{
+	name = "Virology Maintenance"
+	})
 "aWb" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 30;
@@ -20241,6 +20252,11 @@
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -2
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -32920,6 +32936,11 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cRC" = (
@@ -44828,6 +44849,11 @@
 "dLu" = (
 /obj/structure/chair/office/dark{
 	dir = 4
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
@@ -63611,6 +63637,11 @@
 /area/hallway/primary/central/se)
 "hhm" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -80965,6 +80996,18 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"lmf" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/maintenance/fsmaint2{
+	name = "Tourist Area Maintenance"
+	})
 "lmj" = (
 /obj/structure/table/reinforced,
 /obj/item/mmi/robotic_brain,
@@ -88467,6 +88510,11 @@
 	icon_state = "plant-22";
 	tag = "icon-plant-22"
 	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -91612,6 +91660,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"nzf" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard{
+	name = "Engineering Maintenance"
+	})
 "nzg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -100070,6 +100128,15 @@
 	icon_state = "dark"
 	},
 /area/engine/hardsuitstorage)
+"prR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "prU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -111022,6 +111089,11 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "rEt" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
@@ -122108,6 +122180,16 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
+"ucB" = (
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/storage{
+	name = "Perma Maintenance"
+	})
 "ucJ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -133286,6 +133368,11 @@
 /area/maintenance/detectives_office)
 "wwu" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
 /turf/simulated/floor/plating,
 /area/library/abandoned)
 "wwI" = (
@@ -133647,6 +133734,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small{
 	dir = 8
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -138628,6 +138720,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"xCH" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/landmark{
+	color = "#00ae00";
+	icon_state = "x_white";
+	name = "ninja_teleport"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/starboard{
+	name = "Engineering Maintenance"
+	})
 "xCI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/door_assembly/door_assembly_atmo{
@@ -160225,7 +160330,7 @@ bXU
 nGj
 avX
 uFo
-uFo
+lmf
 lvo
 hsp
 pxR
@@ -167915,7 +168020,7 @@ fsL
 dBt
 aYC
 bXU
-npT
+xCH
 vWF
 utt
 wUC
@@ -173840,7 +173945,7 @@ eRS
 bYj
 cbC
 cbC
-cbC
+nzf
 cbC
 yhX
 vAg
@@ -188492,7 +188597,7 @@ hHL
 bEa
 cnP
 jdn
-xWh
+prR
 xWS
 xWh
 uJx
@@ -190098,7 +190203,7 @@ oEr
 sDx
 wfx
 uPF
-uux
+aVX
 pQv
 xtb
 abj
@@ -195638,7 +195743,7 @@ aru
 aru
 hsI
 hZW
-iCk
+ucB
 iCk
 kfc
 aru
