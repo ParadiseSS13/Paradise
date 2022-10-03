@@ -93,7 +93,7 @@
 		return ..()
 
 /obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag)
-	if(proximity_flag && istype(target, /turf/simulated/wall))
+	if(proximity_flag && iswallturf(target))
 		place(target, user)
 	else
 		..()
@@ -143,7 +143,7 @@
 
 /obj/item/picture_frame/attack_self(mob/user)
 	if(displayed)
-		if(istype(displayed, /obj/item))
+		if(isitem(displayed))
 			var/obj/item/I = displayed
 			I.attack_self(user)
 	else

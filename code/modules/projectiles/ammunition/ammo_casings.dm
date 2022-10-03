@@ -381,7 +381,7 @@
 		modified = 1
 		FD.damage_type = BRUTE
 		update_icon()
-	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
+	else if((is_pen(A)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		add_pen(A)

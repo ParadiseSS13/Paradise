@@ -475,7 +475,7 @@
 
 /obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 
 /obj/item/disk/plantgene/update_name()
