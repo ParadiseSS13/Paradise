@@ -798,6 +798,9 @@
 /mob/living/proc/get_visible_name()
 	return name
 
+/mob/living/proc/is_facehugged()
+	return FALSE
+
 /mob/living/update_gravity(has_gravity)
 	if(!SSticker)
 		return

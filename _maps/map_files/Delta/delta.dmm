@@ -41209,7 +41209,7 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/item/soap/deluxe,
-/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky/captainducky,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},

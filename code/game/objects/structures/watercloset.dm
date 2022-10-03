@@ -442,6 +442,11 @@
 	honk_sounds = list('sound/items/squeaktoy.ogg' = 1)
 	attack_verb = list("quacked", "squeaked")
 
+/obj/item/bikehorn/rubberducky/captainducky
+	name = "captain rubber ducky"
+	desc = "Captain favorite rubber ducky. This one squeaks with power."
+	icon_state = "cap_rubber_ducky"
+
 /obj/structure/sink
 	name = "sink"
 	icon = 'icons/obj/watercloset.dmi'

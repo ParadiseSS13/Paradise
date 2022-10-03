@@ -224,7 +224,8 @@
 			if(!( A.anchored ))
 				A.forceMove(connected)
 		connected.connected = null
-		connected.update_icon(UPDATE_OVERLAYS)
+		connected.update_icon(connected.update_state())
+		playsound(loc, connected.open_sound, 50, 1)
 		add_fingerprint(user)
 		qdel(src)
 		return
