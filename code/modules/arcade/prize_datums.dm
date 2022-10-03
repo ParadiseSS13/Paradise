@@ -45,6 +45,30 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/balloon
 	cost = 10
 
+/datum/prize_item/plasticring
+	name = "White Plastic Ring"
+	desc = "A cheap ring made of plastic."
+	typepath = /obj/item/clothing/gloves/ring/plastic
+	cost = 10
+
+/datum/prize_item/plasticringb
+	name = "Blue Plastic Ring"
+	desc = "A cheap blue ring made of plastic."
+	typepath = /obj/item/clothing/gloves/ring/plastic/blue
+	cost = 10
+
+/datum/prize_item/plasticringr
+	name = "Red Plastic Ring"
+	desc = "A cheap red ring made of plastic."
+	typepath = /obj/item/clothing/gloves/ring/plastic/red
+	cost = 10
+
+/datum/prize_item/glassring
+	name = "Glass Ring"
+	desc = "No refunds if you end up dropping it."
+	typepath = /obj/item/clothing/gloves/ring/glass
+	cost = 15
+
 /datum/prize_item/spinningtoy
 	name = "Spinning Toy"
 	desc = "Looks like an authentic Singularity!"
@@ -103,6 +127,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Magic Eight Ball"
 	desc = "A mystical ball that can divine the future!"
 	typepath = /obj/item/toy/eight_ball
+	cost = 40
+
+/datum/prize_item/shadowring
+	name = "Shadow Ring"
+	desc = "Only darklords can wear this ring."
+	typepath = /obj/item/clothing/gloves/ring/shadow
 	cost = 40
 
 /datum/prize_item/wallet

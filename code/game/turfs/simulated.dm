@@ -16,6 +16,18 @@
 /turf/simulated/proc/burn_tile()
 	return
 
+/turf/simulated/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text_verb = "clean", text_description = " with [cleaner].", text_targetname = name)
+	if(!..())
+		return
+
+	if(!cleaner.can_clean())
+		return
+
+	clean_blood()
+	for(var/obj/effect/O in src)
+		if(O.is_cleanable())
+			qdel(O)
+
 /turf/simulated/water_act(volume, temperature, source)
 	. = ..()
 
