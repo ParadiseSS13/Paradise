@@ -747,8 +747,6 @@
 		if(!new_objective)
 			return
 
-		new_objective.post_admin_creation()
-
 		if(objective)
 			remove_objective(objective)
 			if(objective_pos[2])

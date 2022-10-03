@@ -89,12 +89,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		qdel(src)
 	owner?.announce_objectives()
 
-/**
-  * Called when an admin creates a objective, allowing for variables to be set post-target selection
-  */
-/datum/objective/proc/post_admin_creation()
-	return
-
 /datum/objective/assassinate
 	martyr_compatible = 1
 
@@ -357,9 +351,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	else
 		explanation_text = "Free Objective"
 
-/datum/objective/escape/escape_with_identity/post_admin_creation()
-	target_real_name = target.current.real_name
-
 /datum/objective/escape/escape_with_identity/check_completion()
 	if(!target_real_name)
 		return 1
@@ -368,7 +359,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/mob/living/carbon/human/H = owner.current
 	if(..())
 		if(H.dna.real_name == target_real_name)
-			if(H.get_id_name() == target_real_name)
+			if(H.get_id_name()== target_real_name)
 				return 1
 	return 0
 
