@@ -71875,14 +71875,13 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock{
-	glass = 1;
-	id_tag = "magistrateofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/magistrate,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Magistrate"
+	},
+/obj/machinery/door/airlock/glass{
+	id_tag = "magistrateofficedoor"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"

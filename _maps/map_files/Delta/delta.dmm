@@ -42862,12 +42862,6 @@
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "bYP" = (
-/obj/machinery/door/airlock{
-	name = "Magistrate's Office";
-	req_access_txt = "74";
-	id_tag = "magistrateofficedoor";
-	glass = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -42879,6 +42873,11 @@
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Magistrate"
+	},
+/obj/machinery/door/airlock/glass{
+	id_tag = "magistrateofficedoor";
+	name = "Magistrate's Office";
+	req_access_txt = "74"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
