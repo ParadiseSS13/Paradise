@@ -232,8 +232,6 @@
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	if(H.status_flags & IGNORE_SPEED_CHANGES)
-		return .
 
 	if(has_gravity(H))
 		if(H.status_flags & GOTTAGOFAST)
@@ -248,6 +246,9 @@
 		var/flight = H.flying	//Check for flight and flying items
 
 		ADD_SLOWDOWN(speed_mod)
+
+		if(H.status_flags & IGNORE_SPEED_CHANGES)
+			return .
 
 		if(H.wear_suit)
 			ADD_SLOWDOWN(H.wear_suit.slowdown)
