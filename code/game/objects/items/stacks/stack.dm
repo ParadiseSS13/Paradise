@@ -210,7 +210,7 @@
 		if(R.on_floor && !issimulatedturf(get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
-		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src),) || locate(/obj/structure/lattice) in get_turf(src)))
+		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src)) || locate(/obj/structure/lattice) in get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
 			return FALSE
 
