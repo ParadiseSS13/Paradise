@@ -94,6 +94,10 @@
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
 		return FALSE
+	if(is_facehugged())
+		if(message)
+			to_chat(src, "<span class='warning'>You try to throw up, but the alien's proboscis obstructs your throat!</span>") //Sorry
+		return FALSE
 	if(stun)
 		Stun(8 SECONDS)
 	if(nutrition < 100 && !blood)
@@ -564,7 +568,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/atom/movable/AM = hit_atom
 			var/atom/throw_target = get_edge_target_turf(AM, dir)
 			if(!AM.anchored || ismecha(AM))
-				AM.throw_at(throw_target, 3, 14, src)
+				AM.throw_at(throw_target, 5, 12, src)
 				hit_something = TRUE
 		if(isobj(hit_atom))
 			var/obj/O = hit_atom
@@ -573,7 +577,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom
 			L.adjustBruteLoss(60)
-			L.Weaken(6 SECONDS)
+			L.KnockDown(12 SECONDS)
+			L.Confused(10 SECONDS)
 			shake_camera(L, 4, 3)
 			hit_something = TRUE
 		if(isturf(hit_atom))
@@ -846,6 +851,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/is_muzzled()
 	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
+
+/mob/living/carbon/is_facehugged()
+	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
 
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, .proc/resist_muzzle)

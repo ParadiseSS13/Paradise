@@ -606,9 +606,12 @@
 				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
 
 				var/list/possible_targets = list()
+				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
-						possible_targets += possible_target.current
+						possible_targets += possible_target.current // Allows for admins to pick off station roles
+						if(!is_invalid_target(possible_target))
+							possible_targets_random += possible_target.current // For random picking, only valid targets
 
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
@@ -617,12 +620,15 @@
 				possible_targets = sortAtom(possible_targets)
 
 				var/new_target
-				if(length(possible_targets) > 0)
+				if(length(possible_targets))
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
 						possible_targets += "Free objective"
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 					else
-						new_target = pick(possible_targets)
+						if(!length(possible_targets_random))
+							to_chat(usr, "<span class='warning'>No random target found. Pick one manually.</span>")
+							return
+						new_target = pick(possible_targets_random)
 
 					if(!new_target)
 						return
@@ -730,6 +736,8 @@
 				new_objective.owner = src
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+				var/datum/objective/escape/escape_with_identity/O = new_objective
+				O.target_real_name = new_objective.target.current.real_name
 			if("custom")
 				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl)

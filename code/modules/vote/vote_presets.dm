@@ -34,6 +34,8 @@
 
 /datum/vote/map/handle_result(result)
 	// Find target map.
+	if(!result)
+		return
 	var/datum/map/top_voted_map
 	for(var/x in subtypesof(/datum/map))
 		var/datum/map/M = x
