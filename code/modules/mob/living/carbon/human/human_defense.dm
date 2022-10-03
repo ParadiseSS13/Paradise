@@ -638,8 +638,8 @@ emp_act
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(5, 25)
-		if(M.is_adult)
-			damage = rand(10, 35)
+		if(M.age_state.age != SLIME_BABY)
+			damage = rand(10 + M.age_state.damage, 35 + M.age_state.damage)
 
 		if(check_shields(M, damage, "the [M.name]"))
 			return FALSE

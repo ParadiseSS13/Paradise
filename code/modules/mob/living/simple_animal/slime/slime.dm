@@ -5,11 +5,11 @@
 	pass_flags = PASSTABLE | PASSGRILLE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gender = NEUTER
-	var/is_adult = 0
+	var/datum/slime_age/age_state = /datum/slime_age/baby
 	var/docile = 0
 	faction = list("slime", "neutral")
 
-	harm_intent_damage = 5
+	harm_intent_damage = 3
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead"
 	response_help  = "pets"
@@ -21,8 +21,9 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	maxHealth = 150
 	health = 150
+	maxHealth = 150
+
 	healable = 0
 	gender = NEUTER
 
@@ -76,20 +77,22 @@
 	var/applied = 0 //How many extracts of the modtype have been applied.
 
 
-/mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", new_is_adult = FALSE)
-	var/datum/action/innate/slime/feed/F = new
-	F.Grant(src)
-
-	is_adult = new_is_adult
-
-	if(is_adult)
-		var/datum/action/innate/slime/reproduce/R = new
-		R.Grant(src)
-		health = 200
-		maxHealth = 200
-	else
+/mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby)
+	if (!(locate(/datum/action/innate/slime/feed) in actions))
+		var/datum/action/innate/slime/feed/F = new
+		F.Grant(src)
+	if (!(locate(/datum/action/innate/slime/evolve) in actions))
 		var/datum/action/innate/slime/evolve/E = new
 		E.Grant(src)
+
+	age_state = age_state_new
+	health = age_state.health
+	update_state()
+
+	if(age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in actions))
+		var/datum/action/innate/slime/reproduce/R = new
+		R.Grant(src)
+
 	create_reagents(100)
 	set_colour(new_colour)
 	. = ..()
@@ -114,10 +117,19 @@
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	regenerate_icons()
 
+/mob/living/simple_animal/slime/proc/update_state()
+	harm_intent_damage = age_state.damage
+	maxHealth = age_state.health
+	transform = age_state.matrix_size
+	if ((cores - age_state.cores) > 0)
+		cores += age_state.cores
+	else
+		cores = age_state.cores
+
 /mob/living/simple_animal/slime/proc/update_name()
 	if(slime_name_regex.Find(name))
 		number = rand(1, 1000)
-		name = "[colour] [is_adult ? "adult" : "baby"] slime ([number])"
+		name = "[colour] [age_state.age] slime ([number])"
 		real_name = name
 
 /mob/living/simple_animal/slime/proc/random_colour()
@@ -125,7 +137,7 @@
 
 /mob/living/simple_animal/slime/regenerate_icons()
 	..()
-	var/icon_text = "[colour] [is_adult ? "adult" : "baby"] slime"
+	var/icon_text = "[colour] [(age_state.age != SLIME_BABY) ? "adult" : "baby"] slime"
 	icon_dead = "[icon_text] dead"
 	if(stat != DEAD)
 		icon_state = icon_text
@@ -212,7 +224,7 @@
 		if(prob(probab))
 			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
 				if(nutrition <= get_hunger_nutrition() && !Atkcool)
-					if (is_adult || prob(5))
+					if (age_state.age != SLIME_BABY || prob(5))
 						O.attack_slime(src)
 						Atkcool = TRUE
 						addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
@@ -225,11 +237,9 @@
 
 		if(!docile)
 			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			if(is_adult)
-				stat(null, "You can reproduce!")
-			else
-				stat(null, "You can evolve!")
+
+		if(amount_grown >= age_state.amount_grown)
+			stat(null, age_state.stat_text)
 
 		if(stat == UNCONSCIOUS)
 			stat(null,"You are knocked out by high levels of BZ!")
@@ -245,7 +255,7 @@
 /mob/living/simple_animal/slime/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
-	attacked += 10
+	attacked += 10 - age_state.attacked
 	if((Proj.damage_type == BURN))
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
 		Proj.on_hit(src)
@@ -282,22 +292,22 @@
 			visible_message("<span class='danger'>[M] pulls [src] off!</span>", \
 				"<span class='danger'>You pull [src] off!</span>")
 			return
-		attacked += 5
+		attacked += 5 - age_state.attacked
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
-			adjust_nutrition(-(50 + (40 * M.is_adult)))
-			M.add_nutrition(50 + (40 * M.is_adult))
+			adjust_nutrition(-(50 + M.age_state.nutrition_steal))
+			M.add_nutrition(50 + M.age_state.nutrition_steal)
 		if(health > 0)
-			M.adjustBruteLoss(-10 + (-10 * M.is_adult))
+			M.adjustBruteLoss(-10 + (-M.age_state.damage * 2))
 			M.updatehealth()
 
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(.)
-		attacked += 10
+		attacked += 10 - age_state.attacked
 
 /mob/living/simple_animal/slime/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
-		attacked += 10
+		attacked += 10 - age_state.attacked
 
 /mob/living/simple_animal/slime/attack_hand(mob/living/carbon/human/M)
 	if(buckled)
@@ -334,11 +344,11 @@
 					if(S.next_step(M, src))
 						return 1
 		if(..()) //successful attack
-			attacked += 10
+			attacked += 10 - age_state.attacked
 
 /mob/living/simple_animal/slime/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.
-		attacked += 10
+		attacked += 10 - age_state.attacked
 		discipline_slime(M)
 
 
@@ -358,7 +368,7 @@
 		S.use(1)
 		return
 	if(I.force > 0)
-		attacked += 10
+		attacked += 10 - age_state.attacked
 		if(prob(25))
 			user.do_attack_animation(src)
 			user.changeNext_move(CLICK_CD_MELEE)
@@ -368,57 +378,16 @@
 			Discipline = 0
 	if(I.force >= 3)
 		var/force_effect = 2 * I.force
-		if(is_adult)
+		if(age_state.age != SLIME_BABY)
 			force_effect = round(I.force / 2)
 		if(prob(10 + force_effect))
 			discipline_slime(user)
-/*	if(istype(I, /obj/item/storage/bag/bio))
-		var/obj/item/storage/P = I
-		if(!effectmod)
-			to_chat(user, "<span class='warning'>The slime is not currently being mutated.</span>")
-			return
-		var/hasOutput = FALSE //Have we outputted text?
-		var/hasFound = FALSE //Have we found an extract to be added?
-		for(var/obj/item/slime_extract/S in P.contents)
-			if(S.effectmod == effectmod)
-				SEND_SIGNAL(P, COMSIG_TRY_STORAGE_TAKE, S, get_turf(src), TRUE)
-				qdel(S)
-				applied++
-				hasFound = TRUE
-			if(applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-				to_chat(user, "<span class='notice'>You feed the slime as many of the extracts from the bag as you can, and it mutates!</span>")
-				playsound(src, 'sound/effects/attackblob.ogg', 50, TRUE)
-				spawn_corecross()
-				hasOutput = TRUE
-				break
-		if(!hasOutput)
-			if(!hasFound)
-				to_chat(user, "<span class='warning'>There are no extracts in the bag that this slime will accept!</span>")
-			else
-				to_chat(user, "<span class='notice'>You feed the slime some extracts from the bag.</span>")
-				playsound(src, 'sound/effects/attackblob.ogg', 50, TRUE)
-		return */
 	..()
-/*
-/mob/living/simple_animal/slime/proc/spawn_corecross()
-	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
-	visible_message("<span class='danger'>[src] shudders, its mutated core consuming the rest of its body!</span>")
-	playsound(src, 'sound/magic/smoke.ogg', 50, TRUE)
-	var/crosspath
-	for(var/X in crossbreeds)
-		var/obj/item/slimecross/S = X
-		if(initial(S.colour) == colour && initial(S.effect) == effectmod)
-			crosspath = S
-			break
-	if(crosspath)
-		new crosspath(loc)
-	else
-		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
-	qdel(src)
-*/
+
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
-	var/water_damage = rand(10, 15) * volume
+	var/water_damage = rand(10, 15) * volume - age_state.attacked
+
 	adjustBruteLoss(water_damage)
 	if(!client && Target && volume >= 3) // Like cats
 		Target = null
@@ -462,7 +431,7 @@
 	if(prob(80) && !client)
 		Discipline++
 
-		if(!is_adult)
+		if(age_state.age == SLIME_BABY)
 			if(Discipline == 1)
 				attacked = 0
 
@@ -494,8 +463,17 @@
 	if(..())
 		return 3
 
-/mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
-	. = ..(mapload, pick(slime_colours), prob(50))
+/mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), prob(50) ? (age_state_new = new /datum/slime_age/baby) : (age_state_new = new /datum/slime_age/adult))
+
+/mob/living/simple_animal/slime/adult/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/adult)
+
+/mob/living/simple_animal/slime/old/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/old)
+
+/mob/living/simple_animal/slime/elder/Initialize(mapload, new_colour, age_state_new)
+	. = ..(mapload, pick(slime_colours), age_state_new = new /datum/slime_age/elder)
 
 /mob/living/simple_animal/slime/handle_ventcrawl(atom/A)
 	if(buckled)

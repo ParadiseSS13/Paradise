@@ -15,7 +15,7 @@
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
-			if(S.amount_grown >= SLIME_EVOLUTION_THRESHOLD)
+			if(S.amount_grown >= S.age_state.amount_grown)
 				return 1
 			return 0
 		return 1
@@ -125,24 +125,43 @@
 
 /mob/living/simple_animal/slime/verb/Evolve()
 	set category = "Slime"
-	set desc = "This will let you evolve from baby to adult slime."
+	set desc = "This will let you evolve slime."
 
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
 		return
-	if(!is_adult)
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			is_adult = 1
-			maxHealth = 200
-			amount_grown = 0
-			for(var/datum/action/innate/slime/evolve/E in actions)
-				E.Remove(src)
-			regenerate_icons()
-			update_name()
+
+	if(amount_grown >= age_state.amount_grown)
+		switch(age_state.age)
+			if(SLIME_BABY)
+				age_state = new /datum/slime_age/adult
+			if(SLIME_ADULT)
+				age_state = new /datum/slime_age/old
+			if(SLIME_OLD)
+				age_state = new /datum/slime_age/elder
+			if(SLIME_ELDER)
+				age_state = new /datum/slime_age/slimeman
+		amount_grown = 0
+		update_state()
+		regenerate_icons()
+		update_name()
+	else
+		to_chat(src, "<i>I am not ready to evolve yet...</i>")
+
+	if(age_state.age == SLIME_SLIMEMAN)
+		if(amount_grown >= age_state.amount_grown)
+			var/mob/living/carbon/human/slime/new_slime = src.change_mob_type(/mob/living/carbon/human/slime, null, null, TRUE)
+			var/new_colour = colour_rgb(colour)
+			new_slime.skin_colour = new_colour
+			for(var/organname in new_slime.bodyparts_by_name)
+				var/obj/item/organ/external/E = new_slime.bodyparts_by_name[organname]
+				E.sync_colour_to_human(new_slime)
+			new_slime.update_hair()
+			new_slime.update_body()
+			new_slime.blood_color = new_colour
+			new_slime.dna.species.blood_color = new_slime.blood_color
 		else
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
-	else
-		to_chat(src, "<i>I have already evolved...</i>")
 
 /datum/action/innate/slime/evolve
 	name = "Evolve"
@@ -152,7 +171,7 @@
 /datum/action/innate/slime/evolve/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Evolve()
-	if(S.is_adult)
+	if(S.age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in S.actions))
 		var/datum/action/innate/slime/reproduce/A = new
 		A.Grant(S)
 
@@ -164,36 +183,45 @@
 		to_chat(src, "<i>I must be conscious to do this...</i>")
 		return
 
-	if(is_adult)
+	if(age_state.age != SLIME_BABY)
 		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
 			if(stat)
 				to_chat(src, "<i>I must be conscious to do this...</i>")
 				return
 
+			//Определяем какие дети родятся
 			var/list/babies = list()
-			var/new_nutrition = round(nutrition * 0.9)
-			var/new_powerlevel = round(powerlevel / 4)
-			for(var/i=1,i<=4,i++)
-				var/child_colour
-				if(mutation_chance >= 100)
-					child_colour = "rainbow"
-				else if(prob(mutation_chance))
-					child_colour = slime_mutation[rand(1,4)]
-				else
-					child_colour = colour
-				var/mob/living/simple_animal/slime/M
-				M = new(loc, child_colour)
-				if(ckey)
-					M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
-				M.powerlevel = new_powerlevel
-				if(i != 1)
-					step_away(M,src)
-				M.Friends = Friends.Copy()
-				babies += M
-				M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
-				SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
+			var/add_counts = ((age_state.age == SLIME_OLD) ? round(age_state.baby_counts / 3) : 0) + ((age_state.age == SLIME_ELDER) ? round(age_state.baby_counts / 3) : 0)
+			var/baby_counts = rand(3 + add_counts, age_state.baby_counts)
+			var/baby_counts_adult = 0
+			if (age_state.age == SLIME_OLD || age_state.age == SLIME_ELDER)
+				baby_counts_adult = rand(0, round(baby_counts / 2))
+			var/baby_counts_old = 0
+			if (age_state.age == SLIME_ELDER && baby_counts)
+				baby_counts_old	= rand(0, round((baby_counts - baby_counts_adult * 2) / 3) + 1)
 
-			var/mob/living/simple_animal/slime/new_slime = pick(babies)
+			baby_counts += -(baby_counts_adult * 2 + baby_counts_old * 3)
+			var/new_nutrition = round(nutrition * 0.9 / (baby_counts + baby_counts_adult + baby_counts_old))
+			var/new_powerlevel = round(powerlevel / (baby_counts + baby_counts_adult + baby_counts_old))
+
+			//Определяем количество детей и будущее набольшее тело
+			var/mob/living/simple_animal/slime/new_slime
+			if (baby_counts_old)
+				for(var/i in 1 to baby_counts_old)
+					reproduce_baby_stats(babies, /datum/slime_age/old, new_nutrition, new_powerlevel)
+				new_slime = pick(babies)
+			if (baby_counts_adult)
+				for(var/i in 1 to baby_counts_adult)
+					reproduce_baby_stats(babies, /datum/slime_age/adult, new_nutrition, new_powerlevel)
+				if (!new_slime)
+					new_slime = pick(babies)
+			if (baby_counts)
+				for(var/i in 1 to baby_counts)
+					reproduce_baby_stats(babies, /datum/slime_age/baby, new_nutrition, new_powerlevel)
+
+			if (!new_slime)
+				new_slime = pick(babies)
+
 			new_slime.a_intent = INTENT_HARM
 			if(src.mind)
 				src.mind.transfer_to(new_slime)
@@ -204,6 +232,24 @@
 			to_chat(src, "<i>I am not ready to reproduce yet...</i>")
 	else
 		to_chat(src, "<i>I am not old enough to reproduce yet...</i>")
+
+/mob/living/simple_animal/slime/proc/reproduce_baby_stats(var/list/babies, var/datum/slime_age/baby_type, var/new_nutrition, var/new_powerlevel)
+	var/child_colour
+	if(mutation_chance >= 100)
+		child_colour = "rainbow"
+	else if(prob(mutation_chance))
+		child_colour = slime_mutation[rand(1,4)]
+	else
+		child_colour = colour
+	var/mob/living/simple_animal/slime/M = new(loc, child_colour, new baby_type)
+
+	if(ckey)
+		M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
+	M.powerlevel = new_powerlevel
+	M.Friends = Friends.Copy()
+	babies += M
+	M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
+	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
 
 /datum/action/innate/slime/reproduce
 	name = "Reproduce"

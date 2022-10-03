@@ -186,8 +186,8 @@
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustCloneLoss(rand(2, 4))
-		C.adjustToxLoss(rand(1, 2))
+		C.adjustCloneLoss(rand(2, 4) + round(age_state.feed/2))
+		C.adjustToxLoss(rand(1, 2) + round(age_state.feed/2))
 
 		if(prob(10) && C.client)
 			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
@@ -202,8 +202,8 @@
 		var/mob/living/simple_animal/SA = M
 
 		var/totaldamage = 0 //total damage done to this unfortunate animal
-		totaldamage += SA.adjustCloneLoss(rand(2, 4))
-		totaldamage += SA.adjustToxLoss(rand(1, 2))
+		totaldamage += SA.adjustCloneLoss(rand(2, 4 + round(age_state.feed/2)))
+		totaldamage += SA.adjustToxLoss(rand(1, 2 + round(age_state.feed/2)))
 
 		if(totaldamage <= 0) //if we did no(or negative!) damage to it, stop
 			Feedstop(0, 0)
@@ -213,10 +213,13 @@
 		Feedstop(0, 0)
 		return
 
-	add_nutrition(rand(7, 15))
+	//Передача нутриентов, + небольшое поедание внутренних запасов, не смотря на поедание плоти (урон)
+	var/nutrition_rand = rand(7 + age_state.feed, 15 + age_state.feed * 2)
+	add_nutrition(nutrition_rand)
+	M.adjust_nutrition(round(nutrition_rand / 2))
 
 	//Heal yourself.
-	adjustBruteLoss(-3)
+	adjustBruteLoss(-(3 + round(nutrition_rand / 4)))
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 
@@ -225,21 +228,24 @@
 		return
 
 	if(prob(15))
-		adjust_nutrition(-(1 + is_adult))
+		adjust_nutrition(-(1 + age_state.nutrition_handle))
 
 	if(nutrition <= 0)
 		set_nutrition(0)
 		if(prob(75))
 			adjustBruteLoss(rand(0, 5))
 
-	else if(nutrition >= get_grow_nutrition() && amount_grown < SLIME_EVOLUTION_THRESHOLD)
+	else if(nutrition >= get_grow_nutrition() && amount_grown < age_state.amount_grown)
 		adjust_nutrition(-20)
 		amount_grown++
 		update_action_buttons_icon()
 
-	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD && !buckled && !Target && !ckey)
-		if(is_adult)
-			Reproduce()
+	if(amount_grown >= age_state.amount_grown && !buckled && !Target && !ckey)
+		if(age_state.age != SLIME_BABY)
+			if(prob(20) && age_state.age != SLIME_ELDER)
+				Evolve()
+			else
+				Reproduce()
 		else
 			Evolve()
 
@@ -253,9 +259,6 @@
 		if(powerlevel<5)
 			if(prob(25-powerlevel*5))
 				powerlevel++
-
-
-
 
 /mob/living/simple_animal/slime/proc/handle_targets()
 	update_canmove()
@@ -354,7 +357,7 @@
 
 			if (Target)
 				target_patience = rand(5, 7)
-				if(is_adult)
+				if(age_state.age != SLIME_BABY)
 					target_patience += 3
 
 		if(!Target) // If we have no target, we are wandering or following orders
@@ -582,28 +585,16 @@
 				say (pick(phrases))
 
 /mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it
-	if(is_adult)
-		return 1200
-	else
-		return 1000
+	return age_state.max_nutrition
 
 /mob/living/simple_animal/slime/proc/get_grow_nutrition() // Above it we grow, below it we can eat
-	if(is_adult)
-		return 1000
-	else
-		return 800
+	return age_state.grow_nutrition
 
 /mob/living/simple_animal/slime/proc/get_hunger_nutrition() // Below it we will always eat
-	if(is_adult)
-		return 600
-	else
-		return 500
+	return age_state.hunger_nutrition
 
 /mob/living/simple_animal/slime/proc/get_starve_nutrition() // Below it we will eat before everything else
-	if(is_adult)
-		return 300
-	else
-		return 200
+	return age_state.starve_nutrition
 
 /mob/living/simple_animal/slime/proc/will_hunt(hunger = -1) // Check for being stopped from feeding and chasing
 	if(docile)

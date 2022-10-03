@@ -281,7 +281,7 @@
 	if(!isslime(M))//If target is not a slime.
 		to_chat(user, "<span class='warning'>The steroid only works on baby slimes!</span>")
 		return ..()
-	if(M.is_adult) //Can't steroidify adults
+	if(M.age_state.age != SLIME_BABY) //Can't steroidify adults
 		to_chat(user, "<span class='warning'>Only baby slimes can use the steroid!</span>")
 		return ..()
 	if(M.stat)

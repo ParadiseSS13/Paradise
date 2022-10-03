@@ -76,8 +76,8 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(5, 35)
-		if(M.is_adult)
-			damage = rand(10, 40)
+		if(M.age_state.age != SLIME_BABY)
+			damage = rand(10 + M.age_state.damage, 40 + M.age_state.damage)
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
 		updatehealth("slime attack")

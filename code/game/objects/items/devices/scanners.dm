@@ -743,7 +743,7 @@ REAGENT SCANNER
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
 	to_chat(user, "========================")
 	to_chat(user, "<b>Slime scan results:</b>")
-	to_chat(user, "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>")
+	to_chat(user, "<span class='notice'>[T.colour] [T.age_state.age] slime</span>")
 	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
 	if(T.nutrition < T.get_starve_nutrition())
 		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")

@@ -26,8 +26,8 @@
 
 	var/damage = rand(1, 3)
 
-	if(M.is_adult)
-		damage = rand(20, 40)
+	if(M.age_state.age != SLIME_BABY)
+		damage = rand(20 + M.age_state.damage, 40 + M.age_state.damage)
 	else
 		damage = rand(5, 35)
 	damage = round(damage / 2) // borgs recieve half damage

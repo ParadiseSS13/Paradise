@@ -105,6 +105,15 @@
 
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
+#define SLIME_EVOLUTION_THRESHOLD_OLD 30
+#define SLIME_EVOLUTION_THRESHOLD_EVOLVE 50
+#define SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN 100
+
+#define SLIME_BABY 		"baby"
+#define SLIME_ADULT 	"adult"
+#define SLIME_OLD 		"old"
+#define SLIME_ELDER 	"elder"
+#define SLIME_SLIMEMAN 	"slimeman"
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10

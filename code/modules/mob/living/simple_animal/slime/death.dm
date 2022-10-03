@@ -2,13 +2,13 @@
 	if(stat == DEAD)
 		return
 	if(!gibbed)
-		if(is_adult)
+		if(age_state.age != SLIME_BABY)
 			var/mob/living/simple_animal/slime/M = new(loc, colour)
 			M.rabid = TRUE
 			M.regenerate_icons()
 
-			is_adult = FALSE
-			maxHealth = 150
+			age_state = new /datum/slime_age/baby
+			maxHealth = age_state.health
 			for(var/datum/action/innate/slime/reproduce/R in actions)
 				R.Remove(src)
 			var/datum/action/innate/slime/evolve/E = new

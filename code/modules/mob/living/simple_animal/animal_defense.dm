@@ -61,8 +61,8 @@
 /mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(15, 25)
-		if(M.is_adult)
-			damage = rand(20, 35)
+		if(M.age_state.age != SLIME_BABY)
+			damage = rand(20 + M.age_state.damage, 35 + M.age_state.damage)
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = "melee")
