@@ -67084,7 +67084,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -25;
 	req_access_txt = "74";
-	pixel_y = -6
+	pixel_y = -4
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
