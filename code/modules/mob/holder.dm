@@ -64,9 +64,6 @@
 
 	return
 
-//Mob procs and vars for scooping up
-/mob/living/var/holder_type
-
 /mob/living/proc/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)
 	if(!holder_type)
 		return
