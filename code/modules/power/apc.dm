@@ -905,6 +905,12 @@
 
 	return data
 
+/obj/machinery/power/apc/ui_status(mob/user, datum/ui_state/state)
+	if(aidisabled && (isAI(user) || isrobot(user)))
+		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		return STATUS_CLOSE
+	. = ..()
+
 /obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_equip+lastused_light+lastused_environ]) : [cell? cell.percent() : "N/C"] ([charging])"
 

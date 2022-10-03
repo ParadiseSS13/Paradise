@@ -636,6 +636,13 @@ About the new airlock wires panel:
 	data["wires"] = wire
 	return data
 
+/obj/machinery/door/airlock/ui_status(mob/user, datum/ui_state/state)
+	if((aiControlDisabled == AICONTROLDISABLED_ON) && (isAI(user) || isrobot(user)))
+		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		if(!canAIControl() && canAIHack())
+			hack(user)
+		return STATUS_CLOSE
+	. = ..()
 
 /obj/machinery/door/airlock/proc/hack(mob/user)
 	set waitfor = 0
@@ -647,9 +654,9 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
-			aiHacking=0
+			aiHacking = FALSE
 			return
 		to_chat(user, "Fault confirmed: airlock control wire disabled or cut.")
 		sleep(20)
@@ -659,7 +666,7 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
 			aiHacking = FALSE
 			return
@@ -669,7 +676,7 @@ About the new airlock wires panel:
 			to_chat(user, "Alert cancelled. Airlock control has been restored without our assistance.")
 			aiHacking = FALSE
 			return
-		else if(!canAIHack(user))
+		else if(!canAIHack())
 			to_chat(user, "Connection lost! Unable to hack airlock.")
 			aiHacking = FALSE
 			return
@@ -785,7 +792,7 @@ About the new airlock wires panel:
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return FALSE
 	if(!canAIControl())
-		if(canAIHack(user))
+		if(canAIHack())
 			hack(user)
 		else
 			if(isAllPowerLoss())
