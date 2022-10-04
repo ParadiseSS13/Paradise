@@ -176,8 +176,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 	///List of invaders that have teleportes into the arena *multiple times*. They will be suffering.
 	var/list/invaders = list()
-	/// Is it actively checking for invaders? Automatticaly set by the tumor. Not using activity, as it is active after loosing.
-	var/invader_checking = FALSE
 
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -239,6 +237,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = "tumor_popped"
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, .proc/onEliteLoss)
 	INVOKE_ASYNC(src, .proc/arena_checks)
+	AddComponent(/datum/component/proximity_monitor, 12) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
@@ -251,11 +250,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, .proc/arena_checks)
+	AddComponent(/datum/component/proximity_monitor, 12)
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
 	gps = new /obj/item/gps/internal/tumor(src)
-	AddComponent(/datum/component/proximity_monitor, 12)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/elite_tumor/Destroy()
@@ -316,7 +315,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	INVOKE_ASYNC(src, .proc/fighters_check)  //Checks to see if our fighters died.
 	INVOKE_ASYNC(src, .proc/arena_trap)  //Gets another arena trap queued up for when this one runs out.
 	INVOKE_ASYNC(src, .proc/border_check)  //Checks to see if our fighters got out of the arena somehow.
-	invader_checking = TRUE  //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 	addtimer(CALLBACK(src, .proc/arena_checks), 5 SECONDS)
 
 /obj/structure/elite_tumor/proc/fighters_check()
@@ -330,12 +328,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/turf/tumor_turf = get_turf(src)
 	if(loc == null)
 		return
-	for(var/tumor_range_turfs in RANGE_TURFS(12, tumor_turf))
-		if(get_dist(tumor_range_turfs, tumor_turf) == 12)
-			var/obj/effect/temp_visual/elite_tumor_wall/newwall
-			newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-			newwall.activator = activator
-			newwall.ourelite = mychild
+	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(12, tumor_turf))
+		var/obj/effect/temp_visual/elite_tumor_wall/newwall
+		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
+		newwall.activator = activator
+		newwall.ourelite = mychild
 
 /obj/structure/elite_tumor/proc/border_check()
 	if(activator != null && get_dist(src, activator) >= 12)
@@ -348,9 +345,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
 /obj/structure/elite_tumor/HasProximity(atom/movable/AM)
-	if(!invader_checking)
+	if(!isliving(AM))
 		return
-	if(isliving(AM))
+	else
 		var/mob/living/M = AM
 		if(!ishuman(M) && !isrobot(M))
 			return
@@ -364,11 +361,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
 			invaders += M
 		var/list/valid_turfs = list()
-		for(var/turf/T in RANGE_TURFS(13, src))
-			if(get_dist(T, src) == 13)
-				valid_turfs += T
+		for(var/turf/T in RANGE_EDGE_TURFS(13, src))
+			valid_turfs += T
 		M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
-		playsound(M,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+		playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
@@ -414,7 +410,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.\n\
 			Also, be weary of your fellow inhabitants, they likely won't be happy to see you!</b>")
 		to_chat(mychild, "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station. You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>")
-	invader_checking = FALSE
+	qdel(GetComponent(/datum/component/proximity_monitor))
+
 /obj/item/tumor_shard
 	name = "tumor shard"
 	desc = "A strange, sharp, crystal shard from an odd tumor on Lavaland. Stabbing the corpse of a lavaland elite with this will revive them, assuming their soul still lingers. Revived lavaland elites only have half their max health, but are completely loyal to their reviver."
@@ -437,7 +434,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
-		to_chat(E, "<span class='userdanger'>You have been revived by [user]. While you can't speak to them, you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
+		to_chat(E, "<span class='userdanger'>You have been revived by [user], amd you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
 		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!</span>")
 		if(user.mind.special_role)
 			E.maxHealth = 300
