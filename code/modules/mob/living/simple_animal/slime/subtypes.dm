@@ -41,8 +41,8 @@
 	attacked = 0
 	stat_text = "You can reproduce and evolve!"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_OLD
-	max_nutrition = 2000
-	grow_nutrition = 1600
+	max_nutrition = 1200
+	grow_nutrition = 1000
 	hunger_nutrition = 600
 	starve_nutrition = 300
 	nutrition_steal = 40
@@ -59,8 +59,8 @@
 	attacked = 2
 	stat_text = "You can reproduce and evolve to elder form!"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE
-	max_nutrition = 4000
-	grow_nutrition = 3200
+	max_nutrition = 3000
+	grow_nutrition = 2000
 	hunger_nutrition = 800
 	starve_nutrition = 500
 	nutrition_steal = 70
@@ -77,8 +77,8 @@
 	attacked = 5
 	stat_text = "You can reproduce and evolve to slimeman!"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN
-	max_nutrition = 8000
-	grow_nutrition = 6400
+	max_nutrition = 6000
+	grow_nutrition = 3200
 	hunger_nutrition = 1200
 	starve_nutrition = 800
 	nutrition_steal = 100
