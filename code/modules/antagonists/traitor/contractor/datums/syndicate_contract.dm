@@ -507,7 +507,7 @@
 			if(ismachineperson(M))
 				M.emp_act(EMP_HEAVY)
 				M.adjustBrainLoss(30)
-				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your componenets are loose!</span>")
+				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
 
 			else if(isslimeperson(M))
 				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
