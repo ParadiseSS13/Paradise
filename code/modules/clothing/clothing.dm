@@ -401,7 +401,7 @@ BLIND     // can't see anything
 		"Stok" = 'icons/mob/species/monkey/head.dmi'
 		)
 
-///obj/item/clothing/head/equipped(var/mob/living/carbon/human/monkey/user, var/slot) //Смещаем шапки у обезьян
+///obj/item/clothing/head/equipped(var/mob/living/carbon/human/lesser/monkey/user, var/slot) //Смещаем шапки у обезьян
 //	..()
 //	if(!issmall(user))
 //		return

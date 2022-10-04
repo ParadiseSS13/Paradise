@@ -18531,7 +18531,7 @@
 	},
 /area/centcom/zone2)
 "oor" = (
-/mob/living/carbon/human/farwa,
+/mob/living/carbon/human/lesser/farwa,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon = 'icons/turf/floors/carpet_black.dmi';

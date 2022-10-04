@@ -88,7 +88,7 @@
 	stage_prob = 4
 	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
-	new_form = /mob/living/carbon/human/monkey
+	new_form = /mob/living/carbon/human/lesser/monkey
 
 	stage1	= null
 	stage2	= null

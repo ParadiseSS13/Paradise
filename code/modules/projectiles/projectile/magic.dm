@@ -271,15 +271,22 @@
 					по типу Иана, Поли, Аранеуса или т.п."
 				new_mob.universal_speak = TRUE
 			if("ЧЕЛОВЕК")
-				new_mob = new /mob/living/carbon/human(M.loc)
-				var/mob/living/carbon/human/H = new_mob
-				var/datum/preferences/A = new()	//Randomize appearance for the human
-				A.species = get_random_species(TRUE)
-				A.copy_to(new_mob)
-				randomize = H.dna.species.name
+				if(prob(50))
+					new_mob = new /mob/living/carbon/human(M.loc)
+					var/mob/living/carbon/human/H = new_mob
+					var/datum/preferences/A = new()	//Randomize appearance for the human
+					A.species = get_random_species(TRUE)
+					A.copy_to(new_mob)
+					randomize = H.dna.species.name
 
-				briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
-				но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+					briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
+					но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+				else
+					new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
+
+					briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
+					но у вас по прежнему память о своей прошлой жизни..."
+
 			else
 				return
 

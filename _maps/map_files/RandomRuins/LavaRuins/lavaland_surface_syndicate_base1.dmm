@@ -95,7 +95,7 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "am" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel/white/side{
@@ -103,7 +103,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "an" = (
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel/white/side{
@@ -111,7 +111,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "ao" = (
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel/white/side{
@@ -129,7 +129,7 @@
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "ar" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel/white/side{
@@ -162,7 +162,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -183,7 +183,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel/dark,

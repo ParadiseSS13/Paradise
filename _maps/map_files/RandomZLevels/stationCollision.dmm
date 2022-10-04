@@ -523,7 +523,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/research)
 "bT" = (
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/grass,
 /area/awaymission/research)
 "bV" = (
@@ -723,7 +723,7 @@
 /area/awaymission/research)
 "cv" = (
 /obj/structure/window/reinforced,
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/grass,
 /area/awaymission/research)
 "cw" = (

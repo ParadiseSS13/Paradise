@@ -149,7 +149,7 @@
 			return 0
 	return ..()
 
-/mob/living/carbon/human/monkey/CanContractDisease(datum/disease/D)
+/mob/living/carbon/human/lesser/monkey/CanContractDisease(datum/disease/D)
 	. = ..()
 	if(. == -1)
 		if(D.viable_mobtypes.Find(/mob/living/carbon/human))

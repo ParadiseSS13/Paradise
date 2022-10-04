@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_mutations()
 	remove_overlay(MUTATIONS_LAYER)
-	var/mutable_appearance/standing = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
+	var/mutable_appearance/standing = mutable_appearance(genetic_mutable, layer = -MUTATIONS_LAYER)
 	var/add_image = 0
 	var/g = "m"
 	if(gender == FEMALE)

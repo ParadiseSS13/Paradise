@@ -1,5 +1,6 @@
 /mob/living/simple_animal/slime
 	name = "grey baby slime (123)"
+	var/is_renamed = FALSE //если слайм был заранее переименован
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey baby slime"
 	pass_flags = PASSTABLE | PASSGRILLE
@@ -127,6 +128,9 @@
 		cores = age_state.cores
 
 /mob/living/simple_animal/slime/proc/update_name()
+	if(is_renamed)
+		return
+
 	if(slime_name_regex.Find(name))
 		number = rand(1, 1000)
 		name = "[colour] [age_state.age] slime ([number])"

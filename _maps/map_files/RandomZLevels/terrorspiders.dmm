@@ -6936,7 +6936,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "oK" = (
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	name = "George the lab monkey";
 	toxloss = 193
 	},

@@ -2632,7 +2632,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel{
@@ -11370,7 +11370,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "jSz" = (
 /obj/structure/bed/roller,
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plasteel{
@@ -21243,7 +21243,7 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "rpG" = (
 /obj/structure/bed/roller,
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -25017,7 +25017,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "ubJ" = (
 /obj/structure/bed/roller,
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -26506,7 +26506,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
 "uSN" = (
-/mob/living/carbon/human/monkey{
+/mob/living/carbon/human/lesser/monkey{
 	faction = list("neutral","syndicate")
 	},
 /obj/structure/bed,

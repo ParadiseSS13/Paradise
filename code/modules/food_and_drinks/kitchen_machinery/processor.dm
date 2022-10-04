@@ -123,11 +123,11 @@
 	..()
 
 /datum/food_processor_process/mob/monkey
-	input = /mob/living/carbon/human/monkey
+	input = /mob/living/carbon/human/lesser/monkey
 	output = null
 
 /datum/food_processor_process/mob/monkey/process_food(loc, what, processor)
-	var/mob/living/carbon/human/monkey/O = what
+	var/mob/living/carbon/human/lesser/monkey/O = what
 	if(O.client) //grief-proof
 		O.loc = loc
 		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \

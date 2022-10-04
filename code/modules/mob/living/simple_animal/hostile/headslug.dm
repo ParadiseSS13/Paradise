@@ -73,7 +73,7 @@
 		qdel(src)
 
 /obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
-	var/mob/living/carbon/human/monkey/M = new(owner)
+	var/mob/living/carbon/human/lesser/monkey/M = new(owner)
 	LAZYADD(owner.stomach_contents, M)
 
 	for(var/obj/item/organ/internal/I in src)

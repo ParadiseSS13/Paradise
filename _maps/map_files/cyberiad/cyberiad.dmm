@@ -25265,7 +25265,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/mob/living/carbon/human/monkey/punpun,
+/mob/living/carbon/human/lesser/monkey/punpun,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -66657,7 +66657,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull";
 	tag = "icon-whitebluefull"
@@ -67041,7 +67041,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull";
 	tag = "icon-whitebluefull"
@@ -67340,7 +67340,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull";
 	tag = "icon-whitebluefull"
@@ -73394,7 +73394,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cMm" = (
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "cMn" = (
