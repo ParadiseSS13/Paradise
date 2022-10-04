@@ -841,7 +841,7 @@ BLIND     // can't see anything
 				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 				usr.update_inv_w_uniform()
 
-		if(!((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name])))
+		else
 			if(H.w_uniform.sprite_sheets["Human"] && icon_exists(H.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
 				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 				usr.update_inv_w_uniform()
