@@ -157,7 +157,6 @@
 	materials = list()
 
 /obj/item/shard/shark_teeth/initial_icon_state()
-	. = ..()
 	icon_state = "teeth"
 	pixel_x = rand(-5,5)
 	pixel_y = rand(-5,5)
