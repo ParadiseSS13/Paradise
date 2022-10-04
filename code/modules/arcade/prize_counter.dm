@@ -48,7 +48,7 @@
 			default_deconstruction_crowbar(user, O)
 		return
 
-	. = ..()
+	return ..()
 
 /obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)
 	if(!anchored)

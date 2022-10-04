@@ -1330,9 +1330,9 @@
 	add_fingerprint(user)
 
 	if(mode == FALSE)
-		to_chat(user, "You remove the screws around the power connection.")
+		to_chat(user, "<span class='notice'>You remove the screws around the power connection</span>.")
 	else if(mode == TRUE)
-		to_chat(user, "You attach the screws around the power connection.")
+		to_chat(user, <span class='notice'>"You attach the screws around the power connection.</span>")
 	I.play_tool_sound(src)
 	mode = !mode
 	return TRUE
