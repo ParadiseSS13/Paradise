@@ -1067,7 +1067,7 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_CARGOTECH)
-				clothes_s = new /icon('icons/mob/clothing/under/cargo.dmi', "cargotech_s")
+				clothes_s = new /icon('icons/mob/clothing/under/cargo.dmi', "cargo_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_UNDERLAY)
 				if(prob(1))
