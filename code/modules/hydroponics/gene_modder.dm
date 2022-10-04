@@ -495,7 +495,7 @@
 	else
 		desc = "A disk for storing plant genetic data."
 
-/obj/item/disk/plantgene/update_icon()
+/obj/item/disk/plantgene/update_icon_state()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		icon_state = "nucleardisk"
@@ -512,14 +512,10 @@
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
 		ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
-		update_name()
-		update_desc()
-		update_icon()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/disk/plantgene/uncmag()
-	update_name()
-	update_desc()
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()
