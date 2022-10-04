@@ -25,7 +25,6 @@
 		return BRUTELOSS
 
 /obj/item/shard/proc/initial_icon_state()
-	AddComponent(/datum/component/caltrop, force)
 	icon_state = pick("large", "medium", "small")
 	switch(icon_state)
 		if("small")
