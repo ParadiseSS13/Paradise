@@ -493,7 +493,7 @@
 
 /obj/structure/table/glass/plasma
 	name = "plasma glass table"
-	desc = "A table made from the blood sweat and tears of miners."
+	desc = "A table made from the blood, sweat, and tears of miners."
 	icon = 'icons/obj/smooth_structures/tables/plasmaglass_table.dmi'
 	icon_state = "plasmaglass_table-0"
 	base_icon_state = "plasmaglass_table"
