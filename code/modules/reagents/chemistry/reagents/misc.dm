@@ -225,7 +225,7 @@
 			old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
-	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
+	if(volume >= 3 && !isspaceturf(T) && !(locate(/obj/effect/decal/cleanable/blood/oil) in T))
 		new /obj/effect/decal/cleanable/blood/oil(T)
 
 /datum/reagent/oil/cooking
@@ -237,7 +237,7 @@
 	reagent_after_burning = "cooking_oil_inert"
 
 /datum/reagent/oil/cooking/reaction_turf(turf/T, volume)
-	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil/cooking) in T)
+	if(volume >= 3 && !isspaceturf(T) && !(locate(/obj/effect/decal/cleanable/blood/oil/cooking) in T))
 		new /obj/effect/decal/cleanable/blood/oil/cooking(T)
 
 /datum/reagent/oil/cooking/inert

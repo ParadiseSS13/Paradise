@@ -56,14 +56,14 @@
 			)
 
 			playsound(src, 'sound/goonstation/misc/drinkfizz.ogg', 25)
-			addtimer(CALLBACK(src, .proc/boil_step_1, user), 4 SECONDS)
-			addtimer(CALLBACK(src, .proc/boil_step_2, user, ice_amount), 5 SECONDS)
+			addtimer(CALLBACK(src, .proc/boil_leadup, user), 4 SECONDS)
+			addtimer(CALLBACK(src, .proc/make_foam, ice_amount), 5 SECONDS)
 
 			return TRUE
 
 	return ..()
 
-/obj/machinery/cooker/deepfryer/proc/boil_step_1(mob/user)
+/obj/machinery/cooker/deepfryer/proc/boil_leadup(mob/user)
 	visible_message(
 		"<span class='danger'>[src] starts to bubble and froth unnervingly!</span>",
 		"<span class='danger'>You hear a growling and intimidating bubbling!</span>"
@@ -71,9 +71,6 @@
 
 	playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 75)
 	to_chat(user, "<span class='userdanger'>Are you sure that was such a good idea?</span>")
-
-/obj/machinery/cooker/deepfryer/proc/boil_step_2(mob/user, ice_amount)
-	make_foam(ice_amount)
 
 /obj/machinery/cooker/deepfryer/examine(mob/user)
 	. = ..()
@@ -112,12 +109,13 @@
 /obj/machinery/cooker/deepfryer/proc/make_foam(ice_amount)
 	if(!reagents)
 		create_reagents()
-	// the cooking oil should spread through the foam, but not turn to ash (which makes the foam dark).
-	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp=1000)
+	// the cooking oil should spread through the foam.
+	// when it gets added, it's at 1000 degrees so it quickly fireflashes and reacts to form inert cooking oil.
+	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000)
 	reagents.chem_temp = 1000
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(ice_amount * 2, loc, reagents, FALSE)
-	s.start()
+	var/datum/effect_system/foam_spread/S = new()
+	S.set_up(ice_amount * 2, loc, reagents, FALSE)
+	S.start()
 
 
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)
