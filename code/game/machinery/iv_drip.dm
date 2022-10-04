@@ -48,7 +48,7 @@
 
 	if(Adjacent(target) && user.Adjacent(target))
 		if(!bag)
-			to_chat(user, "<span class='notice'>There's no IV bag connected to [src]!</span>")
+			to_chat(user, "<span class='warning'>There's no IV bag connected to [src]!</span>")
 			return
 		bag.afterattack(target, usr, TRUE)
 		START_PROCESSING(SSmachines, src)
