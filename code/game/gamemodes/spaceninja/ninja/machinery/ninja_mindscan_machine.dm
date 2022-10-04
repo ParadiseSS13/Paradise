@@ -24,13 +24,13 @@
 	var/on_enter_occupant_message = "Попав в устройство вы чувствуете колющую боль в своей голове и... засыпаете..."
 
 /obj/machinery/ninja_mindscan_machine/Initialize()
-	..()
+	. = ..()
 	update_state_icon()
 
 /obj/machinery/ninja_mindscan_machine/Destroy()
 	if(occupant)
 		occupant.forceMove(get_turf(src))
-	..()
+	. = ..()
 	occupant = null
 	objective = null
 	ninja = null

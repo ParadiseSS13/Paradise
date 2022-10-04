@@ -29,7 +29,7 @@
 	light_range = 5
 
 /obj/machinery/ninja_clonepod/Initialize()
-	..()
+	. = ..()
 	records = list()
 	suits_data = list()
 

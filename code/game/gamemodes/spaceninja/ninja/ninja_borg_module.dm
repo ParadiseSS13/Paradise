@@ -23,7 +23,7 @@
 	playstyle_string = null
 
 /mob/living/silicon/robot/syndicate/saboteur/ninja/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
-	..()
+	. = ..()
 	laws = new /datum/ai_laws/ninja_override(src)
 	QDEL_NULL(module)	//Удаление модуля саботёра который мы наследуем
 	module = new /obj/item/robot_module/ninja(src)
@@ -41,7 +41,7 @@
 	freerange = TRUE
 
 /obj/item/radio/borg/ninja/Initialize()
-	..()
+	. = ..()
 	set_frequency(NINJA_FREQ)
 
 /obj/item/gun/energy/shuriken_emitter/borg

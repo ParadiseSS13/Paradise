@@ -2032,6 +2032,9 @@
 		SSticker.mode.greet_ninja(src)
 		SSticker.mode.equip_space_ninja(ninja_mob)
 		SSticker.mode.give_ninja_datum(src)
+		//Стелс цели так же генерят трейторов. И я подозреваю мы не очень хотим закидывать вместе с ниндзя - трейторов в уже идущий раунд
+		var/objective_type = pick("generic", "aggressive")
+		SSticker.mode.forge_ninja_objectives(src, objective_type)
 		SSticker.mode.basic_ninja_needs_check(src)
 
 /datum/mind/proc/make_Rev()

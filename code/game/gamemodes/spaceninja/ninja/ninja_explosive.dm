@@ -23,7 +23,7 @@
 	var/datum/objective/plant_explosive/detonation_objective
 
 /obj/item/grenade/plastic/c4/ninja/New()
-	..()
+	. = ..()
 	image_overlay = image('icons/obj/ninjaobjects.dmi', "[item_state]2")
 
 /obj/item/grenade/plastic/c4/ninja/Destroy()
@@ -51,7 +51,7 @@
 		qdel(src)
 		return
 	detonation_objective.completed = TRUE
-	..()
+	. = ..()
 
 /**
  * check_loc

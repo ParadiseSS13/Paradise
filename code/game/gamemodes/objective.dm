@@ -894,7 +894,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			GLOB.all_objectives -= killer_objective
 			killer_objective.owner?.objectives -= killer_objective
 			qdel(killer_objective)
-	..()
+	. = ..()
 
 /datum/objective/protect/ninja/find_target()
 	log_debug("Ninja_Objectives_Log: Начата генерация потенциальных целей на защиту.")

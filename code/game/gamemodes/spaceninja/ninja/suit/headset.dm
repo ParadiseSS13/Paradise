@@ -13,7 +13,7 @@
 	translate_binary = TRUE
 
 /obj/item/radio/headset/ninja/Initialize()
-	..()
+	. = ..()
 	set_frequency(NINJA_FREQ)
 
 /obj/item/radio/headset/ninja/attackby(obj/item/W as obj, mob/user as mob)

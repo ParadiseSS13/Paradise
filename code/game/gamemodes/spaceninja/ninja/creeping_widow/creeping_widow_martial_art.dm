@@ -51,7 +51,7 @@
 	var/has_focus = TRUE		//Can we use our special moves?
 
 /datum/martial_art/ninja_martial_art/teach(mob/living/carbon/human/H, make_temporary = FALSE)
-	..()
+	. = ..()
 	to_chat(H, span_notice("You have been taught the ways of the <i>Creeping Widow!</i>.<br>\
 		[span_green("To use your moves you must have focus!")] <br> Your focus passively regenerates over time.<br>\
 		To learn more about it, check the Martial Arts tab."))

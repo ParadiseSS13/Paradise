@@ -404,7 +404,7 @@
 	return
 
 /datum/action/item_action/toggle_jetpack/ninja/UpdateButtonIcon()
-	..()
+	. = ..()
 	var/obj/item/tank/jetpack/J = target
 	if(!istype(J) || !J.on)
 		button.icon_state = "[background_icon_state]"
@@ -415,7 +415,7 @@
 	name = "Toggle Jetpack Stabilization"
 
 /datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
-	..()
+	. = ..()
 	var/obj/item/tank/jetpack/J = target
 	if(!istype(J) || !J.stabilizers)
 		button.icon_state = "[background_icon_state]"

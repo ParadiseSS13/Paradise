@@ -163,7 +163,7 @@
 	return
 
 /datum/action/innate/dash/ninja/charge()
-	..()
+	. = ..()
 	if(owner && owner.client)
 		owner.client.mouse_pointer_icon = file(update_cursor())
 		var/obj/item/melee/energy_katana/katana = dashing_item

@@ -126,13 +126,13 @@
 		if(NINJA_DEINIT_LOGOFF_PHASE)
 			message = "Выход из системы, [ninja.real_name]. " + message
 		if(NINJA_DEINIT_MODULES_PHASE)
+			stop()
 			if(stealth)
 				cancel_stealth()		//Get rid of it.
 			if(disguise_active)
 				restore_form()			//This count's too
 			if(spirited)
 				cancel_spirit_form() 	//And another one!
-			stop()	//переносится сюда - по причине запрета абуза абилок вырубаемых выше
 			var/datum/action/item_action/action
 			for(action in ninja.actions)
 				if(action.action_initialisation_text)

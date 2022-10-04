@@ -221,7 +221,7 @@
 	req_suit_name = "ninja suit"
 
 /obj/item/tank/jetpack/suit/ninja/New()
-	..()
+	. = ..()
 	var/datum/action/item_action/jetpack_action
 	for(jetpack_action in actions)
 		jetpack_action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
