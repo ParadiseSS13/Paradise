@@ -1278,6 +1278,9 @@
 
 		oldspecies.on_species_loss(src)
 
+	for(var/mob/living/simple_animal/diona/N in contents) // Let nymphs wiggle out
+		N.resist()
+
 	dna.species = new new_species()
 
 	tail = dna.species.tail
