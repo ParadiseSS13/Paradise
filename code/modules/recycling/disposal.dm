@@ -1332,7 +1332,7 @@
 	if(mode == FALSE)
 		to_chat(user, "<span class='notice'>You remove the screws around the power connection</span>.")
 	else if(mode == TRUE)
-		to_chat(user, <span class='notice'>"You attach the screws around the power connection.</span>")
+		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
 	I.play_tool_sound(src)
 	mode = !mode
 	return TRUE
