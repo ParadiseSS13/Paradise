@@ -264,6 +264,7 @@
 	..()
 	new/obj/effect/decal/cleanable/pie_smudge(loc)
 	visible_message("<span class='warning'>[src] splats.</span>","<span class='warning'>You hear a splat.</span>")
+	playsound(src, 'sound/effects/splat2.ogg', 75, 1)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/meatpie
