@@ -25,7 +25,7 @@
 		text_verb = "clean the ooze off"
 		cleanspeed = CMAG_CLEANTIME
 
-	user.visible_message("<span class='warning'>[user] begins to [text_verb] \the [text_targetname][text_description]</span>")
+	user.visible_message("<span class='warning'>[user] begins to [text_verb] \the [text_targetname][text_description]</span>", "<span class='warning'>You begin to [text_verb] \the [text_targetname][text_description]</span>")
 	if(!do_after(user, cleanspeed, target = src))
 		return FALSE
 
