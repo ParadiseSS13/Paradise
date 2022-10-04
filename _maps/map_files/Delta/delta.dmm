@@ -53368,7 +53368,7 @@
 /obj/machinery/door/window/northleft{
 	dir = 4;
 	name = "Magboot Storage";
-	req_access_txt = "19"
+	req_access_txt = "18"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -53906,7 +53906,7 @@
 /obj/machinery/door/window/northleft{
 	dir = 4;
 	name = "RCD Storage";
-	req_access_txt = "19"
+	req_access_txt = "32"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -77870,7 +77870,7 @@
 /obj/machinery/door/window/northleft{
 	dir = 4;
 	name = "Jetpack Storage";
-	req_access_txt = "32"
+	req_access_txt = "18"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -93988,6 +93988,14 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"pHg" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/door/airlock/external{
+	id_tag = "specops_home";
+	locked = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "pJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -134626,7 +134634,7 @@ abj
 abj
 abj
 acC
-ahz
+pHg
 acC
 abj
 abj
@@ -135140,7 +135148,7 @@ aiH
 aiX
 ajy
 acC
-ahz
+pHg
 acC
 acC
 adb
