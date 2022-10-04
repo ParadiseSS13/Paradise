@@ -361,6 +361,10 @@
 	name = "SRX-13 Heavy Missile Launcher"
 	projectile = /obj/item/missile/heavy
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
+	name = "SRM-8 Missile Rack"
+	projectile = /obj/item/missile
+
 /obj/item/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
