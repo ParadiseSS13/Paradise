@@ -461,12 +461,12 @@
 	icon_state = "syndierd"
 	item_state = "syndierd-id"
 
-/obj/item/card/id/syndicate/afterattack(var/obj/item/O as obj, mob/user as mob, proximity)
-	if(!proximity)
+/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
+	if(!proximity || !istype(O))
 		return
 	if(O.GetID())
 		var/obj/item/card/id/I = O.GetID()
-		if(istype(user, /mob/living) && user.mind)
+		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
