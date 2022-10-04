@@ -492,6 +492,7 @@
 		S.color = NARSIE_WINDOW_COLOUR
 
 /obj/structure/table/glass/plasma
+	name = "plasma glass table"
 	desc = "A table made from the blood sweat and tears of miners."
 	icon = 'icons/obj/smooth_structures/tables/plasmaglass_table.dmi'
 	icon_state = "plasmaglass_table-0"
@@ -501,6 +502,7 @@
 	shardtype = /obj/item/shard/plasma
 
 /obj/structure/table/glass/reinforced
+	name = "reinforced glass table"
 	desc = "Looks robust. You should totally flip it. It is begging for it."
 	icon = 'icons/obj/smooth_structures/tables/rglass_table.dmi'
 	icon_state = "rglass_table-0"
@@ -539,6 +541,7 @@
 		table_shatter(M)
 
 /obj/structure/table/glass/reinforced/plasma
+	name = "reinforced plasma glass table"
 	desc = "Seems a bit overkill for a table."
 	icon = 'icons/obj/smooth_structures/tables/rplasmaglass_table.dmi'
 	icon_state = "rplasmaglass_table-0"
@@ -548,6 +551,7 @@
 	shardtype = /obj/item/shard/plasma
 
 /obj/structure/table/glass/reinforced/titanium
+	name = "reinforced titanium glass table"
 	desc = "A very sleek looking glass table, neat!"
 	icon = 'icons/obj/smooth_structures/tables/titaniumglass_table.dmi'
 	icon_state = "titaniumglass_table-0"
@@ -556,6 +560,7 @@
 	max_integrity = 180
 
 /obj/structure/table/glass/reinforced/plastitanium
+	name = "reinforced plastitanium glass table"
 	desc = "The mother of all glass tables."
 	icon = 'icons/obj/smooth_structures/tables/plastitaniumglass_table.dmi'
 	icon_state = "plastitaniumglass_table-0"
