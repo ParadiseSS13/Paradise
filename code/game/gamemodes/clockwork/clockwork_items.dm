@@ -531,7 +531,7 @@
 	deplete_spell()
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/unspeed(mob/living/carbon/carbon)
-	carbon.status_flags &= ~GOTTAGONOTSOFAST
+	carbon.status_flags &= ~GOTTAGOFAST
 	flags &= ~NODROP
 	deplete_spell()
 
