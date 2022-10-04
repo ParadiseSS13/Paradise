@@ -39,13 +39,17 @@
 			. += filling
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
-	if(usr.incapacitated())
+	var/mob/user = usr
+	if(user.incapacitated())
 		return
 
-	if(!ishuman(usr) || !iscarbon(target))
+	if(!ishuman(user) || !iscarbon(target))
 		return
 
-	if(Adjacent(target) && usr.Adjacent(target))
+	if(Adjacent(target) && user.Adjacent(target))
+		if(!bag)
+			to_chat(user, "<span class='notice'>There's no IV bag connected to [src]!</span>")
+			return
 		bag.afterattack(target, usr, TRUE)
 		START_PROCESSING(SSmachines, src)
 
