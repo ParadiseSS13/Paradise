@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/suit/armor/vest/bloody)
 	cost = 30
 	containername = "bloody armor crate"
-	contraband = 1
+	contraband = TRUE
 
 ////// Weapons: Basic
 
