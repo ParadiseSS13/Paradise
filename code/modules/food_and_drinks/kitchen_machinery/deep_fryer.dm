@@ -45,8 +45,8 @@
 
 /obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/ice))
-		if(I.reagents.has_reagent("ice"))
-			var/ice_amount = I.reagents.get_reagent_amount("ice")
+		var/ice_amount = I.reagents.get_reagent_amount("ice")
+		if(ice_amount)
 			I.reagents.remove_all(I.reagents.total_volume)
 			add_attack_logs(user, src, "poured [ice_amount]u ice into")
 			user.visible_message(
