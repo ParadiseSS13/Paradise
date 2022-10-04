@@ -53367,9 +53367,9 @@
 	},
 /obj/machinery/door/window/northleft{
 	dir = 4;
-	name = "Magboot Storage";
-	req_access_txt = "18"
+	name = "Magboot Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/eva,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "cwS" = (
@@ -53905,9 +53905,9 @@
 /obj/structure/closet/crate/rcd,
 /obj/machinery/door/window/northleft{
 	dir = 4;
-	name = "RCD Storage";
-	req_access_txt = "32"
+	name = "RCD Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "cyf" = (
@@ -77869,9 +77869,9 @@
 	},
 /obj/machinery/door/window/northleft{
 	dir = 4;
-	name = "Jetpack Storage";
-	req_access_txt = "18"
+	name = "Jetpack Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/eva,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "dzS" = (
