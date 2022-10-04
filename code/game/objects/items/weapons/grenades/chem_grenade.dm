@@ -205,7 +205,7 @@
 		for(var/obj/O in beakers)
 			if(!O.reagents)
 				continue
-			if(istype(O,/obj/item/slime_extract))
+			if(istype(O, /obj/item/slime_extract))
 				cores += " [O]"
 			for(var/R in O.reagents.reagent_list)
 				var/datum/reagent/reagent = R

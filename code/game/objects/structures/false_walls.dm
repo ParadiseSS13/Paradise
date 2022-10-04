@@ -119,18 +119,18 @@
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
-		return
+		return TRUE
 	if(!density)
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
-		return
+		return TRUE
 	var/turf/T = get_turf(src)
 	if(T.density)
 		to_chat(user, "<span class='warning'>[src] is blocked!</span>")
-		return
+		return TRUE
 
 	if(!istype(T, /turf/simulated/floor))
 		to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
-		return
+		return TRUE
 	user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
 	ChangeToWall()
 	return TRUE

@@ -208,19 +208,20 @@
 		if(req_components[R] > 0)
 			component_check = 0
 			break
-	if(component_check)
-		I.play_tool_sound(src)
-		var/obj/machinery/new_machine = new circuit.build_path(loc)
-		new_machine.on_construction()
-		for(var/obj/O in new_machine.component_parts)
-			qdel(O)
-		new_machine.component_parts = list()
-		for(var/obj/O in src)
-			O.loc = null
-			new_machine.component_parts += O
-		circuit.loc = null
-		new_machine.RefreshParts()
-		qdel(src)
+	if(!component_check)
+		return TRUE
+	I.play_tool_sound(src)
+	var/obj/machinery/new_machine = new circuit.build_path(loc)
+	new_machine.on_construction()
+	for(var/obj/O in new_machine.component_parts)
+		qdel(O)
+	new_machine.component_parts = list()
+	for(var/obj/O in src)
+		O.loc = null
+		new_machine.component_parts += O
+	circuit.loc = null
+	new_machine.RefreshParts()
+	qdel(src)
 	return TRUE
 
 
