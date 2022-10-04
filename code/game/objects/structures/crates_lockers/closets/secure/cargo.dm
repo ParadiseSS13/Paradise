@@ -21,8 +21,8 @@
 	open_door_sprite = "mining_door"
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
-	new /obj/item/clothing/under/rank/cargo(src)
-	new /obj/item/clothing/under/rank/cargo/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/quartermaster(src)
+	new /obj/item/clothing/under/rank/cargo/quartermaster/skirt(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)

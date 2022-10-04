@@ -16,7 +16,7 @@
 	item_state = "lb_suit"
 	item_color = "qm"
 
-/obj/item/clothing/under/rank/cargo/skirt
+/obj/item/clothing/under/rank/cargo/quartermaster/skirt
 	name = "quartermaster's jumpskirt"
 	desc = "It's a jumpskirt worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
 	icon_state = "qmf"

@@ -185,7 +185,7 @@
 
 /datum/gear/uniform/skirt/job/qm
 	display_name = "Skirt, QM"
-	path = /obj/item/clothing/under/rank/cargo/skirt
+	path = /obj/item/clothing/under/rank/cargo/quartermaster/skirt
 	allowed_roles = list("Quartermaster")
 
 /datum/gear/uniform/skirt/job/warden
