@@ -152,11 +152,12 @@
 	name = "shark teeth"
 	desc = "A number of teeth, supposedly from a shark."
 	icon = 'icons/obj/fish_items.dmi'
+	icon_state = "teeth"
 	force = 2.0
 	throwforce = 5.0
 	materials = list()
 
-/obj/item/shard/shark_teeth/initial_icon_state()
+/obj/item/shard/shark_teeth/set_initial_icon_state()
 	icon_state = "teeth"
 	pixel_x = rand(-5,5)
 	pixel_y = rand(-5,5)
