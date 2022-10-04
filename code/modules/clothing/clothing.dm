@@ -830,14 +830,24 @@ BLIND     // can't see anything
 	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
 
+	var/mob/living/carbon/human/H = usr
+
 	if(!usr.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-		if((basecolor + "_d_s") in icon_states('icons/mob/clothing/under/misc.dmi'))
-			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-			usr.update_inv_w_uniform()
-		else
-			to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
+
+		if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name]))
+			if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
+				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+				usr.update_inv_w_uniform()
+
+		if(!((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name])))
+			if(H.w_uniform.sprite_sheets["Human"] && icon_exists(H.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
+				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+				usr.update_inv_w_uniform()
+			else
+				to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
+
 	else
 		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
 
