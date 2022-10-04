@@ -108,7 +108,7 @@ LINEN BINS
 /obj/item/bedsheet/black
 	icon_state = "sheetblack"
 	item_state = "bedsheetblack"
-	item_color = "sheetblack"
+	item_color = "black"
 	dream_messages = list("black")
 	nightmare_messages = list("the void of space")
 
