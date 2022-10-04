@@ -508,9 +508,9 @@
 	read_only = !read_only
 	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
 
-/obj/item/disk/plantgene/cmag_act()
+/obj/item/disk/plantgene/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(usr, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
+		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
 		ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
 		update_name()
 		update_desc()
