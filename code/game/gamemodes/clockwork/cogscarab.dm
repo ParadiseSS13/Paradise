@@ -87,19 +87,14 @@
 		overlays -= "eyes"
 
 /mob/living/silicon/robot/cogscarab/attackby(obj/item/W, mob/user, params)
-	if(user.a_intent != INTENT_HELP)
-		return
-
 	if(istype(W, /obj/item/borg/upgrade))
 		return
 
-	else if(istype(W, /obj/item/crowbar))
-		return
-
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		return
-
 	return ..()
+
+/mob/living/silicon/robot/cogscarab/welder_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
 
 /mob/living/silicon/robot/cogscarab/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
@@ -123,6 +118,9 @@
 	if(!isclocker(src))
 		SSticker.mode.add_clocker(mind)
 	return
+
+/mob/living/silicon/robot/cogscarab/allowed(obj/item/I) //No opening cover
+	return FALSE
 
 /mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)

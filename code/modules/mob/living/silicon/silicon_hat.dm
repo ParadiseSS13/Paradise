@@ -37,6 +37,11 @@
 	canBeHatted = TRUE
 	canWearBlacklistedHats = TRUE
 
+/mob/living/silicon/robot/cogscarab
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
+
 /mob/living/silicon/ai
 	hat_offset_y = 3
 	isCentered = TRUE
