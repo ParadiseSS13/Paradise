@@ -3168,9 +3168,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/table/reinforced,
-/obj/item/folder/red,
-/obj/item/pen,
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 8;
 	name = "Security Checkpoint";
@@ -3179,6 +3176,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -3240,9 +3240,6 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
-	},
-/obj/structure/chair/office/dark{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -16754,9 +16751,6 @@
 	},
 /area/crew_quarters/cabin1)
 "bEe" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -18913,9 +18907,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/table/reinforced,
-/obj/item/folder/blue,
-/obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/window/brigdoor/southright{
@@ -18923,6 +18914,9 @@
 	name = "Customs Desk";
 	pixel_x = 32;
 	req_access_txt = "19"
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -40586,6 +40580,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue";
@@ -83291,6 +83286,17 @@
 	icon_state = "redcorner"
 	},
 /area/security/armory)
+"lNh" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 8;
+	pixel_x = 0
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplecorner"
+	},
+/area/hallway/primary/aft)
 "lNp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -112056,6 +112062,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/red,
+/obj/structure/table/reinforced,
+/obj/item/folder/red,
+/obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint)
 "rQI" = (
@@ -120824,6 +120833,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/blue,
+/obj/structure/table/reinforced,
+/obj/item/folder/blue,
+/obj/item/pen,
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/north)
 "tNI" = (
@@ -136742,16 +136754,15 @@
 /obj/item/multitool{
 	pixel_x = 3
 	},
-/obj/item/robotanalyzer,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue";
@@ -179206,7 +179217,7 @@ kQV
 uRI
 kQV
 xHs
-kQV
+lNh
 lke
 kQV
 kQV
