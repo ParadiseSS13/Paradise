@@ -13,15 +13,8 @@ import { BotStatus } from './common/BotStatus';
 export const BotFloor = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    locked,
     noaccess,
-    maintpanel,
-    on,
-    autopatrol,
     painame,
-    canhack,
-    emagged,
-    remote_disabled,
     hullplating,
     replace,
     eat,
