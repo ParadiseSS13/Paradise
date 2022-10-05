@@ -325,7 +325,6 @@
 				/obj/item/rcd/combat = 25,
 				/obj/item/rpd/bluespace = 25,
 				/obj/item/tank/internals/emergency_oxygen/double = 25,
-				/obj/item/slimepotion/speed = 25,
 				/obj/item/storage/backpack/holding = 25,
 				/obj/item/clothing/glasses/meson/night = 25, // NV mesons
 				/obj/item/clothing/glasses/material = 25, // shows objects, but not mobs, through walls
