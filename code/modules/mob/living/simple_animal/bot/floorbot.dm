@@ -90,9 +90,10 @@
 		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
 		"hullplating" = autotile,
 		"replace" = replacetiles,
-		"find" = eattiles,
+		"eat" = eattiles,
+		"make" = maketiles,
+		"fixfloor" = fixfloors,
 		"alert" = nag_on_empty,
-		"repair" = fixfloors,
 		"magnet" = anchored,
 		"tiles" = amount
 	)
@@ -127,6 +128,8 @@
 			replacetiles = !replacetiles
 		if("eattiles")
 			eattiles = !eattiles
+		if("maketiles")
+			maketiles = !maketiles
 		if("nagonempty")
 			nag_on_empty = !nag_on_empty
 		if("fixfloors")

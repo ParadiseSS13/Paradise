@@ -23,8 +23,9 @@ export const BotFloor = (props, context) => {
     remote_disabled,
     hullplating,
     replace,
-    repair,
-    find,
+    eat,
+    make,
+    fixfloor,
     alert,
     magnet,
     tiles,
@@ -109,7 +110,7 @@ export const BotFloor = (props, context) => {
           />
           <Button.Checkbox
             fluid
-            checked={repair}
+            checked={fixfloor}
             content="Repair damaged tiles and platings"
             disabled={noaccess}
             onClick={() => act('fixfloors')}
@@ -118,10 +119,17 @@ export const BotFloor = (props, context) => {
         <Section title = "Miscellaneous">
           <Button.Checkbox
             fluid
-            checked={find}
+            checked={eat}
             content="Finds tiles"
             disabled={noaccess}
             onClick={() => act('eattiles')}
+          />
+          <Button.Checkbox
+            fluid
+            checked={make}
+            content="Make pieces of metal into tiles when empty"
+            disabled={noaccess}
+            onClick={() => act('maketiles')}
           />
           <Button.Checkbox
             fluid
