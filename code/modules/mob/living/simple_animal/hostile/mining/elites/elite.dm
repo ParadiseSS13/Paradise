@@ -1,6 +1,7 @@
 #define TUMOR_INACTIVE 0
 #define TUMOR_ACTIVE 1
 #define TUMOR_PASSIVE 2
+#define ARENA_RADIUS 12
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -237,7 +238,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = "tumor_popped"
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, .proc/onEliteLoss)
 	INVOKE_ASYNC(src, .proc/arena_checks)
-	AddComponent(/datum/component/proximity_monitor, 12) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
+	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
@@ -250,7 +251,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, .proc/arena_checks)
-	AddComponent(/datum/component/proximity_monitor, 12)
+	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS)
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
@@ -328,18 +329,18 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/turf/tumor_turf = get_turf(src)
 	if(loc == null)
 		return
-	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(12, tumor_turf))
+	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
 		var/obj/effect/temp_visual/elite_tumor_wall/newwall
 		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 		newwall.activator = activator
 		newwall.ourelite = mychild
 
 /obj/structure/elite_tumor/proc/border_check()
-	if(activator != null && get_dist(src, activator) >= 12)
+	if(activator != null && get_dist(src, activator) >= ARENA_RADIUS)
 		activator.forceMove(loc)
 		visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-	if(mychild != null && get_dist(src, mychild) >= 12)
+	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
 		mychild.forceMove(loc)
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
@@ -361,7 +362,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
 			invaders += M
 		var/list/valid_turfs = list()
-		for(var/turf/T in RANGE_EDGE_TURFS(13, src))
+		for(var/turf/T in RANGE_EDGE_TURFS(ARENA_RADIUS + 1, src))
 			valid_turfs += T
 		M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 		playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
@@ -487,3 +488,5 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	gpstag = "Cancerous Signal"
 	desc = "Ghosts in a fauna? That's cancerous!"
 	invisibility = 100
+
+#undef ARENA_RADIUS
