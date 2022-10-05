@@ -466,6 +466,15 @@
 /obj/item/clothing/head/hooded/winterhood/engineering/atmos
 	icon_state = "winterhood_atmos"
 
+/obj/item/clothing/suit/hooded/wintercoat/engineering/ce
+	name = "chief engineer winter coat"
+	icon_state = "wintercoat_ce"
+	item_state = "coatce"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/ce
+
+/obj/item/clothing/head/hooded/winterhood/engineering/ce
+	icon_state = "winterhood_ce"
+
 /obj/item/clothing/suit/hooded/wintercoat/hydro
 	name = "hydroponics winter coat"
 	icon_state = "wintercoat_hydro"
