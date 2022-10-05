@@ -31,6 +31,10 @@
 		if(cell.charge <= 0)
 			to_chat(ninja, span_warning("You don't have enough power to enable spirit form!"))
 			return
+		if(istype(ninja.r_hand, /obj/item/grab))
+			ninja.unEquip(ninja.r_hand, TRUE)
+		if(istype(ninja.l_hand, /obj/item/grab))
+			ninja.unEquip(ninja.l_hand, TRUE)
 		spirited = !spirited
 		animate(ninja, color ="#00ff00", time = 6)
 		if(!stealth)

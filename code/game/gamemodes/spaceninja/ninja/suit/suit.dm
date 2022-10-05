@@ -399,6 +399,12 @@
 			if(disguise_active) // If chameleon is active.
 				used_power += s_acost
 			if(spirited) // If spirit form is active.
+				if(istype(ninja.r_hand, /obj/item/grab))
+					ninja.unEquip(ninja.r_hand, TRUE)
+					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
+				if(istype(ninja.l_hand, /obj/item/grab))
+					ninja.unEquip(ninja.l_hand, TRUE)
+					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
 				used_power += cell.maxcharge * s_spirit_form__percent_cost //that shit is NOT cheap
 			if(cell.charge < used_power) // Проверка на случай когда он не может отнять энергию до нуля и в итоге вечно торчит в инвизе/форме духа/хамелионе
 				cell.charge = 0
