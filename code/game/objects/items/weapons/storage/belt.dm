@@ -235,7 +235,8 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/forensics/sample_kit/powder,
-		/obj/item/forensics/sample_kit)
+		/obj/item/forensics/sample_kit,
+		/obj/item/eftpos/sec)
 
 /obj/item/storage/belt/security/sec/New()
 	..()
