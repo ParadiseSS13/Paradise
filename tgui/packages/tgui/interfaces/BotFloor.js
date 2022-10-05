@@ -131,16 +131,16 @@ export const BotFloor = (props, context) => {
             onClick={() => act('nagonempty')}
           />
           <Button.Checkbox
-          fluid
-          checked={magnet}
-          content="Traction Magnets"
-          disabled={noaccess}
-          onClick={() => act('anchored')}
+            fluid
+            checked={magnet}
+            content="Traction Magnets"
+            disabled={noaccess}
+            onClick={() => act('anchored')}
           />
         </Section>
         {painame && (
           <Section title="pAI">
-            <Button.Ch
+            <Button.Checkbox
               fluid
               icon="eject"
               content={painame}
