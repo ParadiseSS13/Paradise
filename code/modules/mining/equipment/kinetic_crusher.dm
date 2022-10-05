@@ -281,7 +281,6 @@
 	name = "ancient goliath tentacle"
 	desc = "A HUGE sliced-off goliath tentacle. Suitable as a trophy for a kinetic crusher."
 	icon_state = "ancient_goliath_tentacle"
-	denied_type = /obj/item/crusher_trophy/goliath_tentacle
 	bonus_value = 4
 
 //watcher
