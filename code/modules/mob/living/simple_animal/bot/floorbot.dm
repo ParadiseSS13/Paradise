@@ -74,7 +74,7 @@
 /mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotFloor", name, 500, 500)
+		ui = new(user, src, ui_key, "BotFloor", name, 500, 520)
 		ui.open()
 
 /mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
