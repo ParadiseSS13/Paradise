@@ -354,8 +354,6 @@
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
-	ingredient_name_plural = "eggs"
-
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()

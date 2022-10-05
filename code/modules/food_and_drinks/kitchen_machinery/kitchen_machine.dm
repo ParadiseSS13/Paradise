@@ -1,3 +1,6 @@
+#define NO_DIRT 0
+#define MAX_DIRT 100
+
 /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
@@ -9,7 +12,7 @@
 	active_power_usage = 100
 	container_type = OPENCONTAINER
 	var/operating = FALSE // Is it on?
-	var/dirty = 0 // = {0..100} Does it need cleaning?
+	var/dirty = NO_DIRT // = {0..100} Does it need cleaning?
 	var/efficiency = 0
 	var/list/cook_verbs = list("Cooking")
 	//Recipe & Item vars
@@ -68,30 +71,20 @@
 /obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
 	if(operating)
 		return
-	if(dirty < 100)
+	if(dirty < MAX_DIRT)
 		if(default_deconstruction_screwdriver(user, open_icon, off_icon, O))
 			return
 		if(exchange_parts(user, O))
 			return
-	if(istype(O, /obj/item/wrench))
-		playsound(src, O.usesound, 50, 1)
-		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
-			return
-		else if(!anchored)
-			anchored = TRUE
-			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
-			return
 
 	default_deconstruction_crowbar(user, O)
 
-	if(dirty == 100) // The machine is all dirty so can't be used!
+	if(dirty == MAX_DIRT) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
 			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
-				dirty = 0 // It's clean!
+				dirty = NO_DIRT
 				update_icon(UPDATE_ICON_STATE)
 				container_type = OPENCONTAINER
 				return TRUE
@@ -125,9 +118,21 @@
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return TRUE
 
+/obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
+	if(operating)
+		return
+
+	I.play_tool_sound(src)
+	if(anchored)
+		to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
+	else if(!anchored)
+		to_chat(user, "<span class='alert'>[src] is now secured.</span>")
+	anchored = !anchored
+	return TRUE
+
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_item())
-		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
+		to_chat(user, "<span class='notice'>[I] is stuck to your hand, you cannot put it in [src]</span>")
 		return
 
 	I.forceMove(src)
@@ -147,34 +152,34 @@
 
 /obj/machinery/kitchen_machine/proc/format_content_descs()
 	. = ""
-	var/list/items_counts = new
-	var/list/items_measures = new
-	var/list/items_measures_p = new
+	var/list/items_counts = list()
+	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O,/obj/item/reagent_containers/food/snacks/egg))
-			items_measures[display_name] = "egg"
-			items_measures_p[display_name] = "eggs"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/tofu))
-			items_measures[display_name] = "tofu chunk"
-			items_measures_p[display_name] = "tofu chunks"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
-			items_measures[display_name] = "slab of meat"
-			items_measures_p[display_name] = "slabs of meat"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
-			items_measures[display_name] = "fillet of meat"
-			items_measures_p[display_name] = "fillets of meat"
+		if(istype(O, /obj/item/reagent_containers/food))
+			var/obj/item/reagent_containers/food/food = O
+			if(!items_counts[display_name])
+				if(food.ingredient_name)
+					name_overrides[display_name] = food.ingredient_name
+				else
+					name_overrides[display_name] = display_name
+			else
+				if(food.ingredient_name_plural)
+					name_overrides[display_name] = food.ingredient_name_plural
+				else if(items_counts[display_name] == 1) // Must only add "s" once or you get stuff like "eggsssss"
+					name_overrides[display_name] = "[name_overrides[display_name]]s" //name_overrides[display_name] Will be set on the first time as the singular form
+
 		items_counts[display_name]++
 
 	for(var/O in items_counts)
 		var/N = items_counts[O]
-		if(!(O in items_measures))
-			. += {"<B>[capitalize(O)]:</B> [N] [lowertext(O)]\s<BR>"}
+		if(!(O in name_overrides))
+			. += {"<b>[capitalize(O)]:</b> [N] [lowertext(O)]\s<br>"}
 		else
 			if(N==1)
-				. += {"<B>[capitalize(O)]:</B> [N] [items_measures[O]]<BR>"}
+				. += {"<b>[capitalize(O)]:</b> [N] [name_overrides[O]]<br>"}
 			else
-				. += {"<B>[capitalize(O)]:</B> [N] [items_measures_p[O]]<BR>"}
+				. += {"<b>[capitalize(O)]:</b> [N] [name_overrides[O]]<br>"}
 
 	for(var/datum/reagent/R in reagents.reagent_list)
 		var/display_name = R.name
@@ -183,7 +188,7 @@
 		if(R.id == "frostoil")
 			display_name = "Coldsauce"
 
-		. += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
+		. += {"<b>[display_name]:</b> [R.volume] unit\s<br>"}
 
 /************************************
 *   Machine Menu Handling/Cooking	*
@@ -206,7 +211,7 @@
 		//This only runs if there is a single recipe source to be made and it is a failure (the machine was loaded with only 1 mixing bowl that results in failure OR was directly loaded with ingredients that results in failure).
 		//If there are multiple sources, this bit gets skipped.
 		dirty += 1
-		if(prob(max(10, dirty*5) || has_extra_item()))	// 5% failure per failed recipee, maxed at 10%, or it has an extra item
+		if(prob(max(10, dirty * 5) || has_extra_item()))	// 5% failure per failed recipee, maxed at 10%, or it has an extra item
 			if(!wzhzhzh(4))
 				abort()
 				return
@@ -299,19 +304,19 @@
 /obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
 		if(stat & (NOPOWER|BROKEN))
-			return 0
+			return FALSE
 		use_power(500)
 		sleep(10)
-	return 1
+	return TRUE
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
 	for(var/obj/O in contents)
 		if(!is_type_in_list(O, list(/obj/item/reagent_containers/food, /obj/item/grown, /obj/item/mixing_bowl)))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/machinery/kitchen_machine/proc/start()
-	visible_message("<span class='notice'>[src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
+	visible_message("<span class='notice'>[src] turns on.</span>", blind_message = "<span class='notice'>You hear \a [src].</span>")
 	if(soundloop)
 		soundloop.start()
 	else
@@ -337,11 +342,11 @@
 
 /obj/machinery/kitchen_machine/proc/muck_start()
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1) // Play a splat sound
-	dirty = 100 // Make it dirty so it can't be used util cleaned
+	dirty = MAX_DIRT // Make it dirty so it can't be used until cleaned
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
-	visible_message("<span class='alert'>\The [src] gets covered in muck!</span>")
+	visible_message("<span class='alert'>[src] gets covered in muck!</span>")
 	flags = null //So you can't add condiments
 	stop()
 
@@ -365,7 +370,7 @@
 
 /obj/machinery/kitchen_machine/update_icon_state()
 	. = ..()
-	if(dirty == 100)
+	if(dirty == MAX_DIRT)
 		icon_state = dirty_icon
 		return
 	if(operating)
@@ -400,7 +405,7 @@
 	data["inactive"] = FALSE
 	data["no_eject"] = FALSE
 	data["tooltip"] = ""
-	if(dirty >= 100)
+	if(dirty >= MAX_DIRT)
 		data["inactive"] = TRUE
 		data["tooltip"] = "It's too dirty."
 	else if(!has_cookables())
@@ -482,7 +487,7 @@
 			dispose(ui.user)
 
 /obj/machinery/kitchen_machine/AltClick(mob/user)
-	if(dirty >= 100)
+	if(dirty >= MAX_DIRT)
 		to_chat(user, "<span class='warning'>It's too dirty.</span>")
 		return
 	if(!has_cookables())
@@ -490,7 +495,10 @@
 		return
 
 	cook()
-	to_chat(user, "<span class='notice'>You activate [src]</span>")
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
 
 /obj/machinery/kitchen_machine/proc/has_cookables()
 	return reagents.total_volume > 0 || length(contents)
+
+#undef NO_DIRT
+#undef MAX_DIRT

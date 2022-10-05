@@ -12,7 +12,6 @@
 	list_reagents = list("plantmatter" = 2)
 	tastes = list("tofu" = 1)
 	ingredient_name = "tofu chunk"
-	ingredient_name_plural = "tofu chunks"
 
 /obj/item/reagent_containers/food/snacks/fried_tofu
 	name = "fried tofu"

@@ -11,7 +11,7 @@ export const KitchenMachine = (props, context) => {
       <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
         <Operating/>
         <KitchenTop/>
-        <Section title="Ingredients">
+        <Section title="Ingredients" flexGrow={1}>
           <Table className="Ingredient__Table">
             {ingredients.map((product) => (
               <Table.Row tr={5} key={product.name}>
@@ -50,13 +50,13 @@ const KitchenTop = (props, context) => {
             textAlign="center"
             icon="power-off"
             disabled={inactive}
-            tooltip={tooltip}
+            tooltip={inactive ? tooltip : ""}
             tooltipPosition="bottom"
             content="Activate"
             onClick={() => act('cook')}
           />
         </Flex.Item>
-        <Flex.Item width="50%" mr="3px">
+        <Flex.Item width="50%">
           <Button
             fluid
             textAlign="center"
