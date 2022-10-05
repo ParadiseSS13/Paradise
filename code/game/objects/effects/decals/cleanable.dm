@@ -74,7 +74,7 @@
 	if(smoothing_flags)
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
-	if(loc && iswallturf(loc) && plane == FLOOR_PLANE)
+	if(iswallturf(loc) && plane == FLOOR_PLANE)
 		plane = GAME_PLANE // so they can be seen above walls
 
 /obj/effect/decal/cleanable/Destroy()
