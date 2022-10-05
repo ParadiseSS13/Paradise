@@ -117,7 +117,8 @@
 	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
   )
 
-///This define will take the radius, and center source, and produce a list of turfs in the shape of a square. If used near the edge of the map, will still work fine.
+/// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
+// order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER)\
 	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
 	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
