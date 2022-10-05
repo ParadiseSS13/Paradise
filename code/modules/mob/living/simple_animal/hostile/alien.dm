@@ -151,14 +151,16 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
+	var/cleanspeed = 15
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
-	if(ismovable(target))
-		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
-			qdel(target)
-			return TRUE
-		var/atom/movable/M = target
-		M.clean_blood()
+	if(ishuman(target))
+		var/atom/movable/H = target
+		H.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
 		return TRUE
+	target.cleaning_act(src, src, cleanspeed, text_description = ".") //LXM is both the user and the cleaning implement itself. Wow!
+
+/mob/living/simple_animal/hostile/alien/maid/can_clean()
+	return TRUE
+
