@@ -542,7 +542,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/camera
 	var/static/list/monitor_names_paths = list(
 							"Camera Monitor" = /obj/machinery/computer/security,
-							"Old Security Camera Monitor" = /obj/machinery/computer/security/wooden_tv,
+							"Wooden TV" = /obj/machinery/computer/security/wooden_tv,
 							"Outpost Camera Monitor" = /obj/machinery/computer/security/mining,
 							"Engineering Camera Monitor" = /obj/machinery/computer/security/engineering,
 							"Engine Camera Monitor" = /obj/machinery/computer/security/telescreen/engine)

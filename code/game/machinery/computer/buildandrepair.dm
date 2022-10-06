@@ -56,7 +56,7 @@
 	build_path = /obj/machinery/computer/security/telescreen
 
 /obj/item/circuitboard/camera/engine
-	board_name = "Engine Monitor"
+	board_name = "Engine Camera Monitor"
 	build_path = /obj/machinery/computer/security/telescreen/engine
 
 /obj/item/circuitboard/camera/wooden_tv
