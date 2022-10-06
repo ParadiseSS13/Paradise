@@ -268,7 +268,7 @@ AI MODULES
 /obj/item/aiModule/crewsimov/cmag_act(mob/user)
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	to_chat(user, "<span class='warning'>Yellow ooze seeps into [src]'s circuits...</span>")
-	new /obj/item/aiModule/goofsimov(loc)
+	new /obj/item/aiModule/goofsimov(user.loc)
 	qdel(src)
 
 /******************* Quarantine ********************/
