@@ -11,7 +11,6 @@
 	layer = ABOVE_NORMAL_TURF_LAYER
 	max_integrity = 30
 	var/floor = 0
-	var/generation = 1
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
 /obj/structure/glowshroom/extinguish_light()
