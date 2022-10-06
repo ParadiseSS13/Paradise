@@ -37,6 +37,7 @@ export const BotStatus = (props, context) => {
               onClick={() => act('power')}
             />
           </LabeledList.Item>
+          {autopatrol !== null &&
           <LabeledList.Item label="Patrol">
             <Button.Checkbox
               fluid
@@ -46,6 +47,7 @@ export const BotStatus = (props, context) => {
               onClick={() => act('autopatrol')}
             />
           </LabeledList.Item>
+          }
           {!!maintpanel && (
             <LabeledList.Item label="Maintenance Panel">
               <Box color="bad">Panel Open!</Box>
