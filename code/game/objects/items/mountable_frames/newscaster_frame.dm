@@ -44,7 +44,7 @@
 	name = "entertainment monitor frame"
 	desc = "Used to build entertainment monitors, just secure to the wall."
 	icon = 'icons/obj/status_display.dmi'
-	icon_state = "frame"
+	icon_state = "outline"
 	item_state = "syringe_kit"
 
 /obj/item/mounted/frame/newscaster_frame/entertainment_frame/do_build(turf/on_wall, mob/user)
