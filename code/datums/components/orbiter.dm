@@ -114,7 +114,8 @@
 	orbiter.orbiting_uid = parent.UID()
 	store_orbit_data(orbiter, orbit_flags)
 
-	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
+	if(!(orbit_flags & ORBIT_LOCK_IN))
+		RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
 
 	// Head first!
 	if(pre_rotation)

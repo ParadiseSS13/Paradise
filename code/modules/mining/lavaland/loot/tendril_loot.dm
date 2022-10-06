@@ -247,7 +247,7 @@
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
+		wisp.orbit(user, 20, lock_in_orbit = TRUE)
 		set_light(0)
 
 		user.update_sight()
@@ -292,9 +292,6 @@
 	icon_state = "orb"
 	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
-
-/obj/effect/wisp/onShuttleMove()
-	return
 
 //Red/Blue Cubes
 /obj/item/warp_cube
