@@ -586,15 +586,15 @@
 	name = "Newscaster Frame"
 	id = "newscaster_frame"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 14000, MAT_GLASS = 8000)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
 	build_path = /obj/item/mounted/frame/newscaster_frame
 	category = list("initial", "Construction")
 
 /datum/design/display_frame
-	name = "Display Frame"
+	name = "Status Display Frame"
 	id = "display_frame"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 14000, MAT_GLASS = 8000)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
 	build_path = /obj/item/mounted/frame/newscaster_frame/display_frame
 	category = list("initial", "Construction")
 
@@ -602,7 +602,7 @@
 	name = "AI Status Display Frame"
 	id = "ai_display_frame"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 14000, MAT_GLASS = 8000)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
 	build_path = /obj/item/mounted/frame/newscaster_frame/ai_display_frame
 	category = list("initial", "Construction")
 
@@ -610,7 +610,7 @@
 	name = "Entertainment Monitor Frame"
 	id = "entertainment_frame"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 14000, MAT_GLASS = 8000)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
 	build_path = /obj/item/mounted/frame/newscaster_frame/entertainment_frame
 	category = list("initial", "Construction")
 

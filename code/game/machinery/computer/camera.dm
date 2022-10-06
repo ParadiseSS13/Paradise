@@ -1,7 +1,6 @@
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Used to access the various cameras networks on the station."
-
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
 	light_color = LIGHT_COLOR_RED

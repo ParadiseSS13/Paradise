@@ -539,6 +539,37 @@ to destroy them and players will be able to make replacements.
 	if(user)
 		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
 
+/obj/item/circuitboard/camera
+	var/static/list/monitor_names_paths = list(
+							"Camera Monitor" = /obj/machinery/computer/security,
+							"Old Security Camera Monitor" = /obj/machinery/computer/security/wooden_tv,
+							"Outpost Camera Monitor" = /obj/machinery/computer/security/mining,
+							"Engineering Camera Monitor" = /obj/machinery/computer/security/engineering,
+							"Engine Camera Monitor" = /obj/machinery/computer/security/telescreen/engine)
+
+/obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in monitor_names_paths
+	if(!choice)
+		return
+	set_type(user, choice)
+
+/obj/item/circuitboard/camera/proc/set_type(mob/user, type)
+	if(!ispath(type))
+		board_name = type
+		type = monitor_names_paths[type]
+	else
+		for(var/name in monitor_names_paths)
+			if(monitor_names_paths[name] == type)
+				board_name = name
+				break
+	build_path = type
+	format_board_name()
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
+
 /obj/item/circuitboard/monkey_recycler
 	board_name = "Monkey Recycler"
 	build_path = /obj/machinery/monkey_recycler
