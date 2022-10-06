@@ -32,7 +32,6 @@
 	force = 10
 	force_wielded = 10
 	armour_penetration_flat = 20
-	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
