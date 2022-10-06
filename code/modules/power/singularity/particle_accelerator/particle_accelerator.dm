@@ -129,7 +129,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		if(ACCELERATOR_WRENCHED)
 			. += "<span class='notice'>\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.</span>"
 		if(ACCELERATOR_WIRED)
-			. +=  "<span class='notice'>\The [name] is <b>wired</b>, but the maintenence panel is <i>unscrewed and open</i>.</span>"
+			. +=  "<span class='notice'>\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.</span>"
 		if(ACCELERATOR_READY)
 			. += "<span class='notice'>\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.</span>"
 			if(powered)

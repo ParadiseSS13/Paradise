@@ -418,7 +418,7 @@
 	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
-				. += "<span class='notice'>It is turned [on? "on" : "off"].</span>"
+				. += "<span class='notice'>It is turned [on ? "on" : "off"].</span>"
 			if(LIGHT_EMPTY)
 				. += "<span class='notice'>The [fitting] has been removed.</span>"
 				. += "<span class='notice'>The casing can be <b>unscrewed</b>.</span>"
