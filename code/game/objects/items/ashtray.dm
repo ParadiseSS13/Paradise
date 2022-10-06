@@ -52,6 +52,10 @@
 	else
 		desc = initial(desc)
 
+/obj/item/ashtray/deconstruct()
+	empty_tray()
+	qdel(src)
+
 /obj/item/ashtray/proc/empty_tray()
 	for(var/obj/item/I in contents)
 		I.forceMove(loc)
@@ -67,7 +71,6 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	empty_tray()
 	new material(drop_location(), 1)
 	deconstruct()
 
