@@ -103,7 +103,7 @@
 	item_state = "y_suit"
 	item_color = "yellow"
 
-/obj/item/clothing/under/psyche
+/obj/item/clothing/under/color/psyche
 	name = "psychedelic jumpsuit"
 	desc = "Groovy!"
 	icon_state = "psyche"
