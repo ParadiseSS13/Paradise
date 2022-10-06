@@ -174,6 +174,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			muffledspeech_all(message_pieces)
 			verb = "mumbles"
 
+	if(is_facehugged())
+		muffledspeech_all(message_pieces)
+		verb = "gurgles"
+
 	if(!ignore_speech_problems)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
@@ -326,6 +330,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			to_chat(src, "<span class='danger'>Your mouth is taped and you cannot speak!</span>")
 		else
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
+		return
+
+	if(is_facehugged())
+		to_chat(src, "<span class='danger'>You can't get a word out with this horrible creature on your face!</span>")
 		return
 
 	var/message = multilingual_to_message(message_pieces)

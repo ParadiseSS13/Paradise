@@ -9,7 +9,7 @@
 	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
-	action_icon_state = "clown"
+	action_icon_state = "cluwne"
 
 /mob/living/carbon/human/proc/makeCluwne()
 	to_chat(src, "<span class='danger'>You feel funny.</span>")
