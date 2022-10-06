@@ -707,28 +707,6 @@
 		/obj/item/gun/energy/immolator/multi/cyborg
 	)
 
-// Xenomorph cyborg module.
-/obj/item/robot_module/alien/hunter
-	name = "alien hunter module"
-	module_type = "Standard"
-	module_actions = list(/datum/action/innate/robot_sight/thermal/alien)
-	basic_modules = list(
-		/obj/item/melee/energy/alien/claws,
-		/obj/item/flash/cyborg/alien,
-		/obj/item/reagent_containers/spray/alien/stun,
-		/obj/item/reagent_containers/spray/alien/smoke,
-	)
-	emag_modules = list(/obj/item/reagent_containers/spray/alien/acid)
-	special_rechargables = list(
-		/obj/item/reagent_containers/spray/alien/acid,
-		/obj/item/reagent_containers/spray/alien/stun,
-		/obj/item/reagent_containers/spray/alien/smoke
-	)
-
-/obj/item/robot_module/alien/hunter/add_languages(mob/living/silicon/robot/R)
-	. = ..()
-	R.add_language("xenocommon", 1)
-
 // Maintenance drone module.
 /obj/item/robot_module/drone
 	name = "drone module"

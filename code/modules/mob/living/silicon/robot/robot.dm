@@ -309,8 +309,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/modules = list("Engineering", "Medical", "Miner", "Janitor", "Service")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
-	if(mmi != null && mmi.alien)
-		modules = list("Hunter")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
 		return
@@ -408,10 +406,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			icon_state = "ertgamma"
 			status_flags &= ~CANPUSH
 
-		if("Hunter")
-			module = new /obj/item/robot_module/alien/hunter(src)
-			icon_state = "xenoborg-state-a"
-			modtype = "Xeno-Hu"
 
 	//languages
 	module.add_languages(src)
