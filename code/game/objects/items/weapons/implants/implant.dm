@@ -62,6 +62,8 @@
 		implant_data = new implant_data
 
 /obj/item/implant/Destroy()
+	if(imp_in)
+		removed(imp_in)
 	QDEL_NULL(implant_data)
 	return ..()
 
@@ -221,11 +223,6 @@
 	unregister_emotes()
 
 	return TRUE
-
-/obj/item/implant/Destroy()
-	if(imp_in)
-		removed(imp_in)
-	return ..()
 
 /obj/item/implant/dropped(mob/user)
 	. = TRUE

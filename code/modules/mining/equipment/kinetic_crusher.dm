@@ -276,6 +276,13 @@
 	if(missing_health > 0)
 		target.adjustBruteLoss(missing_health) //and do that much damage
 
+
+/obj/item/crusher_trophy/goliath_tentacle/ancient
+	name = "ancient goliath tentacle"
+	desc = "A HUGE sliced-off goliath tentacle. Suitable as a trophy for a kinetic crusher."
+	icon_state = "ancient_goliath_tentacle"
+	bonus_value = 4
+
 //watcher
 /obj/item/crusher_trophy/watcher_wing
 	name = "watcher wing"
