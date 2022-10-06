@@ -46958,14 +46958,11 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "A telescreen that connects to the engine's camera network.";
+/obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	layer = 4;
-	name = "Engine Monitor";
-	network = list("engine");
 	pixel_y = 30
-	},
+ 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cmk" = (
@@ -61413,14 +61410,11 @@
 /obj/machinery/camera{
 	c_tag = "Engineering East"
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "A telescreen that connects to the engine's camera network.";
+/obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	layer = 4;
-	name = "Engine Monitor";
-	network = list("engine");
 	pixel_y = 30
-	},
+ 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)

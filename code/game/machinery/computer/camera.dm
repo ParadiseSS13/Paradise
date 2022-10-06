@@ -261,3 +261,9 @@
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/telescreen/engine
+	name = "Engine Monitor"
+	desc = "A telescreen that connects to the engine's camera network.";
+	network = list("engine")
+	circuit = /obj/item/circuitboard/camera/engine

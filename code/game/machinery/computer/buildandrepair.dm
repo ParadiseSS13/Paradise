@@ -59,6 +59,10 @@
 	board_name = "Entertainment Monitor"
 	build_path = /obj/machinery/computer/security/telescreen/entertainment
 
+/obj/item/circuitboard/camera/engine
+	board_name = "Engine Camera Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/engine
+
 /obj/item/circuitboard/camera/wooden_tv
 	board_name = "Wooden TV"
 	build_path = /obj/machinery/computer/security/wooden_tv
