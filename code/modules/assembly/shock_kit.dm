@@ -26,12 +26,12 @@
 		part1 = null
 		part2 = null
 		qdel(src)
-		return
-	if(istype(W, /obj/item/screwdriver))
-		status = !status
-		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
+
+/obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
+	status = !status
+	to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
 	add_fingerprint(user)
-	return
+	return TRUE
 
 /obj/item/assembly/shock_kit/attack_self(mob/user as mob)
 	part1.attack_self(user, status)
