@@ -55,10 +55,6 @@
 	board_name = "Telescreen"
 	build_path = /obj/machinery/computer/security/telescreen
 
-/obj/item/circuitboard/camera/telescreen/entertainment
-	board_name = "Entertainment Monitor"
-	build_path = /obj/machinery/computer/security/telescreen/entertainment
-
 /obj/item/circuitboard/camera/wooden_tv
 	board_name = "Wooden TV"
 	build_path = /obj/machinery/computer/security/wooden_tv

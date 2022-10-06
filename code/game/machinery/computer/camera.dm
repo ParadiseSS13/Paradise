@@ -220,7 +220,7 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
-	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+	circuit = FALSE
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
@@ -232,6 +232,16 @@
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
+
+/obj/machinery/computer/security/telescreen/entertainment/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0 SECONDS))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		new /obj/item/mounted/frame/newscaster_frame/entertainment_frame(drop_location(), 1)
+		deconstruct()
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
