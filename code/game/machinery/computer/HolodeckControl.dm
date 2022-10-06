@@ -390,7 +390,7 @@
 /obj/structure/table/holotable/wood
 	name = "wooden table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
-	icon = 'icons/obj/smooth_structures/wood_table.dmi'
+	icon = 'icons/obj/smooth_structures/tables/wood_table.dmi'
 	icon_state = "wood_table-0"
 	base_icon_state = "wood_table"
 	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
@@ -408,8 +408,8 @@
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "rwindow"
+	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
+	icon_state = "reinforced_window-0"
 	desc = "A window."
 	density = TRUE
 	layer = 3.2//Just above doors

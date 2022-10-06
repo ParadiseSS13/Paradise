@@ -118,7 +118,6 @@
 	prefix = "Plasma"
 	special_names = list("Flood", "Fire", "Bar", "Man")
 	var/boom_warning = FALSE
-	var/datum/action/innate/ignite/ignite
 
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
@@ -143,11 +142,11 @@
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		ignite = new
+		var/datum/action/innate/ignite/ignite = new()
 		ignite.Grant(C)
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/C)
-	if(ignite)
+	for(var/datum/action/innate/ignite/ignite in C.actions)
 		ignite.Remove(C)
 	..()
 
@@ -434,7 +433,6 @@
 	special_names = list("Crystal", "Polycrystal")
 	unarmed_type = /datum/unarmed_attack/golem/bluespace
 
-	var/datum/action/innate/unstable_teleport/unstable_teleport
 	var/teleport_cooldown = 100
 	var/last_teleport = 0
 	var/tele_range = 6
@@ -488,12 +486,12 @@
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		unstable_teleport = new
+		var/datum/action/innate/unstable_teleport/unstable_teleport = new()
 		unstable_teleport.Grant(C)
 		last_teleport = world.time
 
 /datum/species/golem/bluespace/on_species_loss(mob/living/carbon/C)
-	if(unstable_teleport)
+	for(var/datum/action/innate/unstable_teleport/unstable_teleport in C.actions)
 		unstable_teleport.Remove(C)
 	..()
 

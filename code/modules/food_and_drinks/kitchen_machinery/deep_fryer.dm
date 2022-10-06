@@ -43,6 +43,35 @@
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
+/obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/ice))
+		var/ice_amount = I.reagents.get_reagent_amount("ice")
+		if(ice_amount)
+			I.reagents.remove_all(I.reagents.total_volume)
+			add_attack_logs(user, src, "poured [ice_amount]u ice into")
+			user.visible_message(
+				"<span class='warning'>[user] pours [I] into [src], and it seems to fizz a bit.</span>",
+				"<span class='warning'>You pour [I] into [src], and it seems to fizz a bit.</span>",
+				"You hear a splash, and a sizzle."
+			)
+
+			playsound(src, 'sound/goonstation/misc/drinkfizz.ogg', 25)
+			addtimer(CALLBACK(src, .proc/boil_leadup, user), 4 SECONDS)
+			addtimer(CALLBACK(src, .proc/make_foam, ice_amount), 5 SECONDS)
+
+			return TRUE
+
+	return ..()
+
+/obj/machinery/cooker/deepfryer/proc/boil_leadup(mob/user)
+	visible_message(
+		"<span class='danger'>[src] starts to bubble and froth unnervingly!</span>",
+		"<span class='danger'>You hear a growling and intimidating bubbling!</span>"
+	)
+
+	playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 75)
+	to_chat(user, "<span class='userdanger'>Are you sure that was such a good idea?</span>")
+
 /obj/machinery/cooker/deepfryer/examine(mob/user)
 	. = ..()
 	if(emagged)
@@ -75,6 +104,18 @@
 		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
 		return 0
 	return 0
+
+/// Make foam consisting of burning oil.
+/obj/machinery/cooker/deepfryer/proc/make_foam(ice_amount)
+	if(!reagents)
+		create_reagents()
+	// the cooking oil should spread through the foam.
+	// when it gets added, it's at 1000 degrees so it quickly fireflashes and reacts to form inert cooking oil.
+	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000)
+	reagents.chem_temp = 1000
+	var/datum/effect_system/foam_spread/S = new()
+	S.set_up(ice_amount * 2, loc, reagents, FALSE)
+	S.start()
 
 
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)

@@ -717,7 +717,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/structure/table/abductor
 	name = "alien table"
 	desc = "Advanced flat surface technology at work!"
-	icon = 'icons/obj/smooth_structures/alien_table.dmi'
+	icon = 'icons/obj/smooth_structures/tables/alien_table.dmi'
 	icon_state = "alien_table-0"
 	base_icon_state = "alien_table"
 	buildstack = /obj/item/stack/sheet/mineral/abductor

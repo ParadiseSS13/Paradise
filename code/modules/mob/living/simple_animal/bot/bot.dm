@@ -307,13 +307,7 @@
 	show_controls(user)
 
 /mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/screwdriver))
-		if(!locked)
-			open = !open
-			to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
-		else
-			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
+	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
@@ -362,6 +356,19 @@
 					ejectpai(user)
 	else
 		return ..()
+
+/mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(locked)
+		to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
+		return TRUE // must be true or we attempt to stab the bot
+
+	open = !open
+	I.play_tool_sound(src)
+	to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
+	return TRUE
+
 
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)

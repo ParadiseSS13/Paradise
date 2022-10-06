@@ -1868,6 +1868,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return pois
 
+/proc/get_observers()
+	var/list/ghosts = list()
+	for(var/mob/dead/observer/M in GLOB.player_list) // for every observer with a client
+		ghosts += M
+
+	return ghosts
+
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
 /proc/make_bit_triplet()
