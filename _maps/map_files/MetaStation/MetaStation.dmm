@@ -10417,11 +10417,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen/engine{
+/obj/machinery/computer/security/telescreen{
+	desc = "A telescreen that connects to the engine's camera network.";
 	dir = 8;
 	layer = 4;
+	name = "Engine Monitor";
+	network = list("engine");
 	pixel_x = 30
- 	},
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aOk" = (
@@ -18866,11 +18869,14 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/computer/security/telescreen/engine{
+/obj/machinery/computer/security/telescreen{
+	desc = "A telescreen that connects to the engine's camera network.";
 	dir = 8;
 	layer = 4;
+	name = "Engine Monitor";
+	network = list("engine");
 	pixel_x = 30
- 	},
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
