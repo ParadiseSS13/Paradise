@@ -12,12 +12,10 @@
 	materials = list(MAT_GLASS = 500)
 
 	var/obj/item/implant/imp
-	var/obj/item/implant/implant_type
+	var/implant_type = /obj/item/implant
 
 /obj/item/implantcase/Initialize(mapload)
 	. = ..()
-	if(!implant_type)
-		return
 	imp = new implant_type(src)
 	update_state()
 
