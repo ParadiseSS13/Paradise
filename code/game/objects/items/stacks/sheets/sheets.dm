@@ -16,7 +16,6 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 	var/wall_allowed = TRUE	//determines if sheet can be used in wall construction or not.
-	var/assembly_type //object path to the respective assembly. Mainly used for the mineral and wood assemblies.
 
 /obj/item/stack/sheet/detailed_examine()
 	return "Use in your hand to bring up the recipe menu. If you have enough sheets, click on something on the list to build it."

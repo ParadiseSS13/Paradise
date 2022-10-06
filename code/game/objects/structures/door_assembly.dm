@@ -46,11 +46,7 @@
 			. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 			. += "<span class='notice'>The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.</span>"
-	if(!mineral && !glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows and mineral covers.</span>"
-	else if(!mineral && glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for mineral covers.</span>"
-	else if(mineral && !glass && !noglass)
+	if(!glass && !noglass)
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.</span>"
 	else
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
@@ -110,22 +106,6 @@
 									to_chat(user, "<span class='notice'>You install regular glass windows into the airlock assembly.</span>")
 								S.use(1)
 								glass = TRUE
-					if(!mineral)
-						if(istype(S, /obj/item/stack/sheet/mineral) && S.sheettype || istype(S, /obj/item/stack/sheet/wood) && S.sheettype)
-							var/M = S.sheettype
-							if(S.get_amount() >= 2)
-								playsound(loc, S.usesound, 100, 1)
-								user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-								if(do_after(user, 40 * S.toolspeed, target = src))
-									if(S.get_amount() < 2 || mineral)
-										return
-									to_chat(user, "<span class='notice'>You install [M] plating into the airlock assembly.</span>")
-									S.use(2)
-									var/mineralassembly = S.assembly_type
-									var/obj/structure/door_assembly/MA = new mineralassembly(loc)
-									transfer_assembly_vars(src, MA, TRUE)
-							else
-								to_chat(user, "<span class='warning'>You need at least two sheets to add a mineral cover!</span>")
 					else
 						to_chat(user, "<span class='warning'>You cannot add [S] to [src]!</span>")
 				else
@@ -225,17 +205,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(mineral)
-		user.visible_message("<span class='notice'>[user] welds the [mineral] plating off [src].</span>",\
-			"<span class='notice'>You start to weld the [mineral] plating off [src]...</span>",\
-			"<span class='warning'>You hear welding.</span>")
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-			return
-		to_chat(user, "<span class='notice'>You weld the [mineral] plating off.</span>")
-		new mineral_type(loc, 2)
-		var/obj/structure/door_assembly/PA = new previous_assembly(loc)
-		transfer_assembly_vars(src, PA)
-	else if(glass)
+	if(glass)
 		user.visible_message("<span class='notice'>[user] welds the glass panel out of [src].</span>",\
 			"<span class='notice'>You start to weld the glass panel out of the [src]...</span>",\
 			"<span class='warning'>You hear welding.</span>")
@@ -319,9 +289,18 @@
 /obj/structure/door_assembly/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
-		if(!disassembled)
-			material_amt = rand(2,4)
-		new material_type(T, material_amt)
+		if(mineral_type)
+			if(disassembled)
+				new mineral_type(T, material_amt)
+			else
+				material_amt = rand(2,4)
+				new mineral_type(T, material_amt)
+		else
+			if(disassembled)
+				new material_type(T, material_amt)
+			else
+				material_amt = rand(2,4)
+				new material_type(T, material_amt)
 		if(glass)
 			if(disassembled)
 				if(heat_proof_finished)
@@ -330,6 +309,4 @@
 					new /obj/item/stack/sheet/glass(T)
 			else
 				new /obj/item/shard(T)
-		if(mineral_type)
-			new mineral_type(T, 2)
 	qdel(src)
