@@ -105,9 +105,9 @@
 		return
 	var/mob/user = ui.user
 	if(topic_denied(user))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
 		return
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	. = TRUE
 	switch(action)
 		if("power")

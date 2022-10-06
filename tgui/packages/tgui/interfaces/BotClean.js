@@ -14,7 +14,7 @@ export const BotClean = (props, context) => {
   return (
     <Window>
       <Window.Content scrollable>
-          <BotStatus />
+        <BotStatus />
         <Section title="Cleaning Settings">
           <Button.Checkbox
             fluid

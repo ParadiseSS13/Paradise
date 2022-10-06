@@ -18,7 +18,7 @@ export const BotSecurity = (props, context) => {
   return (
     <Window>
       <Window.Content scrollable>
-          <BotStatus />
+        <BotStatus />
         <Section title="Who To Arrest">
           <Button.Checkbox
             fluid
