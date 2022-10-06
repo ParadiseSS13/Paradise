@@ -836,17 +836,21 @@ BLIND     // can't see anything
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
 
-		if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name]))
-			if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
-				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-				usr.update_inv_w_uniform()
+		if(usr.get_item_by_slot(slot_w_uniform) != src)
+			to_chat(usr, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 		else
-			if(H.w_uniform.sprite_sheets["Human"] && icon_exists(H.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
-				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-				usr.update_inv_w_uniform()
+			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name]))
+				if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
+					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+					usr.update_inv_w_uniform()
+
 			else
-				to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
+				if(H.w_uniform.sprite_sheets["Human"] && icon_exists(H.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
+					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+					usr.update_inv_w_uniform()
+				else
+					to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
 
 	else
 		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
