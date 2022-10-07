@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		log_startup_progress("Loading away mission...")
 
 		var/map = pick(GLOB.potentialRandomZlevels)
-		var/file = file(map)
+		var/file = wrap_file(map)
 		if(isfile(file))
 			var/zlev = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))
 			GLOB.space_manager.add_dirt(zlev)
@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		log_startup_progress("Loading away missions...")
 
 		for(var/map in GLOB.potentialRandomZlevels)
-			var/file = file(map)
+			var/file = wrap_file(map)
 			if(isfile(file))
 				log_startup_progress("Loading away mission: [map]")
 				var/zlev = GLOB.space_manager.add_new_zlevel()

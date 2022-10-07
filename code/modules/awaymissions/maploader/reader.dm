@@ -35,7 +35,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		if(lastchar == "/" || lastchar == "\\")
 			log_debug("Attempted to load map template without filename (Attempted [tfile])")
 			return
-		tfile = file2text(tfile)
+		tfile = wrap_file2text(tfile)
 		if(!length(tfile))
 			log_runtime( EXCEPTION("Map path '[fname]' does not exist!"))
 
@@ -400,7 +400,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 			// Check for file
 			else if(copytext(trim_right, 1, 2) == "'")
-				trim_right = file(copytext(trim_right, 2, length(trim_right)))
+				trim_right = wrap_file(copytext(trim_right, 2, length(trim_right)))
 
 			// Check for path
 			else if(ispath(text2path(trim_right)))

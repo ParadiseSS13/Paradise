@@ -54,7 +54,7 @@
 	return ""
 
 /datum/tgs_api/v3210/proc/file2list(filename)
-	return splittext(trim_left(trim_right(file2text(filename))), "\n")
+	return splittext(trim_left(trim_right(wrap_file2text(filename))), "\n")
 
 /datum/tgs_api/v3210/OnWorldNew(minimum_required_security_level)
 	. = FALSE
@@ -153,7 +153,7 @@
 	. = list()
 	if(!fexists(SERVICE_PR_TEST_JSON))
 		return
-	var/list/json = json_decode(file2text(SERVICE_PR_TEST_JSON))
+	var/list/json = json_decode(wrap_file2text(SERVICE_PR_TEST_JSON))
 	if(!json)
 		return
 	for(var/I in json)

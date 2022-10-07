@@ -71,8 +71,18 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null)
 		if(!procname)	return
 
+		//strip away everything but the proc name
+		var/list/proclist = splittext(procname, "/")
+		if (!length(proclist))
+			return
+		procname = proclist[proclist.len]
+
+		var/proctype = "proc"
+		if ("verb" in proclist)
+			proctype = "verb"
+
 		if(targetselected && !hascall(target,procname))
-			to_chat(usr, "<font color='red'>Error: callproc(): target has no such call [procname].</font>")
+			to_chat(usr, "<font color='red'>Error: callproc(): type [class] has no [proctype] named [procname].</font>")
 			return
 
 		var/list/lst = get_callproc_args()

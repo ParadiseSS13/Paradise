@@ -9,7 +9,7 @@
 
 //SYSTEM
 /proc/investigate_subject2file(var/subject)
-	return file("[INVESTIGATE_DIR][subject].html")
+	return wrap_file("[INVESTIGATE_DIR][subject].html")
 
 /proc/investigate_reset()
 	if(fdel(INVESTIGATE_DIR))	return 1
@@ -45,7 +45,7 @@
 		if("hrefs")				//persistant logs and stuff
 			if(config && config.log_hrefs)
 				if(GLOB.world_href_log)
-					src << browse(file(GLOB.world_href_log), "window=investigate[subject];size=800x300")
+					src << browse(wrap_file(GLOB.world_href_log), "window=investigate[subject];size=800x300")
 				else
 					to_chat(src, "<font color='red'>Error: admin_investigate: No href logfile found.</font>")
 					return
@@ -58,5 +58,5 @@
 			if(!F)
 				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
 				return
-			F = {"<meta charset="UTF-8">"} + file2text(F)
+			F = {"<meta charset="UTF-8">"} + wrap_file2text(F)
 			src << browse(F,"window=investigate[subject];size=800x300")
