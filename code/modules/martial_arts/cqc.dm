@@ -4,6 +4,7 @@
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
+	var/chokehold_active = FALSE //Then uses this to determine if the restrain actually goes anywhere
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/cafeteria,
 														/area/crew_quarters/bar))
@@ -38,7 +39,7 @@
 	if(D.IsWeakened() || IS_HORIZONTAL(D))
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
-	D.apply_damage(bonus_damage, BRUTE)
+	D.apply_damage(bonus_damage, STAMINA)
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 	else
@@ -50,8 +51,9 @@
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
-		D.apply_damage(10, BRUTE)
-		D.Weaken(6 SECONDS)
+		D.apply_damage(bonus_damage, STAMINA) //Do slightly more
+		D.KnockDown(3 SECONDS)
+		A.SetKnockDown(0 SECONDS)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
@@ -71,16 +73,14 @@
 
 	var/obj/item/I = null
 
-	if(prob(65))
-		if(!D.stat || !D.IsWeakened() || !restraining)
-			I = D.get_active_hand()
-			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
-								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
-			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
-			if(D.unEquip(I) && !(QDELETED(I) || (I.flags & ABSTRACT)))
-				A.put_in_hands(I)
-			D.Jitter(4 SECONDS)
-			D.apply_damage(5, BRUTE)
+	if(!D.stat || !D.IsWeakened() || !restraining)
+		D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
+							"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
+		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
+		if(D.unEquip(I) && !(QDELETED(I) || (I.flags & ABSTRACT)))
+			A.put_in_hands(I)
+		D.Jitter(4 SECONDS)
+		D.apply_damage(5, STAMINA)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
