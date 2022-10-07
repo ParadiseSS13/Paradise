@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(plasma_recipes, list ( \
 	))
 
 GLOBAL_LIST_INIT(bananium_recipes, list ( \
-	new/datum/stack_recipe/dangerous("bananium airlock assembly", /obj/structure/door_assembly/door_assembly_bananium, 4, time = 50, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("bananium airlock assembly", /obj/structure/door_assembly/door_assembly_bananium, 4, time = 50, one_per_turf = 1, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("bananium tile", /obj/item/stack/tile/mineral/bananium, 1, 4, 20), \
 	null, \
@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(bananium_recipes, list ( \
 	))
 
 GLOBAL_LIST_INIT(tranquillite_recipes, list ( \
-	new/datum/stack_recipe/dangerous("tranquillite airlock assembly", /obj/structure/door_assembly/door_assembly_tranquillite, 4, time = 50, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("tranquillite airlock assembly", /obj/structure/door_assembly/door_assembly_tranquillite, 4, time = 50, one_per_turf = 1, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("invisible wall", /obj/structure/barricade/mime, 5, one_per_turf = 1, on_floor = 1, time = 50), \
 	null, \
@@ -348,7 +348,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	point_value = 20
 
 GLOBAL_LIST_INIT(titanium_recipes, list(
-	new/datum/stack_recipe/dangerous("titanium airlock assembly", /obj/structure/door_assembly/door_assembly_titanium, 4, time = 50, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("titanium airlock assembly", /obj/structure/door_assembly/door_assembly_titanium, 4, time = 50, one_per_turf = 1, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
 	new/datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = 1, on_floor = 1),
