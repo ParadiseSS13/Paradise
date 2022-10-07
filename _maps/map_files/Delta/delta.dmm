@@ -8858,6 +8858,11 @@
 	frequency = 1441;
 	id_tag = "air_sensor"
 	},
+/obj/machinery/air_sensor{
+	frequency = 1443;
+	id_tag = "air_sensor";
+	output = 7
+	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
 "aSO" = (
@@ -33525,6 +33530,21 @@
 	icon_state = "whiteblue"
 	},
 /area/maintenance/starboard)
+"cUg" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/purple{
+	desc = "Труба ведёт газ на фильтрацию";
+	dir = 4;
+	name = "Труба на фильтрацию"
+	},
+/obj/machinery/meter{
+	id = "wloop_atm_meter";
+	name = "Waste Loop"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/atmos)
 "cUj" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
@@ -49623,13 +49643,16 @@
 	},
 /area/security/brig)
 "ecV" = (
-/obj/structure/grille,
-/obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
+/obj/machinery/meter{
+	id = "mair_out_meter";
+	name = "Mixed Air Tank Out"
+	},
+/obj/structure/grille,
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "ecW" = (
@@ -73716,7 +73739,10 @@
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
 	name = "Труба дыхательной смеси"
 	},
-/obj/machinery/meter,
+/obj/machinery/meter{
+	id = "dloop_atm_meter";
+	name = "Distribution Loop"
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "jxv" = (
@@ -76163,13 +76189,14 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer"
-	},
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -26
+	},
+/obj/machinery/computer/general_air_control{
+	name = "Tank Monitor";
+	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -140601,6 +140628,19 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
+"xVk" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 4;
+	name = "Труба дыхательной смеси"
+	},
+/obj/machinery/meter{
+	id = "mair_in_meter";
+	name = "Mixed Air Tank In"
+	},
+/obj/structure/grille,
+/turf/simulated/wall/r_wall,
+/area/atmos)
 "xVr" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall12"
@@ -164501,7 +164541,7 @@ vWf
 neD
 crL
 ppO
-ppO
+cUg
 jTD
 cFb
 rZz
@@ -168596,7 +168636,7 @@ abj
 uYk
 ecV
 gCz
-ecV
+xVk
 uYk
 cAb
 gCz
