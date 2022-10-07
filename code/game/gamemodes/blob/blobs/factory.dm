@@ -7,6 +7,7 @@
 	var/list/spores = list()
 	var/max_spores = 3
 	var/spore_delay = 0
+	var/is_waiting_spawn = FALSE
 
 /obj/structure/blob/factory/Destroy()
 	for(var/mob/living/simple_animal/hostile/blob/blobspore/spore in spores)
