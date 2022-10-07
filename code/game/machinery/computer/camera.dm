@@ -267,3 +267,51 @@
 	desc = "A telescreen that connects to the engine's camera network.";
 	network = list("engine")
 	circuit = /obj/item/circuitboard/camera/engine
+
+/obj/machinery/computer/security/telescreen/research
+	name = "Research Monitor"
+	desc = "Used for watching the horrors within the test chamber.";
+	network = list("TestChamber")
+	circuit = /obj/item/circuitboard/camera/research
+
+/obj/machinery/computer/security/telescreen/rd
+	name = "Research Director Monitor"
+	desc = "Used for watching the RD's goons from the safety of his office.";
+	network = list("Research","Research Outpost","RD","MiniSat")
+	circuit = /obj/item/circuitboard/camera/rd
+
+/obj/machinery/computer/security/telescreen/prison
+	name = "Prison Monitor"
+	desc = "Used for watching Prison Wing holding areas.";
+	network = list("Prison")
+	circuit = /obj/item/circuitboard/camera/prison
+
+/obj/machinery/computer/security/telescreen/interrogation
+	name = "Interrogation Monitor"
+	desc = "Used for watching interrogations.";
+	network = list("Interrogation")
+	circuit = /obj/item/circuitboard/camera/interrogation
+
+/obj/machinery/computer/security/telescreen/minisat
+	name = "MiniSat Monitor"
+	desc = "Used for watching areas on the MiniSat.";
+	network = list("MiniSat","tcomm")
+	circuit = /obj/item/circuitboard/camera/minisat
+
+/obj/machinery/computer/security/telescreen/upload
+	name = "AI Upload Monitor"
+	desc = "Used for watching the AI Upload.";
+	network = list("AIUpload")
+	circuit = /obj/item/circuitboard/camera/upload
+
+/obj/machinery/computer/security/telescreen/vault
+	name = "Vault Monitor"
+	desc = "Used for watching the vault.";
+	network = list("vault")
+	circuit = /obj/item/circuitboard/camera/vault
+
+/obj/machinery/computer/security/telescreen/turbine
+	name = "Turbine Vent Monitor"
+	desc = "Used for watching the turbine vent.";
+	network = list("Turbine")
+	circuit = /obj/item/circuitboard/camera/turbine

@@ -46612,10 +46612,7 @@
 	},
 /area/medical/cmostore)
 "clj" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
-	name = "Research Monitor";
-	network = list("Research","Research Outpost","RD");
+/obj/machinery/computer/security/telescreen/rd{
 	pixel_y = 2
 	},
 /obj/structure/table/glass,
@@ -55245,10 +55242,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the horrors within the test chamber.";
-	name = "Research Monitor";
-	network = list("TestChamber");
+/obj/machinery/computer/security/telescreen/research{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{

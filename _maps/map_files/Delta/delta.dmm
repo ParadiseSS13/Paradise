@@ -15657,10 +15657,7 @@
 	},
 /area/security/permabrig)
 "aTH" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("Prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_x = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -23554,10 +23551,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching interrogations.";
-	name = "Interrogation Monitor";
-	network = list("Interrogation");
+/obj/machinery/computer/security/telescreen/interrogation{
 	pixel_y = -30
 	},
 /obj/structure/cable{
@@ -31215,10 +31209,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "bAC" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
-	name = "Research Monitor";
-	network = list("Research","Research Outpost","RD");
+/obj/machinery/computer/security/telescreen/rd{
 	pixel_y = 2
 	},
 /turf/simulated/wall,
@@ -69687,10 +69678,7 @@
 	},
 /obj/structure/displaycase/labcage,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
-	name = "Research Monitor";
-	network = list("Research","MiniSat","RD");
+/obj/machinery/computer/security/telescreen/rd{
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,

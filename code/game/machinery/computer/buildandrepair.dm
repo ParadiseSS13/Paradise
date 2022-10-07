@@ -63,6 +63,38 @@
 	board_name = "Engine Camera Monitor"
 	build_path = /obj/machinery/computer/security/telescreen/engine
 
+/obj/item/circuitboard/camera/research
+	board_name = "Research Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/research
+
+/obj/item/circuitboard/camera/rd
+	board_name = "Research Director Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/rd
+
+/obj/item/circuitboard/camera/prison
+	board_name = "Prison Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/prison
+
+/obj/item/circuitboard/camera/interrogation
+	board_name = "Interrogation Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/interrogation
+
+/obj/item/circuitboard/camera/minisat
+	board_name = "MiniSat Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/minisat
+
+/obj/item/circuitboard/camera/upload
+	board_name = "AI Upload Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/upload
+
+/obj/item/circuitboard/camera/vault
+	board_name = "Vault Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/vault
+
+/obj/item/circuitboard/camera/turbine
+	board_name = "Turbine Vent Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/turbine
+
 /obj/item/circuitboard/camera/wooden_tv
 	board_name = "Wooden TV"
 	build_path = /obj/machinery/computer/security/wooden_tv
