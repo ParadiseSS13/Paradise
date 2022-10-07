@@ -545,6 +545,14 @@ to destroy them and players will be able to make replacements.
 							"Wooden TV" = /obj/machinery/computer/security/wooden_tv,
 							"Outpost Camera Monitor" = /obj/machinery/computer/security/mining,
 							"Engineering Camera Monitor" = /obj/machinery/computer/security/engineering,
+							"Research Monitor" = /obj/machinery/computer/security/telescreen/research,
+							"Research Director Monitor" = /obj/machinery/computer/security/telescreen/rd,
+							"Prison Monitor" = /obj/machinery/computer/security/telescreen/prison,
+							"Interrogation Monitor" = /obj/machinery/computer/security/telescreen/interrogation,
+							"MiniSat Monitor" = /obj/machinery/computer/security/telescreen/minisat,
+							"AI Upload Monitor" = /obj/machinery/computer/security/telescreen/upload,
+							"Vault Monitor" = /obj/machinery/computer/security/telescreen/vault,
+							"Turbine Vent Monitor" = /obj/machinery/computer/security/telescreen/turbina,
 							"Engine Camera Monitor" = /obj/machinery/computer/security/telescreen/engine)
 
 /obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/I)
