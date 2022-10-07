@@ -26841,20 +26841,13 @@
 	pixel_x = 26
 	},
 /obj/structure/table/wood,
-/obj/item/paper_bin/nanotrasen{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/item/stamp/hop{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "custom placement";
 	pixel_x = 6;
 	pixel_y = -34
 	},
+/obj/machinery/smartfridge/id,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bCd" = (
@@ -37328,13 +37321,17 @@
 	network = list("vault");
 	pixel_y = 30
 	},
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 2
-	},
 /obj/item/pen{
 	pixel_x = -3;
 	pixel_y = 5
+	},
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/stamp/hop{
+	pixel_x = -4;
+	pixel_y = -4
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
@@ -51974,8 +51971,7 @@
 	c_tag = "Head of Personnel's Office";
 	dir = 1
 	},
-/obj/structure/table/wood,
-/obj/machinery/smartfridge/id,
+/obj/structure/closet/secure_closet/hop2,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "daf" = (
