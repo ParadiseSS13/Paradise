@@ -48904,7 +48904,7 @@
 /area/maintenance/starboard)
 "cPe" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Central Starboard";
+	c_tag = "Xenobiology Lab - Central Fore Port";
 	dir = 1;
 	network = list("Research","SS13")
 	},
@@ -66159,6 +66159,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Xenobiology Lab - Central Aft Starboard";
+	dir = 4;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -67710,7 +67715,7 @@
 /area/toxins/xenobiology)
 "ktd" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Central Aft";
+	c_tag = "Xenobiology Lab - Central Fore Starboard";
 	dir = 4;
 	network = list("Research","SS13")
 	},
@@ -91772,7 +91777,7 @@
 /area/security/prison/cell_block/A)
 "wyX" = (
 /obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Central Port";
+	c_tag = "Xenobiology Lab - Central Aft Port";
 	dir = 6;
 	network = list("Research","SS13")
 	},
