@@ -387,23 +387,23 @@
 	if(!C.has_organic_damage())
 		return 0
 
-	//If they're injured, we're using a beaker, and don't have one of our WONDERCHEMS.
-	if(reagent_glass && use_beaker && (C.getBruteLoss() >= heal_threshold || C.getToxLoss() >= heal_threshold || C.getToxLoss() >= heal_threshold || C.getOxyLoss() >= (heal_threshold + 15)))
+	var/has_all_beaker_reagents = TRUE //No reagents to apply is equivalent to having them all
+	if(reagent_glass && use_beaker)
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
 			if(!C.reagents.has_reagent(R.id))
-				return 1
+				has_all_beaker_reagents = FALSE
+				break
 
-	//They're injured enough for it!
-	if(C.getBruteLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_brute))
-		return 1 //If they're already medicated don't bother!
+	if(C.getBruteLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_brute) || !has_all_beaker_reagents))
+		return 1 //They're injured enough for it, and aren't already medicated
 
-	if(C.getFireLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_fire))
+	if(C.getFireLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_fire) || !has_all_beaker_reagents))
 		return 1
 
-	if(C.getToxLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_tox))
+	if(C.getToxLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_tox) || !has_all_beaker_reagents))
 		return 1
 
-	if(C.getOxyLoss() >= (15 + heal_threshold) && !C.reagents.has_reagent(treatment_oxy))
+	if(C.getOxyLoss() >= (heal_threshold + 15) && (!C.reagents.has_reagent(treatment_oxy) || !has_all_beaker_reagents))
 		return 1
 
 	if(treat_virus && !C.reagents.has_reagent(treatment_virus))
