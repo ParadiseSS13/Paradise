@@ -25,6 +25,11 @@
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 
+/obj/item/shield/riot/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, checkpass = PASSTABLE)
+	if(hitby.checkpass(PASSGLASS))
+		final_block_chance = 0
+	return ..()
+
 /obj/item/shield/riot/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/melee/baton))
 		if(cooldown < world.time - 25)
