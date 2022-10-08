@@ -37,14 +37,6 @@
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
-
-/obj/structure/closet/secure_closet/hop2
-	name = "head of personnel's attire"
-	req_access = list(ACCESS_HOP)
-	icon_state = "hop"
-	open_door_sprite = "hop_door"
-
-/obj/structure/closet/secure_closet/hop2/populate_contents()
 	new /obj/item/storage/bag/garment/head_of_personnel(src)
 
 /obj/structure/closet/secure_closet/hos

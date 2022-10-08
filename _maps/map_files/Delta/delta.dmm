@@ -47684,18 +47684,6 @@
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
-"cko" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/closet/secure_closet/hop2,
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/carpet,
-/area/crew_quarters/heads/hop)
 "ckp" = (
 /obj/machinery/light{
 	dir = 8
@@ -134449,7 +134437,7 @@ cdD
 bYp
 bSE
 bSE
-cko
+chi
 clJ
 cnp
 bSE
