@@ -397,13 +397,13 @@
 	if(C.getBruteLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_brute))
 		return 1 //If they're already medicated don't bother!
 
-	if(C.getOxyLoss() >= (15 + heal_threshold) && !C.reagents.has_reagent(treatment_oxy))
-		return 1
-
 	if(C.getFireLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_fire))
 		return 1
 
 	if(C.getToxLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_tox))
+		return 1
+
+	if(C.getOxyLoss() >= (15 + heal_threshold) && !C.reagents.has_reagent(treatment_oxy))
 		return 1
 
 	if(treat_virus)
