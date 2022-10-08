@@ -384,27 +384,25 @@
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
-	if(!C.has_organic_damage())
-		return FALSE
+	if(C.has_organic_damage())
+		var/has_all_beaker_reagents = TRUE //No reagents to apply is equivalent to having them all
+		if(reagent_glass && use_beaker)
+			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
+				if(!C.reagents.has_reagent(R.id))
+					has_all_beaker_reagents = FALSE
+					break
 
-	var/has_all_beaker_reagents = TRUE //No reagents to apply is equivalent to having them all
-	if(reagent_glass && use_beaker)
-		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id))
-				has_all_beaker_reagents = FALSE
-				break
+		if(C.getBruteLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_brute) || !has_all_beaker_reagents))
+			return TRUE //They're injured enough for it, and aren't already medicated
 
-	if(C.getBruteLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_brute) || !has_all_beaker_reagents))
-		return TRUE //They're injured enough for it, and aren't already medicated
+		if(C.getFireLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_fire) || !has_all_beaker_reagents))
+			return TRUE
 
-	if(C.getFireLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_fire) || !has_all_beaker_reagents))
-		return TRUE
+		if(C.getToxLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_tox) || !has_all_beaker_reagents))
+			return TRUE
 
-	if(C.getToxLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_tox) || !has_all_beaker_reagents))
-		return TRUE
-
-	if(C.getOxyLoss() >= (heal_threshold + 15) && (!C.reagents.has_reagent(treatment_oxy) || !has_all_beaker_reagents))
-		return TRUE
+		if(C.getOxyLoss() >= (heal_threshold + 15) && (!C.reagents.has_reagent(treatment_oxy) || !has_all_beaker_reagents))
+			return TRUE
 
 	if(treat_virus && !C.reagents.has_reagent(treatment_virus))
 		for(var/thing in C.viruses)
