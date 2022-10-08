@@ -40,6 +40,8 @@
 
 	optional_body_accessory = FALSE
 
+	var/datum/action/innate/cocoon/cocoon
+
 	suicide_messages = list(
 		"is attempting to nibble their antenna off!",
 		"is twisting their own abdomen!",
@@ -51,7 +53,7 @@
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/cocoon/cocoon = new()
+	cocoon = new()
 	cocoon.Grant(H)
 	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
 	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/on_aheal)
@@ -60,8 +62,7 @@
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
-	for(var/datum/action/innate/cocoon/cocoon in H.actions)
-		cocoon.Remove(H)
+	cocoon.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)

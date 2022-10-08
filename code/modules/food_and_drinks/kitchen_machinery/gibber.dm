@@ -147,7 +147,7 @@
 		occupant = victim
 
 		update_icon(UPDATE_OVERLAYS)
-		INVOKE_ASYNC(src, .proc/feedinTopanim)
+		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
 	set category = "Object"

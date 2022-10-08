@@ -87,6 +87,13 @@
 	if(T.intact)
 		return		// prevent intraction when T-scanner revealed
 
+	if(istype(I, /obj/item/screwdriver))
+		open = !open
+
+		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
+
+		update_icon(UPDATE_ICON_STATE)
+
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(open)
 			if(allowed(user))
@@ -99,12 +106,6 @@
 			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
 	else
 		return ..()
-
-/obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/I)
-	open = !open
-	user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
-	update_icon(UPDATE_ICON_STATE)
-	return TRUE
 
 /obj/machinery/navbeacon/attack_ai(mob/user)
 	interact(user, 1)

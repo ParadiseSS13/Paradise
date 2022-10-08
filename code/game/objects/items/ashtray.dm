@@ -3,7 +3,6 @@
 	var/max_butts = 0
 	var/icon_half = ""
 	var/icon_full = ""
-	var/material = /obj/item/stack/sheet/metal
 
 /obj/item/ashtray/Initialize(mapload)
 	. = ..()
@@ -52,6 +51,10 @@
 	else
 		desc = initial(desc)
 
+/obj/item/ashtray/deconstruct()
+	empty_tray()
+	qdel(src)
+
 /obj/item/ashtray/proc/empty_tray()
 	for(var/obj/item/I in contents)
 		I.forceMove(loc)
@@ -63,14 +66,6 @@
 	empty_tray()
 	return ..()
 
-/obj/item/ashtray/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return
-	empty_tray()
-	new material(drop_location(), 1)
-	deconstruct()
-
 /obj/item/ashtray/plastic
 	name = "plastic ashtray"
 	desc = "Cheap plastic ashtray."
@@ -79,7 +74,7 @@
 	icon_full  = "ashtray_full_bl"
 	max_butts = 8
 	max_integrity = 8
-	material = /obj/item/stack/sheet/plastic
+	materials = list(MAT_METAL=30, MAT_GLASS=30)
 	throwforce = 3
 
 /obj/item/ashtray/bronze
@@ -90,6 +85,7 @@
 	icon_full  = "ashtray_full_br"
 	max_butts = 16
 	max_integrity = 16
+	materials = list(MAT_METAL=80)
 	throwforce = 10
 
 /obj/item/ashtray/glass
@@ -100,5 +96,5 @@
 	icon_full  = "ashtray_full_gl"
 	max_butts = 12
 	max_integrity = 12
-	material = /obj/item/stack/sheet/glass
+	materials = list(MAT_GLASS=60)
 	throwforce = 6
