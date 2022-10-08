@@ -32,18 +32,18 @@
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/injection_amount = 15 //How much reagent do we inject at a time?
 	var/heal_threshold = 10 //Start healing when they have this much damage in a category
-	var/use_beaker = 0 //Use reagents in beaker instead of default treatment agents.
-	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
-	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
-	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
+	var/use_beaker = FALSE //Use reagents in beaker instead of default treatment agents.
+	var/declare_crit = TRUE //If active, the bot will transmit a critical patient alert to MedHUD users.
+	var/declare_cooldown = FALSE //Prevents spam of critical patient alerts.
+	var/stationary_mode = FALSE //If enabled, the Medibot will not move automatically.
 	//Setting which reagents to use to treat what by default. By id.
 	var/treatment_brute = "salglu_solution"
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
-	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
-	var/shut_up = 0 //self explanatory :)
+	var/treat_virus = TRUE //If on, the bot will attempt to treat viral infections, curing them if possible.
+	var/shut_up = FALSE //self explanatory :)
 	var/syndicate_aligned = FALSE // Will it only treat operatives?
 	var/drops_parts = TRUE
 
@@ -98,7 +98,7 @@
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
 	emagged = 2
-	declare_crit = 0
+	declare_crit = FALSE
 	drops_parts = FALSE
 
 /mob/living/simple_animal/bot/medbot/update_icon_state()
@@ -139,7 +139,7 @@
 	oldpatient = null
 	oldloc = null
 	last_found = world.time
-	declare_cooldown = 0
+	declare_cooldown = FALSE
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
@@ -239,7 +239,7 @@
 
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/reagent_containers/glass))
-		. = 1 //no afterattack
+		. = TRUE //no afterattack
 		if(locked)
 			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
 			return
@@ -263,7 +263,7 @@
 /mob/living/simple_animal/bot/medbot/emag_act(mob/user)
 	..()
 	if(emagged == 2)
-		declare_crit = 0
+		declare_crit = FALSE
 		if(user)
 			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
 		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
@@ -275,7 +275,7 @@
 	if(buckled)
 		if((last_warning + 300) < world.time)
 			speak("<span class='danger'>Movement restrained! Unit on standby!</span>")
-			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
 			last_warning = world.time
 		return
 	if(H.stat == 2)
@@ -290,7 +290,7 @@
 			var/list/messagevoice = list("Hey, [H.name]! Hold on, I'm coming." = 'sound/voice/mcoming.ogg', "Wait [H.name]! I want to help!" = 'sound/voice/mhelp.ogg', "[H.name], you appear to be injured!" = 'sound/voice/minjured.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
-			playsound(loc, messagevoice[message], 50, 0)
+			playsound(loc, messagevoice[message], 50, FALSE)
 			last_newpatient_speak = world.time
 		return H
 	else
@@ -312,7 +312,7 @@
 			var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/mradar.ogg', "There's always a catch, and I'm the best there is." = 'sound/voice/mcatch.ogg', "I knew it, I should've been a plastic surgeon." = 'sound/voice/msurgeon.ogg', "What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/mflies.ogg', "Delicious!" = 'sound/voice/mdelicious.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
-			playsound(loc, messagevoice[message], 50, 0)
+			playsound(loc, messagevoice[message], 50, FALSE)
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
 		patient = scan(/mob/living/carbon/human, oldpatient, scan_range)
 		oldpatient = patient
@@ -363,29 +363,29 @@
 
 /mob/living/simple_animal/bot/medbot/proc/assess_patient(mob/living/carbon/C)
 	//Time to see if they need medical help!
-	if(C.stat == 2)
-		return 0 //welp too late for them!
+	if(C.stat == DEAD)
+		return FALSE //welp too late for them!
 
 	if(C.suiciding)
-		return 0 //Kevorkian school of robotic medical assistants.
+		return FALSE //Kevorkian school of robotic medical assistants.
 
 	// is secretly a silicon
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(H.dna.species && H.dna.species.reagent_tag == PROCESS_SYN)
-			return 0
+			return FALSE
 
 	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
-		return 1
+		return TRUE
 
 	if(syndicate_aligned && !("syndicate" in C.faction))
-		return 0
+		return FALSE
 
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
 	if(!C.has_organic_damage())
-		return 0
+		return FALSE
 
 	var/has_all_beaker_reagents = TRUE //No reagents to apply is equivalent to having them all
 	if(reagent_glass && use_beaker)
@@ -395,24 +395,24 @@
 				break
 
 	if(C.getBruteLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_brute) || !has_all_beaker_reagents))
-		return 1 //They're injured enough for it, and aren't already medicated
+		return TRUE //They're injured enough for it, and aren't already medicated
 
 	if(C.getFireLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_fire) || !has_all_beaker_reagents))
-		return 1
+		return TRUE
 
 	if(C.getToxLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_tox) || !has_all_beaker_reagents))
-		return 1
+		return TRUE
 
 	if(C.getOxyLoss() >= (heal_threshold + 15) && (!C.reagents.has_reagent(treatment_oxy) || !has_all_beaker_reagents))
-		return 1
+		return TRUE
 
 	if(treat_virus && !C.reagents.has_reagent(treatment_virus))
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing
 			if(!(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
-				return 1 //Visible, dangerous, and developed enough to be detectable? Need some medicine here!
+				return TRUE //Visible, dangerous, and developed enough to be detectable? Need some medicine here!
 
-	return 0
+	return FALSE
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
 	if(iscarbon(A))
@@ -444,7 +444,7 @@
 		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/mno.ogg', "Live, damnit! LIVE!" = 'sound/voice/mlive.ogg', "I...I've never lost a patient before. Not today, I mean." = 'sound/voice/mlost.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
-		playsound(loc, messagevoice[message], 50, 0)
+		playsound(loc, messagevoice[message], 50, FALSE)
 		oldpatient = patient
 		soft_reset()
 		return
@@ -456,14 +456,14 @@
 
 	else
 		if(treat_virus)
-			var/virus = 0
+			var/virus = FALSE
 			for(var/thing in C.viruses)
 				var/datum/disease/D = thing
 				//detectable virus
 				if(!(D.visibility_flags & HIDDEN_SCANNER) || !(D.visibility_flags & HIDDEN_PANDEMIC))
 					if(D.severity != NONTHREAT)      //virus is harmful
 						if(D.stage > 1 || D.spread_flags & AIRBORNE)
-							virus = 1
+							virus = TRUE
 
 			if(!reagent_id && virus)
 				if(!C.reagents.has_reagent(treatment_virus))
@@ -497,7 +497,7 @@
 		var/list/messagevoice = list("All patched up!" = 'sound/voice/mpatchedup.ogg', "An apple a day keeps me away." = 'sound/voice/mapple.ogg', "Feel better soon!" = 'sound/voice/mfeelbetter.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
-		playsound(loc, messagevoice[message], 50, 0)
+		playsound(loc, messagevoice[message], 50, FALSE)
 		bot_reset()
 		return
 	else
@@ -530,11 +530,11 @@
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
 	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 	if(!R.overdose_threshold)
-		return 0
+		return FALSE
 	var/current_volume = patient.reagents.get_reagent_amount(reagent_id)
 	if(current_volume + injection_amount > R.overdose_threshold)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
@@ -575,9 +575,9 @@
 		reagent_glass = null
 
 	if(emagged && prob(25))
-		playsound(loc, 'sound/voice/minsult.ogg', 50, 0)
+		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
 
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 	..()
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
@@ -587,7 +587,7 @@
 		return
 	var/area/location = get_area(src)
 	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!", radio_channel)
-	declare_cooldown = 1
+	declare_cooldown = TRUE
 	spawn(200) //Twenty seconds
-		declare_cooldown = 0
+		declare_cooldown = FALSE
 
