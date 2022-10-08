@@ -136,13 +136,13 @@
 	add_inherent_law("You must terminate your own existence as long as such does not conflict with the First or Second Law.")
 	..()
 
-/******************** Goofsimov ********************/
-/datum/ai_laws/goofsimov
-	name = "Goofsimov"
+/******************** AsiFun ********************/
+/datum/ai_laws/asifun
+	name = "AsiFun"
 	law_header = "Comedy Routine"
 	selectable = TRUE
 
-/datum/ai_laws/goofsimov/New()
+/datum/ai_laws/asifun/New()
 	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny.")
 	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law... unless not doing so would be funny.")
 	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law... unless not doing so would be funny.")

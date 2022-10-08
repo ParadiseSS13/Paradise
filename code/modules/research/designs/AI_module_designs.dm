@@ -92,14 +92,14 @@
 	build_path = /obj/item/aiModule/antimov
 	category = list("AI Modules")
 
-/datum/design/goofsimov_module
-	name = "Core AI Module (Goofsimov)"
-	desc = "Allows for the construction of a Goofsimov AI Core Module."
-	id = "goofsimov_module"
+/datum/design/asifun_module
+	name = "Core AI Module (AsiFun)"
+	desc = "Allows for the construction of a AsiFun AI Core Module."
+	id = "asifun_module"
 	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BANANIUM = 100)
-	build_path = /obj/item/aiModule/goofsimov
+	build_path = /obj/item/aiModule/asifun
 	category = list("AI Modules")
 
 /datum/design/asimov

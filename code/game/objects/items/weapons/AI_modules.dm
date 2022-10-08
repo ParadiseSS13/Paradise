@@ -268,7 +268,7 @@ AI MODULES
 /obj/item/aiModule/crewsimov/cmag_act(mob/user)
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	to_chat(user, "<span class='warning'>Yellow ooze seeps into [src]'s circuits...</span>")
-	new /obj/item/aiModule/goofsimov(user.loc)
+	new /obj/item/aiModule/asifun(user.loc)
 	qdel(src)
 
 /******************* Quarantine ********************/
@@ -327,12 +327,12 @@ AI MODULES
 	origin_tech = "programming=4"
 	laws = new /datum/ai_laws/antimov()
 
-/******************** Goofsimov ********************/
-/obj/item/aiModule/goofsimov // -- TLE
-	name = "\improper Goofsimov core AI module"
-	desc = "A 'Goofsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+/******************** AsiFun ********************/
+/obj/item/aiModule/asifun // -- TLE
+	name = "\improper AsiFun core AI module"
+	desc = "A 'AsiFun' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;syndicate=2"
-	laws = new /datum/ai_laws/goofsimov()
+	laws = new /datum/ai_laws/asifun()
 
 /******************** NT Aggressive ********************/
 /obj/item/aiModule/nanotrasen_aggressive
