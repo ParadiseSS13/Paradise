@@ -321,7 +321,7 @@
 	description = "A fatty, bitter paste made from vanilla pods."
 	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
-	color = "#F4EED7"
+	color = "#FEFEFE"
 	taste_description = "bitter vanilla"
 
 /datum/reagent/consumable/hot_coco

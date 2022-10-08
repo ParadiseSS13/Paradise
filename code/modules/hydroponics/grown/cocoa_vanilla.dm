@@ -44,6 +44,6 @@
 	name = "vanilla pod"
 	desc = "Fattening... Mmmmm... vanilla."
 	icon_state = "vanillapod"
-	filling_color = "#F4EED7"
+	filling_color = "#FEFEFE"
 	tastes = list("vanilla" = 1)
 	distill_reagent = "vanilla" //Takes longer, but you can get even more vanilla from it.

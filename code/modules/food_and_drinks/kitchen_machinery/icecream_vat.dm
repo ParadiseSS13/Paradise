@@ -153,7 +153,7 @@
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
-		reagents.trans_to(C,30)
+		reagents.trans_to(C,50)
 		if(reagents)
 			reagents.clear_reagents()
 		C.update_icon()
@@ -179,7 +179,7 @@
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
-		reagents.trans_to(C,30)
+		reagents.trans_to(C,20)
 		if(reagents)
 			reagents.clear_reagents()
 		C.update_icon()

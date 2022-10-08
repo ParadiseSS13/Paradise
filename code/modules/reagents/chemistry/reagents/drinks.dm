@@ -60,7 +60,7 @@
 	name = "Carrot juice"
 	id = "carrotjuice"
 	description = "Just like a carrot, but without the crunching."
-	color = "#973800" // rgb: 151, 56, 0
+	color = "#FFA500"
 	drink_icon = "carrotjuice"
 	drink_name = "Glass of  carrot juice"
 	drink_desc = "Just like a carrot, but without the crunching."
@@ -731,7 +731,7 @@
 		return ..()
 	// imitate alcohol effects using current cycle
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
-	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)		
+	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)
 	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
