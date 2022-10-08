@@ -19,7 +19,7 @@
 	use_itemicon = FALSE
 	button_icon_state = "skrell_headpocket_in"
 
-/obj/item/organ/internal/headpocket/update_icon_state()
+/obj/item/organ/internal/headpocket/proc/update_button_state()
 	for(var/datum/action/item_action/T in actions)
 		if(!T)
 			return
@@ -42,7 +42,7 @@
 		owner.visible_message("<span class='notice'>[owner] removes [held_item] from [owner.p_their()] [name].</span>", "<span class='notice'>You remove [held_item] from your [name].</span>")
 		owner.put_in_hands(held_item)
 		held_item = null
-		update_icon(UPDATE_ICON_STATE)
+		update_button_state()
 	else
 		var/obj/item/I = owner.get_active_hand()
 		if(!I)
@@ -58,7 +58,7 @@
 			owner.visible_message("<span class='notice'>[owner] places [I] into [owner.p_their()] [name].</span>", "<span class='notice'>You place [I] into your [name].</span>")
 			I.forceMove(src)
 			held_item = I
-			update_icon(UPDATE_ICON_STATE)
+			update_button_state()
 
 /obj/item/organ/internal/headpocket/on_owner_death()
 	empty_contents()
