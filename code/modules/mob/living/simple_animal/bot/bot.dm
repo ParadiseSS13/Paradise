@@ -79,8 +79,6 @@
 	var/bot_type = 0 //The type of bot it is, for radio control.
 	/// The type of data HUD the bot uses. Diagnostic by default.
 	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC
-	/// The actual HUD visible to the bot if player-controlled.
-	var/datum/atom_hud/data_hud
 	//This holds text for what the bot is mode doing, reported on the remote bot control interface.
 	var/list/mode_name = list("In Pursuit","Preparing to Arrest", "Arresting", \
 	"Beginning Patrol", "Patrolling", "Summoned by PDA", \
@@ -190,9 +188,9 @@
 		QDEL_NULL(path_hud)
 		path_hud = null
 
+	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
 		data_hud.remove_hud_from(src)
-		QDEL_NULL(data_hud)
 
  	GLOB.bots_list -= src
 	QDEL_NULL(Radio)
@@ -965,8 +963,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 	. = ..()
 	access_card.access += player_access
 
-	data_hud = GLOB.huds[data_hud_type]
-	data_hud.add_hud_to(src)
+	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
+	if(data_hud)
+		data_hud.add_hud_to(src)
 
 	diag_hud_set_botmode()
 	show_laws()
