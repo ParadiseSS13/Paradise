@@ -15,11 +15,9 @@ export const KitchenMachine = (props, context) => {
           <Table className="Ingredient__Table">
             {ingredients.map((product) => (
               <Table.Row tr={5} key={product.name}>
-                <tr>
-                  <td>
-                    <Table.Cell bold>{product.name}</Table.Cell>
-                  </td>
-                </tr>
+                <td>
+                  <Table.Cell bold>{product.name}</Table.Cell>
+                </td>
                 <td>
                   <Table.Cell collapsing textAlign="center">
                     {product.amount} {product.units}
