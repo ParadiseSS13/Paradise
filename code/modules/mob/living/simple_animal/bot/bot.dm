@@ -189,6 +189,11 @@
 	if(path_hud)
 		QDEL_NULL(path_hud)
 		path_hud = null
+
+	if(data_hud)
+		data_hud.remove_hud_from(src)
+		QDEL_NULL(data_hud)
+
  	GLOB.bots_list -= src
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
@@ -968,9 +973,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/Logout()
 	. = ..()
-
-	if(data_hud)
-		data_hud.remove_hud_from(src)
 
 	bot_reset()
 
