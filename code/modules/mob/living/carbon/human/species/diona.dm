@@ -77,6 +77,9 @@
 	. = ..()
 	H.clear_alert("nolight")
 
+	for(var/mob/living/simple_animal/diona/N in H.contents) // Let nymphs wiggle out
+		N.split()
+
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "glyphosate" || R.id == "atrazine")
 		H.adjustToxLoss(3) //Deal aditional damage
