@@ -409,10 +409,8 @@
 	if(treat_virus && !C.reagents.has_reagent(treatment_virus))
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing
-			if(D.severity == NONTHREAT || D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
-				return 0 //Harmless or undetectable? Ignore
-			if(D.stage > 1 || D.spread_flags & AIRBORNE) // medibot can't detect a virus in its initial stage unless it spreads airborne.
-				return 1 //STOP DISEASE FOREVER
+			if(!(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
+				return 1 //Visible, dangerous, and developed enough to be detectable? Need some medicine here!
 
 	return 0
 
