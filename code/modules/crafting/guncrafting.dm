@@ -95,14 +95,13 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction/attackby(obj/item/I, mob/user as mob, params)
-	..()
-	if(istype(I, /obj/item/screwdriver))
-		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
-		user.unEquip(src)
-		user.put_in_hands(C)
-		to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
-		qdel(src)
+/obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
+	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
+	user.unEquip(src)
+	user.put_in_hands(C)
+	to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
+	qdel(src)
+	return TRUE
 
 /obj/item/weaponcrafting/ishotgunconstruction2
 	name = "very conspicuous metal construction"

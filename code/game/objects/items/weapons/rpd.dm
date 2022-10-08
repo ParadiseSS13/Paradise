@@ -288,6 +288,11 @@
 
 	T.rpd_act(user, src)
 
+/obj/item/rpd/attack_obj(obj/O, mob/living/user)
+	if(istype(O, /obj/machinery/atmospherics/pipe) && user.a_intent != INTENT_HARM)
+		return
+	return ..()
+
 #undef RPD_COOLDOWN_TIME
 #undef RPD_WALLBUILD_TIME
 #undef RPD_MENU_ROTATE
