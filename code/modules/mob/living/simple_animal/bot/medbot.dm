@@ -378,7 +378,7 @@
 	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
 		return 1
 
-	if(syndicate_aligned && (!("syndicate" in C.faction)))
+	if(syndicate_aligned && !("syndicate" in C.faction))
 		return 0
 
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
@@ -388,22 +388,22 @@
 		return 0
 
 	//If they're injured, we're using a beaker, and don't have one of our WONDERCHEMS.
-	if((reagent_glass) && (use_beaker) && ((C.getBruteLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getOxyLoss() >= (heal_threshold + 15))))
+	if(reagent_glass && use_beaker && (C.getBruteLoss() >= heal_threshold || C.getToxLoss() >= heal_threshold || C.getToxLoss() >= heal_threshold || C.getOxyLoss() >= (heal_threshold + 15)))
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
 			if(!C.reagents.has_reagent(R.id))
 				return 1
 
 	//They're injured enough for it!
-	if((C.getBruteLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_brute)))
+	if(C.getBruteLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_brute))
 		return 1 //If they're already medicated don't bother!
 
-	if((C.getOxyLoss() >= (15 + heal_threshold)) && (!C.reagents.has_reagent(treatment_oxy)))
+	if(C.getOxyLoss() >= (15 + heal_threshold) && !C.reagents.has_reagent(treatment_oxy))
 		return 1
 
-	if((C.getFireLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_fire)))
+	if(C.getFireLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_fire))
 		return 1
 
-	if((C.getToxLoss() >= heal_threshold) && (!C.reagents.has_reagent(treatment_tox)))
+	if(C.getToxLoss() >= heal_threshold && !C.reagents.has_reagent(treatment_tox))
 		return 1
 
 	if(treat_virus)
@@ -414,8 +414,7 @@
 				return 0
 			if(D.severity == NONTHREAT) // medibot doesn't try to heal truly harmless viruses
 				return 0
-			if((D.stage > 1) || (D.spread_flags & AIRBORNE)) // medibot can't detect a virus in its initial stage unless it spreads airborne.
-
+			if(D.stage > 1 || D.spread_flags & AIRBORNE) // medibot can't detect a virus in its initial stage unless it spreads airborne.
 				if(!C.reagents.has_reagent(treatment_virus))
 					return 1 //STOP DISEASE FOREVER
 
@@ -467,28 +466,28 @@
 			for(var/thing in C.viruses)
 				var/datum/disease/D = thing
 				//detectable virus
-				if((!(D.visibility_flags & HIDDEN_SCANNER)) || (!(D.visibility_flags & HIDDEN_PANDEMIC)))
+				if(!(D.visibility_flags & HIDDEN_SCANNER) || !(D.visibility_flags & HIDDEN_PANDEMIC))
 					if(D.severity != NONTHREAT)      //virus is harmful
-						if((D.stage > 1) || (D.spread_flags & AIRBORNE))
+						if(D.stage > 1 || D.spread_flags & AIRBORNE)
 							virus = 1
 
-			if(!reagent_id && (virus))
+			if(!reagent_id && virus)
 				if(!C.reagents.has_reagent(treatment_virus))
 					reagent_id = treatment_virus
 
-		if(!reagent_id && (C.getBruteLoss() >= heal_threshold))
+		if(!reagent_id && C.getBruteLoss() >= heal_threshold)
 			if(!C.reagents.has_reagent(treatment_brute))
 				reagent_id = treatment_brute
 
-		if(!reagent_id && (C.getOxyLoss() >= (15 + heal_threshold)))
+		if(!reagent_id && C.getOxyLoss() >= (15 + heal_threshold))
 			if(!C.reagents.has_reagent(treatment_oxy))
 				reagent_id = treatment_oxy
 
-		if(!reagent_id && (C.getFireLoss() >= heal_threshold))
+		if(!reagent_id && C.getFireLoss() >= heal_threshold)
 			if(!C.reagents.has_reagent(treatment_fire))
 				reagent_id = treatment_fire
 
-		if(!reagent_id && (C.getToxLoss() >= heal_threshold))
+		if(!reagent_id && C.getToxLoss() >= heal_threshold)
 			if(!C.reagents.has_reagent(treatment_tox))
 				reagent_id = treatment_tox
 
