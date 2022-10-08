@@ -512,6 +512,7 @@
 				var/turf/next = path[1]
 				reached_target = FALSE
 				if(next == loc)
+					increment_path()
 					path -= next
 					return
 				if(isturf(next))
@@ -519,6 +520,7 @@
 					var/moved = step_towards(src, next) // attempt to move
 					if(moved && oldloc!=loc) // successful move
 						blockcount = 0
+						increment_path()
 						path -= loc
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
