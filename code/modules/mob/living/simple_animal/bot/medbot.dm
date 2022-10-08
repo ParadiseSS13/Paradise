@@ -406,7 +406,7 @@
 	if(C.getOxyLoss() >= (15 + heal_threshold) && !C.reagents.has_reagent(treatment_oxy))
 		return 1
 
-	if(treat_virus)
+	if(treat_virus && !C.reagents.has_reagent(treatment_virus))
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing
 			//the medibot can't detect viruses that are undetectable to Health Analyzers or Pandemic machines.
@@ -415,8 +415,7 @@
 			if(D.severity == NONTHREAT) // medibot doesn't try to heal truly harmless viruses
 				return 0
 			if(D.stage > 1 || D.spread_flags & AIRBORNE) // medibot can't detect a virus in its initial stage unless it spreads airborne.
-				if(!C.reagents.has_reagent(treatment_virus))
-					return 1 //STOP DISEASE FOREVER
+				return 1 //STOP DISEASE FOREVER
 
 	return 0
 
