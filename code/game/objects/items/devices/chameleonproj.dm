@@ -179,7 +179,7 @@
 	slot_flags = SLOT_BELT
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "syndicate=4;magnets=4"
+	origin_tech = "syndicate=3;magnets=3"
 	var/can_use = TRUE
 	var/saved_item = null
 	var/saved_icon = null
@@ -193,13 +193,7 @@
 	matter_toggle()
 
 /obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
-	if(!proximity)
-		return
-	if(!check_sprite(target))
-		return
-	if(target.alpha < 255)
-		return
-	if(target.invisibility != 0)
+	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
 	if(!activate_dummy)
 		if(istype(target,/obj/item))
