@@ -21,8 +21,6 @@
 
 /obj/item/organ/internal/headpocket/proc/update_button_state()
 	for(var/datum/action/item_action/T in actions)
-		if(!T)
-			return
 		T.button_icon_state = "skrell_headpocket[held_item ? "_out" : "_in"]"
 		T.UpdateButtonIcon()
 
