@@ -407,7 +407,7 @@
 	if(treat_virus && (!C.reagents.has_reagent(treatment_virus) || !has_all_beaker_reagents))
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing
-			if(!(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
+			if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
 				return TRUE //Visible, dangerous, and developed enough to be detectable? Need some medicine here!
 
 	return FALSE
