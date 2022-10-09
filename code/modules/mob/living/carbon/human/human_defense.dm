@@ -218,18 +218,9 @@ emp_act
 #define BLOCK_CHANCE_CALCULATION(hand_block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier) clamp((hand_block_chance * ((100-armour_penetration_percentage) / 100)) - max(armour_penetration_flat, 0) + block_chance_modifier, 0, 100)
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
-	var/block_chance_modifier = round(damage / -3)
-	var/l_block_chance = 0
-	var/r_block_chance = 0
+	var/obj/item/shield = get_best_shield()
 
-	if(l_hand)
-		l_block_chance = BLOCK_CHANCE_CALCULATION(l_hand.block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier)
-	if(r_hand)
-		r_block_chance = BLOCK_CHANCE_CALCULATION(r_hand.block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier)
-
-	if(l_block_chance > r_block_chance && l_hand.hit_reaction(src, AM, attack_text, l_block_chance, damage, attack_type))
-		return TRUE
-	else if(r_block_chance > 0 && r_hand.hit_reaction(src, AM, attack_text, r_block_chance, damage, attack_type))
+	if(shield && shield.hit_reaction(src, AM, attack_text, 0/*REMOVE THIS AT SOME POINT*/ , damage, attack_type))
 		return TRUE
 
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
@@ -242,6 +233,19 @@ emp_act
 		return TRUE
 
 	return FALSE
+
+/mob/living/carbon/human/proc/get_best_shield()
+	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
+	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
+	if(!right_hand_parry && !left_hand_parry)
+		return null // no parry component
+
+	if((right_hand_parry && left_hand_parry))
+		if(right_hand_parry.stamina_coefficient > left_hand_parry.stamina_coefficient) // try and parry with your best item
+			return left_hand_parry.parent
+		else
+			return right_hand_parry.parent
+	return (right_hand_parry && right_hand_parry.parent) || (left_hand_parry && left_hand_parry.parent) // parry with whichever hand has an item that can parry
 
 #undef BLOCK_CHANCE_CALCULATION
 
