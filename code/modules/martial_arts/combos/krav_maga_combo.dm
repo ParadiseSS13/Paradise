@@ -1,5 +1,6 @@
 // KRAV MAGA COMBOS
 
+// Leg Sweep
 /datum/martial_combo/krav_maga/leg_sweep
 	name = "Leg Sweep"
 	explaination_text = "Trips the victim, rendering them prone for a short time."
@@ -23,7 +24,7 @@
 	user.mind.martial_art.in_stance = FALSE
 	return MARTIAL_COMBO_DONE_CLEAR_COMBOS
 
-
+// Lung Punch
 /datum/martial_combo/krav_maga/lung_punch
 	name = "Lung Punch"
 	explaination_text = "Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time, and can be incapacitated with a few more punches."
@@ -39,7 +40,7 @@
 	user.mind.martial_art.in_stance = FALSE
 	return MARTIAL_COMBO_DONE_CLEAR_COMBOS
 
-
+// Neck Chop
 /datum/martial_combo/krav_maga/neck_chop
 	name = "Neck Chop"
 	explaination_text = "Injures the neck, stopping the victim from speaking for a while."

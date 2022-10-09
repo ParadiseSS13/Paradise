@@ -1,5 +1,6 @@
 // MIMEJUTSU COMBOS
 
+// Mimechucks
 /datum/martial_combo/mimejutsu/mimechucks
 	name = "Mimechucks"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
@@ -27,7 +28,7 @@
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT
 
-
+// Silent palm
 /datum/martial_combo/mimejutsu/silent_palm
 	name = "Silent Palm"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM)
@@ -42,7 +43,7 @@
 		target.throw_at(throw_target, 200, 4, user)
 	return MARTIAL_COMBO_DONE_BASIC_HIT
 
-
+// Smokebomb
 /datum/martial_combo/mimejutsu/smokebomb
 	name = "Smokebomb"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM)

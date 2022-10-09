@@ -1,5 +1,6 @@
 // SLEEPING CARP COMBOS
 
+// Crashing Kick
 /datum/martial_combo/sleeping_carp/crashing_kick
 	name = "Crashing Waves Kick"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM)
@@ -18,7 +19,7 @@
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT
 
-
+// Gnashing Teeth
 /datum/martial_combo/sleeping_carp/gnashing_teeth
 	name = "Gnashing Teeth"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
@@ -38,7 +39,7 @@
 		user.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA!")) // COWABUNGA
 	return MARTIAL_COMBO_DONE
 
-
+// Keelhaul
 /datum/martial_combo/sleeping_carp/keelhaul
 	name = "Keelhaul"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_GRAB)

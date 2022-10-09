@@ -1,5 +1,6 @@
 // CQC COMBOS
 
+// Consecutive CQC
 /datum/martial_combo/cqc/consecutive
 	name = "Consecutive CQC"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
@@ -19,7 +20,7 @@
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL
 
-
+// CQC Kick
 /datum/martial_combo/cqc/kick
 	name = "CQC Kick"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
@@ -45,7 +46,7 @@
 		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
 
-
+// CQC Pressure
 /datum/martial_combo/cqc/pressure
 	name = "Pressure"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB)
@@ -58,7 +59,7 @@
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Pressure", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
 
-
+// CQC Restrain
 /datum/martial_combo/cqc/restrain
 	name = "Restrain"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_GRAB)
@@ -82,7 +83,7 @@
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL
 
-
+// CQC Slam
 /datum/martial_combo/cqc/slam
 	name = "Slam"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)

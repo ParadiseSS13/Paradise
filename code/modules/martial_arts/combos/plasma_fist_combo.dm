@@ -1,5 +1,6 @@
 // PLASMA_FIST COMBOS
 
+// Plasma Fist
 /datum/martial_combo/plasma_fist/plasma_fist
 	name = "The Plasma Fist"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
@@ -14,7 +15,7 @@
 	target.gib()
 	return MARTIAL_COMBO_DONE
 
-
+// Throwback
 /datum/martial_combo/plasma_fist/throwback
 	name = "Throwback"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM)
@@ -29,7 +30,7 @@
 	user.say("HYAH!")
 	return MARTIAL_COMBO_DONE
 
-
+// Tornado Sweep
 /datum/martial_combo/plasma_fist/tornado_sweep
 	name = "Tornado Sweep"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_DISARM)
