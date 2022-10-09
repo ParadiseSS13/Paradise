@@ -162,7 +162,7 @@
 		if(prob(70))
 			add_objective(/datum/objective/escape)
 		else
-			add_objective(/datum/objective/escape/escape_with_identity)
+			add_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of
 
 /datum/antagonist/changeling/process()
 	if(!owner || !owner.current)

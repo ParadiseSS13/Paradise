@@ -74,7 +74,7 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/owl(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), slot_belt)
@@ -93,7 +93,7 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/griffin(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), slot_head)
 
@@ -199,14 +199,14 @@
 				if(ismindshielded(target))
 					to_chat(user, "<span class='notice'>[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear.</span>")
 					user.visible_message("<span class='danger'>[user] stops talking for a moment, then moves back away from [target].</span>")
-					to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
+					to_chat(target, "<span class='danger'>Your mindshield bio-chip activates, protecting you from conversion.</span>")
 					return
 			if(3)
 				to_chat(user, "<span class='notice'>You begin filling out the application form with [target].</span>")
 				user.visible_message("<span class='danger'>[user] pulls out a pen and paper and begins filling an application form with [target].</span>")
 				to_chat(target, "<span class='danger'>You are being convinced by [user] to fill out an application form to become a henchman.</span>")//Ow the edge
 
-		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
+		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield bio-chip
 			to_chat(user, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
 			to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [user]. The application form is null and void.</span>")
 			recruiting = FALSE

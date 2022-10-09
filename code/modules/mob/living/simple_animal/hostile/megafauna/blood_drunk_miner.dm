@@ -171,6 +171,8 @@ Difficulty: Medium
 	miner_saw.melee_attack_chain(src, target)
 	if(guidance)
 		adjustHealth(-2)
+	if(prob(50))
+		transform_weapon() //Still follows the normal rules for cooldown between swaps.
 	return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)

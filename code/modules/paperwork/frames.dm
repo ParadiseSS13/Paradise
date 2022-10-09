@@ -1,4 +1,4 @@
-/obj/item/picture_frame
+/obj/item/picture_frame // This seems somewhat broken and not used anywhere
 	name = "picture frame"
 	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster, and canvas sizes."
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -55,24 +55,9 @@
 		qdel(D)
 
 /obj/item/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/screwdriver))
-		if(displayed)
-			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
-
-			if(istype(displayed, /obj/structure/sign/poster))
-				var/obj/structure/sign/poster/P = displayed
-				P.roll_and_drop(user.loc)
-			else
-				displayed.forceMove(user.loc)
-			displayed = null
-			name = initial(name)
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
-	else if(istype(I, /obj/item/crowbar))
+	if(istype(I, /obj/item/crowbar))
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
+		user.visible_message("<span class='warning'>[user] breaks down [src].</span>", "<span class='warning'>You break down [src].</span>")
 		for(var/A in contents)
 			if(istype(A, /obj/structure/sign/poster))
 				var/obj/structure/sign/poster/P = A
@@ -88,9 +73,27 @@
 			insert(I)
 			update_icon()
 		else
-			to_chat(user, "<span class='notice'>\The [src] already contains \a [displayed].</span>")
+			to_chat(user, "<span class='notice'>[src] already contains \a [displayed].</span>")
 	else
 		return ..()
+
+/obj/item/picture_frame/screwdriver_act(mob/living/user, obj/item/I)
+	if(!displayed)
+		to_chat(user, "<span class='notice'>There is nothing to remove from [src].</span>")
+		return
+
+	I.play_tool_sound(src)
+	user.visible_message("<span class='warning'>[user] unfastens [displayed] out of [src].</span>", "<span class='warning'>You unfasten [displayed] out of [src].</span>")
+
+	if(istype(displayed, /obj/structure/sign/poster))
+		var/obj/structure/sign/poster/P = displayed
+		P.roll_and_drop(user.loc)
+	else
+		displayed.forceMove(user.loc)
+	displayed = null
+	name = initial(name)
+	update_icon()
+	return TRUE
 
 /obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag)
 	if(proximity_flag && istype(target, /turf/simulated/wall))
@@ -102,14 +105,14 @@
 	var/stuff_on_wall = 0
 	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign))
-			to_chat(user, "<span class='notice'>\The [T] is far too cluttered to place \a [src]!</span>")
+			to_chat(user, "<span class='notice'>[T] is far too cluttered to place \a [src]!</span>")
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
-			to_chat(user, "<span class='notice'>\The [T] is far too cluttered to place \a [src]!</span>")
+			to_chat(user, "<span class='notice'>[T] is far too cluttered to place \a [src]!</span>")
 			return
 
-	to_chat(user, "<span class='notice'>You start place \the [src] on \the [T].</span>")
+	to_chat(user, "<span class='notice'>You start place [src] on [T].</span>")
 
 	var/px = 0
 	var/py = 0
@@ -125,7 +128,7 @@
 		if(WEST)
 			px = -32
 		else
-			to_chat(user, "<span class='notice'>You cannot reach \the [T] from here!</span>")
+			to_chat(user, "<span class='notice'>You cannot reach [T] from here!</span>")
 			return
 
 	user.unEquip(src)
@@ -212,26 +215,14 @@
 		overlays |= getFlatIcon(frame)
 
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/screwdriver))
-		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
-		if(do_after(user, 100 * I.toolspeed, target = src))
-			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
-			frame.forceMove(user.loc)
-			frame = null
-			if(explosive)
-				explosive.forceMove(user.loc)
-				explosive = null
-			qdel(src)
 	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/grenade/plastic/c4))
 		if(explosive)
-			to_chat(user, "<span class='warning'>There is already a device attached behind \the [src], remove it first.</span>")
+			to_chat(user, "<span class='warning'>There is already a device attached behind [src], remove it first.</span>")
 			return 1
 		if(!tilted)
-			to_chat(user, "<span class='warning'>\The [src] needs to be already tilted before being rigged with \the [I].</span>")
+			to_chat(user, "<span class='warning'>[src] needs to be already tilted before being rigged with [I].</span>")
 			return 1
-		user.visible_message("<span class='warning'>[user] is fiddling around behind \the [src].</span>", "<span class='warning'>You begin to secure \the [I] behind \the [src].</span>")
+		user.visible_message("<span class='warning'>[user] is fiddling around behind [src].</span>", "<span class='warning'>You begin to secure [I] behind [src].</span>")
 		if(do_after(user, 150, target = src))
 			if(explosive || !tilted)
 				return
@@ -239,13 +230,26 @@
 			user.unEquip(I)
 			explosive = I
 			I.forceMove(src)
-			user.visible_message("<span class='notice'>[user] fiddles with the back of \the [src].</span>", "<span class='notice'>You secure \the [I] behind \the [src].</span>")
+			user.visible_message("<span class='notice'>[user] fiddles with the back of [src].</span>", "<span class='notice'>You secure [I] behind [src].</span>")
 
 			message_admins("[key_name_admin(user)] attached [I] to a picture frame.")
 			log_game("[key_name_admin(user)] attached [I] to a picture frame.")
 		return 1
 	else
 		return ..()
+
+/obj/structure/sign/picture_frame/screwdriver_act(mob/user, obj/item/I)
+	I.play_tool_sound(src)
+	user.visible_message("<span class='warning'>[user] begins to unfasten [src] from the wall.</span>", "<span class='warning'>You begin to unfasten [src] from the wall.</span>")
+	if(do_after(user, 100 * I.toolspeed, target = src))
+		user.visible_message("<span class='warning'>[user] unfastens [src] from the wall.</span>", "<span class='warning'>You unfasten [src] from the wall.</span>")
+		frame.forceMove(user.loc)
+		frame = null
+		if(explosive)
+			explosive.forceMove(user.loc)
+			explosive = null
+		qdel(src)
+	return TRUE
 
 /obj/structure/sign/picture_frame/examine(mob/user, infix = "", suffix = "")
 	if(frame)

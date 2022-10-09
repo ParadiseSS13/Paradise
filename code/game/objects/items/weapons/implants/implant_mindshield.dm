@@ -1,8 +1,8 @@
 /obj/item/implant/mindshield
-	name = "mindshield implant"
+	name = "mindshield bio-chip"
 	desc = "Stops people messing with your mind."
 	origin_tech = "materials=2;biotech=4;programming=4"
-	activated = IMPLANT_ACTIVATED_PASSIVE
+	activated = BIOCHIP_ACTIVATED_PASSIVE
 	implant_data = /datum/implant_fluff/mindshield
 	implant_state = "implant-nanotrasen"
 
@@ -27,10 +27,10 @@
 	return FALSE
 
 /obj/item/implanter/mindshield
-	name = "implanter (mindshield)"
+	name = "bio-chip implanter (mindshield)"
 	implant_type = /obj/item/implant/mindshield
 
 /obj/item/implantcase/mindshield
-	name = "implant case - 'mindshield'"
-	desc = "A glass case containing a mindshield implant."
+	name = "bio-chip case - 'mindshield'"
+	desc = "A glass case containing a mindshield bio-chip."
 	implant_type = /obj/item/implant/mindshield

@@ -15,6 +15,7 @@
 	..()
 	// To supersede the over-writing of the MMI's name from `insert`
 	update_from_mmi()
+	target.thought_bubble_image = "thought_bubble_machine"
 
 /obj/item/organ/internal/brain/mmi_holder/remove(mob/living/user, special = 0)
 	if(!special)
