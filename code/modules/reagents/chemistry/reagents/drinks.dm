@@ -633,7 +633,7 @@
 	name = "Space-Up"
 	id = "space_up"
 	description = "Tastes like a hull breach in your mouth."
-	color = "#202800" // rgb: 32, 40, 0
+	color = "#C7DF67"
 	drink_icon = "space-up_glass"
 	drink_name = "Glass of Space-up"
 	drink_desc = "Space-up. It helps keep your cool."
@@ -643,7 +643,7 @@
 	name = "Lemon Lime"
 	description = "A tangy substance made of 0.5% natural citrus!"
 	id = "lemon_lime"
-	color = "#878F00" // rgb: 135, 40, 0
+	color = "#BEC80F" // rgb: 135, 40, 0
 	taste_description = "citrus soda"
 
 /datum/reagent/consumable/drink/lemonade
