@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 43
+sql_version = 44
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -689,7 +689,6 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_blooddrunk3.dmm",
 	# Re-removed 7/24/2020, I ran a month-long test of hierophant Jun-Jul and the staff was still too strong. https://github.com/ParadiseSS13/Paradise/pull/13542
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_swarmer_crash.dmm",
 
 	##MISC
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
@@ -747,6 +746,12 @@ external_tos_handler = false
 # Do not use in production.
 # Comment out to disable.
 #override_map = "/datum/map/test_tiny"
+# Regional servers.
+# This is not for separate DD instances per region, but if you have a geo-routing setup deployed to optimise routing for players
+# I am 99.9% certain you will never need to fill this out
+regional_servers = [
+	#{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
+]
 
 
 ################################################################
@@ -808,7 +813,8 @@ prevent_dead_voting = false
 disable_default_vote = true
 # Enable voting for a map on end round
 enable_map_voting = false
-
+# Set to true to prevent the same map from being voted on twice in a row
+non_repeating_maps = true
 
 ################################################################
 

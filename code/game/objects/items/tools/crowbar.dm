@@ -24,6 +24,7 @@
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
+	belt_icon = "crowbar_red"
 	force = 8
 
 /obj/item/crowbar/brass

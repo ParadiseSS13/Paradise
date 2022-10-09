@@ -55,7 +55,7 @@
 
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
-	duration = 30
+	duration = 3 SECONDS
 	alert_type = /obj/screen/alert/status_effect/shadow_mend
 
 /obj/screen/alert/status_effect/shadow_mend
@@ -80,9 +80,11 @@
 
 /datum/status_effect/void_price
 	id = "void_price"
-	duration = 300
-	tick_interval = 30
+	duration = 30 SECONDS
+	tick_interval = 3 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /obj/screen/alert/status_effect/void_price
+	var/price = 3 //This is how much hp you lose per tick. Each time the buff is refreshed, it increased by 1. Healing too much in a short period of time will cause your swift demise
 
 /obj/screen/alert/status_effect/void_price
 	name = "Void Price"
@@ -91,8 +93,12 @@
 
 /datum/status_effect/void_price/tick()
 	playsound(owner, 'sound/weapons/bite.ogg', 50, 1)
-	owner.adjustBruteLoss(3)
+	owner.adjustBruteLoss(price)
 
+/datum/status_effect/void_price/refresh()
+	price++
+	return ..()
+	
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
 	duration = 10
@@ -133,6 +139,18 @@
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.remove_stun_absorption("blooddrunk")
+
+/obj/screen/alert/status_effect/dash
+	name = "Dash"
+	desc = "Your have the ability to dash!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "genetic_jump"
+
+/datum/status_effect/dash
+	id = "dash"
+	duration = 5 SECONDS
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/dash
 
 /datum/status_effect/bloodswell
 	id = "bloodswell"

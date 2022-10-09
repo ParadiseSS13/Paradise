@@ -47,7 +47,7 @@ Difficulty: Very Hard
 	pixel_x = -32
 	del_on_death = TRUE
 	universal_speak = TRUE
-	internal_type = /obj/item/gps/internal/colossus
+	internal_gps = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)

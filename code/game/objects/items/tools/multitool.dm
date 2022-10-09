@@ -9,7 +9,7 @@
 /obj/item/multitool
 	name = "multitool"
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "multitool"
 	belt_icon = "multitool"
 	flags = CONDUCT
@@ -70,7 +70,11 @@
 	detect_state = PROXIMITY_NONE
 	multitool_detect()
 	icon_state = "[initial(icon_state)][detect_state]"
+	belt_icon = "[initial(icon_state)][detect_state]"
 	track_cooldown = world.time + track_delay
+	if(istype(loc, /obj/item/storage/belt))
+		var/obj/item/storage/belt/B = loc
+		B.update_icon()
 
 /obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
@@ -94,6 +98,14 @@
 					if(get_dist(our_turf, detect_turf) < rangewarning)
 						detect_state = PROXIMITY_NEAR
 						break
+
+/obj/item/multitool/red
+	name = "Suspicious Multitool"
+	desc = "A sinister-looking multitool, used for pulsing wires to test which to cut."
+	icon_state = "multitool_syndi"
+	belt_icon = "multitool_syndi"
+	toolspeed = 0.95 // dangerously fast... not like multitools use speed anyways
+	origin_tech = "magnets=1;engineering=2,syndicate=1"
 
 /obj/item/multitool/ai_detect/admin
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?

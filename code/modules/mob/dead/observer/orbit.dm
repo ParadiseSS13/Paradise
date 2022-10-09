@@ -129,6 +129,10 @@
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Xenomorph"
 					antagonists += list(antag_serialized)
+				else if(isslaughterdemon(M))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Slaughter Demon"
+					antagonists += list(antag_serialized)
 		else
 			misc += list(serialized)
 
