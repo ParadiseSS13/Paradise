@@ -517,6 +517,9 @@
 /atom/proc/cmag_act()
 	return
 
+/atom/proc/uncmag()
+	return
+
 /**
  * Respond to a radioactive wave hitting this atom
  *

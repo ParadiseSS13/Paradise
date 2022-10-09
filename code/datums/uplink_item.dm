@@ -393,7 +393,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Contortionist's Jumpsuit"
 	desc = "A highly flexible jumpsuit that will help you navigate the ventilation loops of the station internally. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, helmet, and exosuit. Free hands are also necessary to crawl around inside."
 	reference = "AIRJ"
-	item = /obj/item/clothing/under/contortionist
+	item = /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist
 	cost = 6
 	job = list("Life Support Specialist")
 

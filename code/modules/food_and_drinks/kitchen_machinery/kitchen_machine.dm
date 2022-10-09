@@ -81,12 +81,8 @@
 	default_deconstruction_crowbar(user, O)
 
 	if(broken > 0)
-		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
-			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
-				broken = 1 // Fix it a bit
-		else if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
+		// Broken == 2 is handled by screwdriver_act
+		if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
@@ -137,6 +133,16 @@
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return 1
 	updateUsrDialog()
+
+/obj/machinery/kitchen_machine/screwdriver_act(mob/living/user, obj/item/I)
+	if(operating || broken != 2)
+		return
+	user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
+	if(do_after(user, 20 * I.toolspeed, target = src))
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of [src].</span>")
+		broken = 1 // Fix it a bit
+	return TRUE
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_item())
