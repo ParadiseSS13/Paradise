@@ -1273,7 +1273,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "This device disguises himself as any object scanned by it. It's not a perfect replica and can be noticed when examined by someone."
 	reference = "CC"
 	item = /obj/item/chameleon_counterfeiter
-	cost = 1
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
