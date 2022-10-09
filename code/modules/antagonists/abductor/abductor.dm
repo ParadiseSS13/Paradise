@@ -50,8 +50,8 @@
 
 /datum/antagonist/abductor/greet()
 	. = ..()
-	to_chat(owner.current, span_notice("With the help of your teammate, kidnap and experiment on station crewmembers!"))
-	to_chat(owner.current, span_notice("[greet_text]"))
+	to_chat(owner.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crewmembers!</span>")
+	to_chat(owner.current, "<span class='notice'>[greet_text]</span>")
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/abductors.ogg'))
 
 /datum/antagonist/abductor/finalize_antag()
@@ -79,7 +79,7 @@
 
 /datum/antagonist/abductor/admin_add(datum/mind/new_owner, mob/admin)
 	if(!ishuman(new_owner.current))
-		to_chat(admin, span_warning("This only works on humans!"))
+		to_chat(admin, "<span class='warning'>This only works on humans!</span>")
 		return
 	var/list/current_teams = list()
 	for(var/datum/team/abductor_team/T in GLOB.antagonist_teams)
@@ -91,7 +91,7 @@
 		team = current_teams[choice]
 	else
 		return FALSE
-	
+
 	var/mob/living/carbon/human/H = new_owner.current
 	var/gear = alert("Agent or Scientist?","Gear","Agent","Scientist")
 	if(gear)

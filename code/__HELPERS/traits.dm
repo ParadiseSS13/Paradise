@@ -194,6 +194,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCE_DOORS 		"force_doors"
 #define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
+#define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -218,6 +219,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHANGELING_TRAIT "changeling"
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"
+#define ABDUCTOR_TRAIT "abductor"
 #define BERSERK_TRAIT "berserk"
 
 // unique trait sources
