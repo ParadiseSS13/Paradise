@@ -1268,6 +1268,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/chameleon
 	cost = 7
 
+/datum/uplink_item/stealthy_tools/chameleon_counter
+	name = "Chameleon Counterfeiter"
+	desc = "This device disguises himself as any object scanned by it. It's not a perfect replica and can be noticed when examined by someone."
+	reference = "CC"
+	item = /obj/item/chameleon_counterfeiter
+	cost = 1
+
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
 	desc = "Enables you to view all cameras on the network to track a target."
