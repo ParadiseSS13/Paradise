@@ -174,7 +174,7 @@
 /obj/item/chameleon_counterfeiter
 	name = "chameleon counterfeiter"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "shield0"
+	icon_state = "cham_counter"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "electronic"
