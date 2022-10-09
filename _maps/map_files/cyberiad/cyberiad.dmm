@@ -11166,7 +11166,7 @@
 /obj/item/storage/box/evidence,
 /obj/item/clothing/suit/wcoat,
 /obj/item/clothing/suit/blacktrenchcoat,
-/obj/item/clothing/under/suit_jacket/tan,
+/obj/item/clothing/under/suit/tan,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
@@ -13319,7 +13319,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aIT" = (
-/obj/item/clothing/under/mafia,
+/obj/item/clothing/under/suit/mafia,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aIU" = (
@@ -13828,7 +13828,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aKf" = (
-/obj/item/clothing/under/mafia/sue,
+/obj/item/clothing/under/suit/mafia/vest,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aKg" = (
@@ -19204,7 +19204,7 @@
 /area/crew_quarters/dorms)
 "aWL" = (
 /obj/structure/table,
-/obj/item/clothing/under/swimsuit/red,
+/obj/item/clothing/under/misc/swimsuit/red,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -23950,7 +23950,7 @@
 	pixel_x = 24
 	},
 /obj/item/clothing/suit/soldiercoat,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/costume/soldieruniform,
 /obj/item/clothing/head/stalhelm,
 /obj/machinery/newscaster{
 	name = "south bump";
@@ -34874,7 +34874,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bHf" = (
-/obj/item/clothing/under/rank/security2,
+/obj/item/clothing/under/rank/security/officer/uniform,
 /obj/structure/closet/cabinet,
 /obj/item/clothing/head/officer,
 /turf/simulated/floor/plasteel{
@@ -45286,7 +45286,7 @@
 /obj/item/clothing/gloves/color/rainbow,
 /obj/item/clothing/shoes/rainbow,
 /obj/item/clothing/head/soft/rainbow,
-/obj/item/clothing/under/rainbow,
+/obj/item/clothing/under/color/rainbow,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "chp" = (
@@ -51590,13 +51590,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cyK" = (
-/obj/item/clothing/under/rank/medical/purple,
+/obj/item/clothing/under/rank/medical/scrubs/purple,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cyM" = (
-/obj/item/clothing/under/medigown,
+/obj/item/clothing/under/rank/medical/gown,
 /obj/structure/table/tray,
 /obj/item/hemostat{
 	pixel_x = 6
@@ -71376,7 +71376,7 @@
 "fWJ" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/under/rank/nursesuit,
+/obj/item/clothing/under/rank/medical/nursesuit,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -75143,7 +75143,7 @@
 "iNe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/clothing/under/rank/medical/blue,
+/obj/item/clothing/under/rank/medical/scrubs,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -28
@@ -82600,10 +82600,10 @@
 	pixel_x = -28
 	},
 /obj/item/crowbar/large,
-/obj/item/clothing/under/pj/red,
-/obj/item/clothing/under/pj/red,
-/obj/item/clothing/under/pj/blue,
-/obj/item/clothing/under/pj/blue,
+/obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/under/misc/pj/red,
+/obj/item/clothing/under/misc/pj/blue,
+/obj/item/clothing/under/misc/pj/blue,
 /obj/item/clothing/shoes/sandal/white,
 /obj/item/clothing/shoes/sandal/white,
 /obj/item/clothing/shoes/sandal/white,
@@ -83837,7 +83837,7 @@
 	},
 /area/maintenance/aft)
 "pXs" = (
-/obj/item/clothing/under/swimsuit/black,
+/obj/item/clothing/under/misc/swimsuit/black,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
@@ -85368,11 +85368,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/backpack/duffel/medical,
-/obj/item/clothing/under/rank/nurse,
+/obj/item/clothing/under/rank/medical/nurse,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "rfh" = (
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -93577,12 +93577,12 @@
 /area/maintenance/aft)
 "xYu" = (
 /obj/structure/table,
-/obj/item/clothing/under/shorts/black{
+/obj/item/clothing/under/pants/shorts/black{
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/item/clothing/under/shorts/blue,
-/obj/item/clothing/under/shorts/red{
+/obj/item/clothing/under/pants/shorts/blue,
+/obj/item/clothing/under/pants/shorts/red{
 	pixel_x = 3;
 	pixel_y = -3
 	},
