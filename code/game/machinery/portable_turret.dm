@@ -900,12 +900,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//attack_hand() removes the gun
 
 		if(5)
-			if(istype(I, /obj/item/screwdriver))
-				playsound(loc, I.usesound, 100, 1)
-				build_step = 6
-				to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
-				return
-
+			return
+			//screwdriver_act() handles screwing the panel closed
 			//attack_hand() removes the prox sensor
 
 		if(6)
@@ -918,12 +914,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
 				return
 
-			else if(istype(I, /obj/item/screwdriver))
-				playsound(loc, I.usesound, 100, 1)
-				build_step = 5
-				to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
-				return
-			else if(istype(I, /obj/item/crowbar))
+		if(7)
+			if(istype(I, /obj/item/crowbar))
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)
@@ -941,6 +933,20 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		finish_name = t
 		return
 	..()
+
+/obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
+	if(build_step != 6 && build_step != 5)
+		return
+
+	if(build_step == 5)
+		build_step = 6
+		to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
+	else
+		build_step = 5
+		to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
+
+	I.play_tool_sound(src)
+	return TRUE
 
 /obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)
 	. = TRUE

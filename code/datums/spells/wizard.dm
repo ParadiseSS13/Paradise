@@ -228,6 +228,7 @@
 	invocation = "TARCOL GRANDI ZHERI"
 	invocation_type = "shout"
 	large = TRUE
+	action_icon_state = "shield_greater"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"

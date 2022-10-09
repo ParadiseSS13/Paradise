@@ -77,11 +77,10 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
-	var/datum/action/innate/change_monitor/monitor
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
-	monitor = new()
+	var/datum/action/innate/change_monitor/monitor = new()
 	monitor.Grant(H)
 	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
 		medhud.remove_from_hud(H)
@@ -92,7 +91,7 @@
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/H)
 	..()
-	if(monitor)
+	for(var/datum/action/innate/change_monitor/monitor in H.actions)
 		monitor.Remove(H)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.remove_from_hud(H)

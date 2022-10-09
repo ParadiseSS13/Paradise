@@ -356,7 +356,7 @@
 	caliber = "foam_force"
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
-	var/modified = 0
+	var/modified = FALSE
 	harmful = FALSE
 
 /obj/item/ammo_casing/caseless/foam_dart/update_desc()
@@ -377,16 +377,22 @@
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if(istype(A, /obj/item/screwdriver) && !modified)
-		modified = 1
-		FD.damage_type = BRUTE
-		update_icon()
-	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
+	if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		add_pen(A)
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
-	return
+
+/obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
+	if(modified)
+		return
+
+	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
+	I.play_tool_sound(src)
+	modified = TRUE
+	FD.damage_type = BRUTE
+	update_icon()
+	return TRUE
 
 /obj/item/ammo_casing/caseless/foam_dart/proc/add_pen(obj/item/pen/P)
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB

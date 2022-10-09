@@ -94,8 +94,6 @@
 
 /obj/item/melee/flyswatter/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
-	if(!.)
-		return
 	if(is_type_in_typecache(M, strong_against))
 		new /obj/effect/decal/cleanable/insectguts(M.drop_location())
 		user.visible_message("<span class='warning'>[user] splats [M] with [src].</span>",

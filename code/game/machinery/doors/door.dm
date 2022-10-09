@@ -14,8 +14,8 @@
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = TRUE
-	/// Is it currently in the process of opening or closing.
-	var/operating = FALSE
+	/// Is it currently in the process of opening, closing or being tampered
+	var/operating = NONE
 	var/autoclose = FALSE
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
 	var/safe = TRUE
@@ -36,6 +36,14 @@
 	var/unres_sides = 0
 	//Multi-tile doors
 	var/width = 1
+	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
+	var/sound_ready = TRUE
+	var/sound_cooldown = 1 SECONDS
+
+	/// ID for the window tint button, or another external control
+	var/id
+	var/polarized_glass = FALSE
+	var/polarized_on
 
 /obj/machinery/door/New()
 	..()
@@ -111,8 +119,14 @@
 				if(world.time - mecha.occupant.last_bumped <= 10)
 					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE, mecha.occupant)
+					return
 				open()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE, mecha.occupant)
+					return
 				do_animate("deny")
 		return
 
@@ -144,12 +158,18 @@
 
 	if(density && !emagged)
 		if(allowed(user))
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				cmag_switch(FALSE, user)
+				return
 			open()
 			if(isbot(user))
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
 			if(pry_open_check(user))
+				return
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				cmag_switch(TRUE, user)
 				return
 			do_animate("deny")
 
@@ -199,10 +219,18 @@
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact()) //cmag should not prevent admin intervention
+				cmag_switch(FALSE, user)
+				return
 			open()
 		else
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+				return
 			close()
 		return TRUE
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		cmag_switch(TRUE, user)
+		return
 	if(density)
 		do_animate("deny")
 
@@ -222,6 +250,9 @@
 	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
+		return
+
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(user, I)
 		return 1
@@ -229,7 +260,6 @@
 		try_to_activate_door(user)
 		return 1
 	return ..()
-
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -267,6 +297,49 @@
 		emagged = TRUE
 		return TRUE
 
+/obj/machinery/door/cmag_act(mob/user)
+	if(!density)
+		return
+	flick("door_spark", src)
+	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
+	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	return TRUE
+
+//Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
+/obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)
+	if(!canopen || locked || !hasPower())
+		if(density) //Windoors can still do their deny animation in unpowered environments, this bugs out if density isn't checked for
+			do_animate("deny")
+		if(hasPower() && sound_ready)
+			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+			soundcooldown()
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/card/id/idcard = H.get_idcard()
+		if(!idcard?.assignment) //Humans can't game inverted access by taking their ID off or using spare IDs.
+			if(!density)
+				return
+			do_animate("deny")
+			to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+			if(sound_ready)
+				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+				soundcooldown() //Thanks, mechs
+			return
+	if(density)
+		open()
+	else
+		close()
+
+/obj/machinery/door/proc/soundcooldown()
+	if(!sound_ready)
+		return
+	sound_ready = FALSE
+	addtimer(VARSET_CALLBACK(src, sound_ready, TRUE), sound_cooldown)
+
+/obj/machinery/door/proc/toggle_polarization()
+	return
+
 /obj/machinery/door/update_icon_state()
 	icon_state = "door[density]"
 
@@ -292,7 +365,7 @@
 	if(operating)
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
-	operating = TRUE
+	operating = DOOR_OPENING
 	do_animate("opening")
 	set_opacity(0)
 	sleep(5)
@@ -301,7 +374,7 @@
 	layer = initial(layer)
 	update_icon()
 	set_opacity(0)
-	operating = FALSE
+	operating = NONE
 	air_update_turf(1)
 	update_freelook_sight()
 	if(autoclose)
@@ -322,7 +395,7 @@
 					return
 
 	SEND_SIGNAL(src, COMSIG_DOOR_CLOSE)
-	operating = TRUE
+	operating = DOOR_CLOSING
 
 	do_animate("closing")
 	layer = closingLayer
@@ -330,9 +403,9 @@
 	density = TRUE
 	sleep(5)
 	update_icon()
-	if(visible && !glass)
-		set_opacity(1)
-	operating = FALSE
+	if(!glass || polarized_on)
+		set_opacity(TRUE)
+	operating = NONE
 	air_update_turf(1)
 	update_freelook_sight()
 	if(safe)
@@ -388,28 +461,23 @@
 
 /obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
+		set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 		if(unres_sides & NORTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
 			I.pixel_y = 32
-			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & SOUTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
 			I.pixel_y = -32
-			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & EAST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
 			I.pixel_x = 32
-			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
 		if(unres_sides & WEST)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
 			I.pixel_x = -32
-			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
 			add_overlay(I)
-	else
-		set_light(0)
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'

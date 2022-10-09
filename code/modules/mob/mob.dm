@@ -982,7 +982,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return gender
 
 /mob/proc/is_muzzled()
-	return 0
+	return FALSE
 
 /mob/Stat()
 	..()
