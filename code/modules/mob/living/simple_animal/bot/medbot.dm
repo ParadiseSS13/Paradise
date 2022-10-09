@@ -384,14 +384,14 @@
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
-	if(C.has_organic_damage())
-		var/has_all_beaker_reagents = TRUE //No reagents to apply is equivalent to having them all
-		if(reagent_glass && use_beaker)
-			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-				if(!C.reagents.has_reagent(R.id))
-					has_all_beaker_reagents = FALSE
-					break
+	var/has_all_beaker_reagents = TRUE //No reagents to apply is equivalent to having them all
+	if(reagent_glass && use_beaker)
+		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
+			if(!C.reagents.has_reagent(R.id))
+				has_all_beaker_reagents = FALSE
+				break
 
+	if(C.has_organic_damage())
 		if(C.getBruteLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_brute) || !has_all_beaker_reagents))
 			return TRUE //They're injured enough for it, and aren't already medicated
 
@@ -404,7 +404,7 @@
 		if(C.getOxyLoss() >= (heal_threshold + 15) && (!C.reagents.has_reagent(treatment_oxy) || !has_all_beaker_reagents))
 			return TRUE
 
-	if(treat_virus && !C.reagents.has_reagent(treatment_virus))
+	if(treat_virus && (!C.reagents.has_reagent(treatment_virus) || !has_all_beaker_reagents))
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing
 			if(!(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
