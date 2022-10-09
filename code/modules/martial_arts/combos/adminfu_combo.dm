@@ -1,3 +1,5 @@
+// ADMINFU COMBO
+
 /datum/martial_combo/adminfu/healing_palm
 	name = "Healing Palm"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP)
