@@ -332,7 +332,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		polarized_image.color = "#FFFFFF"
 		animate_color = "#222222"
 		set_opacity(TRUE)
-	
+
 	overlays -= polarized_image
 
 	// Animate() does not work on overlays, so a temporary effect is used
@@ -1381,6 +1381,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
 		return
+	if(prying_so_hard)
+		return
+	prying_so_hard = TRUE
 	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
 						"<span class='warning'>You hear groaning metal...</span>")
@@ -1393,6 +1396,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(do_after(user, time_to_open, TRUE, src))
 		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
 			to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
+	prying_so_hard = FALSE
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
 	..()
