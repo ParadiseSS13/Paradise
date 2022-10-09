@@ -57,7 +57,7 @@
 
 /obj/item/weaponcrafting/gunkit/ebow
 	name = "\improper energy crossbow parts kit"
-	desc = "Highly illegal weapons refurbishment kit that allows you to turn the standard proto-kinetic accelerator into a near-duplicate energy crossbow. Almost like the real thing!"
+	desc = "Highly illegal weapons refurbishment kit that allows you to turn a laser gun into a near-duplicate energy crossbow. Almost like the real thing!"
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 
 /obj/item/weaponcrafting/gunkit/immolator
@@ -95,14 +95,13 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction/attackby(obj/item/I, mob/user as mob, params)
-	..()
-	if(istype(I, /obj/item/screwdriver))
-		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
-		user.unEquip(src)
-		user.put_in_hands(C)
-		to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
-		qdel(src)
+/obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
+	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
+	user.unEquip(src)
+	user.put_in_hands(C)
+	to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
+	qdel(src)
+	return TRUE
 
 /obj/item/weaponcrafting/ishotgunconstruction2
 	name = "very conspicuous metal construction"

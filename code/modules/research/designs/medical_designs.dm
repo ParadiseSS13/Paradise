@@ -524,8 +524,8 @@
 /////////////////////////////////////////
 
 /datum/design/implanter
-	name = "Implanter"
-	desc = "A sterile automatic implant injector."
+	name = "bio-chip implanter"
+	desc = "A sterile automatic bio-chip injector."
 	id = "implanter"
 	req_tech = list("materials" = 2, "biotech" = 3, "programming" = 2)
 	build_type = PROTOLATHE
@@ -534,8 +534,8 @@
 	category = list("Medical")
 
 /datum/design/implantcase
-	name = "Implant Case"
-	desc = "A glass case containing an implant."
+	name = "Bio-chip Case"
+	desc = "A glass case containing a bio-chip."
 	id = "implantcase"
 	req_tech = list("biotech" = 2)
 	build_type = PROTOLATHE
@@ -544,8 +544,8 @@
 	category = list("Medical")
 
 /datum/design/implant_chem
-	name = "Chemical Implant Case"
-	desc = "A glass case containing an implant."
+	name = "Chemical Bio-chip Case"
+	desc = "A glass case containing a bio-chip."
 	id = "implant_chem"
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
@@ -554,7 +554,7 @@
 	category = list("Medical")
 
 /datum/design/implant_sadtrombone
-	name = "Sad Trombone Implant Case"
+	name = "Sad Trombone Bio-chip Case"
 	desc = "Makes death amusing."
 	id = "implant_trombone"
 	req_tech = list("materials" = 3, "biotech" = 5)
@@ -564,8 +564,8 @@
 	category = list("Medical")
 
 /datum/design/implant_tracking
-	name = "Tracking Implant Case"
-	desc = "A glass case containing an implant."
+	name = "Tracking Bio-chip Case"
+	desc = "A glass case containing a bio-chip."
 	id = "implant_tracking"
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE

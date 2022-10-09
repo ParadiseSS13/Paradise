@@ -18,49 +18,25 @@
 	AddComponent(/datum/component/slippery, src, 8 SECONDS, 100, 0, FALSE)
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
-	if(!proximity) return
-	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
-	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
-	if(user.client && (target in user.client.screen))
-		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
-	else if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
+	if(!proximity)
+		return
+	if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && isdrask(muncher))
 			to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
-	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
-		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
-		if(do_after(user, cleanspeed, target = target) && target)
-			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
-			if(issimulatedturf(target.loc))
-				clean_turf(target.loc)
-				return
-			qdel(target)
-	else if(issimulatedturf(target))
-		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
-		if(do_after(user, cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
-			clean_turf(target)
-	else
-		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
-		if(do_after(user, cleanspeed, target = target))
-			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
-			var/obj/effect/decal/cleanable/C = locate() in target
-			qdel(C)
-			target.clean_blood()
-
-/obj/item/soap/proc/clean_turf(turf/simulated/T)
-	T.clean_blood()
-	for(var/obj/effect/O in T)
-		if(O.is_cleanable())
-			qdel(O)
+		return
+	target.cleaning_act(user, src, cleanspeed)
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
 		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [name]!</span>")
 		return
 	..()
+
+/obj/item/soap/can_clean()
+	return TRUE
 
 /obj/item/soap/nanotrasen
 	desc = "A Nanotrasen brand bar of soap. Smells of plasma."

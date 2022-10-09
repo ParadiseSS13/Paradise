@@ -200,7 +200,7 @@
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
-	sharp = extend
+	set_sharpness(extend)
 	update_icon(UPDATE_ICON_STATE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

@@ -25,7 +25,7 @@
 	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
+	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = COLOR_BLOOD_MACHINE
@@ -77,11 +77,10 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
-	var/datum/action/innate/change_monitor/monitor
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
-	monitor = new()
+	var/datum/action/innate/change_monitor/monitor = new()
 	monitor.Grant(H)
 	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
 		medhud.remove_from_hud(H)
@@ -92,7 +91,7 @@
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/H)
 	..()
-	if(monitor)
+	for(var/datum/action/innate/change_monitor/monitor in H.actions)
 		monitor.Remove(H)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.remove_from_hud(H)

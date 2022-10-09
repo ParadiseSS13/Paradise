@@ -42,16 +42,17 @@
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(used == FALSE)
-		var/turf/UT = get_turf(usr)
-		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
-			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
-			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
-			return
 		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
 		used = TRUE
 		sleep(50)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
+		var/turf/UT = get_turf(usr)
+		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
+			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
+			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
+			used = FALSE
+			return
 		switch(status)
 			if(SHELTER_DEPLOY_BAD_AREA)
 				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")

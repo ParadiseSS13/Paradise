@@ -1,6 +1,6 @@
 /obj/item/implantcase
-	name = "implant case"
-	desc = "A glass case containing an implant."
+	name = "bio-chip case"
+	desc = "A glass case containing a bio-chip."
 	icon = 'icons/obj/implants.dmi'
 	icon_state = "implantcase"
 	item_state = "implantcase"
@@ -12,10 +12,12 @@
 	materials = list(MAT_GLASS = 500)
 
 	var/obj/item/implant/imp
-	var/implant_type = /obj/item/implant
+	var/obj/item/implant/implant_type
 
 /obj/item/implantcase/Initialize(mapload)
 	. = ..()
+	if(!implant_type)
+		return
 	imp = new implant_type(src)
 	update_state()
 

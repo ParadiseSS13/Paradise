@@ -15,6 +15,7 @@
 	brute_mod = 2 // damn, double wham, double dam
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN)
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RADIMMUNE, TRAIT_NOPAIN)
+	bodyflags = SHAVED
 	dies_at_threshold = TRUE
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 

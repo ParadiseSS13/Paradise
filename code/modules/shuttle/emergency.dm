@@ -13,6 +13,7 @@
 	desc = "For shuttle control."
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/auth_need = 3
 	var/list/authorized = list()
 	var/hijack_last_stage_increase = 0 SECONDS
@@ -445,33 +446,6 @@
 
 /obj/docking_port/mobile/pod/cancel()
 	return
-
-/*
-	findTransitDock()
-		. = SSshuttle.getDock("[id]_transit")
-		if(.)	return .
-		return ..()
-*/
-
-/obj/machinery/computer/shuttle/pod
-	name = "pod control computer"
-	admin_controlled = 1
-	shuttleId = "pod"
-	possible_destinations = "pod_asteroid"
-	icon = 'icons/obj/terminals.dmi'
-	icon_state = "dorm_available"
-	density = FALSE
-
-/obj/machinery/computer/shuttle/pod/update_icon_state()
-	return
-
-/obj/machinery/computer/shuttle/pod/update_overlays()
-	return list()
-
-/obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
-	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
-	admin_controlled = 0
-	icon_state = "dorm_emag"
 
 /obj/docking_port/stationary/random
 	name = "escape pod"
