@@ -227,8 +227,8 @@
 		var/obj/O = new saved_item(src)
 		if(!O)
 			return
-		matter_activate(O, saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
 		to_chat(usr, "<span class='notice'>You activate [src].</span>")
+		matter_activate(O, saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
 
 /obj/item/chameleon_counterfeiter/proc/matter_activate(obj/O, new_icon, new_iconstate, new_item_state, new_overlays, new_underlays)
 	name = O.name
