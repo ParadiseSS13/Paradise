@@ -206,7 +206,7 @@
 /obj/item/chameleon_counterfeiter/proc/check_sprite(atom/target)
 	return (target.icon_state in icon_states(target.icon))
 
-/obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user = usr)
+/obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user)
 	if(!can_use || !saved_item)
 		return
 	if(activate_dummy)
@@ -244,7 +244,7 @@
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 3 SECONDS)
 
 /obj/item/chameleon_counterfeiter/attack_self(mob/living/user)
-	matter_toggle()
+	matter_toggle(user)
 
 /obj/item/borg_chameleon
 	name = "cyborg chameleon projector"
