@@ -361,6 +361,43 @@
 
 	return
 
+/mob/living/simple_animal/bot/medbot/proc/assess_beaker_injection(mob/living/carbon/C)
+	//If we have and are using a medicine beaker, return any reagent the patient is missing
+	if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
+		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
+			if(!C.reagents.has_reagent(R.id))
+				return R.id
+
+/mob/living/simple_animal/bot/medbot/proc/select_medication(mob/living/carbon/C, beaker_injection)
+	var/treatable_virus = FALSE
+	if(treat_virus)
+		for(var/thing in C.viruses)
+			var/datum/disease/D = thing
+			if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
+				treatable_virus = TRUE
+				break
+	var/treatable_brute = C.getBruteLoss() >= heal_threshold
+	var/treatable_fire = C.getFireLoss() >= heal_threshold
+	var/treatable_oxy = C.getOxyLoss() >= (heal_threshold + 15)
+	var/treatable_tox = C.getToxLoss() >= heal_threshold
+
+	if((!C.has_organic_damage() || !(treatable_brute || treatable_fire || treatable_oxy || treatable_tox)) && !treatable_virus)
+		return //No organic damage or injuries aren't severe enough, and no virus to treat; abort mission
+
+	if(beaker_injection)
+		return beaker_injection //Custom beaker injections have priority
+
+	if(treatable_virus && !C.reagents.has_reagent(treatment_virus))
+		return treatment_virus
+	if(treatable_brute && !C.reagents.has_reagent(treatment_brute))
+		return treatment_brute
+	if(treatable_fire && !C.reagents.has_reagent(treatment_fire))
+		return treatment_fire
+	if(treatable_oxy && !C.reagents.has_reagent(treatment_oxy))
+		return treatment_oxy
+	if(treatable_tox && !C.reagents.has_reagent(treatment_tox))
+		return treatment_tox
+
 /mob/living/simple_animal/bot/medbot/proc/assess_patient(mob/living/carbon/C)
 	//Time to see if they need medical help!
 	if(C.stat == DEAD)
@@ -384,33 +421,8 @@
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
-	var/has_all_beaker_reagents = TRUE //No reagents to apply is equivalent to having them all
-	if(reagent_glass && use_beaker)
-		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id))
-				has_all_beaker_reagents = FALSE
-				break
-
-	if(treat_virus && (!C.reagents.has_reagent(treatment_virus) || !has_all_beaker_reagents))
-		for(var/thing in C.viruses)
-			var/datum/disease/D = thing
-			if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
-				return TRUE //Visible, dangerous, and developed enough to be detectable? Need some medicine here!
-
-	if(C.has_organic_damage())
-		if(C.getBruteLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_brute) || !has_all_beaker_reagents))
-			return TRUE //They're injured enough for it, and aren't already medicated
-
-		if(C.getFireLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_fire) || !has_all_beaker_reagents))
-			return TRUE
-
-		if(C.getToxLoss() >= heal_threshold && (!C.reagents.has_reagent(treatment_tox) || !has_all_beaker_reagents))
-			return TRUE
-
-		if(C.getOxyLoss() >= (heal_threshold + 15) && (!C.reagents.has_reagent(treatment_oxy) || !has_all_beaker_reagents))
-			return TRUE
-
-	return FALSE
+	if(!isnull(select_medication(C, assess_beaker_injection(C))))
+		return TRUE //If a valid medicine option for the patient exists, they require treatment
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
 	if(iscarbon(A))
@@ -427,36 +439,6 @@
 	..()
 	if(has_vision(information_only=TRUE))
 		chemscan(src, A)
-
-/mob/living/simple_animal/bot/medbot/proc/select_medication(mob/living/carbon/C, beaker_injection)
-	var/treatable_virus = FALSE
-	if(treat_virus)
-		for(var/thing in C.viruses)
-			var/datum/disease/D = thing
-			if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
-				treatable_virus = TRUE
-				break
-	var/treatable_brute = C.getBruteLoss() >= heal_threshold
-	var/treatable_fire = C.getFireLoss() >= heal_threshold
-	var/treatable_oxy = C.getOxyLoss() >= (heal_threshold + 15)
-	var/treatable_tox = C.getToxLoss() >= heal_threshold
-
-	if((!C.has_organic_damage() || !(treatable_brute || treatable_fire || treatable_oxy || treatable_tox)) && !treatable_virus)
-		return //No organic damage or injuries aren't severe enough, and no virus to treat; abort mission
-
-	if(beaker_injection)
-		return beaker_injection //Custom beaker injections take priority over regular injections
-
-	if(treatable_virus && !C.reagents.has_reagent(treatment_virus))
-		return treatment_virus
-	if(treatable_brute && !C.reagents.has_reagent(treatment_brute))
-		return treatment_brute
-	if(treatable_fire && !C.reagents.has_reagent(treatment_fire))
-		return treatment_fire
-	if(treatable_oxy && !C.reagents.has_reagent(treatment_oxy))
-		return treatment_oxy
-	if(treatable_tox && !C.reagents.has_reagent(treatment_tox))
-		return treatment_tox
 
 /mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
 	if(!on)
@@ -477,18 +459,12 @@
 		return
 
 	var/reagent_id
-	var/beaker_injection //If and what kind of beaker reagent needs injecting
+	var/beaker_injection //If and what kind of beaker reagent needs to be injected
 
 	if(emagged == 2) //Emagged! Time to poison everybody.
 		reagent_id = "pancuronium"
 	else
-		//If the patient is missing one of our custom reagents, set them up for a beaker injection
-		if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
-			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-				if(!C.reagents.has_reagent(R.id))
-					beaker_injection = R.id
-					break
-
+		beaker_injection = assess_beaker_injection(C)
 		reagent_id = select_medication(C, beaker_injection)
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
@@ -505,7 +481,7 @@
 		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 			"<span class='userdanger'>[src] is trying to inject you!</span>")
 
-		addtimer(CALLBACK(src, .proc/do_inject, C, !!beaker_injection, reagent_id), 3 SECONDS)
+		addtimer(CALLBACK(src, .proc/do_inject, C, !isnull(beaker_injection), reagent_id), 3 SECONDS)
 		return
 
 /mob/living/simple_animal/bot/medbot/proc/do_inject(mob/living/carbon/C, inject_beaker, reagent_id)
