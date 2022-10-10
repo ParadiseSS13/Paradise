@@ -108,7 +108,7 @@
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
-	if(istype(AM0, /obj/item))
+	if(isitem(AM0))
 		to_eat += AM0.GetAllContents()
 	var/items_recycled = 0
 
@@ -121,7 +121,7 @@
 				crush_living(AM)
 			else
 				emergency_stop(AM)
-		else if(istype(AM, /obj/item))
+		else if(isitem(AM))
 			recycle_item(AM)
 			items_recycled++
 		else

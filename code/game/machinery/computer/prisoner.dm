@@ -95,7 +95,7 @@
 		else if(total_loss)
 			health_display = "HURT ([total_loss])"
 		var/turf/implant_location = get_turf(T)
-		if(!istype(implant_location, /turf/space))
+		if(!isspaceturf(implant_location))
 			loc_display = "[get_area(implant_location)]"
 
 		var/list/implant_info = list(

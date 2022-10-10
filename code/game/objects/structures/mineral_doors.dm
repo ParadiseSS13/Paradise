@@ -78,7 +78,7 @@
 					operate()
 			else
 				operate()
-	else if(istype(user, /obj/mecha))
+	else if(ismecha(user))
 		operate()
 
 /obj/structure/mineral_door/proc/operate()

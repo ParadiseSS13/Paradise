@@ -110,7 +110,7 @@
 			reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
 			label_text = t

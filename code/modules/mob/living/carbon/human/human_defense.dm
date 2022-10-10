@@ -483,7 +483,7 @@ emp_act
 		if(prob(I.force * 2)) //blood spatter!
 			bloody = 1
 			var/turf/location = loc
-			if(istype(location, /turf/simulated))
+			if(issimulatedturf(location))
 				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -542,7 +542,7 @@ emp_act
 		return spec_return
 	var/obj/item/I
 	var/throwpower = 30
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		throwpower = I.throwforce
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
@@ -724,7 +724,7 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && istype(shoes, /obj/item/clothing))
+	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
 		if (S.flags & NOSLIP)
 			return FALSE
