@@ -565,14 +565,10 @@ to destroy them and players will be able to make replacements.
 	set_type(user, choice)
 
 /obj/item/circuitboard/camera/proc/set_type(mob/user, type)
-	if(!ispath(type))
-		board_name = type
-		type = monitor_names_paths[type]
-	else
-		for(var/name in monitor_names_paths)
-			if(monitor_names_paths[name] == type)
-				board_name = name
-				break
+	for(var/name in monitor_names_paths)
+		if(monitor_names_paths[name] == type)
+			board_name = name
+			break
 	build_path = type
 	format_board_name()
 	if(user)
