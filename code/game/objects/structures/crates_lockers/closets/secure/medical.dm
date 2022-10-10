@@ -51,7 +51,7 @@
 	else
 		new /obj/item/storage/backpack/satchel_med(src)
 	new /obj/item/storage/backpack/duffel/medical(src)
-	new /obj/item/clothing/under/rank/medical(src)
+	new /obj/item/clothing/under/rank/medical/doctor(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/radio/headset/headset_med(src)

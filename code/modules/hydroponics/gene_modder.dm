@@ -480,19 +480,50 @@
 
 /obj/item/disk/plantgene/update_name()
 	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		name = "nuclear authentication disk"
+		return
 	if(gene)
 		name = "[gene.get_name()] (Plant Data Disk)"
 	else
 		name = "plant data disk"
 
+/obj/item/disk/plantgene/update_desc()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		desc = "Better keep this safe."
+	else
+		desc = "A disk for storing plant genetic data."
+
+/obj/item/disk/plantgene/update_icon_state()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		icon_state = "nucleardisk"
+	else
+		icon_state = "datadisk_hydro"
+
 /obj/item/disk/plantgene/attack_self(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
 	read_only = !read_only
 	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
 
+/obj/item/disk/plantgene/cmag_act(mob/user)
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
+		ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+
+/obj/item/disk/plantgene/uncmag()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()
-	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
-
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
+		return
+	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
+		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
 
 /*
  *  Plant DNA Disks Box

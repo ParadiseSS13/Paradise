@@ -95,12 +95,7 @@
 	reached_target = 0
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		..()
-		if(open)
-			on = FALSE
-		update_controls()
-	else if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
+	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
 		var/obj/item/stock_parts/cell/C = I
@@ -140,6 +135,13 @@
 		..()
 	update_icon()
 	return
+
+/mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
+	if(open)
+		on = FALSE
+	update_controls()
+	update_icon()
+	return TRUE
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(emagged < 1)

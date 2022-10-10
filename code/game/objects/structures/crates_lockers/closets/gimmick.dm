@@ -44,11 +44,11 @@
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/costume/soviet(src)
+	new /obj/item/clothing/under/costume/soviet(src)
+	new /obj/item/clothing/under/costume/soviet(src)
+	new /obj/item/clothing/under/costume/soviet(src)
+	new /obj/item/clothing/under/costume/soviet(src)
 
 
 /obj/structure/closet/gimmick/tacticool
