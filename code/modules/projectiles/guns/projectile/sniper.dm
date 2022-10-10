@@ -25,16 +25,6 @@
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
 	origin_tech = "combat=7;syndicate=6"
 
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
-	name = "syndicate penetrator sniper rifle"
-
-/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator/Initialize(mapload)
-	. = ..()
-	desc += " It comes loaded with a penetrator magazine, but can use different magazines."
-
-	QDEL_NULL(magazine)
-	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
-
 /obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
 	if(magazine)
 		icon_state = "sniper-mag"
