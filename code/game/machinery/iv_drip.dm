@@ -42,8 +42,7 @@
 	var/mob/user = usr
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-
-	if(!ishuman(user) || !iscarbon(target))
+	if(!ishuman(user))
 		return
 
 	if(Adjacent(target) && user.Adjacent(target))
