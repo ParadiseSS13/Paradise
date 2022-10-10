@@ -383,12 +383,13 @@
 	name = "jungle grass"
 	desc = "Thick alien flora."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "grass"
+	icon_state = "grass1"
+	base_icon_state = "grass"
 	/// Controls how many variants of the sprite exists
 	var/variations = 10
 
 /obj/structure/flora/grass/jungle/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, variations)]"
+	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
 /obj/structure/flora/grass/jungle/b //s34n todo: delete these and mapedit
