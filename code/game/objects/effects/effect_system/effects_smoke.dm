@@ -149,7 +149,7 @@
 	var/blast = FALSE
 
 /datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
-	if(istype(A, /turf/simulated))
+	if(issimulatedturf(A))
 		var/turf/simulated/T = A
 		if(T.air)
 			var/datum/gas_mixture/G = T.air

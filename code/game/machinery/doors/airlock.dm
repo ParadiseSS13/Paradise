@@ -740,7 +740,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
-	if(isElectrified() && density && istype(mover, /obj/item))
+	if(isElectrified() && density && isitem(mover))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
 			do_sparks(5, 1, src)
