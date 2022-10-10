@@ -1868,12 +1868,6 @@
 	},
 /turf/space,
 /area/security/securearmoury)
-"aix" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/turf/simulated/wall,
-/area/security/brig)
 "aiz" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -117743,7 +117737,7 @@ aqI
 auy
 aeF
 wsT
-aix
+auc
 auc
 ahX
 qkA
