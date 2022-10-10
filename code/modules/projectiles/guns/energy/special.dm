@@ -580,7 +580,7 @@
 	var/min_temp = 0
 	var/max_temp = 500
 
-	var/powercost = "Low"
+	/// How fast the gun recharges
 	var/recharge_multiplier = 1
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
@@ -594,7 +594,7 @@
 	return ..()
 
 /obj/item/gun/energy/temperature/attack_self(mob/user)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/item/gun/energy/temperature/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.deep_inventory_state)
@@ -609,45 +609,25 @@
 	data["temperature"] = temperature - T0C
 	data["max_temp"] = max_temp - T0C
 	data["min_temp"] = min_temp - T0C
-	data["power_cost"] = powercost
 	return data
 
 /obj/item/gun/energy/temperature/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
-	switch(action)
-		if("target_temperature")
-			target_temperature = clamp(text2num(params["target_temperature"]) + T0C, min_temp, max_temp) //Retrieved as a celcius number, convert to kelvin
+	if(action == "target_temperature")
+		target_temperature = clamp(text2num(params["target_temperature"]) + T0C, min_temp, max_temp) //Retrieved as a celcius number, convert to kelvin
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
-		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
+		to_chat(user, "<span class='caution'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+		desc += " Its temperature cap has been removed."
 		max_temp = 1000
 		recharge_multiplier = 5  //so emagged temp guns adjust their temperature much more quickly
 
 /obj/item/gun/energy/temperature/process()
 	..()
-	var/obj/item/ammo_casing/energy/temp/T = ammo_type[select]
-	T.temp = temperature
-	switch(temperature)
-		if(0 to 100)
-			T.e_cost = 300
-			powercost = "High"
-		if(100 to 250)
-			T.e_cost = 200
-			powercost = "Medium"
-		if(251 to 300)
-			T.e_cost = 100
-			powercost = "Low"
-		if(301 to 400)
-			T.e_cost = 200
-			powercost = "Medium"
-		if(401 to INFINITY)
-			T.e_cost = 300
-			powercost = "High"
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
 		if(difference >= (10 * recharge_multiplier))
@@ -658,6 +638,19 @@
 		else
 			temperature = target_temperature
 		update_icon()
+		var/obj/item/ammo_casing/energy/temp/T = ammo_type[select]
+		T.temp = temperature
+		switch(temperature)
+			if(0 to 100)
+				T.e_cost = 300
+			if(100 to 250)
+				T.e_cost = 200
+			if(251 to 300)
+				T.e_cost = 100
+			if(301 to 400)
+				T.e_cost = 200
+			if(401 to INFINITY)
+				T.e_cost = 300
 
 /obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)

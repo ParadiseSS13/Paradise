@@ -6,45 +6,42 @@ import { round } from 'common/math';
 
 export const TempGun = (props, context) => {
   const { act, data } = useBackend(context);
-
-  const {target_temperature, temperature, max_temp, min_temp, power_cost} = data;
+  const {target_temperature, temperature, max_temp, min_temp} = data;
 
   return (
     <Window>
       <Window.Content>
         <Section>
           <LabeledList>
-          <LabeledList.Item label="Target Temperature">
-          <NumberInput
-            animate
-            step={10}
-            stepPixelSize={6}
-            minValue={min_temp}
-            maxValue={max_temp}
-            value={target_temperature}
-            format={(value) => toFixed(value, 2)}
-            width="50px"
-            onDrag={(e, value) =>
-              act('target_temperature', {
-                target_temperature: value,
-              })
-            }
-          />&deg;C
-        </LabeledList.Item>
-        <LabeledList.Item
-        label="Current Temperature">
-        <Box color={Temp2Color(temperature)}
-            bold={temperature > 500-273.15}>
-            <AnimatedNumber value={(round(temperature, 2))}/>&deg;C
-        </Box>
-        </LabeledList.Item>
-        <LabeledList.Item
-        label="Power Cost">
-        <Box color={Cost2Color(power_cost)}>
-            {power_cost}
-        </Box>
-        </LabeledList.Item>
-        </LabeledList>
+            <LabeledList.Item label="Target Temperature">
+              <NumberInput
+                animate
+                step={10}
+                stepPixelSize={6}
+                minValue={min_temp}
+                maxValue={max_temp}
+                value={target_temperature}
+                format={(value) => toFixed(value, 2)}
+                width="50px"
+                onDrag={(e, value) =>
+                  act('target_temperature', {
+                    target_temperature: value,
+                  })
+                }
+              />&deg;C
+            </LabeledList.Item>
+            <LabeledList.Item label="Current Temperature">
+              <Box color={Temp2Color(temperature)}
+                  bold={temperature > 500-273.15}>
+                  <AnimatedNumber value={(round(temperature, 2))}/>&deg;C
+              </Box>
+            </LabeledList.Item>
+            <LabeledList.Item label="Power Cost">
+              <Box color={Temp2CostColor(temperature)}>
+                  {Temp2Cost(temperature)}
+              </Box>
+            </LabeledList.Item>
+          </LabeledList>
         </Section>
       </Window.Content>
     </Window>
@@ -52,27 +49,50 @@ export const TempGun = (props, context) => {
 }
 
 const Temp2Color = (temp) => {
-  if (temp >= 200) {
-    return 'red';
+  if (temp <= -100) {
+    return 'blue';
   }
-  if (temp >= 100) {
-    return 'orange';
-  }
-  if (temp >= 0) {
-    return 'green';
-  }
-  if (temp >= -100) {
+  if (temp <= 0) {
     return 'teal';
   }
-  return 'blue';
-};
-
-const Cost2Color = (cost) => {
-  if (cost === 'High') {
-    return 'red';
+  if (temp <= 100) {
+    return 'green';
   }
-  if (cost === 'Medium') {
+  if (temp <= 200) {
     return 'orange';
   }
-  return 'green';
+  return 'red';
+};
+
+// These temps are the same as the ones in switch(temperature) for the gun, just - 273.15 for conversion between kelvin and celcius
+const Temp2Cost = (temp) => {
+  if (temp <= 100 - 273.15){
+    return 'High';
+  }
+  if (temp <= 250 - 273.15){
+    return 'Medium';
+  }
+  if (temp <= 300 - 273.15){
+    return 'Low';
+  }
+  if (temp <= 400 - 273.15){
+    return 'Medium';
+  }
+  return 'High';
+}
+
+const Temp2CostColor = (temp) => {
+  if (temp <= 100 - 273.15){
+    return 'red';
+  }
+  if (temp <= 250 - 273.15){
+    return 'orange';
+  }
+  if (temp <= 300 - 273.15){
+    return 'green';
+  }
+  if (temp <= 400 - 273.15){
+    return 'orange';
+  }
+  return 'red';
 };
