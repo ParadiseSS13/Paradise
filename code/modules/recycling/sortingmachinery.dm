@@ -55,7 +55,7 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		rename_interactive(user, W)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
@@ -123,7 +123,7 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		rename_interactive(user, W)
 
 	else if(istype(W, /obj/item/stack/wrapping_paper) && !giftwrapped)
@@ -167,7 +167,7 @@
 	if(target in user)
 		return
 
-	if(istype(target, /obj/item) && !(istype(target, /obj/item/storage) && !istype(target,/obj/item/storage/box) && !istype(target, /obj/item/shippingPackage)))
+	if(isitem(target) && !(isstorage(target) && !istype(target,/obj/item/storage/box) && !istype(target, /obj/item/shippingPackage)))
 		var/obj/item/O = target
 		if(!use(1))
 			return FALSE
@@ -391,7 +391,7 @@
 
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
-		if(istype(O, /obj/item/pen))
+		if(is_pen(O))
 			var/str = copytext(sanitize(input(user, "Intended recipient?", "Address", "")), 1, MAX_NAME_LEN)
 			if(!str || !length(str))
 				to_chat(user, "<span class='notice'>Invalid text.</span>")
@@ -402,7 +402,7 @@
 	if(wrapped)
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
 		return
-	if(istype(O, /obj/item) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
+	if(isitem(O) && !isstorage(O) && !istype(O, /obj/item/shippingPackage))
 		if(!user.canUnEquip(O))
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return

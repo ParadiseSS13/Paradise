@@ -1228,7 +1228,7 @@ so that different stomachs can handle things in different ways VB*/
 
 //handle stuff to update when a mob equips/unequips a headgear.
 /mob/living/carbon/proc/head_update(obj/item/I, forced)
-	if(istype(I, /obj/item/clothing))
+	if(isclothing(I))
 		var/obj/item/clothing/C = I
 		if(C.tint || initial(C.tint))
 			update_tint()
