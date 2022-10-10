@@ -189,14 +189,11 @@
 	var/saved_underlays
 	var/activate_dummy = FALSE
 
-/obj/item/chameleon_counterfeiter/attack_self()
-	matter_toggle()
-
 /obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
 	if(activate_dummy || !isitem(target))
-			return
+		return
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 	to_chat(user, "<span class='notice'>Scanned [target].</span>")
 	saved_item = target.type
@@ -209,19 +206,19 @@
 /obj/item/chameleon_counterfeiter/proc/check_sprite(atom/target)
 	return (target.icon_state in icon_states(target.icon))
 
-/obj/item/chameleon_counterfeiter/proc/matter_toggle()
+/obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user = usr)
 	if(!can_use || !saved_item)
 		return
 	if(activate_dummy)
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		matter_deactivate(saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
-		to_chat(usr, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		var/obj/O = new saved_item(src)
 		if(!O)
 			return
-		to_chat(usr, "<span class='notice'>You activate [src].</span>")
+		to_chat(user, "<span class='notice'>You activate [src].</span>")
 		matter_activate(O, saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
 
 /obj/item/chameleon_counterfeiter/proc/matter_activate(obj/O, new_icon, new_iconstate, new_item_state, new_overlays, new_underlays)
