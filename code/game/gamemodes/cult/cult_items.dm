@@ -565,7 +565,7 @@
 	force = 17
 	force_unwielded = 17
 	force_wielded = 24
-	throwforce = 40
+	throwforce = 30
 	throw_speed = 2
 	armour_penetration_percentage = 50
 	block_chance = 30
@@ -596,7 +596,23 @@
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
 			if(!L.null_rod_check())
-				L.Weaken(6 SECONDS)
+				var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
+				if(S)
+					S.trigger()
+				else
+					L.KnockDown(10 SECONDS)
+					L.adjustStaminaLoss(60)
+					L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+					L.flash_eyes(1, TRUE)
+					if(issilicon(hit_atom))
+						var/mob/living/silicon/B = L
+						B.emp_act(EMP_HEAVY)
+					else if(iscarbon(hit_atom))
+						var/mob/living/carbon/C = L
+						C.Silence(6 SECONDS)
+						C.Stuttering(16 SECONDS)
+						C.CultSlur(20 SECONDS)
+						C.Jitter(16 SECONDS)
 			break_spear(T)
 	else
 		..()
@@ -656,7 +672,7 @@
 			var/mob/living/L = spear.loc
 			L.unEquip(spear)
 			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
-		spear.throw_at(owner, 10, 2, null)
+		spear.throw_at(owner, 10, 2, null, dodgeable = FALSE)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
