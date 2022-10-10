@@ -942,10 +942,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/vacantoffice)
 "ahz" = (
+/obj/effect/decal/warning_stripes/west,
 /obj/machinery/door/airlock/external{
+	id_tag = "ferry_home";
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ahA" = (
