@@ -638,7 +638,6 @@
 		else
 			temperature = target_temperature
 		update_icon()
-<<<<<<< HEAD
 		var/obj/item/ammo_casing/energy/temp/T = ammo_type[select]
 		T.temp = temperature
 		switch(temperature)
@@ -652,40 +651,6 @@
 				T.e_cost = 200
 			if(401 to INFINITY)
 				T.e_cost = 300
-=======
-
-		if(iscarbon(loc))
-			var/mob/living/carbon/M = loc
-			if(src == M.machine)
-				update_dat()
-				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
-	return
-
-/obj/item/gun/energy/temperature/proc/update_dat()
-	dat = ""
-	dat += "Current output temperature: "
-	if(temperature > 500)
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-		dat += "<FONT color=red><B> SEARING!</B></FONT>"
-	else if(temperature > (T0C + 50))
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	else if(temperature > (T0C - 50))
-		dat += "<FONT color=black><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	else
-		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	dat += "<BR>"
-	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<A href='?src=[UID()];temp=-100'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-10'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-1'>-</A> "
-	dat += "[target_temperature] "
-	dat += "<A href='?src=[UID()];temp=1'>+</A> "
-	dat += "<A href='?src=[UID()];temp=10'>+</A> "
-	dat += "<A href='?src=[UID()];temp=100'>+</A>"
-	dat += "<BR>"
-	dat += "Power cost: "
-	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
->>>>>>> master
 
 /obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
