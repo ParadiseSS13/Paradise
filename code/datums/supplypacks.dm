@@ -480,13 +480,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/securityclothes
 	name = "Security Clothing Crate"
-	contains = list(/obj/item/clothing/under/rank/security/corp,
-					/obj/item/clothing/under/rank/security/corp,
+	contains = list(/obj/item/clothing/under/rank/security/officer/corporate,
+					/obj/item/clothing/under/rank/security/officer/corporate,
 					/obj/item/clothing/head/soft/sec/corp,
 					/obj/item/clothing/head/soft/sec/corp,
-					/obj/item/clothing/under/rank/warden/corp,
+					/obj/item/clothing/under/rank/security/warden/corporate,
 					/obj/item/clothing/head/beret/sec/warden,
-					/obj/item/clothing/under/rank/head_of_security/corp,
+					/obj/item/clothing/under/rank/security/head_of_security/corporate,
 					/obj/item/clothing/head/HoS/beret)
 	cost = 30
 	containername = "security clothing crate"
@@ -1428,8 +1428,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/bible/booze,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
-					/obj/item/clothing/under/burial,
-					/obj/item/clothing/under/burial)
+					/obj/item/clothing/under/misc/burial,
+					/obj/item/clothing/under/misc/burial)
 	cost = 40
 	containername = "religious supplies crate"
 
@@ -1443,7 +1443,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/barberkit
 	name = "Barber Kit Crate"
-	contains = list(/obj/item/clothing/under/barber,
+	contains = list(/obj/item/clothing/under/rank/civilian/barber,
 					/obj/item/storage/box/lip_stick,
 					/obj/item/storage/box/barber)
 	cost = 20
@@ -1604,10 +1604,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/clown,
 					/obj/item/clothing/shoes/clown_shoes,
 					/obj/item/clothing/mask/gas/clown_hat,
-					/obj/item/clothing/under/rank/clown,
+					/obj/item/clothing/under/rank/civilian/clown,
 					/obj/item/bikehorn,
 					/obj/item/storage/backpack/mime,
-					/obj/item/clothing/under/mime,
+					/obj/item/clothing/under/rank/civilian/mime,
 					/obj/item/clothing/shoes/black,
 					/obj/item/clothing/gloves/color/white,
 					/obj/item/clothing/mask/gas/mime,
@@ -1637,12 +1637,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/head/fedora/whitefedora,
 					/obj/item/clothing/head/fedora/brownfedora,
 					/obj/item/clothing/head/fedora,
-					/obj/item/clothing/under/flappers,
-					/obj/item/clothing/under/mafia,
-					/obj/item/clothing/under/mafia/vest,
-					/obj/item/clothing/under/mafia/white,
-					/obj/item/clothing/under/mafia/sue,
-					/obj/item/clothing/under/mafia/tan,
+					/obj/item/clothing/under/costume/flappers,
+					/obj/item/clothing/under/suit/mafia,
+					/obj/item/clothing/under/suit/mafia/vest,
+					/obj/item/clothing/under/suit/mafia/white,
+					/obj/item/clothing/under/suit/mafia/tan,
 					/obj/item/gun/projectile/shotgun/toy/tommygun,
 					/obj/item/gun/projectile/shotgun/toy/tommygun)
 	cost = 15
@@ -1739,14 +1738,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
-	contains = list(/obj/item/clothing/under/blacktango,
-					/obj/item/clothing/under/assistantformal,
-					/obj/item/clothing/under/assistantformal,
-					/obj/item/clothing/under/lawyer/bluesuit,
+	contains = list(/obj/item/clothing/under/dress/blacktango,
+					/obj/item/clothing/under/misc/assistantformal,
+					/obj/item/clothing/under/misc/assistantformal,
+					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket,
-					/obj/item/clothing/under/lawyer/purpsuit,
+					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit,
 					/obj/item/clothing/suit/storage/lawyer/purpjacket,
-					/obj/item/clothing/under/lawyer/black,
+					/obj/item/clothing/under/rank/civilian/lawyer/black,
 					/obj/item/clothing/suit/storage/lawyer/blackjacket,
 					/obj/item/clothing/accessory/waistcoat,
 					/obj/item/clothing/accessory/blue,
@@ -1760,11 +1759,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/laceup,
-					/obj/item/clothing/under/suit_jacket/charcoal,
-					/obj/item/clothing/under/suit_jacket/navy,
-					/obj/item/clothing/under/suit_jacket/burgundy,
-					/obj/item/clothing/under/suit_jacket/checkered,
-					/obj/item/clothing/under/suit_jacket/tan,
+					/obj/item/clothing/under/suit/charcoal,
+					/obj/item/clothing/under/suit/navy,
+					/obj/item/clothing/under/suit/burgundy,
+					/obj/item/clothing/under/suit/checkered,
+					/obj/item/clothing/under/suit/tan,
 					/obj/item/lipstick/random)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"

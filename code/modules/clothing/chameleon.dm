@@ -201,6 +201,15 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
+	icon = 'icons/obj/clothing/under/color.dmi'
+
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/color.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
+		)
+
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)

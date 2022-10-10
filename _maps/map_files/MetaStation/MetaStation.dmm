@@ -1648,7 +1648,7 @@
 /area/crew_quarters/arcade)
 "ama" = (
 /obj/structure/table,
-/obj/item/clothing/under/sl_suit{
+/obj/item/clothing/under/misc/sl_suit{
 	desc = "Whoever wears this makes the rules.";
 	name = "referee suit"
 	},
@@ -2811,8 +2811,8 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/item/clothing/under/rank/mailman,
-/obj/item/clothing/under/rank/vice{
+/obj/item/clothing/under/misc/mailman,
+/obj/item/clothing/under/misc/vice{
 	pixel_x = 4;
 	pixel_y = -3
 	},
@@ -5739,7 +5739,7 @@
 "aAU" = (
 /obj/item/clothing/gloves/color/rainbow,
 /obj/item/clothing/shoes/rainbow,
-/obj/item/clothing/under/rainbow,
+/obj/item/clothing/under/color/rainbow,
 /obj/item/clothing/head/soft/rainbow,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -9719,7 +9719,7 @@
 /area/crew_quarters/dorms)
 "aMw" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -11121,7 +11121,7 @@
 	})
 "aQz" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -11131,7 +11131,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /obj/structure/sign/double/map/left{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
 	icon_state = "map-left-MS";
@@ -11143,7 +11143,7 @@
 /area/crew_quarters/locker)
 "aQB" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /obj/structure/sign/double/map/right{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
 	icon_state = "map-right-MS";
@@ -11441,7 +11441,7 @@
 /area/quartermaster/storage)
 "aRn" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -32499,7 +32499,7 @@
 "bSd" = (
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/laceup,
-/obj/item/clothing/under/suit_jacket/really_black,
+/obj/item/clothing/under/suit/really_black,
 /obj/item/clothing/glasses/sunglasses,
 /obj/machinery/light{
 	dir = 1
@@ -49931,7 +49931,7 @@
 /area/maintenance/apmaint)
 "cSL" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/burial,
+/obj/item/clothing/under/misc/burial,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";

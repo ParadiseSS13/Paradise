@@ -458,8 +458,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
-			var/obj/item/clothing/under/contortionist/C = H.w_uniform
+		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist))//IMMA SPCHUL SNOWFLAKE
+			var/obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/C = H.w_uniform
 			if(!C.check_clothing(src))//return values confuse me right now
 				return
 

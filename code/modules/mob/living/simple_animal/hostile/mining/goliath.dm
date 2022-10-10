@@ -116,6 +116,7 @@
 	throw_message = "does nothing to the rocky hide of the"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide) //A throwback to the asteroid days
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/bone = 2)
+	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle/ancient
 	crusher_drop_mod = 30
 	wander = FALSE
 	var/list/cached_tentacle_turfs
