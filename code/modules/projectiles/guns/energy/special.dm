@@ -605,10 +605,10 @@
 
 /obj/item/gun/energy/temperature/ui_data(mob/user)
 	var/list/data = list()
-	data["target_temperature"] = target_temperature-T0C // Pass them in as Celcius numbers
-	data["temperature"] = temperature-T0C
-	data["max_temp"] = max_temp-T0C
-	data["min_temp"] = min_temp-T0C
+	data["target_temperature"] = target_temperature - T0C // Pass them in as Celcius numbers
+	data["temperature"] = temperature - T0C
+	data["max_temp"] = max_temp - T0C
+	data["min_temp"] = min_temp - T0C
 	data["power_cost"] = powercost
 	return data
 
@@ -618,7 +618,7 @@
 
 	switch(action)
 		if("target_temperature")
-			target_temperature = clamp(text2num(params["target_temperature"])+T0C, min_temp, max_temp) //Retrieved as a celcius number, convert to kelvin
+			target_temperature = clamp(text2num(params["target_temperature"]) + T0C, min_temp, max_temp) //Retrieved as a celcius number, convert to kelvin
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
@@ -650,11 +650,11 @@
 			powercost = "High"
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
-		if(difference >= (10*recharge_multiplier))
+		if(difference >= (10 * recharge_multiplier))
 			if(target_temperature < temperature)
-				temperature -= (10*recharge_multiplier)
+				temperature -= (10 * recharge_multiplier)
 			else
-				temperature += (10*recharge_multiplier)
+				temperature += (10 * recharge_multiplier)
 		else
 			temperature = target_temperature
 		update_icon()
