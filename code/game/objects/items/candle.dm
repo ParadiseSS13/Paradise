@@ -77,6 +77,7 @@
 	if(wax_index != new_wax_index)
 		wax_index = new_wax_index
 		return TRUE
+	return FALSE
 
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
