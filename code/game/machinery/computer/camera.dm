@@ -219,7 +219,6 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
-	circuit = FALSE
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
