@@ -108,3 +108,7 @@
 /obj/item/grenade/attack_hand()
 	walk(src, null, null)
 	..()
+
+/obj/item/grenade/Destroy()
+	walk_to(src, 0)
+	. = ..()
