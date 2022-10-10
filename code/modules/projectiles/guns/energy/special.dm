@@ -772,6 +772,7 @@
 	unique_reskin = TRUE
 	charge_sections = 5
 	inhand_charge_sections = 3
+	overlay_set = "handgun" // Reskins are a different icon_state
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
