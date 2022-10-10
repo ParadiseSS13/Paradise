@@ -181,12 +181,12 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "syndicate=3;magnets=3"
 	var/can_use = TRUE
-	var/saved_item = null
-	var/saved_icon = null
-	var/saved_icon_state = null
-	var/saved_item_state = null
-	var/saved_overlays = null
-	var/saved_underlays = null
+	var/saved_item
+	var/saved_icon
+	var/saved_icon_state
+	var/saved_item_state
+	var/saved_overlays
+	var/saved_underlays
 	var/activate_dummy = FALSE
 
 /obj/item/chameleon_counterfeiter/attack_self()
@@ -195,16 +195,16 @@
 /obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
-	if(!activate_dummy)
-		if(istype(target,/obj/item))
-			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
-			to_chat(user, "<span class='notice'>Scanned [target].</span>")
-			saved_item = target.type
-			saved_icon = target.icon
-			saved_icon_state = target.icon_state
-			saved_item_state = target.item_state
-			saved_overlays = target.overlays
-			saved_underlays = target.underlays
+	if(activate_dummy || !isitem(target))
+			return
+	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
+	to_chat(user, "<span class='notice'>Scanned [target].</span>")
+	saved_item = target.type
+	saved_icon = target.icon
+	saved_icon_state = target.icon_state
+	saved_item_state = target.item_state
+	saved_overlays = target.overlays
+	saved_underlays = target.underlays
 
 /obj/item/chameleon_counterfeiter/proc/check_sprite(atom/target)
 	return (target.icon_state in icon_states(target.icon))
@@ -246,7 +246,7 @@
 	can_use = FALSE
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 3 SECONDS)
 
-/obj/item/chameleon_counterfeiter/attack_self()
+/obj/item/chameleon_counterfeiter/attack_self(mob/living/user)
 	matter_toggle()
 
 /obj/item/borg_chameleon
