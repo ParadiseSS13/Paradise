@@ -66,7 +66,7 @@
 		START_PROCESSING(SSobj, src)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/candle/proc/get_wax_index()
+/obj/item/candle/proc/update_wax_index()
 	var/new_wax_index
 	if(wax > 150)
 		new_wax_index = TALL_CANDLE
@@ -76,7 +76,7 @@
 		new_wax_index = SHORT_CANDLE
 	if(wax_index != new_wax_index)
 		wax_index = new_wax_index
-		update_icon(UPDATE_ICON_STATE)
+		return TRUE
 
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
@@ -93,7 +93,8 @@
 	if(!infinite)
 		wax--
 		if(wax_index != SHORT_CANDLE) // It's not at its shortest
-			get_wax_index()
+			if(update_wax_index())
+				update_icon(UPDATE_ICON_STATE)
 	if(!wax)
 		new/obj/item/trash/candle(src.loc)
 		if(istype(src.loc, /mob))
