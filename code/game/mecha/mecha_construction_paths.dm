@@ -305,17 +305,17 @@
 					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Internal armor is installed."),
 					 //6
-					 list("key"=/obj/item/stack/sheet/metal,
-					 		"backkey"=TOOL_SCREWDRIVER,
-					 		"desc"="Mech power core is secured."),
+					 list("key" = /obj/item/stack/sheet/metal,
+					 		"backkey" = TOOL_SCREWDRIVER,
+					 		"desc" = "Mech power core is secured."),
 					 //7
-					 list("key"=TOOL_SCREWDRIVER,
-					 		"backkey"=TOOL_CROWBAR,
-					 		"desc"="Mech power core is installed."),
+					 list("key" = TOOL_SCREWDRIVER,
+					 		"backkey" = TOOL_CROWBAR,
+					 		"desc" = "Mech power core is installed."),
 					 //8
-					 list("key"=/obj/item/mecha_parts/core,
-					 		"backkey"=TOOL_SCREWDRIVER,
-					 		"desc"="Mech power core is secured."),
+					 list("key" = /obj/item/mecha_parts/core,
+					 		"backkey" = TOOL_SCREWDRIVER,
+					 		"desc" = "Mech power core is secured."),
 					 //9
 					 list("key"=TOOL_SCREWDRIVER,
 					 		"backkey"=TOOL_CROWBAR,
@@ -466,14 +466,14 @@
 				holder.icon_state = "gygax10"
 		if(8)
 			if(diff==FORWARD)
-				user.visible_message("<span class='notice'>[user] installs mech power core to the [holder].</span>", "<span class='notice'>You install mech power core to the [holder].</span>")
+				user.visible_message("[user] installs mech power core to the [holder].", "You install mech power core to the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "gygax13"
 			else
 				user.visible_message("<span class='notice'>[user] unfastens the advanced scanner module.</span>", "<span class='notice'>You unfasten the advanced scanner module.</span>")
 				holder.icon_state = "gygax11"
 		if(7)
-			if(diff==FORWARD)
+			if(diff == FORWARD)
 				user.visible_message("<span class='notice'>[user] secures the mech power core.</span>", "<span class='notice'>You secure the mech power core.</span>")
 				holder.icon_state = "gygax14"
 			else
@@ -1105,7 +1105,7 @@
 				new /obj/item/stock_parts/scanning_module/phasic(get_turf(holder))
 				holder.icon_state = "durand10"
 		if(8)
-			if(diff==FORWARD)
+			if(diff == FORWARD)
 				user.visible_message("<span class='notice'>[user] installs mech power core to the [holder].</span>", "<span class='notice'>You install mech power core to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand13"
@@ -1113,7 +1113,7 @@
 				user.visible_message("<span class='notice'>[user] unfastens the phasic scanner module.</span>", "<span class='notice'>You unfasten the phasic scanner module.</span>")
 				holder.icon_state = "durand11"
 		if(7)
-			if(diff==FORWARD)
+			if(diff == FORWARD)
 				user.visible_message("<span class='notice'>[user] secures the mech power core.</span>", "<span class='notice'>You secure the mech power core.</span>")
 				holder.icon_state = "durand14"
 			else
@@ -1121,7 +1121,7 @@
 				new /obj/item/mecha_parts/core(get_turf(holder))
 				holder.icon_state = "durand12"
 		if(6)
-			if(diff==FORWARD)
+			if(diff == FORWARD)
 				user.visible_message("<span class='notice'>[user] installs the internal armor layer to the [holder].</span>", "<span class='notice'>You install the internal armor layer to the [holder].</span>")
 				holder.icon_state = "durand15"
 			else
