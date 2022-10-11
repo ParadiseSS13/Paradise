@@ -309,8 +309,8 @@
 					 		"backkey" = TOOL_SCREWDRIVER,
 					 		"desc" = "Mech power core is secured."),
 					 //7
-					 list("key"=TOOL_SCREWDRIVER,
-					 		"backkey"=TOOL_CROWBAR,
+					 list("key" = TOOL_SCREWDRIVER,
+					 		"backkey" = TOOL_CROWBAR,
 					 		"desc" = "Mech power core is installed."),
 					 //8
 					 list("key" = /obj/item/mecha_parts/core,
