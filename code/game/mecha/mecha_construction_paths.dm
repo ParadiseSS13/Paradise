@@ -311,7 +311,7 @@
 					 //7
 					 list("key"=TOOL_SCREWDRIVER,
 					 		"backkey"=TOOL_CROWBAR,
-					 		"desc"="Mech power core is installed."),
+					 		"desc" = "Mech power core is installed."),
 					 //8
 					 list("key" = /obj/item/mecha_parts/core,
 					 		"backkey" = TOOL_SCREWDRIVER,
