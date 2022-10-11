@@ -98,15 +98,20 @@
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 
-	if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
-
 	update_icon(UPDATE_OVERLAYS)
 	return
+
+/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
+	if(!cell)
+		to_chat(user, "<span class='notice'>[src] doesn't have a cell.</span>")
+		return
+
+	cell.update_icon()
+	cell.forceMove(get_turf(loc))
+	cell = null
+	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
+	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/defibrillator/emag_act(user as mob)
 	if(safety)

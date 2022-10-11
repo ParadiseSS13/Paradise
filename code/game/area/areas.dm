@@ -536,7 +536,7 @@
 	if(M.buckled) //Cam't fall down if you are buckled
 		return
 
-	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
+	if(isspaceturf(get_turf(M))) // Can't fall onto nothing.
 		return
 
 	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
@@ -552,7 +552,7 @@
 	if(!T)
 		T = get_turf(AT)
 	var/area/A = get_area(T)
-	if(istype(T, /turf/space)) // Turf never has gravity
+	if(isspaceturf(T)) // Turf never has gravity
 		return 0
 	else if(A && A.has_gravity) // Areas which always has gravity
 		return 1

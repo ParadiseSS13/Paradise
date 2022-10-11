@@ -141,6 +141,16 @@
 
 	return canhear_range
 
+/obj/item/radio/intercom/examine(mob/user)
+	. = ..()
+	switch(buildstage)
+		if(0)
+			. += "<span class='notice'>The frame is <b>welded</b> to the wall, but missing <i>circuitry</i>.</span>"
+		if(1)
+			. += "<span class='notice'>The speaker needs to be <i>wired</i>, though the board could be <b>pried</b> out.</span>"
+		if(2)
+			. += "<span class='notice'>The intercom is <b>wired</b>, and the maintenance panel is <i>unscrewed</i>.</span>"
+
 /obj/item/radio/intercom/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
 		return

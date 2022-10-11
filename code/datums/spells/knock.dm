@@ -49,6 +49,8 @@
 	cooldown_min = 200
 	var/used = FALSE
 
+	action_icon_state = "greater_knock"
+
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	return T

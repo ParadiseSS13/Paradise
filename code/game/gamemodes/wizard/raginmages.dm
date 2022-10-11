@@ -100,10 +100,10 @@
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
 			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
 		L.ghostize()
-		if(istype(L, /mob/living/carbon/brain))
+		if(isbrain(L))
 			// diediedie
 			var/mob/living/carbon/brain/B = L
-			if(istype(B.loc, /obj/item))
+			if(isitem(B.loc))
 				qdel(B.loc)
 			if(B && B.container)
 				qdel(B.container)

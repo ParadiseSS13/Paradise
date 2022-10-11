@@ -17,7 +17,7 @@
 	name = "Quartermaster"
 	jobtype = /datum/job/qm
 
-	uniform = /obj/item/clothing/under/rank/cargo
+	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -45,7 +45,7 @@
 	name = "Cargo Technician"
 	jobtype = /datum/job/cargo_tech
 
-	uniform = /obj/item/clothing/under/rank/cargotech
+	uniform = /obj/item/clothing/under/rank/cargo/tech
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
@@ -75,7 +75,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
-	uniform = /obj/item/clothing/under/rank/miner/lavaland
+	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
 	r_pocket = /obj/item/storage/bag/ore
 	id = /obj/item/card/id/supply
@@ -142,7 +142,7 @@
 	name = "Bartender"
 	jobtype = /datum/job/bartender
 
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/black
@@ -184,7 +184,7 @@
 	name = "Chef"
 	jobtype = /datum/job/chef
 
-	uniform = /obj/item/clothing/under/rank/chef
+	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
 	shoes = /obj/item/clothing/shoes/black
@@ -223,7 +223,7 @@
 	name = "Botanist"
 	jobtype = /datum/job/hydro
 
-	uniform = /obj/item/clothing/under/rank/hydroponics
+	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron
 	gloves = /obj/item/clothing/gloves/botanic_leather
 	shoes = /obj/item/clothing/shoes/black
@@ -257,7 +257,7 @@
 	name = "Clown"
 	jobtype = /datum/job/clown
 
-	uniform = /obj/item/clothing/under/rank/clown
+	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
@@ -284,7 +284,7 @@
 	. = ..()
 	if(H.gender == FEMALE)
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
-		uniform = /obj/item/clothing/under/rank/clown/sexy
+		uniform = /obj/item/clothing/under/rank/civilian/clown/sexy
 
 /datum/outfit/job/clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -346,7 +346,7 @@
 	name = "Mime"
 	jobtype = /datum/job/mime
 
-	uniform = /obj/item/clothing/under/mime
+	uniform = /obj/item/clothing/under/rank/civilian/mime
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
@@ -365,7 +365,7 @@
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/sexymime
+		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
 		suit = /obj/item/clothing/mask/gas/sexymime
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -399,7 +399,7 @@
 	name = "Janitor"
 	jobtype = /datum/job/janitor
 
-	uniform = /obj/item/clothing/under/rank/janitor
+	uniform = /obj/item/clothing/under/rank/civilian/janitor
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
@@ -425,7 +425,7 @@
 	name = "Librarian"
 	jobtype = /datum/job/librarian
 
-	uniform = /obj/item/clothing/under/suit_jacket/red
+	uniform = /obj/item/clothing/under/rank/civilian/librarian
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
@@ -454,7 +454,7 @@
 	name = "Barber"
 	jobtype = /datum/job/barber
 
-	uniform = /obj/item/clothing/under/barber
+	uniform = /obj/item/clothing/under/rank/civilian/barber
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	backpack_contents = list(
