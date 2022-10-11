@@ -293,18 +293,14 @@
 /obj/structure/door_assembly/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
+		var/to_spawn_type
 		if(mineral_type)
-			if(disassembled)
-				new mineral_type(T, material_amt)
-			else
-				material_amt = rand(2,4)
-				new mineral_type(T, material_amt)
+			to_spawn_type = mineral_type
 		else
-			if(disassembled)
-				new material_type(T, material_amt)
-			else
-				material_amt = rand(2,4)
-				new material_type(T, material_amt)
+			to_spawn_type = material_type
+		if(!disassembled)
+			material_amt = rand(2,4)
+		new to_spawn_type(T, material_amt)
 		if(glass)
 			if(disassembled)
 				if(heat_proof_finished)

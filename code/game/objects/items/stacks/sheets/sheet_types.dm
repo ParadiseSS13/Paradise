@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("dog bed", /obj/structure/bed/dogbed, 10, time = 10, one_per_turf = 1, on_floor = 1), \
 	new /datum/stack_recipe("rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40),
 	new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 50, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("display case chassis", /obj/structure/displaycase_chassis, 5, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 40),
