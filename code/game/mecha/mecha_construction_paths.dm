@@ -307,7 +307,7 @@
 					 //6
 					 list("key"=/obj/item/stack/sheet/metal,
 					 		"backkey"=TOOL_SCREWDRIVER,
-					 		"desc"="Mech power core is secured."),
+					 		"desc" = "Mech power core is secured."),
 					 //7
 					 list("key"=TOOL_SCREWDRIVER,
 					 		"backkey"=TOOL_CROWBAR,
