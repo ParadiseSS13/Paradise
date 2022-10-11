@@ -315,7 +315,7 @@
 					 //8
 					 list("key"=/obj/item/mecha_parts/core,
 					 		"backkey"=TOOL_SCREWDRIVER,
-					 		"desc"="Mech power core is secured."),
+					 		"desc" = "Mech power core is secured."),
 					 //9
 					 list("key"=TOOL_SCREWDRIVER,
 					 		"backkey"=TOOL_CROWBAR,
