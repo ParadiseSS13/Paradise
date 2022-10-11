@@ -34,7 +34,7 @@
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon(UPDATE_ICON_STATE)
 		return TRUE
-	if(istype(O, /obj/item/pen))
+	if(is_pen(O))
 		rename_interactive(user, O)
 		return TRUE
 

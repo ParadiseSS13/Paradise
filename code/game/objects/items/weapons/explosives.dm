@@ -153,7 +153,7 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			if(!ex_breach && istype(target, /turf/simulated/wall)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
+			if(!ex_breach && iswallturf(target)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
 				var/turf/simulated/wall/W = target
 				W.dismantle_wall(TRUE, TRUE)
 			else

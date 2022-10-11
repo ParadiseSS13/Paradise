@@ -2887,7 +2887,7 @@
 	},
 /obj/item/wrench,
 /obj/item/wirerod,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/misc/waiter,
 /obj/item/clothing/accessory/waistcoat,
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/electrical_shop)
@@ -9360,7 +9360,7 @@
 /area/quartermaster/storage)
 "aFq" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/pennywise,
+/obj/item/clothing/under/costume/pennywise,
 /obj/item/toy/syndicateballoon,
 /obj/item/clothing/shoes/clown_shoes,
 /obj/item/clothing/mask/gas/clown_hat/pennywise,
@@ -49757,8 +49757,8 @@
 	req_access_txt = "4"
 	},
 /obj/item/restraints/handcuffs/pinkcuffs,
-/obj/item/clothing/under/rank/security,
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
+/obj/item/clothing/under/rank/security/officer,
 /obj/item/grenade/barrier,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/effect/decal/cleanable/cobweb2,
@@ -67395,7 +67395,7 @@
 "dcK" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/toggle/owlwings,
-/obj/item/clothing/under/owl,
+/obj/item/clothing/under/costume/owl,
 /obj/item/clothing/mask/gas/owl_mask,
 /turf/simulated/floor/wood,
 /area/maintenance/starboard)
@@ -76457,7 +76457,7 @@
 /area/medical/medbay)
 "dwQ" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costume/maid,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
@@ -78607,7 +78607,7 @@
 /area/medical/medbay)
 "dBu" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/jester,
+/obj/item/clothing/under/costume/jester,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -90177,7 +90177,7 @@
 	pixel_y = -24
 	},
 /obj/item/clothing/suit/soldiercoat,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/costume/soldieruniform,
 /obj/item/clothing/head/stalhelm,
 /turf/simulated/floor/wood,
 /area/clownoffice)

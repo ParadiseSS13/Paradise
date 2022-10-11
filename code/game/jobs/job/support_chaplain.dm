@@ -18,7 +18,7 @@
 	name = "Chaplain"
 	jobtype = /datum/job/chaplain
 
-	uniform = /obj/item/clothing/under/rank/chaplain
+	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chaplain

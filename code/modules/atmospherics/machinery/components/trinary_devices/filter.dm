@@ -230,7 +230,7 @@
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 		return
 	else

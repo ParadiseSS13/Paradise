@@ -158,7 +158,7 @@
 			if(NORTHWEST, SOUTHWEST)
 				tempDir = WEST
 		var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
-		if(istype(tempLoc, /turf/space))
+		if(isspaceturf(tempLoc))
 			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
 			return
 		else if(istype(tempLoc))

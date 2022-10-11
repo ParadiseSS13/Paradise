@@ -287,7 +287,7 @@
 			visible_message("<span class='warning'>[src] shuts off!</span>")
 			shields_down()
 	else
-		if(istype(get_turf(src), /turf/space))
+		if(isspaceturf(get_turf(src)))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
 	anchored = !anchored
