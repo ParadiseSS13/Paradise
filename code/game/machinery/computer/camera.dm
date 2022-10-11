@@ -219,6 +219,7 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
+	circuit = null
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
@@ -238,7 +239,7 @@
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		new /obj/item/mounted/frame/newscaster_frame/entertainment_frame(drop_location(), 1)
+		new /obj/item/mounted/frame/display/entertainment_frame(drop_location(), 1)
 		deconstruct()
 
 /obj/machinery/computer/security/wooden_tv

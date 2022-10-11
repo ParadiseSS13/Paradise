@@ -587,7 +587,7 @@
 	id = "newscaster_frame"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
-	build_path = /obj/item/mounted/frame/newscaster_frame
+	build_path = /obj/item/mounted/frame/display/newscaster_frame
 	category = list("initial", "Construction")
 
 /datum/design/display_frame
@@ -595,7 +595,7 @@
 	id = "display_frame"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
-	build_path = /obj/item/mounted/frame/newscaster_frame/display_frame
+	build_path = /obj/item/mounted/frame/display/display_frame
 	category = list("initial", "Construction")
 
 /datum/design/ai_display_frame
@@ -603,7 +603,7 @@
 	id = "ai_display_frame"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
-	build_path = /obj/item/mounted/frame/newscaster_frame/ai_display_frame
+	build_path = /obj/item/mounted/frame/display/ai_display_frame
 	category = list("initial", "Construction")
 
 /datum/design/entertainment_frame
@@ -611,7 +611,7 @@
 	id = "entertainment_frame"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
-	build_path = /obj/item/mounted/frame/newscaster_frame/entertainment_frame
+	build_path = /obj/item/mounted/frame/display/entertainment_frame
 	category = list("initial", "Construction")
 
 /datum/design/syringe

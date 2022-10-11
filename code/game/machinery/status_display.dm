@@ -222,5 +222,5 @@ GLOBAL_LIST_EMPTY(status_displays)
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		new /obj/item/mounted/frame/newscaster_frame/display_frame(drop_location(), 1)
+		new /obj/item/mounted/frame/display/display_frame(drop_location(), 1)
 		deconstruct()

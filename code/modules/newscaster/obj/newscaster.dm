@@ -148,7 +148,7 @@
 		new /obj/item/shard(loc)
 	else
 		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
-		new /obj/item/mounted/frame/newscaster_frame(loc)
+		new /obj/item/mounted/frame/display/newscaster_frame(loc)
 	qdel(src)
 
 /obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
