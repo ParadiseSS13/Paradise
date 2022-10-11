@@ -7,8 +7,10 @@
 	max_integrity = 200
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
-	var/mineral // String value. Used in user chat messages
-	var/mineral_type // mineral object path.
+	/// String value. Used in user chat messages
+	var/mineral
+	/// mineral object path.
+	var/mineral_type
 
 	var/base_name = "airlock"
 	var/obj/item/airlock_electronics/electronics
