@@ -1,6 +1,6 @@
 /mob/living/simple_animal/pet/raven
 	name = "raven"
-	desc = "Qouth the raven never more! Just now in space!."
+	desc = "Quoth the raven nevermore! Just now in space!"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "raven"
 	icon_living = "raven"
