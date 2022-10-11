@@ -1106,7 +1106,7 @@
 				holder.icon_state = "durand10"
 		if(8)
 			if(diff == FORWARD)
-				user.visible_message("[user] installs mech power core to the [holder].", "You install mech power core to the [holder].")
+				user.visible_message("[user] installs a mech power core into the [holder].", "You install a mech power core into the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "durand13"
 			else
