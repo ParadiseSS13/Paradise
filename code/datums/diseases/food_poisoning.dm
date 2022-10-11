@@ -3,7 +3,7 @@
 	max_stages = 3
 	stage_prob = 5
 	spread_text = "Non-Contagious"
-	spread_flags = SPECIAL
+	spread_flags = NON_CONTAGIOUS
 	cure_text = "Sleep"
 	agent = "Salmonella"
 	cures = list("chicken_soup")
@@ -12,7 +12,6 @@
 	desc = "Nausea, sickness, and vomitting."
 	severity = MINOR
 	disease_flags = CURABLE
-	spread_flags = NON_CONTAGIOUS
 	virus_heal_resistant = TRUE
 
 /datum/disease/food_poisoning/stage_act()
