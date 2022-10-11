@@ -72804,7 +72804,6 @@
 	pixel_y = -2
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"

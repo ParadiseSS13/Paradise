@@ -43548,7 +43548,6 @@
 	pixel_y = 10
 	},
 /obj/item/stamp/rd,
-/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
