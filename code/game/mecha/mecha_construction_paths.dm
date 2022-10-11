@@ -473,7 +473,7 @@
 				user.visible_message("[user] unfastens the advanced scanner module.", "You unfasten the advanced scanner module.")
 				holder.icon_state = "gygax11"
 		if(7)
-			if(diff==FORWARD)
+			if(diff == FORWARD)
 				user.visible_message("[user] secures the mech power core.", "You secure the mech power core.")
 				holder.icon_state = "gygax14"
 			else
