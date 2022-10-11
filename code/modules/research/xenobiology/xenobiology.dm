@@ -188,6 +188,18 @@
 	origin_tech = "biotech=6"
 	var/list/not_interested = list()
 	var/sentience_type = SENTIENCE_ORGANIC
+	var/heat_stage = 0 //When used at stage 2 or above, the Sentience Potion explodes. Stop bugging ghosts
+
+/obj/item/slimepotion/sentience/examine(mob/user)
+	. = ..()
+	if(user.Adjacent(src))
+		switch(heat_stage)
+			if(0)
+				return
+			if(1)
+				. += "<span class='warning'>The vial is hot to the touch.</span>"
+			if(2)
+				. += "<span class='warning'>The vial is scalding hot! Is it really a good idea to use this..?</span>"
 
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
 	if(!proximity_flag)
@@ -205,6 +217,14 @@
 		to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
 		return ..()
 
+	if(heat_stage >= 2)
+		to_chat(user, "<span class='danger'>[src] violently explodes!</span>")
+		var/turf/T = get_turf(loc)
+		if(T)
+			T.hotspot_expose(700, 125)
+			explosion(T, -1, -1, 2, 3)
+		qdel(src)
+		return
 	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
 	being_used = TRUE
 
@@ -231,8 +251,20 @@
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
+		heat_stage += 1
+		heat_cooldown()
+		if(user.Adjacent(src))
+			switch(heat_stage)
+				if(1)
+					to_chat(user, "<span class='warning'>An intense heat emanates from [src]. It might need to cool off for awhile.</span>")
+				if(2)
+					to_chat(user, "<span class='warning'>[src] is boiling hot! You shudder to think what would happen if you used it again...</span>")
 		being_used = FALSE
 		..()
+
+/obj/item/slimepotion/sentience/proc/heat_cooldown()
+	if(heat_stage)
+		addtimer(VARSET_CALLBACK(src, heat_stage, (heat_stage - 1)), 60 SECONDS)
 
 /obj/item/slimepotion/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
 	return
