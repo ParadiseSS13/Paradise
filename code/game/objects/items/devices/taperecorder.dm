@@ -338,7 +338,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/tape/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		rename_interactive(user, I)
 
 /obj/item/tape/screwdriver_act(mob/living/user, obj/item/I)

@@ -263,7 +263,7 @@
 			hud.show_hud(hud.hud_version)
 		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
-	if(istype(get_turf(owner.current), /turf/space))
+	if(isspaceturf(get_turf(owner.current)))
 		check_sun()
 	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn(7)

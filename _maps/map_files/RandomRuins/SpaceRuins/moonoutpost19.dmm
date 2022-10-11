@@ -3740,7 +3740,7 @@
 /area/ruin/space/unpowered)
 "hm" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/navy,
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "hn" = (
@@ -3966,7 +3966,7 @@
 	name = "Kitchen Crate"
 	},
 /obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/misc/waiter,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -4573,7 +4573,7 @@
 /area/ruin/space/unpowered)
 "jo" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "jp" = (
@@ -4713,7 +4713,7 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /obj/item/clothing/accessory/black,
-/obj/item/clothing/under/lawyer/black,
+/obj/item/clothing/under/rank/civilian/lawyer/black,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "barber";
 	name = "floor"
@@ -4913,7 +4913,7 @@
 /area/ruin/space/unpowered)
 "ke" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/suit_jacket/burgundy,
+/obj/item/clothing/under/suit/burgundy,
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "kf" = (

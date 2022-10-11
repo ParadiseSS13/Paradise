@@ -32,7 +32,6 @@
 	force = 10
 	force_wielded = 10
 	armour_penetration_flat = 20
-	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -66,11 +65,6 @@
 		if(durability <= 0)
 			qdel(src)
 			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
-
-/obj/item/twohanded/required/vamp_claws/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()
 
 /obj/item/twohanded/required/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()

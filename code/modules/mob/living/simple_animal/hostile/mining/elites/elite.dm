@@ -61,7 +61,7 @@
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
 		M.gets_drilled()
-	if(istype(target, /obj/mecha))
+	if(ismecha(target))
 		var/obj/mecha/M = target
 		M.take_damage(50, BRUTE, MELEE, 1)
 	if(. && isliving(target)) //Taken from megafauna. This exists purely to stop someone from cheesing a weaker melee fauna by letting it get punched.

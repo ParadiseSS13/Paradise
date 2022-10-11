@@ -92,7 +92,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
 			armed = FALSE
 			update_icon()

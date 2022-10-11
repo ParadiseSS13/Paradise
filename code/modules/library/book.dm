@@ -91,7 +91,7 @@
 	read_book(user)
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		edit_book(user)
 	else if(istype(I, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = I

@@ -1233,6 +1233,9 @@
 				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
 				new_contract.reward_tc = list(0, 0, 0)
 				H.contracts += new_contract
+				for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
+					var/amount_tc = H.calculate_tc_reward(length(H.contracts), difficulty)
+					new_contract.reward_tc[difficulty] = amount_tc
 				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
 				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")

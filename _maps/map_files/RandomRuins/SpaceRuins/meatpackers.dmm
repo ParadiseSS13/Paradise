@@ -1991,7 +1991,7 @@
 /area/ruin/unpowered/BMPship/Aft)
 "gn" = (
 /obj/structure/closet,
-/obj/item/clothing/under/overalls,
+/obj/item/clothing/under/misc/overalls,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "go" = (
@@ -2181,7 +2181,7 @@
 /area/ruin/unpowered/BMPship/Aft)
 "gT" = (
 /obj/structure/closet,
-/obj/item/clothing/under/lawyer/bluesuit,
+/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
 /obj/item/clothing/suit/apron,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)

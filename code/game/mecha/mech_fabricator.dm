@@ -210,7 +210,7 @@
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
 	var/atom/A = new D.build_path(get_step(src, output_dir))
-	if(istype(A, /obj/item))
+	if(isitem(A))
 		var/obj/item/I = A
 		I.materials = final_cost
 		if(D.locked)

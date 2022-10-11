@@ -29,7 +29,7 @@
 
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(isnull(t))
 			return
