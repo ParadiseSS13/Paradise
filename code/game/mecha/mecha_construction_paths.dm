@@ -465,7 +465,7 @@
 				new /obj/item/stock_parts/scanning_module/adv(get_turf(holder))
 				holder.icon_state = "gygax10"
 		if(8)
-			if(diff==FORWARD)
+			if(diff == FORWARD)
 				user.visible_message("[user] installs mech power core to the [holder].", "You install mech power core to the [holder].")
 				qdel(used_atom)
 				holder.icon_state = "gygax13"
