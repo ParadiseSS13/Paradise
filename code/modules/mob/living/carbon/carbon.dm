@@ -94,6 +94,10 @@
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
 		return FALSE
+	if(is_facehugged())
+		if(message)
+			to_chat(src, "<span class='warning'>You try to throw up, but the alien's proboscis obstructs your throat!</span>") //Sorry
+		return FALSE
 	if(stun)
 		Stun(8 SECONDS)
 	if(nutrition < 100 && !blood)
@@ -454,8 +458,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
-			var/obj/item/clothing/under/contortionist/C = H.w_uniform
+		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist))//IMMA SPCHUL SNOWFLAKE
+			var/obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/C = H.w_uniform
 			if(!C.check_clothing(src))//return values confuse me right now
 				return
 
@@ -848,6 +852,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/is_muzzled()
 	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 
+/mob/living/carbon/is_facehugged()
+	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
+
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, .proc/resist_muzzle)
 	var/obj/item/I = get_restraining_item()
@@ -1221,7 +1228,7 @@ so that different stomachs can handle things in different ways VB*/
 
 //handle stuff to update when a mob equips/unequips a headgear.
 /mob/living/carbon/proc/head_update(obj/item/I, forced)
-	if(istype(I, /obj/item/clothing))
+	if(isclothing(I))
 		var/obj/item/clothing/C = I
 		if(C.tint || initial(C.tint))
 			update_tint()

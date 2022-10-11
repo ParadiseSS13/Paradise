@@ -76,7 +76,7 @@
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles
 /turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
-	if(!istype(src, /turf/simulated))
+	if(!issimulatedturf(src))
 		return list()
 
 	var/adjacent_turfs = atmos_adjacent_turfs.Copy()

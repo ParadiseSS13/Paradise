@@ -489,13 +489,6 @@
 
 	// attempt to stick weapon into light socket
 	if(status == LIGHT_EMPTY)
-		if(istype(W, /obj/item/screwdriver)) //If it's a screwdriver open it.
-			playsound(loc, W.usesound, W.tool_volume, 1)
-			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
-				"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
-			deconstruct()
-			return
-
 		if(has_power() && (W.flags & CONDUCT))
 			do_sparks(3, 1, src)
 			if(prob(75)) // If electrocuted
@@ -506,6 +499,16 @@
 			return
 
 	return ..()
+
+/obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
+	if(status != LIGHT_EMPTY)
+		return
+
+	I.play_tool_sound(src)
+	user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
+		"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
+	deconstruct()
+	return TRUE
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

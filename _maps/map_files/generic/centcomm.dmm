@@ -962,7 +962,7 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/clothing/under/suit_jacket,
+/obj/item/clothing/under/suit/black,
 /obj/item/clothing/suit/wcoat,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -3448,12 +3448,12 @@
 /area/syndicate_mothership/jail)
 "lY" = (
 /obj/structure/rack,
-/obj/item/clothing/under/shorts/black{
+/obj/item/clothing/under/pants/shorts/black{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/under/shorts/blue,
-/obj/item/clothing/under/shorts/red{
+/obj/item/clothing/under/pants/shorts/blue,
+/obj/item/clothing/under/pants/shorts/red{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -3477,8 +3477,8 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/pirate{
+/obj/item/clothing/under/costume/soviet,
+/obj/item/clothing/under/costume/pirate{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -3655,7 +3655,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/under/syndicate/combat,
-/obj/item/clothing/under/acj{
+/obj/item/clothing/under/misc/acj{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -6454,7 +6454,7 @@
 /obj/structure/table,
 /obj/item/tank/internals/oxygen/yellow,
 /obj/random/bomb_supply,
-/obj/item/clothing/under/rebeloutfit,
+/obj/item/clothing/under/costume/rebeloutfit,
 /obj/item/clothing/suit/poncho/ponchoshame,
 /obj/item/clothing/head/sombrero/shamebrero,
 /turf/simulated/floor/plasteel/dark,
@@ -10894,7 +10894,7 @@
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
 "QV" = (
-/obj/item/clothing/under/rainbow,
+/obj/item/clothing/under/color/rainbow,
 /obj/item/clothing/glasses/sunglasses_fake,
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)

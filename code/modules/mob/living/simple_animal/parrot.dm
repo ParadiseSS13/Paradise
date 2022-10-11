@@ -163,7 +163,7 @@
 			switch(remove_from)
 				if("ears")
 					if(ears)
-						if(stat != CONSCIOUS) //DEAD PARROTS SHOULD NOT SPEAK (i hate that this is done in topic)
+						if(stat == CONSCIOUS) //DEAD PARROTS SHOULD NOT SPEAK (i hate that this is done in topic)
 							if(length(available_channels))
 								say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
 							else
@@ -368,7 +368,7 @@
 		if(!held_item && !parrot_perch) //If we've got nothing to do.. look for something to do.
 			var/atom/movable/AM = search_for_perch_and_item() //This handles checking through lists so we know it's either a perch or stealable item
 			if(AM)
-				if(istype(AM, /obj/item) || isliving(AM))	//If stealable item
+				if(isitem(AM) || isliving(AM))	//If stealable item
 					parrot_interest = AM
 					parrot_state = PARROT_SWOOP|PARROT_STEAL
 					face_atom(AM)
