@@ -16,6 +16,11 @@
 	var/saved_underlays
 	var/activate_dummy = FALSE
 
+/obj/item/chameleon_counterfeiter/examine(mob/user)
+	. = ..()
+	if(activate_dummy == TRUE)
+		. += "<span class='warning'>It doesn't look quite right...</span>"
+
 /obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
@@ -48,7 +53,7 @@
 
 /obj/item/chameleon_counterfeiter/proc/matter_activate(obj/O, new_icon, new_iconstate, new_item_state, new_overlays, new_underlays)
 	name = O.name
-	desc = "<span class='warning'>It doesn't look quite right...</span>"
+	desc = O.desc
 	icon = new_icon
 	icon_state = new_iconstate
 	item_state = new_item_state
