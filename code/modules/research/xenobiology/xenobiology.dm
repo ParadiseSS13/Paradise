@@ -192,14 +192,19 @@
 
 /obj/item/slimepotion/sentience/examine(mob/user)
 	. = ..()
-	if(user.Adjacent(src))
-		switch(heat_stage)
-			if(0)
-				return
-			if(1)
-				. += "<span class='warning'>The vial is hot to the touch.</span>"
-			if(2)
-				. += "<span class='warning'>The vial is scalding hot! Is it really a good idea to use this..?</span>"
+	if(!user.Adjacent(src))
+		return
+
+	switch(heat_stage)
+		if(0)
+			return
+		if(1)
+			. += "<span class='warning'>The vial is hot to the touch.</span>"
+		if(2)
+			. += "<span class='warning'>The vial is scalding hot! Is it really a good idea to use this..?</span>"
+
+/obj/item/slimepotion/sentience/attack()
+	return
 
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
 	if(!proximity_flag)
@@ -263,8 +268,10 @@
 		..()
 
 /obj/item/slimepotion/sentience/proc/heat_cooldown()
-	if(heat_stage)
-		addtimer(VARSET_CALLBACK(src, heat_stage, (heat_stage - 1)), 60 SECONDS)
+	if(!heat_stage)
+		return
+
+	addtimer(VARSET_CALLBACK(src, heat_stage, (heat_stage - 1)), 60 SECONDS)
 
 /obj/item/slimepotion/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
 	return
