@@ -1121,7 +1121,7 @@
 				new /obj/item/mecha_parts/core(get_turf(holder))
 				holder.icon_state = "durand12"
 		if(6)
-			if(diff==FORWARD)
+			if(diff == FORWARD)
 				user.visible_message("[user] installs the internal armor layer to the [holder].", "You install the internal armor layer to the [holder].")
 				holder.icon_state = "durand15"
 			else
