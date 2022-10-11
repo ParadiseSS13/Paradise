@@ -43,7 +43,7 @@
 		return
 	if(activate_dummy)
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
-		matter_deactivate(saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
+		matter_deactivate()
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
@@ -61,7 +61,7 @@
 	underlays = new_underlays
 	activate_dummy = TRUE
 
-/obj/item/chameleon_counterfeiter/proc/matter_deactivate(new_icon, new_iconstate, new_item_state, new_overlays, new_underlays)
+/obj/item/chameleon_counterfeiter/proc/matter_deactivate()
 	name = initial(name)
 	desc = initial(desc)
 	icon = initial(icon)
