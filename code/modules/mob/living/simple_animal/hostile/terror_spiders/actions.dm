@@ -269,7 +269,7 @@
 							else if(ismachinery(O))
 								O.loc = C
 								large_cocoon = 1
-							else if(istype(O, /obj/structure) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
+							else if(isstructure(O) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
 								O.loc = C
 								large_cocoon = 1
 					for(var/mob/living/L in C.loc)

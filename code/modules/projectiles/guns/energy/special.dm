@@ -712,7 +712,7 @@
 			item_state = "tempgun_0"
 	icon_state = item_state
 
-	if(istype(loc,/mob/living/carbon))
+	if(iscarbon(loc))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()

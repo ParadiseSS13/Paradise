@@ -608,7 +608,7 @@
 				var/list/possible_targets = list()
 				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target.current // Allows for admins to pick off station roles
 						if(!is_invalid_target(possible_target))
 							possible_targets_random += possible_target.current // For random picking, only valid targets
