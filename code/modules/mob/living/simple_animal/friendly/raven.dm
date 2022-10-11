@@ -5,7 +5,7 @@
 	icon_state = "raven"
 	icon_living = "raven"
 	icon_dead = "raven_dead"
-	speak_emote = list("caws","caw")
+	speak_emote = list("caws")
 	health = 7
 	maxHealth = 7
 	attacktext = "pecks violently"
