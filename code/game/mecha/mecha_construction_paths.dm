@@ -305,7 +305,7 @@
 					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Internal armor is installed."),
 					 //6
-					 list("key"=/obj/item/stack/sheet/metal,
+					 list("key" = /obj/item/stack/sheet/metal,
 					 		"backkey" = TOOL_SCREWDRIVER,
 					 		"desc" = "Mech power core is secured."),
 					 //7
