@@ -125,7 +125,7 @@
 	I.play_tool_sound(src)
 	if(anchored)
 		to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
-	else if(!anchored)
+	else
 		to_chat(user, "<span class='alert'>[src] is now secured.</span>")
 	anchored = !anchored
 	return TRUE
