@@ -184,6 +184,7 @@
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
 		ejectpai()
+	set_path(null)
 	if(path_hud)
 		QDEL_NULL(path_hud)
 		path_hud = null
@@ -1044,6 +1045,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	for(var/V in path_huds_watching_me)
 		var/datum/atom_hud/H = V
 		H.remove_from_hud(src)
+	clear_path_image()
 
 	var/list/path_images = hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
@@ -1096,6 +1098,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(I)
 		I.icon_state = null
 	path.Cut(1, 2)
+
+/mob/living/simple_animal/bot/proc/clear_path_image()
+	if(!path || !length(path))
+		return
+	for(var/P in path)
+		var/image/I = path[P]
+		if(I?.icon_state)
+			I.icon_state = null
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)
