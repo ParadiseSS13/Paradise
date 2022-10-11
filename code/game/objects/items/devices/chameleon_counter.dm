@@ -43,8 +43,6 @@
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		var/obj/O = new saved_item(src)
-		if(!O)
-			return
 		to_chat(user, "<span class='notice'>You activate [src].</span>")
 		matter_activate(O, saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
 
