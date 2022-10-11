@@ -492,7 +492,7 @@
 				user.visible_message("<span class='notice'>[user] secures the internal armor layer.</span>", "<span class='notice'>You secure the internal armor layer.</span>")
 				holder.icon_state = "gygax16"
 			else
-				user.visible_message("<span class='notice'>[user] pries internal armor layer from the [holder].</span>", "<span class='notice'>You pry internal armor layer from the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] pries the internal armor layer from the [holder].</span>", "<span class='notice'>You pry the internal armor layer from the [holder].</span>")
 				var/obj/item/stack/sheet/metal/MS = new /obj/item/stack/sheet/metal(get_turf(holder))
 				MS.amount = 5
 				holder.icon_state = "gygax14"
@@ -505,7 +505,7 @@
 				holder.icon_state = "gygax15"
 		if(3)
 			if(diff==FORWARD)
-				user.visible_message("<span class='notice'>[user] installs Gygax Armor Plates to the [holder].</span>", "<span class='notice'>You install Gygax Armor Plates to the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] installs the Gygax Armor Plates to the [holder].</span>", "<span class='notice'>You install the Gygax Armor Plates to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "gygax18"
 			else
@@ -513,17 +513,17 @@
 				holder.icon_state = "gygax16"
 		if(2)
 			if(diff==FORWARD)
-				user.visible_message("<span class='notice'>[user] secures Gygax Armor Plates.</span>", "<span class='notice'>You secure Gygax Armor Plates.</span>")
+				user.visible_message("<span class='notice'>[user] secures the Gygax Armor Plates.</span>", "<span class='notice'>You secure the Gygax Armor Plates.</span>")
 				holder.icon_state = "gygax19"
 			else
-				user.visible_message("<span class='notice'>[user] pries Gygax Armor Plates from the [holder].</span>", "<span class='notice'>You pry Gygax Armor Plates from the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] pries the Gygax Armor Plates from the [holder].</span>", "<span class='notice'>You pry the Gygax Armor Plates from the [holder].</span>")
 				new /obj/item/mecha_parts/part/gygax_armour(get_turf(holder))
 				holder.icon_state = "gygax17"
 		if(1)
 			if(diff==FORWARD)
-				user.visible_message("<span class='notice'>[user] welds Gygax Armor Plates to the [holder].</span>", "<span class='notice'>You weld Gygax Armor Plates to the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] welds the Gygax Armor Plates to the [holder].</span>", "<span class='notice'>You weld the Gygax Armor Plates to the [holder].</span>")
 			else
-				user.visible_message("<span class='notice'>[user] unfastens Gygax Armor Plates.</span>", "<span class='notice'>You unfasten Gygax Armor Plates.</span>")
+				user.visible_message("<span class='notice'>[user] unfastens the Gygax Armor Plates.</span>", "<span class='notice'>You unfasten the Gygax Armor Plates.</span>")
 				holder.icon_state = "gygax18"
 	return 1
 
@@ -1106,7 +1106,7 @@
 				holder.icon_state = "durand10"
 		if(8)
 			if(diff == FORWARD)
-				user.visible_message("<span class='notice'>[user] installs mech power core to the [holder].</span>", "<span class='notice'>You install mech power core to the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] installs the mech power core to the [holder].</span>", "<span class='notice'>You install the mech power core to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand13"
 			else
@@ -1132,7 +1132,7 @@
 				user.visible_message("<span class='notice'>[user] secures the internal armor layer.</span>", "<span class='notice'>You secure the internal armor layer.</span>")
 				holder.icon_state = "durand16"
 			else
-				user.visible_message("<span class='notice'>[user] pries internal armor layer from the [holder].</span>", "<span class='notice'>You pry internal armor layer from the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] pries the internal armor layer from the [holder].</span>", "<span class='notice'>You pry the internal armor layer from the [holder].</span>")
 				var/obj/item/stack/sheet/metal/MS = new /obj/item/stack/sheet/metal(get_turf(holder))
 				MS.amount = 5
 				holder.icon_state = "durand14"
@@ -1145,7 +1145,7 @@
 				holder.icon_state = "durand15"
 		if(3)
 			if(diff==FORWARD)
-				user.visible_message("<span class='notice'>[user] installs Durand Armor Plates to the [holder].</span>", "<span class='notice'>You install Durand Armor Plates to the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] installs the Durand Armor Plates to the [holder].</span>", "<span class='notice'>You install the Durand Armor Plates to the [holder].</span>")
 				qdel(used_atom)
 				holder.icon_state = "durand18"
 			else
@@ -1153,15 +1153,15 @@
 				holder.icon_state = "durand16"
 		if(2)
 			if(diff==FORWARD)
-				user.visible_message("<span class='notice'>[user] secures Durand Armor Plates.</span>", "<span class='notice'>You secure Durand Armor Plates.</span>")
+				user.visible_message("<span class='notice'>[user] secures the Durand Armor Plates.</span>", "<span class='notice'>You secure the Durand Armor Plates.</span>")
 				holder.icon_state = "durand19"
 			else
-				user.visible_message("<span class='notice'>[user] pries Durand Armor Plates from the [holder].</span>", "<span class='notice'>You pry Durand Armor Plates from the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] pries the Durand Armor Plates from the [holder].</span>", "<span class='notice'>You pry the Durand Armor Plates from the [holder].</span>")
 				new /obj/item/mecha_parts/part/durand_armor(get_turf(holder))
 				holder.icon_state = "durand17"
 		if(1)
 			if(diff==FORWARD)
-				user.visible_message("<span class='notice'>[user] welds Durand Armor Plates to the [holder].</span>", "<span class='notice'>You weld Durand Armor Plates to the [holder].</span>")
+				user.visible_message("<span class='notice'>[user] welds the Durand Armor Plates to the [holder].</span>", "<span class='notice'>You weld the Durand Armor Plates to the [holder].</span>")
 			else
 				user.visible_message("<span class='notice'>[user] unfastens Durand Armor Plates.</span>", "<span class='notice'>You unfasten Durand Armor Plates.</span>")
 				holder.icon_state = "durand18"
