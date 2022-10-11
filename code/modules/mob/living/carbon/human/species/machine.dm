@@ -162,6 +162,8 @@
 			H.change_hair_color(new_color)
 
 /datum/species/machine/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)
+	if(flags & SHOCK_ILLUSION)
+		return
 	H.adjustBrainLoss(shock_damage)
 	H.adjust_nutrition(shock_damage)
 
