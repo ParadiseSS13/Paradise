@@ -2,7 +2,7 @@
 	name = "Food Poisoning"
 	max_stages = 3
 	stage_prob = 5
-	spread_text = "Non-Contagious"
+	spread_text = "Non-contagious"
 	spread_flags = NON_CONTAGIOUS
 	cure_text = "Sleep"
 	agent = "Salmonella"

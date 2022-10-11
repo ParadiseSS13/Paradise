@@ -41,7 +41,7 @@
 /datum/disease/gbs/curable
 	name = "Non-Contagious GBS"
 	stage_prob = 5
-	spread_text = "Non-Contagious"
+	spread_text = "Non-contagious"
 	spread_flags = NON_CONTAGIOUS
 	cure_text = "Cryoxadone"
 	cures = list("cryoxadone")
