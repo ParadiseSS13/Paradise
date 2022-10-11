@@ -1163,7 +1163,7 @@
 			if(diff==FORWARD)
 				user.visible_message("<span class='notice'>[user] welds the Durand Armor Plates to the [holder].</span>", "<span class='notice'>You weld the Durand Armor Plates to the [holder].</span>")
 			else
-				user.visible_message("<span class='notice'>[user] unfastens Durand Armor Plates.</span>", "<span class='notice'>You unfasten Durand Armor Plates.</span>")
+				user.visible_message("<span class='notice'>[user] unfastens the Durand Armor Plates.</span>", "<span class='notice'>You unfasten the Durand Armor Plates.</span>")
 				holder.icon_state = "durand18"
 	return 1
 
