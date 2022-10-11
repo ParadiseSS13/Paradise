@@ -1113,7 +1113,7 @@
 				user.visible_message("[user] unfastens the phasic scanner module.", "You unfasten the phasic scanner module.")
 				holder.icon_state = "durand11"
 		if(7)
-			if(diff==FORWARD)
+			if(diff == FORWARD)
 				user.visible_message("[user] secures the mech power core.", "You secure the mech power core.")
 				holder.icon_state = "durand14"
 			else
