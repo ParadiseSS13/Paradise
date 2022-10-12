@@ -93765,9 +93765,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/camera{
