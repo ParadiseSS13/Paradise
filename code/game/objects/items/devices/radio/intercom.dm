@@ -207,7 +207,7 @@
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
 	if(!(buildstage == 3 && b_stat && wires.is_all_cut()))
-		return ..()
+		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
