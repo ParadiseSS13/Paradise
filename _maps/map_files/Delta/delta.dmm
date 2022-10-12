@@ -3168,12 +3168,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/window/brigdoor/southright{
-	dir = 8;
-	name = "Security Checkpoint";
-	pixel_x = -8;
-	req_access_txt = "1"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair/office/dark{
@@ -18925,12 +18919,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/window/brigdoor/southright{
-	dir = 8;
-	name = "Customs Desk";
-	pixel_x = 32;
-	req_access_txt = "19"
-	},
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
@@ -112181,6 +112169,11 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /obj/item/pen,
+/obj/machinery/door/window/brigdoor/southright{
+	dir = 4;
+	name = "Security Checkpoint";
+	req_access_txt = "1"
+	},
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint)
 "rQI" = (
@@ -120952,6 +120945,11 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
 /obj/item/pen,
+/obj/machinery/door/window/brigdoor/southright{
+	dir = 8;
+	name = "Customs Desk";
+	req_access_txt = "19"
+	},
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/north)
 "tNI" = (
