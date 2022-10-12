@@ -6,7 +6,7 @@ import { round } from 'common/math';
 
 export const TempGun = (props, context) => {
   const { act, data } = useBackend(context);
-  const {target_temperature, temperature, max_temp, min_temp} = data;
+  const { target_temperature, temperature, max_temp, min_temp } = data;
 
   return (
     <Window>

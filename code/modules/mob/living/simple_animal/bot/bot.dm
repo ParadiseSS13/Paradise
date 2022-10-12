@@ -77,7 +77,8 @@
 	var/control_freq = BOT_FREQ		// bot control frequency
 	var/bot_filter 				// The radio filter the bot uses to identify itself on the network.
 	var/bot_type = 0 //The type of bot it is, for radio control.
-	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC //The type of data HUD the bot uses. Diagnostic by default.
+	/// The type of data HUD the bot uses. Diagnostic by default.
+	var/data_hud_type = DATA_HUD_DIAGNOSTIC_BASIC
 	//This holds text for what the bot is mode doing, reported on the remote bot control interface.
 	var/list/mode_name = list("In Pursuit","Preparing to Arrest", "Arresting", \
 	"Beginning Patrol", "Patrolling", "Summoned by PDA", \
@@ -163,15 +164,14 @@
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
-		diag_hud.add_hud_to(src)
 		permanent_huds |= diag_hud
+
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
-	// give us the hud too!
+
 	if(path_hud)
 		path_hud.add_to_hud(src)
-		path_hud.add_hud_to(src)
 
 
 /mob/living/simple_animal/bot/med_hud_set_health()
@@ -187,6 +187,11 @@
 	if(path_hud)
 		QDEL_NULL(path_hud)
 		path_hud = null
+
+	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
+	if(data_hud)
+		data_hud.remove_hud_from(src)
+
  	GLOB.bots_list -= src
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
@@ -957,11 +962,17 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/Login()
 	. = ..()
 	access_card.access += player_access
+
+	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
+	if(data_hud)
+		data_hud.add_hud_to(src)
+
 	diag_hud_set_botmode()
 	show_laws()
 
 /mob/living/simple_animal/bot/Logout()
 	. = ..()
+
 	bot_reset()
 
 /mob/living/simple_animal/bot/revive(full_heal = 0, admin_revive = 0)
