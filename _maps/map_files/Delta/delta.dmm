@@ -1953,7 +1953,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "bluecorner"
 	},
 /area/hallway/secondary/entry)
@@ -79341,10 +79340,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/aft)
-"dDe" = (
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/wall,
-/area/hallway/primary/aft)
 "dDg" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -136558,7 +136553,7 @@ dHR
 dql
 dGf
 dBT
-dDe
+dfu
 dEU
 dFv
 dGl
