@@ -76244,6 +76244,7 @@
 /obj/item/robotanalyzer,
 /obj/item/mmi/robotic_brain,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "dwr" = (

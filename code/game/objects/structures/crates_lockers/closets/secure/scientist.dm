@@ -37,6 +37,7 @@
 	new /obj/item/radio/headset/headset_sci(src)
 	new /obj/item/radio/headset/headset_sci(src)
 
+
 /obj/structure/closet/secure_closet/RD
 	name = "research director's locker"
 	req_access = list(ACCESS_RD)
@@ -59,6 +60,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 	new /obj/item/clothing/accessory/medal/science(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
+
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"

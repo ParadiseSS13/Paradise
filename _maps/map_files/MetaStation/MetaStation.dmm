@@ -76230,6 +76230,7 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
+/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "oBh" = (
