@@ -166,7 +166,7 @@
 	item_color = "lawyer_blue"
 
 /obj/item/clothing/under/rank/civilian/lawyer/purple
-	name = "Purple Suit"
+	name = "lawyer purple suit"
 	icon_state = "lawyer_purp"
 	item_state = "lawyer_purp"
 	item_color = "lawyer_purp"
