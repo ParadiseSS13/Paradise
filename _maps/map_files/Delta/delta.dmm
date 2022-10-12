@@ -5064,10 +5064,10 @@
 /area/hallway/secondary/entry/additional)
 "aAh" = (
 /obj/effect/decal/warning_stripes/blue,
-/obj/effect/decal/warning_stripes/southwest,
 /obj/structure/sink{
 	pixel_y = 22
 	},
+/obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
@@ -53701,6 +53701,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
+"eWD" = (
+/obj/item/clothing/mask/facehugger/toy,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint{
+	name = "Virology Maintenance"
+	})
 "eWN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -55857,7 +55867,7 @@
 	},
 /area/bridge/vip)
 "fvQ" = (
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/medical/virology/lab)
 "fvU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -70674,14 +70684,15 @@
 	},
 /area/shuttle/syndicate)
 "iLn" = (
-/obj/item/clothing/mask/facehugger/toy,
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint{
-	name = "Virology Maintenance"
+/obj/effect/decal/warning_stripes/blue,
+/obj/effect/decal/warning_stripes/southwest,
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (WEST)"
+	},
+/turf/simulated/floor/plasteel,
+/area/medical/virology/lab{
+	name = "\improper Virology Lobby"
 	})
 "iLo" = (
 /turf/simulated/floor/wood,
@@ -71952,13 +71963,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "jbE" = (
-/obj/effect/decal/warning_stripes/blue,
-/obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/shower{
-	dir = 4;
-	tag = "icon-shower (EAST)"
-	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/wall/r_wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -89456,7 +89461,7 @@
 	layer = 2.8;
 	pixel_y = 3
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -102523,7 +102528,7 @@
 "pPp" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/landmark/damageturf,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -127394,7 +127399,7 @@
 /area/library)
 "vjf" = (
 /obj/structure/sign/biohazard,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -130427,7 +130432,7 @@
 /area/solar/starboard)
 "vQl" = (
 /obj/effect/landmark/burnturf,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/medical/virology/lab{
 	name = "\improper Virology Lobby"
 	})
@@ -187610,8 +187615,8 @@ iQw
 naz
 bzb
 vjf
-vLr
-iLn
+eWD
+wTz
 fSq
 eSP
 vLr
@@ -187863,12 +187868,12 @@ lvv
 lvv
 nCP
 imF
-xFw
-xFw
+jbE
+jbE
 xGb
 jbE
-xFw
-vLr
+jbE
+jbE
 xtb
 xtb
 vLr
@@ -188120,12 +188125,12 @@ eMN
 lvv
 gpT
 hYI
-xFw
+jbE
 xxH
 bLY
 duV
 act
-xFw
+jbE
 abj
 abj
 aaa
@@ -188377,12 +188382,12 @@ hPb
 lvv
 oVf
 eBY
-xFw
+jbE
 xcN
 vfC
 evI
 uFl
-xFw
+jbE
 ngA
 snF
 abj
@@ -188634,17 +188639,17 @@ xYy
 lvv
 fSZ
 oTm
-xFw
+jbE
 aAh
 mBu
 bXA
 egU
-xFw
+jbE
 qsZ
 gVU
-xFw
-xFw
-xFw
+jbE
+jbE
+jbE
 abj
 aaa
 aaa
@@ -188891,12 +188896,12 @@ xYM
 lvv
 hYI
 tiG
-xFw
-xFw
+jbE
+iLn
 tvZ
 uLW
-xFw
-xFw
+jbE
+jbE
 lbP
 qmz
 isF
@@ -189148,11 +189153,11 @@ lvv
 lvv
 lEG
 nCP
-xFw
+jbE
 vjf
 vpb
-xFw
-xFw
+jbE
+jbE
 dHg
 dLd
 dMx
@@ -189405,7 +189410,7 @@ lvv
 bmz
 fjt
 vEU
-xFw
+jbE
 jFH
 wGp
 xOy
@@ -189662,7 +189667,7 @@ pUl
 aOU
 xpo
 pWn
-xFw
+jbE
 erJ
 eaz
 lfv
@@ -189918,8 +189923,8 @@ jjv
 gFe
 sZC
 qTn
-ylm
-ylm
+ltW
+ltW
 sqB
 bWB
 xYw
@@ -190173,9 +190178,9 @@ rFn
 npC
 oiv
 jKh
-ylm
-ylm
-ylm
+ltW
+ltW
+ltW
 miT
 sVx
 wWW
@@ -190430,7 +190435,7 @@ nCP
 nCP
 nCP
 nCP
-ylm
+ltW
 rUO
 dbT
 qIo
@@ -191201,7 +191206,7 @@ nCP
 nCP
 nCP
 nCP
-ylm
+ltW
 dBO
 lGF
 dBO
@@ -191458,7 +191463,7 @@ abj
 abj
 abj
 abj
-ylm
+ltW
 hvy
 rvd
 fey
@@ -191972,7 +191977,7 @@ aaa
 aaa
 aaa
 aaa
-ylm
+ltW
 hpO
 jgk
 suu
@@ -191983,9 +191988,9 @@ ylm
 ylm
 umx
 sXT
-xFw
-xFw
-xFw
+jbE
+jbE
+jbE
 abj
 abj
 aaa
@@ -192229,7 +192234,7 @@ aaa
 aaa
 aaa
 aaa
-xFw
+jbE
 xFw
 xFw
 xFw
@@ -192240,7 +192245,7 @@ nAa
 eef
 nXf
 vCn
-xFw
+jbE
 vLh
 abj
 abj
@@ -192486,7 +192491,7 @@ aaa
 aaa
 aaa
 aaa
-xFw
+jbE
 vPn
 qgZ
 xPj
@@ -192497,7 +192502,7 @@ rZF
 tdh
 nmd
 dFA
-xFw
+jbE
 aaa
 aaa
 abj
@@ -192743,7 +192748,7 @@ aaa
 aaa
 aaa
 aaa
-xFw
+jbE
 pGk
 tjA
 kBk
@@ -192753,8 +192758,8 @@ qLz
 gTH
 ehT
 lKI
-xFw
-xFw
+jbE
+jbE
 aaa
 aaa
 aaa
@@ -193000,7 +193005,7 @@ aaa
 aaa
 aaa
 aaa
-xFw
+jbE
 dBr
 iiS
 cZf
@@ -193257,7 +193262,7 @@ aaa
 aaa
 aaa
 aaa
-xFw
+jbE
 uVl
 pbv
 qHl
@@ -193514,7 +193519,7 @@ abj
 aaa
 aaa
 abj
-xFw
+jbE
 tmt
 vai
 qxe
@@ -193771,17 +193776,17 @@ xZu
 abj
 abj
 abj
-xFw
-xFw
-xFw
+jbE
+jbE
+jbE
 pPp
 pPp
 vQl
 pwa
 qsE
 gLx
-xFw
-xFw
+jbE
+jbE
 abj
 abj
 aaa
