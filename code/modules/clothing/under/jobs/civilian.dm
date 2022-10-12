@@ -145,8 +145,8 @@
 	item_color = "internalaffairs"
 
 /obj/item/clothing/under/rank/civilian/lawyer
+	name = "lawyer suit"
 	desc = "Slick threads."
-	name = "Lawyer suit"
 
 /obj/item/clothing/under/rank/civilian/lawyer/black
 	icon_state = "lawyer_black"
@@ -154,27 +154,22 @@
 	item_color = "lawyer_black"
 
 /obj/item/clothing/under/rank/civilian/lawyer/red
+	name = "lawyer red suit"
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"
 	item_color = "lawyer_red"
 
 /obj/item/clothing/under/rank/civilian/lawyer/blue
+	name = "lawyer blue suit"
 	icon_state = "lawyer_blue"
 	item_state = "lawyer_blue"
 	item_color = "lawyer_blue"
 
-/obj/item/clothing/under/rank/civilian/lawyer/purpsuit
+/obj/item/clothing/under/rank/civilian/lawyer/purple
 	name = "Purple Suit"
 	icon_state = "lawyer_purp"
 	item_state = "lawyer_purp"
 	item_color = "lawyer_purp"
-
-/obj/item/clothing/under/rank/civilian/lawyer/bluesuit
-	name = "Blue Suit"
-	desc = "A classy suit and tie"
-	icon_state = "bluesuit"
-	item_state = "bluesuit"
-	item_color = "bluesuit"
 
 /obj/item/clothing/under/rank/civilian/lawyer/oldman
 	name = "Old Man's Suit"
