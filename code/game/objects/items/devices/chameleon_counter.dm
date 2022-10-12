@@ -18,7 +18,7 @@
 
 /obj/item/chameleon_counterfeiter/examine(mob/user)
 	. = ..()
-	if(activate_dummy == TRUE)
+	if(activate_dummy)
 		. += "<span class='warning'>It doesn't look quite right...</span>"
 
 /obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
