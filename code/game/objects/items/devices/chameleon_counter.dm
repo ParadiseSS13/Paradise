@@ -8,7 +8,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "syndicate=3;magnets=3"
 	var/can_use = TRUE
-	var/saved_item
+	var/saved_name
+	var/saved_desc
 	var/saved_icon
 	var/saved_icon_state
 	var/saved_item_state
@@ -28,7 +29,8 @@
 		return
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 	to_chat(user, "<span class='notice'>Scanned [target].</span>")
-	saved_item = target.type
+	saved_name = target.name
+	saved_desc = target.desc
 	saved_icon = target.icon
 	saved_icon_state = target.icon_state
 	saved_item_state = target.item_state
@@ -39,7 +41,7 @@
 	return (target.icon_state in icon_states(target.icon))
 
 /obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user)
-	if(!can_use || !saved_item)
+	if(!can_use || !saved_name)
 		return
 	if(activate_dummy)
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
@@ -47,13 +49,12 @@
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
-		var/obj/O = new saved_item(src)
 		to_chat(user, "<span class='notice'>You activate [src].</span>")
-		matter_activate(O, saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
+		matter_activate(saved_name, saved_desc, saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
 
-/obj/item/chameleon_counterfeiter/proc/matter_activate(obj/O, new_icon, new_iconstate, new_item_state, new_overlays, new_underlays)
-	name = O.name
-	desc = O.desc
+/obj/item/chameleon_counterfeiter/proc/matter_activate(new_name, new_desc, new_icon, new_iconstate, new_item_state, new_overlays, new_underlays)
+	name = new_name
+	desc = new_desc
 	icon = new_icon
 	icon_state = new_iconstate
 	item_state = new_item_state
