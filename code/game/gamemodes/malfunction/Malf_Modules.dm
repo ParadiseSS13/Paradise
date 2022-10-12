@@ -735,8 +735,6 @@
 
 			if(!C.isXRay())
 				C.upgradeXRay()
-				//Update what it can see.
-				GLOB.cameranet.updateVisibility(C, 0)
 				upgraded = TRUE
 
 			if(!C.isEmpProof())
