@@ -440,7 +440,7 @@
  */
 /obj/item/rcd/proc/mode_decon(atom/A, mob/user)
 	if(iswallturf(A))
-		if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
+		if(isreinforcedwallturf(A) && !canRwall)
 			return FALSE
 		if(istype(A, /turf/simulated/wall/indestructible))
 			return FALSE

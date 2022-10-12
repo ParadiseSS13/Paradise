@@ -43,7 +43,7 @@
 
 /obj/screen/close/Click()
 	if(master)
-		if(istype(master, /obj/item/storage))
+		if(isstorage(master))
 			var/obj/item/storage/S = master
 			S.close(usr)
 	return 1
@@ -181,7 +181,7 @@
 	return FALSE
 
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE) || istype(user.loc, /obj/mecha) || !master)
+	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE) || ismecha(user.loc) || !master)
 		return
 
 	var/obj/item/storage/S = master

@@ -145,7 +145,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1

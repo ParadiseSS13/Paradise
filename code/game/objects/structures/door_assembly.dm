@@ -8,6 +8,7 @@
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral
+	var/mineral_type
 	var/base_name = "airlock"
 	var/obj/item/airlock_electronics/electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
@@ -44,6 +45,8 @@
 			. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 			. += "<span class='notice'>The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+			if(glass)
+				. += "<span class='notice'>The assembly has its electrochromic windows <b>[polarized_glass ? "enabled" : "disabled"]</b> and can be <i>configured</i>.</span>"
 	if(!mineral && !glass && !noglass)
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows and mineral covers.</span>"
 	else if(!mineral && glass && !noglass)
@@ -54,7 +57,7 @@
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
 
 /obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		// The door assembly gets renamed to "Assembly - Foobar",
 		// but the `t` returned from the proc is just "Foobar" without the prefix.
 		var/t = rename_interactive(user, W)
@@ -329,7 +332,6 @@
 					new /obj/item/stack/sheet/glass(T)
 			else
 				new /obj/item/shard(T)
-		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-			new mineral_path(T, 2)
+		if(mineral_type)
+			new mineral_type(T, 2)
 	qdel(src)

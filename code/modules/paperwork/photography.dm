@@ -40,7 +40,7 @@
 	user.examinate(src)
 
 /obj/item/photo/attackby(obj/item/P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
+	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
 		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
@@ -288,7 +288,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			// If what we got back is actually a picture, draw it.
 			if(istype(img, /icon))
 				// Check if we're looking at a mob that's lying down
-				if(istype(A, /mob/living))
+				if(isliving(A))
 					var/mob/living/L = A
 					if(IS_HORIZONTAL(L))
 						// If they are, apply that effect to their picture.
@@ -327,7 +327,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 		var/holding = null
 
-		if(istype(M, /mob/living/carbon))
+		if(iscarbon(M))
 			var/mob/living/carbon/A = M
 			if(A.l_hand || A.r_hand)
 				if(A.l_hand) holding = "They are holding \a [A.l_hand]"

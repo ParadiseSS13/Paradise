@@ -2887,7 +2887,7 @@
 	},
 /obj/item/wrench,
 /obj/item/wirerod,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/misc/waiter,
 /obj/item/clothing/accessory/waistcoat,
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/electrical_shop)
@@ -9296,7 +9296,7 @@
 /area/quartermaster/storage)
 "aFq" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/pennywise,
+/obj/item/clothing/under/costume/pennywise,
 /obj/item/toy/syndicateballoon,
 /obj/item/clothing/shoes/clown_shoes,
 /obj/item/clothing/mask/gas/clown_hat/pennywise,
@@ -40967,8 +40967,7 @@
 /area/crew_quarters/heads/hop)
 "bUU" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/ids,
-/obj/item/storage/box/PDAs,
+/obj/machinery/smartfridge/id,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "bUV" = (
@@ -41035,7 +41034,7 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/item/soap/deluxe,
-/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky/captainducky,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -44934,6 +44933,8 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/hop,
 /obj/item/megaphone,
+/obj/item/storage/box/PDAs,
+/obj/item/storage/box/ids,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "cdI" = (
@@ -49578,8 +49579,8 @@
 	req_access_txt = "4"
 	},
 /obj/item/restraints/handcuffs/pinkcuffs,
-/obj/item/clothing/under/rank/security,
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
+/obj/item/clothing/under/rank/security/officer,
 /obj/item/grenade/barrier,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/effect/decal/cleanable/cobweb2,
@@ -60269,7 +60270,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
 	name = "Xenobiology Lab";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -60378,7 +60379,7 @@
 	id_tag = "tox_airlock_exterior";
 	locked = 1;
 	name = "Xenobiology Kill Room";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -66407,12 +66408,12 @@
 	},
 /area/medical/research)
 "dbk" = (
-/obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "dbl" = (
@@ -67192,7 +67193,7 @@
 "dcK" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/toggle/owlwings,
-/obj/item/clothing/under/owl,
+/obj/item/clothing/under/costume/owl,
 /obj/item/clothing/mask/gas/owl_mask,
 /turf/simulated/floor/wood,
 /area/maintenance/starboard)
@@ -68809,7 +68810,7 @@
 "dgr" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Xenobiology Maintenance";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -69323,7 +69324,7 @@
 "dhA" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Experimentor Maintenance";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -69536,7 +69537,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass{
 	name = "Xenobiology Lab";
-	req_access_txt = "47"
+	req_access_txt = "55"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -71434,7 +71435,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass{
 	name = "Toxin Mixing";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -76041,6 +76042,7 @@
 /obj/item/robotanalyzer,
 /obj/item/mmi/robotic_brain,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "dwr" = (
@@ -76254,7 +76256,7 @@
 /area/medical/medbay)
 "dwQ" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costume/maid,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
@@ -77371,7 +77373,7 @@
 "dzy" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxin Test Firing Range";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77434,7 +77436,7 @@
 "dzB" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxin Mixing";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -78404,7 +78406,7 @@
 /area/medical/medbay)
 "dBu" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/jester,
+/obj/item/clothing/under/costume/jester,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -85527,7 +85529,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass{
 	name = "Experimentor";
-	req_access_txt = "47"
+	req_access_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -86269,7 +86271,9 @@
 	},
 /area/toxins/server)
 "dVj" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -90027,7 +90031,7 @@
 	pixel_y = -24
 	},
 /obj/item/clothing/suit/soldiercoat,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/costume/soldieruniform,
 /obj/item/clothing/head/stalhelm,
 /turf/simulated/floor/wood,
 /area/clownoffice)
@@ -95081,7 +95085,8 @@
 /area/hallway/secondary/exit)
 "rIy" = (
 /obj/machinery/door/airlock/research{
-	name = "Research Break Room"
+	name = "Research Break Room";
+	req_access_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

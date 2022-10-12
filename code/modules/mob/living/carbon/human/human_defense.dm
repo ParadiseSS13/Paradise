@@ -483,7 +483,7 @@ emp_act
 		if(prob(I.force * 2)) //blood spatter!
 			bloody = 1
 			var/turf/location = loc
-			if(istype(location, /turf/simulated))
+			if(issimulatedturf(location))
 				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -542,7 +542,7 @@ emp_act
 		return spec_return
 	var/obj/item/I
 	var/throwpower = 30
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		throwpower = I.throwforce
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
@@ -636,23 +636,20 @@ emp_act
 			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 
-		if(M.a_intent == INTENT_DISARM) //If not absorbed, always drop item in hand, if no item, get stun instead.
+		if(M.a_intent == INTENT_DISARM) //If not absorbed, you get disarmed, knocked down, and hit with stamina damage.
 			if(absorb_stun(0))
 				visible_message("<span class='warning'>[src] is not affected by [M]'s disarm attempt!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				return FALSE
 			var/obj/item/I = get_active_hand()
-			if(I && unEquip(I))
-				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
-				visible_message("<span class='danger'>[M] disarms [src]!</span>", "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
-				to_chat(M, "<span class='danger'>You disarm [src]!</span>")
-			else
-				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
-				adjustStaminaLoss(M.alien_disarm_damage)
-				add_attack_logs(M, src, "Alien tackled")
-				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+			if(I)
+				unEquip(I)
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
+			adjustStaminaLoss(M.alien_disarm_damage)
+			add_attack_logs(M, src, "Alien tackled")
+			visible_message("<span class='danger'>[M] has tackled down [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -727,7 +724,7 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && istype(shoes, /obj/item/clothing))
+	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
 		if (S.flags & NOSLIP)
 			return FALSE
