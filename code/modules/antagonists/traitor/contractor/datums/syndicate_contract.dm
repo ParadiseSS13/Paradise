@@ -500,42 +500,44 @@
   * * M - The target mob.
   */
 /datum/syndicate_contract/proc/injure_target(mob/living/M)
-	if(prob(RETURN_INJURY_CHANCE) && M.health >= 50)
-		var/obj/item/organ/external/injury_target
-		if(prob(20)) //remove a limb
-			if(prob(50))
-				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-				if(!injury_target)
-					default_damage(M)
-					return
-				injury_target.droplimb()
-				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god something's missing!</span>")
-		else //fracture
-			if(ismachineperson(M))
-				M.emp_act(EMP_HEAVY)
-				M.adjustBrainLoss(30)
-				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
+	if(!prob(RETURN_INJURY_CHANCE) && M.health >= 50)
+		return
 
-			else if(isslimeperson(M))
-				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-				if(!injury_target)
-					default_damage(M)
-					return
-				injury_target.cause_internal_bleeding()
+	var/obj/item/organ/external/injury_target
+	if(prob(20)) //remove a limb
+		if(prob(50))
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.droplimb()
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god something's missing!</span>")
+	else //fracture
+		if(ismachineperson(M))
+			M.emp_act(EMP_HEAVY)
+			M.adjustBrainLoss(30)
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
 
-				injury_target = M.get_organ(BODY_ZONE_CHEST)
-				injury_target.cause_internal_bleeding()
-				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
+		else if(isslimeperson(M))
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.cause_internal_bleeding()
 
-			if(prob(25))
-				injury_target = M.get_organ(BODY_ZONE_CHEST)
-				injury_target.fracture()
-			else
-				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
-				if(!injury_target)
-					default_damage(M)
-					return
-				injury_target.fracture()
+			injury_target = M.get_organ(BODY_ZONE_CHEST)
+			injury_target.cause_internal_bleeding()
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
+
+		if(prob(25))
+			injury_target = M.get_organ(BODY_ZONE_CHEST)
+			injury_target.fracture()
+		else
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.fracture()
 
 /**
   * Handles the target's return to station.
