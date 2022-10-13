@@ -9,7 +9,6 @@
 	health = 7
 	maxHealth = 7
 	attacktext = "bites"
-	obj_damage = 0
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	response_help  = "pets"
