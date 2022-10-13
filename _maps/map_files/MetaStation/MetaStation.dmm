@@ -3092,7 +3092,6 @@
 /area/maintenance/port)
 "arV" = (
 /obj/effect/turf_decal/bot,
-/mob/living/simple_animal/bot/secbot/armsky,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -3103,6 +3102,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/mob/living/simple_animal/bot/secbot/armsky,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3125,7 +3125,7 @@
 	dir = 1;
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor"="Burn Mix")
+	sensors = list("burn_sensor" = "Burn Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -4716,7 +4716,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -5563,7 +5563,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -8489,13 +8489,13 @@
 	codes_txt = "patrol;next_patrol=1-BrigCells";
 	location = "0-SecurityDesk"
 	},
-/mob/living/simple_animal/bot/secbot/beepsky,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/mob/living/simple_animal/bot/secbot/beepsky,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "aJn" = (
@@ -12965,16 +12965,16 @@
 	},
 /area/atmos/control)
 "aVk" = (
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #2";
-	suffix = "#2"
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
 	location = "QM #2"
+	},
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #2";
+	suffix = "#2"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -17077,7 +17077,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -18883,10 +18883,10 @@
 /area/engine/chiefs_office)
 "bjH" = (
 /obj/structure/filingcabinet/chestdrawer,
-/mob/living/simple_animal/parrot/Poly,
 /obj/machinery/keycard_auth{
 	pixel_y = -24
 	},
+/mob/living/simple_animal/parrot/Poly,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -20154,11 +20154,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/lizard{
 	name = "Wags-His-Tail";
 	real_name = "Wags-His-Tail"
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "bmD" = (
@@ -22571,7 +22571,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -25181,11 +25181,11 @@
 /area/hallway/primary/port)
 "bye" = (
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
 	},
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "byf" = (
@@ -26966,7 +26966,7 @@
 "bCm" = (
 /obj/machinery/vending/cigarette{
 	pixel_y = 2;
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate=7,/obj/item/storage/fancy/cigarettes/cigpack_uplift=3,/obj/item/storage/fancy/cigarettes/cigpack_robust=2,/obj/item/storage/fancy/cigarettes/cigpack_carp=3,/obj/item/storage/fancy/cigarettes/cigpack_midori=1,/obj/item/storage/box/matches=10,/obj/item/lighter/random=4)
+	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 3, /obj/item/storage/fancy/cigarettes/cigpack_robust = 2, /obj/item/storage/fancy/cigarettes/cigpack_carp = 3, /obj/item/storage/fancy/cigarettes/cigpack_midori = 1, /obj/item/storage/box/matches = 10, /obj/item/lighter/random = 4)
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
@@ -33295,11 +33295,11 @@
 	},
 /area/crew_quarters/kitchen)
 "bUk" = (
-/mob/living/simple_animal/hostile/retaliate/goat/chef,
 /obj/structure/sink/kitchen{
 	dir = 8;
 	pixel_x = 12
 	},
+/mob/living/simple_animal/hostile/retaliate/goat/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -37668,7 +37668,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -42423,7 +42423,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -42734,7 +42734,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -43029,7 +43029,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -44489,7 +44489,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -44927,7 +44927,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -47069,8 +47069,8 @@
 /turf/simulated/floor/grass/no_creep,
 /area/maintenance/asmaint)
 "cIP" = (
-/mob/living/simple_animal/slime,
 /obj/effect/landmark/spawner/rev,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cIR" = (
@@ -47256,7 +47256,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -49381,7 +49381,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -50293,7 +50293,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /obj/structure/disposalpipe/segment,
@@ -51832,7 +51832,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -54964,7 +54964,7 @@
 	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "waste_out";
-	sensors = list("waste_sensor"="Tank")
+	sensors = list("waste_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -55306,7 +55306,7 @@
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
-	sensors = list("co2_sensor"="Tank")
+	sensors = list("co2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -56341,7 +56341,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating/airless,
@@ -59140,7 +59140,6 @@
 	},
 /area/toxins/xenobiology)
 "gbM" = (
-/mob/living/simple_animal/hostile/retaliate/araneus,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -59154,6 +59153,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/mob/living/simple_animal/hostile/retaliate/araneus,
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "gbP" = (
@@ -60890,7 +60890,7 @@
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -60956,7 +60956,7 @@
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
-	sensors = list("tox_sensor"="Tank")
+	sensors = list("tox_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -62753,7 +62753,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -66422,8 +66422,8 @@
 /area/security/hos)
 "jJI" = (
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/pet/cat/Runtime,
 /obj/item/toy/cattoy,
+/mob/living/simple_animal/pet/cat/Runtime,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -66503,7 +66503,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/space,
@@ -70299,10 +70299,10 @@
 	},
 /area/aisat)
 "lCA" = (
-/mob/living/simple_animal/mouse/brown/Tom,
 /obj/structure/sink{
 	pixel_y = 22
 	},
+/mob/living/simple_animal/mouse/brown/Tom,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "lCQ" = (
@@ -71235,7 +71235,7 @@
 	dir = 4;
 	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -71615,7 +71615,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -71743,7 +71743,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -74005,7 +74005,6 @@
 	},
 /area/maintenance/aft2)
 "nkU" = (
-/mob/living/simple_animal/pet/dog/corgi/borgi,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -74015,6 +74014,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "nkV" = (
@@ -76054,7 +76054,7 @@
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
-	sensors = list("n2o_sensor"="Tank")
+	sensors = list("n2o_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/structure/window/reinforced{
@@ -76462,7 +76462,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -81267,7 +81267,7 @@
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
-	sensors = list("n2_sensor"="Tank")
+	sensors = list("n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -83031,7 +83031,7 @@
 /obj/effect/spawner/lootdrop{
 	color = null;
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -87360,7 +87360,7 @@
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
-	sensors = list("o2_sensor"="Tank")
+	sensors = list("o2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -92147,7 +92147,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor"="Tank")
+	sensors = list("air_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -94471,6 +94471,12 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"xVM" = (
+/mob/living/simple_animal/pet/raven/nevermore,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/chapel/main)
 "xVR" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/cleanable/dirt,
@@ -115806,7 +115812,7 @@ cRh
 cWp
 cVj
 cWN
-cUX
+xVM
 cHX
 dbL
 aaa
