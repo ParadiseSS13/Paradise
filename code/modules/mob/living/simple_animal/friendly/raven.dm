@@ -29,5 +29,6 @@
 	icon_dead = "raven_dead"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
+	
 /mob/living/simple_animal/pet/raven/npc_safe(mob/user)
     return TRUE
