@@ -112,7 +112,7 @@
 	if(!modifiers["catcher"] && A.IsObscured())
 		return
 
-	if(istype(loc,/obj/mecha))
+	if(ismecha(loc))
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc

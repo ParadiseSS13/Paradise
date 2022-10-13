@@ -8,7 +8,7 @@
 	var/cost = 0
 
 /datum/storeitem/proc/deliver(mob/user)
-	if(!istype(typepath,/obj/item/storage))
+	if(!isstorage(typepath))
 		var/obj/item/storage/box/box=new(user.loc)
 		new typepath(box)
 		box.name="[name] package"

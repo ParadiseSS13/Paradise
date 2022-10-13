@@ -272,7 +272,7 @@
 	var/list/all_items = M.GetAllContents()
 
 	for(var/obj/I in all_items)
-		if(istype(I, /obj/item/radio))
+		if(isradio(I))
 			var/obj/item/radio/R = I
 			R.listening = FALSE // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
 			R.emp_act(1)
