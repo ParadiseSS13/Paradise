@@ -574,10 +574,10 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.title]", "young"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
 
-
+//fuck
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
 	var/datum/money_account/account
-	if(job && job.head_position)
+	if(job?.department_account_access)
 		account = GLOB.station_money_database.create_account(H.real_name, COMMAND_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID,  TRUE)
 	else
 		account = GLOB.station_money_database.create_account(H.real_name, CREW_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID, TRUE)
@@ -590,9 +590,11 @@ SUBSYSTEM_DEF(jobs)
 	H.mind.initial_account = account
 
 	// If they're head, give them the account info for their department
-	if(job && job.head_position)
+	if(job?.department_account_access)
 		remembered_info = ""
-		var/datum/money_account/department_account = GLOB.station_money_database.department_accounts[job.department]
+		var/list/users_departments = get_departments_from_job(job.title)
+		//we use the first entry in the list because it prioritizes generic departments over command
+		var/datum/money_account/department_account = GLOB.station_money_database.department_accounts[users_departments[1]]
 
 		if(department_account)
 			remembered_info += "<b>As a head of staff you have access to your department's funds<br>"

@@ -47,14 +47,16 @@
 		return
 	. = account.try_withdraw_credits(amount, allow_overdraft)
 	if(. && !supress_log)
-		log_account_action(account, amount, purpose, transactor, log_on_database = FALSE)
+		var/database_log = amount >= DATABASE_LOG_THRESHHOLD ? TRUE : FALSE
+		log_account_action(account, amount, purpose, transactor, log_on_database = database_log)
 
 /datum/money_account_database/proc/credit_account(datum/money_account/account, amount, purpose, transactor, supress_log = FALSE)
 	if(!online)
 		return
 	. = account.deposit_credits(amount)
 	if(. && !supress_log)
-		log_account_action(account, amount, purpose, transactor, log_on_database = FALSE) //no if check here for now, since deposit credits currently will always return true
+		var/database_log = amount >= DATABASE_LOG_THRESHHOLD ? TRUE : FALSE
+		log_account_action(account, amount, purpose, transactor, log_on_database = database_log) //no if check here for now, since deposit credits currently will always return true
 
 /datum/money_account_database/proc/try_authenticate_login(datum/money_account/account, pin, restricted_bypass = FALSE, is_vendor = FALSE, is_admin = FALSE)
 	if(!online && !is_admin)
@@ -76,7 +78,6 @@
 	///list of money accounts for each department on station
 	var/list/department_accounts = list()
 
-
 /datum/money_account_database/main_station/create_account(account_name = "Unnamed", starting_funds = CREW_MEMBER_STARTING_BALANCE, _security_level = ACCOUNT_SECURITY_ID, supress_log = FALSE)
 	var/datum/money_account/new_account	= ..()
 	new_account.set_credits(starting_funds)
@@ -85,12 +86,15 @@
 /datum/money_account_database/main_station/proc/create_department_account(department)
 	if(department_accounts[department])
 		return
-	var/datum/money_account/department_account = new("[department] Account", DEPARTMENT_STARTING_BALANCE, ACCOUNT_SECURITY_RESTRICTED)
+	var/datum/money_account/department_account = new("[department] Account", DEPARTMENT_STARTING_BALANCE, ACCOUNT_SECURITY_RESTRICTED, ACCOUNT_TYPE_DEPARTMENT)
 	department_accounts[department] = department_account
 
 /datum/money_account_database/main_station/create_vendor_account()
 	var/datum/money_account/new_vendor_account = new("[station_name()] Vendor Account", DEPARTMENT_STARTING_BALANCE, ACCOUNT_SECURITY_RESTRICTED)
 	vendor_account = new_vendor_account
+
+/datum/money_account_database/main_station/proc/get_account_by_department(department)
+	return department_accounts[department]
 
 /*
   * # NAS Trurl Money Account Database

@@ -23,12 +23,15 @@
 	var/security_level
 	///Bool - Is this account locked out from being used completely?
 	var/suspended = FALSE
+	///Type of account this is
+	var/account_type = ACCOUNT_TYPE_PERSONAL
 
-/datum/money_account/New(_account_name, starting_balance = 0, _security_level = ACCOUNT_SECURITY_ID)
+/datum/money_account/New(_account_name, starting_balance = 0, _security_level = ACCOUNT_SECURITY_ID, _account_type = ACCOUNT_TYPE_PERSONAL)
 	account_name = _account_name
 	credit_balance = starting_balance
 	security_level = _security_level
 	account_number = SSeconomy.generate_account_number()
+	account_type = _account_type
 	account_pin = rand(10000, 99999)
 	..()
 

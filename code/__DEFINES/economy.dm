@@ -18,6 +18,11 @@
 #define DEPARTMENT_STARTING_BALANCE     5000
 #define STATION_STARTING_BALANCE        75000
 
+#define ACCOUNT_TYPE_PERSONAL		"Personal"
+#define ACCOUNT_TYPE_DEPARTMENT		"Department"
+
+///Transactions on money accounts will automatically be logged if they involve over 2500 space credits
+#define DATABASE_LOG_THRESHHOLD 2500
 /////CASH LIMITS/CAPS/////
 ///The total amount of space cash that can be stacked
 #define MAX_STACKABLE_CASH    10000
@@ -31,3 +36,21 @@
 #define MERCH_CAT_APPAREL     "apparel"
 #define MERCH_CAT_TOY         "toy"
 #define MERCH_CAT_DECORATION  "decoration"
+
+///supply packs
+
+#define SUPPLY_EMERGENCY 1
+#define SUPPLY_SECURITY 2
+#define SUPPLY_ENGINEER 3
+#define SUPPLY_MEDICAL 4
+#define SUPPLY_SCIENCE 5
+#define SUPPLY_ORGANIC 6
+#define SUPPLY_MATERIALS 7
+#define SUPPLY_MISC 8
+#define SUPPLY_VEND 9
+
+#define MANIFEST_ERROR_NAME		1
+#define MANIFEST_ERROR_COUNT	2
+#define MANIFEST_ERROR_ITEM		4
+
+

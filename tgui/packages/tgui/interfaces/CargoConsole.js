@@ -23,6 +23,7 @@ export const CargoConsole = (props, context) => {
       <Window.Content>
         <ContentsModal />
         <StatusPane />
+        <PaymentPane />
         <CataloguePane />
         <DetailsPane />
       </Window.Content>
@@ -77,7 +78,7 @@ const ContentsModal = (_properties, context) => {
 
 const StatusPane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { is_public, points, timeleft, moving, at_station } = data;
+  const { is_public, timeleft, moving, at_station } = data;
 
   // Shuttle status text
   let statusText;
@@ -101,7 +102,6 @@ const StatusPane = (_properties, context) => {
   return (
     <Section title="Status">
       <LabeledList>
-        <LabeledList.Item label="Points Available">{points}</LabeledList.Item>
         <LabeledList.Item label="Shuttle Status">{statusText}</LabeledList.Item>
         {is_public === 0 && (
           <LabeledList.Item label="Controls">
@@ -121,9 +121,38 @@ const StatusPane = (_properties, context) => {
   );
 };
 
+const PaymentPane = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const { accounts } = data;
+  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
+
+  let accountMap = []
+  accounts.map(account => (
+    accountMap[account.name] = account.account_UID
+  ))
+
+  return (
+    <Section title="Payment">
+      <Dropdown
+        mt={0.6}
+        width="190px"
+        options={accounts.map((account) => account.name)}
+        selected={accounts.filter(account => account.account_UID === selectedAccount)[0]?.name}
+        onSelected={(val) => setSelectedAccount(accountMap[val])} />
+      {accounts.filter(account => account.account_UID === selectedAccount)
+        .map(account => (
+          <LabeledList key={account.account_UID}>
+            <LabeledList.Item label="Account Name">{account.name}</LabeledList.Item>
+            <LabeledList.Item label="Balance">{account.balance}</LabeledList.Item>
+          </LabeledList>
+      ))}
+    </Section>
+  );
+};
+
 const CataloguePane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { categories, supply_packs } = data;
+  const { categories, supply_packs, user_departments } = data;
 
   const [category, setCategory] = useSharedState(
     context,
@@ -150,7 +179,7 @@ const CataloguePane = (_properties, context) => {
   );
 
   const packSearch = createSearch(searchText, (crate) => crate.name);
-
+  const [selectedAccount, setSelectedAccount] = useLocalState(context, 'selectedAccount');
   const cratesToShow = flow([
     filter(
       (pack) =>
@@ -191,7 +220,7 @@ const CataloguePane = (_properties, context) => {
           {cratesToShow.map((c) => (
             <Table.Row key={c.name}>
               <Table.Cell bold>
-                {c.name} ({c.cost} Points)
+                {c.name} ({c.cost} Credits)
               </Table.Cell>
               <Table.Cell textAlign="right" pr={1}>
                 <Button
@@ -201,6 +230,8 @@ const CataloguePane = (_properties, context) => {
                     act('order', {
                       crate: c.ref,
                       multiple: 0,
+                      account: selectedAccount,
+                      department: user_departments,
                     })
                   }
                 />
@@ -211,6 +242,8 @@ const CataloguePane = (_properties, context) => {
                     act('order', {
                       crate: c.ref,
                       multiple: 1,
+                      account: selectedAccount,
+                      department: user_departments,
                     })
                   }
                 />
@@ -233,7 +266,7 @@ const CataloguePane = (_properties, context) => {
 
 const DetailsPane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { requests, canapprove, orders } = data;
+  const { requests, canapprove, orders, user_departments } = data;
   return (
     <Section title="Details">
       <Box maxHeight={15} overflowY="auto" overflowX="hidden">
@@ -255,6 +288,7 @@ const DetailsPane = (_properties, context) => {
                   onClick={() =>
                     act('approve', {
                       ordernum: r.ordernum,
+                      department: user_departments,
                     })
                   }
                 />

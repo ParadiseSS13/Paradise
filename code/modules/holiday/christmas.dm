@@ -11,7 +11,7 @@
 		break
 	//The following spawn is necessary as both the timer and the shuttle systems initialise after the events system does, so we can't add stuff to the shuttle system as it doesn't exist yet and we can't use a timer
 	spawn(60 SECONDS)
-		var/datum/supply_packs/misc/snow_machine/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
+		var/datum/supply_packs/misc/snow_machine/xmas = SSeconomy.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
 		xmas.special = FALSE
 
 /datum/holiday/xmas/handle_event()

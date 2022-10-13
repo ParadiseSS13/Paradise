@@ -1,0 +1,123 @@
+/datum/supply_order
+	///The orders ID number
+	var/ordernum
+	///The supply pack this order is for
+	var/datum/supply_packs/object
+	///The person who ordered the supply order
+	var/orderedby
+	///The occupation/assignment of the person who ordered the supply order
+	var/orderedbyRank
+	///Reason/purpose for order given by orderer
+	var/comment
+	///amount of crates purchased
+	var/crates
+
+/datum/supply_order/proc/generateRequisition(atom/_loc)
+	if(!object)
+		return
+
+	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
+	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
+	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
+	reqform.info += "INDEX: #[SSeconomy.ordernum]<br>"
+	reqform.info += "REQUESTED BY: [orderedby]<br>"
+	reqform.info += "RANK: [orderedbyRank]<br>"
+	reqform.info += "REASON: [comment]<br>"
+	reqform.info += "SUPPLY CRATE TYPE: [object.name]<br>"
+	reqform.info += "NUMBER OF CRATES: [crates]<br>"
+	reqform.info += "ACCESS RESTRICTION: [object.access ? get_access_desc(object.access) : "None"]<br>"
+	reqform.info += "CONTENTS:<br>"
+	reqform.info += object.manifest
+	reqform.info += "<hr>"
+	reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
+
+	reqform.update_icon(UPDATE_ICON_STATE)	//Fix for appearing blank when printed.
+
+	return reqform
+
+/datum/supply_order/proc/createObject(atom/_loc, errors = 0)
+	if(!object)
+		return
+
+	//create the crate
+	var/atom/Crate = new object.containertype(_loc)
+	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
+	if(object.access)
+		Crate:req_access = list(text2num(object.access))
+
+	//create the manifest slip
+	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
+	slip.points = object.cost
+	slip.ordernumber = ordernum
+
+	var/stationName = station_name()
+	var/packagesAmt = length(SSeconomy.shoppinglist)
+
+	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
+	slip.info = "<h3>NAS Trurl Shipping Manifest</h3><hr><br>"
+	slip.info +="Order: #[ordernum]<br>"
+	slip.info +="Destination: [stationName]<br>"
+	slip.info +="Requested By: [orderedby]<br>"
+	slip.info +="Rank: [orderedbyRank]<br>"
+	slip.info +="Reason: [comment]<br>"
+	slip.info +="Supply Crate Type: [object.name]<br>"
+	slip.info +="Access Restriction: [object.access ? get_access_desc(object.access) : "None"]<br>"
+	slip.info +="[packagesAmt] PACKAGES IN THIS SHIPMENT<br>"
+	slip.info +="CONTENTS:<br><ul>"
+
+	//we now create the actual contents
+	var/list/contains = list()
+	if(istype(object, /datum/supply_packs/misc/randomised))
+		var/datum/supply_packs/misc/randomised/SO = object
+		contains = list()
+		if(length(object.contains))
+			for(var/j in 1 to SO.num_contained)
+				contains += pick(object.contains)
+	else
+		contains = object.contains
+
+	for(var/typepath in contains)
+		if(!typepath)
+			continue
+		var/atom/A = new typepath(Crate)
+		if(object.amount && A.vars.Find("amount") && A:amount)
+			A:amount = object.amount
+		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
+
+	if(istype(Crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
+		var/obj/structure/closet/critter/CritCrate = Crate
+		if(CritCrate.content_mob)
+			var/mob/crittername = CritCrate.content_mob
+			slip.info += "<li>[initial(crittername.name)]</li>"
+
+	if((errors & MANIFEST_ERROR_ITEM))
+		//secure and large crates cannot lose items
+		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
+			errors &= ~MANIFEST_ERROR_ITEM
+		else
+			var/lostAmt = max(round(Crate.contents.len/10), 1)
+			//lose some of the items
+			while(--lostAmt >= 0)
+				qdel(pick(Crate.contents))
+
+	//manifest finalisation
+	slip.info += "</ul><br>"
+	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
+	slip.loc = Crate
+	if(istype(Crate, /obj/structure/closet/crate))
+		var/obj/structure/closet/crate/CR = Crate
+		CR.manifest = slip
+		CR.update_icon()
+		CR.announce_beacons = object.announce_beacons.Copy()
+	if(istype(Crate, /obj/structure/largecrate))
+		var/obj/structure/largecrate/LC = Crate
+		LC.manifest = slip
+		LC.update_icon()
+
+	return Crate
+
+/obj/item/paper/manifest
+	name = "supply manifest"
+	var/points = 0
+	var/ordernumber = 0
