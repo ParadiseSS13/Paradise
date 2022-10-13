@@ -1545,7 +1545,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"
-	desc = "This device will disrupt any nearby outgoing radio communication when activated."
+	desc = "When turned on this device will scramble any outgoing radio communications near you, making them hard to understand."
 	reference = "RJ"
 	item = /obj/item/jammer
 	cost = 4
