@@ -20,5 +20,4 @@
 	can_hide = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	can_collar = TRUE
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
