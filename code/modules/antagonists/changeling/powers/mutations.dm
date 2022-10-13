@@ -275,7 +275,7 @@
 	if(blocked >= 100)
 		return 0
 	var/mob/living/carbon/human/H = firer
-	if(istype(target, /obj/item))
+	if(isitem(target))
 		var/obj/item/I = target
 		if(!I.anchored)
 			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
@@ -472,7 +472,7 @@
 
 	var/obj/item/I = hitby
 
-	if(!istype(I.loc, /mob/living))
+	if(!isliving(I.loc))
 		// Maybe it's on the ground? Maybe it's being used telekinetically? IDK
 		return
 

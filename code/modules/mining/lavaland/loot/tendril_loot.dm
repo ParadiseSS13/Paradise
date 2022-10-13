@@ -62,7 +62,7 @@
 		if(!over_object)
 			return
 
-		if(istype(M.loc, /obj/mecha))
+		if(ismecha(M.loc))
 			return
 
 		if(!M.restrained() && !M.stat)

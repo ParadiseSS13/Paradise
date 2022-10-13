@@ -22,7 +22,7 @@
 /area/ruin/space/powered)
 "g" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/shorts/black,
+/obj/item/clothing/under/pants/shorts/black,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "h" = (

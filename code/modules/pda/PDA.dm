@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	else if(istype(C, /obj/item/pen))
+	else if(is_pen(C))
 		var/obj/item/pen/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
@@ -308,7 +308,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			cartridge.attackby(C, user, params)
 
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
-	if(istype(C, /mob/living/carbon) && scanmode)
+	if(iscarbon(C) && scanmode)
 		scanmode.scan_mob(C, user)
 
 /obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)

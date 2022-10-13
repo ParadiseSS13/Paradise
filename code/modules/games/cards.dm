@@ -331,7 +331,7 @@
 	resistance_flags = D.card_resistance_flags
 
 /obj/item/cardhand/attackby(obj/O, mob/user)
-	if(length(cards) == 1 && istype(O, /obj/item/pen))
+	if(length(cards) == 1 && is_pen(O))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
 			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")

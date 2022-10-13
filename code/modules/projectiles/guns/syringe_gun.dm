@@ -177,7 +177,7 @@
 
 /obj/item/gun/syringe/rapidsyringe/attackby(obj/item/A, mob/user, params, show_msg)
 
-	if(istype(A, /obj/item/storage))
+	if(isstorage(A))
 		// Boxes can be dumped in.
 		var/obj/item/storage/container = A
 		if(!length(container.contents))

@@ -96,7 +96,7 @@
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
@@ -655,7 +655,7 @@
 
 	// called when player tries to move while in a pipe
 /obj/structure/disposalholder/relaymove(mob/user)
-	if(!istype(user, /mob/living))
+	if(!isliving(user))
 		return
 
 	var/mob/living/U = user
@@ -766,7 +766,7 @@
 	if(T.transparent_floor)
 		update_icon(UPDATE_ICON_STATE)
 		return
-	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
+	hide(T.intact && !isspaceturf(T))	// space never hides pipes
 	update_icon(UPDATE_ICON_STATE)
 
 // hide called by levelupdate if turf intact status changes
@@ -808,7 +808,7 @@
 			new turf_typecache(T)
 
 	if(direction)		// direction is specified
-		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
+		if(isspaceturf(T)) // if ended in space, then range is unlimited
 			target = get_edge_target_turf(T, direction)
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)

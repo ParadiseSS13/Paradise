@@ -127,7 +127,7 @@
 	var/turf/pull = get_turf(M)
 	var/range_power = clamp(round(volume/5, 1), 1, 5)
 	for(var/atom/movable/X in range(range_power,pull))
-		if(istype(X, /obj/effect))
+		if(iseffect(X))
 			continue
 		if(X.move_resist <= MOVE_FORCE_DEFAULT && !X.anchored)
 			var/distance = get_dist(X, pull)

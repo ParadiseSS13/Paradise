@@ -52,7 +52,7 @@
 
 //must succeed in most cases
 /datum/teleport/proc/setTeleatom(atom/movable/ateleatom)
-	if(istype(ateleatom, /obj/effect) && !istype(ateleatom, /obj/effect/dummy/chameleon))
+	if(iseffect(ateleatom) && !istype(ateleatom, /obj/effect/dummy/chameleon))
 		qdel(ateleatom)
 		return 0
 	if(istype(ateleatom))
@@ -107,7 +107,7 @@
 			center = destination
 		if(safe_turf_first)
 			for(var/turf/T in range(precision, center))
-				if(istype(T, /turf/space))
+				if(isspaceturf(T))
 					continue
 				if(T.density)
 					continue
@@ -191,7 +191,7 @@
 			else
 				precision = max(rand(1, 100) * length(bagholding), 100)
 			
-			if(istype(teleatom, /mob/living))
+			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
 	return 1
