@@ -285,7 +285,6 @@
 	armour_penetration_flat = 10
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
@@ -299,6 +298,7 @@
 	..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
+	AddComponent(/datum/component/parry, _perfect_parry_window = 0.3 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.25, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(wielded)
@@ -838,7 +838,6 @@
 	force_wielded = 22
 	damtype = BURN
 	armour_penetration_percentage = 50
-	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -850,6 +849,7 @@
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/required/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)

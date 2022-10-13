@@ -36,7 +36,6 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	block_chance = 50
 	armour_penetration_percentage = 75
 	sharp = TRUE
 	origin_tech = "combat=5"
@@ -45,10 +44,9 @@
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 
-/obj/item/melee/rapier/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
+/obj/item/melee/rapier/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES - PROJECTILE_ATTACK)
 
 /obj/item/melee/icepick
 	name = "ice pick"
@@ -115,12 +113,16 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	armour_penetration_flat = 50
-	block_chance = 50
 	sharp = TRUE
 	///enchantment holder, gives it unique on hit effects.
 	var/datum/enchantment/enchant = null
 	///the cooldown and power of enchantments are multiplied by this var when its applied
 	var/power = 1
+
+/obj/item/melee/spellblade/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+
 
 /obj/item/melee/spellblade/Destroy()
 	QDEL_NULL(enchant)

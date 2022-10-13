@@ -34,7 +34,10 @@
 	parry_time_out_time = _parry_time_out_time
 	stamina_constant = _stamina_constant
 	stamina_coefficient = _stamina_coefficient
-	parryable_attack_types = _parryable_attack_types
+	if(islist(_parryable_attack_types))
+		parryable_attack_types = _parryable_attack_types
+	else
+		parryable_attack_types = list(_parryable_attack_types)
 
 /datum/component/parry/proc/equipped(datum/source, mob/user)
 	RegisterSignal(user, COMSIG_LIVING_RESIST, .proc/start_parry)
@@ -51,7 +54,15 @@
 	var/time_since_parry = world.time - time_parried
 	if(time_since_parry > parry_time_out_time)
 		return
-	var/stamina_damage = (time_since_parry / 10) * damage * stamina_coefficient + stamina_constant
+	var/stamina_damage = (time_since_parry / parry_time_out_time) * damage * stamina_coefficient + stamina_constant
+
+	var/sound_to_play
+	if(attack_type == PROJECTILE_ATTACK)
+		sound_to_play = pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg')
+	else
+		sound_to_play = 'sound/weapons/parry.ogg'
+
+	playsound(owner, sound_to_play, clamp(stamina_damage, 40, 120))
 
 	if(time_since_parry <= perfect_parry_window) // a perfect parry
 		if(isliving(hitby))

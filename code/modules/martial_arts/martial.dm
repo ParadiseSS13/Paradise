@@ -323,7 +323,10 @@
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon_state = "bostaff0"
-	block_chance = 50
+
+/obj/item/twohanded/bostaff/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[wielded]"

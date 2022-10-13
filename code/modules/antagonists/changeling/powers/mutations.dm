@@ -360,12 +360,12 @@
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
-	block_chance = 50
 
 	var/remaining_uses //Set by the changeling ability.
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 

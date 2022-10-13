@@ -505,7 +505,7 @@
 
 		// Hit by a melee weapon or blocked a projectile
 		. = ..()
-		if(.) // 50|50 chance
+		if(.) // they did parry the attack
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
@@ -568,13 +568,16 @@
 	throwforce = 40
 	throw_speed = 2
 	armour_penetration_percentage = 50
-	block_chance = 30
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
+
+/obj/item/twohanded/cult_spear/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.4, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/cult_spear/Destroy()
 	if(spear_act)
@@ -611,9 +614,8 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
+/* I WANT TO ADD THESE SOUNDS TO THE PARRY COMPONENT
 /obj/item/twohanded/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
-		final_block_chance *= 2
 	if(prob(final_block_chance))
 		if(attack_type == PROJECTILE_ATTACK)
 			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
@@ -624,6 +626,7 @@
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 			return TRUE
 	return FALSE
+	*/
 
 /obj/item/twohanded/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
