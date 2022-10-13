@@ -484,7 +484,15 @@
 
 		to_chat(M, "<span class='danger'><font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font></span>")
 
-
+/**
+  * Default damage if no injury is possible.
+  *
+  * Arguments:
+  * * M - The target mob.
+  */
+/datum/syndicate_contract/proc/default_damage(mob/living/M)
+	M.adjustBruteLoss(40)
+	M.adjustBrainLoss(25)
 /**
   * Handles the target's injury/interrogation at the Syndicate Jail.
   *
@@ -494,12 +502,11 @@
 /datum/syndicate_contract/proc/injure_target(mob/living/M)
 	if(prob(RETURN_INJURY_CHANCE) && M.health >= 50)
 		var/obj/item/organ/external/injury_target
-		var/do_damage = FALSE
 		if(prob(20)) //remove a limb
 			if(prob(50))
 				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 				if(!injury_target)
-					do_damage = TRUE
+					default_damage(M)
 					return
 				injury_target.droplimb()
 				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god something's missing!</span>")
@@ -512,7 +519,7 @@
 			else if(isslimeperson(M))
 				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 				if(!injury_target)
-					do_damage = TRUE
+					default_damage(M)
 					return
 				injury_target.cause_internal_bleeding()
 
@@ -520,18 +527,15 @@
 				injury_target.cause_internal_bleeding()
 				to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
 
-			else if(prob(10))
+			if(prob(25))
 				injury_target = M.get_organ(BODY_ZONE_CHEST)
 				injury_target.fracture()
 			else
 				injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
 				if(!injury_target)
-					do_damage = TRUE
+					default_damage(M)
 					return
 				injury_target.fracture()
-		if(do_damage)//if no limb is found, damage them..
-			M.adjustBruteLoss(40)
-			M.adjustBrainLoss(25)
 
 /**
   * Handles the target's return to station.
