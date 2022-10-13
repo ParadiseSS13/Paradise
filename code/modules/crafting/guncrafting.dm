@@ -77,7 +77,7 @@
 
 /obj/item/weaponcrafting/gunkit/u_ionsilencer
 	name = "\improper u-ion silencer parts kit"
-	desc = "A suitcase containing the necessary gun parts to transform a standard disaler into a silenced and lethal disabling weapon. Look officer, he has no wounds from me!"
+	desc = "A suitcase containing the necessary gun parts to transform a standard disabler into a silenced and lethal disabling weapon. Look officer, he has no wounds from me!"
 	origin_tech = "combat=6;magnets=6;syndicate=2"
 
 // CRAFTING //
