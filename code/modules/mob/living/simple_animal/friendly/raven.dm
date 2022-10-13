@@ -18,7 +18,6 @@
 	ventcrawler = 2
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
-	mob_size = MOB_SIZE_SMALL
 	can_hide = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	can_collar = TRUE
