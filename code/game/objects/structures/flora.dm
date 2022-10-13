@@ -383,15 +383,16 @@
 	name = "jungle grass"
 	desc = "Thick alien flora."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "grassa"
-
+	icon_state = "grass1"
+	base_icon_state = "grass"
+	/// Controls how many variants of the sprite exists
+	var/variations = 10
 
 /obj/structure/flora/grass/jungle/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 5)]"
+	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/grass/jungle/b
-	icon_state = "grassb"
+/obj/structure/flora/grass/jungle/b //s34n todo: delete these and mapedit
 
 //Jungle rocks
 
@@ -405,33 +406,31 @@
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,5)]"
 
-
 //Jungle bushes
 
 /obj/structure/flora/junglebush
 	name = "bush"
 	desc = "A wild plant that is found in jungles."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "busha"
-	base_icon_state = "busha"
-
-/obj/structure/flora/junglebush/Initialize(mapload)
-	icon_state = "[base_icon_state][rand(1, 3)]"
-	. = ..()
-
-/obj/structure/flora/junglebush/b
-	base_icon_state = "bushb"
-
-/obj/structure/flora/junglebush/c
-	base_icon_state = "bushc"
-
-/obj/structure/flora/junglebush/large
 	icon_state = "bush1"
 	base_icon_state = "bush"
+	anchored = TRUE
+	/// Controls how many variants of the sprite exists
+	var/variations = 9
+
+/obj/structure/flora/junglebush/Initialize(mapload)
+	icon_state = "[base_icon_state][rand(1, variations)]"
+	. = ..()
+
+/obj/structure/flora/junglebush/b //s34n todo: delete these and mapedit
+/obj/structure/flora/junglebush/c //s34n todo: delete these and mapedit
+
+/obj/structure/flora/junglebush/large
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -12
 	layer = ABOVE_ALL_MOB_LAYER
+	variations = 3
 
 /obj/structure/flora/junglebush/large/Initialize(mapload)
 	. = ..()

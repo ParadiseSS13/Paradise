@@ -81431,6 +81431,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
