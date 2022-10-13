@@ -21,6 +21,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
+	
 /mob/living/simple_animal/pet/raven/nevermore
 	name = "Nevermore"
 	desc = "The coroner's pet. Reminds us that peace and quiet is coming for us all."
