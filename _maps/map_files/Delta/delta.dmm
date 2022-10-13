@@ -1822,11 +1822,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore2)
 "anH" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -11241,12 +11237,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aJu" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -16383,12 +16374,7 @@
 	},
 /area/quartermaster/office)
 "aVc" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall,
 /area/quartermaster/qm)
 "aVf" = (
@@ -17427,11 +17413,7 @@
 	id = "Execution";
 	pixel_y = 22
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -20121,12 +20103,7 @@
 	},
 /area/quartermaster/miningdock)
 "bcG" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall,
 /area/quartermaster/miningdock)
 "bcH" = (
@@ -88029,11 +88006,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{

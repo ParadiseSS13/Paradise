@@ -1631,12 +1631,7 @@
 	},
 /area/centcom/control)
 "gj" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
 "gk" = (
@@ -2465,12 +2460,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "iT" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
 "iU" = (
@@ -9545,12 +9535,7 @@
 	},
 /area/holodeck/source_emptycourt)
 "Lm" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
 "Ls" = (
@@ -10228,12 +10213,7 @@
 	},
 /area/centcom/specops)
 "Og" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "Oi" = (

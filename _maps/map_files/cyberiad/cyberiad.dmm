@@ -6884,11 +6884,7 @@
 /area/security/permabrig)
 "atT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
@@ -11105,11 +11101,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/auxsolarport)
 "aDx" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -12544,11 +12536,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/machinery/power/solar_control{
@@ -14840,11 +14828,7 @@
 /turf/simulated/wall,
 /area/maintenance/fpmaint)
 "aMB" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -15079,11 +15063,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aNg" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -15241,11 +15221,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aNC" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -16770,11 +16746,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aRe" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -25976,11 +25948,7 @@
 /turf/simulated/floor/carpet,
 /area/chapel/main)
 "blB" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/north,
@@ -37466,12 +37434,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bOb" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
@@ -38195,12 +38158,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bPT" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -52470,11 +52428,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cBg" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -58964,11 +58918,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cSR" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -62066,11 +62016,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "dcl" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
@@ -63157,11 +63103,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -63308,11 +63250,7 @@
 	},
 /area/engine/engineering)
 "dfp" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -71611,11 +71549,7 @@
 /turf/space,
 /area/space/nearstation)
 "ghR" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /obj/machinery/light/small{
@@ -74691,11 +74625,7 @@
 /area/engine/supermatter)
 "ioU" = (
 /obj/machinery/disposal,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -30
 	},
 /obj/structure/disposalpipe/trunk,
@@ -82955,11 +82885,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
