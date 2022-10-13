@@ -96,7 +96,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "az" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/right{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig{
@@ -109,7 +109,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aB" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/right{
 	dir = 4
 	},
 /obj/structure/flora/grass/jungle,
@@ -149,7 +149,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/chair/wood,
+/obj/structure/chair/sofa/bamboo,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -166,7 +166,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aN" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/left{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig{
@@ -174,7 +174,7 @@
 	},
 /area/shuttle/escape)
 "aO" = (
-/obj/structure/chair/wood,
+/obj/structure/chair/sofa/bamboo/right,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -186,7 +186,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/wood,
+/obj/structure/chair/stool/bamboo,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aS" = (
@@ -203,7 +203,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aU" = (
-/obj/structure/chair/wood,
+/obj/structure/chair/sofa/bamboo/right,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aV" = (
@@ -223,7 +223,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/left{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig{
@@ -231,9 +231,7 @@
 	},
 /area/shuttle/escape)
 "aX" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
+/obj/structure/chair/stool/bamboo,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},
@@ -318,7 +316,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bz" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/left{
 	dir = 1
 	},
 /obj/structure/flora/junglebush,
@@ -329,14 +327,14 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo{
 	dir = 1
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bB" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/left{
 	dir = 1
 	},
 /turf/simulated/floor/grass,
@@ -423,7 +421,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bQ" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/left{
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -514,7 +512,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "ck" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/left{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -541,7 +539,7 @@
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cr" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo{
 	dir = 4
 	},
 /turf/simulated/floor/grass,
@@ -597,7 +595,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/right{
 	dir = 4
 	},
 /turf/simulated/floor/grass,
@@ -658,15 +656,19 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
+"eP" = (
+/obj/structure/chair/sofa/bamboo,
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
 "fl" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/right{
 	dir = 8
 	},
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "fM" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo/right{
 	dir = 8
 	},
 /obj/structure/flora/rock/jungle,
@@ -680,6 +682,24 @@
 "ia" = (
 /obj/structure/flora/grass/jungle,
 /mob/living/carbon/human/monkey,
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
+"mC" = (
+/obj/structure/chair/sofa/bamboo{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
+"mM" = (
+/obj/structure/chair/sofa/bamboo/right{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
+"mP" = (
+/obj/structure/chair/sofa/bamboo/left{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "oA" = (
@@ -698,6 +718,16 @@
 /mob/living/simple_animal/hostile/retaliate/goat,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
+"qH" = (
+/obj/structure/chair/sofa/bamboo/left,
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
+"sL" = (
+/obj/structure/chair/sofa/bamboo/right{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
 "tc" = (
 /obj/structure/bonfire/lit/dense,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
@@ -710,9 +740,7 @@
 /area/shuttle/escape)
 "vz" = (
 /obj/structure/flora/junglebush,
-/obj/structure/chair/wood{
-	dir = 1
-	},
+/obj/structure/chair/stool/bamboo,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "xd" = (
@@ -753,7 +781,7 @@
 /area/shuttle/escape)
 "IK" = (
 /obj/structure/flora/grass/jungle,
-/obj/structure/chair/wood,
+/obj/structure/chair/stool/bamboo,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Ku" = (
@@ -767,8 +795,14 @@
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
+"Ly" = (
+/obj/structure/chair/sofa/bamboo/right{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
 "LH" = (
-/obj/structure/chair/wood{
+/obj/structure/chair/sofa/bamboo{
 	dir = 8
 	},
 /mob/living/simple_animal/bunny,
@@ -789,6 +823,18 @@
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
+"Ok" = (
+/obj/structure/chair/sofa/bamboo/left,
+/turf/simulated/floor/mineral/plastitanium/red/brig{
+	icon_state = "wood"
+	},
+/area/shuttle/escape)
+"OB" = (
+/obj/structure/chair/sofa/bamboo{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/shuttle/escape)
 "Rr" = (
 /obj/structure/flora/junglebush,
 /obj/machinery/light/small{
@@ -805,6 +851,14 @@
 /obj/structure/flora/grass/jungle,
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/simulated/floor/grass,
+/area/shuttle/escape)
+"TY" = (
+/obj/structure/chair/sofa/bamboo/right{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig{
+	icon_state = "wood"
+	},
 /area/shuttle/escape)
 "YY" = (
 /obj/structure/flora/junglebush/large,
@@ -857,15 +911,15 @@ aH
 ab
 bM
 bJ
+mP
 cr
-cr
-cr
+sL
 cy
 cy
 cj
 cu
 bM
-cr
+mP
 cr
 cr
 cA
@@ -919,16 +973,16 @@ aN
 oA
 bX
 bM
-bQ
-bQ
-bQ
-bQ
+mM
+OB
+OB
+OB
 bQ
 bM
 fM
-bQ
-bQ
-bQ
+OB
+OB
+OB
 bQ
 bM
 bB
@@ -943,10 +997,10 @@ ac
 ab
 ab
 ab
-aO
+Ok
 aH
 aH
-aN
+TY
 oA
 bN
 cv
@@ -962,7 +1016,7 @@ Av
 cv
 bX
 cu
-bB
+Ly
 ab
 ab
 ab
@@ -983,15 +1037,15 @@ cy
 IH
 bM
 cv
+mP
 cr
-cr
-cr
+sL
 cy
+mP
 cr
 cr
 cr
-cr
-cr
+sL
 bM
 xd
 ab
@@ -1002,7 +1056,7 @@ bw
 ac
 af
 bO
-bQ
+mM
 bQ
 ab
 ab
@@ -1045,14 +1099,14 @@ bM
 cu
 bM
 cv
-bQ
+mM
 LH
 bQ
 bM
 fl
-bQ
-bQ
-bQ
+OB
+OB
+OB
 bQ
 NA
 aL
@@ -1063,7 +1117,7 @@ ab
 (9,1,1) = {"
 ac
 ah
-bB
+mC
 SO
 cu
 aF
@@ -1094,7 +1148,7 @@ bw
 (10,1,1) = {"
 ac
 ai
-bB
+mC
 IH
 cv
 aF
@@ -1111,13 +1165,13 @@ cu
 aL
 cu
 bM
+mP
 cr
 cr
 cr
-cr
-cr
+sL
 bM
-bB
+mC
 ac
 bu
 bw
@@ -1125,7 +1179,7 @@ bw
 (11,1,1) = {"
 ac
 aj
-bB
+Ly
 at
 aT
 aD
@@ -1148,7 +1202,7 @@ cu
 bN
 bM
 cy
-bB
+Ly
 ab
 ab
 ab
@@ -1157,7 +1211,7 @@ ab
 ac
 ak
 cu
-cr
+mP
 aB
 ab
 ab
@@ -1169,9 +1223,9 @@ aV
 bK
 cu
 cv
-bQ
-bQ
-bQ
+mM
+OB
+OB
 ck
 aZ
 ab
@@ -1253,7 +1307,7 @@ aa
 aa
 ab
 ab
-aU
+eP
 HY
 bM
 bA
@@ -1284,10 +1338,10 @@ aa
 aa
 aa
 ac
-aU
+qH
 bM
 Sy
-bB
+Ly
 ab
 bH
 bN
