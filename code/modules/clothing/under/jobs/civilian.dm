@@ -171,6 +171,13 @@
 	item_state = "lawyer_purp"
 	item_color = "lawyer_purp"
 
+/obj/item/clothing/under/rank/civilian/lawyer/bluesuit
+	name = "blue suit"
+	desc = "A classy suit and tie"
+	icon_state = "bluesuit"
+	item_state = "bluesuit"
+	item_color = "bluesuit"
+
 /obj/item/clothing/under/rank/civilian/lawyer/oldman
 	name = "Old Man's Suit"
 	desc = "A classic suit for the older gentleman with built in back support."

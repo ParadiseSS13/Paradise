@@ -2181,7 +2181,7 @@
 /area/ruin/unpowered/BMPship/Aft)
 "gT" = (
 /obj/structure/closet,
-/obj/item/clothing/under/rank/civilian/lawyer/blue,
+/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
 /obj/item/clothing/suit/apron,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)

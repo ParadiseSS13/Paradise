@@ -117,6 +117,7 @@
 	new /obj/item/clothing/under/rank/civilian/lawyer/red(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/blue(src)
 	new /obj/item/clothing/under/rank/civilian/lawyer/purple(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/bluesuit(src)
 	new /obj/item/clothing/under/suit/female(src)
 	new /obj/item/clothing/suit/storage/lawyer/bluejacket(src)
 	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
