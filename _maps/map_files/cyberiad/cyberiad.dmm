@@ -35163,11 +35163,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bHY" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
@@ -37744,10 +37740,7 @@
 	},
 /area/crew_quarters/captain/bedroom)
 "bOM" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = 32
 	},
 /obj/structure/cable{
@@ -59770,10 +59763,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "cVj" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
@@ -59935,11 +59925,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cVB" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "cVD" = (

@@ -9168,11 +9168,7 @@
 	},
 /area/quartermaster/storage)
 "aEV" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 5
 	},
@@ -9328,11 +9324,7 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics/abandoned_garden)
 "aFo" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 9
 	},
@@ -11478,11 +11470,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
 "aJT" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/controlroom)
 "aJU" = (
@@ -13268,11 +13256,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aOi" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "aOj" = (
@@ -32501,10 +32485,7 @@
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai)
 "bDb" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
 /obj/machinery/light{
@@ -33371,11 +33352,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bEL" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall,
 /area/engine/gravitygenerator)
 "bEM" = (
@@ -42562,11 +42539,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bYb" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall,
 /area/engine/engineering)
 "bYc" = (
@@ -48214,11 +48187,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "clq" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "clr" = (

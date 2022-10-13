@@ -2575,10 +2575,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
 "apJ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -5166,11 +5163,8 @@
 	})
 "ayN" = (
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+/obj/structure/sign/radiation/rad_area{
 	dir = 1;
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -5183,11 +5177,8 @@
 	c_tag = "Gravity Generator Foyer"
 	},
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+/obj/structure/sign/radiation/rad_area{
 	dir = 1;
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
 	pixel_y = 32
 	},
 /obj/machinery/alarm{
@@ -5636,11 +5627,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+/obj/structure/sign/radiation/rad_area{
 	dir = 1;
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5668,11 +5656,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+/obj/structure/sign/radiation/rad_area{
 	dir = 1;
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -14441,11 +14426,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aZe" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "aZj" = (
@@ -94699,11 +94680,7 @@
 	name = "Toxins Launch Room"
 	})
 "yeW" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "yeY" = (
