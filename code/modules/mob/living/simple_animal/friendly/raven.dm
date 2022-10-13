@@ -14,7 +14,7 @@
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "kicks"
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	can_hide = TRUE
