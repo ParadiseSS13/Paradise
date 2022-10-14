@@ -754,7 +754,7 @@
 /obj/item/card/id/nanotrasen
 	name = "nanotrasen ID card"
 	icon_state = "nanotrasen"
-	item_state = "centcomm-id"
+	item_state = "nt-id"
 
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"

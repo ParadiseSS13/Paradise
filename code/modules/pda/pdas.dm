@@ -5,6 +5,7 @@
 /obj/item/pda/viro
 	default_cartridge = /obj/item/cartridge/medical
 	icon_state = "pda-virology"
+	item_state = "pda-medical"
 
 /obj/item/pda/engineering
 	default_cartridge = /obj/item/cartridge/engineering
@@ -16,7 +17,7 @@
 
 /obj/item/pda/detective
 	default_cartridge = /obj/item/cartridge/detective
-	icon_state = "pda-security"
+	icon_state = "pda-detective"
 
 /obj/item/pda/warden
 	default_cartridge = /obj/item/cartridge/security
