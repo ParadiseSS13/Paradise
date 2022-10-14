@@ -17,6 +17,8 @@
 	can_lock_cover = TRUE
 	lawchannel = "State"
 	drain_act_protected = TRUE
+	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	ear_protection = 1 // Immunity to the audio part of flashbangs
 	default_cell_type = /obj/item/stock_parts/cell/hyper	//Не очень понимаю почему вместо замены типа батареи тут, какого то чёрта вставляли новую батарею, оставляя старую валяться в contents борга...
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -57,6 +59,8 @@
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
 	burn_mod = 0.8
+	eye_protection = 0
+	ear_protection = 0
 	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
 						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
@@ -75,6 +79,8 @@
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
 	burn_mod = 0.8
+	eye_protection = 0
+	ear_protection = 0
 	var/mail_destination = 0
 	var/obj/item/borg_chameleon/cham_proj = null
 	playstyle_string = "<span class='userdanger'>You are a Syndicate saboteur cyborg!</span><br>\
