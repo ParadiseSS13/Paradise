@@ -262,6 +262,6 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		if(SEC_LEVEL_GAMMA)
 			return COLOR_AMBER
 		if(SEC_LEVEL_EPSILON)
-			return COLOR_ORANGE
+			return COLOR_WHITE
 		if(SEC_LEVEL_DELTA)
-			return COLOR_DARK_ORANGE
+			return COLOR_PURPLE
