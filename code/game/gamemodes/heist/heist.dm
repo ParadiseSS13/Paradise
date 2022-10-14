@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		greet_vox(raider)
 
 		if(raid_objectives)
-			raider.objectives = raid_objectives
+			raider.objectives = raid_objectives.Copy()
 
 	return ..()
 

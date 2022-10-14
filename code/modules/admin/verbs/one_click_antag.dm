@@ -140,7 +140,7 @@
 	if(confirm != "Yes")
 		return 0
 	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard", source = I)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", ROLE_WIZARD, source = I)
 
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
@@ -459,109 +459,56 @@
 	return new_syndicate_commando
 
 /datum/admins/proc/makeVoxRaiders()
-
-	var/list/mob/candidates = list()
-	var/mob/theghost = null
-	var/time_passed = world.time
-	var/input = "Disregard shinies, acquire hardware."
-
-	var/leader_chosen = 0 //when the leader is chosen. The last person spawned.
-
 	var/antnum = input(owner, "How many raiders you want to create? Enter 0 to cancel.","Amount:", 0) as num
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")
-//Generates a list of candidates from active ghosts.
-	for(var/mob/G in GLOB.respawnable_list)
-		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
-			if(player_old_enough_antag(G.client,ROLE_RAIDER))
-				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
-					spawn(0)
-						switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
-							if("Yes")
-								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
-									return
-								candidates += G
-							if("No")
-								return
-							else
-								return
 
-	sleep(300) //Debug.
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for a vox raiding party arriving on the station?", ROLE_RAIDER)
 
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key)
-			candidates.Remove(G)
-
-	if(candidates.len)
-		var/raiders = min(antnum, candidates.len)
-		//Spawns vox raiders and equips them.
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
-			if(L.name == "voxstart")
-				if(raiders<=0)
-					break
-
-				var/mob/living/carbon/human/new_vox = create_vox_raider(L, leader_chosen)
-
-				while((!theghost || !theghost.client) && candidates.len)
-					theghost = pick(candidates)
-					candidates.Remove(theghost)
-
-				if(!theghost)
-					qdel(new_vox)
-					break
-
-				new_vox.key = theghost.key
-				SSticker.mode.traitors += new_vox.mind
-
-				to_chat(new_vox, "<span class='notice'>You are a Vox Primalis, fresh out of the Shoal. Your ship has arrived at the Tau Ceti system hosting the NSV Exodus... or was it the Luna? NSS? Utopia? Nobody is really sure, but everyong is raring to start pillaging! Your current goal is: <span class='danger'> [input]</span></span>")
-				to_chat(new_vox, "<span class='warning'>Don't forget to turn on your nitrogen internals!</span>")
-
-				raiders--
-	else
+	if(!length(candidates))
 		return 0
+
+	var/raider_num = min(antnum, candidates.len)
+	var/datum/game_mode/mode = SSticker.mode
+	//If there no vox objectives - create them
+	if(!mode.raid_objectives || !mode.raid_objectives.len)
+		mode.raid_objectives = mode.forge_vox_objectives()
+	//Spawns vox raiders and equips them.
+	while(raider_num > 0)
+		var/mob/dead/observer/candidate = pick(candidates)
+		candidates -= candidate
+
+		var/datum/mind/raider = new
+
+		SSticker.minds += raider
+		mode.raiders += raider
+
+		raider.assigned_role = SPECIAL_ROLE_RAIDER
+		raider.special_role = SPECIAL_ROLE_RAIDER
+		raider.offstation_role = TRUE
+
+		if(mode.raid_objectives)
+			raider.objectives = mode.raid_objectives.Copy()
+
+		var/index = raider_num
+		if(index > GLOB.raider_spawn.len)
+			index = 1
+
+		var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(GLOB.raider_spawn[index])
+		new_vox.mind = raider
+		raider.current = new_vox
+		raider.original = new_vox
+
+		raider.key = candidate.key
+		new_vox.key = raider.key
+
+		mode.create_vox(raider)
+		mode.greet_vox(raider)
+
+		raider_num--
 	return 1
-
-/datum/admins/proc/create_vox_raider(obj/spawn_location, leader_chosen = 0)
-
-	var/sounds = rand(2,8)
-	var/i = 0
-	var/newname = ""
-
-	while(i<=sounds)
-		i++
-		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
-
-	var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(spawn_location.loc)
-
-	new_vox.add_language("Tradeband")
-	new_vox.real_name = capitalize(newname)
-	new_vox.dna.real_name = new_vox.real_name
-	new_vox.name = new_vox.real_name
-	new_vox.age = rand(12,20)
-	new_vox.flavor_text = ""
-	new_vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
-	new_vox.s_tone = rand(1, 6)
-
-	// Do the initial caching of the player's body icons.
-	new_vox.force_update_limbs()
-	new_vox.update_dna()
-	new_vox.update_eyes()
-
-	for(var/obj/item/organ/external/limb in new_vox.bodyparts)
-		limb.status &= ~ORGAN_ROBOT
-
-	//Now apply cortical stack.
-	var/obj/item/implant/cortical/I = new(new_vox)
-	I.implant(new_vox)
-	GLOB.cortical_stacks += I
-
-	new_vox.equip_vox_raider()
-	new_vox.regenerate_icons()
-
-	return new_vox
 
 /datum/admins/proc/makeVampires()
 
