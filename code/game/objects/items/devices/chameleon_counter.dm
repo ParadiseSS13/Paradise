@@ -15,17 +15,17 @@
 	var/saved_item_state
 	var/saved_overlays
 	var/saved_underlays
-	var/activate_dummy = FALSE
+	var/dummy_active = FALSE
 
 /obj/item/chameleon_counterfeiter/examine(mob/user)
 	. = ..()
-	if(activate_dummy)
+	if(dummy_active)
 		. += "<span class='warning'>It doesn't look quite right...</span>"
 
 /obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
-	if(activate_dummy || !isitem(target))
+	if(dummy_active || !isitem(target))
 		return
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 	to_chat(user, "<span class='notice'>Scanned [target].</span>")
@@ -43,24 +43,24 @@
 /obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user)
 	if(!can_use || !saved_name)
 		return
-	if(activate_dummy)
+	if(dummy_active)
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		matter_deactivate()
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		to_chat(user, "<span class='notice'>You activate [src].</span>")
-		matter_activate(saved_name, saved_desc, saved_icon, saved_icon_state, saved_item_state, saved_overlays, saved_underlays)
+		matter_activate()
 
-/obj/item/chameleon_counterfeiter/proc/matter_activate(new_name, new_desc, new_icon, new_iconstate, new_item_state, new_overlays, new_underlays)
-	name = new_name
-	desc = new_desc
-	icon = new_icon
-	icon_state = new_iconstate
-	item_state = new_item_state
-	overlays = new_overlays
-	underlays = new_underlays
-	activate_dummy = TRUE
+/obj/item/chameleon_counterfeiter/proc/matter_activate()
+	name = saved_name
+	desc = saved_desc
+	icon = saved_icon
+	icon_state = saved_icon_state
+	item_state = saved_item_state
+	overlays = saved_overlays
+	underlays = saved_underlays
+	dummy_active = TRUE
 
 /obj/item/chameleon_counterfeiter/proc/matter_deactivate()
 	name = initial(name)
@@ -70,7 +70,7 @@
 	item_state = initial(item_state)
 	overlays = initial(overlays)
 	underlays = initial(underlays)
-	activate_dummy = FALSE
+	dummy_active = FALSE
 	can_use = FALSE
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 3 SECONDS)
 
