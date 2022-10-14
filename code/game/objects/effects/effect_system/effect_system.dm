@@ -39,10 +39,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		amount = 10
 	number = amount
 	cardinals = only_cardinals
-	if(isturf(source))
-		location = source
-	else
-		location = get_turf(source)
+	location = get_turf(source)
 
 /datum/effect_system/proc/attach(atom/atom)
 	holder = atom

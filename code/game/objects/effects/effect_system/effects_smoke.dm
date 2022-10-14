@@ -83,10 +83,7 @@
 		amount = 20
 	number = amount
 	cardinals = only_cardinals
-	if(isturf(source))
-		location = source
-	else
-		location = get_turf(source)
+	location = get_turf(source)
 	if(desired_direction)
 		direction = desired_direction
 
