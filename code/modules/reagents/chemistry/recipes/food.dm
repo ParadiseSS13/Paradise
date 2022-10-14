@@ -60,7 +60,7 @@
 	name = "Syntiflesh"
 	id = "syntiflesh"
 	result = null
-	required_reagents = list("blood" = 5, "cryoxadone" = 1)
+	required_reagents = list("blood" = 15, "cryoxadone" = 10)
 	result_amount = 1
 
 /datum/chemical_reaction/syntiflesh/on_reaction(datum/reagents/holder, created_volume)
