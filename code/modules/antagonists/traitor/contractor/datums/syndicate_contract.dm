@@ -500,7 +500,7 @@
   * * M - The target mob.
   */
 /datum/syndicate_contract/proc/injure_target(mob/living/M)
-	if(!prob(RETURN_INJURY_CHANCE) && M.health >= 50)
+	if(!prob(RETURN_INJURY_CHANCE) || M.health < 50)
 		return
 
 	var/obj/item/organ/external/injury_target
