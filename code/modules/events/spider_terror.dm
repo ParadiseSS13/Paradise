@@ -73,3 +73,8 @@
 		successSpawn = TRUE
 
 #undef TS_HIGHPOP_TRIGGER
+#undef GREEN_SPIDER
+#undef PRINCE_SPIDER
+#undef WHITE_SPIDER
+#undef PRINCESS_SPIDER
+#undef QUEEN_SPIDER
