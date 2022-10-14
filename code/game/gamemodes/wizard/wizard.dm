@@ -103,8 +103,7 @@
 	else if(wizard_mind in apprentices)
 		SSticker.mode.apprentices -= wizard_mind
 		wizard_mind.special_role = null
-		wizard_mind.current.create_attack_log("<span class='danger'>De-apprentice-wizarded</span>")
-		wizard_mind.current.create_log(CONVERSION_LOG, "De-apprentice-wizarded")
+		add_conversion_logs(wizard_mind.current, "De-apprentice-wizarded")
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
