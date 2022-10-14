@@ -96,7 +96,7 @@
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
@@ -654,7 +654,7 @@
 
 	// called when player tries to move while in a pipe
 /obj/structure/disposalholder/relaymove(mob/user)
-	if(!istype(user, /mob/living))
+	if(!isliving(user))
 		return
 
 	var/mob/living/U = user
@@ -762,7 +762,7 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
-	hide(T.intact && !istype(T, /turf/space) && !T.transparent_floor)	// space and transparent floors never hide pipes
+	hide(T.intact && !isspaceturf(T) && !T.transparent_floor)	// space and transparent floors never hide pipes
 
 // hide called by levelupdate if turf intact status changes
 // change visibility status
@@ -796,7 +796,7 @@
 			new turf_typecache(T)
 
 	if(direction)		// direction is specified
-		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
+		if(isspaceturf(T)) // if ended in space, then range is unlimited
 			target = get_edge_target_turf(T, direction)
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)
@@ -1289,7 +1289,7 @@
 	var/active = FALSE
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
-	var/mode = 0
+	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
@@ -1326,22 +1326,16 @@
 				return
 			AM.throw_at(target, 3, 1)
 
+/obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
+	add_fingerprint(user)
 
-/obj/structure/disposaloutlet/attackby(obj/item/I, mob/user, params)
-	if(!I || !user)
-		return
-	src.add_fingerprint(user)
-	if(istype(I, /obj/item/screwdriver))
-		if(mode==0)
-			mode=1
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(mode==1)
-			mode=0
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
+	if(mode == FALSE)
+		to_chat(user, "<span class='notice'>You remove the screws around the power connection</span>.")
+	else if(mode == TRUE)
+		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
+	I.play_tool_sound(src)
+	mode = !mode
+	return TRUE
 
 /obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
 	. = TRUE

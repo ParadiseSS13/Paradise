@@ -180,7 +180,7 @@
 		if(targetdirection != null) //The bot is in bridge mode.
 			//Try to find a space tile immediately in our selected direction.
 			var/turf/T = get_step(src, targetdirection)
-			if(istype(T, /turf/space))
+			if(isspaceturf(T))
 				target = T
 
 			else //Find a space tile farther way!
@@ -308,7 +308,7 @@
 			target = null
 			return
 
-	else if(!istype(target_turf, /turf/simulated/floor))
+	else if(!isfloorturf(target_turf))
 		return
 
 	if(amount <= 0)

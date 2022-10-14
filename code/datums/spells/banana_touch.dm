@@ -51,7 +51,7 @@
 		qdel(shoes)
 		qdel(wear_mask)
 		qdel(w_uniform)
-		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/clown/nodrop, slot_w_uniform, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/clown/nodrop, slot_w_uniform, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/nodrop, slot_shoes, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat/nodrop, slot_wear_mask, TRUE, TRUE)
 	dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
