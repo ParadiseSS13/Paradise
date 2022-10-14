@@ -91,7 +91,7 @@
 	src.visible_message("<span class='danger'>\The [src] bursts!</span>")
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1, FALSE, src.loc)
+	smoke.set_up(1, FALSE, loc)
 	smoke.start()
 	qdel(src)
 
