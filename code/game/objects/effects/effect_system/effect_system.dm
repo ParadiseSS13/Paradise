@@ -34,10 +34,8 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	location = null
 	return ..()
 
-/datum/effect_system/proc/set_up(amount = 3, only_cardinals = 0, source)
-	if(amount > 10)
-		amount = 10
-	number = amount
+/datum/effect_system/proc/set_up(amount = 3, only_cardinals = FALSE, source)
+	number = clamp(amount, amount, 10)
 	cardinals = only_cardinals
 	location = get_turf(source)
 

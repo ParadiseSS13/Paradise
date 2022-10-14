@@ -78,10 +78,8 @@
 	effect_type = /obj/effect/particle_effect/smoke
 	var/direction
 
-/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = 0, source, desired_direction)
-	if(amount > 20)
-		amount = 20
-	number = amount
+/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction)
+	number = clamp(amount, amount, 20)
 	cardinals = only_cardinals
 	location = get_turf(source)
 	if(desired_direction)
@@ -173,7 +171,7 @@
 		for(var/obj/item/Item in T)
 			Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = 0, source, desired_direction, blasting = 0)
+/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = 0)
 	..()
 	blast = blasting
 
