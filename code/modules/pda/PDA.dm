@@ -86,7 +86,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/mob/M = loc
 	if(M.incapacitated())
 		return 0
-	if((src in M.contents) || ( istype(loc, /turf) && in_range(src, M) ))
+	if((src in M.contents) || ( isturf(loc) && in_range(src, M) ))
 		return 1
 	else
 		return 0
@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(O)
 			to_chat(user, "<span class='notice'>You remove [O] from [src].</span>")
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-			if(istype(loc, /mob))
+			if(ismob(loc))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O)
@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
+			if(((src in user.contents) && (C in user.contents)) || (isturf(loc) && in_range(src, user) && (C in user.contents)) )
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")

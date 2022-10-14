@@ -633,7 +633,7 @@
 			if(!coin)
 				to_chat(usr, "<span class='warning'>There is no coin in this machine.</span>")
 				return
-			if(istype(usr, /mob/living/silicon))
+			if(issilicon(usr))
 				to_chat(usr, "<span class='warning'>You lack hands.</span>")
 				return
 			to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")

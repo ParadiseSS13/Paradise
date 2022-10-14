@@ -492,7 +492,7 @@
 	var/area/newarea
 	var/area/oldarea
 
-	if(istype(A,/mob))
+	if(ismob(A))
 		var/mob/M=A
 
 		if(!M.lastarea)

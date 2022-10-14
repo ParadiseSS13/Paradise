@@ -545,10 +545,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Analyze Air"
 	set category = "Ghost"
 
-	if(!istype(usr, /mob/dead/observer)) return
+	if(!isobserver(usr)) return
 
 	// Shamelessly copied from the Gas Analyzers
-	if(!( istype(usr.loc, /turf) ))
+	if(!isturf(usr.loc))
 		return
 
 	var/datum/gas_mixture/environment = usr.loc.return_air()
@@ -614,7 +614,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>eye</a>"
 		return
-	else if(istype(target, /mob/dead/observer))
+	else if(isobserver(target))
 		var/mob/dead/observer/O = target
 		. = "<a href='byond://?src=[ghost.UID()];follow=[target.UID()]'>follow</a>"
 		if(O.mind && O.mind.current)

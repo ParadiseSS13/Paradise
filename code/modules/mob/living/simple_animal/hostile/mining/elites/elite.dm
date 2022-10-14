@@ -41,7 +41,7 @@
 		. += "However, this one appears appears less wild in nature, and calmer around people."
 
 /mob/living/simple_animal/hostile/asteroid/elite/AttackingTarget()
-	if(istype(target, /mob/living/simple_animal/hostile))
+	if(ishostile(target))
 		var/mob/living/simple_animal/hostile/M = target
 		if(faction_check_mob(M))
 			return FALSE

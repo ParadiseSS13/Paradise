@@ -11,7 +11,7 @@
 /proc/empulse(turf/epicenter, heavy_range, light_range, log = FALSE, cause = null)
 	if(!epicenter) return
 
-	if(!istype(epicenter, /turf))
+	if(!isturf(epicenter))
 		epicenter = get_turf(epicenter.loc)
 
 	if(log)

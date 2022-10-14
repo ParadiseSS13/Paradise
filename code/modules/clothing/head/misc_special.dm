@@ -73,12 +73,12 @@
 		return
 
 	var/turf/location = loc
-	if(istype(location, /mob/))
+	if(ismob(location))
 		var/mob/living/carbon/human/M = location
 		if(M.l_hand == src || M.r_hand == src || M.head == src)
 			location = M.loc
 
-	if(istype(location, /turf))
+	if(isturf(location))
 		location.hotspot_expose(700, 1)
 
 /obj/item/clothing/head/cakehat/attack_self(mob/user)

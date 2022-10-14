@@ -850,7 +850,7 @@
 	data["chargingStatus"] = charging
 	data["totalLoad"] = round(lastused_equip + lastused_light + lastused_environ)
 	data["coverLocked"] = coverlocked
-	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconUser"] = issilicon(user)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights
@@ -929,7 +929,7 @@
 		return 1
 
 	autoflag = 5
-	if(istype(user, /mob/living/silicon))
+	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
 		if(                                                             \
@@ -944,7 +944,7 @@
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
 			return FALSE
 	else
-		if((!in_range(src, user) || !istype(loc, /turf)))
+		if((!in_range(src, user) || !isturf(loc)))
 			return FALSE
 
 	var/mob/living/carbon/human/H = user

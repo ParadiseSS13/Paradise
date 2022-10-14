@@ -360,7 +360,7 @@
 	target = options[V]
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
-	if(istype(target,/area))
+	if(isarea(target))
 		var/area/A = target
 		return A.name
 	else if(istype(target,/obj/item/gps))
@@ -368,7 +368,7 @@
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
-	if(istype(target,/area))
+	if(isarea(target))
 		return pick(get_area_turfs(target))
 	else if(istype(target,/obj/item/gps))
 		return get_turf(target)
