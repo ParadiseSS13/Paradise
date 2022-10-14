@@ -61,6 +61,7 @@
 				if(!I)
 					to_chat(src, "<span class='warning'>You have nothing to drop in your hand!</span>")
 				else
+					SEND_SIGNAL(src, COMSIG_MOB_DROP_ITEM, _key, user)
 					drop_item(I)
 				return
 			if("E")

@@ -1,55 +1,68 @@
 /obj/item/organ/internal/cyberimp/arm
 	name = "arm-mounted implant"
 	desc = "You shouldn't see this! Adminhelp and report this as an issue on github!"
-	parent_organ = "r_arm"
+	parent_organ = BODY_ZONE_R_ARM
 	slot = "r_arm_device"
 	icon_state = "implant-toolkit"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
+	///A ref for the arm we're taking up. Mostly for the unregister signal upon removal
+	var/obj/hand
+	/// Used to store a list of all items inside, for multi-item implants.
+	var/list/items_list = list()// I would use contents, but they shuffle on every activation/deactivation leading to interface inconsistencies.
+	/// You can use this var for item path, it would be converted into an item on New().
+	var/obj/item/active_item
 
-	var/list/items_list = list()
-	// Used to store a list of all items inside, for multi-item implants.
-	// I would use contents, but they shuffle on every activation/deactivation leading to interface inconsistencies.
-
-	var/obj/item/holder = null
-	// You can use this var for item path, it would be converted into an item on New()
-
-/obj/item/organ/internal/cyberimp/arm/New()
-	..()
-	if(ispath(holder))
-		holder = new holder(src)
+/obj/item/organ/internal/cyberimp/arm/Initialize()
+	. = ..()
+	if(ispath(active_item))
+		active_item = new active_item(src)
 
 	update_icon()
 	slot = parent_organ + "_device"
 	items_list = contents.Copy()
 
 /obj/item/organ/internal/cyberimp/arm/update_icon()
-	if(parent_organ == "r_arm")
+	if(parent_organ == BODY_ZONE_R_ARM)
 		transform = null
 	else // Mirroring the icon
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration.</span>"
+	. += "<span class='notice'>[src] is assembled in the [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm configuration.</span>"
 	. += "<span class='info'>You can use a screwdriver to reassemble it.</span>"
 
 /obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(parent_organ == "r_arm")
-		parent_organ = "l_arm"
+	if(parent_organ == BODY_ZONE_R_ARM)
+		parent_organ = BODY_ZONE_L_ARM
 	else
-		parent_organ = "r_arm"
+		parent_organ = BODY_ZONE_R_ARM
 	slot = parent_organ + "_device"
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
+	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>")
 	update_icon()
 
-
-/obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
-	Retract()
+/obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/arm_owner, special, dont_remove_slot)
 	. = ..()
+	var/side = parent_organ == BODY_ZONE_R_ARM ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM
+	hand = owner.bodyparts_by_name[side]
+	if(hand)
+		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, .proc/on_item_attack_self) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
+		RegisterSignal(arm_owner, COMSIG_MOB_DROP_ITEM, .proc/dropkey) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
+
+/obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/arm_owner, special = 0)
+	Retract()
+	if(hand)
+		UnregisterSignal(hand, COMSIG_ITEM_ATTACK_SELF)
+		UnregisterSignal(arm_owner, COMSIG_MOB_DROP_ITEM)
+	. = ..()
+
+/obj/item/organ/internal/cyberimp/arm/proc/on_item_attack_self()
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, .proc/ui_action_click)
 
 /obj/item/organ/internal/cyberimp/arm/emag_act()
 	return 0
@@ -63,41 +76,49 @@
 		Retract()
 	..()
 
-/obj/item/organ/internal/cyberimp/arm/proc/Retract()
-	if(!holder || (holder in src))
-		return
+/**
+ * Called when the mob uses the "drop item" hotkey
+ *
+ * Items inside toolset implants have TRAIT_NODROP, but we can still use the drop item hotkey as a
+ * quick way to store implant items. In this case, we check to make sure the user has the correct arm
+ * selected, and that the item is actually owned by us, and then we'll hand off the rest to Retract()
+**/
+/obj/item/organ/internal/cyberimp/arm/proc/dropkey(mob/living/carbon/host)
+	SIGNAL_HANDLER
+	if(!host)
+		return //How did we even get here
+	var/obj/current_hand = host.hand ? host.get_organ(BODY_ZONE_L_ARM) : host.get_organ(BODY_ZONE_R_ARM)
+	if(hand != current_hand)
+		return //wrong hand
+	Retract()
 
-	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
-		"<span class='notice'>[holder] snaps back into your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
+/obj/item/organ/internal/cyberimp/arm/proc/Retract()
+	if(!active_item || (active_item in src))
+		return FALSE
+
+	owner.visible_message("<span class='notice'>[owner] retracts [active_item] back into [owner.p_their()] [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
+		"<span class='notice'>[active_item] snaps back into your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 
-	if(istype(holder, /obj/item/flash/armimplant))
-		var/obj/item/flash/F = holder
-		F.set_light(0)
-
-	owner.unEquip(holder, 1)
-	holder.forceMove(src)
-	holder = null
+	owner.unEquip(active_item, 1)
+	active_item.forceMove(src)
+	active_item = null
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	return TRUE
 
-/obj/item/organ/internal/cyberimp/arm/proc/Extend(var/obj/item/item)
-	if(!(item in src))
+/obj/item/organ/internal/cyberimp/arm/proc/Extend(obj/item/augment)
+	if(!(augment in src))
 		return
 
+	active_item = augment
 
-	holder = item
+	active_item.flags |= NODROP
+	active_item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	active_item.slot_flags = null
+	active_item.w_class = WEIGHT_CLASS_HUGE
+	active_item.materials = null
 
-	holder.flags |= NODROP
-	holder.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	holder.slot_flags = null
-	holder.w_class = WEIGHT_CLASS_HUGE
-	holder.materials = null
-
-	if(istype(holder, /obj/item/flash/armimplant))
-		var/obj/item/flash/F = holder
-		F.set_light(7)
-
-	var/arm_slot = (parent_organ == "r_arm" ? slot_r_hand : slot_l_hand)
+	var/arm_slot = (parent_organ == BODY_ZONE_R_ARM ? slot_r_hand : slot_l_hand)
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
@@ -107,31 +128,31 @@
 		else
 			to_chat(owner, "<span class='notice'>You drop [arm_item] to activate [src]!</span>")
 
-	if(parent_organ == "r_arm" ? !owner.put_in_r_hand(holder) : !owner.put_in_l_hand(holder))
+	if(parent_organ == BODY_ZONE_R_ARM ? !owner.put_in_r_hand(active_item) : !owner.put_in_l_hand(active_item))
 		to_chat(owner, "<span class='warning'>Your [src] fails to activate!</span>")
 		return
 
 	// Activate the hand that now holds our item.
-	if(parent_organ == "r_arm" ? owner.hand : !owner.hand)
+	if(parent_organ == BODY_ZONE_R_ARM ? owner.hand : !owner.hand)
 		owner.swap_hand()
 
-	owner.visible_message("<span class='notice'>[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
-		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
+	owner.visible_message("<span class='notice'>[owner] extends [active_item] from [owner.p_their()] [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
+		"<span class='notice'>You extend [active_item] from your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
-	if(crit_fail || (!holder && !contents.len))
+	if(crit_fail || (!active_item && !contents.len))
 		to_chat(owner, "<span class='warning'>The implant doesn't respond. It seems to be broken...</span>")
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
-	var/arm_slot = (parent_organ == "r_arm" ? slot_r_hand : slot_l_hand)
+	var/arm_slot = (parent_organ == BODY_ZONE_R_ARM ? slot_r_hand : slot_l_hand)
 	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
-	if(!holder || (holder in src))
-		holder = null
+	if(!active_item || (active_item in src))
+		active_item = null
 		if(contents.len == 1)
 			Extend(contents[1])
 		else
@@ -140,7 +161,7 @@
 		Retract()
 
 /obj/item/organ/internal/cyberimp/arm/proc/check_menu(var/mob/user)
-	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !holder)
+	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !active_item)
 
 /obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)
 	var/list/choices = list()
@@ -162,9 +183,9 @@
 		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
-		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [parent_organ == "r_arm" ? "right" : "left"] arm!</span>")
+		owner.visible_message("<span class='danger'>A loud bang comes from [owner]\'s [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm!</span>")
 		playsound(get_turf(owner), 'sound/weapons/flashbang.ogg', 100, 1)
-		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [parent_organ == "r_arm" ? "right" : "left"] arm as your implant breaks!</span>")
+		to_chat(owner, "<span class='userdanger'>You feel an explosion erupt inside your [parent_organ == BODY_ZONE_R_ARM ? "right" : "left"] arm as your implant breaks!</span>")
 		owner.adjust_fire_stacks(20)
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
@@ -182,6 +203,12 @@
 
 /obj/item/organ/internal/cyberimp/arm/gun/laser/l
 	parent_organ = "l_arm"
+
+/obj/item/organ/internal/cyberimp/arm/gun/laser/Initialize(mapload)
+	. = ..()
+	var/obj/item/organ/internal/cyberimp/arm/gun/laser/laserphasergun = locate(/obj/item/gun/energy/laser/mounted) in contents
+	laserphasergun.icon = icon //No invisible laser guns kthx
+	laserphasergun.icon_state = icon_state
 
 /obj/item/organ/internal/cyberimp/arm/gun/taser
 	name = "arm-mounted taser implant"
@@ -258,11 +285,19 @@
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "flash")
 
-/obj/item/organ/internal/cyberimp/arm/flash/New()
-	..()
+/obj/item/organ/internal/cyberimp/arm/flash/Initialize()
+	. = ..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
 		F.I = src
+
+/obj/item/organ/internal/cyberimp/arm/flash/Extend(obj/item/item)
+	. = ..()
+	active_item.set_light(7)
+
+/obj/item/organ/internal/cyberimp/arm/flash/Retract()
+	active_item.set_light(0)
+	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/baton
 	name = "arm electrification implant"
