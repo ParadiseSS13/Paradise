@@ -20,7 +20,6 @@
 
 	if(!A)
 		smoke_spread = 0
-		smoke_amt = 0
 		return
 
 	var/area/thearea = SSmapping.teleportlocs[A]
@@ -37,7 +36,6 @@
 		return
 
 	smoke_spread = 1
-	smoke_amt = 5
 	playsound(get_turf(user), sound1, 50,1)
 	for(var/mob/living/target in targets)
 		var/list/L = list()
