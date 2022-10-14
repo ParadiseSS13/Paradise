@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(overlays)
 		else if(isicon(overlay))
 			new_overlays += icon2appearance(overlay)
 		else
-			if(isloc(overlay))
+			if(isatom(overlay))
 				var/atom/A = overlay
 				if(A.flags_2 & OVERLAY_QUEUED_2)
 					COMPILE_OVERLAYS(A)

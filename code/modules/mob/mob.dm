@@ -161,7 +161,7 @@
 			var/mob/M = A
 			for(var/obj/O in M.contents)
 				listening_obj |= O
-		else if(istype(A, /obj))
+		else if(isobj(A))
 			var/obj/O = A
 			listening_obj |= O
 	for(var/obj/O in listening_obj)
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!istype(W)) return 0
 
 	for(var/slot in GLOB.slot_equipment_priority)
-		if(istype(W,/obj/item/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
+		if(isstorage(W) && slot == slot_head) // Storage items should be put on the belt before the head
 			continue
 		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
@@ -649,7 +649,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = null
 	set src = usr
 
-	if(istype(loc,/obj/mecha)) return
+	if(ismecha(loc)) return
 
 	if(hand)
 		var/obj/item/W = l_hand
