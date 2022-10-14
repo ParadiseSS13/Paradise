@@ -51,6 +51,13 @@
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
 
+/obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
+	if(tool_enabled)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
+
 /obj/item/weldingtool/process()
 	if(tool_enabled)
 		var/turf/T = get_turf(src)

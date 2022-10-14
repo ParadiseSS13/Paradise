@@ -30,6 +30,12 @@
 	else i = 3
 	icon_state = "candle[i][lit ? "_lit" : ""]"
 
+/obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W))
