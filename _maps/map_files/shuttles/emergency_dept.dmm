@@ -612,7 +612,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "bS" = (
 /obj/structure/chair/comfy/shuttle{
@@ -659,7 +659,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "bZ" = (
 /obj/machinery/recharge_station/upgraded,
