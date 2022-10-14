@@ -421,6 +421,15 @@
 /obj/item/clothing/head/hooded/winterhood/security
 	icon_state = "winterhood_sec"
 
+/obj/item/clothing/suit/hooded/wintercoat/security/hos
+	name = "head of securiry winter coat"
+	icon_state = "wintercoat_hos"
+	item_state = "coathos"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/hos
+
+/obj/item/clothing/head/hooded/winterhood/security/hos
+	icon_state = "winterhood_hos"
+
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
 	icon_state = "wintercoat_med"
@@ -433,6 +442,15 @@
 /obj/item/clothing/head/hooded/winterhood/medical
 	icon_state = "winterhood_med"
 
+/obj/item/clothing/suit/hooded/wintercoat/medical/cmo
+	name = "chief medical officer winter coat"
+	icon_state = "wintercoat_cmo"
+	item_state = "coatcmo"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/cmo
+
+/obj/item/clothing/head/hooded/winterhood/medical/cmo
+	icon_state = "winterhood_cmo"
+
 /obj/item/clothing/suit/hooded/wintercoat/science
 	name = "science winter coat"
 	icon_state = "wintercoat_sci"
@@ -444,6 +462,15 @@
 
 /obj/item/clothing/head/hooded/winterhood/science
 	icon_state = "winterhood_sci"
+
+/obj/item/clothing/suit/hooded/wintercoat/science/rd
+	name = "research director winter coat"
+	icon_state = "wintercoat_rd"
+	item_state = "coatrd"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/rd
+
+/obj/item/clothing/head/hooded/winterhood/science/rd
+	icon_state = "winterhood_rd"
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering
 	name = "engineering winter coat"
@@ -506,7 +533,23 @@
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
 
+/obj/item/clothing/suit/hooded/wintercoat/hop
+	name = "head of personel winter coat"
+	icon_state = "wintercoat_hop"
+	item_state = "coathop"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/hop
 
+/obj/item/clothing/head/hooded/winterhood/hop
+	icon_state = "winterhood_hop"
+
+/obj/item/clothing/suit/hooded/wintercoat/qm
+	name = "quartermaster winter coat"
+	icon_state = "wintercoat_qm"
+	item_state = "coatqm"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/qm
+
+/obj/item/clothing/head/hooded/winterhood/qm
+	icon_state = "winterhood_qm"
 /*
  * Misc
  */

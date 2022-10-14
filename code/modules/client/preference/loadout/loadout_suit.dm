@@ -20,6 +20,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot", "Brig Physician")
 
+/datum/gear/suit/coat/job/hos
+	display_name = "winter coat, head of security"
+	path = /obj/item/clothing/suit/hooded/wintercoat/security/hos
+	allowed_roles = list("Head of Security")
+
 /datum/gear/suit/coat/job/captain
 	display_name = "winter coat, captain"
 	path = /obj/item/clothing/suit/hooded/wintercoat/captain
@@ -30,10 +35,20 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Brig Physician" , "Coroner")
 
+/datum/gear/suit/coat/job/cmo
+	display_name = "winter coat, chief medical officer"
+	path = /obj/item/clothing/suit/hooded/wintercoat/medical/cmo
+	allowed_roles = list("Chief Medical Officer")
+
 /datum/gear/suit/coat/job/sci
 	display_name = "winter coat, science"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
 	allowed_roles = list("Scientist", "Research Director")
+
+/datum/gear/suit/coat/job/rd
+	display_name = "winter coat, research director"
+	path = /obj/item/clothing/suit/hooded/wintercoat/science/rd
+	allowed_roles = list("Research Director")
 
 /datum/gear/suit/coat/job/engi
 	display_name = "winter coat, engineering"
@@ -45,6 +60,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
 	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
+/datum/gear/suit/coat/job/ce
+	display_name = "winter coat, chief engineer"
+	path = /obj/item/clothing/suit/hooded/wintercoat/engineering/ce
+	allowed_roles = list("Chief Engineer")
+
 /datum/gear/suit/coat/job/hydro
 	display_name = "winter coat, hydroponics"
 	path = /obj/item/clothing/suit/hooded/wintercoat/hydro
@@ -55,10 +75,20 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/cargo
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
+/datum/gear/suit/coat/job/qm
+	display_name = "winter coat, quartermaster"
+	path = /obj/item/clothing/suit/hooded/wintercoat/qm
+	allowed_roles = list("Quartermaster")
+
 /datum/gear/suit/coat/job/miner
 	display_name = "winter coat, miner"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
 	allowed_roles = list("Shaft Miner")
+
+/datum/gear/suit/coat/job/hop
+	display_name = "winter coat, head of personnel"
+	path = /obj/item/clothing/suit/hooded/wintercoat/hop
+	allowed_roles = list("Head Of Personnel")
 
 //LABCOATS
 /datum/gear/suit/labcoat_emt
