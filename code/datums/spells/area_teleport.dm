@@ -19,6 +19,8 @@
 		A = pick(SSmapping.teleportlocs)
 
 	if(!A)
+		smoke_spread = 0
+		smoke_amt = 0
 		return
 
 	var/area/thearea = SSmapping.teleportlocs[A]
@@ -34,6 +36,8 @@
 		revert_cast(user)
 		return
 
+	smoke_spread = 1
+	smoke_amt = 5
 	playsound(get_turf(user), sound1, 50,1)
 	for(var/mob/living/target in targets)
 		var/list/L = list()
@@ -78,7 +82,7 @@
 
 /obj/effect/proc_holder/spell/area_teleport/invocation(mob/user)
 	if(!invocation_area || !selected_area)
-		..()
+		return
 	else
 		switch(invocation_type)
 			if("shout")
