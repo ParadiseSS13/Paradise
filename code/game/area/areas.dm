@@ -493,7 +493,7 @@
 	var/area/oldarea
 
 	if(ismob(A))
-		var/mob/M=A
+		var/mob/M = A
 
 		if(!M.lastarea)
 			M.lastarea = get_area(M)

@@ -171,7 +171,8 @@
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
 	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user))
 		return
-	if(isanimal(user) && target != user) return //animals cannot put mobs other than themselves into disposal
+	if(isanimal(user) && target != user)
+		return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
 	var/target_loc = target.loc
 	var/msg

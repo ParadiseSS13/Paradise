@@ -9,8 +9,8 @@
  * cause - The cause of the EMP. Used for the logging
  */
 /proc/empulse(turf/epicenter, heavy_range, light_range, log = FALSE, cause = null)
-	if(!epicenter) return
-
+	if(!epicenter)
+		return
 	if(!isturf(epicenter))
 		epicenter = get_turf(epicenter.loc)
 

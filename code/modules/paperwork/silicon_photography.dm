@@ -151,10 +151,10 @@
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/proc/getsource()
-	if(isAI(src.loc))
+	if(isAI(loc))
 		return src
 
-	var/mob/living/silicon/robot/C = src.loc
+	var/mob/living/silicon/robot/C = loc
 	var/obj/item/camera/siliconcam/Cinfo
 	if(C.connected_ai)
 		Cinfo = C.connected_ai.aiCamera

@@ -545,7 +545,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Analyze Air"
 	set category = "Ghost"
 
-	if(!isobserver(usr)) return
+	if(!isobserver(usr))
+		return
 
 	// Shamelessly copied from the Gas Analyzers
 	if(!isturf(usr.loc))
