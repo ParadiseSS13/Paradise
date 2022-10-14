@@ -662,6 +662,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
+/area/maintenance/ai
+	name = "AI Maintenance"
+	icon_state = "green"
+
 /area/maintenance/fore
 	name = "Fore Maintenance"
 	icon_state = "fmaint"
@@ -702,11 +706,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Locker Room Maintenance"
 	icon_state = "pmaint"
 
+/area/maintenance/perma
+	name = "Prison Maintenance"
+	icon_state = "green"
+
 /area/maintenance/aft
 	name = "Engineering Maintenance"
 	icon_state = "amaint"
 
-/area/maintenance/storage
+/area/maintenance/atmospherics
 	name = "Atmospherics Maintenance"
 	icon_state = "green"
 
@@ -726,10 +734,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Genetics Maintenance"
 	icon_state = "asmaint"
 
-
 /area/maintenance/electrical
 	name = "Electrical Maintenance"
 	icon_state = "yellow"
+
+/area/maintenance/engineering
+	name = "Engineering Maintenance"
+	icon_state = "green"
 
 /area/maintenance/bar
 	name = "Abandoned Bar"
@@ -762,6 +773,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/engrooms
 	name = "Abandoned Engineers Rooms"
 	icon_state = "yellow"
+
+/area/maintenance/library
+	name = "\improper Abandoned Library"
+	icon_state = "library"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/maintenance/xenozoo
 	name = "Maintenance Xeno Zoo"
@@ -826,6 +842,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/hallway/secondary/exit
 	name = "\improper Escape Shuttle Hallway"
+	icon_state = "escape"
+
+/area/hallway/secondary/exit/maint
+	name = "\improper Abandoned Escape Shuttle Hallway"
 	icon_state = "escape"
 
 /area/hallway/secondary/construction
@@ -1065,11 +1085,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Library"
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
-
-/area/library/abandoned
-	name = "\improper Abandoned Library"
-	icon_state = "library"
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/chapel
 	icon_state = "chapel"
