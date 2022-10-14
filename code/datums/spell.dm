@@ -109,7 +109,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/sparks_spread = FALSE
 	var/sparks_amt = 0 //cropped at 10
-	var/smoke_spread = 0 //1 - harmless, 2 - harmful
+	///Determines if the spell has smoke, and if so what effect the smoke has. See spell defines.
+	var/smoke_type = SMOKE_NONE
 	var/smoke_amt = 0 //cropped at 10
 
 	var/critfailchance = 0
@@ -401,19 +402,17 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(target, text("[message]"))
 		if(sparks_spread)
 			do_sparks(sparks_amt, 0, location)
-		if(smoke_spread)
-			if(smoke_spread == 1)
-				var/datum/effect_system/smoke_spread/smoke = new
-				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
-				smoke.start()
-			else if(smoke_spread == 2)
-				var/datum/effect_system/smoke_spread/bad/smoke = new
-				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
-				smoke.start()
-			else if(smoke_spread == 3)
-				var/datum/effect_system/smoke_spread/sleeping/smoke = new
-				smoke.set_up(smoke_amt, 0, location) // same here
-				smoke.start()
+		if(smoke_type)
+			var/datum/effect_system/smoke_spread/smoke
+			switch(smoke_type)
+				if(SMOKE_HARMLESS)
+					smoke = new /datum/effect_system/smoke_spread()
+				if(SMOKE_HARMFUL)
+					smoke = new /datum/effect_system/smoke_spread/bad()
+				if(SMOKE_SLEEPING)
+					smoke = new /datum/effect_system/smoke_spread/sleeping()
+			smoke.set_up(smoke_amt, 0, location)
+			smoke.start()
 
 	custom_handler?.after_cast(targets, user, src)
 
