@@ -74,14 +74,14 @@ GLOBAL_LIST_INIT(summoned_special_magic, list(
 	/obj/item/gun/magic/staff/change,
 	/obj/item/gun/magic/staff/animate,
 	/obj/item/storage/belt/wands/full,
-	/obj/item/contract,
+	/obj/item/contract/apprentice,
 	/obj/item/gun/magic/staff/chaos,
 	/obj/item/necromantic_stone,
 	/obj/item/blood_contract))
 
 //everything above except for single use spellbooks, because they are counted separately (and are for basic bitches anyways)
 GLOBAL_LIST_INIT(summoned_magic_objectives, list(
-	/obj/item/contract,
+	/obj/item/contract/apprentice,
 	/obj/item/blood_contract,
 	/obj/item/clothing/suit/space/hardsuit/wizard/shielded,
 	/obj/item/gun/magic,

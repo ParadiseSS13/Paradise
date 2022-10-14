@@ -584,7 +584,7 @@
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.mind)
-		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
+		if(M.mind.special_role == SPECIAL_ROLE_WIZARD || M.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)

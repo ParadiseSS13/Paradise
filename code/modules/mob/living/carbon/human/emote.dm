@@ -1046,12 +1046,24 @@
 			for(var/mob/living/L in orange(1))
 				if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE))
 					if((mind && mind.special_role == SPECIAL_ROLE_WIZARD) && (L.mind && L.mind.special_role == SPECIAL_ROLE_WIZARD))
-						visible_message("<span class='danger'><b>[name]</b> и <b>[L.name]</b> дают ЭПИЧЕСКУЮ пятюню!</span>")
+						visible_message("<span class='danger'><b>[name]</b> и <b>[L.name]</b> дают ЛЕГЕНДАРНУЮ пятюню!</span>")
 						status_flags |= GODMODE
 						L.status_flags |= GODMODE
-						explosion(loc,5,2,1,3)
+						explosion(loc,1,3,9,12)
 						status_flags &= ~GODMODE
 						L.status_flags &= ~GODMODE
+						return
+					else if((mind && (mind.special_role == SPECIAL_ROLE_WIZARD || mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) && (L.mind && (L.mind.special_role == SPECIAL_ROLE_WIZARD ||  L.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)))
+						visible_message("<span class='danger'><b>[name]</b> и <b>[L.name]</b> дают ЭПИЧЕСКУЮ пятюню!</span>")
+						if (mind.special_role == SPECIAL_ROLE_WIZARD)
+							status_flags |= GODMODE
+						if (L.mind.special_role == SPECIAL_ROLE_WIZARD)
+							L.status_flags |= GODMODE
+						explosion(loc,0,0,3,9)
+						if (mind.special_role == SPECIAL_ROLE_WIZARD)
+							status_flags &= ~GODMODE
+						if (L.mind.special_role == SPECIAL_ROLE_WIZARD)
+							L.status_flags &= ~GODMODE
 						return
 					visible_message("<b>[name]</b> и <b>[L.name]</b> дают пятюню!")
 					playsound('sound/effects/snap.ogg', 50)

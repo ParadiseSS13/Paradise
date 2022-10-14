@@ -1414,14 +1414,14 @@
 	icon_state = "greeyfluff"
 	item_state = "greeyfluff"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy //phantasmicdream : Dreamy Rockwall
+/obj/item/clothing/head/wizard/fluff/dreamy //phantasmicdream : Dreamy Rockwall
 	name = "strange witch hat"
 	desc = "A shapeshifting witch hat. A strange aura comes from it..."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "classic_witch"
 	item_state = "classic_witch"
 
-/obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self(mob/user)
+/obj/item/clothing/head/wizard/fluff/dreamy/attack_self(mob/user)
 	var/list/options = list()
 	options["Classic"] = "classic_witch"
 	options["Good"] = "good_witch"

@@ -88,7 +88,7 @@
 	if(!S)
 		S = new spell_type()
 	var/dat =""
-	dat += "<b>[initial(S.name)]</b>"
+	dat += "<b>[name]</b>"
 	if(S.charge_type == "recharge")
 		dat += " Cooldown:[S.charge_max/10]"
 	dat += " Cost:[cost]<br>"
@@ -227,6 +227,25 @@
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	log_name = "TS"
 	category = "Defensive"
+
+/datum/spellbook_entry/sacred_flame
+	name = "Sacred Flame and Fire Immunity"
+	spell_type = /obj/effect/proc_holder/spell/targeted/sacred_flame
+	cost = 1
+	log_name = "SF"
+	category = "Defensive"
+
+/datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
+	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	ADD_TRAIT(user, RESISTHOT, SUMMON_MAGIC)
+	//ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	return ..()
+
+/datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
+	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
+	REMOVE_TRAIT(user, RESISTHOT, SUMMON_MAGIC)
+	//REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	return ..()
 
 //Mobility
 /datum/spellbook_entry/knock
@@ -548,7 +567,7 @@
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
-	item_path = /obj/item/contract
+	item_path = /obj/item/contract/apprentice
 	log_name = "CT"
 	category = "Summons"
 
@@ -642,8 +661,8 @@
 	initialize()
 
 /obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/contract))
-		var/obj/item/contract/contract = O
+	if(istype(O, /obj/item/contract/apprentice))
+		var/obj/item/contract/apprentice/contract = O
 		if(contract.used)
 			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
 		else
