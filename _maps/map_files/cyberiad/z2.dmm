@@ -35146,7 +35146,7 @@
 	},
 /area/centcom/zone1)
 "xLl" = (
-/mob/living/simple_animal/hostile/retaliate/carp/koi,
+/mob/living/simple_animal/hostile/carp/koi,
 /turf/unsimulated/beach/water/deep/dense,
 /area/ninja/outside)
 "xLp" = (
