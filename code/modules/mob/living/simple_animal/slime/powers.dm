@@ -5,16 +5,22 @@
 #define NO_GROWTH_NEEDED	0
 #define GROWTH_NEEDED		1
 
+#define NO_SPLIT_NEEDED		0
+#define SPLIT_NEEDED		1
+
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
+	var/needs_split = NO_SPLIT_NEEDED
 
 /datum/action/innate/slime/IsAvailable()
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
+			if(needs_split == SPLIT_NEEDED && S.amount_grown >= S.age_state.amount_grown_for_split)
+				return 1
 			if(S.amount_grown >= S.age_state.amount_grown)
 				return 1
 			return 0
@@ -184,7 +190,7 @@
 		return
 
 	if(age_state.age != SLIME_BABY)
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
+		if(amount_grown >=	age_state.amount_grown_for_split)
 			if(stat)
 				to_chat(src, "<i>I must be conscious to do this...</i>")
 				return
@@ -241,10 +247,10 @@
 		child_colour = slime_mutation[rand(1,4)]
 	else
 		child_colour = colour
-	var/mob/living/simple_animal/slime/M = new(loc, child_colour, new baby_type)
+	var/mob/living/simple_animal/slime/M = new(loc, child_colour, new baby_type, new_nutrition)
 
 	if(ckey)
-		M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
+		M.set_nutrition(new_nutrition * 1.25) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
 	M.powerlevel = new_powerlevel
 	M.Friends = Friends.Copy()
 	babies += M
@@ -255,6 +261,7 @@
 	name = "Reproduce"
 	button_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
+	needs_split = SPLIT_NEEDED
 
 /datum/action/innate/slime/reproduce/Activate()
 	var/mob/living/simple_animal/slime/S = owner

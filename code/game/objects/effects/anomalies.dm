@@ -279,12 +279,9 @@
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
 	var/new_colour = pick("red", "orange")
-	var/mob/living/simple_animal/slime/S = new(T, new_colour)
+	var/mob/living/simple_animal/slime/random/S = new(T, new_colour)
 	S.rabid = TRUE
-	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
-	S.Evolve()
-	var/datum/action/innate/slime/reproduce/A = new
-	A.Grant(S)
+	S.set_nutrition(S.get_max_nutrition())
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pyroclastic anomaly slime?", ROLE_SENTIENT, FALSE, 100, source = S, role_cleanname = "pyroclastic anomaly slime")
 	if(LAZYLEN(candidates))

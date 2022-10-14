@@ -3,8 +3,10 @@
 	var/health
 	var/damage
 	var/attacked			//доп. урон наносимый слайму
-	var/stat_text
-	var/amount_grown
+	var/stat_text			//Текст для игрока что готов делиться
+	var/stat_text_evolve	//Доп. текст для игрока, что готов эволюционировать
+	var/amount_grown		//созревание для эволюции, максимальное значение созревания
+	var/amount_grown_for_split	//созревание для деления
 	var/max_nutrition		//Can't go above it
 	var/grow_nutrition		//Above it we grow, below it we can eat
 	var/hunger_nutrition	//Below it we will always eat
@@ -21,8 +23,10 @@
 	health = 150
 	damage = 3
 	attacked = -2
-	stat_text = "You can evolve!"
+	stat_text = ""
+	stat_text_evolve = "evolve to adult form"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD
+	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD
 	max_nutrition = 1000
 	grow_nutrition = 800
 	hunger_nutrition = 500
@@ -32,15 +36,17 @@
 	matrix_size = matrix(1, 0, 0, 0, 1, 0)
 	baby_counts	= 0
 	cores = 1
-	feed = 0
+	feed = 2
 
 /datum/slime_age/adult
 	age = SLIME_ADULT
 	health = 200
 	damage = 5
 	attacked = 0
-	stat_text = "You can reproduce and evolve!"
+	stat_text = "reproduce"
+	stat_text_evolve = "evolve to old form"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_OLD
+	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD
 	max_nutrition = 1200
 	grow_nutrition = 1000
 	hunger_nutrition = 600
@@ -50,15 +56,17 @@
 	matrix_size = matrix(1, 0, 0, 0, 1, 0)
 	baby_counts	= 4
 	cores = 1
-	feed = 1
+	feed = 4
 
 /datum/slime_age/old
 	age = SLIME_OLD
 	health = 300
 	damage = 7
 	attacked = 2
-	stat_text = "You can reproduce and evolve to elder form!"
+	stat_text = "big reproduce"
+	stat_text_evolve = "evolve to elder form"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE
+	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD_OLD
 	max_nutrition = 3000
 	grow_nutrition = 2000
 	hunger_nutrition = 800
@@ -68,15 +76,17 @@
 	matrix_size = matrix(1.25, 0, 0, 0, 1.25, 2)
 	baby_counts	= 9
 	cores = 4
-	feed = 2
+	feed = 8
 
 /datum/slime_age/elder
 	age = SLIME_ELDER
 	health = 400
 	damage = 10
 	attacked = 5
-	stat_text = "You can reproduce and evolve to slimeman!"
+	stat_text = "huge reproduce"
+	stat_text_evolve = "evolve to slimeman"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN
+	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD_OLD
 	max_nutrition = 6000
 	grow_nutrition = 3200
 	hunger_nutrition = 1200
@@ -86,7 +96,7 @@
 	matrix_size = matrix(1.75, 0, 0, 0, 1.75, 4)
 	baby_counts	= 18
 	cores = 8
-	feed = 4
+	feed = 10
 
 /datum/slime_age/slimeman
 	age = SLIME_SLIMEMAN
