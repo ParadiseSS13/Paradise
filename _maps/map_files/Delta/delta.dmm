@@ -68256,7 +68256,8 @@
 "ikr" = (
 /obj/machinery/suit_storage_unit/security{
 	name = "head of security suit storage unit";
-	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos;
+	storage_type = /obj/item/tank/internals/oxygen/red
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{

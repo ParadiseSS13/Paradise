@@ -54,6 +54,7 @@
 	suit_type    = /obj/item/clothing/suit/space/captain
 	helmet_type  = /obj/item/clothing/head/helmet/space/capspace
 	mask_type    = /obj/item/clothing/mask/gas
+	magboots_type = /obj/item/clothing/shoes/magboots/security/captain
 	storage_type = /obj/item/tank/jetpack/oxygen/captain
 	req_access = list(ACCESS_CAPTAIN)
 
@@ -85,6 +86,7 @@
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/jetpack/oxygen/security
+	magboots_type = /obj/item/clothing/shoes/magboots/security
 	req_access = list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/secure
@@ -143,6 +145,8 @@
 /obj/machinery/suit_storage_unit/blueshield
 	name = "blueshield suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/blueshield
+	magboots_type = /obj/item/clothing/shoes/magboots/security
+	storage_type = /obj/item/tank/internals/oxygen
 	req_access = list(ACCESS_BLUESHIELD)
 
 /obj/machinery/suit_storage_unit/blueshield
