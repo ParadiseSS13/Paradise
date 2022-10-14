@@ -369,6 +369,7 @@
 /area/ruin/unpowered)
 "bl" = (
 /mob/living/simple_animal/hostile/creature{
+	maxHealth = 150;
 	health = 150;
 	name = "Experiment 17e"
 	},

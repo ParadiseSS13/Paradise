@@ -129,7 +129,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/obj/machinery/atmospherics/unary/vent_pump/nest_vent // home vent, usually used by queens
 	var/fed = 0
 	var/travelling_in_vent = 0
-	var/list/enemies = list()
 	var/path_to_vent = 0
 	var/killcount = 0
 	var/busy = 0 // leave this alone!

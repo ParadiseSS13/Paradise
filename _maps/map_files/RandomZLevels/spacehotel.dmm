@@ -230,7 +230,7 @@
 	requires_power = 0
 	})
 "ay" = (
-/mob/living/simple_animal/hostile/retaliate/carp,
+/mob/living/simple_animal/hostile/carp/sea,
 /turf/unsimulated/beach/water/deep/wood_floor{
 	icon = 'icons/turf/shuttle.dmi';
 	icon_state = "floor";
@@ -530,7 +530,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/retaliate/carp,
+/mob/living/simple_animal/hostile/carp/sea,
 /turf/unsimulated/beach/water/deep/wood_floor{
 	icon = 'icons/turf/shuttle.dmi';
 	icon_state = "floor";
@@ -2683,7 +2683,7 @@
 /turf/template_noop,
 /area/awaymission/spacehotel)
 "fw" = (
-/mob/living/simple_animal/hostile/retaliate/carp,
+/mob/living/simple_animal/hostile/carp/sea,
 /turf/unsimulated/beach/water{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "light_on"

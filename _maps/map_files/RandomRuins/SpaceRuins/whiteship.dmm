@@ -57,23 +57,9 @@
 	pixel_y = -24;
 	specialfunctions = 4
 	},
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead. Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 85;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie2_s";
-	icon_state = "zombie2_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 100;
-	name = "Zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = 0
+	bruteloss = 15;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1118,23 +1104,9 @@
 /obj/structure/closet/medical_wall{
 	pixel_x = 32
 	},
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead. Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 65;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie2_s";
-	icon_state = "zombie2_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 100;
-	name = "Zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = 0
+	bruteloss = 35;
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -1160,25 +1132,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/vomit,
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead! Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	health = 60;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie_s";
-	icon_state = "zombie_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 75;
-	melee_damage_lower = 15;
-	melee_damage_upper = 30;
-	name = "Fast zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = -1
+	bruteloss = 15;
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -1219,25 +1175,9 @@
 	pixel_x = 26;
 	pixel_y = -2
 	},
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead! Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	health = 45;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie_s";
-	icon_state = "zombie_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 75;
-	melee_damage_lower = 15;
-	melee_damage_upper = 30;
-	name = "Fast zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = -1
+	bruteloss = 30;
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1359,25 +1299,9 @@
 "yE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/hologram/holopad,
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead! Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	health = 20;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie_s";
-	icon_state = "zombie_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 75;
-	melee_damage_lower = 15;
-	melee_damage_upper = 30;
-	name = "Fast zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = -1
+	bruteloss = 50;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1408,25 +1332,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead! Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	health = 60;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie_s";
-	icon_state = "zombie_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 75;
-	melee_damage_lower = 15;
-	melee_damage_upper = 30;
-	name = "Fast zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = -1
+	bruteloss = 15;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1974,23 +1882,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead. Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 65;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie2_s";
-	icon_state = "zombie2_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 100;
-	name = "Zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = 0
+	bruteloss = 35;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2033,25 +1927,9 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead! Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	health = 20;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie_s";
-	icon_state = "zombie_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 75;
-	melee_damage_lower = 15;
-	melee_damage_upper = 30;
-	name = "Fast zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = -1
+	bruteloss = 55;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2156,23 +2034,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead. Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 85;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie2_s";
-	icon_state = "zombie2_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 100;
-	name = "Zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = 0
+	bruteloss = 15;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2306,25 +2170,9 @@
 /obj/item/clothing/under/retro/medical{
 	name = "old medical officer's uniform"
 	},
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead! Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	health = 45;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie_s";
-	icon_state = "zombie_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 75;
-	melee_damage_lower = 15;
-	melee_damage_upper = 30;
-	name = "Fast zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = -1
+	bruteloss = 30;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2614,25 +2462,9 @@
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead! Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	health = 45;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie_s";
-	icon_state = "zombie_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 75;
-	melee_damage_lower = 15;
-	melee_damage_upper = 30;
-	name = "Fast zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = -1
+	bruteloss = 30;
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
@@ -2648,23 +2480,9 @@
 /area/shuttle/abandoned)
 "XK" = (
 /obj/structure/chair/comfy/shuttle,
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead. Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship/fast{
 	health = 65;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie2_s";
-	icon_state = "zombie2_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 100;
-	name = "Zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = 0
+	bruteloss = 35;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2700,23 +2518,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/mob/living/simple_animal/hostile/creature{
-	del_on_death = 1;
-	desc = "The undead. Its good time to RUN!";
-	faction = list("zombie");
-	harm_intent_damage = 10;
+/mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 35;
-	icon = 'icons/mob/human.dmi';
-	icon_living = "zombie2_s";
-	icon_state = "zombie2_s";
-	loot = list(/obj/effect/decal/cleanable/blood/gibs);
-	maxHealth = 100;
-	name = "Zombie";
-	response_help = "gently probs";
-	speak = list("RAWR!","Rawr!","GRR!","Growl!");
-	speak_chance = 1;
-	speak_emote = list("growls","roars");
-	speed = 0
+	bruteloss = 65;
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"

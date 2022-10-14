@@ -49618,7 +49618,7 @@
 	},
 /area/engine/hardsuitstorage)
 "ecK" = (
-/mob/living/simple_animal/hostile/retaliate/carp/koi{
+/mob/living/simple_animal/hostile/carp/koi{
 	desc = "Прелестный карп.";
 	name = "Джереми"
 	},

@@ -30,9 +30,9 @@
 		while(turfs > 0 && turflist.len) // safety
 			turfs--
 			var/turf/T = pick_n_take(turflist)
-			var/undeadtype = pick(/mob/living/simple_animal/hostile/retaliate/skeleton,
-								80;/mob/living/simple_animal/hostile/retaliate/zombie,
-								60;/mob/living/simple_animal/hostile/retaliate/ghost)
+			var/undeadtype = pick(/mob/living/simple_animal/hostile/skeleton/retaliate,
+								80;/mob/living/simple_animal/hostile/zombie/retaliate,
+								60;/mob/living/simple_animal/hostile/ghost/retaliate)
 			new undeadtype(T)
 
 /datum/event/undead/announce()

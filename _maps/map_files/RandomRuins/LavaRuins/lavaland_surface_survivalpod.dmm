@@ -70,7 +70,9 @@
 "o" = (
 /obj/effect/decal/cleanable/blood,
 /mob/living/simple_animal/hostile/asteroid/goliath/beast{
-	health = 0
+	stat = 2;
+	health = 0;
+	bruteloss = 350
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)

@@ -2702,7 +2702,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "sq" = (
-/mob/living/simple_animal/hostile/retaliate/carp/koi{
+/mob/living/simple_animal/hostile/carp/koi{
 	name = "space koi Eve"
 	},
 /turf/simulated/floor/beach/water{
@@ -7915,7 +7915,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Zp" = (
-/mob/living/simple_animal/hostile/retaliate/carp/koi/honk{
+/mob/living/simple_animal/hostile/carp/koi/honk{
 	name = "space koi Denny"
 	},
 /turf/simulated/floor/beach/water{

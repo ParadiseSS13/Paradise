@@ -164,4 +164,53 @@
 	if(regen_cooldown < world.time)
 		heal_overall_damage(4)
 
+/mob/living/simple_animal/hostile/carp/sea
+	name = "sea carp"
+	desc = "A large fish bearing similarities to a certain space-faring menace."
+	icon_state = "carp"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 1)
+	response_help = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm = "hits"
+	retreat_distance = 6
+	vision_range = 5
+	retaliate_only = TRUE
+	minbodytemp = 250
+	maxbodytemp = 350
+	gold_core_spawnable = NO_SPAWN
+	var/carp_color = "carp" //holder for icon set
+
+/mob/living/simple_animal/hostile/carp/koi
+	name = "space koi"
+	desc = "A gentle space-faring koi."
+	icon = 'icons/obj/fish_items.dmi'
+	icon_state = "koi1"
+	icon_living = "koi1"
+	icon_dead = "koi1-dead"
+
+	harm_intent_damage = 1
+	melee_damage_lower = 2
+	melee_damage_upper = 2
+	speak_emote = list("blurps")
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/salmonmeat = 1)
+
+	var/randomize_icon = TRUE
+
+	retaliate_only = TRUE
+
+/mob/living/simple_animal/hostile/carp/koi/Initialize(mapload)
+	. = ..()
+	if(randomize_icon)
+		var/koinum = rand(1, 4)
+		icon_state = "koi[koinum]"
+		icon_living = "koi[koinum]"
+		icon_dead = "koi[koinum]-dead"
+
+/mob/living/simple_animal/hostile/carp/koi/honk
+	icon_state = "koi5"
+	icon_living = "koi5"
+	icon_dead = "koi5-dead"
+	randomize_icon = FALSE
+	retaliate_only = TRUE
+
 #undef REGENERATION_DELAY

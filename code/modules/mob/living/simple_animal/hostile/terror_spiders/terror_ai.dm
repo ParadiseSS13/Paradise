@@ -175,7 +175,7 @@
 	. = ..(damage)
 	Retaliate()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/Retaliate()
+/mob/living/simple_animal/hostile/poison/terror_spider/Retaliate()
 	var/list/around = oview(src, 7)
 	var/list/ts_nearby = list()
 	for(var/atom/movable/A in around)

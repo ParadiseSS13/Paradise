@@ -25978,7 +25978,7 @@
 	},
 /area/hallway/primary/fore)
 "aZy" = (
-/mob/living/simple_animal/hostile/retaliate/carp/koi{
+/mob/living/simple_animal/hostile/carp/koi{
 	name = "Jeremy"
 	},
 /turf/simulated/floor/beach/water{

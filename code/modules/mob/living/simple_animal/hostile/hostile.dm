@@ -51,6 +51,9 @@
 	var/lose_patience_timer_id //id for a timer to call LoseTarget(), used to stop mobs fixating on a target they can't reach
 	var/lose_patience_timeout = 300 //30 seconds by default, so there's no major changes to AI behaviour, beyond actually bailing if stuck forever
 
+	var/list/enemies = list()
+	var/retaliate_only = FALSE //if true, will attack only after being attacked
+
 /mob/living/simple_animal/hostile/Initialize(mapload)
 	. = ..()
 
@@ -138,6 +141,12 @@
 				. += HM
 	else
 		. = oview(vision_range, targets_from)
+	if(retaliate_only)
+		if(!enemies.len)
+			return list()
+		var/list/see = .
+		see &= enemies // Remove all entries that aren't in enemies
+		return see
 
 /mob/living/simple_animal/hostile/proc/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
 	. = list()
@@ -155,6 +164,32 @@
 	GiveTarget(Target)
 	return Target //We now have a target
 
+/mob/living/simple_animal/hostile/proc/Retaliate()
+	var/list/around = view(src, vision_range)
+
+	for(var/atom/movable/A in around)
+		if(A == src)
+			continue
+		if(isliving(A))
+			var/mob/living/M = A
+			if(faction_check_mob(M) && attack_same || !faction_check_mob(M))
+				enemies |= M
+		else if(ismecha(A))
+			var/obj/mecha/M = A
+			if(M.occupant)
+				enemies |= M
+				enemies |= M.occupant
+		else if(isspacepod(A))
+			var/obj/spacepod/S = A
+			if(S.pilot)
+				enemies |= S
+				enemies |= S.pilot
+
+	for(var/mob/living/simple_animal/hostile/H in around)
+		if(faction_check_mob(H) && !attack_same && !H.attack_same)
+			H.enemies |= enemies
+	return 0
+
 /mob/living/simple_animal/hostile/proc/PossibleThreats()
 	. = list()
 	for(var/pos_targ in ListTargets())
@@ -167,6 +202,21 @@
 			continue
 
 /mob/living/simple_animal/hostile/proc/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
+	if(retaliate_only)
+		if(isliving(A))
+			var/mob/living/L = A
+			if(!L.stat)
+				return L
+			else
+				enemies -= L
+		else if(ismecha(A))
+			var/obj/mecha/M = A
+			if(M.occupant)
+				return A
+		else if(isspacepod(A))
+			var/obj/spacepod/S = A
+			if(S.pilot)
+				return A
 	return
 
 /mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
@@ -327,6 +377,9 @@
 			FindTarget()
 		else if(target != null && prob(40))//No more pulling a mob forever and having a second player attack it, it can switch targets now if it finds a more suitable one
 			FindTarget()
+	if(retaliate_only)
+		if(damage > 0 && stat == CONSCIOUS)
+			Retaliate()
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)

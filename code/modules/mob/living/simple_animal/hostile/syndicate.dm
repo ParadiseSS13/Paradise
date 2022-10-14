@@ -316,7 +316,6 @@
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return TRUE
 
-
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = 1
 	rapid = 2

@@ -64,11 +64,11 @@
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aq" = (
-/mob/living/simple_animal/hostile/retaliate/carp,
+/mob/living/simple_animal/hostile/carp/sea,
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "ar" = (
-/mob/living/simple_animal/hostile/retaliate/carp,
+/mob/living/simple_animal/hostile/carp/sea,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "as" = (
