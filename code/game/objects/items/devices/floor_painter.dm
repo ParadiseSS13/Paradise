@@ -15,17 +15,24 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 
-	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "bcircuit", "blackcorner", "blue", "bluecorner",
-		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "browncornerold", "brownold",
-		"cafeteria", "caution", "cautioncorner", "chapel", "cmo", "dark", "delivery", "escape", "escapecorner", "floor",
+	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "bcircuit", "black", "blackcorner", "blue", "bluecorner",
+		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "brownfull", "browncornerold", "brownold",
+		"cafeteria", "caution", "cautioncorner", "cautionfull", "chapel", "cmo", "dark", "delivery", "escape", "escapecorner", "floor", "floor4",
 		"freezerfloor", "gcircuit", "green", "greenblue", "greenbluefull", "greencorner", "greenfull", "greenyellow",
 		"greenyellowfull", "grimy", "loadingarea", "neutral", "neutralcorner", "neutralfull", "orange", "orangecorner",
-		"orangefull", "purple", "purplecorner", "purplefull", "rcircuit", "rampbottom", "ramptop", "red", "redblue", "redbluefull",
-		"redcorner", "redfull", "redgreen", "redgreenfull", "redyellow", "redyellowfull", "warning", "warningcorner", "warnwhite",
-		"warnwhitecorner", "white", "whiteblue", "whitebluecorner", "whitebluefull", "whitebot", "whitecorner", "whitedelivery",
+		"orangefull", "podfloor", "podfloor_dark", "podfloor_light", "solarpanel", "podhatch", "podhatchcorner", "purple", "purplecorner", "purplefull",
+		"rcircuit", "rampbottom", "ramptop", "recharge_floor", "recharge_floor_dark", "red", "redblue", "redbluefull",
+		"redcorner", "redfull", "redgreen", "redgreenfull", "darkredgreen", "darkredgreenfull", "redyellow", "redyellowfull",
+		"darkredyellow", "darkredyellowfull", "stage_bleft", "stage_left", "stage_stairs", "vault", "warning", "warningcorner",
+		"warnwhite", "warnwhitecorner", "white", "whiteblue", "whitebluecorner", "whitebluefull", "whitebot", "whitecorner", "whitedelivery",
 		"whitegreen", "whitegreencorner", "whitegreenfull", "whitehall", "whitepurple", "whitepurplecorner", "whitepurplefull",
 		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow",
-		"yellowcorner", "yellowcornersiding", "yellowsiding")
+		"yellowcorner", "yellowcornersiding", "yellowsiding", "darkpurple", "darkpurplecorners", "darkpurplefull", "darkred", "darkredcorners",
+		"darkredfull", "darkblue", "darkbluecorners", "darkbluefull", "darkgreen", "darkgreencorners", "darkgreenfull", "darkyellow", "darkyellowcorners",
+		"darkyellowfull", "darkbrown", "darkbrowncorners", "darkbrownfull", "stairs-l", "stairs-m", "stairs-r",
+		"warnwhitecornerred", "warnwhitecornerorange", "warnwhitecornerblue", "warnwhitecornerwhite", "warnwhitecornercamo",
+		"warnwhitered", "warnwhiteorange", "warnwhiteblue", "warnwhitewhite", "warnwhitecamo", "blackfull", "brownoldfull", "escapefull",
+		"navyblue", "navybluecorners", "navybluefull", "darkgrey", "darkgreycamo", "darkgreynavyblue", "darkgreynavybluecorner")
 
 /obj/item/floor_painter/afterattack(var/atom/A, var/mob/user, proximity, params)
 	if(!proximity)
