@@ -159,7 +159,7 @@
 	if(!istype(user.martial_art, /datum/martial_art/ninja_martial_art))
 		user.pointed(A) // If they don't have the required martial art just point at the target.
 
-	if(!istype(A, /mob/living/carbon/human)) // Special moves only work on humans.
+	if(!ishuman(A)) // Special moves only work on humans.
 		user.pointed(A)
 		return 0
 	if(user.a_intent == INTENT_HELP) // No special move for help intent.

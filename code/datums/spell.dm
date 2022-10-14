@@ -375,7 +375,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(overlay)
 		for(var/atom/target in targets)
 			var/location
-			if(istype(target,/mob/living))
+			if(isliving(target))
 				location = target.loc
 			else if(istype(target,/turf))
 				location = target
@@ -393,11 +393,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	SHOULD_CALL_PARENT(TRUE)
 	for(var/atom/target in targets)
 		var/location
-		if(istype(target,/mob/living))
+		if(isliving(target))
 			location = target.loc
 		else if(istype(target,/turf))
 			location = target
-		if(istype(target,/mob/living) && message)
+		if(isliving(target) && message)
 			to_chat(target, text("[message]"))
 		if(sparks_spread)
 			do_sparks(sparks_amt, 0, location)

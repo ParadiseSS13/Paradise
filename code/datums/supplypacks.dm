@@ -1036,6 +1036,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/vending_refill/genedrobe,)
 	containername = "science clothing vendor crate"
 
+/datum/supply_packs/science/mechcore
+	name = "Mech power core crate"
+	contains = list(/obj/item/mecha_parts/core)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "mech power core crate"
+	access = ACCESS_RD
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

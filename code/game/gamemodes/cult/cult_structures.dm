@@ -93,7 +93,7 @@
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type
-		if(istype(O, /obj/structure) || !user.put_in_hands(O))
+		if(isstructure(O) || !user.put_in_hands(O))
 			O.forceMove(get_turf(src))
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
