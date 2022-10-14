@@ -55,6 +55,7 @@
 	ninja.restore_blood()
 
 	to_chat(ninja, span_notice("Реагенты успешно введены в пользователя."))
+	add_attack_logs(ninja, null, "Activated healing chems.")
 	s_coold = 3 SECONDS
 	heal_available = FALSE
 	for(var/datum/action/item_action/ninjaheal/ninja_action in actions)

@@ -179,10 +179,8 @@
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
-			create_debug_log("died of damage, trigger reason: [reason]")
 		else
 			WakeUp()
-			create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
 /mob/living/simple_animal/proc/handle_automated_action()

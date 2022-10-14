@@ -214,9 +214,9 @@
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 
-	message_admins("[key_name_admin(user)] has launched an artillery strike.")
-	log_admin("[key_name(user)] has launched an artillery strike.") // Line below handles logging the explosion to disk
-	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
+	message_admins("[key_name_admin(user)] has launched an artillery strike into [ADMIN_COORDJMP(bullseye)].")
+	log_admin("[key_name_log(user)] has launched an artillery strike into [COORD(bullseye)].") // Line below handles logging the explosion to disk
+	explosion(bullseye,ex_power,ex_power*2,ex_power*4, cause = "Bluespace artillery strike")
 
 	reload()
 

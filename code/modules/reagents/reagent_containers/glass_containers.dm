@@ -42,7 +42,7 @@
 		if(user.a_intent == INTENT_HARM)
 			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
 							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
-			add_attack_logs(user, M, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+			add_attack_logs(user, M, "Splashed with [name] containing [contained]")
 
 			reagents.reaction(M, REAGENT_TOUCH)
 			reagents.clear_reagents()
@@ -58,7 +58,7 @@
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
 				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
-				add_attack_logs(user, M, "Fed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+				add_attack_logs(user, M, "Fed with [name] containing [contained]")
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 

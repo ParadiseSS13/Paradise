@@ -81,8 +81,7 @@
 	modify_projectile(I)
 	playsound(user, fire_sound, 50, 1)
 	I.throw_at(target, get_throwrange(), get_throwspeed(), user, FALSE)
-	message_admins("[key_name_admin(user)] fired \a [I] from a [src].")
-	log_game("[key_name_admin(user)] used \a [src].")
+	add_attack_logs(user, target, "fired [I] from a [src]")
 	process_chamber()
 
 	semicd = 1

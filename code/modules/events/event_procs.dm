@@ -8,7 +8,7 @@
 
 	if(ispath(type))
 		new type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
-		message_admins("[key_name_admin(usr)] has triggered an event. ([type])", 1)
+		message_admins("[key_name_admin(usr)] has triggered an event. ([type])")
 
 /client/proc/event_manager_panel()
 	set name = "Event Manager Panel"

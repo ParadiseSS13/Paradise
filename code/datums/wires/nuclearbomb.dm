@@ -32,7 +32,7 @@
 
 		if(WIRE_BOMB_TIMING)
 			if(N.timing)
-				message_admins("[key_name_admin(usr)] pulsed a nuclear bomb's detonation wire, causing it to explode (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
+				message_admins("[key_name_admin(usr)] pulsed a nuclear bomb's detonation wire, causing it to explode [ADMIN_COORDJMP(holder)]")
 				N.explode()
 
 		if(WIRE_BOMB_SAFETY)
@@ -44,7 +44,7 @@
 	switch(wire)
 		if(WIRE_BOMB_SAFETY)
 			if(N.timing)
-				message_admins("[key_name_admin(usr)] cut a nuclear bomb's timing wire, causing it to explode (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
+				message_admins("[key_name_admin(usr)] cut a nuclear bomb's timing wire, causing it to explode [ADMIN_COORDJMP(holder)]")
 				N.explode()
 
 		if(WIRE_BOMB_TIMING)

@@ -321,6 +321,7 @@
 	list_reagents = list("nutriment" = 6, "amanitin" = 3, "psilocybin" = 1, "vitamin" = 4)
 	tastes = list("pie" = 1, "mushroom" = 1)
 	foodtype = GRAIN | VEGETABLES
+	log_eating = TRUE
 
 /obj/item/reagent_containers/food/snacks/plump_pie
 	name = "plump pie"
@@ -431,6 +432,7 @@
 	desc = "Like life, it never quite tastes the same."
 	bitesize = 10
 	tastes = list("donut" = 3, "chaos" = 1)
+	log_eating = TRUE
 
 /obj/item/reagent_containers/food/snacks/donut/chaos/New()
 	..()

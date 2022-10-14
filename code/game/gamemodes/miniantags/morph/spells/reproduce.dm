@@ -40,5 +40,5 @@
 	player_mind.active = TRUE
 	player_mind.transfer_to(new_morph)
 	new_morph.make_morph_antag()
-	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
+	add_misc_logs(user, "Made a [new_morph] using [src]")
 	user.ventcrawler = initial(user.ventcrawler) // re enable the crawling

@@ -170,6 +170,7 @@
 		return ", missing component."
 
 	var/atom/movable/I = new R.result (get_turf(user.loc))
+	user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
 	I.CheckParts(parts, R)
 	if(isitem(I))
 		user.put_in_hands(I)

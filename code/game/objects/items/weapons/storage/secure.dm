@@ -68,6 +68,7 @@
 
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = 1
 		overlays += image('icons/obj/storage.dmi', icon_sparking)
 		sleep(6)

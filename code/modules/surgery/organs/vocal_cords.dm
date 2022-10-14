@@ -481,5 +481,5 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else
 		next_command = world.time + cooldown_none
 
-	message_admins("[key_name_admin(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
-	log_game("[key_name(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
+	message_admins("[ADMIN_LOOKUPFLW(owner)] has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].")
+	add_game_logs("has said '[log_message]' with a Voice of God, affecting [english_list(listeners)], with a power multiplier of [power_multiplier].", owner)

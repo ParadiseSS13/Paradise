@@ -34,7 +34,7 @@
 						H.robust_searching = 1
 						H.friends += user
 						H.attack_same = 1
-						log_game("[user] has revived hostile mob [target] with a malfunctioning lazarus injector")
+						add_game_logs("[user] has revived hostile mob [target] with a malfunctioning lazarus injector", user)
 					else
 						H.attack_same = 0
 				loaded = 0
@@ -51,6 +51,7 @@
 
 /obj/item/lazarus_injector/emag_act(mob/user)
 	if(!malfunctioning)
+		add_attack_logs(user, src, "emagged")
 		malfunctioning = 1
 		to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
 

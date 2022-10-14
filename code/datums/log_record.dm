@@ -38,11 +38,15 @@
 		. = subject
 
 /datum/log_record/proc/get_health_string(var/mob/living/L)
-	var/OX = L.getOxyLoss() > 50 	? 	"<b>[L.getOxyLoss()]</b>" 		: L.getOxyLoss()
-	var/TX = L.getToxLoss() > 50 	? 	"<b>[L.getToxLoss()]</b>" 		: L.getToxLoss()
-	var/BU = L.getFireLoss() > 50 	? 	"<b>[L.getFireLoss()]</b>" 		: L.getFireLoss()
-	var/BR = L.getBruteLoss() > 50 	? 	"<b>[L.getBruteLoss()]</b>" 	: L.getBruteLoss()
-	return " ([L.health]: <font color='deepskyblue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>)"
+	var/OX = L.getOxyLoss() > 50 ? "<b>[L.getOxyLoss()]</b>" : L.getOxyLoss()
+	var/TX = L.getToxLoss() > 50 ? "<b>[L.getToxLoss()]</b>" : L.getToxLoss()
+	var/FI = L.getFireLoss() > 50 ? "<b>[L.getFireLoss()]</b>" : L.getFireLoss()
+	var/BR = L.getBruteLoss() > 50 ? "<b>[L.getBruteLoss()]</b>" : L.getBruteLoss()
+	var/ST = L.getStaminaLoss() > 50 ? "<b>[L.getStaminaLoss()]</b>" : L.getStaminaLoss()
+	var/CL = L.getCloneLoss() > 50 ? "<b>[L.getCloneLoss()]</b>" : L.getCloneLoss()
+	var/RT = L.getBrainLoss() > 50 ? "<b>[L.getBrainLoss()]</b>" : L.getBrainLoss()
+
+	return " ([L.health]: <font color='deepskyblue'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[FI]</font> - <font color='red'>[BR]</font> - <font color='cyan'>[ST]</font> - <font color='purple'>[CL]</font> - <font color='pink'>[RT]</font>)"
 
 /datum/log_record/proc/should_log_health(log_type)
 	if(log_type == ATTACK_LOG || log_type == DEFENSE_LOG)

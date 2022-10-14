@@ -129,6 +129,7 @@
 			if(T.is_safe())
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
 				do_teleport(A, beacon, 0)
+				investigate_log("[key_name_log(src)] teleported [key_name_log(A)] to [COORD(beacon)].", INVESTIGATE_TELEPORTATION)
 				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 				return
 			to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")

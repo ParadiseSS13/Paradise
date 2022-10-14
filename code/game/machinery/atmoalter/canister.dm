@@ -271,9 +271,9 @@ update_flag
 		if(close_valve)
 			valve_open = FALSE
 			update_icon()
-			investigate_log("Valve was <b>closed</b> by [key_name(user)].<br>", "atmos")
+			investigate_log("Valve was <b>closed</b> by [key_name_log(user)].<br>", INVESTIGATE_ATMOS)
 		else if(valve_open && holding)
-			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
+			investigate_log("[key_name_log(user)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
 	add_hiddenprint(user)
@@ -343,23 +343,23 @@ update_flag
 				pressure = text2num(pressure)
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
-				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", "atmos")
+				investigate_log("was set to [release_pressure] kPa by [key_name_log(usr)].", INVESTIGATE_ATMOS)
 		if("valve")
 			var/logmsg
 			valve_open = !valve_open
 			if(valve_open)
-				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the [holding || "air"].<br>"
+				logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into the [holding || "air"].<br>"
 				if(!holding)
-					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the air.<br>"
+					logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into the air.<br>"
 					if(air_contents.toxins > 0)
-						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
+						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [ADMIN_VERBOSEJMP(src)]!")
+						log_admin("[key_name(usr)] opened a canister that contains plasma at [AREACOORD(src)]")
 					if(air_contents.sleeping_agent > 0)
-						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
+						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [ADMIN_VERBOSEJMP(src)]!")
+						log_admin("[key_name(usr)] opened a canister that contains N2O at [AREACOORD(src)]")
 			else
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding || "air"].<br>"
-			investigate_log(logmsg, "atmos")
+				logmsg = "Valve was <b>closed</b> by [key_name_log(usr)], stopping the transfer into the [holding || "air"].<br>"
+			investigate_log(logmsg, INVESTIGATE_ATMOS)
 			release_log += logmsg
 		if("eject")
 			if(holding)

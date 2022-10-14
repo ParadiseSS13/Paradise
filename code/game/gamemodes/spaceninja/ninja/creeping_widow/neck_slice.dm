@@ -27,7 +27,7 @@
 					target.visible_message("<span class='warning'>[user] tries to cut [target] throat with [creeping_widow.my_energy_katana]! But fails!</span>", \
 									"<span class='userdanger'>[user] tried to cut your throat with [creeping_widow.my_energy_katana]! But fails!</span>")
 					cooldown = 300	// Меньше кд после использования, при провале отрезания головы
-				add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] :  Neck Slice", ATKLOG_ALL)
+				add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] :  Neck Slice")
 				// Мгновенное убийство - большое кд! Если конечно это не провальная попытка отрезать голову голему
 				addtimer(CALLBACK(creeping_widow, /datum/martial_art/ninja_martial_art/.proc/regain_focus, user), cooldown)
 				return MARTIAL_COMBO_DONE

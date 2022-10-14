@@ -125,6 +125,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		ascend_percent = CULT_ASCENDANT_LOW
 		rise_number = round(CULT_RISEN_LOW * (players - cultists))
 		ascend_number = round(CULT_ASCENDANT_LOW * (players - cultists))
+	add_game_logs("Blood Cult rise/ascend numbers: [rise_number]/[ascend_number].")
 
 /**
   * Returns the current number of cultists and constructs.
@@ -190,8 +191,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
-		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
-		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
+		add_conversion_logs(cult_mind.current, "converted to the blood cult")
 
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
@@ -224,6 +224,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+			log_admin("The Blood Cult has risen. The eyes started to glow.")
 			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
 
 	else if(cult_players >= ascend_number)
@@ -233,6 +234,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
+			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
@@ -272,6 +274,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.remove_overlay(HALO_LAYER)
 			H.update_body()
 		check_cult_size()
+		add_conversion_logs(cultist, "deconverted from the blood cult.")
 		if(show_message)
 			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")

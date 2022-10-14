@@ -68,7 +68,7 @@
 	parent3.update = 0
 	parent1.reconcile_air()
 
-	investigate_log("was set to side by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was set to side by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return 1
 
 /obj/machinery/atmospherics/trinary/tvalve/proc/go_straight()
@@ -83,7 +83,7 @@
 	parent3.update = 0
 	parent1.reconcile_air()
 
-	investigate_log("was set to straight by [usr ? key_name(usr) : "a remote signal"]", "atmos")
+	investigate_log("was set to straight by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
 	return 1
 
 /obj/machinery/atmospherics/trinary/tvalve/attack_ai(mob/user)

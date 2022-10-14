@@ -149,9 +149,8 @@
 			to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 			state = SCREWED_CORE
 		if(GLASS_CORE)
-			var/area/R = get_area(src)
-			message_admins("[key_name_admin(usr)] has completed an AI core in [R]: [ADMIN_COORDJMP(loc)].")
-			log_game("[key_name(usr)] has completed an AI core in [R]: [COORD(loc)].")
+			message_admins("[key_name_admin(usr)] has completed an AI core in [ADMIN_VERBOSEJMP(src)].")
+			add_game_logs("has completed an AI core in [AREACOORD(src)].", usr)
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			if(!brain)
 				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"

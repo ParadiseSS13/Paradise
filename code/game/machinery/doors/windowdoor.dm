@@ -221,6 +221,7 @@
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		operating = TRUE
 		flick("[base_state]spark", src)

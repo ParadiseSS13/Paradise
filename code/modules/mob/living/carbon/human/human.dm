@@ -615,12 +615,12 @@
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+						add_attack_logs(usr, src, "Stripped of [pocket_item]")
 				else
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
-						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+						add_attack_logs(usr, src, "Equipped with [place_item]")
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -629,7 +629,7 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+				add_attack_logs(usr, src, "Attempted strip of [pocket_item]")
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -644,7 +644,7 @@
 														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
 				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 				C.empty_contents()
-				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
+				add_attack_logs(usr, src, "Stripped of headpocket items")
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -1846,25 +1846,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/datum/objective/sintouched/O
 	switch(rand(1,7))//traditional seven deadly sins... except lust.
 		if(1) // acedia
-			log_game("[src] was influenced by the sin of Acedia.")
+			add_game_logs("[src] was influenced by the sin of Acedia.", src)
 			O = new /datum/objective/sintouched/acedia
 		if(2) // Gluttony
-			log_game("[src] was influenced by the sin of gluttony.")
+			add_game_logs("[src] was influenced by the sin of gluttony.", src)
 			O = new /datum/objective/sintouched/gluttony
 		if(3) // Greed
-			log_game("[src] was influenced by the sin of greed.")
+			add_game_logs("[src] was influenced by the sin of greed.", src)
 			O = new /datum/objective/sintouched/greed
 		if(4) // sloth
-			log_game("[src] was influenced by the sin of sloth.")
+			add_game_logs("[src] was influenced by the sin of sloth.", src)
 			O = new /datum/objective/sintouched/sloth
 		if(5) // Wrath
-			log_game("[src] was influenced by the sin of wrath.")
+			add_game_logs("[src] was influenced by the sin of wrath.", src)
 			O = new /datum/objective/sintouched/wrath
 		if(6) // Envy
-			log_game("[src] was influenced by the sin of envy.")
+			add_game_logs("[src] was influenced by the sin of envy.", src)
 			O = new /datum/objective/sintouched/envy
 		if(7) // Pride
-			log_game("[src] was influenced by the sin of pride.")
+			add_game_logs("[src] was influenced by the sin of pride.", src)
 			O = new /datum/objective/sintouched/pride
 	SSticker.mode.sintouched += src.mind
 	src.mind.objectives += O

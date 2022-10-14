@@ -235,6 +235,7 @@
 
 /obj/machinery/door/emag_act(mob/user)
 	if(density)
+		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 		flick("door_spark", src)
 		sleep(6)
 		open()

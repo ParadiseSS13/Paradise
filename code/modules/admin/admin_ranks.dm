@@ -59,8 +59,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 /proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to reload admins via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to reload admins via advanced proc-call")
+		log_and_message_admins("attempted to reload admins via advanced proc-call")
 		return
 	//clear the datums references
 	GLOB.admin_datums.Cut()

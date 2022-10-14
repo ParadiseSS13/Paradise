@@ -151,8 +151,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * * adminmsg - Should an admin log be sent when this happens
   */
 /obj/machinery/tcomms/proc/log_action(user, msg, adminmsg = FALSE)
-	log_game("NTTC: [key_name(user)] [msg]")
-	log_investigate("[key_name(user)] [msg]", "nttc")
+	add_misc_logs(user, "NTTC: [key_name(user)] [msg]")
 	if(adminmsg)
 		message_admins("[key_name_admin(user)] [msg]")
 /**

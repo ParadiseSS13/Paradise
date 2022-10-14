@@ -173,7 +173,6 @@
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
 		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "[P.UID()]")))
 		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[t]", "target" = "[pda.UID()]")))
-		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [pda.owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
 
 		// Show it to ghosts
 		for(var/mob/M in GLOB.dead_mob_list)
@@ -197,7 +196,7 @@
 		else
 			receiver = P
 			log_message = "[log_message] (no holder)"
-		U.create_log(MISC_LOG, log_message, receiver)
+		add_misc_logs(U, log_message, receiver)
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
 

@@ -169,7 +169,7 @@ var/chatDebug = file("data/chatDebug.log")
 	if(cookie != "none")
 		var/regex/crashy_thingy = new /regex("(\\\[ *){5}")
 		if(crashy_thingy.Find(cookie))
-			message_admins("[key_name(src.owner)] tried to crash the server using malformed JSON")
+			message_admins("[ADMIN_LOOKUPFLW(src.owner)] tried to crash the server using malformed JSON")
 			log_admin("[key_name(owner)] tried to crash the server using malformed JSON")
 			return
 		var/list/connData = json_decode(cookie)
@@ -177,7 +177,7 @@ var/chatDebug = file("data/chatDebug.log")
 			connectionHistory = connData["connData"]
 			var/list/found = new()
 			if(connectionHistory.len > MAX_COOKIE_LENGTH)
-				message_admins("[key_name(src.owner)] was kicked for an invalid ban cookie)")
+				message_admins("[ADMIN_LOOKUPFLW(src.owner)] was kicked for an invalid ban cookie)")
 				qdel(owner)
 				return
 			for(var/i = connectionHistory.len; i >= 1; i--)
@@ -194,7 +194,7 @@ var/chatDebug = file("data/chatDebug.log")
 			//Add autoban using the DB_ban_record function
 			//Uh oh this fucker has a history of playing on a banned account!!
 			if (found.len > 0)
-				message_admins("[key_name(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
+				message_admins("[ADMIN_LOOKUPFLW(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
 	cookieSent = 1

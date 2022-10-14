@@ -46,9 +46,10 @@
 	else
 		icon_state = "signmaker_clown_off"
 
-/obj/item/signmaker/emag_act()
+/obj/item/signmaker/emag_act(mob/user)
+	add_attack_logs(user, src, "emagged")
 	clear_holosign()
-	to_chat(usr, "You broke the pointer, oh no")
+	to_chat(user, "You broke the pointer, oh no")
 	holosign_type = /obj/structure/holosoap/holosoap_emagged
 
 /obj/item/signmaker/attack_self(mob/user)
@@ -129,7 +130,6 @@
 				visible_message("<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
 
 				log_admin("[key_name(user)] EMPd a camera with a signmaker")
-				user.create_attack_log("[key_name(user)] EMPd a camera with a signmaker")
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
 				visible_message("<span class='info'>You missed the lens of [C] with [src].</span>")

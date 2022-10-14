@@ -113,9 +113,11 @@
 
 /obj/item/defibrillator/emag_act(user as mob)
 	if(safety)
+		add_attack_logs(user, src, "emagged")
 		safety = FALSE
 		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the card.")
 	else
+		add_attack_logs(user, src, "un-emagged")
 		safety = TRUE
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
 

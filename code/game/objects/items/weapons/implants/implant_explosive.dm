@@ -34,7 +34,7 @@
 	to_chat(imp_in, "<span class='notice'>You activate your microbomb implant.</span>")
 //If the delay is short, just blow up already jeez
 	if(delay <= 7)
-		explosion(src,heavy,medium,weak,weak, flame_range = weak)
+		explosion(src,heavy,medium,weak,weak, flame_range = weak, cause = src)
 		if(imp_in)
 			imp_in.gib()
 		qdel(src)
@@ -66,7 +66,7 @@
 	sleep(delay/4)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	sleep(delay/4)
-	explosion(src,heavy,medium,weak,weak, flame_range = weak)
+	explosion(src,heavy,medium,weak,weak, flame_range = weak, cause = src)
 	if(imp_in)
 		imp_in.gib()
 	qdel(src)

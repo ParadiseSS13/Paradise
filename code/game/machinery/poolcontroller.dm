@@ -125,7 +125,7 @@
 		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
-		add_attack_logs(src, drownee, "Drowned", isLivingSSD(drownee) ? null : ATKLOG_ALL)
+		add_attack_logs(src, drownee, "Drowned")
 		if(drownee.stat) //Mob is in critical.
 			drownee.AdjustLoseBreath(3, bound_lower = 0, bound_upper = 20)
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.

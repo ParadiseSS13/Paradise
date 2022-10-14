@@ -5,13 +5,11 @@
 	var/maxcapacity = FALSE //Safety check for batteries
 	var/drain = 0 //Drain amount from batteries
 	var/drain_total = 0
-	add_attack_logs(ninja, src, "draining energy from  [src] [ADMIN_COORDJMP(src)]", ATKLOG_MOST)
+	add_game_logs("draining energy from [src] [COORD(src)]", ninja)
 
-	var/area/area = get_area(src)
 	if(charge)
 
-		if(area)
-			investigate_log("<font color='red'>[ninja.real_name] started draining [src] of energy </font> at ([area.name])","singulo")
+		investigate_log("<font color='red'>[ninja.real_name] started draining [src] of energy </font> at [AREACOORD(src)]", INVESTIGATE_ENGINE)
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, loc)
 
@@ -34,7 +32,6 @@
 
 			else
 				break
-		if(area)
-			investigate_log("<font color='red'>[ninja.real_name] ended draining [src] of energy </font> at ([area.name]). Remaining energy: [src.charge]/[src.capacity]","singulo")
+		investigate_log("<font color='red'>[ninja.real_name] ended draining [src] of energy </font> at [AREACOORD(src)]. Remaining energy: [src.charge]/[src.capacity]", INVESTIGATE_ENGINE)
 
 	return drain_total

@@ -10,7 +10,7 @@
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, cause = null, breach = TRUE)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, var/cause = null, breach = TRUE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -45,8 +45,22 @@
 		var/list/cached_exp_block = list()
 
 		if(adminlog)
-			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ""] [ADMIN_COORDJMP(epicenter)] ")
-			log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ""] [COORD(epicenter)] ")
+			var/cause_str
+			var/atom/cause_atom
+			var/cause_vv = ""
+			if(isatom(cause))
+				cause_atom = cause
+				cause_str = cause_atom.name
+				cause_vv += ADMIN_VV(cause_atom,"VV")
+			else if(istext(cause))
+				cause_str = cause
+			else if(isnull(cause))
+				pass()
+			else
+				log_runtime("Bad type of cause for logging explosion.")
+
+			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) [cause ? "(Cause: [cause_str] [cause_vv])" : ""] [ADMIN_VERBOSEJMP(epicenter)] ")
+			add_game_logs("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) [cause ? "(Cause: [cause_str])" : ""] [AREACOORD(epicenter)] ")
 
 		var/x0 = epicenter.x
 		var/y0 = epicenter.y

@@ -4,7 +4,7 @@
 	var/maxcapacity = FALSE //Safety check for batteries
 	var/drain = 0 //Drain amount from batteries
 	var/drain_total = 0
-	add_attack_logs(ninja, src, "draining energy from [src] [ADMIN_COORDJMP(src)]", ATKLOG_MOST)
+	add_game_logs("draining energy from [src] [COORD(src)]", ninja)
 	if(charge)
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, loc)

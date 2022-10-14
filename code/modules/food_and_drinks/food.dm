@@ -26,6 +26,7 @@
 	var/last_check_time
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
+	var/log_eating = FALSE // do we log if someone eats us?
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()

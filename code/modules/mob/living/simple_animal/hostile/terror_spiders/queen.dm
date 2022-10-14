@@ -175,7 +175,7 @@
 						path_to_vent = 1
 				else
 					neststep = -1
-					message_admins("Warning: [key_name_admin(src)] was spawned in an area without a vent! This is likely a mapping/spawn mistake. This mob's AI has been permanently deactivated.")
+					message_admins("Warning: [ADMIN_LOOKUPFLW(src)] was spawned in an area without a vent! This is likely a mapping/spawn mistake. This mob's AI has been permanently deactivated.")
 			if(1)
 				// No nest, and we should create one. Start NestMode(), then advance to step 2.
 				if(world.time > (lastnestsetup + nestfrequency))

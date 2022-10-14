@@ -29,7 +29,7 @@
 		prayer_type = "CULTIST PRAYER"
 		deity = SSticker.cultdat.entity_name
 
-	log_say("(PRAYER) [msg]", usr)
+	add_game_logs("Prayed to the gods: [msg]", usr)
 	GLOB.requests.pray(usr.client, msg, usr.job == "Chaplain")
 	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
 

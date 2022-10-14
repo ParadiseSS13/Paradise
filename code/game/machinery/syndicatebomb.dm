@@ -258,10 +258,8 @@
 			add_fingerprint(user)
 
 			var/turf/bombturf = get_turf(src)
-			var/area/A = get_area(bombturf)
 			if(payload && !istype(payload, /obj/item/bombcore/training))
-				log_game("[key_name(user)] has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]")
-				investigate_log("[key_name(user)] has has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", INVESTIGATE_BOMB)
+				investigate_log("[key_name_log(user)] has has primed a [name] ([payload]) for detonation at [AREACOORD(bombturf)]", INVESTIGATE_BOMB)
 				add_attack_logs(user, src, "has primed a [name] ([payload]) for detonation", ATKLOG_FEW)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
 
@@ -349,8 +347,8 @@
 /obj/item/bombcore/proc/detonate()
 	if(adminlog)
 		message_admins(adminlog)
-		log_game(adminlog)
-	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log)
+		add_game_logs(adminlog)
+	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, cause = fingerprintslast)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
@@ -471,9 +469,9 @@
 /obj/item/bombcore/emp/detonate()
 	if(adminlog && !adminlogged)
 		message_admins(adminlog)
-		log_game(adminlog)
+		add_game_logs(adminlog)
 		adminlogged = TRUE
-	empulse(src, heavy_emp, light_emp, 1)
+	empulse(src, heavy_emp, light_emp, TRUE, name)
 	if(pulse_number <= 1)
 		src.visible_message("<span class='warning'>The bomb's core burns out, and the bomb disintegrates into ash.</span>")
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
@@ -539,7 +537,7 @@
 
 	if(adminlog)
 		message_admins(adminlog)
-		log_game(adminlog)
+		add_game_logs(adminlog)
 
 	playsound(loc, 'sound/effects/bamf.ogg', 75, 1, 5)
 
@@ -685,11 +683,9 @@
 		to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
 		if(detonated)
 			var/turf/T = get_turf(src)
-			var/area/A = get_area(T)
 			detonated--
-			investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
+			investigate_log("[key_name_log(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [AREACOORD(T)]", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
-			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
 		detonated =	0
 		existant =	0
 		timer = world.time + BUTTON_COOLDOWN

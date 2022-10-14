@@ -74,7 +74,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
 	load_motd() // Loads up the MOTD (Welcome message players see when joining the server)
 	load_mode() // Loads up the gamemode
-	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
 
 /// List of all world topic spam prevention handlers. See code/modules/world_topic/_spam_prevention_handler.dm
 GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
@@ -118,11 +117,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if((reason == 1) || fast_track) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
 		if(usr)
 			if(!check_rights(R_SERVER))
-				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
-				log_admin("[key_name(usr)] attempted to restart the server via the Profiler, without access.")
+				log_and_message_admins("attempted to restart the server via the Profiler, without access.")
 				return
-			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
-			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
+			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
@@ -177,7 +174,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(Lines.len)
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]
-			log_game("Saved mode is '[GLOB.master_mode]'")
+			add_game_logs("Saved mode is '[GLOB.master_mode]'")
 
 /world/proc/save_mode(var/the_mode)
 	var/F = file("data/mode.txt")

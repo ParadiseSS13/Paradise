@@ -63,7 +63,7 @@
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
 
-	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
+	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 
 /datum/map_template/proc/get_file()

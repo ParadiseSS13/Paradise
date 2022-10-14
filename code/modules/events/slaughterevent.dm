@@ -43,7 +43,7 @@
 		player_mind.assigned_role = "Slaughter Demon"
 		player_mind.special_role = SPECIAL_ROLE_SLAUGHTER_DEMON
 		message_admins("[key_name_admin(S)] выбран на роль Демона Резни по событию.")
-		log_game("[key_name_admin(S)] выбран на роль Демона Резни по событию.")
+		add_game_logs("выбран на роль Демона Резни по событию.", S)
 
 /datum/event/spawn_slaughter/start()
 	get_slaughter()

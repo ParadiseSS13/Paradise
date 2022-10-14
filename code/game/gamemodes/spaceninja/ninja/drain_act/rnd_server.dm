@@ -51,6 +51,7 @@
 				current_design = rnd_server.files.known_designs[j]
 				rnd_server.files.known_designs -= current_design.id
 			log_debug("Ninja_Objectives_Log: Успешно удалены данные и технологии у сервера: [rnd_server]")
+			investigate_log("[key_name_log(ninja)] deleted all technology on this server.", INVESTIGATE_RESEARCH)
 
 		//Удаление данных у консолей
 		for(var/obj/machinery/computer/rdconsole/rnd_console in GLOB.machines)
@@ -63,6 +64,7 @@
 				current_design = rnd_console.files.known_designs[j]
 				rnd_console.files.known_designs -= current_design.id
 			log_debug("Ninja_Objectives_Log: Успешно удалены данные и технологии у консоли: [rnd_console]")
+			investigate_log("[key_name_log(ninja)] deleted all technology on this console.", INVESTIGATE_RESEARCH)
 		//Фабрикаторы
 		for(var/obj/machinery/mecha_part_fabricator/rnd_mechfab in GLOB.machines)
 			if(!is_station_level(rnd_mechfab.z))
@@ -74,5 +76,6 @@
 				current_design = rnd_mechfab.local_designs.known_designs[j]
 				rnd_mechfab.local_designs.known_designs -= current_design.id
 			log_debug("Ninja_Objectives_Log: Успешно удалены данные у фабрикатора: [rnd_mechfab]")
+			investigate_log("[key_name_log(ninja)] deleted all technology on this fabricator.", INVESTIGATE_RESEARCH)
 		to_chat(ninja, span_notice("Установка успешна! Все исследования станции были стёрты."))
 		objective.completed = TRUE

@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned syndicates have internals cameras which are viewable through a monitor inside the Syndicate Mothership Bridge. Assigning the team's detailed task is recommended from there. The first one selected/spawned will be the team leader.")
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a Syndicate Strike Team.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a Syndicate Strike Team.</span>")
 
 	var/input = null
 	while(!input)
@@ -94,7 +94,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			is_leader = FALSE
 			syndicate_commando_number--
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>")
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send SST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

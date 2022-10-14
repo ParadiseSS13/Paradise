@@ -79,8 +79,8 @@
 		src.target = AM
 		loc = null
 
-		message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) planted [src.name] on [target.name] at ([target.x],[target.y],[target.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[target.x];Y=[target.y];Z=[target.z]'>JMP</a>) with [det_time] second fuse",0,1)
-		log_game("[key_name(user)] planted [name] on [target.name] at ([target.x],[target.y],[target.z]) with [det_time] second fuse")
+		message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)] with [det_time] second fuse")
+		add_game_logs("planted [name] on [target.name] at [COORD(target)] with [det_time] second fuse", user)
 
 		target.overlays += image_overlay
 		if(!nadeassembly)
@@ -88,8 +88,8 @@
 			addtimer(CALLBACK(src, .proc/prime), det_time*10)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
-	message_admins("[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) suicided with [src.name] at ([user.x],[user.y],[user.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",0,1)
-	log_game("[key_name(user)] suicided with [name] at ([user.x],[user.y],[user.z])")
+	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src.name] at [ADMIN_COORDJMP(user)]")
+	add_game_logs("suicided with [name] at [COORD(user)]", user)
 	user.visible_message("<span class='suicide'>[user] activates the [name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
@@ -148,7 +148,7 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		explosion(location, devastation_range = devastation_range, heavy_impact_range = heavy_impact_range, light_impact_range = light_impact_range, flash_range = flash_range)
+		explosion(location, devastation_range = devastation_range, heavy_impact_range = heavy_impact_range, light_impact_range = light_impact_range, flash_range = flash_range, cause = src)
 		location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target
@@ -180,11 +180,11 @@
 	if(location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir),0,0,3)
-			explosion(T,0,2,0)
+			explosion(get_step(T, aim_dir),0,0,3, cause = "Dir. X4")
+			explosion(T,0,2,0, cause = src)
 			location.ex_act(2, target)
 		else
-			explosion(location, 0, 2, 3)
+			explosion(location, 0, 2, 3, cause = src)
 			location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target
@@ -214,10 +214,10 @@
 	if(location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir),0,0,3)
+			explosion(get_step(T, aim_dir),0,0,3, cause = src)
 			location.ex_act(2, target)
 		else
-			explosion(location, 0, 0, 3)
+			explosion(location, 0, 0, 3, cause = src)
 			location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target

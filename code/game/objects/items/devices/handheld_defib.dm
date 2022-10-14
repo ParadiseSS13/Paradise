@@ -14,11 +14,13 @@
 
 /obj/item/handheld_defibrillator/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		desc += " The screen only shows the word KILL flashing over and over."
 		if(user)
 			to_chat(user, "<span class='warning'>you short out the safeties on [src]</span>")
 	else
+		add_attack_logs(user, src, "un-emagged")
 		emagged = FALSE
 		desc = "Used to restart stopped hearts."
 		if(user)

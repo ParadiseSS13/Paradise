@@ -233,6 +233,8 @@
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
+		add_attack_logs(G, C, "shocked for [round(power)] for slipping on")
+		C.investigate_log("got shocked for [round(power)] while slipped on [G](last touched: [G.fingerprintslast])", INVESTIGATE_BOTANY)
 		C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
@@ -240,6 +242,8 @@
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
+			add_attack_logs(G, C, "shocked for [round(power)], squashing [G]")
+			C.investigate_log("got shocked for [round(power)], squashing [G]", INVESTIGATE_BOTANY)
 			C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
@@ -309,12 +313,16 @@
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
 		var/turf/T = get_turf(target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
+		add_attack_logs(target, T, "teleport squash [G](max radius: [teleport_radius])")
+		target.investigate_log("teleported to [T], squashing [G](max radius: [teleport_radius]", INVESTIGATE_BOTANY)
 		do_teleport(target, T, teleport_radius)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
+		add_attack_logs(C, T, "tele-slipped on [G](max radius: [teleport_radius])")
+		C.investigate_log("teleported to [T], slipping on [G](max radius: [teleport_radius]", INVESTIGATE_BOTANY)
 		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)
@@ -337,6 +345,10 @@
 
 /datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(G && G.reagents)
+		var/reglist = ""
+		for(var/datum/reagent/R in G.reagents.reagent_list)
+			reglist += "[R.name] [R.volume], "
+		target.investigate_log("started reaction in [G] on squash. [reglist]", INVESTIGATE_BOTANY)
 		G.reagents.set_reacting(TRUE)
 		G.reagents.handle_reactions()
 
@@ -404,6 +416,10 @@
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
+			var/reglist = ""
+			for(var/datum/reagent/R in G.reagents.reagent_list)
+				reglist += "[R.name] [R.volume], "
+			target.investigate_log("got throw-pricked with [G]. [reglist]")
 
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"
@@ -414,7 +430,10 @@
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
 	S.set_up(G.reagents, splat_location)
-	// S.start(smoke_amount)
+	var/reglist = ""
+	for(var/datum/reagent/R in G.reagents.reagent_list)
+		reglist += "[R.name] [R.volume], "
+	target.investigate_log("started a chemical smoke, squashing [G]. [reglist]")
 	addtimer(CALLBACK(S, /datum/effect_system/smoke_spread/chem/.proc/start, smoke_amount), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /datum/plant_gene/trait/fire_resistance // Lavaland

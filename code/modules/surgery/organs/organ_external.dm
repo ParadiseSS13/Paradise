@@ -426,6 +426,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(config.bones_can_break && brute_dam + burn_dam + damage > min_broken_damage && !is_robotic())
 		if(prob(damage))
 			fracture()
+			add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
@@ -435,6 +436,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(prob(damage))
 			internal_bleeding = TRUE
 			owner.custom_pain("You feel something rip in your [name]!")
+			add_attack_logs(owner, null, "Suffered internal bleeding to [src](Damage: [damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -762,7 +764,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
 			"<span class='danger'>Your [src.name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
-		explosion(get_turf(owner),-1,-1,2,3)
+		explosion(get_turf(owner),-1,-1,2,3, cause = "Organ Sabotage")
 		do_sparks(5, 0, victim)
 		qdel(src)
 

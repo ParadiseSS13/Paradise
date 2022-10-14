@@ -127,6 +127,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		reveal_percent = CLOCK_CREW_REVEAL_LOW
 		power_reveal_number = round(CLOCK_POWER_REVEAL_LOW * CLOCK_POWER_PER_CREW * (players + clockers),1)
 		crew_reveal_number = round(CLOCK_CREW_REVEAL_LOW * (players - clockers),1)
+	add_game_logs("Clockwork Cult power/crew reveal numbers: [power_reveal_number]/[crew_reveal_number].")
 
 /**
   * Returns the current number of clockers and constructs.
@@ -192,8 +193,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(clock_mind.current)
 		SEND_SOUND(clock_mind.current, 'sound/ambience/antag/clockcult.ogg')
-		clock_mind.current.create_attack_log("<span class='danger'>Has been converted to the clockwork cult!</span>")
-		clock_mind.current.create_log(CONVERSION_LOG, "converted to the clockwork cult")
+		add_conversion_logs(clock_mind.current, "converted to the clockwork cult")
 
 		if(jobban_isbanned(clock_mind.current, ROLE_CLOCKER) || jobban_isbanned(clock_mind.current, ROLE_CULTIST) || jobban_isbanned(clock_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(clock_mind.current, ROLE_CLOCKER)
@@ -280,6 +280,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		H.update_eyes()
 		H.remove_overlay(HALO_LAYER)
 		H.update_body()
+	add_conversion_logs(clocker, "deconverted from the clockwork cult.")
 	if(show_message)
 		clocker.visible_message("<span class='clock'>[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!</span>",
 		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of Ratvar and the memories of your time as their servant with it.</span>")

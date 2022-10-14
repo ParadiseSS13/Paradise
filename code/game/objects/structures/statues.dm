@@ -119,20 +119,18 @@
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			if(P.firer)
-				message_admins("[key_name_admin(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]")
-				log_game("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]")
-				investigate_log("[key_name(P.firer)] ignited a plasma statue with [P.name] at [COORD(loc)]", "atmos")
+				add_attack_logs(P.firer, src, "Ignited by firing with [P.name]", ATKLOG_FEW)
+				investigate_log("was <span class='warning'>ignited</span> by [key_name_log(P.firer)] with [P.name]",INVESTIGATE_ATMOS)
 			else
-				message_admins("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
-				log_game("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
+				message_admins("A plasma statue was ignited with [P.name] at [ADMIN_COORDJMP(loc)]. No known firer.")
+				add_game_logs("A plasma statue was ignited with [P.name] at [COORD(loc)]. No known firer.")
 			PlasmaBurn()
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
-		log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
-		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
+		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(is_hot(W))
 		return
 	return ..()
@@ -144,9 +142,8 @@
 	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
 						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
 						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
-	message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
-	log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
-	investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
+	add_attack_logs(user, src, "ignited using [I]", ATKLOG_FEW)
+	investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 	ignite(2500)
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
@@ -336,7 +333,7 @@
 	desc = "Еще один герой корп. NanoTrasen. Вы замечаете интересную деталь, что спинка стула похожа на тюремное окошко. Так же на нем почему-то присутствует кровь, которая уже налегает слоями и хранится около года. По всей видимости этот стул символизирует какую то личность, которая внесла большой вклад в развитие и поддержание нашей галактической системы. \n Надпись на табличке - Спасибо тебе за все, мы всегда были и будем рады тебе."
 	icon_state = "artchair"
 	anchored = TRUE
-	oreAmount = 0	
+	oreAmount = 0
 
 
 ////////////////////////////////

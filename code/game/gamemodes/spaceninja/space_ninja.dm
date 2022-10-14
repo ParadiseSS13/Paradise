@@ -42,7 +42,7 @@
 
 /datum/game_mode/space_ninja/post_setup()
 	for(var/datum/mind/space_ninja_mind in space_ninjas)
-		log_game("[key_name(space_ninja_mind)] has been selected as a Space Ninja")
+		add_game_logs("has been selected as a Space Ninja", space_ninja_mind.current)
 		INVOKE_ASYNC(src, .proc/name_ninja, space_ninja_mind.current)
 		equip_space_ninja(space_ninja_mind.current)
 		give_ninja_datum(space_ninja_mind)
@@ -87,11 +87,8 @@
 		QDEL_NULL(ninja_mind.ninja)
 		ninja_mind.current.faction = list("Station")
 		if(admin_removed)
-			log_admin("[key_name(caller)] has removed special role \"Ninja\" from [key_name(ninja_mind.current)]")
-			message_admins("[key_name_admin(caller)] has removed special role \"Ninja\" from [key_name_admin(ninja_mind.current)]")
-		else
-			ninja_mind.current.create_attack_log(span_danger("De-Ninjaned"))
-			ninja_mind.current.create_log(CONVERSION_LOG, "De-Ninjaned")
+			log_and_message_admins("has removed special role \"Ninja\" from [key_name_admin(ninja_mind.current)]")
+		add_conversion_logs(ninja_mind.current, "De-ninjad")
 		if(issilicon(ninja_mind.current))
 			to_chat(ninja_mind.current, span_userdanger("Вы стали Роботом! И годы ваших тренировок становятся пылью..."))
 		else

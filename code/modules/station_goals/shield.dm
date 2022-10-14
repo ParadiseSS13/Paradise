@@ -193,6 +193,7 @@
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		to_chat(user, "<span class='danger'>Вы переписали схемы метеорного щита, заставив его привлекать метеоры, а не уничтожать их.</span>")
 		emagged = 1
 		if(active)

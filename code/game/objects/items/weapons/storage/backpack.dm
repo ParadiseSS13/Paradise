@@ -71,21 +71,20 @@
 			var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
 			if (user.mind.special_role || livingtime > 9000)
 				if(do_after(user, 30, target=src))
-					investigate_log("has become a singularity. Caused by [user.key]","singulo")
+					investigate_log("has become a singularity. Caused by [key_name_log(user)]", INVESTIGATE_ENGINE)
 					user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing! </span>")
 					qdel(W)
 					var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 					singulo.energy = 300 //To give it a small boost
-					message_admins("[key_name_admin(user)] detonated a bag of holding <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-					log_game("[key_name(user)] detonated a bag of holding")
+					message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(singulo)]!")
+					add_game_logs("created singularity using two bag of holding!", user)
 					qdel(src)
 				else
 					user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
 			else
 				user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
-				investigate_log("could potentially become a singularity (feature disabled for non-special roles). Caused by [user.key]","singulo")
-				message_admins("[key_name_admin(user)] tried to detonate a bag of holding (feature disabled for non-special roles) <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-				log_game("[key_name(user)] tried to detonate a bag of holding (feature disabled for non-special roles)")
+				message_admins("[ADMIN_LOOKUPFLW(user)] tried to create a singularity with bag of holding (feature disabled for non-special roles)")
+				add_game_logs("tried to create a singularity with bag of holding (feature disabled for non-special roles)", user)
 	else
 		. = ..()
 
@@ -97,7 +96,7 @@
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4))
+	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "into singularity")
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"

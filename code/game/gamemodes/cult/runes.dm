@@ -285,7 +285,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	if(!length(offer_targets))
 		fail_invoke()
-		log_game("Offer rune failed - no eligible targets")
 		rune_in_use = FALSE
 		return
 
@@ -367,7 +366,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 			for(var/M in invokers)
 				to_chat(M, "<span class='cultitalic'>[offering] is too greatly linked to the world! You need three acolytes!</span>")
 			fail_invoke()
-			log_game("Sacrifice rune failed - not enough acolytes and target is living")
 			return
 
 	var/sacrifice_fulfilled
@@ -447,13 +445,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	if(!length(potential_runes))
 		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-		log_game("Teleport rune failed - no other teleport runes")
 		fail_invoke()
 		return
 
 	if(!is_level_reachable(user.z))
 		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-		log_game("Teleport rune failed - user in away mission")
 		fail_invoke()
 		return
 
@@ -574,7 +570,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 			potential_revive_mobs |= M
 	if(!length(potential_revive_mobs))
 		to_chat(user, "<span class='cultitalic'>There are no dead cultists on the rune!</span>")
-		log_game("Raise Dead rune failed - no cultists to revive")
 		fail_invoke()
 		return
 	if(length(potential_revive_mobs) > 1)
@@ -628,7 +623,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/turf/T = get_turf(src)
 	if(target_mob.loc != T)
 		to_chat(user, "<span class='cultitalic'>The cultist to revive has been moved!</span>")
-		log_game("Raise Dead rune failed - revival target moved")
 		return FALSE
 	return TRUE
 
@@ -695,28 +689,23 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(!src || QDELETED(src) || !Adjacent(user) || user.incapacitated())
 		return
 	if(!cultist_to_summon)
-		log_game("Summon Cultist rune failed - no target")
 		return
 	if(cultist_to_summon.stat == DEAD)
 		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] has died!</span>")
 		fail_invoke()
-		log_game("Summon Cultist rune failed - target died")
 		return
 	if(cultist_to_summon.pulledby || cultist_to_summon.buckled)
 		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is being held in place!</span>")
 		to_chat(cultist_to_summon, "<span class='cult'>You feel a tugging sensation, but you are being held in place!")
 		fail_invoke()
-		log_game("Summon Cultist rune failed - target restrained")
 		return
 	if(!iscultist(cultist_to_summon))
 		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not a follower of the [SSticker.cultdat.entity_title3]!</span>")
 		fail_invoke()
-		log_game("Summon Cultist rune failed - target was deconverted")
 		return
 	if(is_away_level(cultist_to_summon.z))
 		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not in our dimension!</span>")
 		fail_invoke()
-		log_game("Summon Cultist rune failed - target in away mission")
 		return
 
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
@@ -842,12 +831,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(!(user in get_turf(src)))
 		to_chat(user, "<span class='cultitalic'>You must be standing on [src]!</span>")
 		fail_invoke()
-		log_game("Manifest rune failed - user not standing on rune")
 		return
 	if(user.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		to_chat(user, "<span class='cultitalic'>Ghosts can't summon more ghosts!</span>")
 		fail_invoke()
-		log_game("Manifest rune failed - user is a ghost")
 		return
 
 	var/choice = alert(user, "You tear open a connection to the spirit realm...", null, "Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel")
@@ -855,17 +842,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(!is_station_level(z) || istype(get_area(src), /area/space))
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to manifest spirits, you must be on station!</span>")
 			fail_invoke()
-			log_game("Manifest rune failed - not on station")
 			return
 		if(user.health <= 40)
 			to_chat(user, "<span class='cultitalic'>Your body is too weak to manifest spirits, heal yourself first.</span>")
 			fail_invoke()
-			log_game("Manifest rune failed - not enough health")
 			return list()
 		if(ghosts >= clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit))
 			to_chat(user, "<span class='cultitalic'>You are sustaining too many ghosts to summon more!</span>")
 			fail_invoke()
-			log_game("Manifest rune failed - too many summoned ghosts")
 			return list()
 		summon_ghosts(user, T)
 
@@ -882,7 +866,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(!length(ghosts_on_rune))
 		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
 		fail_invoke()
-		log_game("Manifest rune failed - no nearby ghosts")
 		return list()
 
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
@@ -995,12 +978,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
-		log_game("Summon Nar'Sie rune failed - off station Z level")
 		return
 	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		for(var/M in invokers)
 			to_chat(M, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
-		log_game("Summon god rune failed - already summoned")
 		return
 
 	//BEGIN THE SUMMONING
@@ -1017,9 +998,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
-		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
+		add_game_logs("erased Summon Narsie rune with a cult dagger", user)
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
 	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-		log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
+		add_game_logs("erased Summon Narsie rune using a null rod", user)
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
 	return ..()

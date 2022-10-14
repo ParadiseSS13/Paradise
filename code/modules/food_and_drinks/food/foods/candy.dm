@@ -512,6 +512,7 @@
 	trash = /obj/item/c_tube
 	filling_color = "#32127A"
 	list_reagents = list("sulfonal" = 20)
+	log_eating = TRUE
 
 // ***********************************************************
 // Candybar Flavors

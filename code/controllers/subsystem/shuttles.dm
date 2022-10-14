@@ -152,7 +152,7 @@ SUBSYSTEM_DEF(shuttle)
 	else
 		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
 
-	log_game("[key_name(user)] has called the shuttle.")
+	add_game_logs("has called the shuttle.", user)
 	message_admins("[key_name_admin(user)] has called the shuttle.")
 
 	return
@@ -168,7 +168,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/cancelEvac(mob/user)
 	if(canRecall())
 		emergency.cancel(get_area(user))
-		log_game("[key_name(user)] has recalled the shuttle.")
+		add_game_logs("has recalled the shuttle.", user)
 		message_admins("[key_name_admin(user)] has recalled the shuttle.")
 		return 1
 
@@ -210,7 +210,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(callShuttle)
 		if(emergency.mode < SHUTTLE_CALL)
 			emergency.request(null, 2.5)
-			log_game("There is no means of calling the shuttle anymore. Shuttle automatically called.")
+			add_game_logs("There is no means of calling the shuttle anymore. Shuttle automatically called.")
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons

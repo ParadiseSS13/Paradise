@@ -240,7 +240,7 @@
 			user.visible_message("<span class='notice'>[user] fiddles with the back of \the [src].</span>", "<span class='notice'>You secure \the [I] behind \the [src].</span>")
 
 			message_admins("[key_name_admin(user)] attached [I] to a picture frame.")
-			log_game("[key_name_admin(user)] attached [I] to a picture frame.")
+			add_game_logs("attached [I] to a picture frame.", user)
 		return 1
 	else
 		return ..()

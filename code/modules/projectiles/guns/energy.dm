@@ -115,6 +115,7 @@
 
 /obj/item/gun/energy/emag_act(mob/user)
 	if(sibyl_mod && !sibyl_mod.emagged)
+		add_attack_logs(user, sibyl_mod, "emagged")
 		sibyl_mod.emagged = TRUE
 		sibyl_mod.unlock()
 		if(user)

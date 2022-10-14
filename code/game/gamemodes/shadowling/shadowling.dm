@@ -112,7 +112,7 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
-		log_game("[key_name(shadow)] has been selected as a Shadowling.")
+		add_game_logs("has been selected as a Shadowling.", shadow.current)
 		spawn(rand(10,100))
 			to_chat(shadow.current, "<br>")
 			to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
@@ -157,8 +157,7 @@ Made by Xhuis
 		shadowling_thralls += new_thrall_mind
 		new_thrall_mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		update_shadow_icons_added(new_thrall_mind)
-		new_thrall_mind.current.create_attack_log("<span class='danger'>Became a thrall</span>")
-		new_thrall_mind.current.create_log(CONVERSION_LOG, "Became a thrall")
+		add_conversion_logs(new_thrall_mind.current, "Became a Shadow thrall")
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
@@ -179,8 +178,7 @@ Made by Xhuis
 	if(!istype(thrall_mind) || !(thrall_mind in shadowling_thralls) || !isliving(thrall_mind.current))
 		return 0 //If there is no mind, the mind isn't a thrall, or the mind's mob isn't alive, return
 	shadowling_thralls.Remove(thrall_mind)
-	thrall_mind.current.create_attack_log("<span class='danger'>Dethralled</span>")
-	thrall_mind.current.create_log(CONVERSION_LOG, "Dethralled")
+	add_conversion_logs(thrall_mind.current, "De-shadow thralled")
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
 	for(var/obj/effect/proc_holder/spell/S in thrall_mind.spell_list)
@@ -237,8 +235,7 @@ Made by Xhuis
 	if(!istype(ling_mind) || !(ling_mind in shadows)) return 0
 	update_shadow_icons_removed(ling_mind)
 	shadows.Remove(ling_mind)
-	ling_mind.current.create_attack_log("<span class='danger'>Deshadowlinged</span>")
-	ling_mind.current.create_log(CONVERSION_LOG, "Deshadowlinged")
+	add_conversion_logs(ling_mind.current, "Deshadowlinged")
 	ling_mind.special_role = null
 	for(var/obj/effect/proc_holder/spell/S in ling_mind.spell_list)
 		ling_mind.RemoveSpell(S)

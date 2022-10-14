@@ -71,7 +71,7 @@ field_generator power level display
 					"<span class='notice'>You turn on the [name].</span>", \
 					"<span class='italics'>You hear heavy droning.</span>")
 				turn_on()
-				investigate_log("<font color='green'>activated</font> by [user.key].","singulo")
+				investigate_log("<font color='green'>activated</font> by [key_name_log(user)].", INVESTIGATE_ENGINE)
 
 				add_fingerprint(user)
 	else
@@ -190,7 +190,7 @@ field_generator power level display
 	else
 		visible_message("<span class='danger'>The [name] shuts down!</span>", "<span class='italics'>You hear something shutting down.</span>")
 		turn_off()
-		investigate_log("ran out of power and <font color='red'>deactivated</font>","singulo")
+		investigate_log("ran out of power and <font color='red'>deactivated</font>", INVESTIGATE_ENGINE)
 		power = 0
 		check_power_level()
 		return 0
@@ -319,15 +319,10 @@ field_generator power level display
 		if(O.last_warning && temp && atoms_share_level(O, src))
 			if((world.time - O.last_warning) > 50) //to stop message-spam
 				temp = FALSE
-				// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD?" Well, ill tell you
-				// get_area_name is fucking broken and uses a for(x in world) search
-				// It doesnt even work, is expensive, and returns 0
-				// Im not refactoring one thing which could risk breaking all admin location logs
-				// Fight me
-				// [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)] works much better and actually works at all
-				// Oh and yes, this exact comment was pasted from the exact same thing I did to tcomms code. Dont at me.
-				message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [O ? "[get_location_name(O, TRUE)] [COORD(O)]" : "nonexistent location"] [ADMIN_JMP(O)] | Field generator location: [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]")
-				investigate_log("has <font color='red'>failed</font> whilst a singulo exists.","singulo")
+				// Здесь был коммент от affected в 7 строк про то что get_area_name тупой и юзал for(x in world) и типа дорого и глупо.
+				// https://github.com/ParadiseSS13/Paradise/commit/2019e3bfbb95997b84c9a0df89116aacc741814e (или #13751). Его пофиксили теперь всё путём
+				message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [ADMIN_VERBOSEJMP(O)] | Field generator location: [ADMIN_VERBOSEJMP(src)]")
+				investigate_log("has <font color='red'>failed</font> whilst a singulo exists(size, energy: [O.current_size],[O.energy]).", INVESTIGATE_ENGINE)
 		O.last_warning = world.time
 
 /obj/machinery/field/generator/shock_field(mob/living/user)

@@ -22,7 +22,7 @@
 		playsound(src, "terminal_type", 50, TRUE)
 		return
 	atom_say(input)
-	log_say("(TTS) [input]", user)
+	add_say_logs(user, input, language = "TTS")
 
 /obj/item/ttsdevice/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())

@@ -56,7 +56,7 @@
 		user.drop_item()
 		I.forceMove(src)
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
-		log_game("[key_name(user)] has rigged a beartrap with an IED.")
+		add_game_logs("has rigged a beartrap with an IED.", user)
 		to_chat(user, "<span class='notice'>You sneak [IED] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
 	if(istype(I, /obj/item/assembly/signaler))
@@ -101,7 +101,7 @@
 			if(IED && isturf(src.loc))
 				IED.active = 1
 				message_admins("[key_name_admin(usr)] has triggered an IED-rigged [name].")
-				log_game("[key_name(usr)] has triggered an IED-rigged [name].")
+				add_game_logs("has triggered an IED-rigged [name].", usr)
 				spawn(IED.det_time)
 					IED.prime()
 

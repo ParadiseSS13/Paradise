@@ -48,8 +48,8 @@
 			var/mob/user = pda.fingerprintslast
 			if(istype(pda.loc, /mob/living))
 				name = pda.loc
-			log_admin("STATUS: [user] set status screen with [pda]. Message: [data1] [data2]")
-			message_admins("STATUS: [user] set status screen with [pda]. Message: [data1] [data2]")
+			log_admin("STATUS: [key_name_log(user)] set status screen with [pda]. Message: [data1] [data2]")
+			message_admins("STATUS: [key_name_admin(user)] set status screen with [pda]. Message: [data1] [data2]")
 
 		if("alert")
 			status_signal.data["picture_state"] = data1

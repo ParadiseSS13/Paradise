@@ -187,6 +187,7 @@
 	spawn(rand(300,600))
 		if(target)
 			target.Hallucinate(400)
+			target.last_hallucinator_log = "Hallucination sting (changeling)"
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 

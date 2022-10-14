@@ -998,6 +998,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!is_emaggable)
 			to_chat(user, "The emag sparks, and flashes red. This mechanism does not appear to be emaggable.")
 		else if(locked)
+			add_attack_logs(user, src, "emagged cover")
 			to_chat(user, "You emag the cover lock.")
 			locked = 0
 		else
@@ -1011,6 +1012,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "You must close the panel first")
 			return
 		else
+			add_attack_logs(user, src, "emag converted")
+			add_conversion_logs(src, "Converted as a slave to [key_name_log(user)]")
 			sleep(6)
 			SetEmagged(TRUE)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
@@ -1018,8 +1021,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			disconnect_from_ai()
 			to_chat(user, "You emag [src]'s interface.")
-//			message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
-			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
+			add_attack_logs(user, src, "emagged", ATKLOG_FEW)
 			clear_supplied_laws()
 			clear_inherent_laws()
 			laws = new /datum/ai_laws/syndicate_override
@@ -1362,9 +1364,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emagged)
 		if(mmi)
 			qdel(mmi)
-		explosion(src.loc,1,2,4,flame_range = 2)
+		explosion(src.loc,1,2,4,flame_range = 2, cause = src)
 	else
-		explosion(src.loc,-1,0,2)
+		explosion(src.loc,-1,0,2, cause = src)
 	gib()
 	return
 

@@ -109,8 +109,7 @@
 			break
 
 
-	message_admins("[key_name_admin(src)] has spawned a Gimmick Team.", 1)
-	log_admin("[key_name(src)] used Spawn Gimmick Team.")
+	log_and_message_admins("used Spawn Gimmick Team.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Gimmick Team") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------

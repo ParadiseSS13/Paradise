@@ -1049,7 +1049,7 @@
 						visible_message("<span class='danger'><b>[name]</b> и <b>[L.name]</b> дают ЛЕГЕНДАРНУЮ пятюню!</span>")
 						status_flags |= GODMODE
 						L.status_flags |= GODMODE
-						explosion(loc,1,3,9,12)
+						explosion(loc,1,3,9,12, cause = "Wizard highfive")
 						status_flags &= ~GODMODE
 						L.status_flags &= ~GODMODE
 						return

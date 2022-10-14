@@ -94,7 +94,7 @@ Doesn't work on other aliens/AI.*/
 	if(!msg)
 		return
 	host.adjustPlasma(-10)
-	log_say("(AWHISPER to [key_name(L)]) [msg]", host)
+	add_say_logs(host, msg, L, "Alien Whisper")
 	to_chat(L, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")
 	to_chat(host, "<span class='noticealien'>You said: [msg] to [L]</span>")
 	for(var/mob/dead/observer/G in GLOB.player_list)

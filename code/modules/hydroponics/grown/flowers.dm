@@ -194,8 +194,7 @@
 		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
 		M.adjust_fire_stacks(seed.potency / 20)
 		if(M.IgniteMob())
-			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
-			log_game("[key_name(user)] set [key_name(M)] on fire")
+			add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
 
 /obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)

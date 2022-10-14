@@ -193,11 +193,11 @@
 /obj/structure/closet/crate/secure/proc/boom(mob/user)
 	if(user)
 		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
-		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5)
+	explosion(get_turf(src), 0, 1, 5, 5, cause = src)
 	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
@@ -251,6 +251,7 @@
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
+		add_attack_logs(user, src, "emagged")
 		overlays += sparks
 		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
 		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

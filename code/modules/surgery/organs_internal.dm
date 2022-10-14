@@ -293,6 +293,8 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 			return 0
 		I.insert(target)
+		if(istype(I, /obj/item/organ/internal/cyberimp))
+			add_attack_logs(user, target, "Surgically inserted [I]([I.type])", ATKLOG_ALMOSTALL)
 		spread_germs_to_organ(I, user, tool)
 
 		if(affected)
@@ -354,7 +356,7 @@
 			user.visible_message("[user] notices there is not enough mitocholide in [tool].", \
 			"You notice there is not enough mitocholide in [tool].")
 			return 0
-			
+
 		var/ethanol = 0 //how much alcohol is in the thing
 		var/spaceacillin = 0 //how much actual antibiotic is in the thing
 

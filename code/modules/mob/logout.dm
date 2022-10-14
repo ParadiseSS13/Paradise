@@ -3,8 +3,7 @@
 	unset_machine()
 	GLOB.player_list -= src
 	log_access_out(src)
-	create_attack_log("<font color='red'>Logged out at [atom_loc_line(get_turf(src))]</font>")
-	create_log(MISC_LOG, "Logged out")
+	add_game_logs("OWNERSHIP: [key_name(src)] is no longer owning mob [src]([src.type])")
 	// `holder` is nil'd out by now, so we check the `admin_datums` array directly
 	//Only report this stuff if we are currently playing.
 	if(GLOB.admin_datums[ckey] && SSticker && SSticker.current_state == GAME_STATE_PLAYING)

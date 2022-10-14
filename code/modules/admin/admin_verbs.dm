@@ -467,8 +467,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
 			createStealthKey()
-		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
-		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]", 1)
+		log_and_message_admins("has turned stealth mode [holder.fakekey ? "ON with fake key: [holder.fakekey]" : "OFF"]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/big_brother()
@@ -509,11 +508,11 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if(null)
 			return 0
 		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3)
+			explosion(epicenter, 1, 2, 3, 3, cause = "Admin Drop Bomb")
 		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4)
+			explosion(epicenter, 2, 3, 4, 4, cause = "Admin Drop Bomb")
 		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5)
+			explosion(epicenter, 3, 5, 7, 5, cause = "Admin Drop Bomb")
 		if("Custom Bomb")
 			var/devastation_range = input("Devastation range (in tiles):") as null|num
 			if(devastation_range == null)
@@ -527,7 +526,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			var/flash_range = input("Flash range (in tiles):") as null|num
 			if(flash_range == null)
 				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "Admin Drop Bomb")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -562,8 +561,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
 				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-					log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(usr)].")
-					message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(usr)].")
+					log_and_message_admins("tried to spawn for [key_name(H)] a cookie, but their hands were full, so they did not receive their cookie.")
 					return
 				else
 					H.update_inv_r_hand()//To ensure the icon appears in the HUD
@@ -664,8 +662,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>")
 			logmsg = "all access."
 	if(logmsg)
-		log_admin("[key_name(usr)] blessed [key_name(M)] with: [logmsg]")
-		message_admins("[key_name(usr)] blessed [key_name(M)] with: [logmsg]")
+		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
 
 /client/proc/smite(mob/living/M as mob)
 	set category = "Event"
@@ -728,6 +725,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			logmsg = "a honk tumor."
 		if("Hallucinate")
 			H.Hallucinate(1000)
+			H.last_hallucinator_log = "Hallucination smite"
 			logmsg = "hallucinations."
 		if("Cold")
 			H.reagents.add_reagent("frostoil", 40)
@@ -813,8 +811,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			goblin.GiveTarget(M)
 			logmsg = "shitcurity goblin"
 	if(logmsg)
-		log_admin("[key_name(usr)] smited [key_name(M)] with: [logmsg]")
-		message_admins("[key_name_admin(usr)] smited [key_name_admin(M)] with: [logmsg]")
+		log_and_message_admins("smited [key_name_log(M)] with: [logmsg]")
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = "Event"
@@ -838,8 +835,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		T.AddSpell(new S)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
-	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
+	log_and_message_admins("gave [key_name_log(T)] the spell [S].")
 
 /client/proc/give_disease(mob/T in GLOB.mob_list)
 	set category = "Event"
@@ -849,8 +845,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!D) return
 	T.ForceContractDisease(new D)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
+	log_and_message_admins("gave [key_name_log(T)] the disease [D].")
 
 /client/proc/make_sound(var/obj/O in view()) // -- TLE
 	set category = "Event"
@@ -866,8 +861,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return
 		for(var/mob/V in hearers(O))
 			V.show_message(admin_pencode_to_html(message), 2)
-		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
+		log_and_message_admins("made [O] at [COORD(O)] make a sound")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/togglebuildmodeself()
@@ -912,8 +906,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 	S.forceHijacked = !S.forceHijacked
 	var/admin_verb = S.forceHijacked ? "enabled" : "disabled"
-	log_admin("[key_name(usr)] [admin_verb] forced shuttle hijack.")
-	message_admins("[key_name_admin(usr)] [admin_verb] forced shuttle hijack.", 1)
+	log_and_message_admins("[admin_verb] forced shuttle hijack.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "[admin_verb] forced shuttle hijack")
 
 /client/proc/deadmin_self()
@@ -1251,8 +1244,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	to_chat(T, "<span class='notice'>Move on.</span>")
 	T << 'sound/voice/manup1.ogg'
 
-	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
-	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
+	log_and_message_admins("told [key_name_log(T)] to man up and deal with it.")
 
 /client/proc/global_man_up()
 	set category = "Admin"

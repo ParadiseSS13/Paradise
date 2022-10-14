@@ -138,12 +138,7 @@
 		SSipintel.throttle = world.timeofday + (2 * SSipintel.errors MINUTES)
 	else
 		error += " Attempting retry on [ip]."
-	log_ipintel(error)
-
-/proc/log_ipintel(text)
-	log_game("IPINTEL: [text]")
-	log_debug("IPINTEL: [text]")
-
+	log_debug("IPINTEL: [error]")
 
 /proc/ipintel_is_banned(t_ckey, t_ip)
 	if(!config.ipintel_email)

@@ -58,6 +58,7 @@
 	icon_state = "amanita"
 	tastes = list("amanita" = 1)
 	filling_color = "#FF0000"
+	log_eating = TRUE
 
 
 // Destroying Angel
@@ -89,7 +90,7 @@
 	filling_color = "#C0C0C0"
 	tastes = list("destroying angel" = 1)
 	wine_power = 0.6
-
+	log_eating = TRUE
 
 // Liberty Cap
 /obj/item/seeds/liberty
@@ -266,6 +267,7 @@
 		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
 		return FALSE
 	new effect_path(user.loc, seed)
+	investigate_log("was planted by [key_name_log(user)] at [COORD(user)]", INVESTIGATE_BOTANY)
 	to_chat(user, "<span class='notice'>You plant [src].</span>")
 	qdel(src)
 	return TRUE

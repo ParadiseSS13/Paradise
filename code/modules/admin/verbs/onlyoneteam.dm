@@ -58,8 +58,7 @@
 		H.dna.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
-	message_admins("[key_name_admin(usr)] used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
-	log_admin("[key_name(usr)] used dodgeball.")
+	log_and_message_admins("used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	GLOB.nologevent = 1
 
 /obj/item/beach_ball/dodgeball

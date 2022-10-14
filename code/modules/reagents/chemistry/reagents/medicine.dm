@@ -761,6 +761,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					add_attack_logs(M, M, "delay gib by [name]")
 					M.delayed_gib()
 					return
 				if(!M.ghost_can_reenter())
@@ -1212,6 +1213,7 @@
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetHallucinate(min(max(0, M.hallucination + 10), 50))
+	M.last_hallucinator_log = "[name] overdose"
 	update_flags |= M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
 

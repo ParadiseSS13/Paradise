@@ -439,5 +439,6 @@
 	if(sabotaged)
 		to_chat(user, "<span class='warning'>[src] is already sabotaged!</span>")
 	else
+		add_attack_logs(user, src, "emagged")
 		to_chat(user, "<span class='warning'>You slide the emag into the dataport on [src] and short out the safeties.</span>")
 		sabotaged = 1

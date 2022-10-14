@@ -30,8 +30,8 @@
 	if(istype(user.loc, /turf/space))
 		return
 	var/turf/T = get_turf(src)
-	message_admins("Kudzu planted by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) at ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a>)",0,1)
-	investigate_log("was planted by [key_name(user)] at ([T.x],[T.y],[T.z])","kudzu")
+	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_COORDJMP(T)]")
+	investigate_log("was planted by [key_name_log(user)] at [COORD(T)]", INVESTIGATE_BOTANY)
 	new /obj/structure/spacevine_controller(user.loc, mutations, potency, production)
 	user.drop_item()
 	qdel(src)

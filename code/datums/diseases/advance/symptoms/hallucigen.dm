@@ -37,5 +37,6 @@ Bonus
 			else
 				to_chat(M, "<span class='userdanger'>[pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")]</span>")
 				M.AdjustHallucinate(5)
+				M.last_hallucinator_log = name
 
 	return

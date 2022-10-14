@@ -1,8 +1,8 @@
 /datum/buildmode_mode/throwing
 	key = "throw"
-	
+
 	var/atom/movable/throw_atom = null
-	
+
 /datum/buildmode_mode/throwing/show_help(mob/user)
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select</span>")
@@ -22,4 +22,4 @@
 	if(right_click)
 		if(throw_atom)
 			throw_atom.throw_at(object, 10, 1, user)
-			log_admin("Build Mode: [key_name(user)] threw [throw_atom] at [object] ([object.x],[object.y],[object.z])")
+			log_admin("Build Mode: [key_name(user)] threw [throw_atom] at [object] [COORD(object)]")

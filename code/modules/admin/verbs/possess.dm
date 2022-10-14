@@ -16,12 +16,7 @@
 
 	if(confirm != "Yes")
 		return
-	if(T)
-		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])")
-		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])", 1)
-	else
-		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at an unknown location")
-		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at an unknown location", 1)
+	log_and_message_admins("has possessed [O] ([O.type]) at [COORD(T)]")
 
 	if(!usr.control_object) //If you're not already possessing something...
 		usr.name_archive = usr.real_name

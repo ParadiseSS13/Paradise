@@ -13,7 +13,7 @@
 		for(var/turf/T in range(1,user))
 			turfs.Add(T)
 		R.cast(turfs)
-		add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]", ATKLOG_ALL)
+		add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]")
 		if(creeping_widow.my_suit && creeping_widow.my_suit.s_initialized)
 			if(locate(/datum/action/item_action/ninja_smoke_bomb) in creeping_widow.my_suit.actions)
 				creeping_widow.my_suit.prime_smoke()

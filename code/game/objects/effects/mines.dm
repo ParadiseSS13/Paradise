@@ -43,6 +43,7 @@
 	var/range_flash = 3
 
 /obj/effect/mine/explosive/mineEffect(mob/living/victim)
+	add_attack_logs(victim, src, "Stepped on")
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
 
 /obj/effect/mine/stun

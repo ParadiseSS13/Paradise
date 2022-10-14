@@ -237,7 +237,7 @@
 	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
-	log_game("[key_name(chassis.occupant)] used a Mecha Honker in [T.x], [T.y], [T.z]")
+	add_game_logs("used a Mecha Honker in [COORD(T)]", chassis.occupant)
 	do_after_cooldown()
 	return
 
@@ -353,7 +353,7 @@
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
-	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
+	add_game_logs("fired a [src] in [COORD(T)]", chassis.occupant)
 	do_after_cooldown()
 	return
 

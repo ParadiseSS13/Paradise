@@ -98,19 +98,23 @@
 
 	alert_log += "Alert level reset."
 
-/area/syndicate_depot/core/proc/increase_alert(reason)
+/area/syndicate_depot/core/proc/increase_alert(reason, mob/triggered)
 	if(on_peaceful)
 		peaceful_mode(FALSE, FALSE)
 		peace_betrayed = TRUE
+		add_game_logs("Depot code: DELTA: Depot has been infiltrated by double-agents." + list_show(hostile_list, TRUE), triggered)
 		activate_self_destruct("Depot has been infiltrated by double-agents.", TRUE, null)
 		return
 	if(!local_alarm)
+		add_game_logs("Depot code: BLUE: [reason]" + list_show(hostile_list, TRUE), triggered)
 		local_alarm(reason, FALSE)
 		return
 	if(!called_backup)
+		add_game_logs("Depot code: RED: [reason]" + list_show(hostile_list, TRUE), triggered)
 		call_backup(reason, FALSE)
 		return
 	if(!used_self_destruct)
+		add_game_logs("Depot code: DELTA: [reason]" + list_show(hostile_list, TRUE), triggered)
 		activate_self_destruct(reason, FALSE, null)
 	updateicon()
 
@@ -130,39 +134,39 @@
 			return
 		declare_finished()
 
-/area/syndicate_depot/core/proc/turret_died()
+/area/syndicate_depot/core/proc/turret_died(mob/triggered)
 	something_looted = TRUE
 	if(on_peaceful)
-		increase_alert("Vandals!")
+		increase_alert("Vandals!", triggered)
 
 /area/syndicate_depot/core/proc/mine_triggered(mob/living/M)
 	if(mine_trigger_count)
 		return TRUE
 	mine_trigger_count++
-	increase_alert("Intruder detected by sentry mine: [M]")
+	increase_alert("Intruder detected by sentry mine: [M]", M)
 
 /area/syndicate_depot/core/proc/saw_mech(obj/mecha/E)
 	if(detected_mech)
 		return
 	detected_mech = TRUE
-	increase_alert("Hostile mecha detected: [E]")
+	increase_alert("Hostile mecha detected: [E]", E.occupant)
 
 /area/syndicate_depot/core/proc/saw_pod(obj/spacepod/P)
 	if(detected_pod)
 		return
 	detected_pod = TRUE
 	if(!called_backup)
-		increase_alert("Hostile spacepod detected: [P]")
+		increase_alert("Hostile spacepod detected: [P]", P.pilot)
 
 /area/syndicate_depot/core/proc/saw_double_agent(mob/living/M)
 	if(detected_double_agent)
 		return
 	detected_double_agent = TRUE
-	increase_alert("Hostile double-agent detected: [M]")
+	increase_alert("Hostile double-agent detected: [M]", M)
 
 /area/syndicate_depot/core/proc/peaceful_mode(newvalue, bycomputer)
 	if(newvalue)
-		log_game("Depot visit: started")
+		add_game_logs("Depot visit: started")
 		alert_log += "Code GREEN: visitor mode started."
 		ghostlog("The syndicate depot has visitors")
 		for(var/mob/living/simple_animal/bot/medbot/syndicate/B in src)
@@ -177,7 +181,7 @@
 			L.req_access = list(ACCESS_SYNDICATE_LEADER)
 			L.update_icon()
 	else
-		log_game("Depot visit: ended")
+		add_game_logs("Depot visit: ended")
 		alert_log += "Visitor mode ended."
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HARM
@@ -209,7 +213,6 @@
 /area/syndicate_depot/core/proc/local_alarm(reason, silent)
 	if(local_alarm)
 		return
-	log_game("Depot code: blue: " + list_show(hostile_list, TRUE))
 	ghostlog("The syndicate depot has declared code blue.")
 	alert_log += "Code BLUE: [reason]"
 	local_alarm = TRUE
@@ -231,7 +234,6 @@
 /area/syndicate_depot/core/proc/call_backup(reason, silent)
 	if(called_backup || used_self_destruct)
 		return
-	log_game("Depot code: red: " + list_show(hostile_list, TRUE))
 	ghostlog("The syndicate depot has declared code red.")
 	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
@@ -264,7 +266,6 @@
 /area/syndicate_depot/core/proc/activate_self_destruct(reason, containment_failure, mob/user)
 	if(used_self_destruct)
 		return
-	log_game("Depot code: delta: " + list_show(hostile_list, TRUE))
 	ghostlog("The syndicate depot is about to self-destruct.")
 	alert_log += "Code DELTA: [reason]"
 	used_self_destruct = TRUE
@@ -284,16 +285,16 @@
 		var/area/A = get_area(T)
 		var/log_msg = "[key_name(user)] has triggered the depot self destruct at [A.name] ([T.x],[T.y],[T.z])"
 		message_admins(log_msg)
-		log_game(log_msg)
+		add_game_logs(log_msg, user)
 		playsound(user, 'sound/machines/alarm.ogg', 100, 0, 0)
 	else
-		log_game("Depot self destruct activated.")
+		add_game_logs("Depot self destruct activated.")
 	if(reactor)
 		if(!reactor.has_overloaded)
 			reactor.overload(containment_failure)
 	else
 		log_debug("Depot: [src] called activate_self_destruct with no reactor.")
-		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually.</span>")
+		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually via admin bomb(25, 35, 45, 55).</span>")
 	updateicon()
 
 /area/syndicate_depot/core/proc/activate_lockdown()
@@ -394,12 +395,12 @@
 /area/syndicate_depot/core/proc/declare_started()
 	if(!run_started)
 		run_started = TRUE
-		log_game("Depot run: started: " + list_show(hostile_list, TRUE))
+		add_game_logs("Depot run: started: " + list_show(hostile_list, TRUE))
 
 /area/syndicate_depot/core/proc/declare_finished()
 	if(!run_finished && !used_self_destruct)
 		run_finished = TRUE
-		log_game("Depot run: finished successfully: " + list_show(hostile_list, TRUE))
+		add_game_logs("Depot run: finished successfully: " + list_show(hostile_list, TRUE))
 
 /area/syndicate_depot/core/proc/list_add(mob/M, list/L)
 	if(!istype(M))

@@ -444,7 +444,7 @@
 			playsound(target.loc, attack.attack_sound, 25, 1, -1)
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 			return FALSE
-		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
+		add_attack_logs(user, target, "Melee attacked with fists")
 
 		if(!iscarbon(user))
 			target.LAssailant = null

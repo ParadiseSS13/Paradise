@@ -106,7 +106,7 @@
 	SSair.atmos_machinery += src
 	radio = new(src)
 	radio.listening = 0
-	investigate_log("has been created.", "supermatter")
+	investigate_log("has been created.", INVESTIGATE_ENGINE)
 
 
 /obj/machinery/power/supermatter_shard/proc/handle_admin_warnings()
@@ -126,6 +126,7 @@
 	if(status >= min_status)
 		if(!current_state)
 			log_and_message_admins(message)
+			investigate_log(message, INVESTIGATE_ENGINE)
 			// SSdiscord.send2discord_simple_noadmins(message)
 		return TRUE
 	else
@@ -133,7 +134,7 @@
 
 
 /obj/machinery/power/supermatter_shard/Destroy()
-	investigate_log("has been destroyed.", "supermatter")
+	investigate_log("has been destroyed.", INVESTIGATE_ENGINE)
 	if(damage > emergency_point)
 		emergency_lighting(0)
 	QDEL_NULL(radio)
@@ -142,8 +143,8 @@
 	return ..()
 
 /obj/machinery/power/supermatter_shard/proc/explode()
-	investigate_log("has exploded.", "supermatter")
-	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1)
+	investigate_log("has exploded.", INVESTIGATE_ENGINE)
+	explosion(get_turf(src), explosion_power, explosion_power * 1.2, explosion_power * 1.5, explosion_power * 2, 1, 1, cause = src)
 	qdel(src)
 	return
 
@@ -166,8 +167,8 @@
 				radio.autosay("[emergency_alert] Instability: [stability]%", src.name)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
-					investigate_log("has reached the emergency point for the first time.", "supermatter")
-					message_admins("[src] has reached the emergency point <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
+					message_admins("[src] has reached the emergency point [ADMIN_COORDJMP(src)].")
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
@@ -189,6 +190,7 @@
 							//Hilariously enough, running into a closet should make you get hit the hardest.
 							var/mob/living/carbon/human/H = mob
 							H.AdjustHallucinate(max(50, min(300, DETONATION_HALLUCINATION * sqrt(1 / (get_dist(mob, src) + 1)))))
+							H.last_hallucinator_log = "Supermatter explosion"
 						var/rads = DETONATION_RADS * sqrt( 1 / (get_dist(mob, src) + 1) )
 						mob.apply_effect(rads, IRRADIATE)
 
@@ -266,6 +268,7 @@
 		if(!istype(eyes))
 			continue
 		l.Hallucinate(min(200, l.hallucination + power * config_hallucination_power * sqrt( 1 / max(1,get_dist(l, src)))))
+		l.last_hallucinator_log = "seeing SM without mesons"
 
 	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )
@@ -288,8 +291,8 @@
 	if(Proj.flag != "bullet")
 		power += Proj.damage * config_bullet_energy
 		if(!has_been_powered)
-			investigate_log("has been powered for the first time.", "supermatter")
-			message_admins("[src] has been powered for the first time <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+			investigate_log("has been powered for the first time.", INVESTIGATE_ENGINE)
+			message_admins("[src] has been powered for the first time [ADMIN_COORDJMP(src)].")
 			has_been_powered = 1
 	else
 		damage += Proj.damage * config_bullet_energy
@@ -298,8 +301,8 @@
 
 /obj/machinery/power/supermatter_shard/singularity_act()
 	var/gain = 100
-	investigate_log("Supermatter shard consumed by singularity.","singulo")
-	message_admins("Singularity has consumed a supermatter shard and can now become stage six.<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
+	investigate_log("consumed by singularity.", INVESTIGATE_ENGINE)
+	message_admins("<span class='danger'>Singularity has consumed a supermatter shard and can now become stage six</span> [ADMIN_COORDJMP(src)].")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in GLOB.mob_list)
 		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
@@ -401,10 +404,10 @@
 		var/mob/living/user = AM
 		user.gib()
 		power += 200
-		message_admins("[src] has consumed [key_name_admin(user)] <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
-		investigate_log("has consumed [key_name(user)].", "supermatter")
+		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_COORDJMP(src)].")
+		investigate_log("has consumed [key_name_log(user)].", INVESTIGATE_ENGINE)
 	else if(isobj(AM) && !istype(AM, /obj/effect))
-		investigate_log("has consumed [AM].", "supermatter")
+		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)
 
 	power += 200
@@ -417,7 +420,7 @@
 	for(var/mob/living/L in range(10))
 		var/rads = 500 * sqrt( 1 / (get_dist(L, src) + 1) )
 		L.apply_effect(rads, IRRADIATE)
-		investigate_log("has irradiated [L] after consuming [AM].", "supermatter")
+		investigate_log("has irradiated [L] after consuming [AM].", INVESTIGATE_ENGINE)
 		if(L in view())
 			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)

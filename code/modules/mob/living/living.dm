@@ -251,25 +251,21 @@
 	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]")
-			log_emote("point [hand_item] to [key_name(A)] ([A.x],[A.y],[A.z])", src)
-			create_log(EMOTE_LOG, "point [hand_item] to [key_name(A)] ([A.x],[A.y],[A.z])")
+			add_emote_logs(src, "point [hand_item] to [key_name(A)] [COORD(A)]")
 			return TRUE
 		A.visible_message("<span class='danger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [A.declent_ru(ACCUSATIVE)]!</span>",
 											"<span class='userdanger'>[src.declent_ru(NOMINATIVE)] указыва[pluralize_ru(src.gender,"ет","ют")] [hand_item.declent_ru(INSTRUMENTAL)] на [pluralize_ru(A.gender,"тебя","вас")]!</span>")
 		A << 'sound/weapons/targeton.ogg'
-		log_emote("point [hand_item] HARM to [key_name(A)] ([A.x],[A.y],[A.z])", src)
-		create_log(EMOTE_LOG, "point [hand_item] HARM to [key_name(A)] ([A.x],[A.y],[A.z])")
+		add_emote_logs(src, "point [hand_item] HARM to [key_name(A)] [COORD(A)]")
 		return TRUE
 	visible_message("<b>[src.declent_ru(NOMINATIVE)]</b> указыва[pluralize_ru(src.gender,"ет","ют")] на [A.declent_ru(ACCUSATIVE)]")
-	log_emote("point to [key_name(A)] ([A.x],[A.y],[A.z])", src)
-	create_log(EMOTE_LOG, "point to [key_name(A)] ([A.x],[A.y],[A.z])")
+	add_emote_logs(src, "point to [key_name(A)] [COORD(A)]")
 	return TRUE
 
 /mob/living/verb/succumb()
 	set hidden = 1
 	if(InCritical())
-		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
-		create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
+		add_misc_logs(src, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
@@ -298,7 +294,7 @@
 		return
 	if(IgniteMob())
 		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
-		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
+		add_attack_logs(user, src, "set on fire with [I]")
 
 /mob/living/proc/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
@@ -554,7 +550,7 @@
 	if(pullee && get_dist(src, pullee) > 1)
 		stop_pulling()
 	if(pullee && !isturf(pullee.loc) && pullee.loc != loc)
-		log_game("DEBUG: [src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+		log_debug("[src]'s pull on [pullee] was broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 		stop_pulling()
 	if(restrained())
 		stop_pulling()
@@ -877,7 +873,7 @@
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
-	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
+	investigate_log("([key_name_log(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
 	gib()
 	return 20
 
@@ -1054,6 +1050,7 @@
 		pullin.update_icon(src)
 	if(ismob(AM))
 		var/mob/M = AM
+		add_attack_logs(src, M, "pulls", ATKLOG_ALMOSTALL)
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else

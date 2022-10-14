@@ -9,4 +9,4 @@
 		return INVALID_DRAIN
 */
 	if(!operating && density && hasPower() && !(on_blueprints & emagged))
-		emag_act()
+		emag_act(ninja)

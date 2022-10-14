@@ -46,15 +46,18 @@
 	if(istype(AM, /obj/effect))
 		return
 	if(AM.move_speed < 12)
-		sense()
+		sense(AM)
 
-/obj/item/assembly/prox_sensor/proc/sense()
+/obj/item/assembly/prox_sensor/proc/sense(atom/movable/AM)
+	var/mob/triggered
+	if(ismob(AM))
+		triggered = AM
 	if(!secured || !scanning || cooldown > 0)
 		return FALSE
 	cooldown = 2
-	pulse(FALSE)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	pulse(FALSE, triggered)
 
 /obj/item/assembly/prox_sensor/process()
 	if(timing && (time >= 0))
@@ -64,10 +67,10 @@
 		toggle_scan()
 		time = 10
 
-/obj/item/assembly/prox_sensor/dropped()
+/obj/item/assembly/prox_sensor/dropped(mob/user)
 	..()
 	spawn(0)
-		sense()
+		sense(user)
 		return
 
 /obj/item/assembly/prox_sensor/proc/toggle_scan()
@@ -92,8 +95,8 @@
 	..()
 	sense()
 
-/obj/item/assembly/prox_sensor/holder_movement()
-	sense()
+/obj/item/assembly/prox_sensor/holder_movement(user)
+	sense(user)
 
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)

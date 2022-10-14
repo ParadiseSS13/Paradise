@@ -792,6 +792,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	qdel(src)
 
 /mob/living/carbon/proc/hallucinate(hal_type, specific) // specific is used to specify a particular hallucination
+	investigate_log("was afflicted with a hallucination of type [hal_type] by [last_hallucinator_log ? last_hallucinator_log : "Unknown source"].", INVESTIGATE_HALLUCINATIONS)
 	switch(hal_type)
 		if("xeno")
 			new /obj/effect/hallucination/xeno_attack(loc, src)

@@ -77,6 +77,7 @@
 		//Переносим разум в нового борга и удаляем старое тело
 		mind.transfer_to(ninja_borg)
 		log_debug("Ninja_Objectives_Log: Борг успешно трансформирован: [src]")
+		add_conversion_logs(ninja_borg, "Converted into ninja borg.")
 		qdel(src)
 		SSticker.mode.update_ninja_icons_added(ninja_borg.mind)
 		SSticker.mode.space_ninjas += ninja_borg.mind

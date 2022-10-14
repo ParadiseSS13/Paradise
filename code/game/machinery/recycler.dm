@@ -78,6 +78,7 @@
 			update_icon()
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on the [name].</span>")
+		add_attack_logs(user, src, "emagged")
 
 /obj/machinery/recycler/update_icon()
 	..()

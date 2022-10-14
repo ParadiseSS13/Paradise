@@ -123,10 +123,10 @@
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
- 	explosion(target, 0, 0, 2)
+ 	explosion(target, 0, 0, 2, cause = src)
 
 /obj/item/projectile/bullet/pellet/overload/on_range()
- 	explosion(src, 0, 0, 2)
+ 	explosion(src, 0, 0, 2, cause = src)
  	do_sparks(3, 3, src)
  	..()
 

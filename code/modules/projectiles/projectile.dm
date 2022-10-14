@@ -40,7 +40,7 @@
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
 	var/is_reflectable = FALSE // Can it be reflected or not?
-	var/alwayslog = FALSE // ALWAYS log this projectile on hit even if it doesn't hit a living target. Useful for AOE explosion / EMP.
+	var/fire_log_text //Full log text. gets filled in fire() type, damage, reagents e.t.c.
 	//Effects
 	var/stun = 0
 	var/weaken = 0
@@ -59,7 +59,7 @@
 	var/ricochets_max = 2
 	var/ricochet_chance = 30
 
-	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
+	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
 
 /obj/item/projectile/New()
 	permutated = list()
@@ -99,14 +99,13 @@
 
 		W.add_dent(WALL_DENT_SHOT, hitx, hity)
 		return 0
-	if(alwayslog)
-		add_attack_logs(firer, target, "Shot with a [type]")
 	if(!isliving(target))
 		if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
 		return 0
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
+	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
 		if(damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
@@ -136,7 +135,6 @@
 						M.bloody_body(H) */
 		else if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
-		var/organ_hit_text = ""
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 		if(suppressed)
@@ -149,18 +147,8 @@
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
-	var/additional_log_text
-	if(blocked)
-		additional_log_text = " [blocked]% blocked"
-	if(reagents && reagents.reagent_list)
-		var/reagent_note = "REAGENTS:"
-		for(var/datum/reagent/R in reagents.reagent_list)
-			reagent_note += R.id + " ("
-			reagent_note += num2text(R.volume) + ") "
-		additional_log_text = "[additional_log_text] (containing [reagent_note])"
-
-	if(!log_override && firer && !alwayslog)
-		add_attack_logs(firer, L, "Shot with a [type][additional_log_text]")
+	if(!log_override && firer && original)
+		add_attack_logs(firer, L, "Shot[organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
@@ -234,6 +222,17 @@
 	set waitfor = FALSE
 	if(setAngle)
 		Angle = setAngle
+
+	if(!log_override && firer && original)
+		fire_log_text += " [type] ([nodamage ? "no damage" : "[damage_type] [damage]"], "
+		if(reagents && reagents.reagent_list)
+			var/reagent_note
+			for(var/datum/reagent/R in reagents.reagent_list)
+				reagent_note += "[R.volume] [R], "
+			fire_log_text += "containing \[[reagent_note]\]"
+		fire_log_text += ")"
+
+		add_attack_logs(firer, original, "Fired at. [fire_log_text]")
 
 	while(!QDELETED(src))
 		if(!paused)

@@ -20,7 +20,7 @@
 /datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	fireflash(holder.my_atom, 1)
-	explosion(T, 0, 0, 2)
+	explosion(T, 0, 0, 2, cause = src)
 
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"

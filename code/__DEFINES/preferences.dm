@@ -71,12 +71,12 @@
 
 
 
-// Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
-#define ATKLOG_ALL	0
-#define ATKLOG_ALMOSTALL	1
-#define ATKLOG_MOST	2
-#define ATKLOG_FEW	3
-#define ATKLOG_NONE	4
+// Admin attack logs filter system, see /proc/add_attack_logs
+#define ATKLOG_ALL	0 // All. no exceptions
+#define ATKLOG_ALMOSTALL	1 // exceptions: NPC vs NPC, strip/equip, vamp bites and pushing
+#define ATKLOG_MOST	2 // exceptions: player vs NPC, off-station areas
+#define ATKLOG_FEW	3 // important: SSD interaction, explosives, gib, wiping AI, acid spray, messing with engine
+#define ATKLOG_NONE	4 // None
 
 // Playtime tracking system, see jobs_exp.dm
 #define EXP_TYPE_LIVING			"Living"

@@ -232,7 +232,7 @@
 					SM_slime.is_renamed = TRUE
 
 			SM.mind.store_memory("<B>Ваш хозяин [user], выполняйте [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
-			log_game("[key_name(SM)] стал питомцем игрока [key_name(user)]")
+			add_game_logs("стал питомцем игрока [key_name(user)]", SM)
 		else
 			to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
 			being_used = 0
@@ -271,7 +271,7 @@
 				LF.name = new_name
 
 			LF.mind.store_memory("<B>Ваш хозяин [user], выполняйте [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
-			log_game("[key_name(LF)] стал питомцем игрока [key_name(user)]")
+			add_game_logs("стал питомцем игрока [key_name(user)]", LF)
 		else
 			to_chat(user, "<span class='notice'>[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже.</span>")
 			being_used = 0
@@ -316,6 +316,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
+	add_attack_logs(user, SM, "mind transference potion")
 	user.mind.transfer_to(SM)
 	SM.universal_speak = 1
 	SM.faction = user.faction

@@ -6,7 +6,7 @@
 	var/drain = 0 //Drain amount
 	var/gained_total = 0
 	var/drain_total = 0
-	add_attack_logs(ninja, src, "draining energy from  [src] [ADMIN_COORDJMP(src)]", ATKLOG_MOST)
+	add_game_logs("draining energy from [src] [COORD(src)]", ninja)
 	var/datum/powernet/wire_powernet = powernet
 
 	var/turf/cable_turf = get_turf(src)

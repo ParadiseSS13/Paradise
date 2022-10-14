@@ -77,6 +77,7 @@
 	if(istype(L) && has_gravity(loc))
 		if(L.incorporeal_move || L.flying || L.floating)
 			return
+		add_attack_logs(L, src, "Stepped on Caltrop")
 		playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), 1)	//На нас наступили? Удаляемся быстрее. Нужно в целях баланса.
 	return ..()

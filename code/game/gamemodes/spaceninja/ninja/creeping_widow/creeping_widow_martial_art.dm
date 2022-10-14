@@ -71,7 +71,7 @@
 	var/obj/item/grab/grab_item = defender.grabbedby(attacker, 1)
 	if(grab_item)
 		grab_item.state = GRAB_AGGRESSIVE //Instant aggressive grab
-		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
+		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed")
 	if(!defender.stat && !defender.weakened)
 		if(attacker.dir == defender.dir && has_focus)
 			has_focus = FALSE

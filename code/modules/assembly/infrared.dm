@@ -124,15 +124,20 @@
 	qdel(first)
 	return ..()
 
-/obj/item/assembly/infra/proc/trigger_beam()
+/obj/item/assembly/infra/proc/trigger_beam(atom/movable/AM)
+	var/mob/triggered
+	if(AM.throwing?.thrower)
+		triggered = AM.throwing.thrower
+	else if(ismob(AM))
+		triggered = AM
 	if(!secured || !on || cooldown > 0)
 		return FALSE
-	cooldown = 2
-	pulse(FALSE)
 	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
 	if(first)
 		qdel(first)
+	cooldown = 2
 	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	pulse(FALSE, triggered)
 
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel
 	if(!secured)	return
@@ -218,9 +223,9 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
 
-/obj/effect/beam/i_beam/proc/hit()
+/obj/effect/beam/i_beam/proc/hit(atom/movable/AM)
 	if(master)
-		master.trigger_beam()
+		master.trigger_beam(AM)
 	qdel(src)
 
 /obj/effect/beam/i_beam/proc/vis_spread(v)
@@ -265,15 +270,15 @@
 /obj/effect/beam/i_beam/Bump()
 	qdel(src)
 
-/obj/effect/beam/i_beam/Bumped()
-	hit()
+/obj/effect/beam/i_beam/Bumped(atom/movable/AM)
+	hit(AM)
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
 	if(!isobj(AM) && !isliving(AM))
 		return
 	if(istype(AM, /obj/effect))
 		return
-	hit()
+	hit(AM)
 
 /obj/effect/beam/i_beam/Destroy()
 	if(master.first == src)

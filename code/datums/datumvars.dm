@@ -40,8 +40,6 @@
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
-		if("attack_log_old", "debug_log")
-			return debug_variable(var_name, vars[var_name], 0, src, sanitize = FALSE)
 		if("vars")
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
@@ -755,8 +753,7 @@
 			return
 
 		H.makeSkeleton()
-		message_admins("[key_name(usr)] has turned [key_name(H)] into a skeleton")
-		log_admin("[key_name_admin(usr)] has turned [key_name_admin(H)] into a skeleton")
+		log_and_message_admins("has turned [key_name_admin(H)] into a skeleton")
 		href_list["datumrefresh"] = href_list["make_skeleton"]
 
 	else if(href_list["offer_control"])
@@ -807,8 +804,7 @@
 				if(!i)
 					to_chat(usr, "No objects of this type exist")
 					return
-				log_admin("[key_name(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
-				message_admins("[key_name_admin(usr)] deleted all objects of type [O_type] ([i] objects deleted)")
+				log_and_message_admins("deleted all objects of type [O_type] ([i] objects deleted)")
 			if("Type and subtypes")
 				var/i = 0
 				for(var/obj/Obj in world)
@@ -818,8 +814,7 @@
 				if(!i)
 					to_chat(usr, "No objects of this type exist")
 					return
-				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
-				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
+				log_and_message_admins("deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 
 	else if(href_list["makespeedy"])
 		if(!check_rights(R_DEBUG|R_ADMIN))
@@ -829,8 +824,7 @@
 			return
 		A.var_edited = TRUE
 		A.makeSpeedProcess()
-		log_admin("[key_name(usr)] has made [A] speed process")
-		message_admins("<span class='notice'>[key_name(usr)] has made [A] speed process</span>")
+		log_and_message_admins("has made [A] speed process")
 		return TRUE
 
 	else if(href_list["makenormalspeed"])
@@ -841,8 +835,7 @@
 			return
 		A.var_edited = TRUE
 		A.makeNormalProcess()
-		log_admin("[key_name(usr)] has made [A] process normally")
-		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
+		log_and_message_admins("has made [A] process normally")
 		return TRUE
 
 	else if(href_list["modifyarmor"])
@@ -894,8 +887,7 @@
 
 		A.armor = A.armor.setRating(armorlist["melee"], armorlist["bullet"], armorlist["laser"], armorlist["energy"], armorlist["bomb"], armorlist["bio"], armorlist["rad"], armorlist["fire"], armorlist["acid"], armorlist["magic"])
 
-		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
-		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
+		log_and_message_admins("modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
@@ -929,8 +921,7 @@
 				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
 				if(amount)
 					A.reagents.add_reagent(chosen_id, amount)
-					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]")
-					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
+					log_and_message_admins("has added [amount] units of [chosen_id] to \the [A]")
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
@@ -997,8 +988,7 @@
 			if("right")	A.dir = turn(A.dir, -45)
 			if("left")	A.dir = turn(A.dir, 45)
 
-		message_admins("[key_name_admin(usr)] has rotated \the [A]")
-		log_admin("[key_name(usr)] has rotated \the [A]")
+		log_and_message_admins("has rotated \the [A]")
 		href_list["datumrefresh"] = href_list["rotatedatum"]
 
 	else if(href_list["makemonkey"])
@@ -1103,8 +1093,7 @@
 		if(H.set_species(S.type))
 			to_chat(usr, "Set species of [H] to [H.dna.species].")
 			H.regenerate_icons()
-			message_admins("[key_name_admin(usr)] has changed the species of [key_name_admin(H)] to [new_species]")
-			log_admin("[key_name(usr)] has changed the species of [key_name(H)] to [new_species]")
+			log_and_message_admins("has changed the species of [key_name_admin(H)] to [new_species]")
 		else
 			to_chat(usr, "Failed! Something went wrong.")
 
@@ -1127,8 +1116,7 @@
 
 		if(H.add_language(new_language))
 			to_chat(usr, "Added [new_language] to [H].")
-			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the language [new_language]")
-			log_admin("[key_name(usr)] has given [key_name(H)] the language [new_language]")
+			log_and_message_admins("has given [key_name_admin(H)] the language [new_language]")
 		else
 			to_chat(usr, "Mob already knows that language.")
 
@@ -1155,8 +1143,7 @@
 
 		if(H.remove_language(rem_language.name))
 			to_chat(usr, "Removed [rem_language] from [H].")
-			message_admins("[key_name_admin(usr)] has removed language [rem_language] from [key_name_admin(H)]")
-			log_admin("[key_name(usr)] has removed language [rem_language] from [key_name(H)]")
+			log_and_message_admins("has removed language [rem_language] from [key_name(H)]")
 		else
 			to_chat(usr, "Mob doesn't know that language.")
 
@@ -1172,8 +1159,7 @@
 		H.grant_all_languages()
 
 		to_chat(usr, "Added all languages to [H].")
-		message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] all languages")
-		log_admin("[key_name(usr)] has given [key_name(H)] all languages")
+		log_and_message_admins("has given [key_name(H)] all languages")
 
 	else if(href_list["addverb"])
 		if(!check_rights(R_DEBUG))			return
@@ -1204,8 +1190,7 @@
 			return
 		else
 			H.verbs += verb
-			message_admins("[key_name_admin(usr)] has given [key_name_admin(H)] the verb [verb]")
-			log_admin("[key_name(usr)] has given [key_name(H)] the verb [verb]")
+			log_and_message_admins("has given [key_name(H)] the verb [verb]")
 
 	else if(href_list["remverb"])
 		if(!check_rights(R_DEBUG))			return
@@ -1223,8 +1208,7 @@
 			return
 		else
 			H.verbs -= verb
-			message_admins("[key_name_admin(usr)] has removed verb [verb] from [key_name_admin(H)]")
-			log_admin("[key_name(usr)] has removed verb [verb] from [key_name(H)]")
+			log_and_message_admins("has removed verb [verb] from [key_name(H)]")
 
 	else if(href_list["addorgan"])
 		if(!check_rights(R_SPAWN))	return
@@ -1246,8 +1230,7 @@
 			return
 		new new_organ(M)
 		M.regenerate_icons()
-		message_admins("[key_name_admin(usr)] has given [key_name_admin(M)] the organ [new_organ]")
-		log_admin("[key_name(usr)] has given [key_name(M)] the organ [new_organ]")
+		log_and_message_admins("has given [key_name(M)] the organ [new_organ]")
 
 	else if(href_list["remorgan"])
 		if(!check_rights(R_SPAWN))	return
@@ -1269,8 +1252,7 @@
 
 		to_chat(usr, "Removed [rem_organ] from [M].")
 		rem_organ.remove(M)
-		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(M)]")
-		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
+		log_and_message_admins("has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
 
 	else if(href_list["regenerateicons"])
@@ -1324,8 +1306,7 @@
 				return
 
 		if(amount != 0)
-			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [L]")
-			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [L]")
+			log_and_message_admins("dealt [amount] amount of [Text] damage to [L]")
 			href_list["datumrefresh"] = href_list["mobToDamage"]
 
 	else if(href_list["traitmod"])

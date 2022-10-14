@@ -55,7 +55,7 @@
 	stat = DEAD
 
 	timeofdeath = world.time
-	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
+	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
 
 	SetDizzy(0)
 	SetJitter(0)

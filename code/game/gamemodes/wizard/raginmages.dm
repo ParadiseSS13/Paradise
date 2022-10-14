@@ -34,7 +34,7 @@
 		players_per_mage = config.traitor_scaling
 	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
 	max_mages = wizard_cap
-	log_game("Number of wizards chosen: [wizard_cap]")
+	add_game_logs("Number of wizards chosen: [wizard_cap]")
 
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))

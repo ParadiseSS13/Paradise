@@ -18,7 +18,7 @@
 			var/atom/throw_target = get_ranged_target_turf(target, get_dir(target, get_step_away(target, user)), 3) // Get a turf 3 tiles away from the target relative to our direction from him.
 			target.throw_at(throw_target, 200, 4) // Throw the poor bastard at the target we just gabbed.
 			target.Weaken(2)
-			add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]", ATKLOG_ALL)
+			add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]")
 			playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 			addtimer(CALLBACK(creeping_widow, /datum/martial_art/ninja_martial_art/.proc/regain_focus, user), 50)
 			return MARTIAL_COMBO_DONE

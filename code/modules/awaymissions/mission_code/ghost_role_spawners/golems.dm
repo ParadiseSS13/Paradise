@@ -99,8 +99,7 @@
 		but avoid actively interfering with the station unless you have a valid roleplay reason to do so, such as an invitation by crewmembers.</span>")
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
-		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
-		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
+		add_game_logs("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 	if(ishuman(new_spawn))
 		var/mob/living/carbon/human/H = new_spawn
 		if(has_owner)
@@ -130,7 +129,7 @@
 			return
 		if(QDELETED(src) || uses <= 0)
 			return
-		log_game("[key_name(user)] golem-swapped into [src]")
+		add_game_logs("golem-swapped into [src]", user)
 		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
 		create(ckey = user.ckey, name = user.real_name)
 		user.death()

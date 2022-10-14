@@ -5,7 +5,7 @@
 	var/maxcapacity = FALSE //Safety check
 	var/drain = 0 //Drain amount
 	var/drain_total = 0
-	add_attack_logs(ninja, src, "draining energy from [src] [ADMIN_COORDJMP(src)]", ATKLOG_MOST)
+	add_game_logs("draining energy from [src] [COORD(src)]", ninja)
 	if(occupant)
 		to_chat(occupant, "[icon2base64(src, occupant)][span_danger("Warning: Unauthorized access through sub-route 4, block H, detected.")]")
 	if(get_charge())

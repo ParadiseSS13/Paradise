@@ -110,7 +110,7 @@
 
 	playsound(user, "bonebreak", 75, TRUE)
 	show_change_form_message(user, old_name, "[user]")
-	user.create_log(MISC_LOG, "Mimicked into [user]")
+	add_misc_logs(user, "Mimicked into [user]")
 
 	if(!selected_form)
 		RegisterSignal(user, COMSIG_PARENT_EXAMINE, .proc/examine_override)

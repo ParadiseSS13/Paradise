@@ -18,7 +18,7 @@
 		return
 
 	qdel(query_delbook)
-	log_admin("[key_name(usr)] has deleted the book [isbn].")
+	log_admin("[key_name_log(usr)] has deleted the book [isbn].")
 	message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
 
 /client/proc/view_flagged_books()

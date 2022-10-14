@@ -56,7 +56,7 @@
 /obj/item/projectile/magic/fireball/on_hit(var/target)
 	. = ..()
 	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = src)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
@@ -290,14 +290,12 @@
 			else
 				return
 
-		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
 		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)
 			M.mind.transfer_to(new_mob)
 		else
-			new_mob.attack_log_old = M.attack_log_old.Copy()
 			new_mob.key = M.key
 
 		to_chat(new_mob, "<span class='danger'><FONT size = 5><B>ТЕПЕРЬ ВЫ [uppertext(randomize)].</B></FONT></span>")

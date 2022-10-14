@@ -13,6 +13,7 @@
 		if((RADIMMUNE in H.dna.species.species_traits) || armor >= 75) // Leave radiation-immune species/rad armored players completely unaffected
 			continue
 		H.AdjustHallucinate(rand(50, 100))
+		H.last_hallucinator_log = "Mass hallucination event"
 
 /datum/event/mass_hallucination/announce()
 	GLOB.event_announcement.Announce("Станция [station_name()] проходит через радиационное поле низкой интенсивности. Возможно появление галлюцинаций, но не более.")

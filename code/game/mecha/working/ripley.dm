@@ -123,6 +123,7 @@
 
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You slide the card through [src]'s ID slot.</span>")
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

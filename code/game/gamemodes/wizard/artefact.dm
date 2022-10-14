@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 		to_chat(M, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
-		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.")
+		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", M)
 	else
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
 		new_objective.owner = M.mind
@@ -253,7 +253,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		M.mind.objectives += new_objective
 		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
-		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.")
+		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 
 /obj/item/multisword/proc/equip_copy(var/mob/living/carbon/human/M)
 
@@ -723,11 +723,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if("mouth")
 				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
 				target.say(wgw)
-				log_game("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
-				log_say("Wicker doll say to [target][target.key]: [wgw]", user)
-				log_admin("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
-				user.create_log(SAY_LOG, "forced [target] to say [wgw] through [src].", target)
-				target.create_log(SAY_LOG, "was forced to say [wgw] through [src] by [user].", user)
+				add_attack_logs(user, target, "force say ([wgw]) with a voodoo doll.")
+				add_say_logs(target, wgw, src)
 			if("eyes")
 				user.set_machine(src)
 				user.reset_perspective(target)
@@ -746,7 +743,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 						nearby_mobs |= L
 				if(nearby_mobs.len)
 					var/mob/living/T = pick(nearby_mobs)
-					log_game("[user][user.key] made [target][target.key] click on [T] with a voodoo doll.")
+					add_attack_logs(user, target, "force click on [T] with a voodoo doll.")
 					target.ClickOn(T)
 					GiveHint(target)
 			if("head")

@@ -5,7 +5,7 @@
 	var/maxcapacity = FALSE //Safety check for batteries
 	var/drain = 0 //Drain amount from batteries
 	var/drain_total = 0
-	add_attack_logs(ninja, src, "draining energy from [src] [ADMIN_COORDJMP(src)]", ATKLOG_MOST)
+	add_game_logs("draining energy from [src] [COORD(src)]", ninja)
 	var/area/area = get_area(src)
 	if(area && (istype(area, /area/engine/engineering) || istype(area, /area/engine/supermatter)))
 		//На русском чтобы даже полному идиоту было ясно, почему им не даётся сосать ток из этого АПЦ

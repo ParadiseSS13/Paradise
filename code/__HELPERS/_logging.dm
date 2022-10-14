@@ -26,6 +26,10 @@ GLOBAL_PROTECT(log_end)
 #define testing(msg)
 #endif
 
+// All the log_type() procs are used for writing down into game.log
+// don't use this for logging. We have add_type_logs() for this situation
+// you can look all the way down in this file for those procs
+
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
 	if(config.log_admin)
@@ -81,9 +85,13 @@ GLOBAL_PROTECT(log_end)
 	if(config.log_emote)
 		WRITE_LOG(GLOB.world_game_log, "EMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
-/proc/log_attack(attacker, defender, message)
+/proc/log_attack(attacker, defender, message, newhp)
 	if(config.log_attack)
-		WRITE_LOG(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message][GLOB.log_end]") //Seperate attack logs? Why?
+		WRITE_LOG(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message] [newhp][GLOB.log_end]") //Seperate attack logs? Why?
+
+/proc/log_conversion(text, mob/converting)
+	if(config.log_conversion)
+		WRITE_LOG(GLOB.world_game_log, "CONVERSION: [converting.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_adminsay(text, mob/speaker)
 	if(config.log_adminchat)
@@ -198,3 +206,151 @@ GLOBAL_PROTECT(log_end)
 
 /client/proc/simple_info_line()
 	return "[key_name(src)] ([mob.x],[mob.y],[mob.z])"
+
+/*
+ * This are the MAIN procs to use for logging stuff.
+ * They intended that way the write down log into game.log
+ * AND create_log record_log for Log Viewer
+ * also messages admins with specific level(or custom level)
+ *
+ * Also recommend to check Investigation logging (__DEFINES/logs.dm) (modules/admin/admin_investigate.dm)
+ * It's a misc logs that haven't got own place in game.log
+ * most common INVESTIGATE_BOMB and INVESTIGATE_ENGINE
+ */
+
+// Proc for attack log creation
+// * atom/user is the actor OR the list of actors
+// * target is the target of action
+// * what_done is the full description of the action
+// * custom_level is whether or not to message admins
+/proc/add_attack_logs(atom/user, target, what_done, custom_level)
+	if(islist(target)) // Multi-victim adding
+		var/list/targets = target
+		for(var/t in targets)
+			add_attack_logs(user, t, what_done, custom_level)
+		return
+
+	var/user_str
+	if(ismecha(user.loc) || isspacepod(user.loc))
+		var/obj/vehicle = user.loc
+		user_str = key_name_log(user) + COORD(vehicle)
+	else
+		user_str = key_name_log(user) + COORD(user)
+	var/target_str
+	var/target_info
+	if(isatom(target))
+		var/atom/AT = target
+		target_str = key_name_log(AT) + COORD(AT)
+		target_info = key_name_admin(target)
+	else
+		target_str = target
+		target_info = target
+
+	var/mob/MU = user
+	var/mob/MT = target
+	var/newhp = ""
+
+	//sending logs to Log Viewer and then logs into game.log
+	if(istype(MU))
+		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
+	if(istype(MT))
+		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
+	var/mob/living/alive = target
+	if(istype(alive))
+		newhp += "\[HP: [alive.health]: [alive.getOxyLoss()] - [alive.getToxLoss()] - [alive.getFireLoss()] - [alive.getBruteLoss()] - [alive.getStaminaLoss()] - [alive.getBrainLoss()] - [alive.getCloneLoss()] \]"
+	log_attack(user_str, target_str, what_done, newhp)
+
+	//Setting up log level of how important this log.
+	var/loglevel = ATKLOG_MOST
+	if(!isnull(custom_level))
+		loglevel = custom_level
+	else if(istype(MT))
+		if(istype(MU))
+			if(!MU.ckey && !MT.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+				loglevel = ATKLOG_ALL
+			else if(!MU.ckey || !MT.ckey || (MU.ckey == MT.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
+				loglevel = ATKLOG_ALMOSTALL
+		else
+			var/area/A = get_area(MT)
+			if(A && A.hide_attacklogs)
+				loglevel = ATKLOG_ALMOSTALL
+	else
+		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
+	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
+		loglevel = ATKLOG_FEW
+
+	// Off it goes!
+	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
+
+// Proc for say log creation
+// * user is the actor or list of actors
+// * what_said is the message actor sent
+// * target is specific from user to other. Can be telepathicly or borer
+// * language is on what spoken the actor. It may be borer to host, cult talk or race language
+/proc/add_say_logs(user, what_said, target, language = null)
+	var/mob/actor
+	if(islist(user)) // god eye example
+		var/list/users = user
+		for(var/u in users)
+			add_say_logs(u, what_said, target, language)
+		return
+	else if(ismob(user))
+		actor = user
+	else
+		log_runtime(EXCEPTION("Got non-mob variable [user] with arguments [what_said] [language] [target]"))
+		return
+	actor.create_log(SAY_LOG, "([language]) [what_said]", target)
+	log_say("([language]) [what_said] [target ? "to [target]" : null]", actor)
+
+// Proc for conversion log creation
+// * user is who gets converted in something
+// * message is the context of conversion
+/proc/add_conversion_logs(mob/user, message)
+	user.create_log(CONVERSION_LOG, message)
+	log_conversion(message, user)
+
+// Proc for emote log creation
+// * user is who moans or screams
+// * emote is the emote itself
+/proc/add_emote_logs(mob/user, emote)
+	user.create_log(EMOTE_LOG, emote)
+	log_emote(emote, user)
+
+// Proc for game log creation
+// * text is the full description of the what got logged.
+// * mob/user is OPTIONAL, for Log Viewer
+// Do note that this not message admins!
+// You will have to make message_admins() alone if you need
+/proc/add_game_logs(text, mob/user)
+	if(user && istype(user))
+		user.create_log(GAME_LOG, text)
+		log_game(key_name_log(user)+" "+text)
+	else
+		log_game(text)
+
+// Proc for misc log creation
+// * user is the actor of this miserable log
+// * what is the action taken by user or no one
+// * target is an optional of who user acted against
+/proc/add_misc_logs(mob/user, what, target)
+	if(istype(user))
+		user.create_log(MISC_LOG, what, target)
+	log_misc("[user ? "[user]: " : null][what][target ? " against [target]" : null]")
+// Proc for deadchat log creation
+// * user is the ghooost
+// * text that he whined after death
+/proc/add_deadchat_logs(mob/user, text)
+	user.create_log(DEADCHAT_LOG, text)
+	log_ghostsay(text, user)
+
+// Proc for ooc log creation
+// * user is the user
+// * text that is definetely a meta
+// * local is boolean of looc or ooc type of proc
+/proc/add_ooc_logs(mob/user, text, local = FALSE)
+	if(local)
+		user.create_log(LOOC_LOG, text)
+		log_looc(text, user)
+	else
+		user.create_log(OOC_LOG, text)
+		log_ooc(text, user)

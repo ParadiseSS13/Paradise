@@ -267,7 +267,6 @@
 			else
 				log_msg += "nothing"
 			log_msg += " [sending ? "to" : "from"] [trueX], [trueY], [z_co] ([A ? A.name : "null area"])"
-			investigate_log(log_msg, "telesci")
 			updateUsrDialog()
 
 /obj/machinery/computer/telescience/proc/teleport(mob/user)

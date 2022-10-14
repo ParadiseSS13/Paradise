@@ -234,8 +234,7 @@
 		return
 
 	if(UserOverride)
-		add_attack_logs(user, occupant, "gibbed by an autogibber ([src])")
-		log_game("[key_name(occupant)] was gibbed by an autogibber ([src]) (X:[x] Y:[y] Z:[z])")
+		add_attack_logs(user, occupant, "gibbed by an autogibber ([src])", ATKLOG_FEW)
 
 	if(operating)
 		return
@@ -279,7 +278,6 @@
 		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey ? ATKLOG_FEW : ATKLOG_ALL)
 
 	else //this looks ugly but it's better than a copy-pasted startgibbing proc override
-		occupant.create_attack_log("Was gibbed by <b>an autogibber (\the [src])</b>")
 		add_attack_logs(src, occupant, "gibbed")
 
 	occupant.emote("scream")

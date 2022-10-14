@@ -336,7 +336,7 @@
 		return
 	Syndicate_announce(input, user)
 	to_chat(user, "Message transmitted.")
-	log_say("[key_name(user)] has sent a Syndicate comms message from the depot: [input]", user)
+	add_game_logs("has sent a Syndicate comms message from the depot: [input]", user)
 	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user)

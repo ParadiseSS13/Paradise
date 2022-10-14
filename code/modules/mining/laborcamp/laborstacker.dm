@@ -121,7 +121,7 @@
 							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 							announcer.autosay(message, "Labor Camp Controller", "Security")
 						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
-						usr.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
+						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
 

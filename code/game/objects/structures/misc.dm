@@ -26,7 +26,7 @@
 	var/response = alert(user, "Are you sure you want to spawn here?\n(If you do this, you won't be able to be cloned!)", "Respawn?", "Yes", "No")
 	if(response == "Yes")
 		user.forceMove(get_turf(src))
-		log_admin("[key_name(user)] was incarnated by a respawner machine.")
+		log_admin("[key_name_log(user)] was incarnated by a respawner machine.")
 		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")
 		var/mob/living/carbon/human/new_human = user.incarnate_ghost()
 		new_human.mind.offstation_role = TRUE // To prevent them being an antag objective

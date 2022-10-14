@@ -14,7 +14,9 @@
 				if(user.z != src.z)
 					return
 
+				var/turf/T = get_turf(user)
 				user.forceMove(pick(GLOB.ninja_teleport))
+				user.investigate_log("VOID-shifted from [COORD(T)] to [COORD(user)].", INVESTIGATE_TELEPORTATION)
 				playsound(user.loc, 'sound/effects/phasein.ogg', 25, TRUE)
 				playsound(user.loc, 'sound/effects/sparks2.ogg', 50, TRUE)
 				new /obj/effect/temp_visual/dir_setting/ninja/phase(get_turf(user), user.dir)

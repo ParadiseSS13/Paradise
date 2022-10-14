@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(config.traitor_scaling)
 		changeling_scale = config.traitor_scaling
 	changeling_amount = 1 + round(num_players() / changeling_scale)
-	log_game("Number of changelings chosen: [changeling_amount]")
+	add_game_logs("Number of changelings chosen: [changeling_amount]")
 
 	if(possible_changelings.len>0)
 		for(var/i = 0, i < changeling_amount, i++)

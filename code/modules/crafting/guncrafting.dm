@@ -73,6 +73,7 @@
 		var/obj/item/stack/packageWrap/C = I
 		if(C.use(5))
 			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
+			investigate_log("[key_name_log(user)] crafted [W]", INVESTIGATE_CRAFTING)
 			user.unEquip(src)
 			user.put_in_hands(W)
 			to_chat(user, "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>")

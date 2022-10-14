@@ -69,7 +69,7 @@
 		"Purchase of [vended_name]", name, GLOB.vendor_account.owner_name,
 		"Sale of [vended_name]", customer_account.owner_name)
 	if(customer_account.owner_name == GLOB.station_account.owner_name)
-		log_game("Silicon \"[M]\":\"[key_name(M)]\" purchased [vended_name] in ([x], [y], [z])")
+		add_game_logs("as silicon purchased [vended_name] in [COORD(src)]", M)
 	return TRUE
 
 /datum/money_account/proc/fmtBalance()

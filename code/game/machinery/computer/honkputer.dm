@@ -50,7 +50,7 @@
 					return
 				HONK_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-				log_game("[key_name(usr)] has made a HONKplanet announcement: [input]")
+				add_game_logs("has made a HONKplanet announcement: [input]", usr)
 				message_cooldown = 1
 				spawn(6000)//10 minute cooldown
 					message_cooldown = 0

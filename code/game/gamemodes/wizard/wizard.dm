@@ -67,7 +67,7 @@
 /datum/game_mode/wizard/post_setup()
 	var/datum/mind/wizard_teacher
 	for(var/datum/mind/wizard in wizards)
-		log_game("[key_name(wizard)] has been selected as a Wizard")
+		add_game_logs("has been selected as a Wizard", wizard.current)
 		forge_wizard_objectives(wizard)
 		equip_wizard(wizard.current)
 		INVOKE_ASYNC(src, .proc/name_wizard, wizard.current)
@@ -92,8 +92,7 @@
 	if(wizard_mind in wizards)
 		SSticker.mode.wizards -= wizard_mind
 		wizard_mind.special_role = null
-		wizard_mind.current.create_attack_log("<span class='danger'>De-wizarded</span>")
-		wizard_mind.current.create_log(CONVERSION_LOG, "De-wizarded")
+		add_conversion_logs(wizard_mind.current, "De-wizarded")
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))

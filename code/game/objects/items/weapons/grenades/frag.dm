@@ -16,7 +16,7 @@
 		if(H.resting) //grenade is jumped on but get real fucked up
 			embed_shrapnel(H, max_shrapnel)
 			range = 1
-	explosion(loc, 0, 1, range, breach = FALSE)
+	explosion(loc, 0, 1, range, breach = FALSE, cause = src)
 	for(var/turf/T in view(range, loc))
 		for(var/mob/living/carbon/human/H in T)
 			var/shrapnel_amount = max_shrapnel - T.Distance(epicenter)

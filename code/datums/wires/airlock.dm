@@ -40,6 +40,7 @@
 
 /datum/wires/airlock/on_cut(wire, mend)
 	var/obj/machinery/door/airlock/A = holder
+	A.investigate_log("[key_name(usr)] [mend ? "mended" : "cutted"] [wire].", INVESTIGATE_WIRES)
 	switch(wire)
 		if(WIRE_IDSCAN)
 			A.aiDisabledIdScanner = !mend
@@ -109,6 +110,7 @@
 
 /datum/wires/airlock/on_pulse(wire)
 	var/obj/machinery/door/airlock/A = holder
+	A.investigate_log("[key_name(usr)] pulsed [wire].", INVESTIGATE_WIRES)
 	switch(wire)
 		if(WIRE_IDSCAN)
 			//Sending a pulse through flashes the red light on the door (if the door has power).

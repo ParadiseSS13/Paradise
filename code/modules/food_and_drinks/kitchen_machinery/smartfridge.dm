@@ -256,7 +256,6 @@
 
 			var/i = amount
 			if(i <= 0)
-				message_admins("[usr] tried to dupe items from the fridge")
 				return
 			if(i == 1 && Adjacent(user) && !issilicon(user))
 				for(var/obj/O in contents)

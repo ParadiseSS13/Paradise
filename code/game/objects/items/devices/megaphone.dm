@@ -67,7 +67,7 @@
 
 /obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
 	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
-	log_say(message, user)
+	add_say_logs(user, message, language = "Megaphone")
 	for(var/obj/O in oview(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
 

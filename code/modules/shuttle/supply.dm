@@ -77,10 +77,13 @@
 		var/errors = 0
 		if(prob(5))
 			errors |= MANIFEST_ERROR_COUNT
+			investigate_log("Supply order #[SO] generated a manifest with packages incorrectly counted.", INVESTIGATE_CARGO)
 		if(prob(5))
 			errors |= MANIFEST_ERROR_NAME
+			investigate_log("Supply order #[SO] generated a manifest with destination station incorrect.", INVESTIGATE_CARGO)
 		if(prob(5))
 			errors |= MANIFEST_ERROR_ITEM
+			investigate_log("Supply order #[SO] generated a manifest with package incomplete.", INVESTIGATE_CARGO)
 		SO.createObject(T, errors)
 
 	SSshuttle.shoppinglist.Cut()
@@ -414,6 +417,7 @@
 
 /obj/machinery/computer/supplycomp/emag_act(user as mob)
 	if(!hacked)
+		add_attack_logs(user, src, "emagged")
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
 		return
@@ -506,7 +510,7 @@
 				to_chat(usr, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
 			else if(SSshuttle.supply.getDockedId() == "supply_home")
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
-				investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
+				investigate_log("[key_name_log(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
 				post_signal("supply")
 				if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
@@ -515,7 +519,7 @@
 					O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]
 					O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
 					SSshuttle.shoppinglist += O
-					investigate_log("Random [O.object] crate added to supply shuttle")
+					investigate_log("Random [O.object] crate added to supply shuttle", INVESTIGATE_CARGO)
 
 		if("order")
 			if(world.time < reqtime)
@@ -551,6 +555,7 @@
 			else if(issilicon(usr))
 				idname = usr.real_name
 
+			investigate_log("[key_name_log(usr)] made an order for [P.name] with amount [amount]. Points: [SSshuttle.points].", INVESTIGATE_CARGO)
 			//make our supply_order datums
 			for(var/i = 1; i <= amount; i++)
 				var/datum/supply_order/O = SSshuttle.generateSupplyOrder(params["crate"], idname, idrank, reason, amount)
@@ -578,7 +583,7 @@
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						SSshuttle.shoppinglist += O
-						investigate_log("[key_name(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", "cargo")
+						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining points: [SSshuttle.points].", INVESTIGATE_CARGO)
 					else
 						to_chat(usr, "<span class='warning'>There are insufficient supply points for this request.</span>")
 					break

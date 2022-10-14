@@ -63,6 +63,7 @@
 		M.set_multitool_buffer(user, src)
 	else
 		linked_pad = M.buffer
+		investigate_log("[key_name_log(user)] linked [src] to [M.buffer] at [COORD(linked_pad)].", INVESTIGATE_TELEPORTATION)
 		to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)

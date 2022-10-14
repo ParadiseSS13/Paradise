@@ -18,6 +18,7 @@
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		ignore_flags = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
@@ -75,6 +76,8 @@
 			applying = TRUE
 			icon_state = "mender-active"
 			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
+			add_attack_logs(user, M, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
+			var/cycle_count = 0
 			while(do_after(user, 10, target = M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
@@ -84,6 +87,8 @@
 				if(!reagents.total_volume)
 					to_chat(user, "<span class='notice'>[src] is out of reagents and powers down automatically.</span>")
 					break
+				cycle_count++
+			add_attack_logs(user, M, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 		applying = FALSE
 		icon_state = "mender"
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -93,14 +98,6 @@
 	var/total_applied_amount = applied_amount * multiplier
 
 	if(reagents && reagents.total_volume)
-		var/list/injected = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			injected += R.name
-
-		var/contained = english_list(injected)
-		// allow normal logging only if reagents are not harmless and automender is emagged
-		add_attack_logs(user, M, "Automends with [src] containing ([contained])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
-
 		var/fractional_applied_amount = total_applied_amount  / reagents.total_volume
 
 		reagents.reaction(M, REAGENT_TOUCH, fractional_applied_amount, show_message)

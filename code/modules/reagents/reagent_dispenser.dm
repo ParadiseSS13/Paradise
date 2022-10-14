@@ -89,15 +89,13 @@
 
 	if(will_explode) // Log here while you have the information needed
 		add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
-		log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
-		investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
+		investigate_log("[key_name_log(P.firer)] triggered a fueltank explosion with [P.name]", INVESTIGATE_BOMB)
 	..()
 
 /obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder
-		log_game("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]")
 		add_attack_logs(lastrigger, src, "rigged fuel tank exploded", ATKLOG_FEW)
-		investigate_log("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]", INVESTIGATE_BOMB)
+		investigate_log("A fueltank, last rigged by [lastrigger]", INVESTIGATE_BOMB)
 	if(log_attack)
 		add_attack_logs(usr, src, "blew up", ATKLOG_FEW)
 	if(reagents)
@@ -145,11 +143,10 @@
 
 			var/obj/item/assembly_holder/H = I
 			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
-				log_game("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]")
 				add_attack_logs(user, src, "rigged fuel tank with [I.name] for explosion", ATKLOG_FEW)
-				investigate_log("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]", INVESTIGATE_BOMB)
+				investigate_log("[key_name_log(user)] rigged [src.name] with [I.name] for explosion", INVESTIGATE_BOMB)
 
-				lastrigger = "[key_name(user)]"
+				lastrigger = "[key_name_log(user)]"
 				rig = H
 				user.drop_item()
 				H.forceMove(src)
@@ -169,10 +166,8 @@
 		return
 	if(I.tool_enabled && I.use_tool(src, user, volume = I.tool_volume)) //check it's enabled first to prevent duplicate messages when refuelling
 		user.visible_message("<span class='danger'>[user] catastrophically fails at refilling [user.p_their()] [I]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
-		message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
-		log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
 		add_attack_logs(user, src, "hit with lit welder")
-		investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
+		investigate_log("[key_name(user)] triggered a fueltank explosion", INVESTIGATE_BOMB)
 		boom()
 	else
 		I.refill(user, src, reagents.get_reagent_amount("fuel")) //Try dump all fuel into the welder
@@ -251,7 +246,7 @@
 	var/has_lid = TRUE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
-	explosion(loc, 0, 3, 5, 7, 10)
+	explosion(loc, 0, 3, 5, 7, 10, cause = "[src.name] got blobbed")
 	if(!QDELETED(src))
 		qdel(src)
 

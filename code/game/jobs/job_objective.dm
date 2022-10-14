@@ -100,7 +100,7 @@
 			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.description].</span>")
 		else
 			to_chat(usr, "<span class='warning'>Количество амбиций переполнено, избавьтесь от неосуществимых.</span>")
-		log_misc("[key_name(usr)] has added [key_name(current)]'s ambition.")
+		add_misc_logs(usr, "has added [key_name(current)]'s ambition.")
 
 
 	else if(href_list["amb_delete"])
@@ -110,7 +110,7 @@
 			return
 		ambition_objectives.Remove(objective)
 
-		log_misc("[key_name(usr)] has removed one of [key_name(current)]'s ambitions: [objective]")
+		add_misc_logs(usr, "has removed one of [key_name(current)]'s ambitions: [objective]")
 		qdel(objective)
 
 	else if(href_list["amb_completed"])
@@ -124,7 +124,7 @@
 			to_chat(usr, "<span class='warning'>[pluralize_ru(usr.gender,"Моя","Наша")] амбиция выполнена. [pluralize_ru(usr.gender,"Поздравляю сам себя","Поздравим же нас")]!</span>")
 		else
 			to_chat(usr, "<span class='warning'>Пожалуй [pluralize_ru(usr.gender,"моя","наша")] амбиция еще не выполнена. Но у [pluralize_ru(usr.gender,"меня","нас")] еще будут возможности!</span>")
-		log_misc("[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
+		add_misc_logs(usr, "[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
 
 	// Обновляем открытую память
 	if (ambition_func)

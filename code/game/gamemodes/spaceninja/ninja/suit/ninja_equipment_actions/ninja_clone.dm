@@ -18,6 +18,7 @@
 		s_coold = 4 SECONDS
 		sleep(15)
 		do_sparks(3, FALSE, ninja)
+		add_attack_logs(ninja, null, "Activated Energy Clones")
 		for(var/i=0, i<2, i++)
 			var/mob/living/simple_animal/hostile/illusion/ninja_clone = new(ninja.loc)
 			ninja_clone.faction = list(ROLE_NINJA)

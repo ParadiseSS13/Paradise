@@ -32,7 +32,7 @@
 		num_devils = max(1, round((num_players())/(config.traitor_scaling))+1)
 	else
 		num_devils = max(1, min(num_players(), traitors_possible))
-	log_game("Number of devils chosen: [num_devils]")
+	add_game_logs("Number of devils chosen: [num_devils]")
 
 	for(var/j = 0, j < num_devils, j++)
 		if (!possible_devils.len)
@@ -42,7 +42,7 @@
 		devil.special_role = ROLE_DEVIL
 		devil.restricted_roles = restricted_jobs
 
-		log_game("[devil.key] (ckey) has been selected as a [config_tag]")
+		add_game_logs("[devil.key] has been selected as a [config_tag]", devil)
 		possible_devils.Remove(devil)
 
 	if(devils.len < required_enemies)

@@ -21,7 +21,7 @@
 				var/mob/living/carbon/human/user = usr
 				if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
 					to_chat(user, "Your hand slips, setting off the trigger.")
-					pulse(0)
+					pulse(0, user)
 		update_icon()
 		if(usr)
 			playsound(usr.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
@@ -47,7 +47,7 @@
 			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 			armed = FALSE
 			update_icon()
-			pulse(FALSE)
+			pulse(FALSE, target)
 			return FALSE
 		switch(type)
 			if("feet")
@@ -69,7 +69,7 @@
 	layer = MOB_LAYER - 0.2
 	armed = FALSE
 	update_icon()
-	pulse(0)
+	pulse(0, target)
 
 /obj/item/assembly/mousetrap/attack_self(mob/living/user)
 	if(!armed)

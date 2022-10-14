@@ -222,9 +222,11 @@
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		to_chat(user, "<span class='warning'>You disable the safeties on [src]</span>")
 		emagged = TRUE
 	else
+		add_attack_logs(user, src, "un-emagged")
 		to_chat(user, "<span class='warning'>You re-enable the safeties on [src]</span>")
 		emagged = FALSE
 

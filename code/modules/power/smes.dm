@@ -245,9 +245,9 @@
 	if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 		var/area/area = get_area(src)
 		if(area)
-			message_admins("SMES deleted at (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
-			log_game("SMES deleted at ([area.name])")
-			investigate_log("<font color='red'>deleted</font> at ([area.name])","singulo")
+			message_admins("SMES deleted at [ADMIN_VERBOSEJMP(src)]")
+			add_game_logs("SMES deleted at [AREACOORD(src)]")
+			investigate_log("<font color='red'>deleted</font> at [AREACOORD(src)]", INVESTIGATE_ENGINE)
 	if(terminal)
 		disconnect_terminal()
 	return ..()
@@ -298,7 +298,7 @@
 
 			if(output_used < 0.0001)		// either from no charge or set to 0
 				outputting = FALSE
-				investigate_log("lost power and turned <font color='red'>off</font>", "singulo")
+				investigate_log("lost power and turned <font color='red'>off</font>", INVESTIGATE_ENGINE)
 		else if(output_attempt && charge > output_level && output_level > 0)
 			outputting = TRUE
 		else
@@ -427,7 +427,7 @@
 		log_smes(usr)
 
 /obj/machinery/power/smes/proc/log_smes(mob/user)
-		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", "singulo")
+		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name_log(user) : "outside forces"]", INVESTIGATE_ENGINE)
 
 /obj/machinery/power/smes/proc/ion_act()
 	if(is_station_level(src.z))
@@ -439,7 +439,7 @@
 			smoke.set_up(3, 0, src.loc)
 			smoke.attach(src)
 			smoke.start()
-			explosion(src.loc, -1, 0, 1, 3, 1, 0)
+			explosion(src.loc, -1, 0, 1, 3, 1, 0, cause = src)
 			qdel(src)
 			return
 		if(prob(15)) //Power drain

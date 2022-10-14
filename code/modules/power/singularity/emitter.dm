@@ -74,9 +74,9 @@
 	rotate()
 
 /obj/machinery/power/emitter/Destroy()
-	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)]) [usr ? "Broken by [key_name_admin(usr)]" : ""]", ATKLOG_FEW)
-	log_game("Emitter deleted at ([x],[y],[z])")
-	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z]) [usr ? "Broken by [key_name(usr)]" : ""]","singulo")
+	message_admins("Emitter deleted at [ADMIN_COORDJMP(src)] [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]" : ""]")
+	add_game_logs("Emitter deleted at [COORD(src)]")
+	investigate_log("<font color='red'>deleted</font> at [COORD(src)] [usr ? "Broken by [key_name_log(usr)]" : ""]", INVESTIGATE_ENGINE)
 	QDEL_NULL(sparks)
 	return ..()
 
@@ -97,17 +97,17 @@
 			if(src.active==1)
 				src.active = 0
 				to_chat(user, "You turn off the [src].")
-				message_admins("Emitter turned off by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned off by [key_name(user)] in [x], [y], [z]")
-				investigate_log("turned <font color='red'>off</font> by [key_name(usr)]","singulo")
+				message_admins("Emitter turned off by [key_name_admin(user)] in [ADMIN_COORDJMP(src)]")
+				add_game_logs("turned off emitter in [COORD(src)]", user)
+				investigate_log("turned <font color='red'>off</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			else
 				src.active = 1
 				to_chat(user, "You turn on the [src].")
 				src.shot_number = 0
 				src.fire_delay = maximum_fire_delay
-				message_admins("Emitter turned on by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Emitter turned on by [key_name(user)] in [x], [y], [z]")
-				investigate_log("turned <font color='green'>on</font> by [key_name(usr)]","singulo")
+				message_admins("Emitter turned on by [key_name_admin(user)] in [ADMIN_COORDJMP(src)]")
+				add_game_logs("turned on emitter in [COORD(src)]", user)
+				investigate_log("turned <font color='green'>on</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
@@ -147,12 +147,12 @@
 			if(!powered)
 				powered = 1
 				update_icon()
-				investigate_log("regained power and turned <font color='green'>on</font>","singulo")
+				investigate_log("regained power and turned <font color='green'>on</font>", INVESTIGATE_ENGINE)
 		else
 			if(powered)
 				powered = 0
 				update_icon()
-				investigate_log("lost power and turned <font color='red'>off</font>","singulo")
+				investigate_log("lost power and turned <font color='red'>off</font>", INVESTIGATE_ENGINE)
 			return
 
 		if(!check_delay())
@@ -238,6 +238,7 @@
 
 /obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		locked = 0
 		emagged = 1
 		if(user)

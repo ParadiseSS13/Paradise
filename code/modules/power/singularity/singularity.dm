@@ -82,7 +82,7 @@
 	switch(severity)
 		if(1)
 			if(current_size <= STAGE_TWO)
-				investigate_log("has been destroyed by a heavy explosion.","singulo")
+				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_ENGINE)
 				qdel(src)
 				return
 			else
@@ -134,8 +134,8 @@
 	last_warning = world.time
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
-		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
+		message_admins("A singularity has been created without containment fields active at [ADMIN_VERBOSEJMP(src)]")
+	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]", INVESTIGATE_ENGINE)
 
 /obj/singularity/proc/dissipate()
 	if(!dissipate)
@@ -220,7 +220,7 @@
 			consume_range = 5
 			dissipate = 0
 	if(current_size == allowed_size)
-		investigate_log("<font color='red'>grew to size [current_size]</font>","singulo")
+		investigate_log("<font color='red'>grew to size [current_size]</font>", INVESTIGATE_ENGINE)
 		return 1
 	else if(current_size < (--temp_allowed_size))
 		expand(temp_allowed_size)
@@ -230,7 +230,7 @@
 
 /obj/singularity/proc/check_energy()
 	if(energy <= 0)
-		investigate_log("collapsed.","singulo")
+		investigate_log("collapsed.", INVESTIGATE_ENGINE)
 		qdel(src)
 		return 0
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
@@ -283,10 +283,11 @@
 	if(istype(A, /obj/singularity/narsie))
 		if(current_size == STAGE_SIX)
 			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			investigate_log("consumed Nar'Sie!", INVESTIGATE_ENGINE)
 			qdel(A)
 		else
 			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
-			investigate_log("has been destroyed by Nar'Sie","singulo")
+			investigate_log("has been destroyed by Nar'Sie", INVESTIGATE_ENGINE)
 			qdel(src)
 	if(istype(A, /obj/singularity/ratvar))
 		if(current_size == STAGE_SIX)
@@ -455,6 +456,6 @@
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2),1)
-	explosion(src.loc,(dist),(dist*2),(dist*4))
+	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "Another singularity")
 	qdel(src)
 	return(gain)

@@ -323,7 +323,7 @@
 
 /datum/chemical_reaction/slimeoverload/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	empulse(get_turf(holder.my_atom), 3, 7, 1)
+	empulse(get_turf(holder.my_atom), 3, 7, TRUE, "Slime core")
 
 
 /datum/chemical_reaction/slimecell
@@ -493,14 +493,12 @@
 /datum/chemical_reaction/slimeexplosion/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/T = get_turf(holder.my_atom)
-	var/area/A = get_area(T)
-	message_admins("[key_name_admin(usr)] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>")
-	log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] ([T.x],[T.y],[T.z])")
+	message_admins("[ADMIN_LOOKUPFLW(usr)] has primed a [name] for detonation at [ADMIN_VERBOSEJMP(T)]")
 	add_attack_logs(usr, src, "has primed for detonation", ATKLOG_MOST)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
 	spawn(50)
 		if(holder && holder.my_atom)
-			explosion(get_turf(holder.my_atom), 1 ,3, 6)
+			explosion(get_turf(holder.my_atom), 1 ,3, 6, cause = src)
 
 //Light Pink
 /datum/chemical_reaction/slimepotion2

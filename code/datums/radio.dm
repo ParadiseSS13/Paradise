@@ -69,6 +69,7 @@
 
 	var/list/data = list()
 	var/encryption
+	var/mob/user // for logging
 
 	var/frequency = 0
 

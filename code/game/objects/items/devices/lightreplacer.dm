@@ -147,6 +147,7 @@
 
 /obj/item/lightreplacer/emag_act(user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		Emag()
 
 /obj/item/lightreplacer/attack_self(mob/user)

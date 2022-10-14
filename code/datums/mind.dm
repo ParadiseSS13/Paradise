@@ -2224,6 +2224,7 @@
 			H.update_inv_w_uniform()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
+	add_conversion_logs(current, "became a mindslave for [convert_duration/600] minutes. Master: [key_name_log(missionary)]")
 	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
 	return 1
 
@@ -2232,6 +2233,7 @@
 		return
 	remove_antag_datum(/datum/antagonist/mindslave)
 	add_attack_logs(zealot_master, current, "Lost control of zealot")
+	add_conversion_logs(current, "Time's up and stopped being mindslave for [key_name_log(zealot_master)]")
 	zealot_master = null
 
 	if(jumpsuit)

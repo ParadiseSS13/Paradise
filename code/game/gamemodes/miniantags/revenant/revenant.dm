@@ -102,7 +102,7 @@
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
-	log_say(message, src)
+	add_say_logs(src, message)
 	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
 	for(var/mob/M in GLOB.mob_list)
 		if(istype(M, /mob/living/simple_animal/revenant))
@@ -151,8 +151,8 @@
 		var/mob/dead/observer/theghost = null
 		if(candidates.len)
 			theghost = pick(candidates)
-			message_admins("[key_name_admin(theghost)] has taken control of a revenant created without a mind")
 			key = theghost.key
+			message_admins("[key_name_admin(src)] has taken control of a revenant created without a mind")
 			giveObjectivesandGoals()
 			giveSpells()
 		else
@@ -427,8 +427,8 @@
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT
 		player_mind.special_role = SPECIAL_ROLE_REVENANT
 		SSticker.mode.traitors |= player_mind
-		message_admins("[key_of_revenant] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
-		log_game("[key_of_revenant] was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.")
+		message_admins("[key_name_admin(R)] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
+		add_game_logs("was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", R)
 		visible_message("<span class='revenboldnotice'>[src] suddenly rises into the air before fading away.</span>")
 		qdel(src)
 		if(src) //Should never happen, but just in case

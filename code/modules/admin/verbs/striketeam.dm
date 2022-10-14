@@ -14,7 +14,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 		return
 	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a CentComm DeathSquad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a CentComm DeathSquad.</span>")
 
 	var/input = null
 	while(!input)
@@ -128,7 +128,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm DeathSquad.</span>", 1)
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm DeathSquad.</span>")
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 

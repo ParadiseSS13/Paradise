@@ -169,8 +169,8 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/proc/Log(message as text, message_title as text)
 	if(log)
-		log_game("[key_name(usr)] has made \a [announcement_type]: [message_title] - [message] - [announcer]")
-		message_admins("[key_name_admin(usr)] has made \a [announcement_type].", 1)
+		add_game_logs("has made \a [announcement_type]: [message_title] - [message] - [announcer]", usr)
+		message_admins("[key_name_admin(usr)] has made \a [announcement_type].")
 
 /proc/GetNameAndAssignmentFromId(var/obj/item/card/id/I)
 	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)

@@ -46,7 +46,7 @@
 				if(prob(45))
 					new /obj/item/reagent_containers/food/snacks/meat(loc)
 				else if(prob(10))
-					explosion(get_turf(loc), 0, pick(0,1), pick(2,3), 0)
+					explosion(get_turf(loc), 0, pick(0,1), pick(2,3), 0, cause = src)
 			else
 				new /mob/living/simple_animal/cow(loc)
 

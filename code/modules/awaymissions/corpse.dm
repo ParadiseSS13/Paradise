@@ -81,9 +81,9 @@
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
 	if(id_job == null)
-		log_game("[user.ckey] became [mob_name]")
+		add_game_logs("[user.ckey] became [mob_name]", user)
 	else
-		log_game("[user.ckey] became [mob_name]. Job: [id_job]")
+		add_game_logs("[user.ckey] became [mob_name]. Job: [id_job]", user)
 	create(ckey = user.ckey)
 
 /obj/effect/mob_spawn/Initialize(mapload)

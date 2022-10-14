@@ -467,7 +467,7 @@
 						else
 							receiver = customrecepient
 							log_message = "[log_message] (no holder)"
-						usr.create_log(MISC_LOG, log_message, receiver)
+						add_misc_logs(usr, "[log_message], [receiver]")
 						//Finally..
 						ResetMessage()
 

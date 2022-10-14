@@ -417,6 +417,7 @@
 /obj/machinery/power/bluespace_tap/emag_act(mob/living/user as mob)
 	if(emagged)
 		return
+	add_attack_logs(user, src, "emagged")
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)

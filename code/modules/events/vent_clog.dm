@@ -32,4 +32,5 @@
 		smoke.set_up(R, vent, TRUE)
 		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 		smoke.start(3)
+		add_game_logs("Smoke at [COORD(vent)] spread including [R.reagent_list]")
 		qdel(R)

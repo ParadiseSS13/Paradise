@@ -252,7 +252,7 @@
 		return
 	M.visible_message("<span class='hierophant_warning'>[M] fades in!</span>")
 	if(user != M)
-		add_attack_logs(user, M, "Teleported from ([source.x],[source.y],[source.z])")
+		add_attack_logs(user, M, "Teleported from [COORD(source)]")
 
 /obj/item/hierophant_club/proc/cardinal_blasts(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
 	if(!T)

@@ -22,8 +22,8 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 	if(candidate)
 		if(!istype(candidate))
-			message_admins("Warning: possible href exploit by [key_name_admin(usr)] (paiController/Topic, candidate is not a pAI)")
-			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate is not a pAI)")
+			message_admins("Warning: possible href exploit by [ADMIN_LOOKUPFLW(usr)] (paiController/Topic, candidate is not a pAI)")
+			log_debug("Warning: possible href exploit by [key_name_log(usr)] (paiController/Topic, candidate is not a pAI)")
 			return
 
 	if(href_list["download"])
@@ -65,8 +65,8 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 	if(candidate)
 		if(candidate.key && usr.key && candidate.key != usr.key)
-			message_admins("Warning: possible href exploit by [key_name_admin(usr)] (paiController/Topic, candidate and usr have different keys)")
-			log_debug("Warning: possible href exploit by [key_name(usr)] (paiController/Topic, candidate and usr have different keys)")
+			message_admins("Warning: possible href exploit by [ADMIN_LOOKUPFLW(usr)] (paiController/Topic, candidate and usr have different keys)")
+			log_debug("Warning: possible href exploit by [key_name_log(usr)] (paiController/Topic, candidate and usr have different keys)")
 			return
 
 	if(href_list["new"])

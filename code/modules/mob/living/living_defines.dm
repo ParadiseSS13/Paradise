@@ -62,6 +62,7 @@
 
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/emote_log = list() //like say_log but for emotes
+	var/last_hallucinator_log // Used to log, what was last infliction to hallucination
 
 	var/blood_volume = 0 //how much blood the mob has
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)

@@ -16,4 +16,3 @@
 		return
 	if(health <= 0)
 		death()
-		create_debug_log("died of damage, trigger reason: [reason]")

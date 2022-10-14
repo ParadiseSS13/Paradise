@@ -19,10 +19,8 @@
 		if(paralysis || sleeping || getOxyLoss() > 50 || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
 			if(stat == CONSCIOUS)
 				KnockOut()
-				create_debug_log("fell unconscious, trigger reason: [reason]")
 		else
 			if(stat == UNCONSCIOUS)
 				WakeUp()
-				create_debug_log("woke up, trigger reason: [reason]")
 	update_damage_hud()
 	update_health_hud()

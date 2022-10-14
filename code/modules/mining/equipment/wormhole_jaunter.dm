@@ -61,6 +61,7 @@
 
 /obj/item/wormhole_jaunter/emag_act(mob/user)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		to_chat(user, "<span class='notice'>You emag [src].</span>")
 		var/turf/T = get_turf(src)

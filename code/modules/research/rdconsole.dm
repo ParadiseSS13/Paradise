@@ -222,6 +222,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
 	if(!emagged)
+		add_attack_logs(user, src, "emagged")
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
 		emagged = TRUE
@@ -300,7 +301,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/start_destroyer()
+/obj/machinery/computer/rdconsole/proc/start_destroyer(mob/user)
 	if(!linked_destroy)
 		return
 
@@ -328,7 +329,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	flick("[linked_destroy.icon_closed]_process", linked_destroy)
-	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech), DECONSTRUCT_DELAY)
+	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech, user), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -344,7 +345,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/can_insert = min(space, salvageable, available)
 		linked_lathe.materials.insert_amount(can_insert, material)
 
-/obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech)
+/obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech, mob/user)
 	clear_wait_message()
 	if(!linked_destroy || !temp_tech)
 		return
@@ -353,8 +354,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(!linked_destroy.loaded_item)
 			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		else
+			var/tech_log
 			for(var/T in temp_tech)
-				files.UpdateTech(T, temp_tech[T])
+				var/new_level = files.UpdateTech(T, temp_tech[T])
+				if(new_level)
+					tech_log += "[T] [new_level], "
+			if(tech_log)
+				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 			send_mats()
 			linked_destroy.loaded_item = null
 
@@ -403,7 +409,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
-		message_admins("[machine] exploit attempted by [key_name(usr, TRUE)]!")
+		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 		return
 
 	if(being_built.make_reagents.len) // build_type should equal BIOGENERATOR though..
@@ -462,10 +468,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
 	if(machine)
 		if(enough_materials && being_built)
+			investigate_log("[key_name_log(usr)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
-					new_item.investigate_log("built by [key]","singulo")
+					new_item.investigate_log("built by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 					new_item.update_materials_coeff(coeff)
 				if(being_built.locked)

@@ -58,7 +58,7 @@
 
 /obj/item/implant/emp/activate()
 	uses--
-	empulse(imp_in, 3, 5, 1)
+	empulse(imp_in, 3, 5, TRUE, name)
 	if(!uses)
 		qdel(src)
 

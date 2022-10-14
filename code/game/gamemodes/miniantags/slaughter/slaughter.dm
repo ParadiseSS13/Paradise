@@ -224,7 +224,7 @@
 	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
-	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
+	add_say_logs(usr, msg, choice, "SLAUGHTER")
 	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
 	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
 	for(var/mob/dead/observer/G in GLOB.player_list)

@@ -44,16 +44,16 @@
 	else if(left_click)
 		if(ispath(objholder,/turf))
 			var/turf/T = get_turf(object)
-			log_admin("Build Mode: [key_name(user)] modified [T] ([T.x],[T.y],[T.z]) to [objholder]")
+			log_admin("Build Mode: [key_name(user)] modified [T] [COORD(T)] to [objholder]")
 			T.ChangeTurf(objholder)
 		else if(!isnull(objholder))
 			var/obj/A = new objholder (get_turf(object))
 			A.setDir(BM.build_dir)
-			log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [BM.build_dir]")
+			log_admin("Build Mode: [key_name(user)] modified [A]'s [COORD(A)] dir to [BM.build_dir]")
 		else
 			to_chat(user, "<span class='warning'>Select object type first.</span>")
 	else if(right_click)
 		if(isobj(object))
-			log_admin("Build Mode: [key_name(user)] deleted [object] at ([object.x],[object.y],[object.z])")
+			log_admin("Build Mode: [key_name(user)] deleted [object] at [COORD(object)]")
 			qdel(object)
-	
+

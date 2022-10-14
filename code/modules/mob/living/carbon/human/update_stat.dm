@@ -8,7 +8,6 @@
 			if(B)
 				if((health >= (HEALTH_THRESHOLD_DEAD + HEALTH_THRESHOLD_CRIT) * 0.5) && getBrainLoss() < 120)
 					update_revive()
-					create_debug_log("revived from healing, trigger reason: [reason]")
 
 /mob/living/carbon/human/update_nearsighted_effects()
 	var/obj/item/clothing/glasses/G = glasses

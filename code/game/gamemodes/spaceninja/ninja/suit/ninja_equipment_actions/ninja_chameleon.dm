@@ -157,7 +157,7 @@
 	spark_system.start()
 
 	ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы маскируете свою внешность становясь [ninja]."), "Вы слышите странный электрический звук!")
-	ninja.create_log(MISC_LOG, "Замаскировался под [ninja]")
+	add_game_logs("Замаскировался под [ninja]", ninja)
 
 	ninja.AddComponent(/datum/component/examine_override, disguise.examine_text)
 	ninja.AddComponent(/datum/component/ninja_states_breaker, src)

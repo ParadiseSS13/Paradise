@@ -241,7 +241,6 @@
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
 		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
-		user.create_attack_log("<font color='red'>attacked [src.name]</font>")
 		add_attack_logs(user, src, "attacked")
 		return TRUE
 
@@ -273,7 +272,7 @@
 				for(var/M in passengers + pilot)
 					var/mob/living/L = M
 					L.adjustBruteLoss(300)
-			explosion(loc, 0, 0, 2)
+			explosion(loc, 0, 0, 2, cause = src)
 			robogibs(loc)
 			robogibs(loc)
 			qdel(src)
