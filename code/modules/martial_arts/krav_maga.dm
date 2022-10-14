@@ -3,6 +3,21 @@
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
+	var/datum/action/neutral_stance/neutral = new/datum/action/neutral_stance()
+
+/datum/action/neutral_stance
+	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
+	button_icon_state = "neutralstance"
+
+/datum/action/neutral_stance/Trigger()
+	var/mob/living/carbon/human/H = owner
+	if(!H.mind.martial_art.in_stance)
+		to_chat(owner, "<b><i>You cannot cancel an attack you haven't prepared!</i></b>")
+		return
+	to_chat(owner, "<b><i>You cancel your prepared attack.</i></b>")
+	owner.visible_message("<span class='danger'> [owner] relaxes [owner.p_their()] stance.</span>")
+	H.mind.martial_art.combos.Cut()
+	H.mind.martial_art.in_stance = FALSE
 
 /datum/action/neck_chop
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
@@ -18,6 +33,7 @@
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.mind.martial_art.reset_combos()
+	H.mind.martial_art.in_stance = TRUE
 
 /datum/action/leg_sweep
 	name = "Leg Sweep - Trips the victim, rendering them prone and unable to move for a short time."
@@ -33,6 +49,7 @@
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.mind.martial_art.reset_combos()
+	H.mind.martial_art.in_stance = TRUE
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
@@ -48,11 +65,13 @@
 	H.mind.martial_art.combos.Cut()
 	H.mind.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.mind.martial_art.reset_combos()
+	H.mind.martial_art.in_stance = TRUE
 
 /datum/martial_art/krav_maga/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
 	..()
 	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
 	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
+	neutral.Grant(H)
 	neckchop.Grant(H)
 	legsweep.Grant(H)
 	lungpunch.Grant(H)
@@ -60,6 +79,7 @@
 /datum/martial_art/krav_maga/remove(var/mob/living/carbon/human/H)
 	..()
 	to_chat(H, "<span class = 'userdanger'>You suddenly forget the arts of Krav Maga...</span>")
+	neutral.Remove(H)
 	neckchop.Remove(H)
 	legsweep.Remove(H)
 	lungpunch.Remove(H)

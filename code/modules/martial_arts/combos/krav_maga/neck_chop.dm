@@ -9,4 +9,5 @@
 	target.apply_damage(5, BRUTE)
 	target.AdjustSilence(10)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Neck Chop", ATKLOG_ALL)
+	user.mind.martial_art.in_stance = FALSE
 	return MARTIAL_COMBO_DONE_CLEAR_COMBOS
