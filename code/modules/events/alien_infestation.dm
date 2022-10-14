@@ -32,6 +32,8 @@
 		if(C)
 			C.remove_from_respawnable_list()
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
+			new_xeno.forceMove(vent)
+			new_xeno.add_ventcrawl(vent)
 			new_xeno.amount_grown += (0.75 * new_xeno.max_grown)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
 			if(SSticker && SSticker.mode)
