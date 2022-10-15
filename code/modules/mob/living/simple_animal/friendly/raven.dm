@@ -49,9 +49,9 @@ var/cooldown = world.time//DO MOBS NOT HAVE A COOLDOWN VARIBLE!
 	set name = "caw"
 	set category = "Raven"
 	set desc = "caws"
-	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
+	if(cooldown < world.time) // A cooldown, to stop people being jerks
 		playsound(src.loc, 'sound/creatures/caw.ogg', 50, 1)
-		cooldown = world.time
+		cooldown = world.time + 2 SECONDS
 
 
 
