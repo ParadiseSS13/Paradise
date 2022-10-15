@@ -68436,6 +68436,11 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
+"dfx" = (
+/obj/effect/spawner/window/reinforced/tinted,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/medical/genetics)
 "dfy" = (
 /turf/simulated/wall,
 /area/maintenance/medmaint)
@@ -68445,9 +68450,14 @@
 /turf/simulated/floor/plating,
 /area/medical/medbay)
 "dfA" = (
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastleft{
+	name = "Genetics Desk";
+	req_access_txt = "9"
+	},
+/obj/machinery/door/window/westleft,
 /turf/simulated/floor/plating,
-/area/maintenance/medmaint)
+/area/medical/genetics)
 "dfB" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68978,15 +68988,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
-"dgM" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastleft{
-	name = "Genetics Desk";
-	req_access_txt = "9"
-	},
-/obj/machinery/door/window/westleft,
-/turf/simulated/floor/plating,
-/area/medical/genetics)
 "dgN" = (
 /obj/item/pen,
 /obj/item/reagent_containers/spray/cleaner,
@@ -69852,11 +69853,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/medmaint)
-"diC" = (
-/obj/effect/spawner/window/reinforced/tinted,
-/obj/structure/barricade/wooden,
-/turf/simulated/floor/plating,
-/area/medical/genetics)
 "diD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -70574,6 +70570,26 @@
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "dkc" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
+"dkd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/medical/genetics)
+"dke" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel/white,
+/area/medical/medbay)
+"dkf" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -70591,13 +70607,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/white,
-/area/medical/medbay)
-"dke" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "dkg" = (
@@ -71071,6 +71080,10 @@
 /obj/item/storage/box/bodybags,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
+"dlj" = (
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "dlk" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -71098,14 +71111,9 @@
 	},
 /area/hallway/secondary/exit)
 "dlq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/white,
-/area/medical/genetics)
+/obj/machinery/computer/cloning,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "dlr" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -72081,12 +72089,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/genetics)
-"dnR" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/medical/genetics)
 "dnT" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -72679,6 +72681,24 @@
 	dir = 1;
 	icon_state = "whitepurplecorner"
 	},
+/area/medical/genetics)
+"dpm" = (
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "GeneticsDoor";
+	name = "Genetics";
+	req_access_txt = "9"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/genetics)
 "dpn" = (
 /turf/simulated/floor/plasteel{
@@ -73301,22 +73321,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/genetics)
 "dqC" = (
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "GeneticsDoor";
-	name = "Genetics";
-	req_access_txt = "9"
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/white,
 /area/medical/genetics)
 "dqE" = (
 /turf/simulated/floor/plasteel{
@@ -92257,10 +92265,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
-"mZY" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/maintenance/medmaint)
 "naX" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -140006,8 +140010,8 @@ cXk
 ddP
 cTX
 dfy
-dfA
-dfA
+dlj
+dlj
 dfy
 dmi
 dnK
@@ -141035,9 +141039,9 @@ ddU
 dfz
 dgL
 dll
+dlq
 dll
-dll
-diC
+dfx
 dnO
 dpl
 dqz
@@ -141291,7 +141295,7 @@ dco
 cSA
 dfz
 dll
-mZY
+dkc
 dll
 diE
 dnM
@@ -141549,13 +141553,13 @@ cSA
 dfz
 dgN
 diE
-mZY
+dkc
 dll
-diC
+dfx
 dnQ
 drX
 dqB
-dlq
+dkd
 dsY
 duk
 hlI
@@ -141809,9 +141813,9 @@ diF
 dll
 dlm
 dmi
-dnR
+dqC
 dpn
-dnR
+dqC
 drZ
 dtf
 duk
@@ -142067,9 +142071,9 @@ dki
 dfz
 dmi
 dta
-dgM
+dfA
 dta
-dqC
+dpm
 dta
 duk
 dvB
@@ -142583,7 +142587,7 @@ dKV
 dgQ
 dpr
 dqF
-dkc
+dkf
 dtc
 duq
 dvD
