@@ -36,6 +36,6 @@
 /obj/item/mounted/frame/display/entertainment_frame
 	name = "entertainment monitor frame"
 	desc = "Used to build entertainment monitors, just secure to the wall."
-	icon_state = "outline"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "entertainment_console"
 	build_path = /obj/machinery/computer/security/telescreen/entertainment
-
