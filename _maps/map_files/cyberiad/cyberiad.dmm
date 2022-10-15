@@ -41444,6 +41444,7 @@
 /obj/item/shard,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/effect/decal/cleanable/glass,
+/obj/item/reagent_containers/food/condiment/saltshaker/deadchat,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "bXL" = (

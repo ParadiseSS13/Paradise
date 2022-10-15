@@ -142,6 +142,11 @@
 	desc = "Salt. From dead crew, presumably."
 	return BRUTELOSS
 
+/obj/item/reagent_containers/food/condiment/saltshaker/deadchat
+	name = "salt of the damned"
+	desc = "Salt obtained from those who have passed."
+	gender = PLURAL
+
 /obj/item/reagent_containers/food/condiment/peppermill
 	name = "pepper mill"
 	desc = "Often used to flavor food or make people sneeze."

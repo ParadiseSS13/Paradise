@@ -44180,6 +44180,7 @@
 /area/maintenance/medmaint)
 "cAj" = (
 /obj/structure/closet/wardrobe/pjs,
+/obj/item/reagent_containers/food/condiment/saltshaker/deadchat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

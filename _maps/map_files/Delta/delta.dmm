@@ -68949,6 +68949,7 @@
 /obj/machinery/shower{
 	pixel_y = 12
 	},
+/obj/item/reagent_containers/food/condiment/saltshaker/deadchat,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "dgJ" = (
