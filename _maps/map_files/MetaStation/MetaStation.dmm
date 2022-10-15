@@ -488,9 +488,8 @@
 	pixel_y = 8
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -28;
-	name = "west bump";
-	dir = 8
+	pixel_x = -32;
+	name = "west bump"
 	},
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -554,9 +553,8 @@
 	pixel_y = 12
 	},
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -639,6 +637,7 @@
 	},
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/glass/bottle/facid{
+	name = "fluorosulfuric acid bottle";
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -3571,9 +3570,8 @@
 /obj/item/clothing/accessory/red,
 /obj/item/clothing/head/soft/red,
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -4716,6 +4714,7 @@
 /area/storage/emergency2)
 "axq" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -5560,6 +5559,7 @@
 /area/crew_quarters/dorms)
 "aAc" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -7774,9 +7774,8 @@
 	},
 /obj/effect/landmark/start/internal_affairs,
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -7889,9 +7888,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/machinery/door_control{
 	id = "ToiletB";
@@ -8020,9 +8018,8 @@
 	pixel_x = 8
 	},
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/mineral/tranquillite,
 /area/mimeoffice)
@@ -9742,9 +9739,8 @@
 	pixel_x = 8
 	},
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
@@ -10256,9 +10252,8 @@
 /obj/effect/landmark/start/assistant,
 /obj/structure/railing,
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -10445,9 +10440,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/machinery/door_control{
 	id = "Toilet2";
@@ -10555,9 +10549,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11834,9 +11827,8 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -11899,9 +11891,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/machinery/door_control{
 	id = "Toilet1";
@@ -13049,9 +13040,8 @@
 	})
 "aVu" = (
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -16824,8 +16814,8 @@
 /area/hallway/primary/central)
 "beS" = (
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -17058,6 +17048,7 @@
 "bfD" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -18418,9 +18409,8 @@
 	pixel_y = 10
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20048,9 +20038,8 @@
 	department = "Captain's Office"
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -28;
-	name = "west bump";
-	dir = 8
+	pixel_x = -32;
+	name = "west bump"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
@@ -20156,9 +20145,8 @@
 /area/janitor)
 "bmE" = (
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -20239,7 +20227,7 @@
 "bmS" = (
 /obj/machinery/computer/secure_data,
 /obj/machinery/newscaster/security_unit{
-	pixel_y = 28;
+	pixel_y = 32;
 	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
@@ -21976,9 +21964,8 @@
 	dir = 4
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = 28;
-	name = "east bump";
-	dir = 4
+	pixel_x = 32;
+	name = "east bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22555,6 +22542,7 @@
 /area/civilian/barber)
 "bss" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -23051,8 +23039,8 @@
 /area/bridge)
 "btS" = (
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/decal/cleanable/dirt,
@@ -23971,9 +23959,8 @@
 "bvE" = (
 /obj/machinery/vending/cola,
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -24257,9 +24244,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = 28;
-	name = "east bump";
-	dir = 4
+	pixel_x = 32;
+	name = "east bump"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
@@ -25009,9 +24995,8 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /obj/machinery/light{
 	dir = 4
@@ -25388,9 +25373,8 @@
 /obj/item/wrench,
 /obj/item/multitool,
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26871,8 +26855,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -27396,8 +27380,8 @@
 "bDw" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/item/folder,
 /obj/item/folder,
@@ -28411,9 +28395,8 @@
 "bFY" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -29072,8 +29055,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -29634,8 +29617,8 @@
 "bJz" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/item/clipboard,
 /obj/item/paper,
@@ -29656,9 +29639,8 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
@@ -30103,9 +30085,8 @@
 	pixel_y = 5
 	},
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -30133,9 +30114,8 @@
 	})
 "bKX" = (
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -30175,9 +30155,8 @@
 	})
 "bLh" = (
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -30381,9 +30360,8 @@
 	},
 /obj/item/pen,
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room{
@@ -31159,9 +31137,8 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
@@ -31440,9 +31417,8 @@
 	})
 "bOY" = (
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
@@ -31495,9 +31471,8 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
@@ -33259,9 +33234,8 @@
 /area/crew_quarters/kitchen)
 "bUh" = (
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo"
@@ -33571,9 +33545,8 @@
 	pixel_y = 1
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -28;
-	name = "west bump";
-	dir = 8
+	pixel_x = -32;
+	name = "west bump"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
@@ -33945,9 +33918,8 @@
 	pixel_y = 24
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -28;
-	name = "west bump";
-	dir = 8
+	pixel_x = -32;
+	name = "west bump"
 	},
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
@@ -34487,9 +34459,8 @@
 /area/ntrep)
 "bXy" = (
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-10"
@@ -35402,9 +35373,8 @@
 /area/maintenance/aft)
 "bZW" = (
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -35581,9 +35551,8 @@
 "caA" = (
 /obj/machinery/vending/snack,
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36331,8 +36300,8 @@
 	pixel_y = 3
 	},
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/computer/guestpass{
 	pixel_x = 30
@@ -36684,9 +36653,8 @@
 	pixel_x = -15
 	},
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
@@ -37048,9 +37016,8 @@
 /area/hallway/primary/central)
 "cej" = (
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -37673,6 +37640,7 @@
 /area/medical/surgery2)
 "cga" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -38691,9 +38659,8 @@
 	pixel_y = 18
 	},
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -39427,9 +39394,8 @@
 /area/maintenance/apmaint)
 "ckS" = (
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "greenblue"
@@ -42368,9 +42334,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42430,6 +42395,7 @@
 "cuE" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -42740,6 +42706,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -43034,6 +43001,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -44493,6 +44461,7 @@
 "cBc" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -44801,8 +44770,8 @@
 /area/medical/morgue)
 "cBZ" = (
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -44930,6 +44899,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -45616,9 +45586,8 @@
 "cEn" = (
 /obj/structure/closet/secure_closet/scientist,
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
@@ -46792,9 +46761,8 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -47260,6 +47228,7 @@
 /area/assembly/robotics)
 "cJs" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -48144,8 +48113,8 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
@@ -49384,6 +49353,7 @@
 "cQL" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -49754,8 +49724,8 @@
 /area/medical/virology)
 "cSc" = (
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -50295,6 +50265,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -50473,8 +50444,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/camera{
 	c_tag = "Chapel - Fore"
@@ -51833,6 +51804,7 @@
 "cZy" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -52124,9 +52096,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
@@ -53880,9 +53851,8 @@
 /obj/effect/turf_decal/tile/bar,
 /obj/machinery/door/firedoor,
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54322,9 +54292,8 @@
 	pixel_y = 3
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = 28;
-	name = "east bump";
-	dir = 4
+	pixel_x = 32;
+	name = "east bump"
 	},
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
@@ -56344,6 +56313,7 @@
 /area/maintenance/aft2)
 "eJT" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -57117,9 +57087,8 @@
 	},
 /obj/effect/landmark/start/internal_affairs,
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -59458,8 +59427,8 @@
 /area/toxins/storage)
 "ghD" = (
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -61240,9 +61209,8 @@
 	dir = 8
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_y = -28;
-	name = "south bump";
-	dir = 1
+	pixel_y = -32;
+	name = "south bump"
 	},
 /turf/simulated/floor/carpet,
 /area/security/hos)
@@ -61674,9 +61642,8 @@
 /area/solar/auxport)
 "hrf" = (
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -62758,6 +62725,7 @@
 /area/toxins/mixing)
 "hQX" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -63380,9 +63348,8 @@
 	},
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -64649,9 +64616,8 @@
 /area/medical/paramedic)
 "iKF" = (
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -66502,6 +66468,7 @@
 "jLY" = (
 /obj/structure/lattice,
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -68600,9 +68567,8 @@
 /area/toxins/storage)
 "kNk" = (
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -28;
-	name = "west bump";
-	dir = 8
+	pixel_x = -32;
+	name = "west bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -68754,8 +68720,8 @@
 "kPI" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -71608,6 +71574,7 @@
 /area/engine/break_room)
 "meT" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -71735,6 +71702,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -75235,9 +75203,8 @@
 	dir = 4
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_x = 28;
-	name = "east bump";
-	dir = 4
+	pixel_x = 32;
+	name = "east bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -75409,9 +75376,8 @@
 "nYH" = (
 /obj/structure/closet/secure_closet/RD,
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -76469,6 +76435,7 @@
 /area/toxins/mixing)
 "oFQ" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -77826,9 +77793,8 @@
 /area/security/permabrig)
 "psz" = (
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -28;
-	name = "west bump";
-	dir = 8
+	pixel_x = -32;
+	name = "west bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -80717,9 +80683,8 @@
 	dir = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics - Desk";
@@ -81815,9 +81780,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -82950,8 +82914,8 @@
 "rRh" = (
 /obj/structure/table/glass,
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -83052,6 +83016,7 @@
 /area/space/nearstation)
 "rUv" = (
 /obj/effect/spawner/lootdrop{
+	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -83603,9 +83568,8 @@
 	pixel_x = 24
 	},
 /obj/machinery/newscaster{
-	pixel_y = -28;
 	name = "south bump";
-	dir = 1
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -85694,8 +85658,8 @@
 "tiH" = (
 /obj/structure/chair,
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -87443,9 +87407,8 @@
 /area/security/processing)
 "ufN" = (
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -89328,9 +89291,8 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
@@ -90061,9 +90023,8 @@
 /area/bridge)
 "vBI" = (
 /obj/machinery/newscaster{
-	pixel_x = 28;
 	name = "east bump";
-	dir = 4
+	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/light{
@@ -90495,9 +90456,8 @@
 /area/medical/chemistry)
 "vQr" = (
 /obj/machinery/newscaster{
-	pixel_x = -28;
 	name = "west bump";
-	dir = 8
+	pixel_x = -32
 	},
 /obj/machinery/light{
 	dir = 8
