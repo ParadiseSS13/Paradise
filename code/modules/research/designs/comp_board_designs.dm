@@ -66,7 +66,7 @@
 	name = "Console Board (Cloning Machine Console)"
 	desc = "Allows for the construction of circuit boards used to build a new Cloning Machine console."
 	id = "clonecontrol"
-	req_tech = list("programming" = 4, "biotech" = 3)
+	req_tech = list("programming" = 4, "biotech" = 8)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/cloning

@@ -38614,7 +38614,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -38770,7 +38769,6 @@
 "bRe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -39283,11 +39281,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bSB" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "bSC" = (
 /obj/structure/table,
 /obj/item/hand_labeler{
@@ -39331,7 +39327,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -39989,30 +39984,29 @@
 	},
 /area/assembly/chargebay)
 "bTZ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/tinted,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "bUa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "bUc" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
-	name = "Morgue";
-	req_access_txt = "6"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/medical{
+	name = "Morgue";
+	req_access_txt = "6"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40851,7 +40845,7 @@
 /area/maintenance/asmaint2)
 "bWd" = (
 /turf/simulated/wall,
-/area/medical/genetics_cloning)
+/area/maintenance/medmaint)
 "bWe" = (
 /obj/structure/sign/poster/official/random,
 /turf/simulated/wall,
@@ -41442,35 +41436,23 @@
 	},
 /area/medical/medbay2)
 "bXK" = (
-/obj/structure/table/glass,
-/obj/item/roller{
-	pixel_x = -2;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
-	},
 /obj/machinery/firealarm{
 	name = "north bump";
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/structure/table_frame,
+/obj/item/shard,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "bXL" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 28
 	},
-/obj/machinery/camera{
-	c_tag = "Medbay Cloning"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "bXM" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
@@ -41482,18 +41464,16 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "bXO" = (
-/obj/machinery/dna_scannernew,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/light/small{
+	dir = 4
 	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "bXP" = (
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine{
@@ -42195,27 +42175,18 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bZp" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Medbay Cloning";
-	req_access_txt = "5"
+/obj/structure/computerframe{
+	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "bZq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
 	initialize_directions = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "bZr" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
@@ -42227,13 +42198,20 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bZs" = (
-/obj/machinery/computer/cloning{
-	dir = 8
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	dir = 4;
+	icon_state = "darkgreenfull"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "bZt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -42289,9 +42267,8 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "CMO"
-	},
+/obj/effect/spawner/window/reinforced/tinted,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/medical/cmo)
 "bZA" = (
@@ -42639,7 +42616,6 @@
 "caa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -42821,34 +42797,12 @@
 "caL" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
-"caM" = (
-/obj/effect/landmark/start/doctor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "caN" = (
-/obj/machinery/clonepod/biomass,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "caP" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -43243,16 +43197,8 @@
 	},
 /area/quartermaster/miningdock)
 "cbN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/medbay2)
+/turf/simulated/floor/plasteel,
+/area/maintenance/fore)
 "cbO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -43291,9 +43237,6 @@
 	},
 /area/medical/medbay2)
 "cbU" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -43307,9 +43250,6 @@
 	},
 /area/medical/medbay2)
 "cbV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -43326,30 +43266,12 @@
 	},
 /area/medical/medbay2)
 "cbW" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue"
-	},
-/area/medical/medbay2)
-"cbX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay2)
@@ -43386,9 +43308,6 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -43404,9 +43323,6 @@
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -43425,10 +43341,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43548,40 +43460,27 @@
 	},
 /area/medical/medbay2)
 "ccx" = (
-/obj/machinery/light{
+/obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "ccy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "ccz" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "ccA" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "ccB" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/item/shard,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "ccC" = (
 /obj/structure/table/glass,
 /obj/item/clothing/glasses/hud/health,
@@ -44829,30 +44728,27 @@
 	},
 /area/medical/medbay2)
 "cfJ" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer/on{
-	name = "Temperature control unit"
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "cfK" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cfL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/maintenance{
-	name = "Internal Medbay Maintenance";
-	req_access_txt = "5"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Internal Medbay Maintenance";
+	req_access_txt = "5"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "cfP" = (
 /turf/simulated/wall,
 /area/medical/cmo)
@@ -45226,9 +45122,6 @@
 /turf/simulated/wall,
 /area/medical/paramedic)
 "chi" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -45292,7 +45185,7 @@
 "chp" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "chq" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -45309,15 +45202,13 @@
 /area/medical/cmo)
 "chs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "cht" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -45327,7 +45218,7 @@
 /obj/item/crowbar,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "chu" = (
 /obj/machinery/door/firedoor,
 /obj/structure/curtain/open,
@@ -45355,9 +45246,8 @@
 /area/medical/cmostore)
 "chz" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "CMO"
-	},
+/obj/effect/spawner/window/reinforced/tinted,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/medical/cmo)
 "chA" = (
@@ -45670,7 +45560,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "ciK" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -45752,21 +45642,25 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/item/trash/pistachios,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "ciQ" = (
 /obj/machinery/optable,
 /turf/simulated/floor/plasteel{
@@ -45790,7 +45684,7 @@
 	},
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "ciS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -46333,7 +46227,7 @@
 	req_access_txt = "5"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "ckB" = (
 /obj/machinery/light{
 	dir = 8
@@ -47709,7 +47603,7 @@
 	pixel_x = -3
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "cou" = (
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
@@ -48023,7 +47917,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "cpp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -48037,7 +47931,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "cpq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -68802,9 +68696,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "CMO"
-	},
+/obj/effect/spawner/window/reinforced/tinted,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/medical/cmo)
 "eaO" = (
@@ -68913,17 +68806,10 @@
 	},
 /area/mimeoffice)
 "edz" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Medbay Cloning";
-	req_access_txt = "5"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/unres,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "edM" = (
 /obj/machinery/light{
 	dir = 4
@@ -69601,17 +69487,13 @@
 /area/security/permabrig)
 "eGV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "eGX" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -70163,7 +70045,6 @@
 /area/engine/engineering)
 "fdK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -70875,7 +70756,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "fCX" = (
 /obj/machinery/atmospherics/binary/valve/open{
 	name = "Maintenance Air Supply"
@@ -70945,7 +70826,7 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "fHE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/structure/cable{
@@ -71587,12 +71468,8 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "gfi" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -72656,7 +72533,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft2)
+/area/maintenance/medmaint)
 "gVp" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/brute{
@@ -72895,7 +72772,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -73174,9 +73050,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -73996,10 +73871,8 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "hNT" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
@@ -75263,9 +75136,6 @@
 	},
 /area/medical/virology)
 "iTB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -76940,14 +76810,9 @@
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "koW" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/structure/disposalpipe/broken,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "kpz" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -79133,7 +78998,6 @@
 /area/toxins/xenobiology)
 "mje" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -80159,9 +80023,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "mZI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -82376,24 +82237,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "oPO" = (
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/structure/table/glass,
 /obj/item/storage/box/bodybags,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/structure/table_frame,
+/obj/item/shard,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "oPT" = (
 /obj/machinery/door/window/eastright{
 	dir = 2;
@@ -87491,11 +87344,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "sZh" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/structure/closet/wardrobe/pjs,
 /obj/machinery/power/apc{
 	dir = 8;
@@ -87506,10 +87354,8 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "sZP" = (
 /obj/machinery/power/emitter{
 	anchored = 1;
@@ -91123,16 +90969,10 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/machinery/door/window/eastright,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/medical/genetics_cloning)
+/obj/effect/landmark/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "vRJ" = (
 /obj/machinery/camera{
 	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
@@ -130918,12 +130758,12 @@ iFR
 bEp
 bZL
 cbT
-bWd
+pAi
 bTZ
-bZp
+edz
 bTZ
-bWd
-bWd
+pAi
+pAi
 cfK
 pAi
 cpo
@@ -131175,7 +131015,7 @@ bSw
 bEp
 vAN
 rgv
-bWd
+pAi
 bXK
 ccA
 ccz
@@ -131373,7 +131213,7 @@ atG
 aqc
 aqc
 aqc
-ava
+cbN
 awF
 awF
 avq
@@ -131432,10 +131272,10 @@ bSy
 bIq
 hUj
 cbO
-bWd
+pAi
 bSB
 bUa
-caM
+ccz
 ccA
 oPO
 bWd
@@ -131689,7 +131529,7 @@ bSx
 bIq
 uTX
 pBt
-bWd
+pAi
 bXL
 bZq
 caL
@@ -131945,10 +131785,10 @@ bRa
 bOQ
 bYf
 bZI
-cbN
+cbQ
 edz
-ccB
-ccB
+ccz
+ccA
 koW
 ccB
 vRp
@@ -132205,9 +132045,9 @@ mPX
 iTB
 bTZ
 bXO
-bZs
+ccz
 caN
-ccA
+bZp
 hNr
 bWd
 cfJ
@@ -133744,7 +133584,7 @@ pjk
 eHX
 rek
 bZQ
-cbX
+cbO
 ciW
 bXS
 bZw
@@ -135035,7 +134875,7 @@ vxz
 pMM
 pAi
 bWi
-wjQ
+bZs
 qJN
 chD
 cpy

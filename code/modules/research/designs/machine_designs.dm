@@ -136,7 +136,7 @@
 	name = "Machine Board (Cloning Pod)"
 	desc = "Allows for the construction of circuit boards used to build a Cloning Pod."
 	id = "clonepod"
-	req_tech = list("programming" = 4, "biotech" = 3)
+	req_tech = list("programming" = 4, "biotech" = 8)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/clonepod
@@ -146,7 +146,7 @@
 	name = "Machine Board (Cloning Scanner)"
 	desc = "Allows for the construction of circuit boards used to build a Cloning Scanner."
 	id = "clonescanner"
-	req_tech = list("programming" = 4, "biotech" = 3)
+	req_tech = list("programming" = 4, "biotech" = 8)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/clonescanner

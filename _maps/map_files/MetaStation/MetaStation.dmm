@@ -35957,26 +35957,15 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "cbu" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/siding,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/atmospherics/portable/canister/oxygen{
-	name = "Canister: \[O2] (CRYO)"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/southright{
-	name = "Cryo Tank Storage"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cbv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack{
@@ -40542,7 +40531,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "coF" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -43050,7 +43039,7 @@
 	dir = 10;
 	icon_state = "whiteblue"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cwE" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -44190,17 +44179,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "cAj" = (
-/obj/machinery/clonepod/biomass,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/siding{
-	dir = 5
-	},
+/obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cAn" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
@@ -44566,7 +44549,7 @@
 /area/medical/surgery2)
 "cBv" = (
 /turf/simulated/wall,
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cBw" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -44651,15 +44634,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology)
-"cBD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/medical/genetics_cloning)
 "cBE" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -45447,7 +45421,7 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cDZ" = (
 /obj/machinery/door/airlock/medical/glass,
 /obj/machinery/door/firedoor,
@@ -45600,13 +45574,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "cEu" = (
-/obj/machinery/atmospherics/unary/cryo_cell,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/siding,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cEv" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=9.1-Escape-1";
@@ -45630,21 +45602,10 @@
 /turf/simulated/floor/grass/no_creep,
 /area/medical/research)
 "cEz" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/bodybags{
-	pixel_x = -6;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 9;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/siding,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cEA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -45672,12 +45633,11 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cEE" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cEF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -45742,7 +45702,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cES" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -45760,10 +45720,8 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cET" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer,
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/siding,
 /obj/machinery/camera{
 	c_tag = "Medbay Cloning"
@@ -45772,10 +45730,16 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/structure/table,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cEU" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
@@ -46076,18 +46040,15 @@
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
 "cFZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cGa" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cGb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -46103,7 +46064,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cGc" = (
 /obj/machinery/door/airlock{
 	name = "Crematorium"
@@ -46421,7 +46382,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cGZ" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
@@ -46825,7 +46786,7 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cIf" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -47048,17 +47009,11 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cIR" = (
-/obj/machinery/dna_scannernew,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding{
-	dir = 1
-	},
+/obj/structure/closet/secure_closet/personal/patient,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cIS" = (
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
@@ -47558,24 +47513,16 @@
 	},
 /area/hallway/primary/aft)
 "cKz" = (
-/obj/machinery/computer/cloning{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding{
-	dir = 1
-	},
 /obj/machinery/alarm{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/personal/patient,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "cKA" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-18"
@@ -52494,7 +52441,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "dcN" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass,
@@ -54633,14 +54580,13 @@
 /turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "dUb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "dUC" = (
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -66374,7 +66320,7 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/medical/genetics_cloning)
+/area/medical/medbay2)
 "jJr" = (
 /obj/machinery/suit_storage_unit/security/hos,
 /obj/item/radio/intercom{
@@ -119100,7 +119046,7 @@ czy
 ixn
 czA
 cEz
-cBD
+cEE
 cGb
 cGY
 cAj
@@ -124247,7 +124193,7 @@ uuG
 cwR
 iGV
 mDn
-rtk
+vZo
 cJl
 ddR
 cYZ
