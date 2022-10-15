@@ -44,20 +44,20 @@
 	var/station_zlevel = level_name_to_num(MAIN_STATION)
 	for(var/turf/T in block(locate(1, 1, station_zlevel), locate(world.maxx, world.maxy, station_zlevel)))
 
-		if(istype(T,/turf/simulated/floor))
+		if(isfloorturf(T))
 			if(!(T:burnt))
 				src.floor += 12
 			else
 				src.floor += 1
 
-		if(istype(T, /turf/simulated/wall))
+		if(iswallturf(T))
 			var/turf/simulated/wall/W = T
 			if(W.intact)
 				src.wall += 2
 			else
 				src.wall += 1
 
-		if(istype(T, /turf/simulated/wall/r_wall))
+		if(isreinforcedwallturf(T))
 			var/turf/simulated/wall/r_wall/R = T
 			if(R.intact)
 				src.r_wall += 2
@@ -74,7 +74,7 @@
 					grille += 1
 			else if(istype(O, /obj/machinery/door))
 				src.door += 1
-			else if(istype(O, /obj/machinery))
+			else if(ismachinery(O))
 				src.mach += 1
 
 /datum/station_state/proc/score(datum/station_state/result)

@@ -134,7 +134,7 @@
 										if(!temp.vv_edit_var(v, SDQL_expression(d, set_list[sets])))
 											to_chat(usr, "[temp] rejected your varedit.")
 										break
-									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || istype(temp.vars[v], /client)))
+									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || isclient(temp.vars[v])))
 										temp = temp.vars[v]
 									else
 										break

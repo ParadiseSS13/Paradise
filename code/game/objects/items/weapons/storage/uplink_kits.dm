@@ -30,7 +30,7 @@
 		/obj/item/suppressor, // 1TC
 		/obj/item/ammo_box/magazine/m10mm/hp,  // 3TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
-		/obj/item/clothing/under/suit_jacket/really_black, // 0TC
+		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
 		/obj/item/encryptionkey/syndicate, // 2TC
@@ -60,7 +60,7 @@
 		/obj/item/card/emag, // 6TC
 		/obj/item/jammer, // 5TC
 		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/under/suit_jacket/really_black, //0TC
+		/obj/item/clothing/under/suit/really_black, //0TC
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, //0TC
 		/obj/item/clothing/gloves/color/latex/nitrile, //0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
@@ -105,7 +105,7 @@
 		/obj/item/ammo_box/magazine/sniper_rounds/soporific, // 3TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/clothing/gloves/combat, // 0 TC
-		/obj/item/clothing/under/suit_jacket/really_black, // 0 TC
+		/obj/item/clothing/under/suit/really_black, // 0 TC
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
 		/obj/item/pen/edagger, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC

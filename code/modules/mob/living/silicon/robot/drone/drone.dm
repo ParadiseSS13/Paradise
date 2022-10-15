@@ -340,7 +340,7 @@
 	if(is_type_in_list(AM, pullable_drone_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
 
-	else if(istype(AM,/obj/item))
+	else if(isitem(AM))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)

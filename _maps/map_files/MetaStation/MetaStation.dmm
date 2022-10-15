@@ -1649,7 +1649,7 @@
 /area/crew_quarters/arcade)
 "ama" = (
 /obj/structure/table,
-/obj/item/clothing/under/sl_suit{
+/obj/item/clothing/under/misc/sl_suit{
 	desc = "Whoever wears this makes the rules.";
 	name = "referee suit"
 	},
@@ -2812,8 +2812,8 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/item/clothing/under/rank/mailman,
-/obj/item/clothing/under/rank/vice{
+/obj/item/clothing/under/misc/mailman,
+/obj/item/clothing/under/misc/vice{
 	pixel_x = 4;
 	pixel_y = -3
 	},
@@ -3335,9 +3335,9 @@
 	},
 /area/engine/gravitygenerator)
 "asT" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
+/obj/structure/sign/security,
+/turf/simulated/wall/r_wall,
+/area/security/processing)
 "asU" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -4866,15 +4866,16 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "axQ" = (
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "axR" = (
@@ -4897,10 +4898,6 @@
 /area/maintenance/fore)
 "axU" = (
 /obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
@@ -4909,6 +4906,7 @@
 /obj/structure/sign/electricshock{
 	pixel_x = 32
 	},
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "axV" = (
@@ -5739,7 +5737,7 @@
 "aAU" = (
 /obj/item/clothing/gloves/color/rainbow,
 /obj/item/clothing/shoes/rainbow,
-/obj/item/clothing/under/rainbow,
+/obj/item/clothing/under/color/rainbow,
 /obj/item/clothing/head/soft/rainbow,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -7069,11 +7067,6 @@
 	name = "\improper Mining Office"
 	})
 "aFG" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -7084,25 +7077,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/crew_quarters/dorms)
-"aFJ" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -7827,11 +7801,6 @@
 	name = "\improper Storage Wing"
 	})
 "aHV" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -27
@@ -7859,14 +7828,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aHZ" = (
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -7874,6 +7835,10 @@
 	dir = 1;
 	name = "north bump";
 	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7976,11 +7941,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aIk" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -8595,11 +8555,6 @@
 	})
 "aJC" = (
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
@@ -8902,10 +8857,6 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "hop";
@@ -9119,6 +9070,11 @@
 	c_tag = "Dormitories - Aft";
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -9137,6 +9093,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -9151,6 +9112,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -9164,9 +9130,14 @@
 	},
 /obj/effect/landmark/start/clown,
 /obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -9722,7 +9693,7 @@
 /area/crew_quarters/dorms)
 "aMw" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -11128,7 +11099,7 @@
 	})
 "aQz" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -11138,7 +11109,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /obj/structure/sign/double/map/left{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
 	icon_state = "map-left-MS";
@@ -11150,7 +11121,7 @@
 /area/crew_quarters/locker)
 "aQB" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /obj/structure/sign/double/map/right{
 	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
 	icon_state = "map-right-MS";
@@ -11344,6 +11315,11 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -11448,7 +11424,7 @@
 /area/quartermaster/storage)
 "aRn" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -14917,19 +14893,16 @@
 /turf/simulated/wall/r_wall,
 /area/engine/chiefs_office)
 "ban" = (
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
+/obj/effect/spawner/window/reinforced,
+/obj/structure/sign/electricshock{
+	pixel_x = -32
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/window/reinforced,
-/obj/structure/sign/electricshock{
-	pixel_x = -32
-	},
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bao" = (
@@ -21720,7 +21693,7 @@
 	},
 /obj/item/soap/deluxe,
 /obj/effect/landmark/spawner/xeno,
-/obj/item/bikehorn/rubberducky,
+/obj/item/bikehorn/rubberducky/captainducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -31005,12 +30978,13 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "RD"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
@@ -32524,7 +32498,7 @@
 "bSd" = (
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/laceup,
-/obj/item/clothing/under/suit_jacket/really_black,
+/obj/item/clothing/under/suit/really_black,
 /obj/item/clothing/glasses/sunglasses,
 /obj/machinery/light{
 	dir = 1
@@ -49961,7 +49935,7 @@
 /area/maintenance/apmaint)
 "cSL" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/burial,
+/obj/item/clothing/under/misc/burial,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -63290,11 +63264,9 @@
 	},
 /area/engine/break_room)
 "ieA" = (
-/obj/structure/sign/electricshock{
-	pixel_y = -32
-	},
-/turf/space,
-/area/space)
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/r_wall,
+/area/security/prisonlockers)
 "ieT" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -64676,11 +64648,6 @@
 	},
 /area/medical/paramedic)
 "iKF" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/newscaster{
 	pixel_x = -28;
 	name = "west bump";
@@ -67560,12 +67527,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"knm" = (
-/obj/structure/sign/electricshock{
-	pixel_x = 32
-	},
-/turf/space,
-/area/space)
 "knB" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -74341,11 +74302,9 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "nsJ" = (
-/obj/structure/sign/security{
-	pixel_y = 32
-	},
-/turf/space,
-/area/space)
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/r_wall,
+/area/security/range)
 "ntO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -74776,6 +74735,21 @@
 	icon_state = "red"
 	},
 /area/security/warden)
+"nEw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "nEJ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -76264,6 +76238,7 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
+/obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "oBh" = (
@@ -79843,6 +79818,18 @@
 	icon_state = "white"
 	},
 /area/toxins/lab)
+"qpw" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/dorms)
 "qpy" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -93804,9 +93791,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/camera{
@@ -108634,7 +108618,7 @@ aaa
 cIl
 aaa
 aaa
-asT
+abq
 aaa
 aaa
 aaa
@@ -117531,7 +117515,7 @@ pte
 ivD
 qIB
 abW
-knm
+aaa
 aaa
 aaa
 aOB
@@ -117788,7 +117772,7 @@ tfl
 tfl
 tfl
 tfl
-tfl
+ieA
 amE
 ufj
 aky
@@ -118574,8 +118558,8 @@ lGL
 dBT
 axN
 hvR
-aHI
-nsJ
+asT
+aaa
 nKT
 hOu
 xJy
@@ -126262,8 +126246,8 @@ aaa
 aaa
 aaa
 aaa
-ieA
-esA
+aaa
+nsJ
 fcT
 esA
 fcT
@@ -130399,7 +130383,7 @@ aFG
 aJE
 aIl
 aJD
-aJE
+aFI
 aJE
 aJE
 aCm
@@ -131166,7 +131150,7 @@ awR
 cEe
 aCW
 aEo
-aFI
+qpw
 aGQ
 aJF
 fUI
@@ -131423,7 +131407,7 @@ azj
 aBO
 hYV
 aEp
-aFJ
+nEw
 aGR
 aJG
 law

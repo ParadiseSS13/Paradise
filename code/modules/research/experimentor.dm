@@ -119,7 +119,7 @@
 		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
 		return
 
-	if(istype(O, /obj/item))
+	if(isitem(O))
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
@@ -722,7 +722,7 @@
 		if(loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
 			visible_message("<span class='notice'>[src] twists and bends, relocating itself!</span>")
 			throwSmoke(userturf)
-			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')
+			do_teleport(user, userturf, 8, sound_in = 'sound/effects/phasein.ogg')
 			throwSmoke(get_turf(user))
 			warn_admins(user, "Teleport", 0)
 

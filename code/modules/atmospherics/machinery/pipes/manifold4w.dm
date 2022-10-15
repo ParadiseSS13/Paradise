@@ -128,7 +128,7 @@
 	return 1
 
 /obj/machinery/atmospherics/pipe/manifold4w/hide(i)
-	if(level == 1 && istype(loc, /turf/simulated))
+	if(level == 1 && issimulatedturf(loc))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 
 /obj/machinery/atmospherics/pipe/manifold4w/atmos_init()

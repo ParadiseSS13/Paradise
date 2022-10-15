@@ -21,25 +21,25 @@
 
 	if(istype(object,/turf) && left_click && !alt_click && !ctrl_click)
 		var/turf/T = object
-		if(istype(object,/turf/space))
+		if(isspaceturf(object))
 			T.ChangeTurf(/turf/simulated/floor/plasteel)
-		else if(istype(object,/turf/simulated/floor))
+		else if(isfloorturf(object))
 			T.ChangeTurf(/turf/simulated/wall)
-		else if(istype(object,/turf/simulated/wall))
+		else if(iswallturf(object))
 			T.ChangeTurf(/turf/simulated/wall/r_wall)
 		log_admin("Build Mode: [key_name(user)] built [T] at ([T.x],[T.y],[T.z])")
 	else if(right_click)
 		log_admin("Build Mode: [key_name(user)] deleted [object] at ([object.x],[object.y],[object.z])")
-		if(istype(object,/turf/simulated/wall))
+		if(iswallturf(object))
 			var/turf/T = object
 			T.ChangeTurf(/turf/simulated/floor/plasteel)
-		else if(istype(object,/turf/simulated/floor))
+		else if(isfloorturf(object))
 			var/turf/T = object
 			T.ChangeTurf(T.baseturf)
-		else if(istype(object,/turf/simulated/wall/r_wall))
+		else if(isreinforcedwallturf(object))
 			var/turf/T = object
 			T.ChangeTurf(/turf/simulated/wall)
-		else if(istype(object,/obj))
+		else if(isobj(object))
 			qdel(object)
 	else if(istype(object,/turf) && alt_click && left_click)
 		log_admin("Build Mode: [key_name(user)] built an airlock at ([object.x],[object.y],[object.z])")

@@ -52,7 +52,7 @@
 		M.unEquip(src)
 		to_chat(M, "[src] wriggles out of your grip!")
 		to_chat(L, "You wriggle out of [M]'s grip!")
-	else if(istype(loc,/obj/item))
+	else if(isitem(loc))
 		to_chat(L, "You struggle free of [loc].")
 		forceMove(get_turf(src))
 
@@ -63,9 +63,6 @@
 		M.status_flags &= ~PASSEMOTES
 
 	return
-
-//Mob procs and vars for scooping up
-/mob/living/var/holder_type
 
 /mob/living/proc/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)
 	if(!holder_type)

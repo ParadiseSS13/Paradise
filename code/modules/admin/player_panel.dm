@@ -379,7 +379,7 @@
 					if(istype(disk_loc, /mob))
 						var/mob/M = disk_loc
 						dat += "carried by <a href='?src=[UID()];adminplayeropts=[M.UID()]'>[M.real_name]</a> "
-					if(istype(disk_loc, /obj))
+					if(isobj(disk_loc))
 						var/obj/O = disk_loc
 						dat += "in \a [O.name] "
 					disk_loc = disk_loc.loc

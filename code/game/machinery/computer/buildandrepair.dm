@@ -422,6 +422,23 @@
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
 
+/obj/structure/computerframe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is <b>[anchored ? "bolted to the floor" : "unbolted"]</b>.</span>"
+	switch(state)
+		if(STATE_EMPTY)
+			. += "<span class='notice'>The frame is <b>welded together</b>, but it is missing a <i>circuit board</i>.</span>"
+		if(STATE_CIRCUIT)
+			. += "<span class='notice'>A circuit board is <b>firmly connected</b>, but the cover is <i>unscrewed and open</i>.</span>"
+		if(STATE_NOWIRES)
+			. += "<span class='notice'>The cover is <b>screwed shut</b>, but the frame is missing <i>wiring</i>.</span>"
+		if(STATE_WIRES)
+			. += "<span class='notice'>The frame is <b>wired</b>, but the <i>glass</i> is missing.</span>"
+		if(STATE_GLASS)
+			. += "<span class='notice'>The glass is <b>loosely connected</b> and needs to be <i>screwed into place</i>.</span>"
+	if(!anchored)
+		. += "<span class='notice'>Alt-Click to rotate it.</span>"
+
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		drop_computer_parts()
