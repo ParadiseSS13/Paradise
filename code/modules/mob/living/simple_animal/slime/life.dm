@@ -189,7 +189,7 @@
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(ismachineperson(C) && prob(25))
+		if(ismachineperson(C) && prob(10))
 			C.electrocute_act(10, src)
 		C.adjustCloneLoss(rand(2, 4))
 		C.adjustToxLoss(rand(1, 2))
