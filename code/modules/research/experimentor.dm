@@ -223,7 +223,7 @@
 
 /obj/machinery/r_n_d/experimentor/proc/throwSmoke(turf/where)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	smoke.set_up(1, FALSE, where)
 	smoke.start()
 
 /obj/machinery/r_n_d/experimentor/proc/pickWeighted(list/from)
@@ -433,7 +433,7 @@
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!</span>")
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(1, 0, loc, 0)
+			smoke.set_up(1, FALSE, loc)
 			smoke.start()
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////
@@ -647,7 +647,7 @@
 
 /obj/item/relic/proc/throwSmoke(turf/where)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	smoke.set_up(1, FALSE, where)
 	smoke.start()
 
 /obj/item/relic/proc/floofcannon(mob/user)

@@ -164,7 +164,7 @@
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(amount, 0, drop_location())
+	smoke.set_up(amount, FALSE, drop_location())
 	smoke.start()
 
 /obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
