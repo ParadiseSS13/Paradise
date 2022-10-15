@@ -4178,10 +4178,8 @@
 /obj/machinery/porta_turret{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/minisat{
 	dir = 4;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
 	pixel_x = -29
 	},
 /turf/simulated/floor/plasteel{
@@ -10396,14 +10394,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "A telescreen that connects to the engine's camera network.";
+/obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	layer = 4;
-	name = "Engine Monitor";
-	network = list("engine");
 	pixel_x = 30
-	},
+ 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aOk" = (
@@ -13919,10 +13914,8 @@
 /obj/machinery/porta_turret{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/minisat{
 	dir = 8;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
 	pixel_x = 29
 	},
 /turf/simulated/floor/plasteel{
@@ -15627,11 +15620,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the AI Upload.";
+/obj/machinery/computer/security/telescreen/upload{
 	dir = 4;
-	name = "AI Upload Monitor";
-	network = list("AIUpload");
 	pixel_x = -29
 	},
 /obj/machinery/turretid/stun{
@@ -15687,11 +15677,8 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching areas on the MiniSat.";
+/obj/machinery/computer/security/telescreen/minisat{
 	dir = 8;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
 	pixel_x = 29
 	},
 /obj/effect/landmark/start/cyborg,
@@ -18857,14 +18844,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/computer/security/telescreen{
-	desc = "A telescreen that connects to the engine's camera network.";
+/obj/machinery/computer/security/telescreen/engine{
 	dir = 8;
 	layer = 4;
-	name = "Engine Monitor";
-	network = list("engine");
 	pixel_x = 30
-	},
+ 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -20815,10 +20799,8 @@
 	},
 /obj/item/storage/secure/briefcase,
 /obj/item/clothing/mask/cigarette/cigar,
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/minisat{
 	dir = 1;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -25374,10 +25356,8 @@
 /obj/structure/rack,
 /obj/item/aicard,
 /obj/item/radio/off,
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/minisat{
 	dir = 1;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -26362,10 +26342,8 @@
 /obj/machinery/computer/station_alert{
 	dir = 1
 	},
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/minisat{
 	dir = 1;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
 	pixel_y = -30
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -28856,10 +28834,8 @@
 /area/medical/medbay)
 "bHC" = (
 /obj/machinery/light,
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/minisat{
 	dir = 1;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
 	pixel_y = -30
 	},
 /mob/living/simple_animal/pet/dog/fox/Renault,
@@ -37343,9 +37319,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/machinery/computer/security/telescreen{
-	name = "vault monitor";
-	network = list("vault");
+/obj/machinery/computer/security/telescreen/vault{
 	pixel_y = 30
 	},
 /obj/item/paper_bin{
@@ -38071,10 +38045,7 @@
 	pixel_y = 34;
 	req_access_txt = "30"
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the RD's goons from the safety of his office.";
-	name = "Research Monitor";
-	network = list("Research","MiniSat","RD");
+/obj/machinery/computer/security/telescreen/rd{
 	pixel_x = 31;
 	pixel_y = 30
 	},
@@ -40455,11 +40426,8 @@
 	pixel_x = 8;
 	pixel_y = -36
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the turbine vent.";
+/obj/machinery/computer/security/telescreen/turbine{
 	dir = 8;
-	name = "turbine vent monitor";
-	network = list("Turbine");
 	pixel_x = 32
 	},
 /obj/machinery/computer/turbine_computer{
@@ -59524,10 +59492,7 @@
 	},
 /area/crew_quarters/courtroom)
 "ghX" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("Prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
@@ -62301,10 +62266,8 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/machinery/computer/security/telescreen{
+/obj/machinery/computer/security/telescreen/minisat{
 	dir = 4;
-	name = "MiniSat Monitor";
-	network = list("MiniSat","tcomm");
 	pixel_y = -30
 	},
 /obj/item/folder/blue,
@@ -82080,10 +82043,7 @@
 /obj/effect/landmark/lightsout,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching Prison Wing holding areas.";
-	name = "Prison Monitor";
-	network = list("Prison");
+/obj/machinery/computer/security/telescreen/prison{
 	pixel_y = -30
 	},
 /obj/structure/cable/yellow{
@@ -92752,10 +92712,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the horrors within the test chamber.";
-	name = "Research Monitor";
-	network = list("TestChamber");
+/obj/machinery/computer/security/telescreen/research{
 	pixel_y = 30
 	},
 /obj/item/radio/intercom{
