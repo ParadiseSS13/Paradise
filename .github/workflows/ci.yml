@@ -12,9 +12,9 @@ jobs:
     name: Run Linters
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
@@ -30,7 +30,7 @@ jobs:
           python3 tools/ci/check_line_endings.py
           ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
       - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v1
+        uses: yogstation13/DreamAnnotate@v2
         if: always()
         with:
           outputFile: output-annotations.txt
@@ -39,9 +39,9 @@ jobs:
     name: Compile All Maps
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
@@ -64,9 +64,9 @@ jobs:
           - 3306
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: $HOME/BYOND
           key: ${{ runner.os }}-byond
