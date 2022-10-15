@@ -67,3 +67,13 @@
 /obj/item/gun/energy/disabler/cyborg/newshot()
 	..()
 	robocharge()
+
+/obj/item/gun/energy/disabler/silencer
+	name = "u-ION Silencer"
+	desc = "Nanotrasen's take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
+	icon_state = "tesla"
+	item_state = "tesla"
+	origin_tech = "combat=6;syndicate=2"
+	shaded_charge = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
+	suppressed = TRUE

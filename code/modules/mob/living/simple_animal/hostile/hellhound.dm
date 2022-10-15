@@ -149,7 +149,7 @@
 		return
 	smoke_lastuse = world.time
 	var/datum/effect_system/smoke_spread/sleeping/smoke = new
-	smoke.set_up(10, 0, loc)
+	smoke.set_up(10, FALSE, loc)
 	smoke.start()
 
 /mob/living/simple_animal/hostile/hellhound/tear
