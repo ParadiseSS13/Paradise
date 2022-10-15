@@ -406,31 +406,37 @@
 	icon_state = "syndiernd"
 	item_state = "syndiernd-id"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_SCIENTIST, ACCESS_SYNDICATE_MEDICAL)
+	rank = "Syndicate Scientist"
 
 /obj/item/card/id/syndicate/cargo
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_CARGO)
 	icon_state = "syndiecargo"
 	item_state = "syndiecargo-id"
+	rank = "Syndicate Cargo Technician"
 
 /obj/item/card/id/syndicate/kitchen
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_KITCHEN, ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndiechef"
 	item_state = "syndiechef-id"
+	rank = "Syndicate Chef"
 
 /obj/item/card/id/syndicate/engineer
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_ENGINE)
 	icon_state = "syndieengineer"
 	item_state = "syndieengineer-id"
+	rank = "Syndicate Atmos Engineer"
 
 /obj/item/card/id/syndicate/medic
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_MEDICAL)
 	icon_state = "syndiemedical"
 	item_state = "syndiemedical-id"
+	rank = "Syndicate Medic"
 
 /obj/item/card/id/syndicate/botanist
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndiebotany"
 	item_state = "syndiebotany-id"
+	rank = "Syndicate Botanist"
 
 /obj/item/card/id/syndicate/comms_officer
 	initial_access = list(	ACCESS_MAINT_TUNNELS,
@@ -446,6 +452,7 @@
 							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "commander"
 	item_state = "syndieofficer-id"
+	rank = "Syndicate Comms Officer"
 
 /obj/item/card/id/syndicate/research_director
 	initial_access = list(	ACCESS_MAINT_TUNNELS,
@@ -460,6 +467,7 @@
 							ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 	icon_state = "syndierd"
 	item_state = "syndierd-id"
+	rank = "Syndicate Research Director"
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
 	if(!proximity || !istype(O))
