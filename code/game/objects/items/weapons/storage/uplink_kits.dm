@@ -127,21 +127,19 @@
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/operative = list( // 34TC
-		/obj/item/gun/projectile/automatic/shotgun/bulldog, // 8TC
-		/obj/item/ammo_box/magazine/m12g/buckshot, // 2TC
-		/obj/item/ammo_box/magazine/m12g/dragon, // 2TC
-		/obj/item/ammo_box/magazine/m12g/meteor, // 2TC
-		/obj/item/card/emag, // 6TC
+	var/static/list/grenadier = list( // 20TC + Tactical Grenadier Belt
+		/obj/item/storage/belt/grenade/tactical, // Contains 2 Frag and EMP grenades, 5 C4 Explosives, 5 Smoke and Gluon grenades and 1 Minibomb grenade ~20TC Estimate
+		/obj/item/gun/projectile/automatic/pistol, // 4TC
+		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
+		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
 		/obj/item/storage/box/syndie_kit/hardsuit, // 6TC
-		/obj/item/storage/box/syndidonkpockets, // 2TC
 		/obj/item/clothing/gloves/combat, // 0TC
-		/obj/item/grenade/plastic/c4/x4, // 2TC
 		/obj/item/card/id/syndicate, // 2TC
+		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
-	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, operative)
+	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier)
 	for(var/item in bundle)
 		new item(src)
 
