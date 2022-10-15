@@ -20,7 +20,6 @@
 	var/polarized_glass = FALSE
 	var/created_name
 	var/heat_proof_finished = FALSE //whether to heat-proof the finished airlock
-	var/previous_assembly = /obj/structure/door_assembly
 	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
 	var/material_type = /obj/item/stack/sheet/metal
 	var/material_amt = 4
@@ -170,7 +169,6 @@
 		door.name = created_name
 	else
 		door.name = base_name
-	door.previous_airlock = previous_assembly
 	electronics.forceMove(door)
 	electronics = null
 	qdel(src)
@@ -281,8 +279,6 @@
 	target.created_name = source.created_name
 	target.state = source.state
 	target.anchored = source.anchored
-	if(previous)
-		target.previous_assembly = source.type
 	if(electronics)
 		target.electronics = source.electronics
 		source.electronics.forceMove(target)
