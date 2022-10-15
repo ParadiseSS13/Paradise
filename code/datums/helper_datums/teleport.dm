@@ -6,8 +6,8 @@
  * - destination - Where to teleport the atom to
  * - variance_range - With what precision to do the teleport. 0 means on target. Higher means that many turfs around it
  * - force_teleport - Whether to use forceMove instead of Move to move the atom to the destination
- * - effect_in - The effect started at the starting turf
- * - effect_out - The effect started at the destination turf
+ * - effect_in - The effect started at the starting turf. If set to NONE then no effect is used
+ * - effect_out - The effect started at the destination turf. If set to NONE then no effect is used
  * - sound_in - The sound played at the starting turf
  * - sound_out - The sound played at the destination turf
  * - bypass_area_flag - Whether is_teleport_allowed is skipped or not
