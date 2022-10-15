@@ -4302,8 +4302,8 @@
 	specialfunctions = 4
 	},
 /obj/machinery/newscaster{
-	pixel_y = 28;
-	name = "north bump"
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
