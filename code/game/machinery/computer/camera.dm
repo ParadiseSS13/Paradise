@@ -9,7 +9,7 @@
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
 
-	var/list/network = list()
+	var/list/network = list("SS13","Mining Outpost")
 	var/obj/machinery/camera/active_camera
 	var/list/watchers = list()
 
@@ -79,6 +79,10 @@
 		// Open UI
 		ui = new(user, src, ui_key, "CameraConsole", name, 1200, 600, master_ui, state)
 		ui.open()
+
+/obj/machinery/computer/security/ui_close(mob/user)
+	..()
+	watchers -= user.UID()
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
