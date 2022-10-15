@@ -263,7 +263,7 @@
 	circuit = /obj/item/circuitboard/camera/engineering
 
 /obj/machinery/computer/security/telescreen/engine
-	name = "Engine Monitor"
+	name = "engine monitor"
 	desc = "A telescreen that connects to the engine's camera network.";
 	network = list("engine")
 	circuit = /obj/item/circuitboard/camera/engine
