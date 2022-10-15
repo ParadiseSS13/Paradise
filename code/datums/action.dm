@@ -390,7 +390,7 @@
 
 /datum/action/item_action/toggle_radio_jammer
 	name = "Toggle Radio Jammer"
-	desc = "Turns your Jammer on or off. Hush, you."
+	desc = "Turns your jammer on or off. Hush, you."
 
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
