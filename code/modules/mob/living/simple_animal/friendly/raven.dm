@@ -40,7 +40,7 @@ var/cooldown = world.time//DO MOBS NOT HAVE A COOLDOWN VARIBLE!
 	set category = "Raven"
 	set desc = "Sit on a nice comfy perch."
 
-	if(icon_state== "raven")
+	if(icon_state == "raven")
 		icon_state = "raven_dead"
 	else
 		icon_state = "raven"
