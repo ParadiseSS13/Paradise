@@ -20,9 +20,9 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You [active ? "deactivate" : "activate"] [src]. [active ? "It goes quiet with a small click." : "It starts to hum silently."] </span>")
+	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum silently."] </span>")
 	active = !active
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		GLOB.active_jammers |= src
 	else
