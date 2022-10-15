@@ -116,10 +116,10 @@
 		icon_state = fail_icon
 		var/list/target_z = levels_by_trait(SPAWN_RUINS)
 		target_z -= M.z
-		if(!attempt_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), pick(target_z)), 0, FALSE))
+		if(!attempt_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), pick(target_z)), 0, FALSE)) // Try to send them to deep space.
 			return FALSE
 	else
-		if(!attempt_teleport(M, target, precision))
+		if(!attempt_teleport(M, target, precision)) // Try to send them to a turf adjacent to target.
 			return FALSE
 	if(one_use)
 		qdel(src)
@@ -132,7 +132,7 @@
 	if(!use_effects)
 		effect = NONE // No effect
 
-	if(!do_teleport(victim, destination, variance, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
+	if(!do_teleport(victim, destination, variance, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting))
 		invalid_teleport()
 		return FALSE
 	effect_cooldown = world.time + EFFECT_COOLDOWN
