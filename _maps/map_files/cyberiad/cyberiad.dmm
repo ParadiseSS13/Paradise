@@ -41443,6 +41443,7 @@
 /obj/structure/table_frame,
 /obj/item/shard,
 /obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "bXL" = (
@@ -42174,12 +42175,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
-"bZp" = (
-/obj/structure/computerframe{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/medmaint)
 "bZq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
@@ -42197,21 +42192,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
-"bZs" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/landmark/start/doctor,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgreenfull"
-	},
-/area/medical/medbay2)
 "bZt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -42799,8 +42779,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
+"caM" = (
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "caN" = (
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "caP" = (
@@ -43197,8 +43181,20 @@
 	},
 /area/quartermaster/miningdock)
 "cbN" = (
-/turf/simulated/floor/plasteel,
-/area/maintenance/fore)
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/landmark/start/doctor,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkgreenfull"
+	},
+/area/medical/medbay2)
 "cbO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -43275,6 +43271,10 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay2)
+"cbX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "cbY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
@@ -43470,10 +43470,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "ccz" = (
-/turf/simulated/floor/plating,
-/area/maintenance/medmaint)
+/turf/simulated/floor/plasteel,
+/area/maintenance/fore)
 "ccA" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/computerframe{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "ccB" = (
@@ -131017,8 +131019,8 @@ vAN
 rgv
 pAi
 bXK
-ccA
-ccz
+cbX
+caM
 ccx
 sZh
 bWd
@@ -131213,7 +131215,7 @@ atG
 aqc
 aqc
 aqc
-cbN
+ccz
 awF
 awF
 avq
@@ -131275,8 +131277,8 @@ cbO
 pAi
 bSB
 bUa
-ccz
-ccA
+caM
+cbX
 oPO
 bWd
 cht
@@ -131787,8 +131789,8 @@ bYf
 bZI
 cbQ
 edz
-ccz
-ccA
+caM
+cbX
 koW
 ccB
 vRp
@@ -132045,9 +132047,9 @@ mPX
 iTB
 bTZ
 bXO
-ccz
+caM
 caN
-bZp
+ccA
 hNr
 bWd
 cfJ
@@ -134875,7 +134877,7 @@ vxz
 pMM
 pAi
 bWi
-bZs
+cbN
 qJN
 chD
 cpy
