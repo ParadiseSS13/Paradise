@@ -718,7 +718,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(unlimited) //no point, the list isn't used.
 		return
 	for(var/X in spooky_scaries)
-		if(!istype(X, /mob/living/carbon/human))
+		if(!ishuman(X))
 			spooky_scaries.Remove(X)
 			continue
 		var/mob/living/carbon/human/H = X

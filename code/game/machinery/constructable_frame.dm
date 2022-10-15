@@ -556,7 +556,7 @@ to destroy them and players will be able to make replacements.
 							"MiniSat Monitor" = /obj/machinery/computer/security/telescreen/minisat,
 							"AI Upload Monitor" = /obj/machinery/computer/security/telescreen/upload,
 							"Vault Monitor" = /obj/machinery/computer/security/telescreen/vault,
-							"Turbine Vent Monitor" = /obj/machinery/computer/security/telescreen/turbina,
+							"Turbine Vent Monitor" = /obj/machinery/computer/security/telescreen/turbine,
 							"Engine Camera Monitor" = /obj/machinery/computer/security/telescreen/engine)
 
 /obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/I)

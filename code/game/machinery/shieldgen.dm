@@ -156,7 +156,7 @@
 	anchored = TRUE
 
 	for(var/turf/target_tile in range(2, src))
-		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
+		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				var/obj/machinery/shield/new_shield = new(target_tile)
 				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, .proc/remove_shield) // Ensures they properly GC

@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(user.stat || user.restrained())
 		return FALSE
 
-	if(!(istype(user, /mob/living/carbon/human)))
+	if(!(ishuman(user)))
 		return FALSE
 
 	// If the uplink's holder is in the user's contents

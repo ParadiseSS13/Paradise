@@ -101,8 +101,6 @@
 /obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M)
 	if(!isliving(M))
 		return FALSE
-	if((!iscorgi(M) && !iscarbon(M)) || isalien(M))
-		return FALSE
 	if(attached)
 		return FALSE
 	else
@@ -216,9 +214,6 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
 		return FALSE
-
-	if(iscorgi(M))
-		return TRUE
 
 	var/mob/living/carbon/C = M
 	if(ishuman(C))

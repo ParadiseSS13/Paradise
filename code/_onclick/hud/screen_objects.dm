@@ -155,7 +155,7 @@
 		return TRUE
 	if(usr.incapacitated(ignore_restraints = TRUE))
 		return TRUE
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
@@ -410,7 +410,7 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return 1
 
 	if(hud?.mymob && slot_id)
@@ -453,7 +453,7 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return 1
 
 	if(ismob(usr))
