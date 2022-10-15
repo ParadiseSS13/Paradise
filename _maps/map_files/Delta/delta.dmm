@@ -950,10 +950,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/vacantoffice)
 "ahz" = (
+/obj/effect/decal/warning_stripes/west,
 /obj/machinery/door/airlock/external{
+	id_tag = "ferry_home";
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ahA" = (
@@ -53226,9 +53227,9 @@
 	},
 /obj/machinery/door/window/northleft{
 	dir = 4;
-	name = "Magboot Storage";
-	req_access_txt = "19"
+	name = "Magboot Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/eva,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "cwS" = (
@@ -53762,9 +53763,9 @@
 /obj/structure/closet/crate/rcd,
 /obj/machinery/door/window/northleft{
 	dir = 4;
-	name = "RCD Storage";
-	req_access_txt = "19"
+	name = "RCD Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "cyf" = (
@@ -77755,9 +77756,9 @@
 	},
 /obj/machinery/door/window/northleft{
 	dir = 4;
-	name = "Jetpack Storage";
-	req_access_txt = "32"
+	name = "Jetpack Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/eva,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "dzS" = (
@@ -94030,6 +94031,14 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"pHg" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/door/airlock/external{
+	id_tag = "specops_home";
+	locked = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry)
 "pJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -134777,7 +134786,7 @@ abj
 abj
 abj
 acC
-ahz
+pHg
 acC
 abj
 abj
@@ -135291,7 +135300,7 @@ aiH
 aiX
 ajy
 acC
-ahz
+pHg
 acC
 acC
 adb
