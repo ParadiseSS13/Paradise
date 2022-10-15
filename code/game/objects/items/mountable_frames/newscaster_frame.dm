@@ -9,11 +9,9 @@
 	glass_sheets_refunded = 1
 
 /obj/item/mounted/frame/display/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/newscaster/N = new build_path(get_turf(src), get_dir(on_wall, user), 1)
-	N.pixel_y -= (loc.y - on_wall.y) * 28
-	N.pixel_x -= (loc.x - on_wall.x) * 28
-	var/constrdir = user.dir
-	N.dir = turn(constrdir, 180)
+	var/obj/machinery/status_display/N = new build_path(get_turf(src), get_dir(on_wall, user), 1)
+	N.pixel_y -= (loc.y - on_wall.y) * 32
+	N.pixel_x -= (loc.x - on_wall.x) * 32
 	qdel(src)
 
 /obj/item/mounted/frame/display/newscaster_frame
@@ -22,6 +20,14 @@
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster"
 	build_path = /obj/machinery/newscaster
+
+/obj/item/mounted/frame/display/newscaster_frame/do_build(turf/on_wall, mob/user)
+	var/obj/machinery/newscaster/N = new build_path(get_turf(src), get_dir(on_wall, user), 1)
+	N.pixel_y -= (loc.y - on_wall.y) * 28
+	N.pixel_x -= (loc.x - on_wall.x) * 28
+	var/constrdir = user.dir
+	N.dir = turn(constrdir, 180)
+	qdel(src)
 
 /obj/item/mounted/frame/display/display_frame
 	name = "status display frame"
