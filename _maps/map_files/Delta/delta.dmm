@@ -94638,6 +94638,17 @@
 	icon_state = "dark"
 	},
 /area/security/interrogation)
+"qYT" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/carpet,
+/area/crew_quarters/heads/hop)
 "qYV" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -134437,7 +134448,7 @@ cdD
 bYp
 bSE
 bSE
-chi
+qYT
 clJ
 cnp
 bSE
