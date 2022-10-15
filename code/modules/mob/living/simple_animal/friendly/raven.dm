@@ -44,7 +44,7 @@ var/cooldown = world.time//DO MOBS NOT HAVE A COOLDOWN VARIBLE!
 		icon_state = "raven_dead"
 	else
 		icon_state = "raven"
-	return
+	
 /mob/living/simple_animal/pet/raven/verb/caw()
 	set name = "caw"
 	set category = "Raven"
