@@ -19,7 +19,7 @@
 		A = pick(SSmapping.teleportlocs)
 
 	if(!A)
-		smoke_spread = 0
+		smoke_type = SMOKE_NONE
 		return
 
 	var/area/thearea = SSmapping.teleportlocs[A]
@@ -35,7 +35,7 @@
 		revert_cast(user)
 		return
 
-	smoke_spread = 1
+	smoke_type = SMOKE_HARMLESS
 	playsound(get_turf(user), sound1, 50,1)
 	for(var/mob/living/target in targets)
 		var/list/L = list()
