@@ -1,3 +1,4 @@
+var/cooldown = world.time//DO MOBS NOT HAVE A COOLDOWN VARIBLE!
 /mob/living/simple_animal/pet/raven
 	name = "raven"
 	desc = "Quoth the raven nevermore! Just now in space!"
@@ -21,7 +22,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
-	
+
 /mob/living/simple_animal/pet/raven/nevermore
 	name = "Nevermore"
 	desc = "The coroner's pet. Reminds us that peace and quiet is coming for us all."
@@ -30,6 +31,27 @@
 	icon_dead = "raven_dead"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
-	
+
 /mob/living/simple_animal/pet/raven/npc_safe(mob/user)
-    return TRUE
+	return TRUE
+
+/mob/living/simple_animal/pet/raven/verb/perch()
+	set name = "fly/take off!"
+	set category = "Raven"
+	set desc = "Sit on a nice comfy perch."
+
+	if(icon_state== "raven")
+		icon_state = "raven_dead"
+	else
+		icon_state = "raven"
+	return
+/mob/living/simple_animal/pet/raven/verb/caw()
+	set name = "caw"
+	set category = "Raven"
+	set desc = "caws"
+	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
+		playsound(src.loc, 'sound/creatures/caw.ogg', 50, 1)
+		cooldown = world.time
+
+
+
