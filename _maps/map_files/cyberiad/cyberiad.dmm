@@ -3602,7 +3602,7 @@
 	},
 /area/security/securearmory)
 "ahU" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/machinery/suit_storage_unit/security/hos,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
