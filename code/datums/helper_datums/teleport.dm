@@ -1,7 +1,13 @@
-//wrapper
-/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
-	var/datum/teleport/instant/science/D = new
-	if(D.start(arglist(args)))
+/**
+ * Will teleport the given atom to the given destination using the other parameters
+ *
+ * Arguments:
+ * - atom_to_teleport - List of atoms. Can accept output of view() and range() procs.
+ *
+ */
+/proc/do_teleport(atom_to_teleport, destination, precision = 0, force_teleport = 1, effect_in = null, effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+	var/datum/teleport/instant/science/D = new // default here
+	if(D.start(atom_to_teleport, destination, precision, force_teleport, effect_in, effect_out, sound_in, sound_out, bypass_area_flag, safe_turf_pick))
 		return 1
 	return 0
 
@@ -159,7 +165,7 @@
 		return doTeleport()
 	return 0
 
-/datum/teleport/instant/start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null)
+/datum/teleport/instant/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
 	if(..())
 		if(teleport())
 			return 1
@@ -169,7 +175,7 @@
 /datum/teleport/instant/science
 
 /datum/teleport/instant/science/setEffects(datum/effect_system/aeffectin,datum/effect_system/aeffectout)
-	if(aeffectin==null || aeffectout==null)
+	if(aeffectin==null || aeffectout==null) // fuck you
 		var/datum/effect_system/spark_spread/aeffect = new
 		aeffect.set_up(5, 1, teleatom)
 		effectin = effectin || aeffect
@@ -190,7 +196,7 @@
 				safe_turf_first = FALSE
 			else
 				precision = max(rand(1, 100) * length(bagholding), 100)
-			
+
 			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
