@@ -296,6 +296,37 @@
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
+/datum/reagent/medicine/ab_stimulant
+	name = "Anti-burn Stimulant"
+	id = "antiburn_stimulant"
+	description = "Стимулятор регенеративных способностей клеток, способный излечить обугленную кожу в кратчайшие сроки."
+	reagent_state = LIQUID
+	metabolization_rate = 0.1
+	overdose_threshold = 3
+	color = "#fab9b9"
+	taste_description = "bitterness"
+
+/datum/reagent/medicine/ab_stimulant/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	to_chat(M, "<span class='notice'>Вы чуствуете чесотку.</span>")
+	update_flags |= M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(volume > 1.9)
+		if((HUSK) in M.mutations)
+			var/mob/living/carbon/human/H = M
+			H.cure_husk()
+			to_chat(M, "<span class='warning'>Ваша обугленная кожа отпадает!</span>")
+	return ..() | update_flags
+
+/datum/reagent/medicine/ab_stimulant/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	to_chat(M, "<span class='warning'>Ваша кожа лопается!</span>")
+	M.adjustBruteLoss(4)
+	M.adjustFireLoss(-6)
+	if(prob(25) && !((NO_BLOOD) in M.mutations))
+		var/mob/living/carbon/human/H = M
+		H.bleed(20)
+	return ..() | update_flags
+
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
 	id = "charcoal"

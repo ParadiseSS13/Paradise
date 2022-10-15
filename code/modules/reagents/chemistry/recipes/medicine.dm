@@ -85,6 +85,14 @@
 	mix_message = "The mixture knits together into a fibrous, bloody mass."
 	mix_sound = 'sound/effects/blobattack.ogg'
 
+/datum/chemical_reaction/ab_stimulant
+	name = "Anti-burn Stimulant"
+	id = "antiburn_stimulant"
+	result = "antiburn_stimulant"
+	required_reagents = list("synthflesh" = 40)
+	result_amount = 1
+	min_temp = T0C + 100
+
 /datum/chemical_reaction/styptic_powder
 	name = "Styptic Powder"
 	id = "styptic_powder"
