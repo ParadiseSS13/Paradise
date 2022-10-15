@@ -68436,11 +68436,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
-"dfx" = (
-/obj/effect/spawner/window/reinforced/tinted,
-/obj/structure/barricade/wooden,
-/turf/simulated/floor/plating,
-/area/medical/genetics)
 "dfy" = (
 /turf/simulated/wall,
 /area/maintenance/medmaint)
@@ -68449,15 +68444,6 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/medical/medbay)
-"dfA" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastleft{
-	name = "Genetics Desk";
-	req_access_txt = "9"
-	},
-/obj/machinery/door/window/westleft,
-/turf/simulated/floor/plating,
-/area/medical/genetics)
 "dfB" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -69853,6 +69839,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/medmaint)
+"diC" = (
+/obj/effect/spawner/window/reinforced/tinted,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/medical/genetics)
 "diD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -70555,6 +70546,15 @@
 /obj/item/shard,
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
+"djY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/medical/genetics)
 "djZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -70570,43 +70570,22 @@
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "dkc" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastleft{
+	name = "Genetics Desk";
+	req_access_txt = "9"
+	},
+/obj/machinery/door/window/westleft,
+/turf/simulated/floor/plating,
+/area/medical/genetics)
+"dkd" = (
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
-"dkd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/white,
-/area/medical/genetics)
 "dke" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel/white,
-/area/medical/medbay)
-"dkf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 1;
-	icon_state = "pipe-j2s";
-	name = "Genetics Junction";
-	sortType = 23
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "dkg" = (
@@ -71081,9 +71060,23 @@
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
 "dlj" = (
-/obj/effect/spawner/random_barrier/obstruction,
-/turf/simulated/floor/plating,
-/area/maintenance/medmaint)
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "GeneticsDoor";
+	name = "Genetics";
+	req_access_txt = "9"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/medical/genetics)
 "dlk" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -71091,9 +71084,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
-"dll" = (
-/turf/simulated/floor/plating,
-/area/maintenance/medmaint)
 "dlm" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/machinery/light/small,
@@ -71110,10 +71100,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit)
-"dlq" = (
-/obj/machinery/computer/cloning,
-/turf/simulated/floor/plating,
-/area/maintenance/medmaint)
 "dlr" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -72089,6 +72075,26 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/genetics)
+"dnR" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 1;
+	icon_state = "pipe-j2s";
+	name = "Genetics Junction";
+	sortType = 23
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/medical/medbay)
 "dnT" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -72683,23 +72689,9 @@
 	},
 /area/medical/genetics)
 "dpm" = (
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "GeneticsDoor";
-	name = "Genetics";
-	req_access_txt = "9"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/white,
-/area/medical/genetics)
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "dpn" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -92265,6 +92257,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"mZY" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/medmaint)
 "naX" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -140010,8 +140006,8 @@ cXk
 ddP
 cTX
 dfy
-dlj
-dlj
+dpm
+dpm
 dfy
 dmi
 dnK
@@ -140525,7 +140521,7 @@ dfw
 cTX
 dgJ
 diB
-dll
+dkd
 doF
 dmi
 dnN
@@ -140781,7 +140777,7 @@ dcm
 ddS
 cKY
 dgK
-dll
+dkd
 dka
 dli
 dmi
@@ -141038,10 +141034,10 @@ dcn
 ddU
 dfz
 dgL
-dll
-dlq
-dll
-dfx
+dkd
+dkd
+dkd
+diC
 dnO
 dpl
 dqz
@@ -141294,9 +141290,9 @@ ctr
 dco
 cSA
 dfz
-dll
-dkc
-dll
+dkd
+mZY
+dkd
 diE
 dnM
 drX
@@ -141553,13 +141549,13 @@ cSA
 dfz
 dgN
 diE
-dkc
-dll
-dfx
+mZY
+dkd
+diC
 dnQ
 drX
 dqB
-dkd
+djY
 dsY
 duk
 hlI
@@ -141810,7 +141806,7 @@ cSA
 cKY
 dgO
 diF
-dll
+dkd
 dlm
 dmi
 dqC
@@ -142071,9 +142067,9 @@ dki
 dfz
 dmi
 dta
-dfA
+dkc
 dta
-dpm
+dlj
 dta
 duk
 dvB
@@ -142587,7 +142583,7 @@ dKV
 dgQ
 dpr
 dqF
-dkf
+dnR
 dtc
 duq
 dvD
