@@ -43,12 +43,11 @@
 /obj/item/chameleon_counterfeiter/proc/matter_toggle(mob/living/user)
 	if(!can_use || !saved_name)
 		return
+	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 	if(dummy_active)
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		matter_deactivate()
 		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
 	else
-		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		to_chat(user, "<span class='notice'>You activate [src].</span>")
 		matter_activate()
 
