@@ -2,12 +2,27 @@
  * Will teleport the given atom to the given destination using the other parameters
  *
  * Arguments:
- * - atom_to_teleport - List of atoms. Can accept output of view() and range() procs.
- *
+ * - atom_to_teleport - Atom to teleport
+ * - destination - Where to teleport the atom to
+ * - variance_range - With what precision to do the teleport. 0 means on target. Higher means that many turfs around it
+ * - force_teleport - Whether to use forceMove instead of Move to move the atom to the destination
+ * - effect_in - The effect started at the starting turf
+ * - effect_out - The effect started at the destination turf
+ * - sound_in - The sound played at the starting turf
+ * - sound_out - The sound played at the destination turf
+ * - bypass_area_flag - Whether is_teleport_allowed is skipped or not
+ * - safe_turf_pick - Whether the chosen random turf from the variance is prefered to be a safe turf or not
  */
-/proc/do_teleport(atom_to_teleport, destination, precision = 0, force_teleport = 1, effect_in = null, effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+/proc/do_teleport(atom_to_teleport, destination, variance_range = 0, force_teleport = TRUE, datum/effect_system/effect_in = null, datum/effect_system/effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
 	var/datum/teleport/instant/science/D = new // default here
-	if(D.start(atom_to_teleport, destination, precision, force_teleport, effect_in, effect_out, sound_in, sound_out, bypass_area_flag, safe_turf_pick))
+	if(isnull(effect_in) || isnull(effect_out)) // Set default effects
+		var/datum/effect_system/spark_spread/effect = new
+		effect.set_up(5, 1, atom_to_teleport)
+		if(isnull(effect_in))
+			effect_in = effect
+		if(isnull(effect_out))
+			effect_out = effect
+	if(D.start(atom_to_teleport, destination, variance_range, force_teleport, effect_in, effect_out, sound_in, sound_out, bypass_area_flag, safe_turf_pick))
 		return 1
 	return 0
 
@@ -173,16 +188,6 @@
 
 
 /datum/teleport/instant/science
-
-/datum/teleport/instant/science/setEffects(datum/effect_system/aeffectin,datum/effect_system/aeffectout)
-	if(aeffectin==null || aeffectout==null) // fuck you
-		var/datum/effect_system/spark_spread/aeffect = new
-		aeffect.set_up(5, 1, teleatom)
-		effectin = effectin || aeffect
-		effectout = effectout || aeffect
-		return 1
-	else
-		return ..()
 
 /datum/teleport/instant/science/setPrecision(aprecision)
 	..()
