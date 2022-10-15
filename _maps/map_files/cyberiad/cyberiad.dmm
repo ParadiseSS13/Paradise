@@ -40578,10 +40578,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bVu" = (
-/obj/structure/closet/secure_closet/hop2,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/heads)
-"bVv" = (
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bVw" = (
@@ -40721,13 +40717,8 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bVM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/photocopier,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bVN" = (
 /obj/structure/cable{
@@ -120217,7 +120208,7 @@ bOA
 bQk
 bSd
 bTE
-bVu
+bVM
 bXb
 bYT
 bMG
@@ -120474,7 +120465,7 @@ bTc
 bUq
 bVa
 bTD
-bVv
+bVu
 bWY
 bYS
 bMG
@@ -120987,10 +120978,10 @@ bQo
 bTd
 bUr
 bVb
-bVM
+bTD
 bXp
 bXa
-bVv
+bVu
 bMG
 cdX
 cgj
