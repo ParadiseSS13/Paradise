@@ -574,6 +574,7 @@
 	f_style = random_facial_hair_style(gender, species, robohead)
 	if(!(S.bodyflags & BALD))
 		randomize_hair_color("hair")
+	if(!(S.bodyflags & SHAVED))
 		randomize_hair_color("facial")
 	if(S.bodyflags & HAS_HEAD_ACCESSORY)
 		ha_style = random_head_accessory(species)
