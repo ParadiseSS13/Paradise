@@ -140,7 +140,7 @@
 	var/list/available_surgeries = list()
 
 	for(var/datum/surgery/surgery in GLOB.surgeries_list)
-		if(surgery.abstract && !(istype(surgery, forced_surgery)))  // no choosing abstract surgeries, though they can be forced
+		if(surgery.abstract && !istype(surgery, forced_surgery))  // no choosing abstract surgeries, though they can be forced
 			continue
 		if(!target.can_run_surgery(surgery, user))
 			continue
