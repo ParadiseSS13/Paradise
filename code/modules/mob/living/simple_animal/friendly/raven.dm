@@ -1,4 +1,5 @@
-/mob/living/simple_animal/pet/raven//the perfectly normal raven.
+///the perfectly normal raven.
+/mob/living/simple_animal/pet/raven
 	name = "raven"
 	desc = "Quoth the raven nevermore! Just now in space!"
 	icon = 'icons/mob/animal.dmi'
