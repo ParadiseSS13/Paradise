@@ -1,3 +1,4 @@
+var/caw_cooldown = world.time //This varible allows you to set a cooldown on an ability, for an example usage reference the raven.dm, last line.
 ///the perfectly normal raven.
 /mob/living/simple_animal/pet/raven
 	name = "raven"
@@ -39,8 +40,7 @@
 	set desc = "Sit on a nice comfy perch."
 
 	if(icon_state == "raven")//Changes the state to the flying animation if the check returns true.
-		icon_state = "raven_fly"//a place holder, awaiting the animations, ill need alot of coffee for this part
-
+		icon_state = "raven_fly"//The ravens flying animation, Later in my refactor I intend on making this a varible for perch()
 	else
 		icon_state = "raven"
 
@@ -48,9 +48,9 @@
 	set name = "Caw!"
 	set category = "Raven"
 	set desc = "caws"
-	if(wait < world.time) // A wait, to stop people being jerks
+	if(caw_cooldown < world.time) // A caw_cooldown, to stop people being jerks
 		playsound(loc, 'sound/creatures/caw.ogg', 50, 1)
-		wait = world.time  + 2 SECONDS
+		caw_cooldown = world.time  + 2 SECONDS
 
 
 
