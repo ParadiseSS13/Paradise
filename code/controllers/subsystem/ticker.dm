@@ -329,14 +329,18 @@ SUBSYSTEM_DEF(ticker)
 				M.client.screen += cinematic	//show every client the cinematic
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD)
-				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
+			var/turf/T = get_turf(M)
+			if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
+				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
 					var/mob/ghost = M.ghostize()
 					M.dust() //no mercy
 					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
 						ghost.client.screen += cinematic
+					CHECK_TICK
+				else //Dust dead mobs too
+					if(!isobserver(M)) //except observers
+						M.dust()
 					CHECK_TICK
 			if(M && M.client) //Play the survivors a cinematic.
 				M.client.screen += cinematic
