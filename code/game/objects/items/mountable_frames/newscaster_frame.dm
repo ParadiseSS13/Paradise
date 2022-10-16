@@ -2,11 +2,11 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	item_state = "syringe_kit"
-	var/build_path
 	materials = list(MAT_METAL=6000, MAT_GLASS=2000)
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
 	metal_sheets_refunded = 3
 	glass_sheets_refunded = 1
+	var/build_path
 
 /obj/item/mounted/frame/display/do_build(turf/on_wall, mob/user)
 	var/obj/machinery/status_display/N = new build_path(get_turf(src), get_dir(on_wall, user), 1)
