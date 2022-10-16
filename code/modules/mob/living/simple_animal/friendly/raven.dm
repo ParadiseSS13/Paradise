@@ -44,7 +44,6 @@
 	else
 		icon_state = "raven"
 
-	return
 /mob/living/simple_animal/pet/raven/verb/caw()//The raven caw ability button
 	set name = "Caw!"
 	set category = "Raven"
