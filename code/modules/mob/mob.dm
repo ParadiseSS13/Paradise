@@ -1538,3 +1538,4 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+var/wait = world.time //This varible allows you to set a cooldown on an ability, for an example usage reference the raven.dm, last line.
