@@ -39,7 +39,7 @@
 	set category = "Raven"
 	set desc = "Sit on a nice comfy perch."
 
-	if(icon_state== "raven")//Changes the state to the flying animation if the check returns true.
+	if(icon_state == "raven")//Changes the state to the flying animation if the check returns true.
 		icon_state = "raven_fly"//a place holder, awaiting the animations, ill need alot of coffee for this part
 
 	else
@@ -50,9 +50,9 @@
 	set name = "Caw!"
 	set category = "Raven"
 	set desc = "caws"
-	if(wait < world.time - 40) // A wait, to stop people being jerks
+	if(wait < world.time) // A wait, to stop people being jerks
 		playsound(src.loc, 'sound/creatures/caw.ogg', 50, 1)
-		wait = world.time
+		wait = world.time  + 2 SECONDS
 
 
 
