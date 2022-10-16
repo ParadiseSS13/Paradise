@@ -50,7 +50,7 @@
 	set category = "Raven"
 	set desc = "caws"
 	if(wait < world.time) // A wait, to stop people being jerks
-		playsound(src.loc, 'sound/creatures/caw.ogg', 50, 1)
+		playsound(loc, 'sound/creatures/caw.ogg', 50, 1)
 		wait = world.time  + 2 SECONDS
 
 
