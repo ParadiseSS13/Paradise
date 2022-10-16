@@ -29180,6 +29180,7 @@
 	c_tag = "Vault";
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/brown/Tom,
 /turf/simulated/floor/plasteel/dark,
 /area/security/nuke_storage)
 "bws" = (
