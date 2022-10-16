@@ -504,7 +504,7 @@
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	desc = "It looks rather strong and frosted over. Looks like it might take a few less hits then a normal reinforced window."
-	icon_state = "fwindow"
+	icon_state = "twindow"
 	max_integrity = 30
 
 /obj/structure/window/reinforced/polarized

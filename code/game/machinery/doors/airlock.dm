@@ -739,7 +739,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
-	if(isElectrified() && density && istype(mover, /obj/item))
+	if(isElectrified() && density && isitem(mover))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
 			do_sparks(5, 1, src)
@@ -1380,6 +1380,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
 		return
+	if(prying_so_hard)
+		return
+	prying_so_hard = TRUE
 	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
 						"<span class='warning'>You hear groaning metal...</span>")
@@ -1392,6 +1395,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(do_after(user, time_to_open, TRUE, src))
 		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
 			to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
+	prying_so_hard = FALSE
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
 	..()

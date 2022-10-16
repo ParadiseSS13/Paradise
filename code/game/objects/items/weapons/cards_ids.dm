@@ -382,7 +382,7 @@
 		return
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
-		if(istype(user, /mob/living) && user.mind)
+		if(isliving(user) && user.mind)
 			if(user.mind.special_role)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming

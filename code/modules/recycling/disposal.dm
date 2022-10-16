@@ -96,7 +96,7 @@
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
@@ -482,7 +482,7 @@
 		qdel(H)
 
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
+	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
@@ -556,7 +556,7 @@
 	for(var/atom/movable/AM in D)
 		AM.forceMove(src)
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_DISPOSING, src, D)
-		if(istype(AM, /mob/living/carbon/human))
+		if(ishuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(HAS_TRAIT(H, TRAIT_FAT))		// is a human and fat?
 				has_fat_guy = 1			// set flag on holder
@@ -655,7 +655,7 @@
 
 	// called when player tries to move while in a pipe
 /obj/structure/disposalholder/relaymove(mob/user)
-	if(!istype(user, /mob/living))
+	if(!isliving(user))
 		return
 
 	var/mob/living/U = user
@@ -766,7 +766,7 @@
 	if(T.transparent_floor)
 		update_icon(UPDATE_ICON_STATE)
 		return
-	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
+	hide(T.intact && !isspaceturf(T))	// space never hides pipes
 	update_icon(UPDATE_ICON_STATE)
 
 // hide called by levelupdate if turf intact status changes
@@ -801,14 +801,14 @@
 		H.active = FALSE
 		H.forceMove(src)
 		return
-	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
+	if(T.intact && isfloorturf(T)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
 		var/turf_typecache = F.floor_tile
 		if(F.remove_tile(null, TRUE, FALSE))
 			new turf_typecache(T)
 
 	if(direction)		// direction is specified
-		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
+		if(isspaceturf(T)) // if ended in space, then range is unlimited
 			target = get_edge_target_turf(T, direction)
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)
@@ -1289,7 +1289,7 @@
 	var/active = FALSE
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
-	var/mode = 0
+	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
@@ -1326,22 +1326,16 @@
 				return
 			AM.throw_at(target, 3, 1)
 
+/obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
+	add_fingerprint(user)
 
-/obj/structure/disposaloutlet/attackby(obj/item/I, mob/user, params)
-	if(!I || !user)
-		return
-	src.add_fingerprint(user)
-	if(istype(I, /obj/item/screwdriver))
-		if(mode==0)
-			mode=1
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(mode==1)
-			mode=0
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
+	if(mode == FALSE)
+		to_chat(user, "<span class='notice'>You remove the screws around the power connection</span>.")
+	else if(mode == TRUE)
+		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
+	I.play_tool_sound(src)
+	mode = !mode
+	return TRUE
 
 /obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
 	. = TRUE

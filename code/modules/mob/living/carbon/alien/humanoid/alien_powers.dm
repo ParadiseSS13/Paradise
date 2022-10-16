@@ -13,7 +13,7 @@ Doesn't work on other aliens/AI.*/
 	else if(X && getPlasma() < X)
 		to_chat(src, "<span class='noticealien'>Not enough plasma stored.</span>")
 		return 0
-	else if(Y && (!isturf(src.loc) || istype(src.loc, /turf/space)))
+	else if(Y && (!isturf(src.loc) || isspaceturf(src.loc)))
 		to_chat(src, "<span class='noticealien'>You can't place that here!</span>")
 		return 0
 	else	return 1

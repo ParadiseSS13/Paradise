@@ -198,6 +198,15 @@
 		S.amount = 2
 		glass_type = null
 
+/obj/item/solar_assembly/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The solar assembly is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.</span>"
+	if(tracker)
+		. += "<span class='notice'>The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.</span>"
+	else
+		. += "<span class='notice'>The solar assembly has a slot for a <i>tracking circuit<i> board.</span>"
+	if(anchored)
+		.+= "<span class='notice'>The solar assembly needs <i>glass<i> to be completed.</span>"
 
 /obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
 
