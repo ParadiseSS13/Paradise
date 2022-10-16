@@ -177,7 +177,7 @@
 
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
 	..()
-	if((!( istype(O, /obj/item) ) || user.get_active_hand() != O))
+	if((!( isitem(O) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
@@ -841,7 +841,7 @@
 		. = . || mover.checkpass(PASSTABLE)
 
 /obj/structure/rack/MouseDrop_T(obj/O, mob/user)
-	if((!( istype(O, /obj/item) ) || user.get_active_hand() != O))
+	if((!( isitem(O) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return

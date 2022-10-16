@@ -405,7 +405,7 @@
 	if(handcuffed)
 		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><A href='?src=[UID()];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
+		dat += "<tr><td><b>Legcuffed:</b> <a href='?src=[UID()];item=[slot_legcuffed]'>Remove</a></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -592,7 +592,7 @@
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
 
-	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags = NONE)
+	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags)
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))

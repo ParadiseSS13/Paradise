@@ -61,7 +61,7 @@
 			if(I && I.force)
 				var/d = rand(round(I.force / 4), I.force)
 
-				if(istype(src, /mob/living/carbon/human))
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					var/obj/item/organ/external/organ = H.get_organ("chest")
 					if(istype(organ))
@@ -708,7 +708,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		back = null
 		update_inv_back()
 	else if(I == wear_mask)
-		if(istype(src, /mob/living/carbon/human)) //If we don't do this hair won't be properly rebuilt.
+		if(ishuman(src)) //If we don't do this hair won't be properly rebuilt.
 			return
 		wear_mask = null
 		update_inv_wear_mask()
@@ -1067,7 +1067,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return FALSE
 
 	if(!(slipAny))
-		if(istype(src, /mob/living/carbon/human))
+		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
 				return FALSE
@@ -1228,7 +1228,7 @@ so that different stomachs can handle things in different ways VB*/
 
 //handle stuff to update when a mob equips/unequips a headgear.
 /mob/living/carbon/proc/head_update(obj/item/I, forced)
-	if(istype(I, /obj/item/clothing))
+	if(isclothing(I))
 		var/obj/item/clothing/C = I
 		if(C.tint || initial(C.tint))
 			update_tint()

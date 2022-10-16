@@ -156,7 +156,7 @@
 		attack_self(M)
 
 /obj/item/newspaper/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(rolled)
 			to_chat(user, "<span class='warning'>Unroll it first!</span>")
 			return

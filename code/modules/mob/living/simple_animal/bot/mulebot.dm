@@ -137,11 +137,14 @@
 	return
 
 /mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(!.)
+		return
+
 	if(open)
 		on = FALSE
 	update_controls()
 	update_icon()
-	return TRUE
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(emagged < 1)
@@ -370,7 +373,7 @@
 
 	//I'm sure someone will come along and ask why this is here... well people were dragging screen items onto the mule, and that was not cool.
 	//So this is a simple fix that only allows a selection of item types to be considered. Further narrowing-down is below.
-	if(!istype(AM, /obj/item) && !istype(AM, /obj/machinery) && !istype(AM, /obj/structure) && !ismob(AM))
+	if(!isitem(AM) && !ismachinery(AM) && !isstructure(AM) && !ismob(AM))
 		return
 	if(!isturf(AM.loc)) //To prevent the loading from stuff from someone's inventory or screen icons.
 		return
