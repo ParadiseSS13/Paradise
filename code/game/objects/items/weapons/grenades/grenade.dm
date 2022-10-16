@@ -113,4 +113,4 @@
 /obj/item/grenade/Destroy()
 	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
 	walk_to(src, 0)
-	. = ..()
+	return ..()
