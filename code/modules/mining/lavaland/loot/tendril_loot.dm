@@ -184,7 +184,7 @@
 /obj/vehicle/lavaboat/Destroy()
 	for(var/mob/living/M in buckled_mobs)
 		M.weather_immunities -= "lava"
-		UnregisterSignal(moved, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(M, COMSIG_MOVABLE_MOVED)
 	. = ..()
 
 // failsafe, if for some reason we aren't on the same turf (teleport or something)
