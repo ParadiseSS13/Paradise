@@ -27,9 +27,6 @@
 /mob/living/simple_animal/pet/raven/nevermore
 	name = "Nevermore"
 	desc = "The coroner's pet. Reminds us that peace and quiet is coming for us all."
-	icon_state = "raven"
-	icon_living = "raven"
-	icon_dead = "raven_dead"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
