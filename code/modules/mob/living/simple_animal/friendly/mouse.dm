@@ -128,12 +128,14 @@
 
 /mob/living/simple_animal/mouse/white
 	mouse_color = "white"
+	icon_state = "mouse_white"
 
 /mob/living/simple_animal/mouse/gray
 	mouse_color = "gray"
 
 /mob/living/simple_animal/mouse/brown
 	mouse_color = "brown"
+	icon_state = "mouse_brown"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/Tom
