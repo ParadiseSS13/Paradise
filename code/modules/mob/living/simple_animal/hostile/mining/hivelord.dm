@@ -179,11 +179,6 @@
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize(mapload)
-	. = ..()
-	if(prob(5))
-		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
-		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"

@@ -82,15 +82,6 @@
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
-	. = ..()
-	if(prob(1))
-		if(prob(75))
-			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
-		else
-			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
-		return INITIALIZE_HINT_QDEL
-
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"
 	desc = "When raised very close to lava, some watchers adapt to the extreme heat and use lava as both a weapon and wings."
