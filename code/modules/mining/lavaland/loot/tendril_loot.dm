@@ -182,7 +182,7 @@
 		return FALSE
 
 /obj/vehicle/lavaboat/Destroy()
-	for(mob/living/M in buckled_mobs)
+	for(var/mob/living/M in buckled_mobs)
 		M.weather_immunities -= "lava"
 		UnregisterSignal(moved, COMSIG_MOVABLE_MOVED)
 	. = ..()
@@ -205,7 +205,7 @@
 /obj/vehicle/lavaboat/unbuckle_mob(mob/living/buckled_mob, force)
 	. = ..()
 	buckled_mob.weather_immunities -= "lava"
-	UnregisterSignal(moved, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(buckled_mob, COMSIG_MOVABLE_MOVED)
 
 /obj/item/oar
 	name = "oar"
