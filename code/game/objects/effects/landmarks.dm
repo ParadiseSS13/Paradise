@@ -575,10 +575,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	qdel(src)
 
 /// Mob spawners
-/obj/effect/landmark/mob/goliath
+/obj/effect/landmark/mob_spawner/goliath
 	icon_state = "questionmark"
 
-/obj/effect/landmark/mob/goliath/Initialize(mapload)
+/obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
@@ -586,10 +586,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 		new /mob/living/simple_animal/hostile/asteroid/goliath/beast(loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/mob/legion
+/obj/effect/landmark/mob_spawner/legion
 	icon_state = "questionmark"
 
-/obj/effect/landmark/mob/legion/Initialize(mapload)
+/obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
 	. = ..()
 	if(prob(5))
 		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
@@ -597,10 +597,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion(loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/mob/watcher
+/obj/effect/landmark/mob_spawner/watcher
 	icon_state = "questionmark"
 
-/obj/effect/landmark/mob/watcher/Initialize(mapload)
+/obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		if(prob(75))
@@ -611,10 +611,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 		new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher(loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/mob/goldgrub
+/obj/effect/landmark/mob_spawner/goldgrub
 	icon_state = "questionmark"
 
-/obj/effect/landmark/mob/goldgrub/Initialize(mapload)
+/obj/effect/landmark/mob_spawner/goldgrub/Initialize(mapload)
 	. = ..()
 	new /mob/living/simple_animal/hostile/asteroid/goldgrub(loc)
 	return INITIALIZE_HINT_QDEL

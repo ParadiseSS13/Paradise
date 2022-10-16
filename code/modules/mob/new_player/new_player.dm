@@ -198,7 +198,6 @@
 			observer.name = observer.real_name
 			observer.key = key
 			observer.add_to_respawnable_list()
-			mind.current = null
 			qdel(src)
 			return TRUE
 		return FALSE
