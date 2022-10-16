@@ -493,6 +493,7 @@
 						H.med_hud_set_status()
 						defib.deductcharge(revivecost)
 						add_attack_logs(user, M, "Revived with [src]")
+						SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 					else
 						if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
@@ -637,6 +638,7 @@
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)
 						add_attack_logs(user, M, "Revived with [src]")
+						SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 					else
 						if(tplus > tlimit)
 							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")

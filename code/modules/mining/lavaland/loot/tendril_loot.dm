@@ -247,7 +247,7 @@
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
+		wisp.orbit(user, 20, lock_in_orbit = TRUE)
 		set_light(0)
 
 		user.update_sight()
@@ -321,14 +321,14 @@
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1, 0, user.loc)
+	smoke.set_up(1, FALSE, user)
 	smoke.start()
 
 	user.forceMove(get_turf(linked))
 	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
 	var/datum/effect_system/smoke_spread/smoke2 = new
-	smoke2.set_up(1, 0, user.loc)
+	smoke2.set_up(1, FALSE, user)
 	smoke2.start()
 	cooldown = TRUE
 	linked.cooldown = TRUE

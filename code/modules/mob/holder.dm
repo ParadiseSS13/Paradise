@@ -52,7 +52,7 @@
 		M.unEquip(src)
 		to_chat(M, "[src] wriggles out of your grip!")
 		to_chat(L, "You wriggle out of [M]'s grip!")
-	else if(istype(loc,/obj/item))
+	else if(isitem(loc))
 		to_chat(L, "You struggle free of [loc].")
 		forceMove(get_turf(src))
 

@@ -235,7 +235,7 @@
 	else
 		visible_message("<span class='danger'>[src] spews smoke from its maw!</span>")
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(6, 0, smoke_location)
+	smoke.set_up(6, FALSE, smoke_location)
 	smoke.attach(smoke_location)
 	smoke.start()
 

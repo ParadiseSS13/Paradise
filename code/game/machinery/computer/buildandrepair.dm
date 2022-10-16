@@ -59,6 +59,42 @@
 	board_name = "Entertainment Monitor"
 	build_path = /obj/machinery/computer/security/telescreen/entertainment
 
+/obj/item/circuitboard/camera/engine
+	board_name = "Engine Camera Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/engine
+
+/obj/item/circuitboard/camera/research
+	board_name = "Research Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/research
+
+/obj/item/circuitboard/camera/rd
+	board_name = "Research Director Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/rd
+
+/obj/item/circuitboard/camera/prison
+	board_name = "Prison Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/prison
+
+/obj/item/circuitboard/camera/interrogation
+	board_name = "Interrogation Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/interrogation
+
+/obj/item/circuitboard/camera/minisat
+	board_name = "MiniSat Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/minisat
+
+/obj/item/circuitboard/camera/upload
+	board_name = "AI Upload Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/upload
+
+/obj/item/circuitboard/camera/vault
+	board_name = "Vault Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/vault
+
+/obj/item/circuitboard/camera/turbine
+	board_name = "Turbine Vent Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/turbine
+
 /obj/item/circuitboard/camera/wooden_tv
 	board_name = "Wooden TV"
 	build_path = /obj/machinery/computer/security/wooden_tv
@@ -421,6 +457,23 @@
 	max_integrity = 100
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
+
+/obj/structure/computerframe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is <b>[anchored ? "bolted to the floor" : "unbolted"]</b>.</span>"
+	switch(state)
+		if(STATE_EMPTY)
+			. += "<span class='notice'>The frame is <b>welded together</b>, but it is missing a <i>circuit board</i>.</span>"
+		if(STATE_CIRCUIT)
+			. += "<span class='notice'>A circuit board is <b>firmly connected</b>, but the cover is <i>unscrewed and open</i>.</span>"
+		if(STATE_NOWIRES)
+			. += "<span class='notice'>The cover is <b>screwed shut</b>, but the frame is missing <i>wiring</i>.</span>"
+		if(STATE_WIRES)
+			. += "<span class='notice'>The frame is <b>wired</b>, but the <i>glass</i> is missing.</span>"
+		if(STATE_GLASS)
+			. += "<span class='notice'>The glass is <b>loosely connected</b> and needs to be <i>screwed into place</i>.</span>"
+	if(!anchored)
+		. += "<span class='notice'>Alt-Click to rotate it.</span>"
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

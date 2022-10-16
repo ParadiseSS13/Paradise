@@ -108,7 +108,7 @@
 	add_airtank()
 	spark_system.set_up(2, 0, src)
 	spark_system.attach(src)
-	smoke_system.set_up(3, src)
+	smoke_system.set_up(3, FALSE, src)
 	smoke_system.attach(src)
 	add_cell()
 	START_PROCESSING(SSobj, src)

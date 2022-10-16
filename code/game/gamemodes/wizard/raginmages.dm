@@ -35,13 +35,13 @@
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
-		if(istype(wizard.current,/mob/living/carbon/brain))
+		if(isbrain(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
