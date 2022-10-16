@@ -50,6 +50,37 @@
 	board_name = "Camera Monitor"
 	build_path = /obj/machinery/computer/security
 	origin_tech = "programming=2;combat=2"
+	var/static/list/monitor_names_paths = list(
+							"Camera Monitor" = /obj/machinery/computer/security,
+							"Wooden TV" = /obj/machinery/computer/security/wooden_tv,
+							"Outpost Camera Monitor" = /obj/machinery/computer/security/mining,
+							"Engineering Camera Monitor" = /obj/machinery/computer/security/engineering,
+							"Research Monitor" = /obj/machinery/computer/security/telescreen/research,
+							"Research Director Monitor" = /obj/machinery/computer/security/telescreen/rd,
+							"Prison Monitor" = /obj/machinery/computer/security/telescreen/prison,
+							"Interrogation Monitor" = /obj/machinery/computer/security/telescreen/interrogation,
+							"MiniSat Monitor" = /obj/machinery/computer/security/telescreen/minisat,
+							"AI Upload Monitor" = /obj/machinery/computer/security/telescreen/upload,
+							"Vault Monitor" = /obj/machinery/computer/security/telescreen/vault,
+							"Turbine Vent Monitor" = /obj/machinery/computer/security/telescreen/turbine,
+							"Engine Camera Monitor" = /obj/machinery/computer/security/telescreen/engine)
+
+/obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in monitor_names_paths
+	if(!choice)
+		return
+	set_type(user, choice)
+
+/obj/item/circuitboard/camera/proc/set_type(mob/user, type)
+	board_name = type
+	type = monitor_names_paths[type]
+	build_path = type
+	format_board_name()
+	if(user)
+		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
 
 /obj/item/circuitboard/camera/telescreen
 	board_name = "Telescreen"
