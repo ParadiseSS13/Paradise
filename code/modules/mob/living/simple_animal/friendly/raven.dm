@@ -1,4 +1,4 @@
-var/caw_cooldown = world.time //This varible allows you to set a cooldown on an ability, for an example usage reference the raven.dm, last line.
+
 ///the perfectly normal raven.
 /mob/living/simple_animal/pet/raven
 	name = "raven"
@@ -23,7 +23,8 @@ var/caw_cooldown = world.time //This varible allows you to set a cooldown on an 
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
-
+		///This varible allows you to set a cooldown on an ability, for an example usage reference the raven.dm, last line.
+	var/caw_cooldown
 ///a unique raven pet
 /mob/living/simple_animal/pet/raven/nevermore
 	name = "Nevermore"
@@ -48,9 +49,11 @@ var/caw_cooldown = world.time //This varible allows you to set a cooldown on an 
 	set name = "Caw!"
 	set category = "Raven"
 	set desc = "caws"
+
 	if(caw_cooldown < world.time) // A caw_cooldown, to stop people being jerks
 		playsound(loc, 'sound/creatures/caw.ogg', 50, 1)
 		caw_cooldown = world.time  + 2 SECONDS
+
 
 
 
