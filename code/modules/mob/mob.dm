@@ -24,6 +24,7 @@
 		viewing_alternate_appearances = null
 	LAssailant = null
 	runechat_msg_location = null
+	mind.current = null
 	return ..()
 
 /mob/Initialize(mapload)
