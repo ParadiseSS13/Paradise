@@ -18,8 +18,6 @@
 	response_harm   = "kicks"
 	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
-	pass_flags = PASSTABLE | PASSMOB
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	turns_per_move = 5
 	///This varible allows you to set a cooldown on an ability, for an example usage reference the raven.dm, last line.
@@ -28,11 +26,10 @@
 
 /mob/living/simple_animal/pet/raven/npc_safe(mob/user)//Makes the raven a playable via the ghost menu.
 	return TRUE
-	
 //The raven category is established here, as well as the fly and take off button
 /mob/living/simple_animal/pet/raven/verb/perch()
 	set name = "Fly/Take off!"
-	set category = "Raven"
+	set category = "IC"
 	set desc = "Sit on a nice comfy perch."
 	//Changes the state to the flying animation if the check returns true
 	if(icon_state == "raven")
@@ -42,7 +39,7 @@
 //The raven caw ability button
 /mob/living/simple_animal/pet/raven/verb/caw()
 	set name = "Caw!"
-	set category = "Raven"
+	set category = "IC"
 	set desc = "caws"
 	// A caw_cooldown, to stop people being jerks
 	if(caw_cooldown < world.time)
