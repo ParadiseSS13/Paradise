@@ -28,6 +28,7 @@
 
 /mob/living/simple_animal/pet/raven/npc_safe(mob/user)//Makes the raven a playable via the ghost menu.
 	return TRUE
+	
 //The raven category is established here, as well as the fly and take off button
 /mob/living/simple_animal/pet/raven/verb/perch()
 	set name = "Fly/Take off!"
