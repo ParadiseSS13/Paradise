@@ -8708,11 +8708,11 @@
 	location = "QM #2"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/segment,
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #2";
 	suffix = "#2"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aDW" = (
@@ -12245,11 +12245,11 @@
 	location = "QM #4"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/segment,
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #4";
 	suffix = "#4"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aLW" = (
@@ -17981,7 +17981,7 @@
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
-	sensors = list("co2_sensor"="Tank")
+	sensors = list("co2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel/dark,
@@ -19740,7 +19740,7 @@
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
-	sensors = list("o2_sensor"="Tank")
+	sensors = list("o2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -19965,7 +19965,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor"="Tank")
+	sensors = list("air_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 10
@@ -20927,7 +20927,7 @@
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
-	sensors = list("tox_sensor"="Tank")
+	sensors = list("tox_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -22036,7 +22036,7 @@
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
-	sensors = list("n2_sensor"="Tank")
+	sensors = list("n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -23586,7 +23586,7 @@
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
-	sensors = list("n2o_sensor"="Tank")
+	sensors = list("n2o_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -28847,7 +28847,7 @@
 	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "waste_out";
-	sensors = list("waste_sensor"="Tank")
+	sensors = list("waste_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -37969,12 +37969,12 @@
 /obj/structure/bed/dogbed{
 	name = "fox box"
 	},
-/mob/living/simple_animal/pet/dog/fox/Renault,
 /obj/machinery/newscaster/security_unit{
 	dir = 4;
 	name = "west bump";
 	pixel_x = -28
 	},
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/captain)
 "bOV" = (
@@ -72130,7 +72130,7 @@
 	dir = 4;
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor"="Burn Mix")
+	sensors = list("burn_sensor" = "Burn Mix")
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -96553,6 +96553,10 @@
 	icon_state = "caution"
 	},
 /area/crew_quarters/fitness)
+"uex" = (
+/mob/living/simple_animal/pet/raven/nevermore,
+/turf/simulated/floor/wood,
+/area/ntrep)
 "ugQ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -137676,7 +137680,7 @@ aaa
 bOZ
 dne
 dnf
-cfK
+uex
 drp
 bYv
 chp

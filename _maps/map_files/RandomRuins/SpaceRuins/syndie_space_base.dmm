@@ -3837,6 +3837,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"Ob" = (
+/mob/living/simple_animal/pet/raven,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "Og" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/chemistry)
@@ -4727,7 +4733,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor"="Burn Mix")
+	sensors = list("burn_sensor" = "Burn Mix")
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
@@ -5708,7 +5714,7 @@ fF
 Ga
 Zy
 cg
-La
+Ob
 EX
 Zy
 ff
