@@ -97,11 +97,11 @@
 
 	speaker_name = colorize_name(speaker, speaker_name)
 	// Ensure only the speaker is forced to emote, and that the spoken language is inname
-	if(speaker == src)
-		for(var/datum/multilingual_say_piece/SP in message_pieces)
-			if(SP.speaking && SP.speaking.flags & INNATE)
+	for(var/datum/multilingual_say_piece/SP in message_pieces)
+		if(SP.speaking && SP.speaking.flags & INNATE)
+			if(speaker == src)
 				custom_emote(EMOTE_SOUND, message_clean, TRUE)
-				return
+			return
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
@@ -155,7 +155,7 @@
 		return
 
 	var/message = combine_message(message_pieces, verb, speaker, always_stars = hard_to_hear)
-	var/runechat_message = combine_message(message_pieces, null, speaker, always_stars = hard_to_hear)
+	var/message_clean = combine_message(message_pieces, null, speaker, always_stars = hard_to_hear)
 	if(message == "")
 		return
 
@@ -173,11 +173,11 @@
 	else if(track)
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, runechat_message, TRUE, FALSE)
+			create_chat_message(speaker, message_clean, TRUE, FALSE)
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, runechat_message, TRUE, FALSE)
+			create_chat_message(speaker, message_clean, TRUE, FALSE)
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
