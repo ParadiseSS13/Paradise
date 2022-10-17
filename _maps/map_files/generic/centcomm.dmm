@@ -3744,12 +3744,6 @@
 /obj/structure/closet/syndicate/personal,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"mJ" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/admin)
 "mK" = (
 /obj/machinery/computer/shuttle/syndicate/recall,
 /turf/simulated/floor/plasteel{
@@ -6094,7 +6088,10 @@
 /area/admin)
 "vk" = (
 /obj/structure/table,
-/obj/item/storage/belt/utility/full/multitool,
+/obj/item/storage/belt/utility/full/multitool{
+	pixel_x = -2;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vl" = (
@@ -6293,7 +6290,9 @@
 /area/admin)
 "vO" = (
 /obj/structure/table,
-/obj/item/storage/backpack/duffel/syndie/med/surgery,
+/obj/item/storage/backpack/duffel/syndie/med/surgery{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vP" = (
@@ -6470,8 +6469,13 @@
 /area/admin)
 "wz" = (
 /obj/structure/table,
-/obj/item/scalpel/laser/manager/debug,
-/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/scalpel/laser/manager/debug{
+	pixel_y = -5
+	},
+/obj/item/stack/medical/bruise_pack/advanced{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wA" = (
@@ -11439,10 +11443,6 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
-"TE" = (
-/obj/machinery/computer/operating,
-/turf/simulated/floor/plasteel/freezer,
-/area/admin)
 "TF" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 4;
@@ -11696,6 +11696,10 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"UE" = (
+/obj/machinery/computer/operating,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
 "UF" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
@@ -12912,6 +12916,12 @@
 	icon_state = "white"
 	},
 /area/centcom/control)
+"ZA" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
 "ZC" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -70722,7 +70732,7 @@ aN
 wk
 wk
 uk
-mJ
+ZA
 vO
 wz
 wW
@@ -70978,7 +70988,7 @@ aN
 aN
 aN
 lH
-TE
+UE
 nJ
 nJ
 nJ
