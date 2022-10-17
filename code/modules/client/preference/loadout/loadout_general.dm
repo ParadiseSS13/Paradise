@@ -91,6 +91,7 @@
 /datum/gear/crow_plushie
 	display_name = "Crow Plushie"
 	path = /obj/item/toy/plushie/crow
+	
 /datum/gear/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
