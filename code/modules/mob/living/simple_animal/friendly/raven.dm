@@ -13,6 +13,7 @@
 	attacktext = "bites"
 	melee_damage_lower = 2
 	melee_damage_upper = 2
+	turns_per_move = 5
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "kicks"
