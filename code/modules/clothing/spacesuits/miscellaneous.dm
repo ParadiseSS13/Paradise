@@ -97,6 +97,13 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 
+/obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
+	name = "Офицерская фуражка Верховного Главнокомандующего"
+	desc = "Парадная фуражка, спроектированная и изготовленная под индивидуальную мерку действующего Верховного Главнокомандующего Флота NanoTrasen. Если вы когда-нибудь увидите её носителя, вам стоит надеяться, что он прибыл для награждения вас за ваши заслуги, а не разрешения вызванного вами кризиса."
+	icon_state = "ntsc_cap"
+	item_state = "ntsc_cap"
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 	name = "\improper Trans-Solar Federation commander's beret"
 	desc = "A camouflaged beret adorned with the star of the Trans-Solar Federation, worn by generals of the Trans-Solar Federation."
@@ -114,6 +121,20 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = null
+
+/obj/item/clothing/suit/space/deathsquad/officer/supreme
+	name = "Форма Верховного Главнокомандующего"
+	desc = "Парадный плащ, спроектированный и сшитый под индивидуальную мерку действующего Верховного Главнокомандующего Флота NanoTrasen. Внутренний слой формы представляет из себя защитную оболочку, состоящую из миллионов нанитов; кластеры этих миниатюрных роботов способны эффективно рассеивать кинетическую и термальную энергию, обеспечивая превосходный уровень защиты для носителя."
+	icon_state = "ntsc_uniform"
+	item_state = "ntsc_uniform"
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/space/deathsquad/officer/field
+	name = "Полевая форма Офицера Флота NanoTrasen"
+	desc = "Парадный плащ, разработанный в качестве массового варианта формы Верховного Главнокомандующего. У этой униформы нет тех же защитных свойств, что и у оригинала, но она все ещё является довольно удобным и стильным предметом гардероба."
+	icon_state = "ntsc_uniform"
+	item_state = "ntsc_uniform"
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 75)
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	name = "\improper Trans-Solar Federation commander's jacket"

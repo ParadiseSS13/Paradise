@@ -310,3 +310,77 @@
 	if(picksound == 2)
 		playsound(turf, 'sound/weapons/effects/batreflect2.ogg', 50, 1)
 	return 1
+
+/obj/item/melee/baseball_bat/homerun/central_command
+	name = "тактическая бита Флота NanoTrasen"
+	description_info = "Выдвижная тактическая бита Центрального Командования Nanotrasen. \
+	В официальных документах эта бита проходит под элегантным названием \"Высокоскоростная система доставки СРП\". \
+	Выдаваясь только самым верным и эффективным офицерам NanoTrasen, это оружие является одновременно символом статуса \
+	и инструментом высшего правосудия."
+	slot_flags = SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+
+	var/on = FALSE
+	/// Force when concealed
+	force = 10
+	/// Force when extended
+	var/force_on = 20
+	/// Item state when concealed
+	item_state = "centcom_bat_0"
+	/// Item state when extended
+	var/item_state_on = "centcom_bat_1"
+	/// Icon state when concealed
+	icon_state = "centcom_bat_0"
+	/// Icon state when extended
+	var/icon_state_on = "centcom_bat_1"
+	/// Sound to play when concealing or extending
+	var/extend_sound = 'sound/weapons/batonextend.ogg'
+	/// Attack verbs when concealed (created on Initialize)
+	attack_verb = list("hit", "poked")
+	/// Attack verbs when extended (created on Initialize)
+	var/list/attack_verb_on = list("smacked", "struck", "cracked", "beaten")
+
+/obj/item/melee/baseball_bat/homerun/central_command/srt
+	name = "тактическая бита ГСН"
+	desc = "Выдвижная тактическая бита Центрального Командования Nanotrasen. Скорее всего, к этому моменту командование станции уже осознало, что их коленные чашечки не переживут эту встречу."
+
+	item_state = "srt_bat_0"
+	item_state_on = "srt_bat_1"
+	icon_state = "srt_bat_0"
+	icon_state_on = "srt_bat_1"
+
+/obj/item/melee/baseball_bat/homerun/central_command/Initialize(mapload)
+	. = ..()
+	icon_state = on ? icon_state_on : initial(icon_state)
+	force = on ? force_on : initial(force)
+	attack_verb = on ? attack_verb_on : initial(attack_verb)
+	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
+	homerun_able = on
+
+/obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
+	on = !on
+	icon_state = on ? icon_state_on : initial(icon_state)
+	if(on)
+		to_chat(user, "<span class='warning'>Вы выдвинули [src.name].</span>")
+		item_state = item_state_on
+		w_class = WEIGHT_CLASS_HUGE //doesnt fit in backpack when its on for balance
+		force = force_on
+		attack_verb = attack_verb_on
+		homerun_able = TRUE
+	else
+		to_chat(user, "<span class='notice'>Вы свернули [src.name].</span>")
+		item_state = initial(item_state)
+		slot_flags = SLOT_BELT
+		w_class = WEIGHT_CLASS_SMALL
+		force = initial(force)
+		attack_verb = initial(attack_verb)
+		homerun_ready = FALSE
+		homerun_able = FALSE
+	// Update mob hand visuals
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+	playsound(loc, extend_sound, 50, TRUE)
+	add_fingerprint(user)
+	..()

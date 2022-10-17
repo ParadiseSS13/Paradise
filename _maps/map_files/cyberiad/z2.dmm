@@ -21630,11 +21630,11 @@
 	name = "beret"
 	},
 /obj/item/clothing/head/beret/centcom/officer/sigholt{
-	icon_state = "officerberet";
+	icon_state = "beret_corporate_officer";
 	name = "beret"
 	},
 /obj/item/clothing/head/beret/centcom/officer/sigholt{
-	icon_state = "officerberet";
+	icon_state = "beret_corporate_officer";
 	name = "beret"
 	},
 /obj/item/clothing/head/fedora,
@@ -25304,6 +25304,9 @@
 	desc = null;
 	name = "Supreme commander's gold medal"
 	},
+/obj/item/clothing/head/helmet/space/deathsquad/beret/supreme,
+/obj/item/clothing/suit/space/deathsquad/officer/supreme,
+/obj/item/melee/baseball_bat/homerun/central_command,
 /obj/item/gun/projectile/revolver/mateba,
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
@@ -25314,7 +25317,7 @@
 	},
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/clothing/head/beret/centcom/officer/sigholt{
-	icon_state = "officerberet";
+	icon_state = "beret_corporate_officer";
 	name = "beret"
 	},
 /obj/item/storage/backpack/satchel,
@@ -25325,6 +25328,7 @@
 /obj/item/clothing/shoes/cowboy/white{
 	name = "white boots"
 	},
+/obj/item/melee/baseball_bat/homerun/central_command/srt,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -25467,6 +25471,7 @@
 /obj/item/clothing/suit/armor/bulletproof{
 	name = "SRT bulletproof vest"
 	},
+/obj/item/melee/baseball_bat/homerun/central_command/srt,
 /obj/item/clothing/accessory/holster,
 /obj/item/implanter/mindshield,
 /obj/item/card/id{
@@ -31499,6 +31504,8 @@
 /obj/item/storage/box/centcomofficer,
 /obj/item/radio/headset/centcom,
 /obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/suit/space/deathsquad/officer/field,
+/obj/item/melee/baseball_bat/homerun/central_command,
 /obj/item/storage/briefcase/sniperbundle,
 /obj/item/suppressor,
 /obj/item/gun/projectile/automatic/proto{
@@ -35886,6 +35893,11 @@
 	pixel_x = 30
 	},
 /obj/item/melee/energy/axe,
+/obj/item/melee/baseball_bat,
+/obj/item/melee/baseball_bat/ablative,
+/obj/item/melee/baseball_bat/homerun,
+/obj/item/melee/baseball_bat/homerun/central_command,
+/obj/item/melee/baseball_bat/homerun/central_command/srt,
 /turf/unsimulated/floor{
 	icon_state = "floor";
 	tag = "icon-floor"
