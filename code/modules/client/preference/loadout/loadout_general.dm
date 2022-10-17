@@ -88,7 +88,9 @@
 /datum/gear/nianplushie
 	display_name = "Nian plushie"
 	path = /obj/item/toy/plushie/nianplushie
-
+/datum/gear/crow_plushie
+	display_name = "Crow Plushie"
+	path = /obj/item/toy/plushie/crow
 /datum/gear/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
@@ -158,6 +160,7 @@
 	display_name = "Nano-Mob Hunter GO! Cartridge"
 	path = /obj/item/cartridge/mob_hunt_game
 	cost = 2
+
 
 //////////////////////
 //		Mugs		//

@@ -1556,3 +1556,21 @@
 	throwforce = 0
 	breakouttime = 0
 	ignoresClumsy = TRUE
+/obj/item/toy/plushie/crow
+	name = "Crow Plushie"
+	desc = "When your mad at the world, full of stress, just squeeze this crow for reassuring caws!"
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "corvid_plushie"
+	attack_verb = list("pecked", "clawed", "wing slapped")
+	var/supercaw = 'sound/creatures/caw.ogg'
+	resistance_flags = FLAMMABLE
+
+// Attack mob
+/obj/item/toy/plushie/crow/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, supercaw, 20, 1)	// Play caw sound in local area
+	return ..()
+
+// Attack self
+/obj/item/toy/plushie/crow/attack_self(mob/user as mob)
+	playsound(src.loc, supercaw, 20, 1)
+	return ..()
