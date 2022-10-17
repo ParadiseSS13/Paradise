@@ -53,4 +53,4 @@
 
 	if(caw_cooldown < world.time) // A caw_cooldown, to stop people being jerks
 		playsound(loc, 'sound/creatures/caw.ogg', 50, 1)
-		caw_cooldown = world.time  + 2 SECONDS///the perfectly normal raven.
+		caw_cooldown = world.time + 2 SECONDS///the perfectly normal raven.
