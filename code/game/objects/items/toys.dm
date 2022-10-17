@@ -1558,7 +1558,7 @@
 	ignoresClumsy = TRUE
 /obj/item/toy/plushie/crow
 	name = "Crow Plushie"
-	desc = "When your mad at the world, full of stress, just squeeze this crow for reassuring caws!"
+	desc = "When you're mad at the world, full of stress, just squeeze this crow for reassuring caws!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "corvid_plushie"
 	attack_verb = list("pecked", "clawed", "wing slapped")
