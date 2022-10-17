@@ -3744,6 +3744,12 @@
 /obj/structure/closet/syndicate/personal,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"mJ" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
 "mK" = (
 /obj/machinery/computer/shuttle/syndicate/recall,
 /turf/simulated/floor/plasteel{
@@ -6088,9 +6094,7 @@
 /area/admin)
 "vk" = (
 /obj/structure/table,
-/obj/item/stack/cable_coil,
-/obj/item/stack/rods,
-/obj/item/pen,
+/obj/item/storage/belt/utility/full/multitool,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vl" = (
@@ -6289,9 +6293,7 @@
 /area/admin)
 "vO" = (
 /obj/structure/table,
-/obj/item/scalpel,
-/obj/item/bonesetter,
-/obj/item/bonegel,
+/obj/item/storage/backpack/duffel/syndie/med/surgery,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vP" = (
@@ -6299,6 +6301,7 @@
 /obj/item/kitchen/utensil/fork,
 /obj/item/lighter,
 /obj/item/restraints/handcuffs/cable/red,
+/obj/item/kitchen/knife,
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/fancy/cigarettes,
 /obj/item/pen,
@@ -6467,9 +6470,8 @@
 /area/admin)
 "wz" = (
 /obj/structure/table,
-/obj/item/FixOVein,
-/obj/item/retractor,
-/obj/item/cautery,
+/obj/item/scalpel/laser/manager/debug,
+/obj/item/stack/medical/bruise_pack/advanced,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wA" = (
@@ -6566,14 +6568,19 @@
 /area/admin)
 "wW" = (
 /obj/structure/table,
-/obj/item/surgicaldrill,
-/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/stack/rods,
+/obj/item/stack/cable_coil,
+/obj/item/pen,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wX" = (
 /obj/structure/table,
-/obj/item/hemostat,
-/obj/item/circular_saw,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/storage/pill_bottle/psychiatrist,
+/obj/item/storage/pill_bottle/psychiatrist,
+/obj/item/storage/pill_bottle/psychiatrist,
+/obj/item/storage/pill_bottle/psychiatrist,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wY" = (
@@ -11432,6 +11439,10 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"TE" = (
+/obj/machinery/computer/operating,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
 "TF" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 4;
@@ -70711,7 +70722,7 @@ aN
 wk
 wk
 uk
-nJ
+mJ
 vO
 wz
 wW
@@ -70967,7 +70978,7 @@ aN
 aN
 aN
 lH
-nJ
+TE
 nJ
 nJ
 nJ
