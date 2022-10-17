@@ -184,28 +184,15 @@
 /obj/vehicle/lavaboat/Destroy()
 	for(var/mob/living/M in buckled_mobs)
 		M.weather_immunities -= "lava"
-		UnregisterSignal(M, COMSIG_MOVABLE_MOVED)
-	. = ..()
-
-// failsafe, if for some reason we aren't on the same turf (teleport or something)
-/obj/vehicle/lavaboat/proc/on_user_move(mob/living/moved, atom/oldloc, direction)
-	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
-	if(!istype(moved) || get_turf(moved) == get_turf(src))
-		return
-
-	moved.weather_immunities -= "lava"
-	UnregisterSignal(moved, COMSIG_MOVABLE_MOVED)
+	return ..()
 
 /obj/vehicle/lavaboat/user_buckle_mob(mob/living/M, mob/user)
 	M.weather_immunities |= "lava"
-	RegisterSignal(M, COMSIG_MOVABLE_MOVED, .proc/on_user_move)
-	. = ..()
-	// If you're buckled, you won't be subject to lava
+	return ..()
 
 /obj/vehicle/lavaboat/unbuckle_mob(mob/living/buckled_mob, force)
 	. = ..()
 	buckled_mob.weather_immunities -= "lava"
-	UnregisterSignal(buckled_mob, COMSIG_MOVABLE_MOVED)
 
 /obj/item/oar
 	name = "oar"
