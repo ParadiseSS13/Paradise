@@ -3954,6 +3954,10 @@
 	},
 /obj/structure/table,
 /obj/item/pickaxe,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
@@ -3962,8 +3966,11 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/scalpel,
 /obj/item/stack/cable_coil,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /obj/item/storage/firstaid/regular,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
@@ -3972,7 +3979,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/circular_saw,
+/obj/item/storage/toolbox/surgery,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aiL" = (
@@ -89292,6 +89299,16 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"fUM" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 "fVD" = (
 /obj/structure/window/reinforced/polarized{
 	dir = 4;
@@ -154982,7 +154999,7 @@ aha
 aiL
 aha
 aha
-aha
+fUM
 akp
 bTp
 aaa

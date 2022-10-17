@@ -214,6 +214,15 @@
 	icon_state = "carpet"
 	},
 /area/ussp_ship)
+"akN" = (
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "alv" = (
 /obj/structure/decorative_structures/metal/statue/metal_angel,
 /turf/unsimulated/floor{
@@ -307,21 +316,21 @@
 /area/centcom/specops)
 "aqH" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Pulse ANNIHILATOR";
 	req_access = null;
@@ -515,6 +524,14 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"azc" = (
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "azj" = (
 /obj/structure/showcase{
 	desc = "This one is empty";
@@ -527,6 +544,18 @@
 	icon_state = "floorgrime"
 	},
 /area/ninja/holding)
+"azI" = (
+/obj/structure/closet/crate,
+/obj/item/toy/plushie/blue_fox,
+/obj/item/radio/off,
+/obj/item/extinguisher,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "aAA" = (
 /obj/item/flag/nt,
 /turf/unsimulated/floor{
@@ -613,6 +642,27 @@
 	icon_state = "wood"
 	},
 /area/event_zone)
+"aEE" = (
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/fancy/cigarettes{
+	pixel_x = -2;
+	pixel_y = -3
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "aEO" = (
 /obj/structure/table/wood,
 /obj/item/paper/form/NT_COM_05,
@@ -831,6 +881,19 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"aMB" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "aMD" = (
 /obj/item/flag/syndi,
 /obj/machinery/light{
@@ -900,15 +963,15 @@
 /area/centcom/zone1)
 "aOX" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -1047,11 +1110,11 @@
 "aSW" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /turf/unsimulated/floor{
@@ -1320,7 +1383,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/unsimulated/floor{
@@ -1968,6 +2031,28 @@
 	icon_state = "grimy"
 	},
 /area/trader_station/sol)
+"bGn" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
+"bGr" = (
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "bGJ" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -2022,7 +2107,7 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/unsimulated/floor{
@@ -2126,15 +2211,15 @@
 	req_access = null
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -2545,6 +2630,22 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"cfP" = (
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/tank/internals/nitrogen,
+/obj/structure/table/reinforced/brass,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "cfS" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -2959,6 +3060,16 @@
 	tag = "icon-fakewindows (NORTHEAST)"
 	},
 /area/wizard_station)
+"cCk" = (
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/delivery/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "cCm" = (
 /obj/structure/window/plasmareinforced{
 	color = "#00f700";
@@ -3048,15 +3159,20 @@
 	},
 /area/centcom/specops)
 "cDm" = (
-/obj/item/tank/internals/nitrogen,
-/obj/structure/table/wood,
-/obj/item/tank/internals/nitrogen,
-/obj/item/clothing/mask/breath/vox,
-/obj/item/clothing/mask/breath/vox,
-/obj/item/clothing/mask/breath/vox,
-/obj/item/tank/internals/nitrogen,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/machinery/door/poddoor/multi_tile/three_tile_hor{
+	layer = 3.0
+	},
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 3.1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "cDn" = (
@@ -3474,7 +3590,7 @@
 "cNX" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -3627,7 +3743,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
@@ -3636,6 +3752,15 @@
 	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
+"cVb" = (
+/obj/effect/turf_decal/caution/stand_clear/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "cVo" = (
 /turf/unsimulated/floor{
 	icon_state = "bcircuit"
@@ -3859,7 +3984,7 @@
 /obj/machinery/vending/hydroseeds{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/seeds/aloe = 3, /obj/item/seeds/ambrosia = 3, /obj/item/seeds/apple = 3, /obj/item/seeds/banana = 3, /obj/item/seeds/berry = 3, /obj/item/seeds/cabbage = 3, /obj/item/seeds/carrot = 3, /obj/item/seeds/cherry = 3, /obj/item/seeds/chanter = 3, /obj/item/seeds/chili = 3, /obj/item/seeds/cocoapod = 3, /obj/item/seeds/coffee = 3, /obj/item/seeds/comfrey = 3, /obj/item/seeds/corn = 3, /obj/item/seeds/cotton = 3, /obj/item/seeds/nymph = 3, /obj/item/seeds/eggplant = 3, /obj/item/seeds/garlic = 3, /obj/item/seeds/grape = 3, /obj/item/seeds/grass = 3, /obj/item/seeds/lemon = 3, /obj/item/seeds/lime = 3, /obj/item/seeds/onion = 3, /obj/item/seeds/orange = 3, /obj/item/seeds/peanuts = 3, /obj/item/seeds/pineapple = 3, /obj/item/seeds/poppy = 3, /obj/item/seeds/potato = 3, /obj/item/seeds/pumpkin = 3, /obj/item/seeds/replicapod = 3, /obj/item/seeds/wheat/rice = 3, /obj/item/seeds/soya = 3, /obj/item/seeds/sugarcane = 3, /obj/item/seeds/sunflower = 3, /obj/item/seeds/tea = 3, /obj/item/seeds/tobacco = 3, /obj/item/seeds/tomato = 3, /obj/item/seeds/tower = 3, /obj/item/seeds/watermelon = 3, /obj/item/seeds/wheat = 3, /obj/item/seeds/whitebeet = 3, /obj/item/seeds/cannabis = 3, /obj/item/seeds/amanita = 2, /obj/item/seeds/fungus = 3, /obj/item/seeds/glowshroom = 2, /obj/item/seeds/liberty = 2, /obj/item/seeds/nettle = 2, /obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/starthistle = 2, /obj/item/seeds/random = 2)
+	products = list(/obj/item/seeds/aloe=3,/obj/item/seeds/ambrosia=3,/obj/item/seeds/apple=3,/obj/item/seeds/banana=3,/obj/item/seeds/berry=3,/obj/item/seeds/cabbage=3,/obj/item/seeds/carrot=3,/obj/item/seeds/cherry=3,/obj/item/seeds/chanter=3,/obj/item/seeds/chili=3,/obj/item/seeds/cocoapod=3,/obj/item/seeds/coffee=3,/obj/item/seeds/comfrey=3,/obj/item/seeds/corn=3,/obj/item/seeds/cotton=3,/obj/item/seeds/nymph=3,/obj/item/seeds/eggplant=3,/obj/item/seeds/garlic=3,/obj/item/seeds/grape=3,/obj/item/seeds/grass=3,/obj/item/seeds/lemon=3,/obj/item/seeds/lime=3,/obj/item/seeds/onion=3,/obj/item/seeds/orange=3,/obj/item/seeds/peanuts=3,/obj/item/seeds/pineapple=3,/obj/item/seeds/poppy=3,/obj/item/seeds/potato=3,/obj/item/seeds/pumpkin=3,/obj/item/seeds/replicapod=3,/obj/item/seeds/wheat/rice=3,/obj/item/seeds/soya=3,/obj/item/seeds/sugarcane=3,/obj/item/seeds/sunflower=3,/obj/item/seeds/tea=3,/obj/item/seeds/tobacco=3,/obj/item/seeds/tomato=3,/obj/item/seeds/tower=3,/obj/item/seeds/watermelon=3,/obj/item/seeds/wheat=3,/obj/item/seeds/whitebeet=3,/obj/item/seeds/cannabis=3,/obj/item/seeds/amanita=2,/obj/item/seeds/fungus=3,/obj/item/seeds/glowshroom=2,/obj/item/seeds/liberty=2,/obj/item/seeds/nettle=2,/obj/item/seeds/plump=2,/obj/item/seeds/reishi=2,/obj/item/seeds/starthistle=2,/obj/item/seeds/random=2)
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -3904,7 +4029,7 @@
 /obj/machinery/vending/hydronutrients{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20, /obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13, /obj/item/reagent_containers/glass/bottle/nutrient/rh = 6, /obj/item/reagent_containers/spray/pestspray = 20, /obj/item/reagent_containers/syringe = 5, /obj/item/storage/bag/plants = 5, /obj/item/cultivator = 3, /obj/item/shovel/spade = 3, /obj/item/plant_analyzer = 4, /obj/item/reagent_containers/glass/bottle/ammonia = 10, /obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez=20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z=13,/obj/item/reagent_containers/glass/bottle/nutrient/rh=6,/obj/item/reagent_containers/spray/pestspray=20,/obj/item/reagent_containers/syringe=5,/obj/item/storage/bag/plants=5,/obj/item/cultivator=3,/obj/item/shovel/spade=3,/obj/item/plant_analyzer=4,/obj/item/reagent_containers/glass/bottle/ammonia=10,/obj/item/reagent_containers/glass/bottle/diethylamine=5)
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -4331,6 +4456,15 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"dvB" = (
+/obj/structure/chair,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "dvF" = (
 /obj/structure/closet/secure_closet/contractor,
 /turf/unsimulated/floor{
@@ -4464,12 +4598,17 @@
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
 "dAs" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 3.1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "dAx" = (
@@ -4564,6 +4703,25 @@
 	icon_state = "stage_bleft"
 	},
 /area/centcom/jail)
+"dCt" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/obj/effect/turf_decal/box/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "dCC" = (
 /obj/effect/turf_decal/tile{
 	alpha = 128;
@@ -4618,6 +4776,15 @@
 "dEy" = (
 /turf/unsimulated/wall,
 /area/centcom/evac)
+"dEN" = (
+/obj/effect/turf_decal/stripes/red/line,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "dFy" = (
 /obj/structure/table,
 /obj/item/reagent_containers/applicator/dual,
@@ -4810,9 +4977,20 @@
 	},
 /area/centcom/ferry)
 "dKN" = (
-/obj/structure/bed,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/obj/item/radio/off,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "dLs" = (
@@ -5082,6 +5260,19 @@
 	icon_state = "wood"
 	},
 /area/centcom/zone1)
+"dXH" = (
+/obj/structure/rack,
+/obj/item/crowbar/large,
+/obj/item/wrench,
+/obj/item/screwdriver,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "dXI" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/siding/wood,
@@ -5123,7 +5314,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/unsimulated/floor{
@@ -5550,6 +5741,20 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"elA" = (
+/obj/item/trash/tapetrash,
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/effect/turf_decal/stripes/red/line,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "elZ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger/wallcharger{
@@ -5682,6 +5887,20 @@
 	icon_state = "darkred"
 	},
 /area/centcom/zone3)
+"eqZ" = (
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "erc" = (
 /obj/machinery/chem_dispenser/supgraded,
 /turf/unsimulated/floor{
@@ -5694,6 +5913,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"erL" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "esd" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -5745,6 +5973,17 @@
 	icon_state = "asteroidplating"
 	},
 /area/ninja/holding)
+"euu" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "evr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/candy/cotton/blue,
@@ -5770,10 +6009,10 @@
 "ewl" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/unsimulated/floor{
@@ -5918,7 +6157,7 @@
 	pixel_y = 30
 	},
 /obj/mecha/combat/marauder/seraph/loaded{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 80, "bomb" = 80, "bio" = 80, "rad" = 80, "fire" = 100, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"rad"=80,"fire"=100,"acid"=100);
 	name = "D2";
 	operation_req_access = list(109)
 	},
@@ -6162,7 +6401,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
@@ -6313,15 +6552,15 @@
 /area/centcom/evac)
 "eMY" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -6492,7 +6731,7 @@
 /area/admin)
 "eSq" = (
 /obj/machinery/door/airlock/hatch{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	desc = "For all your shady business needs";
 	name = "Special Shuttle";
 	req_access_txt = "114"
@@ -6502,6 +6741,18 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"eSH" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/book/manual/nuclear{
+	pixel_x = 5
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "eSX" = (
 /obj/structure/sign/goldenplaque{
 	desc = "Лучший сотрудник века";
@@ -6713,12 +6964,14 @@
 	},
 /area/centcom/zone1)
 "fbe" = (
-/obj/structure/chair/stool,
-/obj/effect/landmark{
-	name = "voxstart"
+/obj/structure/barricade/wooden/crude{
+	layer = 3.1
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fbq" = (
@@ -7542,6 +7795,17 @@
 	tag = "icon-fakewindows2 (WEST)"
 	},
 /area/wizard_station)
+"fwx" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "fwA" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
@@ -7565,6 +7829,20 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"fwH" = (
+/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/reagent_containers/food/snacks/spaghetti{
+	pixel_x = 3
+	},
+/obj/item/storage/box/donkpockets,
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "fxa" = (
 /obj/machinery/sleeper/syndie,
 /turf/unsimulated/floor{
@@ -7612,7 +7890,7 @@
 /area/ninja/outpost)
 "fyH" = (
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	name = "security checkpoint"
 	},
@@ -7790,9 +8068,18 @@
 /turf/unsimulated/wall,
 /area/admin)
 "fEx" = (
-/obj/item/flag/species/vox,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/tank/internals/nitrogen,
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fFH" = (
@@ -7851,9 +8138,13 @@
 	},
 /area/centcom/zone1)
 "fGT" = (
-/obj/structure/table/reinforced/brass,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "fGU" = (
@@ -7918,7 +8209,7 @@
 /area/centcom/specops)
 "fJO" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -7996,6 +8287,30 @@
 	},
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
+"fND" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/table/reinforced/brass,
+/obj/item/trash/plate,
+/obj/item/reagent_containers/food/snacks/grown/grapes{
+	pixel_y = 10;
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/apple,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "fNO" = (
 /obj/structure/mineral_door/wood,
 /turf/unsimulated/floor{
@@ -8230,7 +8545,7 @@
 /area/shuttle/ninja)
 "fXw" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -8309,6 +8624,18 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"gbC" = (
+/obj/machinery/computer/cryopod{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/delivery/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "gbP" = (
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/structure/window/reinforced{
@@ -9027,16 +9354,16 @@
 	req_access_txt = "114"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/item/gun/projectile/automatic/wt550{
@@ -9088,6 +9415,18 @@
 	tag = "icon-floor"
 	},
 /area/centcom/evac)
+"gDX" = (
+/obj/structure/chair,
+/obj/effect/landmark{
+	name = "voxstart"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "gEE" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
@@ -9109,11 +9448,11 @@
 /area/centcom/jail)
 "gFy" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -9126,7 +9465,7 @@
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -9709,6 +10048,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
+"hcZ" = (
+/obj/effect/turf_decal/box/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "hdm" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
@@ -9914,6 +10262,19 @@
 /obj/machinery/hydroponics/constructable,
 /turf/unsimulated/floor/grass,
 /area/centcom/zone1)
+"hhZ" = (
+/obj/machinery/cryopod,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1;
+	layer = 3.0
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "hic" = (
 /turf/unsimulated/wall{
 	icon_state = "sandstone3"
@@ -10110,7 +10471,7 @@
 /area/centcom/zone1)
 "hnU" = (
 /obj/machinery/door/airlock/hatch{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	desc = "For all your shady business needs";
 	name = "Special Shuttle";
 	req_access_txt = "114"
@@ -10187,6 +10548,16 @@
 	name = "grass"
 	},
 /area/centcom/evac)
+"hsO" = (
+/obj/item/trash/chips,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "htO" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
@@ -10269,6 +10640,16 @@
 	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
+"huT" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/book/manual/engineering_hacking,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "hvs" = (
 /obj/machinery/camera{
 	c_tag = "CentComm ERT GYM";
@@ -10330,11 +10711,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /turf/unsimulated/floor{
 	dir = 1;
@@ -10569,7 +10950,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/unsimulated/floor{
@@ -11097,11 +11478,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /turf/unsimulated/floor{
@@ -11252,12 +11633,14 @@
 	},
 /area/centcom/jail)
 "igW" = (
-/obj/machinery/door/airlock/centcom{
-	opacity = 1;
-	req_access_txt = "152"
+/obj/effect/mapping_helpers/light{
+	light_power = 3
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "iic" = (
@@ -11770,7 +12153,7 @@
 /area/ninja/outpost)
 "ivN" = (
 /obj/mecha/combat/durand{
-	armor = list("melee" = 60, "bullet" = 50, "laser" = 20, "energy" = 25, "bomb" = 50, "bio" = 0, "rad" = 50, "fire" = 80, "acid" = 80);
+	armor = list("melee"=60,"bullet"=50,"laser"=20,"energy"=25,"bomb"=50,"bio"=0,"rad"=50,"fire"=80,"acid"=80);
 	color = "#CCCCFF";
 	desc = "A heavyweight exosuit, painted in a gray scheme. This model appears to have some modifications for ERT.";
 	name = "Nanotrasen Special Durand Mk. II";
@@ -11784,7 +12167,7 @@
 "ivP" = (
 /obj/item/gun/projectile/automatic/ar,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -11796,11 +12179,11 @@
 	req_access_txt = "114"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/item/gun/projectile/automatic/ar,
@@ -12056,7 +12439,7 @@
 "iEK" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -12414,7 +12797,7 @@
 /area/abductor_ship)
 "iSr" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -12539,7 +12922,7 @@
 /area/ussp_ship)
 "iVD" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
@@ -12577,11 +12960,14 @@
 	},
 /area/centcom/zone1)
 "iXH" = (
-/obj/structure/window/reinforced{
-	dir = 1
+/obj/structure/chair{
+	dir = 4
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "iYd" = (
@@ -12962,11 +13348,11 @@
 /area/ninja/outside)
 "jly" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -12978,7 +13364,7 @@
 	},
 /obj/item/ammo_box/magazine/m556,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -13106,7 +13492,7 @@
 /area/centcom/evac)
 "jpl" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 2;
 	icon_state = "open";
@@ -13373,7 +13759,7 @@
 /area/centcom/zone2)
 "jyt" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -13494,7 +13880,7 @@
 /area/ninja/outpost)
 "jDd" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" =100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
@@ -13507,6 +13893,20 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"jDy" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/suit/space/vox/stealth,
+/obj/item/clothing/suit/space/vox/stealth,
+/obj/item/clothing/head/helmet/space/vox/stealth,
+/obj/item/clothing/head/helmet/space/vox/stealth,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "jDO" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/junglebush/c,
@@ -13621,7 +14021,7 @@
 	network = list("CentComm")
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	icon_state = "open";
 	id_tag = "ERT_turret_shutters";
@@ -14053,7 +14453,7 @@
 /area/admin)
 "jVT" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen{
@@ -14820,16 +15220,16 @@
 "kxA" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/unsimulated/floor{
@@ -14953,7 +15353,7 @@
 /area/holodeck/source_snowfield)
 "kBV" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
@@ -15152,16 +15552,6 @@
 	icon_state = "carpet7-3"
 	},
 /area/wizard_station)
-"kIj" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/suit/space/vox/medic,
-/obj/item/clothing/suit/space/vox/medic,
-/obj/item/clothing/head/helmet/space/vox/medic,
-/obj/item/clothing/head/helmet/space/vox/medic,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
-	},
-/area/vox_station)
 "kID" = (
 /turf/unsimulated/wall{
 	icon_state = "rwall0"
@@ -15863,6 +16253,24 @@
 	icon_state = "green"
 	},
 /area/tdome/arena)
+"lfx" = (
+/obj/structure/closet/secure_closet/freezer/meat{
+	broken = 1;
+	locked = 0;
+	icon_off = "fridgebroken";
+	icon_state = "fridgebroken"
+	},
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/obj/item/reagent_containers/food/snacks/meat/meatwheat,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "lfA" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -15976,6 +16384,15 @@
 	tag = "icon-asteroid5"
 	},
 /area/holodeck/source_desert)
+"liH" = (
+/obj/effect/turf_decal/delivery/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "lju" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent{
 	maximum_pressure = 50000
@@ -16024,6 +16441,16 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
+"llv" = (
+/obj/item/flashlight/lamp,
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "lmc" = (
 /obj/item/flag/syndi,
 /obj/structure/sign/poster/contraband/random{
@@ -16037,7 +16464,7 @@
 "lmi" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -16277,7 +16704,7 @@
 /area/syndicate_mothership)
 "lub" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	icon_state = "open";
 	id_tag = "ERT_turret_shutters";
@@ -16295,7 +16722,7 @@
 	pixel_y = 30
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
 /turf/unsimulated/floor{
@@ -16374,7 +16801,7 @@
 	pixel_y = 30
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -16464,21 +16891,21 @@
 /area/centcom/jail)
 "lBX" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
 	req_access = null;
@@ -16742,6 +17169,19 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
+"lFY" = (
+/obj/machinery/cryopod/right,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1;
+	layer = 3.0
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "lGp" = (
 /obj/machinery/atmospherics/unary/tank/air/ninja{
 	dir = 1
@@ -16781,7 +17221,7 @@
 	req_access_txt = "109"
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 1;
 	icon_state = "open";
@@ -16837,13 +17277,13 @@
 	},
 /area/trader_station/sol)
 "lIO" = (
-/obj/machinery/door/window{
-	dir = 1;
-	panel_open = 1;
-	req_access_txt = "152"
-	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "lJL" = (
@@ -17447,7 +17887,7 @@
 "mfo" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -17501,9 +17941,14 @@
 	},
 /area/centcom/evac)
 "mgR" = (
-/obj/machinery/vox_win_button,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "mgY" = (
@@ -17557,7 +18002,7 @@
 "mhF" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
 /turf/unsimulated/floor{
@@ -17634,6 +18079,22 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"mjL" = (
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/item/newspaper,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 5
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "mjS" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -30
@@ -17707,6 +18168,20 @@
 	tag = "icon-floor"
 	},
 /area/admin)
+"mne" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "mnf" = (
 /obj/structure/table,
 /obj/item/mop,
@@ -17744,6 +18219,20 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
+"mpa" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/landmark{
+	name = "voxstart"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "mph" = (
 /obj/structure/flora/ausbushes/genericbush,
 /obj/structure/flora/ausbushes/palebush,
@@ -17964,6 +18453,17 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"mxg" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "mxk" = (
 /obj/structure/window/reinforced{
 	layer = 2.9
@@ -18115,9 +18615,15 @@
 	},
 /area/centcom/zone1)
 "mDD" = (
-/obj/structure/kitchenspike,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/structure/table/reinforced/brass,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/stack/tape_roll,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "mDX" = (
@@ -18700,7 +19206,7 @@
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/unsimulated/floor{
@@ -18728,21 +19234,21 @@
 /area/chrono_ship)
 "mZi" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Grenade launcher";
 	req_access = null;
@@ -18832,7 +19338,7 @@
 "ndc" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/unsimulated/floor{
@@ -19035,6 +19541,17 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
+"niG" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "niJ" = (
 /obj/structure/flora/bush,
 /turf/unsimulated/floor{
@@ -19277,7 +19794,7 @@
 "nqE" = (
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
 /turf/unsimulated/floor{
@@ -19319,19 +19836,19 @@
 	},
 /area/ussp_ship)
 "nrv" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/suit/space/vox/stealth,
-/obj/item/clothing/suit/space/vox/stealth,
-/obj/item/clothing/head/helmet/space/vox/stealth,
-/obj/item/clothing/head/helmet/space/vox/stealth,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "nrD" = (
 /obj/structure/table/wood/poker,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -19424,6 +19941,20 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
+"nvy" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/landmark{
+	name = "voxstart"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "nvB" = (
 /mob/living/simple_animal/pet/penguin/baby,
 /turf/unsimulated/floor/snow,
@@ -19831,6 +20362,29 @@
 	icon_state = "carpet"
 	},
 /area/centcom/jail)
+"nHQ" = (
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
+"nIb" = (
+/obj/item/pipe,
+/obj/item/pipe{
+	pixel_x = 6
+	},
+/obj/item/stack/packageWrap,
+/obj/item/assembly/igniter,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "nIc" = (
 /obj/machinery/computer/med_data,
 /turf/unsimulated/floor{
@@ -19969,7 +20523,7 @@
 /obj/structure/table/wood,
 /obj/item/radio/intercom,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/unsimulated/floor{
@@ -19979,11 +20533,11 @@
 /area/centcom/evac)
 "nMB" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -19994,7 +20548,7 @@
 	req_access_txt = "114"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -20134,13 +20688,13 @@
 	},
 /area/centcom/srtops)
 "nSw" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/suit/space/vox/pressure,
-/obj/item/clothing/suit/space/vox/pressure,
-/obj/item/clothing/head/helmet/space/vox/pressure,
-/obj/item/clothing/head/helmet/space/vox/pressure,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "nTc" = (
@@ -20191,6 +20745,16 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"nUQ" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/stripes/red/line,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "nVZ" = (
 /obj/machinery/bodyscanner{
 	dir = 4;
@@ -20279,6 +20843,16 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
+"ocy" = (
+/obj/item/flag/species/vox,
+/obj/effect/turf_decal/delivery/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "ocX" = (
 /obj/structure/chair/stool,
 /obj/machinery/light/small{
@@ -20337,13 +20911,16 @@
 	},
 /area/centcom/zone3)
 "oeN" = (
+/obj/item/pizzabox{
+	icon_state = "pizzabox_open"
+	},
 /obj/structure/table/reinforced/brass,
-/obj/item/clothing/suit/space/vox/carapace,
-/obj/item/clothing/suit/space/vox/carapace,
-/obj/item/clothing/head/helmet/space/vox/carapace,
-/obj/item/clothing/head/helmet/space/vox/carapace,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/item/trash/can,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "ofb" = (
@@ -20546,7 +21123,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/machinery/door/window/brigdoor{
@@ -21490,9 +22067,12 @@
 	},
 /area/centcom/evac)
 "pbl" = (
-/obj/structure/closet/crate,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/item/flag/species/vox,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "pbA" = (
@@ -21824,11 +22404,14 @@
 	},
 /area/ussp_ship)
 "piw" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "152"
+/obj/structure/chair{
+	dir = 8
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "piH" = (
@@ -21961,16 +22544,16 @@
 	pixel_y = 3
 	},
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	name = "security checkpoint"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -22267,21 +22850,21 @@
 /area/admin)
 "prr" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "ML IC";
 	req_access = null;
@@ -22330,6 +22913,17 @@
 	tag = "icon-dark"
 	},
 /area/syndicate_mothership)
+"psI" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/structure/closet/firecloset/full,
+/obj/effect/turf_decal/delivery/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "psQ" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood/corner{
@@ -22504,15 +23098,15 @@
 	pixel_y = 3
 	},
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	name = "security checkpoint"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -22801,29 +23395,16 @@
 	},
 /area/syndicate_mothership)
 "pHT" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/under/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "pIm" = (
@@ -23242,6 +23823,17 @@
 	icon_state = "carpet"
 	},
 /area/centcom/zone2)
+"pVf" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/trash/raisins,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "pVm" = (
 /obj/machinery/computer/card/centcom,
 /obj/structure/sign/poster/official/random{
@@ -23573,6 +24165,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"qdN" = (
+/obj/structure/ore_box,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "qdY" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -23613,19 +24214,13 @@
 	},
 /area/holodeck/source_basketball)
 "qfe" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/obj/item/clothing/under/vox/vox_robes,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "qfy" = (
@@ -24043,6 +24638,17 @@
 	icon_state = "grimy"
 	},
 /area/centcom/bridge)
+"qtE" = (
+/obj/item/shard,
+/obj/item/trash/sosjerky,
+/obj/effect/turf_decal/delivery/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "qtF" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
@@ -24166,7 +24772,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	icon_state = "open";
 	id_tag = "ERT_turret_shutters";
@@ -24311,8 +24917,14 @@
 	},
 /area/centcom/court)
 "qAW" = (
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 9
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "qBc" = (
@@ -24338,11 +24950,11 @@
 "qBg" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /turf/unsimulated/floor{
@@ -24408,7 +25020,7 @@
 "qEU" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	lootcount = 20;
 	name = "Food CC Spawner #2"
 	},
@@ -24436,11 +25048,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -24786,6 +25398,17 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"qTS" = (
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "qUd" = (
 /turf/unsimulated/floor{
 	dir = 1;
@@ -24908,7 +25531,7 @@
 "qXR" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/unsimulated/floor{
@@ -25285,7 +25908,7 @@
 /area/centcom)
 "rms" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/storage/box/centcomofficer,
 /obj/item/radio/headset/centcom{
@@ -25443,7 +26066,7 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/reagent_containers/food/snacks/candy/donor{
 	apply_type = 3;
-	list_reagents = list("nutriment" = 30, "sugar" = 3);
+	list_reagents = list("nutriment"=30,"sugar"=3);
 	name = "MRE"
 	},
 /obj/item/reagent_containers/hypospray/autoinjector/survival,
@@ -25495,6 +26118,19 @@
 	icon_state = "vault"
 	},
 /area/centcom/srtops)
+"rqS" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/toy/plushie/voxplushie{
+	desc = "Он хоть и прималис, но еще обязательно вырастет";
+	name = "Кикитаячи"
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "rrf" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "syndicate_away";
@@ -25605,7 +26241,7 @@
 /area/centcom/court)
 "rtj" = (
 /obj/machinery/computer/shuttle/ert{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access = list(109)
 	},
 /turf/unsimulated/floor{
@@ -25832,7 +26468,7 @@
 	req_access_txt = "109"
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 1;
 	icon_state = "open";
@@ -25927,6 +26563,21 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"rCd" = (
+/obj/structure/closet/crate,
+/obj/item/firelock_electronics,
+/obj/item/firealarm_electronics,
+/obj/item/soap,
+/obj/item/soap/ducttape,
+/obj/item/storage/backpack,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "rCL" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -26002,6 +26653,24 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
+"rFK" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "rFQ" = (
 /obj/effect/decal/warning_stripes/east{
 	layer = 50;
@@ -26398,7 +27067,7 @@
 /area/centcom/evac)
 "rSv" = (
 /obj/machinery/door/airlock/centcom{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	name = "Supreme Commander";
 	opacity = 1;
 	req_access_txt = "113"
@@ -26540,7 +27209,7 @@
 /area/ninja/outpost)
 "rWO" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
@@ -26842,6 +27511,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"shG" = (
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "shN" = (
 /obj/structure/chair/comfy/beige{
 	dir = 8
@@ -27085,8 +27763,13 @@
 	},
 /area/ussp_ship)
 "smW" = (
-/turf/unsimulated/wall{
-	icon_state = "rrust10"
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/effect/turf_decal/stripes/red/line,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "snW" = (
@@ -27136,7 +27819,7 @@
 /area/ninja/outside)
 "spt" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access_txt = "114"
 	},
 /obj/item/storage/box/centcomofficer,
@@ -27264,6 +27947,20 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
+"ssW" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "std" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot/short,
@@ -27274,7 +27971,7 @@
 /area/admin)
 "stq" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 2;
 	icon_state = "open";
@@ -27355,7 +28052,7 @@
 "swC" = (
 /obj/structure/table/abductor,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/unsimulated/floor{
@@ -27478,15 +28175,15 @@
 /area/shuttle/ninja)
 "sBu" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -27660,6 +28357,20 @@
 	icon_state = "carpet"
 	},
 /area/centcom/specops)
+"sGv" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/suit/space/vox/carapace,
+/obj/item/clothing/suit/space/vox/carapace,
+/obj/item/clothing/head/helmet/space/vox/carapace,
+/obj/item/clothing/head/helmet/space/vox/carapace,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "sGP" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -27758,7 +28469,7 @@
 /area/ninja/outpost)
 "sKF" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
 	locked = 1;
@@ -27769,6 +28480,24 @@
 	tag = "icon-fakewindows (WEST)"
 	},
 /area/centcom)
+"sLM" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/item/clothing/shoes/magboots/vox,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "sLQ" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -27925,6 +28654,21 @@
 /obj/structure/lattice,
 /turf/unsimulated/wall,
 /area/centcom/evac)
+"sPN" = (
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152";
+	welded = 1
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 3.1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "sQl" = (
 /obj/structure/table/wood/poker,
 /turf/unsimulated/floor{
@@ -28152,6 +28896,19 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/unsimulated/floor/snow,
 /area/ninja/outside)
+"sWI" = (
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "sWK" = (
 /turf/simulated/floor/light,
 /area/secret/gaybar)
@@ -28375,7 +29132,7 @@
 /area/centcom/zone2)
 "tjg" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 95, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 80);
+	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
 	density = 0;
 	dir = 2;
 	icon_state = "open";
@@ -28492,18 +29249,14 @@
 	},
 /area/centcom/zone3)
 "tlX" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "tmb" = (
@@ -28744,15 +29497,15 @@
 /area/chrono_ship)
 "tuM" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -29080,16 +29833,16 @@
 "tKq" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -29113,23 +29866,35 @@
 	icon_state = "woodalt"
 	},
 /area/centcom/specops)
+"tKG" = (
+/obj/structure/sign/poster/contraband/smoke{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "tKP" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access = null;
@@ -29156,43 +29921,43 @@
 /obj/item/ammo_box/magazine/mm556x45/ap,
 /obj/item/ammo_box/magazine/mm556x45/ap,
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /obj/item/gun/projectile/automatic/l6_saw{
-	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'." ;
+	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
 	},
 /turf/unsimulated/floor{
@@ -29251,6 +30016,15 @@
 	tag = "icon-wood_siding1"
 	},
 /area/holodeck/source_picnicarea)
+"tPp" = (
+/obj/machinery/cryopod,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "tPs" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -29471,21 +30245,21 @@
 /area/syndicate_mothership)
 "uah" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "X-ray laser";
 	req_access = null;
@@ -29916,6 +30690,19 @@
 	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
+"umu" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "umC" = (
 /obj/machinery/door/airlock/survival_pod{
 	drain_act_protected = 1
@@ -30048,6 +30835,18 @@
 	tag = "icon-asteroid"
 	},
 /area/holodeck/source_picnicarea)
+"usI" = (
+/obj/effect/turf_decal/stripes/red/line,
+/obj/effect/turf_decal/arrows/red{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "usK" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -30223,7 +31022,7 @@
 	req_access_txt = "114"
 	},
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -30345,6 +31144,15 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"uFQ" = (
+/obj/item/trash/tastybread,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "uFS" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -30395,7 +31203,7 @@
 "uHi" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/toy/cards/deck/syndicate = 10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/toy/cards/deck/syndicate=10)
 	},
 /turf/unsimulated/floor{
 	dir = 8;
@@ -30949,6 +31757,15 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/specops)
+"vbN" = (
+/obj/item/stack/sheet/mineral/sandbags,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "vcj" = (
 /obj/machinery/abductor/gland_dispenser,
 /turf/unsimulated/floor/abductor,
@@ -30983,6 +31800,18 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
+"vdv" = (
+/obj/item/pizzabox{
+	icon_state = "pizzabox_open"
+	},
+/obj/effect/turf_decal/box/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "vea" = (
 /turf/unsimulated/floor{
 	dir = 1;
@@ -31360,11 +32189,11 @@
 /area/centcom/specops)
 "vpF" = (
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -31387,7 +32216,7 @@
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
@@ -31497,7 +32326,7 @@
 /area/centcom)
 "vvt" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access_txt = "114"
 	},
 /obj/item/clothing/head/beret/centcom/officer,
@@ -31639,6 +32468,25 @@
 	},
 /turf/unsimulated/floor/snow,
 /area/ninja/outside)
+"vzE" = (
+/obj/structure/closet/crate,
+/obj/item/bucket_sensor,
+/obj/item/assembly/prox_sensor,
+/obj/item/toy/crayon,
+/obj/item/toy/crayon/blue,
+/obj/item/toy/crayon/red,
+/obj/item/toy/crayon/green,
+/obj/item/storage/backpack,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "vzH" = (
 /turf/unsimulated/floor{
 	dir = 8;
@@ -31688,6 +32536,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"vCH" = (
+/obj/item/target,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "vCS" = (
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -31711,6 +32569,16 @@
 	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
+"vDb" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "vDc" = (
 /obj/item/flag/nt,
 /turf/unsimulated/floor{
@@ -31988,6 +32856,19 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"vJi" = (
+/obj/item/pizzabox/meat,
+/obj/effect/decal/cleanable/dirt{
+	layer = 2.1
+	},
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "vKb" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/bostaff,
@@ -32012,6 +32893,17 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"vKm" = (
+/obj/structure/sign/poster/official/safety_internals{
+	pixel_x = 32
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "vKp" = (
 /turf/unsimulated/floor{
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
@@ -32074,9 +32966,12 @@
 	},
 /area/wizard_station)
 "vLs" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/machinery/vending/dinnerware,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "vLx" = (
@@ -32134,7 +33029,7 @@
 /area/centcom/zone2)
 "vMK" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access_txt = "114"
 	},
 /obj/item/clothing/suit/judgerobe{
@@ -32169,7 +33064,7 @@
 /area/centcom/zone2)
 "vMT" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "CC_supply_internal";
 	layer = 5;
@@ -32764,7 +33659,7 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/unsimulated/floor{
@@ -32971,6 +33866,21 @@
 	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
+"wqz" = (
+/obj/structure/closet/crate,
+/obj/item/emptysandbag,
+/obj/item/emptysandbag,
+/obj/item/emptysandbag,
+/obj/effect/decal/cleanable/blood/oil,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/suit/storage/hazardvest,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "wqK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
@@ -33411,6 +34321,17 @@
 	icon_state = "grimy"
 	},
 /area/centcom/evac)
+"wCm" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "wCx" = (
 /obj/item/gun/syringe,
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun,
@@ -34065,6 +34986,19 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"wZd" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/glasses/welding,
+/obj/item/multitool,
+/obj/item/t_scanner,
+/obj/item/storage/belt/chameleon,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "wZp" = (
 /obj/structure/rack,
 /obj/item/gun/medbeam,
@@ -34131,7 +35065,7 @@
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /turf/unsimulated/floor{
@@ -34251,7 +35185,7 @@
 /area/centcom/specops)
 "xfi" = (
 /obj/machinery/door/poddoor/shutters{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 2;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -34394,12 +35328,16 @@
 	},
 /area/centcom/zone1)
 "xlW" = (
-/obj/structure/chair/comfy/red,
-/obj/effect/landmark{
-	name = "voxstart"
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
 	},
-/turf/unsimulated/floor/vox{
-	icon_state = "plastitanium"
+/obj/structure/table/reinforced/brass,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
 	},
 /area/vox_station)
 "xlZ" = (
@@ -34419,12 +35357,12 @@
 	pixel_y = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	layer = 2.8
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 3.4
 	},
 /obj/structure/closet/secure_closet/guncabinet{
@@ -34435,7 +35373,7 @@
 	req_access_txt = "114"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/item/gun/projectile/automatic/m90{
@@ -34636,7 +35574,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler,
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/machinery/door/window/brigdoor{
@@ -34864,7 +35802,7 @@
 "xCC" = (
 /obj/structure/table/abductor,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /obj/structure/sign/poster/official/random{
@@ -34898,6 +35836,19 @@
 	icon_state = "wood"
 	},
 /area/syndicate_mothership)
+"xDW" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear/red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "xEk" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/mineral/sandbags{
@@ -35329,6 +36280,15 @@
 	tag = "icon-asteroid7"
 	},
 /area/holodeck/source_knightarena)
+"xQD" = (
+/obj/machinery/cryopod/right,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "xQT" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ASSAULT1";
@@ -35403,6 +36363,20 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"xWx" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/suit/space/vox/medic,
+/obj/item/clothing/suit/space/vox/medic,
+/obj/item/clothing/head/helmet/space/vox/medic,
+/obj/item/clothing/head/helmet/space/vox/medic,
+/obj/effect/turf_decal/bot_red,
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	tag = "icon-dark";
+	nitrogen = 100;
+	oxygen = 0
+	},
+/area/vox_station)
 "xWD" = (
 /obj/machinery/door/airlock/centcom{
 	name = "ERT Service Room";
@@ -53952,17 +54926,17 @@ fiK
 gXj
 xoS
 nSw
-kIj
-oeN
-xoS
+erL
+azc
+qTS
 mDD
-mDD
-mDD
-mDD
-mDD
-mDD
+huT
+llv
 kID
-xoS
+qdN
+euu
+dKN
+vbN
 smW
 xoS
 jyD
@@ -54209,19 +55183,19 @@ fOf
 gXj
 kID
 nrv
-qAW
-qAW
+nHQ
+azc
+igW
+azc
+dvB
+wZd
+kID
+vDb
+eqZ
+nHQ
+azc
+nUQ
 xoS
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-xoS
-qAW
-qAW
-qAW
 jyD
 jyD
 jyD
@@ -54466,19 +55440,19 @@ gXj
 gXj
 xoS
 fGT
-qAW
-qAW
-piw
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
+nHQ
+azc
+azc
+pVf
+nIb
+mne
+kID
+wqz
+sWI
 igW
-qAW
-qAW
-qAW
+azc
+usI
+mxg
 jyD
 jyD
 jyD
@@ -54722,20 +55696,20 @@ gXj
 gXj
 gXj
 xoS
-fGT
-qAW
-qAW
-xoS
-qAW
-qAW
-dAs
-fGT
-qAW
-fEx
-xoS
-smW
+akN
+azc
+azc
+azc
 xoS
 xoS
+xoS
+xoS
+azI
+rCd
+nHQ
+azc
+usI
+sPN
 jyD
 jyD
 jyD
@@ -54981,17 +55955,17 @@ gXj
 xoS
 tlX
 qfe
-pHT
-kID
-qAW
-qAW
-fGT
-fGT
-qAW
-qAW
-qAW
-qAW
-vLs
+azc
+azc
+lFY
+xQD
+xQD
+xoS
+qdN
+nHQ
+nHQ
+azc
+dEN
 kID
 jyD
 jyD
@@ -55236,19 +56210,19 @@ eIt
 fWB
 gXj
 xoS
+cfP
+nHQ
+azc
+igW
+azc
+azc
+gbC
 xoS
-kID
-xoS
-xoS
+vCH
+wCm
+wCm
+wCm
 qAW
-qAW
-fGT
-fGT
-qAW
-qAW
-qAW
-qAW
-vLs
 kID
 jyD
 jyD
@@ -55494,18 +56468,18 @@ gmR
 gXj
 kID
 fEx
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-vLs
+azc
+azc
+azc
+hhZ
+tPp
+cCk
+kID
+kID
+lIO
+lIO
+lIO
+kID
 kID
 jyD
 jyD
@@ -55750,19 +56724,19 @@ eNw
 gva
 gXj
 xoS
-qAW
-qAW
-qAW
-fbe
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-cDm
+kID
+kID
+lIO
+lIO
+kID
+xoS
+xoS
+kID
+qtE
+azc
+cVb
+azc
+nHQ
 kID
 jyD
 jyD
@@ -56007,19 +56981,19 @@ fBQ
 fWB
 gXj
 xoS
-qAW
-qAW
-fGT
-fGT
-fbe
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
 cDm
+vzE
+azc
+azc
+azc
+qTS
+azc
+lIO
+azc
+azc
+azc
+azc
+qfe
 xoS
 jyD
 jyD
@@ -56264,19 +57238,19 @@ gXj
 gXj
 gXj
 xoS
-qAW
-xlW
-fGT
-fGT
-fbe
-qAW
-qAW
-qAW
-qAW
-qAW
-xoS
-kID
-xoS
+dAs
+xDW
+azc
+igW
+azc
+azc
+azc
+lIO
+azc
+azc
+igW
+azc
+tKG
 kID
 jyD
 jyD
@@ -56521,19 +57495,19 @@ eIt
 fWB
 gXj
 xoS
-qAW
-qAW
-fGT
-fGT
 fbe
-qAW
-qAW
-qAW
-qAW
-qAW
-iXH
-dKN
-dKN
+aMB
+azc
+azc
+uFQ
+vKm
+azc
+lIO
+azc
+azc
+azc
+azc
+hsO
 xoS
 jyD
 jyD
@@ -56778,19 +57752,19 @@ eNw
 gmR
 gXj
 xoS
-qAW
-qAW
-qAW
-fbe
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-iXH
-qAW
-qAW
+kID
+kID
+lIO
+fwx
+kID
+kID
+xoS
+xoS
+psI
+azc
+cVb
+azc
+dXH
 xoS
 jyD
 jyD
@@ -57035,19 +58009,19 @@ eNw
 gva
 gXj
 kID
-fEx
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
+iXH
+iXH
+azc
+azc
+azc
+azc
+ocy
+xoS
+xoS
 lIO
-qAW
-qAW
+lIO
+lIO
+xoS
 kID
 jyD
 jyD
@@ -57292,19 +58266,19 @@ fBQ
 fWB
 gXj
 kID
+oeN
+aEE
+niG
+igW
+azc
+nvy
+liH
 xoS
-kID
-xoS
-kID
-qAW
-qAW
-fGT
-fGT
-qAW
-qAW
-iXH
-qAW
-qAW
+sGv
+bGn
+bGn
+bGn
+mjL
 xoS
 jyD
 jyD
@@ -57549,19 +58523,19 @@ gXj
 gXj
 gXj
 kID
-qAW
-qAW
-qAW
+piw
+piw
+azc
+azc
+gDX
+eSH
+azc
 kID
-qAW
-qAW
-fGT
-fGT
-qAW
-qAW
-iXH
-dKN
-dKN
+xWx
+nHQ
+nHQ
+azc
+dEN
 kID
 jyD
 jyD
@@ -57806,20 +58780,20 @@ eIt
 fWB
 gXj
 xoS
-qAW
-qAW
-qAW
+pHT
+azc
+azc
+azc
+gDX
+shG
+bGr
 kID
-qAW
-qAW
-fGT
-fGT
-qAW
-fEx
-xoS
-xoS
-xoS
-xoS
+ssW
+nHQ
+nHQ
+azc
+usI
+sPN
 jyD
 jyD
 jyD
@@ -58063,20 +59037,20 @@ eNw
 gmR
 gXj
 kID
-qAW
+vLs
 mgR
-qAW
-piw
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
+lfx
+azc
+gDX
+rqS
+azc
+kID
+jDy
+azc
 igW
-qAW
-qAW
-qAW
+azc
+usI
+mxg
 wed
 jyD
 jyD
@@ -58320,20 +59294,20 @@ eNw
 gva
 gXj
 kID
-qAW
-qAW
-qAW
+xlW
+mgR
+vJi
+igW
+azc
+mpa
+azc
+kID
+rFK
+nHQ
+nHQ
+azc
+dEN
 xoS
-qAW
-qAW
-qAW
-qAW
-qAW
-qAW
-xoS
-qAW
-qAW
-qAW
 jyD
 jyD
 jyD
@@ -58577,19 +59551,19 @@ fBQ
 fWB
 gXj
 xoS
-qAW
-qAW
-qAW
-xoS
+fwH
+dCt
+fND
+vdv
+azc
+hcZ
 pbl
-pbl
-pbl
-pbl
-pbl
-pbl
-xoS
 kID
-xoS
+sLM
+nHQ
+umu
+azc
+elA
 xoS
 jyD
 jyD

@@ -876,6 +876,10 @@
 	},
 /obj/structure/table,
 /obj/item/pickaxe,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /obj/item/storage/firstaid/toxin,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
@@ -884,8 +888,11 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/scalpel,
 /obj/item/stack/cable_coil,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /obj/item/storage/firstaid/regular,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
@@ -894,7 +901,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/circular_saw,
+/obj/item/storage/toolbox/surgery,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "adZ" = (
@@ -81941,6 +81948,17 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/sleep)
+"lyg" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/salglu,
+/turf/space,
+/turf/simulated/shuttle/floor4/vox,
+/area/shuttle/vox)
 "lyi" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -93242,7 +93260,7 @@
 /area/crew_quarters/locker)
 "nRD" = (
 /obj/machinery/vending/dinnerware{
-	products = list(/obj/item/storage/bag/tray = 1, /obj/item/kitchen/utensil/fork = 2, /obj/item/kitchen/knife = 0, /obj/item/kitchen/rollingpin = 0, /obj/item/kitchen/sushimat = 1, /obj/item/reagent_containers/food/drinks/drinkingglass = 2, /obj/item/clothing/suit/chef/classic = 1, /obj/item/storage/belt/chef = 0, /obj/item/reagent_containers/food/condiment/pack/ketchup = 1, /obj/item/reagent_containers/food/condiment/pack/hotsauce = 0, /obj/item/reagent_containers/food/condiment/saltshaker = 1, /obj/item/reagent_containers/food/condiment/peppermill = 2, /obj/item/whetstone = 1, /obj/item/mixing_bowl = 3, /obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 0, /obj/item/kitchen/mould/bean = 0, /obj/item/kitchen/mould/ball = 1, /obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 0, /obj/item/kitchen/mould/coin = 0, /obj/item/kitchen/mould/loli = 1, /obj/item/kitchen/cutter = 0, /obj/item/eftpos = 1)
+	products = list(/obj/item/storage/bag/tray=1,/obj/item/kitchen/utensil/fork=2,/obj/item/kitchen/knife=0,/obj/item/kitchen/rollingpin=0,/obj/item/kitchen/sushimat=1,/obj/item/reagent_containers/food/drinks/drinkingglass=2,/obj/item/clothing/suit/chef/classic=1,/obj/item/storage/belt/chef=0,/obj/item/reagent_containers/food/condiment/pack/ketchup=1,/obj/item/reagent_containers/food/condiment/pack/hotsauce=0,/obj/item/reagent_containers/food/condiment/saltshaker=1,/obj/item/reagent_containers/food/condiment/peppermill=2,/obj/item/whetstone=1,/obj/item/mixing_bowl=3,/obj/item/kitchen/mould/bear=1,/obj/item/kitchen/mould/worm=0,/obj/item/kitchen/mould/bean=0,/obj/item/kitchen/mould/ball=1,/obj/item/kitchen/mould/cane=1,/obj/item/kitchen/mould/cash=0,/obj/item/kitchen/mould/coin=0,/obj/item/kitchen/mould/loli=1,/obj/item/kitchen/cutter=0,/obj/item/eftpos=1)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
@@ -202227,7 +202245,7 @@ aaf
 aer
 adZ
 abr
-aec
+lyg
 afi
 afZ
 aaa
