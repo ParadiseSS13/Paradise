@@ -1571,6 +1571,6 @@
 	return ..()
 
 // Attack self
-/obj/item/toy/plushie/crow/attack_self(mob/user as mob)
+/obj/item/toy/plushie/crow/attack_self(mob/user)
 	playsound(src.loc, supercaw, 20, 1)
 	return ..()
