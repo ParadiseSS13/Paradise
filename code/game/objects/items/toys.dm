@@ -1566,7 +1566,7 @@
 	resistance_flags = FLAMMABLE
 
 // Attack mob
-/obj/item/toy/plushie/crow/attack(mob/M as mob, mob/user as mob)
+/obj/item/toy/plushie/crow/attack(mob/M, mob/user)
 	playsound(loc, supercaw, 20, 1)	// Play caw sound in local area
 	return ..()
 
