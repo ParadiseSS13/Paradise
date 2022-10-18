@@ -237,7 +237,7 @@
 
 /obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			return 0
 
 	return 1
@@ -498,7 +498,7 @@
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
@@ -540,7 +540,7 @@
 		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
 		qdel(W)
 		return
-	else if(istype(W, /obj/item) && get_dist(src,user)<2)
+	else if(isitem(W) && get_dist(src,user)<2)
 		user.drop_item(src)
 		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
 		return

@@ -43,7 +43,7 @@
 		return TRUE
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
-	else if(istype(mover, /mob/living))
+	else if(isliving(mover))
 		if(prob(50))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			return FALSE

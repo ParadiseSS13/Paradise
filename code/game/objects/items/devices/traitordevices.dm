@@ -59,7 +59,7 @@
 /obj/item/teleporter/emp_act(severity)
 	var/teleported_something = FALSE
 	if(prob(50 / severity))
-		if(istype(loc, /mob/living/carbon/human))
+		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)
@@ -125,7 +125,7 @@
 		to_chat(M, "<span class='danger'>[src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
-	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))
+	if(isfloorturf(T) || isspaceturf(T))
 		return TRUE
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first

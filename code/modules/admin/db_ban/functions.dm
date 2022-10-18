@@ -102,7 +102,7 @@
 	var/a_computerid
 	var/a_ip
 
-	if(src.owner && istype(src.owner, /client))
+	if(src.owner && isclient(src.owner))
 		a_ckey = src.owner:ckey
 		a_computerid = src.owner:computer_id
 		a_ip = src.owner:address
@@ -405,7 +405,7 @@
 		to_chat(usr, "<span class='warning'>Database update failed due to multiple bans having the same ID. Contact the database admin.</span>")
 		return
 
-	if(!src.owner || !istype(src.owner, /client))
+	if(!src.owner || !isclient(src.owner))
 		return
 
 	var/unban_ckey = src.owner:ckey

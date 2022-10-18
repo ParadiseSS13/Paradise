@@ -249,6 +249,10 @@
 
 /obj/item/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
+	if(isstorage(target))
+		var/obj/item/storage/S = target
+		if(!S.can_be_inserted(src, stop_messages = TRUE))
+			return
 	if(loc != user)
 		return
 	if(!proximity && !ranged)

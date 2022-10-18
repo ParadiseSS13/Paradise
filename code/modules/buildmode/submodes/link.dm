@@ -37,9 +37,9 @@
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	var/right_click = pa.Find("right")
-	if(left_click && istype(object, /obj/machinery))
+	if(left_click && ismachinery(object))
 		link_obj = object
-	if(right_click && istype(object, /obj/machinery))
+	if(right_click && ismachinery(object))
 		if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/airlock))
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/airlock/P = object
