@@ -94,12 +94,13 @@
 	if(!message)
 		return
 
-	var/verb = "states,"
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
-
+	var/rendered
+	var/follow_text
 	for(var/mob/M in GLOB.mob_list)
+		follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost=M)])" : ""
+		rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span></i></font>"
 		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
-			M.show_message(rendered, 2)
+			M.show_message(rendered, EMOTE_AUDIBLE)
 
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return
