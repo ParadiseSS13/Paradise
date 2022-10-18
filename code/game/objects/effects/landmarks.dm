@@ -427,13 +427,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/gladiator/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/gladiator(src.loc)
+	new /obj/item/clothing/under/costume/gladiator(src.loc)
 	new /obj/item/clothing/head/helmet/gladiator(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/suit/storage/labcoat/mad(src.loc)
 	new /obj/item/clothing/glasses/gglasses(src.loc)
@@ -441,7 +441,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/mask/cigarette/cigar/havana(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
@@ -449,12 +449,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/schoolgirl/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/schoolgirl(src.loc)
+	new /obj/item/clothing/under/dress/schoolgirl(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/maid/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/blackskirt(src.loc)
+	new /obj/item/clothing/under/dress/blackskirt(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/beret , /obj/item/clothing/head/rabbitears )
 	new CHOICE(src.loc)
 	new /obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
@@ -463,7 +463,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/costume/butler/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(src.loc)
-	new /obj/item/clothing/under/suit_jacket(src.loc)
+	new /obj/item/clothing/under/suit(src.loc)
 	new /obj/item/clothing/head/that(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -471,14 +471,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	. = ..()
 	new /obj/item/clothing/gloves/color/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)
-	new /obj/item/clothing/under/scratch(src.loc)
+	new /obj/item/clothing/under/misc/scratch(src.loc)
 	if(prob(30))
 		new /obj/item/clothing/head/cueball(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/highlander/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/kilt(src.loc)
+	new /obj/item/clothing/under/costume/kilt(src.loc)
 	new /obj/item/clothing/head/beret(src.loc)
 	qdel(src)
 
@@ -490,7 +490,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new CHOICE(src.loc)
 	new /obj/item/clothing/shoes/black(src.loc)
 	new /obj/item/cane(src.loc)
-	new /obj/item/clothing/under/sl_suit(src.loc)
+	new /obj/item/clothing/under/misc/sl_suit(src.loc)
 	new /obj/item/clothing/mask/fakemoustache(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -502,13 +502,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/nightowl/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/owl(src.loc)
+	new /obj/item/clothing/under/costume/owl(src.loc)
 	new /obj/item/clothing/mask/gas/owl_mask(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/waiter/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/waiter(src.loc)
+	new /obj/item/clothing/under/misc/waiter(src.loc)
 	var/CHOICE= pick( /obj/item/clothing/head/kitty, /obj/item/clothing/head/rabbitears)
 	new CHOICE(src.loc)
 	new /obj/item/clothing/suit/apron(src.loc)
@@ -516,7 +516,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/pirate/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/pirate(src.loc)
+	new /obj/item/clothing/under/costume/pirate(src.loc)
 	new /obj/item/clothing/suit/pirate_black(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/pirate , /obj/item/clothing/head/bandana )
 	new CHOICE(src.loc)
@@ -525,7 +525,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/commie/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/soviet(src.loc)
+	new /obj/item/clothing/under/costume/soviet(src.loc)
 	new /obj/item/clothing/head/ushanka(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -550,7 +550,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/cutewitch/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/sundress(src.loc)
+	new /obj/item/clothing/under/dress/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
 	new /obj/item/twohanded/staff/broom(src.loc)
 	return INITIALIZE_HINT_QDEL
@@ -565,13 +565,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/costume/sexyclown/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/clown_hat/sexy(loc)
-	new /obj/item/clothing/under/rank/clown/sexy(loc)
+	new /obj/item/clothing/under/rank/civilian/clown/sexy(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/sexymime/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/sexymime(src.loc)
-	new /obj/item/clothing/under/sexymime(src.loc)
+	new /obj/item/clothing/under/rank/civilian/mime/sexy(src.loc)
 	qdel(src)
 
 /obj/effect/landmark/ruin

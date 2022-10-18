@@ -24,6 +24,9 @@
 	/// Also, note that for anything sharp, SURGERY_INITIATOR_ORGANIC should be set as well.
 	var/valid_starting_types = SURGERY_INITIATOR_ORGANIC
 
+	// Replace any other surgery initiator
+	dupe_type = /datum/component/surgery_initiator
+
 /**
  * Create a new surgery initiating component.
  *
@@ -137,7 +140,7 @@
 	var/list/available_surgeries = list()
 
 	for(var/datum/surgery/surgery in GLOB.surgeries_list)
-		if(surgery.abstract)  // no choosing abstract surgeries
+		if(surgery.abstract && !istype(surgery, forced_surgery))  // no choosing abstract surgeries, though they can be forced
 			continue
 		if(!target.can_run_surgery(surgery, user))
 			continue

@@ -1,3 +1,7 @@
+#define TALL_CANDLE 1
+#define MID_CANDLE 2
+#define SHORT_CANDLE 3
+
 /obj/item/candle
 	name = "red candle"
 	desc = "In Greek myth, Prometheus stole fire from the Gods and gave it to humankind. The jewelry he kept for himself."
@@ -6,6 +10,8 @@
 	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
 	var/wax = 200
+	/// Index for the icon state
+	var/wax_index = TALL_CANDLE
 	var/lit = FALSE
 	var/infinite = FALSE
 	var/start_lit = FALSE
@@ -24,9 +30,9 @@
 
 /obj/item/candle/update_icon_state()
 	if(flickering)
-		icon_state = "candle[get_icon_index()]_flicker"
+		icon_state = "candle[wax_index]_flicker"
 	else
-		icon_state = "candle[get_icon_index()][lit ? "_lit" : ""]"
+		icon_state = "candle[wax_index][lit ? "_lit" : ""]"
 
 /obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -60,13 +66,18 @@
 		START_PROCESSING(SSobj, src)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/candle/proc/get_icon_index()
+/obj/item/candle/proc/update_wax_index()
+	var/new_wax_index
 	if(wax > 150)
-		. = 1
+		new_wax_index = TALL_CANDLE
 	else if(wax > 80)
-		. = 2
+		new_wax_index = MID_CANDLE
 	else
-		. = 3
+		new_wax_index = SHORT_CANDLE
+	if(wax_index != new_wax_index)
+		wax_index = new_wax_index
+		return TRUE
+	return FALSE
 
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
@@ -82,13 +93,15 @@
 		return
 	if(!infinite)
 		wax--
+		if(wax_index != SHORT_CANDLE) // It's not at its shortest
+			if(update_wax_index())
+				update_icon(UPDATE_ICON_STATE)
 	if(!wax)
 		new/obj/item/trash/candle(src.loc)
 		if(istype(src.loc, /mob))
 			var/mob/M = src.loc
 			M.unEquip(src, 1) //src is being deleted anyway
 		qdel(src)
-	update_icon(UPDATE_ICON_STATE)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
@@ -112,3 +125,7 @@
 		return TRUE
 
 	return FALSE
+
+#undef TALL_CANDLE
+#undef MID_CANDLE
+#undef SHORT_CANDLE

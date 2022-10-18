@@ -79,7 +79,7 @@
 	var/moved_count = 0
 	// The ternary below isnt exactly needed, but it makes code more readable because `pull` is a bool
 	for(var/atom/movable/X in view(2 + (pull ? 1 : 0)  + (volume > 30 ? 1 : 0), T))
-		if(istype(X, /obj/effect))
+		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please
 		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
 			if(pull)

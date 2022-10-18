@@ -130,7 +130,7 @@
 	if(total_volume <= 0)
 		return
 	var/datum/reagents/R
-	if(istype(target, /obj))
+	if(isobj(target))
 		var/obj/O = target
 		if(!O.reagents)
 			return
@@ -532,7 +532,7 @@
 		react_type = "LIVING"
 	else if(isturf(A))
 		react_type = "TURF"
-	else if(istype(A, /obj))
+	else if(isobj(A))
 		react_type = "OBJ"
 	else
 		return

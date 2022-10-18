@@ -160,8 +160,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		files.known_tech[T.id] = T
 	for(var/v in files.known_tech)
 		var/datum/tech/KT = files.known_tech[v]
-		if(KT.level < KT.max_level)
-			KT.level=KT.max_level
+		KT.level = 8
 	files.RefreshResearch()
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)

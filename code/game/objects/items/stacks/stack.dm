@@ -207,10 +207,10 @@
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return FALSE
 
-		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
+		if(R.on_floor && !issimulatedturf(get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
-		if(R.on_floor_or_lattice && !(istype(get_turf(src), /turf/simulated) || locate(/obj/structure/lattice) in get_turf(src)))
+		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src)) || locate(/obj/structure/lattice) in get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
 			return FALSE
 
@@ -252,12 +252,12 @@
 			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
-			if(istype(O, /obj/item))
+			if(isitem(O))
 				usr.put_in_hands(O)
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
+		if(isstorage(O))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
