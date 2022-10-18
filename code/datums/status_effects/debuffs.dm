@@ -247,6 +247,26 @@
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
 
+/datum/status_effect/shadow_boxing
+	id = "shadow barrage"
+	alert_type = null
+	duration = 10 SECONDS
+	tick_interval = 0.4 SECONDS
+	var/damage = 8
+	var/source_UID
+
+/datum/status_effect/shadow_boxing/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+/datum/status_effect/shadow_boxing/tick()
+	var/mob/living/attacker = locateUID(source_UID)
+	if(attacker in view(owner, 2))
+		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
+		owner.apply_damage(damage, BRUTE)
+		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+
+
 // start of `living` level status procs.
 
 /**

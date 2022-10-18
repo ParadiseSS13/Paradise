@@ -56,7 +56,7 @@
 	cooldown = world.time + 30 SECONDS
 	var/turf/T = get_turf(src)
 	for(var/mob/living/carbon/M in ohearers(7, T))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(!H.can_hear())
 				continue

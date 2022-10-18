@@ -38,12 +38,12 @@
 
 	// Get the turf 1 tile to the EAST.
 	var/turf/east = locate(T.x + 1, T.y, T.z)
-	if(istype(east, /turf/simulated/floor))
+	if(isfloorturf(east))
 		new /obj/machinery/conveyor/auto(east, WEST)
 
 	// Get the turf 1 tile to the WEST.
 	var/turf/west = locate(T.x - 1, T.y, T.z)
-	if(istype(west, /turf/simulated/floor))
+	if(isfloorturf(west))
 		new /obj/machinery/conveyor/auto(west, WEST)
 
 /obj/machinery/transformer/power_change()
@@ -156,12 +156,12 @@
 
 		// Get the turf 2 tiles to the EAST.
 		var/turf/east2 = locate(T.x + 2, T.y, T.z)
-		if(istype(east2, /turf/simulated/floor))
+		if(isfloorturf(east2))
 			new /obj/machinery/conveyor/auto(east2, EAST)
 
 		// Get the turf 2 tiles to the WEST.
 		var/turf/west2 = locate(T.x - 2, T.y, T.z)
-		if(istype(west2, /turf/simulated/floor))
+		if(isfloorturf(west2))
 			new /obj/machinery/conveyor/auto(west2, EAST)
 
 /obj/machinery/transformer/xray/power_change()

@@ -249,27 +249,9 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
-/obj/machinery/door/proc/clean_cmag_ooze(obj/item/I, mob/user) //Emags are Engineering's problem, cmags are the janitor's problem
-	var/cleaning = FALSE
-	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-		var/obj/item/reagent_containers/spray/cleaner/C = I
-		if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
-			cleaning = TRUE
-		else
-			return
-	if(istype(I, /obj/item/soap))
-		cleaning = TRUE
-
-	if(!cleaning)
-		return
-	user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
-	if(do_after(user, 50, target = src))
-		user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
-
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		clean_cmag_ooze(I, user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
+		return
 
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(user, I)

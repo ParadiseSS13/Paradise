@@ -120,7 +120,7 @@
 	invocation_type = "none"
 	cooldown_min = 20 //25 deciseconds reduction per rank
 
-	smoke_spread = 2
+	smoke_type = SMOKE_COUGHING
 	smoke_amt = 10
 
 	action_icon_state = "smoke"
@@ -154,7 +154,7 @@
 	cooldown_min = 5 //4 deciseconds reduction per rank
 
 
-	smoke_spread = 1
+	smoke_type = SMOKE_HARMLESS
 	smoke_amt = 1
 
 	inner_tele_radius = 0
@@ -181,7 +181,7 @@
 	invocation_type = "shout"
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
-	smoke_spread = 1
+	smoke_type = SMOKE_HARMLESS
 	smoke_amt = 5
 
 	action_icon_state = "spell_teleport"
@@ -228,6 +228,7 @@
 	invocation = "TARCOL GRANDI ZHERI"
 	invocation_type = "shout"
 	large = TRUE
+	action_icon_state = "shield_greater"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
