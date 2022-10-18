@@ -74,6 +74,7 @@
 
 /obj/item/gun/New()
 	..()
+	appearance_flags |= KEEP_TOGETHER
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
