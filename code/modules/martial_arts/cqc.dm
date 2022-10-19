@@ -21,6 +21,26 @@
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
 
+/datum/martial_art/cqc/proc/drop_chokehold()
+	chokehold_active = FALSE
+
+/datum/martial_art/cqc/proc/start_chokehold(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
+						"<span class='userdanger'>[A] puts you into a chokehold!</span>")
+	add_attack_logs(A, D, "Put into a chokehold with martial-art [src]", ATKLOG_ALL)
+	chokehold_active = TRUE
+	while(do_mob(A, D, 2 SECONDS) && chokehold_active)
+		var/damage_multiplier = 1 + A.getStaminaLoss()/100 //The chokehold is more effective the more tired the target is.
+		D.apply_damage(10 * damage_multiplier, OXY)
+		if(D.getOxyLoss() >= 50 || D.health <= 20)
+			D.visible_message("<span class ='danger>[A] puts [D] to sleep!</span>", \
+						"<span class='userdanger'>[A] knocks you out cold!</span>")
+			D.SetSleeping(40 SECONDS)
+			drop_chokehold()
+
+	drop_chokehold()
+	drop_restraining() //If the chokehold failed, they slip out of your grip
+
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = D.grabbedby(A, 1)
@@ -51,9 +71,8 @@
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
-		D.apply_damage(bonus_damage, STAMINA) //Do slightly more
 		D.KnockDown(3 SECONDS)
-		A.SetKnockDown(0 SECONDS)
+		A.SetKnockDown(0 SECONDS) //Quickly get up like the cool dude you are.
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
@@ -61,15 +80,10 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
 	if(restraining && istype(G) && G.affecting == D)
-		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
-							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
-		D.SetSleeping(40 SECONDS)
-		restraining = FALSE
-		if(G.state < GRAB_NECK)
-			G.state = GRAB_NECK
+		start_chokehold(A, D)
 		return TRUE
 	else
-		restraining = FALSE
+		drop_restraining()
 
 	var/obj/item/I = null
 
