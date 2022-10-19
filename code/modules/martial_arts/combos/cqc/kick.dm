@@ -20,7 +20,7 @@
 					  		"<span class='userdanger'>[user] kicks your head, disorienting you!</span>")
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
 		target.adjustStaminaLoss(40)
-		target.adjustBrainLoss(15)
-		target.Silence(5 SECONDS)
+		target.adjustBrainLoss(10)
+		target.Silence(3 SECONDS)
 		add_attack_logs(user, target, "Kicked in the head with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
