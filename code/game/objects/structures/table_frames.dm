@@ -22,10 +22,10 @@
 	var/framestackamount = 2
 
 /obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/stack))
-		return ..()
-
 	var/obj/item/stack/stack = I
+
+	if(!stack?.table_type)
+		return ..()
 
 	if(stack.get_amount() < 1)
 		to_chat(user, "<span class='warning'>You need one [stack] sheet to do this!</span>")
@@ -36,39 +36,9 @@
 	if(!do_after(user, 50, target = src))
 		return
 
-	switch(stack.type)
-		if(/obj/item/stack/sheet/plasteel)
-			make_new_table(/obj/structure/table/reinforced)
-
-		if(/obj/item/stack/sheet/metal, /obj/item/stack/sheet/metal/cyborg, /obj/item/stack/sheet/metal/fifty)
-			make_new_table(/obj/structure/table)
-
-		if(/obj/item/stack/sheet/glass, /obj/item/stack/sheet/glass/cyborg, /obj/item/stack/sheet/glass/fifty)
-			make_new_table(/obj/structure/table/glass)
-
-		if(/obj/item/stack/sheet/rglass, /obj/item/stack/sheet/rglass/cyborg)
-			make_new_table(/obj/structure/table/glass/reinforced)
-
-		if(/obj/item/stack/sheet/plasmaglass)
-			make_new_table(/obj/structure/table/glass/plasma)
-
-		if(/obj/item/stack/sheet/plasmarglass)
-			make_new_table(/obj/structure/table/glass/reinforced/plasma)
-
-		if(/obj/item/stack/sheet/titaniumglass)
-			make_new_table(/obj/structure/table/glass/reinforced/titanium)
-
-		if(/obj/item/stack/sheet/plastitaniumglass)
-			make_new_table(/obj/structure/table/glass/reinforced/plastitanium)
-
-		if(/obj/item/stack/tile/carpet, /obj/item/stack/tile/carpet/black, /obj/item/stack/tile/carpet/blue, /obj/item/stack/tile/carpet/cyan, /obj/item/stack/tile/carpet/green, /obj/item/stack/tile/carpet/orange, /obj/item/stack/tile/carpet/purple, /obj/item/stack/tile/carpet/red, /obj/item/stack/tile/carpet/royalblack, /obj/item/stack/tile/carpet/royalblue, /obj/item/stack/tile/carpet/twenty, /obj/item/stack/tile/carpet/black/twenty, /obj/item/stack/tile/carpet/blue/twenty, /obj/item/stack/tile/carpet/cyan/twenty, /obj/item/stack/tile/carpet/green/twenty, /obj/item/stack/tile/carpet/orange/twenty, /obj/item/stack/tile/carpet/purple/twenty, /obj/item/stack/tile/carpet/red/twenty, /obj/item/stack/tile/carpet/royalblack/twenty, /obj/item/stack/tile/carpet/royalblue/twenty, /obj/item/stack/tile/carpet/royalblack/ten, /obj/item/stack/tile/carpet/royalblue/ten) //yikes
-			var/obj/item/stack/tile/carpet/C = I
-			make_new_table(C.fancy_table_type)
-
-		else
-			return ..()
-
-	stack.use(1)
+	if(stack.table_type)
+		make_new_table(stack.table_type)
+		stack.use(1)
 
 /obj/structure/table_frame/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -123,16 +93,10 @@
 	if(!do_after(user, 50, target = src))
 		return
 
-	switch(stack.type)
-		if(/obj/item/stack/tile/carpet, /obj/item/stack/tile/carpet/black, /obj/item/stack/tile/carpet/blue, /obj/item/stack/tile/carpet/cyan, /obj/item/stack/tile/carpet/green, /obj/item/stack/tile/carpet/orange, /obj/item/stack/tile/carpet/purple, /obj/item/stack/tile/carpet/red, /obj/item/stack/tile/carpet/royalblack, /obj/item/stack/tile/carpet/royalblue, /obj/item/stack/tile/carpet/twenty, /obj/item/stack/tile/carpet/black/twenty, /obj/item/stack/tile/carpet/blue/twenty, /obj/item/stack/tile/carpet/cyan/twenty, /obj/item/stack/tile/carpet/green/twenty, /obj/item/stack/tile/carpet/orange/twenty, /obj/item/stack/tile/carpet/purple/twenty, /obj/item/stack/tile/carpet/red/twenty, /obj/item/stack/tile/carpet/royalblack/twenty, /obj/item/stack/tile/carpet/royalblue/twenty, /obj/item/stack/tile/carpet/royalblack/ten, /obj/item/stack/tile/carpet/royalblue/ten)
-			make_new_table(/obj/structure/table/wood/poker)
-
-		if(/obj/item/stack/sheet/wood, /obj/item/stack/sheet/wood/cyborg)
-			make_new_table(/obj/structure/table/wood)
-
-		else
-			return ..()
-
+	if(istype(stack, /obj/item/stack/tile/carpet))
+		make_new_table(/obj/structure/table/wood/poker)
+	else
+		make_new_table(/obj/structure/table/wood)
 	stack.use(1)
 
 /obj/structure/table_frame/brass
@@ -147,16 +111,16 @@
 	if(!istype(I, /obj/item/stack/tile/brass))
 		return ..()
 
-	var/obj/item/stack/tile/brass/W = I
-	if(W.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need one [W] sheet to do this!</span>")
+	var/obj/item/stack/stack = I
+
+	if(stack.get_amount() < 1)
+		to_chat(user, "<span class='warning'>You need one [stack] sheet to do this!</span>")
 		return
 
-	to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
+	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
 
-	if(do_after(user, 20, target = src) && W.use(1))
+	if(do_after(user, 20, target = src) && stack.use(1))
 		make_new_table(/obj/structure/table/reinforced/brass)
-
 
 /obj/structure/table_frame/brass/narsie_act()
 	..()

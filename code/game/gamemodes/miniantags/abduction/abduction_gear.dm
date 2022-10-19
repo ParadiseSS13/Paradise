@@ -704,16 +704,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!do_after(user, 50, target = src))
 		return
 
-	switch(stack.type)
-		if(/obj/item/stack/sheet/mineral/abductor, /obj/item/stack/sheet/mineral/abductor/fifty)
-			make_new_table(/obj/structure/table/abductor)
-
-		if(/obj/item/stack/sheet/mineral/silver)
-			new /obj/machinery/optable/abductor(loc)
-			qdel(src)
-
-		else
-			return ..()
+	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
+		make_new_table(/obj/structure/table/abductor)
+	else
+		new /obj/machinery/optable/abductor(loc)
+		qdel(src)
 
 	stack.use(1)
 

@@ -126,6 +126,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
+	table_type = /obj/structure/table
 
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_energy_storage/metal
@@ -177,6 +178,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	origin_tech = "materials=2"
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
+	table_type = /obj/structure/table/reinforced
 
 /obj/item/stack/sheet/plasteel/New(loc, amount=null)
 	recipes = GLOB.plasteel_recipes
@@ -243,6 +245,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
 	sheettype = "wood"
+	table_type = /obj/structure/table/wood
 
 /obj/item/stack/sheet/wood/New(loc, amount=null)
 	recipes = GLOB.wood_recipes
