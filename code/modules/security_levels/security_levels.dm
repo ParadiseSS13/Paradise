@@ -7,8 +7,8 @@ GLOBAL_VAR_INIT(security_level, 0)
 //5 = code delta
 
 //config.alert_desc_blue_downto
-GLOBAL_DATUM_INIT(security_announcement_up, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0, new_sound = sound('sound/misc/notice1.ogg')))
-GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0))
+GLOBAL_DATUM_INIT(security_announcement_up, /datum/announcement/priority/security, new(do_log = 0, new_sound = sound('sound/misc/notice1.ogg')))
+GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/security, new(do_log = 0))
 
 /proc/set_security_level(level)
 	switch(level)
