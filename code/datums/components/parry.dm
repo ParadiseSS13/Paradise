@@ -14,7 +14,7 @@
 	var/parryable_attack_types
 
 /datum/component/parry/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/equipped)
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/equipped)
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/dropped)
 	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, .proc/attempt_parry)
 
@@ -39,14 +39,20 @@
 	else
 		parryable_attack_types = list(_parryable_attack_types)
 
-/datum/component/parry/proc/equipped(datum/source, mob/user)
-	RegisterSignal(user, COMSIG_LIVING_RESIST, .proc/start_parry)
+/datum/component/parry/proc/equipped(datum/source, mob/user, slot)
+	if(slot in list(slot_l_hand, slot_r_hand))
+		RegisterSignal(user, COMSIG_LIVING_RESIST, .proc/start_parry)
 
 /datum/component/parry/proc/dropped(datum/source, mob/user)
 	UnregisterSignal(user, COMSIG_LIVING_RESIST)
 
-/datum/component/parry/proc/start_parry(datum/source)
+/datum/component/parry/proc/start_parry(mob/living/L)
+	var/time_since_parry = world.time - time_parried
+	if(time_since_parry < parry_time_out_time + 0.2 SECONDS) // stops spam
+		return
+
 	time_parried = world.time
+	L.do_attack_animation(L, used_item = parent)
 
 /datum/component/parry/proc/attempt_parry(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_type = MELEE_ATTACK)
 	if(!(attack_type in parryable_attack_types))
@@ -54,7 +60,19 @@
 	var/time_since_parry = world.time - time_parried
 	if(time_since_parry > parry_time_out_time)
 		return
-	var/stamina_damage = (time_since_parry / parry_time_out_time) * damage * stamina_coefficient + stamina_constant
+
+	var/armour_penetration_percentage = 0
+	var/armour_penetration_flat = 0
+
+	if(isitem(hitby))
+		var/obj/item/I = hitby
+		armour_penetration_percentage = I.armour_penetration_percentage
+		armour_penetration_flat = I.armour_penetration_flat
+
+	if(armour_penetration_flat + armour_penetration_percentage >= 100)
+		return
+
+	var/stamina_damage = stamina_coefficient * (((time_since_parry / parry_time_out_time) + armour_penetration_percentage / 100) * damage + armour_penetration_flat) + stamina_constant
 
 	var/sound_to_play
 	if(attack_type == PROJECTILE_ATTACK)
