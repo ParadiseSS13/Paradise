@@ -72,12 +72,8 @@
 	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in monitor_names_paths
 	if(!choice)
 		return
-	set_type(user, choice)
-
-/obj/item/circuitboard/camera/proc/set_type(mob/user, type)
-	board_name = type
-	type = monitor_names_paths[type]
-	build_path = type
+	board_name = choice
+	build_path = monitor_names_paths[choice]
 	format_board_name()
 	if(user)
 		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
