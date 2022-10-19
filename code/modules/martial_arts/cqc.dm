@@ -29,8 +29,8 @@
 						"<span class='userdanger'>[A] puts you into a chokehold!</span>")
 	add_attack_logs(A, D, "Put into a chokehold with martial-art [src]", ATKLOG_ALL)
 	chokehold_active = TRUE
+	var/damage_multiplier = 1 + A.getStaminaLoss() / 100 //The chokehold is more effective the more tired the target is.
 	while(do_mob(A, D, 2 SECONDS) && chokehold_active)
-		var/damage_multiplier = 1 + A.getStaminaLoss()/100 //The chokehold is more effective the more tired the target is.
 		D.apply_damage(10 * damage_multiplier, OXY)
 		if(D.getOxyLoss() >= 50 || D.health <= 20)
 			D.visible_message("<span class ='danger>[A] puts [D] to sleep!</span>", \
@@ -56,8 +56,8 @@
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
 	var/bonus_damage = 13
-	if(D.IsWeakened() || IS_HORIZONTAL(D))
-		bonus_damage += 5
+	if(IS_HORIZONTAL(D))
+		bonus_damage += 9 //Being stomped on doesn't feel good.
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, STAMINA)
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
@@ -67,12 +67,13 @@
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
-	if(IS_HORIZONTAL(A) && !D.stat && !D.IsWeakened())
+	if(IS_HORIZONTAL(A) && !IS_HORIZONTAL(D))
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.KnockDown(3 SECONDS)
-		A.SetKnockDown(0 SECONDS) //Quickly get up like the cool dude you are.
+		A.SetKnockDown(0 SECONDS)
+		A.stand_up() //Quickly get up like the cool dude you are.
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
@@ -85,8 +86,7 @@
 	else
 		drop_restraining()
 
-
-	if(!D.stat || !D.IsWeakened() || !restraining)
+	if(!IS_HORIZONTAL(D) || !restraining)
 		D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 							"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
