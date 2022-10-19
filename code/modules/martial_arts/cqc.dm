@@ -45,7 +45,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = D.grabbedby(A, 1)
 	if(G)
-		D.Stun(1 SECOND) //Catch them off guard, but not long enough to do too much nonsense
+		D.Stun(1 SECONDS) //Catch them off guard, but not long enough to do too much nonsense
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : grabbed", ATKLOG_ALL)
 
 	return TRUE
@@ -96,7 +96,7 @@
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 
-	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)
+	add_attack_logs(A, D, "Disarmed with martial-art [src]", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/cqc/explaination_header(user)
