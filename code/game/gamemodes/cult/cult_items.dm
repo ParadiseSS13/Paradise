@@ -315,7 +315,7 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
-		GLOB.command_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
+		GLOB.major_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
 		qdel(src)
 
 /obj/item/cult_shift

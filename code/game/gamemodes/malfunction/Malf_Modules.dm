@@ -276,7 +276,7 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
 		SSshuttle.emergency.timer = world.time
-		GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
+		GLOB.major_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
@@ -296,7 +296,7 @@
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
+			GLOB.major_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)

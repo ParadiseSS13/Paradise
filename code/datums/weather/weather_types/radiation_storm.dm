@@ -60,7 +60,7 @@
 /datum/weather/rad_storm/end()
 	if(..())
 		return
-	GLOB.priority_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
+	GLOB.major_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
 	status_alarm(FALSE)
 	if(!pre_maint_all_access)
 		revoke_maint_all_access()

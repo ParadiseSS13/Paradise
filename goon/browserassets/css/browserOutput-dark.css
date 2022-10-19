@@ -289,8 +289,6 @@ em				{font-style: normal;font-weight: bold;}
 .djradio				{color: #996600;}
 .binaryradio			{color: #1B00FB;font-family: 'Courier New', Courier, monospace;}
 .mommiradio			{color: #6685f5;}
-.alert				{color: #d82020;}
-h1.alert, h2.alert			{color: #FFF;}
 .ghostalert			{color: #cc00c6;font-style: italic; font-weight: bold;}
 .emote				{font-style: italic;}
 .selecteddna			{color: #FFFFFF; 	background-color: #001B1B}
@@ -427,3 +425,12 @@ h1.alert, h2.alert			{color: #FFF;}
 /* Syndicate codewords */
 span.body .codephrases 		{color: #5555FF;}
 span.body .coderesponses 		{color: #FF3333;}
+
+.annc { font-size: 24pt; }
+.annc h1, .annc h2 { color: #fff; }
+.annc p { color: #d82020; font-size: 12pt; }
+.annc h1 { font-size: 100%; }
+.annc h2 { font-size: 90%; }
+.annc.minor h1 { font-size: 80%; }
+.annc.minor h2 { font-size: 70%; }
+.annc.sec h1 { color: #f00; font-size: 80%; font-family: Verdana, sans-serif; }
