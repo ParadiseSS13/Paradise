@@ -690,29 +690,32 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	density = TRUE
 
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
-			P.use(1)
-			new /obj/structure/table/abductor(loc)
-			qdel(src)
+	if(!(istype(I, /obj/item/stack/sheet/mineral/abductor) || istype(I, /obj/item/stack/sheet/mineral/silver)))
+		return ..()
+
+	var/obj/item/stack/stack = I
+
+	if(stack.get_amount() < 1)
+		to_chat(user, "<span class='warning'>You need one [stack] sheet to do this!</span>")
 		return
-	if(istype(I, /obj/item/stack/sheet/mineral/silver))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
-			P.use(1)
+
+	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
+
+	if(!do_after(user, 50, target = src))
+		return
+
+	switch(stack.type)
+		if(/obj/item/stack/sheet/mineral/abductor, /obj/item/stack/sheet/mineral/abductor/fifty)
+			make_new_table(/obj/structure/table/abductor)
+
+		if(/obj/item/stack/sheet/mineral/silver)
 			new /obj/machinery/optable/abductor(loc)
 			qdel(src)
-		return
-	return ..()
+
+		else
+			return ..()
+
+	stack.use(1)
 
 /obj/structure/table/abductor
 	name = "alien table"
