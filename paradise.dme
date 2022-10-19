@@ -13,7 +13,6 @@
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\base_map.dm"
 #include "_maps\map_datums.dm"
-#include "_maps\map_files\templates\ussp.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
