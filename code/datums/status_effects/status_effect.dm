@@ -108,6 +108,8 @@
 /// Applies a given status effect to this mob, returning the effect if it was successful or null otherwise
 /mob/living/proc/apply_status_effect(effect, ...)
 	. = null
+	if(QDELETED(src))
+		return
 	var/datum/status_effect/S1 = effect
 	LAZYINITLIST(status_effects)
 	for(var/datum/status_effect/S in status_effects)

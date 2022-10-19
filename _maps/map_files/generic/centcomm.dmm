@@ -4344,7 +4344,9 @@
 	},
 /obj/item/kitchen/knife,
 /obj/machinery/newscaster{
-	pixel_x = -32
+	dir = 4;
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_y = 5
@@ -4733,7 +4735,9 @@
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
 /obj/machinery/newscaster{
-	pixel_y = -32
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -7432,7 +7436,8 @@
 /obj/structure/table/wood,
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/machinery/newscaster{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -8385,7 +8390,8 @@
 /obj/item/melee/chainofcommand,
 /obj/item/stamp/captain,
 /obj/machinery/newscaster/security_unit{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -8953,7 +8959,9 @@
 /obj/item/pen,
 /obj/structure/table/reinforced,
 /obj/machinery/newscaster{
-	pixel_x = 32
+	dir = 8;
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -9717,7 +9725,9 @@
 /obj/item/folder/red,
 /obj/item/lighter,
 /obj/machinery/newscaster{
-	pixel_y = -32
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -10188,7 +10198,9 @@
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/dice,
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -32
+	dir = 4;
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
@@ -10543,7 +10555,9 @@
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_y = -32
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -11368,7 +11382,9 @@
 /obj/item/folder/red,
 /obj/item/lighter,
 /obj/machinery/newscaster{
-	pixel_y = -32
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -11671,7 +11687,9 @@
 	},
 /obj/item/storage/lockbox/medal,
 /obj/machinery/newscaster/security_unit{
-	pixel_x = 32
+	dir = 8;
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
@@ -12768,7 +12786,8 @@
 	pixel_x = 4.5
 	},
 /obj/machinery/newscaster{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -12990,10 +13009,6 @@
 "ZT" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/tdome/tdomeobserve)
-"ZU" = (
-/obj/machinery/newscaster,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/control)
 "ZV" = (
 /obj/structure/railing,
 /obj/structure/railing{
@@ -40677,7 +40692,7 @@ ZC
 Wd
 ZC
 Nq
-ZU
+YA
 dv
 xv
 Zx

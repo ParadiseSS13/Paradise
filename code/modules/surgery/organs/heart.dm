@@ -124,6 +124,15 @@
 		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, .proc/just_before_revive)
 		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, .proc/on_defib_revive)
 
+/obj/item/organ/internal/heart/cursed/remove(mob/living/carbon/M, special)
+	if(owner?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
+		owner.client.color = ""
+
+	UnregisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, .proc/just_before_revive)
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED, .proc/on_defib_revive)
+	return ..()
+
+
 /obj/item/organ/internal/heart/cursed/proc/on_defib_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, obj/item/defib, mob/dead/observer/ghost = null)
 	SIGNAL_HANDLER  // COMSIG_LIVING_DEFIBBED
 

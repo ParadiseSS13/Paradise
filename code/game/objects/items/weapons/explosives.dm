@@ -153,7 +153,7 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			if(!ex_breach && istype(target, /turf/simulated/wall)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
+			if(!ex_breach && iswallturf(target)) //Walls get dismantled instead of destroyed to avoid making unwanted holes to space.
 				var/turf/simulated/wall/W = target
 				W.dismantle_wall(TRUE, TRUE)
 			else
@@ -222,7 +222,7 @@
 		location = get_turf(src)
 	if(location)
 		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(8,0, location, aim_dir)
+		smoke.set_up(8, FALSE, location, aim_dir)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
 			for(var/turf/simulated/wall/W in range(1, location))

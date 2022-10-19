@@ -63,7 +63,7 @@
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/manifold/hide(i)
-	if(level == 1 && istype(loc, /turf/simulated))
+	if(level == 1 && issimulatedturf(loc))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()

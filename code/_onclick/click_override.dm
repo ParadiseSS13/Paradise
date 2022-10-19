@@ -82,7 +82,7 @@
 			break
 		var/list/next_shocked = list()
 		for(var/atom/movable/AM in orange(3, target_atom))
-			if(AM == user || istype(AM, /obj/effect) || isobserver(AM))
+			if(AM == user || iseffect(AM) || isobserver(AM))
 				continue
 			next_shocked.Add(AM)
 
