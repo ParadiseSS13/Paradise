@@ -45,8 +45,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = D.grabbedby(A, 1)
 	if(G)
-		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
-		add_attack_logs(A, D, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
+		D.Stun(1 SECOND) //Catch them off guard, but not long enough to do too much nonsense
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] : grabbed", ATKLOG_ALL)
 
 	return TRUE
 
@@ -85,16 +85,13 @@
 	else
 		drop_restraining()
 
-	var/obj/item/I = null
 
 	if(!D.stat || !D.IsWeakened() || !restraining)
 		D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 							"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
-		if(D.unEquip(I) && !(QDELETED(I) || (I.flags & ABSTRACT)))
-			A.put_in_hands(I)
-		D.Jitter(4 SECONDS)
-		D.apply_damage(5, STAMINA)
+		D.SetSlur(4 SECONDS)
+		D.apply_damage(8, STAMINA)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
