@@ -1,48 +1,48 @@
 GLOBAL_DATUM_INIT(minor_announcement, /datum/announcement/minor, new())
-GLOBAL_DATUM_INIT(priority_announcement, /datum/announcement/priority, new(do_log = 0))
-GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, new(do_log = 0))
-GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = 0))
+GLOBAL_DATUM_INIT(priority_announcement, /datum/announcement/priority, new(do_log = FALSE))
+GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, new(do_log = FALSE))
+GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = FALSE))
 
 /datum/announcement
 	var/title = "Attention"
 	var/announcer = ""
-	var/log = 0
+	var/log = FALSE
 	var/sound
 	var/channel_name = "Station Announcements"
 	var/announcement_type = "Announcement"
-	var/admin_announcement = 0 // Admin announcements are received regardless of being in range of a radio, unless you're in the lobby to prevent metagaming
+	var/admin_announcement = FALSE // Admin announcements are received regardless of being in range of a radio, unless you're in the lobby to prevent metagaming
 	var/language = "Galactic Common"
 
-/datum/announcement/New(do_log = 0, new_sound = null)
+/datum/announcement/New(do_log = FALSE, new_sound = null)
 	sound = new_sound
 	log = do_log
 
-/datum/announcement/minor/New(do_log = 0, new_sound = sound('sound/misc/notice2.ogg'))
+/datum/announcement/minor/New(do_log = FALSE, new_sound = sound('sound/misc/notice2.ogg'))
 	..(do_log, new_sound)
 	title = "Attention"
 	announcement_type = "Minor Announcement"
 
-/datum/announcement/priority/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'))
+/datum/announcement/priority/New(do_log = TRUE, new_sound = sound('sound/misc/notice2.ogg'))
 	..(do_log, new_sound)
 	title = "Priority Announcement"
 	announcement_type = "Priority Announcement"
 
-/datum/announcement/priority/command/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'))
+/datum/announcement/priority/command/New(do_log = TRUE, new_sound = sound('sound/misc/notice2.ogg'))
 	..(do_log, new_sound)
-	admin_announcement = 1
+	admin_announcement = TRUE
 	title = "NAS Trurl Update"
 	announcement_type = "NAS Trurl Update"
 
-/datum/announcement/priority/command/event/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'))
+/datum/announcement/priority/command/event/New(do_log = TRUE, new_sound = sound('sound/misc/notice2.ogg'))
 	..(do_log, new_sound)
-	admin_announcement = 0
+	admin_announcement = FALSE
 
-/datum/announcement/priority/security/New(do_log = 1, new_sound = sound('sound/misc/notice2.ogg'))
+/datum/announcement/priority/security/New(do_log = TRUE, new_sound = sound('sound/misc/notice2.ogg'))
 	..(do_log, new_sound)
 	title = "Security Announcement"
 	announcement_type = "Security Announcement"
 
-/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, msg_sanitized = 0, from, msg_language, new_sound2 = null)
+/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, msg_sanitized = FALSE, from, msg_language, new_sound2 = null)
 	if(!message)
 		return
 
@@ -51,7 +51,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/message_sound2 = new_sound2 ? sound(new_sound2) : sound
 
 	if(!msg_sanitized)
-		message = trim_strip_html_properly(message, allow_lines = 1)
+		message = trim_strip_html_properly(message, allow_lines = TRUE)
 	message_title = html_encode(message_title)
 
 	var/message_announcer = null
