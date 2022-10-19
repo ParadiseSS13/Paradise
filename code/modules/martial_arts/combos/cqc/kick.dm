@@ -16,11 +16,11 @@
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
 	if(IS_HORIZONTAL(target) && !target.stat)
-		target.visible_message("<span class='warning'>[user] kicks [target]'s head, disorienting [target.p_them()] !</span>", \
+		target.visible_message("<span class='warning'>[user] kicks [target]'s head, disorienting [target.p_them()]!</span>", \
 					  		"<span class='userdanger'>[user] kicks your head, disorienting you!</span>")
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
 		target.adjustStaminaLoss(40)
 		target.adjustBrainLoss(15)
 		target.Silence(5 SECONDS)
-		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
+		add_attack_logs(user, target, "Kicked in the head with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
