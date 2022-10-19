@@ -48,6 +48,7 @@
 
 /obj/item/circuitboard/camera
 	board_name = "Camera Monitor"
+	desc = "A monitor board whose type can be changed when screwed."
 	build_path = /obj/machinery/computer/security
 	origin_tech = "programming=2;combat=2"
 	var/static/list/monitor_names_paths = list(
