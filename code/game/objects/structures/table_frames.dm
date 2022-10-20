@@ -29,7 +29,7 @@
 		return ..()
 
 	if(stack.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need at least one of [stack] sheet to do this!</span>")
+		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
 		return
 
 	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
@@ -86,7 +86,7 @@
 	var/obj/item/stack/stack = I
 
 	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
-		to_chat(user, "<span class='warning'>You need at least one of [stack] sheet to do this!</span>")
+		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
 		return
 
 	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
@@ -118,7 +118,7 @@
 	var/obj/item/stack/stack = I
 
 	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
-		to_chat(user, "<span class='warning'>You need at least one of [stack] sheet to do this!</span>")
+		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
 		return
 
 	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
