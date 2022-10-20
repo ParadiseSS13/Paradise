@@ -79,9 +79,10 @@
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
-	set_mouse_desc()
+	update_appearance(UPDATE_DESC)
 
-/mob/living/simple_animal/mouse/proc/set_mouse_desc()
+/mob/living/simple_animal/mouse/update_desc()
+	. = ..()
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
@@ -147,7 +148,8 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/mouse/brown/Tom/set_mouse_desc()
+/mob/living/simple_animal/mouse/brown/Tom/update_desc()
+	. = ..()
 	desc = "Jerry the cat is not amused."
 
 /mob/living/simple_animal/mouse/brown/Tom/Initialize(mapload)
