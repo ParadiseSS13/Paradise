@@ -1,6 +1,5 @@
 /datum/martial_art/cqc
 	name = "CQC"
-	block_chance = 75
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
@@ -101,6 +100,3 @@
 
 /datum/martial_art/cqc/explaination_header(user)
 	to_chat(user, "<b><i>You try to remember some of the basics of CQC.</i></b>")
-
-/datum/martial_art/cqc/explaination_footer(user)
-	to_chat(user, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
