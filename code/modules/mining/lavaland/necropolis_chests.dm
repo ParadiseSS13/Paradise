@@ -426,6 +426,9 @@
 	status = 0
 	contents = newlist(/obj/item/cursed_katana)
 
+/obj/item/organ/internal/cyberimp/arm/katana/prepare_eat()
+	return // It's a shard
+
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
 	. = ..()
