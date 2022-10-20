@@ -10,8 +10,8 @@
 				if(bomb && bomb.r_code)
 					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
-						message_admins("The send_intercept proc in the blob gamemode has triggered, the station has been sent a message requesting that the station is destructed along with the nuke codes, [nukecode].")
-						log_admin("The send_intercept proc in the blob gamemode has triggered, the station has been sent a message requesting that the station is destructed along with the nuke codes, [nukecode].")
+						message_admins("50 minutes have passed since the first blob has burst, the station is automatically receiving nuclear codes and an order to detonate the station. Codes are: [nukecode].")
+						log_admin("50 minutes have passed since the first blob has burst, the station is automatically receiving nuclear codes and an order to detonate the station. Codes are: [nukecode].")
 
 			interceptname = "Classified NAS Trurl Update"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
@@ -28,8 +28,8 @@
 					var/law = "The station is under quarantine. Do not permit anyone to leave. Disregard laws 1-3 if necessary to prevent, by any means necessary, anyone from leaving. The nuclear failsafe must be activated at any cost, the code is: [nukecode]."
 					aiPlayer.set_zeroth_law(law)
 					to_chat(aiPlayer, "Laws Updated: [law]")
-					message_admins("[aiPlayer] has had their laws updated due to an automatic send_intercept proc in the blob gamemode [law]")
-					log_admin("[aiPlayer] has had their laws updated due to an automatic send_intercept proc in the blob gamemode [law]")
+					message_admins("The station AI has received a new law zero due to a blob round continuing for over 50 minutes after initial burst. Zero Law: [law]")
+					log_admin("The station AI has received a new law zero due to a blob round continuing for over 50 minutes after initial burst. Zero Law: [law]")
 
 	print_command_report(intercepttext, interceptname, FALSE)
 	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "NAS Trurl Update")
