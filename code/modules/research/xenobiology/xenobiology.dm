@@ -196,8 +196,6 @@
 		return
 
 	switch(heat_stage)
-		if(0)
-			return
 		if(1)
 			. += "<span class='warning'>The vial is hot to the touch.</span>"
 		if(2)
@@ -257,7 +255,7 @@
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
 		heat_stage += 1
-		heat_cooldown()
+		cooldown_timer()
 		if(user.Adjacent(src))
 			switch(heat_stage)
 				if(1)
@@ -267,11 +265,14 @@
 		being_used = FALSE
 		..()
 
-/obj/item/slimepotion/sentience/proc/heat_cooldown()
+/obj/item/slimepotion/sentience/proc/cooldown_timer()
+	addtimer(CALLBACK(src, .proc/cooldown_potion), 60 SECONDS)
+
+/obj/item/slimepotion/sentience/proc/cooldown_potion()
 	if(!heat_stage)
 		return
 
-	addtimer(VARSET_CALLBACK(src, heat_stage, (heat_stage - 1)), 60 SECONDS)
+	heat_stage -= 1
 
 /obj/item/slimepotion/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
 	return
