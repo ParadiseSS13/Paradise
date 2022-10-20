@@ -126,7 +126,7 @@
 /turf/space,
 /area/space)
 "K" = (
-/obj/item/shard,
+/obj/item/gun/energy/laser/instakill/blue,
 /turf/space,
 /area/space)
 "N" = (
