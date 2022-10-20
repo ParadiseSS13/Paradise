@@ -255,7 +255,7 @@
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
 		heat_stage += 1
-		cooldown_timer()
+		addtimer(CALLBACK(src, .proc/cooldown_potion), 60 SECONDS)
 		if(user.Adjacent(src))
 			switch(heat_stage)
 				if(1)
@@ -264,9 +264,6 @@
 					to_chat(user, "<span class='warning'>[src] is boiling hot! You shudder to think what would happen if you used it again...</span>")
 		being_used = FALSE
 		..()
-
-/obj/item/slimepotion/sentience/proc/cooldown_timer()
-	addtimer(CALLBACK(src, .proc/cooldown_potion), 60 SECONDS)
 
 /obj/item/slimepotion/sentience/proc/cooldown_potion()
 	if(!heat_stage)
