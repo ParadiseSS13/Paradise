@@ -214,8 +214,8 @@
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
 		H.set_species(mob_species)
-		if(random)
-			H.real_name = random_name(H.gender, H.dna.species)
+	if(random)
+		H.real_name = random_name(H.gender, H.dna.species)
 
 	if(husk)
 		H.Drain()
