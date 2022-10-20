@@ -534,11 +534,6 @@
 	drink_desc = "Heavy, hot and strong. Just like the Iron fist of the LAW."
 	taste_description = "THE LAW"
 
-/datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
-	var/update_flag = STATUS_UPDATE_NONE
-	M.Stun(2 SECONDS)
-	return ..() | update_flag
-
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
 	id = "irishcream"
