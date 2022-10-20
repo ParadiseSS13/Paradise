@@ -75,7 +75,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 		NewsCast(message, message_title)
 
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
-	if(message_sound2 != null)
+	if(message_sound2)
 		Sound(message_sound2, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
 
