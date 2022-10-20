@@ -688,29 +688,31 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	framestackamount = 1
 	density = TRUE
+	anchored = TRUE
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params, already_tried)
 	if(!(istype(I, /obj/item/stack/sheet/mineral/abductor) || istype(I, /obj/item/stack/sheet/mineral/silver)))
+		already_tried = TRUE
 		return ..()
 
 	var/obj/item/stack/stack = I
 
-	if(stack.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need one [stack] sheet to do this!</span>")
+	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
+		to_chat(user, "<span class='warning'>You need at least one of [stack] sheet to do this!</span>")
 		return
 
 	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
 
-	if(!do_after(user, 50, target = src))
+	if(!(do_after(user, 50, target = src) && stack.use(1)))
 		return
 
 	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
-		make_new_table(/obj/structure/table/abductor)
-	else
-		new /obj/machinery/optable/abductor(loc)
-		qdel(src)
+		make_new_table(stack.table_type)
+		return
 
-	stack.use(1)
+	new /obj/machinery/optable/abductor(loc)
+	qdel(src)
 
 /obj/structure/table/abductor
 	name = "alien table"
