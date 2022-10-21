@@ -28549,7 +28549,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/atmos/control)
 "bGE" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
