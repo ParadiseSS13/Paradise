@@ -76,11 +76,6 @@
 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
 		update_icon(UPDATE_OVERLAYS)
 		return
-	if(istype(I, /obj/item/borg/upgrade/vtec))
-		vehicle_move_delay = 1
-		qdel(I)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
-		return
 	return ..()
 
 /obj/vehicle/janicart/update_overlays()
