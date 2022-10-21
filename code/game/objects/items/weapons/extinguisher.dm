@@ -45,10 +45,11 @@
 	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
 
 
-/obj/item/extinguisher/New()
-	..()
-	create_reagents(max_water)
-	reagents.add_reagent("water", max_water)
+/obj/item/extinguisher/Initialize(mapload)
+	. = ..()
+	if(!reagents)
+		create_reagents(max_water)
+		reagents.add_reagent("water", max_water)
 
 /obj/item/extinguisher/attack_self(mob/user as mob)
 	safety = !safety

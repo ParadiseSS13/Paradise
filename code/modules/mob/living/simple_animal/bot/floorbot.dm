@@ -238,7 +238,7 @@
 				start_maketile(target)
 			else if(istype(target, /turf/) && emagged < 2)
 				repair(target)
-			else if(emagged == 2 && istype(target,/turf/simulated/floor))
+			else if(emagged == 2 && isfloorturf(target))
 				var/turf/simulated/floor/F = target
 				anchored = TRUE
 				mode = BOT_REPAIRING
@@ -302,7 +302,7 @@
 	return result
 
 /mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
-	if(istype(target_turf, /turf/space/))
+	if(isspaceturf(target_turf))
 		 //Must be a hull breach or in bridge mode to continue.
 		if(!is_hull_breach(target_turf) && !targetdirection)
 			target = null
@@ -318,7 +318,7 @@
 
 	anchored = TRUE
 
-	if(istype(target_turf, /turf/space/)) //If we are fixing an area not part of pure space, it is
+	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
 		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)

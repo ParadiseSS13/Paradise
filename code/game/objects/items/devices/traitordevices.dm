@@ -59,7 +59,7 @@
 /obj/item/teleporter/emp_act(severity)
 	var/teleported_something = FALSE
 	if(prob(50 / severity))
-		if(istype(loc, /mob/living/carbon/human))
+		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)

@@ -108,9 +108,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/overlay_lifespan = 0
 
 	var/sparks_spread = FALSE
-	var/sparks_amt = 0 //cropped at 10
-	var/smoke_spread = 0 //1 - harmless, 2 - harmful
-	var/smoke_amt = 0 //cropped at 10
+	var/sparks_amt = 0
+
+	///Determines if the spell has smoke, and if so what effect the smoke has. See spell defines.
+	var/smoke_type = SMOKE_NONE
+	var/smoke_amt = 0
 
 	var/critfailchance = 0
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on the admin zlevel
@@ -375,7 +377,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(overlay)
 		for(var/atom/target in targets)
 			var/location
-			if(istype(target,/mob/living))
+			if(isliving(target))
 				location = target.loc
 			else if(istype(target,/turf))
 				location = target
@@ -393,27 +395,25 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	SHOULD_CALL_PARENT(TRUE)
 	for(var/atom/target in targets)
 		var/location
-		if(istype(target,/mob/living))
+		if(isliving(target))
 			location = target.loc
 		else if(istype(target,/turf))
 			location = target
-		if(istype(target,/mob/living) && message)
+		if(isliving(target) && message)
 			to_chat(target, text("[message]"))
 		if(sparks_spread)
 			do_sparks(sparks_amt, 0, location)
-		if(smoke_spread)
-			if(smoke_spread == 1)
-				var/datum/effect_system/smoke_spread/smoke = new
-				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
-				smoke.start()
-			else if(smoke_spread == 2)
-				var/datum/effect_system/smoke_spread/bad/smoke = new
-				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
-				smoke.start()
-			else if(smoke_spread == 3)
-				var/datum/effect_system/smoke_spread/sleeping/smoke = new
-				smoke.set_up(smoke_amt, 0, location) // same here
-				smoke.start()
+		if(smoke_type)
+			var/datum/effect_system/smoke_spread/smoke
+			switch(smoke_type)
+				if(SMOKE_HARMLESS)
+					smoke = new /datum/effect_system/smoke_spread()
+				if(SMOKE_COUGHING)
+					smoke = new /datum/effect_system/smoke_spread/bad()
+				if(SMOKE_SLEEPING)
+					smoke = new /datum/effect_system/smoke_spread/sleeping()
+			smoke.set_up(smoke_amt, FALSE, location)
+			smoke.start()
 
 	custom_handler?.after_cast(targets, user, src)
 

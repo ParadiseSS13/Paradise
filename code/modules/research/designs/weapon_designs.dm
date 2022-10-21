@@ -26,7 +26,7 @@
 	name = "Energy Crossbow Parts Kit"
 	desc = "A kit to reverse-engineer a laser gun into an energy crossbow, favored by syndicate infiltration teams and carp hunters."
 	id = "largecrossbow"
-	req_tech = list("combat" = 5, "engineering" = 3, "magnets" = 5, "syndicate" = 3)
+	req_tech = list("combat" = 5, "engineering" = 3, "magnets" = 5, "syndicate" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1500, MAT_URANIUM = 1500, MAT_SILVER = 1500)
 	build_path = /obj/item/weaponcrafting/gunkit/ebow
@@ -269,4 +269,14 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
 	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
+	category = list("Weapons")
+
+/datum/design/silencer
+	name = "u-ION Silencer Parts Kit"
+	desc = "Nanotrasens take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
+	id = "silencer"
+	req_tech = list("combat" = 7, "magnets" = 6, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/weaponcrafting/gunkit/u_ionsilencer
 	category = list("Weapons")

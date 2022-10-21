@@ -91,7 +91,7 @@
 														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
 						twisted.set_species(chosentype, retain_damage = TRUE)
 					else
-						twisted.visible_message("<span class='danger'>[twisted] scratches at thier skin!</span>", \
+						twisted.visible_message("<span class='danger'>[twisted] scratches at their skin!</span>", \
 														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
 						twisted.adjustBruteLoss(-5)
 						twisted.adjustStaminaLoss(5)
