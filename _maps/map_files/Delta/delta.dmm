@@ -127584,6 +127584,7 @@
 /area/medical/psych)
 "vlU" = (
 /obj/machinery/requests_console{
+	department = "Detective";
 	name = "Detective Requests Console";
 	pixel_x = -32
 	},
