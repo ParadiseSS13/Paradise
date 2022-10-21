@@ -46,7 +46,7 @@
 
 /obj/item/melee/rapier/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES - PROJECTILE_ATTACK)
+	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/melee/icepick
 	name = "ice pick"
