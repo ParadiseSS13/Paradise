@@ -44,9 +44,11 @@
 /turf/unsimulated/floor/carpet
 	name = "Carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
-	icon_state = "carpet"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	icon_state = "carpet-255"
+	base_icon_state = "carpet"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET)
+	canSmoothWith = list(SMOOTH_GROUP_CARPET)
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
@@ -63,9 +65,11 @@
 	name = "lava"
 	desc = "That looks... a bit dangerous"
 	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "smooth"
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/unsimulated/floor/lava)
+	icon_state = "lava-255"
+	base_icon_state = "lava"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_LAVA)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 	var/lava_damage = 250
 	var/lava_fire = 20
 	light_range = 2

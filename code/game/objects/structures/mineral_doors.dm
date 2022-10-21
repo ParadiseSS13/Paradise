@@ -222,7 +222,8 @@
 /obj/structure/mineral_door/wood/paperframe
 	name = "Paperframe door"
 	desc = "Just looking at it's clean and simple design makes you at piece with your demons"
-	icon_state = "paperframe"
+	icon_state = "paperframe-0"
+	base_icon_state = "paperframe"
 	openSound = 'sound/effects/glider_door.ogg'
 	closeSound = 'sound/effects/glider_door.ogg'
 	sheetType = /obj/item/stack/sheet/wood

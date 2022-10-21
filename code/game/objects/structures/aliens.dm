@@ -42,13 +42,15 @@
 	name = "resin"
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
-	icon_state = "resin"
+	icon_state = "resin_wall-0"
+	base_icon_state = "resin_wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = list(/obj/structure/alien/resin)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	max_integrity = 200
-	smooth = SMOOTH_TRUE
 	var/resintype = null
 
 /obj/structure/alien/resin/Initialize()
@@ -72,9 +74,10 @@
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
-	icon_state = "wall0"	//same as resin, but consistency ho!
-	resintype = "wall"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	icon_state = "resin_wall-0" //same as resin, but consistency ho!
+	base_icon_state = "resin_wall"
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -88,11 +91,13 @@
 	name = "resin membrane"
 	desc = "Resin just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
-	icon_state = "membrane0"
+	icon_state = "resin_membrane-0"
+	base_icon_state = "resin_membrane"
 	opacity = 0
 	max_integrity = 160
 	resintype = "membrane"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
 /obj/structure/alien/resin/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -112,9 +117,16 @@
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
 	density = FALSE
-	layer = TURF_LAYER
+	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
-	icon_state = "weeds"
+	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
+	icon_state = "weeds1-0"
+	base_icon_state = "weeds1"
+	max_integrity = 15
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
+	transform = matrix(1, 0, -4, 0, 1, -4)
 	max_integrity = 15
 	var/obj/structure/alien/weeds/node/linked_node = null
 	var/static/list/weedImageCache
@@ -128,15 +140,12 @@
 		return
 	if(icon_state == "weeds")
 		icon_state = pick("weeds", "weeds1", "weeds2")
-	fullUpdateWeedOverlays()
 	spawn(rand(150, 200))
 		if(src)
 			Life()
 
 /obj/structure/alien/weeds/Destroy()
-	var/turf/T = loc
-	for(var/obj/structure/alien/weeds/W in range(1,T))
-		W.updateWeedOverlays()
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	linked_node = null
 	return ..()
 
@@ -162,45 +171,13 @@
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
-/obj/structure/alien/weeds/proc/updateWeedOverlays()
-
-	overlays.Cut()
-
-	if(!weedImageCache || !weedImageCache.len)
-		weedImageCache = list()
-		weedImageCache.len = 4
-		weedImageCache[WEED_NORTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_n", layer=2.11, pixel_y = -32)
-		weedImageCache[WEED_SOUTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_s", layer=2.11, pixel_y = 32)
-		weedImageCache[WEED_EAST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_e", layer=2.11, pixel_x = -32)
-		weedImageCache[WEED_WEST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_w", layer=2.11, pixel_x = 32)
-
-	var/turf/N = get_step(src, NORTH)
-	var/turf/S = get_step(src, SOUTH)
-	var/turf/E = get_step(src, EAST)
-	var/turf/W = get_step(src, WEST)
-	if(!locate(/obj/structure/alien) in N.contents)
-		if(istype(N, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_SOUTH_EDGING]
-	if(!locate(/obj/structure/alien) in S.contents)
-		if(istype(S, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_NORTH_EDGING]
-	if(!locate(/obj/structure/alien) in E.contents)
-		if(istype(E, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_WEST_EDGING]
-	if(!locate(/obj/structure/alien) in W.contents)
-		if(istype(W, /turf/simulated/floor))
-			overlays += weedImageCache[WEED_EAST_EDGING]
-
-
-/obj/structure/alien/weeds/proc/fullUpdateWeedOverlays()
-	for(var/obj/structure/alien/weeds/W in range(1,src))
-		W.updateWeedOverlays()
-
 //Weed nodes
 /obj/structure/alien/weeds/node
 	name = "glowing resin"
 	desc = "Blue bioluminescence shines from beneath the surface."
-	icon_state = "weednode"
+	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
+	icon_state = "weednode-0"
+	base_icon_state = "weednode"
 	light_range = 1
 	var/node_range = NODERANGE
 

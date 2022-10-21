@@ -6,6 +6,7 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
+	var/list/fixed_underlay = null ///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
 	///Properties for open tiles (/floor)
@@ -51,8 +52,16 @@
 	vis_contents.Cut()
 
 	levelupdate()
-	if(smooth)
-		queue_smooth(src)
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
 	visibilityChanged()
 
 	for(var/atom/movable/AM in src)

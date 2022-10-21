@@ -2,7 +2,9 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
+	icon_state = "reinforced_wall-0"
+	base_icon_state = "reinforced_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	opacity = 1
 	density = 1
 	explosion_block = 2
@@ -69,7 +71,7 @@
 					return
 				d_state = RWALL_INTACT
 				update_icon()
-				queue_smooth_neighbors(src)
+				QUEUE_SMOOTH_NEIGHBORS(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
 			return
 
@@ -86,7 +88,7 @@
 			to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall.</span>")
 			ChangeTurf(/turf/simulated/wall/r_wall/coated)
 			update_icon()
-			queue_smooth_neighbors(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
 			can_be_reinforced = FALSE
 		return
 	else
@@ -230,11 +232,12 @@
 
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
-		smooth = SMOOTH_FALSE
-		clear_smooth_overlays()
+		smoothing_flags = NONE
 	else
-		smooth = SMOOTH_TRUE
-		icon_state = ""
+		smoothing_flags = SMOOTH_BITMASK
+		icon_state = "[base_icon_state]-[smoothing_junction]"
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH(src)
 
 /turf/simulated/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)

@@ -11,7 +11,8 @@
 	desc = "A huge chunk of metal used to seperate rooms."
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
+	icon_state = "wall-0"
+	base_icon_state = "wall"
 
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
@@ -23,16 +24,9 @@
 	opacity = TRUE
 	max_integrity = 100
 
-	canSmoothWith = list(
-	/turf/simulated/wall,
-	/turf/simulated/wall/r_wall,
-	/obj/structure/falsewall,
-	/obj/structure/falsewall/brass,
-	/obj/structure/falsewall/clockwork,
-	/obj/structure/falsewall/reinforced,  // WHY DO WE SMOOTH WITH FALSE R-WALLS WHEN WE DON'T SMOOTH WITH REAL R-WALLS. //because we do smooth with real r-walls now
-	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust)
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
@@ -75,39 +69,41 @@
 
 	opening = 1
 	if(density)
-		do_the_flick()
-		sleep(4)
+		flick("fwall_opening", src)
 		density = 0
 		set_opacity(0)
-		update_icon(0)
+		update_icon()
 	else
 		var/srcturf = get_turf(src)
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
 			opening = 0
 			return
-		do_the_flick()
+		flick("fwall_closing", src)
 		density = 1
-		sleep(4)
 		set_opacity(1)
 		update_icon()
 	air_update_turf(1)
 	opening = 0
+	update_icon()
 
-/obj/structure/falsewall/proc/do_the_flick()
-	if(density)
-		smooth = SMOOTH_FALSE
-		clear_smooth_overlays()
-		flick("fwall_opening", src)
-	else
-		flick("fwall_closing", src)
 
 /obj/structure/falsewall/update_icon()
-	if(density)
-		icon_state = initial(icon_state)
-		smooth = SMOOTH_TRUE
-		queue_smooth(src)
+	if(opening)
+		if(density)
+			icon_state = "fwall_opening"
+			smoothing_flags = NONE
+			clear_smooth_overlays()
+		else
+			icon_state = "fwall_closing"
 	else
-		icon_state = "fwall_open"
+		if(density)
+			icon_state = initial(icon_state)
+			smoothing_flags = SMOOTH_CORNERS
+			icon_state = "[base_icon_state]-[smoothing_junction]"
+			smoothing_flags = SMOOTH_BITMASK
+			QUEUE_SMOOTH(src)
+		else
+			icon_state = "fwall_open"
 
 /obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
 	var/turf/T = get_turf(src)
@@ -168,7 +164,9 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to seperate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
+	icon_state = "reinforced_wall-0"
+	base_icon_state = "reinforced_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	walltype = /turf/simulated/wall/r_wall
 	mineral = /obj/item/stack/sheet/plasteel
 
@@ -191,12 +189,15 @@
 	name = "uranium wall"
 	desc = "A wall with uranium plating. This is probably a bad idea."
 	icon = 'icons/turf/walls/uranium_wall.dmi'
-	icon_state = "uranium"
+	icon_state = "uranium_wall-0"
+	base_icon_state = "uranium_wall"
 	mineral = /obj/item/stack/sheet/mineral/uranium
 	walltype = /turf/simulated/wall/mineral/uranium
 	var/active = null
 	var/last_event = 0
-	canSmoothWith = list(/obj/structure/falsewall/uranium, /turf/simulated/wall/mineral/uranium)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_URANIUM_WALLS)
 
 /obj/structure/falsewall/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
 	radiate()
@@ -226,10 +227,13 @@
 	name = "gold wall"
 	desc = "A wall with gold plating. Swag!"
 	icon = 'icons/turf/walls/gold_wall.dmi'
-	icon_state = "gold"
+	icon_state = "gold_wall-0"
+	base_icon_state = "gold_wall"
 	mineral = /obj/item/stack/sheet/mineral/gold
 	walltype = /turf/simulated/wall/mineral/gold
-	canSmoothWith = list(/obj/structure/falsewall/gold, /turf/simulated/wall/mineral/gold)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_GOLD_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_GOLD_WALLS)
 
 /obj/structure/falsewall/silver
 	name = "silver wall"
@@ -338,20 +342,25 @@
 /obj/structure/falsewall/titanium
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle_wall.dmi'
-	icon_state = "shuttle"
+	icon = 'icons/turf/walls/plastinum_wall.dmi'
+	icon_state = "plastinum_wall-0"
+	base_icon_state = "plastinum_wall"
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "shuttle"
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"
@@ -360,7 +369,8 @@
 	icon_state = "clockwork_wall"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
-	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
+	smoothing_flags = SMOOTH_CORNERS
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
 	walltype = /turf/simulated/wall/clockwork
 	mineral = /obj/item/stack/sheet/brass

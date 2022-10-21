@@ -69,6 +69,7 @@
 	var/is_haunted = FALSE
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
+	var/area/area_limited_icon_smoothing
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src

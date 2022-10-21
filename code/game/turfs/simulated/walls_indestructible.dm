@@ -24,7 +24,7 @@
 /turf/simulated/wall/indestructible/narsie_act()
 	return
 
-/turf/simulated/wall/indestructible/ratvar_act()
+/turf/simulated/wall/indestructible/ratvar_act(force, ignore_mobs)
 	return
 
 /turf/simulated/wall/indestructible/burn_down()
@@ -54,12 +54,15 @@
 	name = "necropolis wall"
 	desc = "A thick, seemingly indestructible stone wall."
 	icon = 'icons/turf/walls/boss_wall.dmi'
-	icon_state = "wall"
-	canSmoothWith = list(/turf/simulated/wall/indestructible/boss, /turf/simulated/wall/indestructible/boss/see_through)
+	icon_state = "boss_wall-0"
+	base_icon_state = "boss_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	explosion_block = 50
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	smooth = SMOOTH_TRUE
-
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
+	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 /turf/simulated/wall/indestructible/boss/see_through
 	opacity = FALSE
 
@@ -68,8 +71,11 @@
 	desc = "A wall made out of a strange metal. The squares on it pulse in a predictable pattern."
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "wall"
-	smooth = SMOOTH_TRUE
+	smoothing_flags = SMOOTH_CORNERS
 
 /turf/simulated/wall/indestructible/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
-	icon_state = "uranium"
+	icon_state = "uranium_wall-0"
+	base_icon_state = "uranium_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)

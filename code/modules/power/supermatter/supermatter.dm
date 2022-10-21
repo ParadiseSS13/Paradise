@@ -33,6 +33,7 @@
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. <span class='danger'>You get headaches just from looking at it.</span>"
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter_shard"
+	base_icon_state = "darkmatter_shard"
 	density = 1
 	anchored = FALSE
 	light_range = 4
@@ -41,7 +42,6 @@
 
 	var/gasefficency = 0.125
 
-	var/base_icon_state = "darkmatter_shard"
 
 	var/damage = 0
 	var/damage_archived = 0

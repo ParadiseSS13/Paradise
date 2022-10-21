@@ -329,18 +329,16 @@
 	icon_state = "plating"
 /turf/simulated/floor/holofloor/grass
 	name = "Lush Grass"
-	icon_state = "grass1"
+	icon = 'icons/turf/floors/grass.dmi'
+	icon_state = "grass-0"
+	base_icon_state = "grass"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS)
+	canSmoothWith = list(SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
+	pixel_x = -9
+	pixel_y = -9
+	layer = ABOVE_OPEN_TURF_LAYER
 	floor_tile = /obj/item/stack/tile/grass
-
-/turf/simulated/floor/holofloor/grass/New()
-	..()
-	spawn(1)
-		update_icon()
-
-/turf/simulated/floor/holofloor/grass/update_icon()
-	..()
-	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
-		icon_state = "grass[pick("1","2","3","4")]"
 
 /turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
 	return
@@ -364,14 +362,16 @@
 
 /obj/structure/table/holotable
 	flags = NODECONSTRUCT
-	canSmoothWith = list(/obj/structure/table/holotable)
+	canSmoothWith = list(SMOOTH_GROUP_TABLES)
 
 /obj/structure/table/holotable/wood
 	name = "wooden table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
-	icon_state = "wood_table"
-	canSmoothWith = list(/obj/structure/table/holotable/wood)
+	icon_state = "wood_table-0"
+	base_icon_state = "wood_table"
+	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
+	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
 
 /obj/structure/chair/stool/holostool
 	flags = NODECONSTRUCT
