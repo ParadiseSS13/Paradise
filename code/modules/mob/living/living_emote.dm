@@ -71,6 +71,7 @@
 	cooldown = 10 SECONDS
 	volume = 40
 	unintentional_stat_allowed = DEAD
+	muzzle_ignore = TRUE
 	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_alien = "seizes up and falls limp, their eyes dead and lifeless..."
@@ -98,7 +99,10 @@
 		var/mob/living/carbon/human/H = user
 		if(H.dna.species)
 			message = H.dna.species.death_message
-			return pick(H.dna.species.death_sounds)
+			if(H.is_muzzled())
+				return
+			else
+				return pick(H.dna.species.death_sounds)
 
 	if(isalien(user))
 		var/mob/living/carbon/alien/A = user
