@@ -797,6 +797,7 @@
 					M.grab_ghost()
 					M.update_revive()
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
+					SSblackbox.record_feedback("tally", "players_revived", 1, "strange_reagent")
 	..()
 
 /datum/reagent/medicine/mannitol

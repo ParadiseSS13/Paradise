@@ -137,11 +137,14 @@
 	return
 
 /mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(!.)
+		return
+
 	if(open)
 		on = FALSE
 	update_controls()
 	update_icon()
-	return TRUE
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(emagged < 1)

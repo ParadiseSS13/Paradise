@@ -3,8 +3,7 @@
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
-#define RETURN_BRUISE_CHANCE 50
-#define RETURN_BRUISE_DAMAGE 20
+#define RETURN_INJURY_CHANCE 85
 #define RETURN_SOUVENIR_CHANCE 10
 
 /**
@@ -461,7 +460,7 @@
 	// Narrate their kidnapping and torturing experience.
 	if(M.stat != DEAD)
 		// Heal them up - gets them out of crit/soft crit.
-		M.reagents.add_reagent("omnizine", 20)
+		M.reagents.add_reagent("omnizine", 10)
 
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
 		M.Paralyse(30 SECONDS)
@@ -484,6 +483,61 @@
 					so it's only a matter of time before we send you back...\"</i></span>")
 
 		to_chat(M, "<span class='danger'><font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font></span>")
+
+/**
+  * Default damage if no injury is possible.
+  *
+  * Arguments:
+  * * M - The target mob.
+  */
+/datum/syndicate_contract/proc/default_damage(mob/living/M)
+	M.adjustBruteLoss(40)
+	M.adjustBrainLoss(25)
+/**
+  * Handles the target's injury/interrogation at the Syndicate Jail.
+  *
+  * Arguments:
+  * * M - The target mob.
+  */
+/datum/syndicate_contract/proc/injure_target(mob/living/M)
+	if(!prob(RETURN_INJURY_CHANCE) || M.health < 50)
+		return
+
+	var/obj/item/organ/external/injury_target
+	if(prob(20)) //remove a limb
+		if(prob(50))
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.droplimb()
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god something's missing!</span>")
+	else //fracture
+		if(ismachineperson(M))
+			M.emp_act(EMP_HEAVY)
+			M.adjustBrainLoss(30)
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
+
+		else if(isslimeperson(M))
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.cause_internal_bleeding()
+
+			injury_target = M.get_organ(BODY_ZONE_CHEST)
+			injury_target.cause_internal_bleeding()
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
+
+		if(prob(25))
+			injury_target = M.get_organ(BODY_ZONE_CHEST)
+			injury_target.fracture()
+		else
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.fracture()
 
 /**
   * Handles the target's return to station.
@@ -518,14 +572,12 @@
 
 	QDEL_LIST(temp_objs)
 
-	// Chance for souvenir or bruises
+	// Injuries due to questioning and souvenirs
+	injure_target(M)
 	if(prob(RETURN_SOUVENIR_CHANCE))
 		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
-	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
-		to_chat(M, "<span class='warning'>You were roughed up a little by your captors before being sent back!</span>")
-		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
@@ -590,6 +642,5 @@
 #undef EXTRACTION_PHASE_PREPARE
 #undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY
-#undef RETURN_BRUISE_CHANCE
-#undef RETURN_BRUISE_DAMAGE
+#undef RETURN_INJURY_CHANCE
 #undef RETURN_SOUVENIR_CHANCE

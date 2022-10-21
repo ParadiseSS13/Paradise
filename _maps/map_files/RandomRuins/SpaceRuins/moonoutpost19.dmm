@@ -4303,7 +4303,7 @@
 	},
 /obj/machinery/newscaster{
 	name = "north bump";
-	pixel_y = 32
+	pixel_y = 28
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
