@@ -118,5 +118,8 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		new /obj/item/mounted/frame/display/ai_display_frame(drop_location())
 		deconstruct()
+
+/obj/machinery/ai_status_display/on_deconstruction()
+	. = ..()
+	new /obj/item/mounted/frame/display/ai_display_frame(drop_location())
