@@ -1052,7 +1052,6 @@
 #include "code\game\objects\items\weapons\implants\implant_traitor.dm"
 #include "code\game\objects\items\weapons\implants\implant_uplink.dm"
 #include "code\game\objects\items\weapons\implants\implantcase.dm"
-#include "code\game\objects\items\weapons\implants\implantchair.dm"
 #include "code\game\objects\items\weapons\implants\implanter.dm"
 #include "code\game\objects\items\weapons\implants\implantfluff.dm"
 #include "code\game\objects\items\weapons\implants\implantpad.dm"
