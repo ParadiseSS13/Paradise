@@ -31,6 +31,7 @@
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
 	icon_dead = "parrot_dead"
+	icon_resting = "parrot_sit"
 	pass_flags = PASSTABLE
 	can_collar = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE

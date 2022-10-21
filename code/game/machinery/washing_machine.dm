@@ -72,6 +72,7 @@
 			var/new_shoe_name = ""
 			var/new_sheet_icon_state = ""
 			var/new_sheet_name = ""
+			var/new_sheet_item_state = ""
 			var/new_softcap_icon_state = ""
 			var/new_softcap_name = ""
 			var/new_desc = "The colors are a bit dodgy."
@@ -115,6 +116,7 @@
 				if(wash_color == B.item_color)
 					new_sheet_icon_state = B.icon_state
 					new_sheet_name = B.name
+					new_sheet_item_state = B.item_state
 					qdel(B)
 					break
 				qdel(B)
@@ -170,6 +172,7 @@
 				for(var/obj/item/bedsheet/B in contents)
 					B.icon_state = new_sheet_icon_state
 					B.item_color = wash_color
+					B.item_state = new_sheet_item_state
 					B.name = new_sheet_name
 					B.desc = new_desc
 			if(new_softcap_icon_state && new_softcap_name)
