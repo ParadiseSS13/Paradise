@@ -76,8 +76,7 @@
 	board_name = choice
 	build_path = monitor_names_paths[choice]
 	format_board_name()
-	if(user)
-		to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
+	to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
 
 /obj/item/circuitboard/camera/telescreen
 	board_name = "Telescreen"
