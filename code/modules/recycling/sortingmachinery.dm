@@ -5,6 +5,7 @@
 	icon_state = "deliverycloset"
 	density = 1
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	var/iconLabeled = "deliverycloset_labeled"
 	var/obj/wrapped = null
 	var/init_welded = 0
 	var/giftwrapped = 0
@@ -43,6 +44,8 @@
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
+			if(iconLabeled)
+				icon_state = iconLabeled
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/shippingPackage))
@@ -51,6 +54,8 @@
 			return
 		else
 			sortTag = sp.sortTag
+			if(iconLabeled)
+				icon_state = iconLabeled
 			to_chat(user, "<span class='notice'>You rip the label off the shipping package and affix it to [src].</span>")
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
@@ -80,6 +85,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycrateSmall"
 	item_state = "deliverypackage"
+	var/iconLabeled = null
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
@@ -114,6 +120,8 @@
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
+			if(iconLabeled)
+				icon_state = iconLabeled
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/shippingPackage))
@@ -122,6 +130,8 @@
 			return
 		else
 			sortTag = sp.sortTag
+			if(iconLabeled)
+				icon_state = iconLabeled
 			to_chat(user, "<span class='notice'>You rip the label off the shipping package and affix it to [src].</span>")
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
@@ -176,6 +186,7 @@
 			var/i = round(O.w_class)
 			if(i in list(1,2,3,4,5))
 				P.icon_state = "deliverycrate[i]"
+				P.iconLabeled = "deliverycrate[i]_labeled"
 				P.w_class = i
 			P.add_fingerprint(usr)
 			O.add_fingerprint(usr)
@@ -191,6 +202,7 @@
 				return
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
 			P.icon_state = "deliverycrate"
+			P.iconLabeled = "deliverycrate_labeled"
 			P.wrapped = O
 			O.loc = P
 		else
