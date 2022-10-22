@@ -547,12 +547,11 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam
 	name = "video camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "video camera that can send live feed to the entertainment network."
+	desc = "This video camera can send live feeds to the entertainment network."
 	icon_state = "videocam"
 	item_state = "videocam"
-	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL=2000)
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
@@ -571,7 +570,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			camera.network = list("news")
 			camera.c_tag = user.name
 	else
-
 		src.icon_state = icon_on
 		camera = new /obj/machinery/camera(src)
 		camera.network = list("news")
@@ -579,10 +577,18 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.c_tag = user.name
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
+/obj/item/videocam/dropped(mob/user)
+	. = ..()
+	if(on)
+		src.icon_state = icon_off
+		camera.c_tag = null
+		camera.network = list()
+		on = !on
+
 /obj/item/videocam/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
+		. += "It's [on ? "" : "in"]active."
 
 /obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)
