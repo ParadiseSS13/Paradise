@@ -168,6 +168,7 @@
 	else
 		if(prob(8))
 			M.emote("shiver")
+			M.Jitter(60)
 		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
@@ -181,8 +182,10 @@
 	else
 		if(prob(8))
 			M.emote("twitch_s")
+			M.Jitter(80)
 		if(prob(8))
 			M.emote("shiver")
+			M.Jitter(60)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>Your head hurts.</span>")
 		if(prob(4))
@@ -195,9 +198,11 @@
 			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
 		if(prob(4))
 			M.emote("twitch")
+			M.Jitter(80)
 	else
 		if(prob(8))
 			M.emote("twitch")
+			M.Jitter(80)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
 		if(prob(4))
@@ -213,6 +218,7 @@
 			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
 		if(prob(4))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
+			M.Jitter(80)
 	else
 		if(prob(6))
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
@@ -221,6 +227,7 @@
 			update_flags |= M.Weaken(rand(2,4), FALSE)
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
+			M.Jitter(80)
 		if(prob(4))
 			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
 		if(prob(5))
