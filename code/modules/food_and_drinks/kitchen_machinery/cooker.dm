@@ -92,7 +92,7 @@
 	soundloop.stop()
 	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
-	smoke.set_up(5, 0, src)
+	smoke.set_up(5, FALSE, src)
 	smoke.start()
 	if(prob(firechance))
 		var/turf/location = get_turf(src)

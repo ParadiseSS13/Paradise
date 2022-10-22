@@ -74,3 +74,15 @@
 /obj/screen/plane_master/emissive/Initialize()
 	. = ..()
 	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
+
+/obj/screen/plane_master/space
+	name = "space plane master"
+	plane = PLANE_SPACE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
+
+/obj/screen/plane_master/parallax
+	name = "parallax plane master"
+	plane = PLANE_SPACE_PARALLAX
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
