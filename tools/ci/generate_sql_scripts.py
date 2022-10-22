@@ -79,7 +79,6 @@ scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema_prefixed.sql\n")
 scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
-scriptLines.append("mysql -u root -proot -e 'GRANT ALL on feedback.* TO `ci_sql`@`127.0.0.1` IDENTIFIED BY \"not_a_strong_password\";'\n")
 
 outputScript = open("tools/ci/validate_sql.sh", "w+")
 outputScript.writelines(scriptLines)
