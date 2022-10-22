@@ -304,10 +304,10 @@
 		var/turf_count = 0
 
 		for(var/turf/T in atmos_adjacent_turfs)
-			if(istype(T, /turf/space))//Counted as no air
+			if(isspaceturf(T))//Counted as no air
 				turf_count++//Considered a valid turf for air calcs
 				continue
-			else if(istype(T, /turf/simulated/floor))
+			else if(isfloorturf(T))
 				var/turf/simulated/S = T
 				if(S.air)//Add the air's contents to the holders
 					aoxy += S.air.oxygen

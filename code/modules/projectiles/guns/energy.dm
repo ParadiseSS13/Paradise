@@ -21,6 +21,8 @@
 	/// Do you want the gun to fit into a turret, defaults to true, used for if a energy gun is too strong to be in a turret, or does not make sense to be in one.
 	var/can_fit_in_turrets = TRUE
 	var/new_icon_state
+	/// If the item uses a shared set of overlays instead of being based on icon_state
+	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
 
@@ -94,7 +96,7 @@
 	if(ammo_type.len > 1)
 		select_fire(user)
 		update_icon()
-		if(istype(user,/mob/living/carbon/human)) //This has to be here or else if you toggle modes by clicking the gun in hand
+		if(ishuman(user)) //This has to be here or else if you toggle modes by clicking the gun in hand
 			var/mob/living/carbon/human/H = user //Otherwise the mob icon doesn't update, blame shitty human update_icons() code
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
@@ -174,17 +176,18 @@
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
+	var/overlay_name = overlay_set ? overlay_set : icon_state
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
-		. += "[icon_state]_[shot.select_name]"
+		. += "[overlay_name]_[shot.select_name]"
 	if(cell.charge < shot.e_cost)
-		. += "[icon_state]_empty"
+		. += "[overlay_name]_empty"
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
 				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i -1))
 		else
-			. += image(icon = icon, icon_state = "[icon_state]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
+			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(gun_light && can_flashlight)
 		var/iconF = "flight"
 		if(gun_light.on)

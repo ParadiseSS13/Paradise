@@ -24,7 +24,7 @@
 	hear_input(M, msg, 1)
 
 /obj/item/assembly/voice/proc/hear_input(mob/living/M as mob, msg, type)
-	if(!istype(M,/mob/living))
+	if(!isliving(M))
 		return
 
 	if(listening)

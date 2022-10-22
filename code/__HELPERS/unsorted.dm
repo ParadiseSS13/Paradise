@@ -765,7 +765,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
 					// Give the new turf our air, if simulated
-					if(istype(X, /turf/simulated) && istype(T, /turf/simulated))
+					if(issimulatedturf(X) && issimulatedturf(T))
 						var/turf/simulated/sim = X
 						sim.copy_air_with_tile(T)
 
@@ -785,7 +785,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 						// Find a new turf to take on the property of
 						var/turf/nextturf = get_step(corner, direction)
-						if(!nextturf || !istype(nextturf, /turf/space))
+						if(!nextturf || !isspaceturf(nextturf))
 							nextturf = get_step(corner, turn(direction, 180))
 
 
@@ -803,7 +803,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
-						if(!istype(O,/obj)) continue
+						if(!isobj(O)) continue
 						O.loc.Exited(O)
 						O.setLoc(X,teleported=1)
 						O.loc.Entered(O)
@@ -928,7 +928,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					var/old_icon1 = T.icon
 
 					if(platingRequired)
-						if(istype(B, /turf/space))
+						if(isspaceturf(B))
 							continue moving
 
 					var/turf/X = new T.type(B)
@@ -944,7 +944,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 					for(var/obj/O in T)
 
-						if(!istype(O,/obj))
+						if(!isobj(O))
 							continue
 
 						objs += O
@@ -1437,7 +1437,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(istype(A, /datum))
 		var/datum/D = A
 		return !QDELETED(D)
-	if(istype(A, /client))
+	if(isclient(A))
 		return TRUE
 	return FALSE
 

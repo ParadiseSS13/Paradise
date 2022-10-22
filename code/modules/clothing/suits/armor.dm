@@ -374,7 +374,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	addtimer(CALLBACK(src, .proc/reboot), disable_time SECONDS)
-	if(istype(loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
 

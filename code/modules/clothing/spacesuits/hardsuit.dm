@@ -56,7 +56,7 @@
 	on = !on
 	icon_state = "[basestate][on]-[item_color]"
 
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_head()
 
