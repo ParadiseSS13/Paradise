@@ -75,7 +75,7 @@ CREATE TABLE `characters` (
   `body_accessory` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `gear` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `autohiss` tinyint(1) NOT NULL,
-  `uplink_pref` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pda',
+  `uplink_pref` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
