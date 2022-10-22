@@ -92,7 +92,7 @@
 #define SUIT_SENSOR_TRACKING 3
 
 #define BLOCKHEADHAIR 			4		// temporarily removes the user's hair overlay. Leaves facial hair.
-#define BLOCKHAIR				32768	// temporarily removes the user's hair, facial and otherwise.
+#define BLOCKHAIR				32	// temporarily removes the user's hair, facial and otherwise.
 
 //flags for muzzle speech blocking
 #define MUZZLE_MUTE_NONE 0 // Does not mute you.
