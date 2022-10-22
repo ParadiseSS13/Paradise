@@ -1119,6 +1119,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		tail_marking_style = GLOB.marking_styles_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 		tail_marking_icon.Blend(bodypart_tail.m_colours["tail"], ICON_ADD)
+		
 
 	if(bodypart_tail.body_accessory)
 		if(bodypart_tail.body_accessory.try_restrictions(src))
@@ -1163,6 +1164,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 			var/icon/tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_s")
+			switch(tail)
+				if("voxtail_azu") //Azure Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_azu_s")
+				if("voxtail_emrl") //Emerald Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_emrl_s")
+				if("voxtail_gry") //Grey Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_gry_s")
+				if("voxtail_brn") //Brown Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_brn_s")
+				if("voxtail_dgrn") //Dark Green Vox.
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_dgrn_s")
+				else  //Default behaviour
+					tail_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_s")
 			if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
 				tail_s.Blend(bodypart_tail.s_col, ICON_ADD)
 			if(tail_marking_icon && !tail_marking_style.tails_allowed)
@@ -1245,6 +1259,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	else
 		var/icon/tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]w_s")
+		switch(tail)
+			if("voxtail_azu") //Azure Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_azuw_s")
+			if("voxtail_emrl") //Emerald Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_emrlw_s")
+			if("voxtail_gry") //Grey Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_gryw_s")
+			if("voxtail_brn") //Brown Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_brnw_s")
+			if("voxtail_dgrn") //Dark Green Vox.
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]_dgrnw_s")
+			else  //Default behaviour
+				tailw_s = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.tail]w_s")
 		if(bodypart_tail.dna.species.bodyflags & HAS_SKIN_COLOR)
 			tailw_s.Blend(bodypart_tail.s_col, ICON_ADD)
 		if(tail_marking_icon && !tail_marking_style.tails_allowed)
