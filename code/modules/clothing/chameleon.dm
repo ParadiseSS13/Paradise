@@ -228,7 +228,6 @@
 		/obj/item/clothing/under/suit,
 		/obj/item/clothing/under/costume,
 		/obj/item/clothing/under/rank,
-		/obj/item/clothing/under/rank/captain,
 		/obj/item/clothing/under/rank/cargo,
 		/obj/item/clothing/under/rank/civilian,
 		/obj/item/clothing/under/rank/engineering,
