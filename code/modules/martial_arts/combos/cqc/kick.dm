@@ -5,7 +5,7 @@
 
 /datum/martial_combo/cqc/kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	. = MARTIAL_COMBO_FAIL
-	if(!IS_HORIZONTAL(target))
+	if(!IS_HORIZONTAL(target) && user != target)
 		target.visible_message("<span class='warning'>[user] kicks [target] back!</span>", \
 							"<span class='userdanger'>[user] kicks you back!</span>")
 		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
@@ -15,7 +15,7 @@
 		target.Slowed(5 SECONDS)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
-	else
+	else if(IS_HORIZONTAL(target) && user != target)
 		target.visible_message("<span class='warning'>[user] kicks [target]'s head, disorienting [target.p_them()]!</span>", \
 					  		"<span class='userdanger'>[user] kicks your head, disorienting you!</span>")
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
