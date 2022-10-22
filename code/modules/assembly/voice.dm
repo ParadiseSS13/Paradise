@@ -61,7 +61,7 @@
 	name = "noise sensor"
 	desc = "A simple noise sensor that triggers on vocalizations other than speech."
 	icon_state = "voice"
-	materials = list(MAT_METAL=100, MAT_GLASS=10)
+	materials = list(MAT_METAL=210, MAT_GLASS=50)
 	origin_tech = "magnets=1;engineering=1"
 	bomb_name = "noise-activated bomb"
 

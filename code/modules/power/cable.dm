@@ -498,7 +498,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
 	throw_range = 5
-	materials = list(MAT_METAL=10, MAT_GLASS=5)
+	materials = list(MAT_METAL=15, MAT_GLASS=10)
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "coil"

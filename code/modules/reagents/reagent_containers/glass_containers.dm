@@ -124,7 +124,7 @@
 	icon_state = "beaker"
 	item_state = "beaker"
 	belt_icon = "beaker"
-	materials = list(MAT_GLASS=500)
+	materials = list(MAT_GLASS=1000)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
