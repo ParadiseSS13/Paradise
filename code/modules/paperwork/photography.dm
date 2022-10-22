@@ -544,7 +544,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 *video camera *
 ***************/
 
-/obj/item/videocam
+/obj/item/twohanded/videocam
 	name = "video camera"
 	icon = 'icons/obj/items.dmi'
 	desc = "This video camera can send live feeds to the entertainment network."
@@ -558,39 +558,30 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/icon_off = "videocam"
 	var/canhear_range = 7
 
-/obj/item/videocam/attack_self(mob/user)
-	on = !on
-	if(camera)
-		if(!on)
-			src.icon_state = icon_off
-			camera.c_tag = null
-			camera.network = list()
-		else
-			src.icon_state = icon_on
-			camera.network = list("news")
-			camera.c_tag = user.name
-	else
-		src.icon_state = icon_on
-		camera = new /obj/machinery/camera(src)
-		camera.network = list("news")
-		GLOB.cameranet.removeCamera(camera)
-		camera.c_tag = user.name
-	to_chat(user, "You switch the camera [on ? "on" : "off"].")
+/obj/item/twohanded/videocam/wield(mob/living/carbon/user)
+	. = ..()
+	on = TRUE
+	camera = new /obj/machinery/camera(src)
+	src.icon_state = icon_on
+	camera.network = list("news")
+	camera.c_tag = user.name
+	to_chat(user, "The video camera is turned on.")
 
-/obj/item/videocam/dropped(mob/user)
+/obj/item/twohanded/videocam/unwield(mob/living/carbon/user)
 	. = ..()
 	if(on)
+		on = FALSE
 		src.icon_state = icon_off
 		camera.c_tag = null
-		camera.network = list()
-		on = !on
+		QDEL_NULL(camera)
+		to_chat(user, "The video camera is turned off.")
 
-/obj/item/videocam/examine(mob/user)
+/obj/item/twohanded/videocam/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		. += "It's [on ? "" : "in"]active."
 
-/obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
+/obj/item/twohanded/videocam/hear_talk(mob/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)
 	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
@@ -599,7 +590,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 
-/obj/item/videocam/hear_message(mob/M as mob, msg)
+/obj/item/twohanded/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
