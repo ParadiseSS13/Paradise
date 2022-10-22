@@ -896,8 +896,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_weapons/cqc/nuke
 	reference = "NCQC"
 	cost = 8
-	excludefrom = list()
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
