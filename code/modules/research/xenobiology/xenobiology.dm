@@ -137,7 +137,7 @@
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
-	var/being_used = 0
+	var/being_used = FALSE
 
 /obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
@@ -155,11 +155,11 @@
 		M.rabid = FALSE
 		qdel(src)
 		return
-	M.docile = 1
+	M.docile = TRUE
 	M.set_nutrition(700)
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
-	being_used = 1
+	being_used = TRUE
 	var/newname = sanitize(copytext_char(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
 	if(!newname)
@@ -175,7 +175,7 @@
 	icon_state = "bottle19"
 	origin_tech = "biotech=6"
 	var/list/not_interested = list()
-	var/being_used = 0
+	var/being_used = FALSE
 	var/sentience_type = SENTIENCE_ORGANIC
 
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
@@ -183,12 +183,62 @@
 		return
 	if(being_used || !ismob(M))
 		return
-	if((!isanimal(M) && !ismonkeybasic(M)) || M.ckey ) //работает только на животных и низших формах карбонов, которых не контролируют
-		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
+	if(!isanimal(M) && !ismonkeybasic(M)) //работает только на животных и низших формах карбонов
+		to_chat(user, "<span class='warning'>[M] is not animal and lesser life form!</span>")
 		return ..()
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
 		return ..()
+
+	if (M.ckey)		//даем возможность получить разум симпл мобам
+		if (!isanimal(M))
+			to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
+			return
+		var/response = alert(M, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
+
+		if (response == "Нет")
+			to_chat(user, "<span class='warning'>[M.name] отказался от зелья!</span>")
+			return
+		else
+			if(!src)
+				return
+			being_used = TRUE
+
+			var/mob/living/simple_animal/SM = M
+
+			if (SM.master_commander)
+				to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
+				return
+
+			if(SM.sentience_type != sentience_type)
+				to_chat(user, "<span class='warning'>[SM] не разумное животное!.</span>")
+				return ..()
+
+			SM.universal_speak = TRUE
+			SM.faction = user.faction
+			SM.master_commander = user
+			SM.can_collar = TRUE
+			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
+			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
+				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
+			to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+			after_success(user, SM)
+			qdel(src)
+
+			var/new_name = sanitize(copytext_char(input(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name) as null|text,1,MAX_NAME_LEN))
+			if(new_name)
+				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
+				to_chat(SM, "<span class='notice'>Ваше новое имя - <b>\"[new_name]\"</b>!</span>")
+				SM.real_name = new_name
+				SM.name = new_name
+				if(isslime(SM))
+					var/mob/living/simple_animal/slime/SM_slime = SM
+					SM_slime.is_renamed = TRUE
+
+			SM.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+			add_game_logs("стал питомцем игрока [key_name_log(user)]", SM)
+
 	if (isanimal(M))
 		var/mob/living/simple_animal/SM = M
 
@@ -197,7 +247,7 @@
 			return ..()
 
 		to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
-		being_used = 1
+		being_used = TRUE
 
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
@@ -208,11 +258,11 @@
 		if(length(candidates))
 			var/mob/C = pick(candidates)
 			SM.key = C.key
-			SM.universal_speak = 1
+			SM.universal_speak = TRUE
 			SM.faction = user.faction
 			SM.master_commander = user
 			SM.sentience_act()
-			SM.can_collar = 1
+			SM.can_collar = TRUE
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
@@ -231,11 +281,11 @@
 					var/mob/living/simple_animal/slime/SM_slime = SM
 					SM_slime.is_renamed = TRUE
 
-			SM.mind.store_memory("<B>Ваш хозяин [user], выполняйте [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+			SM.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", SM)
 		else
 			to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
-			being_used = 0
+			being_used = FALSE
 			..()
 
 		return
@@ -245,7 +295,7 @@
 		var/mob/living/carbon/human/lesser/monkey/LF = M
 
 		to_chat(user, "<span class='notice'>Вы предлагаете [src] зелье разума [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
-		being_used = 1
+		being_used = TRUE
 
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
@@ -259,7 +309,7 @@
 			LF.faction = user.faction
 			LF.master_commander = user
 			to_chat(LF, "<span class='warning'>Труд из обезьяны сделал человека! А зелье разума сделало вас осознающим себя в этом мире. Вы по прежнему являетесь обезьяной и вашего ограниченного ума не хватает чтобы осознать всей окружающей вас аппаратуры и продвинутого окружения. Вы знаете что оно как-то работает у людей и вам этого хватает. Ваши желания просты и примитивны, как и вы сами. Но что точно вы знаете лучше всей своей жизни...</span>")
-			to_chat(LF, "<span class='userdanger'>Вы самоосознались благодаря [user]. В качестве благодарности, теперь вы служите [user], и помогаете [genderize_ru(user.gender, "ему", "ей", "этому", "им")] в выполнении [genderize_ru(user.gender, "его", "её", "этого", "их")] целей любой ценой!</span>")
+			to_chat(LF, "<span class='userdanger'>Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [genderize_ru(user.gender, "ему", "ей", "этому", "им")] в выполнении [genderize_ru(user.gender, "его", "её", "этого", "их")] целей любой ценой!</span>")
 			to_chat(user, "<span class='notice'>[M] бер[pluralize_ru(LF.gender,"ет","ут")] зелье и дела[pluralize_ru(LF.gender,"ет","ют")] глоток. Он[genderize_ru(LF.gender, "", "а", "о", "и")] смотр[pluralize_ru(LF.gender,"ит","ят")] на вас грустными и понимающими глазами. Сработало!</span>")
 			qdel(src)
 
@@ -270,11 +320,11 @@
 				LF.real_name = new_name
 				LF.name = new_name
 
-			LF.mind.store_memory("<B>Ваш хозяин [user], выполняйте [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+			LF.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", LF)
 		else
 			to_chat(user, "<span class='notice'>[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже.</span>")
-			being_used = 0
+			being_used = FALSE
 			. = ..()
 
 		return
@@ -318,10 +368,10 @@
 	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
 	add_attack_logs(user, SM, "mind transference potion")
 	user.mind.transfer_to(SM)
-	SM.universal_speak = 1
+	SM.universal_speak = TRUE
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
-	SM.can_collar = 1
+	SM.can_collar = TRUE
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")

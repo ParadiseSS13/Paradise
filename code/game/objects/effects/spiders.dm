@@ -7,6 +7,7 @@
 	density = FALSE
 	max_integrity = 15
 	var/mob/living/carbon/human/master_commander = null
+	var/new_mind_memory = "Я свободный паук."
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
@@ -76,6 +77,7 @@
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			S.new_mind_memory = master_commander ? "<B>Мой хозяин [master_commander.name], выполню [genderize_ru(master_commander.gender, "его", "её", "этого", "их")] цели любой ценой!</B>" : new_mind_memory
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
@@ -175,6 +177,7 @@
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
+			S.mind.store_memory(new_mind_memory)
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
