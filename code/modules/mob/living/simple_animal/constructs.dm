@@ -133,7 +133,7 @@
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
-						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
+						create shield walls, rip apart enemies and walls.</b>"
 
 /mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -142,7 +142,7 @@
 /mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		if(P.damage_type == BRUTE || P.damage_type == BURN)
-			adjustBruteLoss(P.damage * 0.6) // 21 hit with laser gun
+			adjustBruteLoss(P.damage * 0.6) // 21 hit with security laser gun
 			P.on_hit(src)
 			return FALSE
 	return(..())
