@@ -51,12 +51,17 @@
 	icon_state = "disabler"
 	item_state = null
 	origin_tech = "combat=3"
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/accelerator)
 	ammo_x_offset = 2
 	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 10
 	can_holster = TRUE
+
+
+/obj/item/ammo_casing/energy/disabler/accelerator
+	projectile_type = /obj/item/projectile/beam/disabler/accelerator
+	select_name = "accelerator"
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

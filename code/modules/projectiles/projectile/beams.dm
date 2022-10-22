@@ -55,6 +55,19 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
 
+
+
+/obj/item/projectile/beam/disabler/accelerator
+	name = "accelerator disabler"
+	range = 30
+	damage = 10
+
+/obj/item/projectile/beam/disabler/accelerator/Range()
+	..()
+	damage = (min(5, 100) + damage)
+	if(damage > 30)
+		damage = 30
+
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
