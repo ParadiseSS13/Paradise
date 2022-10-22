@@ -46,7 +46,7 @@
 /obj/item/implantcase/attackby(obj/item/W, mob/user)
 	..()
 
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 	else if(istype(W, /obj/item/implanter))
 		var/obj/item/implanter/I = W

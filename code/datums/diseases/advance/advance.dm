@@ -230,10 +230,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 // Assign the spread type and give it the correct description.
 /datum/disease/advance/proc/SetSpread(spread_id)
 	switch(spread_id)
-		if(NON_CONTAGIOUS)
-			spread_text = "None"
-		if(SPECIAL)
-			spread_text = "None"
+		if(NON_CONTAGIOUS, SPECIAL)
+			spread_text = "Non-contagious"
 		if(CONTACT_GENERAL, CONTACT_HANDS, CONTACT_FEET)
 			spread_text = "On contact"
 		if(AIRBORNE)

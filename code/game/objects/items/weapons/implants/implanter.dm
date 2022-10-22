@@ -41,7 +41,7 @@
 
 /obj/item/implanter/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 
 /obj/item/implanter/Initialize(mapload)

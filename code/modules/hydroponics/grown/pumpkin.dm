@@ -16,6 +16,7 @@
 	mutatelist = list(/obj/item/seeds/pumpkin/blumpkin)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.2)
 
+
 /obj/item/reagent_containers/food/snacks/grown/pumpkin
 	seed = /obj/item/seeds/pumpkin
 	name = "pumpkin"
@@ -25,11 +26,12 @@
 	bitesize_mod = 2
 	tastes = list("pumpkin" = 1)
 	wine_power = 0.2
+	var/carved_type = /obj/item/clothing/head/hardhat/pumpkinhead
 
 /obj/item/reagent_containers/food/snacks/grown/pumpkin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(is_sharp(W))
 		user.show_message("<span class='notice'>You carve a face into [src]!</span>", 1)
-		new /obj/item/clothing/head/hardhat/pumpkinhead(user.loc)
+		new carved_type(user.loc)
 		qdel(src)
 		return
 	else
@@ -42,12 +44,13 @@
 	icon_state = "seed-blumpkin"
 	species = "blumpkin"
 	plantname = "Blumpkin Vines"
-	product = /obj/item/reagent_containers/food/snacks/grown/blumpkin
+	product = /obj/item/reagent_containers/food/snacks/grown/pumpkin/blumpkin
 	mutatelist = list()
 	reagents_add = list("ammonia" = 0.2, "chlorine" = 0.1, "plasma" = 0.1, "plantmatter" = 0.2)
 	rarity = 20
 
-/obj/item/reagent_containers/food/snacks/grown/blumpkin
+
+/obj/item/reagent_containers/food/snacks/grown/pumpkin/blumpkin
 	seed = /obj/item/seeds/pumpkin/blumpkin
 	name = "blumpkin"
 	desc = "The pumpkin's toxic sibling."
@@ -56,3 +59,4 @@
 	bitesize_mod = 2
 	tastes = list("blumpkin" = 1)
 	wine_power = 0.5
+	carved_type = /obj/item/clothing/head/hardhat/pumpkinhead/blumpkin

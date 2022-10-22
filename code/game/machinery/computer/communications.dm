@@ -46,7 +46,6 @@
 
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
-	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
 	if(user.can_admin_interact())

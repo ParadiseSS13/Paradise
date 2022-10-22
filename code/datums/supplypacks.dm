@@ -1036,6 +1036,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/vending_refill/genedrobe,)
 	containername = "science clothing vendor crate"
 
+/datum/supply_packs/science/mechcore
+	name = "Mech power core crate"
+	contains = list(/obj/item/mecha_parts/core)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "mech power core crate"
+	access = ACCESS_RD
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1743,7 +1751,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/under/misc/assistantformal,
 					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket,
-					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit,
+					/obj/item/clothing/under/rank/civilian/lawyer/purple,
 					/obj/item/clothing/suit/storage/lawyer/purpjacket,
 					/obj/item/clothing/under/rank/civilian/lawyer/black,
 					/obj/item/clothing/suit/storage/lawyer/blackjacket,

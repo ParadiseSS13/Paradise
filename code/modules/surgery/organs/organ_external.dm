@@ -133,7 +133,7 @@
 	if(!is_robotic())
 		application_surgery = /datum/surgery/reattach
 	else
-		application_surgery = /datum/surgery/attach_robotic_limb
+		application_surgery = /datum/surgery/reattach_synth
 
 	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
 
@@ -698,6 +698,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
+
+	// override the existing initiator
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(company && istext(company))
 		set_company(company)
