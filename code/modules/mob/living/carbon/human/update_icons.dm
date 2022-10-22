@@ -409,7 +409,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_hands_layer()
 	remove_overlay(HANDS_LAYER)
 
-	if(w_uniform.body_parts_covered & HANDS)
+	if(w_uniform?.body_parts_covered & HANDS)
 		return
 
 	var/mutable_appearance/hands_appearance = new()
