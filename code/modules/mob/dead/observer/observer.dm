@@ -148,6 +148,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		MA.icon = initial(icon)
 		MA.icon_state = initial(icon_state)
 	MA.underlays = COPY.underlays
+	MA.layer = GHOST_LAYER
 	MA.plane = GAME_PLANE
 	. = MA
 
