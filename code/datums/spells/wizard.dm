@@ -181,9 +181,7 @@
 	invocation_type = "shout"
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
-	smoke_type = SMOKE_HARMLESS
 	smoke_amt = 5
-
 	action_icon_state = "spell_teleport"
 
 	sound1 = 'sound/magic/teleport_diss.ogg'

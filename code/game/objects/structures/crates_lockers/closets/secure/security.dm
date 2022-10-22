@@ -292,20 +292,6 @@
 		var/obj/item/card/id/prisoner/prisoner_id = locateUID(registered_ID_UID)
 		. += "\nOwned by [prisoner_id.registered_name]."
 
-/obj/structure/closet/secure_closet/courtroom
-	name = "courtroom locker"
-	req_access = list(ACCESS_COURT)
-
-/obj/structure/closet/secure_closet/courtroom/populate_contents()
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/pen (src)
-	new /obj/item/clothing/suit/judgerobe (src)
-	new /obj/item/clothing/head/powdered_wig (src)
-	new /obj/item/storage/briefcase(src)
-
 /obj/structure/closet/secure_closet/magistrate
 	name = "\improper Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)
