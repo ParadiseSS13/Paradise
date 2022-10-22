@@ -11,6 +11,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
 	layer = GHOST_LAYER
+	plane = GAME_PLANE
 	stat = DEAD
 	density = FALSE
 	alpha = 127
@@ -90,6 +91,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, .proc/set_ghost_darkness_level) //something something don't call this until we have a HUD
 	..()
+	plane = GAME_PLANE
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
@@ -146,7 +148,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		MA.icon = initial(icon)
 		MA.icon_state = initial(icon_state)
 	MA.underlays = COPY.underlays
-
+	MA.plane = GAME_PLANE
 	. = MA
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
