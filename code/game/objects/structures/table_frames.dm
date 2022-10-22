@@ -79,7 +79,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, params, already_tried)
-	if(!(istype(I, /obj/item/stack/tile/carpet) || istype(I, /obj/item/stack/sheet/wood)))
+	if(!istype(I, /obj/item/stack/tile/carpet) && !istype(I, /obj/item/stack/sheet/wood))
 		already_tried = TRUE
 		return ..()
 

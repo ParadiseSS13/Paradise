@@ -692,7 +692,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params, already_tried)
-	if(!(istype(I, /obj/item/stack/sheet/mineral/abductor) || istype(I, /obj/item/stack/sheet/mineral/silver)))
+	if(!istype(I, /obj/item/stack/sheet/mineral/abductor) && !istype(I, /obj/item/stack/sheet/mineral/silver))
 		already_tried = TRUE
 		return ..()
 
