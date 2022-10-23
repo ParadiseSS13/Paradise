@@ -70,8 +70,9 @@
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
-		D.KnockDown(3 SECONDS)
+		D.KnockDown(5 SECONDS)
 		A.SetKnockDown(0 SECONDS)
+		A.resting = FALSE
 		A.stand_up() //Quickly get up like the cool dude you are.
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
