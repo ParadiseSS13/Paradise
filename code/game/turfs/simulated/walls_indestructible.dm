@@ -136,7 +136,7 @@
 
 /turf/simulated/wall/indestructible/fakeglass
 	name = "window"
-	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 	icon_state = "fake_window"
 	base_icon_state = "reinforced_window"
 	opacity = FALSE
@@ -152,7 +152,7 @@
 
 /turf/simulated/wall/indestructible/opsglass
 	name = "window"
-	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	opacity = FALSE

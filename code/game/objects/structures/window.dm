@@ -624,12 +624,12 @@
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
-	icon = 'icons/obj/smooth_structures/window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/window.dmi'
 	icon_state = "window-0"
 	base_icon_state = "window"
 	max_integrity = 50
@@ -637,7 +637,7 @@
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
 	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
-	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
 	icon_state = "plasma_window-0"
 	base_icon_state = "plasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -652,7 +652,7 @@
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
-	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/rplasma_window.dmi'
 	icon_state = "rplasma_window-0"
 	base_icon_state = "rplasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -671,7 +671,7 @@
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
-	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	max_integrity = 100
@@ -691,21 +691,15 @@
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
-	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/tinted_window.dmi'
 	icon_state = "tinted_window-0"
 	base_icon_state = "tinted_window"
 	opacity = TRUE
 
-/obj/structure/window/full/reinforced/ice
-	icon = 'icons/obj/smooth_structures/rice_window.dmi'
-	icon_state = "rice_window-0" //Welcome to the rice fields, motherfucker.
-	base_icon_state = "rice_window"
-	max_integrity = 150
-
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
-	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/shuttle_window.dmi'
 	icon_state = "shuttle_window-0"
 	base_icon_state = "shuttle_window"
 	max_integrity = 200
@@ -726,7 +720,7 @@
 /obj/structure/window/full/plastitanium
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium."
-	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	max_integrity = 1200
@@ -742,7 +736,7 @@
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass."
-	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
