@@ -231,7 +231,7 @@ GLOBAL_PROTECT(log_end)
 		return
 
 	var/user_str
-	if(ismecha(user.loc) || isspacepod(user.loc))
+	if(ismecha(user?.loc) || isspacepod(user?.loc))
 		var/obj/vehicle = user.loc
 		user_str = key_name_log(user) + COORD(vehicle)
 	else
@@ -344,13 +344,13 @@ GLOBAL_PROTECT(log_end)
 	log_ghostsay(text, user)
 
 // Proc for ooc log creation
-// * user is the user
+// * user is the client, not the mob
 // * text that is definetely a meta
 // * local is boolean of looc or ooc type of proc
-/proc/add_ooc_logs(mob/user, text, local = FALSE)
+/proc/add_ooc_logs(client/user, text, local = FALSE)
 	if(local)
-		user.create_log(LOOC_LOG, text)
+		user.mob.create_log(LOOC_LOG, text)
 		log_looc(text, user)
 	else
-		user.create_log(OOC_LOG, text)
+		user.mob.create_log(OOC_LOG, text)
 		log_ooc(text, user)

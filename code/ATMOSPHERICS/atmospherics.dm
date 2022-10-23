@@ -72,7 +72,7 @@ Pipelines + Other Objects -> Pipe network
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	var/turf/T = get_turf(loc)
-	if(T.transparent_floor)
+	if(T?.transparent_floor)
 		plane = FLOOR_PLANE
 	else
 		if(!T || level == 2 || !T.intact)

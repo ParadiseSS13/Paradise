@@ -177,7 +177,7 @@
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.mind.store_memory(new_mind_memory)
+			S.mind?.store_memory(new_mind_memory)
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()

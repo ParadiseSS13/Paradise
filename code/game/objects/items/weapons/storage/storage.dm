@@ -43,6 +43,8 @@
 
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
+	if(!destination)
+		return
 	if(!ismob(destination.loc))
 		for(var/mob/player in mobs_viewing)
 			if(player == destination)
@@ -329,7 +331,11 @@
 	if(silent)
 		prevent_warning = TRUE
 	W.forceMove(src)
+	if(QDELING(W))
+		return FALSE
 	W.on_enter_storage(src)
+	if(QDELING(W))
+		return FALSE
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M

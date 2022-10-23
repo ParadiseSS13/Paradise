@@ -57,6 +57,6 @@ GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN =
 
 #define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")
 
-GLOBAL_LIST(geoip_ckey_updated)
+GLOBAL_LIST_EMPTY(geoip_ckey_updated)
 
 GLOBAL_LIST_INIT(all_taipan_jobs, list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,TAIPAN_CARGO,TAIPAN_CHEF,TAIPAN_ENGINEER,TAIPAN_COMMS,TAIPAN_RD,CYBORG))

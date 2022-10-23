@@ -208,7 +208,7 @@
 		return malf.malf_picker
 	else
 		var/mob/living/silicon/robot/silic = owner
-		return silic.module.module_type == "Malf" || silic.emagged
+		return silic.module?.module_type == "Malf" || silic.emagged
 
 /mob/living/silicon/proc/is_slaved()
 	return FALSE
