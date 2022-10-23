@@ -12,9 +12,9 @@
 		new_sound = 'sound/misc/notice2.ogg'
 	)
 
-	var/datum/announcer/request_console = new()
-	request_console.config.default_title = "Science announcement"
-	request_console.Announce("Request console announcement")
+	var/datum/announcer/requests_console = new(config_type = /datum/announcement_configuration/requests_console)
+	requests_console.config.default_title = "Science announcement"
+	requests_console.Announce("Request console announcement")
 
 	var/datum/announcer/comms_console = new(config_type = /datum/announcement_configuration/comms_console)
 

@@ -2584,7 +2584,6 @@
 #include "code\modules\tgui\states\zlevel.dm"
 #include "code\modules\tooltip\tooltip.dm"
 #include "code\modules\unit_tests\_unit_tests.dm"
-#include "code\modules\unit_tests\announcements.dm"
 #include "code\modules\vehicle\ambulance.dm"
 #include "code\modules\vehicle\atv.dm"
 #include "code\modules\vehicle\janicart.dm"
