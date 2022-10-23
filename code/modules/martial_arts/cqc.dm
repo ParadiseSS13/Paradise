@@ -54,9 +54,9 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
-	var/bonus_damage = 13
+	var/bonus_damage = 25
 	if(IS_HORIZONTAL(D))
-		bonus_damage += 9 //Being stomped on doesn't feel good.
+		bonus_damage += 10 //Being stomped on doesn't feel good.
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, STAMINA)
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
@@ -91,7 +91,7 @@
 							"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 		D.SetSlur(4 SECONDS)
-		D.apply_damage(8, STAMINA)
+		D.apply_damage(15, STAMINA)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)

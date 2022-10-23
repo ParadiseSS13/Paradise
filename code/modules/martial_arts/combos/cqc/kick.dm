@@ -11,7 +11,7 @@
 		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		target.throw_at(throw_target, 1, 14, user)
-		target.apply_damage(15, STAMINA)
+		target.apply_damage(30, STAMINA)
 		target.Slowed(5 SECONDS)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE

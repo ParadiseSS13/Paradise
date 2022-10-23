@@ -10,7 +10,7 @@
 	target.visible_message("<span class='warning'>[user] slams [target] into the ground!</span>", \
 						"<span class='userdanger'>[user] slams you into the ground!</span>")
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 50, 1, -1)
-	target.apply_damage(20, STAMINA)
+	target.apply_damage(50, STAMINA)
 	target.KnockDown(7 SECONDS)
 	target.SetConfused(12 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Slam", ATKLOG_ALL)
