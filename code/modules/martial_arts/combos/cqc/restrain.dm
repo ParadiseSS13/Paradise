@@ -15,7 +15,7 @@
 		target.visible_message("<span class='warning'>[user] locks [target] into a restraining position!</span>", \
 							"<span class='userdanger'>[user] locks you into a restraining position!</span>")
 		var/stam_damage = target.getStaminaLoss()
-		switch (stam_damage)
+		switch(stam_damage)
 			if(0 to 40)
 				target.Immobilize(4 SECONDS)
 				target.adjustStaminaLoss(35)
