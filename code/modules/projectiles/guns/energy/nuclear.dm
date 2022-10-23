@@ -94,6 +94,12 @@
 	ammo_x_offset = 2
 	shaded_charge = FALSE
 
+/obj/item/gun/energy/gun/turret/disabler
+	name = "turret energy gun"
+	desc = "A modification of the E-07 energy gun manufactured by Shellguard Munitions, it looks extremely heavy... The fire selector has 'kill' and 'disable' settings."
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler_turret, /obj/item/ammo_casing/energy/laser)
+	origin_tech = "combat=4;magnets=3"
+
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."

@@ -67375,7 +67375,7 @@
 	},
 /obj/machinery/porta_turret{
 	dir = 4;
-	installation = /obj/item/gun/energy/gun;
+	installation = /obj/item/gun/energy/gun/turret/disabler;
 	name = "hallway turret"
 	},
 /turf/simulated/floor/bluegrid,
@@ -67388,7 +67388,7 @@
 	},
 /obj/machinery/porta_turret{
 	dir = 8;
-	installation = /obj/item/gun/energy/gun;
+	installation = /obj/item/gun/energy/gun/turret/disabler;
 	name = "hallway turret"
 	},
 /turf/simulated/floor/bluegrid,

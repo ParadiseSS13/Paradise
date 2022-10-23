@@ -149,7 +149,7 @@
 /area/shuttle/administration)
 "iz" = (
 /obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
+	installation = /obj/item/gun/energy/gun/turret/disabler
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -415,7 +415,7 @@
 "AH" = (
 /obj/machinery/light/spot,
 /obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
+	installation = /obj/item/gun/energy/gun/turret/disabler
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -469,7 +469,7 @@
 "BZ" = (
 /obj/machinery/light/spot,
 /obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
+	installation = /obj/item/gun/energy/gun/turret/disabler
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -602,7 +602,7 @@
 /area/shuttle/administration)
 "Hc" = (
 /obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
+	installation = /obj/item/gun/energy/gun/turret/disabler
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -846,7 +846,7 @@
 /area/shuttle/administration)
 "Ur" = (
 /obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
+	installation = /obj/item/gun/energy/gun/turret/disabler
 	},
 /obj/structure/window/reinforced{
 	dir = 1;

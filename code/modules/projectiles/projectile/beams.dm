@@ -47,6 +47,22 @@
 /obj/item/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
+	damage = 10
+	range = 30
+	damage_type = STAMINA
+	flag = "energy"
+	hitsound = 'sound/weapons/tap.ogg'
+	eyeblur = 0
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_CYAN
+
+/obj/item/projectile/beam/disabler/Range()
+	..()
+	damage = min(damage + 5, 30)
+
+/obj/item/projectile/beam/disabler_turret
+	name = "disabler beam"
+	icon_state = "omnilaser"
 	damage = 30
 	damage_type = STAMINA
 	flag = "energy"
@@ -55,16 +71,6 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
 
-
-
-/obj/item/projectile/beam/disabler/accelerator
-	name = "accelerator disabler"
-	range = 30
-	damage = 10
-
-/obj/item/projectile/beam/disabler/accelerator/Range()
-	..()
-	damage = min(damage + 5, 30)
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"
@@ -242,7 +248,7 @@
 /obj/item/projectile/beam/silencer
 	name = "energy beam" //Keep it vague? It's not a laser, but it's silenced, does a person know what it is?
 	icon_state = "omnilaser"
-	stamina = 30
+	stamina = 10
 	damage = 15
 	damage_type = OXY
 	flag = "energy"
@@ -250,3 +256,7 @@
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
+
+/obj/item/projectile/beam/silencer/Range()
+	..()
+	stamina = min(stamina + 5, 30)

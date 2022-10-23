@@ -165,6 +165,14 @@
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 
+/obj/item/ammo_casing/energy/disabler_turret
+	projectile_type = /obj/item/projectile/beam/disabler_turret
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	select_name  = "disable"
+	e_cost = 200 //Costly!
+	fire_sound = 'sound/weapons/taser2.ogg'
+	harmful = FALSE
+
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
 	e_cost = 250
 
