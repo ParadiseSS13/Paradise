@@ -54,7 +54,7 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
-	var/bonus_damage = 25
+	var/bonus_damage = 20
 	if(IS_HORIZONTAL(D))
 		bonus_damage += 10 //Being stomped on doesn't feel good.
 		picked_hit_type = "stomps on"
