@@ -12,7 +12,7 @@
 	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"
 	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
 	cooldown_min = 200 //100 deciseconds reduction per rank
-	var/list/protected_roles = list("Wizard","Changeling","Cultist") //which roles are immune to the spell
+	var/list/protected_roles = list("Wizard","Wizard Apprentice","Changeling","Cultist") //which roles are immune to the spell
 	var/paralysis_amount_caster = 20 //how much the caster is paralysed for after the spell
 	var/paralysis_amount_victim = 20 //how much the victim is paralysed for after the spell
 	action_icon_state = "mindswap"

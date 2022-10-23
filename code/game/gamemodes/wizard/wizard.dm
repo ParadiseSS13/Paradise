@@ -49,6 +49,10 @@
 			if(!length(possible_wizards))
 				return 1
 			var/datum/mind/apprentice = pick(possible_wizards)
+
+			apprentices += apprentice
+			modePlayer += apprentice
+
 			apprentice.assigned_role = SPECIAL_ROLE_WIZARD_APPRENTICE //So they aren't chosen for other jobs.
 			apprentice.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 			possible_wizards.Remove(apprentice)
