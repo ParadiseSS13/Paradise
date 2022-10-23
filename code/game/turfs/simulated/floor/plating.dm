@@ -13,7 +13,6 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	smoothing_groups = list(SMOOTH_GROUP_TURF)
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -408,15 +407,15 @@
 /turf/simulated/floor/plating/ice
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
-	icon = 'icons/turf/floors/ice_turf.dmi'
+	icon = 'icons/turf/floors/ice_turfs.dmi'
 	icon_state = "unsmooth"
 	oxygen = 22
 	nitrogen = 82
 	temperature = 180
 	baseturf = /turf/simulated/floor/plating/ice
 	slowdown = TRUE
-	smoothing_flags = SMOOTH_CORNERS
-	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
 
 /turf/simulated/floor/plating/ice/Initialize(mapload)
 	. = ..()
@@ -427,5 +426,5 @@
 
 /turf/simulated/floor/plating/ice/smooth
 	icon_state = "smooth"
-	smoothing_flags = SMOOTH_CORNERS | SMOOTH_BORDER
-	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)

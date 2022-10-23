@@ -465,8 +465,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
 	update_icon()
-	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		QUEUE_SMOOTH_NEIGHBORS(src)
+	if(smooth)
+		queue_smooth_neighbors(src)
 
 /obj/structure/window/update_icon()
 	if(!QDELETED(src))
@@ -474,8 +474,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			return
 		var/ratio = obj_integrity / max_integrity
 		ratio = CEILING(ratio*4, 1) * 25
-		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-			QUEUE_SMOOTH(src)
+		if(smooth)
+			queue_smooth(src)
 		overlays -= crack_overlay
 		if(ratio > 75)
 			return
@@ -624,27 +624,27 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	level = 3
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
 	icon = 'icons/obj/smooth_structures/window.dmi'
-	icon_state = "window-0"
-	base_icon_state = "window"
+	icon_state = "window"
 	max_integrity = 50
+	smooth = SMOOTH_TRUE
 	cancolor = TRUE
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
 	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
 	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
-	icon_state = "plasma_window-0"
-	base_icon_state = "plasma_window"
+	icon_state = "plasmawindow"
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
 	max_integrity = 300
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
@@ -654,17 +654,18 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/smooth_structures/paperframe.dmi'
 	icon_state = "paperframe"
 	max_integrity = 50
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	smooth = SMOOTH_TRUE
+	cancolor = FALSE
+	canSmoothWith = list(/obj/structure/window/full/paperframe)
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
 	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
-	icon_state = "rplasma_window-0"
-	base_icon_state = "rplasma_window"
+	icon_state = "rplasmawindow"
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
+	smooth = SMOOTH_TRUE
 	reinf = TRUE
 	max_integrity = 1000
 	explosion_block = 2
@@ -677,8 +678,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
-	icon_state = "reinforced_window-0"
-	base_icon_state = "reinforced_window"
+	icon_state = "r_window"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
@@ -691,14 +693,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
-	icon_state = "tinted_window-0"
-	base_icon_state = "tinted_window"
+	icon_state = "tinted_window"
 	opacity = 1
 
 /obj/structure/window/full/reinforced/ice
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'
-	icon_state = "rice_window-0" //Welcome to the rice fields, motherfucker. OK...
-	base_icon_state = "rice_window"
+	icon_state = "ice_window"
 	max_integrity = 150
 	cancolor = FALSE
 
@@ -706,15 +706,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
 	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
-	icon_state = "shuttle_window-0"
-	base_icon_state = "shuttle_window"
+	icon_state = "shuttle_window"
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
 	glass_type = /obj/item/stack/sheet/titaniumglass
 
 /obj/structure/window/full/shuttle/narsie_act()
@@ -727,8 +726,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium."
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
-	icon_state = "plastitanium_window-0"
-	base_icon_state = "plastitanium_window"
+	icon_state = "plastitanium_window"
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 100
 	fulltile = TRUE
@@ -736,11 +734,11 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
 	explosion_block = 3
 	level = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	glass_amount = 2
 
 /obj/structure/window/reinforced/clockwork
@@ -787,11 +785,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		animate(src, color = previouscolor, time = 8)
 
 /obj/structure/window/reinforced/clockwork/fulltile
-	icon_state = "clockwork_window-0"
-	base_icon_state = "clockwork_window"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
+	icon_state = "clockwork_window"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR

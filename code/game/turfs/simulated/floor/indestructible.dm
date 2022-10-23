@@ -15,7 +15,7 @@
 /turf/simulated/floor/indestructible/narsie_act()
 	return
 
-/turf/simulated/floor/indestructible/ratvar_act(force, ignore_mobs)
+/turf/simulated/floor/indestructible/ratvar_act()
 	return
 
 /turf/simulated/floor/indestructible/burn_down()
@@ -81,7 +81,7 @@
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	smoothing_flags = SMOOTH_CORNERS
+	smooth = SMOOTH_TRUE
 
 /turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE

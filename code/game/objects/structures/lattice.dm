@@ -2,8 +2,7 @@
 	name = "lattice"
 	desc = "A lightweight support lattice."
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
-	icon_state = "lattice-255"
-	base_icon_state = "lattice"
+	icon_state = "lattice"
 	density = FALSE
 	anchored = TRUE
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
@@ -11,9 +10,11 @@
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
 	var/number_of_rods = 1
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(/obj/structure/lattice,
+						/turf/simulated/floor,
+						/turf/simulated/wall,
+						/obj/structure/falsewall)
+	smooth = SMOOTH_MORE
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -45,6 +46,9 @@
 		new /obj/item/stack/rods(get_turf(src), number_of_rods)
 	qdel(src)
 
+/obj/structure/lattice/ratvar_act()
+	new /obj/structure/lattice/clockwork(loc)
+	qdel(src)
 
 /obj/structure/lattice/blob_act(obj/structure/blob/B)
 	return
@@ -77,12 +81,10 @@
 	name = "catwalk"
 	desc = "A catwalk for easier EVA maneuvering and cable placement."
 	icon = 'icons/obj/smooth_structures/catwalk.dmi'
-	icon_state = "catwalk-0"
-	base_icon_state = "catwalk"
+	icon_state = "catwalk"
 	number_of_rods = 2
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR)
-	canSmoothWith = list(SMOOTH_GROUP_LATTICE)
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
@@ -99,11 +101,18 @@
 		C.deconstruct()
 	..()
 
+/obj/structure/lattice/catwalk/ratvar_act()
+	new /obj/structure/lattice/catwalk/clockwork(loc)
+	qdel(src)
+
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
-	smoothing_flags = SMOOTH_CORNERS
-	smoothing_groups = null
+	canSmoothWith = list(/obj/structure/lattice,
+	/turf/simulated/floor,
+	/turf/simulated/wall,
+	/obj/structure/falsewall)
+	smooth = SMOOTH_MORE
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
 	. = ..()

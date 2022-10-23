@@ -57,8 +57,8 @@
 
 // After docking //
 /atom/proc/postDock(obj/docking_port/S1)
-	if(smoothing_flags)
-		QUEUE_SMOOTH(src)
+	if(smooth)
+		queue_smooth(src)
 
 /mob/postDock()
 	update_parallax_contents()

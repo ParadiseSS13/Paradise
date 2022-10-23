@@ -2,10 +2,9 @@
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
-	icon_state = "cult_wall-0"
-	base_icon_state = "cult_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	icon_state = "cult"
 	canSmoothWith = null
+	smooth = SMOOTH_FALSE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
@@ -37,25 +36,18 @@
 	name = "rusted wall"
 	desc = "A rusted metal wall."
 	icon = 'icons/turf/walls/rusty_wall.dmi'
-	icon_state = "rusty_wall-0"
-	base_icon_state = "rusty_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	icon_state = "arust"
 
 /turf/simulated/wall/r_wall/rust
 	name = "rusted reinforced wall"
 	desc = "A huge chunk of rusted reinforced metal."
 	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
-	icon_state = "rusty_reinforced_wall-0"
-	base_icon_state = "rusty_reinforced_wall"
-	smoothing_flags = SMOOTH_BITMASK
+	icon_state = "rrust"
 
 /turf/simulated/wall/r_wall/coated			//Coated for heat resistance
 	name = "coated reinforced wall"
 	desc = "A huge chunk of reinforced metal used to seperate rooms. It seems to have additional plating to protect against heat."
 	icon = 'icons/turf/walls/coated_reinforced_wall.dmi'
-	icon_state = "coated_reinforced_wall_0"
-	base_icon_state = "coated_reinforced_wall"
-	smoothing_flags = SMOOTH_BITMASK
 	max_temperature = INFINITY
 
 //Clockwork walls
@@ -71,8 +63,6 @@
 	baseturf = /turf/simulated/floor/clockwork
 	var/heated
 	var/obj/effect/clockwork/overlay/wall/realappearance
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
-	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALL)
 
 /turf/simulated/wall/clockwork/Initialize()
 	. = ..()

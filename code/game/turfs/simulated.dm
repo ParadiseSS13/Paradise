@@ -135,7 +135,7 @@
 			T.air.temperature = atemp
 	else
 		. = ..()
-	QUEUE_SMOOTH_NEIGHBORS(src)
+	queue_smooth_neighbors(src)
 
 /turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
 	..()

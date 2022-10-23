@@ -6,11 +6,7 @@
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall-0"
-	base_icon_state = "wall"
-	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+	icon_state = "wall"
 	var/rotting = 0
 
 	var/damage = 0
@@ -39,19 +35,16 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 
-/turf/simulated/wall/Initialize(mapload)
-	. = ..()
-	if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS && fixed_underlay) //Set underlays for the diagonal walls.
-		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, plane = FLOOR_PLANE)
-		if(fixed_underlay["space"])
-			underlay_appearance.icon = 'icons/turf/space.dmi'
-			underlay_appearance.icon_state = SPACE_ICON_STATE
-			underlay_appearance.plane = PLANE_SPACE
-		else
-			underlay_appearance.icon = fixed_underlay["icon"]
-			underlay_appearance.icon_state = fixed_underlay["icon_state"]
-		fixed_underlay = string_assoc_list(fixed_underlay)
-		underlays += underlay_appearance
+	canSmoothWith = list(
+	/turf/simulated/wall,
+	/turf/simulated/wall/r_wall,
+	/obj/structure/falsewall,
+	/obj/structure/falsewall/reinforced,
+	/obj/structure/falsewall/clockwork,
+	/turf/simulated/wall/rust,
+	/turf/simulated/wall/r_wall/rust,
+	/turf/simulated/wall/r_wall/coated)
+	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
@@ -80,7 +73,7 @@
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
-	QUEUE_SMOOTH(src)
+	queue_smooth(src)
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]
@@ -312,6 +305,10 @@
 
 	if(try_wallmount(I, user, params))
 		return
+
+	if(try_reform(I, user, params))
+		return
+
 	// The magnetic gripper does a separate attackby, so bail from this one
 	if(istype(I, /obj/item/gripper))
 		return
@@ -447,6 +444,15 @@
 		return TRUE
 	return FALSE
 
+/turf/simulated/wall/proc/try_reform(obj/item/I, mob/user, params)
+	if(I.enchant_type == REFORM_SPELL && (src.type == /turf/simulated/wall)) //fuck
+		I.deplete_spell()
+		ChangeTurf(/turf/simulated/floor/plating)
+		new /obj/structure/falsewall/clockwork(src) //special falsewalls
+		playsound(src, 'sound/magic/cult_spell.ogg', 100, 1)
+		return TRUE
+	return FALSE
+
 /turf/simulated/wall/singularity_pull(S, current_size)
 	..()
 	wall_singularity_pull(current_size)
@@ -463,6 +469,11 @@
 /turf/simulated/wall/narsie_act()
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
+
+/turf/simulated/wall/ratvar_act()
+	if(prob(20))
+		ChangeTurf(/turf/simulated/wall/clockwork)
+
 
 /turf/simulated/wall/acid_act(acidpwr, acid_volume)
 	if(explosion_block >= 2)

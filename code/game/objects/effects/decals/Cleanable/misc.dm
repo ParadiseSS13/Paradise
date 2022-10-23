@@ -27,23 +27,13 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dirt"
-	base_icon_state = "dirt"
-	smoothing_flags = NONE
-	smoothing_groups = list(SMOOTH_GROUP_CLEANABLE_DIRT)
-	canSmoothWith = list(SMOOTH_GROUP_CLEANABLE_DIRT, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(/obj/effect/decal/cleanable/dirt, /turf/simulated/wall, /obj/structure/falsewall)
+	smooth = SMOOTH_MORE
 	mouse_opacity = FALSE
 
-/obj/effect/decal/cleanable/dirt/Initialize()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		QUEUE_SMOOTH_NEIGHBORS(src)
-
-/obj/effect/decal/cleanable/dirt/Destroy()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		QUEUE_SMOOTH_NEIGHBORS(src)
-	return ..()
+	icon_state = ""
 
 /obj/effect/decal/cleanable/dust
 	name = "dust"

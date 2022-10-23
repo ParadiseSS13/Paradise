@@ -16,12 +16,12 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 	subtimer = start_watch()
 	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
-		if(T.smoothing_flags)
-			QUEUE_SMOOTH(T)
+		if(T.smooth)
+			queue_smooth(T)
 		for(var/R in T)
 			var/atom/A = R
-			if(A.smoothing_flags)
-				QUEUE_SMOOTH(A)
+			if(A.smooth)
+				queue_smooth(A)
 	log_debug("\tTook [stop_watch(subtimer)]s")
 	log_debug("Late setup finished - took [stop_watch(total_timer)]s")
 

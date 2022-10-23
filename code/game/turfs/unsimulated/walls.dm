@@ -27,10 +27,8 @@
 
 /turf/unsimulated/wall/metal
 	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "iron_wall-0"
-	base_icon_state = "iron_wall"
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_IRON_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_IRON_WALLS)
+	icon_state = "wall"
+	smooth = SMOOTH_TRUE
 
 /turf/unsimulated/wall/abductor
 	icon_state = "alien1"
