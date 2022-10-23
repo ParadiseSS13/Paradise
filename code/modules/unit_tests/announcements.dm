@@ -1,3 +1,5 @@
+/// This test exists largely to ensure that no runtimes occur when announcements
+/// are made, so there are no explicit Fail calls. It either works or runtimes.
 /datum/unit_test/announcements
 
 /datum/unit_test/announcements/Run()
