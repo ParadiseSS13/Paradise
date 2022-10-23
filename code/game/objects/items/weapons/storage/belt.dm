@@ -240,8 +240,13 @@
 
 /obj/item/storage/belt/security/sec/New()
 	..()
-	new /obj/item/flashlight/seclite(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/flash(src)
+	new /obj/item/melee/baton/loaded(src)
 	update_icon()
+
 /obj/item/storage/belt/security/detective
 	name = "detective belt"
 	desc = "An old fashion security belt. Made of leather"
