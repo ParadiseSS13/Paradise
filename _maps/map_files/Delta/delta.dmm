@@ -49351,7 +49351,7 @@
 /area/space/nearstation)
 "dZF" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/maintenance/perma)
 "dZH" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -60083,7 +60083,7 @@
 	name = "ninja_teleport"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "gui" = (
 /obj/structure/rack,
 /obj/item/target/syndicate,
@@ -66930,7 +66930,7 @@
 /obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "hRL" = (
 /obj/structure/holosign/barrier/atmos,
 /turf/simulated/floor/plating,
@@ -75344,7 +75344,7 @@
 /obj/item/multitool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "jMi" = (
 /obj/structure/table/wood,
 /obj/item/folder,
@@ -82068,7 +82068,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "luQ" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -86502,7 +86502,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "mth" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -87962,7 +87962,7 @@
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "mIO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -98586,7 +98586,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "oXa" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -98961,7 +98961,7 @@
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "pbX" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -101019,7 +101019,7 @@
 /area/medical/research/nhallway)
 "pzY" = (
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "pAa" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen{
@@ -118835,7 +118835,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "tkW" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -122453,7 +122453,7 @@
 /obj/item/wrench,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "tYx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -126796,7 +126796,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "uUW" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -132189,7 +132189,7 @@
 "wbO" = (
 /obj/item/wirecutters,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/perma)
 "wbP" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
