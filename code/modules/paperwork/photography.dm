@@ -560,21 +560,23 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 /obj/item/twohanded/videocam/wield(mob/living/carbon/user)
 	. = ..()
-	on = TRUE
-	camera = new /obj/machinery/camera(src)
-	src.icon_state = icon_on
-	camera.network = list("news")
-	camera.c_tag = user.name
-	to_chat(user, "The video camera is turned on.")
+	if(wielded)
+		on = TRUE
+		camera = new /obj/machinery/camera(src)
+		icon_state = icon_on
+		camera.network = list("news")
+		camera.c_tag = user.name
+		to_chat(user, "The video camera is turned on.")
 
 /obj/item/twohanded/videocam/unwield(mob/living/carbon/user)
 	. = ..()
-	if(on)
-		on = FALSE
-		src.icon_state = icon_off
-		camera.c_tag = null
-		QDEL_NULL(camera)
-		to_chat(user, "The video camera is turned off.")
+	if(!on)
+		return
+	on = FALSE
+	icon_state = icon_off
+	camera.c_tag = null
+	QDEL_NULL(camera)
+	to_chat(user, "The video camera is turned off.")
 
 /obj/item/twohanded/videocam/examine(mob/user)
 	. = ..()
