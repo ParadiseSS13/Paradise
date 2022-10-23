@@ -6,11 +6,6 @@
 	icon = null
 	invisibility = 101
 	if(!ismachineperson(src))
-		animation = new(loc)
-		animation.icon_state = "blank"
-		animation.icon = 'icons/mob/mob.dmi'
-		animation.master = src
-
 		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 	else
 		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
@@ -36,7 +31,6 @@
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 	if(!ismachineperson(src))
-		flick("gibbed-h", animation)
 		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
