@@ -23,7 +23,6 @@
 				target.Stun(6 SECONDS)
 			if(81 to 120)
 				target.adjustStaminaLoss(40)
-				target.Silence(6 SECONDS)
 
 		CQC.restraining = TRUE
 		addtimer(CALLBACK(CQC, /datum/martial_art/cqc/.proc/drop_restraining), 5 SECONDS, TIMER_UNIQUE)

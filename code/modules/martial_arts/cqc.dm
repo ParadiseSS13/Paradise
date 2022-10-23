@@ -31,6 +31,7 @@
 	var/damage_multiplier = 1 + A.getStaminaLoss() / 100 //The chokehold is more effective the more tired the target is.
 	while(do_mob(A, D, 2 SECONDS) && chokehold_active)
 		D.apply_damage(10 * damage_multiplier, OXY)
+		D.SetLoseBreath(3 SECONDS)
 		if(D.getOxyLoss() >= 50 || D.health <= 20)
 			D.visible_message("<span class ='danger>[A] puts [D] to sleep!</span>", \
 						"<span class='userdanger'>[A] knocks you out cold!</span>")
@@ -44,7 +45,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = D.grabbedby(A, 1)
 	if(G)
-		D.Stun(1 SECONDS) //Catch them off guard, but not long enough to do too much nonsense
+		D.Immobilize(1 SECONDS) //Catch them off guard, but not long enough to do too much nonsense
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : grabbed", ATKLOG_ALL)
 
 	return TRUE
@@ -80,7 +81,7 @@
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
-	if(restraining && istype(G) && G.affecting == D)
+	if(restraining && istype(G) && G.affecting == D && !chokehold_active)
 		start_chokehold(A, D)
 		return TRUE
 	else
