@@ -13,6 +13,5 @@
 /obj/merge_conflict_marker/Initialize(mapload)
 	. = ..()
 	var/msg = "HEY, LISTEN!!! Merge Conflict Marker detected at [AREACOORD(src)]! Please manually address all potential merge conflicts!!!"
-	log_mapping(msg)
-	to_chat(world, span_boldannounce("[msg]"))
 	warning(msg)
+	to_chat(world, "<span class='boldannounce'>[msg]</span>")
