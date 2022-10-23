@@ -198,7 +198,7 @@
 	icon_state = "indwelder"
 	belt_icon = "welder_ind"
 	maximum_fuel = 40
-	materials = list(MAT_METAL=400, MAT_GLASS=300)
+	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
 	origin_tech = "engineering=2;plasmatech=2"
 
 /obj/item/weldingtool/largetank/cyborg
@@ -212,7 +212,7 @@
 	icon_state = "miniwelder"
 	maximum_fuel = 10
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(MAT_METAL=200, MAT_GLASS=50)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/abductor
