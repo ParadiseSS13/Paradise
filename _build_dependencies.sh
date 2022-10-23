@@ -9,6 +9,8 @@ export BYOND_MAJOR=514
 export BYOND_MINOR=1575
 # For the RUSTG library. Not actually installed by CI but kept as a reference
 export RUSTG_VERSION=1.0.3-ss220
+#For DMJIT librarry
+export DMJIT_VERSION=v0.1.0
 
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.7.9
