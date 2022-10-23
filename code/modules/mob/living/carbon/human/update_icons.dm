@@ -418,6 +418,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/obj/item/organ/external/hand/l_hand = get_limb_by_name("l_hand")
 	var/obj/item/organ/external/hand/right/r_hand = get_limb_by_name("r_hand")
 
+	if(isgolem(src))
+		var/datum/species/golem/G = src.dna.species
+		var/icon/golem_icon = G.icobase
+		if(G.golem_colour)
+			if(l_hand)
+				hands_appearance.overlays += icon(golem_icon.ColorTone(G.golem_colour), "l_hand")
+			if(r_hand)
+				hands_appearance.overlays += icon(golem_icon.ColorTone(G.golem_colour), "r_hand")
+
 	if(l_hand)
 		hands_appearance.overlays += l_hand.mob_icon
 	if(r_hand)
