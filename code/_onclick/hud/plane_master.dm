@@ -85,4 +85,12 @@
 	name = "parallax plane master"
 	plane = PLANE_SPACE_PARALLAX
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
+	blend_mode = BLEND_MULTIPLY
+
+/obj/screen/plane_master/blackness
+	name = "blackness plane master"
+	plane = BLACKNESS_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	color = list(null, null, null, "#0000", "#000f")
+	blend_mode = BLEND_ADD
+	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR | PIXEL_SCALE
