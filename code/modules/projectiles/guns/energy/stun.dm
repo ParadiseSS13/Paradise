@@ -47,7 +47,7 @@
 
 /obj/item/gun/energy/disabler
 	name = "disabler"
-	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
+	desc = "A low power self-defense weapon that exhausts and then weakens organic targets, the beams need to travel a short distance until becoming fully effective."
 	icon_state = "disabler"
 	item_state = null
 	origin_tech = "combat=3"
@@ -61,7 +61,7 @@
 
 /obj/item/ammo_casing/energy/disabler/accelerator
 	projectile_type = /obj/item/projectile/beam/disabler/accelerator
-	select_name = "accelerator"
+	select_name = "accelerator disabler"
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
