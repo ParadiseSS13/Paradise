@@ -348,22 +348,21 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/HasProximity(atom/movable/AM)
 	if(!isliving(AM))
 		return
+	var/mob/living/M = AM
+	if(!ishuman(M) && !isrobot(M))
+		return
+	if(M == activator)
+		return
+	if(M in invaders)
+		to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
+		for(var/i in 1 to 4)
+			M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
 	else
-		var/mob/living/M = AM
-		if(!ishuman(M) && !isrobot(M))
-			return
-		if(M == activator)
-			return
-		if(M in invaders)
-			to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
-			for(var/i in 1 to 4)
-				M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
-		else
-			to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
-			invaders += M
-		var/list/valid_turfs = RANGE_EDGE_TURFS(13, src)
-		M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
-		playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
+		invaders += M
+	var/list/valid_turfs = RANGE_EDGE_TURFS(13, src)
+	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
+	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
