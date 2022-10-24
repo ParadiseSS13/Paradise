@@ -11,6 +11,7 @@
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
+	inherent_factions = list("slime")
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
@@ -162,6 +163,8 @@
 			H.change_hair_color(new_color)
 
 /datum/species/machine/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)
+	if(flags & SHOCK_ILLUSION)
+		return
 	H.adjustBrainLoss(shock_damage)
 	H.adjust_nutrition(shock_damage)
 

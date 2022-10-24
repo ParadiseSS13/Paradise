@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(user.stat || user.restrained())
 		return FALSE
 
-	if(!(istype(user, /mob/living/carbon/human)))
+	if(!(ishuman(user)))
 		return FALSE
 
 	// If the uplink's holder is in the user's contents
@@ -891,7 +891,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual
 	cost = 13
 	cant_discount = TRUE
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_weapons/cqc/nuke
+	reference = "NCQC"
+	cost = 8
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -1267,6 +1272,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CP"
 	item = /obj/item/chameleon
 	cost = 7
+
+/datum/uplink_item/stealthy_tools/chameleon_counter
+	name = "Chameleon Counterfeiter"
+	desc = "This device disguises itself as any object scanned by it. The disguise is not a perfect replica and can be noticed when examined by an observer."
+	reference = "CC"
+	item = /obj/item/chameleon_counterfeiter
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"

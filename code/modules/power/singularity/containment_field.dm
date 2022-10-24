@@ -59,7 +59,7 @@
 	if(isliving(mover))
 		shock_field(mover)
 
-	if(ismachinery(mover) || istype(mover, /obj/structure) || ismecha(mover))
+	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
 		bump_field(mover)
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)
@@ -90,7 +90,7 @@
 	if(isliving(mover)) // Don't let mobs through
 		shock_field(mover)
 		return 0
-	if(ismachinery(mover) || istype(mover, /obj/structure) || ismecha(mover))
+	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
 		bump_field(mover)
 		return 0
 	return ..()

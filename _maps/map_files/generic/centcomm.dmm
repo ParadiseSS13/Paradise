@@ -4344,7 +4344,9 @@
 	},
 /obj/item/kitchen/knife,
 /obj/machinery/newscaster{
-	pixel_x = -32
+	dir = 4;
+	name = "west bump";
+	pixel_x = -28
 	},
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_y = 5
@@ -4733,7 +4735,9 @@
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
 /obj/machinery/newscaster{
-	pixel_y = -32
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -6088,9 +6092,10 @@
 /area/admin)
 "vk" = (
 /obj/structure/table,
-/obj/item/stack/cable_coil,
-/obj/item/stack/rods,
-/obj/item/pen,
+/obj/item/storage/belt/utility/full/multitool{
+	pixel_x = -2;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vl" = (
@@ -6289,9 +6294,9 @@
 /area/admin)
 "vO" = (
 /obj/structure/table,
-/obj/item/scalpel,
-/obj/item/bonesetter,
-/obj/item/bonegel,
+/obj/item/storage/backpack/duffel/syndie/med/surgery{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vP" = (
@@ -6299,6 +6304,7 @@
 /obj/item/kitchen/utensil/fork,
 /obj/item/lighter,
 /obj/item/restraints/handcuffs/cable/red,
+/obj/item/kitchen/knife,
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/fancy/cigarettes,
 /obj/item/pen,
@@ -6467,9 +6473,13 @@
 /area/admin)
 "wz" = (
 /obj/structure/table,
-/obj/item/FixOVein,
-/obj/item/retractor,
-/obj/item/cautery,
+/obj/item/scalpel/laser/manager/debug{
+	pixel_y = -5
+	},
+/obj/item/stack/medical/bruise_pack/advanced{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wA" = (
@@ -6566,14 +6576,19 @@
 /area/admin)
 "wW" = (
 /obj/structure/table,
-/obj/item/surgicaldrill,
-/obj/item/stack/medical/bruise_pack/advanced,
+/obj/item/stack/rods,
+/obj/item/stack/cable_coil,
+/obj/item/pen,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wX" = (
 /obj/structure/table,
-/obj/item/hemostat,
-/obj/item/circular_saw,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/storage/pill_bottle/psychiatrist,
+/obj/item/storage/pill_bottle/psychiatrist,
+/obj/item/storage/pill_bottle/psychiatrist,
+/obj/item/storage/pill_bottle/psychiatrist,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wY" = (
@@ -7432,7 +7447,8 @@
 /obj/structure/table/wood,
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/machinery/newscaster{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -8385,7 +8401,8 @@
 /obj/item/melee/chainofcommand,
 /obj/item/stamp/captain,
 /obj/machinery/newscaster/security_unit{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -8953,7 +8970,9 @@
 /obj/item/pen,
 /obj/structure/table/reinforced,
 /obj/machinery/newscaster{
-	pixel_x = 32
+	dir = 8;
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -9717,7 +9736,9 @@
 /obj/item/folder/red,
 /obj/item/lighter,
 /obj/machinery/newscaster{
-	pixel_y = -32
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -10188,7 +10209,9 @@
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/dice,
 /obj/machinery/newscaster/security_unit{
-	pixel_x = -32
+	dir = 4;
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
@@ -10543,7 +10566,9 @@
 	dir = 1
 	},
 /obj/machinery/newscaster/security_unit{
-	pixel_y = -32
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -11368,7 +11393,9 @@
 /obj/item/folder/red,
 /obj/item/lighter,
 /obj/machinery/newscaster{
-	pixel_y = -32
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -11671,7 +11698,9 @@
 	},
 /obj/item/storage/lockbox/medal,
 /obj/machinery/newscaster/security_unit{
-	pixel_x = 32
+	dir = 8;
+	name = "east bump";
+	pixel_x = 28
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
@@ -11685,6 +11714,10 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"UE" = (
+/obj/machinery/computer/operating,
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
 "UF" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
@@ -12768,7 +12801,8 @@
 	pixel_x = 4.5
 	},
 /obj/machinery/newscaster{
-	pixel_y = 32
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -12901,6 +12935,12 @@
 	icon_state = "white"
 	},
 /area/centcom/control)
+"ZA" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/admin)
 "ZC" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
@@ -12990,10 +13030,6 @@
 "ZT" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/tdome/tdomeobserve)
-"ZU" = (
-/obj/machinery/newscaster,
-/turf/simulated/wall/indestructible/riveted,
-/area/centcom/control)
 "ZV" = (
 /obj/structure/railing,
 /obj/structure/railing{
@@ -40677,7 +40713,7 @@ ZC
 Wd
 ZC
 Nq
-ZU
+YA
 dv
 xv
 Zx
@@ -70711,7 +70747,7 @@ aN
 wk
 wk
 uk
-nJ
+ZA
 vO
 wz
 wW
@@ -70967,7 +71003,7 @@ aN
 aN
 aN
 lH
-nJ
+UE
 nJ
 nJ
 nJ
