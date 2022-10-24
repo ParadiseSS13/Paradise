@@ -476,13 +476,13 @@
 	var/ratio = obj_integrity / max_integrity
 	ratio = CEILING(ratio * 4, 1) * 25
 	if(ratio <= 75)
-		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.01), appearance_flags = RESET_COLOR)
+		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer + 0.01), appearance_flags = RESET_COLOR)
 		. += crack_overlay
 
 	if(!edge_overlay_file)
 		return
 
-	edge_overlay = mutable_appearance(edge_overlay_file, "[smoothing_junction]", (layer+0.1), appearance_flags = RESET_COLOR)
+	edge_overlay = mutable_appearance(edge_overlay_file, "[smoothing_junction]", layer + 0.1, appearance_flags = RESET_COLOR)
 	. += edge_overlay
 
 /obj/structure/window/smooth_icon()
