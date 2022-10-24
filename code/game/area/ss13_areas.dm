@@ -696,7 +696,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_light = 0
 	power_environ = 0
 
-/area/maintenance/abandonedlibrary
+/area/maintenance/library
 	name = "Abandoned Library"
 	icon_state = "library"
 
