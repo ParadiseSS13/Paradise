@@ -191,9 +191,9 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/shield/energy(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double(src), slot_s_store)
+	equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double(src), slot_in_backpack )
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver/mateba(src), slot_belt)
-	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_s_store )
 
 	var/obj/item/implant/mindshield/ert/L = new/obj/item/implant/mindshield/ert(src)
 	L.implant(src)
