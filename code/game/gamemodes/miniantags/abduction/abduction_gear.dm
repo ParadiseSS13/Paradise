@@ -707,7 +707,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!(do_after(user, 50, target = src) && stack.use(1)))
 		return
 
-	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
+	if(istype(I, /obj/item/stack/sheet/mineral/abductor)) //if it's not this then it's silver, so no need for an else afterwards
 		make_new_table(stack.table_type)
 		return
 

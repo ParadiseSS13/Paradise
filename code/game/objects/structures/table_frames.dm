@@ -98,7 +98,7 @@
 		make_new_table(/obj/structure/table/wood/poker)
 		return
 
-	make_new_table(/obj/structure/table/abductor)
+	make_new_table(stack.table_type)
 
 /obj/structure/table_frame/brass
 	name = "brass table frame"
@@ -124,7 +124,7 @@
 	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
 
 	if(do_after(user, 20, target = src) && stack.use(1))
-		make_new_table(/obj/structure/table/reinforced/brass)
+		make_new_table(stack.table_type)
 
 /obj/structure/table_frame/brass/narsie_act()
 	..()
