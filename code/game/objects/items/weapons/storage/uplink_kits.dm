@@ -380,3 +380,39 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/toy/crayon/white(src)
 	new /obj/item/toy/crayon/yellow(src)
 	new /obj/item/toy/crayon/rainbow(src)
+
+/obj/item/storage/box/syndie_kit/cyborg_maint
+	name = "cyborg repair kit"
+	desc = "For people who wants to repair their robots."
+
+/obj/item/storage/box/syndie_kit/cyborg_maint/New()
+	..()
+	new /obj/item/robot_parts/robot_component/armour(src)
+	new /obj/item/robot_parts/robot_component/actuator(src)
+	new /obj/item/robot_parts/robot_component/radio(src)
+	new /obj/item/robot_parts/robot_component/binary_communication_device(src)
+	new /obj/item/robot_parts/robot_component/camera(src)
+	new /obj/item/robot_parts/robot_component/diagnosis_unit(src)
+	new /obj/item/stack/nanopaste(src)
+	new /obj/item/stack/nanopaste(src)
+	new /obj/item/stack/nanopaste(src)
+	new /obj/item/encryptionkey/syndicate(src)
+	new /obj/item/robotanalyzer(src)
+	var/obj/item/paper/P = new (src)
+	P.name = "Cyborg Repair Instruction"
+	P.info = {"
+<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Краткая инструкция по пончинке роботов</B><HR></center><BR><BR>
+
+<font size = "4">1. Возьмите Cyborg Analyzer, проведите им по юниту.<BR>
+2. Запомните сломанные компоненты, которые вывел Cyborg Analyzer.<BR>
+3. Если юнит закрыт(будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<BR>
+4. Монтировкой откройте крышку юнита.<BR>
+5. Руками вытащите батарейку у юнита.<BR>
+6. Монтировкой снимите сломанные компоненты из пункта 2.<BR>
+7. Вставьте новые компоненты в юнита.<BR>
+8. Вставьте батарейку в юнита.<BR>
+9. Закройте крышку юнита монтировкой.<BR>
+10. Залейте нанопастой поврежденные части юнита.<BR>
+11. Готово. Юнит снова функционирует.<BR>
+<BR><BR><BR>
+	"}
