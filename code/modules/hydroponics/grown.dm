@@ -121,9 +121,9 @@
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				squash(hit_atom)
+				squash(hit_atom, thrownby)
 
-/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
+/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, mob/thrower)
 	var/turf/T = get_turf(target)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/plant_smudge))
 		if(filling_color)
@@ -139,7 +139,7 @@
 	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
-			trait.on_squash(src, target)
+			trait.on_squash(src, target, thrower)
 
 	reagents.reaction(T)
 	for(var/A in T)

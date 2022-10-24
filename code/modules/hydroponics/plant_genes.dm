@@ -314,15 +314,15 @@
 		var/turf/T = get_turf(target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		add_attack_logs(target, T, "teleport squash [G](max radius: [teleport_radius])")
-		target.investigate_log("teleported to [T], squashing [G](max radius: [teleport_radius]", INVESTIGATE_BOTANY)
 		do_teleport(target, T, teleport_radius)
+		target.investigate_log("teleported from [COORD(T)] to [COORD(target)], squashing [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
 		add_attack_logs(C, T, "tele-slipped on [G](max radius: [teleport_radius])")
-		C.investigate_log("teleported to [T], slipping on [G](max radius: [teleport_radius]", INVESTIGATE_BOTANY)
+		C.investigate_log("teleported from [COORD(T)] to [COORD(C)], slipping on [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)
@@ -343,12 +343,15 @@
 	..()
 	G.reagents.set_reacting(FALSE)
 
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(G && G.reagents)
 		var/reglist = ""
 		for(var/datum/reagent/R in G.reagents.reagent_list)
 			reglist += "[R.name] [R.volume], "
-		target.investigate_log("started reaction in [G] on squash. [reglist]", INVESTIGATE_BOTANY)
+		if(thrower)
+			thrower.investigate_log("thrown [G] and started reaction on squash. [reglist]", INVESTIGATE_BOTANY)
+		else
+			target.investigate_log("squashed [G] starting a reaction. [reglist]", INVESTIGATE_BOTANY)
 		G.reagents.set_reacting(TRUE)
 		G.reagents.handle_reactions()
 

@@ -68,7 +68,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	volume = 1000
 	use_power = NO_POWER_USE
 	interact_offline = 1
-	var/release_log = ""
 	var/update_flag = 0
 
 /obj/machinery/portable_atmospherics/canister/New()
@@ -271,9 +270,9 @@ update_flag
 		if(close_valve)
 			valve_open = FALSE
 			update_icon()
-			investigate_log("Valve was <b>closed</b> by [key_name_log(user)].<br>", INVESTIGATE_ATMOS)
+			investigate_log("Valve was <b>closed</b> by [key_name_log(user)].", INVESTIGATE_ATMOS)
 		else if(valve_open && holding)
-			investigate_log("[key_name_log(user)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
+			investigate_log("[key_name_log(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
 	add_hiddenprint(user)
@@ -348,9 +347,9 @@ update_flag
 			var/logmsg
 			valve_open = !valve_open
 			if(valve_open)
-				logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into the [holding || "air"].<br>"
+				logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into [holding || "air"]."
 				if(!holding)
-					logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into the air.<br>"
+					logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into the air."
 					if(air_contents.toxins > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [ADMIN_VERBOSEJMP(src)]!")
 						log_admin("[key_name(usr)] opened a canister that contains plasma at [AREACOORD(src)]")
@@ -358,14 +357,13 @@ update_flag
 						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [ADMIN_VERBOSEJMP(src)]!")
 						log_admin("[key_name(usr)] opened a canister that contains N2O at [AREACOORD(src)]")
 			else
-				logmsg = "Valve was <b>closed</b> by [key_name_log(usr)], stopping the transfer into the [holding || "air"].<br>"
+				logmsg = "Valve was <b>closed</b> by [key_name_log(usr)], stopping the transfer into the [holding || "air"]."
 			investigate_log(logmsg, INVESTIGATE_ATMOS)
-			release_log += logmsg
 		if("eject")
 			if(holding)
 				if(valve_open)
 					valve_open = FALSE
-					release_log += "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
+					investigate_log("Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]", INVESTIGATE_ATMOS)
 				replace_tank(usr, FALSE)
 		if("recolor")
 			if(can_label)

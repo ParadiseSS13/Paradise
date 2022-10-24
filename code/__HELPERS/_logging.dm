@@ -257,7 +257,7 @@ GLOBAL_PROTECT(log_end)
 		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
 	var/mob/living/alive = target
 	if(istype(alive))
-		newhp += "\[HP: [alive.health]: [alive.getOxyLoss()] - [alive.getToxLoss()] - [alive.getFireLoss()] - [alive.getBruteLoss()] - [alive.getStaminaLoss()] - [alive.getBrainLoss()] - [alive.getCloneLoss()] \]"
+		newhp += "\[HP:[alive.health]:[alive.getOxyLoss()]-[alive.getToxLoss()]-[alive.getFireLoss()]-[alive.getBruteLoss()]-[alive.getStaminaLoss()]-[alive.getBrainLoss()]-[alive.getCloneLoss()]\]"
 	log_attack(user_str, target_str, what_done, newhp)
 
 	//Setting up log level of how important this log.
@@ -299,8 +299,8 @@ GLOBAL_PROTECT(log_end)
 	else
 		log_runtime(EXCEPTION("Got non-mob variable [user] with arguments [what_said] [language] [target]"))
 		return
-	actor.create_log(SAY_LOG, "([language]) [what_said]", target)
-	log_say("([language]) [what_said] [target ? "to [target]" : null]", actor)
+	actor.create_log(SAY_LOG, "[language ? "([language])" : ""] [what_said]", target)
+	log_say("[language ? "([language])" : ""] [what_said] [target ? "to [target]" : null]", actor)
 
 // Proc for conversion log creation
 // * user is who gets converted in something

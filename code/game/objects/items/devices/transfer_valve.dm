@@ -195,19 +195,14 @@
 		valve_open = 1
 		var/turf/bombturf = get_turf(src)
 
-		var/attacher_name = ""
-		if(!attacher)
-			attacher_name = "Unknown"
-		else
-			attacher_name = "[key_name_admin(attacher)]"
 
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
 
-		investigate_log("Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher_name)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]", INVESTIGATE_BOMB)
-		message_admins("Bomb valve opened at [ADMIN_COORDJMP(bombturf)] with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)][user ? ". Activated by [key_name_admin(user)]" : null]")
-		add_game_logs("Bomb valve opened at [AREACOORD(bombturf)] with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher_name)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]")
+		investigate_log("Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]", INVESTIGATE_BOMB)
+		message_admins("Bomb valve opened at [ADMIN_COORDJMP(bombturf)] with [attached_device ? attached_device : "no device"], attached by [key_name_admin(attacher)]. Last touched by: [key_name_admin(mob)][user ? ". Activated by [key_name_admin(user)]" : null]")
+		add_game_logs("Bomb valve opened at [AREACOORD(bombturf)] with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher)]. Last touched by: [key_name_log(mob)][user ? ". Activated by [key_name_log(user)]" : null]")
 		if(user)
-			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_log(mob)]", ATKLOG_FEW)
+			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [key_name_log(attacher)]. Last touched by: [key_name_log(mob)]", ATKLOG_FEW)
 		merge_gases()
 		spawn(20) // In case one tank bursts
 			for(var/i in 1 to 5)

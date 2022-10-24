@@ -462,17 +462,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		for(var/R in being_built.reagents_list)
 			machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
 
-	var/key = usr.key
-	addtimer(CALLBACK(src, .proc/finish_machine, key, amount, enough_materials, machine, being_built, coeff), time_to_construct)
+	addtimer(CALLBACK(src, .proc/finish_machine, usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
-/obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
+/obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
 	if(machine)
 		if(enough_materials && being_built)
-			investigate_log("[key_name_log(usr)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
+			investigate_log("[key_name_log(user)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
-					new_item.investigate_log("built by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+					new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 					new_item.update_materials_coeff(coeff)
 				if(being_built.locked)
