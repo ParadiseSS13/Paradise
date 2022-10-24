@@ -800,6 +800,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		owner.update_inv_ear()
 	if(flags & SLOT_MASK)
 		owner.update_inv_wear_mask()
+	if(flags & SLOT_NECK)
+		owner.update_inv_neck()
 	if(flags & SLOT_HEAD)
 		owner.update_inv_head()
 	if(flags & SLOT_FEET)

@@ -32,7 +32,8 @@
 #define slot_wear_pda 20
 #define slot_tie 21
 #define slot_collar 22
-#define slots_amt 24
+#define slot_neck 23
+#define slots_amt 23
 
 // accessory slots
 #define ACCESSORY_SLOT_DECOR 1

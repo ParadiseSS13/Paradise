@@ -255,35 +255,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 
-/obj/item/clothing/suit/poncho
-	name = "poncho"
-	desc = "Your classic, non-racist poncho."
-	icon_state = "classicponcho"
-	item_state = "classicponcho"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
-/obj/item/clothing/suit/poncho/green
-	name = "green poncho"
-	desc = "Your classic, non-racist poncho. This one is green."
-	icon_state = "greenponcho"
-	item_state = "greenponcho"
-
-/obj/item/clothing/suit/poncho/red
-	name = "red poncho"
-	desc = "Your classic, non-racist poncho. This one is red."
-	icon_state = "redponcho"
-	item_state = "redponcho"
-
-/obj/item/clothing/suit/poncho/ponchoshame
-	name = "poncho of shame"
-	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
-	icon_state = "ponchoshame"
-	item_state = "ponchoshame"
-	flags = NODROP
-
 /obj/item/clothing/suit/hooded/carp_costume
 	name = "carp costume"
 	desc = "A costume made from 'synthetic' carp scales, it smells."
@@ -916,36 +887,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/suit/toggle/owlwings
-	name = "owl cloak"
-	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
-	w_class = WEIGHT_CLASS_NORMAL
-	icon_state = "owl_wings"
-	item_state = "owl_wings"
-	body_parts_covered = ARMS
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 15, ACID = 15)
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite)
-	actions_types = list(/datum/action/item_action/toggle_wings)
-
-
-/obj/item/clothing/suit/toggle/owlwings/griffinwings
-	name = "griffon cloak"
-	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
-	icon_state = "griffin_wings"
-	item_state = "griffin_wings"
-
-/obj/item/clothing/suit/toggle/attack_self()
-	if(icon_state == initial(icon_state))
-		icon_state = icon_state + "_t"
-		item_state = icon_state + "_t"
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-	usr.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
 /obj/item/clothing/suit/lordadmiral
 	name = "lord admiral's coat"
 	desc = "You'll be the Ruler of the King's Navy in no time."
@@ -1079,28 +1020,6 @@
 	name = "ladies red victorian coat"
 	icon_state = "ladiesredvictoriancoat"
 	item_state = "ladiesredvictoriancoat"
-
-//Mantles!
-/obj/item/clothing/suit/mantle
-	name = "mantle"
-	desc = "A heavy quilted mantle, for keeping your shoulders warm and stylish."
-	icon_state = "mantle"
-	item_state = "mantle"
-	body_parts_covered = UPPER_TORSO|ARMS
-	cold_protection = UPPER_TORSO|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-
-/obj/item/clothing/suit/mantle/regal
-	name = "regal shawl"
-	desc = "A fancy shawl for nobility, made from high quality materials."
-	icon_state = "regal_mantle"
-	item_state = "regal_mantle"
-
-/obj/item/clothing/suit/mantle/old
-	name = "old wrap"
-	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
-	icon_state = "old_mantle"
-	item_state = "old_mantle"
 
 /obj/item/clothing/suit/ghost_sheet
 	name = "ghost sheet"

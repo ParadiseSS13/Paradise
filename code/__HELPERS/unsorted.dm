@@ -2041,6 +2041,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return slot_wear_pda
 		if(SLOT_TIE)
 			return slot_tie
+		if(SLOT_NECK)
+			return slot_neck
 
 
 /**

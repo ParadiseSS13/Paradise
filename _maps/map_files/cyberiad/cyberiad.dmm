@@ -87274,7 +87274,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "sPu" = (
-/obj/item/clothing/suit/mantle/old,
+/obj/item/clothing/neck/mantle/unathi,
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint)
 "sPx" = (
@@ -88296,7 +88296,7 @@
 	dir = 1
 	},
 /obj/item/clothing/head/sombrero,
-/obj/item/clothing/suit/poncho,
+/obj/item/clothing/neck/poncho,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "tMx" = (

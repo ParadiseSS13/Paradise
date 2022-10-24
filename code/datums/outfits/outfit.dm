@@ -10,6 +10,7 @@
 	var/shoes = null
 	var/head = null
 	var/mask = null
+	var/neck = null
 	var/l_ear = null
 	var/glasses = null
 	var/id = null
@@ -71,6 +72,8 @@
 		equip_item(H, head, slot_head)
 	if(mask)
 		equip_item(H, mask, slot_wear_mask)
+	if(neck)
+		equip_item(H, neck, slot_neck)
 	if(l_ear)
 		equip_item(H, l_ear, slot_l_ear)
 	if(glasses)
@@ -152,6 +155,8 @@
 		H.wear_suit.add_fingerprint(H, 1)
 	if(H.wear_mask)
 		H.wear_mask.add_fingerprint(H, 1)
+	if(H.neck)
+		H.neck.add_fingerprint(H, 1)
 	if(H.head)
 		H.head.add_fingerprint(H, 1)
 	if(H.shoes)
@@ -177,7 +182,7 @@
 	return 1
 
 /datum/outfit/proc/get_chameleon_disguise_info()
-	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, l_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
+	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, l_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
 	types += chameleon_extras
 	listclearnulls(types)
 	return types
@@ -203,6 +208,7 @@
 	shoes = text2path(outfit_data["shoes"])
 	head = text2path(outfit_data["head"])
 	mask = text2path(outfit_data["mask"])
+	neck = text2path(outfit_data["neck"])
 	l_ear = text2path(outfit_data["l_ear"])
 	glasses = text2path(outfit_data["glasses"])
 	id = text2path(outfit_data["id"])
@@ -258,6 +264,7 @@
 	.["shoes"] = shoes
 	.["head"] = head
 	.["mask"] = mask
+	.["neck"] = neck
 	.["l_ear"] = l_ear
 	.["glasses"] = glasses
 	.["id"] = id

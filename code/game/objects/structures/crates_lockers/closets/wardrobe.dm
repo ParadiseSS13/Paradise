@@ -116,7 +116,7 @@
 	icon_state = "green"
 
 /obj/structure/closet/wardrobe/xenos/populate_contents()
-	new /obj/item/clothing/suit/unathi/mantle(src)
+	new /obj/item/clothing/neck/mantle/unathi(src)
 	new /obj/item/clothing/suit/unathi/robe(src)
 	new /obj/item/clothing/shoes/sandal(src)
 	new /obj/item/clothing/shoes/sandal(src)
