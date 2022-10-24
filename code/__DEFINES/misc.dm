@@ -163,18 +163,18 @@
 
 //Human Overlays Indexes/////////
 #define WING_LAYER				41
-#define WING_UNDERLIMBS_LAYER		40
-#define BODY_LAYER				39
-#define MUTANTRACE_LAYER		38
-#define TAIL_UNDERLIMBS_LAYER	37	//Tail split-rendering.
-#define LIMBS_LAYER				36
-#define INTORGAN_LAYER			35
-#define MARKINGS_LAYER			34
-#define UNDERWEAR_LAYER			33
-#define MUTATIONS_LAYER			32
-#define H_DAMAGE_LAYER			31
-#define UNIFORM_LAYER			30
-#define ID_LAYER				29
+#define WING_UNDERLIMBS_LAYER	40
+#define MUTANTRACE_LAYER		39
+#define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
+#define LIMBS_LAYER				37
+#define INTORGAN_LAYER			36
+#define MARKINGS_LAYER			35
+#define UNDERWEAR_LAYER			34
+#define MUTATIONS_LAYER			33
+#define H_DAMAGE_LAYER			32
+#define UNIFORM_LAYER			31
+#define ID_LAYER				30
+#define HANDS_LAYER				29	//Exists to overlay hands over jumpsuits
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27
 #define EARS_LAYER				26

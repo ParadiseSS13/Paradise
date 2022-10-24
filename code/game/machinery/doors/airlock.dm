@@ -81,7 +81,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/obj/item/airlock_electronics/electronics
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
-	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
@@ -332,7 +331,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		polarized_image.color = "#FFFFFF"
 		animate_color = "#222222"
 		set_opacity(TRUE)
-	
+
 	overlays -= polarized_image
 
 	// Animate() does not work on overlays, so a temporary effect is used
@@ -740,7 +739,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
-	if(isElectrified() && density && istype(mover, /obj/item))
+	if(isElectrified() && density && isitem(mover))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
 			do_sparks(5, 1, src)
@@ -1233,7 +1232,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!density)
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN)
-	operating = TRUE
+	operating = DOOR_OPENING
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
 	set_opacity(0)
@@ -1244,7 +1243,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
-	operating = FALSE
+	operating = NONE
 	return TRUE
 
 /obj/machinery/door/airlock/close(forced=0, override = 0)
@@ -1274,7 +1273,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		killthis.ex_act(EXPLODE_HEAVY)//Smashin windows
 
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE)
-	operating = TRUE
+	operating = DOOR_CLOSING
 	update_icon(AIRLOCK_CLOSING, 1)
 	layer = CLOSED_DOOR_LAYER
 	if(!override)
@@ -1290,7 +1289,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	update_freelook_sight()
 	sleep(1)
 	update_icon(AIRLOCK_CLOSED, 1)
-	operating = FALSE
+	operating = NONE
 	if(safe)
 		CheckForMobs()
 	return TRUE
@@ -1326,13 +1325,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
-		operating = TRUE
+		operating = DOOR_MALF
 		update_icon(AIRLOCK_EMAG, 1)
 		sleep(6)
 		if(QDELETED(src))
 			return
 		electronics = new /obj/item/airlock_electronics/destroyed()
-		operating = FALSE
+		operating = NONE
 		if(!open())
 			update_icon(AIRLOCK_CLOSED, 1)
 		emagged = TRUE
@@ -1341,12 +1340,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn())
 		return
-	operating = TRUE
+	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, 1)
 	sleep(6)
 	if(QDELETED(src))
 		return
-	operating = FALSE
+	operating = NONE
 	update_icon(AIRLOCK_CLOSED, 1)
 	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
 	return TRUE
@@ -1381,6 +1380,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
 		return
+	if(prying_so_hard)
+		return
+	prying_so_hard = TRUE
 	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
 						"<span class='warning'>You hear groaning metal...</span>")
@@ -1393,6 +1395,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(do_after(user, time_to_open, TRUE, src))
 		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
 			to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
+	prying_so_hard = FALSE
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
 	..()
@@ -1456,7 +1459,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		DA.polarized_glass = polarized_glass
 		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		DA.created_name = name
-		DA.previous_assembly = previous_airlock
 		DA.update_name()
 		DA.update_icon()
 

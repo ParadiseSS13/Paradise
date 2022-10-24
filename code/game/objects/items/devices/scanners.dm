@@ -567,7 +567,7 @@ REAGENT SCANNER
 		if(T.slime_mutation[3] == T.slime_mutation[4])
 			if(T.slime_mutation[2] == T.slime_mutation[1])
 				to_chat(user, "Possible mutation: [T.slime_mutation[3]]")
-				to_chat(user, "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting")
+				to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
 			else
 				to_chat(user, "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)")
 				to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")

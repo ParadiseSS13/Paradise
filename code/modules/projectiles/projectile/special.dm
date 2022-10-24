@@ -257,7 +257,7 @@
 
 /obj/item/projectile/snowball/on_hit(atom/target)	//chilling
 	. = ..()
-	if(istype(target, /mob/living))
+	if(isliving(target))
 		var/mob/living/M = target
 		M.bodytemperature = max(0, M.bodytemperature - 50)	//each hit will drop your body temp, so don't get surrounded!
 		M.ExtinguishMob()	//bright side, they counter being on fire!

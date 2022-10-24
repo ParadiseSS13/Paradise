@@ -172,5 +172,5 @@
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	cooldown_min = 20 //25 deciseconds reduction per rank
 
-	smoke_spread = 3
+	smoke_type = SMOKE_SLEEPING
 	smoke_amt = 10

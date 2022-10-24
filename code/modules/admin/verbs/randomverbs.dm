@@ -36,7 +36,7 @@
 			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
 		M.loc = pick(GLOB.prisonwarp)
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
@@ -640,7 +640,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Yes")
 			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
 
-			GLOB.command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
+			GLOB.command_announcement.Announce(
+				message = input,
+				new_title = customname,
+				new_sound = MsgSound[beepsound],
+				from = type
+			)
 			print_command_report(input, customname)
 		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit

@@ -146,29 +146,34 @@
 	return cameras
 
 /area/proc/air_doors_close()
-	if(!air_doors_activated)
-		air_doors_activated = TRUE
-		for(var/obj/machinery/door/firedoor/D in src)
-			if(!D.welded)
-				D.activate_alarm()
-				if(D.operating)
-					D.nextstate = FD_CLOSED
-				else if(!D.density)
-					spawn(0)
-						D.close()
+	if(air_doors_activated)
+		return
+	air_doors_activated = TRUE
+	for(var/obj/machinery/door/firedoor/D in src)
+		if(!D.is_operational())
+			continue
+		D.activate_alarm()
+		if(D.welded)
+			continue
+		if(D.operating && D.operating != DOOR_CLOSING)
+			D.nextstate = FD_CLOSED
+		else if(!D.density)
+			INVOKE_ASYNC(D, /obj/machinery/door/firedoor.proc/close)
 
 /area/proc/air_doors_open()
-	if(air_doors_activated)
-		air_doors_activated = FALSE
-		for(var/obj/machinery/door/firedoor/D in src)
-			if(!D.welded)
-				D.deactivate_alarm()
-				if(D.operating)
-					D.nextstate = OPEN
-				else if(D.density)
-					spawn(0)
-						D.open()
-
+	if(!air_doors_activated)
+		return
+	air_doors_activated = FALSE
+	for(var/obj/machinery/door/firedoor/D in src)
+		if(!D.is_operational())
+			continue
+		D.deactivate_alarm()
+		if(D.welded)
+			continue
+		if(D.operating && D.operating != DOOR_OPENING)
+			D.nextstate = FD_OPEN
+		else if(D.density)
+			INVOKE_ASYNC(D, /obj/machinery/door/firedoor.proc/open)
 
 /area/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -229,23 +234,34 @@
   * Try to close all the firedoors in the area
   */
 /area/proc/ModifyFiredoors(opening)
-	if(firedoors)
-		firedoors_last_closed_on = world.time
-		for(var/FD in firedoors)
-			var/obj/machinery/door/firedoor/D = FD
-			var/cont = !D.welded
-			if(cont && opening)	//don't open if adjacent area is on fire
-				for(var/I in D.affecting_areas)
-					var/area/A = I
-					if(A.fire)
-						cont = FALSE
-						break
-			if(cont && D.is_operational())
-				if(D.operating)
-					D.nextstate = opening ? FD_OPEN : FD_CLOSED
-				else if(!(D.density ^ opening))
-					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
-					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm))
+	if(!firedoors)
+		return
+	firedoors_last_closed_on = world.time
+	for(var/obj/machinery/door/firedoor/D in firedoors)
+		if(!D.is_operational())
+			continue
+		var/valid = TRUE
+		if(opening)	//don't open if adjacent area is on fire
+			for(var/I in D.affecting_areas)
+				var/area/A = I
+				if(A.fire)
+					valid = FALSE
+					break
+		if(!valid)
+			continue
+
+		// At this point, the area is safe and the door is technically functional.
+
+		INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm)) 
+		if(D.welded)
+			continue // Alarm is toggled, but door stuck
+		if(D.operating)
+			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
+				continue
+			else
+				D.nextstate = opening ? FD_OPEN : FD_CLOSED
+		else if(D.density == opening)
+			INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
 
 /**
   * Generate a firealarm alert for this area
@@ -488,7 +504,7 @@
 
 		M.lastarea = src
 
-	if(!istype(A,/mob/living))	return
+	if(!isliving(A))	return
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
@@ -510,7 +526,7 @@
 			thunk(M)
 
 /area/proc/thunk(mob/living/carbon/human/M)
-	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
+	if(ishuman(M))  // Only humans can wear magboots, so we give them a chance to.
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
 
@@ -520,13 +536,13 @@
 	if(M.buckled) //Cam't fall down if you are buckled
 		return
 
-	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
+	if(isspaceturf(get_turf(M))) // Can't fall onto nothing.
 		return
 
-	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
+	if((ishuman(M)) && (M.m_intent == MOVE_INTENT_RUN))
 		M.Weaken(10 SECONDS)
 
-	else if(istype(M,/mob/living/carbon/human/))
+	else if(ishuman(M))
 		M.Weaken(4 SECONDS)
 
 
@@ -536,7 +552,7 @@
 	if(!T)
 		T = get_turf(AT)
 	var/area/A = get_area(T)
-	if(istype(T, /turf/space)) // Turf never has gravity
+	if(isspaceturf(T)) // Turf never has gravity
 		return 0
 	else if(A && A.has_gravity) // Areas which always has gravity
 		return 1

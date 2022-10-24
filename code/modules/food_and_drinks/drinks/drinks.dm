@@ -35,7 +35,7 @@
 		to_chat(user, "<span class='warning'> You need to open [src] first!</span>")
 		return FALSE
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
 			return TRUE

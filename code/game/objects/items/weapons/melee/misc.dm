@@ -1,13 +1,6 @@
 /obj/item/melee
 	needs_permit = TRUE
 
-/obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
-	if(target.check_block())
-		target.visible_message("<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>",
-					"<span class='userdanger'>You block the attack!</span>")
-		user.Stun(4 SECONDS)
-		return TRUE
-
 /obj/item/melee/chainofcommand
 	name = "chain of command"
 	desc = "A tool used by great men to placate the frothing masses."
@@ -94,8 +87,6 @@
 
 /obj/item/melee/flyswatter/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
-	if(!.)
-		return
 	if(is_type_in_typecache(M, strong_against))
 		new /obj/effect/decal/cleanable/insectguts(M.drop_location())
 		user.visible_message("<span class='warning'>[user] splats [M] with [src].</span>",

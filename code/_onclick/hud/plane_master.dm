@@ -49,6 +49,16 @@
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
 
+/obj/screen/plane_master/point
+	name = "point plane master"
+	plane = POINT_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+	blend_mode = BLEND_OVERLAY
+
+/obj/screen/plane_master/point/backdrop(mob/mymob)
+	if(istype(mymob) && mymob.client && mymob.client.prefs)
+		alpha = (mymob.client.prefs.toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? 255 : 0
+
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
   *
@@ -64,3 +74,23 @@
 /obj/screen/plane_master/emissive/Initialize()
 	. = ..()
 	add_filter("em_block_masking", 1, color_matrix_filter(GLOB.em_mask_matrix))
+
+/obj/screen/plane_master/space
+	name = "space plane master"
+	plane = PLANE_SPACE
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_OVERLAY
+
+/obj/screen/plane_master/parallax
+	name = "parallax plane master"
+	plane = PLANE_SPACE_PARALLAX
+	appearance_flags = PLANE_MASTER
+	blend_mode = BLEND_MULTIPLY
+
+/obj/screen/plane_master/blackness
+	name = "blackness plane master"
+	plane = BLACKNESS_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	color = list(null, null, null, "#0000", "#000f")
+	blend_mode = BLEND_ADD
+	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR | PIXEL_SCALE

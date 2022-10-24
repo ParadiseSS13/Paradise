@@ -257,7 +257,7 @@
 
 
 /obj/item/storage/box/trackimp
-	name = "tracking implant kit"
+	name = "tracking bio-chip kit"
 	desc = "Box full of scum-bag tracking utensils."
 	icon_state = "implant"
 
@@ -271,7 +271,7 @@
 	new /obj/item/locator(src)
 
 /obj/item/storage/box/minertracker
-	name = "boxed tracking implant kit"
+	name = "boxed tracking bio-chip kit"
 	desc = "For finding those who have died on the accursed lavaworld."
 	icon_state = "implant"
 
@@ -284,8 +284,8 @@
 	new /obj/item/locator(src)
 
 /obj/item/storage/box/chemimp
-	name = "chemical implant kit"
-	desc = "Box of stuff used to implant chemicals."
+	name = "chemical bio-chip kit"
+	desc = "Box of stuff used to bio-chip chemicals."
 	icon_state = "implant"
 
 /obj/item/storage/box/chemimp/populate_contents()
@@ -295,8 +295,8 @@
 	new /obj/item/implantpad(src)
 
 /obj/item/storage/box/exileimp
-	name = "boxed exile implant kit"
-	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
+	name = "boxed exile bio-chip kit"
+	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
 	icon_state = "implant"
 
 /obj/item/storage/box/exileimp/populate_contents()
@@ -305,8 +305,8 @@
 	new /obj/item/implanter(src)
 
 /obj/item/storage/box/deathimp
-	name = "death alarm implant kit"
-	desc = "Box of life sign monitoring implants."
+	name = "death alarm bio-chip kit"
+	desc = "Box of life sign monitoring bio-chips."
 	icon_state = "implant"
 
 /obj/item/storage/box/deathimp/populate_contents()
@@ -746,7 +746,7 @@
 		icon_state = "[item_state]_closed"
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
