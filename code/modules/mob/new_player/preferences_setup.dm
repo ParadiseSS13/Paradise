@@ -42,7 +42,7 @@
 		m_colours["tail"] = randomize_skin_color(1)
 	if(!(S.bodyflags & ALL_RPARTS))
 		randomize_eyes_color()
-	if(S.bodyflags & HAS_SKIN_COLOR)
+	if(S.bodyflags & HAS_SKIN_COLOR && !(S.bodyflags & HAS_ICON_SKIN_TONE))
 		randomize_skin_color()
 	backbag = 2
 	age = rand(AGE_MIN, AGE_MAX)
@@ -259,7 +259,7 @@
 		preview_icon.Blend(new /icon(icobase, "[name]"), ICON_OVERLAY)
 
 	// Skin color
-	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
+	if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR) && !(current_species.bodyflags & HAS_ICON_SKIN_TONE))
 		preview_icon.Blend(s_colour, ICON_ADD)
 
 	// Skin tone
@@ -300,7 +300,7 @@
 		if(tail_shift_y)
 			temp.Shift(NORTH, tail_shift_y)
 
-		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR))
+		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR) && !(current_species.bodyflags & HAS_ICON_SKIN_TONE))
 			temp.Blend(s_colour, blend_mode)
 
 		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))

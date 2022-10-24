@@ -288,7 +288,7 @@
 	return owner && (flags & APPEARANCE_SKIN) && owner.dna && ((owner.dna.species.bodyflags & HAS_SKIN_TONE) || (owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 
 /datum/ui_module/appearance_changer/proc/can_change_skin_color()
-	return owner && (flags & APPEARANCE_SKIN) && owner.dna && (owner.dna.species.bodyflags & HAS_SKIN_COLOR)
+	return owner && (flags & APPEARANCE_SKIN) && owner.dna && ((owner.dna.species.bodyflags & HAS_SKIN_COLOR) && !(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 
 /datum/ui_module/appearance_changer/proc/can_change_head_accessory()
 	if(!head_organ)

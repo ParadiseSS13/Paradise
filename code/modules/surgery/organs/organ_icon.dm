@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(!isnull(H.s_tone) && ((H.dna.species.bodyflags & HAS_SKIN_TONE) || (H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
 		s_tone = H.s_tone
-	if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+	if(H.dna.species.bodyflags & HAS_SKIN_COLOR &&  !(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 		s_tone = null
 		s_col = H.skin_colour
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && ((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
 		s_tone = dna.GetUIValue(DNA_UI_SKIN_TONE)
-	if(dna.species.bodyflags & HAS_SKIN_COLOR)
+	if(dna.species.bodyflags & HAS_SKIN_COLOR && !(dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 		s_tone = null
 		s_col = rgb(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 

@@ -167,7 +167,7 @@
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.
-	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
+	if(M.dna.species.bodyflags & HAS_SKIN_COLOR && !(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)

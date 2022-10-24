@@ -294,6 +294,8 @@
 /mob/living/carbon/human/proc/change_skin_color(var/colour = "#000000")
 	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
+	if(dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		return
 
 	skin_colour = colour
 
