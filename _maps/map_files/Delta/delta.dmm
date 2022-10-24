@@ -30100,6 +30100,10 @@
 	icon_state = "caution"
 	},
 /area/atmos)
+"byA" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/maintenance/abandonedlibrary)
 "byB" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -67565,7 +67569,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "ddA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67576,7 +67580,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "ddC" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -68061,7 +68065,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "deA" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -68301,7 +68305,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "deV" = (
 /obj/structure/sign/examroom,
 /turf/simulated/wall,
@@ -68948,7 +68952,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dgB" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -79965,12 +79969,12 @@
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFi" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFj" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance,
@@ -79980,7 +79984,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFl" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel{
@@ -80137,29 +80141,29 @@
 /obj/item/pen,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFL" = (
 /obj/structure/table/wood,
 /obj/item/folder,
 /obj/item/pen,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFM" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFN" = (
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFP" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFQ" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFR" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -80167,12 +80171,12 @@
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFS" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dFU" = (
 /obj/structure/chair{
 	dir = 1
@@ -80434,42 +80438,42 @@
 "dGB" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dGC" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dGD" = (
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dGE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dGF" = (
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dGG" = (
 /obj/structure/table/wood,
 /obj/item/paicard,
 /turf/simulated/floor/carpet,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dGH" = (
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/dice,
 /turf/simulated/floor/carpet,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dGI" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dGJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -80825,18 +80829,18 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dHs" = (
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dHt" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dHu" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
@@ -80844,13 +80848,13 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/carpet,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dHv" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder/red,
 /turf/simulated/floor/carpet,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dHw" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -80861,7 +80865,7 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dHx" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -81327,15 +81331,15 @@
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dIq" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dIr" = (
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dIt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -81343,20 +81347,20 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dIu" = (
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dIv" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dIw" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dIx" = (
 /turf/simulated/wall,
 /area/chapel/office)
@@ -81624,7 +81628,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dJm" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81635,7 +81639,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dJn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81643,7 +81647,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dJo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81651,7 +81655,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dJp" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -81659,14 +81663,14 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dJq" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dJs" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -81675,7 +81679,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dJt" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -81684,7 +81688,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dJu" = (
 /obj/structure/morgue,
 /turf/simulated/floor/plasteel/dark,
@@ -81914,13 +81918,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dKb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dKc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -81933,7 +81937,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dKd" = (
 /obj/structure/table,
 /obj/machinery/newscaster{
@@ -82124,16 +82128,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dKF" = (
 /obj/structure/cult/archives,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dKG" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dKH" = (
 /obj/structure/closet/crate,
 /obj/item/flashlight,
@@ -82409,7 +82413,7 @@
 "dLm" = (
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dLn" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -82715,19 +82719,19 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMe" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMf" = (
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMh" = (
 /obj/machinery/camera{
 	c_tag = "Chapel Backroom";
@@ -83020,12 +83024,12 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMJ" = (
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMK" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -83034,17 +83038,17 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMO" = (
 /obj/machinery/door/morgue{
 	name = "Occult Study"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMP" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dMQ" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -83288,13 +83292,13 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNy" = (
 /obj/structure/table/wood,
 /obj/item/folder,
 /obj/item/pen,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNz" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small,
@@ -83302,40 +83306,40 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNA" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNC" = (
 /obj/machinery/light/small,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dND" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/crayons,
 /turf/simulated/floor/wood,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNE" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNF" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNG" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/apmaint)
+/area/maintenance/abandonedlibrary)
 "dNH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -90533,6 +90537,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block)
+"iZi" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/maintenance/abandonedlibrary)
 "iZW" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Internal Affairs Maintenance";
@@ -91044,6 +91052,9 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
+"kcy" = (
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedlibrary)
 "kdu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -93765,6 +93776,9 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"plp" = (
+/turf/simulated/wall,
+/area/maintenance/abandonedlibrary)
 "pnF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -94969,6 +94983,10 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"rmX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedlibrary)
 "rnA" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -127695,18 +127713,18 @@ dCC
 dDT
 dEB
 ddy
-ddy
-ddy
-ddy
-ddy
-ddy
-ddy
-ddy
-ddy
-ddy
-ddy
-ddy
-ddy
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
 abj
 dPq
 dXH
@@ -127963,7 +127981,7 @@ dHt
 dMc
 dMI
 dNx
-ddy
+plp
 ddy
 dPq
 dPq
@@ -128208,7 +128226,7 @@ mGS
 dCE
 gQW
 dEF
-ddy
+plp
 dFL
 dGC
 dHs
@@ -128220,7 +128238,7 @@ dIp
 dHs
 dMJ
 dNy
-ddy
+plp
 dOO
 dPr
 deW
@@ -128475,9 +128493,9 @@ ddz
 dHs
 dIu
 dMd
-dbp
+rmX
 dNz
-ddy
+plp
 dOO
 dPs
 dOO
@@ -128734,7 +128752,7 @@ dFN
 dFN
 dMK
 dNA
-ddy
+plp
 dOP
 dPt
 dbw
@@ -128991,7 +129009,7 @@ dFN
 dFN
 dNy
 dMI
-ddy
+plp
 dOO
 dXo
 dQb
@@ -129493,19 +129511,19 @@ cHA
 dCG
 dDU
 dEG
-ddy
+plp
 dFP
 dGE
 dHs
 dIu
 dIu
 ddB
-dOO
+kcy
 dIu
 dIu
 dHs
 dNC
-ddy
+plp
 dEi
 dPw
 dQe
@@ -129750,7 +129768,7 @@ dbk
 dEy
 dDV
 dEH
-ddy
+plp
 dFN
 dGF
 dGF
@@ -129762,7 +129780,7 @@ dIq
 dMe
 dIu
 dND
-ddy
+plp
 dhx
 dPx
 dQf
@@ -130007,7 +130025,7 @@ cHA
 dCH
 dDW
 dID
-dku
+iZi
 dFQ
 dGG
 dHu
@@ -130019,7 +130037,7 @@ dHt
 dMe
 dHs
 dNE
-ddy
+plp
 dbp
 dPy
 dbw
@@ -130264,19 +130282,19 @@ dkI
 dCI
 dDX
 dOO
-ddy
+plp
 dFR
 dGH
 dHv
 dIw
-dOO
-ddy
-ddy
-dku
-ddy
+kcy
+plp
+plp
+iZi
+plp
 dMO
-ddy
-ddy
+plp
+plp
 dOO
 dPz
 dQg
@@ -130521,19 +130539,19 @@ dkI
 dbo
 dDX
 dbp
-ddy
+plp
 dFS
 dGI
 dHw
 dFN
 dJs
-ddy
+plp
 dKF
 dLm
 dMf
 dMP
 dNF
-ddy
+plp
 dik
 diD
 dQn
@@ -130778,19 +130796,19 @@ dkI
 dEi
 dDX
 dOO
-ddy
-ddy
-ddy
-ddy
-ddy
+plp
+plp
+plp
+plp
+plp
 dJt
-ddy
+plp
 dKG
 dIv
-dbp
+rmX
 dGE
 dNG
-ddy
+plp
 dbp
 dPA
 dQc
@@ -131039,15 +131057,15 @@ dFl
 dcA
 dOO
 dHx
-ddy
-ddy
-dku
-dku
-ddy
-dku
-dku
-ddy
-dlJ
+plp
+plp
+iZi
+iZi
+plp
+iZi
+iZi
+plp
+byA
 dik
 dPB
 dbw
