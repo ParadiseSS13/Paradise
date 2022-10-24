@@ -1110,9 +1110,9 @@
 	. = ..()
 	switch(buildstage)
 		if(AIR_ALARM_FRAME)
-			. += "<span class='notice'>It is <i>bolted</i> onto the wall and the circuit slot is <b>empty</b>.</span>"
+			. += "<span class='notice'>Its <i>circuit</i> is missing and the <b>bolts<b> are exposed.</span>"
 		if(AIR_ALARM_UNWIRED)
-			. += "<span class='notice'>The circuit is <i>connected loosely</i> to its slot and lacks <b>wiring</b>.</span>"
+			. += "<span class='notice'>The frame is missing <i>wires</i> and the control circuit can be <b>pried out</b>.</span>"
 		if(AIR_ALARM_READY)
 			if(wiresexposed)
 				. += "<span class='notice'>The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.</span>"
