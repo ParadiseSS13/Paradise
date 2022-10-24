@@ -346,11 +346,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
 /obj/structure/elite_tumor/HasProximity(atom/movable/AM)
-	if(!isliving(AM))
+	if(!ishuman(AM) && !isrobot(AM))
 		return
 	var/mob/living/M = AM
-	if(!ishuman(M) && !isrobot(M))
-		return
 	if(M == activator)
 		return
 	if(M in invaders)
@@ -360,7 +358,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
 		invaders += M
-	var/list/valid_turfs = RANGE_EDGE_TURFS(13, src)
+	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 1, src)
 	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
@@ -486,4 +484,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	desc = "Ghosts in a fauna? That's cancerous!"
 	invisibility = 100
 
+#undef TUMOR_INACTIVE
+#undef TUMOR_ACTIVE
+#undef TUMOR_PASSIVE
 #undef ARENA_RADIUS
