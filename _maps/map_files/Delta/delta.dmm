@@ -68214,7 +68214,7 @@
 	parallax_movedir = 2
 	})
 "ijD" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/suit_storage_unit/security/warden,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -93915,6 +93915,8 @@
 	pixel_x = 58;
 	pixel_y = 30
 	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -128691,8 +128693,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},

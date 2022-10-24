@@ -476,6 +476,19 @@
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75)
 	item_color = "sec"
 
+/obj/item/clothing/head/helmet/space/hardsuit/security/warden
+	name = "warden's hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+	icon_state = "hardsuit0-warden"
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 30,"energy" = 20, "bomb" = 15, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 85)
+	item_color = "warden"
+
+/obj/item/clothing/suit/space/hardsuit/security/warden
+	name = "warden's hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
+	icon_state = "hardsuit-warden"
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 30,"energy" = 20, "bomb" = 15, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 85)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/warden
 
 /obj/item/clothing/suit/space/hardsuit/security
 	name = "security hardsuit"
