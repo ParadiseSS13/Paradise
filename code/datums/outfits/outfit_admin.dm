@@ -552,7 +552,6 @@
 	shoes = /obj/item/clothing/shoes/singerb
 	gloves = /obj/item/clothing/gloves/color/white
 	l_ear = /obj/item/radio/headset
-	r_ear = /obj/item/clothing/ears/headphones
 	pda = /obj/item/pda
 	id = /obj/item/card/id
 	backpack_contents = list(
@@ -577,7 +576,7 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Bard")
 
-	var/obj/item/clothing/ears/headphones/P = r_ear
+	var/obj/item/clothing/ears/headphones/P = l_ear
 	if(istype(P))
 		P.attack_self(H) // activate them, display musical notes effect
 
@@ -635,7 +634,6 @@
 	head = /obj/item/clothing/head/hgpiratecap
 	mask = null
 	l_ear = /obj/item/radio/headset/syndicate
-	r_ear = null
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	l_pocket = null
 	r_pocket = null

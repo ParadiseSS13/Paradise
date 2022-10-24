@@ -189,8 +189,6 @@
 		items += belt
 	if(l_ear)
 		items += l_ear
-	if(r_ear)
-		items += r_ear
 	if(glasses)
 		items += glasses
 	if(gloves)

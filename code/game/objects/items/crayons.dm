@@ -8,7 +8,7 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = SLOT_BELT | SLOT_EAR
 	attack_verb = list("attacked", "coloured")
 	toolspeed = 1
 	var/colour = COLOR_RED

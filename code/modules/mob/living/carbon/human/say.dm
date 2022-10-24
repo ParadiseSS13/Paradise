@@ -191,22 +191,6 @@
 				if(R.talk_into(src, message_pieces, null, verb))
 					return
 
-			if(isradio(r_ear))
-				R = r_ear
-				used_radios += R
-				if(R.talk_into(src, message_pieces, null, verb))
-					return
-
-		if("right ear")
-			var/obj/item/radio/R
-			if(isradio(r_hand))
-				R = r_hand
-			else if(isradio(r_ear))
-				R = r_ear
-			if(R)
-				used_radios += R
-				R.talk_into(src, message_pieces, null, verb)
-
 		if("left ear")
 			var/obj/item/radio/R
 			if(isradio(l_hand))
@@ -227,11 +211,6 @@
 					if(l_ear.talk_into(src, message_pieces, message_mode, verb))
 						return
 
-				if(isradio(r_ear))
-					used_radios += r_ear
-					if(r_ear.talk_into(src, message_pieces, message_mode, verb))
-						return
-
 /mob/living/carbon/human/handle_speech_sound()
 	var/list/returns[3]
 	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
@@ -245,10 +224,5 @@
 	var/obj/item/radio/headset/R
 	if(istype(l_ear, /obj/item/radio/headset))
 		R = l_ear
-		if(R.translate_binary)
-			. = TRUE
-
-	if(istype(r_ear, /obj/item/radio/headset))
-		R = r_ear
 		if(R.translate_binary)
 			. = TRUE

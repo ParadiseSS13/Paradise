@@ -1865,7 +1865,7 @@
 		P.update_icon()
 		P.faxmachineid = fax.UID()
 		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
-		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
@@ -2234,7 +2234,7 @@
 		P.stamps += "<hr><img src='large_stamp-[stampvalue].png'>"
 		P.update_icon()
 		fax.receivefax(P)
-		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
@@ -2245,7 +2245,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+		if(!istype(H.l_ear, /obj/item/radio/headset))
 			to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>")
 			return
 
@@ -2280,7 +2280,7 @@
 			if(H.stat != CONSCIOUS)
 				to_chat(owner, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been sent.</span>")
 				return
-			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+			if(!istype(H.l_ear, /obj/item/radio/headset))
 				to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
 				return
 			to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
@@ -2479,7 +2479,7 @@
 		to_chat(src.owner, "<span class='notice'>Message transmitted successfully.</span>")
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
-			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
+			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset)))
 				to_chat(sender, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")

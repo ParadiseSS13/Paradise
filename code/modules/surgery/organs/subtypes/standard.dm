@@ -247,8 +247,6 @@
 			owner.unEquip(owner.head, force = TRUE)
 		if(owner.l_ear)
 			owner.unEquip(owner.l_ear, force = TRUE)
-		if(owner.r_ear)
-			owner.unEquip(owner.r_ear, force = TRUE)
 		if(owner.wear_mask)
 			owner.unEquip(owner.wear_mask, force = TRUE)
 		owner.update_hair()

@@ -158,7 +158,7 @@ emp_act
 /mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
 	if(!type || !def_zone)	return 0
 	var/protection = 0
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)	continue
 		if(bp && isclothing(bp))
@@ -282,8 +282,6 @@ emp_act
 				damaged += .
 			if(l_ear)
 				inventory_items_to_kill += l_ear
-			if(r_ear)
-				inventory_items_to_kill += r_ear
 
 	//CHEST//
 	if(!bodyzone_hit || bodyzone_hit == "chest")

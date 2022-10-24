@@ -44,11 +44,11 @@
 	var/mob/living/carbon/human/user = loc
 	if(istype(user))
 		user.update_action_buttons_icon()
-		user.update_inv_ears()
+		user.update_inv_ear()
 	icon_state = item_state = "headphones[on]"
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
-	if(slot == slot_l_ear || slot == slot_r_ear)
+	if(slot == slot_l_ear)
 		return TRUE
 
 /**
@@ -72,7 +72,7 @@
   * * user - The user
   */
 /obj/item/clothing/ears/headphones/proc/should_stop_playing(mob/living/carbon/human/user)
-	return !(src in user) || !istype(user) || !((src == user.l_ear) || (src == user.r_ear))
+	return !(src in user) || !istype(user) || !((src == user.l_ear))
 
 // special subtype so it uses the correct item type
 /datum/song/headphones

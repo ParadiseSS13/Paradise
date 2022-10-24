@@ -61,7 +61,6 @@
 		list("[p_have()]", !skipmask && wear_mask, "on", "face"),
 		list("[p_have()]", glasses, "covering", "eyes"),
 		list("[p_have()]", !skipears && l_ear, "on", "left ear"),
-		list("[p_have()]", !skipears && r_ear, "on", "right ear"),
 		list("[p_are()] wearing", wear_id, null, null),
 	)
 	for(var/parts in message_parts)

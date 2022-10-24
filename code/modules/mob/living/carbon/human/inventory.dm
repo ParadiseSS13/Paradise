@@ -41,8 +41,6 @@
 			return TRUE
 		if(slot_l_ear)
 			return has_organ("head")
-		if(slot_r_ear)
-			return has_organ("head")
 		if(slot_glasses)
 			return has_organ("head")
 		if(slot_gloves)
@@ -116,12 +114,9 @@
 				update_sight()
 		head_update(I)
 		update_inv_head()
-	else if(I == r_ear)
-		r_ear = null
-		update_inv_ears()
 	else if(I == l_ear)
 		l_ear = null
-		update_inv_ears()
+		update_inv_ear()
 	else if(I == shoes)
 		shoes = null
 		update_inv_shoes()
@@ -231,22 +226,7 @@
 			update_inv_wear_pda()
 		if(slot_l_ear)
 			l_ear = I
-			if(l_ear.slot_flags & SLOT_TWOEARS)
-				var/obj/item/clothing/ears/offear/O = new(I)
-				O.forceMove(src)
-				r_ear = O
-				O.layer = ABOVE_HUD_LAYER
-				O.plane = ABOVE_HUD_PLANE
-			update_inv_ears()
-		if(slot_r_ear)
-			r_ear = I
-			if(r_ear.slot_flags & SLOT_TWOEARS)
-				var/obj/item/clothing/ears/offear/O = new(I)
-				O.forceMove(src)
-				l_ear = O
-				O.layer = ABOVE_HUD_LAYER
-				O.plane = ABOVE_HUD_PLANE
-			update_inv_ears()
+			update_inv_ear()
 		if(slot_glasses)
 			glasses = I
 			var/obj/item/clothing/glasses/G = I
@@ -340,8 +320,6 @@
 			return wear_pda
 		if(slot_l_ear)
 			return l_ear
-		if(slot_r_ear)
-			return r_ear
 		if(slot_glasses)
 			return glasses
 		if(slot_gloves)
@@ -389,7 +367,6 @@
 		head,
 		wear_mask,
 		glasses,
-		r_ear,
 		l_ear,
 		)
 

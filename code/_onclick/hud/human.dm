@@ -279,16 +279,6 @@
 	toggleable_inventory += inv_box
 
 	inv_box = new /obj/screen/inventory()
-	inv_box.name = "r_ear"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "ears"
-	inv_box.screen_loc = ui_r_ear
-	inv_box.slot_id = slot_r_ear
-	inv_box.color = ui_color
-	inv_box.alpha = ui_alpha
-	toggleable_inventory += inv_box
-
-	inv_box = new /obj/screen/inventory()
 	inv_box.name = "head"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "head"
@@ -396,9 +386,6 @@
 		if(H.l_ear)
 			H.l_ear.screen_loc = ui_l_ear
 			H.client.screen += H.l_ear
-		if(H.r_ear)
-			H.r_ear.screen_loc = ui_r_ear
-			H.client.screen += H.r_ear
 		if(H.glasses)
 			H.glasses.screen_loc = ui_glasses
 			H.client.screen += H.glasses
@@ -418,7 +405,6 @@
 		if(H.shoes)		H.shoes.screen_loc = null
 		if(H.gloves)	H.gloves.screen_loc = null
 		if(H.l_ear)		H.l_ear.screen_loc = null
-		if(H.r_ear)		H.r_ear.screen_loc = null
 		if(H.glasses)	H.glasses.screen_loc = null
 		if(H.w_uniform)	H.w_uniform.screen_loc = null
 		if(H.wear_suit)	H.wear_suit.screen_loc = null

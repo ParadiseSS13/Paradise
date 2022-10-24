@@ -441,10 +441,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(left_ear)
 			M.equip_to_slot_or_del(new left_ear.type(M), slot_l_ear)
 
-		var/obj/right_ear = H.get_item_by_slot(slot_r_ear)
-		if(right_ear)
-			M.equip_to_slot_or_del(new right_ear.type(M), slot_r_ear)
-
 		var/obj/uniform = H.get_item_by_slot(slot_w_uniform)
 		if(uniform)
 			M.equip_to_slot_or_del(new uniform.type(M), slot_w_uniform)

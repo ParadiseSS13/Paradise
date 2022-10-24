@@ -93,7 +93,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = SLOT_BELT | SLOT_EAR
 	flags = CONDUCT
 	brightness_on = 2
 

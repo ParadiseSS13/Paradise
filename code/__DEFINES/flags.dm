@@ -142,7 +142,7 @@
 #define SLOT_ICLOTHING	(1<<1)
 #define SLOT_GLOVES		(1<<2)
 #define SLOT_EYES		(1<<3)
-#define SLOT_EARS		(1<<4)
+#define SLOT_EAR		(1<<4)
 #define SLOT_MASK		(1<<5)
 #define SLOT_HEAD		(1<<6)
 #define SLOT_FEET		(1<<7)

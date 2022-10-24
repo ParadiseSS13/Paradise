@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL=75)
 	canhear_range = 0 // can't hear headsets from very far away
 
-	slot_flags = SLOT_EARS
+	slot_flags = SLOT_EAR
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
@@ -68,7 +68,7 @@
 /obj/item/radio/headset/is_listening()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		if(H.l_ear == src || H.r_ear == src)
+		if(H.l_ear == src)
 			return ..()
 	else if(isanimal(loc) || isAI(loc))
 		return ..()

@@ -174,12 +174,6 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 			</td>
 		</tr>
 		<tr>
-			<th>Right Ear:</th>
-			<td>
-				<input type="text" name="outfit_r_ear" value="">
-			</td>
-		</tr>
-		<tr>
 			<th>Glasses:</th>
 			<td>
 				[glasses_select]
@@ -256,7 +250,6 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	O.pda = text2path(href_list["outfit_pda"])
 	O.belt = text2path(href_list["outfit_belt"])
 	O.l_ear = text2path(href_list["outfit_l_ear"])
-	O.r_ear = text2path(href_list["outfit_r_ear"])
 
 	GLOB.custom_outfits.Add(O)
 	message_admins("[key_name_admin(usr)] created \"[O.name]\" outfit.")

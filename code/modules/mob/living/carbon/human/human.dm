@@ -333,11 +333,6 @@
 		else
 			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[slot_l_ear]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? html_encode(l_ear)	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_r_ear in obscured)
-			dat += "<tr><td><font color=grey><B>Right Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
-		else
-			dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[slot_r_ear]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? html_encode(r_ear)		: "<font color=grey>Empty</font>"]</A></td></tr>"
-
 		dat += "<tr><td>&nbsp;</td></tr>"
 
 		dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? html_encode(wear_suit) : "<font color=grey>Empty</font>"]</A></td></tr>"
@@ -954,13 +949,9 @@
 		return HEARING_PROTECTION_TOTAL
 	if(istype(l_ear, /obj/item/clothing/ears/earmuffs))
 		return HEARING_PROTECTION_TOTAL
-	if(istype(r_ear, /obj/item/clothing/ears/earmuffs))
-		return HEARING_PROTECTION_TOTAL
 	if(head && (head.flags & HEADBANGPROTECT))
 		return HEARING_PROTECTION_MINOR
 	if(l_ear && (l_ear.flags & EARBANGPROTECT))
-		return HEARING_PROTECTION_MINOR
-	if(r_ear && (r_ear.flags & EARBANGPROTECT))
 		return HEARING_PROTECTION_MINOR
 
 ///tintcheck()
@@ -982,7 +973,7 @@
 
 
 /mob/living/carbon/human/abiotic(full_body = 0)
-	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.r_ear || src.gloves)))
+	if(full_body && ((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)) || (src.back || src.wear_mask || src.head || src.shoes || src.w_uniform || src.wear_suit || src.glasses || src.l_ear || src.gloves)))
 		return 1
 
 	if((src.l_hand && !(src.l_hand.flags & ABSTRACT)) || (src.r_hand && !(src.r_hand.flags & ABSTRACT)))
@@ -1055,7 +1046,6 @@
 		if(head.flags_inv & HIDEEYES)
 			obscured |= slot_glasses
 		if(head.flags_inv & HIDEEARS)
-			obscured |= slot_r_ear
 			obscured |= slot_l_ear
 
 	if(obscured.len > 0)
@@ -1303,7 +1293,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
+	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_glasses, slot_l_hand, slot_r_hand)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)

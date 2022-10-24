@@ -47,7 +47,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	r_ear = /obj/item/radio/headset/syndicate/alt/nocommon // See del_types above
+	l_ear = /obj/item/radio/headset/syndicate/alt/nocommon // See del_types above
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/syndi_researcher
 	r_pocket = /obj/item/gun/projectile/automatic/pistol

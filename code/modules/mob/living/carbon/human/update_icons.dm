@@ -53,7 +53,7 @@ There are several things that need to be remembered:
 		update_inv_r_hand()
 		update_inv_belt()
 		update_inv_wear_id()
-		update_inv_ears()
+		update_inv_ear()
 		update_inv_s_store()
 		update_inv_pockets()
 		update_inv_back()
@@ -535,7 +535,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_wear_id()
 	update_inv_gloves()
 	update_inv_glasses()
-	update_inv_ears()
+	update_inv_ear()
 	update_inv_shoes()
 	update_inv_s_store()
 	update_inv_wear_mask()
@@ -731,19 +731,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	update_misc_effects()
 
-/mob/living/carbon/human/update_inv_ears()
+/mob/living/carbon/human/update_inv_ear()
 	remove_overlay(EARS_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_l_ear]
 		if(inv)
 			inv.update_icon()
 
-	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_r_ear]
-		if(inv)
-			inv.update_icon()
-
-	if(l_ear || r_ear)
+	if(l_ear)
 		if(l_ear)
 			if(client && hud_used && hud_used.hud_shown)
 				if(hud_used.inventory_shown)			//if the inventory is open ...
@@ -760,24 +755,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.sprite_sheets[dna.species.name], "[t_type]", layer = -EARS_LAYER)
 			else
 				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
-
-		if(r_ear)
-			if(client && hud_used && hud_used.hud_shown)
-				if(hud_used.inventory_shown)			//if the inventory is open ...
-					r_ear.screen_loc = ui_r_ear			//...draw the item in the inventory screen
-				client.screen += r_ear					//Either way, add the item to the HUD
-
-			var/t_type = r_ear.item_state
-			if(!t_type)
-				t_type = r_ear.icon_state
-			if(r_ear.icon_override)
-				t_type = "[t_type]_r"
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
-			else if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.name])
-				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.sprite_sheets[dna.species.name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
-	apply_overlay(EARS_LAYER)
 
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)

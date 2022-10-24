@@ -271,7 +271,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		slot_shoes,\
 		slot_gloves,\
 		slot_l_ear,\
-		slot_r_ear,\
 		slot_glasses,\
 		slot_belt,\
 		slot_s_store,\
@@ -396,15 +395,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if(H.l_ear)
 					if(!(H.l_ear.flags & NODROP))
-						return 2
-					else
-						return 0
-				return 1
-			if(slot_r_ear)
-				if( !(slot_flags & slot_r_ear) )
-					return 0
-				if(H.r_ear)
-					if(!(H.r_ear.flags & NODROP))
 						return 2
 					else
 						return 0

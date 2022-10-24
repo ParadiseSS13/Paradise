@@ -131,7 +131,6 @@
 #define ui_glasses "WEST:6,SOUTH+2:9"
 #define ui_mask "WEST+1:8,SOUTH+2:9"
 #define ui_l_ear "WEST+2:10,SOUTH+2:9"
-#define ui_r_ear "WEST+2:10,SOUTH+3:11"
 
 #define ui_head "WEST+1:8,SOUTH+3:11"
 

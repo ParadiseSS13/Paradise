@@ -140,7 +140,7 @@
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
-	slot_flags = SLOT_EARS
+	slot_flags = SLOT_EAR
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
@@ -156,48 +156,12 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	if(H.l_ear != src && H.r_ear != src)
+	if(H.l_ear != src)
 		..()
 		return
 
 	if(!usr.canUnEquip(src))
 		return
-
-	var/obj/item/clothing/ears/O
-	if(slot_flags & SLOT_TWOEARS )
-		O = (H.l_ear == src ? H.r_ear : H.l_ear)
-		user.unEquip(O)
-		if(!istype(src, /obj/item/clothing/ears/offear))
-			qdel(O)
-			O = src
-	else
-		O = src
-
-	user.unEquip(src)
-
-	if(O)
-		user.put_in_hands(O)
-		O.add_fingerprint(user)
-
-	if(istype(src, /obj/item/clothing/ears/offear))
-		qdel(src)
-
-
-/obj/item/clothing/ears/offear
-	name = "Other ear"
-	w_class = WEIGHT_CLASS_HUGE
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "block"
-	slot_flags = SLOT_EARS | SLOT_TWOEARS
-
-/obj/item/clothing/ears/offear/New(obj/O)
-	. = ..()
-	name = O.name
-	desc = O.desc
-	icon = O.icon
-	icon_state = O.icon_state
-	dir = O.dir
-
 
 //Glasses
 /obj/item/clothing/glasses
