@@ -29,6 +29,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	// Jobs that do not appear in the list at all.
 	var/list/blacklisted_full = list(
 		/datum/job/ntnavyofficer,
+		/datum/job/ntnavyofficer/field,
+		/datum/job/ntspecops/supreme,
 		/datum/job/ntspecops,
 		/datum/job/ntspecops/solgovspecops,
 		/datum/job/civilian,
