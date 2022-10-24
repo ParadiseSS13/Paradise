@@ -505,21 +505,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(!length(path))
 		return FALSE
 
-	// Only one destination
-	if(length(path) == 1)
-		step_to(src, path[1])
-		set_path(null)
+	if(!step_towards(src, path[1]))
+		tries++
+		return FALSE
 
-	else
-		// Move us slowly
-		Move(path[1], get_dir(src, path[1]), BOT_STEP_DELAY)
-		if(get_turf(src) == path[1]) //Successful move
-			increment_path()
-			tries = 0
-		else
-			tries++
-			return FALSE
-
+	increment_path()
+	tries = 0
 	return TRUE
 
 
