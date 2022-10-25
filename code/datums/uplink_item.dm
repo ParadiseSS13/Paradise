@@ -1841,7 +1841,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
 	reference = "SYB"
-	item = /obj/item/storage/box/syndicate
+	item = /obj/item/storage/box/syndie_kit/bundle
 	cost = 20
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -1850,7 +1850,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A crate containing 50 telecrystals worth of random syndicate leftovers."
 	reference = "SYSC"
 	cost = 20
-	item = /obj/item/storage/box/syndicate
+	item = /obj/item/storage/box/syndie_kit/bundle
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 50
 
