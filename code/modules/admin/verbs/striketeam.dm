@@ -173,7 +173,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/deathsquad(src), slot_wear_suit)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sechailer/swat(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
+	equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(src), slot_glasses)
 
 	equip_to_slot_or_del(new /obj/item/storage/backpack/ert/security(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/storage/box/responseteam(src), slot_in_backpack)
