@@ -1,7 +1,6 @@
 /mob/living/carbon/human/gib()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	var/atom/movable/overlay/animation = null
 	notransform = TRUE
 	icon = null
 	invisibility = 101
@@ -35,7 +34,6 @@
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 		do_sparks(3, 1, src)
-	QDEL_IN(animation, 15)
 	QDEL_IN(src, 0)
 	return TRUE
 
