@@ -92422,10 +92422,7 @@
 	},
 /area/medical/virology/lab)
 "nGa" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack/gunrack,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -92434,16 +92431,12 @@
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -1;
-	pixel_y = -6
+	pixel_x = -7
 	},
 /obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -1;
-	pixel_y = -3
+	pixel_x = 7
 	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -1
-	},
+/obj/item/gun/projectile/shotgun/riot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -97919,19 +97912,16 @@
 	},
 /area/crew_quarters/sleep)
 "oPR" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
+/obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/gun/energy/laser{
-	pixel_x = -2;
-	pixel_y = 3
+	pixel_x = -8
 	},
-/obj/item/gun/energy/laser,
 /obj/item/gun/energy/laser{
-	pixel_x = 3;
-	pixel_y = -3
+	pixel_x = 10
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -115065,21 +115055,16 @@
 	},
 /area/medical/sleeper)
 "stT" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/rack/gunrack,
 /obj/item/gun/energy/gun{
-	pixel_x = -3;
-	pixel_y = 3
+	pixel_x = -7
 	},
-/obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun{
-	pixel_x = 3;
-	pixel_y = -3
+	pixel_x = 9
 	},
 /obj/structure/window/reinforced,
+/obj/item/gun/energy/gun,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
