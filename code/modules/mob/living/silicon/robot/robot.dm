@@ -673,7 +673,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!ionpulse_on)
 		return
 
-	if(cell.charge <= 50)
+	if(!cell || cell.charge <= 50)
 		toggle_ionpulse()
 		return
 

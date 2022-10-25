@@ -469,7 +469,7 @@ emp_act
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							apply_effect(2, WEAKEN, armor)
 							AdjustConfused(15)
-						if(mind.special_role == SPECIAL_ROLE_REV && prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+						if(mind && mind.special_role == SPECIAL_ROLE_REV && prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
