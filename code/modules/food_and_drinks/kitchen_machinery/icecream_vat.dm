@@ -143,7 +143,7 @@
 			else if(ID == 4)
 				reagents.add_reagent("cream", 5)
 			else if(ID == 5)
-				reagents.add_reagent("vanilla",5)
+				reagents.add_reagent("vanilla", 5)
 
 	else if(href_list["createchoco"])
 		var/name = generate_name(reagents.get_master_reagent_name())
