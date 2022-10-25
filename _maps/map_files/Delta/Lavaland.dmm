@@ -1185,7 +1185,7 @@
 "dp" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/window/reinforced/clockwork{
-	max_integrity = 180
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -2277,10 +2277,14 @@
 	},
 /area/mine/laborcamp)
 "hA" = (
-/obj/structure/bookcase,
 /obj/structure/window/reinforced/clockwork{
-	dir = 8
+	dir = 8;
+	move_resist = 45000
 	},
+/obj/structure/bookcase{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "hD" = (
@@ -2558,13 +2562,13 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
 /obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "iX" = (
@@ -2601,10 +2605,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"je" = (
-/obj/structure/stone_tile/slab,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2949,9 +2949,15 @@
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kM" = (
-/obj/structure/bookcase,
-/obj/structure/window/reinforced/clockwork{
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
 	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -4253,9 +4259,13 @@
 /area/mine/laborcamp)
 "rs" = (
 /obj/structure/window/reinforced/clockwork{
-	dir = 4
+	dir = 4;
+	move_resist = 45000
 	},
-/obj/structure/bookcase/random/religion,
+/obj/structure/bookcase/random/religion{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ry" = (
@@ -4876,9 +4886,13 @@
 /area/lavaland/surface/outdoors)
 "xh" = (
 /obj/structure/window/reinforced/clockwork{
-	dir = 4
+	dir = 4;
+	move_resist = 45000
 	},
-/obj/structure/bookcase,
+/obj/structure/bookcase{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "xl" = (
@@ -5484,7 +5498,7 @@
 	},
 /obj/structure/window/reinforced/clockwork{
 	dir = 4;
-	max_integrity = 180
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -5545,9 +5559,13 @@
 /area/lavaland/surface/outdoors)
 "CD" = (
 /obj/structure/window/reinforced/clockwork{
-	dir = 8
+	dir = 8;
+	move_resist = 45000
 	},
-/obj/structure/bookcase/random/religion,
+/obj/structure/bookcase/random/religion{
+	move_resist = 45000
+	},
+/obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "CE" = (
@@ -5579,7 +5597,8 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced/clockwork{
-	dir = 1
+	dir = 1;
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -5795,10 +5814,7 @@
 "Er" = (
 /obj/structure/stone_tile/slab,
 /obj/item/clockwork/clockgolem_remains,
-/obj/structure/table/reinforced{
-	icon_state = "brass_table";
-	icon = 'icons/obj/smooth_structures/brass_table.dmi'
-	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "EF" = (
@@ -5852,7 +5868,8 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced/clockwork{
-	dir = 1
+	dir = 1;
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -6693,10 +6710,7 @@
 "Lx" = (
 /obj/structure/stone_tile/slab,
 /obj/item/wrench/brass,
-/obj/structure/table/reinforced{
-	icon_state = "brass_table";
-	icon = 'icons/obj/smooth_structures/brass_table.dmi'
-	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "LF" = (
@@ -6778,10 +6792,7 @@
 "Mg" = (
 /obj/structure/stone_tile/slab,
 /obj/item/clockwork/fallen_armor,
-/obj/structure/table/reinforced{
-	icon_state = "brass_table";
-	icon = 'icons/obj/smooth_structures/brass_table.dmi'
-	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Mj" = (
@@ -6913,7 +6924,9 @@
 	dir = 8
 	},
 /obj/structure/stone_tile,
-/obj/structure/window/reinforced/clockwork,
+/obj/structure/window/reinforced/clockwork{
+	move_resist = 45000
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Np" = (
@@ -6963,7 +6976,7 @@
 /obj/structure/stone_tile/slab,
 /obj/structure/window/reinforced/clockwork{
 	dir = 1;
-	max_integrity = 180
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -7147,11 +7160,11 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
 /obj/structure/stone_tile/surrounding_tile/burnt,
 /obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Qo" = (
@@ -7454,7 +7467,7 @@
 /obj/structure/stone_tile/cracked,
 /obj/structure/window/reinforced/clockwork{
 	dir = 4;
-	max_integrity = 180
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -7707,7 +7720,7 @@
 	},
 /obj/structure/window/reinforced/clockwork{
 	dir = 4;
-	max_integrity = 180
+	move_resist = 45000
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
@@ -7860,7 +7873,9 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
-/obj/structure/window/reinforced/clockwork,
+/obj/structure/window/reinforced/clockwork{
+	move_resist = 45000
+	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "VN" = (
@@ -7900,10 +7915,7 @@
 "We" = (
 /obj/structure/stone_tile/slab,
 /obj/item/storage/toolbox/brass,
-/obj/structure/table/reinforced{
-	icon_state = "brass_table";
-	icon = 'icons/obj/smooth_structures/brass_table.dmi'
-	},
+/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "Wf" = (
@@ -46556,7 +46568,7 @@ aa
 aa
 aa
 qS
-je
+Fy
 fV
 hs
 GS
@@ -47584,7 +47596,7 @@ aa
 aa
 aa
 qS
-je
+Fy
 fV
 Np
 Gq
@@ -49380,7 +49392,7 @@ aj
 "}
 (161,1,1) = {"
 aa
-kM
+xh
 zw
 KO
 DM
@@ -49392,7 +49404,7 @@ Qn
 gM
 rd
 Fc
-kM
+xh
 aa
 aa
 ab
@@ -50151,7 +50163,7 @@ aj
 "}
 (164,1,1) = {"
 aa
-kM
+xh
 MM
 Vk
 CM
@@ -50163,7 +50175,7 @@ sC
 qP
 EQ
 kI
-kM
+xh
 aa
 aa
 ab
@@ -50666,7 +50678,7 @@ aj
 (166,1,1) = {"
 aa
 hA
-MM
+hh
 Vk
 zk
 gW
@@ -50922,7 +50934,7 @@ aj
 "}
 (167,1,1) = {"
 aa
-kM
+xh
 MM
 tE
 UI
@@ -51695,7 +51707,7 @@ aj
 aa
 rs
 Td
-Ot
+kM
 pz
 Aw
 Ot
@@ -51705,7 +51717,7 @@ pz
 Ot
 uZ
 yh
-kM
+xh
 aa
 aa
 ai
