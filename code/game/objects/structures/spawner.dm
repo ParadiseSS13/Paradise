@@ -42,7 +42,7 @@
 	spawn_time = 150
 	mob_types = list(/mob/living/simple_animal/hostile/skeleton)
 	spawn_text = "climbs out of"
-	faction = list("skeleton")
+	faction = list("undead")
 
 /obj/structure/spawner/clown
 	name = "Laughing Larry"

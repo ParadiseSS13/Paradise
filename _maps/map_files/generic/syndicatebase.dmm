@@ -19749,9 +19749,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "qlc" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo{
-	faction = list("skeleton","winter")
-	},
+/mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered)
 "qli" = (
@@ -20256,9 +20254,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
 "qCT" = (
-/mob/living/simple_animal/hostile/skeleton/eskimo{
-	faction = list("skeleton","winter")
-	},
+/mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/simulated/floor/plating/ice,
 /area/ruin/unpowered)
 "qDt" = (
