@@ -9,7 +9,7 @@
 	var/build_path
 
 /obj/item/mounted/frame/display/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/status_display/N = new build_path(get_turf(src), get_dir(on_wall, user))
+	var/obj/machinery/status_display/N = new build_path(get_turf(src))
 	N.pixel_y -= (loc.y - on_wall.y) * 32
 	N.pixel_x -= (loc.x - on_wall.x) * 32
 	qdel(src)
@@ -22,7 +22,7 @@
 	build_path = /obj/machinery/newscaster
 
 /obj/item/mounted/frame/display/newscaster_frame/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/newscaster/N = new build_path(get_turf(src), get_dir(on_wall, user))
+	var/obj/machinery/newscaster/N = new build_path(get_turf(src))
 	N.pixel_y -= (loc.y - on_wall.y) * 28
 	N.pixel_x -= (loc.x - on_wall.x) * 28
 	var/constrdir = user.dir
