@@ -891,7 +891,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual
 	cost = 13
 	cant_discount = TRUE
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_weapons/cqc/nuke
+	reference = "NCQC"
+	cost = 8
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -1552,7 +1557,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"
-	desc = "This device will disrupt any nearby outgoing radio communication when activated."
+	desc = "When turned on this device will scramble any outgoing radio communications near you, making them hard to understand."
 	reference = "RJ"
 	item = /obj/item/jammer
 	cost = 4
