@@ -68,7 +68,7 @@
 	req_tech = list("programming" = 3, "materials" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
-	build_path = /obj/item/twohanded/videocam
+	build_path = /obj/item/videocam
 	category = list("Miscellaneous")
 
 /datum/design/safety_muzzle
