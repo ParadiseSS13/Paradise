@@ -145,7 +145,7 @@
 			adjustBruteLoss(P.damage * 0.6) // 21 hit with security laser gun
 			P.on_hit(src)
 			return FALSE
-	return(..())
+	return ..()
 
 ////////////////////////Wraith/////////////////////////////////////////////
 
