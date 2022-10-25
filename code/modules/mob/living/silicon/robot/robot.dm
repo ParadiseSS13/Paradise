@@ -338,8 +338,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
 		"Service" = image('icons/mob/robots.dmi', "serv-radial"))
 	var/list/special_modules = list(
-		"Combat" = image('icons/mob/robots.dmi', "combat-radial")
-	)
+		"Combat" = image('icons/mob/robots.dmi', "combat-radial"),
+		"Security" = image('icons/mob/robots.dmi', "combat-radial"),
+		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"))
 
 	if(mmi?.alien)
 		return list("Hunter" = image('icons/mob/robots.dmi', "xeno-radial"))
@@ -413,6 +414,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Combat")
 			module_sprites = list(
 				"Combat" = image('icons/mob/robots.dmi', "ertgamma")
+			)
+		if("Security")
+			module_sprites = list(
+				"Basic" = image('icons/mob/robots.dmi', "secborg"),
+				"Red Knight" = image('icons/mob/robots.dmi', "Security"),
+				"Black Knight" = image('icons/mob/robots.dmi', "securityrobot"),
+				"Bloodhound" = image('icons/mob/robots.dmi', "bloodhound"),
+				"Standard" = image('icons/mob/robots.dmi', "Standard-Secy"),
+				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-SEC"),
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC")
+			)
+		if("Destroyer") //for Adminbus presumably
+			module_sprites = list(
+				"Destroyer" = image('icons/mob/robots.dmi', "droidcombat")
 			)
 		if("Hunter")
 			module_sprites = list(
@@ -1362,7 +1377,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = TRUE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
-	force_modules = list("Engineering", "Medical")
+	force_modules = list("Engineering", "Medical", "Security")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
