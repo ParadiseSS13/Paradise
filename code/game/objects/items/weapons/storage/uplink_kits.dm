@@ -71,7 +71,7 @@
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/card/emag, // 6TC
-		/obj/item/jammer, // 5TC
+		/obj/item/jammer, // 4TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
