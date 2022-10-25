@@ -89,6 +89,7 @@
 				/obj/item/stack/sheet/metal{amount = 20} = 10,
 				/obj/item/stack/sheet/mineral/plasma = 10,
 				/obj/item/stack/sheet/rglass = 10,
+				/obj/item/stack/sheet/cloth{amount = 3} = 40,
 				/obj/item/book/manual/wiki/engineering_construction = 10,
 				/obj/item/book/manual/wiki/hacking = 10,
 				/obj/item/clothing/head/cone = 10,
