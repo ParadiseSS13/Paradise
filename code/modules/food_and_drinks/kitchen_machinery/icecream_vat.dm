@@ -141,7 +141,7 @@
 					else
 						reagents.add_reagent("gin",5)
 			else if(ID == 4)
-				reagents.add_reagent("cream",5)
+				reagents.add_reagent("cream", 5)
 			else if(ID == 5)
 				reagents.add_reagent("vanilla",5)
 
