@@ -101,10 +101,16 @@
 	if(is_int_organ(tool))
 		current_type = "insert"
 		I = tool
+
 		if(I.requires_robotic_bodypart)
 			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
 			return -1
+
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
+			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
+			return -1
+
+		if((RUNIC_MIND in target.dna.species.species_traits) && istype(I, /obj/item/organ/internal/brain) && !istype(I, /obj/item/organ/internal/brain/golem))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 

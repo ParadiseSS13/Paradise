@@ -311,6 +311,10 @@
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 
+		if((RUNIC_MIND in target.dna.species.species_traits) && istype(I, /obj/item/organ/internal/brain) && !istype(I, /obj/item/organ/internal/brain/golem))
+			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
+			return -1
+
 		if(I.damage > (I.max_damage * 0.75))
 			to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
 			return -1
