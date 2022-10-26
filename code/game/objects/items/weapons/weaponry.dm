@@ -195,6 +195,8 @@
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
+	var/can_deflect = TRUE
+	var/homerun_always_charged = 0
 
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"
@@ -236,7 +238,7 @@
 				return TRUE
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
-	if(!homerun_able)
+	if(!homerun_able && can_deflect)
 		if(!deflectmode && world.time >= lastdeflect)
 			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
 			deflectmode = TRUE
@@ -267,7 +269,8 @@
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(2)
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
-		homerun_ready = 0
+		if(!homerun_always_charged)
+			homerun_ready = 0
 		return
 	if(world.time < next_throw_time)
 		// Limit the rate of throwing, so you can't spam it.
@@ -291,7 +294,8 @@
 		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
 		return
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
-	target.throw_at(throw_target, rand(1, 2), 7, user)
+	if(!homerun_always_charged)
+		target.throw_at(throw_target, rand(1, 2), 7, user)
 	next_throw_time = world.time + 10 SECONDS
 
 /obj/item/melee/baseball_bat/ablative
@@ -320,9 +324,11 @@
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
+	can_deflect = FALSE
+	homerun_always_charged = TRUE
 	var/on = FALSE
 	/// Force when concealed
-	force = 10
+	force = 5
 	/// Force when extended
 	var/force_on = 20
 	/// Item state when concealed
@@ -356,26 +362,38 @@
 	attack_verb = on ? attack_verb_on : initial(attack_verb)
 	w_class = on ? WEIGHT_CLASS_HUGE : WEIGHT_CLASS_SMALL
 	homerun_able = on
+	
+/obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
+	. = ..()
+	if(!(isertmindshielded(user)))
+		user.Weaken(5)
+		user.unEquip(src, 1)
+		to_chat(user, "<span class='cultlarge'>\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\"</span>")
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
+		else
+			user.adjustBruteLoss(rand(force/2, force))
+		return
 
 /obj/item/melee/baseball_bat/homerun/central_command/attack_self(mob/user)
 	on = !on
 	icon_state = on ? icon_state_on : initial(icon_state)
 	if(on)
-		to_chat(user, "<span class='warning'>Вы выдвинули [src.name].</span>")
+		to_chat(user, "<span class='userdanger'>Вы активировали [src.name] - время для правосудия!</span>")
 		item_state = item_state_on
 		w_class = WEIGHT_CLASS_HUGE //doesnt fit in backpack when its on for balance
 		force = force_on
 		attack_verb = attack_verb_on
-		homerun_able = TRUE
+		homerun_ready = TRUE
 	else
-		to_chat(user, "<span class='notice'>Вы свернули [src.name].</span>")
+		to_chat(user, "<span class='notice'>Вы деактивировали [src.name].</span>")
 		item_state = initial(item_state)
 		slot_flags = SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = initial(force)
 		attack_verb = initial(attack_verb)
 		homerun_ready = FALSE
-		homerun_able = FALSE
 	// Update mob hand visuals
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -383,4 +401,3 @@
 		H.update_inv_r_hand()
 	playsound(loc, extend_sound, 50, TRUE)
 	add_fingerprint(user)
-	..()
