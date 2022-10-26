@@ -529,8 +529,9 @@
 			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
 
 /obj/item/shield/mirror/IsReflect()
-	if(prob(reflect_chance))
-		return TRUE
+	if(isliving(loc))
+		var/mob/living/holder = loc
+		return prob(reflect_chance) && iscultist(holder) //so non-cultist can not reflect using this shield
 	return FALSE
 
 /obj/item/twohanded/cult_spear
