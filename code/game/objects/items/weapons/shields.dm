@@ -3,7 +3,7 @@
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 
 /obj/item/shield/proc/add_parry_component()
-	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/Initialize(mapload)
 	. = ..()
@@ -62,7 +62,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/shield/riot/buckler/add_parry_component()
-	AddComponent(/datum/component/parry, _perfect_parry_window = 0, _stamina_constant = 2, _stamina_coefficient = 0.7, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 
 /obj/item/shield/energy

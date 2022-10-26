@@ -1,8 +1,6 @@
 /datum/component/parry
 	/// the world.time we last parried at
 	var/time_parried
-	/// the max time since `time_parried` that counts as a perfect parry
-	var/perfect_parry_window
 	/// the max time since `time_parried` that the shield is still considered "active"
 	var/parry_time_out_time
 
@@ -26,11 +24,10 @@
 	if(ismob(I.loc))
 		UnregisterSignal(I.loc, COMSIG_LIVING_RESIST)
 
-/datum/component/parry/Initialize(_perfect_parry_window = 0, _stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = 1 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+/datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = 1 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	perfect_parry_window = _perfect_parry_window
 	parry_time_out_time = _parry_time_out_time
 	stamina_constant = _stamina_constant
 	stamina_coefficient = _stamina_coefficient
@@ -72,7 +69,7 @@
 	if(armour_penetration_flat + armour_penetration_percentage >= 100)
 		return
 
-	var/stamina_damage = stamina_coefficient * (((time_since_parry / parry_time_out_time) + armour_penetration_percentage / 100) * damage + armour_penetration_flat) + stamina_constant
+	var/stamina_damage = stamina_coefficient * (((time_since_parry / parry_time_out_time) + armour_penetration_percentage / 100) * (damage + armour_penetration_flat)) + stamina_constant
 
 	var/sound_to_play
 	if(attack_type == PROJECTILE_ATTACK)
@@ -81,13 +78,6 @@
 		sound_to_play = 'sound/weapons/parry.ogg'
 
 	playsound(owner, sound_to_play, clamp(stamina_damage, 40, 120))
-
-	if(time_since_parry <= perfect_parry_window) // a perfect parry
-		if(isliving(hitby))
-			var/mob/living/L = hitby
-			L.changeNext_move(CLICK_CD_MELEE)
-			L.Slowed(2 SECONDS, 1)
-		return COMPONENT_BLOCK_SUCCESSFUL
 
 	owner.adjustStaminaLoss(stamina_damage)
 	if(owner.getStaminaLoss() < 100)

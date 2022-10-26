@@ -520,7 +520,7 @@
 
 /obj/item/cursed_katana/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	for(var/combo in combo_list)
 		var/list/combo_specifics = combo_list[combo]
 		var/step_string = english_list(combo_specifics[COMBO_STEPS])

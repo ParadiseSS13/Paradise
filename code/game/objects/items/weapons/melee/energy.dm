@@ -131,7 +131,7 @@
 	..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _perfect_parry_window = 0.25 SECONDS, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/energy/sword/detailed_examine()
 	return "The energy sword is a very strong melee weapon, capable of severing limbs easily, if they are targeted. It can also has a chance \
