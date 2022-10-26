@@ -23993,7 +23993,7 @@
 	},
 /area/hallway/primary/fore)
 "blA" = (
-/obj/machinery/computer/merch{
+/obj/machinery/economy/merch{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{

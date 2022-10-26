@@ -13609,7 +13609,7 @@
 	c_tag = "Central Primary Hallway - Fore - Port Corner";
 	dir = 4
 	},
-/obj/machinery/computer/merch{
+/obj/machinery/economy/merch{
 	dir = 4
 	},
 /obj/item/radio/intercom{
