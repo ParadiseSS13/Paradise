@@ -43,7 +43,7 @@
 		return TRUE
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
-	else if(istype(mover, /mob/living))
+	else if(isliving(mover))
 		if(prob(50))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			return FALSE
@@ -111,6 +111,8 @@
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	// Release possible ref if a walk is still being processed
+	walk_to(src, 0)
 	entry_vent = null
 	if(amount_grown < 100)
 		new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))

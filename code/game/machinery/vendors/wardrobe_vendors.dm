@@ -8,15 +8,15 @@
 	icon_panel = "drobe"
 	ads_list = list("Beat perps in style!", "It's red so you can't see the blood!", "You have the right to be fashionable!", "Now you can be the fashion police you always wanted to be!")
 	vend_reply = "Thank you for using the SecDrobe!"
-	products = list(/obj/item/clothing/under/rank/security/corp = 4,
-					/obj/item/clothing/under/rank/security/skirt/corp = 4,
-					/obj/item/clothing/under/rank/dispatch = 4,
-					/obj/item/clothing/under/rank/security/skirt = 4,
-					/obj/item/clothing/under/rank/security = 4,
-					/obj/item/clothing/under/rank/security2 = 4,
+	products = list(/obj/item/clothing/under/rank/security/officer/corporate = 4,
+					/obj/item/clothing/under/rank/security/officer/skirt/corporate = 4,
+					/obj/item/clothing/under/rank/security/officer/dispatch = 4,
+					/obj/item/clothing/under/rank/security/officer/skirt = 4,
+					/obj/item/clothing/under/rank/security/officer = 4,
+					/obj/item/clothing/under/rank/security/officer/uniform = 4,
 					/obj/item/clothing/under/rank/security/formal = 4,
-					/obj/item/clothing/under/rank/security/fancy = 4,
-					/obj/item/clothing/under/rank/security/skirt/fancy = 4,
+					/obj/item/clothing/under/rank/security/officer/fancy = 4,
+					/obj/item/clothing/under/rank/security/officer/skirt/fancy = 4,
 					/obj/item/clothing/head/soft/sec/corp = 4,
 					/obj/item/clothing/head/officer = 4,
 					/obj/item/clothing/head/beret/sec = 4,
@@ -48,7 +48,7 @@
 	icon_panel = "drobe"
 	ads_list = list("Apply your brilliant deductive methods in style!", "They already smell of cigarettes!")
 	vend_reply = "Thank you for using the DetDrobe!"
-	products = list(/obj/item/clothing/under/det = 2,
+	products = list(/obj/item/clothing/under/rank/security/detective = 2,
 					/obj/item/clothing/suit/storage/det_suit = 2,
 					/obj/item/clothing/suit/storage/det_suit/forensics/red = 1,
 					/obj/item/clothing/suit/storage/det_suit/forensics/blue = 1,
@@ -162,7 +162,7 @@
 	icon_addon = "genedrobe"
 	ads_list = "Perfect for the mad scientist in you!"
 	vend_reply = "Thank you for using the GeneDrobe!"
-	products = list(/obj/item/clothing/under/rank/geneticist = 3,
+	products = list(/obj/item/clothing/under/rank/rnd/geneticist = 3,
 					/obj/item/clothing/suit/storage/labcoat/genetics = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/white = 3,
@@ -182,8 +182,8 @@
 	icon_addon = "scidrobe"
 	ads_list = list("Longing for the smell of plasma burnt flesh?", "Buy your science clothing now!", "Made with 10% Auxetics, so you don't have to worry about losing your arm!")
 	vend_reply = "Thank you for using the SciDrobe!"
-	products = list(/obj/item/clothing/under/rank/scientist = 6,
-					/obj/item/clothing/under/rank/scientist/skirt = 3,
+	products = list(/obj/item/clothing/under/rank/rnd/scientist = 6,
+					/obj/item/clothing/under/rank/rnd/scientist/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/science = 3,
 					/obj/item/clothing/suit/storage/labcoat/science = 3,
 					/obj/item/clothing/head/beret/sci = 3,
@@ -207,8 +207,8 @@
 	icon_addon = "robodrobe"
 	ads_list = list("You turn me TRUE, use defines!","0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101")
 	vend_reply = "Thank you for using the RoboDrobe!"
-	products = list(/obj/item/clothing/under/rank/roboticist = 3,
-					/obj/item/clothing/under/rank/roboticist/skirt = 3,
+	products = list(/obj/item/clothing/under/rank/rnd/roboticist = 3,
+					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 3,
 					/obj/item/clothing/suit/storage/labcoat = 3,
 					/obj/item/clothing/head/soft/black = 3,
 					/obj/item/clothing/gloves/fingerless = 3,
@@ -227,8 +227,8 @@
 	icon_addon = "engidrobe"
 	ads_list = list("Guaranteed to protect your feet from industrial accidents!", "Afraid of radiation? Then wear yellow!")
 	vend_reply = "Thank you for using the EngiDrobe!"
-	products = list(/obj/item/clothing/under/rank/engineer = 6,
-					/obj/item/clothing/under/rank/engineer/skirt = 3,
+	products = list(/obj/item/clothing/under/rank/engineering/engineer = 6,
+					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
 					/obj/item/clothing/suit/jacket/engibomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
@@ -257,8 +257,8 @@
 	icon_addon = "atmosdrobe"
 	ads_list = list("Guaranteed to protect your feet from atmospheric accidents!", "Get your inflammable clothing right here!")
 	vend_reply = "Thank you for using the AtmosDrobe!"
-	products = list(/obj/item/clothing/under/rank/atmospheric_technician  = 6,
-					/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
+	products = list(/obj/item/clothing/under/rank/engineering/atmospheric_technician  = 6,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/suit/jacket/atmosbomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
@@ -287,9 +287,10 @@
 	icon_addon = "cargodrobe"
 	ads_list = list("Upgraded Assistant Style! Pick yours today!", "These shorts are comfy and easy to wear, get yours now!")
 	vend_reply = "Thank you for using the CargoDrobe!"
-	products = list(/obj/item/clothing/under/rank/cargotech = 6,
-					/obj/item/clothing/under/rank/cargotech/skirt = 3,
+	products = list(/obj/item/clothing/under/rank/cargo/tech = 6,
+					/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
+					/obj/item/clothing/suit/jacket/cargobomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
 					/obj/item/clothing/head/soft = 3,
 					/obj/item/clothing/head/hardhat/orange = 2,
@@ -310,8 +311,8 @@
 	icon_addon = "chefdrobe"
 	ads_list = list("Our clothes are guaranteed to protect you from food splatters!", "Comfortable enough for a CQC practice!")
 	vend_reply = "Thank you for using the ChefDrobe!"
-	products = list(/obj/item/clothing/under/rank/chef = 2,
-					/obj/item/clothing/under/waiter = 2,
+	products = list(/obj/item/clothing/under/rank/civilian/chef = 2,
+					/obj/item/clothing/under/misc/waiter = 2,
 					/obj/item/clothing/suit/chef = 2,
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/clothing/head/chefhat = 2,
@@ -322,6 +323,7 @@
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/chef = 1)
+	premium = list(/obj/item/storage/box/dish_drive = 1)
 	refill_canister = /obj/item/vending_refill/chefdrobe
 
 /obj/machinery/economy/vending/bardrobe
@@ -332,8 +334,8 @@
 	icon_panel = "drobe"
 	ads_list = list("Guaranteed to prevent stains from spilled drinks!")
 	vend_reply = "Thank you for using the BarDrobe!"
-	products = list(/obj/item/clothing/under/rank/bartender = 2,
-					/obj/item/clothing/under/sl_suit = 2,
+	products = list(/obj/item/clothing/under/rank/civilian/bartender = 2,
+					/obj/item/clothing/under/misc/sl_suit = 2,
 					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/soft/black = 2,
 					/obj/item/clothing/suit/blacktrenchcoat = 2,
@@ -342,6 +344,7 @@
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/reagent_containers/glass/rag = 3)
 	contraband = list(/obj/item/toy/figure/crew/bartender = 1)
+	premium = list(/obj/item/storage/box/dish_drive = 1)
 	refill_canister = /obj/item/vending_refill/bardrobe
 
 /obj/machinery/economy/vending/hydrodrobe
@@ -352,7 +355,7 @@
 	icon_panel = "drobe"
 	ads_list = list("Do you love soil? Then buy our clothes!", "Get outfits to match your green thumb here!")
 	vend_reply = "Thank you for using the HydroDrobe!"
-	products = list(/obj/item/clothing/under/rank/hydroponics = 3,
+	products = list(/obj/item/clothing/under/rank/civilian/hydroponics = 3,
 					/obj/item/reagent_containers/glass/bucket = 3,
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/overalls = 3,

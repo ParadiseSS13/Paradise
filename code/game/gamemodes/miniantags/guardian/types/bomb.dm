@@ -22,7 +22,7 @@
 	if(get_dist(get_turf(src), get_turf(A)) > 1)
 		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
 		return
-	if(istype(A, /obj/))
+	if(isobj(A))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")

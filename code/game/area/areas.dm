@@ -504,7 +504,7 @@
 
 		M.lastarea = src
 
-	if(!istype(A,/mob/living))	return
+	if(!isliving(A))	return
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
@@ -526,7 +526,7 @@
 			thunk(M)
 
 /area/proc/thunk(mob/living/carbon/human/M)
-	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
+	if(ishuman(M))  // Only humans can wear magboots, so we give them a chance to.
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
 
@@ -536,13 +536,13 @@
 	if(M.buckled) //Cam't fall down if you are buckled
 		return
 
-	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
+	if(isspaceturf(get_turf(M))) // Can't fall onto nothing.
 		return
 
-	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
+	if((ishuman(M)) && (M.m_intent == MOVE_INTENT_RUN))
 		M.Weaken(10 SECONDS)
 
-	else if(istype(M,/mob/living/carbon/human/))
+	else if(ishuman(M))
 		M.Weaken(4 SECONDS)
 
 
@@ -552,7 +552,7 @@
 	if(!T)
 		T = get_turf(AT)
 	var/area/A = get_area(T)
-	if(istype(T, /turf/space)) // Turf never has gravity
+	if(isspaceturf(T)) // Turf never has gravity
 		return 0
 	else if(A && A.has_gravity) // Areas which always has gravity
 		return 1

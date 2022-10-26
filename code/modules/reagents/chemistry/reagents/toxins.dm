@@ -154,6 +154,7 @@
 	name = "Radium"
 	id = "radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
+	process_flags = ORGANIC | SYNTHETIC
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
@@ -347,15 +348,13 @@
 				else
 					var/melted_something = FALSE
 					if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
+						to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
 						qdel(H.wear_mask)
-						H.update_inv_wear_mask()
-						to_chat(H, "<span class='danger'>Your [H.wear_mask] melts away!</span>")
 						melted_something = TRUE
 
 					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
+						to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
 						qdel(H.head)
-						H.update_inv_head()
-						to_chat(H, "<span class='danger'>Your [H.head] melts away!</span>")
 						melted_something = TRUE
 					if(melted_something)
 						return

@@ -48,10 +48,10 @@
 	M.remove_antag_datum(/datum/antagonist/mindslave)
 
 /obj/item/implanter/traitor
-	name = "implanter (Mindslave)"
+	name = "bio-chip implanter (Mindslave)"
 	implant_type = /obj/item/implant/traitor
 
 /obj/item/implantcase/traitor
-	name = "implant case - 'Mindslave'"
-	desc = "A glass case containing a mindslave implant."
+	name = "bio-chip case - 'Mindslave'"
+	desc = "A glass case containing a mindslave bio-chip."
 	implant_type = /obj/item/implant/traitor

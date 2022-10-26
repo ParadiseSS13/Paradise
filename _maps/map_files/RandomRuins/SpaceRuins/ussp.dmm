@@ -1532,13 +1532,13 @@
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/costume/soviet,
+/obj/item/clothing/under/costume/soviet,
+/obj/item/clothing/under/costume/soviet,
+/obj/item/clothing/under/costume/soviet,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/costume/soviet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dO" = (

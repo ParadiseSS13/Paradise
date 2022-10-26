@@ -532,7 +532,7 @@
 
 		user.layer = prevLayer
 
-	if(istype(user.loc,/obj/))
+	if(isobj(user.loc))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
 		user.AdjustParalysis(6 SECONDS)
@@ -699,7 +699,7 @@
 			else
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense strange thoughts from [M.name].</span>")
 
-		if(istype(M,/mob/living/carbon/human))
+		if(ishuman(M))
 			var/numbers[0]
 			var/mob/living/carbon/human/H = M
 			if(H.mind && H.mind.initial_account)

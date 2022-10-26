@@ -32,6 +32,21 @@
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
+	switch(state)
+		if(EMPTY_ASSEMBLY)
+			if(anchored)
+				. += "<span class='notice'>The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.</span>"
+			else
+				. += "<span class='notice'>The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.</span>"
+			if(!secure)
+				. += "<span class='notice'>The frame has <i>empty</i> slots for <i>plasteel reinforcements</i>.</span>"
+		if(WIRED_ASSEMBLY)
+			if(electronics)
+				. += "<span class='notice'>The circuit is <b>connected</b> to its slot, but the windoor is not <i>lifted into the frame</i>.</span>"
+				. += "<span class='notice'>The assembly has its electrochromic panel <b>[polarized_glass ? "enabled" : "disabled"]</b> and can be <i>configured</i>.</span>"
+			else
+				. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
+
 	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
@@ -150,7 +165,7 @@
 				else
 					W.forceMove(loc)
 
-			else if(istype(W, /obj/item/pen))
+			else if(is_pen(W))
 				var/t = rename_interactive(user, W)
 				if(!isnull(t))
 					created_name = t

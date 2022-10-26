@@ -78,17 +78,12 @@
 	effect_type = /obj/effect/particle_effect/smoke
 	var/direction
 
-/datum/effect_system/smoke_spread/set_up(n = 5, c = 0, loca, direct)
-	if(n > 20)
-		n = 20
-	number = n
-	cardinals = c
-	if(isturf(loca))
-		location = loca
-	else
-		location = get_turf(loca)
-	if(direct)
-		direction = direct
+/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction)
+	number = clamp(amount, amount, 20)
+	cardinals = only_cardinals
+	location = get_turf(source)
+	if(desired_direction)
+		direction = desired_direction
 
 /datum/effect_system/smoke_spread/start()
 	for(var/i=0, i<number, i++)
@@ -149,7 +144,7 @@
 	var/blast = FALSE
 
 /datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
-	if(istype(A, /turf/simulated))
+	if(issimulatedturf(A))
 		var/turf/simulated/T = A
 		if(T.air)
 			var/datum/gas_mixture/G = T.air
@@ -176,7 +171,7 @@
 		for(var/obj/item/Item in T)
 			Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(n = 5, c = 0, loca, direct, blasting = 0)
+/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = 0)
 	..()
 	blast = blasting
 

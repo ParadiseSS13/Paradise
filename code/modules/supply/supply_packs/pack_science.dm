@@ -20,7 +20,13 @@
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
 
-
+/datum/supply_packs/science/mechcore
+	name = "Mech power core crate"
+	contains = list(/obj/item/mecha_parts/core)
+	cost = 250
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "mech power core crate"
+	access = ACCESS_RD
 /datum/supply_packs/science/robotics/mecha_ripley
 	name = "Circuit Crate (Ripley APLU)"
 	contains = list(/obj/item/book/manual/ripley_build_and_repair,

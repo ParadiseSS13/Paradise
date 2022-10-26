@@ -149,9 +149,10 @@
 /obj/screen/alert/take_item/proc/cancel_give()
 	SIGNAL_HANDLER
 	var/mob/living/giver = locateUID(giver_UID)
+	var/mob/living/receiver = locateUID(receiver_UID)
 	to_chat(giver, "<span class='warning'>You need to keep the item in your active hand if you want to hand it to someone!</span>")
-	to_chat(locateUID(receiver_UID), "<span class='warning'>[giver] seems to have given up on giving you [locateUID(item_UID)].</span>")
-	qdel(src)
+	to_chat(receiver, "<span class='warning'>[giver] seems to have given up on giving you [locateUID(item_UID)].</span>")
+	receiver.clear_alert("take item [item_UID]")
 
 
 /obj/screen/alert/take_item/Click(location, control, params)
