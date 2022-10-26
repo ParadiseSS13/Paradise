@@ -322,7 +322,7 @@
 /datum/objective/revenant/check_completion()
 	var/total_essence = 0
 	for(var/datum/mind/M in get_owners())
-		if(!istype(M.current, /mob/living/simple_animal/revenant) || M.current?.stat == DEAD)
+		if(!istype(M.current, /mob/living/simple_animal/revenant) || QDELETED(M.current))
 			continue
 		var/mob/living/simple_animal/revenant/R = M.current
 		total_essence += R.essence_accumulated

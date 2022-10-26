@@ -346,7 +346,7 @@
 /datum/objective/slaughter/check_completion()
 	var/kill_count = 0
 	for(var/datum/mind/M in get_owners())
-		if(!isslaughterdemon(M.current) || !M.current?.stat == DEAD)
+		if(!isslaughterdemon(M.current) || QDELETED(M.current))
 			continue
 		var/mob/living/simple_animal/slaughter/R = M.current
 		kill_count += R.devoured

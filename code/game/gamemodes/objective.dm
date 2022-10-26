@@ -209,7 +209,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!target.current || !isbrain(target.current))
 		return FALSE
 	for(var/datum/mind/M in get_owners())
-		if(M.current?.stat == DEAD)
+		if(QDELETED(M.current) || M.current.stat == DEAD)
 			continue // Maybe someone who's alive has the brain.
 		if(target.current in M.current.GetAllContents())
 			return TRUE
@@ -264,7 +264,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return FALSE
 	for(var/datum/mind/M in get_owners())
-		if(M.current?.stat != CONSCIOUS || issilicon(M.current) || get_area(M.current) != SSshuttle.emergency.areaInstance)
+		if(QDELETED(M.current) || M.current.stat != CONSCIOUS || issilicon(M.current) || get_area(M.current) != SSshuttle.emergency.areaInstance)
 			return FALSE
 	return SSshuttle.emergency.is_hijacked()
 
@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TRUE
 	var/list/owners = get_owners()
 	for(var/datum/mind/M in owners)
-		if(M.current?.stat == DEAD || issilicon(M.current) || isbrain(M.current))
+		if(QDELETED(M.current) || M.current.stat == DEAD || issilicon(M.current) || isbrain(M.current))
 			return FALSE
 		var/turf/location = get_turf(M.current)
 		if(istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
@@ -381,7 +381,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/die/check_completion()
 	for(var/datum/mind/M in get_owners())
-		if(M.current?.stat == DEAD || isbrain(M.current))
+		if(QDELETED(M.current) || M.current.stat == DEAD || isbrain(M.current))
 			continue
 		if(issilicon(M.current) && !M.is_original_mob(M.current))
 			continue
@@ -396,7 +396,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/survive/check_completion()
 	for(var/datum/mind/M in get_owners())
-		if(M.current?.stat == DEAD || isbrain(M.current))
+		if(QDELETED(M.current) || M.current.stat == DEAD || isbrain(M.current))
 			return FALSE
 		if(issilicon(M.current) && !M.is_original_mob(M.current))
 			return FALSE
