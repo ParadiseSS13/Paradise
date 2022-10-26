@@ -39,7 +39,7 @@
 		if(reagents.total_volume >= reagents.maximum_volume)
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return
-	reagents.remove_reagent(25,"water")
+	reagents.remove_reagent(reagents.get_master_reagent_id(),25)
 	var/datum/effect_system/smoke_spread/bad/smoke = new
 	smoke.set_up(5, 0, user.loc)
 	smoke.start()
@@ -56,6 +56,17 @@
 	desc = "squirts viagra."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-stun"
+	volume = 80
+
+/obj/item/reagent_containers/spray/alien/stun/afterattack(atom/A as mob|obj, mob/user as mob)
+	reagents.remove_reagent(reagents.get_master_reagent_id(),25)
+	var/location = get_turf(user)
+	var/datum/reagents/reagents_list = new
+	reagents_list.add_reagent("cryogenic_liquid", 5)
+	var/datum/effect_system/smoke_spread/chem/smoke = new
+	smoke.set_up(reagents_list, location)
+	smoke.start(3)
+	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
 
 //SKREEEEEEEEEEEE tool
 

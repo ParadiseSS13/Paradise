@@ -590,12 +590,15 @@
 		/datum/action/innate/robot_sight/thermal/alien,
 	)
 
+/obj/item/robot_module/alien/hunter/add_default_robot_items()
+	return
+
 /obj/item/robot_module/alien/hunter/New()
 	..()
 	modules += new /obj/item/melee/energy/alien/claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
 	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
-	S.reagents.add_reagent("ether",250) //nerfed to sleeptoxin to make it less instant drop.
+	S.reagents.add_reagent("cryogenic_liquid",250) //nerfed to sleeptoxin to make it less instant drop.
 	modules += S
 	var/obj/item/reagent_containers/spray/alien/smoke/A = new /obj/item/reagent_containers/spray/alien/smoke(src)
 	S.reagents.add_reagent("water",50) //Water is used as a dummy reagent for the smoke bombs. More of an ammo counter.

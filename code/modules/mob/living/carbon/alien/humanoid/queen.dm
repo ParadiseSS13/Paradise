@@ -27,6 +27,7 @@
 			break
 
 	real_name = src.name
+	grant_all_babel_languages()
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
