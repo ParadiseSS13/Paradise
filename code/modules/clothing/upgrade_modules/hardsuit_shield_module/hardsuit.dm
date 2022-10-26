@@ -60,10 +60,12 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/shielded
 	jetpack = /obj/item/tank/jetpack/suit
 	shield = /obj/item/hardsuit_shield/syndi
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 20, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/shielded
 	desc = "An advanced hardsuit helmet with built in energy shielding."
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 20, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100)
 
 //////Wizard Versions
