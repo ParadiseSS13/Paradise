@@ -99,7 +99,7 @@
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method != REAGENT_TOUCH)
-		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
+		M.ForceContractDisease(new /datum/disease/transformation/slime)
 
 
 /datum/reagent/mercury

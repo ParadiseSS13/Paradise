@@ -194,59 +194,76 @@
 			if(stat)
 				to_chat(src, "<i>I must be conscious to do this...</i>")
 				return
-
-			//Определяем какие дети родятся
-			var/list/babies = list()
-			var/add_counts = ((age_state.age == SLIME_OLD) ? round(age_state.baby_counts / 3) : 0) + ((age_state.age == SLIME_ELDER) ? round(age_state.baby_counts / 3) : 0)
-			var/baby_counts = rand(3 + add_counts, age_state.baby_counts)
-			var/baby_counts_adult = 0
-			if (age_state.age == SLIME_OLD || age_state.age == SLIME_ELDER)
-				baby_counts_adult = rand(0, round(baby_counts / 2))
-			var/baby_counts_old = 0
-			if (age_state.age == SLIME_ELDER && baby_counts)
-				baby_counts_old	= rand(0, round((baby_counts - baby_counts_adult * 2) / 3) + 1)
-
-			baby_counts += -(baby_counts_adult * 2 + baby_counts_old * 3)
-			var/new_nutrition = round(nutrition * 0.9 / (baby_counts + baby_counts_adult + baby_counts_old))
-			var/new_powerlevel = round(powerlevel / (baby_counts + baby_counts_adult + baby_counts_old))
-
-			//Определяем количество детей и будущее набольшее тело
-			var/mob/living/simple_animal/slime/new_slime
-			if (baby_counts_old)
-				for(var/i in 1 to baby_counts_old)
-					reproduce_baby_stats(babies, /datum/slime_age/old, new_nutrition, new_powerlevel)
-				new_slime = pick(babies)
-			if (baby_counts_adult)
-				for(var/i in 1 to baby_counts_adult)
-					reproduce_baby_stats(babies, /datum/slime_age/adult, new_nutrition, new_powerlevel)
-				if (!new_slime)
-					new_slime = pick(babies)
-			if (baby_counts)
-				for(var/i in 1 to baby_counts)
-					reproduce_baby_stats(babies, /datum/slime_age/baby, new_nutrition, new_powerlevel)
-
-			if (!new_slime)
-				new_slime = pick(babies)
-
-			new_slime.a_intent = INTENT_HARM
-			if(src.mind)
-				src.mind.transfer_to(new_slime)
-			else
-				new_slime.key = src.key
-			qdel(src)
+			force_split(TRUE)
 		else
 			to_chat(src, "<i>I am not ready to reproduce yet...</i>")
 	else
 		to_chat(src, "<i>I am not old enough to reproduce yet...</i>")
 
-/mob/living/simple_animal/slime/proc/reproduce_baby_stats(var/list/babies, var/datum/slime_age/baby_type, var/new_nutrition, var/new_powerlevel)
-	var/child_colour
-	if(mutation_chance >= 100)
-		child_colour = "rainbow"
-	else if(prob(mutation_chance))
-		child_colour = slime_mutation[rand(1,4)]
+/mob/living/simple_animal/slime/proc/force_split(var/can_mutate = TRUE)
+	if(age_state.age == SLIME_BABY)
+		return FALSE
+
+	//Определяем модификатор количества детей от количества накопленных нутриентов
+	var/baby_mod = 0.1
+	if(nutrition >= get_max_nutrition())
+		baby_mod = 1.25
+	else if(nutrition >= get_grow_nutrition())
+		baby_mod = 1
+	else if(nutrition >= get_hunger_nutrition())
+		baby_mod = 0.5
+	else if(nutrition >= get_starve_nutrition())
+		baby_mod = 0.25
+
+	//Определяем какие дети родятся
+	var/list/babies = list()
+	var/add_counts = ((age_state.age == SLIME_OLD) ? round(age_state.baby_counts / 3) : 0) + ((age_state.age == SLIME_ELDER) ? round(age_state.baby_counts / 3) : 0)
+	var/baby_counts = round(rand(3 + add_counts, age_state.baby_counts) * baby_mod)
+	baby_counts = baby_counts <= 0 ? 1 : baby_counts	//даже если нутриентов по нулям, то поделится на 1-го BABY
+	var/baby_counts_adult = 0
+	if (age_state.age == SLIME_OLD || age_state.age == SLIME_ELDER)
+		baby_counts_adult = rand(0, round(baby_counts / 2))
+	var/baby_counts_old = 0
+	if (age_state.age == SLIME_ELDER && baby_counts)
+		baby_counts_old	= rand(0, round((baby_counts - baby_counts_adult * 2) / 3) + 1)
+
+	baby_counts -= baby_counts_adult * 2 + baby_counts_old * 3
+	var/new_nutrition = round(nutrition * 0.9 / (baby_counts + baby_counts_adult + baby_counts_old))
+	var/new_powerlevel = round(powerlevel / (baby_counts + baby_counts_adult + baby_counts_old))
+
+	//Определяем количество детей и будущее набольшее тело
+	var/mob/living/simple_animal/slime/new_slime
+	if (baby_counts_old)
+		for(var/i in 1 to baby_counts_old)
+			reproduce_baby_stats(babies, /datum/slime_age/old, new_nutrition, new_powerlevel, can_mutate)
+		new_slime = pick(babies)
+	if (baby_counts_adult)
+		for(var/i in 1 to baby_counts_adult)
+			reproduce_baby_stats(babies, /datum/slime_age/adult, new_nutrition, new_powerlevel, can_mutate)
+		if (!new_slime)
+			new_slime = pick(babies)
+	if (baby_counts)
+		for(var/i in 1 to baby_counts)
+			reproduce_baby_stats(babies, /datum/slime_age/baby, new_nutrition, new_powerlevel, can_mutate)
+
+	if (!new_slime)
+		new_slime = pick(babies)
+
+	new_slime.a_intent = INTENT_HARM
+	if(src.mind)
+		src.mind.transfer_to(new_slime)
 	else
-		child_colour = colour
+		new_slime.key = src.key
+	qdel(src)
+	return TRUE
+
+/mob/living/simple_animal/slime/proc/reproduce_baby_stats(var/list/babies, var/datum/slime_age/baby_type, var/new_nutrition, var/new_powerlevel, var/can_mutate)
+	var/child_colour = colour
+	if(can_mutate)
+		if(mutation_chance >= 100)
+			child_colour = "rainbow"
+		else if(prob(mutation_chance))
+			child_colour = slime_mutation[rand(1,4)]
 	var/mob/living/simple_animal/slime/M = new(loc, child_colour, new baby_type, new_nutrition)
 
 	if(ckey)
@@ -254,7 +271,8 @@
 	M.powerlevel = new_powerlevel
 	M.Friends = Friends.Copy()
 	babies += M
-	M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
+	if(can_mutate)
+		M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
 	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
 
 /datum/action/innate/slime/reproduce

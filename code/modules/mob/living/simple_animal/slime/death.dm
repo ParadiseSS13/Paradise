@@ -3,20 +3,9 @@
 		return
 	if(!gibbed)
 		if(age_state.age != SLIME_BABY)
-			var/mob/living/simple_animal/slime/M = new(loc, colour)
-			M.rabid = TRUE
-			M.regenerate_icons()
-
-			age_state = new /datum/slime_age/baby
-			maxHealth = age_state.health
-			for(var/datum/action/innate/slime/reproduce/R in actions)
-				R.Remove(src)
-			var/datum/action/innate/slime/evolve/E = new
-			E.Grant(src)
-			revive()
-			regenerate_icons()
-			update_name()
-			return
+			if (nutrition >= get_hunger_nutrition())
+				force_split(FALSE)
+				return
 
 	if(buckled)
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.

@@ -240,13 +240,12 @@
 		amount_grown++
 		update_action_buttons_icon()
 
+		if(!ckey && amount_grown == age_state.amount_grown_for_split)
+			if(age_state.age != SLIME_BABY && prob(chance_reproduce) || age_state.age == SLIME_ELDER)
+				Reproduce()
+
 	if (buckled || Target || ckey)
 		return FALSE
-
-	var/chance_reproduce = 80
-	if(amount_grown == age_state.amount_grown_for_split)
-		if(age_state.age != SLIME_BABY && prob(chance_reproduce) || age_state.age == SLIME_ELDER)
-			Reproduce()
 
 	if(amount_grown >= age_state.amount_grown)
 		if(age_state.age != SLIME_ELDER)
