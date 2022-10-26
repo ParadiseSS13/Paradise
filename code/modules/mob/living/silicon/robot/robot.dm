@@ -479,6 +479,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Combat")
 			module = new /obj/item/robot_module/combat(src)
 			status_flags &= ~CANPUSH
+		if("Security")
+			module = new /obj/item/robot_module/security(src)
+			status_flags &= ~CANPUSH
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
 
@@ -1377,7 +1380,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = TRUE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
-	force_modules = list("Engineering", "Medical", "Security")
+	force_modules = list("Engineering", "Medical")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
