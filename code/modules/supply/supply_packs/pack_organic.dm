@@ -2,6 +2,7 @@
 	name = "HEADER"
 	group = SUPPLY_ORGANIC
 	containertype = /obj/structure/closet/crate/freezer
+	department_restrictions = list(DEPARTMENT_SERVICE)
 
 
 /datum/supply_packs/organic/food
@@ -41,12 +42,14 @@
 	contains = list (/obj/item/storage/box/monkeycubes)
 	cost = 20
 	containername = "monkey crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
 /datum/supply_packs/organic/farwa
 	name = "Farwa Crate"
 	contains = list (/obj/item/storage/box/monkeycubes/farwacubes)
 	cost = 20
 	containername = "farwa crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
 
 /datum/supply_packs/organic/wolpin
@@ -54,6 +57,7 @@
 	contains = list (/obj/item/storage/box/monkeycubes/wolpincubes)
 	cost = 20
 	containername = "wolpin crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
 
 /datum/supply_packs/organic/skrell
@@ -61,12 +65,14 @@
 	contains = list (/obj/item/storage/box/monkeycubes/neaeracubes)
 	cost = 20
 	containername = "neaera crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
 /datum/supply_packs/organic/stok
 	name = "Stok Crate"
 	contains = list (/obj/item/storage/box/monkeycubes/stokcubes)
 	cost = 20
 	containername = "stok crate"
+	department_restrictions = list(DEPARTMENT_SERVICE, DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
 /datum/supply_packs/organic/party
 	name = "Party Equipment Crate"

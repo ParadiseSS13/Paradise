@@ -1,3 +1,5 @@
+///Define for the entry for the QM in the requests assoc list on SSeconomy
+
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
 	desc = "Used to order supplies."
@@ -25,7 +27,7 @@
 /obj/machinery/computer/supplycomp/proc/reconnect_database()
 	if(is_station_level(z))
 		account_database = GLOB.station_money_database
-		cargo_account = account_database.get_account_by_department("Cargo") //I hate that this is a string and not a define
+		cargo_account = account_database.get_account_by_department(DEPARTMENT_SUPPLY)
 	else
 		account_database = null
 
@@ -71,28 +73,33 @@
 
 /obj/machinery/computer/supplycomp/ui_data(mob/user)
 	var/list/data = list()
-
-	var/mob/living/carbon/human/H = user
-	var/obj/item/card/id/C = H.get_idcard(TRUE)
-	var/list/departments = C?.get_departments() //get_departments returns a list of departments
-	//the account most closely associated with the players occupation, null if no department is found
+	var/obj/item/card/id/C
+	var/list/departments = list()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		C = H.get_idcard(TRUE)
+		departments = C?.get_departments() //get_departments returns a list of departments
 
 
 	data["requests"] = list()
 	for(var/department in SSeconomy.requestlist)
-		if(!(department in departments))
+		if(!(department in departments) && department != QM_REQUEST_LIST_NAME)
 			continue
+
 		for(var/request in SSeconomy.requestlist[department])
 			var/datum/supply_order/SO = request
+			if(department == QM_REQUEST_LIST_NAME && SO.orderedby != C.registered_name)
+				continue
 			if(SO)
 				var/list/request_data = list()
 				request_data = list(
 					"ordernum" = SO.ordernum,
 					"supply_type" = SO.object.name,
 					"orderedby" = SO.orderedby,
+					"department" = SO.ordered_by_department,
 					"comment" = SO.comment ? SO.comment : "No comment.",
-					"command1" = list("confirmorder" = SO.ordernum),
-					"command2" = list("rreq" = SO.ordernum))
+					"notice" = ((department == QM_REQUEST_LIST_NAME && SO.requires_qm_approval) || department == DEPARTMENT_SUPPLY) ? "QM Approval Required" : "Department Head Approval Required",
+					"can_approve" = ((department == QM_REQUEST_LIST_NAME || department == DEPARTMENT_SUPPLY) && SO.requires_qm_approval && (ACCESS_QM in C.access)) || (department != QM_REQUEST_LIST_NAME && (ACCESS_HEADS in C.access)) ? TRUE : FALSE)
 				data["requests"] += list(request_data)
 
 	var/list/orders_list = list()
@@ -116,6 +123,8 @@
 			))
 		data["user_departments"] = list()
 		for(var/department in departments)
+			if(department in data["user_departments"])
+				continue //prevents duplicate entries
 			data["user_departments"] += department
 			var/datum/money_account/department_account = account_database.get_account_by_department(department)
 			if(department_account)
@@ -135,7 +144,7 @@
 
 	data["is_public"] = is_public
 
-	data["canapprove"] = (SSshuttle.supply.getDockedId() == "supply_away") && !(SSshuttle.supply.mode != SHUTTLE_IDLE) && !is_public
+	data["approve_ready"] = (SSshuttle.supply.getDockedId() == "supply_away") && SSshuttle.supply.mode == SHUTTLE_IDLE
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(60 SECONDS)
@@ -181,6 +190,10 @@
 		return
 
 	var/mob/user = ui.user
+	var/obj/item/card/id/C
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		C = H.get_idcard(TRUE)
 
 	// If its not a public console, and they aint authed, dont let them use this
 	if(!is_public && !is_authorized(user))
@@ -215,55 +228,88 @@
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
 			reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
+
+			//===orderee identification information===
 			var/idname = "*None Provided*"
 			var/idrank = "*None Provided*"
-			var/datum/money_account/selected_account = locateUID(params["account"])
-			var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, amount, reason)
-			var/department
-			for(var/department_key in account_database.department_accounts)
-				if(account_database.department_accounts[department_key] == selected_account)
-					department = department_key
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				idname = H.get_authentification_name()
 				idrank = H.get_assignment()
 			else if(issilicon(user))
 				idname = user.real_name
-			if(!istype(selected_account)) //if no account, just default to cargo account
+
+
+			//===orderee account information===
+			var/datum/money_account/selected_account = locateUID(params["account"])
+			var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, amount, reason)
+			var/department
+
+			if(!istype(selected_account)) //if no account found, just default to cargo account
 				selected_account = cargo_account
-			if(selected_account.security_level == ACCOUNT_SECURITY_ID || selected_account.account_type != ACCOUNT_TYPE_DEPARTMENT)
-				//if the account has only account id level security (or its a personal account), go ahead and just try and pay for it now
-				if(pay_with_account(selected_account, order.object.cost, "[P.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
-					SSeconomy.process_supply_order(order, selected_account, account_database, TRUE, department) //add order to shopping list
+				order.ordered_by_department = DEPARTMENT_SUPPLY
 			else
-				//if its a department account with pin or higher security, go ahead and add this to our request list
-				SSeconomy.process_supply_order(order, selected_account, account_database, FALSE, department)
+				for(var/department_key in account_database.department_accounts)
+					if(account_database.department_accounts[department_key] == selected_account)
+						department = department_key
+						order.ordered_by_department = department
+						//check to see if department restriction list is empty or our department is part of the whitelist, otherwise force QM approval
+						if(length(order.object.department_restrictions) && !(department in order.object.department_restrictions))
+							order.requires_qm_approval = TRUE
+				if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL && length(order.object.department_restrictions))
+					order.requires_qm_approval = TRUE
+
+			//===Handle Supply Order===
+			if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL)
+				//if the account is a personal account (and doesn't require QM approval), go ahead and pay for it now
+				order.orderedbyaccount = selected_account
+				if(attempt_account_authentification(selected_account, user))
+					var/paid_for = FALSE
+					if(!order.requires_qm_approval && pay_with_account(selected_account, order.object.cost, "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
+						paid_for = TRUE
+					SSeconomy.process_supply_order(order, paid_for, department) //add order to shopping list
+			else //if its a department account with pin or higher security or need QM approval, go ahead and add this to the departments section in request list
+				SSeconomy.process_supply_order(order, FALSE, department)
 				investigate_log("| [key_name(user)] has placed an order for [amount] [order.object.name] with reason: '[reason]'", "cargo")
 		if("approve")
-			// Public consoles cant approve stuff
-			if(is_public)
-				return
 			if(SSshuttle.supply.getDockedId() != "supply_away" || SSshuttle.supply.mode != SHUTTLE_IDLE)
 				return
 
 			var/ordernum = text2num(params["ordernum"])
 			var/datum/supply_order/order
 			var/datum/supply_packs/pack
-
 			for(var/department_key in SSeconomy.requestlist)
 				for(var/datum/supply_order/department_order in SSeconomy.requestlist[department_key])
 					if(department_order.ordernum == ordernum)
 						order = department_order
 						pack = order.object
-						var/datum/money_account/account = account_database.department_accounts[department_key]
-						if(account?.credit_balance >= pack.cost)
-							if(account_database.charge_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", FALSE, FALSE))
-								SSeconomy.requestlist -= order
-								SSeconomy.shoppinglist += order
-								investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
-								SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
-						else
-							to_chat(user, "<span class='warning'>There are insufficient credits in [account] for this request.</span>")
+						var/department = order.ordered_by_department
+						var/datum/money_account/account = account_database.department_accounts[department]
+						if((ACCESS_QM in C.access) && (department_key == QM_REQUEST_LIST_NAME || department == DEPARTMENT_SUPPLY))
+							order.requires_qm_approval = FALSE
+							if(!account) //a personal account would cause account to be null
+								account = order.orderedbyaccount
+							if(pay_with_account(account, order.object.cost, "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
+								SSeconomy.requestlist[QM_REQUEST_LIST_NAME] -= order
+								SSeconomy.process_supply_order(order, TRUE, department) //send 'er back through
+							else
+								atom_say("Account tied to order cannot pay")
+								SSeconomy.requestlist[QM_REQUEST_LIST_NAME] -= order
+							break
+						//since this isn't the QM approving stu
+						if((ACCESS_HEADS in C.access) && department_key != QM_REQUEST_LIST_NAME)
+							if(!(order in SSeconomy.requestlist[department_key]))
+								return //nice try
+							if(attempt_account_authentification(account, user))
+								if(order.requires_qm_approval)
+									SSeconomy.process_supply_order(order, FALSE, department)
+								else
+									if(pay_with_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
+										SSeconomy.process_supply_order(order, TRUE, department)
+										investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
+										SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
+									else
+										SSeconomy.requestlist[department_key] -= order
 						break
 		if("deny")
 			var/ordernum = text2num(params["ordernum"])
@@ -272,15 +318,17 @@
 				for(var/datum/supply_order/department_order in SSeconomy.requestlist[department_key])
 					if(department_order.ordernum == ordernum)
 						order = department_order
-						// If we are on a public console, only allow cancelling of our own orders
-						if(is_public)
-							var/obj/item/card/id/I = user.get_id_card()
-							if(I && order.orderedby == I.registered_name)
-								SSeconomy.requestlist[department_key] -= order
-								break
+						// allow cancelling of our own orders
+						if(C && order.orderedby == C.registered_name)
+							SSeconomy.requestlist[department_key] -= order
+							break
 						// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
 						else
-							SSeconomy.requestlist[department_key] -= order
+							if(department_key == QM_REQUEST_LIST_NAME)
+								if(ACCESS_QM in C.access)
+									SSeconomy.requestlist[QM_REQUEST_LIST_NAME] -= order
+							else if(ACCESS_HEADS in C.access)
+								SSeconomy.requestlist[department_key] -= order
 							investigate_log("| [key_name(user)] has denied an order for [order.object.name].", "cargo")
 							break
 
@@ -305,19 +353,15 @@
 		SSshuttle.supply.request(SSshuttle.getDock("supply_home"))
 
 /obj/machinery/computer/supplycomp/proc/pay_for_crate(datum/money_account/customer_account, mob/user, datum/supply_order/order)
-	if(!attempt_account_authentification(customer_account, null, user))
-		return FALSE
-	if(pay_with_account(customer_account, order.object.cost, "Purchase of [order.crates]x [order.object.name]", "Cargo Requests Console", user, cargo_account))
+	if(pay_with_account(customer_account, order.object.cost, "Purchase of [order.crates]x [order.object.name]", "Cargo Requests Console", user, cargo_account, TRUE))
 		return TRUE
-	else if(customer_account.security_level <= ACCOUNT_SECURITY_RESTRICTED)
-		if(attempt_account_authentification())
-			if(account_database.charge_account(customer_account, order.object.cost, "Purchase of [order.crates]x [order.object.name]", "Cargo Requests Console"))
-				return TRUE
 	return FALSE
 
-/obj/machinery/computer/supplycomp/proc/attempt_account_authentification(datum/money_account/customer_account, attempted_pin, mob/user)
-	var/attempt_pin = attempted_pin
-	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempted_pin)
+/obj/machinery/computer/supplycomp/proc/attempt_account_authentification(datum/money_account/customer_account, mob/user)
+	if(customer_account.security_level > ACCOUNT_SECURITY_RESTRICTED)
+		return FALSE
+	var/attempt_pin
+	if(customer_account.security_level != ACCOUNT_SECURITY_ID)
 		//if pin is not given, we'll prompt them here
 		attempt_pin = input("Enter pin code", "Vendor transaction") as num
 		if(!Adjacent(user))
@@ -334,8 +378,6 @@
 		return FALSE
 	if(customer_account.suspended)
 		to_chat(user, "<span class='warning'>Unable to access account: account suspended.</span>")
-		return FALSE
-	if(!attempt_account_authentification(customer_account, user))
 		return FALSE
 	if(!account_database.charge_account(customer_account, amount, purpose, transactor, allow_overdraft = FALSE, supress_log = FALSE))
 		to_chat(user, "<span class='warning'>Unable to complete transaction: account has insufficient credit balance to purchase this.</span>")

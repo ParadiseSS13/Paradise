@@ -4,18 +4,18 @@
 
 // MAXIMUM SCIENCE
 /datum/job_objective/further_research
-	completion_payment = 5
-	per_unit = 1
-
-/datum/job_objective/further_research/get_description()
-	var/desc = "Research tech levels, and have cargo ship them to centcomm."
-	desc += "([units_completed] completed.)"
-	return desc
+	objective_name = "Perform Research for Nanotrasen"
+	description = "Utilize the facilities on this research installation to increase half the station's research levels above level 2, have cargo ship the research to centcomm in crates."
+	gives_payout = TRUE
+	completion_payment = 150
 
 /datum/job_objective/maximize_research/check_for_completion()
+	var/tech_above_two = 0
 	for(var/tech in SSeconomy.techLevels)
-		if(SSeconomy.techLevels[tech] > 0)
-			return TRUE
+		if(SSeconomy.techLevels[tech] > 2)
+			tech_above_two++
+	if(tech_above_two >= 6)
+		return TRUE
 	return FALSE
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -24,22 +24,12 @@
 
 //Cyborgs
 /datum/job_objective/make_cyborg
+	objective_name = "Construct Additional Cyborgs"
+	description = "Construct atleast one cyborg for the station to increase workplace productivity"
 	completion_payment = 100
-	per_unit = 1
-
-/datum/job_objective/make_cyborg/get_description()
-	var/desc = "Make a cyborg."
-	desc += "([units_completed] created.)"
-	return desc
-
-
 
 //RIPLEY's
 /datum/job_objective/make_ripley
-	completion_payment = 600
-	per_unit = 1
-
-/datum/job_objective/make_ripley/get_description()
-	var/desc = "Make a Ripley or Firefighter."
-	desc += "([units_completed] created.)"
-	return desc
+	objective_name = "Construct a Ripley Mech"
+	description = "Construct a Ripley Mech for station usage"
+	completion_payment = 200

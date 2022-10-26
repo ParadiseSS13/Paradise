@@ -10,6 +10,8 @@
 	var/hidden = FALSE
 	var/contraband = FALSE
 	var/group = SUPPLY_MISC
+	///Determines which departments do not need QM approval to order this supply pack
+	var/list/department_restrictions = list()
 
 	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
 

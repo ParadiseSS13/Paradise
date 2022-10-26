@@ -268,9 +268,9 @@
 
 			user.drop_item()
 
-			var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
+			var/datum/job_objective/make_cyborg/task = user.mind.find_job_task(/datum/job_objective/make_cyborg)
 			if(istype(task))
-				task.unit_completed()
+				task.completed = TRUE
 
 			O.invisibility = 0
 			//Transfer debug settings to new mob

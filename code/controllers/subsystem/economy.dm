@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(economy)
 	name = "Economy"
-	flags = SS_BACKGROUND | SS_NO_FIRE
-	wait = 10
+	flags = SS_BACKGROUND
+	wait = 30 SECONDS
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Nothing, economy will still function"
 	///List of all money account databases existing in the round
@@ -44,13 +44,22 @@ SUBSYSTEM_DEF(economy)
 	var/list/supply_packs = list()
 	var/sold_atoms = ""
 
+	//////Paycheck Variables/////
+	///time to next payday
+	var/next_paycheck_delay = 0
+	///total paydays this round
+	var/payday_count = 0
+
+	var/global_paycheck_bonus = 0
+	var/global_paycheck_deducation = 0
+
 /datum/controller/subsystem/economy/Initialize()
 	///create main station accounts
 	if(!GLOB.current_date_string)
 		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
 	if(GLOB.station_money_database)
 		populate_station_database()
-		cargo_account = GLOB.station_money_database.get_account_by_department("Cargo")
+		cargo_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
 		if(!cargo_account)
 			WARNING("SSeconomy could not locate the supply department account")
 	if(GLOB.centcomm_money_database)
@@ -66,7 +75,14 @@ SUBSYSTEM_DEF(economy)
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
+	next_paycheck_delay = 30 MINUTES + world.time
 	return ..()
+
+/datum/controller/subsystem/economy/fire()
+	if(next_paycheck_delay <= world.time)
+		next_paycheck_delay = 30 MINUTES + world.time
+		payday()
+	process_job_tasks()
 
 
 /*
@@ -85,6 +101,8 @@ SUBSYSTEM_DEF(economy)
 	for(var/department in GLOB.station_departments)
 		station_db.create_department_account(department)
 		requestlist[department] = list()
+	//some crates ordered outside of cargo members still need QM explicit approval
+	requestlist[QM_REQUEST_LIST_NAME] = list()
 	station_db.create_vendor_account()
 
 /datum/controller/subsystem/economy/proc/populate_cc_database()
@@ -112,20 +130,109 @@ SUBSYSTEM_DEF(economy)
 
 	return order
 
-/datum/controller/subsystem/economy/proc/process_supply_order(datum/supply_order/order, datum/money_account/account, datum/money_account_database/account_database, paid_for, department)
-	//if purchaser is ordered for a department but not a head of staff
-	if(department && !paid_for)
+/datum/controller/subsystem/economy/proc/process_supply_order(datum/supply_order/order, paid_for, department)
+	if(!order)
+		CRASH("process_supply_order() called with a null datum/supply_order")
+	//if purchase is ordered for a department
+	if(department && !paid_for && !(order in requestlist[department]))
 		requestlist[department] += order //submit a request but do not finalize it
+		return TRUE
+	//if purchase is authenticated and requires QM approve still
+	if(order.requires_qm_approval)
+		requestlist[QM_REQUEST_LIST_NAME] += order //put up a request up to QM approval
+		if(order in requestlist[department])
+			requestlist[department] -= order
 		return TRUE
 	//if purchaser has already paid with their own personal account, finalize order
 	if(paid_for)
 		finalize_supply_order(order, department) //if payment was succesful, add order to shoppinglist
 		return TRUE
+	//we shouldn't be here, this means that the crate isn't paid for and doesn't need approval
+	qdel(order) //only the strong will survive
 	return FALSE
 
 /datum/controller/subsystem/economy/proc/finalize_supply_order(datum/supply_order/order, department)
 	if(!order)
-		return FALSE
+		CRASH("finalize_supply_order() called with a null datum/supply_order")
 	shoppinglist += order
 	if(department)
 		requestlist[department] -= order
+
+////////////////////////////
+/// Paycheck Stuff /////////
+////////////////////////
+
+/datum/controller/subsystem/economy/proc/payday()
+	payday_count++
+	var/total_payout = 0
+	var/total_accounts = 0
+	var/datum/money_account_database/main_station/station_db = GLOB.station_money_database
+	var/list/all_station_accounts = station_db.user_accounts + station_db.get_all_department_accounts()
+	for(var/datum/money_account/account in all_station_accounts)
+		var/amount_to_pay = account.payday_amount + global_paycheck_bonus - global_paycheck_deducation
+		if(length(account.pay_check_bonuses))
+			for(var/bonus in account.pay_check_bonuses)
+				amount_to_pay += bonus
+				LAZYREMOVE(account.pay_check_bonuses, bonus)
+		for(var/deduction in account.pay_check_deductions)
+			amount_to_pay = max(amount_to_pay - deduction, 0)
+			LAZYREMOVE(account.pay_check_deductions, deduction)
+		station_db.credit_account(account, amount_to_pay, "Payday", "NAS Trurl Payroll", FALSE)
+		if(account.account_type == ACCOUNT_TYPE_PERSONAL)
+			for(var/datum/data/pda/app/nanobank/program as anything in account.associated_nanobank_programs)
+				program.announce_payday(amount_to_pay)
+		total_accounts++
+		total_payout += amount_to_pay
+
+	//reset global paycheck modifiers to 0
+	global_paycheck_bonus = 0
+	global_paycheck_deducation = 0
+	//update space credit statistics
+	space_credits_created += total_payout
+	total_space_credits += total_payout
+	//alert admins and c*ders alike
+	log_debug("Payday Count: [payday_count] - [total_payout] credits paid out to [total_accounts] accounts")
+	message_admins("Here comes the money! Payday: [total_payout] credits paid out to [total_accounts] accounts")
+
+
+//Called by the gameticker
+/datum/controller/subsystem/economy/proc/process_job_tasks()
+	for(var/mob/M in GLOB.player_list) //why not just make a global list of players with job objectives???? someone else fix this ~sirryan
+		if(M.mind)
+			for(var/datum/job_objective/objective in M.mind.job_objectives)
+				if(objective.completed && objective.payout_given)
+					continue //objective is completed and we've already given out award
+				if(!objective.is_completed())
+					continue //object is not completed, do not proceed
+				if(objective.completion_payment == 0)
+					objective.payout_given = TRUE
+					continue //objective doesn't giveout payout
+
+				if(objective.owner_account)
+					GLOB.station_money_database.credit_account(objective.owner_account, objective.completion_payment, "Job Objective Completion Bonus")
+					objective.owner_account.modify_payroll(objective.completion_payment, TRUE, "Job Objective \"[objective.objective_name]\" completed, award will be included in next paycheck")
+				else
+					log_debug("Job objective ([objective.objective_name]) does not have an associated money account")
+				break
+
+//
+//   The NanoCoin Economy is booming
+//	  My Parabuck Stocks are Rising
+//     God Bless John Nanotrasen
+//
+//           __-----__
+//      ..;;;--'~~~`--;;;..
+//     /; -~IN NANOTRASEN ;.
+//	  //     WE TRUST~-    \\
+//   //      ,-------,      \\
+// .//      | ;;;   ~ \      \\.
+// ||       |;;;(   /.|       ||
+// ||       |;;       _\      ||
+// ||       '.      '===      ||
+// || PROFIT | ''\  ;;;/      ||
+//  \\     ,| '\  '|><| 2223 //
+//   \\   |     |      \  AD//
+//    `;.,|.    |      '\.-'/
+//      ~~;;;,._|___.,-;;;~'
+//         ''=--'
+//

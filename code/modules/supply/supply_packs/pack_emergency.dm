@@ -74,6 +74,7 @@
 	containername = "weed control crate"
 	access = ACCESS_HYDROPONICS
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
+	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/emergency/voxsupport
 	name = "Vox Life Support Supplies"

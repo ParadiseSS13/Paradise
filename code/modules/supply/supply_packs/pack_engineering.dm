@@ -3,6 +3,7 @@
 	group = SUPPLY_ENGINEER
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk"))
 	containertype = /obj/structure/closet/crate/engineering
+	department_restrictions = list(DEPARTMENT_ENGINEERING)
 
 /datum/supply_packs/engineering/fueltank
 	name = "Fuel Tank Crate"
@@ -177,6 +178,7 @@
 					/obj/item/geiger_counter)
 	containername = "radiation protection crate"
 	containertype = /obj/structure/closet/crate/radiation
+	department_restrictions = list(DEPARTMENT_ENGINEERING, DEPARTMENT_MEDICAL)
 
 /datum/supply_packs/engineering/engine/spacesuit
 	name = "Space Suit Crate"
@@ -231,3 +233,4 @@
 					/obj/item/paper/conveyor)
 	cost = 15
 	containername = "conveyor assembly crate"
+	department_restrictions = list() //anyone should be able to order conveyors (especially since they can just be made at an autolathe)

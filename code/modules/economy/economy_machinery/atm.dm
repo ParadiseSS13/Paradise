@@ -15,6 +15,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	density = FALSE
+	restricted_bypass = TRUE
 
 	///Current money account the ATM is accessing
 	var/datum/money_account/authenticated_account
@@ -179,7 +180,7 @@
 				var/new_sec_level = max(min(text2num(params["new_security_level"]), 2), 0)
 				authenticated_account.security_level = new_sec_level
 		if("attempt_auth")
-			var/tried_account_num = text2num(params["account_num"])
+			var/tried_account_num = text2num(params["account_num"]) ? text2num(params["account_num"]) : held_card?.associated_account_number
 			var/tried_pin = text2num(params["account_pin"])
 			attempt_login(tried_account_num, tried_pin, user)
 
@@ -187,9 +188,6 @@
 			var/amount = max(text2num(params["funds_amount"]), 0)
 			if(amount)
 				withdraw(amount, user)
-
-		if("balance_statement")
-
 		if("insert_card")
 			if(held_card)
 				eject_inserted_id(user)
@@ -203,7 +201,7 @@
 	. = TRUE
 
 /obj/machinery/economy/atm/proc/authenticate_account(account_number, account_pin, mob/user, silent = TRUE)
-	var/datum/money_account/target_account = account_database.find_user_account(account_number)
+	var/datum/money_account/target_account = account_database.find_user_account(account_number, include_departments = TRUE)
 	if(attempt_account_authentification(target_account, account_pin, user))
 		if(!silent)
 			to_chat(user, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.account_name].'</span>")
@@ -214,13 +212,13 @@
 	return FALSE
 
 /obj/machinery/economy/atm/proc/attempt_login(account_number, account_pin, mob/user)
-	var/datum/money_account/user_account
+
 	var/account_to_attempt = account_number ? account_number : held_card?.associated_account_number
 	if(!account_to_attempt)
 		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: Account number not found.</span>")
 		return FALSE
 
-	user_account = account_database.find_user_account(account_number)
+	var/datum/money_account/user_account = account_database.find_user_account(account_number, include_departments = TRUE)
 	if(!user_account)
 		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: User Account Not Found.</span>")
 		return FALSE
@@ -251,7 +249,7 @@
 		to_chat(user, "[bicon(src)]<span class='warning'>That is not a valid transfer amount.</span>")
 		return
 	if(account_database.charge_account(authenticated_account, amount, FALSE))
-		var/datum/money_account/target_account = account_database.find_user_account(target_account_number)
+		var/datum/money_account/target_account = account_database.find_user_account(target_account_number, include_departments = TRUE)
 		if(target_account)
 			account_database.credit_account(target_account, amount)
 			to_chat(user, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")

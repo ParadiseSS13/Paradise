@@ -3,6 +3,7 @@
 	containertype = /obj/structure/closet/crate/medical
 	group = SUPPLY_MEDICAL
 	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"))
+	department_restrictions = list(DEPARTMENT_MEDICAL)
 
 
 /datum/supply_packs/medical/supplies

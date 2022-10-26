@@ -7,10 +7,16 @@
 	var/orderedby
 	///The occupation/assignment of the person who ordered the supply order
 	var/orderedbyRank
+	///The account tied to this order, important for personal orders
+	var/orderedbyaccount
+	///The department of the person who ordere the supply order
+	var/ordered_by_department
 	///Reason/purpose for order given by orderer
 	var/comment
 	///amount of crates purchased
 	var/crates
+	///does this order need to be approve by the QM?
+	var/requires_qm_approval = FALSE
 
 /datum/supply_order/proc/generateRequisition(atom/_loc)
 	if(!object)

@@ -1,3 +1,5 @@
+#define MAX_EFTPOS_CHARGE 250
+
 /obj/item/eftpos
 	name = "EFTPOS scanner"
 	desc = "Swipe your ID card to make purchases electronically."
@@ -17,7 +19,7 @@
 	var/datum/money_account/linked_account
 
 /obj/item/eftpos/Initialize(mapload)
-	machine_name = "[station_name()] EFTPOS #[GLOB.num_financial_terminals++]"
+	machine_name = "[station_name()] EFTPOS #[rand(101,999)]"
 	access_code = rand(1000, 9999)
 	reconnect_database()
 	print_reference()
@@ -28,11 +30,7 @@
 
 
 /obj/item/eftpos/proc/reconnect_database()
-	if(is_station_level(z))
-		account_database = GLOB.station_money_database
-		return TRUE
-	else
-		account_database = null
+	account_database = GLOB.station_money_database
 
 /obj/item/eftpos/attack_self(mob/user)
 	ui_interact(user)
@@ -89,22 +87,27 @@
 
 				print_reference()
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
 		if("link_account")
 			if(!account_database)
 				reconnect_database()
 			if(account_database)
 				var/attempt_account_num = input("Enter account number to pay EFTPOS charges into", "New account number") as num
 				var/attempt_pin = input("Enter pin code", "Account pin") as num
-				var/datum/money_account/customer_account = GLOB.station_money_database.find_user_account(attempt_account_num)
+				var/datum/money_account/target_account = GLOB.station_money_database.find_user_account(attempt_account_num, include_departments = TRUE)
+				if(!target_account)
+					for(var/department_key in GLOB.station_money_database.department_accounts)
+						var/datum/money_account/department_account = GLOB.station_money_database.department_accounts[department_key]
+						if(department_account.account_number == attempt_account_num)
+							target_account = department_account
 				if(!Adjacent(user))
 					return
-				if(customer_account && GLOB.station_money_database.try_authenticate_login(customer_account, attempt_pin, TRUE, FALSE, FALSE))
-					linked_account = customer_account
+				if(target_account && GLOB.station_money_database.try_authenticate_login(target_account, attempt_pin, TRUE, FALSE, FALSE))
+					linked_account = target_account
 				else
-					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to inputed account.</span>")
+					to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to inputed account.</span>")
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 		if("trans_purpose")
 			var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
 			if(!Adjacent(user))
@@ -117,8 +120,11 @@
 				return
 			if(try_num < 0)
 				alert("That is not a valid amount!")
-			else
-				transaction_amount = try_num
+				return
+			if(try_num > MAX_EFTPOS_CHARGE)
+				alert("You cannot charge more than [MAX_EFTPOS_CHARGE] per transaction!")
+				return
+			transaction_amount = try_num
 		if("toggle_lock")
 			if(transaction_locked)
 				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
@@ -128,28 +134,28 @@
 			else if(linked_account)
 				transaction_locked = TRUE
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'>No account connected to send transactions to.</span>")
 		if("scan_card")
 			//attempt to connect to a new db, and if that doesn't work then fail
 			if(!account_database)
 				reconnect_database()
 			if(account_database && linked_account)
-				var/obj/item/I = usr.get_active_hand()
+				var/obj/item/I = user.get_active_hand()
 				if(istype(I, /obj/item/card))
-					scan_card(I, usr)
+					scan_card(I, user)
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
 		if("reset")
 			//reset the access code - requires HoP/captain access
-			var/obj/item/I = usr.get_active_hand()
+			var/obj/item/I = user.get_active_hand()
 			if(istype(I, /obj/item/card))
 				var/obj/item/card/id/C = I
 				if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
 					access_code = 0
-					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+					to_chat(user, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 			else if(istype(I, /obj/item/card/emag))
 				access_code = 0
-				to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
+				to_chat(user, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user)
@@ -162,7 +168,7 @@
 		to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
 		return
 
-	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number)
+	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number, include_departments = FALSE)
 	//if security level high enough, prompt for pin
 	var/attempt_pin
 	if(D.security_level != ACCOUNT_SECURITY_ID)
@@ -178,7 +184,7 @@
 	if(!Adjacent(user))
 		return
 	//attempt to charge account money
-	if(!GLOB.station_money_database.charge_account(D, transaction_amount, FALSE))
+	if(!GLOB.station_money_database.charge_account(D, transaction_amount, transaction_purpose, machine_name, FALSE, FALSE))
 		to_chat(user, "[bicon(src)]<span class='warning'>Insufficient credits in your account!</span>")
 		return
 
@@ -201,7 +207,7 @@
 		R.stamped = new
 	R.stamped += /obj/item/stamp
 	R.overlays += stampoverlay
-	R.stamps += "<HR><i>This paper has been stamped by the EFTPOS device.</i>"
+	R.stamps += "<hr><i>This paper has been stamped by the EFTPOS device.</i>"
 	var/obj/item/smallDelivery/D = new(get_turf(loc))
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = loc

@@ -92,11 +92,6 @@ SUBSYSTEM_DEF(jobs)
 			for(var/objectiveType in job.required_objectives)
 				new objectiveType(player.mind)
 
-			// 50/50 chance of getting optional objectives.
-			for(var/objectiveType in job.optional_objectives)
-				if(prob(50))
-					new objectiveType(player.mind)
-
 			unassigned -= player
 			job.current_positions++
 			return 1
@@ -581,6 +576,9 @@ SUBSYSTEM_DEF(jobs)
 		account = GLOB.station_money_database.create_account(H.real_name, COMMAND_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID,  TRUE)
 	else
 		account = GLOB.station_money_database.create_account(H.real_name, CREW_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID, TRUE)
+
+	for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
+		objective.owner_account = account
 
 	var/remembered_info = ""
 	remembered_info += "<b>Your account number is:</b> #[account.account_number]<br>"

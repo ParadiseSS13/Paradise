@@ -18,13 +18,27 @@
 	///Tracking log of all actions on the account, used for admin logging and debugging
 	var/list/hidden_account_log = list()
 
-	var/list/transaction_log = list()
+	///reference to parent account database, only used for GC
+	var/datum/money_account_database/database_holder
+
 	///Level of security on the money account
 	var/security_level
 	///Bool - Is this account locked out from being used completely?
 	var/suspended = FALSE
 	///Type of account this is
 	var/account_type = ACCOUNT_TYPE_PERSONAL
+	///the amount this account recieves every payday
+	var/payday_amount = CREW_BASE_PAY_LOW
+
+	///The nanobank programs associated with this account, used for notifying crew members through PDA
+	var/list/associated_nanobank_programs = list()
+	///The requests made to this money_account used for ATM and NanoBank credit transfers, this is a lazy list
+	var/list/transfer_requests
+
+	///pay bonuses for the next pay period for this account, this is a lazy list
+	var/list/pay_check_bonuses
+	///pay deductions for the next pay period for this account, this is a lazy list
+	var/list/pay_check_deductions
 
 /datum/money_account/New(_account_name, starting_balance = 0, _security_level = ACCOUNT_SECURITY_ID, _account_type = ACCOUNT_TYPE_PERSONAL)
 	account_name = _account_name
@@ -33,7 +47,21 @@
 	account_number = SSeconomy.generate_account_number()
 	account_type = _account_type
 	account_pin = rand(10000, 99999)
-	..()
+	//update SSeconomy stats
+	SSeconomy.total_space_credits += starting_balance
+
+/datum/money_account/Destroy(force)
+	if(database_holder)
+		if(account_type == ACCOUNT_TYPE_PERSONAL)
+			database_holder.user_accounts -= src
+		else if(istype(database_holder, /datum/money_account_database/main_station) && account_type == ACCOUNT_TYPE_DEPARTMENT)
+			if(!force)
+				return QDEL_HINT_LETMELIVE //we do not want department accounts being deleted ever
+	for(var/datum/transfer_request/request as anything in transfer_requests)
+		resolve_transfer_request(request, FALSE)
+
+	return ..()
+
 
 /*
   * # try_withdraw_credits()
@@ -46,7 +74,7 @@
   * *
 */
 /datum/money_account/proc/try_withdraw_credits(amount, allow_overdraft = FALSE)
-	if(!allow_overdraft && (credit_balance - amount < 0))
+	if(!allow_overdraft && credit_balance - amount < 0)
 		return FALSE
 	credit_balance -= amount
 	return TRUE
@@ -122,3 +150,54 @@
 	var/amount
 	///when the transaction occurred
 	var/time
+
+/*
+  * # create_transfer_request
+  *
+  * creates a transfer request for this money account, handles lazy list interactions. If accepted, will
+  * return FALSE for the account db if there's not a large enough credit balance
+  * Arguments:
+  * * request -  datum/transfer_request to be added to list
+  * * accepted - bool, whether or not user accepted request, determines whether or not to check credit balance
+*/
+/datum/money_account/proc/create_transfer_request(datum/transfer_request/request)
+	if(!request.amount)
+		CRASH("Attempted to add a transfer request to a money account ([account_name]) with a null or zero amount")
+	for(var/datum/data/pda/app/nanobank/program as anything in associated_nanobank_programs)
+		program.notify("NanoBank Transfer Request Recieved", TRUE)
+	LAZYADD(transfer_requests, request)
+
+/datum/money_account/proc/resolve_transfer_request(datum/transfer_request/request, accepted)
+	if(!accepted)
+		request.requesting_account = null //gc
+		LAZYREMOVE(transfer_requests, request)
+		return TRUE
+	if(credit_balance < request.amount)
+		return FALSE
+	request.requesting_account = null //gc
+	LAZYREMOVE(transfer_requests, request)
+	return TRUE
+
+/datum/transfer_request
+	///the money account that is requesting money
+	var/datum/money_account/requesting_account
+	///reason for transfer request
+	var/purpose = "No Reason Given"
+	///how much money is being request
+	var/amount = 0
+	///when the money was requested
+	var/time = 0
+
+/datum/money_account/proc/modify_payroll(amount, announce = FALSE, reason)
+	if(!amount)
+		CRASH("Attempted to modify payroll on a money account ([account_name]) with a null or zero amount")
+	var/bonus = amount > 0 ? TRUE : FALSE
+	if(bonus)
+		LAZYADD(pay_check_bonuses, amount)
+	else
+		LAZYADD(pay_check_deductions, amount)
+	if(amount)
+		for(var/datum/data/pda/app/nanobank/program as anything in associated_nanobank_programs)
+			if(reason)
+				program.notify(reason, FALSE)
+			program.notify("[amount] credit [bonus ? "bonus" : "deduction"] added to your next paycheck, have a Nanotrasen day!", TRUE)

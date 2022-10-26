@@ -8,6 +8,7 @@
 	cost = 20
 	containertype = /obj/structure/largecrate/mule
 	containername = "\improper MULEbot crate"
+	department_restrictions = list(DEPARTMENT_SUPPLY)
 
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
@@ -62,6 +63,7 @@
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
+	department_restrictions = list(DEPARTMENT_SUPPLY)
 
 /datum/supply_packs/misc/barberkit
 	name = "Barber Kit Crate"
@@ -188,6 +190,7 @@
 	cost = 10
 	containername = "janitorial supplies crate"
 	announce_beacons = list("Janitor" = list("Janitorial"))
+	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/misc/janitor/janicart
 	name = "Janitorial Cart and Galoshes Crate"
@@ -196,6 +199,7 @@
 	cost = 10
 	containertype = /obj/structure/largecrate
 	containername = "janitorial cart crate"
+	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/misc/janitor/janitank
 	name = "Janitor Watertank Backpack"
@@ -204,6 +208,7 @@
 	containertype = /obj/structure/closet/crate/secure
 	containername = "janitor watertank crate"
 	access = ACCESS_JANITOR
+	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/misc/janitor/lightbulbs
 	name = "Replacement Lights Crate"
@@ -242,6 +247,7 @@
 	containertype = /obj/structure/closet/crate/secure
 	containername = "standard costumes"
 	access = ACCESS_THEATRE
+	department_restrictions = list(DEPARTMENT_SERVICE)
 
 /datum/supply_packs/misc/wizard
 	name = "Wizard Costume Crate"
@@ -357,7 +363,7 @@
 	name = "Contraband Crate"
 	cost = 30
 	containername = "crate"	//let's keep it subtle, eh?
-	contraband = 1
+	contraband = TRUE
 
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
@@ -540,3 +546,4 @@
 					/obj/machinery/snow_machine
 					)
 	special = TRUE
+	department_restrictions = list(DEPARTMENT_COMMAND)

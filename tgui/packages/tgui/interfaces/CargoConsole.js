@@ -266,7 +266,7 @@ const CataloguePane = (_properties, context) => {
 
 const DetailsPane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { requests, canapprove, orders, user_departments } = data;
+  const { requests, approve_ready, orders, user_departments } = data;
   return (
     <Section title="Details">
       <Box maxHeight={15} overflowY="auto" overflowX="hidden">
@@ -279,12 +279,14 @@ const DetailsPane = (_properties, context) => {
                   - #{r.ordernum}: {r.supply_type} for <b>{r.orderedby}</b>
                 </Box>
                 <Box italic>Reason: {r.comment}</Box>
+                <Box>{`${r.department ? r.department : "Personal"} Order`}</Box>
+                <Box bold>{r.notice}</Box>
               </Table.Cell>
               <Table.Cell textAlign="right" pr={1}>
                 <Button
                   content="Approve"
                   color="green"
-                  disabled={!canapprove}
+                  disabled={!approve_ready || !r.can_approve}
                   onClick={() =>
                     act('approve', {
                       ordernum: r.ordernum,

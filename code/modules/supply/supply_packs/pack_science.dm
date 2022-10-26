@@ -3,6 +3,7 @@
 	group = SUPPLY_SCIENCE
 	announce_beacons = list("Research Division" = list("Science", "Research Director's Desk"))
 	containertype = /obj/structure/closet/crate/sci
+	department_restrictions = list(DEPARTMENT_SCIENCE)
 
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
@@ -65,6 +66,7 @@
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "shield generators crate"
 	access = ACCESS_TELEPORTER
+	department_restrictions = list(DEPARTMENT_SCIENCE, DEPARTMENT_COMMAND, DEPARTMENT_ENGINEERING)
 
 /datum/supply_packs/science/transfer_valves
 	name = "Tank Transfer Valves Crate"
@@ -84,12 +86,13 @@
 	access = ACCESS_RESEARCH
 
 /datum/supply_packs/science/oil
-    name = "Oil Tank Crate"
-    contains = list(/obj/structure/reagent_dispensers/oil,
+	name = "Oil Tank Crate"
+	contains = list(/obj/structure/reagent_dispensers/oil,
 					/obj/item/reagent_containers/food/drinks/oilcan)
-    cost = 10
-    containertype = /obj/structure/largecrate
-    containername = "oil tank crate"
+	cost = 10
+	containertype = /obj/structure/largecrate
+	containername = "oil tank crate"
+	department_restrictions = list(DEPARTMENT_MEDICAL, DEPARTMENT_SCIENCE)
 
 /datum/supply_packs/science/vending/clothingvendor
 	name = "Science Clothing Vendors Crate"

@@ -4,6 +4,7 @@
 	access = ACCESS_SECURITY
 	group = SUPPLY_SECURITY
 	announce_beacons = list("Security" = list("Head of Security's Desk", "Warden", "Security"))
+	department_restrictions = list(DEPARTMENT_SECURITY)
 
 
 /datum/supply_packs/security/supplies
