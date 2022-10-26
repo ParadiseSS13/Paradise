@@ -67,7 +67,7 @@
 
 /datum/supply_packs/misc/barberkit
 	name = "Barber Kit Crate"
-	contains = list(/obj/item/clothing/under/barber,
+	contains = list(/obj/item/clothing/under/rank/civilian/barber,
 					/obj/item/storage/box/lip_stick,
 					/obj/item/storage/box/barber)
 	cost = 20

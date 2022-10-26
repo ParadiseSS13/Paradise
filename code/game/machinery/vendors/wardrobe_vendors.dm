@@ -77,13 +77,13 @@
 	icon_addon = "medidrobe"
 	ads_list = list("Make those blood stains look fashionable!")
 	vend_reply = "Thank you for using the MediDrobe!"
-	products = list(/obj/item/clothing/under/rank/medical = 3,
-					/obj/item/clothing/under/rank/medical/skirt = 3,
-					/obj/item/clothing/under/rank/medical/blue = 3,
-					/obj/item/clothing/under/rank/medical/green = 3,
-					/obj/item/clothing/under/rank/medical/purple = 3,
-					/obj/item/clothing/under/rank/nurse = 3,
-					/obj/item/clothing/under/medigown = 3,
+	products = list(/obj/item/clothing/under/rank/medical/doctor = 3,
+					/obj/item/clothing/under/rank/medical/doctor/skirt = 3,
+					/obj/item/clothing/under/rank/medical/scrubs = 3,
+					/obj/item/clothing/under/rank/medical/scrubs/green = 3,
+					/obj/item/clothing/under/rank/medical/scrubs/purple = 3,
+					/obj/item/clothing/under/rank/medical/nurse = 3,
+					/obj/item/clothing/under/rank/medical/gown = 3,
 					/obj/item/clothing/head/beret/med = 3,
 					/obj/item/clothing/head/surgery/blue = 3,
 					/obj/item/clothing/head/surgery/green = 3,
@@ -113,8 +113,8 @@
 	icon_addon = "virodrobe"
 	ads_list = list("Viruses getting you down? Nothing a change of clothes can't fix!", "Upgrade to sterilized clothing today!")
 	vend_reply = "Thank you for using the ViroDrobe!"
-	products = list(/obj/item/clothing/under/rank/virologist = 2,
-					/obj/item/clothing/under/rank/virologist/skirt = 2,
+	products = list(/obj/item/clothing/under/rank/medical/virologist = 2,
+					/obj/item/clothing/under/rank/medical/virologist/skirt = 2,
 					/obj/item/clothing/head/beret/med = 2,
 					/obj/item/clothing/suit/storage/labcoat/virologist = 2,
 					/obj/item/clothing/accessory/armband/med = 2,
@@ -137,8 +137,8 @@
 	icon_addon = "chemdrobe"
 	ads_list = list("Our clothes are 0.5% more resistant to acid spills! Get yours now!")
 	vend_reply = "Thank you for using the ChemDrobe!"
-	products = list(/obj/item/clothing/under/rank/chemist = 2,
-					/obj/item/clothing/under/rank/chemist/skirt = 2,
+	products = list(/obj/item/clothing/under/rank/medical/chemist = 2,
+					/obj/item/clothing/under/rank/medical/chemist/skirt = 2,
 					/obj/item/clothing/head/beret/med = 2,
 					/obj/item/clothing/suit/storage/labcoat/chemist = 2,
 					/obj/item/clothing/accessory/armband/med = 2,

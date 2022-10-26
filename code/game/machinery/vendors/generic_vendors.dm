@@ -178,7 +178,7 @@
 	slogan_list = list("Dress for success!","Suited and booted!","It's show time!","Why leave style up to fate? Use AutoDrobe!")
 	vend_delay = 15
 	vend_reply = "Thank you for using AutoDrobe!"
-products = list(/obj/item/clothing/suit/chickensuit = 1,
+	products = list(/obj/item/clothing/suit/chickensuit = 1,
 					/obj/item/clothing/head/chicken = 1,
 					/obj/item/clothing/under/costume/gladiator = 1,
 					/obj/item/clothing/head/helmet/gladiator = 1,
