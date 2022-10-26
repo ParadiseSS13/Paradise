@@ -5,6 +5,8 @@
  * - The item itself
  * - Preposition for where it is
  * - the location it's in
+ *
+ * Arguments represent whether to skip a certain slot when handling the message.
  */
 /mob/living/carbon/proc/examine_visible_clothing(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
 	return list(
@@ -19,13 +21,13 @@
  * Special handlers for processing limbs go here, based on limb names in examine_visible_clothing.
  * TODO rename this
  */
-/mob/living/carbon/proc/examine_process_limb(limb_name)
+/mob/living/carbon/proc/examine_handle_individual_limb(limb_name)
 	return ""
 
 /mob/living/carbon/proc/examine_what_am_i(skip_jumpsuit, skip_face)
 	return ".\n"
 
-/mob/living/carbon/proc/examine_limb_flavor(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
+/mob/living/carbon/proc/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
 	return ""
 
 /**
@@ -72,6 +74,15 @@
 /mob/living/carbon/proc/examine_extra_general_flavor()
 	return ""
 
+/mob/living/carbon/proc/examine_show_ssd()
+	if(!HAS_TRAIT(src, SCRYING))
+		if(!key)
+			return "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
+		else if(!client)
+			return "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
+
+	return ""
+
 /mob/living/carbon/examine(mob/user)
 	var/skipgloves = 0
 	var/skipsuitstorage = 0
@@ -101,10 +112,9 @@
 
 	var/msg = "<span class='info'>*---------*\nThis is "
 
-	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
-		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
 	msg += "<EM>[name]</EM>"
 
+	// Show what you are
 	msg += examine_what_am_i()
 
 	// All the things wielded/worn that can be reasonably described with a common template:
@@ -134,7 +144,8 @@
 				submsg = "[submsg].\n"
 			msg += submsg
 		else
-			msg += examine_process_limb(limb_name)
+			// add any extra info on the limbs themselves
+			msg += examine_handle_individual_limb(limb_name)
 
 	//handcuffed?
 	if(handcuffed)
@@ -190,8 +201,10 @@
 
 	msg += "<span class='warning'>"
 
-	msg += examine_limb_flavor()
+	// Stuff at the start of the block
+	msg += examine_start_damage_block()
 
+	// Show how badly they're damaged
 	msg += examine_damage_flavor()
 
 	if(fire_stacks > 0)
@@ -225,11 +238,10 @@
 	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
-	msg += examine_extra_damage_flavor()
-
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
 
+	// add in anything else we want at the end of this block
 	msg += examine_extra_damage_flavor()
 
 	msg += "</span>"
@@ -241,13 +253,9 @@
 			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
-			if(dna?.species.show_ssd)
-				if(!HAS_TRAIT(src, SCRYING))
-					if(!key)
-						msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
-					else if(!client)
-						msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
+			examine_show_ssd()
 
+	// add anything else in here before huds
 	msg += examine_extra_general_flavor()
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
