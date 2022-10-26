@@ -31,7 +31,7 @@
 	var/damage_multiplier = 1 + A.getStaminaLoss() / 100 //The chokehold is more effective the more tired the target is.
 	while(do_mob(A, D, 2 SECONDS) && chokehold_active)
 		D.apply_damage(10 * damage_multiplier, OXY)
-		D.SetLoseBreath(3 SECONDS)
+		D.AdjustLoseBreath(3 SECONDS)
 		if(D.getOxyLoss() >= 50 || D.health <= 20)
 			D.visible_message("<span class ='danger>[A] puts [D] to sleep!</span>", \
 						"<span class='userdanger'>[A] knocks you out cold!</span>")
