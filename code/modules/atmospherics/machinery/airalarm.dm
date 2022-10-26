@@ -987,9 +987,9 @@
 				if(stat & (NOPOWER|BROKEN))
 					return
 
-				if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
+				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 					locked = !locked
-					to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+					to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 					SStgui.update_uis(src)
 				else
 					to_chat(user, "<span class='warning'>Access denied.</span>")
