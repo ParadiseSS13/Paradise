@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcer, new(config_type = /datum
 	config = config_type ? new config_type : new
 
 /datum/announcer/proc/Announce(
-		message as text,
+		message,
 		new_title = null,
 		new_sound = null,
 		msg_sanitized = FALSE,
@@ -124,7 +124,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcer, new(config_type = /datum
 	for(var/mob/M in receivers)
 		SEND_SOUND(M, message_sound)
 
-/datum/announcer/proc/Log(message as text, message_title as text)
+/datum/announcer/proc/Log(message, message_title)
 	log_game("[key_name(usr)] has made \a [config.log_name]: [message_title] - [message] - [author]")
 	message_admins("[key_name_admin(usr)] has made \a [config.log_name].", 1)
 
