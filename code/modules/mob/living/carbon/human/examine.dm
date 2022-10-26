@@ -28,16 +28,15 @@
 	switch(limb_name)
 		if("hands")
 			if(blood_DNA)
-				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+				return "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
 		if("eyes")
 			if(HAS_TRAIT(src, SCRYING))
 				if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-					msg += "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
-				else
-					msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
+					return "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
+				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
 			else
 				if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-					msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
+					return "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	return msg
 

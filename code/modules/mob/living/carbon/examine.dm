@@ -19,19 +19,20 @@
 
 /**
  * Special handlers for processing limbs go here, based on limb names in examine_visible_clothing.
- * TODO rename this
  */
 /mob/living/carbon/proc/examine_handle_individual_limb(limb_name)
 	return ""
 
+/// Identify what this mob in particular is. Make sure to return a newline after.
 /mob/living/carbon/proc/examine_what_am_i(skip_jumpsuit, skip_face)
 	return ".\n"
 
+/// Add whatever you want to start the damage block with here.
 /mob/living/carbon/proc/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
 	return ""
 
 /**
- * Add your damage flavor here.
+ * Add specific damage flavor here.
  */
 /mob/living/carbon/proc/examine_damage_flavor()
 
