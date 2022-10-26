@@ -74,7 +74,7 @@
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
 			if(user.a_intent == INTENT_DISARM)
-				add_attack_logs(user, L, "shocked and stunned with power gloves.")
+				add_attack_logs(user, L, "shocked with power gloves.")
 				L.adjustStaminaLoss(60)
 				L.Jitter(10 SECONDS)
 			else
