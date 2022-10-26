@@ -60,6 +60,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/ownrank = null // this one is rank, never alt title
 
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
+	// The slot where you can store a pen
+	var/obj/item/held_pen
 	var/retro_mode = 0
 
 
@@ -75,7 +77,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	new /obj/item/pen(src)
+	held_pen = new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -214,16 +216,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 
 	if(can_use(user))
-		var/obj/item/pen/O = locate() in src
-		if(O)
-			to_chat(user, "<span class='notice'>You remove [O] from [src].</span>")
+		if(held_pen)
+			to_chat(user, "<span class='notice'>You remove [held_pen] from [src].</span>")
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
-					M.put_in_hands(O)
+					M.put_in_hands(held_pen)
+					held_pen = null
 					return
-			O.forceMove(get_turf(src))
+			held_pen.forceMove(get_turf(src))
+			held_pen = null
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
@@ -295,12 +298,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(is_pen(C))
-		var/obj/item/pen/O = locate() in src
-		if(O)
+		if(held_pen)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
 		else
 			user.drop_item()
 			C.forceMove(src)
+			held_pen = C
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/nanomob_card))
@@ -340,6 +343,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		pai.forceMove(T)
 	current_app = null
 	scanmode = null
+	QDEL_NULL(held_pen)
 	QDEL_LIST(programs)
 	QDEL_NULL(cartridge)
 	return ..()
