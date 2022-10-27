@@ -2227,11 +2227,11 @@
 /area/security/brig)
 "ajq" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/suit/armor/bulletproof/sec,
 /obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/suit/armor/bulletproof/sec,
 /obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/suit/armor/bulletproof/sec,
 /obj/item/clothing/head/helmet/alt,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -2622,9 +2622,9 @@
 /area/security/brig)
 "akt" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot/sec,
+/obj/item/clothing/suit/armor/riot/sec,
+/obj/item/clothing/suit/armor/riot/sec,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
