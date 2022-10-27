@@ -219,6 +219,12 @@
 	put_on_delay = 60
 	hide_tail_by_species = list("Vox")
 
+/obj/item/clothing/suit/armor/riot/sec
+	name = "riot suit"
+	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement. This one has security markings on it."
+	icon_state = "riot-sec"
+	item_state = "swat_suit"
+
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
 	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
@@ -270,6 +276,14 @@
 	put_on_delay = 6 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
+
+
+/obj/item/clothing/suit/armor/bulletproof/sec
+	name = "security bulletproof vest"
+	desc = "A bulletproof vest that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent. This one has security markings on it."
+	icon_state = "bulletproof-sec"
+	item_state = "armor"
+	blood_overlay_type = "armor"
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"
