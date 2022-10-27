@@ -56,7 +56,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/ert/command
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/gun/energy/gun
+	belt = /obj/item/gun/energy/gun/sibyl
 	head = /obj/item/clothing/head/helmet/ert/command
 
 	backpack_contents = list(
@@ -72,7 +72,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/gun/energy/gun/blueshield/pdw9
+	belt = /obj/item/gun/energy/gun/pdw9/sibyl
 
 	backpack_contents = list(
 		/obj/item/camera_bug/ert = 1,
@@ -98,7 +98,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander/gamma
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
 	belt = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
 	backpack_contents = list(
@@ -138,7 +138,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/security
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/gun/advtaser/sibyl
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	head = /obj/item/clothing/head/helmet/ert/security
@@ -147,7 +147,7 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/storage/box/teargas = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/energy/laser = 1
+		/obj/item/gun/energy/laser/sibyl = 1
 	)
 
 /datum/outfit/job/centcom/response_team/security/red
@@ -164,7 +164,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/ammo_box/magazine/laser = 2,
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1
+		/obj/item/gun/energy/gun/pdw9/sibyl = 1
 	)
 
 	cybernetic_implants = list(
@@ -184,7 +184,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security/gamma
 	belt = /obj/item/storage/belt/security/response_team_gamma
-	suit_store = /obj/item/gun/energy/immolator/multi
+	suit_store = /obj/item/gun/energy/immolator/multi/sibyl
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/restraints/legcuffs/bola/energy
@@ -195,7 +195,7 @@
 		/obj/item/storage/box/flashbangs = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/storage/lockbox/t4 = 1,
-		/obj/item/gun/energy/gun/nuclear = 1
+		/obj/item/gun/energy/gun/nuclear/sibyl = 1
 	)
 
 	cybernetic_implants = list(
@@ -231,7 +231,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas
-	l_pocket = /obj/item/gun/energy/gun/mini
+	l_pocket = /obj/item/gun/energy/gun/mini/sibyl
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
@@ -256,7 +256,7 @@
 	backpack_contents = list(
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
-		/obj/item/gun/energy/gun = 1
+		/obj/item/gun/energy/gun/sibyl = 1
 	)
 
 	cybernetic_implants = list(
@@ -275,7 +275,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
-	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner/extended_range
@@ -315,7 +315,7 @@
 	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
-	suit_store = /obj/item/gun/energy/gun/mini
+	suit_store = /obj/item/gun/energy/gun/mini/sibyl
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	head = /obj/item/clothing/head/helmet/ert/medical
 	mask = /obj/item/clothing/mask/surgical
@@ -342,7 +342,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
-	suit_store = /obj/item/gun/energy/gun
+	suit_store = /obj/item/gun/energy/gun/sibyl
 	belt = /obj/item/defibrillator/compact/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -377,7 +377,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
 	belt = /obj/item/defibrillator/compact/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
@@ -434,13 +434,13 @@
 	name = "RT Paranormal (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	head = /obj/item/clothing/head/helmet/ert/security/paranormal
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	suit_store = /obj/item/gun/energy/gun/advtaser/sibyl
 	r_pocket = /obj/item/nullrod
 
 /datum/outfit/job/centcom/response_team/paranormal/red
 	name = "RT Paranormal (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
-	suit_store = /obj/item/gun/energy/gun
+	suit_store = /obj/item/gun/energy/gun/sibyl
 	r_pocket = /obj/item/nullrod/ert
 	glasses = /obj/item/clothing/glasses/night
 
@@ -457,7 +457,7 @@
 /datum/outfit/job/centcom/response_team/paranormal/gamma
 	name = "RT Paranormal (Gamma)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
-	suit_store = /obj/item/gun/energy/gun/nuclear
+	suit_store = /obj/item/gun/energy/gun/nuclear/sibyl
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
@@ -502,7 +502,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
 	glasses = /obj/item/clothing/glasses/sunglasses
-	r_hand = /obj/item/gun/energy/disabler
+	r_hand = /obj/item/gun/energy/disabler/sibyl
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/advmop)
@@ -512,7 +512,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/scythe/tele
-	l_pocket = /obj/item/gun/energy/gun/mini
+	l_pocket = /obj/item/gun/energy/gun/mini/sibyl
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
@@ -524,7 +524,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/combat
-	suit_store = /obj/item/gun/energy/gun
+	suit_store = /obj/item/gun/energy/gun/sibyl
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_pocket = /obj/item/scythe/tele
 	shoes = /obj/item/clothing/shoes/magboots/advance

@@ -101303,12 +101303,12 @@
 	name = "Dominator's";
 	req_access = list(1)
 	},
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator/sibyl,
+/obj/item/gun/energy/dominator/sibyl,
+/obj/item/gun/energy/dominator/sibyl,
+/obj/item/gun/energy/dominator/sibyl,
+/obj/item/gun/energy/dominator/sibyl,
+/obj/item/gun/energy/dominator/sibyl,
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	pixel_y = -26

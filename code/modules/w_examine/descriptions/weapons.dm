@@ -27,11 +27,11 @@
 	description_info = "This is an energy weapon. To recharge this weapon, use a weapon recharger. \
 	To switch between insta-stun and disabler beams, click the weapon in your hand. This weapon can only fire through glass if it is set to disabler beams."
 
-/obj/item/gun/energy/nuclear
+/obj/item/gun/energy/gun/nuclear
 	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly.  To switch between stun and lethal, click the weapon \
 	in your hand.  Unlike most weapons, this weapon recharges itself."
 
-/obj/item/gun/energy/captain
+/obj/item/gun/energy/laser/captain
 	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
 
 /obj/item/gun/energy/sniperrifle
@@ -42,7 +42,7 @@
 	description_info = "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
 	will tell you what caliber you need."
 
-/obj/item/gun/projectile/shotgun/pump
+/obj/item/gun/projectile/shotgun/riot
 	description_info = "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand.  To reload, load more shotgun \
 	shells into the gun."
 

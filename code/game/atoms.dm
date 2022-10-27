@@ -67,6 +67,7 @@
 	var/list/ru_names
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
+	var/list/description_holders = list("info" = null, "antag" = null, "fluff" = null)
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -352,7 +353,29 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	var/descriptions
+	description_holders["info"] = get_description_info()
+	description_holders["antag"] = (isAntag(user) || isobserver(user)) ? get_description_antag() : ""
+	description_holders["fluff"] = get_description_fluff()
+
+	if(description_holders["info"])
+		descriptions += "<a href='?src=[UID()];description_info=`'>\[Справка\]</a> "
+	if(description_holders["antag"])
+		descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
+	if(description_holders["fluff"])
+		descriptions += "<a href='?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
+
+	. += descriptions
+
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/atom/Topic(href, href_list)
+	if(href_list["description_info"])
+		to_chat(usr, "<div class='examine'><span class='info'>[description_holders["info"]]</span></div>")
+	if(href_list["description_antag"])
+		to_chat(usr, "<div class='examine'><span class='syndradio'>[description_holders["antag"]]</span></div>")
+	if(href_list["description_fluff"])
+		to_chat(usr, "<div class='examine'><span class='notice'>[description_holders["fluff"]]</span></div>")
 
 /atom/proc/relaymove()
 	return

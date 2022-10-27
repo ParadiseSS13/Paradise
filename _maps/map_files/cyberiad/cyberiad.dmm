@@ -353,16 +353,16 @@
 	name = "Dominator's";
 	req_access = list(1)
 	},
-/obj/item/gun/energy/dominator{
+/obj/item/gun/energy/dominator/sibyl{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator{
+/obj/item/gun/energy/dominator/sibyl,
+/obj/item/gun/energy/dominator/sibyl{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/dominator{
+/obj/item/gun/energy/dominator/sibyl{
 	pixel_x = -6;
 	pixel_y = 6
 	},

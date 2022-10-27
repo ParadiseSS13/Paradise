@@ -547,13 +547,6 @@
 	flight_y_offset = 12
 
 	var/is_equipped = FALSE
-	var/is_sibylmod = TRUE
-
-/obj/item/gun/energy/dominator/New()
-	..()
-	if(is_sibylmod)
-		var/obj/item/sibyl_system_mod/M = new /obj/item/sibyl_system_mod
-		M.install(src)
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	..()
@@ -626,6 +619,3 @@
 			icon_state += "_lock"
 		else
 			icon_state += "_unlock"
-
-/obj/item/gun/energy/dominator/no_sibyl
-	is_sibylmod = FALSE
