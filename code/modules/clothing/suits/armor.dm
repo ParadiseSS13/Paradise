@@ -220,7 +220,7 @@
 	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/riot/sec
-	name = "riot suit"
+	name = "security riot suit"
 	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement. This one has security markings on it."
 	icon_state = "riot-sec"
 	item_state = "swat_suit"
