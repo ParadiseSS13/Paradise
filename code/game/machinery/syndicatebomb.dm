@@ -402,9 +402,8 @@
 /obj/item/bombcore/badmin/summon/detonate()
 	var/obj/machinery/syndicatebomb/B = src.loc
 	for(var/i = 0; i < amt_summon; i++)
-		var/atom/movable/X = new summon_path
+		var/atom/movable/X = new summon_path(get_turf(src))
 		X.admin_spawned = TRUE
-		X.loc = get_turf(src)
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
 				step(X, pick(NORTH,SOUTH,EAST,WEST))

@@ -520,7 +520,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(AA.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
 			continue
 
-		if(istype(A, /obj/mecha))
+		if(ismecha(A))
 			var/obj/mecha/ME = A
 			assess_and_assign(ME.occupant, targets, secondarytargets)
 
@@ -922,7 +922,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				build_step = 6
 				return
 
-	if(istype(I, /obj/item/pen))	//you can rename turrets like bots!
+	if(is_pen(I))	//you can rename turrets like bots!
 		var/t = input(user, "Enter new turret name", name, finish_name) as text
 		t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 		if(!t)

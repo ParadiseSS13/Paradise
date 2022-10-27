@@ -75,7 +75,7 @@
 /mob/living/simple_animal/hostile/hivebot/tele/Initialize(mapload)
 	. = ..()
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, 0, src.loc)
+	smoke.set_up(5, FALSE, loc)
 	smoke.start()
 	visible_message("<span class='danger'>[src] warps in!</span>")
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)

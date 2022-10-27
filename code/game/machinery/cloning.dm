@@ -298,6 +298,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, .proc/occupant_got_revived)
 		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, .proc/occupant_got_revived)
 
+	SSblackbox.record_feedback("tally", "players_revived", 1, "cloned")
 	update_icon()
 
 	H.suiciding = FALSE

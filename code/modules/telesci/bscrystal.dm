@@ -29,7 +29,7 @@
 		src.visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
 		qdel(src)
 		return
-	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
+	do_teleport(L, get_turf(L), blink_range, sound_in = 'sound/effects/phasein.ogg')
 	L.apply_status_effect(STATUS_EFFECT_TELEPORTSICK)
 
 /obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom)

@@ -93,7 +93,7 @@
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type
-		if(istype(O, /obj/structure) || !user.put_in_hands(O))
+		if(isstructure(O) || !user.put_in_hands(O))
 			O.forceMove(get_turf(src))
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
@@ -294,9 +294,9 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 		var/turf/T = safepick(validturfs)
 		if(T)
-			if(istype(T, /turf/simulated/floor))
+			if(isfloorturf(T))
 				T.ChangeTurf(/turf/simulated/floor/engine/cult)
-			if(istype(T, /turf/simulated/wall))
+			if(iswallturf(T))
 				T.ChangeTurf(/turf/simulated/wall/cult/artificer)
 		else
 			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)

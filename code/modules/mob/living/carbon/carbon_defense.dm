@@ -1,7 +1,7 @@
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(!skipcatch)
 		if(in_throw_mode && !HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) && !restrained())  //Makes sure player is in throw mode
-			if(!istype(AM,/obj/item) || !isturf(AM.loc))
+			if(!isitem(AM) || !isturf(AM.loc))
 				return FALSE
 			if(get_active_hand())
 				return FALSE

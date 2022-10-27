@@ -154,6 +154,7 @@
 	name = "Radium"
 	id = "radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
+	process_flags = ORGANIC | SYNTHETIC
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE

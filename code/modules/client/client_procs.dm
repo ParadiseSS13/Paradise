@@ -1229,6 +1229,13 @@
 		src << link(GLOB.configuration.system.region_map[choice])
 
 
+/client/verb/reload_graphics()
+	set category = "Special Verbs"
+	set name = "Reload Graphics"
+
+	winset(src, null, "command=\".configure graphics-hwmode off\"")
+	winset(src, null, "command=\".configure graphics-hwmode on\"")
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT

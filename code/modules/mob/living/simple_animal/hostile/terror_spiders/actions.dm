@@ -145,7 +145,7 @@
 	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
-		else if(istype(loc, /turf/space))
+		else if(isspaceturf(loc))
 			to_chat(src, "<span class='danger'>Webs cannot be spun in space.</span>")
 		else
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
@@ -264,12 +264,12 @@
 					cocoon_target.extinguish_light()
 					for(var/obj/O in C.loc)
 						if(!O.anchored)
-							if(istype(O, /obj/item))
+							if(isitem(O))
 								O.loc = C
-							else if(istype(O, /obj/machinery))
+							else if(ismachinery(O))
 								O.loc = C
 								large_cocoon = 1
-							else if(istype(O, /obj/structure) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
+							else if(isstructure(O) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
 								O.loc = C
 								large_cocoon = 1
 					for(var/mob/living/L in C.loc)

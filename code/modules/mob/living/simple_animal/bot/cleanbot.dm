@@ -93,7 +93,7 @@
 		return
 
 	if(emagged == 2) //Emag functions
-		if(istype(loc,/turf/simulated))
+		if(issimulatedturf(loc))
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
 				T.MakeSlippery()

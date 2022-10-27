@@ -7,6 +7,14 @@
 	has_sensor = FALSE
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 35)
 
+	icon = 'icons/obj/clothing/under/syndicate.dmi'
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/syndicate.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/syndicate.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/syndicate.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/syndicate.dmi'
+		)
+
 /obj/item/clothing/under/syndicate/combat
 	name = "combat turtleneck"
 
@@ -23,4 +31,4 @@
 	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit. Intended for the most formal operator. The collar is really sharp."
 	icon_state = "really_black_suit"
 	item_state = "bl_suit"
-	item_color = "black_suit"
+	item_color = "really_black_suit"

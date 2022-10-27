@@ -169,7 +169,7 @@
 				update_req_desc()
 				return
 
-			if(istype(P, /obj/item))
+			if(isitem(P))
 				var/success
 				for(var/I in req_components)
 					if(istype(P, I) && (req_components[I] > 0) && (!(P.flags & NODROP) || istype(P, /obj/item/stack)))

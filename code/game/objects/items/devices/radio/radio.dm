@@ -118,13 +118,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return interact(user)
 
 /obj/item/radio/attack_self(mob/user)
-	ui_interact(user)
+	interact(user)
 
 /obj/item/radio/interact(mob/user)
 	if(!user)
 		return 0
 	if(b_stat)
 		wires.Interact(user)
+		return
 	ui_interact(user)
 
 /obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

@@ -17,6 +17,9 @@
 	var/ant_location = null
 	/// Time we last checked for ants
 	var/last_ant_time = 0
+	///Name of the food to show up in kitchen machines (microwaves, ovens, etc)
+	var/ingredient_name
+	var/ingredient_name_plural
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 

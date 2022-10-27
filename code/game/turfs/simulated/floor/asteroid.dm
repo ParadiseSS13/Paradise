@@ -292,7 +292,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		for(var/thing in urange(12, T)) //prevents mob clumps
 			if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
 				continue
-			if((ispath(randumb, /mob/living/simple_animal/hostile/megafauna) || ismegafauna(thing)) && get_dist(T, thing) <= 7)
+			if((ismegafauna(randumb) || ismegafauna(thing)) && get_dist(T, thing) <= 7)
 				return //if there's a megafauna within standard view don't spawn anything at all
 			if(ispath(randumb, /mob/living/simple_animal/hostile/asteroid) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
 				return //if the random is a standard mob, avoid spawning if there's another one within 12 tiles

@@ -377,7 +377,7 @@
 	if(!istype(H))	return 0
 	if(H != occupant)	return 0 //only using H as a shortcut to typecast
 	for(var/obj/O in H)
-		if(istype(O,/obj/item/clothing)) //clothing gets skipped to avoid cleaning out shit
+		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
 		if(istype(O,/obj/item/implant))
 			var/obj/item/implant/I = O

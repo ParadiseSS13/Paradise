@@ -11,20 +11,9 @@
 		new /obj/item/storage/backpack/satchel_cap(src)
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
-	new /obj/item/clothing/suit/captunic(src)
-	new /obj/item/clothing/suit/captunic/capjacket(src)
-	new /obj/item/clothing/suit/mantle/armor/captain(src)
-	new /obj/item/clothing/under/captainparade(src)
-	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/under/rank/captain(src)
-	new /obj/item/clothing/under/dress/dress_cap(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
+	new /obj/item/storage/bag/garment/captain(src)
 	new /obj/item/cartridge/captain(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/door_remote/captain(src)
@@ -39,42 +28,16 @@
 	open_door_sprite = "hop_door"
 
 /obj/structure/closet/secure_closet/hop/populate_contents()
-	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/head/hopcap(src)
 	new /obj/item/cartridge/hop(src)
 	new /obj/item/radio/headset/heads/hop(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/storage/box/ids(src)
 	new /obj/item/storage/box/PDAs(src)
-	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/gun/energy/gun/mini(src)
 	new /obj/item/flash(src)
-	new /obj/item/clothing/accessory/petcollar(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
-
-/obj/structure/closet/secure_closet/hop2
-	name = "head of personnel's attire"
-	req_access = list(ACCESS_HOP)
-	icon_state = "hop"
-	open_door_sprite = "hop_door"
-
-/obj/structure/closet/secure_closet/hop2/populate_contents()
-	new /obj/item/clothing/under/rank/head_of_personnel(src)
-	new /obj/item/clothing/suit/mantle/armor/head_of_personnel(src)
-	new /obj/item/clothing/under/dress/dress_hop(src)
-	new /obj/item/clothing/under/dress/dress_hr(src)
-	new /obj/item/clothing/under/lawyer/female(src)
-	new /obj/item/clothing/under/lawyer/black(src)
-	new /obj/item/clothing/under/lawyer/red(src)
-	new /obj/item/clothing/under/lawyer/oldman(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/shoes/leather(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/under/rank/head_of_personnel_whimsy(src)
-
+	new /obj/item/storage/bag/garment/head_of_personnel(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
@@ -87,19 +50,10 @@
 		new /obj/item/storage/backpack/security(src)
 	else
 		new /obj/item/storage/backpack/satchel_sec(src)
+
+	new /obj/item/storage/bag/garment/head_of_security(src)
 	new /obj/item/cartridge/hos(src)
 	new /obj/item/radio/headset/heads/hos/alt(src)
-	new /obj/item/clothing/under/rank/head_of_security(src)
-	new /obj/item/clothing/under/rank/head_of_security/formal(src)
-	new /obj/item/clothing/under/rank/head_of_security/corp(src)
-	new /obj/item/clothing/under/rank/head_of_security/skirt(src)
-	new /obj/item/clothing/under/rank/head_of_security/skirt/corp(src)
-	new /obj/item/clothing/suit/armor/hos(src)
-	new /obj/item/clothing/suit/armor/hos/alt(src)
-	new /obj/item/clothing/head/HoS(src)
-	new /obj/item/clothing/head/HoS/beret(src)
-	new /obj/item/clothing/suit/mantle/armor(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/holosign_creator/security(src)
@@ -129,11 +83,11 @@
 	new /obj/item/clothing/head/warden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
 	new /obj/item/clothing/head/beret/sec/warden(src)
-	new /obj/item/clothing/under/rank/warden(src)
-	new /obj/item/clothing/under/rank/warden/formal(src)
-	new /obj/item/clothing/under/rank/warden/corp(src)
-	new /obj/item/clothing/under/rank/warden/skirt(src)
-	new /obj/item/clothing/under/rank/warden/skirt/corp(src)
+	new /obj/item/clothing/under/rank/security/warden(src)
+	new /obj/item/clothing/under/rank/security/formal/warden(src)
+	new /obj/item/clothing/under/rank/security/warden/corporate(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/mask/gas/sechailer/warden(src)
@@ -192,7 +146,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
-	new /obj/item/clothing/under/rank/centcom/blueshield(src)
+	new /obj/item/clothing/under/rank/centcom/blueshield/formal(src)
 
 
 /obj/structure/closet/secure_closet/ntrep
@@ -211,9 +165,9 @@
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/clothing/under/lawyer/oldman(src)
-	new /obj/item/clothing/under/lawyer/black(src)
-	new /obj/item/clothing/under/lawyer/female(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/oldman(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
+	new /obj/item/clothing/under/suit/female(src)
 	new /obj/item/clothing/under/rank/centcom/representative(src)
 	new /obj/item/clothing/head/ntrep(src)
 	new /obj/item/clothing/shoes/sandal/fancy(src)
@@ -260,7 +214,7 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
-	new /obj/item/clothing/under/det(src)
+	new /obj/item/clothing/under/rank/security/detective(src)
 	new /obj/item/clothing/suit/storage/det_suit(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
@@ -304,20 +258,39 @@
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
+/obj/structure/closet/secure_closet/brig/gulag
+	name = "labor camp locker"
+	desc = "A special locker designed to store prisoner belongings, allows access when prisoners meet their point quota."
+	locked = FALSE
+	var/registered_ID_UID
 
-/obj/structure/closet/secure_closet/courtroom
-	name = "courtroom locker"
-	req_access = list(ACCESS_COURT)
+/obj/structure/closet/secure_closet/brig/gulag/allowed(mob/M)
+	. = ..()
+	if(.) //we were gonna let them do it anyway
+		return TRUE
 
-/obj/structure/closet/secure_closet/courtroom/populate_contents()
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/pen (src)
-	new /obj/item/clothing/suit/judgerobe (src)
-	new /obj/item/clothing/head/powdered_wig (src)
-	new /obj/item/storage/briefcase(src)
+	for(var/obj/item/card/id/prisoner/prisoner_id in M) //they might have a stash of them
+		if(!prisoner_id.goal)
+			continue //no goal? no interaction
+
+		if(locked && registered_ID_UID && !(prisoner_id.UID() == registered_ID_UID))
+			continue //you don't own this!
+
+		if(!locked)
+			registered_ID_UID = prisoner_id.UID()
+			return TRUE //they are trying to lock it, so let them
+
+		if(prisoner_id.mining_points >= prisoner_id.goal)
+			registered_ID_UID = null
+			return TRUE //completed goal? do the interaction
+
+	return FALSE //if we didn't match above, no interaction for you
+
+/obj/structure/closet/secure_closet/brig/gulag/examine(mob/user)
+	. = ..()
+	if(registered_ID_UID)
+		var/obj/item/card/id/prisoner/prisoner_id = locateUID(registered_ID_UID)
+		. += "\nOwned by [prisoner_id.registered_name]."
 
 /obj/structure/closet/secure_closet/magistrate
 	name = "\improper Magistrate's locker"
@@ -332,7 +305,7 @@
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/clothing/under/suit_jacket/really_black(src)
+	new /obj/item/clothing/under/suit/really_black(src)
 	new /obj/item/clothing/under/rank/centcom/magistrate(src)
 	new /obj/item/clothing/suit/judgerobe(src)
 	new /obj/item/clothing/head/powdered_wig(src)
@@ -357,7 +330,7 @@
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_iaa(src)
-	new /obj/item/clothing/under/rank/internalaffairs(src)
+	new /obj/item/clothing/under/rank/civilian/internalaffairs(src)
 	new /obj/item/clothing/suit/storage/internalaffairs(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)

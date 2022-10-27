@@ -315,7 +315,7 @@ var/to_chat_src
 			message = replacetext(message, "\proper", "")
 
 		var/client/C
-		if(istype(target, /client))
+		if(isclient(target))
 			C = target
 		if(ismob(target))
 			C = target:client

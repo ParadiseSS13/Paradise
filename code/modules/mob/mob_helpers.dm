@@ -1,5 +1,5 @@
 /proc/issmall(A)
-	if(A && istype(A, /mob/living/carbon/human))
+	if(A && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
@@ -145,7 +145,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1

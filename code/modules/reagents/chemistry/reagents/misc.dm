@@ -219,7 +219,7 @@
 
 		fireflash(T, min(max(0, volume / 40), 8))
 		var/datum/effect_system/smoke_spread/bad/BS = new
-		BS.set_up(1, 0, T)
+		BS.set_up(1, FALSE, T)
 		BS.start()
 		if(!QDELETED(old_holder) && reagent_after_burning)
 			old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))

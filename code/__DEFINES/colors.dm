@@ -81,6 +81,7 @@
 #define COLOR_ALUMINIUM        "#bbbbbb"
 #define COLOR_CRYSTAL          "#00c8a5"
 #define COLOR_ASTEROID_ROCK    "#735555"
+#define COLOR_ROCK             "#464646"
 #define COLOR_NULLGLASS        "#ff6088"
 #define COLOR_DIAMOND          "#d8d4ea"
 #define COLOR_HEALING_GREEN    "#375637"

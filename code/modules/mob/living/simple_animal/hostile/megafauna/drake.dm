@@ -450,7 +450,7 @@ Difficulty: Medium
 		M.take_damage(45, BRUTE, MELEE, 1)
 
 	// changes turf to lava temporarily
-	if(!T.density && !istype(T, /turf/simulated/floor/plating/lava))
+	if(!T.density && !islava(T))
 		var/lava_turf = /turf/simulated/floor/plating/lava/smooth
 		var/reset_turf = T.type
 		T.ChangeTurf(lava_turf)

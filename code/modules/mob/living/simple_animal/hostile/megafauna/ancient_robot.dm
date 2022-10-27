@@ -204,7 +204,7 @@ Difficulty: Hard
 	if(mode == BLUESPACE)
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 		src.visible_message("<span class='danger'>[src] teleports somewhere nearby!</span>")
-		do_teleport(src, target, 7, asoundin = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
+		do_teleport(src, target, 7, sound_in = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 
 		TR.health_and_snap_check(FALSE)// We want the legs to instantly teleport with it, without regening

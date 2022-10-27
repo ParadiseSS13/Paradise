@@ -17,6 +17,7 @@
 	var/last_shocked = 0
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
+	var/shock_range = 7
 
 /obj/item/clothing/gloves/color/yellow/power/detailed_examine_antag()
 	return "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
