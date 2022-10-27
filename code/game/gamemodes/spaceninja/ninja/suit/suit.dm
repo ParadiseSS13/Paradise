@@ -72,6 +72,8 @@
 	var/obj/item/clothing/mask/gas/space_ninja/n_mask
 	/// The space ninja's headset
 	var/obj/item/radio/headset/ninja/n_headset
+	/// The space ninja's backpack
+	var/obj/item/radio/headset/ninja/n_backpack
 
 	/// Создаются способностями и помещаются в руку
 	/// Удаляются полностью при убирании из руки
@@ -317,6 +319,7 @@
 	n_gloves = null
 	n_mask = null
 	n_headset = null
+	n_backpack = null
 	QDEL_NULL(shuriken_emitter)
 	QDEL_NULL(chameleon_scanner)
 	QDEL_NULL(net_emitter)
@@ -396,6 +399,10 @@
 			if(stealth) // If stealth is active.
 				stealth_creepy_effects()
 				used_power += s_acost
+			else if(stealth_ambient_chance > initial(stealth_ambient_chance) && prob(stealth_ambient_chance))
+				stealth_ambient_chance -= 0.5
+				if(stealth_ambient_chance == initial(stealth_ambient_chance))
+					to_chat(ninja, span_notice("Нагрузка костюма вернулась в норму!"))
 			if(disguise_active) // If chameleon is active.
 				used_power += s_acost
 			if(spirited) // If spirit form is active.
@@ -518,6 +525,10 @@
 	//Наушник
 	if(n_headset && n_headset.loc == ninja)
 		n_headset.icon_state = "headset_[color_choice]"
+	//Рюкзак
+	if(n_backpack && n_backpack.loc == ninja)
+		n_backpack.icon_state = "backpack_ninja_[color_choice]"
+		n_backpack.item_state = "backpack_ninja_[color_choice]"
 	//Катана
 	if(energyKatana && energyKatana.loc == ninja)
 		energyKatana.icon_state = "energy_katana_[color_choice]"
@@ -566,6 +577,9 @@
 		n_mask.item_state = initial(n_mask.item_state)
 	if(n_headset)
 		n_headset.icon_state = initial(n_headset.icon_state)
+	if(n_backpack)
+		n_backpack.icon_state = initial(n_backpack.icon_state)
+		n_backpack.item_state = initial(n_backpack.item_state)
 	if(energyKatana)
 		energyKatana.icon_state = initial(energyKatana.icon_state)
 		energyKatana.item_state = initial(energyKatana.item_state)
@@ -693,26 +707,35 @@
 		var/random_danger_text = pick(
 			"У вас по коже пробежали мурашки...",
 			"Такое чувство, что на вас кто-то смотрит...",
-			"Кажется вы врезались во что-то!")
+			"Кажется вы врезались во что-то!",
+			"Кто-то наступил вам на ногу! Или вам причудилось?...",
+			"Вы задели кого-то локтем!")
 		var/random_subtle_text = pick(
 			"Вам кажется вы слышали шаги...",
 			"Что то мелькнуло у вас перед глазами...",
-			"Это просто был ветер, да?")
-		switch(rand(1,4))
+			"Это просто был ветер, да?",
+			"Кажется рядом кто-то топает...",
+			"Крысы в техах шумят что ле...?")
+		switch(rand(1,3))
 			if(1)
-				spark_system.start()
+				if(stealth_ambient_chance >= 15)
+					spark_system.start()
+				else
+					for(var/mob/living/carbon/other_mob in view(7,ninja))
+						if(other_mob == ninja)
+							continue
+						to_chat(other_mob, span_info(random_subtle_text))
 			if(2)
-				for(var/mob/living/carbon/other_mob in view(7,ninja))
-					if(other_mob == ninja)
-						continue
-					to_chat(other_mob, span_danger(random_danger_text))
+				if(stealth_ambient_chance >= 40)
+					for(var/mob/living/carbon/other_mob in view(7,ninja))
+						if(other_mob == ninja)
+							continue
+						to_chat(other_mob, span_danger(random_danger_text))
+				else
+					playsound(ninja, sounds, 20, FALSE)
 			if(3)
-				for(var/mob/living/carbon/other_mob in view(7,ninja))
-					if(other_mob == ninja)
-						continue
-					to_chat(other_mob, span_info(random_subtle_text))
-			if(4)
-				playsound(ninja, sounds, 20, FALSE)
+				if(stealth_ambient_chance < 50)
+					stealth_ambient_chance += 1
 /**
  * Proc used to delete all the attachments and itself.
  * Can be called to entire rid of the suit pieces and the suit itself.

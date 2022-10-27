@@ -1075,6 +1075,52 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	return target
 
+/datum/objective/vermit_hunt
+	martyr_compatible = 1
+	// Лист разумов всех генокрадов.
+	var/list/changelings = list()
+
+/datum/objective/vermit_hunt/find_target()
+	generate_changelings()
+	explanation_text = "На объекте вашей миссии действуют паразиты так же известные как \"Генокрады\" истребите хотя бы [max(1, round(length(changelings)/2))] из них."
+	return changelings
+
+/datum/objective/vermit_hunt/proc/generate_changelings()
+	log_debug("Ninja_Objectives_Log: Начата генерация генокрадов.")
+	var/list/possible_changelings = list()
+	for(var/mob/living/player in GLOB.alive_mob_list)
+		if(player.client && player.mind && player.stat != DEAD)
+			if((ishuman(player) && !player.mind.special_role))
+				if(player.client && (ROLE_CHANGELING in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_CHANGELING))
+					possible_changelings += player.mind
+	for(var/datum/mind/player in possible_changelings)
+		if(player.current)
+			if(ismindshielded(player.current))
+				possible_changelings -= player
+	log_debug("Ninja_Objectives_Log: Кол-во потенциальных генокрадов [possible_changelings.len]")
+	if(possible_changelings.len)
+		log_debug("Ninja_Objectives_Log: Успешно набраны потенциальные генокрады")
+		var/changeling_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling*2))+1)
+		log_debug("Ninja_Objectives_Log: Генокрадов: [changeling_num]")
+		for(var/j = 0, j < changeling_num, j++)
+			var/datum/mind/new_changeling_mind = pick(possible_changelings)
+			new_changeling_mind.make_Changeling()
+			possible_changelings.Remove(new_changeling_mind)
+			changelings += new_changeling_mind
+	else//Если не кого защищать, просто не даём цель
+		owner?.objectives -= src
+		log_debug("Ninja_Objectives_Log: Удаляем цель охоты на генок у ниндзя ибо нет генокрадов")
+		qdel(src)
+
+/datum/objective/vermit_hunt/check_completion()
+	var/killed_vermits = 0
+	for(var/datum/mind/player in changelings)
+		if(!player || !player.current || !player.current.ckey || player.current.stat == DEAD || issilicon(player.current) || isbrain(player.current))
+			killed_vermits += 1
+	if(killed_vermits >= length(changelings)/2)
+		return TRUE
+	return FALSE
+
 /datum/objective/research_corrupt
 	explanation_text = "Используя свои перчатки, загрузите мощный вирус на любой научный сервер станции, тем самым саботировав все их исследования! \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"

@@ -683,6 +683,7 @@
 #include "code\game\gamemodes\spaceninja\ninja\machinery\ninja_cloning.dm"
 #include "code\game\gamemodes\spaceninja\ninja\machinery\ninja_mindscan_machine.dm"
 #include "code\game\gamemodes\spaceninja\ninja\machinery\ninja_teleporter.dm"
+#include "code\game\gamemodes\spaceninja\ninja\suit\backpack.dm"
 #include "code\game\gamemodes\spaceninja\ninja\suit\glasses.dm"
 #include "code\game\gamemodes\spaceninja\ninja\suit\gloves.dm"
 #include "code\game\gamemodes\spaceninja\ninja\suit\head.dm"

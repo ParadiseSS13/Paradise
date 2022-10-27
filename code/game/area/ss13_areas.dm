@@ -599,6 +599,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	no_teleportlocs = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
+	nad_allowed = TRUE
 
 /area/ninja/outpost
 	name = "\improper SpiderClan Dojo"

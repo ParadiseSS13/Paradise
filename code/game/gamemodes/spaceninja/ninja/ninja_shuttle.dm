@@ -30,3 +30,4 @@
 	icon_state = "shuttlegrn"
 	name = "\improper Spider Clan \"Ombra\" Shuttle"
 	parallax_movedir = SOUTH
+	nad_allowed = TRUE

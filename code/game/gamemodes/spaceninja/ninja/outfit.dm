@@ -10,6 +10,7 @@
 	gloves = /obj/item/clothing/gloves/space_ninja
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/ninja
 	belt = /obj/item/melee/energy_katana
+	back = /obj/item/storage/backpack/ninja
 
 /datum/outfit/ninja/pre_equip(mob/living/carbon/human/ninja)
 	ninja.set_species(/datum/species/human) // Это можно считать временным решением, пока у ниндзи нет спрайтов одежды для других рас
@@ -21,6 +22,7 @@
 		var/obj/item/clothing/suit/space/space_ninja/ninja_suit = ninja.wear_suit
 		ninja_suit.preferred_clothes_gender = ninja.gender
 		ninja_suit.n_headset = ninja.r_ear
+		ninja_suit.n_backpack = ninja.back
 		if(istype(ninja.belt, belt))
 			ninja_suit.energyKatana = ninja.belt
 
