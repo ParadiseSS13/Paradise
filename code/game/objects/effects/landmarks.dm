@@ -588,6 +588,52 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	ruin_template = null
 	. = ..()
 
+
+/// Mob spawners, spawns a mob and deletes the landmark
+/obj/effect/landmark/mob_spawner/goliath
+	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
+	. = ..()
+	if(prob(1))
+		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
+	else
+		new /mob/living/simple_animal/hostile/asteroid/goliath/beast(loc)
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/mob_spawner/legion
+	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
+	. = ..()
+	if(prob(5))
+		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
+	else
+		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion(loc)
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/mob_spawner/watcher
+	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
+	. = ..()
+	if(prob(1))
+		if(prob(75))
+			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
+		else
+			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
+	else
+		new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher(loc)
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/mob_spawner/goldgrub
+	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/goldgrub/Initialize(mapload)
+	. = ..()
+	new /mob/living/simple_animal/hostile/asteroid/goldgrub(loc)
+	return INITIALIZE_HINT_QDEL
+
 // Damage tiles
 /obj/effect/landmark/damageturf
 	icon_state = "damaged"
