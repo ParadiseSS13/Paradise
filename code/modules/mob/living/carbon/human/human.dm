@@ -140,9 +140,6 @@
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
 
-/mob/living/carbon/human/wryn/Initialize(mapload)
-	. = ..(mapload, /datum/species/wryn)
-
 /mob/living/carbon/human/nucleation/Initialize(mapload)
 	. = ..(mapload, /datum/species/nucleation)
 
@@ -408,7 +405,7 @@
 	if(handcuffed)
 		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><A href='?src=[UID()];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
+		dat += "<tr><td><b>Legcuffed:</b> <a href='?src=[UID()];item=[slot_legcuffed]'>Remove</a></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -502,12 +499,13 @@
 /mob/living/carbon/human/proc/get_idcard(check_hands = FALSE)
 	var/obj/item/card/id/id = wear_id
 	var/obj/item/pda/pda = wear_id
-	if(istype(pda) && pda.id)
-		id = pda.id
-	else
-		pda = wear_pda
+	if(!istype(id)) //We only check for PDAs if there isn't an ID in the ID slot. IDs take priority.
 		if(istype(pda) && pda.id)
 			id = pda.id
+		else
+			pda = wear_pda
+			if(istype(pda) && pda.id)
+				id = pda.id
 
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
@@ -594,7 +592,7 @@
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
 
-	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags = NONE)
+	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags)
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
@@ -1295,7 +1293,6 @@
 		add_language(dna.species.default_language)
 
 	hunger_drain = dna.species.hunger_drain
-	digestion_ratio = dna.species.digestion_ratio
 
 	if(dna.species.base_color && use_default_color)
 		//Apply colour.

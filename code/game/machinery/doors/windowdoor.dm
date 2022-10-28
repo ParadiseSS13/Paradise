@@ -72,10 +72,19 @@
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
-	if(check_access(null))
-		sleep(50)
-	else //secure doors close faster
-		sleep(20)
+	addtimer(CALLBACK(src, .proc/check_close), check_access(null) ? 5 SECONDS : 2 SECONDS)
+
+
+/// Check whether or not this door can close, based on whether or not someone's standing in front of it holding it open
+/obj/machinery/door/window/proc/check_close()
+	var/mob/living/blocker = locate(/mob/living) in get_turf(get_step(src, dir))  // check the facing turf
+	if(!blocker || blocker.stat || !allowed(blocker))
+		blocker = locate(/mob/living) in get_turf(src)
+	if(blocker && !blocker.stat && allowed(blocker))
+		// kick the can down the road, someone's holding the door.
+		addtimer(CALLBACK(src, .proc/check_close), check_access(null) ? 5 SECONDS : 2 SECONDS)
+		return
+
 	close()
 
 /obj/machinery/door/window/Bumped(atom/movable/AM)
@@ -169,7 +178,7 @@
 		if(emagged)
 			return 0
 	if(!operating) //in case of emag
-		operating = TRUE
+		operating = DOOR_OPENING
 	do_animate("opening")
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
@@ -182,7 +191,7 @@
 	update_freelook_sight()
 
 	if(operating) //emag again
-		operating = FALSE
+		operating = NONE
 	return 1
 
 /obj/machinery/door/window/close(forced=0)
@@ -194,7 +203,7 @@
 	if(forced < 2)
 		if(emagged)
 			return 0
-	operating = TRUE
+	operating = DOOR_CLOSING
 	do_animate("closing")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
@@ -206,7 +215,7 @@
 	update_freelook_sight()
 	sleep(10)
 
-	operating = FALSE
+	operating = NONE
 	return 1
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -252,12 +261,12 @@
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
 		emagged = TRUE
-		operating = TRUE
+		operating = DOOR_MALF
 		electronics = new /obj/item/airlock_electronics/destroyed()
 		flick("[base_state]spark", src)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
-		operating = FALSE
+		operating = NONE
 		open(2)
 		return 1
 
@@ -265,11 +274,11 @@
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
-	operating = TRUE
+	operating = DOOR_MALF
 	flick("[base_state]spark", src)
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	sleep(6)
-	operating = FALSE
+	operating = NONE
 	return TRUE
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)

@@ -269,7 +269,7 @@
 		// okay if you can feel your arm getting chopped off you aren't gonna be singing
 		to_chat(target, "<span class='userdanger'>Your [affected] goes completely numb at the [affected.amputation_point]!</span>")
 		target.emote("scream")
-	if(istype(thing, /obj/item))
+	if(isitem(thing))
 		user.put_in_hands(thing)
 	return SURGERY_STEP_CONTINUE
 

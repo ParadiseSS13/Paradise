@@ -615,7 +615,7 @@
 	add_attack_logs(user, target, "Surgically removed [affected.name] from. INTENT: [uppertext(user.a_intent)]")//log it
 
 	var/atom/movable/thing = affected.droplimb(1, DROPLIMB_SHARP)
-	if(istype(thing, /obj/item))
+	if(isitem(thing))
 		user.put_in_hands(thing)
 
 	return SURGERY_STEP_CONTINUE

@@ -30,11 +30,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/check_completion()
 	return completed
 
-/datum/objective/proc/is_invalid_target(datum/mind/possible_target)
-	if(possible_target == owner)
-		return TARGET_INVALID_IS_OWNER
-	if(possible_target in owner.targets)
-		return TARGET_INVALID_IS_TARGET
+/datum/proc/is_invalid_target(datum/mind/possible_target) // Originally an Objective proc. Changed to a datum proc to allow for the proc to be run on minds, before the objective is created
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(possible_target.current.stat == DEAD)
@@ -49,6 +45,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_GOLEM
 	if(possible_target.offstation_role)
 		return TARGET_INVALID_EVENT
+
+/datum/objective/is_invalid_target(datum/mind/possible_target)
+	if(possible_target == owner)
+		return TARGET_INVALID_IS_OWNER
+	if(possible_target in owner.targets)
+		return TARGET_INVALID_IS_TARGET
+	return ..()
 
 
 /datum/objective/proc/find_target()

@@ -513,6 +513,7 @@
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
 	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/ablative
@@ -743,39 +744,6 @@
 	item_state = "xenos_helm"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-
-//swimsuit
-/obj/item/clothing/under/swimsuit/
-
-/obj/item/clothing/under/swimsuit/black
-	name = "black swimsuit"
-	desc = "An oldfashioned black swimsuit."
-	icon_state = "swim_black"
-	item_color = "swim_black"
-
-/obj/item/clothing/under/swimsuit/blue
-	name = "blue swimsuit"
-	desc = "An oldfashioned blue swimsuit."
-	icon_state = "swim_blue"
-	item_color = "swim_blue"
-
-/obj/item/clothing/under/swimsuit/purple
-	name = "purple swimsuit"
-	desc = "An oldfashioned purple swimsuit."
-	icon_state = "swim_purp"
-	item_color = "swim_purp"
-
-/obj/item/clothing/under/swimsuit/green
-	name = "green swimsuit"
-	desc = "An oldfashioned green swimsuit."
-	icon_state = "swim_green"
-	item_color = "swim_green"
-
-/obj/item/clothing/under/swimsuit/red
-	name = "red swimsuit"
-	desc = "An oldfashioned red swimsuit."
-	icon_state = "swim_red"
-	item_color = "swim_red"
 
 /obj/item/clothing/suit/storage/mercy_hoodie
 	name = "mercy robe"

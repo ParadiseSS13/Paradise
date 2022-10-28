@@ -124,7 +124,7 @@
 	category = list("initial","Tools")
 
 /datum/design/apc_board
-	name = "APC module"
+	name = "APC electronics"
 	id = "power control"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
@@ -206,6 +206,7 @@
 
 /datum/design/rglass
 	name = "Reinforced Glass"
+	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
 	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)

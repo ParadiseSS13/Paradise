@@ -11,6 +11,8 @@
 	bitesize = 3
 	list_reagents = list("protein" = 3)
 	tastes = list("meat" = 1)
+	ingredient_name = "slab of meat"
+	ingredient_name_plural = "slabs of meat"
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -352,7 +354,6 @@
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
-
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()

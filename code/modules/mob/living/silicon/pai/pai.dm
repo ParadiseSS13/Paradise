@@ -470,9 +470,10 @@
 		H.icon = 'icons/mob/pai.dmi'
 		H.icon_state = "[chassis]_dead"
 		return
-	if(IS_HORIZONTAL(src))
+	if(resting)
 		icon_state = "[chassis]"
-		stand_up()
+		resting = FALSE
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'

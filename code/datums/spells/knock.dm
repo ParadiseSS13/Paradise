@@ -49,6 +49,8 @@
 	cooldown_min = 200
 	var/used = FALSE
 
+	action_icon_state = "greater_knock"
+
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	return T
@@ -60,7 +62,12 @@
 			if(is_station_level(A.z))
 				A.req_access = list()
 				A.req_one_access = list()
-		GLOB.command_announcement.Announce("We have removed all access requirements on your station's airlocks. You can thank us later!", "Greetings!", 'sound/misc/notice2.ogg', , , "Space Wizard Federation Message")
+		GLOB.command_announcement.Announce(
+			message = "We have removed all access requirements on your station's airlocks. You can thank us later!",
+			new_title = "Greetings!",
+			new_sound = 'sound/misc/notice2.ogg',
+			from = "Space Wizard Federation Message"
+		)
 	else
 		..()
 	return

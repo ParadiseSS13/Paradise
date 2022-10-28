@@ -817,12 +817,12 @@
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(wielded)
-			if(istype(A, /turf/simulated/wall))
+			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(istype(A, /obj/structure) || istype(A, /obj/mecha))
+			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
@@ -910,6 +910,10 @@
 		. += "<span class='notice'>[src] are fully operational!</span>"
 	else
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
+
+/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
+	if(slot == slot_gloves)
+		return TRUE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
 	if(!core)

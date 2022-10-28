@@ -120,6 +120,12 @@
 		ui_action_click()
 	return ..()
 
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened
+	name = "Hardened Anti-drop implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces."
+	origin_tech = "materials=6;programming=5;biotech=5"
+	emp_proof = TRUE
+
 /obj/item/organ/internal/cyberimp/brain/anti_stam
 	name = "CNS Rebooter implant"
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when fatigued. Incompatible with the Neural Jumpstarter."

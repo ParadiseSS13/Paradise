@@ -105,6 +105,7 @@
 	holder = new /obj/item/assembly_holder(get_turf(src))
 	if(holder.attach(A, src, user))
 		to_chat(user, "<span class='notice'>You attach [A] to [src]!</span>")
+		user.put_in_active_hand(holder)
 		return TRUE
 	return FALSE
 

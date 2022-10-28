@@ -96,7 +96,7 @@
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
@@ -352,7 +352,6 @@
 			. += "dispover-unscrewed"
 		if(1)
 			. += "dispover-charge"
-			. += "dispover-panel"
 			underlays += emissive_appearance(icon, "dispover-charge")
 		if(2)
 			. += "dispover-ready"
@@ -482,7 +481,7 @@
 		qdel(H)
 
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
+	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
@@ -556,7 +555,7 @@
 	for(var/atom/movable/AM in D)
 		AM.forceMove(src)
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_DISPOSING, src, D)
-		if(istype(AM, /mob/living/carbon/human))
+		if(ishuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(HAS_TRAIT(H, TRAIT_FAT))		// is a human and fat?
 				has_fat_guy = 1			// set flag on holder
@@ -655,7 +654,7 @@
 
 	// called when player tries to move while in a pipe
 /obj/structure/disposalholder/relaymove(mob/user)
-	if(!istype(user, /mob/living))
+	if(!isliving(user))
 		return
 
 	var/mob/living/U = user
@@ -763,28 +762,17 @@
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
-		update_icon(UPDATE_ICON_STATE)
-		return
-	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
-	update_icon(UPDATE_ICON_STATE)
+	hide(T.intact && !isspaceturf(T) && !T.transparent_floor)	// space and transparent floors never hide pipes
 
 // hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
+// change visibility status
 /obj/structure/disposalpipe/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
-	update_icon(UPDATE_ICON_STATE)
-
-// update actual icon_state depending on visibility
-// if invisible, append "f" to icon_state to show faded version
-// this will be revealed if a T-scanner is used
-// if visible, use regular icon_state
-/obj/structure/disposalpipe/update_icon_state()
-	if(invisibility)
-		icon_state = "[base_icon_state]f"
-	else
-		icon_state = base_icon_state
-
+	if(intact)
+		invisibility = INVISIBILITY_MAXIMUM
+		alpha = 128
+		return
+	invisibility = INVISIBILITY_MINIMUM
+	alpha = 255
 
 // expel the held objects into a turf
 // called when there is a break in the pipe
@@ -801,14 +789,14 @@
 		H.active = FALSE
 		H.forceMove(src)
 		return
-	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
+	if(T.intact && isfloorturf(T)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
 		var/turf_typecache = F.floor_tile
 		if(F.remove_tile(null, TRUE, FALSE))
 			new turf_typecache(T)
 
 	if(direction)		// direction is specified
-		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
+		if(isspaceturf(T)) // if ended in space, then range is unlimited
 			target = get_edge_target_turf(T, direction)
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)
@@ -964,11 +952,18 @@
 		dpdir = dir | turn(dir, -90)
 	update()
 
-
+/obj/structure/disposalpipe/segment/corner
+	icon_state = "pipe-c"
 
 //a three-way junction with dir being the dominant direction
 /obj/structure/disposalpipe/junction
 	icon_state = "pipe-j1"
+
+/obj/structure/disposalpipe/junction/reversed
+	icon_state = "pipe-j2"
+
+/obj/structure/disposalpipe/junction/y
+	icon_state = "pipe-y"
 
 /obj/structure/disposalpipe/junction/Initialize(mapload)
 	. = ..()
@@ -1011,12 +1006,14 @@
 
 //a three-way junction that sorts objects
 /obj/structure/disposalpipe/sortjunction
-
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
+	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
+
+/obj/structure/disposalpipe/sortjunction/reversed
+	icon_state = "pipe-j2s"
 
 /obj/structure/disposalpipe/sortjunction/proc/updatedesc()
 	desc = "An underfloor disposal pipe with a package sorting mechanism."
@@ -1102,6 +1099,9 @@
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
+
+/obj/structure/disposalpipe/wrapsortjunction/reversed
+	icon_state = "pipe-j2s"
 
 /obj/structure/disposalpipe/wrapsortjunction/Initialize(mapload)
 	. = ..()
@@ -1289,7 +1289,7 @@
 	var/active = FALSE
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
-	var/mode = 0
+	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
@@ -1326,22 +1326,16 @@
 				return
 			AM.throw_at(target, 3, 1)
 
+/obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
+	add_fingerprint(user)
 
-/obj/structure/disposaloutlet/attackby(obj/item/I, mob/user, params)
-	if(!I || !user)
-		return
-	src.add_fingerprint(user)
-	if(istype(I, /obj/item/screwdriver))
-		if(mode==0)
-			mode=1
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(mode==1)
-			mode=0
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
+	if(mode == FALSE)
+		to_chat(user, "<span class='notice'>You remove the screws around the power connection</span>.")
+	else if(mode == TRUE)
+		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
+	I.play_tool_sound(src)
+	mode = !mode
+	return TRUE
 
 /obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
 	. = TRUE

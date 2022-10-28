@@ -164,7 +164,7 @@
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(amount, 0, drop_location())
+	smoke.set_up(amount, FALSE, drop_location())
 	smoke.start()
 
 /obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
@@ -280,7 +280,7 @@
 		if(17)
 			//Tator Kit
 			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
-			new /obj/item/storage/box/syndicate(drop_location())
+			new /obj/item/storage/box/syndie_kit/bundle(drop_location())
 			create_smoke(2)
 		if(18)
 			//Captain ID

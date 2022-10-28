@@ -90,7 +90,7 @@
 		to_chat(user, "You have to be at your base to use this.")
 		return FALSE
 	if((world.time - SSticker.round_start_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
-		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make  do with what you have on hand.")
+		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make do with what you have on hand.")
 		return FALSE
 	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		if(S.moved)

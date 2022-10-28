@@ -140,7 +140,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	var/total_heat_capacity = air.heat_capacity()
 	var/partial_heat_capacity = total_heat_capacity*(share_volume/air.volume)
 
-	if(istype(target, /turf/simulated))
+	if(issimulatedturf(target))
 		var/turf/simulated/modeled_location = target
 
 		if(modeled_location.blocks_air)
