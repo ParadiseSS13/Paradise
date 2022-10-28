@@ -759,10 +759,11 @@
 	return P
 
 
-// update the icon_state to reflect hidden status
+// update the icon_state to reflect hidden status and change icon when welded
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
 	hide(T.intact && !isspaceturf(T) && !T.transparent_floor)	// space and transparent floors never hide pipes
+	update_icon(UPDATE_ICON_STATE)
 
 // hide called by levelupdate if turf intact status changes
 // change visibility status
@@ -773,6 +774,10 @@
 		return
 	invisibility = INVISIBILITY_MINIMUM
 	alpha = 255
+
+// makes sure we are using the right icon state when we secure the disposals
+/obj/structure/disposalpipe/update_icon_state()
+	icon_state = base_icon_state
 
 // expel the held objects into a turf
 // called when there is a break in the pipe
