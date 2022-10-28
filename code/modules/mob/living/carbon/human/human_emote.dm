@@ -37,6 +37,14 @@
 	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/crack
+	key = "crack"
+	message = "cracks their knuckles."
+	emote_type = EMOTE_AUDIBLE | EMOTE_SOUND
+	// knuckles.ogg by CGEffex. Shortened and cut.
+	// https://freesound.org/people/CGEffex/sounds/93981/
+	sound = "sound/effects/mob_effects/knuckles.ogg"
+
 /datum/emote/living/carbon/human/cry
 	key = "cry"
 	key_third_person = "cries"
