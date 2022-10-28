@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
 		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
 		"Service" = image('icons/mob/robots.dmi', "serv-radial"))
-	var/list/special_modules = list(
+	var/static/list/special_modules = list(
 		"Combat" = image('icons/mob/robots.dmi', "combat-radial"),
 		"Security" = image('icons/mob/robots.dmi', "combat-radial"),
 		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"))
