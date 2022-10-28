@@ -1219,7 +1219,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			telecrystals normally."
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
-	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 4
 
 /datum/uplink_item/stealthy_tools/agent_card
