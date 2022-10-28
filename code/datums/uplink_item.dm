@@ -886,7 +886,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/cqc
 	name = "CQC Manual"
-	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
+	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. \
+			Changes your unarmed damage to deal non-lethal stamina damage. \
+			Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 13
@@ -1219,6 +1221,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			telecrystals normally."
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 4
 
 /datum/uplink_item/stealthy_tools/agent_card
@@ -1839,7 +1842,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
 	reference = "SYB"
-	item = /obj/item/storage/box/syndicate
+	item = /obj/item/storage/box/syndie_kit/bundle
 	cost = 20
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -1848,7 +1851,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A crate containing 50 telecrystals worth of random syndicate leftovers."
 	reference = "SYSC"
 	cost = 20
-	item = /obj/item/storage/box/syndicate
+	item = /obj/item/storage/box/syndie_kit/bundle
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 50
 

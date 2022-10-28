@@ -8,17 +8,17 @@
 	if(!IS_HORIZONTAL(target) && user != target)
 		target.visible_message("<span class='warning'>[user] kicks [target] back!</span>", \
 							"<span class='userdanger'>[user] kicks you back!</span>")
-		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 25, 1, -1)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		target.throw_at(throw_target, 1, 14, user)
-		target.apply_damage(15, STAMINA)
+		target.apply_damage(25, STAMINA)
 		target.Slowed(5 SECONDS)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
 	else if(IS_HORIZONTAL(target) && user != target)
 		target.visible_message("<span class='warning'>[user] kicks [target]'s head, disorienting [target.p_them()]!</span>", \
 					  		"<span class='userdanger'>[user] kicks your head, disorienting you!</span>")
-		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 25, 1, -1)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		target.throw_at(throw_target, 1, 8, user)
 		target.adjustStaminaLoss(40)

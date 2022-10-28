@@ -89,13 +89,14 @@
 
 /obj/item/flashlight/pen
 	name = "penlight"
-	desc = "A pen-sized light, used by medical staff."
+	desc = "A pen, and a light. Used by medical staff."
 	icon_state = "penlight"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
 	brightness_on = 2
+	var/colour = "blue" // Ink color
 
 /obj/item/flashlight/seclite
 	name = "seclite"
