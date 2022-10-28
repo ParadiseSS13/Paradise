@@ -41,7 +41,7 @@
 	user.hud_used.lingstingdisplay.invisibility = 101
 
 /datum/action/changeling/sting/can_sting(mob/user, mob/target)
-	if(!..() || !iscarbon(target) || !isturf(user.loc) || !get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE))
+	if(!..() || !iscarbon(target) || !isturf(user.loc) || !length(get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE)))
 		return FALSE
 	if(!cling.chosen_sting)
 		to_chat(user, "We haven't prepared our sting yet!")
