@@ -409,6 +409,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_hands_layer()
 	remove_overlay(HANDS_LAYER)
 
+	if(w_uniform?.body_parts_covered & HANDS)
+		return
+
 	var/mutable_appearance/hands_appearance = new()
 	hands_appearance.layer = -HANDS_LAYER
 
@@ -632,6 +635,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)
 	apply_overlay(UNIFORM_LAYER)
+	update_hands_layer()
 
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)

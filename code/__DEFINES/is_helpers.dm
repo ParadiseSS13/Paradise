@@ -22,7 +22,7 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
-#define is_pen(W) (istype(W, /obj/item/pen))
+#define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
 
 #define isstorage(A) (istype(A, /obj/item/storage))
 

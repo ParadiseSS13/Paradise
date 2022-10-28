@@ -60,6 +60,9 @@
 			to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
 			return
 	var/turf/target_turf = get_turf(A)
+	if(get_dist(T, target_turf) > P.shock_range)
+		to_chat(user, "<span class='warning'>The target is too far away.</span>")
+		return
 	target_turf.hotspot_expose(2000, 400)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)
 

@@ -20,21 +20,21 @@
 /obj/item/clothing/under/rank/security/warden/skirt
 	name = "warden's jumpskirt"
 	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders."
-	icon_state = "wardenf"
+	icon_state = "warden_skirt"
 	item_state = "r_suit"
-	item_color = "wardenf"
+	item_color = "warden_skirt"
 
 /obj/item/clothing/under/rank/security/warden/skirt/corporate
-	icon_state = "wardenblackf"
-	item_state = "wardenblackf"
-	item_color = "wardenblackf"
+	icon_state = "warden_corporate_skirt"
+	item_state = "warden_corporate_skirt"
+	item_color = "warden_corporate_skirt"
 
 /obj/item/clothing/under/rank/security/officer
 	name = "security officer's jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "security"
 	item_state = "r_suit"
-	item_color = "secred"
+	item_color = "security"
 
 /obj/item/clothing/under/rank/security/officer/sensor
 	sensor_mode = SENSOR_COORDS
@@ -43,28 +43,29 @@
 /obj/item/clothing/under/rank/security/officer/skirt
 	name = "security officer's jumpskirt"
 	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
-	icon_state = "secredf"
+	icon_state = "security_skirt"
 	item_state = "r_suit"
-	item_color = "secredf"
+	item_color = "security_skirt"
 
 /obj/item/clothing/under/rank/security/officer/skirt/corporate
 	name = "corporate security jumpskirt"
-	icon_state = "secblackf"
-	item_state = "secblackf"
-	item_color = "secblackf"
+	icon_state = "sec_corporate_skirt"
+	item_state = "sec_corporate_skirt"
+	item_color = "sec_corporate_skirt"
 
 /obj/item/clothing/under/rank/security/officer/fancy
 	name = "security dress shirt"
 	desc = "A red dress shirt paired with a pair of black trousers, for the more formal Security Officer."
-	icon_state = "secshirt"
-	item_state = "secshirt"
-	item_color = "secshirt"
+	icon_state = "sec_shirt"
+	item_state = "sec_shirt"
+	item_color = "sec_shirt"
+
 /obj/item/clothing/under/rank/security/officer/skirt/fancy
 	name = "security dress skirt"
 	desc = "A red blouse paired with a black skirt, for the more formal Security Officer."
-	icon_state = "secshirtf"
-	item_state = "secshirtf"
-	item_color = "secshirtf"
+	icon_state = "sec_shirt_skirt"
+	item_state = "sec_shirt_skirt"
+	item_color = "sec_shirt_skirt"
 
 /obj/item/clothing/under/rank/security/officer/dispatch
 	name = "dispatcher's uniform"
@@ -76,9 +77,9 @@
 /obj/item/clothing/under/rank/security/officer/uniform
 	name = "security officer's uniform"
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
-	icon_state = "redshirt2"
+	icon_state = "redshirt" //pants, actually
 	item_state = "r_suit"
-	item_color = "redshirt2"
+	item_color = "redshirt"
 
 /obj/item/clothing/under/rank/security/officer/corporate
 	name = "corporate security jumpsuit"
@@ -109,16 +110,16 @@
 	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	icon_state = "hos"
 	item_state = "r_suit"
-	item_color = "hosred"
+	item_color = "hos"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/security/head_of_security/skirt
 	name = "head of security's jumpskirt"
 	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
-	icon_state = "hosredf"
+	icon_state = "hos_skirt"
 	item_state = "r_suit"
-	item_color = "hosredf"
+	item_color = "hos_skirt"
 
 /obj/item/clothing/under/rank/security/head_of_security/corporate
 	icon_state = "hos_corporate"
@@ -126,16 +127,16 @@
 	item_color = "hos_corporate"
 
 /obj/item/clothing/under/rank/security/head_of_security/skirt/corporate
-	icon_state = "hosblackf"
-	item_state = "hosblackf"
-	item_color = "hosblackf"
+	icon_state = "hos_corporate_skirt"
+	item_state = "hos_corporate_skirt"
+	item_color = "hos_corporate_skirt"
 
 /obj/item/clothing/under/rank/security/formal
 	name = "security suit"
 	desc = "A formal security suit for officers complete with nanotrasen belt buckle."
-	icon_state = "security_formal"
+	icon_state = "sec_formal"
 	item_state = "gy_suit"
-	item_color = "security_formal"
+	item_color = "sec_formal"
 
 /obj/item/clothing/under/rank/security/formal/warden
 	name = "warden's suit"
