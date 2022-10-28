@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 // Now actually set the module and sprites
-	initialise_module(selected_module, selected_sprite, module_sprites)
+	initialize_module(selected_module, selected_sprite, module_sprites)
 
 /**
   * Returns a list of choosable module types, associated with the module icon for the radial menu.
@@ -338,8 +338,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
 		"Service" = image('icons/mob/robots.dmi', "serv-radial"))
 	var/static/list/special_modules = list(
-		"Combat" = image('icons/mob/robots.dmi', "combat-radial"),
-		"Security" = image('icons/mob/robots.dmi', "combat-radial"),
+		"Combat" = image('icons/mob/robots.dmi', "security-radial"),
+		"Security" = image('icons/mob/robots.dmi', "security-radial"),
 		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"))
 
 	if(mmi?.alien)
@@ -447,7 +447,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   * * selected_sprite - The name of the sprite chosen by the player in the previous procs.
   * * module_sprites - The list of sprites possible for the given module. Used to transfer the `icon` and `icon_state` variables to the player.
   */
-/mob/living/silicon/robot/proc/initialise_module(selected_module, selected_sprite, list/module_sprites)
+/mob/living/silicon/robot/proc/initialize_module(selected_module, selected_sprite, list/module_sprites)
 	switch(selected_module)
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
