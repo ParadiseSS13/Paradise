@@ -202,11 +202,13 @@
 
 /obj/item/broken_device
 	name = "broken component"
+	desc = "A component of a robot, broken to the point of being unidentifiable."
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "broken"
 
 /obj/item/robot_parts/robot_component
 	icon = 'icons/obj/robot_component.dmi'
+	desc = "One of the numerous parts required to make a robot work."
 	icon_state = "working"
 	var/brute = 0
 	var/burn = 0
@@ -214,28 +216,32 @@
 
 /obj/item/robot_parts/robot_component/binary_communication_device
 	name = "binary communication device"
+	desc = "A module used for binary communications over encrypted frequencies, commonly used by synthetic robots."
 	icon_state = "binary_translator"
 
 /obj/item/robot_parts/robot_component/actuator
 	name = "actuator"
+	desc = "A modular, hydraulic actuator used by robots for movement and manipulation."
 	icon_state = "actuator"
 
 /obj/item/robot_parts/robot_component/armour
 	name = "armour plating"
+	desc = "A pair of flexible, adaptable armor plates, used to protect the internals of robots."
 	icon_state = "armor_plating"
 
 /obj/item/robot_parts/robot_component/camera
 	name = "camera"
+	desc = "A modified camera module used as a visual receptor for robots and exosuits, also serving as a relay for wireless video feed."
 	icon_state = "camera"
-
-
 
 /obj/item/robot_parts/robot_component/diagnosis_unit
 	name = "diagnosis unit"
+	desc = "An internal computer and sensors used by robots and exosuits to accurately diagnose any system discrepancies on their components."
 	icon_state = "diagnosis_unit"
 
 /obj/item/robot_parts/robot_component/radio
 	name = "radio"
+	desc = "A modular, multi-frequency radio used by robots and exosuits to enable communication systems. Comes with built-in subspace receivers."
 	icon_state = "radio"
 
 //
