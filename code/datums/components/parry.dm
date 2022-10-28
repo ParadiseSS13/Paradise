@@ -37,13 +37,16 @@
 		parryable_attack_types = list(_parryable_attack_types)
 
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
+	SIGNAL_HANDLER
 	if(slot in list(slot_l_hand, slot_r_hand))
 		RegisterSignal(user, COMSIG_LIVING_RESIST, .proc/start_parry)
 
 /datum/component/parry/proc/dropped(datum/source, mob/user)
+	SIGNAL_HANDLER
 	UnregisterSignal(user, COMSIG_LIVING_RESIST)
 
 /datum/component/parry/proc/start_parry(mob/living/L)
+	SIGNAL_HANDLER
 	var/time_since_parry = world.time - time_parried
 	if(time_since_parry < parry_time_out_time + 0.2 SECONDS) // stops spam
 		return
@@ -52,6 +55,7 @@
 	L.do_attack_animation(L, used_item = parent)
 
 /datum/component/parry/proc/attempt_parry(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_type = MELEE_ATTACK)
+	SIGNAL_HANDLER
 	if(!(attack_type in parryable_attack_types))
 		return
 	var/time_since_parry = world.time - time_parried
