@@ -77,8 +77,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	held_pen = new /obj/item/pen(src)
-	RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, .proc/clear_pen)
+	add_pen(new /obj/item/pen(src))
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -221,8 +220,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			to_chat(user, "<span class='notice'>You remove [held_pen] from [src].</span>")
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			user.put_in_hands(held_pen)
-			UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
-			held_pen = null
+			clear_pen()
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
@@ -298,16 +296,20 @@ GLOBAL_LIST_EMPTY(PDAs)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
 		else
 			user.drop_item()
-			C.forceMove(src)
-			held_pen = C
-			RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, .proc/clear_pen)
+			add_pen(C)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
 			cartridge.attackby(C, user, params)
 
+/obj/item/pda/proc/add_pen(obj/item/P)
+	P.forceMove(src)
+	held_pen = P
+	RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, .proc/clear_pen)
+
 /obj/item/pda/proc/clear_pen()
+	UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
 	held_pen = null
 
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
