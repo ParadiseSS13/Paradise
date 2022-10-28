@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   * If the MMI has a xenomorph brain in it ([/obj/item/mmi/var/alien]), then only the "Hunter" module is returned.
   */
 /mob/living/silicon/robot/proc/get_module_types()
-	var/list/standard_modules = list(
+	var/static/list/standard_modules = list(
 		"Engineering" = image('icons/mob/robots.dmi', "engi-radial"),
 		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
 		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
