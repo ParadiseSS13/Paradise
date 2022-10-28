@@ -1,7 +1,6 @@
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Used to access the various cameras networks on the station."
-
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
 	light_color = LIGHT_COLOR_RED
@@ -220,7 +219,7 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
-	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+	circuit = null
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
@@ -232,6 +231,19 @@
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
+
+/obj/machinery/computer/security/telescreen/entertainment/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0 SECONDS))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct()
+
+/obj/machinery/computer/security/telescreen/entertainment/on_deconstruction()
+	. = ..()
+	new /obj/item/mounted/frame/display/entertainment_frame(drop_location())
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"

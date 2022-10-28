@@ -587,8 +587,32 @@
 	name = "Newscaster Frame"
 	id = "newscaster_frame"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 14000, MAT_GLASS = 8000)
-	build_path = /obj/item/mounted/frame/newscaster_frame
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
+	build_path = /obj/item/mounted/frame/display/newscaster_frame
+	category = list("initial", "Construction")
+
+/datum/design/display_frame
+	name = "Status Display Frame"
+	id = "display_frame"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
+	build_path = /obj/item/mounted/frame/display/display_frame
+	category = list("initial", "Construction")
+
+/datum/design/ai_display_frame
+	name = "AI Status Display Frame"
+	id = "ai_display_frame"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
+	build_path = /obj/item/mounted/frame/display/ai_display_frame
+	category = list("initial", "Construction")
+
+/datum/design/entertainment_frame
+	name = "Entertainment Monitor Frame"
+	id = "entertainment_frame"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000)
+	build_path = /obj/item/mounted/frame/display/entertainment_frame
 	category = list("initial", "Construction")
 
 /datum/design/syringe
