@@ -64,7 +64,7 @@
 	if(!istype(user))
 		return
 	to_chat(user, "<span class='danger'>[src] was boobytrapped!</span>")
-	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
+	if(isguardian(spawner))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			add_attack_logs(user, stored_obj, "booby trap defused")

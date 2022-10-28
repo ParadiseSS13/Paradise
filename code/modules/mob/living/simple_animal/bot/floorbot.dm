@@ -219,7 +219,7 @@
 				start_eattile(target)
 			else if(istype(target, /obj/item/stack/sheet/metal))
 				start_maketile(target)
-			else if(istype(target, /turf/) && emagged < 2)
+			else if(isturf(target) && emagged < 2)
 				repair(target)
 			else if(emagged == 2 && isfloorturf(target))
 				var/turf/simulated/floor/F = target
@@ -235,7 +235,7 @@
 			path = list()
 			return
 		if(!length(path))
-			if(!istype(target, /turf/))
+			if(!isturf(target))
 				var/turf/TL = get_turf(target)
 				path = get_path_to(src, TL, 30, id=access_card,simulated_only = 0)
 			else

@@ -692,7 +692,7 @@
 	if(wires.is_cut(WIRE_MOB_AVOIDANCE))	// usually just bumps, but if avoidance disabled knock over mobs
 		var/mob/living/L = obs
 		if(ismob(L))
-			if(istype(L,/mob/living/silicon/robot))
+			if(isrobot(L))
 				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
 			else
 				if(!paicard)
