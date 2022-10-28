@@ -184,9 +184,8 @@
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
 		ejectpai()
-	if(path_hud)
-		QDEL_NULL(path_hud)
-		path_hud = null
+	QDEL_NULL(path_hud)
+	QDEL_NULL(path)
  	GLOB.bots_list -= src
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
