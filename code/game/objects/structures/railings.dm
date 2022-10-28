@@ -61,7 +61,7 @@
 /obj/structure/railing/corner/CanPass()
 	return TRUE
 
-/obj/structure/railing/corner/CanAStarPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/corner/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	return TRUE
 
 /obj/structure/railing/corner/CheckExit()
@@ -86,7 +86,7 @@
 		return density
 	return FALSE
 
-/obj/structure/railing/CanAStarPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(to_dir == dir)
 		return FALSE
 	if(ordinal_direction_check(to_dir))

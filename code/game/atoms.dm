@@ -1159,10 +1159,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /*
 	Checks whether this atom can traverse the destination object when used as source for AStar.
-	This should only be used as an override to /obj/proc/CanAStarPass. Aka don't use this unless you can't change the object's proc.
+	This should only be used as an override to /obj/proc/CanPathfindPass. Aka don't use this unless you can't change the object's proc.
 	Returning TRUE here will override the above proc's result.
 */
-/atom/proc/CanAStarPassTo(ID, dir, obj/destination)
+/atom/proc/CanPathfindPassTo(ID, dir, obj/destination)
 	return FALSE
 
 /** Call this when you want to present a renaming prompt to the user.
@@ -1281,7 +1281,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * caller- The movable we're checking pass flags for, if we're making any such checks
  * * no_id: When true, doors with public access will count as impassible
  **/
-/atom/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/atom/proc/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	if(caller && (caller.pass_flags & pass_flags_self))
 		return TRUE
 	. = !density

@@ -559,7 +559,7 @@
 		return FALSE
 	return ..(mover, target, height)
 
-/obj/machinery/shieldwall/syndicate/CanAStarPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(isliving(caller))
 		var/mob/living/M = caller
 		if("syndicate" in M.faction)

@@ -80,7 +80,7 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/mob/living/simple_animal/bot/mulebot/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
+/mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
 	return FALSE
 
 /mob/living/simple_animal/bot/mulebot/can_buckle()

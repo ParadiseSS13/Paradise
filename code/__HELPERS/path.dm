@@ -180,6 +180,9 @@
 			path.Swap(i, length(path) - i + 1)
 
 	sources = null
+	for(var/I in open.L)
+		qdel(I)
+	open.L = null
 	qdel(open)
 
 	if(diagonal_safety)
@@ -398,36 +401,36 @@
 			if(destination_turf.density)
 				return TRUE
 		if(TURF_PATHING_PASS_PROC)
-			if(!destination_turf.CanAStarPass(ID, actual_dir, caller, no_id = no_id))
+			if(!destination_turf.CanPathfindPass(ID, actual_dir, caller, no_id = no_id))
 				return TRUE
 		if(TURF_PATHING_PASS_NO)
 			return TRUE
 
 	// Source border object checks
 	for(var/obj/structure/window/iter_window in src)
-		if(!iter_window.CanAStarPass(ID, actual_dir, no_id = no_id))
+		if(!iter_window.CanPathfindPass(ID, actual_dir, no_id = no_id))
 			return TRUE
 
 	for(var/obj/machinery/door/window/iter_windoor in src)
-		if(!iter_windoor.CanAStarPass(ID, actual_dir, no_id = no_id))
+		if(!iter_windoor.CanPathfindPass(ID, actual_dir, no_id = no_id))
 			return TRUE
 
 	for(var/obj/structure/railing/iter_rail in src)
-		if(!iter_rail.CanAStarPass(ID, actual_dir, no_id = no_id))
+		if(!iter_rail.CanPathfindPass(ID, actual_dir, no_id = no_id))
 			return TRUE
 
 	for(var/obj/machinery/door/firedoor/border_only/firedoor in src)
-		if(!firedoor.CanAStarPass(ID, actual_dir, no_id = no_id))
+		if(!firedoor.CanPathfindPass(ID, actual_dir, no_id = no_id))
 			return TRUE
 
 	// Destination blockers check
 	var/reverse_dir = get_dir(destination_turf, src)
 	for(var/obj/iter_object in destination_turf)
-		if(!iter_object.CanAStarPass(ID, reverse_dir, caller, no_id = no_id))
+		if(!iter_object.CanPathfindPass(ID, reverse_dir, caller, no_id = no_id))
 			return TRUE
 	
 	for(var/mob/living/iter_mob in destination_turf)
-		if(!iter_mob.CanAStarPass(ID, reverse_dir, caller, no_id = no_id))
+		if(!iter_mob.CanPathfindPass(ID, reverse_dir, caller, no_id = no_id))
 			return TRUE
 
 	return FALSE

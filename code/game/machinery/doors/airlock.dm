@@ -1319,7 +1319,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	update_icon()
 	return 1
 
-/obj/machinery/door/airlock/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/machinery/door/airlock/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 //Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
 	return !density || (check_access(ID) && !locked && !welded && arePowerSystemsOn() && !no_id)
 
