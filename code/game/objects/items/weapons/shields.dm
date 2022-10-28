@@ -78,7 +78,7 @@
 	attack_verb = list("shoved", "bashed")
 	var/active = FALSE
 
-/obj/item/shield/riot/buckler/add_parry_component()
+/obj/item/shield/energy/add_parry_component()
 	return
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
