@@ -45,7 +45,7 @@
 		return
 
 	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
-		L.rad_act(20)
+		L.rad_act(400)
 		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			return
 		randmuti(H) // Applies bad mutation
