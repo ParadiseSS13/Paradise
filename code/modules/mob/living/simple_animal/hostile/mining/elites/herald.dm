@@ -28,6 +28,7 @@
 	health = 1000
 	melee_damage_lower = 20
 	melee_damage_upper = 20
+	armour_penetration_percentage = 50
 	light_power = 5
 	light_range = 2
 	light_color = "#FF0000"
@@ -151,7 +152,7 @@
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
 	say("Pray")
-	SLEEP_CHECK_DEATH(0.75 SECONDS)// no point blank instant shotgun.
+	SLEEP_CHECK_DEATH(0.5 SECONDS)// no point blank instant shotgun.
 	shoot_projectile(target_turf, angle_to_target, FALSE, TRUE)
 	addtimer(CALLBACK(src, .proc/shoot_projectile, target_turf, angle_to_target, FALSE, TRUE), 0.2 SECONDS)
 	if(health < maxHealth * 0.5 && !is_mirror)
