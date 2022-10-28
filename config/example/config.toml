@@ -269,7 +269,6 @@ away_mission_delay = 0
 # List of all enabled away missions. Comment out an entry to disable it.
 enabled_away_missions = [
 	"_maps/map_files/RandomZLevels/beach.dmm",
-	"_maps/map_files/RandomZLevels/centcomAway.dmm",
 	#"_maps/map_files/RandomZLevels/evil_santa.dmm",			# Special christmas mission. Enable for festivities
 	#"_maps/map_files/RandomZLevels/example.dmm",				# Example file. Do not enable.
 ]
@@ -814,8 +813,7 @@ prevent_dead_voting = false
 disable_default_vote = true
 # Enable voting for a map on end round
 enable_map_voting = false
-# Set to true to prevent the same map from being voted on twice in a row
-non_repeating_maps = true
+
 
 ################################################################
 

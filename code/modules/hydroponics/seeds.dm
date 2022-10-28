@@ -327,7 +327,7 @@
 			to_chat(user, "<span class='notice'>[text]</span>")
 
 		return
-	if(istype(O, /obj/item/pen))
+	if(is_pen(O))
 		variant_prompt(user)
 		return
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up

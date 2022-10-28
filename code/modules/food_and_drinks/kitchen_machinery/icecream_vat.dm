@@ -2,10 +2,10 @@
 //Code made by Sawu at Sawu-Station.
 
 /obj/machinery/icemachine
-	name = "cream-master deluxe"
+	name = "\improper Cream-Master Deluxe"
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/kitchen.dmi'
+	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "icecream_vat"
 	use_power = IDLE_POWER_USE
 	max_integrity = 300

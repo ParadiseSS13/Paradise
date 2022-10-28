@@ -6,14 +6,12 @@
 /obj/item/grenade/chem_grenade/dirt/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/list/muck = list("blood","carbon","flour")
-	var/filth = pick(muck)
-	muck -= filth
+	var/list/muck = list("blood","carbon","flour","radium")
+	var/filth = pick(muck - "radium") // not usually radioactive
 
-	B1.reagents.add_reagent(filth, 25)
+	B1.reagents.add_reagent(filth,25)
 	if(prob(25))
-		muck += "radium"
-		B1.reagents.add_reagent(pick(muck), 25)
+		B1.reagents.add_reagent(pick(muck - filth,25)) // but sometimes...
 
 	beakers += B1
 

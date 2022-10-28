@@ -37,6 +37,9 @@
 				return
 			SSmentor_tickets.showDetailUI(usr, ticketID)
 
+	if(href_list["stickyban"])
+		stickyban(href_list["stickyban"],href_list)
+
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
 			if("1")
@@ -1138,7 +1141,7 @@
 			return
 
 		M.loc = prison_cell
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
@@ -1347,9 +1350,9 @@
 				I.plane = initial(I.plane)
 				I.dropped(M)
 
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit(observer), slot_w_uniform)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
 		if(isliving(M))
 			var/mob/living/L = M
@@ -2196,21 +2199,21 @@
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><br><br><br><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><br><br><br><font size='4'>NAS Trurl Communications Department Report</font></center><br><br>"
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
 		if(stype == "Handle it yourselves!")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<br><br><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Illegible fax")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<br><br>Please consult your nearest dictionary and/or thesaurus and try again.<br><br><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<BR><BR>Please consult your nearest dictionary and/or thesaurus and try again.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Fax not signed")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Your fax has not been correctly signed and, as such, we cannot verify your identity.<br><br>Please sign your faxes before sending them so that we may verify your identity.<br><br><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax has not been correctly signed and, as such, we cannot verify your identity.<BR><BR>Please sign your faxes before sending them so that we may verify your identity.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Not Right Now")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<br><br>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<br><br>Please try again later.<br><br><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<BR><BR>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<BR><BR>Please try again later.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "You are wasting our time")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<br><br>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of professionalism. Do not test our patience.<br><br><i><small>This is an automatic message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<BR><BR>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of profesionalism. Do not test our patience.<BR><BR><i><small>This is an automatic message.</i></small>"
 		else if(stype == "Keep up the good work")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<br><br>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<br><br><i><small>This is absolutely not an automated message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<BR><BR>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<BR><BR><i><small>This is absolutely not an automated message.</i></small>"
 		else if(stype == "ERT Instructions")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Please utilize the Card Swipers if you wish to call for an ERT.<br><br><i><small>This is an automated message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please utilize the Card Swipers if you wish to call for an ERT.<BR><BR><i><small>This is an automated message.</i></small>"
 		else
 			return
 		tmsg += "</font>"
@@ -2667,7 +2670,7 @@
 								if(istype(O,/mob))
 									var/mob/M = O
 									M.real_name = obj_name
-							if(where == "inhand" && isliving(usr) && istype(O, /obj/item))
+							if(where == "inhand" && isliving(usr) && isitem(O))
 								var/mob/living/L = usr
 								var/obj/item/I = O
 								L.put_in_hands(I)
@@ -2972,7 +2975,7 @@
 			if("fakeguns")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
-					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
+					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
 					W.icon = 'icons/obj/guns/projectile.dmi'
 					W.icon_state = "revolver"

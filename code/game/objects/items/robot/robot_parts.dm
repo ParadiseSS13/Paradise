@@ -23,8 +23,6 @@
 	else
 		name = "robot [initial(name)]"
 
-	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
-
 /obj/item/robot_parts/attack_self(mob/user)
 	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
 	if(!choice)
@@ -320,7 +318,7 @@
 		else
 			to_chat(user, "<span class='warning'>The MMI must go in after everything else!</span>")
 
-	if(istype(W,/obj/item/pen))
+	if(is_pen(W))
 		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")
 	return
 

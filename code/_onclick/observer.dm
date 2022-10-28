@@ -59,8 +59,7 @@
 	examinate(A)
 
 /atom/proc/attack_ghost(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
-		return TRUE
+	return
 
 // health + cyborg analyzer for ghosts
 /mob/living/attack_ghost(mob/dead/observer/user)
@@ -71,7 +70,6 @@
 			robot_healthscan(user, src)
 		else if(ishuman(src))
 			healthscan(user, src, 1, TRUE)
-	return ..()
 
 // ---------------------------------------
 // And here are some good things for free:

@@ -11,7 +11,7 @@
 		if(2)
 			new /obj/item/clothing/suit/apron/overalls(src)
 	new /obj/item/storage/bag/plants/portaseeder(src)
-	new /obj/item/clothing/under/rank/hydroponics(src)
+	new /obj/item/clothing/under/rank/civilian/hydroponics(src)
 	new /obj/item/plant_analyzer(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/mask/bandana/botany(src)

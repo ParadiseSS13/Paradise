@@ -35,8 +35,6 @@
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
-	/// Icon state for thought bubbles. Normally set by mobs.
-	var/thought_bubble_image = "thought_bubble"
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -148,8 +146,6 @@
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
 			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
-		return FALSE
-	if(user in buckled_mobs)
 		return FALSE
 	return TRUE
 

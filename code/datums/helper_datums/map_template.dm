@@ -72,7 +72,7 @@
 	if(mapfile)
 		. = mapfile
 	else if(mappath)
-		. = wrap_file(mappath)
+		. = file(mappath)
 
 	if(!.)
 		stack_trace("  The file of [src] appears to be empty/non-existent.")

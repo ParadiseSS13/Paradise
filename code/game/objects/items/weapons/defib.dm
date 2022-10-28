@@ -98,15 +98,20 @@
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 
-	if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
-
 	update_icon(UPDATE_OVERLAYS)
 	return
+
+/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
+	if(!cell)
+		to_chat(user, "<span class='notice'>[src] doesn't have a cell.</span>")
+		return
+
+	cell.update_icon()
+	cell.forceMove(get_turf(loc))
+	cell = null
+	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
+	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/defibrillator/emag_act(user as mob)
 	if(safety)
@@ -404,10 +409,7 @@
 			var/total_burn	= 0
 			var/total_brute	= 0
 
-			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_PRE_DEFIB, user, defib, ghost)
-
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
-				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, defib, ghost)
 				for(var/obj/item/carried_item in H.contents)
 					if(istype(carried_item, /obj/item/clothing/suit/space))
 						if(!defib.combat)
@@ -416,9 +418,6 @@
 							busy = FALSE
 							update_icon(UPDATE_ICON_STATE)
 							return
-				if(signal_result & COMPONENT_DEFIB_OVERRIDE)
-					// let our signal handle it
-					return
 				if(H.undergoing_cardiac_arrest())
 					if(!H.get_int_organ(/obj/item/organ/internal/heart) && !H.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 						user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
@@ -456,7 +455,7 @@
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
 					ghost = H.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)) && !(signal_result & COMPONENT_BLOCK_DEFIB))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)))
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -488,6 +487,7 @@
 						H.med_hud_set_status()
 						defib.deductcharge(revivecost)
 						add_attack_logs(user, M, "Revived with [src]")
+						SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 					else
 						if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
@@ -499,7 +499,7 @@
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient blood volume critically low.</span>")
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
-								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: No electrical brain activity detected.</span>")
+								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resucitation failed: No electrical brain activity detected.</span>")
 							else
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 						else
@@ -599,10 +599,7 @@
 			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 			var/total_burn	= 0
 			var/total_brute	= 0
-
-			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_PRE_DEFIB, user, src, ghost)
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
-				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, src, ghost)
 				if(H.stat == DEAD)
 					var/health = H.health
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
@@ -611,7 +608,7 @@
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !(signal_result & COMPONENT_BLOCK_DEFIB))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK))
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -627,11 +624,11 @@
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 						SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
-						SEND_SIGNAL(H, COMSIG_LIVING_DEFIBBED, user, src)
 						if(isrobot(user))
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)
 						add_attack_logs(user, M, "Revived with [src]")
+						SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 					else
 						if(tplus > tlimit)
 							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")

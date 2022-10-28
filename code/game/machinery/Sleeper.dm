@@ -12,6 +12,7 @@
 	density = TRUE
 	anchored = TRUE
 	dir = WEST
+	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/emergency_chems = list("ephedrine") // Desnowflaking
@@ -382,8 +383,12 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-
-	setDir(turn(dir, -90))
+	if(dir == EAST)
+		orient = "LEFT"
+		setDir(WEST)
+	else
+		orient = "RIGHT"
+		setDir(EAST)
 
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)

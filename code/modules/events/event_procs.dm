@@ -19,29 +19,47 @@
 	return
 
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
-	var/list/safe_areas = typecacheof(list(
+	var/area/candidate = null
+
+	var/list/safe_areas = list(
 	/area/turret_protected/ai,
 	/area/turret_protected/ai_upload,
 	/area/engine,
 	/area/solar,
 	/area/holodeck,
-	/area/shuttle,
-	/area/maintenance,
-	/area/toxins/test_area))
+	/area/shuttle/arrival,
+	/area/shuttle/escape,
+	/area/shuttle/escape_pod1/station,
+	/area/shuttle/escape_pod2/station,
+	/area/shuttle/escape_pod3/station,
+	/area/shuttle/escape_pod5/station,
+	/area/shuttle/specops/station,
+	/area/shuttle/prison/station,
+	/area/shuttle/administration/station
+	)
 
 	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
 	var/list/danger_areas = list(
 	/area/engine/break_room,
-	/area/engine/equipmentstorage,
-	/area/engine/chiefs_office,
-	/area/engine/controlroom)
+	/area/engine/chiefs_office)
 
-	var/list/allowed_areas = list()
+	var/list/event_areas = list()
 
-	allowed_areas = typecacheof(GLOB.the_station_areas) - safe_areas + danger_areas
-	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, allowed_areas)
+	for(var/areapath in GLOB.the_station_areas)
+		event_areas += typesof(areapath)
+	for(var/areapath in safe_areas)
+		event_areas -= typesof(areapath)
+	for(var/areapath in danger_areas)
+		event_areas += typesof(areapath)
 
-	return pick(possible_areas)
+	while(event_areas.len > 0)
+		var/list/event_turfs = null
+		candidate = locate(pick_n_take(event_areas))
+		event_turfs = get_area_turfs(candidate)
+		if(event_turfs.len > 0)
+			break
+
+	return candidate
 
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.

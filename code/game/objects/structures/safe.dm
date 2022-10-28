@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(..())
 		return TRUE
 
-	if(drill && !broken)
+	if(drill)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
@@ -155,7 +155,6 @@ GLOBAL_LIST_EMPTY(safes)
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
-					cut_overlay(progress_bar)
 					update_icon()
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
@@ -167,10 +166,6 @@ GLOBAL_LIST_EMPTY(safes)
 					update_icon()
 			if("Cancel")
 				return
-	else if(drill && broken)
-		user.put_in_hands(drill)
-		drill = null
-		update_icon()
 	else
 		ui_interact(user)
 
@@ -351,11 +346,9 @@ GLOBAL_LIST_EMPTY(safes)
 	broken = TRUE
 	drill_timer = null
 	drill.soundloop.stop()
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	cut_overlay(progress_bar)
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
-	
+
 /**
   * # Floor Safe
   *

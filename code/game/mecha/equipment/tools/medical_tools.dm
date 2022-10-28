@@ -281,7 +281,7 @@
 		return
 	if(istype(target,/obj/item/reagent_containers/syringe))
 		return load_syringe(target)
-	if(istype(target,/obj/item/storage))//Loads syringes from boxes
+	if(isstorage(target))//Loads syringes from boxes
 		for(var/obj/item/reagent_containers/syringe/S in target.contents)
 			load_syringe(S)
 		return
@@ -516,7 +516,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
 	if(!action_checks(target))
 		return
-	if(istype(target, /obj))
+	if(isobj(target))
 		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
 			return
 		var/obj/machinery/door/D = target	//the door we want to open

@@ -49,12 +49,13 @@
 	gloves = /obj/item/clothing/gloves/combat
 	r_ear = /obj/item/radio/headset/syndicate/alt/nocommon // See del_types above
 	back = /obj/item/storage/backpack
-	belt = /obj/item/storage/belt/utility/syndi_researcher
+	belt = /obj/item/storage/belt/utility/full/multitool
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/researcher
+	implants = list(/obj/item/implant/weapons_auth)
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m10mm = 1,
-		/obj/item/flashlight/seclite = 1,
+		/obj/item/flashlight = 1,
 		/obj/item/clothing/mask/gas/syndicate = 1,
 		/obj/item/tank/internals/emergency_oxygen/engi/syndi = 1
 	)

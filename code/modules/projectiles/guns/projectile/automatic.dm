@@ -289,7 +289,7 @@
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
-		if(istype(loc, /obj/item/storage))	// To prevent inventory exploits
+		if(isstorage(loc))	// To prevent inventory exploits
 			var/obj/item/storage/Strg = loc
 			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
 				to_chat(user, "<span class='warning'>You can't reload [src], with a XL mag, while it's in a normal bag.</span>")

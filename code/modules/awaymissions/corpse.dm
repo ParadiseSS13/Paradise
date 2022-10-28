@@ -155,7 +155,7 @@
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
-	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Nian")
+	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -214,6 +214,8 @@
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
 		H.set_species(mob_species)
+	if(random)
+		H.real_name = random_name(H.gender, H.dna.species)
 
 	if(husk)
 		H.Drain()
@@ -253,8 +255,7 @@
 		H.equipOutfit(outfit)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
-			if(I)
-				qdel(I)
+			qdel(I)
 
 		if(disable_pda)
 			// We don't want corpse PDAs to show up in the messenger list.
@@ -384,7 +385,7 @@
 /datum/outfit/job/engineer/suit
 	name = "Station Engineer"
 
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	shoes = /obj/item/clothing/shoes/workboots
@@ -424,7 +425,7 @@
 
 /datum/outfit/clownsoldier
 	name = "Clown Soldier"
-	uniform = /obj/item/clothing/under/soldieruniform
+	uniform = /obj/item/clothing/under/costume/soldieruniform
 	suit = /obj/item/clothing/suit/soldiercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	l_ear = /obj/item/radio/headset
@@ -435,7 +436,7 @@
 
 /datum/outfit/clownofficer
 	name = "Clown Officer"
-	uniform = /obj/item/clothing/under/officeruniform
+	uniform = /obj/item/clothing/under/costume/officeruniform
 	suit = /obj/item/clothing/suit/officercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	l_ear = /obj/item/radio/headset
@@ -469,7 +470,7 @@
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	uniform = /obj/item/clothing/under/rank/miner
+	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
@@ -506,11 +507,11 @@
 	mob_gender = "female"
 	name = "lifeguard sleeper"
 	id_job = "Lifeguard"
-	uniform = /obj/item/clothing/under/shorts/red
+	uniform = /obj/item/clothing/under/pants/shorts/red
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/black
@@ -537,7 +538,7 @@
 /datum/outfit/beachbum
 	name = "Beach Bum"
 	glasses = /obj/item/clothing/glasses/sunglasses
-	uniform = /obj/item/clothing/under/shorts/red
+	uniform = /obj/item/clothing/under/pants/shorts/red
 
 /////////////////Spooky Undead//////////////////////
 
@@ -568,7 +569,7 @@
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
 	l_ear = /obj/item/radio/headset/heads/hop
-	uniform = /obj/item/clothing/under/rank/centcom_officer
+	uniform = /obj/item/clothing/under/rank/centcom
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/black
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -624,7 +625,7 @@
 
 /datum/outfit/cryobartender
 	name = "Cryogenic Bartender"
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/black
 	suit = /obj/item/clothing/suit/armor/vest

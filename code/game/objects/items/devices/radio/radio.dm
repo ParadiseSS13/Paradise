@@ -118,13 +118,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return interact(user)
 
 /obj/item/radio/attack_self(mob/user)
-	ui_interact(user)
+	interact(user)
 
 /obj/item/radio/interact(mob/user)
 	if(!user)
 		return 0
 	if(b_stat)
 		wires.Interact(user)
+		return
 	ui_interact(user)
 
 /obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -464,9 +465,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			// Simulate two seconds of lag
 			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
 		else
-			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not, on all z levels
-			for(var/z in 1 to world.maxz)
-				tcm.zlevels |= z
+			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
 			qdel(tcm) // Delete the message datum
 		return TRUE

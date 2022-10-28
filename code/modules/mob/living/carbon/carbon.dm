@@ -61,7 +61,7 @@
 			if(I && I.force)
 				var/d = rand(round(I.force / 4), I.force)
 
-				if(istype(src, /mob/living/carbon/human))
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					var/obj/item/organ/external/organ = H.get_organ("chest")
 					if(istype(organ))
@@ -93,6 +93,10 @@
 	if(is_muzzled())
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
+		return FALSE
+	if(is_facehugged())
+		if(message)
+			to_chat(src, "<span class='warning'>You try to throw up, but the alien's proboscis obstructs your throat!</span>") //Sorry
 		return FALSE
 	if(stun)
 		Stun(8 SECONDS)
@@ -454,8 +458,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/contortionist))//IMMA SPCHUL SNOWFLAKE
-			var/obj/item/clothing/under/contortionist/C = H.w_uniform
+		if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist))//IMMA SPCHUL SNOWFLAKE
+			var/obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/C = H.w_uniform
 			if(!C.check_clothing(src))//return values confuse me right now
 				return
 
@@ -544,7 +548,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return
 
 /mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
-	if(pipes_shown.len && !(target_move))
+	if(!client) 
+		pipes_shown.Cut()
+		return
+	if(length(pipes_shown) && !target_move)
 		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
@@ -564,7 +571,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/atom/movable/AM = hit_atom
 			var/atom/throw_target = get_edge_target_turf(AM, dir)
 			if(!AM.anchored || ismecha(AM))
-				AM.throw_at(throw_target, 3, 14, src)
+				AM.throw_at(throw_target, 5, 12, src)
 				hit_something = TRUE
 		if(isobj(hit_atom))
 			var/obj/O = hit_atom
@@ -573,7 +580,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom
 			L.adjustBruteLoss(60)
-			L.Weaken(6 SECONDS)
+			L.KnockDown(12 SECONDS)
+			L.Confused(10 SECONDS)
 			shake_camera(L, 4, 3)
 			hit_something = TRUE
 		if(isturf(hit_atom))
@@ -703,7 +711,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		back = null
 		update_inv_back()
 	else if(I == wear_mask)
-		if(istype(src, /mob/living/carbon/human)) //If we don't do this hair won't be properly rebuilt.
+		if(ishuman(src)) //If we don't do this hair won't be properly rebuilt.
 			return
 		wear_mask = null
 		update_inv_wear_mask()
@@ -846,6 +854,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/is_muzzled()
 	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
+
+/mob/living/carbon/is_facehugged()
+	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
 
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, .proc/resist_muzzle)
@@ -1059,7 +1070,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return FALSE
 
 	if(!(slipAny))
-		if(istype(src, /mob/living/carbon/human))
+		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
 				return FALSE
@@ -1086,7 +1097,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
-			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
+			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
 		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
@@ -1220,7 +1231,7 @@ so that different stomachs can handle things in different ways VB*/
 
 //handle stuff to update when a mob equips/unequips a headgear.
 /mob/living/carbon/proc/head_update(obj/item/I, forced)
-	if(istype(I, /obj/item/clothing))
+	if(isclothing(I))
 		var/obj/item/clothing/C = I
 		if(C.tint || initial(C.tint))
 			update_tint()

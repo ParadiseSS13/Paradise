@@ -471,16 +471,6 @@ DEFINE_BITFIELD(smoothing_junction, list(
 		else
 			return NONE
 
-
-//Example smooth wall
-/turf/simulated/wall/smooth
-	name = "smooth wall"
-	icon = 'icons/turf/smooth_wall.dmi'
-	icon_state = "smooth"
-	smoothing_flags = SMOOTH_CORNERS|SMOOTH_DIAGONAL_CORNERS|SMOOTH_BORDER
-	smoothing_groups = null
-	canSmoothWith = null
-
 #undef NORTH_JUNCTION
 #undef SOUTH_JUNCTION
 #undef EAST_JUNCTION

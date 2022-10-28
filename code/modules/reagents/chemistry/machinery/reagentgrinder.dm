@@ -52,7 +52,8 @@
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/slime_extract = list(),
-		/obj/item/reagent_containers/food = list()
+		/obj/item/reagent_containers/food = list(),
+		/obj/item/reagent_containers/honeycomb = list()
 	)
 
 	var/list/juice_items = list (
@@ -72,7 +73,7 @@
 		/obj/item/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/berries/poison = list("poisonberryjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/pumpkin = list("pumpkinjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/blumpkin = list("blumpkinjuice" = 0),
+		/obj/item/reagent_containers/food/snacks/grown/pumpkin/blumpkin = list("blumpkinjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),

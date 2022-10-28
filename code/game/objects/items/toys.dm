@@ -169,7 +169,7 @@
 		item_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
 
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()

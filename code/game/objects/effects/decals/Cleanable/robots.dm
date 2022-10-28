@@ -13,7 +13,7 @@
 
 /obj/effect/decal/cleanable/blood/gibs/robot/update_icon()
 	color = "#FFFFFF"
-	. = ..()
+	. = ..(NONE)
 
 /obj/effect/decal/cleanable/blood/gibs/robot/dry()	//pieces of robots do not dry up like
 	return
@@ -55,6 +55,12 @@
 
 /obj/effect/decal/cleanable/blood/oil/dry()
 	return
+
+/obj/effect/decal/cleanable/blood/oil/cooking
+	name = "cooking oil"
+	desc = "It's yellow and greasy. You should dump this down the sink while it's still hot."
+	basecolor = "#fbba16"
+	bloodiness = 0
 
 /obj/effect/decal/cleanable/blood/oil/streak
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")

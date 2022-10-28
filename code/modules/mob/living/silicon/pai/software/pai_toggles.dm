@@ -8,8 +8,6 @@
 
 /datum/pai_software/sec_hud/toggle(mob/living/silicon/pai/user)
 	user.secHUD = !user.secHUD
-	user.medHUD = FALSE
-	user.dHUD = FALSE
 	user.remove_med_sec_hud()
 	if(user.secHUD)
 		user.add_sec_hud()
@@ -27,32 +25,12 @@
 
 /datum/pai_software/med_hud/toggle(mob/living/silicon/pai/user)
 	user.medHUD = !user.medHUD
-	user.secHUD = FALSE
-	user.dHUD = FALSE
 	user.remove_med_sec_hud()
 	if(user.medHUD)
 		user.add_med_hud()
 
 /datum/pai_software/med_hud/is_active(mob/living/silicon/pai/user)
 	return user.medHUD
-
-/datum/pai_software/d_hud
-	name = "Diagnostic HUD"
-	ram_cost = 20
-	id = "d_hud"
-	ui_icon = "bolt"
-	toggle_software = TRUE
-
-/datum/pai_software/d_hud/toggle(mob/living/silicon/pai/user)
-	user.dHUD = !user.dHUD
-	user.secHUD = FALSE
-	user.medHUD = FALSE
-	user.remove_med_sec_hud()
-	if(user.dHUD)
-		user.add_diag_hud()
-
-/datum/pai_software/d_hud/is_active(mob/living/silicon/pai/user)
-	return user.dHUD
 
 // Universal Translator //
 /datum/pai_software/translator

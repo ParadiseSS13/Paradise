@@ -33,6 +33,7 @@
 	var/elimination = FALSE
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
+	var/internal_type
 	var/recovery_time = 0
 	var/true_spawn = TRUE // if this is a megafauna that should grant achievements, or have a gps signal
 	var/nest_range = 10
@@ -41,8 +42,8 @@
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
-	if(internal_gps && true_spawn)
-		internal_gps = new internal_gps(src)
+	if(internal_type && true_spawn)
+		internal = new internal_type(src)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
@@ -150,7 +151,7 @@
 	var/chosen_attack_num = 0
 
 /datum/action/innate/megafauna_attack/Grant(mob/living/L)
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+	if(ismegafauna(L))
 		M = L
 		return ..()
 	return FALSE

@@ -9,6 +9,7 @@
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 
+
 /obj/item/aicard/afterattack(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)
@@ -23,35 +24,28 @@
 
 /obj/item/aicard/proc/update_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
-	update_icon(UPDATE_OVERLAYS)
 	if(AI)
 		name = "intelliCard - [AI.name]"
+		if(AI.stat == DEAD)
+			icon_state = "aicard-404"
+		else
+			icon_state = "aicard-full"
 		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
 	else
+		icon_state = "aicard"
 		name = "intelliCard"
-
-/obj/item/aicard/update_overlays()
-	. = ..()
-	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
-	if(AI)
-		var/list/aicard_icon_state_names = icon_states(icon)
-		var/aicard_new_display = AI.icon_state
-
-		if(aicard_new_display in aicard_icon_state_names)
-			. += aicard_new_display
-		else if(AI.stat == DEAD)
-			. += "ai_dead"
-		else
-			. += "ai"
+		overlays.Cut()
 
 /obj/item/aicard/attack_self(mob/user)
 	ui_interact(user)
+
 
 /obj/item/aicard/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AICard", "[name]", 600, 394,  master_ui, state)
 		ui.open()
+
 
 /obj/item/aicard/ui_data(mob/user)
 	var/list/data = list()
@@ -79,6 +73,7 @@
 		data["has_ai"] = FALSE // If this isn't passed to tgui, it won't show there isn't a AI in the card.
 
 	return data
+
 
 /obj/item/aicard/ui_act(action, params)
 	if(..())

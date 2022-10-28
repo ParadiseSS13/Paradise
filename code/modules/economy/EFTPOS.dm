@@ -3,7 +3,6 @@
 	desc = "Swipe your ID card to make purchases electronically."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "eftpos"
-	w_class = WEIGHT_CLASS_SMALL
 	var/machine_name = ""
 	var/transaction_locked = 0
 	var/transaction_paid = 0
@@ -40,7 +39,7 @@
 	R.overlays += stampoverlay
 	R.stamps += "<HR><i>This paper has been stamped by the EFTPOS device.</i>"
 	var/obj/item/smallDelivery/D = new(get_turf(loc))
-	if(istype(loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.back)
 			D.forceMove(H.back)

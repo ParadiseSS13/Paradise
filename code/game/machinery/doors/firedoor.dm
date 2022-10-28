@@ -85,21 +85,7 @@
 		latetoggle()
 	else
 		stat |= NOPOWER
-	adjust_light()
 	update_icon()
-
-/obj/machinery/door/firedoor/proc/adjust_light()
-	if(stat & (NOPOWER|BROKEN))
-		set_light(0)
-		return
-	if(active_alarm)
-		set_light(1, 0.5, COLOR_RED_LIGHT)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-
-/obj/machinery/door/firedoor/extinguish_light()
-	set_light(0)
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)
 	if(operating || !density)
@@ -182,7 +168,7 @@
 	else
 		WELDER_WELD_SUCCESS_MESSAGE
 	welded = !welded
-	update_icon(UPDATE_OVERLAYS)
+	update_icon()
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
@@ -223,23 +209,20 @@
 
 /obj/machinery/door/firedoor/update_overlays()
 	. = ..()
-	if(welded)
-		. += "welded[density ? "" : "_open"]"
 	if(active_alarm && hasPower())
-		if(light)
-			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask")
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+	if(density && welded)
+		. += "welded"
+		return
+	if(welded)
+		. += "welded_open"
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
-	adjust_light()
 	update_icon()
 
 /obj/machinery/door/firedoor/proc/deactivate_alarm()
 	active_alarm = FALSE
-	if(!density)
-		layer = initial(layer)
-	adjust_light()
 	update_icon()
 
 /obj/machinery/door/firedoor/open(auto_close = TRUE)
@@ -247,8 +230,7 @@
 		return
 	. = ..()
 	latetoggle(auto_close)
-	if(active_alarm)
-		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
+
 	if(auto_close)
 		autoclose = TRUE
 
@@ -263,11 +245,13 @@
 /obj/machinery/door/firedoor/proc/latetoggle(auto_close = TRUE)
 	if(operating || !hasPower() || !nextstate)
 		return
-	if(nextstate == FD_OPEN)
-		INVOKE_ASYNC(src, .proc/open, auto_close)
-	if(nextstate == FD_CLOSED)
-		INVOKE_ASYNC(src, .proc/close)
-	nextstate = null
+	switch(nextstate)
+		if(FD_OPEN)
+			nextstate = null
+			open(auto_close)
+		if(FD_CLOSED)
+			nextstate = null
+			close()
 
 /obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
 	if(!magic && (operating || !hasPower()))

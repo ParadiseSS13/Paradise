@@ -1,5 +1,5 @@
 /proc/issmall(A)
-	if(A && istype(A, /mob/living/carbon/human))
+	if(A && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
@@ -145,7 +145,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
@@ -327,13 +327,13 @@
 	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 
-/proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
+/proc/Gibberish(t, p)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
 	for(var/i = 1, i <= length(t), i++)
 
 		var/letter = copytext(t, i, i+1)
-		if(prob(replace_rate))
+		if(prob(50))
 			if(p >= 70)
 				letter = ""
 
@@ -755,9 +755,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 /**
  * Helper proc to determine if a mob can use emotes that make sound or not.
  */
-/mob/proc/can_use_audio_emote(intentional)
-	var/emote_status = intentional ? audio_emote_cd_status : audio_emote_unintentional_cd_status
-	switch(emote_status)
+/mob/proc/can_use_audio_emote()
+	switch(audio_emote_cd_status)
 		if(EMOTE_INFINITE)  // Spam those emotes
 			return TRUE
 		if(EMOTE_ADMIN_BLOCKED)  // Cooldown emotes were disabled by an admin, prevent use
@@ -770,37 +769,24 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	CRASH("Invalid emote type")
 
 /**
- * Start the cooldown for an emote that plays audio.
+ * # Start the cooldown for an emote that plays audio.
  *
- * Arguments:
- * * intentional - Whether or not the user deliberately triggered this emote.
- * * cooldown - The amount of time that should be waited before any other audio emote can fire.
+ * * cooldown: The amount of time that should be waited before any other audio emote can fire.
  */
-/mob/proc/start_audio_emote_cooldown(intentional, cooldown = AUDIO_EMOTE_COOLDOWN)
-	if(!can_use_audio_emote(intentional))
+/mob/proc/start_audio_emote_cooldown(cooldown = AUDIO_EMOTE_COOLDOWN)
+	if(!can_use_audio_emote())
 		return FALSE
 
-	var/cooldown_source = intentional ? audio_emote_cd_status : audio_emote_unintentional_cd_status
-
-	if(cooldown_source == EMOTE_READY)
-		// we do have to juggle between cooldowns a little bit, but this lets us keep them on separate cooldowns so
-		// a user screaming every five seconds doesn't prevent them from sneezing.
-		if(intentional)
-			audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
-		else
-			audio_emote_unintentional_cd_status = EMOTE_ON_COOLDOWN
-		addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end, intentional), cooldown)
+	if(audio_emote_cd_status == EMOTE_READY)
+		audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
+		addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end), cooldown)
 	return TRUE  // proceed with emote
 
 
-/mob/proc/on_audio_emote_cooldown_end(intentional)
-	if(intentional)
-		if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
-			// only reset to ready if we're in a cooldown state
-			audio_emote_cd_status = EMOTE_READY
-	else
-		if(audio_emote_unintentional_cd_status == EMOTE_ON_COOLDOWN)
-			audio_emote_unintentional_cd_status = EMOTE_READY
+/mob/proc/on_audio_emote_cooldown_end()
+	if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
+		// only reset emotes that probably weren't set by an admin
+		audio_emote_cd_status = EMOTE_READY
 
 /proc/stat_to_text(stat)
 	switch(stat)

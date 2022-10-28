@@ -147,7 +147,7 @@
 		occupant = victim
 
 		update_icon(UPDATE_OVERLAYS)
-		feedinTopanim()
+		INVOKE_ASYNC(src, .proc/feedinTopanim)
 
 /obj/machinery/gibber/verb/eject()
 	set category = "Object"
@@ -279,7 +279,7 @@
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
-	victims += "\[[all_timestamps()]\] [key_name(occupant)] killed by [UserOverride ? "Autogibbing" : "[key_name(user)]"]" //have to do this before ghostizing
+	victims += "\[[time_stamp()]\] [key_name(occupant)] killed by [UserOverride ? "Autogibbing" : "[key_name(user)]"]" //have to do this before ghostizing
 	occupant.death(1)
 	occupant.ghostize()
 
@@ -377,7 +377,7 @@
 	if(!istype(H))	return 0
 	if(H != occupant)	return 0 //only using H as a shortcut to typecast
 	for(var/obj/O in H)
-		if(istype(O,/obj/item/clothing)) //clothing gets skipped to avoid cleaning out shit
+		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
 		if(istype(O,/obj/item/implant))
 			var/obj/item/implant/I = O

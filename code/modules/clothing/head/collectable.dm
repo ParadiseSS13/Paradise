@@ -43,13 +43,12 @@
 	icon_state = "tophat"
 	item_state = "that"
 	dog_fashion = /datum/dog_fashion/head
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/collectable/captain
 	name = "collectable captain's hat"
 	desc = "A Collectable Hat that'll make you look just like a real comdom!"
-	icon_state = "captain_hat"
-	item_state = "captain_hat"
+	icon_state = "captain"
+	item_state = "caphat"
 	dog_fashion = /datum/dog_fashion/head/captain
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
@@ -72,10 +71,11 @@
 	item_state = "welding"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/collectable/slime

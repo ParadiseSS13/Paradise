@@ -233,9 +233,6 @@
 	if(!length(contents))
 		. += "<span class='warning'>There is nothing left inside!</span>"
 
-/obj/item/organ/external/head/vars_to_save()
-	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
-
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
@@ -262,7 +259,7 @@
 	..()
 
 /obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
-	. = ..()
+	..()
 	if(brute_dam + burn_dam > 50 && !(status & ORGAN_DISFIGURED))
 		disfigure()
 

@@ -6,7 +6,6 @@
 	item_state = "mender"
 	volume = 200
 	possible_transfer_amounts = null
-	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
 	container_type = REFILLABLE | AMOUNT_VISIBLE
 	temperature_min = 270

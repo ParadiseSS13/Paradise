@@ -97,10 +97,6 @@
 	var/cooldown = DEFAULT_EMOTE_COOLDOWN
 	/// How long is the cooldown on the audio of the emote, if it has one?
 	var/audio_cooldown = AUDIO_EMOTE_COOLDOWN
-	/// If the emote is triggered unintentionally, how long would that cooldown be?
-	var/unintentional_audio_cooldown = AUDIO_EMOTE_UNINTENTIONAL_COOLDOWN
-	/// If true, an emote will completely bypass any cooldown when called unintentionally. Necessary for things like deathgasp.
-	var/bypass_unintentional_cooldown = FALSE
 	/// How loud is the audio emote?
 	var/volume = 50
 
@@ -188,7 +184,7 @@
 	var/sound_volume = get_volume(user)
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
 	if(tmp_sound && should_play_sound(user, intentional) && sound_volume > 0)
-		if(bypass_unintentional_cooldown || user.start_audio_emote_cooldown(intentional, intentional ? audio_cooldown : unintentional_audio_cooldown))
+		if(!intentional || user.start_audio_emote_cooldown(audio_cooldown))
 			play_sound_effect(user, intentional, tmp_sound, sound_volume)
 
 	if(msg)
@@ -212,7 +208,7 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
 
-		else if(emote_type & (EMOTE_AUDIBLE | EMOTE_SOUND) && !user.mind?.miming)
+		else if(emote_type & EMOTE_VISIBLE || user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 		else
 			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how someone [msg]</span>")
@@ -307,7 +303,7 @@
 		return TRUE
 	// if our emote would play sound but another audio emote is on cooldown, prevent this emote from being used.
 	// Note that this only applies to intentional emotes
-	if(get_sound(user) && should_play_sound(user, intentional) && !user.can_use_audio_emote(intentional))
+	if(get_sound(user) && should_play_sound(user, intentional) && !user.can_use_audio_emote())
 		return FALSE
 	var/cooldown_in_use
 	if(!isnull(user.emote_cooldown_override))

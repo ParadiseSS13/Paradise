@@ -7,9 +7,8 @@
  *		Kidan spear
  *		Chainsaw
  *		Singularity hammer
- *		Mjolnnir
+ * 		Mjolnnir
  *		Knighthammer
- *		Pyro Claws
  */
 
 /*##################################################################
@@ -37,7 +36,7 @@
 	wielded = FALSE
 	force = force_unwielded
 	if(sharp_when_wielded)
-		set_sharpness(FALSE)
+		sharp = FALSE
 	var/sf = findtext(name," (Wielded)")
 	if(sf)
 		name = copytext(name, 1, sf)
@@ -76,7 +75,7 @@
 	wielded = TRUE
 	force = force_wielded
 	if(sharp_when_wielded)
-		set_sharpness(TRUE)
+		sharp = TRUE
 	name = "[name] (Wielded)"
 	update_icon()
 	if(user)
@@ -618,23 +617,22 @@
 		icon_state = "chainsaw0"
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
-	. = ..()
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
-		if(isnull(.)) //necessary check, successful attacks return null, without it target will drop any shields they may have before they get a chance to block
-			target.KnockDown(8 SECONDS)
-
-/obj/item/twohanded/chainsaw/afterattack(mob/living/target, mob/living/user, proximity)
-	if(!proximity) //only works on adjacent targets, no telekinetic chainsaws
+		if(isrobot(target))
+			..()
+			return
+		if(!isliving(target))
+			return
+		else
+			if(target.stat != DEAD)
+				user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
+			if(isnull(..())) // attack returns null if the attack was successful, (against humans)
+				target.KnockDown(8 SECONDS)
 		return
-	if(!wielded)
-		return
-	if(isrobot(target)) //no buff from attacking robots
-		return
-	if(!isliving(target)) //no buff from attacking inanimate objects
-		return
-	if(target.stat != DEAD) //no buff from attacking dead targets
-		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
+	else
+		playsound(loc, "swing_hit", 50, 1, -1)
+		return ..()
 
 /obj/item/twohanded/chainsaw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -817,138 +815,13 @@
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(wielded)
-			if(istype(A, /turf/simulated/wall))
+			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(istype(A, /obj/structure) || istype(A, /obj/mecha))
+			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-
-// PYRO CLAWS
-/obj/item/twohanded/required/pyro_claws
-	name = "hardplasma energy claws"
-	desc = "The power of the sun, in the claws of your hand."
-	icon_state = "pyro_claws"
-	flags = ABSTRACT | NODROP | DROPDEL
-	force = 22
-	force_wielded = 22
-	damtype = BURN
-	armour_penetration_percentage = 50
-	block_chance = 50
-	sharp = TRUE
-	attack_effect_override = ATTACK_EFFECT_CLAW
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
-	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
-	toolspeed = 0.5
-	var/lifetime = 60 SECONDS
-
-/obj/item/twohanded/required/pyro_claws/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/twohanded/required/pyro_claws/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/twohanded/required/pyro_claws/process()
-	lifetime -= 2 SECONDS
-	if(lifetime <= 0)
-		visible_message("<span class='warning'>[src] slides back into the depths of [loc]'s wrists.</span>")
-		do_sparks(rand(1,6), 1, loc)
-		qdel(src)
-		return
-	if(prob(15))
-		do_sparks(rand(1,6), 1, loc)
-
-/obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
-	if(prob(60))
-		do_sparks(rand(1,6), 1, loc)
-	if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
-
-		if(!A.requiresID() || A.allowed(user))
-			return
-
-		if(A.locked)
-			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
-			return
-
-		if(A.arePowerSystemsOn())
-			user.visible_message("<span class='warning'>[user] jams [user.p_their()] [name] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 25, target = A))
-				return
-
-		user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
-		A.open(2)
-
-/obj/item/clothing/gloves/color/black/pyro_claws
-	name = "Fusion gauntlets"
-	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
-	item_state = "pyro"
-	item_color = "pyro" // I will kill washing machines one day
-	icon_state = "pyro"
-	can_be_cut = FALSE
-	actions_types = list(/datum/action/item_action/toggle)
-	var/on_cooldown = FALSE
-	var/obj/item/assembly/signaler/anomaly/pyro/core
-
-/obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
-	QDEL_NULL(core)
-	return ..()
-
-/obj/item/clothing/gloves/color/black/pyro_claws/examine(mob/user)
-	. = ..()
-	if(core)
-		. += "<span class='notice'>[src] are fully operational!</span>"
-	else
-		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
-
-/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
-	if(slot == slot_gloves)
-		return TRUE
-
-/obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
-	if(!core)
-		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
-		return
-	if(on_cooldown)
-		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
-		do_sparks(rand(1,6), 1, loc)
-		return
-	if(!user.drop_l_hand() || !user.drop_r_hand())
-		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
-		return
-	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
-	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
-	user.put_in_hands(W)
-	on_cooldown = TRUE
-	flags |= NODROP
-	addtimer(CALLBACK(src, .proc/reboot), 2 MINUTES)
-	do_sparks(rand(1,6), 1, loc)
-
-/obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
-		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
-			return
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
-		I.forceMove(src)
-		core = I
-	else
-		return ..()
-
-/obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
-	on_cooldown = FALSE
-	flags &= ~NODROP
-	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")

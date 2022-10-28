@@ -148,9 +148,9 @@
 	if(!(M.status_flags & CANPUSH))
 		return TRUE
 	//anti-riot equipment is also anti-push
-	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
+	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !isclothing(M.r_hand))
 		return TRUE
-	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
+	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !isclothing(M.l_hand))
 		return TRUE
 
 //Called when we bump into an obj
@@ -251,18 +251,15 @@
 	if(!..())
 		return FALSE
 	var/obj/item/hand_item = get_active_hand()
-	var/pointed_object = "\the [A]"
-	if(A.loc in src)
-		pointed_object += " inside [A.loc]"
 	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
+			visible_message("<b>[src]</b> points to [A] with [hand_item]")
 			return TRUE
-		A.visible_message("<span class='danger'>[src] points [hand_item] at [pointed_object]!</span>",
+		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
 		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
-	visible_message("<b>[src]</b> points to [pointed_object]")
+	visible_message("<b>[src]</b> points to [A]")
 	return TRUE
 
 /mob/living/verb/succumb()
@@ -355,12 +352,12 @@
 
 		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/storage))
+			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
+			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
 		return L
 
@@ -377,12 +374,12 @@
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/storage))
+			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
+			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
 		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
@@ -798,6 +795,9 @@
 /mob/living/proc/get_visible_name()
 	return name
 
+/mob/living/proc/is_facehugged()
+	return FALSE
+
 /mob/living/update_gravity(has_gravity)
 	if(!SSticker)
 		return
@@ -920,14 +920,14 @@
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	var/loc_temp = T0C
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature
 
-	else if(istype(get_turf(src), /turf/space))
+	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
 		loc_temp = heat_turf.temperature
 
@@ -977,15 +977,6 @@
 			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()
-
-/mob/living/proc/can_use(atom/movable/M, be_close = FALSE)
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
-	if(be_close && !in_range(M, src))
-		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	return TRUE
 
 /mob/living/movement_delay(ignorewalk = 0)
 	. = ..()

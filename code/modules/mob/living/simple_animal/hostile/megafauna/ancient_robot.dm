@@ -71,7 +71,7 @@ Difficulty: Hard
 	del_on_death = TRUE
 	loot = list(/obj/structure/closet/crate/necropolis/ancient)
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/ancient/crusher)
-	internal_gps = /obj/item/gps/internal/ancient
+	internal_type = /obj/item/gps/internal/ancient
 	medal_type = BOSS_MEDAL_ROBOT
 	score_type = ROBOT_SCORE
 	deathmessage = "explodes into a shower of alloys"
@@ -204,7 +204,7 @@ Difficulty: Hard
 	if(mode == BLUESPACE)
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 		src.visible_message("<span class='danger'>[src] teleports somewhere nearby!</span>")
-		do_teleport(src, target, 7, asoundin = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
+		do_teleport(src, target, 7, sound_in = 'sound/effects/phasein.ogg', safe_turf_pick = TRUE) //Teleport within 7 tiles of the target
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 
 		TR.health_and_snap_check(FALSE)// We want the legs to instantly teleport with it, without regening
@@ -238,10 +238,10 @@ Difficulty: Hard
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A, yes)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(atom/A)
 	if(charging)
 		DestroySurroundings()
-		if(isliving(A) && yes)
+		if(isliving(A))
 			var/mob/living/L = A
 			if(!istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -621,10 +621,10 @@ Difficulty: Hard
 	walk_towards(src, T, movespeed)
 	DestroySurroundings()
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A, yes)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(atom/A)
 	if(!core.charging)
 		return
-	if(isliving(A) && yes)
+	if(isliving(A))
 		if(!istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")

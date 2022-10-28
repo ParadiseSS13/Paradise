@@ -216,8 +216,6 @@
 		return
 	if(state != WINDOW_OUT_OF_FRAME && state != WINDOW_IN_FRAME)
 		return
-	if(!anchored)
-		return
 	if(flags & NODECONSTRUCT)
 		return
 	. = TRUE
@@ -504,7 +502,7 @@
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	desc = "It looks rather strong and frosted over. Looks like it might take a few less hits then a normal reinforced window."
-	icon_state = "fwindow"
+	icon_state = "twindow"
 	max_integrity = 30
 
 /obj/structure/window/reinforced/polarized
@@ -566,12 +564,6 @@
 		if(W.id == id || !W.id)
 			W.toggle_polarization()
 
-	for(var/obj/machinery/door/D in range(src, range))
-		if(!D.polarized_glass)
-			continue
-		if(D.id == id || !D.id)
-			D.toggle_polarization()
-
 /obj/machinery/button/windowtint/power_change()
 	..()
 	if(active && !powered(power_channel))
@@ -604,7 +596,6 @@
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	reinf = TRUE
-	heat_resistance = 32000
 	max_integrity = 500
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
@@ -659,7 +650,6 @@
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	reinf = TRUE
-	heat_resistance = 32000
 	max_integrity = 1000
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
@@ -708,7 +698,7 @@
 	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
 	icon_state = "shuttle_window-0"
 	base_icon_state = "shuttle_window"
-	max_integrity = 200
+	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
@@ -729,11 +719,11 @@
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
-	max_integrity = 1200
+	max_integrity = 100
 	reinf = TRUE
-	heat_resistance = 32000
-	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
-	rad_insulation = RAD_NO_INSULATION
+	heat_resistance = 1600
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 100)
+	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)

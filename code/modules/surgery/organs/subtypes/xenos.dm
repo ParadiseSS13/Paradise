@@ -141,8 +141,6 @@
 	slot = "neurotox"
 	origin_tech = "biotech=5;combat=5"
 	alien_powers = list(/mob/living/carbon/alien/humanoid/proc/neurotoxin)
-	var/neurotoxin_cooldown = FALSE
-	var/neurotoxin_cooldown_time = 5 SECONDS
 
 /obj/item/organ/internal/xenos/resinspinner
 	name = "xeno resin organ"//...there tiger....

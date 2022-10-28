@@ -1854,6 +1854,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Secure Storage"
 	icon_state = "storage"
 
+/area/ai_monitored/storage/emergency
+	name = "Emergency Storage"
+	icon_state = "storage"
+
 /area/turret_protected/
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
 
@@ -1870,6 +1874,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/turret_protected/ai
 	name = "\improper AI Chamber"
 	icon_state = "ai_chamber"
+	ambientsounds = list('sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
 
 /area/turret_protected/aisat
 	name = "\improper AI Satellite"
@@ -2136,6 +2141,7 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/construction,
 	/area/ai_monitored/storage/eva, //do not try to simplify to "/area/ai_monitored" --rastaf0
 	/area/ai_monitored/storage/secure,
+	/area/ai_monitored/storage/emergency,
 	/area/turret_protected/ai_upload, //do not try to simplify to "/area/turret_protected" --rastaf0
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,

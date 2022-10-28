@@ -110,7 +110,7 @@
 			reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
 			label_text = t
@@ -240,7 +240,7 @@
 	desc = "A baggie. Can hold up to 10 units."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
-	possible_transfer_amounts = null
+	possible_transfer_amounts = 2
 	volume = 10
 	container_type = OPENCONTAINER
 	can_assembly = 0

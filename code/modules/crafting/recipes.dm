@@ -131,7 +131,7 @@
 	name = "Energy Crossbow"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/kinetic_accelerator/crossbow/large)
-	reqs = list(/obj/item/gun/energy/laser = 1,
+	reqs = list(/obj/item/gun/energy/kinetic_accelerator  = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/ebow = 1,
 				/datum/reagent/radium = 15)
@@ -141,7 +141,7 @@
 
 /datum/crafting_recipe/ebow/New()
 	..()
-	blacklist += subtypesof(/obj/item/gun/energy/laser)
+	blacklist += subtypesof(/obj/item/gun/energy/kinetic_accelerator)
 
 /datum/crafting_recipe/xraylaser
 	name = "X-ray Laser Gun"
@@ -217,6 +217,21 @@
 /datum/crafting_recipe/accelerator/New()
 	..()
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
+
+/datum/crafting_recipe/silencer
+	name = "u-ION Silencer"
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	result = list(/obj/item/gun/energy/disabler/silencer)
+	reqs = list(/obj/item/gun/energy/disabler = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/weaponcrafting/gunkit/u_ionsilencer = 1)
+	time = 20 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/silencer/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/disabler)
 
 /datum/crafting_recipe/ed209
 	name = "ED209"

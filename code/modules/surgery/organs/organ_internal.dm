@@ -29,7 +29,7 @@
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
 	var/obj/item/organ/external/parent
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
@@ -59,7 +59,7 @@
 			if(M.stat != DEAD)//safety check!
 				M.death()
 
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
@@ -72,9 +72,6 @@
 		var/datum/action/A = X
 		A.Remove(M)
 	START_PROCESSING(SSobj, src)
-	if(destroy_on_removal && !QDELETED(src))
-		qdel(src)
-		return
 	return src
 
 /obj/item/organ/internal/emp_act(severity)
@@ -205,8 +202,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
-	destroy_on_removal = TRUE
-
 	var/organhonked = 0
 	var/suffering_delay = 900
 	var/datum/component/squeak
@@ -222,13 +217,14 @@
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
+	. = ..()
 	M.dna.SetSEState(GLOB.clumsyblock, FALSE)
 	M.dna.SetSEState(GLOB.comicblock, FALSE)
 	singlemutcheck(M, GLOB.clumsyblock, MUTCHK_FORCED)
 	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
-	return ..()
+	qdel(src)
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
@@ -273,8 +269,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "groin"
 	slot = "honk_bladder"
-	destroy_on_removal = TRUE
-
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
@@ -282,8 +276,10 @@
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+
 	QDEL_NULL(squeak)
-	return ..()
+	qdel(src)
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
@@ -299,7 +295,7 @@
 	if(!owner)
 		return
 
-	if(istype(owner, /mob/living/carbon/human))
+	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))

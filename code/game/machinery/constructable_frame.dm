@@ -144,27 +144,6 @@
 				icon_state = "box_1"
 				return
 
-			if(istype(P, /obj/item/screwdriver))
-				var/component_check = 1
-				for(var/R in req_components)
-					if(req_components[R] > 0)
-						component_check = 0
-						break
-				if(component_check)
-					playsound(src.loc, P.usesound, 50, 1)
-					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
-					new_machine.on_construction()
-					for(var/obj/O in new_machine.component_parts)
-						qdel(O)
-					new_machine.component_parts = list()
-					for(var/obj/O in src)
-						O.loc = null
-						new_machine.component_parts += O
-					circuit.loc = null
-					new_machine.RefreshParts()
-					qdel(src)
-				return
-
 			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = P
 				var/list/added_components = list()
@@ -190,7 +169,7 @@
 				update_req_desc()
 				return
 
-			if(istype(P, /obj/item))
+			if(isitem(P))
 				var/success
 				for(var/I in req_components)
 					if(istype(P, I) && (req_components[I] > 0) && (!(P.flags & NODROP) || istype(P, /obj/item/stack)))
@@ -219,6 +198,31 @@
 				return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+/obj/machinery/constructable_frame/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
+	if(state != 3)
+		return
+
+	var/component_check = 1
+	for(var/R in req_components)
+		if(req_components[R] > 0)
+			component_check = 0
+			break
+	if(!component_check)
+		return TRUE
+	I.play_tool_sound(src)
+	var/obj/machinery/new_machine = new circuit.build_path(loc)
+	new_machine.on_construction()
+	for(var/obj/O in new_machine.component_parts)
+		qdel(O)
+	new_machine.component_parts = list()
+	for(var/obj/O in src)
+		O.loc = null
+		new_machine.component_parts += O
+	circuit.loc = null
+	new_machine.RefreshParts()
+	qdel(src)
+	return TRUE
 
 
 //Machine Frame Circuit Boards
@@ -512,6 +516,7 @@ to destroy them and players will be able to make replacements.
 							"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
 							"Drink Showcase" = /obj/machinery/smartfridge/drinks,
 							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks,
+							"Identification Card Compartmentalizer" = /obj/machinery/smartfridge/id,
 							"Circuit Board Storage" = /obj/machinery/smartfridge/secure/circuits,
 							"AI Laws Storage" = /obj/machinery/smartfridge/secure/circuits/aiupload)
 
@@ -657,33 +662,6 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/reagent_containers/glass/beaker = 2)
-
-/obj/item/circuitboard/dish_drive
-	board_name = "Dish Drive"
-	build_path = /obj/machinery/dish_drive
-	board_type = "machine"
-	origin_tech = "programming=2"
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stack/sheet/glass = 1)
-	var/suction = TRUE
-	var/transmit = TRUE
-
-/obj/item/circuitboard/dish_drive/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>"
-	. += "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
-
-/obj/item/circuitboard/dish_drive/attack_self(mob/living/user)
-	suction = !suction
-	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
-
-/obj/item/circuitboard/dish_drive/AltClick(mob/living/user)
-	if(!user.Adjacent(src))
-		return
-	transmit = !transmit
-	to_chat(user, "<span class='notice'>You [transmit ? "enable" : "disable"] the board's automatic disposal transmission.</span>")
 
 /obj/item/circuitboard/chem_dispenser/soda
 	board_name = "Soda Machine"

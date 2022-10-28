@@ -174,16 +174,6 @@
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
-/// Called when an atom is sharpened or dulled.
-#define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
-
-// Attack signals. These should share the returned flags, to standardize the attack chain.
-// The chain currently works like:
-// tool_act -> pre_attack -> target.attackby (item.attack) -> afterattack
-// You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
-	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
-	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
-
 /// Called from atom/Initialize() of target: (atom/target)
 #define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
 
@@ -402,14 +392,6 @@
 #define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
 ///sent by stuff like stunbatons and tasers: ()
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
-///Sent from defibrillators when everything seems good and the user will be shocked: (defibber, defib_item, ghost)
-#define COMSIG_LIVING_PRE_DEFIB "living_pre_defib"
-	/// If returned from LIVING_BEFORE_DEFIB or LIVING_DEFIBBED, the defibrillation will fail
-	#define COMPONENT_BLOCK_DEFIB (1<<0)
-	/// If returned, don't even show the "failed" message, defer to the signal handler to do that.
-	#define COMPONENT_DEFIB_OVERRIDE (1<<1)
-///send from defibs on ressurection: (defibber, defib_item, ghost)
-#define COMSIG_LIVING_DEFIBBED "living_defibbed"
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
 ///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)

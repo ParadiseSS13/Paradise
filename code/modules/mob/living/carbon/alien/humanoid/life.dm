@@ -1,8 +1,5 @@
 /mob/living/carbon/alien/humanoid/Life(seconds, times_fired)
 	. = ..()
-	//If you're in crit you need to die eventually
-	if(health <= HEALTH_THRESHOLD_CRIT && stat != DEAD)
-		apply_damage(2, BRUTE)
 	update_icons()
 
 /mob/living/carbon/alien/humanoid/proc/adjust_body_temperature(current, loc_temp, boost)

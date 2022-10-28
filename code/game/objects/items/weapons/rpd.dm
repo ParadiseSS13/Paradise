@@ -249,6 +249,10 @@
 
 /obj/item/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
+	if(isstorage(target))
+		var/obj/item/storage/S = target
+		if(!S.can_be_inserted(src, stop_messages = TRUE))
+			return
 	if(loc != user)
 		return
 	if(!proximity && !ranged)
@@ -287,6 +291,11 @@
 			return
 
 	T.rpd_act(user, src)
+
+/obj/item/rpd/attack_obj(obj/O, mob/living/user)
+	if(istype(O, /obj/machinery/atmospherics/pipe) && user.a_intent != INTENT_HARM)
+		return
+	return ..()
 
 #undef RPD_COOLDOWN_TIME
 #undef RPD_WALLBUILD_TIME

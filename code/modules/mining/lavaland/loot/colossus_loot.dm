@@ -311,7 +311,7 @@
 		var/turf/T = get_step(src, dir)
 		new /obj/effect/temp_visual/emp/pulse(T)
 		for(var/i in T)
-			if(istype(i, /obj/item) && !is_type_in_typecache(i, banned_items_typecache))
+			if(isitem(i) && !is_type_in_typecache(i, banned_items_typecache))
 				var/obj/item/W = i
 				if(!W.admin_spawned && !(W.flags_2 & HOLOGRAM_2) && !(W.flags & ABSTRACT))
 					L += W
