@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
 
-	materials = list(MAT_METAL=75)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 
 	var/const/FREQ_LISTENING = 1
 	var/atom/follow_target // Custom follow target for autosay-using bots

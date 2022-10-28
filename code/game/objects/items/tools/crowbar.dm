@@ -11,7 +11,7 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50)
+	materials = list(MAT_METAL = 300)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
@@ -51,7 +51,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 	throw_range = 3
-	materials = list(MAT_METAL=70)
+	materials = list(MAT_METAL = 400)
 	icon_state = "crowbar_large"
 	item_state = "crowbar_large"
 	toolspeed = 0.5

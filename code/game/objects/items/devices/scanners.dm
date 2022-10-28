@@ -16,7 +16,7 @@ REAGENT SCANNER
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
-	materials = list(MAT_METAL=150)
+	materials = list(MAT_METAL = 300)
 	origin_tech = "magnets=1;engineering=1"
 
 /obj/item/t_scanner/Destroy()
@@ -327,7 +327,7 @@ REAGENT SCANNER
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=1"
 	var/cooldown = FALSE
 	var/cooldown_time = 250
