@@ -340,7 +340,7 @@ BLIND     // can't see anything
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if(istype(src.loc, /mob))
+	else if(ismob(src.loc))
 		switch(sensor_mode)
 			if(SUIT_SENSOR_OFF)
 				for(var/mob/V in viewers(user, 1))

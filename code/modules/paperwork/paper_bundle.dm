@@ -193,7 +193,7 @@
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
-	if(istype(loc, /mob))
+	if(ismob(loc))
 		attack_self(loc)
 
 /obj/item/paper_bundle/AltClick(mob/user)
