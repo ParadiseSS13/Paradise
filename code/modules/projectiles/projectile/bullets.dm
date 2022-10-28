@@ -193,14 +193,11 @@
 	damage = 30
 	knockdown = 8 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
+	knockback = TRUE
+	breaching = FALSE
+	knockbackspeed = 2
+	knockbackdistance = 3
 
-/obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
-	..()
-	if(ismovable(target))
-		var/atom/movable/M = target
-		if(M.move_resist < INFINITY)
-			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
-			M.throw_at(throw_target, 3, 2)
 
 /obj/item/projectile/bullet/meteorshot/New()
 	..()
