@@ -73,7 +73,7 @@
 		return
 	if(prob(shake_chance))
 		for(var/mob/M in range(10, src))
-			if(!M.stat && !istype(M, /mob/living/silicon/ai))
+			if(!M.stat && !isAI(M))
 				shake_camera(M, 3, 1)
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 

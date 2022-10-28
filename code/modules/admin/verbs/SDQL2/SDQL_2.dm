@@ -129,7 +129,7 @@
 								var/i = 0
 								for(var/v in sets)
 									if(++i == sets.len)
-										if(istype(temp, /turf) && (v == "x" || v == "y" || v == "z"))
+										if(isturf(temp) && (v == "x" || v == "y" || v == "z"))
 											continue
 										if(!temp.vv_edit_var(v, SDQL_expression(d, set_list[sets])))
 											to_chat(usr, "[temp] rejected your varedit.")

@@ -481,7 +481,7 @@
 					continue
 				M.notransform = TRUE
 				M.anchored = TRUE
-				if(istype(M, /mob/living/simple_animal/hostile))
+				if(ishostile(M))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
 					H.LoseTarget()
@@ -509,7 +509,7 @@
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
 	M.notransform = FALSE
 	M.anchored = FALSE
-	if(istype(M, /mob/living/simple_animal/hostile))
+	if(ishostile(M))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)
 

@@ -61,9 +61,9 @@
 	if(!speaking)
 		if(iscarbon(other))
 			return 1
-		if(istype(other, /mob/living/silicon))
+		if(issilicon(other))
 			return 1
-		if(istype(other, /mob/living/simple_animal/bot))
+		if(isbot(other))
 			return 1
 		if(isbrain(other))
 			return 1

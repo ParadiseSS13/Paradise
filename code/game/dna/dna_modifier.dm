@@ -185,13 +185,13 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+	if(isanimal(O) || issilicon(O)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
@@ -508,7 +508,7 @@
 /obj/machinery/computer/scan_consolenew/ui_act(action, params)
 	if(..())
 		return FALSE // don't update uis
-	if(!istype(usr.loc, /turf))
+	if(!isturf(usr.loc))
 		return FALSE // don't update uis
 	if(!src || !connected)
 		return FALSE // don't update uis

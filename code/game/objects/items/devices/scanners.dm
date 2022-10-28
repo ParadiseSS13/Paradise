@@ -343,7 +343,7 @@ REAGENT SCANNER
 		return
 
 	var/turf/location = user.loc
-	if(!( istype(location, /turf) ))
+	if(!isturf(location))
 		return
 
 	var/datum/gas_mixture/environment = location.return_air()

@@ -221,7 +221,7 @@
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
 		return
 
-	if(!istype(target, /turf) && !istype(target, /obj/machinery/door/airlock))
+	if(!isturf(target) && !istype(target, /obj/machinery/door/airlock))
 		target = get_turf(target)
 
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -313,7 +313,7 @@
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target)
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
 		return
-	if(!istype(target, /turf))
+	if(!isturf(target))
 		target = get_turf(target)
 	if(!action_checks(target) || get_dist(chassis, target)>3)
 		return
