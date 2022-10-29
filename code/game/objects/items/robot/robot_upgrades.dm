@@ -417,7 +417,6 @@
 	icon_state = "cyborg_upgrade2"
 	origin_tech = "biotech=6;materials=5"
 	require_module = TRUE
-	module_type = /obj/item/robot_module/medical
 
 /obj/item/borg/upgrade/hypospray/action(mob/living/silicon/robot/R)
 	if(..())
@@ -427,13 +426,24 @@
 		to_chat(usr, "<span class='warning'>This unit is already equipped with a cyborg hypospray upgrade.</span>")
 		return 0
 
+	var/obj/item/reagent_containers/borghypo/basic/H2 = locate() in R.module.modules
+	if(H2)
+		R.module.modules.Remove(H2)
+		qdel(H2)
+		R.module.modules += new /obj/item/reagent_containers/borghypo/basic/upgraded(R.module)
+		R.module.rebuild()
+		return TRUE
+
 	var/obj/item/reagent_containers/borghypo/H = locate() in R.module.modules
 	if(H)
 		R.module.modules.Remove(H)
 		qdel(H)
-	R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
-	R.module.rebuild()
-	return TRUE
+		R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
+		R.module.rebuild()
+		return TRUE
+
+	to_chat(usr, "<span class='notice'>There's no hypospray in this unit!</span>")
+	return 0
 
 /obj/item/borg/upgrade/syndie_rcd
 	name = "Syndicate cyborg RCD upgrade"

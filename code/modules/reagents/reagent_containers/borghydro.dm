@@ -164,4 +164,14 @@
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
 
+/obj/item/reagent_containers/borghypo/basic/upgraded
+	name = "Upgraded Basic Medical Hypospray"
+	desc = "Basic medical hypospray, capable of providing standart medical treatment."
+	reagent_ids = list( \
+		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
+		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		"sal_acid" = list('icons/mob/actions/actions.dmi', "fleshmend"), \
+		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
+
 #undef BORGHYPO_REFILL_VALUE
