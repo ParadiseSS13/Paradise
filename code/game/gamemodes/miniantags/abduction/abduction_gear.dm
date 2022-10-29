@@ -691,28 +691,26 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params, already_tried)
-	if(!istype(I, /obj/item/stack/sheet/mineral/abductor) && !istype(I, /obj/item/stack/sheet/mineral/silver))
-		already_tried = TRUE
-		return ..()
-
-	var/obj/item/stack/stack = I
+/obj/structure/table_frame/abductor/try_make_table(obj/item/stack/stack, mob/user)
+	if(!istype(stack, /obj/item/stack/sheet/mineral/abductor) && !istype(stack, /obj/item/stack/sheet/mineral/silver))
+		return FALSE
 
 	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
 		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
-		return
+		return TRUE
 
 	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
 
 	if(!(do_after(user, 50, target = src) && stack.use(1)))
-		return
+		return TRUE
 
-	if(istype(I, /obj/item/stack/sheet/mineral/abductor)) //if it's not this then it's silver, so no need for an else afterwards
+	if(istype(stack, /obj/item/stack/sheet/mineral/abductor)) //if it's not this then it's silver, so no need for an else afterwards
 		make_new_table(stack.table_type)
-		return
+		return TRUE
 
 	new /obj/machinery/optable/abductor(loc)
 	qdel(src)
+	return TRUE
 
 /obj/structure/table/abductor
 	name = "alien table"
