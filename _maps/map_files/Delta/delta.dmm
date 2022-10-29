@@ -65582,12 +65582,6 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "hEK" = (
-/obj/machinery/door_control{
-	id = "brig_detprivacy";
-	name = "Detective Privacy Shutters Control";
-	pixel_x = null;
-	pixel_y = 22
-	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
@@ -117829,6 +117823,12 @@
 /area/maintenance/portsolar)
 "tcH" = (
 /obj/machinery/computer/secure_data,
+/obj/machinery/door_control{
+	id = "brig_detprivacy";
+	name = "Detective Privacy Shutters Control";
+	pixel_x = null;
+	pixel_y = 22
+	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "tcK" = (
