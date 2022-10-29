@@ -604,10 +604,10 @@
 					L.adjustStaminaLoss(60)
 					L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
 					L.flash_eyes(1, TRUE)
-					if(issilicon(hit_atom))
+					if(issilicon(L))
 						var/mob/living/silicon/B = L
 						B.emp_act(EMP_HEAVY)
-					else if(iscarbon(hit_atom))
+					else if(iscarbon(L))
 						var/mob/living/carbon/C = L
 						C.Silence(6 SECONDS)
 						C.Stuttering(16 SECONDS)
