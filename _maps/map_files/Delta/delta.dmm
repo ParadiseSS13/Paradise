@@ -66488,10 +66488,16 @@
 /obj/item/folder/blue,
 /obj/item/pen/multi/fountain,
 /obj/item/paper/safe_code{
-	owner = "captain"
+	owner = "captain";
+	pixel_x = -6;
+	pixel_y = -6
 	},
 /obj/item/paper/monitorkey,
 /obj/item/lighter/zippo/cap,
+/obj/item/paper/rnd_logs_key{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -123271,6 +123277,10 @@
 	},
 /obj/item/flashlight/lamp,
 /obj/item/paper/monitorkey,
+/obj/item/paper/rnd_logs_key{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
