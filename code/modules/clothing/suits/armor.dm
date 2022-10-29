@@ -217,7 +217,6 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
-	hide_tail_by_species = list("Vox")
 
 /obj/item/clothing/suit/armor/riot/sec
 	name = "security riot suit"

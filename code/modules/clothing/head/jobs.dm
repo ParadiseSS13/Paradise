@@ -151,6 +151,10 @@
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 20, ACID = 75)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 
 /obj/item/clothing/head/officer
 	name = "officer's cap"
@@ -159,6 +163,9 @@
 	item_state = "sechat"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/drillsgt
 	name = "security campaign hat"
@@ -167,7 +174,9 @@
 	item_state = "drillsgthat"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
 	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
