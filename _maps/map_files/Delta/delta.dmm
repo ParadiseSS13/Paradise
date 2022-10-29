@@ -17646,12 +17646,9 @@
 	},
 /area/security/processing)
 "bHQ" = (
-/obj/machinery/hologram/holopad{
-	pixel_y = 16
-	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
+	icon_state = "redfull"
 	},
 /area/security/processing)
 "bHS" = (
@@ -59367,6 +59364,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"gmO" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/security/processing)
 "gnf" = (
 /turf/simulated/wall,
 /area/crew_quarters/cabin2)
@@ -192898,7 +192900,7 @@ dqH
 ubg
 efg
 rGx
-iGn
+gmO
 bHQ
 pjT
 glQ
