@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	if(istype(mob,/mob/dead/observer))
+	if(isobserver(mob))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
 		ghost.can_reenter_corpse = 1			//just in-case.

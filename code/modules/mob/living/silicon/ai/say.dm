@@ -48,7 +48,7 @@
 		else
 			track = "[speaker_name] ([jobname])"
 	else
-		if(istype(follow_target, /mob/living/simple_animal/bot))
+		if(isbot(follow_target))
 			track = "<a href='byond://?src=[UID()];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
 		else
 			mob_to_track = speaker

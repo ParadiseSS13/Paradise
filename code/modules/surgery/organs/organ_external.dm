@@ -547,7 +547,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			src.transform = M
 			if(!clean)
 				// Throw limb around.
-				if(src && istype(loc,/turf))
+				if(src && isturf(loc))
 					dropped_part.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),30)
 				dir = 2
 			brute_dam = 0

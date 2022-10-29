@@ -292,7 +292,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -376,7 +376,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
 		if(M.stat == DEAD)
-			if(istype(M, /mob/dead/observer/))
+			if(isobserver(M))
 				name += " \[ghost\]"
 			else
 				name += " \[dead\]"
@@ -1847,7 +1847,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
 		if(M.stat == DEAD)
-			if(istype(M, /mob/dead/observer/))
+			if(isobserver(M))
 				name += " \[ghost\]"
 			else
 				name += " \[dead\]"

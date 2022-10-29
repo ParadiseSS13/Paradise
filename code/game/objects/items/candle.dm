@@ -98,7 +98,7 @@
 				update_icon(UPDATE_ICON_STATE)
 	if(!wax)
 		new/obj/item/trash/candle(src.loc)
-		if(istype(src.loc, /mob))
+		if(ismob(src.loc))
 			var/mob/M = src.loc
 			M.unEquip(src, 1) //src is being deleted anyway
 		qdel(src)

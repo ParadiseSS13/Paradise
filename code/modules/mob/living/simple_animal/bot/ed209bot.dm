@@ -445,15 +445,15 @@
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
 	if((!( U ) || !( T )))
 		return
-	while(!(istype(U, /turf)))
+	while(!isturf(U))
 		U = U.loc
-	if(!(istype(T, /turf)))
+	if(!isturf(T))
 		return
 
 	if(!projectile)
 		return
 
-	if(!(istype(U, /turf)))
+	if(!isturf(U))
 		return
 	var/obj/item/projectile/A = new projectile(loc)
 	playsound(loc, shoot_sound, 50, 1)

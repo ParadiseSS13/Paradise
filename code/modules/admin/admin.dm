@@ -204,7 +204,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			else
 				body += "<A href='?_src_=holder;makeanimal=[M.UID()]'>Animalize</A> | "
 
-			if(istype(M, /mob/dead/observer))
+			if(isobserver(M))
 				body += "<A href='?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
 
 			if(ispAI(M))
@@ -844,7 +844,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /proc/formatJumpTo(location, where="")
 	var/turf/loc
-	if(istype(location,/turf/))
+	if(isturf(location))
 		loc = location
 	else
 		loc = get_turf(location)
@@ -854,7 +854,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /proc/formatLocation(location)
 	var/turf/loc
-	if(istype(location,/turf/))
+	if(isturf(location))
 		loc = location
 	else
 		loc = get_turf(location)
