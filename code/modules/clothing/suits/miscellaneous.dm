@@ -786,6 +786,19 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/jacket/syndicatebomber
+	name = "suspicious bomber jacket"
+	desc = "A suspicious but extremely stylish jacket."
+	icon_state = "bombersyndie"
+	item_state = "bombersyndie"
+	ignore_suitadjust = 0
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
+	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+
 /obj/item/clothing/suit/jacket/secbomber
 	name = "security bomber jacket"
 	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."

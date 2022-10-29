@@ -1749,6 +1749,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	cant_discount = TRUE
 
+/datum/uplink_item/badass/bomber
+	name = "Syndicate Bomber Jacket"
+	desc = "An awesome jacket to help you style on Nanotrasen with. Does not provide any extra armor or storage space."
+	reference = "JCKT"
+	item = /obj/item/clothing/suit/jacket/syndicatebomber
+	cost = 1
+
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
