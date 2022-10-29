@@ -57,10 +57,27 @@
 	icon = 'icons/obj/flora/jungletrees.dmi'
 	pixel_x = -48
 	pixel_y = -20
+	///Hard ref to the tree's shadow
+	var/obj/structure/flora/tree/jungle/shadow/shadow_reference
 
 /obj/structure/flora/tree/jungle/Initialize(mapload)
 	. = ..()
+	if(istype(src, /obj/structure/flora/tree/jungle/shadow)) //these don't need any of the following
+		return
 	icon_state = "[icon_state][rand(1, 6)]"
+	add_transparency_component()
+	shadow_reference = new /obj/structure/flora/tree/jungle/shadow(get_turf(src))
+	shadow_reference.pixel_x = pixel_x
+	shadow_reference.pixel_y = pixel_y
+	shadow_reference.icon = icon
+	shadow_reference.icon_state = "[icon_state]_shadow"
+
+/obj/structure/flora/tree/jungle/Destroy()
+	. = ..()
+	qdel(shadow_reference)
+	shadow_reference = null
+
+/obj/structure/flora/tree/jungle/proc/add_transparency_component()
 	AddComponent(/datum/component/largetransparency, -1, 1, 2, 2)
 
 /obj/structure/flora/tree/jungle/small
@@ -68,9 +85,14 @@
 	pixel_x = -32
 	icon = 'icons/obj/flora/jungletreesmall.dmi'
 
-/obj/structure/flora/tree/jungle/small/Initialize(mapload)
-	. = ..()
+/obj/structure/flora/tree/jungle/small/add_transparency_component()
 	AddComponent(/datum/component/largetransparency)
+
+/obj/structure/flora/tree/jungle/shadow
+	name = "tree shadow, do not manually place"
+	desc = "If you see this something has gone wrong, scream for a coder."
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	density = FALSE
 
 //grass
 /obj/structure/flora/grass
