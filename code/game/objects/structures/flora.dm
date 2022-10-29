@@ -58,18 +58,15 @@
 	pixel_x = -48
 	pixel_y = -20
 	///Hard ref to the tree's shadow
-	var/obj/structure/flora/tree/jungle/shadow/shadow_reference
+	var/obj/effect/abstract/shadow/shadow_reference
 
 /obj/structure/flora/tree/jungle/Initialize(mapload)
 	. = ..()
 
-	if(istype(src, /obj/structure/flora/tree/jungle/shadow)) //these don't need any of the following
-		return
-
 	icon_state = "[icon_state][rand(1, 6)]"
 	add_transparency_component()
 	//Code to create and place the tree's shadow
-	shadow_reference = new /obj/structure/flora/tree/jungle/shadow(get_turf(src))
+	shadow_reference = new /obj/effect/abstract/shadow(get_turf(src))
 	shadow_reference.pixel_x = pixel_x
 	shadow_reference.pixel_y = pixel_y
 	shadow_reference.icon = icon
@@ -91,11 +88,11 @@
 /obj/structure/flora/tree/jungle/small/add_transparency_component()
 	AddComponent(/datum/component/largetransparency)
 
-/obj/structure/flora/tree/jungle/shadow
+/obj/effect/abstract/shadow
 	name = "tree shadow, do not manually place"
 	desc = "If you see this something has gone wrong, scream for a coder."
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = FALSE
+	invisibility = NONE
 
 //grass
 /obj/structure/flora/grass
