@@ -25,7 +25,7 @@
 				    /obj/item/storage/box/bodybags,
 				    /obj/item/storage/box/iv_bags,
 				    /obj/item/vending_refill/medical)
-	cost = 20
+	cost = 400
 	containertype = /obj/structure/closet/crate/medical
 	containername = "medical supplies crate"
 
@@ -35,7 +35,7 @@
 					/obj/item/storage/firstaid/regular,
 					/obj/item/storage/firstaid/regular,
 					/obj/item/storage/firstaid/regular)
-	cost = 10
+	cost = 250
 	containername = "first aid kits crate"
 
 /datum/supply_packs/medical/firstaidadv
@@ -44,7 +44,7 @@
 					/obj/item/storage/firstaid/adv,
 					/obj/item/storage/firstaid/adv,
 					/obj/item/storage/firstaid/adv)
-	cost = 10
+	cost = 250
 	containername = "advanced first aid kits crate"
 
 /datum/supply_packs/medical/firstaidmachine
@@ -53,7 +53,7 @@
 					/obj/item/storage/firstaid/machine,
 					/obj/item/storage/firstaid/machine,
 					/obj/item/storage/firstaid/machine)
-	cost = 10
+	cost = 250
 	containername = "machine first aid kits crate"
 
 /datum/supply_packs/medical/firstaibrute
@@ -61,7 +61,7 @@
 	contains = list(/obj/item/storage/firstaid/brute,
 					/obj/item/storage/firstaid/brute,
 					/obj/item/storage/firstaid/brute)
-	cost = 10
+	cost = 250
 	containername = "brute first aid kits crate"
 
 /datum/supply_packs/medical/firstaidburns
@@ -69,7 +69,7 @@
 	contains = list(/obj/item/storage/firstaid/fire,
 					/obj/item/storage/firstaid/fire,
 					/obj/item/storage/firstaid/fire)
-	cost = 10
+	cost = 250
 	containername = "fire first aid kits crate"
 
 /datum/supply_packs/medical/firstaidtoxins
@@ -77,7 +77,7 @@
 	contains = list(/obj/item/storage/firstaid/toxin,
 					/obj/item/storage/firstaid/toxin,
 					/obj/item/storage/firstaid/toxin)
-	cost = 10
+	cost = 250
 	containername = "toxin first aid kits crate"
 
 /datum/supply_packs/medical/firstaidoxygen
@@ -85,7 +85,7 @@
 	contains = list(/obj/item/storage/firstaid/o2,
 					/obj/item/storage/firstaid/o2,
 					/obj/item/storage/firstaid/o2)
-	cost = 10
+	cost = 250
 	containername = "oxygen first aid kits crate"
 
 /datum/supply_packs/medical/virus
@@ -104,7 +104,7 @@
 					/obj/item/storage/box/syringes,
 					/obj/item/storage/box/beakers,
 					/obj/item/reagent_containers/glass/bottle/mutagen)
-	cost = 25
+	cost = 350
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "virus crate"
 	access = ACCESS_CMO
@@ -112,14 +112,14 @@
 
 /datum/supply_packs/medical/vending
 	name = "Medical Vending Crate"
-	cost = 20
+	cost = 100
 	contains = list(/obj/item/vending_refill/medical,
 					/obj/item/vending_refill/wallmed)
 	containername = "medical vending crate"
 
 /datum/supply_packs/medical/vending/clothingvendor
 	name = "Medical Clothing Vendors Crate"
-	cost = 20
+	cost = 100
 	contains = list(/obj/item/vending_refill/medidrobe,
 					/obj/item/vending_refill/chemdrobe,
 					/obj/item/vending_refill/virodrobe)
@@ -137,14 +137,14 @@
 					/obj/item/reagent_containers/iv_bag/blood/OMinus,
 					/obj/item/reagent_containers/iv_bag/slime,
 					/obj/item/reagent_containers/iv_bag/blood/vox)
-	cost = 35
+	cost = 500
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
 
 /datum/supply_packs/medical/iv_drip
 	name = "IV Drip Crate"
 	contains = list(/obj/machinery/iv_drip)
-	cost = 30
+	cost = 300
 	containertype = /obj/structure/closet/crate/secure
 	containername = "IV drip crate"
 	access = ACCESS_MEDICAL
@@ -162,7 +162,7 @@
 					/obj/item/retractor,
 					/obj/item/bonesetter,
 					/obj/item/circular_saw)
-	cost = 25
+	cost = 400
 	containertype = /obj/structure/closet/crate/secure
 	containername = "surgery crate"
 	access = ACCESS_MEDICAL
@@ -173,5 +173,5 @@
 					/obj/item/clothing/gloves/color/latex/nitrile,
 					/obj/item/clothing/gloves/color/latex/nitrile,
 					/obj/item/clothing/gloves/color/latex/nitrile)
-	cost = 50
+	cost = 200
 	containername = "nitrile glove crate"

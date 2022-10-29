@@ -13,18 +13,18 @@
 					/obj/item/storage/box/teargas,
 					/obj/item/storage/box/flashes,
 					/obj/item/storage/box/handcuffs)
-	cost = 10
+	cost = 600
 	containername = "security supply crate"
 
 /datum/supply_packs/security/vending/security
 	name = "SecTech Supply Crate"
-	cost = 15
+	cost = 600
 	contains = list(/obj/item/vending_refill/security)
 	containername = "SecTech supply crate"
 
 /datum/supply_packs/security/vending/clothingvendor
 	name = "Security Clothing Vendors Crate"
-	cost = 40
+	cost = 200
 	contains = list(/obj/item/vending_refill/secdrobe,
 					/obj/item/vending_refill/detdrobe)
 	containername = "security clothing vendor crate"
@@ -36,16 +36,16 @@
 	contains = list(/obj/item/clothing/head/helmet,
 					/obj/item/clothing/head/helmet,
 					/obj/item/clothing/head/helmet)
-	cost = 10
+	cost = 250
 	containername = "helmet crate"
 
 /datum/supply_packs/security/justiceinbound
-	name = "Standard Justice Enforcer Crate"
+	name = "Standard Justice Enforcer Crat3e"
 	contains = list(/obj/item/clothing/head/helmet/justice,
 					/obj/item/clothing/head/helmet/justice,
 					/obj/item/clothing/mask/gas/sechailer,
 					/obj/item/clothing/mask/gas/sechailer)
-	cost = 60 //justice comes at a price. An expensive, noisy price.
+	cost = 400 //justice comes at a price. An expensive, noisy price.
 	containername = "justice enforcer crate"
 
 /datum/supply_packs/security/armor
@@ -53,7 +53,7 @@
 	contains = list(/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest,
 					/obj/item/clothing/suit/armor/vest)
-	cost = 10
+	cost = 250
 	containername = "armor crate"
 
 ////// Weapons: Basic
@@ -63,7 +63,7 @@
 	contains = list(/obj/item/melee/baton/loaded,
 					/obj/item/melee/baton/loaded,
 					/obj/item/melee/baton/loaded)
-	cost = 10
+	cost = 400
 	containername = "stun baton crate"
 
 /datum/supply_packs/security/laser
@@ -71,7 +71,7 @@
 	contains = list(/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser)
-	cost = 15
+	cost = 500
 	containername = "laser crate"
 
 /datum/supply_packs/security/disabler
@@ -79,7 +79,7 @@
 	contains = list(/obj/item/gun/energy/disabler,
 					/obj/item/gun/energy/disabler,
 					/obj/item/gun/energy/disabler)
-	cost = 10
+	cost = 300
 	containername = "disabler crate"
 
 /datum/supply_packs/security/forensics
@@ -90,7 +90,7 @@
 					/obj/item/taperecorder,
 					/obj/item/toy/crayon/white,
 					/obj/item/clothing/head/det_hat)
-	cost = 20
+	cost = 100
 	containername = "forensics crate"
 
 ///// Armory stuff
@@ -108,7 +108,7 @@
 	contains = list(/obj/item/clothing/head/helmet/riot,
 					/obj/item/clothing/head/helmet/riot,
 					/obj/item/clothing/head/helmet/riot)
-	cost = 15
+	cost = 400
 	containername = "riot helmets crate"
 
 /datum/supply_packs/security/armory/riotarmor
@@ -116,7 +116,7 @@
 	contains = list(/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot)
-	cost = 15
+	cost = 400
 	containername = "riot armor crate"
 
 /datum/supply_packs/security/armory/riotshields
@@ -124,7 +124,7 @@
 	contains = list(/obj/item/shield/riot,
 					/obj/item/shield/riot,
 					/obj/item/shield/riot)
-	cost = 20
+	cost = 500
 	containername = "riot shields crate"
 
 /datum/supply_packs/security/bullethelmets
@@ -132,7 +132,7 @@
 	contains = list(/obj/item/clothing/head/helmet/alt,
 					/obj/item/clothing/head/helmet/alt,
 					/obj/item/clothing/head/helmet/alt)
-	cost = 10
+	cost = 300
 	containername = "bulletproof helmet crate"
 
 /datum/supply_packs/security/armory/bulletarmor
@@ -140,7 +140,7 @@
 	contains = list(/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/clothing/suit/armor/bulletproof)
-	cost = 15
+	cost = 300
 	containername = "tactical armor crate"
 
 /datum/supply_packs/security/armory/webbing
@@ -148,7 +148,7 @@
 	contains = list(/obj/item/storage/belt/security/webbing,
 					/obj/item/storage/belt/security/webbing,
 					/obj/item/storage/belt/security/webbing)
-	cost = 15
+	cost = 400
 	containername = "tactical webbing crate"
 
 /datum/supply_packs/security/armory/swat
@@ -163,14 +163,14 @@
 					/obj/item/clothing/mask/gas/sechailer/swat,
 					/obj/item/storage/belt/military/assault,
 					/obj/item/storage/belt/military/assault)
-	cost = 60
+	cost = 800
 	containername = "assault armor crate"
 
 /datum/supply_packs/security/armory/laserarmor
 	name = "Ablative Armor Crate"
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
 					/obj/item/clothing/suit/armor/laserproof)		// Only two vests to keep costs down for balance
-	cost = 20
+	cost = 500
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ablative armor crate"
 
@@ -184,7 +184,7 @@
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier)
-	cost = 50
+	cost = 800
 	containername = "riot shotgun crate"
 
 /datum/supply_packs/security/armory/ballisticauto
@@ -195,14 +195,14 @@
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier)
-	cost = 80
+	cost = 1000
 	containername = "combat shotgun crate"
 
 /datum/supply_packs/security/armory/expenergy
 	name = "Energy Guns Crate"
 	contains = list(/obj/item/gun/energy/gun,
 					/obj/item/gun/energy/gun)
-	cost = 25
+	cost = 500
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
@@ -211,7 +211,7 @@
 	contains = list(/obj/item/gun/energy/gun/mini,
 					/obj/item/gun/energy/gun/mini,
 					/obj/item/gun/energy/gun/mini)
-	cost = 15
+	cost = 300
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
@@ -224,7 +224,7 @@
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary)
-	cost = 15	// its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
+	cost = 200	// its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "incendiary weapons crate"
 	access = ACCESS_HEADS
@@ -233,7 +233,7 @@
 	name = "WT-550 Auto Rifle Crate"
 	contains = list(/obj/item/gun/projectile/automatic/wt550,
 					/obj/item/gun/projectile/automatic/wt550)
-	cost = 35
+	cost = 625
 	containername = "auto rifle crate"
 
 /datum/supply_packs/security/armory/wt550ammo
@@ -242,7 +242,7 @@
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,)
-	cost = 30
+	cost = 500
 	containername = "auto rifle ammo crate"
 
 /////// Implants & etc
@@ -250,25 +250,25 @@
 /datum/supply_packs/security/armory/mindshield
 	name = "Mindshield Bio-chips Crate"
 	contains = list (/obj/item/storage/lockbox/mindshield)
-	cost = 40
+	cost = 750
 	containername = "mindshield bio-chip crate"
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Tracking Bio-chips Crate"
 	contains = list (/obj/item/storage/box/trackimp)
-	cost = 20
+	cost = 500
 	containername = "tracking bio-chip crate"
 
 /datum/supply_packs/security/armory/chemimp
 	name = "Chemical Bio-chips Crate"
 	contains = list (/obj/item/storage/box/chemimp)
-	cost = 20
+	cost = 500
 	containername = "chemical bio-chip crate"
 
 /datum/supply_packs/security/armory/exileimp
 	name = "Exile Bio-chips Crate"
 	contains = list (/obj/item/storage/box/exileimp)
-	cost = 30
+	cost = 600
 	containername = "exile bio-chip crate"
 
 /datum/supply_packs/security/securitybarriers
@@ -277,7 +277,7 @@
 					/obj/item/grenade/barrier,
 					/obj/item/grenade/barrier,
 					/obj/item/grenade/barrier)
-	cost = 20
+	cost = 200
 	containername = "security barriers crate"
 
 /datum/supply_packs/security/securityclothes
@@ -290,7 +290,7 @@
 					/obj/item/clothing/head/beret/sec/warden,
 					/obj/item/clothing/under/rank/security/head_of_security/corporate,
 					/obj/item/clothing/head/HoS/beret)
-	cost = 30
+	cost = 200
 	containername = "security clothing crate"
 
 /datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
@@ -308,5 +308,5 @@
 				/obj/item/clothing/head/helmet,
 				/obj/item/melee/baton/loaded,
 				/obj/item/clothing/suit/armor/secjacket)
-	cost = 30 // Convenience has a price and this pack is genuinely loaded
+	cost = 500 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"

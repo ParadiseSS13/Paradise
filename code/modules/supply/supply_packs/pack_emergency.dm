@@ -21,7 +21,7 @@
 					/obj/item/clothing/mask/gas,
 					/obj/item/grenade/gas/oxygen,
 					/obj/item/grenade/gas/oxygen)
-	cost = 35
+	cost = 400
 	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
 	group = SUPPLY_EMERGENCY
@@ -34,7 +34,7 @@
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air)
-	cost = 10
+	cost = 100
 	containername = "internals crate"
 
 /datum/supply_packs/emergency/firefighting
@@ -51,14 +51,14 @@
 					/obj/item/extinguisher,
 					/obj/item/clothing/head/hardhat/red,
 					/obj/item/clothing/head/hardhat/red)
-	cost = 10
+	cost = 100
 	containertype = /obj/structure/closet/crate
 	containername = "firefighting crate"
 
 /datum/supply_packs/emergency/atmostank
 	name = "Firefighting Watertank Crate"
 	contains = list(/obj/item/watertank/atmos)
-	cost = 10
+	cost = 100
 	containertype = /obj/structure/closet/crate/secure
 	containername = "firefighting watertank crate"
 	access = ACCESS_ATMOSPHERICS
@@ -69,7 +69,7 @@
 					/obj/item/clothing/mask/gas,
 					/obj/item/grenade/chem_grenade/antiweed,
 					/obj/item/grenade/chem_grenade/antiweed)
-	cost = 15
+	cost = 300
 	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "weed control crate"
 	access = ACCESS_HYDROPONICS
@@ -82,7 +82,7 @@
 					/obj/item/clothing/mask/breath/vox,
 					/obj/item/tank/internals/emergency_oxygen/double/vox,
 					/obj/item/tank/internals/emergency_oxygen/double/vox)
-	cost = 50
+	cost = 200
 	containertype = /obj/structure/closet/crate/medical
 	containername = "vox life support supplies crate"
 
@@ -96,7 +96,7 @@
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/head/helmet/space/plasmaman,
 					/obj/item/clothing/head/helmet/space/plasmaman)
-	cost = 20
+	cost = 200
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "plasmaman life support supplies crate"
 	access = ACCESS_EVA
@@ -109,7 +109,7 @@
 					/obj/item/grenade/smokebomb,
 					/obj/item/pen/sleepy,
 					/obj/item/grenade/chem_grenade/incendiary)
-	cost = 20
+	cost = 150 //this is hard enough to get, lets make it easier to buy
 	containertype = /obj/structure/closet/crate
 	containername = "special ops crate"
 	hidden = TRUE

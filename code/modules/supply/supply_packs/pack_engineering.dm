@@ -8,7 +8,7 @@
 /datum/supply_packs/engineering/fueltank
 	name = "Fuel Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/fueltank)
-	cost = 8
+	cost = 100
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
@@ -20,19 +20,19 @@
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical)
-	cost = 10
+	cost = 500
 	containername = "electrical maintenance crate"
 
 /datum/supply_packs/vending/engivend
 	name = "Engineering Vendor Supply Crate"
-	cost = 20
+	cost = 50
 	contains = list(/obj/item/vending_refill/engivend,
 					/obj/item/vending_refill/youtool)
 	containername = "engineering supply crate"
 
 /datum/supply_packs/engineering/vending/clothingvendor
 	name = "Engineering Clothing Vendors Crate"
-	cost = 20
+	cost = 50
 	contains = list(/obj/item/vending_refill/engidrobe,
 					/obj/item/vending_refill/atmosdrobe)
 	containername = "engineering clothing vendor crate"
@@ -42,7 +42,7 @@
 	contains = list(/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow,
 					/obj/item/clothing/gloves/color/yellow)
-	cost = 20	//Made of pure-grade bullshittinium
+	cost = 500	//Made of pure-grade bullshittinium
 	containername = "insulated gloves crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -51,7 +51,7 @@
 	contains = list(/obj/item/stock_parts/cell/high,		//Changed to an extra high powercell because normal cells are useless
 					/obj/item/stock_parts/cell/high,
 					/obj/item/stock_parts/cell/high)
-	cost = 10
+	cost = 300
 	containername = "electrical maintenance crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -71,7 +71,7 @@
 					/obj/item/clothing/head/hardhat,
 					/obj/item/clothing/glasses/meson/engine,
 					/obj/item/clothing/glasses/meson/engine)
-	cost = 10
+	cost = 100
 	containername = "engineering gear crate"
 
 /datum/supply_packs/engineering/solar
@@ -100,7 +100,7 @@
 					/obj/item/circuitboard/solar_control,
 					/obj/item/tracker_electronics,
 					/obj/item/paper/solar)
-	cost = 20
+	cost = 250
 	containername = "solar pack crate"
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -108,7 +108,7 @@
 	name = "Emitter Crate"
 	contains = list(/obj/machinery/power/emitter,
 					/obj/machinery/power/emitter)
-	cost = 10
+	cost = 100
 	containername = "emitter crate"
 	access = ACCESS_CE
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -117,19 +117,19 @@
 	name = "Field Generator Crate"
 	contains = list(/obj/machinery/field/generator,
 					/obj/machinery/field/generator)
-	cost = 10
+	cost = 100
 	containername = "field generator crate"
 
 /datum/supply_packs/engineering/engine/sing_gen
 	name = "Singularity Generator Crate"
 	contains = list(/obj/machinery/the_singularitygen)
-	cost = 10
+	cost = 350
 	containername = "singularity generator crate"
 
 /datum/supply_packs/engineering/engine/tesla
 	name = "Energy Ball Generator Crate"
 	contains = list(/obj/machinery/the_singularitygen/tesla)
-	cost = 10
+	cost = 350
 	containername = "energy ball generator crate"
 
 /datum/supply_packs/engineering/engine/coil
@@ -137,14 +137,14 @@
 	contains = list(/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil)
-	cost = 10
+	cost = 100
 	containername = "tesla coil crate"
 
 /datum/supply_packs/engineering/engine/grounding
 	name = "Grounding Rod Crate"
 	contains = list(/obj/machinery/power/grounding_rod,
 					/obj/machinery/power/grounding_rod)
-	cost = 10
+	cost = 100
 	containername = "grounding rod crate"
 
 /datum/supply_packs/engineering/engine/collector
@@ -152,7 +152,7 @@
 	contains = list(/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
-	cost = 10
+	cost = 100
 	containername = "collector crate"
 
 /datum/supply_packs/engineering/engine/PA
@@ -164,12 +164,12 @@
 					/obj/structure/particle_accelerator/particle_emitter/right,
 					/obj/structure/particle_accelerator/power_box,
 					/obj/structure/particle_accelerator/end_cap)
-	cost = 25
+	cost = 250
 	containername = "particle accelerator crate"
 
 /datum/supply_packs/engineering/radiation
 	name = "Radiation Protection Crate"
-	cost = 20
+	cost = 150
 	contains = list(/obj/item/clothing/head/radiation,
 					/obj/item/clothing/head/radiation,
 					/obj/item/clothing/suit/radiation,
@@ -188,7 +188,7 @@
 					/obj/item/clothing/head/helmet/space,
 					/obj/item/clothing/mask/breath,
 					/obj/item/clothing/mask/breath)
-	cost = 30
+	cost = 300
 	containertype = /obj/structure/closet/crate/secure
 	containername = "space suit crate"
 	access = ACCESS_EVA
@@ -198,13 +198,13 @@
 	contains = list(/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable)
-	cost = 20
+	cost = 100
 	containername = "inflatable barrier crate"
 
 /datum/supply_packs/engineering/engine/supermatter_shard
 	name = "Supermatter Shard Crate"
 	contains = list(/obj/machinery/atmospherics/supermatter_crystal/shard)
-	cost = 50 //So cargo thinks twice before killing themselves with it
+	cost = 750 //So cargo thinks twice before killing themselves with it
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"
 	access = ACCESS_CE
@@ -215,7 +215,7 @@
 		/obj/machinery/power/generator,
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
-	cost = 25
+	cost = 250
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
@@ -231,6 +231,6 @@
 					/obj/item/conveyor_construct,
 					/obj/item/conveyor_switch_construct,
 					/obj/item/paper/conveyor)
-	cost = 15
+	cost = 100
 	containername = "conveyor assembly crate"
 	department_restrictions = list() //anyone should be able to order conveyors (especially since they can just be made at an autolathe)
