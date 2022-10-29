@@ -595,25 +595,24 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.null_rod_check())
-				var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
-				if(S)
-					S.trigger()
-				else
-					L.KnockDown(10 SECONDS)
-					L.adjustStaminaLoss(60)
-					L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
-					L.flash_eyes(1, TRUE)
-					if(issilicon(L))
-						var/mob/living/silicon/B = L
-						B.emp_act(EMP_HEAVY)
-					else if(iscarbon(L))
-						var/mob/living/carbon/C = L
-						C.Silence(6 SECONDS)
-						C.Stuttering(16 SECONDS)
-						C.CultSlur(20 SECONDS)
-						C.Jitter(16 SECONDS)
-			break_spear(T)
+			if(L.null_rod_check())
+				return
+			var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
+			if(S)
+				S.trigger()
+			else
+				L.KnockDown(10 SECONDS)
+				L.adjustStaminaLoss(60)
+				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+				L.flash_eyes(1, TRUE)
+				if(issilicon(L))
+					L.emp_act(EMP_HEAVY)
+				else if(iscarbon(L))
+					L.Silence(6 SECONDS)
+					L.Stuttering(16 SECONDS)
+					L.CultSlur(20 SECONDS)
+					L.Jitter(16 SECONDS)
+		break_spear(T)
 	else
 		..()
 
