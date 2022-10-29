@@ -23,9 +23,14 @@
 		return
 	A.attack_ghost(src)
 	if(ishuman(A) && in_range(src, A))
-		Harvest(A)
+		if(isLivingSSD(A))
+			if(client && client.send_ssd_warning(A)) //Do NOT Harvest(SSD people)
+				return
+			else
+				Harvest(A)
 
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
+
 	if(!castcheck(0))
 		return
 	if(draining)
