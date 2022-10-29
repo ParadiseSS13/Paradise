@@ -850,14 +850,26 @@
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 
+/obj/structure/rack/proc/item_placed(item)
+	return
+
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
 	if(isrobot(user))
 		return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(!(W.flags & ABSTRACT))
+
+	if(user.a_intent != INTENT_HARM && !(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
+			var/list/click_params = params2list(params)
+			//Center the icon where the user clicked.
+			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+				return
+			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+			W.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			W.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			item_placed(W)
 	return
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
