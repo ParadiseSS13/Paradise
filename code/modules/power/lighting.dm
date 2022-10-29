@@ -205,7 +205,7 @@
 	/// Is the light rigged to explode?
 	var/rigged = FALSE
 	/// Materials the light is made of
-	var/lightmaterials = list(MAT_GLASS=100)
+	var/lightmaterials = list(MAT_GLASS = 200)
 
 	/// Currently in night shift mode?
 	var/nightshift_enabled = FALSE
@@ -793,7 +793,7 @@
 	/// How many times has the light been switched on/off?
 	var/switchcount = 0
 	/// Materials the light is made of
-	materials = list(MAT_GLASS=100)
+	materials = list(MAT_GLASS = 200)
 	/// Is the light rigged to explode?
 	var/rigged = FALSE
 	/// Light range

@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			var/location
 			if(isliving(target))
 				location = target.loc
-			else if(istype(target,/turf))
+			else if(isturf(target))
 				location = target
 			var/obj/effect/overlay/spell = new /obj/effect/overlay(location)
 			spell.icon = overlay_icon
@@ -397,7 +397,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		var/location
 		if(isliving(target))
 			location = target.loc
-		else if(istype(target,/turf))
+		else if(isturf(target))
 			location = target
 		if(isliving(target) && message)
 			to_chat(target, text("[message]"))

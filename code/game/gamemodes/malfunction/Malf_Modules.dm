@@ -726,8 +726,6 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
-	AI.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //Night-vision, without which X-ray would be very limited in power.
-	AI.update_sight()
 	var/upgraded_cameras = 0
 
 	for(var/V in GLOB.cameranet.cameras)
@@ -737,8 +735,6 @@
 
 			if(!C.isXRay())
 				C.upgradeXRay()
-				//Update what it can see.
-				GLOB.cameranet.updateVisibility(C, 0)
 				upgraded = TRUE
 
 			if(!C.isEmpProof())
@@ -747,6 +743,7 @@
 
 			if(upgraded)
 				upgraded_cameras++
+		C.update_remote_sight(AI)
 
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
 

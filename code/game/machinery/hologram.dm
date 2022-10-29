@@ -328,7 +328,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
 		return FALSE
 
-	if(istype(user, /mob/living/silicon/ai))
+	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.current)
 			return FALSE

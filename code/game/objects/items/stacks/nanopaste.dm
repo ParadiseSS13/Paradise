@@ -13,7 +13,7 @@
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))
 		return 0
-	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
+	if(isrobot(M))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
 		if(R.getBruteLoss() || R.getFireLoss() )
 			R.heal_overall_damage(15, 15)

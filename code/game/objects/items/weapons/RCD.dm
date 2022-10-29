@@ -378,6 +378,8 @@
 			to_chat(user, "Building Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, 20 * toolspeed, target = A))
+				if(!isfloorturf(A))
+					return FALSE
 				if(!useResource(3, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
