@@ -23,8 +23,6 @@
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/recentlyExperimented = 0
-	var/mob/trackedIan
-	var/mob/trackedRuntime
 	var/badThingCoeff = 0
 	var/resetTime = 15
 	var/cloneMode = FALSE
@@ -78,13 +76,6 @@
 	SetTypeReactions()
 	RefreshParts()
 	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/r_n_d/experimentor/LateInitialize()
-	..()
-	// GLOB.mob_living_list gets populated in /mob/Initialize()
-	// so we need to delay searching for those until after the Initialize()
-	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
-	trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 
 /obj/machinery/r_n_d/experimentor/RefreshParts()
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
@@ -500,9 +491,10 @@
 		if(globalMalf > 16 && globalMalf < 35)
 			visible_message("<span class='warning'>[src] melts [exp_on], ian-izing the air around it!</span>")
 			throwSmoke(loc)
-			if(trackedIan)
-				throwSmoke(trackedIan.loc)
-				trackedIan.loc = loc
+			var/mob/tracked_ian = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
+			if(tracked_ian)
+				throwSmoke(tracked_ian.loc)
+				tracked_ian.loc = loc
 				investigate_log("Experimentor has stolen Ian!", "experimentor") //...if anyone ever fixes it...
 			else
 				new /mob/living/simple_animal/pet/dog/corgi(loc)
@@ -511,9 +503,10 @@
 		if(globalMalf > 36 && globalMalf < 59)
 			visible_message("<span class='warning'>[src] encounters a run-time error!</span>")
 			throwSmoke(loc)
-			if(trackedRuntime)
-				throwSmoke(trackedRuntime.loc)
-				trackedRuntime.loc = loc
+			var/mob/tracked_runtime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
+			if(tracked_runtime)
+				throwSmoke(tracked_runtime.loc)
+				tracked_runtime.loc = loc
 				investigate_log("Experimentor has stolen Runtime!", "experimentor")
 			else
 				new /mob/living/simple_animal/pet/cat(loc)
