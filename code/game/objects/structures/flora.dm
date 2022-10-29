@@ -62,10 +62,13 @@
 
 /obj/structure/flora/tree/jungle/Initialize(mapload)
 	. = ..()
+
 	if(istype(src, /obj/structure/flora/tree/jungle/shadow)) //these don't need any of the following
 		return
+
 	icon_state = "[icon_state][rand(1, 6)]"
 	add_transparency_component()
+	//Code to create and place the tree's shadow
 	shadow_reference = new /obj/structure/flora/tree/jungle/shadow(get_turf(src))
 	shadow_reference.pixel_x = pixel_x
 	shadow_reference.pixel_y = pixel_y
