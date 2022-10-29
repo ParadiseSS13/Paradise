@@ -48,6 +48,7 @@
 	var/redAlert = TRUE
 	GLOB.major_announcement.Announce(
 		message = "The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in 10 minutes.[reason]",
+		new_title = "Priority Announcement",
 		new_sound = sound('sound/AI/eshuttle_call.ogg')
 	)
 

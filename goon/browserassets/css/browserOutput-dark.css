@@ -426,11 +426,11 @@ em				{font-style: normal;font-weight: bold;}
 span.body .codephrases 		{color: #5555FF;}
 span.body .coderesponses 		{color: #FF3333;}
 
-.annc { font-size: 24pt; }
-.annc h1, .annc h2 { color: #fff; }
-.annc p { color: #d82020; font-size: 12pt; }
-.annc h1 { font-size: 100%; }
-.annc h2 { font-size: 90%; }
-.annc.minor h1 { font-size: 80%; }
-.annc.minor h2 { font-size: 70%; }
-.annc.sec h1 { color: #f00; font-size: 80%; font-family: Verdana, sans-serif; }
+.announce { font-size: 24pt; }
+.announce h1, .announce h2 { color: #fff; }
+.announce p { color: #d82020; font-size: 12pt; }
+.announce h1 { font-size: 100%; }
+.announce h2 { font-size: 90%; }
+.announce.minor h1 { font-size: 80%; }
+.announce.minor h2 { font-size: 70%; }
+.announce.sec h1 { color: #f00; font-size: 80%; font-family: Verdana, sans-serif; }

@@ -260,9 +260,17 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 	if(canRecall)
-		GLOB.major_announcement.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]", new_sound = sound('sound/AI/eshuttle_call.ogg'))
+		GLOB.major_announcement.Announce(
+			"The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]",
+			new_title = "Priority Announcement",
+			new_sound = sound('sound/AI/eshuttle_call.ogg')
+		)
 	else
-		GLOB.major_announcement.Announce("The crew transfer shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason]", new_sound = sound('sound/AI/cshuttle.ogg'))
+		GLOB.major_announcement.Announce(
+			"The crew transfer shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason]",
+			new_title = "Priority Announcement",
+			new_sound = sound('sound/AI/cshuttle.ogg')
+		)
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(!canRecall)
@@ -278,7 +286,11 @@
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null
-	GLOB.major_announcement.Announce("The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]", new_sound = sound('sound/AI/eshuttle_recall.ogg'))
+	GLOB.major_announcement.Announce(
+		"The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]",
+		new_title = "Priority Announcement",
+		new_sound = sound('sound/AI/eshuttle_recall.ogg')
+	)
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked(fullcheck = FALSE)
 	if(hijack_status == HIJACKED && !fullcheck) //Don't even bother if it was done via computer.
@@ -347,10 +359,17 @@
 				mode = SHUTTLE_DOCKED
 				timer = world.time
 				if(canRecall)
-					GLOB.major_announcement.Announce("The emergency shuttle has docked with the station. You have [timeLeft(600)] minutes to board the emergency shuttle.", new_sound = sound('sound/AI/eshuttle_dock.ogg'))
+					GLOB.major_announcement.Announce(
+						"The emergency shuttle has docked with the station. You have [timeLeft(600)] minutes to board the emergency shuttle.",
+						new_title = "Priority Announcement",
+						new_sound = sound('sound/AI/eshuttle_dock.ogg')
+					)
 				else
-					GLOB.major_announcement.Announce("The crew transfer shuttle has docked with the station. You have [timeLeft(600)] minutes to board the crew transfer shuttle.", new_sound = sound('sound/AI/cshuttle_dock.ogg'))
-
+					GLOB.major_announcement.Announce(
+						"The crew transfer shuttle has docked with the station. You have [timeLeft(600)] minutes to board the crew transfer shuttle.",
+						new_title = "Priority Announcement",
+						new_sound = sound('sound/AI/cshuttle_dock.ogg')
+					)
 /*
 				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
 				for(var/datum/gang/G in ticker.mode.gangs)
@@ -362,7 +381,10 @@
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
-				GLOB.major_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.", "Priority Announcement")
+				GLOB.major_announcement.Announce(
+					"Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.",
+					new_title = "Priority Announcement"
+				)
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
@@ -384,7 +406,10 @@
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
-				GLOB.major_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.", "Priority Announcement")
+				GLOB.major_announcement.Announce(
+					"The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.",
+					new_title = "Priority Announcement"
+				)
 				for(var/mob/M in GLOB.player_list)
 					if(!isnewplayer(M) && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
 						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
@@ -404,7 +429,10 @@
 				var/destination_dock = "emergency_away"
 				if(is_hijacked())
 					destination_dock = "emergency_syndicate"
-					GLOB.major_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.", "Priority Announcement")
+					GLOB.major_announcement.Announce(
+						"Corruption detected in shuttle navigation protocols. Please contact your supervisor.",
+						new_title = "Priority Announcement"
+					)
 
 				dock_id(destination_dock)
 

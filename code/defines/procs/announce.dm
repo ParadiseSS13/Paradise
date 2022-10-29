@@ -7,25 +7,26 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcer, new(config_type = /datum
 	/// The name used when describing the announcement type in logs.
 	var/log_name = ANNOUNCE_KIND_DEFAULT
 	/// Whether or not to log the announcement when made.
-	var/add_log = TRUE
+	var/add_log = FALSE
 	/// Global announcements are received regardless of being in range of a
 	/// radio, unless you're in the lobby, to prevent metagaming.
 	var/global_announcement = FALSE
 	/// What sound to play when the announcement is made.
-	var/sound/sound = null
+	var/sound/sound
 	/// A CSS class name.
-	var/style = null
+	var/style
 
 /datum/announcer
 	// The default configuration for new announcements.
 	var/datum/announcement_configuration/config
 	/// The name used to sign off on announcements.
-	var/author = null
+	var/author
 	var/language = "Galactic Common"
 
 /datum/announcer/New(config_type = null)
 	config = config_type ? new config_type : new
 
+// TODO: Make new_sound+new_sound2 a list to clean things up more
 /datum/announcer/proc/Announce(
 		message,
 		new_title = null,
@@ -101,7 +102,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcer/proc/Format(message, title, subtitle = null)
 	var/formatted_message
-	var/style = config.style ? "annc [config.style]" : "annc"
+	var/style = config.style ? "announce [config.style]" : "announce"
 
 	formatted_message += "<div class='[style]'>"
 	formatted_message += "<h1>[title]</h1>"
@@ -134,36 +135,33 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcement_configuration/event
 	default_title = ANNOUNCE_KIND_EVENT
-	add_log = FALSE
 	sound = sound('sound/misc/notice2.ogg')
 	style = "minor"
 
 /datum/announcement_configuration/major
 	default_title = ANNOUNCE_KIND_MAJOR
-	add_log = FALSE
 	global_announcement = TRUE
 	sound = sound('sound/misc/notice2.ogg')
 
 /datum/announcement_configuration/security
 	default_title = ANNOUNCE_KIND_SECURITY
-	add_log = FALSE
 	sound = sound('sound/misc/notice2.ogg')
 	style = "sec"
 
 /datum/announcement_configuration/minor
-	add_log = FALSE
 	sound = sound('sound/misc/notice2.ogg')
 	style = "minor"
 
 /datum/announcement_configuration/requests_console
-	add_log = FALSE
 	style = "minor"
 
 /datum/announcement_configuration/comms_console
 	default_title = "Priority Announcement"
+	add_log = TRUE
 	log_name = ANNOUNCE_KIND_PRIORITY
 	sound = sound('sound/misc/notice2.ogg')
 
 /datum/announcement_configuration/ai
 	default_title = ANNOUNCE_KIND_AI
+	add_log = TRUE
 	log_name = ANNOUNCE_KIND_AI
