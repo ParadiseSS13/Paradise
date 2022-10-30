@@ -26,8 +26,8 @@
 		if(isLivingSSD(A))
 			if(client && client.send_ssd_warning(A)) //Do NOT Harvest(SSD people)
 				return
-			else
-				Harvest(A)
+		else
+			Harvest(A)
 
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
 
