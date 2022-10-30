@@ -684,16 +684,17 @@
 
 /datum/surgery_step/robotics/edit_serial/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	user.visible_message("[user] begins to edit [target]'s identity parameters with [tool].",
-	"You begin to alter [target]'s identity parameters with [tool]...</span>")
+	"You begin to alter [target]'s identity parameters with [tool].")
 	return ..()
 
 /datum/surgery_step/robotics/edit_serial/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/old_name = target.real_name
-	var/new_name = copytext(reject_bad_text(input(user,"Choose a name for this machine.","Set name","[old_name]")),1,MAX_NAME_LEN)
+	var/new_name = copytext(reject_bad_text(input(user,"Choose a name for this machine.","Set Name","[old_name]")),1,MAX_NAME_LEN)
 	if(!new_name || !length(new_name))
 		to_chat(user, "<span_class='notice'> Invalid name! Please try again.")
 		return SURGERY_STEP_RETRY
 	else
+		target.gender = input(user,"Choose a gender for this machine","Select Gender",target.gender) in list(MALE, FEMALE)
 		target.real_name = new_name
 		user.visible_message(
 			"<span_class='notice'> [user] edits [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name] </span>",
