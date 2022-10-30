@@ -73,23 +73,27 @@
 	if(allow_items)
 		data["frozen_items"] = frozen_items
 
+
+	if(!ishuman(user))
+		return data
+
 	var/obj/item/card/id/id_card
-	if(isliving(user))
-		var/mob/living/carbon/human/person = user
-		id_card = person.get_idcard()
+	var/mob/living/carbon/human/person = user
+
+	id_card = person.get_idcard()
 	if(id_card?.registered_name)
 		data["account_name"] = id_card.registered_name
 
 	return data
 
-/obj/machinery/computer/cryopod/ui_act(action, params)
+/obj/machinery/computer/cryopod/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	var/mob/user = usr
+	var/mob/user = ui.user
 
 	add_fingerprint(user)
 
@@ -105,7 +109,14 @@
 			if(!params["item"])
 				return
 
-			var/obj/item/item = frozen_items[text2num(params["item"])]
+			var/item_index = text2num(params["item"])
+			if(!isnum(item_index))
+				return
+
+			if(item_index > length(frozen_items))
+				return
+
+			var/obj/item/item = frozen_items[item_index]
 			if(!item)
 				to_chat(user, "<span class='notice'>[item] is no longer in storage.</span>")
 				return

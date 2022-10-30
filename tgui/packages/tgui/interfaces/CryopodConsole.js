@@ -29,7 +29,7 @@ const CrewList = (props, context) => {
       {!frozen_crew.length ? (
         <NoticeBox>No stored crew!</NoticeBox>
       ) : (
-        <Section height={10} fill scrollable>
+        <Section fill scrollable>
           <LabeledList>
             {frozen_crew.map((person) => (
               <LabeledList.Item key={person} label={person.name}>
@@ -49,7 +49,7 @@ const ItemList = (props, context) => {
 
   const replaceItemName = (item) => {
     let itemName = item.toString();
-    if (itemName.startsWith('the')) {
+    if (itemName.startsWith('the ')) {
       itemName = itemName.slice(4, itemName.length);
     }
     return itemName.replace(/^\w/, (c) => c.toUpperCase());
@@ -61,7 +61,7 @@ const ItemList = (props, context) => {
         <NoticeBox>No stored items!</NoticeBox>
       ) : (
         <>
-          <Section height={11} fill scrollable>
+          <Section fill scrollable>
             <LabeledList>
               {frozen_items.map((item, index) => (
                 <LabeledList.Item
