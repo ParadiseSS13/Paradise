@@ -673,7 +673,8 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/robotics/edit_serial,
-		/datum/surgery_step/robotics/external/close_hatch)
+		/datum/surgery_step/robotics/external/close_hatch
+	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
 /datum/surgery_step/robotics/edit_serial
@@ -681,29 +682,27 @@
 	allowed_tools = list(TOOL_MULTITOOL = 100)
 	time = 4.8 SECONDS
 
-/datum/surgery_step/robotics/edit_serial/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/edit_serial/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
 		"[user] begins to edit [target]'s identity parameters with [tool].",
 		"You begin to alter [target]'s identity parameters with [tool]."
-		)
+	)
 	return ..()
 
-/datum/surgery_step/robotics/edit_serial/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/robotics/edit_serial/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/old_name = target.real_name
 	var/new_name = copytext(reject_bad_text(input(user,"Choose a name for this machine.","Set Name","[old_name]") as null|text),1,MAX_NAME_LEN)
 	if(!new_name)
-		to_chat(user, "<span class='warning'> Invalid name! Please try again. </span>")
-		return SURGERY_STEP_RETRY
-	else
-		var/new_gender = input(user,"Choose a gender for this machine.","Select Gender",target.gender) as null|anything in list(MALE, FEMALE)
-		if(!new_gender)
-			to_chat(user, "<span class='warning'> You must choose a gender! Please try again. </span>")
-			return SURGERY_STEP_RETRY
-		else
-			target.real_name = new_name
-			target.gender = new_gender
-			user.visible_message(
-				"<span class='notice'> [user] edits [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]. </span>",
-				"<span class='notice'> You alter [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name]. </span>"
-				)
-			return SURGERY_STEP_CONTINUE
+		to_chat(user, "<span class='warning'>Invalid name! Please try again.</span>")
+		return SURGERY_STEP_INCOMPLETE
+	var/new_gender = input(user,"Choose a gender for this machine.","Select Gender",target.gender) as null|anything in list(MALE, FEMALE)
+	if(!new_gender)
+		to_chat(user, "<span class='warning'>You must choose a gender! Please try again.</span>")
+		return SURGERY_STEP_INCOMPLETE
+	target.real_name = new_name
+	target.gender = new_gender
+	user.visible_message(
+		"<span class='notice'>[user] edits [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>",
+		"<span class='notice'>You alter [old_name]'s identity parameters with [tool]; [target.p_they()] [target.p_are()] now known as [new_name].</span>"
+		)
+	return SURGERY_STEP_CONTINUE
