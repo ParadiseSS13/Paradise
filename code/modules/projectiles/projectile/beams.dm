@@ -167,6 +167,7 @@
 	icon_state = "omnilaser"
 	light_color = LIGHT_COLOR_CYAN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	damage = 5
 	stamina = 25
 	eyeblur = 2 SECONDS
 
