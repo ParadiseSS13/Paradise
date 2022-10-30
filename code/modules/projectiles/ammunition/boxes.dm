@@ -1,6 +1,7 @@
 /obj/item/ammo_box/a357
 	name = "speed loader (.357)"
 	desc = "Designed to quickly reload revolvers."
+	materials = list()
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
 	multi_sprite_step = 1 // see: /obj/item/ammo_box/update_icon()
