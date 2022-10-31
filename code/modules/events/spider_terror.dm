@@ -68,6 +68,8 @@
 			S.forceMove(vent)
 			S.add_ventcrawl(vent)
 		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
+		to_chat(S, "<b><font size=3 color='red'>You are a Terror Spider!</font></b>")
+		to_chat(S, "<span class='specialnoticebold'>[S.spider_intro_text]</span>")
 		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")
 		spawncount--
 		successSpawn = TRUE
