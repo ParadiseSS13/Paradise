@@ -11,6 +11,10 @@
 	. = ..()
 	if(user.mind?.miming)
 		return FALSE  // shh
+	if(user.is_muzzled())
+		if(intentional == FALSE)
+			return TRUE
+		return FALSE
 	return .
 
 /datum/emote/living/blush
@@ -99,10 +103,7 @@
 		var/mob/living/carbon/human/H = user
 		if(H.dna.species)
 			message = H.dna.species.death_message
-			if(H.is_muzzled())
-				return
-			else
-				return pick(H.dna.species.death_sounds)
+			return pick(H.dna.species.death_sounds)
 
 	if(isalien(user))
 		var/mob/living/carbon/alien/A = user
