@@ -45,7 +45,8 @@
 	// knuckles.ogg by CGEffex. Shortened and cut.
 	// https://freesound.org/people/CGEffex/sounds/93981/
 	sound = "sound/effects/mob_effects/knuckles.ogg"
-	species_type_blacklist_typecache = list(/datum/species/slime, /datum/species/machine, /datum/species/plasmaman, /datum/species/skeleton)
+	// These species all have overrides, see below
+	species_type_blacklist_typecache = list(/datum/species/slime, /datum/species/machine, /datum/species/plasmaman, /datum/species/skeleton, /datum/species/diona)
 
 /datum/emote/living/carbon/human/cry
 	key = "cry"
@@ -712,6 +713,13 @@
 	sound = "sound/effects/mob_effects/ipc_crunch.ogg"
 	species_type_whitelist_typecache = list(/datum/species/machine)
 	species_type_blacklist_typecache = null
+
+/datum/emote/living/carbon/human/crack/diona
+	message = "cracks a twig!"
+	sound = "sound/effects/mob_effects/diona_crunch.ogg"
+	species_type_whitelist_typecache = list(/datum/species/diona)
+	species_type_blacklist_typecache = null
+	volume = 85  // the sound effect is a bit quiet
 
 /datum/emote/living/carbon/human/crack/skelly
 	message = "cracks something!"  // placeholder

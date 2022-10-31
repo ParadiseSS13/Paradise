@@ -484,10 +484,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.dna)
-			if(!is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
+			// Since the typecaches might be null as a valid option, it looks like we do need to check that these exist first.
+			if(species_type_whitelist_typecache && !is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
 				return FALSE
 
-			if(is_type_in_typecache(H.dna.species, species_type_blacklist_typecache))
+			if(species_type_blacklist_typecache && is_type_in_typecache(H.dna.species, species_type_blacklist_typecache))
 				return FALSE
 
 	if(intentional && only_unintentional)
