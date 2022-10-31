@@ -484,10 +484,10 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.dna)
-			if(!is_type_in_typecache(H.dna?.species, species_type_whitelist_typecache))
+			if(!is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
 				return FALSE
 
-			if(is_type_in_typecache(H.dna?.species, species_type_blacklist_typecache))
+			if(is_type_in_typecache(H.dna.species, species_type_blacklist_typecache))
 				return FALSE
 
 	if(intentional && only_unintentional)
