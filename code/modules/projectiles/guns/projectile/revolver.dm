@@ -28,6 +28,8 @@
 
 /obj/item/gun/projectile/revolver/attackby(obj/item/A, mob/user, params)
 	. = ..()
+	if(istype(A, /obj/item/ammo_box/b357))
+		return
 	if(.)
 		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)

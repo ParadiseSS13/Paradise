@@ -784,12 +784,12 @@
 	build_path = /obj/item/ammo_box/foambox/sniper/riot
 	category = list("hacked", "Security")
 
-/datum/design/a357
-	name = "\improper .357 bullet"
-	id = "a357"
+/datum/design/b357
+	name = "Ammo Box (.357)"
+	id = "b357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 4000)
-	build_path = /obj/item/ammo_casing/a357
+	materials = list(MAT_METAL = 30000)
+	build_path = /obj/item/ammo_box/b357
 	category = list("hacked", "Security")
 
 /datum/design/c10mm
