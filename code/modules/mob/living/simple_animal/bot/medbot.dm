@@ -368,14 +368,18 @@
 			if(!C.reagents.has_reagent(R.id))
 				return R.id
 
+/mob/living/simple_animal/bot/medbot/proc/assess_viruses(mob/living/carbon/C)
+	. = FALSE
+
+	if(!treat_virus)
+		return
+
+	for(var/datum/disease/D as anything in C.viruses)
+		if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
+			return TRUE //Medbots see viruses that aren't fully hidden and have developed enough/are airborne, ignoring safe viruses
+
 /mob/living/simple_animal/bot/medbot/proc/select_medication(mob/living/carbon/C, beaker_injection)
-	var/treatable_virus = FALSE
-	if(treat_virus)
-		for(var/thing in C.viruses)
-			var/datum/disease/D = thing
-			if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
-				treatable_virus = TRUE
-				break
+	var/treatable_virus = assess_viruses(C)
 	var/treatable_brute = C.getBruteLoss() >= heal_threshold
 	var/treatable_fire = C.getFireLoss() >= heal_threshold
 	var/treatable_oxy = C.getOxyLoss() >= (heal_threshold + 15)
