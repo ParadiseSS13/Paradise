@@ -225,6 +225,7 @@
 
 	if(attempt_account_authentification(user_account, account_pin, user))
 		authenticated_account = user_account
+
 		return TRUE
 
 	//else failed login

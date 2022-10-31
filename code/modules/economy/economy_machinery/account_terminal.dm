@@ -8,14 +8,14 @@
 	icon_screen = "accounts"
 	req_one_access = list(ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_CENT_COMMANDER)
 	light_color = LIGHT_COLOR_GREEN
-	var/receipt_num
-	var/machine_id = ""
-	var/datum/money_account/detailed_account_view
+
 	var/activated = TRUE
 	/// Current UI page
 	var/current_page = AUT_ACCLST
-	/// Next time a print can be made
-	var/next_print = 0
+	///account currently being viewed
+	var/datum/money_account/detailed_account_view
+	///station account database
+	var/datum/money_account_database/account_db
 
 /obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
 	if(ui_login_attackby(O, user))
@@ -34,39 +34,34 @@
 /obj/machinery/computer/account_database/ui_data(mob/user)
 	var/list/data = list()
 	data["currentPage"] = current_page
-	data["is_printing"] = (next_print > world.time)
 	ui_login_data(data, user)
+
 	if(data["loginState"]["logged_in"])
 		switch(current_page)
 			if(AUT_ACCLST)
-				var/list/accounts = list()
-				for(var/i in 1 to length(GLOB.station_money_database.user_accounts))
-					var/datum/money_account/D = GLOB.station_money_database.user_accounts[i]
-					accounts.Add(list(list(
-						"account_number" = D.account_number,
-						"owner_name" = D.account_name,
-						"suspended" = D.suspended ? "SUSPENDED" : "Active",
-						"account_index" = i)))
-
-				data["accounts"] = accounts
-
+				data["accounts"] = list()
+				for(var/datum/money_account/account as anything in GLOB.station_money_database.user_accounts)
+					var/list/account_data = list(
+						"account_number" = account.account_number,
+						"owner_name" = account.account_name,
+						"suspended" = account.suspended ? "SUSPENDED" : "Active")
+					data["accounts"] += list(account_data)
 			if(AUT_ACCINF)
 				data["account_number"] = detailed_account_view.account_number
 				data["owner_name"] = detailed_account_view.account_name
 				data["money"] = detailed_account_view.credit_balance
 				data["suspended"] = detailed_account_view.suspended
 
-				var/list/transactions = list()
+				data["transactions"] = list()
 				for(var/datum/transaction/T in detailed_account_view.account_log)
 					var/list/transaction_info = list(
 						"targetname" = T.transactor,
 						"time" = T.time,
 						"purpose" = T.purpose,
 						"amount" = T.amount,
+						"is_deposit" = T.is_deposit
 					)
-					transactions += transaction_info
-
-				data["transactions"] = transactions
+					data["transactions"] += list(transaction_info)
 	return data
 
 
@@ -84,32 +79,29 @@
 
 	switch(action)
 		if("view_account_detail")
-			var/index = text2num(params["index"])
-			if(index && index > 0 && index <= length(GLOB.station_money_database.user_accounts))
-				detailed_account_view = GLOB.station_money_database.user_accounts[index]
+			var/account_num = text2num(params["index"])
+			if(account_num)
+				detailed_account_view = GLOB.station_money_database.find_user_account(account_num, include_departments = TRUE)
+				RegisterSignal(detailed_account_view, COMSIG_PARENT_QDELETING, .proc/clear_viewed_account)
 				current_page = AUT_ACCINF
-
 		if("back")
-			detailed_account_view = null
-			current_page = AUT_ACCLST
-
+			clear_viewed_account()
 		if("toggle_suspension")
 			if(detailed_account_view)
 				detailed_account_view.suspended = !detailed_account_view.suspended
-
 		if("create_new_account")
 			current_page = AUT_ACCNEW
-
 		if("finalise_create_account")
 			var/account_name = params["holder_name"]
-			var/starting_funds = max(text2num(params["starting_funds"]), 0)
-			if(!account_name || !starting_funds)
+			if(!account_name)
 				return
-
-			starting_funds = min(starting_funds, 0) // Not authorized to put the station in debt.
-			GLOB.station_money_database.create_account(account_name, starting_funds, src)
+			GLOB.station_money_database.create_account(account_name, 0, ACCOUNT_SECURITY_ID, name, supress_log = FALSE)
 			current_page = AUT_ACCLST
 
+/obj/machinery/computer/account_database/proc/clear_viewed_account()
+	UnregisterSignal(detailed_account_view, COMSIG_PARENT_QDELETING)
+	detailed_account_view = null
+	current_page = AUT_ACCLST
 
 #undef AUT_ACCLST
 #undef AUT_ACCINF

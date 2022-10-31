@@ -128,13 +128,14 @@
   * * purpose - what the transaction was for, account creation, charge, deposit, withdrawal, etc
   * * transactor - who performed the action
 */
-/datum/money_account/proc/make_transaction_log(amount, purpose, transactor)
+/datum/money_account/proc/make_transaction_log(amount, purpose, transactor, is_deposit = FALSE)
 	var/datum/transaction/T = new()
 	T.account = src
 	T.transactor = transactor ? transactor : "Unknown"
 	T.purpose = purpose ? purpose : "No Reason Specified"
 	T.amount = "[amount ? amount : "N/A"]"
 	T.time = station_time_timestamp()
+	T.is_deposit = is_deposit
 	account_log += T
 	hidden_account_log += T
 	return T
@@ -150,6 +151,8 @@
 	var/amount
 	///when the transaction occurred
 	var/time
+	///Whether or not this added or money from the account
+	var/is_deposit
 
 /*
   * # create_transfer_request

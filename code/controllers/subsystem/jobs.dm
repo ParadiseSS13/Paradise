@@ -573,9 +573,9 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
 	var/datum/money_account/account
 	if(job?.department_account_access)
-		account = GLOB.station_money_database.create_account(H.real_name, COMMAND_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID,  TRUE)
+		account = GLOB.station_money_database.create_account(H.real_name, COMMAND_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
 	else
-		account = GLOB.station_money_database.create_account(H.real_name, CREW_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID, TRUE)
+		account = GLOB.station_money_database.create_account(H.real_name, CREW_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
 
 	for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
 		objective.owner_account = account

@@ -25,7 +25,7 @@
 	user_accounts += new_account
 	new_account.database_holder = src
 	if(!supress_log)
-		log_account_action(new_account, "Account Creation", terminal, log_on_database = TRUE)
+		log_account_action(new_account, null, "Account Creation", terminal, log_on_database = TRUE)
 	return new_account
 
 /datum/money_account_database/proc/create_vendor_account()
@@ -57,7 +57,7 @@
 	. = account.try_withdraw_credits(amount, allow_overdraft)
 	if(. && !supress_log)
 		var/database_log = amount >= DATABASE_LOG_THRESHHOLD ? TRUE : FALSE
-		log_account_action(account, amount, purpose, transactor, log_on_database = database_log)
+		log_account_action(account, amount, purpose, transactor, is_deposit = FALSE, log_on_database = database_log)
 
 /datum/money_account_database/proc/credit_account(datum/money_account/account, amount, purpose, transactor, supress_log = FALSE)
 	if(!online)
@@ -65,7 +65,7 @@
 	. = account.deposit_credits(amount)
 	if(. && !supress_log)
 		var/database_log = amount >= DATABASE_LOG_THRESHHOLD ? TRUE : FALSE
-		log_account_action(account, amount, purpose, transactor, log_on_database = database_log) //no if check here for now, since deposit credits currently will always return true
+		log_account_action(account, amount, purpose, transactor, is_deposit = TRUE, log_on_database = database_log) //no if check here for now, since deposit credits currently will always return true
 	if(. && account == vendor_account)
 		SSeconomy.total_space_credits -= amount //space credits go to die in the vendor_account for now
 		SSeconomy.space_credits_destroyed += amount
@@ -75,8 +75,8 @@
 		return
 	return account.authenticate_login(pin, restricted_bypass, is_vendor, is_admin)
 
-/datum/money_account_database/proc/log_account_action(datum/money_account/account, amount, purpose, transactor, log_on_database = FALSE)
-	var/datum/transaction/T = account.make_transaction_log(amount, purpose, transactor)
+/datum/money_account_database/proc/log_account_action(datum/money_account/account, amount, purpose, transactor, is_deposit, log_on_database = FALSE)
+	var/datum/transaction/T = account.make_transaction_log(amount, purpose, transactor, is_deposit)
 	if(T && log_on_database)
 		database_logs += T
 		hidden_database_logs += T
@@ -120,8 +120,8 @@
 	///list of money accounts for each department on station
 	var/list/department_accounts = list()
 
-/datum/money_account_database/main_station/create_account(account_name = "Unnamed", starting_funds = CREW_MEMBER_STARTING_BALANCE, _security_level = ACCOUNT_SECURITY_ID, supress_log = FALSE)
-	var/datum/money_account/new_account	= ..(account_name, starting_funds, _security_level, supress_log)
+/datum/money_account_database/main_station/create_account(account_name = "Unnamed", starting_funds = CREW_MEMBER_STARTING_BALANCE, _security_level = ACCOUNT_SECURITY_ID, terminal, supress_log = FALSE)
+	var/datum/money_account/new_account	= ..(account_name, starting_funds, _security_level, terminal, supress_log)
 	new_account.set_credits(starting_funds)
 	return new_account
 

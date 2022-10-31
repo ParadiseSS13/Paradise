@@ -39,6 +39,7 @@
 	data["available_accounts"] = list()
 	data["transaction_log"] = list()
 	data["db_status"] = account_database.online
+	data["logged_in"] = FALSE
 	if(user_account)
 		data["logged_in"] = TRUE
 		data["owner_name"] = user_account.account_name
