@@ -853,8 +853,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/table,
-/obj/item/stack/spacecash/c1000,
-/obj/item/stack/spacecash/c500{
+/obj/item/stack/spacecash/c100,
+/obj/item/stack/spacecash/c50{
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel,

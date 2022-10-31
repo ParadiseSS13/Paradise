@@ -20450,9 +20450,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/stack/spacecash/c1000{
-	amount = 100000
-	},
+/obj/item/stack/spacecash/c1000,
 /obj/effect/turf_decal/bot_white/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"

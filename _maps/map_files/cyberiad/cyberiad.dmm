@@ -20355,9 +20355,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/stack/spacecash/c1000{
-	amount = 100000
-	},
+/obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"

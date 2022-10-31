@@ -81,20 +81,6 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
-/obj/machinery/economy/vending/hydronutrients/syndicate_druglab
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 12,
-					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 2,
-					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 3,
-					/obj/item/reagent_containers/spray/pestspray = 7,
-					/obj/item/reagent_containers/syringe = 11,
-					/obj/item/storage/bag/plants = 2,
-					/obj/item/cultivator = 3,
-					/obj/item/shovel/spade = 2,
-					/obj/item/plant_analyzer = 2,
-					/obj/item/reagent_containers/glass/bottle/ammonia = 6,
-					/obj/item/reagent_containers/glass/bottle/diethylamine = 8)
-	contraband = list()
-
 /obj/machinery/economy/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
 	desc = "When you need seeds fast!"
