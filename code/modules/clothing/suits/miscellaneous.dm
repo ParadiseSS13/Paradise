@@ -798,6 +798,7 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/suit/jacket/secbomber
 	name = "security bomber jacket"

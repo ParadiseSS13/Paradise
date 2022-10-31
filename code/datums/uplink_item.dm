@@ -1751,7 +1751,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/badass/bomber
 	name = "Syndicate Bomber Jacket"
-	desc = "An awesome jacket to help you style on Nanotrasen with. Does not provide any extra armor or storage space."
+	desc = "An awesome jacket to help you style on Nanotrasen with. The lining is made of a thin polymer to provide a small amount of armor. Does not provide any extra storage space."
 	reference = "JCKT"
 	item = /obj/item/clothing/suit/jacket/syndicatebomber
 	cost = 1
