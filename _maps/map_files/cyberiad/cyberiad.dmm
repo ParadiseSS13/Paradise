@@ -23346,7 +23346,7 @@
 /area/crew_quarters/dorms)
 "aTE" = (
 /obj/structure/chair/sofa/corner{
-	dir = 1
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
