@@ -145,3 +145,6 @@
 			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
 
 	return msg
+
+/mob/living/carbon/human/examine_get_brute_message()
+	return !ismachineperson(src) ? "bruising" : "denting"

@@ -31,6 +31,9 @@
 /mob/living/carbon/proc/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
 	return ""
 
+/mob/living/carbon/proc/examine_get_brute_message()
+	return "bruising"
+
 /**
  * Add specific damage flavor here.
  */
@@ -41,7 +44,7 @@
 	var/damage = getBruteLoss() //no need to calculate each of these twice
 
 	if(damage)
-		var/brute_message = !ismachineperson(src) ? "bruising" : "denting"
+		var/brute_message = examine_get_brute_message()
 		if(damage < 60)
 			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
 		else
@@ -211,19 +214,19 @@
 	if(fire_stacks > 0)
 		msg += "[p_they(TRUE)] [p_are()] covered in something flammable.\n"
 	if(fire_stacks < 0)
-		msg += "[p_they(TRUE)] looks a little soaked.\n"
+		msg += "[p_they(TRUE)] look[p_s()] a little soaked.\n"
 
 	switch(wetlevel)
 		if(1)
-			msg += "[p_they(TRUE)] looks a bit damp.\n"
+			msg += "[p_they(TRUE)] look[p_s()] a bit damp.\n"
 		if(2)
-			msg += "[p_they(TRUE)] looks a little bit wet.\n"
+			msg += "[p_they(TRUE)] look[p_s()] a little bit wet.\n"
 		if(3)
-			msg += "[p_they(TRUE)] looks wet.\n"
+			msg += "[p_they(TRUE)] look[p_s()] wet.\n"
 		if(4)
-			msg += "[p_they(TRUE)] looks very wet.\n"
+			msg += "[p_they(TRUE)] look[p_s()] very wet.\n"
 		if(5)
-			msg += "[p_they(TRUE)] looks absolutely soaked.\n"
+			msg += "[p_they(TRUE)] look[p_s()] absolutely soaked.\n"
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
