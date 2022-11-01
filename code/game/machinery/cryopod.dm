@@ -109,14 +109,7 @@
 			if(!params["item"])
 				return
 
-			var/item_index = text2num(params["item"])
-			if(!isnum(item_index))
-				return
-
-			if(item_index > length(frozen_items))
-				return
-
-			var/obj/item/item = frozen_items[item_index]
+			var/obj/item/item = locateUID(params["item"])
 			if(!item)
 				to_chat(user, "<span class='notice'>[item] is no longer in storage.</span>")
 				return
@@ -140,7 +133,11 @@
 	return TRUE
 
 /obj/machinery/computer/cryopod/proc/freeze_item(obj/item/I, preserve_status)
-	frozen_items += I
+	var/list/item = list()
+	item["uid"] = I.UID()
+	item["name"] = I.name
+
+	frozen_items += list(item)
 	if(preserve_status == CRYO_OBJECTIVE)
 		objective_items += I
 	I.forceMove(src)
@@ -148,12 +145,13 @@
 
 /obj/machinery/computer/cryopod/proc/item_got_removed(obj/item/I)
 	objective_items -= I
-	frozen_items -= I
+	for(var/list/sublist in frozen_items)
+		if(sublist["uid"] != I.UID())
+			continue
+		frozen_items -= list(sublist)
 	UnregisterSignal(I, COMSIG_MOVABLE_MOVED)
 
 /obj/machinery/computer/cryopod/proc/dispense_item(obj/item/I)
-	if(!(I in frozen_items))
-		return
 	I.forceMove(get_turf(src)) // Will call item_got_removed due to the signal being registered to COMSIG_MOVABLE_MOVED
 
 /obj/machinery/computer/cryopod/emag_act(mob/user)

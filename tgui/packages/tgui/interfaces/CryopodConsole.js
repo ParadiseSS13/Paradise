@@ -63,16 +63,16 @@ const ItemList = (props, context) => {
         <>
           <Section fill scrollable>
             <LabeledList>
-              {frozen_items.map((item, index) => (
+              {frozen_items.map((item) => (
                 <LabeledList.Item
                   key={item}
-                  label={replaceItemName(item)}
+                  label={replaceItemName(item.name)}
                   buttons={
                     <Button
                       icon="arrow-down"
                       content="Drop"
                       mr={1}
-                      onClick={() => act('one_item', { item: index + 1 })}
+                      onClick={() => act('one_item', { item: item.uid })}
                     />
                   }
                 />
