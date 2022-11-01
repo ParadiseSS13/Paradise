@@ -73,8 +73,8 @@
 	shadow_reference.icon_state = "[icon_state]_shadow"
 
 /obj/structure/flora/tree/jungle/Destroy()
-	. = ..()
 	QDEL_NULL(shadow_reference)
+	return ..()
 
 /obj/structure/flora/tree/jungle/proc/add_transparency_component()
 	AddComponent(/datum/component/largetransparency, -1, 1, 2, 2)
