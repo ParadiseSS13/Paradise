@@ -74,8 +74,7 @@
 
 /obj/structure/flora/tree/jungle/Destroy()
 	. = ..()
-	qdel(shadow_reference)
-	shadow_reference = null
+	QDEL_NULL(shadow_reference)
 
 /obj/structure/flora/tree/jungle/proc/add_transparency_component()
 	AddComponent(/datum/component/largetransparency, -1, 1, 2, 2)
