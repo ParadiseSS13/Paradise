@@ -17,9 +17,14 @@ SUBSYSTEM_DEF(jobs)
 	//Debug info
 	var/list/job_debug = list()
 
+	///list of station departments and their associated roles and economy payments
+	var/list/station_departments = list()
+
 /datum/controller/subsystem/jobs/Initialize(timeofday)
 	if(!occupations.len)
 		SetupOccupations()
+	for(var/department_type in subtypesof(/datum/station_department))
+		station_departments += new department_type()
 	LoadJobs(FALSE)
 	return ..()
 

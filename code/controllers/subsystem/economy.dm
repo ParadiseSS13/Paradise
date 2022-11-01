@@ -1,6 +1,7 @@
 SUBSYSTEM_DEF(economy)
 	name = "Economy"
 	flags = SS_BACKGROUND
+	init_order = INIT_ORDER_ECONOMY //needs to init AFTER SSjobs
 	wait = 30 SECONDS
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Nothing, economy will still function"
@@ -98,9 +99,10 @@ SUBSYSTEM_DEF(economy)
 /datum/controller/subsystem/economy/proc/populate_station_database()
 	var/datum/money_account_database/main_station/station_db = GLOB.station_money_database
 	money_account_databases += station_db
-	for(var/department in GLOB.station_departments)
-		station_db.create_department_account(department)
-		requestlist[department] = list()
+	for(var/datum/station_department/department as anything in SSjobs.station_departments)
+		station_db.create_department_account(department.department_name, department.account_base_pay, department.account_starting_balance)
+		department.department_account = GLOB.station_money_database.get_account_by_department(department.department_name)
+		requestlist[department.department_name] = list()
 	//some crates ordered outside of cargo members still need QM explicit approval
 	requestlist[QM_REQUEST_LIST_NAME] = list()
 	station_db.create_vendor_account()

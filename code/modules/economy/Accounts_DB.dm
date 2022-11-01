@@ -125,11 +125,11 @@
 	new_account.set_credits(starting_funds)
 	return new_account
 
-/datum/money_account_database/main_station/proc/create_department_account(department)
+/datum/money_account_database/main_station/proc/create_department_account(department, base_pay, starting_balance)
 	if(department_accounts[department])
 		log_debug("create_department_account() was called to create a [department] account but account for that department already exists")
 		return
-	var/datum/money_account/department_account = new("[department] Account", DEPARTMENT_BASE_PAY_MEDIUM, ACCOUNT_SECURITY_RESTRICTED, ACCOUNT_TYPE_DEPARTMENT)
+	var/datum/money_account/department_account = new("[department] Account", base_pay, ACCOUNT_SECURITY_RESTRICTED, ACCOUNT_TYPE_DEPARTMENT, starting_balance)
 	department_account.database_holder = src
 	department_accounts[department] = department_account
 

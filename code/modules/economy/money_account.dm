@@ -40,9 +40,10 @@
 	///pay deductions for the next pay period for this account, this is a lazy list
 	var/list/pay_check_deductions
 
-/datum/money_account/New(_account_name, starting_balance = 0, _security_level = ACCOUNT_SECURITY_ID, _account_type = ACCOUNT_TYPE_PERSONAL)
+/datum/money_account/New(_account_name, starting_balance = 0, _security_level = ACCOUNT_SECURITY_ID, _account_type = ACCOUNT_TYPE_PERSONAL, _payday_amount = CREW_BASE_PAY_LOW)
 	account_name = _account_name
 	credit_balance = starting_balance
+	payday_amount = _payday_amount
 	security_level = _security_level
 	account_number = SSeconomy.generate_account_number()
 	account_type = _account_type

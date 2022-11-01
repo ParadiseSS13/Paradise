@@ -13,4 +13,4 @@ GLOBAL_LIST_INIT(all_supply_groups, list(
 	SUPPLY_MISC,
 	SUPPLY_VEND))
 
-GLOBAL_LIST_INIT(station_departments, list(DEPARTMENT_COMMAND, "Medical", "Engineering", "Science", "Security", "Supply", "Support", "Assistant"))
+

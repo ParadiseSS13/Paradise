@@ -13,7 +13,8 @@
 	var/department_flag = 0
 	///list of the names of departments heads (as strings)
 	var/department_head = list()
-
+	///List of the department(s) this job is a part of
+	var/job_departments = list()
 	///Can this role access its department money account?
 	var/department_account_access = FALSE
 	//How many players can be this job
