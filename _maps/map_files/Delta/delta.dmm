@@ -13234,9 +13234,6 @@
 /turf/simulated/wall,
 /area/hallway/primary/central/nw)
 "bqv" = (
-/obj/item/storage/secure/safe{
-	pixel_x = 32
-	},
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -50214,6 +50211,10 @@
 /obj/item/storage/secure/briefcase{
 	pixel_x = 5;
 	pixel_y = -5
+	},
+/obj/item/storage/secure/safe{
+	pixel_x = 4;
+	pixel_y = 32
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
@@ -117842,8 +117843,12 @@
 /obj/machinery/door_control{
 	id = "brig_detprivacy";
 	name = "Detective Privacy Shutters Control";
-	pixel_x = null;
+	pixel_x = -6;
 	pixel_y = 22
+	},
+/obj/machinery/light_switch{
+	pixel_x = 6;
+	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
@@ -142665,6 +142670,9 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
