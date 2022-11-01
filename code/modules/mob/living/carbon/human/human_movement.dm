@@ -3,6 +3,7 @@
 	. += ..()
 	. += GLOB.configuration.movement.human_delay
 	. += dna.species.movement_delay(src)
+	. += agility
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 
