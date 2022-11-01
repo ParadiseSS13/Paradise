@@ -41,7 +41,7 @@
 			dat += text("<A href='?src=[UID()];id=1'>[inserted_id]</A><br>")
 			dat += text("Collected points: [p]. <A href='?src=[UID()];id=2'>Reset.</A><br>")
 			dat += text("Card goal: [g].  <A href='?src=[UID()];id=3'>Set </A><br>")
-			dat += text("Space Law recommends sentences of 150 points per minute they would normally serve in the brig.<BR>")
+			dat += text("Space Law recommends sentences of 100 points per minute they would normally serve in the brig.<BR>")
 		else
 			dat += text("<A href='?src=[UID()];id=0'>Insert Prisoner ID</A><br>")
 		var/turf/Tr = null
