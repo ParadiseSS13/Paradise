@@ -52850,7 +52850,7 @@
 /area/crew_quarters/sleep)
 "eMZ" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/detective,
+/mob/living/simple_animal/pet/dog/security/detective,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "eNh" = (

@@ -90,15 +90,6 @@
 				custom_emote(1, "growls!")
 
 //Corgis and pugs are now under one dog subtype
-
-/mob/living/simple_animal/pet/dog/detective
-	name = "Гав-Гавыч"
-	desc = "Старый служебный пёс. Он давно потерял нюх, однако детектив по-прежнему содержит и заботится о нём."
-	icon_state = "blackdog"
-	icon_living = "blackdog"
-	icon_dead = "blackdog_dead"
-	icon_resting = "blackdog_rest"
-
 /mob/living/simple_animal/pet/dog/corgi
 	name = "\improper corgi"
 	real_name = "corgi"

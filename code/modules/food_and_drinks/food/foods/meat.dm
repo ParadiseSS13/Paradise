@@ -48,6 +48,11 @@
 	name = "pug meat"
 	desc = "Slightly less adorable in sliced form."
 
+/obj/item/reagent_containers/food/snacks/meat/security
+	name = "security meat"
+	desc = "Мясо наполненное чувством мужества и долга."
+	list_reagents = list("protein" = 3, "epinephrine" = 5)
+
 /obj/item/reagent_containers/food/snacks/meat/ham
 	name = "ham"
 	desc = "For when you need to go ham."

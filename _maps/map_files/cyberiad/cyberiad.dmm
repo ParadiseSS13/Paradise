@@ -17501,7 +17501,7 @@
 	dir = 4
 	},
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/detective,
+/mob/living/simple_animal/pet/dog/security/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
