@@ -57,10 +57,16 @@
 	var/forcedodge = 0 //to pass through everything
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
-	var/knockback = FALSE //if the projectile throws back things hit
-	var/breaching = FALSE //if projectiles with knockback should also throw objects like airlocks and windows. 0 will only throw mobs
-	var/knockbackdistance = 0 //how far the things fly after being hit
-	var/knockbackspeed = 0 //how quickly they make that distance
+
+	///Does the projectile knock back mobs on hit?
+	var/knockback = FALSE
+	///Does the projectile throw back objects with move resist less than INFINITE on hit?
+	var/breaching = FALSE
+	///How far do knocked back entities travel?
+	var/knockbackdistance = 0
+	///How quickly do they make that distance?
+	var/knockbackspeed = 0
+
 	var/ricochets = 0
 	var/ricochets_max = 2
 	var/ricochet_chance = 30
@@ -121,17 +127,16 @@
 		return 0
 	if(alwayslog)
 		add_attack_logs(firer, target, "Shot with a [type]")
-	if(knockback && ismovable(target))
-		if(!breaching && !isliving(target))
-			return
+	//If the projectile has knockback AND EITHER breaching OR the target is a mob, throw the target
+	//OR If the projectile has breaching AND the target is an object, throw the target
+	//Should the projectile hit a mob without having knockback or an object without being breaching, do not throw the target.
+	if((knockback && (breaching || isliving(target))) || (breaching && isobj(target)))
 		var/atom/movable/M = target
 		if(M.move_resist < INFINITY)
 			var/turf/start_turf = starting || get_turf(src)
 			var/throw_dir = get_dir(start_turf, get_turf(target))
 			var/atom/throw_target = get_edge_target_turf(get_turf(src), throw_dir)
 			M.throw_at(throw_target, knockbackdistance, knockbackspeed)
-		else
-			return
 
 	if(!isliving(target))
 		if(impact_effect_type)

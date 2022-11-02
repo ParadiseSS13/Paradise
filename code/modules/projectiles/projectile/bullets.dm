@@ -194,7 +194,7 @@
 	knockdown = 8 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 	knockback = TRUE
-	breaching = FALSE
+	breaching = TRUE
 	knockbackspeed = 2
 	knockbackdistance = 3
 
