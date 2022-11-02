@@ -176,5 +176,3 @@
 //1 = standard hud
 //2 = reduced hud (just hands and intent switcher)
 //3 = no hud (for screenshots)
-
-#define ui_mood "EAST+1, NORTH-3"
