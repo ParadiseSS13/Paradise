@@ -492,22 +492,25 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		desc = "Better keep this safe."
-	else
-		desc = "A disk for storing plant genetic data."
+		return
+
+	desc = "A disk for storing plant genetic data."
 
 /obj/item/disk/plantgene/update_icon_state()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		icon_state = "nucleardisk"
-	else
-		icon_state = "datadisk_hydro"
+		return
+
+	icon_state = "datadisk_hydro"
 
 /obj/item/disk/plantgene/update_overlays()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		overlays -= "datadisk_gene"
-	else
-		overlays += "datadisk_gene"
+		return
+
+	overlays += "datadisk_gene"
 
 /obj/item/disk/plantgene/attack_self(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
