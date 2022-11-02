@@ -122,9 +122,6 @@
 	else
 		overlays -= "eyes"
 
-/mob/living/silicon/robot/drone/choose_icon()
-	return
-
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
