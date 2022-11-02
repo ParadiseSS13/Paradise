@@ -328,6 +328,9 @@
 	mymob.healths = new /obj/screen/healths()
 	infodisplay += mymob.healths
 
+	skill = new /obj/screen/skill
+	infodisplay += skill
+
 	mymob.healthdoll = new()
 	infodisplay += mymob.healthdoll
 

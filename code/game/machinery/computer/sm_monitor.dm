@@ -23,7 +23,14 @@
 	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	ui_interact(user)
+	var/mob/living/carbon/human/H = user
+	if(H)
+		if(H.wisdom >= reqwisdom)
+			ui_interact(user)
+		else
+			to_chat(user, "<span class='warning'>you're afraid you're not wise enough</span>")
+	else
+		to_chat(user, "<span class='warning'>you're but a wild animal</span>")
 
 /obj/machinery/computer/sm_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

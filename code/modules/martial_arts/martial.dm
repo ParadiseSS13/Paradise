@@ -96,7 +96,7 @@
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
-	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
+	var/damage = rand(A.dna.species.punchdamagelow + D.weakness, A.dna.species.punchdamagehigh + A.strength + D.weakness)
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"

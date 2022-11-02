@@ -536,3 +536,7 @@
 /obj/screen/component_button/Click(params)
 	if(parent)
 		parent.component_click(src, params)
+
+/obj/screen/skill
+	icon_state = "Skill"
+	icom = 'icons/mob/screen_gen.dmi'

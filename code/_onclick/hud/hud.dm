@@ -20,6 +20,7 @@
 	var/obj/screen/blobpwrdisplay
 	var/obj/screen/blobhealthdisplay
 	var/obj/screen/vampire_blood_display
+	var/obj/screen/skill
 	var/obj/screen/alien_plasma_display
 	var/obj/screen/nightvisionicon
 	var/obj/screen/action_intent

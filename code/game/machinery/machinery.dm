@@ -6,6 +6,8 @@
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
+	var/reqwisdom = 5
+	var/reqintelligence = 5
 	var/stat = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto

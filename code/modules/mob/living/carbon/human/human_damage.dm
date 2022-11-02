@@ -85,7 +85,6 @@
 	if(amount > 0)
 		if(dna.species)
 			amount = amount * dna.species.brute_mod
-			amount = amount + weakness
 		take_overall_damage(amount, 0, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(-amount, 0, updating_health, FALSE, robotic)
