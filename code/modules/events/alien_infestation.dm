@@ -10,7 +10,7 @@
 
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
-		GLOB.event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+		GLOB.command_announcement.Announce("Confirmed outbreak of level 3-X biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 
