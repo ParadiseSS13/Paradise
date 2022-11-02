@@ -140,6 +140,12 @@
 	layer = LIGHTING_LAYER
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
+/obj/screen/fullscreen/noise
+	icon = 'icons/mob/static.dmi'
+	icon_state = "9j"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	layer = FULLSCREEN_LAYER
+	plane = FULLSCREEN_PLANE
 
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER

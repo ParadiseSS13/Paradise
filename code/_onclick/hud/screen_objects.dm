@@ -539,4 +539,5 @@
 
 /obj/screen/skill
 	icon_state = "Skill"
-	icom = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/mob/screen_gen.dmi'
+	screen_loc = "CENTER:-5,SOUTH:3"

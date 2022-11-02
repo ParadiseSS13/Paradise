@@ -331,6 +331,8 @@
 	skill = new /obj/screen/skill
 	infodisplay += skill
 
+	mymob.overlay_fullscreen("noise", /obj/screen/fullscreen/noise)
+
 	mymob.healthdoll = new()
 	infodisplay += mymob.healthdoll
 
