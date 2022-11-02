@@ -1145,7 +1145,7 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
 "eO" = (
-/obj/structure/mineral_door/sandstone{
+/obj/structure/mineral_door/wood{
 	name = "main chamber"
 	},
 /obj/effect/turf_decal/woodsiding,
@@ -1153,7 +1153,7 @@
 /area/wizard_station)
 "eP" = (
 /obj/effect/turf_decal/woodsiding,
-/obj/structure/mineral_door/sandstone{
+/obj/structure/mineral_door/wood{
 	name = "main chamber"
 	},
 /turf/simulated/floor/carpet/purple,
@@ -6707,7 +6707,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "xH" = (
-/turf/simulated/wall/indestructible/sandstone,
+/turf/simulated/wall/indestructible/wood,
 /area/wizard_station)
 "xI" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -8511,7 +8511,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "GN" = (
-/turf/simulated/wall/indestructible/fakeglass,
+/turf/simulated/wall/indestructible/fakeglass/brass,
 /area/wizard_station)
 "GO" = (
 /obj/structure/closet/crate/can,
@@ -10582,7 +10582,7 @@
 	dir = 1;
 	pixel_y = -2
 	},
-/obj/structure/window/reinforced/tinted{
+/obj/structure/window/basic{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -10975,7 +10975,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Qn" = (
-/obj/structure/mineral_door/sandstone{
+/obj/structure/mineral_door/wood{
 	name = "changing chamber"
 	},
 /turf/simulated/floor/carpet/black,
@@ -12235,7 +12235,7 @@
 /area/shuttle/escape)
 "VX" = (
 /obj/item/bikehorn/rubberducky,
-/obj/structure/window/reinforced/tinted{
+/obj/structure/window/basic{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/freezer,
