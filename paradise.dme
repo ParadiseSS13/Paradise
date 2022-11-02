@@ -27,6 +27,7 @@
 #include "code\__DEFINES\_versions.dm"
 #include "code\__DEFINES\access.dm"
 #include "code\__DEFINES\admin.dm"
+#include "code\__DEFINES\announce.dm"
 #include "code\__DEFINES\antagonists.dm"
 #include "code\__DEFINES\armour.dm"
 #include "code\__DEFINES\atmospherics.dm"
