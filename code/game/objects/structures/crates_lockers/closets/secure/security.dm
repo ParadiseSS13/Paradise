@@ -146,7 +146,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
-	new /obj/item/clothing/under/rank/centcom/blueshield(src)
+	new /obj/item/clothing/under/rank/centcom/blueshield/formal(src)
 
 
 /obj/structure/closet/secure_closet/ntrep
@@ -219,6 +219,7 @@
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
 	new /obj/item/clothing/gloves/color/black/forensics(src)
+	new /obj/item/storage/belt/security(src)
 	new /obj/item/clothing/head/det_hat(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/storage/box/evidence(src)

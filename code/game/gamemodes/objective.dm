@@ -290,7 +290,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	needs_target = FALSE
 
 /datum/objective/block/check_completion()
-	if(!istype(owner.current, /mob/living/silicon))
+	if(!issilicon(owner.current))
 		return FALSE
 	if(SSticker.mode.station_was_nuked)
 		return TRUE

@@ -252,7 +252,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
 			if(A.invisibility)
-				if(see_ghosts && istype(A,/mob/dead/observer))
+				if(see_ghosts && isobserver(A))
 					var/mob/dead/observer/O = A
 					if(O.orbiting_uid)
 						continue
@@ -314,7 +314,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		if(M.invisibility)
-			if(see_ghosts && istype(M,/mob/dead/observer))
+			if(see_ghosts && isobserver(M))
 				var/mob/dead/observer/O = M
 				if(O.orbiting_uid)
 					continue

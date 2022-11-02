@@ -24,7 +24,7 @@
 		return
 
 	if(ismob(M))
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
 			return
 		//strip their stuff before they teleport into a cell :downs:
@@ -640,7 +640,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Yes")
 			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
 
-			GLOB.command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
+			GLOB.command_announcement.Announce(
+				message = input,
+				new_title = customname,
+				new_sound = MsgSound[beepsound],
+				from = type
+			)
 			print_command_report(input, customname)
 		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
@@ -769,7 +774,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] has gibbed [key_name(M)]")
 	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]", 1)
 
-	if(istype(M, /mob/dead/observer))
+	if(isobserver(M))
 		gibs(M.loc)
 		return
 
@@ -785,7 +790,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm == "Yes")
-		if(istype(mob, /mob/dead/observer)) // so they don't spam gibs everywhere
+		if(isobserver(mob)) // so they don't spam gibs everywhere
 			return
 		else
 			mob.gib()

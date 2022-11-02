@@ -149,7 +149,7 @@
 				. += "inject"
 
 /obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I))
 		rename_interactive(user, I)
 
 // PRE-FILLED IV BAGS BELOW

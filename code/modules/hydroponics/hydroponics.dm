@@ -1004,7 +1004,7 @@
 		return ..()
 
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
-	if(istype(user, /mob/living/simple_animal/diona))
+	if(isnymph(user))
 		if(weedlevel > 0)
 			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)

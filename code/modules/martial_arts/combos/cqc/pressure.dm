@@ -9,6 +9,6 @@
 	if(I && target.drop_item())
 		user.put_in_hands(I)
 	target.adjustStaminaLoss(40)
-	playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
+	playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 5, 1, -1)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Pressure", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

@@ -1,6 +1,7 @@
 #define TUMOR_INACTIVE 0
 #define TUMOR_ACTIVE 1
 #define TUMOR_PASSIVE 2
+#define ARENA_RADIUS 12
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -41,7 +42,7 @@
 		. += "However, this one appears appears less wild in nature, and calmer around people."
 
 /mob/living/simple_animal/hostile/asteroid/elite/AttackingTarget()
-	if(istype(target, /mob/living/simple_animal/hostile))
+	if(ishostile(target))
 		var/mob/living/simple_animal/hostile/M = target
 		if(faction_check_mob(M))
 			return FALSE
@@ -174,6 +175,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		/mob/living/simple_animal/hostile/asteroid/elite/herald,
 	)
 
+	///List of invaders that have teleportes into the arena *multiple times*. They will be suffering.
+	var/list/invaders = list()
+
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(!ishuman(user))
@@ -234,6 +238,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = "tumor_popped"
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, .proc/onEliteLoss)
 	INVOKE_ASYNC(src, .proc/arena_checks)
+	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
@@ -246,6 +251,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, .proc/arena_checks)
+	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS)
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
@@ -255,6 +261,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(gps)
+	invaders.Cut()
 	if(activator)
 		clear_activator(activator)
 	if(mychild)
@@ -322,22 +329,39 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/turf/tumor_turf = get_turf(src)
 	if(loc == null)
 		return
-	for(var/tumor_range_turfs in RANGE_TURFS(12, tumor_turf))
-		if(get_dist(tumor_range_turfs, tumor_turf) == 12)
-			var/obj/effect/temp_visual/elite_tumor_wall/newwall
-			newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-			newwall.activator = activator
-			newwall.ourelite = mychild
+	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
+		var/obj/effect/temp_visual/elite_tumor_wall/newwall
+		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
+		newwall.activator = activator
+		newwall.ourelite = mychild
 
 /obj/structure/elite_tumor/proc/border_check()
-	if(activator != null && get_dist(src, activator) >= 12)
+	if(activator != null && get_dist(src, activator) >= ARENA_RADIUS)
 		activator.forceMove(loc)
 		visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
-	if(mychild != null && get_dist(src, mychild) >= 12)
+	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
 		mychild.forceMove(loc)
 		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+
+/obj/structure/elite_tumor/HasProximity(atom/movable/AM)
+	if(!ishuman(AM) && !isrobot(AM))
+		return
+	var/mob/living/M = AM
+	if(M == activator)
+		return
+	if(M in invaders)
+		to_chat(M, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
+		for(var/i in 1 to 4)
+			M.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
+	else
+		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
+		invaders += M
+	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 1, src)
+	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
+	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
+
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
@@ -382,6 +406,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			Bear in mind, if anyone interacts with your tumor, you'll be resummoned here to carry out another fight. In such a case, you will regain your full max health.\n\
 			Also, be weary of your fellow inhabitants, they likely won't be happy to see you!</b>")
 		to_chat(mychild, "<span class='big bold'>Note that you are a lavaland monster, and thus not allied to the station. You should not cooperate or act friendly with any station crew unless under extreme circumstances!</span>")
+	qdel(GetComponent(/datum/component/proximity_monitor))
 
 /obj/item/tumor_shard
 	name = "tumor shard"
@@ -405,7 +430,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.revive()
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
-		to_chat(E, "<span class='userdanger'>You have been revived by [user]. While you can't speak to them, you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
+		to_chat(E, "<span class='userdanger'>You have been revived by [user], and you owe [user] a great debt.  Assist [user.p_them()] in achieving [user.p_their()] goals, regardless of risk.</span>")
 		to_chat(E, "<span class='big bold'>Note that you now share the loyalties of [user].  You are expected not to intentionally sabotage their faction unless commanded to!</span>")
 		if(user.mind.special_role)
 			E.maxHealth = 300
@@ -450,7 +475,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
 	. = ..()
-	if(mover == ourelite || mover == activator)
+	if(isliving(mover))
 		return FALSE
 
 /obj/item/gps/internal/tumor
@@ -458,3 +483,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	gpstag = "Cancerous Signal"
 	desc = "Ghosts in a fauna? That's cancerous!"
 	invisibility = 100
+
+#undef TUMOR_INACTIVE
+#undef TUMOR_ACTIVE
+#undef TUMOR_PASSIVE
+#undef ARENA_RADIUS

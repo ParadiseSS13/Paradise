@@ -633,7 +633,7 @@
 			if(!coin)
 				to_chat(usr, "<span class='warning'>There is no coin in this machine.</span>")
 				return
-			if(istype(usr, /mob/living/silicon))
+			if(issilicon(usr))
 				to_chat(usr, "<span class='warning'>You lack hands.</span>")
 				return
 			to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
@@ -1951,6 +1951,7 @@
 					/obj/item/clothing/suit/storage/det_suit/forensics/blue = 1,
 					/obj/item/clothing/suit/armor/vest/det_suit = 1,
 					/obj/item/clothing/head/det_hat = 2,
+					/obj/item/clothing/glasses/sunglasses/noir = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/brown = 2,

@@ -195,7 +195,7 @@
 			if(!M.anchored && (M.flags & CONDUCT))
 				step_towards(M,src)
 		for(var/mob/living/silicon/S in orange(2,src))
-			if(istype(S, /mob/living/silicon/ai)) continue
+			if(isAI(S)) continue
 			step_towards(S,src)
 		for(var/mob/living/carbon/human/machine/M in orange(2,src))
 			step_towards(M,src)
@@ -513,6 +513,7 @@
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
 	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/ablative

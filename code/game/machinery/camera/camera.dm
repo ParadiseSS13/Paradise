@@ -174,7 +174,7 @@
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
 		for(var/mob/O in GLOB.player_list)
-			if(istype(O, /mob/living/silicon/ai))
+			if(isAI(O))
 				var/mob/living/silicon/ai/AI = O
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
