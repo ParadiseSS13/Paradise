@@ -107,7 +107,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	. = ..()
 
 	announcement.title = "[department] announcement"
-	announcement.newscast = FALSE
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src

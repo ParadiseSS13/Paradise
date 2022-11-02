@@ -214,3 +214,16 @@ GLOBAL_LIST_EMPTY(status_displays)
 				SD.set_picture(data1)
 
 		SD.update()
+
+/obj/machinery/status_display/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0 SECONDS))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct()
+
+/obj/machinery/status_display/on_deconstruction()
+	. = ..()
+	new /obj/item/mounted/frame/display/display_frame(drop_location())

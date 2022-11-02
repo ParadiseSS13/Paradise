@@ -161,7 +161,7 @@ emp_act
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)	continue
-		if(bp && istype(bp ,/obj/item/clothing))
+		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor.getRating(type)
@@ -187,24 +187,24 @@ emp_act
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform)
 	for(var/bp in body_parts)
 		if(!bp)  continue
-		if(bp && istype(bp ,/obj/item/clothing))
+		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & HEAD)
 				return 1
 	return 0
 
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
-	if(wear_suit && istype(wear_suit, /obj/item/))
+	if(wear_suit && isitem(wear_suit))
 		var/obj/item/I = wear_suit
 		if(I.IsReflect(def_zone) == 1)
 			return 1
-	if(l_hand && istype(l_hand, /obj/item/))
+	if(l_hand && isitem(l_hand))
 		var/obj/item/I = l_hand
 		if(I.IsReflect(def_zone) == 1)
 			return 1
 		if(I.IsReflect(def_zone) == 2) //Toy swords
 			return 2
-	if(r_hand && istype(r_hand, /obj/item/))
+	if(r_hand && isitem(r_hand))
 		var/obj/item/I = r_hand
 		if(I.IsReflect(def_zone) == 1)
 			return 1
@@ -483,7 +483,7 @@ emp_act
 		if(prob(I.force * 2)) //blood spatter!
 			bloody = 1
 			var/turf/location = loc
-			if(istype(location, /turf/simulated))
+			if(issimulatedturf(location))
 				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -542,7 +542,7 @@ emp_act
 		return spec_return
 	var/obj/item/I
 	var/throwpower = 30
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		throwpower = I.throwforce
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
@@ -724,7 +724,7 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && istype(shoes, /obj/item/clothing))
+	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
 		if (S.flags & NOSLIP)
 			return FALSE

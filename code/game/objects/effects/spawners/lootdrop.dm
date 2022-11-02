@@ -71,7 +71,7 @@
 				/obj/item/clothing/head/welding = 10,
 				/obj/item/clothing/mask/gas = 10,
 				/obj/item/clothing/suit/storage/hazardvest = 10,
-				/obj/item/clothing/under/rank/vice = 10,
+				/obj/item/clothing/under/misc/vice = 10,
 				/obj/item/assembly/prox_sensor = 40,
 				/obj/item/assembly/timer = 30,
 				/obj/item/flashlight = 40,
@@ -89,6 +89,7 @@
 				/obj/item/stack/sheet/metal{amount = 20} = 10,
 				/obj/item/stack/sheet/mineral/plasma = 10,
 				/obj/item/stack/sheet/rglass = 10,
+				/obj/item/stack/sheet/cloth{amount = 3} = 40,
 				/obj/item/book/manual/wiki/engineering_construction = 10,
 				/obj/item/book/manual/wiki/hacking = 10,
 				/obj/item/clothing/head/cone = 10,
@@ -203,7 +204,7 @@
 				/obj/item/soap/syndie = 50,
 				/obj/item/lighter/zippo/gonzofist = 50,
 				/obj/item/stack/nanopaste = 50,
-				/obj/item/clothing/under/psyjump = 50,
+				/obj/item/clothing/under/costume/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
 				/obj/item/grenade/clusterbuster/smoke = 50
 				)

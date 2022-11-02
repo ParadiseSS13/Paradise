@@ -110,11 +110,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(user.stat || user.restrained())
 		return FALSE
 
-	if(!(istype(user, /mob/living/carbon/human)))
+	if(!(ishuman(user)))
 		return FALSE
 
 	// If the uplink's holder is in the user's contents
-	if((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
+	if((U.loc in user.contents || (in_range(U.loc, user) && isturf(U.loc.loc))))
 		if(cost > U.uses)
 			return FALSE
 
@@ -393,7 +393,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Contortionist's Jumpsuit"
 	desc = "A highly flexible jumpsuit that will help you navigate the ventilation loops of the station internally. Comes with pockets and ID slot, but can't be used without stripping off most gear, including backpack, belt, helmet, and exosuit. Free hands are also necessary to crawl around inside."
 	reference = "AIRJ"
-	item = /obj/item/clothing/under/contortionist
+	item = /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist
 	cost = 6
 	job = list("Life Support Specialist")
 
@@ -886,12 +886,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/cqc
 	name = "CQC Manual"
-	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
+	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. \
+			Changes your unarmed damage to deal non-lethal stamina damage. \
+			Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 13
 	cant_discount = TRUE
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_weapons/cqc/nuke
+	reference = "NCQC"
+	cost = 8
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -1214,6 +1221,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			telecrystals normally."
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 4
 
 /datum/uplink_item/stealthy_tools/agent_card
@@ -1267,6 +1275,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CP"
 	item = /obj/item/chameleon
 	cost = 7
+
+/datum/uplink_item/stealthy_tools/chameleon_counter
+	name = "Chameleon Counterfeiter"
+	desc = "This device disguises itself as any object scanned by it. The disguise is not a perfect replica and can be noticed when examined by an observer."
+	reference = "CC"
+	item = /obj/item/chameleon_counterfeiter
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
@@ -1545,7 +1560,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"
-	desc = "This device will disrupt any nearby outgoing radio communication when activated."
+	desc = "When turned on this device will scramble any outgoing radio communications near you, making them hard to understand."
 	reference = "RJ"
 	item = /obj/item/jammer
 	cost = 4
@@ -1827,7 +1842,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
 	reference = "SYB"
-	item = /obj/item/storage/box/syndicate
+	item = /obj/item/storage/box/syndie_kit/bundle
 	cost = 20
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -1836,7 +1851,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A crate containing 50 telecrystals worth of random syndicate leftovers."
 	reference = "SYSC"
 	cost = 20
-	item = /obj/item/storage/box/syndicate
+	item = /obj/item/storage/box/syndie_kit/bundle
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 50
 

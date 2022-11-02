@@ -364,6 +364,21 @@
 	new /obj/item/grenade/chem_grenade/facid(src) //1
 	new /obj/item/grenade/chem_grenade/saringas(src) //1
 
+/obj/item/storage/belt/grenade/tactical // Traitor bundle version
+	name = "tactical grenadier belt"
+	storage_slots = 20 // Not as many slots as the nukie one
+	max_combined_w_class = 40
+
+/obj/item/storage/belt/grenade/tactical/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/smokebomb(src)
+		new /obj/item/grenade/gluon(src)
+		new /obj/item/grenade/plastic/c4(src) // Five of each
+	for(var/I in 1 to 2)
+		new /obj/item/grenade/frag(src)
+		new /obj/item/grenade/empgrenade(src) // Two of each
+	new /obj/item/grenade/syndieminibomb(src) // One minibomb
+
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."

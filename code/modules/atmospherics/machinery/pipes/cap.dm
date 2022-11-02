@@ -20,7 +20,7 @@
 	return "This is a cosmetic attachment, as pipes currently do not spill their contents into the air."
 
 /obj/machinery/atmospherics/pipe/cap/hide(i)
-	if(level == 1 && istype(loc, /turf/simulated))
+	if(level == 1 && issimulatedturf(loc))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 

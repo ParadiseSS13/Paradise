@@ -163,11 +163,6 @@
 		return
 	var/mob/living/L = M
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(check_martial_counter(H, user))
-			return
-
 	if(user.a_intent == INTENT_HARM)
 		if(turned_on)
 			baton_stun(L, user)

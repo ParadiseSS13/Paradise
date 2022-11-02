@@ -7,7 +7,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 2
 	throw_speed = 1
-	layer = 4
 	pressure_resistance = 2
 	attack_verb = list("bapped")
 	var/amount = 0 //Amount of total items clipped to the paper. Note: If you have 2 paper, this should be 1
@@ -42,7 +41,7 @@
 		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(P)
 		P.loc = src
-		if(istype(user,/mob/living/carbon/human))
+		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
@@ -67,7 +66,7 @@
 		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		qdel(W)
 	else
-		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
+		if(is_pen(W) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
 		P = src[page]
 		P.attackby(W, user, params)
@@ -194,7 +193,7 @@
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
-	if(istype(loc, /mob))
+	if(ismob(loc))
 		attack_self(loc)
 
 /obj/item/paper_bundle/AltClick(mob/user)

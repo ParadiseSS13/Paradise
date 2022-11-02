@@ -549,7 +549,7 @@
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(reflect_chance))
-		if(istype(loc, /mob))
+		if(ismob(loc))
 			var/mob/user = loc
 			if(user.holy_check())
 				return FALSE
@@ -732,7 +732,7 @@
 		M.Confused(20 SECONDS)
 		M.flash_eyes(override_blindness_check = TRUE)
 		M.EyeBlind(20 SECONDS)
-		do_teleport(M, get_turf(M), 5, asoundin = 'sound/magic/cult_spell.ogg')
+		do_teleport(M, get_turf(M), 5, sound_in = 'sound/magic/cult_spell.ogg')
 		qdel(src)
 		return
 

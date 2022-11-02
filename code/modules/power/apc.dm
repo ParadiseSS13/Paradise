@@ -157,7 +157,7 @@
 	cell.charge = 0
 
 /obj/item/apc_electronics
-	name = "power control module"
+	name = "APC electronics"
 	desc = "Heavy-duty switching circuits for power control."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
@@ -567,14 +567,14 @@
 			to_chat(user, "<span class='warning'>You cannot put the board inside, the frame is damaged!</span>")
 			return
 
-		user.visible_message("[user.name] inserts the power control board into [src].", \
-							"<span class='notice'>You start to insert the power control board into the frame...</span>")
+		user.visible_message("[user.name] inserts [W] into [src].", \
+							"<span class='notice'>You start to insert [W] into the frame...</span>")
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 10, target = src))
 			if(!has_electronics())
 				electronics_state = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
-				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
+				to_chat(user, "<span class='notice'>You place [W] inside the frame.</span>")
 				qdel(W)
 
 	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
@@ -617,34 +617,34 @@
 			if(terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
-			to_chat(user, "<span class='notice'>You are trying to remove the power control board...</span>" )
+			to_chat(user, "<span class='notice'>You start trying to remove the APC electronics...</span>" )
 			if(I.use_tool(src, user, 50, volume = I.tool_volume))
 				if(has_electronics())
 					electronics_state = APC_ELECTRONICS_NONE
 					if(stat & BROKEN)
 						user.visible_message(\
-							"[user.name] has broken the power control board inside [name]!",
-							"<span class='notice'>You break the charred power control board and remove the remains.</span>",
+							"[user.name] has broken the APC electronics inside [name]!",
+							"<span class='notice'>You break the charred APC electronics and remove the remains.</span>",
 							"<span class='italics'>You hear a crack.</span>")
 						return
 						//SSticker.mode:apcs-- //XSI said no and I agreed. -rastaf0
 					else if(emagged) // We emag board, not APC's frame
 						emagged = FALSE
 						user.visible_message(
-							"[user.name] has discarded the shorted power control board from [name]!",
+							"[user.name] has discarded the shorted APC electronics from [name]!",
 							"<span class='notice'>You discarded the shorted board.</span>")
 						return
 					else if(malfhack) // AI hacks board, not APC's frame
 						user.visible_message(\
-							"[user.name] has discarded strangely the programmed power control board from [name]!",
+							"[user.name] has discarded strangely the programmed APC electronics from [name]!",
 							"<span class='notice'>You discarded the strangely programmed board.</span>")
 						malfai = null
 						malfhack = FALSE
 						return
 					else
 						user.visible_message(\
-							"[user.name] has removed the power control board from [name]!",
-							"<span class='notice'>You remove the power control board.</span>")
+							"[user.name] has removed the APC electronics from [name]!",
+							"<span class='notice'>You remove the APC electronics.</span>")
 						new /obj/item/apc_electronics(loc)
 						return
 		else if(opened != APC_COVER_OFF) //cover isn't removed
@@ -850,7 +850,7 @@
 	data["chargingStatus"] = charging
 	data["totalLoad"] = round(lastused_equip + lastused_light + lastused_environ)
 	data["coverLocked"] = coverlocked
-	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconUser"] = issilicon(user)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights
@@ -929,7 +929,7 @@
 		return 1
 
 	autoflag = 5
-	if(istype(user, /mob/living/silicon))
+	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
 		if(                                                             \
@@ -944,7 +944,7 @@
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
 			return FALSE
 	else
-		if((!in_range(src, user) || !istype(loc, /turf)))
+		if((!in_range(src, user) || !isturf(loc)))
 			return FALSE
 
 	var/mob/living/carbon/human/H = user
@@ -1121,7 +1121,7 @@
 				malfhack = TRUE
 				update_icon()
 				var/datum/effect_system/smoke_spread/smoke = new
-				smoke.set_up(3, 0, loc)
+				smoke.set_up(3, FALSE, loc)
 				smoke.attach(src)
 				smoke.start()
 				do_sparks(3, 1, src)

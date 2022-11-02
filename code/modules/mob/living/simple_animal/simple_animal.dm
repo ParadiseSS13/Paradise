@@ -129,6 +129,8 @@
 		AddComponent(/datum/component/footstep, footstep_type)
 
 /mob/living/simple_animal/Destroy()
+	/// We need to clear the reference to where we're walking to properly GC
+	walk_to(src, 0)
 	QDEL_NULL(pcollar)
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src

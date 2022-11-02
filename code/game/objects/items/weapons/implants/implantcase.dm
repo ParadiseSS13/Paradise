@@ -12,10 +12,12 @@
 	materials = list(MAT_GLASS = 500)
 
 	var/obj/item/implant/imp
-	var/implant_type = /obj/item/implant
+	var/obj/item/implant/implant_type
 
 /obj/item/implantcase/Initialize(mapload)
 	. = ..()
+	if(!implant_type)
+		return
 	imp = new implant_type(src)
 	update_state()
 
@@ -44,7 +46,7 @@
 /obj/item/implantcase/attackby(obj/item/W, mob/user)
 	..()
 
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 	else if(istype(W, /obj/item/implanter))
 		var/obj/item/implanter/I = W

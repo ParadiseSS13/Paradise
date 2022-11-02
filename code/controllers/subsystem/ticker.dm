@@ -449,7 +449,7 @@ SUBSYSTEM_DEF(ticker)
 		if(desc_override)
 			I.desc = desc_override
 
-		if(istype(H.back, /obj/item/storage)) // Try to place it in something on the mob's back
+		if(isstorage(H.back)) // Try to place it in something on the mob's back
 			var/obj/item/storage/S = H.back
 			if(length(S.contents) < S.storage_slots)
 				I.forceMove(H.back)
@@ -521,7 +521,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/living/silicon/robot/robo in GLOB.mob_list)
 
-		if(istype(robo,/mob/living/silicon/robot/drone))
+		if(isdrone(robo))
 			dronecount++
 			continue
 

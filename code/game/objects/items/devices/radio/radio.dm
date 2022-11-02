@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
 
-	materials = list(MAT_METAL=75)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 
 	var/const/FREQ_LISTENING = 1
 	var/atom/follow_target // Custom follow target for autosay-using bots
@@ -118,13 +118,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return interact(user)
 
 /obj/item/radio/attack_self(mob/user)
-	ui_interact(user)
+	interact(user)
 
 /obj/item/radio/interact(mob/user)
 	if(!user)
 		return 0
 	if(b_stat)
 		wires.Interact(user)
+		return
 	ui_interact(user)
 
 /obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -406,7 +407,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		jobname = "Cyborg"
 
 	// --- Personal AI (pAI) ---
-	else if(istype(M, /mob/living/silicon/pai))
+	else if(ispAI(M))
 		jobname = "Personal AI"
 
 	// --- Unidentifiable mob ---

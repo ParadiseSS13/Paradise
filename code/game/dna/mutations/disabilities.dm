@@ -393,7 +393,7 @@
 	..()
 	block = GLOB.swedeblock
 
-/datum/mutation/disability/speech/swedish/on_say(mob/M, message)
+/datum/mutation/disability/speech/swedish/on_say(mob/living/M, message)
 	// svedish
 	message = replacetextEx(message,"W","V")
 	message = replacetextEx(message,"w","v")
@@ -406,7 +406,7 @@
 	message = replacetextEx(message,"bo","bjo")
 	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
 	message = replacetextEx(message,"o",pick("ö","ø","o"))
-	if(prob(30) && !M.is_muzzled())
+	if(prob(30) && !M.is_muzzled() && !M.is_facehugged())
 		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 

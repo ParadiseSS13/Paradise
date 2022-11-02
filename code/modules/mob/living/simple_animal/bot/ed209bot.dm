@@ -70,12 +70,6 @@
 			else if (lasercolor == "r")
 				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
-	//SECHUD
-	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
-	permanent_huds |= secsensor
-
-
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)
 		var/datum/job/detective/J = new/datum/job/detective
@@ -193,7 +187,7 @@
 	..()
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return
-	if(!istype(W, /obj/item/screwdriver) && (!target)) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
+	if(!isscrewdriver(W) && !locked && (!target)) //If the target is locked, they are recieving damage from the screwdriver
 		if(W.force && W.damtype != STAMINA)//If force is non-zero and damage type isn't stamina.
 			retaliate(user)
 			if(lasercolor)//To make up for the fact that lasertag bots don't hunt
@@ -451,15 +445,15 @@
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
 	if((!( U ) || !( T )))
 		return
-	while(!(istype(U, /turf)))
+	while(!isturf(U))
 		U = U.loc
-	if(!(istype(T, /turf)))
+	if(!isturf(T))
 		return
 
 	if(!projectile)
 		return
 
-	if(!(istype(U, /turf)))
+	if(!isturf(U))
 		return
 	var/obj/item/projectile/A = new projectile(loc)
 	playsound(loc, shoot_sound, 50, 1)
@@ -560,7 +554,7 @@
 		..()
 
 /mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		var/obj/item/I = AM
 		var/mob/thrower = locateUID(I.thrownby)
 		if(I.throwforce < src.health && ishuman(thrower))

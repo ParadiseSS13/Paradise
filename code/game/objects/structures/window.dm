@@ -125,10 +125,10 @@
 		return 0
 	return 1
 
-/obj/structure/window/CanAStarPass(ID, to_dir)
+/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	if(!density)
 		return 1
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
+	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
 		return 0
 
 	return 1
@@ -504,7 +504,7 @@
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	desc = "It looks rather strong and frosted over. Looks like it might take a few less hits then a normal reinforced window."
-	icon_state = "fwindow"
+	icon_state = "twindow"
 	max_integrity = 30
 
 /obj/structure/window/reinforced/polarized
