@@ -40,6 +40,8 @@
 	SIGNAL_HANDLER
 	if(slot in list(slot_l_hand, slot_r_hand))
 		RegisterSignal(user, COMSIG_LIVING_RESIST, .proc/start_parry)
+	else
+		UnregisterSignal(user, COMSIG_LIVING_RESIST)
 
 /datum/component/parry/proc/dropped(datum/source, mob/user)
 	SIGNAL_HANDLER

@@ -219,7 +219,7 @@ emp_act
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	var/obj/item/shield = get_best_shield()
 
-	if(shield && shield.hit_reaction(src, AM, attack_text, 0/*REMOVE THIS AT SOME POINT*/ , damage, attack_type))
+	if(shield && shield.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
 
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))

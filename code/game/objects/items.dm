@@ -80,7 +80,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/breakouttime = 0
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
 
-	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	// Needs to be in /obj/item because corgis can wear a lot of
