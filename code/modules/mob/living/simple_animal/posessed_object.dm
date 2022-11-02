@@ -52,6 +52,7 @@
 		// if gibbed, the item goes with the ghost
 		if(!gibbed && possessed_item.loc == src)
 			// Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place
+			visible_message("<span type='notice'>The spooky aura in [src] dissipates!</span>")
 			possessed_item.forceMove(loc)
 	return ..()
 
@@ -155,3 +156,9 @@
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
 	return ..(NONE)
+
+/mob/living/simple_animal/possessed_object/attackby(obj/item/O, mob/living/user)
+	. = ..()
+	if(istype(O, /obj/item/nullrod))
+		visible_message("<span type='notice'>The [O] dispels the spooky aura!</span>")
+		death(0)

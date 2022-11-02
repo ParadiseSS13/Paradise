@@ -145,8 +145,8 @@
 	action_background_icon_state = "bg_revenant"
 	panel = "Revenant Abilities (Locked)"
 	name = "Report this to a coder"
-	var/reveal = 80 //How long it reveals the revenant in deciseconds
-	var/stun = 20 //How long it stuns the revenant in deciseconds
+	var/reveal = 8 SECONDS //How long it reveals the revenant in deciseconds
+	var/stun = 2 SECONDS //How long it stuns the revenant in deciseconds
 	var/locked = TRUE //If it's locked and needs to be unlocked before use
 	var/unlock_amount = 100 //How much essence it costs to unlock
 	var/cast_amount = 50 //How much essence it costs to use
@@ -195,11 +195,11 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload
 	name = "Overload Lights"
 	desc = "Directs a large amount of essence into nearby electrical lights, causing lights to shock those nearby."
-	base_cooldown = 200
-	stun = 30
+	base_cooldown = 20 SECONDS
+	stun = 3 SECONDS
 	cast_amount = 45
 	var/shock_range = 2
-	var/shock_damage = 20
+	var/shock_damage = 30
 	action_icon_state = "overload_lights"
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/create_new_targeting()
@@ -231,6 +231,7 @@
 			continue
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
+		M.Stun(3 SECONDS)
 		do_sparks(4, 0, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
@@ -238,9 +239,9 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile
 	name = "Defile"
 	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
-	base_cooldown = 150
-	stun = 10
-	reveal = 40
+	base_cooldown = 15 SECONDS
+	stun = 1 SECONDS
+	reveal = 4 SECONDS
 	unlock_amount = 75
 	cast_amount = 30
 	action_icon_state = "defile"
@@ -349,7 +350,7 @@
 
 /mob/living/carbon/human/defile()
 	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
-	adjustStaminaLoss(25)
+	adjustStaminaLoss(60)
 	adjustToxLoss(5)
 	AdjustConfused(40 SECONDS, bound_lower = 0, bound_upper = 60 SECONDS)
 	new /obj/effect/temp_visual/revenant(loc)
@@ -384,3 +385,77 @@
 /obj/machinery/light/defile()
 	flicker(30)
 
+/**
+ * Makes objects be haunted and then throws them at people, spooky!
+ */
+/obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object
+	name = "Haunt Objects"
+	desc = "Empower nearby objects to you with ghostly energy, causing them to attack nearby mortals. \
+		Items closer to you are more likely to be haunted."
+	action_icon_state = "haunt"
+	var/max_targets = 7
+	var/aoe_radius = 5
+	var/list/attack_timer = list()
+	base_cooldown = 60 SECONDS
+	unlock_amount = 150
+	cast_amount = 50
+	stun = 3 SECONDS
+	reveal = 10 SECONDS
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = aoe_radius
+	return T
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	if(!attempt_cast(user))
+		return
+	var/successes = 0
+	for(var/turf/T in targets)
+		for(var/obj/item/nearby_item in T)
+			// Don't throw around anchored things or dense things
+			// (Or things not on a turf but I am not sure if range can catch that)
+			if(nearby_item.anchored || nearby_item.density || !isturf(nearby_item.loc))
+				continue
+			// Don't throw abstract things
+			if(nearby_item.flags & ABSTRACT)
+				continue
+			// Don't throw things we can't see
+			if(nearby_item.invisibility >= INVISIBILITY_REVENANT)
+				continue
+
+			var/distance_from_user = get_dist(get_turf(nearby_item), get_turf(user))
+			var/chance_of_haunting = 150 * (1 / distance_from_user)
+			if(!prob(chance_of_haunting))
+				continue
+
+			if(successes >= max_targets)
+				return
+
+			INVOKE_ASYNC(src, .proc/make_spooky, nearby_item, user)
+			successes++
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
+	new /obj/effect/temp_visual/revenant(get_turf(item_to_possess))
+	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess)
+	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#823abb", "size" = 1))
+	possessed_object.throwforce = clamp(item_to_possess.throwforce, item_to_possess.throwforce + 3, 15)
+	possessed_object.melee_damage_lower = possessed_object.throwforce
+	possessed_object.melee_damage_upper = possessed_object.throwforce
+
+	addtimer(CALLBACK(src, .proc/start_attacking, possessed_object, user), 2 SECONDS, TIMER_UNIQUE)
+	attack_timer.Add(addtimer(CALLBACK(src, .proc/start_attacking, possessed_object, user), 7 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE))
+	addtimer(CALLBACK(src, .proc/stop_timers), 65 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(possessed_object, /mob/living/simple_animal/possessed_object/.proc/death), 70 SECONDS, TIMER_UNIQUE)
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object/proc/start_attacking(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
+	for(var/mob/living/carbon/victim in orange(5, get_turf(possessed_object)))
+		if(!can_see(possessed_object, victim))
+			continue
+		possessed_object.throw_at(victim, 15, 2, user, dodgeable = FALSE)
+		victim.attack_animal(possessed_object) //sorta scuffed but funny as hell
+		return
+
+/obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object/proc/stop_timers()
+	for(var/I in attack_timer)
+		deltimer(I)

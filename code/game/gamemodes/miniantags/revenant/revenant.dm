@@ -199,6 +199,7 @@
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object(null))
 	return TRUE
 
 
