@@ -104,13 +104,13 @@
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	outfit = /datum/outfit/job/detective
-	important_information = "You are not a Security Officer. Your revolver is for self defence only."
+	important_information = "Track, investigate, and look cool while doing it."
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -122,7 +122,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/det_hat
 	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/sunglasses/noir
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/toy/crayon/white
 	r_pocket = /obj/item/lighter/zippo

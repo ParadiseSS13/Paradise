@@ -201,6 +201,9 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
+/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return TRUE // Unless you're a mule, something's trying to run you over.
+
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
