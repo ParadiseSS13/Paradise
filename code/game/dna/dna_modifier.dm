@@ -258,6 +258,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(flags & NODECONSTRUCT)
+		return
 	for(var/obj/thing in contents) // in case there is something in the scanner
 		thing.forceMove(loc)
 	default_deconstruction_crowbar(user, I)	
