@@ -115,10 +115,15 @@
 		if(mode == BOT_PATROL)
 			bot_patrol()
 
+	if(target && loc == get_turf(target))
+		start_clean(target)
+		path = list()
+		target = null
+
 	if(target)
-		if(!path || path.len == 0) //No path, need a new one
+		if(!path || !length(path)) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target.loc, /turf/proc/Distance_cardinal, 0, 30, id=access_card)
+			path = get_path_to(src, target, 30, id=access_card)
 			if(!bot_move(target))
 				add_to_ignore(target)
 				target = null
@@ -129,11 +134,6 @@
 			target = null
 			mode = BOT_IDLE
 			return
-
-	if(target && loc == target.loc)
-		start_clean(target)
-		path = list()
-		target = null
 
 	oldloc = loc
 

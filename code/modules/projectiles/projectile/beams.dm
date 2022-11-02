@@ -63,7 +63,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(istype(target,/turf/) || isstructure(target))
+	if(isturf(target) || isstructure(target))
 		target.ex_act(2)
 	..()
 

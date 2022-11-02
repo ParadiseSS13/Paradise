@@ -80,6 +80,9 @@
 	QDEL_NULL(cell)
 	return ..()
 
+/mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
+	return FALSE
+
 /mob/living/simple_animal/bot/mulebot/can_buckle()
 	return FALSE //no ma'am, you cannot buckle mulebots to chairs
 
@@ -465,7 +468,7 @@
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()
 	var/area/dest_area
-	if(path && path.len)
+	if(path && length(path))
 		target = ai_waypoint //Target is the end point of the path, the waypoint set by the AI.
 		dest_area = get_area(target)
 		destination = format_text(dest_area.name)
@@ -514,6 +517,7 @@
 				var/turf/next = path[1]
 				reached_target = FALSE
 				if(next == loc)
+					increment_path()
 					path -= next
 					return
 				if(isturf(next))
@@ -521,6 +525,7 @@
 					var/moved = step_towards(src, next) // attempt to move
 					if(moved && oldloc!=loc) // successful move
 						blockcount = 0
+						increment_path()
 						path -= loc
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
@@ -577,7 +582,7 @@
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
 	check_bot_access()
-	set_path(get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, target, 250, id=access_card, exclude=avoid))
 
 // sets the current destination
 // signals all beacons matching the delivery code
@@ -687,7 +692,7 @@
 	if(wires.is_cut(WIRE_MOB_AVOIDANCE))	// usually just bumps, but if avoidance disabled knock over mobs
 		var/mob/living/L = obs
 		if(ismob(L))
-			if(istype(L,/mob/living/silicon/robot))
+			if(isrobot(L))
 				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
 			else
 				if(!paicard)

@@ -143,7 +143,7 @@
 						// nesting in a hallway would be very stupid - crew would find and kill you almost instantly
 				var/numhostiles = 0
 				for(var/mob/living/H in oview(10, src))
-					if(!istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
+					if(!isterrorspider(H))
 						if(H.stat != DEAD)
 							numhostiles += 1
 							// nesting RIGHT NEXT TO SOMEONE is even worse

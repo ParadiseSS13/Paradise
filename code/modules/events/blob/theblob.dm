@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
 
-/obj/structure/blob/CanAStarPass(ID, dir, caller)
+/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = 0
 	if(ismovable(caller))
 		var/atom/movable/mover = caller

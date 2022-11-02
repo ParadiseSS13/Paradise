@@ -41,10 +41,16 @@
 	user.hud_used.lingstingdisplay.invisibility = 101
 
 /datum/action/changeling/sting/can_sting(mob/user, mob/target)
-	if(!..() || !iscarbon(target) || !isturf(user.loc) || !AStar(user, target.loc, /turf/proc/Distance, cling.sting_range, simulated_only = 0))
+	if(!..() || !iscarbon(target) || !isturf(user.loc))
+		return FALSE
+	if(get_dist(user, target) > cling.sting_range) // Too far, don't bother pathfinding
+		to_chat(user, "<span class='warning'>Our target is too far for our sting!</span>")
+		return FALSE
+	if(!length(get_path_to(user, target, max_distance = cling.sting_range, simulated_only = FALSE, skip_first = FALSE)))
+		to_chat(user, "<span class='warning'>Our sting is blocked from reaching our target!</span>")
 		return FALSE
 	if(!cling.chosen_sting)
-		to_chat(user, "We haven't prepared our sting yet!")
+		to_chat(user, "<span class='warning'>We haven't prepared our sting yet!</span>")
 		return FALSE
 	if(ismachineperson(target))
 		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
