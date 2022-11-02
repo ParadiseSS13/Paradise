@@ -30,7 +30,6 @@
 			Harvest(A)
 
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
-
 	if(!castcheck(0))
 		return
 	if(draining)
