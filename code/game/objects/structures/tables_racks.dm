@@ -850,9 +850,6 @@
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 
-/obj/structure/rack/proc/item_placed(item)
-	return
-
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
 	if(isrobot(user))
 		return
@@ -869,7 +866,6 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			W.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			W.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			item_placed(W)
 	return
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
