@@ -275,6 +275,11 @@
 	action_icon_state = "malfunction"
 	aoe_range = 2
 
+/obj/effect/proc_holder/spell/aoe/revenant/malfunction/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
+	targeting.range = aoe_range
+	return targeting
+
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
 /obj/effect/proc_holder/spell/aoe/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
