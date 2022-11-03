@@ -548,7 +548,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return
 
 /mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
-	if(!client) 
+	if(!client)
 		pipes_shown.Cut()
 		return
 	if(length(pipes_shown) && !target_move)

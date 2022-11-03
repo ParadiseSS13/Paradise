@@ -432,7 +432,7 @@
 			if(successes >= max_targets)
 				return
 
-			INVOKE_ASYNC(src, .proc/make_spooky, nearby_item, user)
+			make_spooky(nearby_item, user)
 			successes++
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
@@ -440,11 +440,12 @@
 	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess)
 	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#823abb", "size" = 1))
 	possessed_object.throwforce = clamp(item_to_possess.throwforce, item_to_possess.throwforce + 3, 15)
-	possessed_object.melee_damage_lower = possessed_object.throwforce
-	possessed_object.melee_damage_upper = possessed_object.throwforce
+	possessed_object.maxHealth = 100
+	possessed_object.health = 100 //Double the regular HP of possessed objects
+	possessed_object.escape_chance = 100 //We cannot be contained
 
 	addtimer(CALLBACK(src, .proc/start_attacking, possessed_object, user), 2 SECONDS, TIMER_UNIQUE)
-	attack_timer.Add(addtimer(CALLBACK(src, .proc/start_attacking, possessed_object, user), 7 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE))
+	attack_timer.Add(addtimer(CALLBACK(src, .proc/start_attacking, possessed_object, user), 5 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE))
 	addtimer(CALLBACK(src, .proc/stop_timers), 65 SECONDS, TIMER_UNIQUE)
 	addtimer(CALLBACK(possessed_object, /mob/living/simple_animal/possessed_object/.proc/death), 70 SECONDS, TIMER_UNIQUE)
 
@@ -453,7 +454,6 @@
 		if(!can_see(possessed_object, victim))
 			continue
 		possessed_object.throw_at(victim, 15, 2, user, dodgeable = FALSE)
-		victim.attack_animal(possessed_object) //sorta scuffed but funny as hell
 		return
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/haunt_object/proc/stop_timers()
