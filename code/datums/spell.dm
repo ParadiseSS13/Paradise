@@ -462,12 +462,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return
 
 /obj/effect/proc_holder/spell/aoe
+	name = "Spell"
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
 	/// How far does it effect
 	var/aoe_range = 7
 
-/obj/effect/proc_holder/spell/aoe/create_new_targeting() // Fallback to turf if someone is too moronic to use a proper subtype
+/obj/effect/proc_holder/spell/aoe/turf/create_new_targeting() // Fallback to turf if someone is too moronic to use a proper subtype
 	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
 	return targeting

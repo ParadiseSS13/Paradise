@@ -139,7 +139,7 @@
 			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
-/obj/effect/proc_holder/spell/revenant/aoe/create_new_targeting() // Falback to turf if some idiot doesn't use the subtypes properly
+/obj/effect/proc_holder/spell/revenant/aoe/turf/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
 	return targeting
@@ -159,6 +159,7 @@
 	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
 
 /obj/effect/proc_holder/spell/revenant/aoe
+	name = "Spell"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_revenant"
 	panel = "Revenant Abilities (Locked)"
