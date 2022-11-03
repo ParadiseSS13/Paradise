@@ -62,11 +62,11 @@
 			if(is_station_level(A.z))
 				A.req_access = list()
 				A.req_one_access = list()
-		GLOB.command_announcement.Announce(
+		GLOB.major_announcement.Announce(
 			message = "We have removed all access requirements on your station's airlocks. You can thank us later!",
-			new_title = "Greetings!",
-			new_sound = 'sound/misc/notice2.ogg',
-			from = "Space Wizard Federation Message"
+			new_title = "Space Wizard Federation Message",
+			new_subtitle = "Greetings!",
+			new_sound = 'sound/misc/notice2.ogg'
 		)
 	else
 		..()

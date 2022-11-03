@@ -219,6 +219,7 @@
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
 	new /obj/item/clothing/gloves/color/black/forensics(src)
+	new /obj/item/storage/belt/security(src)
 	new /obj/item/clothing/head/det_hat(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/storage/box/evidence(src)

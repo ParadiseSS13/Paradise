@@ -652,8 +652,12 @@
 /obj/item/clothing/suit/browntrenchcoat
 	name = "brown trench coat"
 	desc = "It makes you stand out. Just the opposite of why it's typically worn. Nice try trying to blend in while wearing it."
-	icon_state = "brtrenchcoat"
-	item_state = "brtrenchcoat"
+	icon_state = "brtrenchcoat_open"
+	item_state = "brtrenchcoat_open"
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -662,8 +666,12 @@
 /obj/item/clothing/suit/blacktrenchcoat
 	name = "black trench coat"
 	desc = "That shade of black just makes you look a bit more evil. Good for those mafia types."
-	icon_state = "bltrenchcoat"
-	item_state = "bltrenchcoat"
+	icon_state = "bltrenchcoat_open"
+	item_state = "bltrenchcoat_open"
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
