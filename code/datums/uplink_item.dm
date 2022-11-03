@@ -1064,7 +1064,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/syndicate_bomb/nuke
 	reference = "NSB"
 	cost = 11
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
 	cant_discount = TRUE
 	hijack_only = FALSE
@@ -1083,7 +1083,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/emp_bomb/nuke
 	reference = "NSBEMP"
 	cost = 10
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1157,7 +1157,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "NAPG"
 	hijack_only = FALSE
 	cost = 12
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1240,6 +1240,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/stealthy_tools/chameleon/nuke
+	reference = "NCHAM"
+	cost = 6
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+
 /datum/uplink_item/stealthy_tools/voice_modulator
 	name = "Chameleon Voice Modulator Mask"
 	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
@@ -1248,11 +1253,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/stealthy_tools/chameleon/nuke
-	reference = "NCHAM"
-	cost = 6
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
 	name = "No-Slip Chameleon Shoes"
@@ -1266,8 +1266,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	reference = "NNSSS"
 	cost = 4
-	excludefrom = list()
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon-Projector"
@@ -1314,21 +1313,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/flashlight/emp
 	cost = 4
 	surplus = 30
-
-/datum/uplink_item/stealthy_tools/syndigaloshes
-	name = "No-Slip Chameleon Shoes"
-	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. They do not work on heavily lubricated surfaces."
-	reference = "NOCS"
-	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 2
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
-	reference = "NOCSN"
-	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 4
-	excludefrom = list()
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
