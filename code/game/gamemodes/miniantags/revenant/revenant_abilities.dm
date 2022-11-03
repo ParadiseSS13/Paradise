@@ -227,7 +227,7 @@
 	stun = 3 SECONDS
 	cast_amount = 45
 	var/shock_range = 2
-	var/shock_damage = 30
+	var/shock_damage = 40
 	action_icon_state = "overload_lights"
 	aoe_range = 5
 
@@ -331,7 +331,7 @@
 		if(nearby_item.invisibility >= INVISIBILITY_REVENANT)
 			continue
 
-		var/distance_from_user = get_dist(get_turf(nearby_item), get_turf(user))
+		var/distance_from_user = clamp(get_dist(get_turf(nearby_item), get_turf(user)), 1, 127) // get_dist() never returns more than 127, but same tile dists return -1
 		var/chance_of_haunting = 150 * (1 / distance_from_user) // The further away things are, the less likely they are to be picked
 		if(!prob(chance_of_haunting))
 			continue
@@ -360,7 +360,7 @@
 /// Handles finding a valid target and throwing us at it
 /obj/effect/proc_holder/spell/revenant/aoe/obj/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
 	var/list/potential_victims = list()
-	for(var/mob/living/carbon/potential_victim in range(7, get_turf(possessed_object)))
+	for(var/mob/living/carbon/potential_victim in range(aoe_range, get_turf(possessed_object)))
 		if(!can_see(possessed_object, potential_victim)) // You can't see me
 			continue
 		if(potential_victim.stat >= UNCONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
@@ -376,7 +376,7 @@
 		deltimer(I)
 
 /**
- * Gives everyone in a 7 turf radius 2 minutes of hallucinations
+ * Gives everyone in a 7 tile radius 2 minutes of hallucinations
  */
 /obj/effect/proc_holder/spell/revenant/aoe/mob/hallucinations
 	name = "Hallucination Aura"
