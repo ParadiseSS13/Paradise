@@ -139,10 +139,6 @@
 			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
-// See /obj/effect/proc_holder/spell/aoe/write_custom_logs
-/obj/effect/proc_holder/spell/aoe/revenant/write_custom_logs(list/targets, mob/user)
-	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
-
 /obj/effect/proc_holder/spell/aoe/revenant
 	name = "Spell"
 	clothes_req = FALSE
