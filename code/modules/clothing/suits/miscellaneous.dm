@@ -799,7 +799,7 @@
 	desc = "A suspicious but extremely stylish jacket."
 	icon_state = "bombersyndie"
 	item_state = "bombersyndie"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
