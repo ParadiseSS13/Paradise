@@ -1027,7 +1027,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
 				return
-			user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
+			user.visible_message("<span class='notice'>[user] removes \the [src]'s shielding.</span>",
 								"<span class='notice'>You remove \the [src]'s inner shielding.</span>")
 			security_level = AIRLOCK_SECURITY_NONE
 			modify_max_integrity(normal_integrity)
@@ -1039,7 +1039,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
 				return
-			user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
+			user.visible_message("<span class='notice'>[user] removes \the [src]'s shielding.</span>",
 								"<span class='notice'>You remove \the [src]'s shielding.</span>")
 			security_level = AIRLOCK_SECURITY_PLASTEEL_I
 			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
