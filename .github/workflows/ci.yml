@@ -58,6 +58,7 @@ jobs:
     strategy:
       matrix:
         maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation']
+        byondtype: ['STABLE', 'BETA']
     services:
       mariadb:
         image: mariadb:latest
