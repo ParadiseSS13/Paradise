@@ -32,7 +32,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 		switch(level)
 			if(SEC_LEVEL_GREEN)
-				GLOB.security_announcement.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.", new_sound2='sound/AI/green.ogg')
+				GLOB.security_announcement.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.", new_sound2 = 'sound/AI/green.ogg')
 				GLOB.security_level = SEC_LEVEL_GREEN
 				unset_stationwide_emergency_lighting()
 				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
@@ -41,10 +41,10 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
 					GLOB.security_announcement.Announce("The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.","Attention! Security level elevated to blue.",
-					new_sound='sound/misc/notice1.ogg',
-					new_sound2='sound/AI/blue.ogg')
+					new_sound = 'sound/misc/notice1.ogg',
+					new_sound2 = 'sound/AI/blue.ogg')
 				else
-					GLOB.security_announcement.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.", new_sound2='sound/AI/blue.ogg')
+					GLOB.security_announcement.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.", new_sound2 = 'sound/AI/blue.ogg')
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
@@ -54,10 +54,10 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					GLOB.security_announcement.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!",
-					new_sound='sound/misc/notice1.ogg',
-					new_sound2='sound/AI/red.ogg')
+					new_sound = 'sound/misc/notice1.ogg',
+					new_sound2 = 'sound/AI/red.ogg')
 				else
-					GLOB.security_announcement.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", new_sound2='sound/AI/red.ogg')
+					GLOB.security_announcement.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", new_sound2 = 'sound/AI/red.ogg')
 					unset_stationwide_emergency_lighting()
 				GLOB.security_level = SEC_LEVEL_RED
 
