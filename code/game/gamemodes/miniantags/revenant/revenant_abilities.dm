@@ -148,9 +148,6 @@
 	clothes_req = FALSE
 	action_background_icon_state = "bg_revenant"
 	panel = "Revenant Abilities (Locked)"
-	name = "Report this to a coder"
-	create_attack_logs = FALSE
-	create_custom_logs = TRUE
 	/// How long it reveals the revenant in deciseconds
 	var/reveal = 8 SECONDS
 	/// How long it stuns the revenant in deciseconds
