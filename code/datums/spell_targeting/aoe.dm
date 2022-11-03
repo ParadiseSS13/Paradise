@@ -18,3 +18,9 @@
 
 /datum/spell_targeting/aoe/turf
 	allowed_type = /turf
+
+/datum/spell_targeting/aoe/mob
+	allowed_type = /mob
+
+/datum/spell_targeting/aoe/obj
+	allowed_type = /obj

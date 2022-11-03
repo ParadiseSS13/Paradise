@@ -179,7 +179,7 @@
 /mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
 	. = ..()
 	if(isliving(hit_atom))
-		var/mob/living/hit_mob
+		var/mob/living/hit_mob = hit_atom
 		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
 		hit_mob.visible_message("<span class='danger'>[hit_mob] is hit by [src]!</span>", "<span class='userdanger'>You're hit by [src]!</span>")
 		if(!throwforce)

@@ -130,7 +130,7 @@
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/build/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/turf/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls.</b>"
@@ -196,11 +196,11 @@
 	construct_type = "builder"
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
 							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/floor,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/pylon,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone)
+							/obj/effect/proc_holder/spell/aoe/turf/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe/turf/conjure/build/wall,
+							/obj/effect/proc_holder/spell/aoe/turf/conjure/build/floor,
+							/obj/effect/proc_holder/spell/aoe/turf/conjure/build/pylon,
+							/obj/effect/proc_holder/spell/aoe/turf/conjure/build/soulstone)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -298,8 +298,8 @@
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/floor,
+							/obj/effect/proc_holder/spell/aoe/turf/conjure/build/wall,
+							/obj/effect/proc_holder/spell/aoe/turf/conjure/build/floor,
 							/obj/effect/proc_holder/spell/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
