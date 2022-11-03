@@ -465,7 +465,7 @@
 
 /obj/item/disk/plantgene/New()
 	..()
-	overlays += "datadisk_gene"
+	update_icon(UPDATE_OVERLAYS)
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -507,10 +507,9 @@
 /obj/item/disk/plantgene/update_overlays()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		overlays -= "datadisk_gene"
 		return
 
-	overlays += "datadisk_gene"
+	. += "datadisk_gene"
 
 /obj/item/disk/plantgene/attack_self(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
