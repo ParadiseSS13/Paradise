@@ -228,7 +228,7 @@
 	large = TRUE
 	action_icon_state = "shield_greater"
 
-/obj/effect/proc_holder/spell/aoe/turf/conjure/timestop
+/obj/effect/proc_holder/spell/aoe/conjure/timestop
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
 	base_cooldown = 500
@@ -242,7 +242,7 @@
 	summon_type = list(/obj/effect/timestop/wizard)
 	aoe_range = 0
 
-/obj/effect/proc_holder/spell/aoe/turf/conjure/carp
+/obj/effect/proc_holder/spell/aoe/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
 
@@ -257,7 +257,7 @@
 	cast_sound = 'sound/magic/summon_karp.ogg'
 	aoe_range = 1
 
-/obj/effect/proc_holder/spell/aoe/turf/conjure/construct
+/obj/effect/proc_holder/spell/aoe/conjure/construct
 	name = "Artificer"
 	desc = "This spell conjures a construct which may be controlled by Shades"
 
@@ -273,7 +273,7 @@
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 0
 
-/obj/effect/proc_holder/spell/aoe/turf/conjure/creature
+/obj/effect/proc_holder/spell/aoe/conjure/creature
 	name = "Summon Creature Swarm"
 	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth"
 
@@ -370,7 +370,7 @@
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/aoe/turf/repulse
+/obj/effect/proc_holder/spell/aoe/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	base_cooldown = 400
@@ -384,7 +384,12 @@
 	action_icon_state = "repulse"
 	aoe_range = 5
 
-/obj/effect/proc_holder/spell/aoe/turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 4 SECONDS)
+/obj/effect/proc_holder/spell/aoe/repulse/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
+	targeting.range = aoe_range
+	return targeting
+
+/obj/effect/proc_holder/spell/aoe/repulse/cast(list/targets, mob/user = usr, stun_amt = 4 SECONDS)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster

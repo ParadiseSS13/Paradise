@@ -468,21 +468,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// How far does it effect
 	var/aoe_range = 7
 
-/obj/effect/proc_holder/spell/aoe/turf/create_new_targeting() // Fallback to turf if someone is too moronic to use a proper subtype
-	var/datum/spell_targeting/aoe/turf/targeting = new()
-	targeting.range = aoe_range
-	return targeting
-
-/obj/effect/proc_holder/spell/aoe/mob/create_new_targeting()
-	var/datum/spell_targeting/aoe/mob/targeting = new()
-	targeting.range = aoe_range
-	return targeting
-
-/obj/effect/proc_holder/spell/aoe/obj/create_new_targeting()
-	var/datum/spell_targeting/aoe/obj/targeting = new()
-	targeting.range = aoe_range
-	return targeting
-
 // Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
 // With this override, all /aoe type spells will only generate 1 log, saying that the user has cast the spell.
 /obj/effect/proc_holder/spell/aoe/write_custom_logs(list/targets, mob/user)

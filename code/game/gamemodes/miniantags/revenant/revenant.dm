@@ -196,11 +196,11 @@
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant/aoe/turf/defile(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant/aoe/turf/malfunction(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant/aoe/obj/overload(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant/aoe/obj/haunt_object(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant/aoe/mob/hallucinations(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
 	return TRUE
 
 

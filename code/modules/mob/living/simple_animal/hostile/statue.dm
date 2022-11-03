@@ -56,8 +56,8 @@
 /mob/living/simple_animal/hostile/statue/Initialize(mapload, mob/living/creator)
 	. = ..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/turf/flicker_lights(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/turf/blindness(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe/blindness(null))
 	AddSpell(new /obj/effect/proc_holder/spell/night_vision(null))
 
 	// Set creator
@@ -160,7 +160,7 @@
 // Statue powers
 
 // Flicker lights
-/obj/effect/proc_holder/spell/aoe/turf/flicker_lights
+/obj/effect/proc_holder/spell/aoe/flicker_lights
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
@@ -168,14 +168,19 @@
 	clothes_req = FALSE
 	aoe_range = 14
 
-/obj/effect/proc_holder/spell/aoe/turf/flicker_lights/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe/flicker_lights/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
+	targeting.range = aoe_range
+	return targeting
+
+/obj/effect/proc_holder/spell/aoe/flicker_lights/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/light/L in T)
 			L.flicker()
 	return
 
 //Blind AOE
-/obj/effect/proc_holder/spell/aoe/turf/blindness
+/obj/effect/proc_holder/spell/aoe/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
@@ -184,7 +189,12 @@
 	clothes_req = FALSE
 	aoe_range = 10
 
-/obj/effect/proc_holder/spell/aoe/turf/blindness/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe/blindness/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
+	targeting.range = aoe_range
+	return targeting
+
+/obj/effect/proc_holder/spell/aoe/blindness/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		if(L == user)
 			continue
