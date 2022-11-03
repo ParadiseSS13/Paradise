@@ -154,8 +154,7 @@
 	targeting.range = aoe_range
 	return targeting
 
-// Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
-// With this override, all /aoe/turf type spells will only generate 1 log, saying that the user has cast the spell.
+// See /obj/effect/proc_holder/spell/aoe/write_custom_logs
 /obj/effect/proc_holder/spell/revenant/aoe/write_custom_logs(list/targets, mob/user)
 	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
 
