@@ -467,13 +467,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// How far does it effect
 	var/aoe_range = 7
 
-/obj/effect/proc_holder/spell/aoe/mob/create_new_targeting()
-	var/datum/spell_targeting/aoe/mob/targeting = new()
+/obj/effect/proc_holder/spell/aoe/create_new_targeting() // Fallback to turf if someone is too moronic to use a proper subtype
+	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 
-/obj/effect/proc_holder/spell/aoe/turf/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/targeting = new()
+/obj/effect/proc_holder/spell/aoe/mob/create_new_targeting()
+	var/datum/spell_targeting/aoe/mob/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 

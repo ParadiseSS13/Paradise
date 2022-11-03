@@ -139,13 +139,13 @@
 			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
-/obj/effect/proc_holder/spell/revenant/aoe/mob/create_new_targeting()
-	var/datum/spell_targeting/aoe/mob/targeting = new()
+/obj/effect/proc_holder/spell/revenant/aoe/create_new_targeting() // Falback to turf if some idiot doesn't use the subtypes properly
+	var/datum/spell_targeting/aoe/turf/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 
-/obj/effect/proc_holder/spell/revenant/aoe/turf/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/targeting = new()
+/obj/effect/proc_holder/spell/revenant/aoe/mob/create_new_targeting()
+	var/datum/spell_targeting/aoe/mob/targeting = new()
 	targeting.range = aoe_range
 	return targeting
 
