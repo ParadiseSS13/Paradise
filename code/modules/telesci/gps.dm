@@ -55,11 +55,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	addtimer(CALLBACK(src, .proc/reboot), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/living/user)
+	if(!Adjacent(user))
+		return
+	if(!iscarbon(usr) && !isrobot(usr))
+		return
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
-		return //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
 		return
