@@ -44,7 +44,6 @@
 	var/datum/job/assigned_job
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
-	var/list/targets = list()
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
@@ -655,9 +654,9 @@
 				def_value = "custom"
 
 		var/list/objective_types = list(
-			"assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack",
+			"assassinate", "prevent from escape", "steal brain", "protect", "blood", "hijack",
 			"escape", "survive", "steal", "download", "nuclear", "capture", "absorb",
-			"destroy", "maroon", "identity theft",
+			"destroy", "identity theft", "kill all humans",
 			// Цели для ниндзя //
 			"get money", "find and scan", "set up",
 			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
@@ -671,49 +670,41 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate","protect","debrain", "brig", "maroon")
-				//To determine what to name the objective in explanation text.
-				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
-				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
-				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
+			if("assassinate", "protect", "steal brain", "prevent from escape")
+				var/obj_type = list("assassinate" = /datum/objective/assassinate, "protect" = /datum/objective/protect, "steal brain" = /datum/objective/debrain, "prevent from escape" = /datum/objective/maroon)[new_obj_type]
+				new_objective = new obj_type
+				new_objective.owner = src
 
-				var/list/possible_targets = list()
-				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
-						possible_targets += possible_target.current
+				if(alert(usr, "Do you want to pick the target yourself? No will randomise it", "Pick target", "Yes", "No") == "Yes")
+					var/list/possible_targets = list()
+					for(var/datum/mind/possible_target in SSticker.minds)
+						if((possible_target != src) && ishuman(possible_target.current))
+							possible_targets += possible_target.current
 
-				var/mob/def_target = null
-				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
-				if(objective&&(objective.type in objective_list) && objective:target)
-					def_target = objective.target.current
-				possible_targets = sortAtom(possible_targets)
-
-				var/new_target
-				if(length(possible_targets) > 0)
-					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
-						possible_targets += "Free objective"
-						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+					var/mob/def_target = null
+					if(objective && objective.target)
+						def_target = objective.target.current
+					possible_targets = sortAtom(possible_targets)
+					possible_targets += "Free objective"
+					var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+					if(!new_target || new_target == "Free objective")
+						new_objective.target = null
+						new_objective.explanation_text = "Free objective"
 					else
-						new_target = pick(possible_targets)
-
-					if(!new_target)
-						return
+						new_objective.target = new_target:mind
+						var/description = ""
+						switch(new_obj_type)
+							if("assassinate")
+								description = "Assassinate"
+							if("protect")
+								description = "Protect"
+							if("debrain")
+								description = "Steal the brain of"
+							if("prevent")
+								description = "Prevent from escaping alive or assassinate"
+						new_objective.explanation_text = "[description] [new_target:real_name], the [new_target:mind:assigned_role]."
 				else
-					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
-					new_target = "Free objective"
-
-				var/objective_path = text2path("/datum/objective/[new_obj_type]")
-				if(new_target == "Free objective")
-					new_objective = new objective_path
-					new_objective.owner = src
-					new_objective:target = null
-					new_objective.explanation_text = "Free objective"
-				else
-					new_objective = new objective_path
-					new_objective.owner = src
-					new_objective:target = new_target:mind
-					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+					new_objective.find_target()
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
@@ -726,12 +717,8 @@
 				else
 					to_chat(usr, "No active AIs with minds")
 
-			if("kill all human")
+			if("kill all humans")
 				new_objective = new /datum/objective/block
-				new_objective.owner = src
-
-			if("prevent from escaping alive")
-				new_objective = new /datum/objective/maroon
 				new_objective.owner = src
 
 			if("hijack")

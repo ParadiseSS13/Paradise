@@ -26,8 +26,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/is_invalid_target(datum/mind/possible_target)
 	if(possible_target == owner)
 		return TARGET_INVALID_IS_OWNER
-	if(possible_target in owner.targets)
-		return TARGET_INVALID_IS_TARGET
+	for(var/datum/objective/objective in owner.objectives)
+		if(istype(objective) && objective.target == possible_target)
+			return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
 	if(possible_target.current.stat == DEAD)
@@ -392,23 +393,26 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return "an unknown area"
 
 /datum/objective/steal/find_target()
-	var/loop=50
-	while(!steal_target && loop > 0)
-		loop--
-		var/thefttype = pick(GLOB.potential_theft_objectives)
+	var/list/valid_theft_objectives = list()
+	for(var/thefttype in GLOB.potential_theft_objectives)
+		for(var/datum/objective/steal/objective in owner.objectives)
+			if(istype(objective) && istype(objective.steal_target, thefttype))
+				continue
 		var/datum/theft_objective/O = new thefttype
-		if(owner.assigned_role in O.protected_jobs)
-			continue
-		if(O in owner.targets)
-			continue
 		if(O.flags & 2)
 			continue
+		if(owner.assigned_role in O.protected_jobs)
+			continue
+		valid_theft_objectives += O
+	if(length(valid_theft_objectives))
+		var/datum/theft_objective/O = pick(valid_theft_objectives)
 		steal_target = O
 
 		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
 		if(islist(O.protected_jobs) && O.protected_jobs.len)
 			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
 		return
+
 	explanation_text = "Free Objective."
 
 

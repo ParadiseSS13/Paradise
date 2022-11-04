@@ -26,7 +26,7 @@
 			return -1
 		if((target.mind in SSticker.mode?.cult) || (target.mind in SSticker.mode?.head_revolutionaries))
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")
-		else if(target.mind in SSticker.mode.revolutionaries)
+		else if(target.mind in SSticker.mode?.revolutionaries)
 			SSticker.mode.remove_revolutionary(target.mind)
 		else
 			to_chat(target, "<span class='notice'>Your mind feels hardened - more resistant to brainwashing.</span>")
