@@ -172,7 +172,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.age = rand(23,35)
 	M.regenerate_icons()
 	M.update_body()
-	M.update_dna()
 
 	//Creates mind stuff.
 	M.mind = new

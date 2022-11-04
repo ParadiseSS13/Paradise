@@ -345,12 +345,15 @@
 	if(computer == library_computer)
 		return TRUE //we're succesfully connected already, let player know it was a "succesful connection"
 
-	UnregisterSignal(computer, COMSIG_PARENT_QDELETING)
+	disconnect() //clear references to old computer, we have to unregister signals
 	computer = library_computer
 	RegisterSignal(library_computer, COMSIG_PARENT_QDELETING, .proc/disconnect)
 	return TRUE
 
 /obj/item/barcodescanner/proc/disconnect()
+	if(!computer)
+		return //proc will runtime if computer is null
+	UnregisterSignal(computer, COMSIG_PARENT_QDELETING)
 	computer = null
 
 /obj/item/barcodescanner/proc/scanID(obj/item/card/id/ID, mob/user)

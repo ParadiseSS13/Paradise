@@ -88,6 +88,8 @@
 
 
 /mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1)
+	if(stat == DEAD)
+		return FALSE
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return FALSE
 	if(is_muzzled())
@@ -548,7 +550,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return
 
 /mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
-	if(!client) 
+	if(!client)
 		pipes_shown.Cut()
 		return
 	if(length(pipes_shown) && !target_move)

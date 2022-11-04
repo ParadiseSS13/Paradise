@@ -351,3 +351,10 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/retractor/supermatter(src)
 	new /obj/item/nuke_core_container/supermatter(src)
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
+
+/obj/item/storage/box/syndie_kit/revolver
+	name = "\improper .357 revolver kit"
+
+/obj/item/storage/box/syndie_kit/revolver/populate_contents()
+	new /obj/item/gun/projectile/revolver(src)
+	new /obj/item/ammo_box/a357(src)
