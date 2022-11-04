@@ -286,6 +286,8 @@ em						{font-style: normal;	font-weight: bold;}
 .djradio				{color: #663300;}
 .binaryradio				{color: #0B0050;	font-family: 'Courier New', Courier, monospace;}
 .mommiradio				{color: navy;}
+.alert					{color: #ff0000;}
+h1.alert, h2.alert			{color: #000000;}
 .ghostalert				{color: #5c00e6;	font-style: italic; font-weight: bold;}
 .emote					{					font-style: italic;}
 .selecteddna				{color: #FFFFFF; 	background-color: #001B1B}
