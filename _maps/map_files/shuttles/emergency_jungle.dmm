@@ -6,7 +6,8 @@
 /turf/simulated/wall/mineral/wood,
 /area/shuttle/escape)
 "ac" = (
-/obj/effect/spawner/window/reinforced,
+/obj/structure/window/reinforced/clockwork/fulltile,
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "ae" = (
@@ -289,7 +290,7 @@
 /area/shuttle/escape)
 "bu" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
+/obj/structure/window/reinforced/clockwork{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless{
