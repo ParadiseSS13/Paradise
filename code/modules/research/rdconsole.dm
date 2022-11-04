@@ -477,11 +477,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(enough_materials && being_built)
 			investigate_log("[key_name_log(user)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
 			for(var/i in 1 to amount)
-				var/obj/item/new_item = new being_built.build_path(src)
+				var/obj/new_item = new being_built.build_path(src)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
-				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
-					new_item.update_materials_coeff(coeff)
+				if(isitem(new_item) && !istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
+					var/obj/item/new_item_item = new_item
+					new_item_item.update_materials_coeff(coeff)
 				if(being_built.locked)
 					var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(machine.loc)
 					new_item.forceMove(L)
