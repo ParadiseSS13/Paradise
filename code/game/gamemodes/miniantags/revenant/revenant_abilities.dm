@@ -343,7 +343,7 @@
 	new /obj/effect/temp_visual/revenant(get_turf(item_to_possess)) // Thematic spooky visuals
 	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess) // Begin haunting object
 	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = 1)) // Give it spooky purple outline
-	possessed_object.throwforce = clamp(item_to_possess.throwforce, item_to_possess.throwforce + 3, 15) // Damage it should do? throwforce+3 or 15, whichever is lower
+	possessed_object.throwforce = clamp(item_to_possess.throwforce, item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+3 or 15, whichever is lower
 	possessed_object.maxHealth = 100 // Double the regular HP of possessed objects
 	possessed_object.health = 100
 	possessed_object.escape_chance = 100 // We cannot be contained
