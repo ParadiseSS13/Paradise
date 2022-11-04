@@ -13,6 +13,10 @@
 	openicon = "fryer_open"
 	has_specials = TRUE
 	upgradeable = TRUE
+	/// How many times have we deep fried ourself?
+	var/deepfried = 0
+	/// Total times it can be cmagged
+	var/cmag_limit = 150
 
 /obj/machinery/cooker/deepfryer/Initialize(mapload)
 	. = ..()
@@ -83,6 +87,54 @@
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		emagged = TRUE
 		return
+
+/obj/machinery/cooker/deepfryer/cmag_act(mob/user)
+	if(stat & (NOPOWER|BROKEN) || on)
+		return
+	if(panel_open)
+		to_chat(user, "<span class='warning'>Close the panel first!</span>")
+		return
+
+	if(deepfried > cmag_limit) // 1984
+		return // Handled by checkValid
+
+	. = TRUE
+
+	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+
+	to_chat(user, "<span class='warning'>You deep fry [src]!</span>") // Deep fry the deep fryer
+	deepfried += 1
+
+	icon_state = onicon
+	soundloop.start()
+	on = TRUE
+	addtimer(CALLBACK(src, .proc/cmag_finish, user), cooktime)
+
+/obj/machinery/cooker/deepfryer/proc/cmag_finish(mob/user)
+	icon_state = officon
+	soundloop.stop()
+	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	on = FALSE
+
+	name = "[thiscooktype] [name]"
+	desc = "[initial(desc)] It has been [thiscooktype] [deepfried] time\s."
+	var/default_color = color
+	if(isnull(default_color)) // why the fuck is white null? blame lummox
+		default_color = "#FFFFFF"
+	color = color_linear_burn(default_color, foodcolor, 102)
+
+	if(prob(deepfried))
+		add_attack_logs(user, src, "cmagging spilled burning foam")
+		make_foam(deepfried / 3)
+
+/obj/machinery/cooker/deepfryer/checkValid(obj/item/check, mob/user)
+	if(istype(check, /obj/item/card/cmag))
+		if(deepfried >= cmag_limit) // Gotta end the fun sometime...
+			do_sparks(5, 1, src)
+			to_chat(user, "<span class='danger'>You accidently put [check] into [src]!</span>") // DANGER!!! IMPORTANT!!! MY CMAG!!!!
+			return TRUE
+		return FALSE
+	. = ..()
 
 /obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
 	if(ishuman(G.affecting))

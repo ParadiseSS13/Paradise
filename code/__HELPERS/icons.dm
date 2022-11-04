@@ -627,6 +627,28 @@ world
 	var/gray = RGB[1]*0.3 + RGB[2]*0.59 + RGB[3]*0.11
 	return (RGB.len > 3) ? rgb(gray, gray, gray, RGB[4]) : rgb(gray, gray, gray)
 
+/**
+ * Performs a linear burn between the two colors
+ *
+ * color1 - Color to burn
+ * color2 - Color to burn it with
+ * percent - How much we should burn it by (<100 will sometimes lighten, >100 always will darken)
+ *
+ * returns a hex code string
+ */
+/proc/color_linear_burn(color1, color2, percent = 100)
+	var/list/rgb1 = rgb2num(color1)
+	var/list/rgb2 = rgb2num(color2)
+	percent = percent / 100
+	. += "#"
+	for(var/i in 1 to length(rgb1))
+		var/another_color = clamp(rgb1[i] + rgb2[i], 0, 255 * 2) - (255 * percent) // (c1 + c2) - percent
+		another_color = clamp(another_color, 0, 255) // Make sure its not -848 or some shit
+		var/hex = num2hex(another_color) // convert to 00 through FF
+		if(hex == "") // Something something, why is it null
+			hex = "00"
+		. += hex
+
 // Change grayscale color to black->tone->white range
 /proc/ColorTone(rgb, tone)
 	var/list/RGB = ReadRGB(rgb)
