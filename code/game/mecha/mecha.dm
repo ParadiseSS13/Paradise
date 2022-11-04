@@ -678,14 +678,13 @@
 
 	if(istype(W, /obj/item/mecha_parts/mecha_equipment))
 		var/obj/item/mecha_parts/mecha_equipment/E = W
-		spawn()
-			if(E.can_attach(src))
-				if(!user.drop_item())
-					return
-				E.attach(src)
-				user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
-			else
-				to_chat(user, "<span class='warning'>You were unable to attach [W] to [src]!</span>")
+		if(E.can_attach(src))
+			if(!user.drop_item())
+				return
+			E.attach(src)
+			user.visible_message("[user] attaches [W] to [src].", "<span class='notice'>You attach [W] to [src].</span>")
+		else
+			to_chat(user, "<span class='warning'>You were unable to attach [W] to [src]!</span>")
 		return
 
 	if(W.GetID())
