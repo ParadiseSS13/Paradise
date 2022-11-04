@@ -48,8 +48,6 @@
 			return
 		objective = temp_objective
 		ninja = user
-		// Лучше это высчитывать при записи цели в память. Дабы соответствовать реалиям на момент этой записи
-		objective.scans_to_win = max(initial(objective.scans_to_win), round(GLOB.human_list.len/12))
 		to_chat(user, span_boldwarning("User: [user] registered. Ready to scan."))
 	add_fingerprint(user)
 	ui_interact(user)
@@ -67,8 +65,6 @@
 			return
 		objective = temp_objective
 		ninja = user
-		// Лучше это высчитывать при записи цели в память. Дабы соответствовать реалиям на момент этой записи
-		objective.scans_to_win = max(initial(objective.scans_to_win), round(GLOB.human_list.len/15))
 		to_chat(user, span_boldwarning("User: [user.real_name] registered. Ready to scan."))
 
 	if(dropped == user) //No. Only other living. Not you

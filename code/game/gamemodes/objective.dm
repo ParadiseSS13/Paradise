@@ -1042,7 +1042,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return
 
 /datum/objective/find_and_scan/find_target()
-	var/list/roles = list("Clown", "Mime", "Cargo Technician", "Shaft Miner", "Scientist", "Roboticist", "Medical Doctor", "Geneticist", "Security Officer", "Chemist", "Station Engineer", "Civilian")
+	var/list/roles = list("Clown", "Mime", "Cargo Technician",
+	"Shaft Miner", "Scientist", "Roboticist",
+	"Medical Doctor", "Geneticist", "Security Officer",
+	"Chemist", "Station Engineer", "Civilian",
+	"Botanist", "Chemist", "Virologist",
+	"Life Support Specialist")
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 	log_debug("Ninja_Objectives_Log: Генерация цели на Похищения")
@@ -1074,7 +1079,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!(target.assigned_role in possible_roles))
 			log_debug("Ninja_Objectives_Log: Подмена одной из ролей под роль цели!")
 			possible_roles[pick(1,2,3)] = target.assigned_role
-
+	scans_to_win = clamp(round(possible_targets.len/10),initial(scans_to_win), 6)
+	log_debug("Ninja_Objectives_Log: scans_to_win: [scans_to_win]")
 	//Даже если мы не нашли цель. Эту задачу всё ещё можно будет выполнить похитив достаточно разных человек с ролями
 	explanation_text = "Найдите обладающего важной информацией человека среди следующих профессий: [possible_roles[1]], [possible_roles[2]], [possible_roles[3]]. \
 		Для проверки и анализа памяти человека, вам придётся похитить его и просканировать в специальном устройстве на вашей базе."
@@ -1113,10 +1119,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			new_changeling_mind.make_Changeling()
 			possible_changelings.Remove(new_changeling_mind)
 			changelings += new_changeling_mind
-	else//Если не кого защищать, просто не даём цель
-		owner?.objectives -= src
-		log_debug("Ninja_Objectives_Log: Удаляем цель охоты на генок у ниндзя ибо нет генокрадов")
-		qdel(src)
 
 /datum/objective/vermit_hunt/check_completion()
 	var/killed_vermits = 0

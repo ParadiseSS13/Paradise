@@ -1786,6 +1786,12 @@
 					return
 				var/list/objective_types = list("stealthy", "generic", "aggressive")
 				var/objective_type = input("Select type of objectives to generate", "Objective type selection") as null|anything in objective_types
+				if(objective_type == "stealthy" || objective_type == "aggressive")
+					if(alert(usr, "Данный вид целей генерирует дополнительных антагонистов в раунд. Продолжить?","ВАЖНО!","Да","Нет") == "Нет")
+						return
+				if(!objective_type)
+					if(alert(usr, "Рандомный выбор типа целей имеет шанс сгенерировать дополнительных антагонистов в раунд. Продолжить генерацию?","ВАЖНО!","Да","Нет") == "Нет")
+						return
 				SSticker.mode.forge_ninja_objectives(src, objective_type)
 				SSticker.mode.basic_ninja_needs_check(src)
 				to_chat(usr, "<span class='notice'>Цели для ниндзя: [key] были сгенерированы. Вы можете их отредактировать и оповестить игрока о целях вручную.</span>")

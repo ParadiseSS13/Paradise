@@ -373,7 +373,7 @@
 		ninja_bomb.detonation_objective = bomb_objective
 	ninja_mind.objectives += bomb_objective
 
-	//Похищать людей пока не найдёшь нужного//
+	//Похищать людей пока не найдёшь нужного
 	var/datum/objective/find_and_scan/find_objective = new
 	find_objective.owner = ninja_mind
 	find_objective.find_target()
@@ -384,6 +384,11 @@
 	hunt_changelings.owner = ninja_mind
 	hunt_changelings.find_target()
 	ninja_mind.objectives += hunt_changelings
+	if(!length(hunt_changelings.changelings))//Если нет генокрадов, просто не даём цель
+		GLOB.all_objectives -= hunt_changelings
+		ninja_mind.objectives -= hunt_changelings
+		log_debug("Ninja_Objectives_Log: Удаляем цель охоты на генок у ниндзя ибо нет генокрадов")
+		qdel(hunt_changelings)
 
 	//Выжить
 	if(!(locate(/datum/objective/survive) in ninja_mind.objectives))
