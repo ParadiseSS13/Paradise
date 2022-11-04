@@ -602,6 +602,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 /mob/living/simple_animal/bot/proc/bot_patrol()
+	set_path(null)
 	patrol_step()
 	addtimer(CALLBACK(src, .proc/do_patrol), 5)
 
@@ -610,7 +611,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		patrol_step()
 
 /mob/living/simple_animal/bot/proc/start_patrol()
-
+	set_path(null)
 	if(tries >= BOT_STEP_MAX_RETRIES) //Bot is trapped, so stop trying to patrol.
 		auto_patrol = FALSE
 		tries = 0
