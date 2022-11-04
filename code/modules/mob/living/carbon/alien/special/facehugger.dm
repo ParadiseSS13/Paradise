@@ -101,8 +101,6 @@
 /obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M)
 	if(!isliving(M))
 		return FALSE
-	if((!iscorgi(M) && !iscarbon(M)) || isalien(M))
-		return FALSE
 	if(attached)
 		return FALSE
 	else
@@ -179,6 +177,7 @@
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
+			SSblackbox.record_feedback("tally", "alien_growth", 1, "people_infected")
 	else
 		target.visible_message("<span class='danger'>[src] violates [target]'s face!</span>", \
 								"<span class='userdanger'>[src] violates [target]'s face!</span>")
@@ -216,9 +215,6 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
 		return FALSE
-
-	if(iscorgi(M))
-		return TRUE
 
 	var/mob/living/carbon/C = M
 	if(ishuman(C))

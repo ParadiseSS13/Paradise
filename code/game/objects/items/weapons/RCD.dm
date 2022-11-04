@@ -135,13 +135,15 @@
  * * airlock_type - an airlock typepath.
  */
 /obj/item/rcd/proc/get_airlock_image(airlock_type)
-	var/obj/machinery/door/airlock/proto = new airlock_type(null)
-	proto.icon_state = "closed"
-	if(!proto.glass)
-		proto.add_overlay("fill_closed")
-	var/icon/I = getFlatIcon(proto)
-	qdel(proto)
-	return "[icon2base64(I)]"
+	var/obj/machinery/door/airlock/airlock = airlock_type
+	var/icon/base = icon(initial(airlock.icon), "closed")
+	if(initial(airlock.glass))
+		var/icon/glass_fill = icon(initial(airlock.overlays_file), "glass_closed")
+		base.Blend(glass_fill, ICON_OVERLAY)
+	else
+		var/icon/solid_fill = icon(initial(airlock.icon), "fill_closed")
+		base.Blend(solid_fill, ICON_OVERLAY)
+	return "[icon2base64(base)]"
 
 /**
  * Runs a series of pre-checks before opening the radial menu to the user.
@@ -376,6 +378,8 @@
 			to_chat(user, "Building Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, 20 * toolspeed, target = A))
+				if(!isfloorturf(A))
+					return FALSE
 				if(!useResource(3, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
@@ -440,7 +444,7 @@
  */
 /obj/item/rcd/proc/mode_decon(atom/A, mob/user)
 	if(iswallturf(A))
-		if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
+		if(isreinforcedwallturf(A) && !canRwall)
 			return FALSE
 		if(istype(A, /turf/simulated/wall/indestructible))
 			return FALSE

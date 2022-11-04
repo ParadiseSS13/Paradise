@@ -748,7 +748,7 @@
 
 /// Checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
-	if(!istype(loc, /mob/living/silicon/robot))
+	if(!isrobot(loc))
 		return FALSE
 
 	var/mob/living/silicon/robot/R = loc

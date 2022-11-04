@@ -8,6 +8,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
+	/// The icon state used to display the item in your inventory. If null then the icon_state value itself will be used
 	var/item_state = null
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -147,7 +148,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	. = ..()
 	for(var/path in actions_types)
 		new path(src, action_icon[path], action_icon_state[path])
-	if(istype(loc, /obj/item/storage)) //marks all items in storage as being such
+	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
 /obj/item/proc/determine_move_resist()
@@ -190,7 +191,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	set category = null
 	set src in oview(1)
 
-	if(!istype(src.loc, /turf) || usr.stat || usr.restrained() )
+	if(!isturf(src.loc) || usr.stat || usr.restrained() )
 		return
 
 	var/turf/T = src.loc
@@ -299,7 +300,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
 					H.UpdateDamageIcon()
 
-	if(istype(src.loc, /obj/item/storage))
+	if(isstorage(src.loc))
 		//If the item is in a storage item, take it out
 		var/obj/item/storage/S = src.loc
 		S.remove_from_storage(src)
@@ -348,7 +349,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
 /obj/item/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
 			if(S.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
@@ -376,7 +377,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
 	else if(istype(I, /obj/item/stack/tape_roll))
-		if(istype(src, /obj/item/storage)) //Don't tape the bag if we can put the duct tape inside it instead
+		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
 			if(bag.can_be_inserted(I))
 				return ..()
@@ -549,7 +550,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/get_loc_turf()
 	var/atom/L = loc
-	while(L && !istype(L, /turf/))
+	while(L && !isturf(L))
 		L = L.loc
 	return loc
 
@@ -565,7 +566,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
 		return
 
-	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/simple_animal/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
+	if(isalien(M) || isslime(M))//Aliens don't have eyes./N     slimes also don't have eyes!
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
 		return
 
@@ -669,7 +670,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
 		return 0
-	if(istype(loc,/obj/item/storage))
+	if(isstorage(loc))
 		var/obj/item/storage/S = loc
 		S.remove_from_storage(src,newLoc)
 		return 1
@@ -740,7 +741,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!user || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == I)
 		return
 
-	if(loc && I.loc == loc && istype(loc, /obj/item/storage) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
+	if(loc && I.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, I, user)
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong

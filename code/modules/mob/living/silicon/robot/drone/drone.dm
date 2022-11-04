@@ -122,9 +122,6 @@
 	else
 		overlays -= "eyes"
 
-/mob/living/silicon/robot/drone/choose_icon()
-	return
-
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
@@ -340,7 +337,7 @@
 	if(is_type_in_list(AM, pullable_drone_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
 
-	else if(istype(AM,/obj/item))
+	else if(isitem(AM))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)

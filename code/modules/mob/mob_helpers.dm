@@ -1,12 +1,12 @@
 /proc/issmall(A)
-	if(A && istype(A, /mob/living/carbon/human))
+	if(A && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
  	return 0
 
 /proc/ispet(A)
-	if(istype(A, /mob/living/simple_animal))
+	if(isanimal(A))
 		var/mob/living/simple_animal/SA = A
 		if(SA.can_collar)
 			return 1
@@ -145,7 +145,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
@@ -529,7 +529,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
 					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
-				if(istype(subject, /mob/dead/observer))
+				if(isobserver(subject))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) 							// What admins see
 					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
@@ -729,28 +729,6 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		CRASH("Mob '[src]', ckey '[ckey]' is missing a prefs datum on the client!")
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
-
-// Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
-// A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled
-// Prevents "antag rolling" by setting antag prefs on, all jobs to never, and "return to lobby if preferences not availible"
-// Doing so would previously allow you to roll for antag, then send you back to lobby if you didn't get an antag role
-// This also does some admin notification and logging as well
-/mob/proc/has_valid_preferences()
-	if(!client)
-		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
-	if(client.prefs.active_character.alternate_option != RETURN_TO_LOBBY)
-		return TRUE
-	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
-	var/has_antags = FALSE
-	if(client.prefs.be_special.len > 0)
-		has_antags = TRUE
-	if(!client.prefs.active_character.check_any_job())
-		to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
-		if(has_antags)
-			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
-			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
-		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
-	return TRUE
 
 /**
  * Helper proc to determine if a mob can use emotes that make sound or not.

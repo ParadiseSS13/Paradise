@@ -22,7 +22,7 @@
 	if(get_dist(get_turf(src), get_turf(A)) > 1)
 		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
 		return
-	if(istype(A, /obj/))
+	if(isobj(A))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
@@ -64,7 +64,7 @@
 	if(!istype(user))
 		return
 	to_chat(user, "<span class='danger'>[src] was boobytrapped!</span>")
-	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
+	if(isguardian(spawner))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			add_attack_logs(user, stored_obj, "booby trap defused")

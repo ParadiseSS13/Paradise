@@ -60,6 +60,9 @@
 			to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
 			return
 	var/turf/target_turf = get_turf(A)
+	if(get_dist(T, target_turf) > P.shock_range)
+		to_chat(user, "<span class='warning'>The target is too far away.</span>")
+		return
 	target_turf.hotspot_expose(2000, 400)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)
 
@@ -82,7 +85,7 @@
 			break
 		var/list/next_shocked = list()
 		for(var/atom/movable/AM in orange(3, target_atom))
-			if(AM == user || istype(AM, /obj/effect) || isobserver(AM))
+			if(AM == user || iseffect(AM) || isobserver(AM))
 				continue
 			next_shocked.Add(AM)
 

@@ -109,7 +109,7 @@
 /obj/item/storage/backpack/clown/syndie
 
 /obj/item/storage/backpack/clown/syndie/populate_contents()
-	new /obj/item/clothing/under/rank/clown(src)
+	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/shoes/magboots/clown(src)
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -410,7 +410,7 @@
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore(src)
-	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)

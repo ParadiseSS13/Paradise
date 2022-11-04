@@ -93,11 +93,6 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-	//SECHUD
-	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
-	permanent_huds |= secsensor
-
 /mob/living/simple_animal/bot/secbot/turn_on()
 	..()
 	icon_state = "[base_icon][on]"
@@ -197,7 +192,7 @@
 	..()
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return
-	if(!istype(W, /obj/item/screwdriver) && (W.force) && (!target) && (W.damtype != STAMINA) ) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
+	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))//If the target is locked, they are recieving damage from the screwdriver
 		retaliate(user)
 
 /mob/living/simple_animal/bot/secbot/emag_act(mob/user)
@@ -235,7 +230,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		var/obj/item/I = AM
 		var/mob/thrower = locateUID(I.thrownby)
 		if(I.throwforce < src.health && ishuman(thrower))

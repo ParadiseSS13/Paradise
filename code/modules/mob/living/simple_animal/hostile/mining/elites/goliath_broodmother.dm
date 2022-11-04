@@ -143,7 +143,7 @@
 	color = "#FF0000"
 	speed = 0
 	move_to_delay = 3
-	addtimer(CALLBACK(src, .proc/reset_rage), 65)
+	addtimer(CALLBACK(src, .proc/reset_rage), 5 SECONDS)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/reset_rage()
 	color = "#FFFFFF"
@@ -159,7 +159,7 @@
 		var/turf/T = get_step(src, spawndir)
 		if(T)
 			child.forceMove(T)
-			child.revive() // at most this is a 29 hp heal.
+			child.revive() // at most this is a 49 hp heal.
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1)
 
 //The goliath's children.  Pretty weak, simple mobs which are able to put a single tentacle under their target when at range.
@@ -172,10 +172,11 @@
 	icon_aggro = "goliath_baby"
 	icon_dead = "goliath_baby_dead"
 	icon_gib = "syndicate_gib"
-	maxHealth = 30
-	health = 30
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	maxHealth = 50
+	health = 50
+	melee_damage_lower = 12.5
+	melee_damage_upper = 12.5
+	armour_penetration_percentage = 50
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
@@ -221,6 +222,7 @@
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
 		L.Stun(1 SECONDS)
+		L.KnockDown(2.5 SECONDS)
 		L.adjustBruteLoss(rand(20,25))
 		latched = TRUE
 	if(!latched)

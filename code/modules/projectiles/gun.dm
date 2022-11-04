@@ -319,7 +319,7 @@
 					A.Grant(user)
 
 	if(unique_rename)
-		if(istype(I, /obj/item/pen))
+		if(is_pen(I))
 			var/t = rename_interactive(user, I, use_prefix = FALSE)
 			if(!isnull(t))
 				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
