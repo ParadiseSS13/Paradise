@@ -2,8 +2,8 @@
 //Keep this sorted alphabetically
 
 #ifdef UNIT_TESTS
-#include "announcements.dm"
 #include "aicard_icons.dm"
+#include "announcements.dm"
 #include "component_tests.dm"
 #include "config_sanity.dm"
 #include "crafting_lists.dm"
