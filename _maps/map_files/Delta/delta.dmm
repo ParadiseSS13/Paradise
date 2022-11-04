@@ -35368,6 +35368,10 @@
 	name = "Brig Lockdown";
 	opacity = 0
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "SecPilotPriv"
+	},
 /turf/simulated/floor/plating,
 /area/security/podbay)
 "dbu" = (
@@ -57381,6 +57385,7 @@
 /obj/item/spacepod_equipment/weaponry/laser,
 /obj/item/clothing/suit/jacket/pilot,
 /obj/item/clothing/head/beret/sec,
+/obj/item/spacepod_equipment/weaponry/burst_taser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63886,6 +63891,10 @@
 	id_tag = "Brig_lockdown";
 	name = "Brig Lockdown";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "SecPilotPriv"
 	},
 /turf/simulated/floor/plating,
 /area/security/podbay)
