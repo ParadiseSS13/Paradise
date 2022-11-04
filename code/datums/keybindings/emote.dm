@@ -413,6 +413,10 @@
 	linked_emote = /datum/emote/living/carbon/human/snap
 	name = "Snap"
 
+/datum/keybinding/emote/carbon/human/crack
+	linked_emote = /datum/emote/living/carbon/human/crack
+	name = "Crack"
+
 /datum/keybinding/emote/carbon/human/fart
 	linked_emote = /datum/emote/living/carbon/human/fart
 	name = "Fart"
