@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(economy)
 	init_order = INIT_ORDER_ECONOMY //needs to init AFTER SSjobs
 	wait = 30 SECONDS
 	runlevels = RUNLEVEL_GAME
-	offline_implications = "Nothing, economy will still function"
+	offline_implications = "Crew wont get their paychecks. No immediate action is needed." // money go down
 	///List of all money account databases existing in the round
 	var/list/money_account_databases = list()
 	///Total amount of account created during the round, neccesary for generating unique account ids

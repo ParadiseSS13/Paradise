@@ -228,7 +228,7 @@
 	if(ishuman(pda.loc))
 		var/mob/user = pda.loc
 		if(user.stat != UNCONSCIOUS) // Awake or dead people can see their messages
-			to_chat(user, "[bicon(pda)]<span class='notice'>NanoBank: Paycheck of [amount] credits recieved</span>")
+			to_chat(user, "[bicon(pda)] <span class='notice'>NanoBank: Paycheck of [amount] credits recieved</span>")
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/ping.ogg', 50, 0)
 

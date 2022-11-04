@@ -7,7 +7,7 @@
 	///Fluff name of the objective
 	var/objective_name = "Placeholder Objective"
 	///short description of what the objective entails, should include how to complete the objective if not immediately clear
-	var/description = "A coder fucked up, one can finish this objective by making an issue report on the github"
+	var/description = "A coder fucked up, one can finish this objective by making an issue report on the GitHub (Top-right of the screen has a button for it)"
 	///Who owns the objective
 	var/datum/mind/owner
 	///Which money account this objective is tied to, makes life easier during payout (signficantly)
@@ -33,7 +33,8 @@
 	return completed
 
 /datum/job_objective/proc/check_for_completion()
-	return //please override me :)
+	//please override me :)
+	CRASH("check_for_completion() not overridden on [type]")
 
 
 

@@ -78,7 +78,7 @@
 		/obj/item/stack/spacecash/c5,
 		/obj/item/stack/spacecash/c10,
 		/obj/item/stack/spacecash/c50,
-		/obj/item/stack/spacecash/c100,)
+		/obj/item/stack/spacecash/c100)
 	var/coin = pickweight(list(/obj/item/coin/iron = 3,
 							   /obj/item/coin/silver = 2,
 							   /obj/item/coin/gold = 1))

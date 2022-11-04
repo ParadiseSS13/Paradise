@@ -43,6 +43,7 @@
 
 /obj/item/stack/spacecash/c5
 	amount = 5
+
 /obj/item/stack/spacecash/c10
 	amount = 10
 

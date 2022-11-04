@@ -5,7 +5,7 @@
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
 	icon_state = "syndimed"
 	icon_deny = "syndimed_deny"
-	ads_list = list("Go end some lives!","The best stuff for your ship.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?","Ping!")
+	ads_list = list("Go end some lives!", "The best stuff for your ship.", "Only the finest tools.", "Natural chemicals!", "This stuff saves lives.", "Don't you want some?", "Ping!")
 	req_access_txt = "150"
 	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
@@ -13,18 +13,18 @@
 /obj/machinery/economy/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
 	desc = "Smoke 'em if you've got 'em."
-	slogan_list = list("Space cigs taste good like a cigarette should.","I'd rather toolbox than switch.","Smoke!","Don't believe the reports - smoke today!")
-	ads_list = list("Probably not bad for you!","Don't believe the scientists!","It's good for you!","Don't quit, buy more!","Smoke!","Nicotine heaven.","Best cigarettes since 2150.","Award-winning cigs.")
+	slogan_list = list("Space cigs taste good like a cigarette should.", "I'd rather toolbox than switch.", "Smoke!", "Don't believe the reports - smoke today!")
+	ads_list = list("Probably not bad for you!", "Don't believe the scientists!", "It's good for you!", "Don't quit, buy more!", "Smoke!", "Nicotine heaven.", "Best cigarettes since 2150.", "Award-winning cigs.")
 	vend_delay = 34
 	icon_state = "cigs"
 	icon_lightmask = "cigs"
-	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10,/obj/item/lighter/random = 5)
+	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10, /obj/item/lighter/random = 5)
 
 /obj/machinery/economy/vending/syndisnack
 	name = "\improper Getmore Chocolate Corp"
 	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
-	slogan_list = list("Try our new nougat bar!","Twice the calories for half the price!")
-	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
+	slogan_list = list("Try our new nougat bar!", "Twice the calories for half the price!")
+	ads_list = list("The healthiest!", "Award-winning chocolate bars!", "Mmm! So good!", "Oh my god it's so juicy!", "Have a snack.", "Snacks are good for you!", "Have some more Getmore!", "Best quality snacks straight from mars.", "We love chocolate!", "Try our new jerky!")
 	icon_state = "snack"
 	icon_lightmask = "nutri"
 	icon_off = "nutri"
@@ -64,15 +64,15 @@
 	icon_state = "liberationstation"
 	icon_lightmask = "liberationstation"
 	req_access_txt = "1"
-	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!","Be a patriot today, pick up a gun!","Quality weapons for cheap prices!","Better dead than red!")
-	ads_list = list("Float like an astronaut, sting like a bullet!","Express your second amendment today!","Guns don't kill people, but you can!","Who needs responsibilities when you have guns?")
+	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!", "Be a patriot today, pick up a gun!", "Quality weapons for cheap prices!", "Better dead than red!")
+	ads_list = list("Float like an astronaut, sting like a bullet!", "Express your second amendment today!", "Guns don't kill people, but you can!", "Who needs responsibilities when you have guns?")
 	vend_reply = "Remember the name: Liberation Station!"
 	products = list(/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
 					/obj/item/gun/projectile/automatic/pistol/m1911 = 2,/obj/item/gun/projectile/automatic/proto = 2,
 					/obj/item/gun/projectile/shotgun/automatic/combat = 2,/obj/item/gun/projectile/automatic/gyropistol = 1,
 					/obj/item/gun/projectile/shotgun = 2,/obj/item/gun/projectile/automatic/ar = 2)
-	premium = list(/obj/item/ammo_box/magazine/smgm9mm = 2,/obj/item/ammo_box/magazine/m50 = 4,/obj/item/ammo_box/magazine/m45 = 2,/obj/item/ammo_box/magazine/m75 = 2)
-	contraband = list(/obj/item/clothing/under/costume/patriotsuit = 1,/obj/item/bedsheet/patriot = 3)
+	premium = list(/obj/item/ammo_box/magazine/smgm9mm = 2, /obj/item/ammo_box/magazine/m50 = 4, /obj/item/ammo_box/magazine/m45 = 2, /obj/item/ammo_box/magazine/m75 = 2)
+	contraband = list(/obj/item/clothing/under/costume/patriotsuit = 1, /obj/item/bedsheet/patriot = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -93,7 +93,7 @@
 					/obj/item/toy/syndicateballoon = 10,
 					/obj/item/clothing/suit/syndicatefake = 5,
 					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
-	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow= 10,   //Congrats, you unlocked the +18 setting!
+	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
 					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
   					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,

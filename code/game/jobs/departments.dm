@@ -1,4 +1,3 @@
-
 /datum/station_department
 	var/department_name = "unnamed department"
 
