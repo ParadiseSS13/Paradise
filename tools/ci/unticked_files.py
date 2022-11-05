@@ -30,6 +30,8 @@ def get_unticked_files(root:Path):
             print(f'Found {len(included)} includes in {root / includer}')
             ticked_files.update([root / Path(includer).parent / i for i in included])
 
+    print(f"Ticked files found: {ticked_files}")
+
     all_dm_files = {f for f in root.glob('**/*.dm')}
     return all_dm_files - ticked_files - {root / f for f in IGNORE_FILES}
 
