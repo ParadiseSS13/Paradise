@@ -33,7 +33,7 @@
 	/// Show a warning to players to make them accept touching an SSD
 	var/ssd_warning = TRUE
 	/// Allow ghosts to spin chairs round
-	var/ghost_interaction = FALSE
+	var/ghost_interaction = TRUE
 	/// Enable/disable starlight to light up space
 	var/starlight = TRUE
 	/// Disable lobby music?

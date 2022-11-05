@@ -8,16 +8,6 @@
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
 			return									// seems legit.
-
-	// Follow !!ALL OF THE THINGS!!
-	if(istype(A, /atom/movable) && A != src)
-		ManualFollow(A)
-
-	// Otherwise jump
-	else
-		forceMove(get_turf(A))
-		update_parallax_contents()
-
 /mob/dead/observer/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)

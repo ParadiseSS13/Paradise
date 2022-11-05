@@ -24,7 +24,7 @@ proc/human_roll_mods(var/mob/living/carbon/human/H)
 			BaseMath += pick(-4, -3)
 	return BaseMath
 
-proc/roll_dice(sides,successcheck = FALSE, crit_successcheck = FALSE, amount = 1, mod = 0)
+proc/roll_dice(sides, successcheck = FALSE, crit_successcheck = FALSE, amount = 1, mod = 0)
 	var/result = 0
 	var/highest = 0
 	var/50slice = 0
@@ -107,8 +107,11 @@ proc/prob2()
 	return result
 
 /mob/living/carbon/human
-	skills = new /datum/skills
+	var/skills
 
+/mob/living/carbon/human/setup_other()
+	. = ..()
+	skills = new /datum/skills
 /datum/skills
 	var/shit = 2
 /datum/skills/New(mob/owner)
