@@ -129,8 +129,6 @@
 		"Journalist" = "srvradio",
 		"Librarian" = "srvradio",
 		"Mime" = "srvradio",
-		"Sous Chef" = "srvradio",
-		"Sous-Chef" = "srvradio",
 	)
 	/// List of Command jobs
 	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")	/// List of Command jobs
