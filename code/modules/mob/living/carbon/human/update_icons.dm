@@ -289,13 +289,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_markings()
 	//Reset our markings.
 	remove_overlay(MARKINGS_LAYER)
+	remove_overlay(HAND_MARKINGS_LAYER)
 
 	//Base icon.
 	var/icon/markings_standing = icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")
+	var/icon/hand_markings = icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")
 
 	//Body markings.
 	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
-	if(chest_organ && m_styles["body"])
+	if(chest_organ && m_styles["body"] != "None")
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
 		if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
@@ -303,6 +305,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(body_marking_style.do_colouration)
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
+
+			if(get_organ("l_hand") || get_organ("r_hand"))
+				var/icon/masked_hands = icon(b_marking_s)
+				masked_hands.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "hands_mask"), ICON_MULTIPLY)
+				hand_markings.Blend(masked_hands, ICON_OVERLAY)
+
 	//Head markings.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
@@ -316,6 +324,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[MARKINGS_LAYER] = mutable_appearance(markings_standing, layer = -MARKINGS_LAYER)
 	apply_overlay(MARKINGS_LAYER)
+	overlays_standing[HAND_MARKINGS_LAYER] = mutable_appearance(hand_markings, layer = -HAND_MARKINGS_LAYER)
+	apply_overlay(HAND_MARKINGS_LAYER)
 
 //HEAD ACCESSORY OVERLAY
 /mob/living/carbon/human/proc/update_head_accessory()
