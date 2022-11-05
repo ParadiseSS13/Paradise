@@ -27,11 +27,16 @@
 		// Assistant
 		"Assistant" = "radio",
 		// Command (Solo command, not department heads)
+		"Acting Captain" = "comradio",
+		"Acting Head of Personnel" = "comradio", //extremely unlikely to ever exist, yet I had it in my old NTTC script file
+		"Acting HoP" = "comradio", //ditto
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
 		"Head of Personnel" = "comradio",
 		"Nanotrasen Representative" = "comradio",
 		// Engineeering
+		"Acting CE" = "engradio",
+		"Acting Chief Engineer" = "engradio",
 		"Atmospheric Technician" = "engradio",
 		"Chief Engineer" = "engradio",
 		"Electrician" = "engradio",
@@ -40,11 +45,13 @@
 		"Maintenance Technician" = "engradio",
 		"Station Engineer" = "engradio",
 		// Central Command
+		"Ambassador" = "dsquadradio", //flavor role for admin events
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Emergency Response Team Leader" = "dsquadradio",
 		"Emergency Response Team Medic" = "dsquadradio",
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
+		"Nanotrasen Financial Officer" = "dsquadradio",
 		"Nanotrasen Navy Officer" = "dsquadradio",
 		"Special Operations Officer" = "dsquadradio",
 		"Solar Federation General" = "dsquadradio",
@@ -52,7 +59,10 @@
 		"Solar Federation Specops Marine" = "dsquadradio",
 		"Solar Federation Lieutenant" = "dsquadradio",
 		"Solar Federation Marine" = "dsquadradio",
+		"VIP" = "dsquadradio",
 		// Medical
+		"Acting Chief Medical Officer" = "medradio",
+		"Acting CMO" = "medradio",
 		"Chemist" = "medradio",
 		"Chief Medical Officer" = "medradio",
 		"Coroner" = "medradio",
@@ -60,6 +70,7 @@
 		"Microbiologist" = "medradio",
 		"Nurse" = "medradio",
 		"Paramedic" = "medradio",
+		"Pathologist" = "medradio",
 		"Pharmacologist" = "medradio",
 		"Pharmacist" = "medradio",
 		"Psychiatrist" = "medradio",
@@ -68,6 +79,8 @@
 		"Therapist" = "medradio",
 		"Virologist" = "medradio",
 		// Science
+		"Acting RD" = "sciradio",
+		"Acting Research Director" = "sciradio",
 		"Anomalist" = "sciradio",
 		"Biomechanical Engineer" = "sciradio",
 		"Chemical Researcher" = "sciradio",
@@ -80,6 +93,8 @@
 		"Xenoarcheologist" = "sciradio",
 		"Xenobiologist" = "sciradio",
 		// Security
+		"Acting Head of Security" = "secradio",
+		"Acting HoS" = "secradio",
 		"Detective" = "secradio",
 		"Forensic Technician" = "secradio",
 		"Head of Security" = "secradio",
@@ -89,6 +104,8 @@
 		"Security Officer" = "secradio",
 		"Warden" = "secradio",
 		// Supply
+		"Acting QM" = "supradio",
+		"Acting Quartermaster" = "supradio",
 		"Quartermaster" = "supradio",
 		"Cargo Technician" = "supradio",
 		"Shaft Miner" = "supradio",
@@ -112,13 +129,17 @@
 		"Journalist" = "srvradio",
 		"Librarian" = "srvradio",
 		"Mime" = "srvradio",
+		"Sous Chef" = "srvradio",
+		"Sous-Chef" = "srvradio",
 	)
 	/// List of Command jobs
-	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
+	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")	/// List of Command jobs
+	/// List of Acting Heads jobs
+	var/list/acting_heads = list("Acting Captain", "Acting Head of Personnel", "Acting HoP", "Acting Chief Engineer", "Acting CE", "Acting Chief Medical Officer", "Acting CMO", "Acting Research Director", "Acting RD", "Acting Head of Security", "Acting HoS")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
-	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
+	var/list/cc_jobs = list("Nanotrasen Financial Officer", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General")
 	/// List of SolGov Marine jobs
 	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Lieutenant", "Solar Federation Marine")
 	// Defined so code compiles and incase someone has a non-standard job
@@ -279,7 +300,7 @@
 	// Makes heads of staff bold
 	if(toggle_command_bold)
 		var/job = tcm.sender_job
-		if((job in ert_jobs) || (job in heads) || (job in cc_jobs) || (job in tsf_jobs))
+		if((job in ert_jobs) || (job in heads) || (job in acting_heads) || (job in cc_jobs) || (job in tsf_jobs))
 			for(var/I in 1 to length(message_pieces))
 				var/datum/multilingual_say_piece/S = message_pieces[I]
 				if(!S.message)
