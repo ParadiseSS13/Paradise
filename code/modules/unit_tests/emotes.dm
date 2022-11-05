@@ -2,10 +2,11 @@
 
 /datum/unit_test/emote/Run()
 
+	// Special cases that shouldn't need keybinds.
 	var/list/ignored_emote_types = list(
-		/datum/emote/living/simple_animal/slime,
+		/datum/emote/living/simple_animal/slime,  // The emotes are usable if you are a slime, but I don't think we need to flood the keybind list with them
 		/datum/emote/help,
-		/datum/emote/living/custom
+		/datum/emote/living/custom  // This one's handled by its own set of keybinds
 	)
 
 	var/list/keybound_emotes = get_emote_keybinds()
@@ -29,7 +30,7 @@
 				Fail("emote [cur_emote] has a null target type.")
 
 			// If we're at this point, we're definitely an emote that a user could use, and therefore ought to make sure it's bound to a keybind if possible.
-			if(!(emote_type in keybound_emotes) && !is_type_in_list(cur_emote, ignored_emote_types))
+			if(!is_type_in_list(cur_emote, keybound_emotes) && !is_type_in_list(cur_emote, ignored_emote_types))
 				Fail("Emote [cur_emote] is usable, but not assigned a keybind.")
 
 		if(isnum(cur_emote.max_stat_allowed) && cur_emote.max_stat_allowed < cur_emote.stat_allowed)

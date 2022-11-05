@@ -1,8 +1,8 @@
 #define DEBUG
-//#define TESTING
+#define TESTING
 
 // Uncomment the following line to compile unit tests.
-// #define UNIT_TESTS
+#define UNIT_TESTS
 
 
 #ifdef CIBUILDING
