@@ -46,6 +46,13 @@
 						"owner_name" = account.account_name,
 						"suspended" = account.suspended ? "SUSPENDED" : "Active")
 					data["accounts"] += list(account_data)
+				data["department_accounts"] = list()
+				for(var/datum/money_account/account as anything in GLOB.station_money_database.get_all_department_accounts())
+					var/list/account_data = list(
+						"account_number" = account.account_number,
+						"name" = account.account_name,
+						"suspended" = account.suspended ? "SUSPENDED" : "Active")
+					data["department_accounts"] += list(account_data)
 			if(AUT_ACCINF)
 				data["account_number"] = detailed_account_view.account_number
 				data["owner_name"] = detailed_account_view.account_name
@@ -79,7 +86,7 @@
 
 	switch(action)
 		if("view_account_detail")
-			var/account_num = text2num(params["index"])
+			var/account_num = text2num(params["account_num"])
 			if(account_num)
 				detailed_account_view = GLOB.station_money_database.find_user_account(account_num, include_departments = TRUE)
 				RegisterSignal(detailed_account_view, COMSIG_PARENT_QDELETING, .proc/clear_viewed_account)

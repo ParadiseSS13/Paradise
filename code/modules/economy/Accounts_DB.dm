@@ -103,12 +103,13 @@
   * * accepted - Bool, indicates whether or not the user has "accepted" the transfer request
 */
 /datum/money_account_database/proc/resolve_transfer_request(datum/transfer_request/request, datum/money_account/user_account, accepted = FALSE)
-	if(user_account.resolve_transfer_request(request, accepted))
-		if(!accepted) //proc on money account needs to be called first in order to clear the request from the account
-			return TRUE
-		if(charge_account(user_account, request.amount, "Transfer to [request.requesting_account.account_name]", "NanoBank Transfer Services", FALSE, FALSE))
-			credit_account(request.requesting_account, request.amount, "Transfer from [user_account.account_name]", "NanoBank Transfer Services", FALSE)
-			return TRUE
+	if(!accepted) //proc on money account needs to be called first in order to clear the request from the account
+		user_account.resolve_transfer_request(request)
+		return TRUE
+	if(charge_account(user_account, request.amount, "Transfer to [request.requesting_account.account_name]", "NanoBank Transfer Services", FALSE, FALSE))
+		credit_account(request.requesting_account, request.amount, "Transfer from [user_account.account_name]", "NanoBank Transfer Services", FALSE)
+		user_account.resolve_transfer_request(request) //this must be called after we're done referencing of it, cause the request will get deleted
+		return TRUE
 	return FALSE
 
 /*
@@ -141,13 +142,13 @@
 	return department_accounts[department]
 
 /datum/money_account_database/main_station/proc/get_all_department_accounts()
-	var/list/department_accounts = list()
+	var/list/account_list = list()
 	for(var/department in department_accounts)
-		department_accounts += department_accounts[department]
-	return department_accounts
+		account_list += department_accounts[department]
+	return account_list
 
 /datum/money_account_database/main_station/find_user_account(account_number, include_departments = FALSE)
-	var/list/accounts_to_search = include_departments ? user_accounts : (user_accounts + get_all_department_accounts())
+	var/list/accounts_to_search = include_departments ? (user_accounts + get_all_department_accounts()) : user_accounts
 	for(var/datum/money_account/account in accounts_to_search)
 		if(account.account_number == account_number)
 			return account

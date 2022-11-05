@@ -171,13 +171,7 @@
 		program.notify("NanoBank Transfer Request Recieved", TRUE)
 	LAZYADD(transfer_requests, request)
 
-/datum/money_account/proc/resolve_transfer_request(datum/transfer_request/request, accepted)
-	if(!accepted)
-		request.requesting_account = null //gc
-		LAZYREMOVE(transfer_requests, request)
-		return TRUE
-	if(credit_balance < request.amount)
-		return FALSE
+/datum/money_account/proc/resolve_transfer_request(datum/transfer_request/request)
 	request.requesting_account = null //gc
 	LAZYREMOVE(transfer_requests, request)
 	return TRUE

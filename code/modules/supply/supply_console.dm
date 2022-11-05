@@ -123,7 +123,7 @@
 			))
 		data["user_departments"] = list()
 		for(var/department in departments)
-			if(department in data["user_departments"])
+			if(department == DEPARTMENT_SUPPLY)
 				continue //prevents duplicate entries
 			data["user_departments"] += department
 			var/datum/money_account/department_account = account_database.get_account_by_department(department)

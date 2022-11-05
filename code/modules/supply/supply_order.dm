@@ -62,15 +62,15 @@
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
 	slip.info = "<h3>NAS Trurl Shipping Manifest</h3><hr><br>"
-	slip.info +="Order: #[ordernum]<br>"
-	slip.info +="Destination: [stationName]<br>"
-	slip.info +="Requested By: [orderedby]<br>"
-	slip.info +="Rank: [orderedbyRank]<br>"
-	slip.info +="Reason: [comment]<br>"
-	slip.info +="Supply Crate Type: [object.name]<br>"
-	slip.info +="Access Restriction: [object.access ? get_access_desc(object.access) : "None"]<br>"
-	slip.info +="[packagesAmt] PACKAGES IN THIS SHIPMENT<br>"
-	slip.info +="CONTENTS:<br><ul>"
+	slip.info += "Order: #[ordernum]<br>"
+	slip.info += "Destination: [stationName]<br>"
+	slip.info += "Requested By: [orderedby]<br>"
+	slip.info += "Rank: [orderedbyRank]<br>"
+	slip.info += "Reason: [comment]<br>"
+	slip.info += "Supply Crate Type: [object.name]<br>"
+	slip.info += "Access Restriction: [object.access ? get_access_desc(object.access) : "None"]<br>"
+	slip.info += "[packagesAmt] PACKAGES IN THIS SHIPMENT<br>"
+	slip.info += "CONTENTS:<br><ul>"
 
 	//we now create the actual contents
 	var/list/contains = list()

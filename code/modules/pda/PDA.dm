@@ -270,7 +270,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(!owner)
 			var/datum/data/pda/app/nanobank/nanobank_program = (locate(/datum/data/pda/app/nanobank) in programs)
 			if(nanobank_program && idcard.associated_account_number)
-				nanobank_program.user_account = nanobank_program.account_database.find_user_account(idcard.associated_account_number)
+				nanobank_program.reconnect_database()
+				nanobank_program.user_account = nanobank_program.account_database?.find_user_account(idcard.associated_account_number)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
 			ownrank = idcard.rank

@@ -121,7 +121,3 @@
 
 	if(.)
 		add_fingerprint(user)
-
-
-
-

@@ -164,11 +164,6 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	if(level >= 5) // in case the containers recurse or something
 		return 0
 
-	for(var/obj/item/card/id/id in C.contents)
-		//var/datum/money_account/A = get_money_account(id.associated_account_number)
-		// has an account?
-		//if(A)
-		//	. += A.money
 	for(var/obj/item/stack/spacecash/cash in C.contents)
 		. += cash.amount
 	for(var/obj/item/storage/S in C.contents)

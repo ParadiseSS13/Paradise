@@ -5,7 +5,7 @@
 /datum/supply_packs/misc/mule
 	name = "MULEbot Crate"
 	contains = list(/mob/living/simple_animal/bot/mulebot)
-	cost = 20
+	cost = 250
 	containertype = /obj/structure/largecrate/mule
 	containername = "\improper MULEbot crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
@@ -13,7 +13,7 @@
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 8
+	cost = 50
 	containertype = /obj/structure/largecrate
 	containername = "water tank crate"
 
@@ -40,7 +40,7 @@
 					/obj/item/clothing/suit/bluetag,
 					/obj/item/clothing/head/helmet/redtaghelm,
 					/obj/item/clothing/head/helmet/bluetaghelm)
-	cost = 15
+	cost = 300
 	containername = "laser tag crate"
 
 /datum/supply_packs/misc/religious_supplies
@@ -53,7 +53,7 @@
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/under/misc/burial,
 					/obj/item/clothing/under/misc/burial)
-	cost = 40
+	cost = 250
 	containername = "religious supplies crate"
 
 /datum/supply_packs/misc/minerkit

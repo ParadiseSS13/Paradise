@@ -295,7 +295,7 @@
 
 /datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
 	name = "Officer Starter Pack"
-	contains = 	list(/obj/item/clothing/suit/armor/vest/security,
+	contains = list(/obj/item/clothing/suit/armor/vest/security,
 				/obj/item/radio/headset/headset_sec/alt,
 				/obj/item/clothing/head/soft/sec,
 				/obj/item/reagent_containers/spray/pepper,

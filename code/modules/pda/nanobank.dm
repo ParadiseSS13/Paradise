@@ -1,8 +1,8 @@
 #define TRANSFER_REQUEST_MAX		5000
-#define TRANSFER_COOLDOWN           2 SECONDS
+#define TRANSFER_COOLDOWN           5 SECONDS
 
 /datum/data/pda/app/nanobank
-	name = "nanobank"
+	name = "NanoBank"
 	icon = "fas fa-university"
 	notify_icon = "comments"
 	title = "NanoBank 1.0"
@@ -99,7 +99,8 @@
 			if(!istype(transfer_to) || transfer_to == src)
 				return //account no longer exists or something fucked is going on
 			if(transfer_funds(user, transfer_amount, transfer_to))
-				to_chat(user, "[bicon(src)]<span class='notice'>NanoBank: Transfer Succesful</span>")
+				to_chat(user, "<span class='notice'>NanoBank: Transfer Succesful</span>")
+				last_transaction = world.time
 				if(!pda.silent)
 					playsound(pda, 'sound/machines/ping.ogg', 50, 0)
 		if("transfer_request")
@@ -118,6 +119,7 @@
 				return //account no longer exists or something fucked is going on
 			if(create_fund_request(user, transfer_amount, purpose, request_from))
 				to_chat(user, "[bicon(src)]<span class='notice'>NanoBank: Transfer Request Submitted</span>")
+				last_transaction = world.time
 				if(!pda.silent)
 					playsound(pda, 'sound/machines/ping.ogg', 50, 0)
 		if("resolve_transfer_request")

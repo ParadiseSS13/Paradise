@@ -27,9 +27,9 @@ SUBSYSTEM_DEF(economy)
 	var/ordernum = 1
 
 	var/credits_per_manifest = 2				//points gained per slip returned
-	var/credits_per_crate = 5			//points gained per crate returned
+	var/credits_per_crate = 40			//points gained per crate returned
 	var/credits_per_intel = 250			//points gained per intel returned
-	var/credits_per_plasma = 5			//points gained per plasma returned
+	var/credits_per_plasma = 15			//points gained per plasma returned
 	var/credits_per_design = 25			//points gained per research design returned
 
 	var/centcom_message					//Remarks from Centcom on how well you checked the last order.

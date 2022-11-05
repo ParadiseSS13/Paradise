@@ -1,7 +1,3 @@
-
-
-
-
 ## IMPORTANT SUPPLY PACKS NOTES
 
 ### Pack Parameters
