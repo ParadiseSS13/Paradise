@@ -192,8 +192,8 @@
 #define GROWING 2
 #define GROWN 3
 ///time it takes to grow a hugger
-#define MIN_GROWTH_TIME 180 SECONDS	
-#define MAX_GROWTH_TIME 300 SECONDS
+#define MIN_GROWTH_TIME 3 MINUTES
+#define MAX_GROWTH_TIME 5 MINUTES
 
 /obj/structure/alien/egg
 	name = "egg"
@@ -225,7 +225,7 @@
 	if(status == BURST)
 		obj_integrity = integrity_failure
 	else if(status != GROWN)
-		addtimer(CALLBACK(src, /obj/structure/alien/egg/.proc/Grow), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+		addtimer(CALLBACK(src, /obj/structure/alien/egg/.proc/grow), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -243,35 +243,36 @@
 				return
 			if(GROWN)
 				to_chat(user, "<span class='notice'>You retrieve the child.</span>")
-				Burst(FALSE)
+				burst(FALSE)
 				return
 	else
 		to_chat(user, "<span class='notice'>It feels slimy.</span>")
 		user.changeNext_move(CLICK_CD_MELEE)
 
 
-/obj/structure/alien/egg/proc/GetFacehugger()
+/obj/structure/alien/egg/proc/getFacehugger()
 	return locate(/obj/item/clothing/mask/facehugger) in contents
 
-/obj/structure/alien/egg/proc/Grow()
+/obj/structure/alien/egg/proc/grow()
 	icon_state = "egg"
 	status = GROWN
 	AddComponent(/datum/component/proximity_monitor)
 
-/obj/structure/alien/egg/proc/Burst(kill)	///Need to carry the kill from Burst() to Hatch()
+///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
+/obj/structure/alien/egg/proc/burst(kill)
 	if(status == GROWN || status == GROWING)
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
 		qdel(GetComponent(/datum/component/proximity_monitor))
-		addtimer(CALLBACK(src, /obj/structure/alien/egg/.proc/Hatch), 1.5 SECONDS)
+		addtimer(CALLBACK(src, /obj/structure/alien/egg/.proc/hatch), 1.5 SECONDS)
 
-/obj/structure/alien/egg/proc/Hatch(kill) ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
+///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
+/obj/structure/alien/egg/proc/hatch(kill)
 	status = BURST
-	var/obj/item/clothing/mask/facehugger/child = GetFacehugger()
-	if(child)
-		child.loc = get_turf(src)
-	if(kill && istype(child))
+	var/obj/item/clothing/mask/facehugger/child = getFacehugger()
+	child.forceMove(get_turf(src))
+	if(kill)
 		child.Die()
 	for(var/mob/M in range(1, src))
 		if(CanHug(M))
@@ -281,7 +282,7 @@
 /obj/structure/alien/egg/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
 		if(status != BURST)
-			Burst(kill = TRUE)
+			burst(kill = TRUE)
 
 /obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -297,7 +298,7 @@
 		if(C.stat == CONSCIOUS && C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			return
 
-		Burst(FALSE)
+		burst(FALSE)
 
 #undef BURST
 #undef BURSTING
