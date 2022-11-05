@@ -141,6 +141,10 @@
 	linked_emote = /datum/emote/living/snore
 	name = "Snore"
 
+/datum/keybinding/emote/nightmare
+	linked_emote = /datum/emote/living/nightmare
+	name = "Nightmare"
+
 /datum/keybinding/emote/stare
 	linked_emote = /datum/emote/living/stare
 	name = "Stare"
@@ -263,6 +267,10 @@
 	linked_emote = /datum/emote/living/carbon/faint
 	name = "Faint"
 
+/datum/keybinding/emote/carbon/sign
+	linked_emote = /datum/emote/living/carbon/sign
+	name = "Sign"
+
 /datum/keybinding/emote/carbon/alien
 	category = KB_CATEGORY_EMOTE_ALIEN
 
@@ -376,6 +384,10 @@
 /datum/keybinding/emote/carbon/human/salute
 	linked_emote = /datum/emote/living/carbon/human/salute
 	name = "Salute"
+
+/datum/keybinding/emote/carbon/human/sign/signal
+	linked_emote = /datum/emote/living/carbon/sign/signal
+	name = "Signal"
 
 /datum/keybinding/emote/carbon/human/shrug
 	linked_emote = /datum/emote/living/carbon/human/shrug
