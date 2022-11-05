@@ -23,3 +23,94 @@ proc/human_roll_mods(var/mob/living/carbon/human/H)
 		if(-INFINITY to 1)
 			BaseMath += pick(-4, -3)
 	return BaseMath
+
+proc/roll_dice(sides,successcheck = FALSE, crit_successcheck = FALSE, amount = 1, mod = 0)
+	var/result = 0
+	var/highest = 0
+	var/50slice = 0
+	highest = amount * sides
+	50slice = highest / 2
+	result = rand(amount, highest)
+	var/dice_result = 0
+	dice_result = result
+	result += mod
+	if(successcheck)
+		if(result > 50slice)
+			return TRUE
+		else
+			return FALSE
+	if(crit_successcheck)
+		return check_crittable(sides, amount, results, mod)
+	else
+		return result
+
+proc/check_crittable(sides, amount, result, mod)
+	if(sides = 20 && amount = 1)
+		switch(mod)
+			if(1 to 15)
+				if(result >= 20)
+					return TRUE
+			if(16 to INFINITY)
+				if(result >= 19)
+					return TRUE
+		switch(mod)
+			if(1 to 3)
+				if(result <= 4)
+					return FALSE
+			if(4)
+				if(result <= 3)
+					return FALSE
+			if(5)
+				if(result <= 2)
+					return FALSE
+			if(6 to INFINITY)
+				if(result <= 1)
+					return FALSE
+	if(sides = 6 && amount = 3)
+		switch(mod)
+			if(3 to 14)
+				if(result <= 4)
+					return TRUE
+			if(15)
+				if(result <= 5)
+					return TRUE
+			if(16 to INFINITY)
+				if(result <= 6)
+					return TRUE
+		switch(mod)
+			if(3)
+				if(result >= 13)
+					return FALSE
+			if(4)
+				if(result >= 14)
+					return FALSE
+			if(5)
+				if(result >= 15)
+					return FALSE
+			if(6)
+				if(result >= 16)
+					return FALSE
+			if(7 to 15)
+				if(result >= 17)
+					return FALSE
+			if(16 to INFINITY)
+				if(result >= 18)
+					return FALSE
+
+proc/skillcheck(var/mob/living/carbon/human/H)
+
+proc/prob2()
+	var/value1 = 0
+	var/result = 0
+	value1 = rand(0,100)
+	result = prob(value1)
+	return result
+
+/mob/living/carbon/human
+	skills = new /datum/skills
+
+/datum/skills
+	var/shit = 2
+/datum/skills/New(mob/owner)
+	. = ..()
+

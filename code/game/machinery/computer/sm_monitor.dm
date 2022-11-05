@@ -25,10 +25,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H)
-		if(H.wisdom >= reqwisdom)
-			ui_interact(user)
-		else
-			to_chat(user, "<span class='warning'>you're afraid you're not wise enough</span>")
+		ui_interact(user)
 	else
 		to_chat(user, "<span class='warning'>you're but a wild animal</span>")
 

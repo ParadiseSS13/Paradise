@@ -45,8 +45,6 @@
 /mob/living/carbon/human/proc/setup_other()
 	create_reagents(330)
 	physiology = new()
-	set_agility(1)
-	set_strength(1)
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	if(!handcrafting)
