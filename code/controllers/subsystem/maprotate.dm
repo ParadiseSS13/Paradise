@@ -3,10 +3,11 @@ SUBSYSTEM_DEF(maprotate)
 	flags = SS_NO_FIRE
 
 	var/rotation_mode = MAPROTATION_MODE_NORMAL_VOTE
+	var/setup_done = FALSE
 
 // Debugging purposes. Im not having people change this on the fly.
 /datum/controller/subsystem/maprotate/vv_edit_var(var_name, var_value)
-	if (var_name == "rotation_mode" && !check_rights(R_MAINTAINER))
+	if (((var_name == "rotation_mode") || (var_name == "setup_done")) && !check_rights(R_MAINTAINER))
 		return FALSE
 
 	. = ..()
@@ -43,18 +44,54 @@ SUBSYSTEM_DEF(maprotate)
 		log_startup_progress("Somehow, we failed to extract a valid numerical day from the DB. ?????????????")
 		return ..()
 
-	switch(day_index)
-		if(2, 4) // Tuesday or thursday
-			log_startup_progress("Its Tuesday or Thursday, which means there is no map vote, thus its randomised!")
-			rotation_mode = MAPROTATION_MODE_FULL_RANDOM
 
-		if(6, 7) // Saturday or sunday, weekend
-			log_startup_progress("Its a weekend, which means the map vote wont contain the current map")
-			rotation_mode = MAPROTATION_MODE_NO_DUPLICATES
+	// String interpolation is faster than num2text() for some reason
+	var/dindex_str = "[day_index]"
 
+	// Special is defined for this day
+	if(dindex_str in GLOB.configuration.vote.map_vote_day_types)
+		var/vote_type = GLOB.configuration.vote.map_vote_day_types[dindex_str]
+		// We have an index, but is it valid
+		if(vote_type in list(MAPROTATION_MODE_NORMAL_VOTE, MAPROTATION_MODE_NO_DUPLICATES, MAPROTATION_MODE_FULL_RANDOM))
+			log_startup_progress("It is [num2day(day_index)], which means [mode2string(vote_type)]")
+			rotation_mode = vote_type
+			setup_done = TRUE
+
+		// Its not valid
 		else
-			log_startup_progress("Its not a weekend, or a Tuesday or Thursday, which means the map vote will contain the current map")
-			rotation_mode = MAPROTATION_MODE_NORMAL_VOTE
+			log_startup_progress("The defined rotation mode for this day is invalid. Please inform AA.")
+
+	// No special defined for this day
+	else
+		log_startup_progress("There is no special rotation defined for this day")
 
 
 	return ..()
+
+/datum/controller/subsystem/maprotate/proc/num2day(n)
+	switch(n)
+		if(1)
+			return "Monday"
+		if(2)
+			return "Tuesday"
+		if(3)
+			return "Wednesday"
+		if(4)
+			return "Thursday"
+		if(5)
+			return "Friday"
+		if(6)
+			return "Saturday"
+		if(7)
+			return "Sunday"
+		else
+			return "A day that does not exist in the Gregorian Calendar."
+
+/datum/controller/subsystem/maprotate/proc/mode2string(m)
+	switch(m)
+		if(MAPROTATION_MODE_NORMAL_VOTE)
+			return "there is normal map voting."
+		if(MAPROTATION_MODE_NO_DUPLICATES)
+			return "map votes will not include the current map."
+		if(MAPROTATION_MODE_FULL_RANDOM)
+			return "the map for next round is randomised."
