@@ -1,9 +1,9 @@
-/* Alien shit!
+/* Alien structures!
  * Contains:
  *		structure/alien
  *		Resin
  *		Weeds
- *		Egg
+ *		Eggs
  */
 
 #define WEED_NORTH_EDGING "north"
@@ -80,7 +80,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
-	return 1
+	return TRUE
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
@@ -186,13 +186,14 @@
  * Egg
  */
 
-//for the status var
+///Used in the /status var
 #define BURST 0
 #define BURSTING 1
 #define GROWING 2
 #define GROWN 3
-#define MIN_GROWTH_TIME 1800	//time it takes to grow a hugger
-#define MAX_GROWTH_TIME 3000
+///time it takes to grow a hugger
+#define MIN_GROWTH_TIME 180 SECONDS	
+#define MAX_GROWTH_TIME 300 SECONDS
 
 /obj/structure/alien/egg
 	name = "egg"
@@ -202,9 +203,13 @@
 	anchored = TRUE
 	max_integrity = 100
 	integrity_failure = 5
-	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
 	flags_2 = CRITICAL_ATOM_2
+	/*can be GROWING, GROWN or BURST; all mutually exclusive. GROWING has the egg in the grown state, and it will take 180-300 seconds for it to advance to the hatched state
+	*In the GROWN state, an alien egg can be destroyed or attacked by a xenomorph to force it to be burst, going near an egg in this state will also cause it to burst if you can be infected by a face hugger
+	*In the BURST/BURSTING state, the alien egg can be removed by being attacked by a alien or any other weapon
+	**/ 
+	var/status = GROWING
 
 /obj/structure/alien/egg/grown
 	status = GROWN
@@ -214,14 +219,13 @@
 	status = BURST
 	icon_state = "egg_hatched"
 
-/obj/structure/alien/egg/New()
+/obj/structure/alien/egg/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/mask/facehugger(src)
-	..()
 	if(status == BURST)
 		obj_integrity = integrity_failure
 	else if(status != GROWN)
-		spawn(rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
-		Grow()
+		addtimer(CALLBACK(src, /obj/structure/alien/egg/.proc/Grow), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -239,7 +243,7 @@
 				return
 			if(GROWN)
 				to_chat(user, "<span class='notice'>You retrieve the child.</span>")
-				Burst(0)
+				Burst(FALSE)
 				return
 	else
 		to_chat(user, "<span class='notice'>It feels slimy.</span>")
@@ -254,24 +258,25 @@
 	status = GROWN
 	AddComponent(/datum/component/proximity_monitor)
 
-/obj/structure/alien/egg/proc/Burst(kill = TRUE)	//drops and kills the hugger if any is remaining
+/obj/structure/alien/egg/proc/Burst(kill)	///Need to carry the kill from Burst() to Hatch()
 	if(status == GROWN || status == GROWING)
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
 		status = BURSTING
 		qdel(GetComponent(/datum/component/proximity_monitor))
-		spawn(15)
-			status = BURST
-			var/obj/item/clothing/mask/facehugger/child = GetFacehugger()
-			if(child)
-				child.loc = get_turf(src)
-				if(kill && istype(child))
-					child.Die()
-				else
-					for(var/mob/M in range(1,src))
-						if(CanHug(M))
-							child.Attach(M)
-							break
+		addtimer(CALLBACK(src, /obj/structure/alien/egg/.proc/Hatch), 1.5 SECONDS)
+
+/obj/structure/alien/egg/proc/Hatch(kill) ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
+	status = BURST
+	var/obj/item/clothing/mask/facehugger/child = GetFacehugger()
+	if(child)
+		child.loc = get_turf(src)
+	if(kill && istype(child))
+		child.Die()
+	for(var/mob/M in range(1, src))
+		if(CanHug(M))
+			child.Attach(M)
+			break
 
 /obj/structure/alien/egg/obj_break(damage_flag)
 	if(!(flags & NODECONSTRUCT))
@@ -292,7 +297,7 @@
 		if(C.stat == CONSCIOUS && C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			return
 
-		Burst(0)
+		Burst(FALSE)
 
 #undef BURST
 #undef BURSTING
