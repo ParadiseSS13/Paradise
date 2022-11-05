@@ -97,7 +97,8 @@ proc/check_crittable(sides, amount, result, mod)
 				if(result >= 18)
 					return FALSE
 
-proc/skillcheck(var/mob/living/carbon/human/H)
+proc/skillcheck(var/mob/living/carbon/human/H, skilltocheck)
+
 
 proc/prob2()
 	var/value1 = 0
@@ -113,7 +114,17 @@ proc/prob2()
 	. = ..()
 	skills = new /datum/skills
 /datum/skills
-	var/shit = 2
+	var/wisdom = 0
+	var/strength = 0
+	var/intelligence = 0
+
 /datum/skills/New(mob/owner)
 	. = ..()
+
+/mob/living/Carbon/human/verb/teach(/mob/living/Carbon/human/H)
+	set category = null
+	set name = "Teach skill"
+	set desc = "Teach someone your skills."
+	set src in view(1)
+	var/self = 0
 
