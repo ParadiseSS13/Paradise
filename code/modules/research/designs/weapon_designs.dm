@@ -257,7 +257,7 @@
 	id = "drop_wall"
 	req_tech = list("combat" = 5, "materials" = 5, "engineering" = 5, "magnets" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 5000, MAT_SILVER = 500, MAT_TITANIUM = 500, MAT_PLASMA = 500)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1200, MAT_SILVER = 100, MAT_TITANIUM = 100, MAT_PLASMA = 100)
 	build_path = /obj/item/grenade/barrier/dropwall
 	category = list("Weapons")
 
