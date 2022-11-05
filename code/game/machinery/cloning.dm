@@ -434,10 +434,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	malfunction()
 
 /obj/machinery/clonepod/cmag_act(mob/user)
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		to_chat(user, "<span class='warning'>A droplet of bananium ooze seeps into the synthmeat storage chamber...</span>")
-		ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(user, "<span class='warning'>A droplet of bananium ooze seeps into the synthmeat storage chamber...</span>")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 /obj/machinery/clonepod/proc/update_clone_antag(mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
@@ -492,8 +493,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			<i>You feel like a new being.</i></span>")
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
-			occupant.dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
-			occupant.dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
+			occupant.dna.SetSEState(GLOB.clumsyblock, TRUE, FALSE)
+			occupant.dna.SetSEState(GLOB.comicblock, TRUE, FALSE)
 			singlemutcheck(occupant, GLOB.clumsyblock, MUTCHK_FORCED)
 			singlemutcheck(occupant, GLOB.comicblock, MUTCHK_FORCED)
 			occupant.dna.default_blocks.Add(GLOB.clumsyblock) //Until Genetics fixes you, this is your life now
