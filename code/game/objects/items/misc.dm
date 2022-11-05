@@ -50,8 +50,8 @@
 				name = "[initial(name)] - [tagname]"
 		if("Remove ID")
 			if(access_id)
-				user.visible_message("<span class='warning'>[user] starts unclipping \the [access_id] from \the [src].</span>")
-				if(do_after(user, 50, target = user) && access_id)
+				user.visible_message("<span class='warning'>[user] starts unclipping [access_id] from [src].</span>")
+				if(do_after(user, 5 SECONDS, target = user) && access_id)
 					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
 					access_id.forceMove(get_turf(user))
 					user.put_in_hands(access_id)
@@ -61,12 +61,12 @@
 	if(!istype(W))
 		return ..()
 	if(access_id)
-		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto \the [src].</span>")
+		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto [src].</span>")
 		return ..()
 	user.drop_item()
 	W.forceMove(src)
 	access_id = W
-	to_chat(user, "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>")
+	to_chat(user, "<span class='notice'>[W] clips onto [src] snugly.</span>")
 
 /obj/item/petcollar/GetAccess()
 	return access_id ? access_id.GetAccess() : ..()
@@ -90,12 +90,12 @@
 	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
 
-	var/area/t = get_area(M)
-	var/obj/item/radio/headset/a = new /obj/item/radio/headset(src)
-	if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite))
+	var/area/pet_death_area = get_area(M)
+	var/obj/item/radio/headset/pet_death_announcer = new /obj/item/radio/headset(src)
+	if(istype(pet_death_area, /area/syndicate_mothership) || istype(pet_death_area, /area/shuttle/syndicate_elite))
 		//give the syndicats a bit of stealth
-		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
+		pet_death_announcer.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
 	else
-		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
-	qdel(a)
+		pet_death_announcer.autosay("[M] has been vandalized in [pet_death_area.name]!", "[M]'s Death Alarm")
+	qdel(pet_death_announcer)
 	STOP_PROCESSING(SSobj, src)
