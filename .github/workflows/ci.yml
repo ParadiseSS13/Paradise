@@ -56,6 +56,7 @@ jobs:
     name: Unit Tests + SQL Validation
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false # Let all map tests run to completion
       matrix:
         maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation']
         byondtype: ['STABLE', 'BETA']
