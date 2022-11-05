@@ -15,7 +15,7 @@
 	var/old_mclick_override
 	var/datum/middleClickOverride/power_gloves/mclick_override = new /datum/middleClickOverride/power_gloves
 	var/last_shocked = 0
-	var/shock_delay = 40
+	var/shock_delay = 3 SECONDS
 	var/unlimited_power = FALSE // Does this really need explanation?
 	var/shock_range = 7
 
