@@ -157,6 +157,10 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/returnPipenet()
 	return
 
+/**
+ * Whether or not this atmos machine has multiple pipenets attached to it
+ * Used to determine if a ventcrawler should update their vision or not
+ */
 /obj/machinery/atmospherics/proc/is_pipenet_split()
 	return FALSE
 
