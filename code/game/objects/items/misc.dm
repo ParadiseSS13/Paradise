@@ -52,7 +52,7 @@
 			if(access_id)
 				user.visible_message("<span class='warning'>[user] starts unclipping [access_id] from [src].</span>")
 				if(do_after(user, 5 SECONDS, target = user) && access_id)
-					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
+					user.visible_message("<span class='warning'>[user] unclips [access_id] from [src].</span>")
 					access_id.forceMove(get_turf(user))
 					user.put_in_hands(access_id)
 					access_id = null
