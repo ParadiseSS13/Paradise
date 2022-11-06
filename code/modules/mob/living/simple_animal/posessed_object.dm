@@ -176,7 +176,7 @@
 	. = ..()
 	if(istype(O, /obj/item/nullrod))
 		visible_message("<span type='notice'>[O] dispels the spooky aura!</span>")
-		death(0)
+		death()
 
 /mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
 	//Don't call parent here as the mob isn't doing the hitting, technically
