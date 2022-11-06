@@ -134,7 +134,10 @@ SUBSYSTEM_DEF(ticker)
 			auto_toggle_ooc(TRUE) // Turn it on
 			declare_completion()
 			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
-			if(GLOB.configuration.vote.enable_map_voting)
+			// Start a map vote IF
+			// - Map rotate doesnt have a mode for today and map voting is enabled
+			// - Map rotate has a mode for the day and it ISNT full random
+			if(((!SSmaprotate.setup_done) && GLOB.configuration.vote.enable_map_voting) || (SSmaprotate.setup_done && (SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)))
 				SSvote.start_vote(new /datum/vote/map)
 			else
 				// Pick random map
