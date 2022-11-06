@@ -16,8 +16,16 @@ SUBSYSTEM_DEF(maprotate)
 	if(!SSdbcore.IsConnected())
 		return ..()
 
-	// Yes. I am using the DB server to get a numerical weekday
+	// Make a quick list for number to date lookups
+	var/list/days = list("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
+	// Make a map of rotation modes to descriptions
+	var/list/rotation_descs = list()
+	rotation_descs[MAPROTATION_MODE_NORMAL_VOTE] = "there is normal map voting."
+	rotation_descs[MAPROTATION_MODE_NO_DUPLICATES] = "map votes will not include the current map."
+	rotation_descs[MAPROTATION_MODE_FULL_RANDOM] = "the map for next round is randomised."
+
+	// Yes. I am using the DB server to get a numerical weekday
 	// 0 = Monday
 	// 1 = Tuesday
 	// 2 = Wednesday
@@ -53,7 +61,7 @@ SUBSYSTEM_DEF(maprotate)
 		var/vote_type = GLOB.configuration.vote.map_vote_day_types[dindex_str]
 		// We have an index, but is it valid
 		if(vote_type in list(MAPROTATION_MODE_NORMAL_VOTE, MAPROTATION_MODE_NO_DUPLICATES, MAPROTATION_MODE_FULL_RANDOM))
-			log_startup_progress("It is [num2day(day_index)], which means [mode2string(vote_type)]")
+			log_startup_progress("It is [days[day_index]], which means [rotation_descs[vote_type]]")
 			rotation_mode = vote_type
 			setup_done = TRUE
 
@@ -68,30 +76,3 @@ SUBSYSTEM_DEF(maprotate)
 
 	return ..()
 
-/datum/controller/subsystem/maprotate/proc/num2day(n)
-	switch(n)
-		if(1)
-			return "Monday"
-		if(2)
-			return "Tuesday"
-		if(3)
-			return "Wednesday"
-		if(4)
-			return "Thursday"
-		if(5)
-			return "Friday"
-		if(6)
-			return "Saturday"
-		if(7)
-			return "Sunday"
-		else
-			return "A day that does not exist in the Gregorian Calendar."
-
-/datum/controller/subsystem/maprotate/proc/mode2string(m)
-	switch(m)
-		if(MAPROTATION_MODE_NORMAL_VOTE)
-			return "there is normal map voting."
-		if(MAPROTATION_MODE_NO_DUPLICATES)
-			return "map votes will not include the current map."
-		if(MAPROTATION_MODE_FULL_RANDOM)
-			return "the map for next round is randomised."
