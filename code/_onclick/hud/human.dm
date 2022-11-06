@@ -1,5 +1,6 @@
 /obj/screen/human
 	icon = 'icons/mob/screen_midnight.dmi'
+	isprocessing = TRUE
 
 /obj/screen/human/toggle
 	name = "toggle"
@@ -59,10 +60,9 @@
 /datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
 	..()
 	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
-
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
-
+	owner.apply_status_effect(STATUS_EFFECT_FOV)
 	hud_alpha = ui_alpha
 
 	using = new /obj/screen/craft
@@ -328,8 +328,8 @@
 	mymob.healths = new /obj/screen/healths()
 	infodisplay += mymob.healths
 
-	skill = new /obj/screen/skill
-	infodisplay += skill
+	var/skillsui1 = new /obj/screen/skill
+	infodisplay += skillsui1
 
 	mymob.overlay_fullscreen("noise", /obj/screen/fullscreen/noise)
 
@@ -342,6 +342,8 @@
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
+
+	fov = new /obj/screen/fov()//fov
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	infodisplay += lingchemdisplay

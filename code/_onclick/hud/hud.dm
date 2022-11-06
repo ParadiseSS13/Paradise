@@ -5,6 +5,7 @@
 */
 
 /datum/hud
+	var/fov
 	var/mob/mymob
 
 	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
@@ -33,6 +34,7 @@
 	var/list/hotkeybuttons = list()			//the buttons that can be used via hotkeys
 	var/list/infodisplay = list()			//the screen objects that display mob info (health, alien plasma, etc...)
 	var/list/inv_slots[slots_amt]			// /obj/screen/inventory objects, ordered by their slot ID.
+	var/list/viewfield = list()  //the fov
 
 	var/obj/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
@@ -85,6 +87,8 @@
 	QDEL_LIST(hotkeybuttons)
 
 	QDEL_LIST(infodisplay)
+
+	QDEL_LIST(viewfield)
 
 	//clear mob refs to screen objects
 	mymob.throw_icon = null
@@ -225,3 +229,9 @@
 
 /datum/hud/proc/update_locked_slots()
 	return
+
+/datum/hud/proc/addfov(mob/owner)
+	owner.client.screen += viewfield
+
+/datum/hud/proc/removefov(mob/owner)
+	owner.client.screen += viewfield

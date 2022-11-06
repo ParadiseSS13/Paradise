@@ -122,6 +122,7 @@
 #define CRIT_LAYER 20.4
 #define CURSE_LAYER 20.5
 
+#define BELOW_HUD_PLANE 20.9
 #define HUD_PLANE 21
 #define HUD_LAYER 21
 #define ABOVE_HUD_PLANE 22

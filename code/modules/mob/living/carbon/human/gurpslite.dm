@@ -108,15 +108,17 @@ proc/prob2()
 	return result
 
 /mob/living/carbon/human
-	var/skills
+
 
 /mob/living/carbon/human/setup_other()
 	. = ..()
 	skills = new /datum/skills
+
 /datum/skills
 	var/wisdom = 0
 	var/strength = 0
 	var/intelligence = 0
+	var/perception = 12
 
 /datum/skills/New(mob/owner)
 	. = ..()
