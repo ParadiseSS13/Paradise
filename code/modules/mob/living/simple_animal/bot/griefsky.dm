@@ -109,6 +109,7 @@
 		if(BOT_IDLE)		// idle
 			icon_state = "griefsky1"
 			walk_to(src,0)
+			set_path(null)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
@@ -117,6 +118,7 @@
 			playsound(loc,'sound/effects/spinsabre.ogg',50,1,-1)
 			if(frustration >= frustration_number) // general beepsky doesn't give up so easily, jedi scum
 				walk_to(src,0)
+				set_path(null)
 				back_to_idle()
 				return
 			if(target)		// make sure target exists

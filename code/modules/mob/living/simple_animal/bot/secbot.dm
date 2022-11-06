@@ -107,6 +107,7 @@
 	oldtarget_name = null
 	anchored = FALSE
 	walk_to(src,0)
+	set_path(null)
 	last_found = world.time
 
 /mob/living/simple_animal/bot/secbot/set_custom_texts()
@@ -306,6 +307,7 @@
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			walk_to(src,0)
+			set_path(null)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
@@ -314,6 +316,7 @@
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
 				walk_to(src,0)
+				set_path(null)
 				back_to_idle()
 				return
 
