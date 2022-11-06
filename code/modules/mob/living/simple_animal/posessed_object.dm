@@ -17,9 +17,9 @@
 	no_spin_thrown = TRUE
 	del_on_death = TRUE
 
-	///The probability % of us escaping if stuffed into a bag/toolbox/etc
+	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
 	var/escape_chance = 10
-
+	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
@@ -57,6 +57,8 @@
 			// Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place
 			visible_message("<span type='notice'>The spooky aura in [src] dissipates!</span>")
 			possessed_item.forceMove(loc)
+			possessed_item.throwforce = initial(possessed_item.throwforce)
+
 	return ..()
 
 /mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
@@ -177,14 +179,5 @@
 		death(0)
 
 /mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
-	. = ..()
-	if(isliving(hit_atom))
-		var/mob/living/hit_mob = hit_atom
-		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
-		hit_mob.visible_message("<span class='danger'>[hit_mob] is hit by [src]!</span>", "<span class='userdanger'>You're hit by [src]!</span>")
-		if(!throwforce)
-			return
-		var/armor = hit_mob.run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", armour_penetration_flat, armour_penetration_percentage = armour_penetration_percentage)
-		hit_mob.apply_damage(throwforce, melee_damage_type, zone, armor, is_sharp(possessed_item))
-
-	playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1) //Item sounds are handled in the item itself
+	//Don't call parent here as the mob isn't doing the hitting, technically
+	possessed_item.throw_impact(hit_atom, throwingdatum)
