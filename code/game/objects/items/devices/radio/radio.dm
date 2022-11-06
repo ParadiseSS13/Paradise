@@ -399,27 +399,22 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// --- Carbon Nonhuman ---
 	else if(iscarbon(M)) // Nonhuman carbon mob
 		jobname = "No id"
-		rankname = "No id"
 
 	// --- AI ---
 	else if(isAI(M))
 		jobname = "AI"
-		rankname = "AI"
 
 	// --- Cyborg ---
 	else if(isrobot(M))
 		jobname = "Cyborg"
-		rankname = "Cyborg"
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))
 		jobname = "Personal AI"
-		rankname = "Personal AI"
 
 	// --- Unidentifiable mob ---
 	else
 		jobname = "Unknown"
-		rankname = "Unknown"
 
 
 	// --- Modifications to the mob's identity ---
