@@ -107,7 +107,7 @@
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
 
 
-	update_icon(1)
+	update_icon(TRUE)
 	throwforce = possessed_item.throwforce
 	armour_penetration_flat = possessed_item.armour_penetration_flat
 	armour_penetration_percentage = possessed_item.armour_penetration_percentage

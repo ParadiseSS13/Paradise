@@ -87,7 +87,7 @@
  										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
 					drained_mobs.Add(mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
-					target.death(0)
+					target.death()
 				else
 					to_chat(src, "<span class='revenwarning'>[target ? "[target] has":"They have"] been drawn out of your grasp. The link has been broken.</span>")
 					draining = 0
@@ -208,8 +208,9 @@
 	aoe_range = 5
 
 /obj/effect/proc_holder/spell/aoe/revenant/overload/create_new_targeting()
-	var/datum/spell_targeting/aoe/obj/targeting = new()
+	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
+	targeting.allowed_type = /obj/machinery/light
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
@@ -307,8 +308,9 @@
 	var/list/attack_timers = list()
 
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/create_new_targeting()
-	var/datum/spell_targeting/aoe/obj/targeting = new()
+	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
+	targeting.allowed_type = /obj/item
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
@@ -318,7 +320,7 @@
 	for(var/obj/item/nearby_item in targets)
 		// Don't throw around anchored things or dense things
 		// (Or things not on a turf but I am not sure if range can catch that)
-		if(nearby_item.anchored || nearby_item.density || !isturf(nearby_item.loc))
+		if(nearby_item.anchored || nearby_item.density || nearby_item.move_resist == INFINITY || !isturf(nearby_item.loc))
 			continue
 		// Don't throw abstract things
 		if(nearby_item.flags & ABSTRACT)
@@ -333,24 +335,28 @@
 			continue
 
 		if(successes >= max_targets) // End loop if we've already got 7 spooky items
-			return
+			break
 
 		make_spooky(nearby_item, user)
 		successes++
+
+	if(!successes)
+		return
+	// Stop the looping attacks after 65 seconds, roughly 14 attack cycles depending on lag
+	addtimer(CALLBACK(src, .proc/stop_timers), 65 SECONDS, TIMER_UNIQUE)
 
 /// Handles making an object haunted and setting it up to attack
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
 	new /obj/effect/temp_visual/revenant(get_turf(item_to_possess)) // Thematic spooky visuals
 	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess) // Begin haunting object
 	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = 1)) // Give it spooky purple outline
-	possessed_object.throwforce = clamp(item_to_possess.throwforce, item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+3 or 15, whichever is lower
+	possessed_object.throwforce = clamp(item_to_possess.throwforce, item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower
 	possessed_object.maxHealth = 100 // Double the regular HP of possessed objects
 	possessed_object.health = 100
 	possessed_object.escape_chance = 100 // We cannot be contained
 
 	addtimer(CALLBACK(src, .proc/attack, possessed_object, user), 2 SECONDS, TIMER_UNIQUE) // Short warm up for floaty ambience
 	attack_timers.Add(addtimer(CALLBACK(src, .proc/attack, possessed_object, user), 5 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
-	addtimer(CALLBACK(src, .proc/stop_timers), 65 SECONDS, TIMER_UNIQUE) // Stop the looping attacks after 65 seconds, roughly 14 attack cycles depending on lag
 	addtimer(CALLBACK(possessed_object, /mob/living/simple_animal/possessed_object/.proc/death), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
 
 /// Handles finding a valid target and throwing us at it
@@ -359,7 +365,7 @@
 	for(var/mob/living/carbon/potential_victim in range(aoe_range, get_turf(possessed_object)))
 		if(!can_see(possessed_object, potential_victim)) // You can't see me
 			continue
-		if(potential_victim.stat >= UNCONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
+		if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
 			continue
 		potential_victims.Add(potential_victim)
 
@@ -385,8 +391,9 @@
 	reveal = 3 SECONDS
 
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/create_new_targeting()
-	var/datum/spell_targeting/aoe/mob/targeting = new()
+	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
+	targeting.allowed_type = /mob/living
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
