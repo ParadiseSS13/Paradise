@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(maprotate)
 
 // Debugging purposes. Im not having people change this on the fly.
 /datum/controller/subsystem/maprotate/vv_edit_var(var_name, var_value)
-	if (((var_name == "rotation_mode") || (var_name == "setup_done")) && !check_rights(R_MAINTAINER))
+	if(((var_name == "rotation_mode") || (var_name == "setup_done")) && !check_rights(R_MAINTAINER))
 		return FALSE
 
 	. = ..()
