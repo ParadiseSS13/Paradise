@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				check_records = !check_records
 			if("autharrest")
 				check_arrest = !check_arrest
-			if("authxeno")
+			if("authalien")
 				check_anomalies = !check_anomalies
 			if("authsynth")
 				check_synth = !check_synth

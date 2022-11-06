@@ -106,7 +106,7 @@
 	else
 		attached = TRUE
 		addtimer(VARSET_CALLBACK(src, attached, FALSE), impregnation_time)
-	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
+	if(HAS_TRAIT(M, TRAIT_ALIEN_IMMUNE))
 		return FALSE
 	if(loc == M)
 		return FALSE
@@ -213,7 +213,7 @@
 		return FALSE
 	if(M.stat == DEAD)
 		return FALSE
-	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
+	if(HAS_TRAIT(M, TRAIT_ALIEN_IMMUNE))
 		return FALSE
 
 	var/mob/living/carbon/C = M

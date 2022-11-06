@@ -23,7 +23,7 @@
 
 /datum/design/plasmacutter
 	name = "Plasma Cutter"
-	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
+	desc = "You could use it to cut limbs off of aliens! Or, you know, mine stuff."
 	id = "plasmacutter"
 	req_tech = list("materials" = 3, "plasmatech" = 3, "magnets" = 2)
 	build_type = PROTOLATHE

@@ -1102,7 +1102,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			var/icon_list[] = list(
 			"default",
 			"floating face",
-			"xeno queen",
+			"alien queen",
 			"eldritch",
 			"ancient machine",
 			"angel",
@@ -1126,7 +1126,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
 					if("floating face")
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo2"))
-					if("xeno queen")
+					if("alien queen")
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo3"))
 					if("eldritch")
 						holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo4"))

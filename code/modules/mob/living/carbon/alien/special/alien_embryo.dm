@@ -98,15 +98,15 @@
 
 		spawn(6)
 			owner.cut_overlay(overlay)
-			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
-			new_xeno.key = C.key
+			var/mob/living/carbon/alien/larva/new_alien = new(owner.drop_location())
+			new_alien.key = C.key
 			if(SSticker && SSticker.mode)
-				SSticker.mode.xenos += new_xeno.mind
-			new_xeno.mind.name = new_xeno.name
-			new_xeno.mind.assigned_role = SPECIAL_ROLE_XENOMORPH
-			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH
-			SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))
-			to_chat(new_xeno, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Xenomorph)</span>")
+				SSticker.mode.aliens += new_alien.mind
+			new_alien.mind.name = new_alien.name
+			new_alien.mind.assigned_role = SPECIAL_ROLE_ALIEN
+			new_alien.mind.special_role = SPECIAL_ROLE_ALIEN
+			SEND_SOUND(new_alien, sound('sound/voice/hiss5.ogg'))
+			to_chat(new_alien, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Xenomorph)</span>")
 
 			if(burst_on_success) //If we burst naturally
 				owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)

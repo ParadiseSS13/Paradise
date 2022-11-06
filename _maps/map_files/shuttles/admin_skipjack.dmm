@@ -129,7 +129,7 @@
 /area/shuttle/administration)
 "aI" = (
 /obj/item/clothing/head/bearpelt,
-/obj/item/xenos_claw,
+/obj/item/alien_claw,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "aJ" = (
@@ -328,7 +328,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ck" = (
-/obj/item/clothing/head/collectable/xenom,
+/obj/item/clothing/head/collectable/alien,
 /obj/item/clothing/head/chicken,
 /obj/item/aiModule/syndicate,
 /obj/item/storage/box/zipties,
@@ -377,7 +377,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cv" = (
-/obj/item/xenos_claw,
+/obj/item/alien_claw,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cw" = (

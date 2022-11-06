@@ -367,7 +367,7 @@
 
 //Bloody shoe blood states
 #define BLOOD_STATE_HUMAN			"blood"
-#define BLOOD_STATE_XENO			"xeno"
+#define BLOOD_STATE_ALIEN			"alien"
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
 #define BLOOD_BASE_ALPHA			"blood_alpha"
 

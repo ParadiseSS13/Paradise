@@ -485,8 +485,8 @@
 		if(SSticker.mode.vampire_enthralled.len)
 			dat += check_role_table("Vampire Thralls", SSticker.mode.vampire_enthralled)
 
-		if(SSticker.mode.xenos.len)
-			dat += check_role_table("Xenos", SSticker.mode.xenos)
+		if(SSticker.mode.aliens.len)
+			dat += check_role_table("Alien", SSticker.mode.aliens)
 
 		if(SSticker.mode.superheroes.len)
 			dat += check_role_table("Superheroes", SSticker.mode.superheroes)

@@ -5,7 +5,7 @@
 	new /obj/effect/gibspawner/human(get_turf(location), mob_dna)
 
 /proc/xgibs(atom/location)
-	new /obj/effect/gibspawner/xeno(get_turf(location))
+	new /obj/effect/gibspawner/alien(get_turf(location))
 
 /proc/robogibs(atom/location)
 	new /obj/effect/gibspawner/robot(get_turf(location))

@@ -127,20 +127,20 @@
 		qdel(t)
 
 	var/alien_caste = pick("Hunter","Sentinel","Drone")
-	var/mob/living/carbon/alien/humanoid/new_xeno
+	var/mob/living/carbon/alien/humanoid/new_alien
 	switch(alien_caste)
 		if("Hunter")
-			new_xeno = new /mob/living/carbon/alien/humanoid/hunter(loc)
+			new_alien = new /mob/living/carbon/alien/humanoid/hunter(loc)
 		if("Sentinel")
-			new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(loc)
+			new_alien = new /mob/living/carbon/alien/humanoid/sentinel(loc)
 		if("Drone")
-			new_xeno = new /mob/living/carbon/alien/humanoid/drone(loc)
+			new_alien = new /mob/living/carbon/alien/humanoid/drone(loc)
 
-	new_xeno.a_intent = INTENT_HARM
-	new_xeno.key = key
+	new_alien.a_intent = INTENT_HARM
+	new_alien.key = key
 
-	to_chat(new_xeno, "<B>You are now an alien.</B>")
-	new_xeno.update_pipe_vision()
+	to_chat(new_alien, "<B>You are now an alien.</B>")
+	new_alien.update_pipe_vision()
 	qdel(src)
 
 /mob/living/carbon/human/proc/slimeize(reproduce as num)

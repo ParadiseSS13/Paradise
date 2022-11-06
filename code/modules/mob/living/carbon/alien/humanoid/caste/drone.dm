@@ -14,9 +14,9 @@
 /mob/living/carbon/alien/humanoid/drone/get_caste_organs()
 	. = ..()
 	. += list(
-		/obj/item/organ/internal/xenos/plasmavessel/drone,
-		/obj/item/organ/internal/xenos/acidgland,
-		/obj/item/organ/internal/xenos/resinspinner,
+		/obj/item/organ/internal/alien/plasmavessel/drone,
+		/obj/item/organ/internal/alien/acidgland,
+		/obj/item/organ/internal/alien/resinspinner,
 	)
 
 
@@ -41,9 +41,9 @@
 			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
-			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(loc)
-			mind.transfer_to(new_xeno)
-			new_xeno.mind.name = new_xeno.name
+			var/mob/living/carbon/alien/humanoid/queen/new_alien = new(loc)
+			mind.transfer_to(new_alien)
+			new_alien.mind.name = new_alien.name
 			SSblackbox.record_feedback("tally", "alien_growth", 1, "queen")
 			qdel(src)
 		else

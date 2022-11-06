@@ -1,39 +1,39 @@
-/obj/effect/decal/cleanable/blood/xeno
-	name = "xeno blood"
+/obj/effect/decal/cleanable/blood/alien
+	name = "alien blood"
 	desc = "It's green and acidic. It looks like... <i>blood?</i>"
 	icon = 'icons/effects/blood.dmi'
 	basecolor = "#05EE05"
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
-	blood_state = BLOOD_STATE_XENO
+	blood_state = BLOOD_STATE_ALIEN
 
-/obj/effect/decal/cleanable/blood/xeno/splatter
+/obj/effect/decal/cleanable/blood/alien/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
 	amount = 2
 
-/obj/effect/decal/cleanable/blood/gibs/xeno
-	name = "xeno gibs"
+/obj/effect/decal/cleanable/blood/gibs/alien
+	name = "alien gibs"
 	desc = "Gnarly..."
 	icon_state = "xgib1"
 	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6")
 	basecolor = "#05EE05"
 
-/obj/effect/decal/cleanable/blood/gibs/xeno/update_icon()
+/obj/effect/decal/cleanable/blood/gibs/alien/update_icon()
 	color = "#FFFFFF"
 	. = ..(NONE)
 
-/obj/effect/decal/cleanable/blood/gibs/xeno/up
+/obj/effect/decal/cleanable/blood/gibs/alien/up
 	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6", "xgibup1", "xgibup1", "xgibup1")
 
-/obj/effect/decal/cleanable/blood/gibs/xeno/down
+/obj/effect/decal/cleanable/blood/gibs/alien/down
 	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6", "xgibdown1", "xgibdown1", "xgibdown1")
 
-/obj/effect/decal/cleanable/blood/gibs/xeno/body
+/obj/effect/decal/cleanable/blood/gibs/alien/body
 	random_icon_states = list("xgibhead", "xgibtorso")
 
-/obj/effect/decal/cleanable/blood/gibs/xeno/limb
+/obj/effect/decal/cleanable/blood/gibs/alien/limb
 	random_icon_states = list("xgibleg", "xgibarm")
 
-/obj/effect/decal/cleanable/blood/gibs/xeno/core
+/obj/effect/decal/cleanable/blood/gibs/alien/core
 	random_icon_states = list("xgibmid1", "xgibmid2", "xgibmid3")
 
 /obj/effect/decal/cleanable/blood/xtracks

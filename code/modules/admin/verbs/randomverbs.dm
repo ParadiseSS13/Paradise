@@ -372,24 +372,24 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(G_found.mind.assigned_role=="Alien")
 			if(alert("This character appears to have been an alien. Would you like to respawn them as such?",,"Yes","No")=="Yes")
 				var/turf/T
-				if(GLOB.xeno_spawn.len)	T = pick(GLOB.xeno_spawn)
+				if(GLOB.alien_spawn.len)	T = pick(GLOB.alien_spawn)
 				else				T = pick(GLOB.latejoin)
 
-				var/mob/living/carbon/alien/new_xeno
+				var/mob/living/carbon/alien/new_alien
 				switch(G_found.mind.special_role)//If they have a mind, we can determine which caste they were.
-					if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
-					if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
-					if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(T)
-					if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen(T)
+					if("Hunter")	new_alien = new /mob/living/carbon/alien/humanoid/hunter(T)
+					if("Sentinel")	new_alien = new /mob/living/carbon/alien/humanoid/sentinel(T)
+					if("Drone")		new_alien = new /mob/living/carbon/alien/humanoid/drone(T)
+					if("Queen")		new_alien = new /mob/living/carbon/alien/humanoid/queen(T)
 					else//If we don't know what special role they have, for whatever reason, or they're a larva.
-						create_xeno(G_found.ckey)
+						create_alien(G_found.ckey)
 						return
 
 				//Now to give them their mind back.
-				G_found.mind.transfer_to(new_xeno)	//be careful when doing stuff like this! I've already checked the mind isn't in use
-				new_xeno.key = G_found.key
-				to_chat(new_xeno, "You have been fully respawned. Enjoy the game.")
-				message_admins("<span class='notice'>[key_name_admin(usr)] has respawned [new_xeno.key] as a filthy xeno.</span>", 1)
+				G_found.mind.transfer_to(new_alien)	//be careful when doing stuff like this! I've already checked the mind isn't in use
+				new_alien.key = G_found.key
+				to_chat(new_alien, "You have been fully respawned. Enjoy the game.")
+				message_admins("<span class='notice'>[key_name_admin(usr)] has respawned [new_alien.key] as a filthy alien.</span>", 1)
 				return	//all done. The ghost is auto-deleted
 
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
@@ -506,7 +506,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return new_character
 
 //I use this proc for respawn character too. /N
-/proc/create_xeno(ckey)
+/proc/create_alien(ckey)
 	if(!ckey)
 		var/list/candidates = list()
 		for(var/mob/M in GLOB.player_list)
@@ -522,25 +522,25 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				continue //we have a live body we are tied to
 			candidates += M.ckey
 		if(candidates.len)
-			ckey = input("Pick the player you want to respawn as a xeno.", "Suitable Candidates") as null|anything in candidates
+			ckey = input("Pick the player you want to respawn as a alien.", "Suitable Candidates") as null|anything in candidates
 		else
-			to_chat(usr, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>")
-	if(!istext(ckey))	return 0
+			to_chat(usr, "<font color='red'>Error: create_alien(): no suitable candidates.</font>")
+	if(!istext(ckey))	return FALSE
 
 	var/alien_caste = input(usr, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
-	var/obj/effect/landmark/spawn_here = GLOB.xeno_spawn.len ? pick(GLOB.xeno_spawn) : pick(GLOB.latejoin)
-	var/mob/living/carbon/alien/new_xeno
+	var/obj/effect/landmark/spawn_here = GLOB.alien_spawn.len ? pick(GLOB.alien_spawn) : pick(GLOB.latejoin)
+	var/mob/living/carbon/alien/new_alien
 	switch(alien_caste)
-		if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
-		if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
-		if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
-		if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
-		if("Larva")		new_xeno = new /mob/living/carbon/alien/larva(spawn_here)
-		else			return 0
+		if("Queen")		new_alien = new /mob/living/carbon/alien/humanoid/queen/large(spawn_here)
+		if("Hunter")	new_alien = new /mob/living/carbon/alien/humanoid/hunter(spawn_here)
+		if("Sentinel")	new_alien = new /mob/living/carbon/alien/humanoid/sentinel(spawn_here)
+		if("Drone")		new_alien = new /mob/living/carbon/alien/humanoid/drone(spawn_here)
+		if("Larva")		new_alien = new /mob/living/carbon/alien/larva(spawn_here)
+		else			return FALSE
 
-	new_xeno.ckey = ckey
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned [ckey] as a filthy xeno [alien_caste].</span>", 1)
-	return 1
+	new_alien.ckey = ckey
+	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned [ckey] as a filthy alien [alien_caste].</span>", 1)
+	return TRUE
 
 
 /client/proc/get_ghosts(notify = 0, what = 2)

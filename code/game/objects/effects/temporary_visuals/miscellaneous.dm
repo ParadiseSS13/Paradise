@@ -42,7 +42,7 @@
 			layer = MOB_LAYER + 0.1
 	animate(src, pixel_x = target_pixel_x, pixel_y = target_pixel_y, alpha = 0, time = duration)
 
-/obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
+/obj/effect/temp_visual/dir_setting/bloodsplatter/aliensplatter
 	color = null
 	splatter_type = "xsplatter"
 

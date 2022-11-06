@@ -331,11 +331,11 @@
 	QDEL_IN(src, 3 SECONDS)
 
 /**
-  * # Hallucination - Xeno Pounce
+  * # Hallucination - Alien Pounce
   *
   * An imaginary alien hunter pounces towards the target.
   */
-/obj/effect/hallucination/xeno_pounce
+/obj/effect/hallucination/alien_pounce
 	duration = 15 SECONDS
 	// Settings
 	/// Maximum number of times the alien will pounce.
@@ -343,10 +343,10 @@
 	/// How often to pounce in deciseconds.
 	var/pounce_interval = 5 SECONDS
 	// Variables
-	/// The xeno hallucination reference.
-	var/obj/effect/hallucination/xeno_pouncer/xeno = null
+	/// The alien hallucination reference.
+	var/obj/effect/hallucination/alien_pouncer/alien = null
 
-/obj/effect/hallucination/xeno_pounce/Initialize(mapload, mob/living/carbon/target)
+/obj/effect/hallucination/alien_pounce/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 
 	// Find a vent around us
@@ -357,28 +357,28 @@
 		return
 
 	var/turf/T = get_turf(pick(vents))
-	xeno = new(T, target)
-	xeno.dir = get_dir(T, target)
+	alien = new(T, target)
+	alien.dir = get_dir(T, target)
 	addtimer(CALLBACK(src, .proc/do_pounce), pounce_interval)
 
-/obj/effect/hallucination/xeno_pounce/proc/do_pounce()
-	if(QDELETED(xeno) || QDELETED(target))
+/obj/effect/hallucination/alien_pounce/proc/do_pounce()
+	if(QDELETED(alien) || QDELETED(target))
 		return
 
-	xeno.leap_to(target)
+	alien.leap_to(target)
 	if(--num_pounces > 0)
 		addtimer(CALLBACK(src, .proc/do_pounce), pounce_interval)
 
-/obj/effect/hallucination/xeno_pouncer
+/obj/effect/hallucination/alien_pouncer
 	hallucination_icon = 'icons/mob/alien.dmi'
 	hallucination_icon_state = "alienh_pounce"
 	hallucination_override = TRUE
 
-/obj/effect/hallucination/xeno_pouncer/Initialize(mapload, mob/living/carbon/target)
+/obj/effect/hallucination/alien_pouncer/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	name = "\proper alien hunter ([rand(100, 999)])"
 
-/obj/effect/hallucination/xeno_pouncer/throw_impact(A)
+/obj/effect/hallucination/alien_pouncer/throw_impact(A)
 	if(A == target)
 		forceMove(get_turf(target))
 		target.Weaken(10 SECONDS)
@@ -389,12 +389,12 @@
 		QDEL_IN(src, 2 SECONDS)
 
 /**
-  * Throws the xeno towards the given loc.
+  * Throws the alien towards the given loc.
   *
   * Arguments:
   * * dest - The loc to leap to.
   */
-/obj/effect/hallucination/xeno_pouncer/proc/leap_to(dest)
+/obj/effect/hallucination/alien_pouncer/proc/leap_to(dest)
 	if(images && images[1])
 		images[1].icon = 'icons/mob/alienleap.dmi'
 		images[1].icon_state = "alienh_leap"
@@ -402,9 +402,9 @@
 	throw_at(dest, 7, 1, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/reset_icon))
 
 /**
-  * Resets the xeno's icon to a resting state.
+  * Resets the alien's icon to a resting state.
   */
-/obj/effect/hallucination/xeno_pouncer/proc/reset_icon()
+/obj/effect/hallucination/alien_pouncer/proc/reset_icon()
 	if(images && images[1])
 		images[1].icon = 'icons/mob/alien.dmi'
 		images[1].icon_state = "alienh_pounce"

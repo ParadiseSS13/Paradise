@@ -7,7 +7,7 @@
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
-		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
+		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Alien", "Swarmer",
 		"Deathsquad Commando", "Ian", "Slaughter Demon",
 		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
@@ -132,9 +132,9 @@
 			name = "Unknown"
 			desc = "A cardboard cutout of a shadowling."
 			icon_state = "cutout_shadowling"
-		if("Xenomorph")
+		if("Alien")
 			name = "alien hunter ([rand(1, 999)])"
-			desc = "A cardboard cutout of a xenomorph."
+			desc = "A cardboard cutout of a alien."
 			icon_state = "cutout_fukken_xeno"
 			if(prob(10))
 				alpha = 75 //Spooky sneaking!

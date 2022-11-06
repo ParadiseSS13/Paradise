@@ -106,7 +106,7 @@
 	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
-/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
+/obj/item/reagent_containers/food/snacks/monstermeat/alienmeat
 	name = "meat"
 	desc = "A slab of meat. It's green!"
 	icon_state = "xenomeat"

@@ -598,7 +598,7 @@
 	item_state = "facehugger_impregnated";
 	stat = 2
 	},
-/obj/item/xenos_claw,
+/obj/item/alien_claw,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
@@ -3633,19 +3633,19 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "ha" = (
-/obj/effect/decal/cleanable/blood/xeno{
+/obj/effect/decal/cleanable/blood/alien{
 	color = "green"
 	},
-/obj/effect/decal/cleanable/blood/gibs/xeno,
+/obj/effect/decal/cleanable/blood/gibs/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
 /area/ruin/space/unpowered)
 "hb" = (
-/obj/effect/decal/cleanable/blood/xeno{
+/obj/effect/decal/cleanable/blood/alien{
 	color = "green"
 	},
-/obj/effect/decal/remains/xeno{
+/obj/effect/decal/remains/alien{
 	desc = "They look like the remains of something... alien. The front of skull appears to have been completely obliterated."
 	},
 /turf/simulated/floor/plasteel{

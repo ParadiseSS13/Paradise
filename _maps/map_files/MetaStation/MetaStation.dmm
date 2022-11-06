@@ -1117,7 +1117,7 @@
 /turf/space,
 /area/space/nearstation)
 "ajx" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "ajy" = (
@@ -1296,7 +1296,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "akw" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -3089,7 +3089,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "arU" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "arV" = (
@@ -3760,7 +3760,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "auk" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -4040,7 +4040,7 @@
 	},
 /area/security/brig)
 "avC" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "avD" = (
@@ -4187,7 +4187,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "avQ" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -4323,7 +4323,7 @@
 /area/maintenance/portsolar)
 "awf" = (
 /obj/machinery/light,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -6587,7 +6587,7 @@
 /area/storage/emergency2)
 "aEk" = (
 /obj/item/bikehorn/rubberducky,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -11785,7 +11785,7 @@
 /area/shuttle/pod_1)
 "aSt" = (
 /obj/item/storage/toolbox/mechanical,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/construction)
 "aSv" = (
@@ -17985,7 +17985,7 @@
 	},
 /area/storage/tech)
 "bhM" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -20326,7 +20326,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -21680,7 +21680,7 @@
 	dir = 4
 	},
 /obj/item/soap/deluxe,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/item/bikehorn/rubberducky/captainducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -27548,7 +27548,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
 	name = "old sink";
@@ -31555,7 +31555,7 @@
 	name = "E.V.A. Storage"
 	})
 "bPj" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
@@ -33320,7 +33320,7 @@
 	},
 /area/medical/research)
 "bUz" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "bUA" = (
@@ -36838,7 +36838,7 @@
 	},
 /area/hallway/primary/central)
 "cdF" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
 	initialize_directions = 11
@@ -40377,7 +40377,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -41712,7 +41712,7 @@
 /area/maintenance/asmaint)
 "cso" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "csp" = (
@@ -52478,7 +52478,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "dcu" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -52609,7 +52609,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
@@ -57870,7 +57870,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "fwl" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -68526,7 +68526,7 @@
 /area/crew_quarters/hor)
 "kLN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "kLT" = (
@@ -70724,7 +70724,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "lKc" = (
-/obj/effect/decal/remains/xeno,
+/obj/effect/decal/remains/alien,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "lKs" = (
@@ -76510,7 +76510,7 @@
 	},
 /area/atmos/control)
 "oHd" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -78004,7 +78004,7 @@
 	},
 /area/medical/research)
 "pxf" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "pxj" = (
@@ -81114,7 +81114,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "rbR" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "rbU" = (
@@ -86806,7 +86806,7 @@
 	name = "\improper Departure Lounge"
 	})
 "tPD" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},

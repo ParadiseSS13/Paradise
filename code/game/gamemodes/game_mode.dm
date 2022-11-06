@@ -40,7 +40,7 @@
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/list/player_draft_log = list()
-	var/list/datum/mind/xenos = list()
+	var/list/datum/mind/aliens = list()
 	var/list/datum/mind/eventmiscs = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode

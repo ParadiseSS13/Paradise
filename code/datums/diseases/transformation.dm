@@ -151,14 +151,14 @@
 				affected_mob.say(pick("beep, beep!", "Boop bop boop beep.", "kkkiiiill mmme", "I wwwaaannntt tttoo dddiiieeee..."))
 
 
-/datum/disease/transformation/xeno
+/datum/disease/transformation/alien
 
-	name = "Xenomorph Transformation"
+	name = "Alien Transformation"
 	cure_text = "Spaceacillin & Glycerol"
 	cures = list("spaceacillin", "glycerol")
 	cure_chance = 5
 	agent = "Rip-LEY Alien Microbes"
-	desc = "This disease changes the victim into a xenomorph."
+	desc = "This disease changes the victim into an alien hunter."
 	severity = BIOHAZARD
 	visibility_flags = 0
 	stage1	= null
@@ -169,7 +169,7 @@
 	new_form = /mob/living/carbon/alien/humanoid/hunter
 	job_role = ROLE_ALIEN
 
-/datum/disease/transformation/xeno/stage_act()
+/datum/disease/transformation/alien/stage_act()
 	..()
 	switch(stage)
 		if(3)

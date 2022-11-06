@@ -155,8 +155,8 @@
 	target_types += /obj/effect/decal/cleanable/dirt
 
 	if(blood)
-		target_types += /obj/effect/decal/cleanable/blood/xeno/
-		target_types += /obj/effect/decal/cleanable/blood/gibs/xeno
+		target_types += /obj/effect/decal/cleanable/blood/alien/
+		target_types += /obj/effect/decal/cleanable/blood/gibs/alien
 		target_types += /obj/effect/decal/cleanable/blood/
 		target_types += /obj/effect/decal/cleanable/blood/gibs/
 		target_types += /obj/effect/decal/cleanable/blood/tracks

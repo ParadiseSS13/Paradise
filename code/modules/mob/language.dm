@@ -477,10 +477,10 @@
 					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
-/datum/language/xenocommon
-	name = "Xenomorph"
+/datum/language/aliencommon
+	name = "Alien"
 	colour = "alien"
-	desc = "The common tongue of the xenomorphs."
+	desc = "The common tongue of those infectous aliens."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
@@ -488,9 +488,9 @@
 	flags = RESTRICTED
 	syllables = list("sss","sSs","SSS")
 
-/datum/language/xenos
+/datum/language/alien_hivemind
 	name = "Hivemind"
-	desc = "Xenomorphs have the strange ability to commune over a psychic hivemind."
+	desc = "Aliens have the strange ability to commune over a psychic hivemind."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
@@ -501,7 +501,7 @@
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
-	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
+	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to aliens."
 	speech_verb = "chitters"
 	ask_verb = "chitters"
 	exclaim_verbs = list("chitters")

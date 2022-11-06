@@ -41,13 +41,13 @@
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
 	. = ..()
 	. += list(
-		/obj/item/organ/internal/xenos/plasmavessel,
-		/obj/item/organ/internal/xenos/acidgland,
-		/obj/item/organ/internal/xenos/neurotoxin,
+		/obj/item/organ/internal/alien/plasmavessel,
+		/obj/item/organ/internal/alien/acidgland,
+		/obj/item/organ/internal/alien/neurotoxin,
 	)
 
 /*
-/mob/living/carbon/alien/humanoid/sentinel/verb/evolve() // -- TLE
+/mob/living/carbon/alien/humanoid/sentinel/verb/evolve() // -- TLE /// The related should be removed
 	set name = "Evolve (250)"
 	set desc = "Become a Praetorian, Royal Guard to the Queen."
 	set category = "Alien"

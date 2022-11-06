@@ -892,8 +892,8 @@
 	pixel_z = 5
 
 /obj/item/toy/character/alien
-	name = "Xenomorph Miniature"
-	desc = "A miniature xenomorph. Scary!"
+	name = "Alien Miniature"
+	desc = "A miniature Alien. Scary!"
 	icon_state = "aliencharacter"
 /obj/item/toy/character/cleric
 	name = "Cleric Miniature"
@@ -1395,28 +1395,28 @@
  * Xenomorph action figure
  */
 
-/obj/item/toy/figure/xeno
-	name = "\improper Xenomorph action figure"
-	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
+/obj/item/toy/figure/alien
+	name = "\improper Alien action figure"
+	desc = "MEGA presents the new Alien Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
 	icon_state = "toy_xeno"
 	bubble_icon = "alien"
 	cooldown_time = 5 SECONDS
 
 
-/obj/item/toy/figure/xeno/activate(mob/user)
+/obj/item/toy/figure/alien/activate(mob/user)
 	user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
 	icon_state = "[initial(icon_state)]_used"
 	addtimer(CALLBACK(src, .proc/hiss), 0.5 SECONDS)
 
-/obj/item/toy/figure/xeno/proc/hiss()
+/obj/item/toy/figure/alien/proc/hiss()
 	atom_say("Hiss!")
 	playsound(src, get_sfx("hiss"), 50, TRUE)
 	addtimer(CALLBACK(src, .proc/reset_icon), 4.5 SECONDS)
 
-/obj/item/toy/figure/xeno/proc/reset_icon()
+/obj/item/toy/figure/alien/proc/reset_icon()
 	icon_state = "[initial(icon_state)]"
 
-/obj/item/toy/figure/xeno/on_cooldown(mob/user)
+/obj/item/toy/figure/alien/on_cooldown(mob/user)
 	to_chat(user, "<span class='warning'>The string on [src] hasn't rewound all the way!</span>")
 
 /obj/item/toy/figure/owl

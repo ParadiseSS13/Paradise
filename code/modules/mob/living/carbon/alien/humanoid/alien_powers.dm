@@ -9,14 +9,14 @@ Doesn't work on other aliens/AI.*/
 /mob/living/carbon/proc/powerc(X, Y)//Y is optional, checks for weed planting. X can be null.
 	if(stat)
 		to_chat(src, "<span class='noticealien'>You must be conscious to do this.</span>")
-		return 0
+		return FALSE
 	else if(X && getPlasma() < X)
 		to_chat(src, "<span class='noticealien'>Not enough plasma stored.</span>")
-		return 0
+		return FALSE
 	else if(Y && (!isturf(src.loc) || isspaceturf(src.loc)))
 		to_chat(src, "<span class='noticealien'>You can't place that here!</span>")
-		return 0
-	else	return 1
+		return FALSE
+	else	return TRUE
 
 /mob/living/carbon/alien/humanoid/verb/plant()
 	set name = "Plant Weeds (50)"
@@ -89,7 +89,7 @@ Doesn't work on other aliens/AI.*/
 	set name = "Spit Neurotoxin (50)"
 	set desc = "Spits neurotoxin at someone, paralyzing them for a short time."
 	set category = "Alien"
-	var/obj/item/organ/internal/xenos/neurotoxin/organ = locate() in internal_organs
+	var/obj/item/organ/internal/alien/neurotoxin/organ = locate() in internal_organs
 
 	if(powerc(50) && !organ.neurotoxin_cooldown)
 		adjustPlasma(-50)
@@ -152,17 +152,17 @@ Doesn't work on other aliens/AI.*/
 			visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
 
 /mob/living/carbon/proc/getPlasma()
- 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
- 	if(!vessel) return 0
+ 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
+ 	if(!vessel) return FALSE
  	return vessel.stored_plasma
 
 
 /mob/living/carbon/proc/adjustPlasma(amount)
- 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+ 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
  	if(!vessel) return
  	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
  	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
- 	return 1
+ 	return TRUE
 
 /mob/living/carbon/alien/adjustPlasma(amount)
 	. = ..()
@@ -171,6 +171,6 @@ Doesn't work on other aliens/AI.*/
 /mob/living/carbon/proc/usePlasma(amount)
 	if(getPlasma() >= amount)
 		adjustPlasma(-amount)
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE

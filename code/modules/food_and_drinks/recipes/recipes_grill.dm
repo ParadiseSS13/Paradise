@@ -112,7 +112,7 @@
 /datum/recipe/grill/wingfangchu
 	reagents = list("soysauce" = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
+		/obj/item/reagent_containers/food/snacks/monstermeat/alienmeat
 	)
 	result = /obj/item/reagent_containers/food/snacks/wingfangchu
 

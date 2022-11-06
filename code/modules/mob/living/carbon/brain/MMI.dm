@@ -59,16 +59,16 @@
 			GLOB.alive_mob_list += brainmob
 
 			held_brain = B
-			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
+			if(istype(O,/obj/item/organ/internal/brain/alien)) // kept the type check, as it still does other weird stuff
 				name = "\improper [mmi_item_name]: Alien - [brainmob.real_name]"
 				icon = 'icons/mob/alien.dmi'
 				become_occupied("AlienMMI")
-				alien = 1
+				alien = TRUE
 			else
 				name = "\improper [mmi_item_name]: [brainmob.real_name]"
 				icon = B.mmi_icon
 				become_occupied("[B.mmi_icon_state]")
-				alien = 0
+				alien = FALSE
 
 			if(radio_action)
 				radio_action.UpdateButtonIcon()

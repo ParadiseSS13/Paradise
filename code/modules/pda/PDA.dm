@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 								"honk" = 'sound/items/bikehorn.ogg',
 								"SKREE" = 'sound/voice/shriek1.ogg',
 								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
-								"xeno" = 'sound/voice/hiss1.ogg')
+								"alien" = 'sound/voice/hiss1.ogg')
 
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,

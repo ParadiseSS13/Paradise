@@ -84,11 +84,11 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/roburger
 
-/datum/recipe/microwave/xenoburger
+/datum/recipe/microwave/alienburger
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat	)
-	result = /obj/item/reagent_containers/food/snacks/xenoburger
+		/obj/item/reagent_containers/food/snacks/monstermeat/alienmeat	)
+	result = /obj/item/reagent_containers/food/snacks/alienburger
 
 /datum/recipe/microwave/fishburger
 	items = list(

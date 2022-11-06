@@ -22,12 +22,12 @@
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
-	add_language("Xenomorph")
+	add_language("Alien")
 	add_language("Hivemind")
 
 /mob/living/carbon/alien/larva/get_caste_organs()
 	. = ..()
-	. += /obj/item/organ/internal/xenos/plasmavessel/larva
+	. += /obj/item/organ/internal/alien/plasmavessel/larva
 
 
 //This needs to be fixed

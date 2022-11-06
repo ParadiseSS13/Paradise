@@ -2,7 +2,7 @@
 	name = "alien"
 	icon_state = "alien_s"
 
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/alienmeat= 5, /obj/item/stack/sheet/animalhide/alien = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/caste = ""
@@ -23,16 +23,16 @@
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
-	add_language("Xenomorph")
+	add_language("Alien")
 	add_language("Hivemind")
 	..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)
 	if(..())
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 ///mob/living/carbon/alien/humanoid/bullet_act(obj/item/projectile/Proj) taken care of in living
 

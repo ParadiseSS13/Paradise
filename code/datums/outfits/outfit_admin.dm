@@ -514,8 +514,8 @@
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide Leader")
 
-/datum/outfit/admin/greytide/xeno
-	name = "Greytide Xeno"
+/datum/outfit/admin/greytide/alien
+	name = "Greytide Alien"
 
 	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/xenos
@@ -526,21 +526,21 @@
 	head = /obj/item/clothing/head/xenos
 	glasses = /obj/item/clothing/glasses/thermal
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
-	r_pocket = /obj/item/toy/figure/xeno
+	r_pocket = /obj/item/toy/figure/alien
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/clothing/head/welding = 1,
 		/obj/item/flashlight = 1
 	)
 
-/datum/outfit/admin/greytide/xeno/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/greytide/alien/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..(H, TRUE)
 	if(visualsOnly)
 		return
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Legit Xenomorph")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Legit xenomorph")
 
 
 

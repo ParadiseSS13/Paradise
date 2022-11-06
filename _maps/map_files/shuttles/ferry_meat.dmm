@@ -94,7 +94,7 @@
 /obj/item/stack/sheet/animalhide/human,
 /obj/item/stack/sheet/animalhide/lizard,
 /obj/item/stack/sheet/animalhide/monkey,
-/obj/item/stack/sheet/animalhide/xeno,
+/obj/item/stack/sheet/animalhide/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

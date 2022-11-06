@@ -165,7 +165,7 @@
 	name = "\improper RADIOACTIVE AREA"
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'."
 
-/obj/structure/sign/xeno_warning_mining
+/obj/structure/sign/alien_warning_mining
 	name = "DANGEROUS ALIEN LIFE"
 	desc = "A sign that warns would be travellers of hostile alien life in the vicinity."
 	icon = 'icons/obj/mining.dmi'

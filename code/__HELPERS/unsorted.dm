@@ -1752,7 +1752,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/turf/simulated/floor = "SIM_FLOOR",
 			/turf/simulated/wall = "SIM_WALL",
 			/turf = "T",
-			/mob/living/carbon/alien = "XENO",
+			/mob/living/carbon/alien = "ALIEN",
 			/mob/living/carbon/human = "HUMAN",
 			/mob/living/carbon = "CARBON",
 			/mob/living/silicon/robot = "CYBORG",

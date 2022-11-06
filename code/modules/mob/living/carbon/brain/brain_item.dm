@@ -18,8 +18,8 @@
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"
 
-/obj/item/organ/internal/brain/xeno
-	name = "xenomorph brain"
+/obj/item/organ/internal/brain/alien
+	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
 	origin_tech = "biotech=6"

@@ -192,7 +192,7 @@
 
 		var/mob/living/new_mob
 
-		var/randomize = pick("robot", "slime", "xeno", "human", "animal")
+		var/randomize = pick("robot", "slime", "alien", "human", "animal")
 		switch(randomize)
 			if("robot")
 				var/path
@@ -215,13 +215,13 @@
 			if("slime")
 				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
-			if("xeno")
+			if("alien")
 				if(prob(50))
 					new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
 				else
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
-				to_chat(M, "<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!</span>")
+				to_chat(M, "<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorphic life!</span>")
 			if("animal")
 				if(prob(50))
 					var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")

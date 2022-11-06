@@ -46744,7 +46744,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "cio" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
@@ -49870,7 +49870,7 @@
 	},
 /area/engine/equipmentstorage)
 "cpB" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -54992,7 +54992,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "cAP" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -60234,14 +60234,14 @@
 	},
 /area/maintenance/port)
 "cNi" = (
-/obj/effect/decal/cleanable/blood/xeno,
+/obj/effect/decal/cleanable/blood/alien,
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/xenobiology)
 "cNj" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/blood/xeno,
+/obj/effect/decal/cleanable/blood/alien,
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/xenobiology)
 "cNk" = (
@@ -61044,8 +61044,8 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
 "cOI" = (
-/obj/effect/decal/remains/xeno,
-/obj/effect/decal/cleanable/blood/xeno,
+/obj/effect/decal/remains/alien,
+/obj/effect/decal/cleanable/blood/alien,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
 "cOJ" = (
@@ -61589,7 +61589,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/medical/medbreak)
 "cQd" = (
@@ -67328,7 +67328,7 @@
 	},
 /area/hallway/primary/aft)
 "dcW" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "dcX" = (
@@ -68039,7 +68039,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/wood,
 /area/maintenance/starboard)
 "dex" = (
@@ -72524,7 +72524,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/carpet,
 /area/maintenance/starboard)
 "dos" = (
@@ -73753,7 +73753,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/maintenance/port2)
 "dri" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -77292,7 +77292,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
 "dzg" = (
@@ -78110,7 +78110,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "dAF" = (
@@ -79069,7 +79069,7 @@
 /obj/structure/urinal{
 	pixel_y = 28
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "dCP" = (
@@ -81339,7 +81339,7 @@
 /turf/simulated/floor/wood,
 /area/library/abandoned)
 "dIr" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/library/abandoned)
 "dIt" = (
@@ -82734,7 +82734,7 @@
 /turf/simulated/floor/plating,
 /area/library/abandoned)
 "dMf" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel/dark,
 /area/library/abandoned)
 "dMg" = (
@@ -84873,7 +84873,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
@@ -88462,7 +88462,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -96931,7 +96931,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"

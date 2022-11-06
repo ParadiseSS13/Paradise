@@ -2,7 +2,7 @@
 #define UPGRADE_KILL_TIMER  100
 
 //times it takes for a mob to eat
-#define EAT_TIME_XENO 30
+#define EAT_TIME_ALIEN 30
 #define EAT_TIME_FAT 100
 
 //time it takes for a mob to be eaten (in deciseconds) (overrides mob eat time)
@@ -389,17 +389,17 @@
 
 /obj/item/grab/proc/checkvalid(mob/attacker, mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
-		return 1
+		return TRUE
 
 	var/mob/living/carbon/human/H = attacker
 	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 /obj/item/grab/proc/checktime(mob/attacker, mob/prey) //Returns the time the attacker has to wait before they eat the prey
 	if(isalien(attacker))
-		return EAT_TIME_XENO //xenos get a speed boost
+		return EAT_TIME_ALIEN //xenos get a speed boost
 
 	if(istype(prey,/mob/living/simple_animal)) //simple animals get eaten at xeno-eating-speed regardless
 		return EAT_TIME_ANIMAL
@@ -422,7 +422,7 @@
 	return ..()
 
 
-#undef EAT_TIME_XENO
+#undef EAT_TIME_ALIEN
 #undef EAT_TIME_FAT
 
 #undef EAT_TIME_ANIMAL

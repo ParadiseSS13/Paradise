@@ -119,7 +119,7 @@
 		if(90)
 			new /obj/item/organ/internal/brain(src)
 		if(91)
-			new /obj/item/organ/internal/brain/xeno(src)
+			new /obj/item/organ/internal/brain/alien(src)
 		if(92)
 			new /obj/item/organ/internal/heart(src)
 		if(93)

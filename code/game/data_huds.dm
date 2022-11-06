@@ -202,7 +202,7 @@
 		else
 			holder.icon_state = "huddead"
 
-	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
+	else if(HAS_TRAIT(src, TRAIT_ALIEN_HOST))
 		holder.icon_state = "hudxeno"
 	else if(is_in_crit())
 		holder.icon_state = "huddefib"

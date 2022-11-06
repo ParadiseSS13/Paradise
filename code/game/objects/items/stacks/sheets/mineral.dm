@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(plasma_recipes, list (
 	null,
 	new /datum/stack_recipe_list("plasma statues", list(
 		new /datum/stack_recipe/dangerous("Scientist Statue", /obj/structure/statue/plasma/scientist, 5, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe/dangerous("Xenomorph Statue", /obj/structure/statue/plasma/xeno, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe/dangerous("Alien Statue", /obj/structure/statue/plasma/alien, 5, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	))
 

@@ -38,15 +38,15 @@
 /mob/living/carbon/alien/proc/get_caste_organs()
 	RETURN_TYPE(/list/obj/item/organ/internal)
 	return list(
-		/obj/item/organ/internal/brain/xeno,
-		/obj/item/organ/internal/xenos/hivenode,
+		/obj/item/organ/internal/brain/alien,
+		/obj/item/organ/internal/alien/hivenode,
 		/obj/item/organ/internal/ears
 	)
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
 		return default_language
-	return GLOB.all_languages["Xenomorph"]
+	return GLOB.all_languages["Alien"]
 
 /mob/living/carbon/alien/say_quote(message, datum/language/speaking = null)
 	var/verb = "hisses"
@@ -199,7 +199,7 @@ Des: Gives the client of the alien an image on each infected mob.
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
 		for(var/mob/living/C in GLOB.mob_list)
-			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
+			if(HAS_TRAIT(C, TRAIT_ALIEN_HOST))
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)
 					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")

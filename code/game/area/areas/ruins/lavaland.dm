@@ -40,7 +40,7 @@
 
 //Xeno Nest
 
-/area/ruin/unpowered/xenonest
+/area/ruin/unpowered/alien_nest
 	name = "The Hive"
 	always_unpowered = TRUE
 	power_environ = FALSE

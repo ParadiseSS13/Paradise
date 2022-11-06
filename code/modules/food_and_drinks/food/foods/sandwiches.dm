@@ -69,8 +69,8 @@
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 
-/obj/item/reagent_containers/food/snacks/xenoburger
-	name = "xenoburger"
+/obj/item/reagent_containers/food/snacks/alienburger
+	name = "alienburger"
 	desc = "Smells caustic and tastes like heresy."
 	icon_state = "xburger"
 	filling_color = "#43DE18"

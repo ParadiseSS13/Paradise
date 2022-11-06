@@ -102,8 +102,8 @@
 	name = "statue of a scientist"
 	icon_state = "sci"
 
-/obj/structure/statue/plasma/xeno
-	name = "statue of a xenomorph"
+/obj/structure/statue/plasma/alien
+	name = "statue of a alien"
 	icon_state = "xeno"
 
 /obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)

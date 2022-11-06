@@ -14,7 +14,7 @@
 #define ROLE_CHANGELING			"changeling"
 #define ROLE_WIZARD				"wizard"
 #define ROLE_REV				"revolutionary"
-#define ROLE_ALIEN				"xenomorph"
+#define ROLE_ALIEN				"alien"
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"cultist"
 #define ROLE_BLOB				"blob"
@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire
-	ROLE_ALIEN, 										// Xenomorph
+	ROLE_ALIEN, 										// Xenomorph/Alien
 	ROLE_WIZARD = /datum/game_mode/wizard 				// Wizard
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,

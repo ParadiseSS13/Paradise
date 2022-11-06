@@ -34,7 +34,7 @@
 /area/maintenance/apmaint)
 "aag" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel,
@@ -11618,7 +11618,7 @@
 /area/maintenance/fpmaint2)
 "aEH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -24829,7 +24829,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -33068,7 +33068,7 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bCx" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -36143,7 +36143,7 @@
 "bKt" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -51793,7 +51793,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "czq" = (
@@ -54004,7 +54004,7 @@
 /obj/machinery/door/window/eastright{
 	name = "Specimen Storage"
 	},
-/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/decal/cleanable/blood/gibs/alien/body,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cFB" = (
@@ -64192,7 +64192,7 @@
 	},
 /area/crew_quarters/kitchen)
 "dhY" = (
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dhZ" = (
@@ -65735,7 +65735,7 @@
 /area/maintenance/aft)
 "dlP" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dlR" = (
@@ -71702,7 +71702,7 @@
 /area/medical/virology)
 "gkw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/spawner/xeno,
+/obj/effect/landmark/spawner/alien,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -72701,7 +72701,7 @@
 	},
 /area/toxins/hallway)
 "gVD" = (
-/obj/effect/decal/cleanable/blood/xeno,
+/obj/effect/decal/cleanable/blood/alien,
 /obj/item/restraints/handcuffs/cable/blue,
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
@@ -78444,7 +78444,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "lHw" = (
-/obj/effect/decal/cleanable/blood/xeno,
+/obj/effect/decal/cleanable/blood/alien,
 /obj/structure/closet/crate/freezer,
 /obj/item/organ/internal/lungs/vox,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -92450,7 +92450,7 @@
 	},
 /area/security/permabrig)
 "wWp" = (
-/obj/effect/decal/cleanable/blood/xeno,
+/obj/effect/decal/cleanable/blood/alien,
 /obj/machinery/light/small,
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
@@ -93385,7 +93385,7 @@
 /area/space/nearstation)
 "xRP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/gibs/xeno,
+/obj/effect/decal/cleanable/blood/gibs/alien,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
 	dir = 1;

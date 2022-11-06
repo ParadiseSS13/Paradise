@@ -117,7 +117,7 @@
 		else
 			target.adjustBruteLoss(10)
 			if(isalien(target))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_dir)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter/aliensplatter(target.drop_location(), splatter_dir)
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	name = "diamond-tipped exosuit drill"

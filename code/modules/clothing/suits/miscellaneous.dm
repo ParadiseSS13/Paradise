@@ -148,7 +148,7 @@
 
 /obj/item/clothing/suit/imperium_monk
 	name = "imperium monk"
-	desc = "Have YOU killed a xeno today?"
+	desc = "Have YOU killed a alien today?"
 	icon_state = "imperium_monk"
 	item_state = "imperium_monk"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS

@@ -34,20 +34,20 @@
 		to_chat(src, "<B>Drones</B> <span class='notice'>are the working class, offering the largest plasma storage and generation. They are the only caste which may evolve again, turning into the dreaded alien queen.</span>")
 		var/alien_caste = alert(src, "Please choose which alien caste you shall belong to.",,"Hunter","Sentinel","Drone")
 
-		var/mob/living/carbon/alien/humanoid/new_xeno
+		var/mob/living/carbon/alien/humanoid/new_alien
 		switch(alien_caste)
 			if("Hunter")
-				new_xeno = new /mob/living/carbon/alien/humanoid/hunter(loc)
+				new_alien = new /mob/living/carbon/alien/humanoid/hunter(loc)
 			if("Sentinel")
-				new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(loc)
+				new_alien = new /mob/living/carbon/alien/humanoid/sentinel(loc)
 			if("Drone")
-				new_xeno = new /mob/living/carbon/alien/humanoid/drone(loc)
+				new_alien = new /mob/living/carbon/alien/humanoid/drone(loc)
 		if(mind)
-			mind.transfer_to(new_xeno)
+			mind.transfer_to(new_alien)
 		else
-			new_xeno.key = key
+			new_alien.key = key
 		SSblackbox.record_feedback("tally", "alien_growth", 1, "[lowertext(alien_caste)]")
-		new_xeno.mind.name = new_xeno.name
+		new_alien.mind.name = new_alien.name
 		qdel(src)
 		return
 	else

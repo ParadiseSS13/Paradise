@@ -924,7 +924,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /obj/item/clothing/shoes/clean_blood(radiation_clean = FALSE)
 	..()
-	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
+	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_ALIEN = 0, BLOOD_STATE_NOT_BLOODY = 0)
 	blood_state = BLOOD_STATE_NOT_BLOODY
 	if(ismob(loc))
 		var/mob/M = loc

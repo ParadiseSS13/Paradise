@@ -36,19 +36,19 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/meatbread
 
-/datum/recipe/oven/xenomeatbread
+/datum/recipe/oven/alienmeatbread
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/alienmeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/alienmeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/alienmeat,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread
+	result = /obj/item/reagent_containers/food/snacks/sliceable/alienmeatbread
 
 /datum/recipe/oven/bananabread
 	reagents = list("milk" = 5, "sugar" = 15)
@@ -126,7 +126,7 @@
 /datum/recipe/oven/xemeatpie
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
+		/obj/item/reagent_containers/food/snacks/monstermeat/alienmeat
 	)
 	result = /obj/item/reagent_containers/food/snacks/xemeatpie
 

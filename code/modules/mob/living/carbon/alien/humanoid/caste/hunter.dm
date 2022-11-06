@@ -14,7 +14,7 @@
 
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()
-	. += /obj/item/organ/internal/xenos/plasmavessel/hunter
+	. += /obj/item/organ/internal/alien/plasmavessel/hunter
 
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
@@ -26,7 +26,7 @@
 
 //Hunter verbs
 
-/mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(message = 1)
+/mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(message = TRUE)
 	leap_on_click = !leap_on_click
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
 	if(message)
@@ -59,12 +59,12 @@
 		return
 
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
-		leaping = 1
+		leaping = TRUE
 		update_icons()
-		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, .proc/leap_end))
+		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/leap_end))
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
-	leaping = 0
+	leaping = FALSE
 	update_icons()
 
 /mob/living/carbon/alien/humanoid/hunter/throw_impact(atom/A)
@@ -74,11 +74,11 @@
 	if(A)
 		if(isliving(A))
 			var/mob/living/L = A
-			var/blocked = 0
+			var/blocked = FALSE
 			if(ishuman(A))
 				var/mob/living/carbon/human/H = A
 				if(H.check_shields(src, 0, "the [name]", attack_type = LEAP_ATTACK))
-					blocked = 1
+					blocked = TRUE
 			if(!blocked)
 				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 				if(ishuman(L))
@@ -92,14 +92,14 @@
 			else
 				Weaken(4 SECONDS, TRUE)
 
-			toggle_leap(0)
+			toggle_leap(FALSE)
 			pounce_cooldown = world.time + pounce_cooldown_time
 		else if(A.density && !A.CanPass(src))
 			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='alertalien'>[src] smashes into [A]!</span>")
 			Weaken(4 SECONDS, TRUE)
 
 		if(leaping)
-			leaping = 0
+			leaping = FALSE
 			update_icons()
 
 

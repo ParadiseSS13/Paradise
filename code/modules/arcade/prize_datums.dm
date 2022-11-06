@@ -257,10 +257,10 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/pet_rock
 	cost = 80
 
-/datum/prize_item/toy_xeno
-	name = "Xeno Action Figure"
-	desc = "A lifelike replica of the horrific xeno scourge."
-	typepath = /obj/item/toy/figure/xeno
+/datum/prize_item/toy_alien
+	name = "Alien Action Figure"
+	desc = "A lifelike replica of the horrific alien scourge."
+	typepath = /obj/item/toy/figure/alien
 	cost = 80
 
 /datum/prize_item/rubberducky

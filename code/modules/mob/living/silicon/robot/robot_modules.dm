@@ -727,7 +727,7 @@
 
 /obj/item/robot_module/alien/hunter/add_languages(mob/living/silicon/robot/R)
 	. = ..()
-	R.add_language("xenocommon", 1)
+	R.add_language("Alien", 1)
 
 // Maintenance drone module.
 /obj/item/robot_module/drone

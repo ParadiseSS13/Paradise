@@ -1597,7 +1597,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "ff" = (
-/obj/effect/gibspawner/xeno,
+/obj/effect/gibspawner/alien,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Midship)
 "fg" = (

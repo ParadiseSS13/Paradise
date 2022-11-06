@@ -17,10 +17,10 @@
 
 		var/datum/mind/player_mind = new /datum/mind(key_of_morph)
 		player_mind.active = TRUE
-		if(!GLOB.xeno_spawn)
+		if(!GLOB.alien_spawn)
 			kill()
 			return
-		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
+		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.alien_spawn))
 		player_mind.transfer_to(S)
 		S.make_morph_antag()
 		message_admins("[key_of_morph] has been made into morph by an event.")

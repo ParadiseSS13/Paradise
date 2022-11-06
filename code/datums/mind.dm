@@ -12,7 +12,7 @@
 		the player.
 	-	IMPORTANT NOTE 2, if you want a player to become a ghost, use mob.ghostize() It does all the hard work for you.
 	-	When creating a new mob which will be a new IC character (e.g. putting a shade in a construct or randomly selecting
-		a ghost to become a xeno during an event). Simply assign the key or ckey like you've always done.
+		a ghost to become a alien during an event). Simply assign the key or ckey like you've always done.
 			new_mob.key = key
 		The Login proc will handle making a new mob for that mobtype (including setting up stuff like mind.name). Simple!
 		However if you want that mind to have any special properties like being a traitor etc you will have to do that
@@ -1842,23 +1842,23 @@
 	//XENO HUMANOID
 /mob/living/carbon/alien/humanoid/queen/mind_initialize()
 	..()
-	mind.special_role = SPECIAL_ROLE_XENOMORPH_QUEEN
+	mind.special_role = SPECIAL_ROLE_ALIEN_QUEEN
 
 /mob/living/carbon/alien/humanoid/hunter/mind_initialize()
 	..()
-	mind.special_role = SPECIAL_ROLE_XENOMORPH_HUNTER
+	mind.special_role = SPECIAL_ROLE_ALIEN_HUNTER
 
 /mob/living/carbon/alien/humanoid/drone/mind_initialize()
 	..()
-	mind.special_role = SPECIAL_ROLE_XENOMORPH_DRONE
+	mind.special_role = SPECIAL_ROLE_ALIEN_DRONE
 
 /mob/living/carbon/alien/humanoid/sentinel/mind_initialize()
 	..()
-	mind.special_role = SPECIAL_ROLE_XENOMORPH_SENTINEL
+	mind.special_role = SPECIAL_ROLE_ALIEN_SENTINEL
 	//XENO LARVA
 /mob/living/carbon/alien/larva/mind_initialize()
 	..()
-	mind.special_role = SPECIAL_ROLE_XENOMORPH_LARVA
+	mind.special_role = SPECIAL_ROLE_ALIEN_LARVA
 
 //AI
 /mob/living/silicon/ai/mind_initialize()

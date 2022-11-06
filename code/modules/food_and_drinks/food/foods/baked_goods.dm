@@ -312,7 +312,7 @@
 		reagents.add_reagent("omnizine", 5)
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
-	name = "xeno-pie"
+	name = "alien-pie"
 	icon_state = "xenomeatpie"
 	desc = "A delicious meatpie. Probably heretical."
 	trash = /obj/item/trash/plate

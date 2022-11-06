@@ -19,18 +19,18 @@
 	icon_state = "meatbreadslice"
 	filling_color = "#FF7575"
 
-/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread
-	name = "xenomeatbread loaf"
+/obj/item/reagent_containers/food/snacks/sliceable/alienmeatbread
+	name = "alienmeatbread loaf"
 	desc = "The culinary base of every self-respecting eloquent gentleman. Extra Heretical."
 	icon_state = "xenomeatbread"
-	slice_path = /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
+	slice_path = /obj/item/reagent_containers/food/snacks/alienmeatbreadslice
 	slices_num = 5
 	filling_color = "#8AFF75"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
 	tastes = list("bread" = 10, "acid" = 10)
 
-/obj/item/reagent_containers/food/snacks/xenomeatbreadslice
-	name = "xenomeatbread slice"
+/obj/item/reagent_containers/food/snacks/alienmeatbreadslice
+	name = "alienmeatbread slice"
 	desc = "A slice of delicious meatbread. Extra Heretical."
 	icon_state = "xenobreadslice"
 	filling_color = "#8AFF75"

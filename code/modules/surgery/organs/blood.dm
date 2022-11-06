@@ -313,7 +313,7 @@
 	if(!T)
 		T = get_turf(src)
 
-	var/obj/effect/decal/cleanable/blood/xeno/splatter/B = locate() in T
+	var/obj/effect/decal/cleanable/blood/alien/splatter/B = locate() in T
 	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //The more the better.
 	if(shift_x || shift_y)
 		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y)

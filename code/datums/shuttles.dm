@@ -55,7 +55,7 @@
 	suffix = "mil"
 	name = "emergency shuttle (military)"
 	description = "Troop transport with point defense turrets."
-	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
+	admin_notes = "Designed to ensure a safe evacuation during alien outbreaks."
 
 
 /datum/map_template/shuttle/emergency/clown

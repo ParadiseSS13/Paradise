@@ -36,7 +36,7 @@
 	icon = null
 	invisibility = 101
 	dust_animation()
-	new /obj/effect/decal/remains/xeno(loc)
+	new /obj/effect/decal/remains/alien(loc)
 	GLOB.dead_mob_list -= src
 	QDEL_IN(src, 15)
 	return TRUE
@@ -48,7 +48,7 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 	flick("dust-a", animation)
-	new /obj/effect/decal/remains/xeno(loc)
+	new /obj/effect/decal/remains/alien(loc)
 	GLOB.dead_mob_list -= src
 	QDEL_IN(animation, 15)
 

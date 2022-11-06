@@ -129,7 +129,7 @@
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
 			if(isalien(L))
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter/aliensplatter(target_loca, splatter_dir)
 			else
 				var/blood_color = "#C80000"
 				if(ishuman(target))
