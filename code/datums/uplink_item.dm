@@ -611,6 +611,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SSC"
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
+	cost = 25
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Toy Submachine Gun"
