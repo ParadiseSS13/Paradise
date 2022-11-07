@@ -83,7 +83,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 						continue
 					SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
 				set_stationwide_emergency_lighting()
-				addtimer(CALLBACK(GLOBAL_PROC,  GLOBAL_PROC_REF(epsilon_process)), 15 SECONDS)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(epsilon_process)), 15 SECONDS)
 				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 				return
 

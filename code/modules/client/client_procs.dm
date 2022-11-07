@@ -593,7 +593,7 @@
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
-	INVOKE_ASYNC(GLOBAL_PROC,  GLOBAL_PROC_REF(log_connection), ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
