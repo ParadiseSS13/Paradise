@@ -7,8 +7,8 @@
 	density = FALSE
 	anchored = FALSE
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 0.0
-	throwforce = 0.0
+	force = 0
+	throwforce = 0
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT
@@ -37,7 +37,6 @@
 			return
 		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
 		M.adjustStaminaLoss(100)
-	return
 
 /obj/item/beach_ball/holoball
 	name = "basketball"
@@ -59,7 +58,7 @@
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
 		var/obj/item/grab/G = W
-		if(G.state<2)
+		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return
 		G.affecting.loc = src.loc
