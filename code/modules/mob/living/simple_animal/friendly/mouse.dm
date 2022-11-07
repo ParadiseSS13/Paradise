@@ -32,6 +32,7 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = FALSE
 	can_hide = TRUE
+	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
