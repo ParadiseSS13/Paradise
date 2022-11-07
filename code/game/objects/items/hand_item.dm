@@ -11,7 +11,7 @@
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
 
-/obj/item/slapper/attack(mob/M, mob/living/carbon/human/user)
+/obj/item/slapper/attack(mob/M, mob/living/carbon/user)
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
 	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", "<span class='notice'>You slap [M]!</span>", "<span class='hear'>You hear a slap.</span>")

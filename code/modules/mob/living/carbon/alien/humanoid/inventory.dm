@@ -45,3 +45,13 @@
 				if(l_store)		l_store.attack_alien(src)
 			if(slot_r_store)
 				if(r_store)		r_store.attack_alien(src)
+
+/mob/living/carbon/alien/humanoid/put_in_hands(obj/item/I)
+	if(!I)
+		return FALSE
+	if(put_in_active_hand(I))
+		return TRUE
+	else if(put_in_inactive_hand(I))
+		return TRUE
+	else
+		return FALSE

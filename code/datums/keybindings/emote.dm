@@ -239,6 +239,10 @@
 	linked_emote = /datum/emote/living/carbon/kiss
 	name = "Kiss" //PG13
 
+/datum/keybinding/emote/carbon/slap
+	linked_emote = /datum/emote/living/carbon/slap
+	name = "Slap"
+
 /datum/keybinding/emote/carbon/wave
 	linked_emote = /datum/emote/living/carbon/wave
 	name = "Wave"
@@ -392,11 +396,6 @@
 /datum/keybinding/emote/carbon/human/sneeze
 	linked_emote = /datum/emote/living/carbon/human/sneeze
 	name = "Sneeze"
-
-/datum/keybinding/emote/carbon/human/slap
-	linked_emote = /datum/emote/living/carbon/human/slap
-	name = "Slap"
-
 /datum/keybinding/emote/carbon/human/wink
 	linked_emote = /datum/emote/living/carbon/human/wink
 	name = "Wink"
