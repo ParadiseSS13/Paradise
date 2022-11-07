@@ -15,7 +15,7 @@
 
 
 /obj/machinery/icemachine/proc/generate_name(reagent_name)
-	var/name_prefix = pick("Mr.","Mrs.","Super","Happy","Whippy", "Sugary", "Sweet", "Lawful", "Chaotic", "Neutral", "Drippy")
+	var/name_prefix = pick("Mr.","Mrs.","Mx.","Dr.","Super","Happy","Whippy", "Sugary", "Sweet", "Lawful", "Chaotic", "Neutral", "Drippy","Sicknasty","Tubular","Radical")
 	var/name_suffix = pick(" Whippy "," Slappy "," Creamy "," Dippy "," Swirly "," Swirl ", " Rootin'Tootin "," Frosty ", " Chilly "," Neutral ", " Good ", " Evil ", " Smooth ", " Chunky ", " Flaming ")
 	var/cone_name = null	//Heart failure prevention.
 	cone_name += name_prefix
@@ -55,8 +55,9 @@
 
 
 /obj/machinery/icemachine/proc/validexchange(reag)
-	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "vanilla" | reag == "whiskey" | reag == "brownstar")
-		return 1
+	var/list/static/invalid_reagents = list("sprinkles", "cola", "kahlua", "dr_gibb", "vodka", "space-up", "rum", "spacemountainwind", "gin", "cream", "vanilla")
+	if(reag in invalid_reagents)
+		return
 	else
 		if(reagents.total_volume < 500)
 			to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
