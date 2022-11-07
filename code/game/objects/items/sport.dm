@@ -36,7 +36,7 @@
 		if((M.r_hand == src) || (M.l_hand == src))
 			return
 		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
-		M.adjustStaminaLoss(100)
+		M.KnockDown(6 SECONDS)
 
 /obj/item/beach_ball/holoball
 	name = "basketball"
@@ -56,7 +56,7 @@
 	pass_flags = LETPASSTHROW
 
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
+	if(istype(W, /obj/item/grab) && get_dist(src,user) <= 1)
 		var/obj/item/grab/G = W
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
@@ -66,7 +66,7 @@
 		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
 		qdel(W)
 		return
-	else if(isitem(W) && get_dist(src,user)<2)
+	else if(isitem(W) && get_dist(src,user) <= 1)
 		user.drop_item(src)
 		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
 		return
