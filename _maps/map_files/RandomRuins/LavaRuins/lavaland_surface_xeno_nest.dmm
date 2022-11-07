@@ -6,84 +6,84 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "c" = (
 /obj/structure/alien/weeds,
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "d" = (
 /obj/structure/alien/resin/wall,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "e" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "f" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "g" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "i" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "j" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "l" = (
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "o" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/item/gun/projectile/automatic/pistol,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "r" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/wall,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "t" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "u" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "v" = (
 /obj/structure/alien/weeds/node,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "w" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "y" = (
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "z" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -93,26 +93,26 @@
 /obj/item/melee/baton/loaded,
 /obj/item/clothing/head/helmet,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "B" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "C" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "E" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/drone{
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "F" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/queen/large{
@@ -122,7 +122,7 @@
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "G" = (
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -130,7 +130,7 @@
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "I" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -139,19 +139,19 @@
 /obj/item/clothing/under/syndicate,
 /obj/item/clothing/glasses/night,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "K" = (
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "L" = (
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien/drone{
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "M" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -161,11 +161,11 @@
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/head/helmet/space/syndicate/orange,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "O" = (
 /obj/structure/alien/weeds/node,
 /turf/template_noop,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "Q" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood,
@@ -173,11 +173,11 @@
 	plants_off = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 "R" = (
 /obj/structure/alien/weeds,
 /turf/template_noop,
-/area/ruin/unpowered/aliennest)
+/area/ruin/unpowered/alien_nest)
 
 (1,1,1) = {"
 a
