@@ -180,4 +180,4 @@
 
 /mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
 	//Don't call parent here as the mob isn't doing the hitting, technically
-	possessed_item.throw_impact(hit_atom, throwingdatum)
+	return possessed_item.throw_impact(hit_atom, throwingdatum)

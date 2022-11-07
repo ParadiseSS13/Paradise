@@ -215,7 +215,7 @@
 
 /obj/effect/proc_holder/spell/aoe/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
-		for(var/obj/machinery/light/L in targets)
+		for(var/obj/machinery/light/L as anything in targets)
 			INVOKE_ASYNC(src, .proc/shock_lights, L, user)
 
 /obj/effect/proc_holder/spell/aoe/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
@@ -317,7 +317,7 @@
 	if(!attempt_cast(user))
 		return
 	var/successes = 0
-	for(var/obj/item/nearby_item in targets)
+	for(var/obj/item/nearby_item as anything in targets)
 		// Don't throw around anchored things or dense things
 		// (Or things not on a turf but I am not sure if range can catch that)
 		if(nearby_item.anchored || nearby_item.density || nearby_item.move_resist == INFINITY || !isturf(nearby_item.loc))
@@ -400,7 +400,7 @@
 	if(!attempt_cast(user))
 		return
 
-	for(var/mob/living/M in targets)
+	for(var/mob/living/M as anything in targets)
 		M.AdjustHallucinate(120 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
 		new /obj/effect/temp_visual/revenant(get_turf(M))
 
