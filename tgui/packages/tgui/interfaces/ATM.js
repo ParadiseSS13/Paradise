@@ -78,11 +78,6 @@ const IntroductionAndCard = (props, context) => {
     <Section title="Nanotrasen Automatic Teller Machine">
       <Box>For all your monetary need!</Box>
       <Divider />
-      <Box>
-        <Icon name="info-circle" /> This terminal is <i>{machine_id}</i>, report
-        this code when contacting Nanotrasen IT Support.
-      </Box>
-      <Divider />
       <LabeledList>
         <LabeledList.Item label="Card">
           <Button

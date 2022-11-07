@@ -26,11 +26,11 @@ SUBSYSTEM_DEF(economy)
 	///Current Order number
 	var/ordernum = 1
 
-	var/credits_per_manifest = 2				//points gained per slip returned
-	var/credits_per_crate = 40			//points gained per crate returned
-	var/credits_per_intel = 250			//points gained per intel returned
-	var/credits_per_plasma = 15			//points gained per plasma returned
-	var/credits_per_design = 25			//points gained per research design returned
+	var/credits_per_manifest = 5				//points gained per slip returned
+	var/credits_per_crate = 20			//points gained per crate returned
+	var/credits_per_intel = 750			//points gained per intel returned
+	var/credits_per_plasma = 10			//points gained per plasma returned
+	var/credits_per_design = 20			//points gained per research design returned
 
 	var/centcom_message					//Remarks from Centcom on how well you checked the last order.
 	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
@@ -101,10 +101,8 @@ SUBSYSTEM_DEF(economy)
 	money_account_databases += station_db
 	for(var/datum/station_department/department as anything in SSjobs.station_departments)
 		station_db.create_department_account(department.department_name, department.account_base_pay, department.account_starting_balance)
-		department.department_account = GLOB.station_money_database.get_account_by_department(department.department_name)
-		requestlist[department.department_name] = list()
+		department.department_account = station_db.get_account_by_department(department.department_name)
 	//some crates ordered outside of cargo members still need QM explicit approval
-	requestlist[QM_REQUEST_LIST_NAME] = list()
 	station_db.create_vendor_account()
 
 /datum/controller/subsystem/economy/proc/populate_cc_database()
@@ -132,33 +130,31 @@ SUBSYSTEM_DEF(economy)
 
 	return order
 
-/datum/controller/subsystem/economy/proc/process_supply_order(datum/supply_order/order, paid_for, department)
+/datum/controller/subsystem/economy/proc/process_supply_order(datum/supply_order/order, paid_for)
 	if(!order)
 		CRASH("process_supply_order() called with a null datum/supply_order")
-	//if purchase is ordered for a department
-	if(department && !paid_for && !(order in requestlist[department]))
-		requestlist[department] += order //submit a request but do not finalize it
+
+	if(!paid_for && !(order in requestlist))
+		requestlist += order //submit a request but do not finalize it
 		return TRUE
-	//if purchase is authenticated and requires QM approve still
-	if(order.requires_qm_approval)
-		requestlist[QM_REQUEST_LIST_NAME] += order //put up a request up to QM approval
-		if(order in requestlist[department])
-			requestlist[department] -= order
+
+	if(order.requires_head_approval || order.requires_qm_approval)
 		return TRUE
-	//if purchaser has already paid with their own personal account, finalize order
+
+	//if purchaser has already paid it means it's fully approved, finalize order
 	if(paid_for)
-		finalize_supply_order(order, department) //if payment was succesful, add order to shoppinglist
+		finalize_supply_order(order) //if payment was succesful, add order to shoppinglist
 		return TRUE
 	//we shouldn't be here, this means that the crate isn't paid for and doesn't need approval
 	qdel(order) //only the strong will survive
 	return FALSE
 
-/datum/controller/subsystem/economy/proc/finalize_supply_order(datum/supply_order/order, department)
+/datum/controller/subsystem/economy/proc/finalize_supply_order(datum/supply_order/order)
 	if(!order)
 		CRASH("finalize_supply_order() called with a null datum/supply_order")
+	if(order in requestlist)
+		requestlist -= order
 	shoppinglist += order
-	if(department)
-		requestlist[department] -= order
 
 ////////////////////////////
 /// Paycheck Stuff /////////

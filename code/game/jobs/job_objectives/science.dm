@@ -9,7 +9,7 @@
 	gives_payout = TRUE
 	completion_payment = 150
 
-/datum/job_objective/maximize_research/check_for_completion()
+/datum/job_objective/further_research/check_for_completion()
 	var/tech_above_two = 0
 	for(var/tech in SSeconomy.techLevels)
 		if(SSeconomy.techLevels[tech] > 2)
@@ -28,8 +28,14 @@
 	description = "Construct atleast one cyborg for the station to increase workplace productivity"
 	completion_payment = 100
 
+/datum/job_objective/further_research/check_for_completion()
+	return completed
+
 //RIPLEY's
 /datum/job_objective/make_ripley
 	objective_name = "Construct a Ripley Mech"
 	description = "Construct a Ripley Mech for station usage"
 	completion_payment = 200
+
+/datum/job_objective/make_ripley/check_for_completion()
+	return completed

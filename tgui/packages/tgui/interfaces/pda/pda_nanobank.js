@@ -98,7 +98,7 @@ const Transfer = (props, context) => {
   return (
     <>
       <LabeledList>
-        <LabeledList.Item label="acount">
+        <LabeledList.Item label="Account">
           <Dropdown
             mt={0.6}
             width="190px"

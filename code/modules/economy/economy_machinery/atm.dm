@@ -81,18 +81,20 @@
 	if(istype(I, /obj/item/card))
 		if(powered())
 			handle_id_insert(I, user)
+			return TRUE
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
 			if(!powered())
 				return
 			insert_cash(I, user)
+			return TRUE
 
 	return ..()
 
 /obj/machinery/economy/atm/insert_cash(obj/item/stack/spacecash/cash_money, mob/user)
 	visible_message("<span class='info'>[user] inserts [cash_money] into [src].</span>")
 	cash_stored += cash_money.amount
-	account_database.credit_account(authenticated_account, cash_money.amount, "ATM Deposity", machine_id, FALSE)
+	account_database.credit_account(authenticated_account, cash_money.amount, "ATM Deposit", machine_id, FALSE)
 	cash_money.use(cash_money.amount)
 	return TRUE
 
@@ -111,7 +113,7 @@
 		return
 	held_card.forceMove(loc)
 	UnregisterSignal(held_card, COMSIG_PARENT_QDELETING)
-	if(ishuman(user) && !user.get_active_hand())
+	if(ishuman(user))
 		user.put_in_hands(held_card)
 	authenticated_account = null
 	held_card = null

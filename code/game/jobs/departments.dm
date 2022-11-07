@@ -1,11 +1,12 @@
 /datum/station_department
+	///name of department, used to determine department money account names as well
 	var/department_name = "unnamed department"
 
 	///The amount this departments will get endowed with a roundstart in their money account
 	var/account_starting_balance = DEPARTMENT_BALANCE_MEDIUM
 	///The amount this department will be payed every payday at a minimum (unless deducted otherwise)
 	var/account_base_pay = DEPARTMENT_BASE_PAY_MEDIUM
-	///The access need to get into this department account
+	///The access need to get into this department account, this is a one req access list
 	var/account_access = list()
 	///The money account tied to this department
 	var/datum/money_account/department_account
@@ -15,12 +16,22 @@
 	///A list of occupation names in this department
 	var/department_roles = list()
 
+/datum/station_department/can_vv_delete()
+	message_admins("An admin attempted to VV delete a station_department datum, please stop doing this it will break cargo")
+	return FALSE
+
+
+/datum/station_department/proc/has_account_access(list/access)
+	if(!length(account_access))
+		return TRUE
+	return has_access(list(), account_access, access)
+
 /datum/station_department/command
 	department_name = DEPARTMENT_COMMAND
 
 	account_starting_balance = DEPARTMENT_BALANCE_LOW
 	account_base_pay = DEPARTMENT_BASE_PAY_LOW
-	account_access = list(ACCESS_CAPTAIN)
+	account_access = list(ACCESS_CAPTAIN, ACCESS_HOP)
 	department_roles = list(
 		"Captain",
 		"Head of Personnel",
@@ -94,7 +105,7 @@
 
 	account_starting_balance = DEPARTMENT_BALANCE_LOW
 	account_base_pay = DEPARTMENT_BASE_PAY_LOW
-	account_access = list(ACCESS_HOP)
+	account_access = list(ACCESS_HOP, ACCESS_QM)
 	department_roles = list(
 		"Head of Personnel",
 		"Quartermaster",

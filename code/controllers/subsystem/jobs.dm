@@ -597,15 +597,17 @@ SUBSYSTEM_DEF(jobs)
 		remembered_info = ""
 		var/list/users_departments = get_departments_from_job(job.title)
 		//we use the first entry in the list because it prioritizes generic departments over command
-		var/datum/money_account/department_account = GLOB.station_money_database.department_accounts[users_departments[1]]
+		for(var/datum/station_department/department as anything in users_departments)
+			if(job.title != department.head_of_staff)
+				continue
+			var/datum/money_account/department_account = department.department_account
+			if(department_account)
+				remembered_info += "<b>As a head of staff you have access to your department's funds<br>"
+				remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
+				remembered_info += "<b>Your department's account pin is:</b> [department_account.account_pin]<br>"
+				remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
 
-		if(department_account)
-			remembered_info += "<b>As a head of staff you have access to your department's funds<br>"
-			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
-			remembered_info += "<b>Your department's account pin is:</b> [department_account.account_pin]<br>"
-			remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
-
-		H.mind.store_memory(remembered_info)
+			H.mind.store_memory(remembered_info)
 
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")

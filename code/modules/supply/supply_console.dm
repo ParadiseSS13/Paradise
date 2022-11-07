@@ -42,6 +42,16 @@
 	ui_interact(user)
 	return
 
+/obj/machinery/computer/supplycomp/proc/has_qm_access(list/access)
+	return (ACCESS_QM in access) ? TRUE : FALSE
+
+/obj/machinery/computer/supplycomp/proc/is_authorized(mob/user)
+	if(allowed(user))
+		return TRUE
+	if(user.can_admin_interact())
+		return TRUE
+	return FALSE
+
 /obj/machinery/computer/supplycomp/proc/get_supply_group_name(cat)
 	switch(cat)
 		if(SUPPLY_EMERGENCY)
@@ -63,6 +73,104 @@
 		if(SUPPLY_VEND)
 			return "Vending"
 
+/obj/machinery/computer/supplycomp/proc/build_request_data(mob/user)
+	var/list/requests = list()
+
+	var/is_silicon = issilicon(user)
+	var/obj/item/card/id/C
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		C = H.get_idcard(TRUE)
+
+	for(var/datum/supply_order/order as anything in SSeconomy.requestlist)
+		//can this specific order request be approved the the mob user?
+		var/can_approve = FALSE
+		//can this specific order request be denied the the mob user?
+		var/can_deny = FALSE
+		if(C && order.orderedby == C.registered_name)
+			can_deny = TRUE //if it's your crate, you can deny it
+		if(is_silicon) //robots can do whatever they want
+			can_approve = TRUE
+			can_deny = TRUE
+		if(order.requires_qm_approval)
+			if(has_qm_access(C.access)) //if the crate needs QM approval and you have QM access, you get app and deny rights
+				can_approve = TRUE
+				can_deny = TRUE
+		else if(order.requires_head_approval)
+			if(C && order.ordered_by_department.has_account_access(C.access))
+				can_approve = TRUE //if the crate DOESN'T need QM approval (or QM already approved it), you get app and deny rights
+				can_deny = TRUE
+
+		var/list/request_data = list(
+			"ordernum" = order.ordernum,
+			"supply_type" = order.object.name,
+			"orderedby" = order.orderedby,
+			"department" = order.ordered_by_department?.department_name,
+			"cost" = order.object.cost,
+			"comment" = order.comment,
+			"req_qm_approval" = order.requires_qm_approval,
+			"req_head_approval" = order.requires_head_approval,
+			"can_approve" = can_approve,
+			"can_deny" = can_deny)
+		//The way approval rights is determined
+		//If a crate requires QM approval and head approval - Only the QM can approve it for now, heads can still deny it at this point however
+		//If a crate requires head approval - They can approve it as long as they have department account access and the crate doesn't still need QM approval
+		requests += list(request_data)
+	return requests
+
+/obj/machinery/computer/supplycomp/proc/get_accounts(mob/user)
+	if(!ishuman(user))
+		if(isobserver(user) && is_admin(user))
+			//if an admin is accessing, return all department accounts
+			return account_database.get_all_department_accounts()
+		return list(cargo_account) //else only the cargo account
+
+	var/mob/living/carbon/human/H = user
+	var/obj/item/card/id/C = H.get_idcard(TRUE)
+	var/list/accounts = list()
+	if(C) //if human and has ID, get accounts associated with crew members assigned role
+		var/datum/money_account/customer_account = C.get_card_account()
+		if(customer_account) //get customers account and make it the fist entry
+			accounts += customer_account
+		var/list/department_accounts = list() //time to get department accounts
+		if(ACCESS_CAPTAIN in C.access)
+			//if captain access, get all accounts
+			department_accounts = account_database.get_all_department_accounts()
+		else
+			//otherwise just get crew members specific departments
+			var/list/departments = C.get_departments() //will return up to 2 departments
+			for(var/datum/station_department/department in departments)
+				accounts += department.department_account
+		if(length(department_accounts))
+			accounts += department_accounts
+	if(!length(accounts) || !(cargo_account in accounts))
+		accounts += cargo_account
+	return accounts
+
+/obj/machinery/computer/supplycomp/proc/build_account_data(mob/user)
+	var/list/departments = get_accounts(user)
+	var/list/accounts = list()
+	for(var/datum/money_account/account as anything in departments)
+		var/list/account_data = list(
+			"name" = account.account_name,
+			"balance" = account.credit_balance,
+			"account_UID" = account.UID(),
+		)
+		accounts += list(account_data)
+	return accounts
+
+/obj/machinery/computer/supplycomp/proc/build_shopping_list_data()
+	var/list/orders = list()
+	for(var/datum/supply_order/order as anything in SSeconomy.shoppinglist)
+		var/list/order_data = list(
+			"ordernum" = order.ordernum,
+			"supply_type" = order.object.name,
+			"orderedby" = order.orderedby,
+			"comment" = order.comment
+		)
+		orders += list(order_data)
+	return orders
+
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(!cargo_account || !account_database)
 		reconnect_database()
@@ -73,77 +181,11 @@
 
 /obj/machinery/computer/supplycomp/ui_data(mob/user)
 	var/list/data = list()
-	var/obj/item/card/id/C
-	var/list/departments = list()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		C = H.get_idcard(TRUE)
-		departments = C?.get_departments() //get_departments returns a list of departments
 
-
-	data["requests"] = list()
-	for(var/department in SSeconomy.requestlist)
-		if(!(department in departments) && department != QM_REQUEST_LIST_NAME)
-			continue
-
-		for(var/request in SSeconomy.requestlist[department])
-			var/datum/supply_order/SO = request
-			if(department == QM_REQUEST_LIST_NAME && SO.orderedby != C.registered_name)
-				continue
-			if(SO)
-				var/list/request_data = list()
-				request_data = list(
-					"ordernum" = SO.ordernum,
-					"supply_type" = SO.object.name,
-					"orderedby" = SO.orderedby,
-					"department" = SO.ordered_by_department,
-					"comment" = SO.comment ? SO.comment : "No comment.",
-					"notice" = ((department == QM_REQUEST_LIST_NAME && SO.requires_qm_approval) || department == DEPARTMENT_SUPPLY) ? "QM Approval Required" : "Department Head Approval Required",
-					"can_approve" = ((department == QM_REQUEST_LIST_NAME || department == DEPARTMENT_SUPPLY) && SO.requires_qm_approval && (ACCESS_QM in C.access)) || (department != QM_REQUEST_LIST_NAME && (ACCESS_HEADS in C.access)) ? TRUE : FALSE)
-				data["requests"] += list(request_data)
-
-	var/list/orders_list = list()
-	for(var/set_name in SSeconomy.shoppinglist)
-		var/datum/supply_order/SO = set_name
-		if(SO)
-			orders_list.Add(list(list(
-				"ordernum" = SO.ordernum,
-				"supply_type" = SO.object.name,
-				"orderedby" = SO.orderedby,
-				"comment" = SO.comment)))
-
-	data["accounts"] = list()
-	if(ishuman(user) && C)
-		var/datum/money_account/customer_account = C.get_card_account()
-		if(customer_account)
-			data["accounts"] += list(list(
-				"name" = customer_account.account_name,
-				"balance" = customer_account.credit_balance,
-				"account_UID" = customer_account.UID(),
-			))
-		data["user_departments"] = list()
-		for(var/department in departments)
-			if(department == DEPARTMENT_SUPPLY)
-				continue //prevents duplicate entries
-			data["user_departments"] += department
-			var/datum/money_account/department_account = account_database.get_account_by_department(department)
-			if(department_account)
-				data["accounts"] += list(list(
-					"name" = department_account.account_name,
-					"balance" = department_account.credit_balance,
-					"account_UID" = department_account.UID(),
-				))
-	if(cargo_account)
-		data["accounts"] += list(list(
-			"name" = cargo_account.account_name,
-			"balance" = cargo_account.credit_balance,
-			"account_UID" = cargo_account.UID(),
-		))
-
-	data["orders"] = orders_list
-
+	data["requests"] = build_request_data(user)
+	data["accounts"] = build_account_data(user)
+	data["orders"] = build_shopping_list_data()
 	data["is_public"] = is_public
-
 	data["approve_ready"] = (SSshuttle.supply.getDockedId() == "supply_away") && SSshuttle.supply.mode == SHUTTLE_IDLE
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
@@ -176,24 +218,13 @@
 
 	return static_data
 
-/obj/machinery/computer/supplycomp/proc/is_authorized(mob/user)
-	if(allowed(user))
-		return TRUE
 
-	if(user.can_admin_interact())
-		return TRUE
-
-	return FALSE
 
 /obj/machinery/computer/supplycomp/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
 	var/mob/user = ui.user
-	var/obj/item/card/id/C
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		C = H.get_idcard(TRUE)
 
 	// If its not a public console, and they aint authed, dont let them use this
 	if(!is_public && !is_authorized(user))
@@ -239,98 +270,23 @@
 			else if(issilicon(user))
 				idname = user.real_name
 
-
 			//===orderee account information===
 			var/datum/money_account/selected_account = locateUID(params["account"])
 			var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, amount, reason)
-			var/department
-
-			if(!istype(selected_account)) //if no account found, just default to cargo account
-				selected_account = cargo_account
-				order.ordered_by_department = DEPARTMENT_SUPPLY
-			else
-				for(var/department_key in account_database.department_accounts)
-					if(account_database.department_accounts[department_key] == selected_account)
-						department = department_key
-						order.ordered_by_department = department
-						//check to see if department restriction list is empty or our department is part of the whitelist, otherwise force QM approval
-						if(length(order.object.department_restrictions) && !(department in order.object.department_restrictions))
-							order.requires_qm_approval = TRUE
-				if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL && length(order.object.department_restrictions))
-					order.requires_qm_approval = TRUE
-
-			//===Handle Supply Order===
-			if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL)
-				//if the account is a personal account (and doesn't require QM approval), go ahead and pay for it now
-				order.orderedbyaccount = selected_account
-				if(attempt_account_authentification(selected_account, user))
-					var/paid_for = FALSE
-					if(!order.requires_qm_approval && pay_with_account(selected_account, order.object.cost, "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
-						paid_for = TRUE
-					SSeconomy.process_supply_order(order, paid_for, department) //add order to shopping list
-			else //if its a department account with pin or higher security or need QM approval, go ahead and add this to the departments section in request list
-				SSeconomy.process_supply_order(order, FALSE, department)
-				investigate_log("| [key_name(user)] has placed an order for [amount] [order.object.name] with reason: '[reason]'", "cargo")
+			order_crate(user, order, selected_account)
 		if("approve")
 			if(SSshuttle.supply.getDockedId() != "supply_away" || SSshuttle.supply.mode != SHUTTLE_IDLE)
 				return
-
 			var/ordernum = text2num(params["ordernum"])
-			var/datum/supply_order/order
-			var/datum/supply_packs/pack
-			for(var/department_key in SSeconomy.requestlist)
-				for(var/datum/supply_order/department_order in SSeconomy.requestlist[department_key])
-					if(department_order.ordernum == ordernum)
-						order = department_order
-						pack = order.object
-						var/department = order.ordered_by_department
-						var/datum/money_account/account = account_database.department_accounts[department]
-						if((ACCESS_QM in C.access) && (department_key == QM_REQUEST_LIST_NAME || department == DEPARTMENT_SUPPLY))
-							order.requires_qm_approval = FALSE
-							if(!account) //a personal account would cause account to be null
-								account = order.orderedbyaccount
-							if(pay_with_account(account, order.object.cost, "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
-								SSeconomy.requestlist[QM_REQUEST_LIST_NAME] -= order
-								SSeconomy.process_supply_order(order, TRUE, department) //send 'er back through
-							else
-								atom_say("Account tied to order cannot pay")
-								SSeconomy.requestlist[QM_REQUEST_LIST_NAME] -= order
-							break
-						//since this isn't the QM approving stu
-						if((ACCESS_HEADS in C.access) && department_key != QM_REQUEST_LIST_NAME)
-							if(!(order in SSeconomy.requestlist[department_key]))
-								return //nice try
-							if(attempt_account_authentification(account, user))
-								if(order.requires_qm_approval)
-									SSeconomy.process_supply_order(order, FALSE, department)
-								else
-									if(pay_with_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
-										SSeconomy.process_supply_order(order, TRUE, department)
-										investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
-										SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
-									else
-										SSeconomy.requestlist[department_key] -= order
-						break
+			if(!ordernum)
+				return
+			approve_crate(user, ordernum)
 		if("deny")
 			var/ordernum = text2num(params["ordernum"])
-			var/datum/supply_order/order
-			for(var/department_key in SSeconomy.requestlist)
-				for(var/datum/supply_order/department_order in SSeconomy.requestlist[department_key])
-					if(department_order.ordernum == ordernum)
-						order = department_order
-						// allow cancelling of our own orders
-						if(C && order.orderedby == C.registered_name)
-							SSeconomy.requestlist[department_key] -= order
-							break
-						// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
-						else
-							if(department_key == QM_REQUEST_LIST_NAME)
-								if(ACCESS_QM in C.access)
-									SSeconomy.requestlist[QM_REQUEST_LIST_NAME] -= order
-							else if(ACCESS_HEADS in C.access)
-								SSeconomy.requestlist[department_key] -= order
-							investigate_log("| [key_name(user)] has denied an order for [order.object.name].", "cargo")
-							break
+			if(!ordernum)
+				return
+			deny_crate(user, ordernum)
+
 
 		// Popup to show CC message logs. Its easier this way to avoid box-spam in TGUI
 		if("showMessages")
@@ -340,6 +296,98 @@
 			var/datum/browser/ccmsg_browser = new(user, "ccmsg", "Central Command Cargo Message Log", 800, 600)
 			ccmsg_browser.set_content(SSeconomy.centcom_message)
 			ccmsg_browser.open()
+
+/obj/machinery/computer/supplycomp/proc/order_crate(mob/user, datum/supply_order/order, datum/money_account/account)
+	var/datum/money_account/selected_account = account
+	if(!istype(selected_account)) //if no account found, just default to cargo account
+		CRASH("order_crate called without a specified money account")
+	else
+		if(selected_account.account_type == ACCOUNT_TYPE_DEPARTMENT)
+			for(var/datum/station_department/department in SSjobs.station_departments)
+				if(department.department_account == selected_account)
+					order.ordered_by_department = department //now that we know which department this is for, attach it to the order
+					order.orderedbyaccount = selected_account
+					order.requires_head_approval = TRUE //because its a department order, automatically require head approval
+					if(length(order.object.department_restrictions))
+						//this crate has a department whitelist description
+						if(!(department.department_name in order.object.department_restrictions))
+							//this department is not in this whitelist, require QM approval
+							order.requires_qm_approval = TRUE
+
+		else if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL && length(order.object.department_restrictions))
+			order.requires_qm_approval = TRUE
+
+	//===Handle Supply Order===
+	if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL)
+		//if the account is a personal account (and doesn't require QM approval), go ahead and pay for it now
+		order.orderedbyaccount = selected_account
+		if(attempt_account_authentification(selected_account, user))
+			var/paid_for = FALSE
+			if(!order.requires_qm_approval && pay_with_account(selected_account, order.object.cost, "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
+				paid_for = TRUE
+			SSeconomy.process_supply_order(order, paid_for) //add order to shopping list
+	else //if its a department account with pin or higher security or need QM approval, go ahead and add this to the departments section in request list
+		SSeconomy.process_supply_order(order, FALSE)
+		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", "cargo")
+
+/obj/machinery/computer/supplycomp/proc/approve_crate(mob/user, order_num)
+	for(var/datum/supply_order/department_order in SSeconomy.requestlist)
+		if(department_order.ordernum == order_num)
+			var/datum/supply_order/order = department_order
+			var/datum/supply_packs/pack = order.object
+			var/datum/money_account/account = order.orderedbyaccount
+
+			if(order.requires_qm_approval)
+				if(!has_qm_access(user.get_access()))
+					return FALSE
+				order.requires_qm_approval = FALSE
+				if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
+					if(pay_with_account(account, order.object.cost, "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
+						SSeconomy.process_supply_order(order, TRUE) //send 'er back through
+						return TRUE
+					atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
+					SSeconomy.requestlist -= order //just remove order at this poin
+				else
+					return TRUE
+				return TRUE
+
+			if(order.requires_head_approval)
+				if(!department_order.ordered_by_department.has_account_access(user.get_access()))
+					return //no access!
+				if(attempt_account_authentification(account, user))
+					if(pay_with_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
+						SSeconomy.process_supply_order(order, TRUE)
+						investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
+						SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
+					else
+						atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
+						SSeconomy.requestlist -= order
+
+
+			//how did we get here?
+
+/obj/machinery/computer/supplycomp/proc/deny_crate(mob/user, order_num)
+	var/obj/item/card/id/C
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		C = H.get_idcard(TRUE)
+	for(var/datum/supply_order/department_order as anything in SSeconomy.requestlist)
+		if(department_order.ordernum == order_num)
+			var/datum/supply_order/order = department_order
+			// allow cancelling of our own orders
+			if(C && order.orderedby == C.registered_name)
+				SSeconomy.requestlist -= order
+				return
+			// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
+			else
+				if(order.requires_qm_approval && (ACCESS_QM in C.access))
+					SSeconomy.requestlist -= order
+				else if(order.requires_head_approval && (order.ordered_by_department.has_account_access(C.access)))
+					SSeconomy.requestlist -= order
+				else
+					return //how did we get here?
+				investigate_log("| [key_name(user)] has denied an order for [order.object.name].", "cargo")
+				return
 
 /obj/machinery/computer/supplycomp/proc/move_shuttle(mob/user)
 	if(is_public) // Public consoles cant move the shuttle. Dont allow exploiters.

@@ -9,12 +9,14 @@
 	var/orderedbyRank
 	///The account tied to this order, important for personal orders
 	var/orderedbyaccount
-	///The department of the person who ordere the supply order
-	var/ordered_by_department
+	///The station department datum of the person's department who ordered the supply order
+	var/datum/station_department/ordered_by_department
 	///Reason/purpose for order given by orderer
 	var/comment
 	///amount of crates purchased
 	var/crates
+	///does this order need to be approve by the department head?
+	var/requires_head_approval = FALSE
 	///does this order need to be approve by the QM?
 	var/requires_qm_approval = FALSE
 

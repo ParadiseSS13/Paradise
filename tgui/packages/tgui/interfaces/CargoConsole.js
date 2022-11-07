@@ -12,10 +12,13 @@ import {
   Input,
   Table,
   Modal,
+  Icon,
+  Flex,
 } from '../components';
 import { Window } from '../layouts';
 import { LabeledListItem } from '../components/LabeledList';
 import { createSearch, toTitleCase } from 'common/string';
+import { FlexItem } from '../components/Flex';
 
 export const CargoConsole = (props, context) => {
   return (
@@ -152,7 +155,7 @@ const PaymentPane = (properties, context) => {
 
 const CataloguePane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { categories, supply_packs, user_departments } = data;
+  const { categories, supply_packs } = data;
 
   const [category, setCategory] = useSharedState(
     context,
@@ -231,7 +234,6 @@ const CataloguePane = (_properties, context) => {
                       crate: c.ref,
                       multiple: 0,
                       account: selectedAccount,
-                      department: user_departments,
                     })
                   }
                 />
@@ -243,7 +245,6 @@ const CataloguePane = (_properties, context) => {
                       crate: c.ref,
                       multiple: 1,
                       account: selectedAccount,
-                      department: user_departments,
                     })
                   }
                 />
@@ -264,23 +265,91 @@ const CataloguePane = (_properties, context) => {
   );
 };
 
+const GetRequestNotice = (_properties, context) => {
+  const { request } = _properties;
+
+  let head_color;
+  let head_name;
+
+  switch (request.department) {
+    case "Engineering":
+      head_name = 'CE';
+      head_color = 'orange';
+      break;
+    case "Medical":
+      head_name = 'CMO';
+      head_color = 'teal';
+      break;
+    case "Science":
+      head_name = 'RD';
+      head_color = 'purple';
+      break;
+    case "Supply":
+      head_name = 'QM';
+      head_color = 'brown';
+      break;
+    case "Service":
+      head_name = 'HOP';
+      head_color = 'olive';
+      break;
+    case "Security":
+      head_name = 'HOS';
+      head_color = 'red';
+      break;
+    case "Command":
+      head_name = 'CAP';
+      head_color = 'blue';
+      break;
+  }
+
+  return (
+    <Flex>
+      <FlexItem mr={1}>
+        Approval Required:
+      </FlexItem>
+      {Boolean(request.req_qm_approval) &&
+        <FlexItem mr={1}>
+          <Button
+            color='brown'
+            content='QM'
+            icon='user-tie'
+            tooltip="This Order requires approval from the QM still"
+            />
+        </FlexItem>
+      }
+      {Boolean(request.req_head_approval) &&
+        <FlexItem>
+          <Button
+            color={head_color}
+            content={head_name}
+            disabled={request.req_qm_approval}
+            icon='user-tie'
+            tooltip={request.req_qm_approval
+              ? `This Order first requires approval from the QM before the ${head_name} can approve it`
+              : `This Order requires approval from the ${head_name} still`}
+            />
+        </FlexItem>
+      }
+    </Flex>
+  );
+};
+
 const DetailsPane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { requests, approve_ready, orders, user_departments } = data;
+  const { requests, approve_ready, orders } = data;
   return (
-    <Section title="Details">
+    <Section title="Orders">
       <Box maxHeight={15} overflowY="auto" overflowX="hidden">
         <Box bold>Requests</Box>
         <Table m="0.5rem">
           {requests.map((r) => (
-            <Table.Row key={r.ordernum}>
-              <Table.Cell>
+            <Table.Row key={r.ordernum} className="Cargo_RequestList">
+              <Table.Cell mb={1}>
                 <Box>
-                  - #{r.ordernum}: {r.supply_type} for <b>{r.orderedby}</b>
+                  Order #{r.ordernum}: {r.supply_type} ({r.cost} credits) for <b>{r.orderedby}</b> with {r.department ? `The ${r.department} Department` : "Their Personal"} Account
                 </Box>
                 <Box italic>Reason: {r.comment}</Box>
-                <Box>{`${r.department ? r.department : "Personal"} Order`}</Box>
-                <Box bold>{r.notice}</Box>
+                <GetRequestNotice request={r}/>
               </Table.Cell>
               <Table.Cell textAlign="right" pr={1}>
                 <Button
@@ -290,13 +359,13 @@ const DetailsPane = (_properties, context) => {
                   onClick={() =>
                     act('approve', {
                       ordernum: r.ordernum,
-                      department: user_departments,
                     })
                   }
                 />
                 <Button
                   content="Deny"
                   color="red"
+                  disabled={!r.can_deny}
                   onClick={() =>
                     act('deny', {
                       ordernum: r.ordernum,

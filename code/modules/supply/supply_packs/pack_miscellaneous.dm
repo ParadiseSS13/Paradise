@@ -20,7 +20,7 @@
 /datum/supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank/high)
-	cost = 12
+	cost = 100
 	containertype = /obj/structure/largecrate
 	containername = "high-capacity water tank crate"
 

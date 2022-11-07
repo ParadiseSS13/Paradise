@@ -12,7 +12,7 @@
 #define ACCOUNT_SECURITY_VENDOR      5
 
 /////STARTING CASH AMOUNTS/////
-#define CREW_MEMBER_STARTING_BALANCE    500
+#define CREW_MEMBER_STARTING_BALANCE    450
 #define COMMAND_MEMBER_STARTING_BALANCE 600
 #define CC_OFFICER_STARTING_BALANCE     50000
 
@@ -39,8 +39,6 @@
 /////CASH LIMITS/CAPS/////
 ///The total amount of space cash that can be stacked
 #define MAX_STACKABLE_CASH    10000
-
-#define QM_REQUEST_LIST_NAME "quartermaster"
 
 #define STATION_CREATION_DATE "2 April, 2555"
 #define STATION_CREATION_TIME "11:24:30"

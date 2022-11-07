@@ -11,21 +11,14 @@
 /proc/get_departments_from_job(job_name)
 	if(!job_name)
 		return
-	var/static/list/department_jobs = list(
-		"Engineering" = GLOB.engineering_positions,
-		"Medical" = GLOB.medical_positions,
-		"Science" = GLOB.science_positions,
-		"Supply" = GLOB.supply_positions,
-		"Service" = GLOB.service_positions,
-		"Security" = GLOB.security_positions,
-		"Assistant" = GLOB.assistant_positions,
-		"Silicon" = GLOB.nonhuman_positions,
-		"Command" = GLOB.command_positions, //command being last is important for economy stuff (see subsystem/jobs.dm)
-	)
 	var/list/found_departments = list()
-	for(var/department in department_jobs)
-		for(var/job in department_jobs[department])
+	for(var/datum/station_department/department as anything in SSjobs.station_departments)
+		for(var/job in department.department_roles)
 			if(job == job_name)
 				found_departments += department
 	return found_departments
 
+/proc/get_department_from_name(name)
+	for(var/datum/station_department/department in SSjobs.station_departments)
+		if(department.department_name == name)
+			return department

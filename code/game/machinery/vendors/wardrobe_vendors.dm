@@ -553,7 +553,7 @@
 					/obj/item/storage/backpack/satchel_hyd = 2,
 					/obj/item/storage/backpack/duffel/hydro = 2,)
 	contraband = list(/obj/item/toy/figure/crew/botanist = 1)
-	products = list(/obj/item/clothing/under/rank/civilian/hydroponics = 50,
+	prices = list(/obj/item/clothing/under/rank/civilian/hydroponics = 50,
 					/obj/item/reagent_containers/glass/bucket = 15,
 					/obj/item/clothing/suit/apron = 50,
 					/obj/item/clothing/suit/apron/overalls = 50,

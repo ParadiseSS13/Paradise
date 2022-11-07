@@ -118,7 +118,7 @@
 			if(!istype(request_from) || request_from == src)
 				return //account no longer exists or something fucked is going on
 			if(create_fund_request(user, transfer_amount, purpose, request_from))
-				to_chat(user, "[bicon(src)]<span class='notice'>NanoBank: Transfer Request Submitted</span>")
+				to_chat(user, "<span class='notice'>NanoBank: Transfer Request Submitted</span>")
 				last_transaction = world.time
 				if(!pda.silent)
 					playsound(pda, 'sound/machines/ping.ogg', 50, 0)
@@ -145,12 +145,12 @@
 
 /datum/data/pda/app/nanobank/proc/attempt_login(tried_account_num, tried_pin, mob/user)
 	if(!tried_account_num)
-		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: Account number not found.</span>")
+		to_chat(user, "<span class='warning'>Authentification Failure: Account number not found.</span>")
 		return FALSE
 
 	var/datum/money_account/attempt_account = account_database.find_user_account(tried_account_num, include_departments = TRUE)
 	if(!attempt_account)
-		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: User Account Not Found.</span>")
+		to_chat(user, "<span class='warning'>Authentification Failure: User Account Not Found.</span>")
 		return FALSE
 
 	if(account_database.try_authenticate_login(attempt_account, tried_pin, FALSE, FALSE, FALSE))
@@ -230,7 +230,7 @@
 	if(ishuman(pda.loc))
 		var/mob/user = pda.loc
 		if(user.stat != UNCONSCIOUS) // Awake or dead people can see their messages
-			to_chat(user, "[bicon(pda)] <span class='notice'>NanoBank: Paycheck of [amount] credits recieved</span>")
+			to_chat(user, "<span class='notice'>NanoBank: Paycheck of [amount] credits received</span>")
 	if(!pda.silent)
 		playsound(pda, 'sound/machines/ping.ogg', 50, 0)
 
