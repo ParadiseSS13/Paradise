@@ -401,7 +401,7 @@
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"
-	desc = "These shoes are made for quacking, and thats just what they'll do."
+	desc = "These shoes are made for quacking, and that's just what they'll do."
 	icon_state = "ducky"
 	item_state = "ducky"
 

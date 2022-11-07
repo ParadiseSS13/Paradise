@@ -182,6 +182,7 @@ GLOBAL_LIST_EMPTY(safes)
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
 			broken = FALSE
+			locked = FALSE
 			update_icon()
 		else if(I.w_class + space <= maxspace)
 			if(!user.drop_item())
@@ -355,7 +356,7 @@ GLOBAL_LIST_EMPTY(safes)
 	cut_overlay(progress_bar)
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
-	
+
 /**
   * # Floor Safe
   *

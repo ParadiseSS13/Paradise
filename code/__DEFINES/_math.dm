@@ -242,3 +242,5 @@
 
 // Gives you the percent of two inputs
 #define PERCENT_OF(val1, val2) (val1 * (val2 / 100))
+
+#define num2hex(X, len) uppertext(num2text(X, len, 16))
