@@ -148,7 +148,7 @@
 			else
 				L.death()
 		break
-	addtimer(CALLBACK(src, .proc/finish_cook, I, user), cooktime)
+	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
 
 /obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
 	if(QDELETED(I)) //For situations where the item being cooked gets deleted mid-cook (primed grenades)

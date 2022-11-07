@@ -1,10 +1,10 @@
 /*
 	USAGE:
 
-		var/datum/callback/C = new(object|null, /proc/type/path|"procstring", arg1, arg2, ... argn)
+		var/datum/callback/C = new(object|null, PROC_REF("procstring"), arg1, arg2, ... argn)
 		var/timerid = addtimer(C, time, timertype)
 		OR
-		var/timerid = addtimer(CALLBACK(object|null, /proc/type/path|procstring, arg1, arg2, ... argn), time, timertype)
+		var/timerid = addtimer(CALLBACK(object|null, PROC_REF(procstring), arg1, arg2, ... argn), time, timertype)
 
 		Note: proc strings can only be given for datum proc calls, global procs must be proc paths
 		Also proc strings are strongly advised against because they don't compile error if the proc stops existing
@@ -31,12 +31,12 @@
 
 
 		when the above doesn't apply:
-			.proc/procname
+			, procname
 			Example:
-				CALLBACK(src, .proc/some_proc_here)
+				CALLBACK(src, PROC_REF(some_proc_here))
 
 		proc defined on a parent of a some type:
-			/some/type/.proc/some_proc_here
+			/some/type, some_proc_here
 
 
 

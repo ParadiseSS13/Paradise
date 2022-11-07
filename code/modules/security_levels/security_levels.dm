@@ -83,7 +83,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 						continue
 					SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
 				set_stationwide_emergency_lighting()
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/epsilon_process), 15 SECONDS)
+				addtimer(CALLBACK(GLOBAL_PROC,  GLOBAL_PROC_REF(epsilon_process)), 15 SECONDS)
 				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 				return
 
@@ -183,7 +183,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				L.fire_mode = TRUE
 			L.on = FALSE
 			L.emergency_mode = TRUE
-			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /proc/unset_stationwide_emergency_lighting()
 	for(var/area/A as anything in GLOB.all_areas)
@@ -200,7 +200,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			L.fire_mode = FALSE
 			L.emergency_mode = FALSE
 			L.on = TRUE
-			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /proc/epsilon_process()
 	GLOB.security_announcement.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg')

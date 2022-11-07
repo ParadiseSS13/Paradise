@@ -123,7 +123,7 @@
 
 	return output
 
-// /proc/updateappearance has changed behavior, so it's been removed
+// PROC_REF(updateappearance has changed behavior), so it's been removed
 // Use mob.UpdateAppearance() instead.
 
 // Simpler. Don't specify UI in order for the mob to use its own.

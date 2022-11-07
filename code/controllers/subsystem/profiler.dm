@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(profiler)
 	// FETCH PROC PROFILE //
 
 	// Fetch info
-	var/current_profile_data = world.Profile(PROFILE_REFRESH, format = "json")
+	var/current_profile_data = world.Profile(PROFILE_REFRESH, "json")
 	nfetch_cost = MC_AVERAGE(nfetch_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 	CHECK_TICK // this shouldnt sleep given its being called from fire() but ehhhhhhhhhhhhhhhh
 
@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(profiler)
 	// FETCH MAPTICK PROFILE //
 
 	// Fetch info
-	var/current_sendmaps_data = world.Profile(PROFILE_REFRESH, type = "sendmaps", format = "json")
+	var/current_sendmaps_data = world.Profile(PROFILE_REFRESH, "sendmaps", "json")
 	mfetch_cost = MC_AVERAGE(mfetch_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 	CHECK_TICK
 

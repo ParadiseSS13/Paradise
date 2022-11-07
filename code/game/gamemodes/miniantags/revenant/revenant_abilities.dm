@@ -214,7 +214,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/select_lights(turf/T, mob/living/simple_animal/revenant/user)
 	for(var/obj/machinery/light/L in T.contents)
-		INVOKE_ASYNC(src, .proc/shock_lights, L, user)
+		INVOKE_ASYNC(src, PROC_REF(shock_lights), L, user)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
 	if(!L.on)
@@ -276,7 +276,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, .proc/effect, user, T)
+			INVOKE_ASYNC(src, PROC_REF(effect), user, T)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
 	T.rev_malfunction(TRUE)

@@ -38,15 +38,8 @@
 #define RUST_G (__rust_g || __detect_rust_g())
 #endif
 
-// Handle 515 call() -> call_ext() changes
-#if DM_VERSION >= 515
-#define RUSTG_CALL call_ext
-#else
-#define RUSTG_CALL call
-#endif
-
 /// Gets the version of rust_g
-/proc/rustg_get_version() return RUSTG_CALL(RUST_G, "get_version")()
+/proc/rustg_get_version() return CALL_EXT(RUST_G, "get_version")()
 
 // Aho-Corasick Replace //
 
@@ -59,7 +52,7 @@
  * * patterns - A non-associative list of strings to search for
  * * replacements - Default replacements for this automaton, used with rustg_acreplace
  */
-#define rustg_setup_acreplace(key, patterns, replacements) RUSTG_CALL(RUST_G, "setup_acreplace")(key, json_encode(patterns), json_encode(replacements))
+#define rustg_setup_acreplace(key, patterns, replacements) CALL_EXT(RUST_G, "setup_acreplace")(key, json_encode(patterns), json_encode(replacements))
 
 /**
  * Sets up the Aho-Corasick automaton using supplied options.
@@ -71,7 +64,7 @@
  * * patterns - A non-associative list of strings to search for
  * * replacements - Default replacements for this automaton, used with rustg_acreplace
  */
-#define rustg_setup_acreplace_with_options(key, options, patterns, replacements) RUSTG_CALL(RUST_G, "setup_acreplace")(key, json_encode(options), json_encode(patterns), json_encode(replacements))
+#define rustg_setup_acreplace_with_options(key, options, patterns, replacements) CALL_EXT(RUST_G, "setup_acreplace")(key, json_encode(options), json_encode(patterns), json_encode(replacements))
 
 /**
  * Run the specified replacement engine with the provided haystack text to replace, returning replaced text.
@@ -80,7 +73,7 @@
  * * key - The key for the automaton
  * * text - Text to run replacements on
  */
-#define rustg_acreplace(key, text) RUSTG_CALL(RUST_G, "acreplace")(key, text)
+#define rustg_acreplace(key, text) CALL_EXT(RUST_G, "acreplace")(key, text)
 
 /**
  * Run the specified replacement engine with the provided haystack text to replace, returning replaced text.
@@ -90,7 +83,7 @@
  * * text - Text to run replacements on
  * * replacements - Replacements for this call. Must be the same length as the set-up patterns
  */
-#define rustg_acreplace_with_replacements(key, text, replacements) RUSTG_CALL(RUST_G, "acreplace_with_replacements")(key, text, json_encode(replacements))
+#define rustg_acreplace_with_replacements(key, text, replacements) CALL_EXT(RUST_G, "acreplace_with_replacements")(key, text, json_encode(replacements))
 
 // Cellular Noise //
 
@@ -108,7 +101,7 @@
  * * height: The height of the grid.
  */
 #define rustg_cnoise_generate(percentage, smoothing_iterations, birth_limit, death_limit, width, height) \
-	RUSTG_CALL(RUST_G, "cnoise_generate")(percentage, smoothing_iterations, birth_limit, death_limit, width, height)
+	CALL_EXT(RUST_G, "cnoise_generate")(percentage, smoothing_iterations, birth_limit, death_limit, width, height)
 
 // Grid Perlin Noise //
 
@@ -126,23 +119,23 @@
  * * upper_range: upper bound of values selected for. (exclusive)
  */
 #define rustg_dbp_generate(seed, accuracy, stamp_size, world_size, lower_range, upper_range) \
-	RUSTG_CALL(RUST_G, "dbp_generate")(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
+	CALL_EXT(RUST_G, "dbp_generate")(seed, accuracy, stamp_size, world_size, lower_range, upper_range)
 
 
 // DMI Operations //
 
-#define rustg_dmi_strip_metadata(fname) RUSTG_CALL(RUST_G, "dmi_strip_metadata")(fname)
-#define rustg_dmi_create_png(path, width, height, data) RUSTG_CALL(RUST_G, "dmi_create_png")(path, width, height, data)
-#define rustg_dmi_resize_png(path, width, height, resizetype) RUSTG_CALL(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
+#define rustg_dmi_strip_metadata(fname) CALL_EXT(RUST_G, "dmi_strip_metadata")(fname)
+#define rustg_dmi_create_png(path, width, height, data) CALL_EXT(RUST_G, "dmi_create_png")(path, width, height, data)
+#define rustg_dmi_resize_png(path, width, height, resizetype) CALL_EXT(RUST_G, "dmi_resize_png")(path, width, height, resizetype)
 
 // File Operations //
 
-#define rustg_file_read(fname) RUSTG_CALL(RUST_G, "file_read")(fname)
-#define rustg_file_exists(fname) RUSTG_CALL(RUST_G, "file_exists")(fname)
-#define rustg_file_write(text, fname) RUSTG_CALL(RUST_G, "file_write")(text, fname)
-#define rustg_file_append(text, fname) RUSTG_CALL(RUST_G, "file_append")(text, fname)
-#define rustg_file_get_line_count(fname) text2num(RUSTG_CALL(RUST_G, "file_get_line_count")(fname))
-#define rustg_file_seek_line(fname, line) RUSTG_CALL(RUST_G, "file_seek_line")(fname, "[line]")
+#define rustg_file_read(fname) CALL_EXT(RUST_G, "file_read")(fname)
+#define rustg_file_exists(fname) CALL_EXT(RUST_G, "file_exists")(fname)
+#define rustg_file_write(text, fname) CALL_EXT(RUST_G, "file_write")(text, fname)
+#define rustg_file_append(text, fname) CALL_EXT(RUST_G, "file_append")(text, fname)
+#define rustg_file_get_line_count(fname) text2num(CALL_EXT(RUST_G, "file_get_line_count")(fname))
+#define rustg_file_seek_line(fname, line) CALL_EXT(RUST_G, "file_seek_line")(fname, "[line]")
 
 #ifdef RUSTG_OVERRIDE_BUILTINS
 	#define file2text(fname) rustg_file_read("[fname]")
@@ -151,15 +144,15 @@
 
 // Git Operations //
 
-#define rustg_git_revparse(rev) RUSTG_CALL(RUST_G, "rg_git_revparse")(rev)
-#define rustg_git_commit_date(rev) RUSTG_CALL(RUST_G, "rg_git_commit_date")(rev)
+#define rustg_git_revparse(rev) CALL_EXT(RUST_G, "rg_git_revparse")(rev)
+#define rustg_git_commit_date(rev) CALL_EXT(RUST_G, "rg_git_commit_date")(rev)
 
 // Hashing Functions //
 
-#define rustg_hash_string(algorithm, text) RUSTG_CALL(RUST_G, "hash_string")(algorithm, text)
-#define rustg_hash_file(algorithm, fname) RUSTG_CALL(RUST_G, "hash_file")(algorithm, fname)
-#define rustg_hash_generate_totp(seed) RUSTG_CALL(RUST_G, "generate_totp")(seed)
-#define rustg_hash_generate_totp_tolerance(seed, tolerance) RUSTG_CALL(RUST_G, "generate_totp_tolerance")(seed, tolerance)
+#define rustg_hash_string(algorithm, text) CALL_EXT(RUST_G, "hash_string")(algorithm, text)
+#define rustg_hash_file(algorithm, fname) CALL_EXT(RUST_G, "hash_file")(algorithm, fname)
+#define rustg_hash_generate_totp(seed) CALL_EXT(RUST_G, "generate_totp")(seed)
+#define rustg_hash_generate_totp_tolerance(seed, tolerance) CALL_EXT(RUST_G, "generate_totp_tolerance")(seed, tolerance)
 
 #define RUSTG_HASH_MD5 "md5"
 #define RUSTG_HASH_SHA1 "sha1"
@@ -180,11 +173,11 @@
 #define RUSTG_HTTP_METHOD_PATCH "patch"
 #define RUSTG_HTTP_METHOD_HEAD "head"
 #define RUSTG_HTTP_METHOD_POST "post"
-#define rustg_http_request_blocking(method, url, body, headers, options) RUSTG_CALL(RUST_G, "http_request_blocking")(method, url, body, headers, options)
-#define rustg_http_request_async(method, url, body, headers, options) RUSTG_CALL(RUST_G, "http_request_async")(method, url, body, headers, options)
-#define rustg_http_check_request(req_id) RUSTG_CALL(RUST_G, "http_check_request")(req_id)
-/proc/rustg_create_async_http_client() return RUSTG_CALL(RUST_G, "start_http_client")()
-/proc/rustg_close_async_http_client() return RUSTG_CALL(RUST_G, "shutdown_http_client")()
+#define rustg_http_request_blocking(method, url, body, headers, options) CALL_EXT(RUST_G, "http_request_blocking")(method, url, body, headers, options)
+#define rustg_http_request_async(method, url, body, headers, options) CALL_EXT(RUST_G, "http_request_async")(method, url, body, headers, options)
+#define rustg_http_check_request(req_id) CALL_EXT(RUST_G, "http_check_request")(req_id)
+/proc/rustg_create_async_http_client() return CALL_EXT(RUST_G, "start_http_client")()
+/proc/rustg_close_async_http_client() return CALL_EXT(RUST_G, "shutdown_http_client")()
 
 // Jobs Defines //
 
@@ -194,16 +187,16 @@
 
 // JSON Operations //
 
-#define rustg_json_is_valid(text) (RUSTG_CALL(RUST_G, "json_is_valid")(text) == "true")
+#define rustg_json_is_valid(text) (CALL_EXT(RUST_G, "json_is_valid")(text) == "true")
 
 // Logging Operations //
 
-#define rustg_log_write(fname, text) RUSTG_CALL(RUST_G, "log_write")(fname, text)
-/proc/rustg_log_close_all() return RUSTG_CALL(RUST_G, "log_close_all")()
+#define rustg_log_write(fname, text) CALL_EXT(RUST_G, "log_write")(fname, text)
+/proc/rustg_log_close_all() return CALL_EXT(RUST_G, "log_close_all")()
 
 // Noise Operations //
 
-#define rustg_noise_get_at_coordinates(seed, x, y) RUSTG_CALL(RUST_G, "noise_get_at_coordinates")(seed, x, y)
+#define rustg_noise_get_at_coordinates(seed, x, y) CALL_EXT(RUST_G, "noise_get_at_coordinates")(seed, x, y)
 
 // AStar Operations //
 
@@ -222,55 +215,55 @@
  * Nodes should not link across z levels.
  * A node cannot link twice to the same node and shouldn't link itself either
  */
-#define rustg_register_nodes_astar(json) RUSTG_CALL(RUST_G, "register_nodes_astar")(json)
+#define rustg_register_nodes_astar(json) CALL_EXT(RUST_G, "register_nodes_astar")(json)
 
 /**
  * Add a new node to the static list of nodes. Same rule as registering_nodes applies.
  * This node unique_id must be equal to the current length of the static list of nodes
  */
-#define rustg_add_node_astar(json) RUSTG_CALL(RUST_G, "add_node_astar")(json)
+#define rustg_add_node_astar(json) CALL_EXT(RUST_G, "add_node_astar")(json)
 
 /**²
  * Remove every link to the node with unique_id. Replace that node by null
  */
-#define rustg_remove_node_astart(unique_id) RUSTG_CALL(RUST_G, "remove_node_astar")(unique_id)
+#define rustg_remove_node_astart(unique_id) CALL_EXT(RUST_G, "remove_node_astar")(unique_id)
 
 /**
  * Compute the shortest path between start_node and goal_node using A*. Heuristic used is simple geometric distance
  */
-#define rustg_generate_path_astar(start_node_id, goal_node_id) RUSTG_CALL(RUST_G, "generate_path_astar")(start_node_id, goal_node_id)
+#define rustg_generate_path_astar(start_node_id, goal_node_id) CALL_EXT(RUST_G, "generate_path_astar")(start_node_id, goal_node_id)
 
 // Redis PubSub Operations //
 
 #define RUSTG_REDIS_ERROR_CHANNEL "RUSTG_REDIS_ERROR_CHANNEL"
 
-#define rustg_redis_connect(addr) RUSTG_CALL(RUST_G, "redis_connect")(addr)
-/proc/rustg_redis_disconnect() return RUSTG_CALL(RUST_G, "redis_disconnect")()
-#define rustg_redis_subscribe(channel) RUSTG_CALL(RUST_G, "redis_subscribe")(channel)
-/proc/rustg_redis_get_messages() return RUSTG_CALL(RUST_G, "redis_get_messages")()
-#define rustg_redis_publish(channel, message) RUSTG_CALL(RUST_G, "redis_publish")(channel, message)
+#define rustg_redis_connect(addr) CALL_EXT(RUST_G, "redis_connect")(addr)
+/proc/rustg_redis_disconnect() return CALL_EXT(RUST_G, "redis_disconnect")()
+#define rustg_redis_subscribe(channel) CALL_EXT(RUST_G, "redis_subscribe")(channel)
+/proc/rustg_redis_get_messages() return CALL_EXT(RUST_G, "redis_get_messages")()
+#define rustg_redis_publish(channel, message) CALL_EXT(RUST_G, "redis_publish")(channel, message)
 
 // SQL Operations //
 
-#define rustg_sql_connect_pool(options) RUSTG_CALL(RUST_G, "sql_connect_pool")(options)
-#define rustg_sql_query_async(handle, query, params) RUSTG_CALL(RUST_G, "sql_query_async")(handle, query, params)
-#define rustg_sql_query_blocking(handle, query, params) RUSTG_CALL(RUST_G, "sql_query_blocking")(handle, query, params)
-#define rustg_sql_connected(handle) RUSTG_CALL(RUST_G, "sql_connected")(handle)
-#define rustg_sql_disconnect_pool(handle) RUSTG_CALL(RUST_G, "sql_disconnect_pool")(handle)
-#define rustg_sql_check_query(job_id) RUSTG_CALL(RUST_G, "sql_check_query")("[job_id]")
+#define rustg_sql_connect_pool(options) CALL_EXT(RUST_G, "sql_connect_pool")(options)
+#define rustg_sql_query_async(handle, query, params) CALL_EXT(RUST_G, "sql_query_async")(handle, query, params)
+#define rustg_sql_query_blocking(handle, query, params) CALL_EXT(RUST_G, "sql_query_blocking")(handle, query, params)
+#define rustg_sql_connected(handle) CALL_EXT(RUST_G, "sql_connected")(handle)
+#define rustg_sql_disconnect_pool(handle) CALL_EXT(RUST_G, "sql_disconnect_pool")(handle)
+#define rustg_sql_check_query(job_id) CALL_EXT(RUST_G, "sql_check_query")("[job_id]")
 
 // Time Tracking Functions //
 
-#define rustg_time_microseconds(id) text2num(RUSTG_CALL(RUST_G, "time_microseconds")(id))
-#define rustg_time_milliseconds(id) text2num(RUSTG_CALL(RUST_G, "time_milliseconds")(id))
-#define rustg_time_reset(id) RUSTG_CALL(RUST_G, "time_reset")(id)
+#define rustg_time_microseconds(id) text2num(CALL_EXT(RUST_G, "time_microseconds")(id))
+#define rustg_time_milliseconds(id) text2num(CALL_EXT(RUST_G, "time_milliseconds")(id))
+#define rustg_time_reset(id) CALL_EXT(RUST_G, "time_reset")(id)
 
 /proc/rustg_unix_timestamp()
-	return text2num(RUSTG_CALL(RUST_G, "unix_timestamp")())
+	return text2num(CALL_EXT(RUST_G, "unix_timestamp")())
 
 // TOML Operations //
 
-#define rustg_raw_read_toml_file(path) json_decode(RUSTG_CALL(RUST_G, "toml_file_to_json")(path) || "null")
+#define rustg_raw_read_toml_file(path) json_decode(CALL_EXT(RUST_G, "toml_file_to_json")(path) || "null")
 
 /proc/rustg_read_toml_file(path)
 	var/list/output = rustg_raw_read_toml_file(path)
@@ -279,7 +272,7 @@
 	else
 		CRASH(output["content"])
 
-#define rustg_raw_toml_encode(value) json_decode(RUSTG_CALL(RUST_G, "toml_encode")(json_encode(value)))
+#define rustg_raw_toml_encode(value) json_decode(CALL_EXT(RUST_G, "toml_encode")(json_encode(value)))
 
 /proc/rustg_toml_encode(value)
 	var/list/output = rustg_raw_toml_encode(value)
@@ -290,13 +283,13 @@
 
 // ZIP File Operations //
 
-#define rustg_unzip_download_async(url, unzip_directory) RUSTG_CALL(RUST_G, "unzip_download_async")(url, unzip_directory)
-#define rustg_unzip_check(job_id) RUSTG_CALL(RUST_G, "unzip_check")("[job_id]")
+#define rustg_unzip_download_async(url, unzip_directory) CALL_EXT(RUST_G, "unzip_download_async")(url, unzip_directory)
+#define rustg_unzip_check(job_id) CALL_EXT(RUST_G, "unzip_check")("[job_id]")
 
 // URL Operations //
 
-#define rustg_url_encode(text) RUSTG_CALL(RUST_G, "url_encode")("[text]")
-#define rustg_url_decode(text) RUSTG_CALL(RUST_G, "url_decode")(text)
+#define rustg_url_encode(text) CALL_EXT(RUST_G, "url_encode")("[text]")
+#define rustg_url_decode(text) CALL_EXT(RUST_G, "url_decode")(text)
 
 #ifdef RUSTG_OVERRIDE_BUILTINS
 	#define url_encode(text) rustg_url_encode(text)
@@ -319,6 +312,6 @@
  * * node_max: maximum amount of nodes in a region
  */
 #define rustg_worley_generate(region_size, threshold, node_per_region_chance, size, node_min, node_max) \
-	RUSTG_CALL(RUST_G, "worley_generate")(region_size, threshold, node_per_region_chance, size, node_min, node_max)
+	CALL_EXT(RUST_G, "worley_generate")(region_size, threshold, node_per_region_chance, size, node_min, node_max)
 
 
