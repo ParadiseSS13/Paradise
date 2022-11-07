@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/opened = FALSE
 	var/custom_panel = null
-	var/list/custom_panel_names = list("Cricket", "Omoikane")
+	var/list/custom_panel_names = list("Cricket")
 	var/list/custom_eye_names = list("Cricket", "Standard")
 	var/emagged = 0
 	var/is_emaggable = TRUE
@@ -370,7 +370,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Engi"),
 				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-ENG"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI"),
-				"Mark III" = image('icons/mob/robots.dmi', "constructiondrone"),
+				"Mark III" = image('icons/mob/robots.dmi', "bigdrone-construction"),
 				"Heavy" = image('icons/mob/robots.dmi', "heavyEng"),
 				"Treadwell" = image('icons/mob/robots.dmi', "treadwell")
 			)
@@ -382,7 +382,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
 				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
-				"Mark III" = image('icons/mob/robots.dmi', "cleaningdrone"),
+				"Mark III" = image('icons/mob/robots.dmi', "bigdrone-cleaning"),
 				"Heavy" = image('icons/mob/robots.dmi', "heavyJani"),
 				"Next-To-Godliness" = image('icons/mob/robots.dmi', "nexttogodliness")
 			)
@@ -410,7 +410,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Lavaland" = image('icons/mob/robots.dmi', "lavaland"),
 				"Squat" = image('icons/mob/robots.dmi', "squatminer"),
 				"Sleek Miner" = image('icons/mob/robots.dmi', "sleekminer"),
-				"Coffin Drill" = image('icons/mob/robots.dmi', "coffinminer")
+				"Coffin Drill" = image('icons/mob/robots.dmi', "coffinMiner")
 			)
 		if("Service")
 			module_sprites = list(
@@ -422,7 +422,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Serv"),
 				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-SRV"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV"),
-				"Mark III" = image('icons/mob/robots.dmi', "servicedrone"),
+				"Mark III" = image('icons/mob/robots.dmi', "bigdrone-service"),
 				"Heavy" = image('icons/mob/robots.dmi', "heavyServ"),
 				"Omoikane" = image('icons/mob/robots.dmi', "omoikane")
 			)
