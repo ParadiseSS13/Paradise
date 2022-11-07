@@ -29,11 +29,9 @@
 	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
 		to_chat(src, text("<span class='notice'>You are now hiding.</span>"))
-		pass_flags |= PASSDOOR
 	else
 		layer = MOB_LAYER
 		to_chat(src, text("<span class='notice'>You have stopped hiding.</span>"))
-		pass_flags &= ~PASSDOOR
 
 /mob/living/silicon/robot/drone/verb/light()
 	set name = "Light On/Off"
