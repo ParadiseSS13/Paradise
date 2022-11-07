@@ -53,8 +53,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/opened = FALSE
 	var/custom_panel = null
-	var/list/custom_panel_names = list("Cricket")
-	var/list/custom_eye_names = list("Cricket","Standard")
+	var/list/custom_panel_names = list("Cricket", "Omoikane")
+	var/list/custom_eye_names = list("Cricket", "Standard")
 	var/emagged = 0
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
@@ -369,7 +369,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Landmate" = image('icons/mob/robots.dmi', "landmate"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Engi"),
 				"Noble-ENG" = image('icons/mob/robots.dmi', "Noble-ENG"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-ENGI"),
+				"Mark III" = image('icons/mob/robots.dmi', "constructiondrone"),
+				"Heavy" = image('icons/mob/robots.dmi', "heavyEng"),
+				"Treadwell" = image('icons/mob/robots.dmi', "treadwell")
 			)
 		if("Janitor")
 			module_sprites = list(
@@ -378,7 +381,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Mop Gear Rex" = image('icons/mob/robots.dmi', "mopgearrex"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Jani"),
 				"Noble-CLN" = image('icons/mob/robots.dmi', "Noble-CLN"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
+				"Mark III" = image('icons/mob/robots.dmi', "cleaningdrone"),
+				"Heavy" = image('icons/mob/robots.dmi', "heavyJani"),
+				"Next-To-Godliness" = image('icons/mob/robots.dmi', "nexttogodliness")
 			)
 		if("Medical")
 			module_sprites = list(
@@ -388,7 +394,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Needles" = image('icons/mob/robots.dmi', "medicalrobot"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Medi"),
 				"Noble-MED" = image('icons/mob/robots.dmi', "Noble-MED"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MEDI"),
+				"Heavy" = image('icons/mob/robots.dmi', "heavyMed"),
+				"Coffin Medical" = image('icons/mob/robots.dmi', "coffinMed"),
+				"Qualified Doctor" = image('icons/mob/robots.dmi', "qualified_doctor")
 			)
 		if("Mining")
 			module_sprites = list(
@@ -398,7 +407,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Mine"),
 				"Noble-DIG" = image('icons/mob/robots.dmi', "Noble-DIG"),
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-MINE"),
-				"Lavaland" = image('icons/mob/robots.dmi', "lavaland")
+				"Lavaland" = image('icons/mob/robots.dmi', "lavaland"),
+				"Squat" = image('icons/mob/robots.dmi', "squatminer"),
+				"Sleek Miner" = image('icons/mob/robots.dmi', "sleekminer"),
+				"Coffin Drill" = image('icons/mob/robots.dmi', "coffinminer")
 			)
 		if("Service")
 			module_sprites = list(
@@ -409,7 +421,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Default" = image('icons/mob/robots.dmi', "Service2"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Serv"),
 				"Noble-SRV" = image('icons/mob/robots.dmi', "Noble-SRV"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SERV"),
+				"Mark III" = image('icons/mob/robots.dmi', "servicedrone"),
+				"Heavy" = image('icons/mob/robots.dmi', "heavyServ"),
+				"Omoikane" = image('icons/mob/robots.dmi', "omoikane")
 			)
 		if("Combat")
 			module_sprites = list(
@@ -423,7 +438,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Bloodhound" = image('icons/mob/robots.dmi', "bloodhound"),
 				"Standard" = image('icons/mob/robots.dmi', "Standard-Secy"),
 				"Noble-SEC" = image('icons/mob/robots.dmi', "Noble-SEC"),
-				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC")
+				"Cricket" = image('icons/mob/robots.dmi', "Cricket-SEC"),
+				"Heavy" = image('icons/mob/robots.dmi', "heavySec")
 			)
 		if("Destroyer") //for Adminbus presumably
 			module_sprites = list(
