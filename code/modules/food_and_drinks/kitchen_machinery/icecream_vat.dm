@@ -5,7 +5,7 @@
 	name = "\improper Cream-Master Deluxe"
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "icecream_vat"
 	use_power = IDLE_POWER_USE
 	max_integrity = 300
@@ -149,7 +149,7 @@
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Chocolate Cone"
 		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
-		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcup(loc)
+		C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -162,7 +162,7 @@
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Cone"
 		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
-		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
+		C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -175,7 +175,7 @@
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Waffle Cone"
 		var/obj/item/reagent_containers/food/snacks/icecream/icecreamwafflecone/C
-		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamwafflecone(loc)
+		C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
