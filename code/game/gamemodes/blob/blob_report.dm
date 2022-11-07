@@ -32,7 +32,7 @@
 					log_admin("The station AI has received a new law zero due to a blob round continuing for over 50 minutes after initial burst. Zero Law: [law]")
 
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', new_subtitle = "NAS Trurl Update")
+	GLOB.minor_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', new_subtitle = "NAS Trurl Update")
 
 /datum/station_state
 	var/floor = 0

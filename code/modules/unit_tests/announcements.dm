@@ -31,7 +31,7 @@
 		new_sound = 'sound/misc/notice2.ogg'
 	)
 
-	GLOB.event_announcement.Announce("Bioscans indicate that lizards have been breeding in the kitchen. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	GLOB.minor_announcement.Announce("Bioscans indicate that lizards have been breeding in the kitchen. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
 
 	var/datum/announcer/ai_announcer = new(config_type = /datum/announcement_configuration/ai)
 	ai_announcer.author = "AI-NAME-0345"

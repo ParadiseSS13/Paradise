@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /datum/game_mode/blob/proc/stage(stage)
 	switch(stage)
 		if(1)
-			GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+			GLOB.major_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 		if(2)
 			send_intercept(1)
 

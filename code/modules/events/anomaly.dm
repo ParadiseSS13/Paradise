@@ -23,7 +23,7 @@
 		CRASH("Anomaly: Unable to find a valid turf to spawn the anomaly. Last area tried: [impact_area] - [impact_area.type]")
 
 /datum/event/anomaly/announce()
-	GLOB.event_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly_flux.ogg')
+	GLOB.minor_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly_flux.ogg')
 
 /datum/event/anomaly/start()
 	var/newAnomaly = new anomaly_path(target_turf)

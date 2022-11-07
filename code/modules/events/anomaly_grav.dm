@@ -5,4 +5,4 @@
 	anomaly_path = /obj/effect/anomaly/grav
 
 /datum/event/anomaly/anomaly_grav/announce()
-	GLOB.event_announcement.Announce("Gravitational anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly_gravity.ogg')
+	GLOB.minor_announcement.Announce("Gravitational anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly_gravity.ogg')
