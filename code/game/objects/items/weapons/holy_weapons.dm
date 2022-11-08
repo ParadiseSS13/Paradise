@@ -133,7 +133,7 @@
 
 /obj/item/nullrod/staff/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
@@ -153,7 +153,7 @@
 
 /obj/item/nullrod/claymore/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -396,7 +396,7 @@
 
 /obj/item/nullrod/claymore/bostaff/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES) // will remove the other component
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES) // will remove the other component
 
 /obj/item/nullrod/tribal_knife
 	name = "arrhythmic knife"
@@ -555,7 +555,7 @@
 	icon_state = "godstaff-[team_color]"
 	item_state = "godstaff-[team_color]"
 	name = "[team_color] holy staff"
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/missionary_staff/Destroy()
 	if(robes)		//delink on destruction

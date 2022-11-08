@@ -10,6 +10,8 @@
 	var/stamina_coefficient
 	/// the attack types that are considered for parrying
 	var/parryable_attack_types
+	/// the time between parry attempts
+	var/parry_cooldown
 
 /datum/component/parry/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/equipped)
@@ -24,13 +26,14 @@
 	if(ismob(I.loc))
 		UnregisterSignal(I.loc, COMSIG_LIVING_RESIST)
 
-/datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = 1 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+/datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = PARRY_DEFAULT_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = 2 SECONDS)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	parry_time_out_time = _parry_time_out_time
 	stamina_constant = _stamina_constant
 	stamina_coefficient = _stamina_coefficient
+	parry_cooldown = _parry_cooldown
 	if(islist(_parryable_attack_types))
 		parryable_attack_types = _parryable_attack_types
 	else
@@ -50,7 +53,7 @@
 /datum/component/parry/proc/start_parry(mob/living/L)
 	SIGNAL_HANDLER
 	var/time_since_parry = world.time - time_parried
-	if(time_since_parry < parry_time_out_time + 0.2 SECONDS) // stops spam
+	if(time_since_parry < parry_cooldown) // stops spam
 		return
 
 	time_parried = world.time

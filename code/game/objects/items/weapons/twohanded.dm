@@ -298,7 +298,7 @@
 	..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(wielded)
@@ -849,7 +849,7 @@
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parry_time_out_time = 2 SECONDS, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/required/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
