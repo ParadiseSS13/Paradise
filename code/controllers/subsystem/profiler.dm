@@ -38,11 +38,11 @@ SUBSYSTEM_DEF(profiler)
 // You cant proc-call onto /world
 /datum/controller/subsystem/profiler/proc/StartProfiling()
 	world.Profile(PROFILE_START)
-	world.Profile(PROFILE_START, type = "sendmaps")
+	world.Profile(PROFILE_START, "sendmaps")
 
 /datum/controller/subsystem/profiler/proc/StopProfiling()
 	world.Profile(PROFILE_STOP)
-	world.Profile(PROFILE_STOP, type = "sendmaps")
+	world.Profile(PROFILE_STOP, "sendmaps")
 
 // Write the file while also cost tracking
 /datum/controller/subsystem/profiler/proc/DumpFile()
