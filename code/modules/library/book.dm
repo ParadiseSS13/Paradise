@@ -320,7 +320,7 @@
 
 	user.drop_item()
 	I.forceMove(src)
-	RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/clear_stored_item) //ensure proper GC'ing
+	RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(clear_stored_item)) //ensure proper GC'ing
 	store = I
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
 	return TRUE

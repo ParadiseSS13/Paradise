@@ -1,7 +1,7 @@
 /datum/event/sentience
 
 /datum/event/sentience/start()
-	INVOKE_ASYNC(src, .proc/make_sentient_mob)
+	INVOKE_ASYNC(src, PROC_REF(make_sentient_mob))
 
 /datum/event/sentience/proc/make_sentient_mob()
 	var/list/potential = list()

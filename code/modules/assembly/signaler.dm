@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 		return
 
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
 
 	signal()
 
