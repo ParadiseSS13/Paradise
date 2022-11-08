@@ -287,9 +287,10 @@
 				qdel(O)
 			source.reagents.clear_reagents()
 
+			var/reagents_per_serving = temp_reagents.total_volume/efficiency
 			for(var/e=1 to efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
 				var/obj/cooked = new recipe.result()
-				temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency, no_react = TRUE) // Don't react with the abstract holder please
+				temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
 				cooked.forceMove(loc)
 			temp_reagents.clear_reagents()
 
