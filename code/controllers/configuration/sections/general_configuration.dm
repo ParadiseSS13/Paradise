@@ -1,11 +1,11 @@
 /// Config holder for all general/misc things
 /datum/configuration_section/general_configuration
 	/// Server name for the BYOND hub
-	var/server_name = "Paradise Station"
+	var/server_name = "Abbadon"
 	/// Tagline for the hub entry
-	var/server_tag_line = "The perfect mix of RP & action"
+	var/server_tag_line = "Test server for abbadon"
 	/// Server features in a newline
-	var/server_features = "Medium RP, varied species/jobs"
+	var/server_features = "weblike for classic ss13 players"
 	/// Allow character OOC notes
 	var/allow_character_metadata = TRUE
 	/// Time in seconds for the pregame lobby

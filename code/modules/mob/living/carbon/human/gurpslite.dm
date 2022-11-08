@@ -1,5 +1,5 @@
 
-proc/human_roll_mods(var/mob/living/carbon/human/H)
+/proc/human_roll_mods(var/mob/living/carbon/human/H)
 	var/BaseMath = 0
 	if(H.handcuffed)
 		BaseMath -= rand(0,2)
@@ -24,7 +24,7 @@ proc/human_roll_mods(var/mob/living/carbon/human/H)
 			BaseMath += pick(-4, -3)
 	return BaseMath
 
-proc/roll_dice(sides, successcheck = FALSE, crit_successcheck = FALSE, amount = 1, mod = 0)
+/proc/roll_dice(sides, successcheck = FALSE, crit_successcheck = FALSE, amount = 1, mod = 0)
 	var/result = 0
 	var/highest = 0
 	var/slice = highest % 2
@@ -43,7 +43,7 @@ proc/roll_dice(sides, successcheck = FALSE, crit_successcheck = FALSE, amount = 
 	else
 		return result
 
-proc/check_crittable(sides, amount, result, mod)
+/proc/check_crittable(sides, amount, result, mod)
 	if(sides == 20 && amount == 1)
 		switch(mod)
 			if(1 to 15)
@@ -96,10 +96,10 @@ proc/check_crittable(sides, amount, result, mod)
 				if(result >= 18)
 					return FALSE
 
-proc/skillcheck(var/mob/living/carbon/human/H, skilltocheck)
+/proc/skillcheck(var/mob/living/carbon/human/H, skilltocheck)
 
 
-proc/prob2()
+/proc/prob2()
 	var/value1 = 0
 	var/result = 0
 	value1 = rand(0,100)
@@ -118,5 +118,3 @@ proc/prob2()
 	set desc = "Teach someone your skills."
 	set src in view(1)
 
-/mob/living/Carbon/human
-	var/skills

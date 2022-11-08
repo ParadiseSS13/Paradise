@@ -229,15 +229,15 @@ event_initial_delays = [
 antag_account_age_restrictions = false
 # Gamemode probabilities map for if you are using secret or random
 gamemode_probabilities = [
-	{gamemode = "abduction", probability = 0},
+	{gamemode = "abduction", probability = 2},
 	{gamemode = "blob", probability = 1},
 	{gamemode = "changeling", probability = 3},
 	{gamemode = "cult", probability = 3},
 	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
 	{gamemode = "extended", probability = 3},
 	{gamemode = "nuclear", probability = 2},
-	{gamemode = "raginmages", probability = 0},
-	{gamemode = "revolution", probability = 0},
+	{gamemode = "raginmages", probability = 2},
+	{gamemode = "revolution", probability = 3},
 	{gamemode = "traitor", probability = 2},
 	{gamemode = "traitorchan", probability = 3},
 	{gamemode = "traitorvamp", probability = 3},
@@ -265,7 +265,7 @@ enable_gamemode_player_limit = true
 # Do we want to enable this at all? Disable for faster load times in testing
 enable_away_mission = false
 # Delay (in deciseconds) before the gateway is usable
-away_mission_delay = 0
+away_mission_delay = 235
 # List of all enabled away missions. Comment out an entry to disable it.
 enabled_away_missions = [
 	"_maps/map_files/RandomZLevels/beach.dmm",
@@ -281,26 +281,26 @@ enabled_away_missions = [
 # General setup for the server (branding, options, etc)
 
 # Name for the server in the list
-server_name = "ParaCode Test"
+server_name = "Abbadon Test"
 # Tag line for the server. This appears as supplementary text
-# EG: The perfect mix of RP & action
-server_tag_line = "ParaCode Testing Server"
+EG: Paradise but not
+server_tag_line = "Abbadon Testing Server"
 # Server features. Shows in a newline
-server_features = "Medium RP, varied species/jobs"
+server_features = "No actual rules, just dont be a shitter, clowns can though"
 # Allow OOC character metadata notes
-allow_character_metadata = true
+allow_character_metadata = false
 # Lobby time before roundstart (Seconds)
 lobby_time = 240
 # Forbid people without a BYOND account joining the server
 guest_ban = true
 # Allow players to use antagHUD?
-allow_antag_hud = true
+allow_antag_hud = false
 # Forbid players from rejoining if they use antag hud
 restrict_antag_hud_rejoin = true
 # Do we want to allow player respawns?
-respawn_enabled = false
+respawn_enabled = true
 # Enable karma awarding and karma lockouts for jobs and species?
-enable_karma = false
+enable_karma = true
 # Enable/disable the buster for the CID randomiser DLL
 enable_cid_randomiser_buster = false
 # Prevent admins from possessing the singularity
@@ -332,9 +332,9 @@ developer_express_start = false
 # Minimum client build for playing the server. Keep above 1421 due to exploits
 minimum_client_build = 1421
 # Give a confirmation when pressing "Start Now". Useful for avoiding starting the live server early
-start_now_confirmation = false
+start_now_confirmation = true
 # BYOND accounts younger than this threshold (days) will cause alerts on first login
-byond_account_age_threshold = 3
+byond_account_age_threshold = 10
 # Maximum CIDs a client can have attached to them before they trip a warning
 max_client_cid_history = 20
 # Enable automatic profiling of rounds to profile.json
