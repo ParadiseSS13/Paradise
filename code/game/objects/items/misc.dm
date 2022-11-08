@@ -41,22 +41,15 @@
 	var/option = "Change Name"
 	if(access_id)
 		option = input(user, "What do you want to do?", "[src]", option) as null|anything in list("Change Name", "Remove ID")
-
+		if(QDELETED(src) || !Adjacent(user))
+			return
 	switch(option)
 		if("Change Name")
-			if(QDELETED(src))
-				return
-			if(!Adjacent(user))
-				return
 			var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
 			if(t)
 				tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
 				name = "[initial(name)] - [tagname]"
 		if("Remove ID")
-			if(QDELETED(src))
-				return
-			if(!Adjacent(user))
-				return
 			if(access_id)
 				user.visible_message("<span class='warning'>[user] starts unclipping [access_id] from [src].</span>")
 				if(do_after(user, 5 SECONDS, target = user) && access_id)
