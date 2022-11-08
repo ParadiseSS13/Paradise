@@ -27,6 +27,7 @@
 		if(!active)
 			E.vision_flags |= SEE_MOBS | SEE_OBJS | SEE_TURFS //Add sight flags to the user's eyes
 			E.flash_protect = FLASH_PROTECTION_SENSITIVE //Adjust the user's eyes' flash protection
+			E.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 			to_chat(user, "<span class='notice'>We adjust our eyes to sense prey through walls.</span>")
 			active = TRUE
 		else
