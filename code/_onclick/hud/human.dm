@@ -62,7 +62,6 @@
 	owner.overlay_fullscreen("see_through_darkness", /obj/screen/fullscreen/see_through_darkness)
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
-	owner.apply_status_effect(STATUS_EFFECT_FOV)
 	hud_alpha = ui_alpha
 
 	using = new /obj/screen/craft

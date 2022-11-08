@@ -6,8 +6,8 @@
 /datum/status_effect/fov/on_apply()
 	. = ..()
 	H = owner
-	owner.hud_used.addfov(owner)
-	F = H.client.screen.Find(/obj/screen/fov)
+	H.client.screen.Add(/obj/screen/fov,H.client.screen.len)
+
 
 /mob/living/carbon/human
 	var/fov
@@ -15,5 +15,5 @@
 /datum/status_effect/fov/tick()
 	. = ..()
 	H = owner
-	H.fov = H.hud_used.fov
-	H.hud_used.fov.dir = H.dir
+	if(!H.fov)
+		H.fov = H.hud_used.fov
