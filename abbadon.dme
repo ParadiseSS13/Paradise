@@ -383,6 +383,7 @@
 #include "code\datums\diseases\gbs.dm"
 #include "code\datums\diseases\kingstons.dm"
 #include "code\datums\diseases\kuru.dm"
+#include "code\modules\mob\living\carbon\human\gurpslite.dm"
 #include "code\datums\diseases\lycancoughy.dm"
 #include "code\datums\diseases\magnitis.dm"
 #include "code\datums\diseases\pierrot_throat.dm"

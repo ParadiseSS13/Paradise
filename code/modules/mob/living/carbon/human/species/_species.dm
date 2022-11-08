@@ -487,7 +487,9 @@
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
 
-		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
+		var/str = user.skills.strength
+
+		var/damage = roll_dice(6, FALSE, FALSE, 2, str)
 		damage += attack.damage
 		damage += user.physiology.melee_bonus
 		if(!damage)
@@ -503,7 +505,7 @@
 
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
-		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
+		if((target.stat != DEAD) && damage >= roll_dice(3, FALSE,FALSE,4,str - 3))
 			target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
 							"<span class='userdanger'>[user] has knocked down [target]!</span>")
 			target.KnockDown(4 SECONDS)

@@ -27,25 +27,24 @@ proc/human_roll_mods(var/mob/living/carbon/human/H)
 proc/roll_dice(sides, successcheck = FALSE, crit_successcheck = FALSE, amount = 1, mod = 0)
 	var/result = 0
 	var/highest = 0
-	var/50slice = 0
+	var/slice = highest % 2
 	highest = amount * sides
-	50slice = highest / 2
 	result = rand(amount, highest)
 	var/dice_result = 0
 	dice_result = result
 	result += mod
 	if(successcheck)
-		if(result > 50slice)
+		if(result > slice)
 			return TRUE
 		else
 			return FALSE
 	if(crit_successcheck)
-		return check_crittable(sides, amount, results, mod)
+		return check_crittable(sides, amount, result, mod)
 	else
 		return result
 
 proc/check_crittable(sides, amount, result, mod)
-	if(sides = 20 && amount = 1)
+	if(sides == 20 && amount == 1)
 		switch(mod)
 			if(1 to 15)
 				if(result >= 20)
@@ -66,7 +65,7 @@ proc/check_crittable(sides, amount, result, mod)
 			if(6 to INFINITY)
 				if(result <= 1)
 					return FALSE
-	if(sides = 6 && amount = 3)
+	if(sides == 6 && amount == 3)
 		switch(mod)
 			if(3 to 14)
 				if(result <= 4)
@@ -107,26 +106,17 @@ proc/prob2()
 	result = prob(value1)
 	return result
 
-/mob/living/carbon/human
-
-
-/mob/living/carbon/human/setup_other()
-	. = ..()
-	skills = new /datum/skills
-
 /datum/skills
 	var/wisdom = 0
 	var/strength = 0
 	var/intelligence = 0
 	var/perception = 12
 
-/datum/skills/New(mob/owner)
-	. = ..()
-
 /mob/living/Carbon/human/verb/teach(/mob/living/Carbon/human/H)
 	set category = null
 	set name = "Teach skill"
 	set desc = "Teach someone your skills."
 	set src in view(1)
-	var/self = 0
 
+/mob/living/Carbon/human
+	var/skills
