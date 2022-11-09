@@ -67,29 +67,32 @@
 			return
 		sig = I
 		if(sig.secured)
-			to_chat(user, "<span class='notice'>The signaler is secured.</span>")
+			to_chat(user, "<span class='warning'>The signaler is secured.</span>")
 			sig = null
 			return
 		user.drop_item()
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You sneak [sig] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is a remote signaler hooked up to it.</span>"
-	if(istype(I, /obj/item/screwdriver))
-		if(IED)
-			IED.forceMove(get_turf(src))
-			IED = null
-			to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
-			return
-		if(sig)
-			sig.forceMove(get_turf(src))
-			sig = null
-			to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
-			return
 	..()
+
+/obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/living/user, obj/item/I)
+	if(!IED && !sig)
+		return
+
+	if(IED)
+		IED.forceMove(get_turf(src))
+		IED = null
+		to_chat(user, "<span class='notice'>You remove the IED from [src].</span>")
+	if(sig)
+		sig.forceMove(get_turf(src))
+		sig = null
+		to_chat(user, "<span class='notice'>You remove the signaler from [src].</span>")
+	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
 			armed = FALSE
 			update_icon()
@@ -133,7 +136,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/energy/New()
 	..()
-	addtimer(CALLBACK(src, .proc/dissipate), 100)
+	addtimer(CALLBACK(src, PROC_REF(dissipate)), 100)
 
 /obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
 	if(!ismob(loc))
@@ -171,12 +174,12 @@
 
 /obj/item/restraints/legcuffs/bola/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, .proc/spin_up_wrapper)
+	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, PROC_REF(spin_up_wrapper))
 
 /obj/item/restraints/legcuffs/bola/proc/spin_up_wrapper(datum/source, throw_mode_state) // so that signal handler works
 	SIGNAL_HANDLER
 	if(throw_mode_state) // if we actually turned throw mode on
-		INVOKE_ASYNC(src, .proc/spin_up)
+		INVOKE_ASYNC(src, PROC_REF(spin_up))
 
 /obj/item/restraints/legcuffs/bola/proc/spin_up()
 	if(spinning)
@@ -184,13 +187,13 @@
 	var/mob/living/L = loc // can only be called if the mob is holding the bola.
 	var/range_increment = round(max_range / max_spins)
 	var/speed_increment = round(max_speed / max_spins)
-	RegisterSignal(L, COMSIG_CARBON_SWAP_HANDS, .proc/reset_values, override = TRUE)
+	RegisterSignal(L, COMSIG_CARBON_SWAP_HANDS, PROC_REF(reset_values), override = TRUE)
 	item_state = "[initial(item_state)]_spin"
 	L.update_inv_r_hand()
 	L.update_inv_l_hand()
 	spinning = TRUE
 	for(var/i in 1 to max_spins)
-		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, .proc/can_spin_check, L))))
+		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L))))
 			reset_values(L)
 			break
 		throw_range += range_increment

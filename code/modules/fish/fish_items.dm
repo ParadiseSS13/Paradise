@@ -157,10 +157,10 @@
 	throwforce = 5.0
 	materials = list()
 
-/obj/item/shard/shark_teeth/Initialize(mapload)
-	. = ..()
-	src.pixel_x = rand(-5,5)
-	src.pixel_y = rand(-5,5)
+/obj/item/shard/shark_teeth/set_initial_icon_state()
+	icon_state = "teeth"
+	pixel_x = rand(-5,5)
+	pixel_y = rand(-5,5)
 
 /obj/item/fish/catfish
 	name = "catfish"

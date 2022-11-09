@@ -91,7 +91,7 @@
 	read_book(user)
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		edit_book(user)
 	else if(istype(I, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = I
@@ -320,7 +320,7 @@
 
 	user.drop_item()
 	I.forceMove(src)
-	RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/clear_stored_item) //ensure proper GC'ing
+	RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(clear_stored_item)) //ensure proper GC'ing
 	store = I
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
 	return TRUE

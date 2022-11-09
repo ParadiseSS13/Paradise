@@ -2,7 +2,7 @@
 	name = "voice analyzer"
 	desc = "A small electronic device able to record a voice sample, and send a signal when that sample is repeated."
 	icon_state = "voice"
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	origin_tech = "magnets=1;engineering=1"
 	var/listening = FALSE
 	var/recorded = null	//the activation message
@@ -24,7 +24,7 @@
 	hear_input(M, msg, 1)
 
 /obj/item/assembly/voice/proc/hear_input(mob/living/M as mob, msg, type)
-	if(!istype(M,/mob/living))
+	if(!isliving(M))
 		return
 
 	if(listening)
@@ -61,7 +61,7 @@
 	name = "noise sensor"
 	desc = "A simple noise sensor that triggers on vocalizations other than speech."
 	icon_state = "voice"
-	materials = list(MAT_METAL=100, MAT_GLASS=10)
+	materials = list(MAT_METAL = 210, MAT_GLASS = 50)
 	origin_tech = "magnets=1;engineering=1"
 	bomb_name = "noise-activated bomb"
 

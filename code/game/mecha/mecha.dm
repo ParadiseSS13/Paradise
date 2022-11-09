@@ -108,7 +108,7 @@
 	add_airtank()
 	spark_system.set_up(2, 0, src)
 	spark_system.attach(src)
-	smoke_system.set_up(3, src)
+	smoke_system.set_up(3, FALSE, src)
 	smoke_system.attach(src)
 	add_cell()
 	START_PROCESSING(SSobj, src)
@@ -987,7 +987,7 @@
 	AI.controlled_mech = src
 	AI.remote_control = src
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
-	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
+	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='boldnotice'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
 	to_chat(AI, "<span class='boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>")
 	if(interaction == AI_TRANS_FROM_CARD)
@@ -1209,7 +1209,7 @@
 
 /obj/mecha/proc/pilot_is_mmi()
 	var/atom/movable/mob_container
-	if(istype(occupant, /mob/living/carbon/brain))
+	if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
 	if(istype(mob_container, /obj/item/mmi))
@@ -1484,7 +1484,7 @@
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)
@@ -1545,7 +1545,7 @@
 		choices[MT.name] = MA
 		choices_to_refs[MT.name] = MT
 
-	var/choice = show_radial_menu(L, src, choices, radius = 48, custom_check = CALLBACK(src, .proc/check_menu, L))
+	var/choice = show_radial_menu(L, src, choices, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_menu), L))
 	if(!check_menu(L) || choice == "Cancel / No Change")
 		return
 

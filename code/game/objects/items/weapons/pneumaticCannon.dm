@@ -53,13 +53,10 @@
 				pressureSetting = 1
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
 		return
-	if(istype(W, /obj/item/screwdriver) && tank)
-		updateTank(tank, 1, user)
-		return
 	if(loadedWeightClass >= maxWeightClass)
 		to_chat(user, "<span class='warning'>\The [src] can't hold any more items!</span>")
 		return
-	if(istype(W, /obj/item))
+	if(isitem(W))
 		var/obj/item/IW = W
 		if(IW.flags & (ABSTRACT | NODROP | DROPDEL))
 			to_chat(user, "<span class='warning'>You can't put [IW] into [src]!</span>")
@@ -78,9 +75,15 @@
 		IW.loc = src
 		return
 
+/obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
+	if(!tank)
+		return
+
+	updateTank(tank, 1, user)
+	return TRUE
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
-	if(istype(target, /obj/item/storage)) //So you can store it in backpacks
+	if(isstorage(target)) //So you can store it in backpacks
 		return ..()
 	if(istype(target, /obj/structure/closet)) //So you can store it in closets
 		return ..()

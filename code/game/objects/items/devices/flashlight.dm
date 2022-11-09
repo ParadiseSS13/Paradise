@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL=50, MAT_GLASS=20)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
@@ -49,7 +49,7 @@
 		if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
 
-		if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
+		if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
 			to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
 			return
 
@@ -89,13 +89,14 @@
 
 /obj/item/flashlight/pen
 	name = "penlight"
-	desc = "A pen-sized light, used by medical staff."
+	desc = "A pen, and a light. Used by medical staff."
 	icon_state = "penlight"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
 	brightness_on = 2
+	var/colour = "blue" // Ink color
 
 /obj/item/flashlight/seclite
 	name = "seclite"

@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	if(istype(mob,/mob/dead/observer))
+	if(isobserver(mob))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
 		ghost.can_reenter_corpse = 1			//just in-case.
@@ -787,7 +787,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		return
 
 	if(!istype(H))
-		if(istype(H, /mob/living/carbon/brain))
+		if(isbrain(H))
 			var/mob/living/carbon/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
@@ -813,7 +813,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		return
 
 	if(!istype(H))
-		if(istype(H, /mob/living/carbon/brain))
+		if(isbrain(H))
 			var/mob/living/carbon/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container

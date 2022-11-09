@@ -973,3 +973,26 @@ The _flatIcons list is a cache for generated icon files.
 
 		main.AddAlphaMask(mask) //Make the pixels in the main icon that are in the transparent zone of the mask icon also vanish (fully transparent).
 		return main
+
+///Checks if the given iconstate exists in the given file, caching the result. Setting no_sprite to TRUE will print a stack trace ONCE.
+/proc/icon_exists(file, state, no_sprite)
+	var/static/list/icon_states_cache = list()
+	if(icon_states_cache[file]?[state])
+		return TRUE
+
+	if(icon_states_cache[file]?[state] == FALSE)
+		return FALSE
+
+	var/list/states = icon_states(file)
+
+	if(!icon_states_cache[file])
+		icon_states_cache[file] = list()
+
+	if(state in states)
+		icon_states_cache[file][state] = TRUE
+		return TRUE
+	else
+		icon_states_cache[file][state] = FALSE
+		if(no_sprite)
+			stack_trace("Icon Lookup for state: [state] in file [file] failed.")
+		return FALSE

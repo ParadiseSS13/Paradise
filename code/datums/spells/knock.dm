@@ -20,9 +20,9 @@
 /obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
-			INVOKE_ASYNC(src, .proc/try_open_airlock, door)
+			INVOKE_ASYNC(src, PROC_REF(try_open_airlock), door)
 		for(var/obj/structure/closet/C in T.contents)
-			INVOKE_ASYNC(src, .proc/try_open_closet, C)
+			INVOKE_ASYNC(src, PROC_REF(try_open_closet), C)
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/proc/try_open_airlock(obj/machinery/door/door)
 	if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
@@ -49,6 +49,8 @@
 	cooldown_min = 200
 	var/used = FALSE
 
+	action_icon_state = "greater_knock"
+
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
 	return T
@@ -60,7 +62,12 @@
 			if(is_station_level(A.z))
 				A.req_access = list()
 				A.req_one_access = list()
-		GLOB.command_announcement.Announce("We have removed all access requirements on your station's airlocks. You can thank us later!", "Greetings!", 'sound/misc/notice2.ogg', , , "Space Wizard Federation Message")
+		GLOB.major_announcement.Announce(
+			message = "We have removed all access requirements on your station's airlocks. You can thank us later!",
+			new_title = "Space Wizard Federation Message",
+			new_subtitle = "Greetings!",
+			new_sound = 'sound/misc/notice2.ogg'
+		)
 	else
 		..()
 	return

@@ -133,7 +133,7 @@
 	return
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/pen))
+	if(is_pen(P))
 		var/t = rename_interactive(user, P)
 
 		if(isnull(t))
@@ -264,7 +264,7 @@
 
 	return FALSE
 
-/obj/structure/tray/m_tray/CanAStarPass(ID, dir, caller)
+/obj/structure/tray/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
@@ -355,7 +355,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/crematorium/attackby(P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/pen))
+	if(is_pen(P))
 		rename_interactive(user, P)
 		add_fingerprint(user)
 		return

@@ -72,7 +72,7 @@
 		for(var/datum/mind/head_mind in heads)
 			mark_for_death(rev_mind, head_mind)
 
-		addtimer(CALLBACK(src, .proc/equip_revolutionary, rev_mind.current), rand(10, 100))
+		addtimer(CALLBACK(src, PROC_REF(equip_revolutionary), rev_mind.current), rand(10, 100))
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
@@ -220,7 +220,7 @@
 			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 				SSshuttle.emergency.mode = SHUTTLE_DOCKED
 				SSshuttle.emergency.timer = world.time
-				GLOB.command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/eshuttle_dock.ogg')
+				GLOB.major_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/eshuttle_dock.ogg')
 		return ..()
 	if(finished != 0)
 		return TRUE

@@ -295,13 +295,6 @@
 			playsound(src.loc, O.usesound, 50, 1)
 			anchored = !anchored
 
-		else if(istype(O, /obj/item/screwdriver))
-			panel_open = !panel_open
-			playsound(src.loc, O.usesound, 50, 1)
-			if(panel_open)
-				to_chat(user, "<span class='notice'>You open the access panel.</span>")
-			else
-				to_chat(user, "<span class='notice'>You close the access panel.</span>")
 		else if(istype(O, /obj/item/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 			return
@@ -309,6 +302,18 @@
 			default_deconstruction_crowbar(user, O)
 	else
 		return ..()
+
+/obj/machinery/power/port_gen/pacman/screwdriver_act(mob/living/user, obj/item/I)
+	if(active)
+		return
+
+	panel_open = !panel_open
+	I.play_tool_sound(src)
+	if(panel_open)
+		to_chat(user, "<span class='notice'>You open the access panel.</span>")
+	else
+		to_chat(user, "<span class='notice'>You close the access panel.</span>")
+	return TRUE
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
@@ -331,9 +336,9 @@
 	var/list/data = list()
 
 	data["active"] = active
-	if(istype(user, /mob/living/silicon/ai))
+	if(isAI(user))
 		data["is_ai"] = TRUE
-	else if(istype(user, /mob/living/silicon/robot) && !Adjacent(user))
+	else if(isrobot(user) && !Adjacent(user))
 		data["is_ai"] = TRUE
 	else
 		data["is_ai"] = FALSE

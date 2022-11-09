@@ -199,7 +199,7 @@
 			else if(G.can_trigger_gun(user))
 				bonus_spread += 24 * G.weapon_weight
 				loop_counter++
-				addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
+				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
@@ -319,7 +319,7 @@
 					A.Grant(user)
 
 	if(unique_rename)
-		if(istype(I, /obj/item/pen))
+		if(is_pen(I))
 			var/t = rename_interactive(user, I, use_prefix = FALSE)
 			if(!isnull(t))
 				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
@@ -531,7 +531,7 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
-		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/ZoomGrantCheck)
+		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
 
 /**
  * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.

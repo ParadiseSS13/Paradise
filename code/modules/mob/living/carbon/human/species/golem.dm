@@ -118,7 +118,6 @@
 	prefix = "Plasma"
 	special_names = list("Flood", "Fire", "Bar", "Man")
 	var/boom_warning = FALSE
-	var/datum/action/innate/ignite/ignite
 
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
@@ -143,11 +142,11 @@
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		ignite = new
+		var/datum/action/innate/ignite/ignite = new()
 		ignite.Grant(C)
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/C)
-	if(ignite)
+	for(var/datum/action/innate/ignite/ignite in C.actions)
 		ignite.Remove(C)
 	..()
 
@@ -434,7 +433,6 @@
 	special_names = list("Crystal", "Polycrystal")
 	unarmed_type = /datum/unarmed_attack/golem/bluespace
 
-	var/datum/action/innate/unstable_teleport/unstable_teleport
 	var/teleport_cooldown = 100
 	var/last_teleport = 0
 	var/tele_range = 6
@@ -463,7 +461,7 @@
 /datum/species/golem/bluespace/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to trigger the teleport
 			return 0
@@ -488,12 +486,12 @@
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		unstable_teleport = new
+		var/datum/action/innate/unstable_teleport/unstable_teleport = new()
 		unstable_teleport.Grant(C)
 		last_teleport = world.time
 
 /datum/species/golem/bluespace/on_species_loss(mob/living/carbon/C)
-	if(unstable_teleport)
+	for(var/datum/action/innate/unstable_teleport/unstable_teleport in C.actions)
 		unstable_teleport.Remove(C)
 	..()
 
@@ -518,14 +516,14 @@
 	var/mob/living/carbon/human/H = owner
 	H.visible_message("<span class='warning'>[H] starts vibrating!</span>", "<span class='danger'>You start charging your bluespace core...</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
-	addtimer(CALLBACK(src, .proc/teleport, H), 15)
+	addtimer(CALLBACK(src, PROC_REF(teleport), H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
 	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You teleport!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			continue
 		if(T.density)
 			continue
@@ -608,7 +606,7 @@
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to make bananas
 			return 0
@@ -727,7 +725,7 @@
 		H.forceMove(src)
 		cloth_golem = H
 		to_chat(cloth_golem, "<span class='notice'>You start gathering your life energy, preparing to rise again...</span>")
-		addtimer(CALLBACK(src, .proc/revive), revive_time)
+		addtimer(CALLBACK(src, PROC_REF(revive)), revive_time)
 	else
 		return INITIALIZE_HINT_QDEL
 

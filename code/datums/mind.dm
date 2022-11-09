@@ -608,7 +608,7 @@
 				var/list/possible_targets = list()
 				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target.current // Allows for admins to pick off station roles
 						if(!is_invalid_target(possible_target))
 							possible_targets_random += possible_target.current // For random picking, only valid targets
@@ -968,7 +968,7 @@
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
+				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
@@ -1233,6 +1233,9 @@
 				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
 				new_contract.reward_tc = list(0, 0, 0)
 				H.contracts += new_contract
+				for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
+					var/amount_tc = H.calculate_tc_reward(length(H.contracts), difficulty)
+					new_contract.reward_tc[difficulty] = amount_tc
 				SStgui.update_uis(H)
 				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
 				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")
@@ -1649,7 +1652,7 @@
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
-		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
+		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
@@ -1784,7 +1787,7 @@
 			H.update_inv_w_uniform()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
-	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
+	addtimer(CALLBACK(src, PROC_REF(remove_zealot), jumpsuit), convert_duration) //deconverts after the timer expires
 	return TRUE
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)

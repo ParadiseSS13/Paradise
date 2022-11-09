@@ -65,7 +65,7 @@
 
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(M, REAGENT_INGEST, fraction)
-			addtimer(CALLBACK(reagents, /datum/reagents.proc/trans_to, M, 5), 5)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
@@ -110,7 +110,7 @@
 			reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
 			label_text = t
@@ -124,7 +124,7 @@
 	icon_state = "beaker"
 	item_state = "beaker"
 	belt_icon = "beaker"
-	materials = list(MAT_GLASS=500)
+	materials = list(MAT_GLASS = 1000)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 

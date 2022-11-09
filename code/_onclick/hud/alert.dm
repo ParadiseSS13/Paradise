@@ -75,7 +75,7 @@
 
 	var/timeout = timeout_override || alert.timeout
 	if(timeout)
-		addtimer(CALLBACK(alert, /obj/screen/alert/.proc/do_timeout, src, category), timeout)
+		addtimer(CALLBACK(alert, TYPE_PROC_REF(/obj/screen/alert, do_timeout), src, category), timeout)
 		alert.timeout = world.time + timeout - world.tick_lag
 
 	return alert
@@ -462,7 +462,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/mech_port_available/Click()
 	if(!usr || !usr.client)
 		return
-	if(!istype(usr.loc, /obj/mecha) || !target)
+	if(!ismecha(usr.loc) || !target)
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.connect(target))
@@ -478,7 +478,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/mech_port_disconnect/Click()
 	if(!usr || !usr.client)
 		return
-	if(!istype(usr.loc, /obj/mecha))
+	if(!ismecha(usr.loc))
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.disconnect())

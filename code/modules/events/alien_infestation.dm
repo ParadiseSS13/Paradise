@@ -18,7 +18,7 @@
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4
-	INVOKE_ASYNC(src, .proc/spawn_xenos)
+	INVOKE_ASYNC(src, PROC_REF(spawn_xenos))
 
 /datum/event/alien_infestation/proc/spawn_xenos()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
@@ -34,6 +34,8 @@
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.amount_grown += (0.75 * new_xeno.max_grown)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
+			new_xeno.forceMove(vent)
+			new_xeno.add_ventcrawl(vent)
 			if(SSticker && SSticker.mode)
 				SSticker.mode.xenos += new_xeno.mind
 

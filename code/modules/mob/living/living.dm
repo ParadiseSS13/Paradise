@@ -148,9 +148,9 @@
 	if(!(M.status_flags & CANPUSH))
 		return TRUE
 	//anti-riot equipment is also anti-push
-	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
+	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !isclothing(M.r_hand))
 		return TRUE
-	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
+	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !isclothing(M.l_hand))
 		return TRUE
 
 //Called when we bump into an obj
@@ -200,6 +200,9 @@
 	if(current_dir)
 		AM.setDir(current_dir)
 	now_pushing = FALSE
+
+/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return TRUE // Unless you're a mule, something's trying to run you over.
 
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
@@ -355,12 +358,12 @@
 
 		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/storage))
+			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
+			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
 		return L
 
@@ -377,12 +380,12 @@
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/storage))
+			if(isstorage(G.gift))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
+			if(isstorage(D.wrapped)) //this should never happen
 				L += get_contents(D.wrapped)
 		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
@@ -833,7 +836,7 @@
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
 	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
+		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return 1
 
 /mob/living/proc/check_eye_prot()
@@ -923,14 +926,14 @@
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	var/loc_temp = T0C
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature
 
-	else if(istype(get_turf(src), /turf/space))
+	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
 		loc_temp = heat_turf.temperature
 
