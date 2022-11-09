@@ -199,7 +199,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/vending, flicker_event))
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/economy/vending, flicker_event))
 
 	return TRUE
 
