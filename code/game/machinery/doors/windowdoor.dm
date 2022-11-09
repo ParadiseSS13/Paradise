@@ -72,7 +72,7 @@
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
-	addtimer(CALLBACK(src, .proc/check_close), check_access(null) ? 5 SECONDS : 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
 
 
 /// Check whether or not this door can close, based on whether or not someone's standing in front of it holding it open
@@ -82,7 +82,7 @@
 		blocker = locate(/mob/living) in get_turf(src)
 	if(blocker && !blocker.stat && allowed(blocker))
 		// kick the can down the road, someone's holding the door.
-		addtimer(CALLBACK(src, .proc/check_close), check_access(null) ? 5 SECONDS : 2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
 		return
 
 	close()
@@ -157,7 +157,7 @@
 		return 1
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir)
+/obj/machinery/door/window/CanPathfindPass(obj/item/card/id/ID, to_dir, no_id = FALSE)
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)

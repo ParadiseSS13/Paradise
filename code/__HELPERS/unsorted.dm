@@ -292,7 +292,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -376,7 +376,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
 		if(M.stat == DEAD)
-			if(istype(M, /mob/dead/observer/))
+			if(isobserver(M))
 				name += " \[ghost\]"
 			else
 				name += " \[dead\]"
@@ -1378,9 +1378,7 @@ Standard way to write links -Sayu
 		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
 	else
 		for(var/i=1;i<=3;i++)
-			var/temp_col = "[num2hex(rand(lower,upper))]"
-			if(length(temp_col )<2)
-				temp_col  = "0[temp_col]"
+			var/temp_col = "[num2hex(rand(lower,upper), 2)]"
 			colour += temp_col
 	return colour
 
@@ -1461,9 +1459,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //datum may be null, but it does need to be a typed var
 #define NAMEOF(datum, X) (#X || ##datum.##X)
 
-#define VARSET_LIST_CALLBACK(target, var_name, var_value) CALLBACK(GLOBAL_PROC, /proc/___callbackvarset, ##target, ##var_name, ##var_value)
+#define VARSET_LIST_CALLBACK(target, var_name, var_value) CALLBACK(GLOBAL_PROC, PROC_REF(___callbackvarset), ##target, ##var_name, ##var_value)
 //dupe code because dm can't handle 3 level deep macros
-#define VARSET_CALLBACK(datum, var, var_value) CALLBACK(GLOBAL_PROC, /proc/___callbackvarset, ##datum, NAMEOF(##datum, ##var), ##var_value)
+#define VARSET_CALLBACK(datum, var, var_value) CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(___callbackvarset), ##datum, NAMEOF(##datum, ##var), ##var_value)
 
 /proc/___callbackvarset(list_or_datum, var_name, var_value)
 	if(length(list_or_datum))
@@ -1847,7 +1845,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
 		if(M.stat == DEAD)
-			if(istype(M, /mob/dead/observer/))
+			if(isobserver(M))
 				name += " \[ghost\]"
 			else
 				name += " \[dead\]"

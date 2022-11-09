@@ -128,6 +128,9 @@
 	else if(A == node2)
 		return parent2
 
+/obj/machinery/atmospherics/binary/is_pipenet_split()
+	return TRUE
+
 /obj/machinery/atmospherics/binary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)
 		parent1 = New

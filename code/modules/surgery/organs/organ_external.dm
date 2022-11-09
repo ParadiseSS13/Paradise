@@ -547,7 +547,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			src.transform = M
 			if(!clean)
 				// Throw limb around.
-				if(src && istype(loc,/turf))
+				if(src && isturf(loc))
 					dropped_part.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),30)
 				dir = 2
 			brute_dam = 0
@@ -755,7 +755,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	for(var/obj/item/I in embedded_objects)
 		UnregisterSignal(I, COMSIG_MOVABLE_MOVED) // Else it gets removed from the embedded list
 		I.forceMove(src)
-		RegisterSignal(I, COMSIG_MOVABLE_MOVED, .proc/remove_embedded_object)
+		RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
 
 	if(!owner.has_embedded_objects())
 		owner.clear_alert("embeddedobject")
@@ -848,7 +848,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/add_embedded_object(obj/item/I)
 	embedded_objects += I
 	I.forceMove(owner)
-	RegisterSignal(I, COMSIG_MOVABLE_MOVED, .proc/remove_embedded_object)
+	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(remove_embedded_object))
 
 //Remove all embedded objects from all limbs on the carbon mob
 /mob/living/carbon/human/proc/remove_all_embedded_objects()

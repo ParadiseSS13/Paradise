@@ -195,7 +195,7 @@
 			if(!M.anchored && (M.flags & CONDUCT))
 				step_towards(M,src)
 		for(var/mob/living/silicon/S in orange(2,src))
-			if(istype(S, /mob/living/silicon/ai)) continue
+			if(isAI(S)) continue
 			step_towards(S,src)
 		for(var/mob/living/carbon/human/machine/M in orange(2,src))
 			step_towards(M,src)
@@ -652,8 +652,12 @@
 /obj/item/clothing/suit/browntrenchcoat
 	name = "brown trench coat"
 	desc = "It makes you stand out. Just the opposite of why it's typically worn. Nice try trying to blend in while wearing it."
-	icon_state = "brtrenchcoat"
-	item_state = "brtrenchcoat"
+	icon_state = "brtrenchcoat_open"
+	item_state = "brtrenchcoat_open"
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -662,8 +666,12 @@
 /obj/item/clothing/suit/blacktrenchcoat
 	name = "black trench coat"
 	desc = "That shade of black just makes you look a bit more evil. Good for those mafia types."
-	icon_state = "bltrenchcoat"
-	item_state = "bltrenchcoat"
+	icon_state = "bltrenchcoat_open"
+	item_state = "bltrenchcoat_open"
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -785,6 +793,20 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
+
+/obj/item/clothing/suit/jacket/syndicatebomber
+	name = "suspicious bomber jacket"
+	desc = "A suspicious but extremely stylish jacket."
+	icon_state = "bombersyndie"
+	item_state = "bombersyndie"
+	ignore_suitadjust = FALSE
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
+	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/suit/jacket/secbomber
 	name = "security bomber jacket"

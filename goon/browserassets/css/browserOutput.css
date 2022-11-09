@@ -286,8 +286,6 @@ em						{font-style: normal;	font-weight: bold;}
 .djradio				{color: #663300;}
 .binaryradio				{color: #0B0050;	font-family: 'Courier New', Courier, monospace;}
 .mommiradio				{color: navy;}
-.alert					{color: #ff0000;}
-h1.alert, h2.alert			{color: #000000;}
 .ghostalert				{color: #5c00e6;	font-style: italic; font-weight: bold;}
 .emote					{					font-style: italic;}
 .selecteddna				{color: #FFFFFF; 	background-color: #001B1B}
@@ -308,7 +306,7 @@ h1.alert, h2.alert			{color: #000000;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
-.announce 				{color: #228b22;	font-weight: bold;}
+.pr_announce 				{color: #228b22;	font-weight: bold;}
 .boldannounce				{color: #ff0000;	font-weight: bold;}
 .greenannounce				{color: #00ff00;	font-weight: bold;}
 
@@ -427,3 +425,12 @@ h1.alert, h2.alert			{color: #000000;}
 /* Syndicate codewords */
 span.body .codephrases {color: #0000FF;}
 span.body .coderesponses {color: #FF0000;}
+
+.announcement { font-size: 24pt; }
+.announcement h1, .announcement h2 { color: #000; }
+.announcement p { color: #d82020; font-size: 12pt; }
+.announcement h1 { font-size: 100%; }
+.announcement h2 { font-size: 90%; }
+.announcement.minor h1 { font-size: 80%; }
+.announcement.minor h2 { font-size: 70%; }
+.announcement.sec h1 { color: #f00; font-size: 80%; font-family: Verdana, sans-serif; }
