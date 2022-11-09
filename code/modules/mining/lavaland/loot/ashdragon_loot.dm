@@ -44,7 +44,7 @@
 	..()
 	spirits = list()
 	register_signals(src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
@@ -113,8 +113,8 @@
 	UnregisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN)
 
 /obj/item/melee/ghost_sword/proc/register_signals(atom/A)
-	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, .proc/add_ghost, override = TRUE)
-	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, .proc/remove_ghost, override = TRUE)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(add_ghost), override = TRUE)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, PROC_REF(remove_ghost), override = TRUE)
 
 /**
  *  When moving into something's contents

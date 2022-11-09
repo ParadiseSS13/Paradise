@@ -376,8 +376,8 @@
 	. = ..()
 	for(var/i=0;i<3;i++)
 		buffers[i+1]=new /datum/dna2/record
-	addtimer(CALLBACK(src, .proc/find_machine), 1 SECONDS)
-	addtimer(CALLBACK(src, .proc/ready), 25 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(find_machine)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(ready)), 25 SECONDS)
 
 /obj/machinery/computer/scan_consolenew/proc/find_machine()
 	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
@@ -808,7 +808,7 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	addtimer(CALLBACK(src, .proc/injector_cooldown_finish), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 30 SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]

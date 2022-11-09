@@ -72,7 +72,7 @@
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
-	addtimer(CALLBACK(src, .proc/check_close), check_access(null) ? 5 SECONDS : 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
 
 
 /// Check whether or not this door can close, based on whether or not someone's standing in front of it holding it open
@@ -82,7 +82,7 @@
 		blocker = locate(/mob/living) in get_turf(src)
 	if(blocker && !blocker.stat && allowed(blocker))
 		// kick the can down the road, someone's holding the door.
-		addtimer(CALLBACK(src, .proc/check_close), check_access(null) ? 5 SECONDS : 2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
 		return
 
 	close()

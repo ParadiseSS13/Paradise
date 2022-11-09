@@ -46,7 +46,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/computer/.proc/flicker_event)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/computer, flicker_event))
 
 	return TRUE
 

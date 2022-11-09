@@ -311,7 +311,7 @@
 				L.status_flags |= GODMODE
 				explosion(get_turf(user), 5, 2, 1, 3)
 				// explosions have a spawn so this makes sure that we don't get gibbed
-				addtimer(CALLBACK(src, .proc/wiz_cleanup, user_carbon, L), 1)
+				addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user_carbon, L), 1)
 				user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 				L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 				return TRUE
