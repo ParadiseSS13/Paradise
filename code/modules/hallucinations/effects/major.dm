@@ -357,7 +357,7 @@
 		return
 
 	var/turf/T = get_turf(pick(vents))
-  alien = new(T, target)
+	alien = new(T, target)
 	alien.dir = get_dir(T, target)
 	addtimer(CALLBACK(src, PROC_REF(do_pounce)), pounce_interval)
 
