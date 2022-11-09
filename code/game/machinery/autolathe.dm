@@ -40,7 +40,7 @@
 
 /obj/machinery/autolathe/Initialize()
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	component_parts = list()
 	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

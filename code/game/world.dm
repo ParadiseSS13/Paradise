@@ -1,5 +1,9 @@
 GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
+#ifdef UNIT_TESTS
+GLOBAL_DATUM(test_runner, /datum/test_runner)
+#endif
+
 /world/New()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
@@ -66,7 +70,8 @@ GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
 
 	#ifdef UNIT_TESTS
-	HandleTestRun()
+	GLOB.test_runner = new
+	GLOB.test_runner.Start()
 	#endif
 
 
@@ -140,7 +145,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	// If we were running unit tests, finish that run
 	#ifdef UNIT_TESTS
-	FinishTestRun()
+	GLOB.test_runner.Finalize()
 	return
 	#endif
 

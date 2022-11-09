@@ -204,7 +204,7 @@
 	if(!target.electrocute_act(voltage, flags = SHOCK_TESLA)) // if it fails to shock someone, break the chain
 		return
 	protected_mobs += target
-	addtimer(CALLBACK(src, .proc/arc, target, voltage, protected_mobs), 2.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(arc), target, voltage, protected_mobs), 2.5 SECONDS)
 
 /datum/enchantment/lightning/proc/arc(mob/living/source, voltage, protected_mobs)
 	voltage = voltage - 4
@@ -225,7 +225,7 @@
 
 /datum/enchantment/fire/on_gain(obj/item/melee/spellblade/S, mob/living/user)
 	..()
-	RegisterSignal(S, list(COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED), .proc/toggle_traits)
+	RegisterSignal(S, list(COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED), PROC_REF(toggle_traits))
 	if(user)
 		toggle_traits(S, user)
 

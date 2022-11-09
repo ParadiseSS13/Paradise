@@ -36,7 +36,7 @@
 	if(H.mind)
 		H.mind.isholy = TRUE
 
-	INVOKE_ASYNC(src, .proc/religion_pick, H)
+	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
 
 /datum/outfit/job/chaplain/proc/religion_pick(mob/living/carbon/human/user)
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(get_turf(user))

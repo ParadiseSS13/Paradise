@@ -35,7 +35,7 @@
 	log_game("[key_name_admin(S)] was spawned as a Slaughter Demon by an event.")
 
 /datum/event/spawn_slaughter/start()
-	INVOKE_ASYNC(src, .proc/get_slaughter)
+	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 
 /datum/event/spawn_slaughter/greater
 	demon = /mob/living/simple_animal/slaughter
