@@ -237,15 +237,13 @@
 			D.f_style = random_facial_hair_style(gender, D.dna.species.name)
 		D.facial_colour = rand_hex_color()
 	if(skin_tone)
-		H.change_skin_tone(skin_tone)
+		H.s_tone = skin_tone
 	else
-		H.change_skin_tone(random_skin_tone())
-		H.change_skin_color(rand_hex_color())
-	H.update_hair()
-	H.update_fhair()
-	H.update_body()
-	H.update_dna()
-	H.regenerate_icons()
+		H.s_tone = random_skin_tone()
+		H.skin_colour = rand_hex_color()
+
+	H.update_body(rebuild_base = TRUE)
+
 	if(outfit)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)

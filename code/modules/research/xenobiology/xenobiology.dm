@@ -255,7 +255,7 @@
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
 		heat_stage += 1
-		addtimer(CALLBACK(src, .proc/cooldown_potion), 60 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(cooldown_potion)), 60 SECONDS)
 		if(user.Adjacent(src))
 			switch(heat_stage)
 				if(1)

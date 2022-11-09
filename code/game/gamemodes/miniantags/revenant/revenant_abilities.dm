@@ -216,7 +216,7 @@
 /obj/effect/proc_holder/spell/aoe/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/obj/machinery/light/L as anything in targets)
-			INVOKE_ASYNC(src, .proc/shock_lights, L, user)
+			INVOKE_ASYNC(src, PROC_REF(shock_lights), L, user)
 
 /obj/effect/proc_holder/spell/aoe/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
 	if(!L.on)
@@ -281,7 +281,7 @@
 /obj/effect/proc_holder/spell/aoe/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, .proc/effect, user, T)
+			INVOKE_ASYNC(src, PROC_REF(effect), user, T)
 
 /obj/effect/proc_holder/spell/aoe/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
 	T.rev_malfunction(TRUE)
@@ -343,7 +343,7 @@
 	if(!successes)
 		return
 	// Stop the looping attacks after 65 seconds, roughly 14 attack cycles depending on lag
-	addtimer(CALLBACK(src, .proc/stop_timers), 65 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(stop_timers)), 65 SECONDS, TIMER_UNIQUE)
 
 /// Handles making an object haunted and setting it up to attack
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
@@ -355,9 +355,9 @@
 	possessed_object.health = 100
 	possessed_object.escape_chance = 100 // We cannot be contained
 
-	addtimer(CALLBACK(src, .proc/attack, possessed_object, user), 2 SECONDS, TIMER_UNIQUE) // Short warm up for floaty ambience
-	attack_timers.Add(addtimer(CALLBACK(src, .proc/attack, possessed_object, user), 5 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
-	addtimer(CALLBACK(possessed_object, /mob/living/simple_animal/possessed_object/.proc/death), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
+	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 2 SECONDS, TIMER_UNIQUE) // Short warm up for floaty ambience
+	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 5 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
+	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
 
 /// Handles finding a valid target and throwing us at it
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
