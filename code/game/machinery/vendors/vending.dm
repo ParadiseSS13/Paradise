@@ -199,7 +199,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/economy/vending/.proc/flicker_event)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/vending, flicker_event))
 
 	return TRUE
 
@@ -731,7 +731,7 @@
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend, src)
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, .proc/delayed_vend, R, user), vend_delay)
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
 
 /obj/machinery/economy/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
 	do_vend(R, user)
