@@ -340,6 +340,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		GLOB.ts_death_last = world.time
 		GLOB.ts_count_alive_station--
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/give_intro_text()
+	to_chat(src, "<center><span class='userdanger'>You are a Terror Spider!</span></center>")
+	to_chat(src, "<center>Work with other terror spiders in your hive to eliminate the crew and claim the station as your nest!")
+	to_chat(src, "<center><span class='danger'>Remember to follow the orders of higher tier spiders, such as princesses or queens.</span></center><br>")
+	to_chat(src, "<center><span class='big'>[spider_intro_text]</span></center><br>")
+	to_chat(src, "<center><span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span></center>")
+
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())
 		if(!gibbed)

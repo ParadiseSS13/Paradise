@@ -68,13 +68,7 @@
 			S.forceMove(vent)
 			S.add_ventcrawl(vent)
 		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
-		to_chat(S, "<b><font size=3 color='red'>You are a Terror Spider!</font></b>")
-		to_chat(S, "Work with other terror spiders in your hive to eliminate the crew and claim the station as your nest!")
-		to_chat(S, "<b>Remember to follow the orders of higher tier spiders, such as the princess or queen.</b>")
-		to_chat(S, "Most terror spiders can lay webs to block off areas of the station, which will also incapacitate anyone that walks into them. These webs will also have unique attributes depending on what kind of terror spider you are.")
-		to_chat(S, "All terror spiders can wrap corpses to improve health regeneration, with green terror spiders also relying on wrapping corpses to produce more eggs. You must be adjacent or on top of a corpse to wrap it.")
-		to_chat(S, "<span class='specialnotice'>[S.spider_intro_text]</span>")
-		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")
+		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
 

@@ -40,12 +40,6 @@
 		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")
 		return
 	key = user.key
-	to_chat(src, "<b><font size=3 color='red'>You are a Terror Spider!</font></b>")
-	to_chat(src, "Work with other terror spiders in your hive to eliminate the crew and claim the station as your nest!")
-	to_chat(src, "<b>Remember to follow the orders of higher tier spiders, such as the princess or queen.</b>")
-	to_chat(src, "Most terror spiders can lay webs to block off areas of the station, which will also incapacitate anyone that walks into them. These webs will also have unique attributes depending on what kind of terror spider you are.")
-	to_chat(src, "All terror spiders can wrap corpses to improve health regeneration, with green terror spiders also relying on wrapping corpses to produce more eggs. You must be adjacent or on top of a corpse to wrap it.")
-	to_chat(src, "<span class='specialnotice'>[spider_intro_text]</span>")
-	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")
+	give_intro_text()
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>A ghost has taken control of <b>[src]</b>. ([ghost_follow_link(src, ghost=G)]).</i>")
