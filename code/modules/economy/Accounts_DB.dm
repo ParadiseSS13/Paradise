@@ -16,6 +16,12 @@
 	///Will the database permit actions on it? Useful for random events
 	var/online = TRUE
 
+/datum/money_account_database/vv_edit_var(var_name, var_value)
+	if(var_name == "vendor_account")
+		if(!istype(var_value, /datum/money_account))
+			return FALSE //this is how you break the economy
+	return ..()
+
 /datum/money_account_database/can_vv_delete()
 	message_admins("An admin attempted to VV delete a money account database, this will break the economy system for the round, if you know what you are doing please use advanced proccall")
 	return FALSE
@@ -43,11 +49,12 @@
 			return account
 
 /datum/money_account_database/proc/delete_user_account(account_number, terminal, supress_log = FALSE)
-	for(var/datum/money_account/account as anything in user_accounts)
+	for(var/datum/money_account/account as anything in user_accounts) // <--- this does not include department account for A GOOD REASON
 		if(account.account_number == account_number)
 			if(!supress_log)
 				log_account_action(account, null, "Delete Money Account", terminal, log_on_database = supress_log)
 			user_accounts -= account
+			qdel(account)
 			return TRUE
 	return FALSE
 

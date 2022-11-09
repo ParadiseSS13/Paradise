@@ -30,8 +30,8 @@
 	///the amount this account recieves every payday
 	var/payday_amount = CREW_BASE_PAY_LOW
 
-	///The nanobank programs associated with this account, used for notifying crew members through PDA
-	var/list/associated_nanobank_programs = list()
+	///The nanobank programs associated with this account, used for notifying crew members through PDA, this is a lazy list
+	var/list/associated_nanobank_programs
 	///The requests made to this money_account used for ATM and NanoBank credit transfers, this is a lazy list
 	var/list/transfer_requests
 
@@ -52,15 +52,33 @@
 	SSeconomy.total_space_credits += starting_balance
 
 /datum/money_account/Destroy(force)
-	if(database_holder)
+	//we don't need to worry about nanobank programs here because they auto GC themselves
+	QDEL_LIST(account_log)
+	QDEL_LIST(hidden_account_log)
+	if(!QDELETED(database_holder))
 		if(account_type == ACCOUNT_TYPE_PERSONAL)
-			database_holder.user_accounts -= src
+			database_holder.user_accounts -= src //remove reference to this account incase this was not deleted the "correct" way through an account db
 		else if(istype(database_holder, /datum/money_account_database/main_station) && account_type == ACCOUNT_TYPE_DEPARTMENT)
+			//we do not want department accounts being deleted ever unless we really really mean to
+			var/datum/money_account_database/main_station/station_db = database_holder
 			if(!force)
-				return QDEL_HINT_LETMELIVE //we do not want department accounts being deleted ever
+				return QDEL_HINT_LETMELIVE
+			else if(src == station_db.get_account_by_department(DEPARTMENT_SUPPLY))
+				//its panic time! We should never get here, however this should be enough idiot-proofing to keep the round going
+				log_debug("Somebody or something destroyed (with force) the Supply Department Money Account, making a new one to prevent economy from breaking")
+				SSeconomy.cargo_account = null
+				station_db.department_accounts[DEPARTMENT_SUPPLY] = null
+				station_db.create_department_account(DEPARTMENT_SUPPLY, payday_amount, credit_balance)
+				var/datum/money_account/new_cargo_account = station_db.get_account_by_department(DEPARTMENT_SUPPLY)
+				SSeconomy.cargo_account = new_cargo_account
+
 	for(var/datum/transfer_request/request as anything in transfer_requests)
 		resolve_transfer_request(request, FALSE)
-
+		//while we're here, lets do the GC a favor and get rid of these transfer request datums
+	database_holder = null
+	SSeconomy.total_space_credits -= credit_balance
+	SSeconomy.space_credits_destroyed += credit_balance
+	credit_balance = 0
 	return ..()
 
 
@@ -120,6 +138,13 @@
 			if(is_vendor)
 				. = TRUE
 
+/datum/money_account/proc/set_account_security(new_security_level)
+	if(suspended)
+		return FALSE
+	if(new_security_level < ACCOUNT_SECURITY_ID || new_security_level > ACCOUNT_SECURITY_VENDOR)
+		CRASH("set_account_security() called with an invalid security level")
+	security_level = new_security_level
+
 /*
   * # make_transaction_log
   *
@@ -167,8 +192,9 @@
 /datum/money_account/proc/create_transfer_request(datum/transfer_request/request)
 	if(!request.amount)
 		CRASH("Attempted to add a transfer request to a money account ([account_name]) with a null or zero amount")
-	for(var/datum/data/pda/app/nanobank/program as anything in associated_nanobank_programs)
-		program.notify("NanoBank Transfer Request Recieved", TRUE)
+	if(LAZYLEN(associated_nanobank_programs))
+		for(var/datum/data/pda/app/nanobank/program as anything in associated_nanobank_programs)
+			program.notify("NanoBank Transfer Request Recieved", TRUE)
 	LAZYADD(transfer_requests, request)
 
 /datum/money_account/proc/resolve_transfer_request(datum/transfer_request/request)
@@ -186,6 +212,16 @@
 	///when the money was requested
 	var/time = 0
 
+/*
+  * # modify_payroll
+  *
+  * Will add/subtract from the next paycheck for this money account. As long as announce is true, the user
+  * will be informed of exactly how much is added/deducted so there is no need to include it with the reason
+  * Arguments:
+  * * amount - amount to modify payroll, can be negative or positive
+  * * announce - should NanoBank accounts associated with this money account get an alert about this modification?
+  * * reason - The reason for the modification, will broadcast this reasont to associated NanoBank accounts
+*/
 /datum/money_account/proc/modify_payroll(amount, announce = FALSE, reason)
 	if(!amount)
 		CRASH("Attempted to modify payroll on a money account ([account_name]) with a null or zero amount")
@@ -195,7 +231,8 @@
 	else
 		LAZYADD(pay_check_deductions, amount)
 	if(amount)
-		for(var/datum/data/pda/app/nanobank/program as anything in associated_nanobank_programs)
-			if(reason)
-				program.notify(reason, FALSE)
-			program.notify("[amount] credit [bonus ? "bonus" : "deduction"] added to your next paycheck, have a Nanotrasen day!", TRUE)
+		if(LAZYLEN(associated_nanobank_programs))
+			for(var/datum/data/pda/app/nanobank/program as anything in associated_nanobank_programs)
+				if(reason)
+					program.notify(reason, FALSE, TRUE)
+				program.notify("[amount] credit [bonus ? "bonus" : "deduction"] added to your next paycheck, have a Nanotrasen day!", TRUE)

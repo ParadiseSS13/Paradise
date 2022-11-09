@@ -1,4 +1,3 @@
-///Define for the entry for the QM in the requests assoc list on SSeconomy
 
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
@@ -93,7 +92,7 @@
 			can_approve = TRUE
 			can_deny = TRUE
 		if(order.requires_qm_approval)
-			if(has_qm_access(C.access)) //if the crate needs QM approval and you have QM access, you get app and deny rights
+			if(C && has_qm_access(C.access)) //if the crate needs QM approval and you have QM access, you get app and deny rights
 				can_approve = TRUE
 				can_deny = TRUE
 		else if(order.requires_head_approval)

@@ -22,8 +22,10 @@
 
 /datum/data/pda/app/nanobank/Destroy()
 	if(user_account)
+		//because we have a user account, we know that this LAZYLIST has atleast a single entry in it so we dont need to use LAZYREMOVE
 		if(src in user_account.associated_nanobank_programs)
 			user_account.associated_nanobank_programs -= src //removing references to this program
+			UNSETEMPTY(user_account.associated_nanobank_programs) //since we're not going to use LAZYREMOVE, we still want to unset list incase its now empty
 		logout() //removing signals
 	return ..()
 
@@ -157,15 +159,15 @@
 		user_account = attempt_account
 		//lets make sure to logout if the account gets deleted somehow (such as cryo'ing)
 		RegisterSignal(user_account, COMSIG_PARENT_QDELETING, .proc/logout)
-		if(!(src in user_account.associated_nanobank_programs))
-			user_account.associated_nanobank_programs += src
+		if(!LAZYLEN(user_account.associated_nanobank_programs) || !(src in user_account.associated_nanobank_programs))
+			LAZYADD(user_account.associated_nanobank_programs, src)
 		return TRUE
 
 /datum/data/pda/app/nanobank/proc/logout()
 	if(!user_account)
 		return
-	if(src in user_account.associated_nanobank_programs)
-		user_account.associated_nanobank_programs -= src
+	//even though this is a LAZYLIST, we know it has a single entry on it because we're connected to the account
+	LAZYREMOVE(user_account.associated_nanobank_programs, src)
 	UnregisterSignal(user_account, COMSIG_PARENT_QDELETING)
 	user_account = null
 

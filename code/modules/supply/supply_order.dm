@@ -99,16 +99,6 @@
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
 
-	if((errors & MANIFEST_ERROR_ITEM))
-		//secure and large crates cannot lose items
-		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
-			errors &= ~MANIFEST_ERROR_ITEM
-		else
-			var/lostAmt = max(round(Crate.contents.len/10), 1)
-			//lose some of the items
-			while(--lostAmt >= 0)
-				qdel(pick(Crate.contents))
-
 	//manifest finalisation
 	slip.info += "</ul><br>"
 	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.

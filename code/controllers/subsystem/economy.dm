@@ -54,6 +54,19 @@ SUBSYSTEM_DEF(economy)
 	var/global_paycheck_bonus = 0
 	var/global_paycheck_deducation = 0
 
+/datum/controller/subsystem/economy/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		//These are all things that admins should not be touching during production, these are either used for logging
+		//or economy critical things that should not be touched
+		if("payday_count")
+			return FALSE //fuck off, used for logging
+		if("sold_atoms")
+			return FALSE //fuck off, used for logging
+		if("cargo_account")
+			if(!istype(var_value, /datum/money_account))
+				return FALSE //really fuck off, you're vv editing something to a value that will break the economy
+	return ..()
+
 /datum/controller/subsystem/economy/Initialize()
 	///create main station accounts
 	if(!GLOB.current_date_string)
@@ -177,8 +190,9 @@ SUBSYSTEM_DEF(economy)
 			LAZYREMOVE(account.pay_check_deductions, deduction)
 		station_db.credit_account(account, amount_to_pay, "Payday", "NAS Trurl Payroll", FALSE)
 		if(account.account_type == ACCOUNT_TYPE_PERSONAL)
-			for(var/datum/data/pda/app/nanobank/program as anything in account.associated_nanobank_programs)
-				program.announce_payday(amount_to_pay)
+			if(LAZYLEN(account.associated_nanobank_programs))
+				for(var/datum/data/pda/app/nanobank/program as anything in account.associated_nanobank_programs)
+					program.announce_payday(amount_to_pay)
 		total_accounts++
 		total_payout += amount_to_pay
 
@@ -207,8 +221,8 @@ SUBSYSTEM_DEF(economy)
 					continue //objective doesn't giveout payout
 
 				if(objective.owner_account)
-					GLOB.station_money_database.credit_account(objective.owner_account, objective.completion_payment, "Job Objective Completion Bonus")
 					objective.owner_account.modify_payroll(objective.completion_payment, TRUE, "Job Objective \"[objective.objective_name]\" completed, award will be included in next paycheck")
+					objective.payout_given = TRUE
 				else
 					log_debug("Job objective ([objective.objective_name]) does not have an associated money account")
 				break
