@@ -338,7 +338,7 @@ SUBSYSTEM_DEF(ticker)
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
-	addtimer(CALLBACK(src, .proc/handle_antagfishing_reporting), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(handle_antagfishing_reporting)), 10 SECONDS)
 	return TRUE
 
 
