@@ -1,7 +1,7 @@
 /datum/action/changeling/mimicvoice
 	name = "Mimic Voice"
-	desc = "We shape our vocal glands to sound like a desired voice.
-	helptext = "Will turn your voice into the name that you enter.
+	desc = "We shape our vocal glands to sound like a desired voice."
+	helptext = "Will turn your voice into the name that you enter."
 	button_icon_state = "mimic_voice"
 	chemical_cost = 0
 	dna_cost = 1
