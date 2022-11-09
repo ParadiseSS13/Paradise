@@ -36,7 +36,7 @@
 	return ..()
 
 /datum/component/largetransparency/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/OnMove)
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(OnMove))
 	RegisterWithTurfs()
 
 /datum/component/largetransparency/UnregisterFromParent()
@@ -52,9 +52,9 @@
 	registered_turfs = block(lowleft_turf, upright_turf) //small problems with z level edges due to object size offsets, but nothing truly problematic.
 	//register the signals
 	for(var/registered_turf in registered_turfs)
-		RegisterSignal(registered_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_INITIALIZED_ON), .proc/objectEnter)
-		RegisterSignal(registered_turf, COMSIG_ATOM_EXITED, .proc/objectLeave)
-		RegisterSignal(registered_turf, COMSIG_TURF_CHANGE, .proc/OnTurfChange)
+		RegisterSignal(registered_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_INITIALIZED_ON), PROC_REF(objectEnter))
+		RegisterSignal(registered_turf, COMSIG_ATOM_EXITED, PROC_REF(objectLeave))
+		RegisterSignal(registered_turf, COMSIG_TURF_CHANGE, PROC_REF(OnTurfChange))
 		for(var/thing in registered_turf)
 			var/atom/check_atom = thing
 			if(!(check_atom.flags_2 & CRITICAL_ATOM_2))
@@ -76,7 +76,7 @@
 	RegisterWithTurfs()
 
 /datum/component/largetransparency/proc/OnTurfChange()
-	addtimer(CALLBACK(src, .proc/OnMove), 0, TIMER_UNIQUE|TIMER_OVERRIDE) //*pain
+	addtimer(CALLBACK(src, PROC_REF(OnMove)), 0, TIMER_UNIQUE|TIMER_OVERRIDE) //*pain
 
 /datum/component/largetransparency/proc/objectEnter(datum/source, atom/enterer)
 	if(!(enterer.flags_2 & CRITICAL_ATOM_2))

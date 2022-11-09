@@ -48,7 +48,7 @@
 	occupant = user
 	update_icon(UPDATE_OVERLAYS)
 	feedinTopanim()
-	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
+	addtimer(CALLBACK(src, PROC_REF(startgibbing), user), 33)
 	return OBLITERATION
 
 /obj/machinery/gibber/update_overlays()
@@ -147,7 +147,7 @@
 		occupant = victim
 
 		update_icon(UPDATE_OVERLAYS)
-		INVOKE_ASYNC(src, .proc/feedinTopanim)
+		INVOKE_ASYNC(src, PROC_REF(feedinTopanim))
 
 /obj/machinery/gibber/verb/eject()
 	set category = "Object"

@@ -93,7 +93,7 @@ jobs:
           redis-version: 6
       - name: Compile & Run Unit Tests
         run: |
-          tools/ci/install_byond.sh
+          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
           echo '${{ matrix.maptype }}' > data/next_map.txt

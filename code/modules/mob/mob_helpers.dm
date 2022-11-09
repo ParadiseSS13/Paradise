@@ -96,7 +96,7 @@
 	if(client?.prefs.colourblind_mode != COLOURBLIND_MODE_NONE)
 		return
 	client.color = flash_color
-	INVOKE_ASYNC(client, /client/.proc/colour_transition, get_screen_colour(), flash_time)
+	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, colour_transition), get_screen_colour(), flash_time)
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/mindshield/L in A)
@@ -767,7 +767,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
 		else
 			audio_emote_unintentional_cd_status = EMOTE_ON_COOLDOWN
-		addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end, intentional), cooldown)
+		addtimer(CALLBACK(src, PROC_REF(on_audio_emote_cooldown_end), intentional), cooldown)
 	return TRUE  // proceed with emote
 
 

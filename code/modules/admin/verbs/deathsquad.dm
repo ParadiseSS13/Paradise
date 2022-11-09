@@ -86,7 +86,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			dstype = input_async(ghost_mob, "Select Deathsquad Type (10 seconds):", list("Organic", "Cyborg"))
 		else
 			to_chat(ghost_mob.client, "<span class='boldwarning'>You have been chosen to lead the Deathsquad. Please stand by.</span>" )
-		addtimer(CALLBACK(src, .proc/deathsquad_spawn, ghost_mob, is_leader, dstype, L, nuke_code, mission), 10 SECONDS) // This may fail if the user switches mobs during it, this is because input_async is only for mobs not clients
+		addtimer(CALLBACK(src, PROC_REF(deathsquad_spawn), ghost_mob, is_leader, dstype, L, nuke_code, mission), 10 SECONDS) // This may fail if the user switches mobs during it, this is because input_async is only for mobs not clients
 
 		is_leader = FALSE
 		commando_number--

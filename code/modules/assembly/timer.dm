@@ -45,7 +45,7 @@
 	pulse(FALSE)
 	if(loc)
 		loc.visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
 /obj/item/assembly/timer/process()
 	if(timing && (time > 0))

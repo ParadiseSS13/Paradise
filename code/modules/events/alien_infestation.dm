@@ -18,7 +18,7 @@
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4
-	INVOKE_ASYNC(src, .proc/spawn_aliens)
+  INVOKE_ASYNC(src, PROC_REF(spawn_aliens))
 
 /datum/event/alien_infestation/proc/spawn_aliens()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)

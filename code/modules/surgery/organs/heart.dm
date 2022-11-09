@@ -24,7 +24,7 @@
 			return
 
 	if(!special)
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 120)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(!is_robotic() || emp_proof)
@@ -42,7 +42,7 @@
 		return
 	if(!beating)
 		Restart()
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 80)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
 	Restart()
@@ -121,15 +121,15 @@
 	..()
 	if(owner)
 		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
-		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, .proc/just_before_revive)
-		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, .proc/on_defib_revive)
+		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, PROC_REF(just_before_revive))
+		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
 
 /obj/item/organ/internal/heart/cursed/remove(mob/living/carbon/M, special)
 	if(owner?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
 		owner.client.color = ""
 
-	UnregisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, .proc/just_before_revive)
-	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED, .proc/on_defib_revive)
+	UnregisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, PROC_REF(just_before_revive))
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
 	return ..()
 
 
@@ -156,8 +156,8 @@
 	in_grace_period = TRUE
 	times_shocked++
 	// wake up
-	addtimer(CALLBACK(src, .proc/after_revive), 2 SECONDS)  // grab a brush and put a little make-up
-	addtimer(CALLBACK(src, .proc/on_end_grace_period), revival_grace_period)  // hide the scars to fade away the shake-up
+	addtimer(CALLBACK(src, PROC_REF(after_revive)), 2 SECONDS)  // grab a brush and put a little make-up
+	addtimer(CALLBACK(src, PROC_REF(on_end_grace_period)), revival_grace_period)  // hide the scars to fade away the shake-up
 
 /obj/item/organ/internal/heart/cursed/proc/after_revive()
 	owner.SetSleeping(0)
@@ -229,8 +229,8 @@
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/M, special = FALSE)
 	..()
-	RegisterSignal(M, COMSIG_LIVING_MINOR_SHOCK, .proc/shock_heart)
-	RegisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT, .proc/shock_heart)
+	RegisterSignal(M, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(shock_heart))
+	RegisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(shock_heart))
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/remove(mob/living/carbon/M, special = FALSE)
 	UnregisterSignal(M, COMSIG_LIVING_MINOR_SHOCK)
@@ -247,20 +247,20 @@
 		if(prob(20) && emagged)
 			attempted_restart = TRUE
 			Restart()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(10))
 			attempted_restart = TRUE
 			Restart()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, .proc/recharge), 200)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
-				addtimer(CALLBACK(src, .proc/recharge), 300)
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
 	if(!(status & ORGAN_DEAD) && !attempted_restart && owner.HasDisease(new /datum/disease/critical/heart_failure(0)))
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
@@ -268,21 +268,21 @@
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(25))
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, .proc/recharge), 200)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
-				addtimer(CALLBACK(src, .proc/recharge), 300)
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
 	if(!(status & ORGAN_DEAD))
 		var/boost = emagged ? 2 : 1

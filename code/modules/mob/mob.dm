@@ -1108,7 +1108,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/add_to_respawnable_list()
 	GLOB.respawnable_list += src
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/remove_from_respawnable_list)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_respawnable_list))
 
 /mob/proc/remove_from_respawnable_list()
 	GLOB.respawnable_list -= src

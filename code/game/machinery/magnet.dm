@@ -220,7 +220,7 @@
 	for(var/obj/machinery/magnetic_module/M in GLOB.machines)
 		if(M.freq == frequency && M.code == code)
 			magnets.Add(M)
-			RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/on_magnet_del)
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_magnet_del))
 
 /obj/machinery/magnetic_controller/process()
 	if(magnets.len == 0 && autolink)

@@ -90,7 +90,7 @@
 	if(hatch_state == TRANSIT_TUBE_CLOSED)
 		icon_state = "opening"
 		hatch_state = TRANSIT_TUBE_OPENING
-		addtimer(CALLBACK(src, .proc/open_hatch_callback), OPEN_DURATION)
+		addtimer(CALLBACK(src, PROC_REF(open_hatch_callback)), OPEN_DURATION)
 
 /obj/structure/transit_tube/station/proc/open_hatch_callback()
 	if(hatch_state == TRANSIT_TUBE_OPENING)
@@ -103,7 +103,7 @@
 	if(hatch_state == TRANSIT_TUBE_OPEN)
 		icon_state = "closing"
 		hatch_state = TRANSIT_TUBE_CLOSING
-		addtimer(CALLBACK(src, .proc/close_hatch_calllback), CLOSE_DURATION)
+		addtimer(CALLBACK(src, PROC_REF(close_hatch_calllback)), CLOSE_DURATION)
 
 /obj/structure/transit_tube/station/proc/close_hatch_calllback()
 	if(hatch_state == TRANSIT_TUBE_CLOSING)
@@ -113,7 +113,7 @@
 /obj/structure/transit_tube/station/proc/launch_pod()
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		if(!pod.moving && (pod.dir in directions()))
-			addtimer(CALLBACK(src, .proc/launch_pod_callback, pod), 5)
+			addtimer(CALLBACK(src, PROC_REF(launch_pod_callback), pod), 5)
 			return
 
 /obj/structure/transit_tube/station/proc/launch_pod_callback(obj/structure/transit_tube_pod/pod)
@@ -142,7 +142,7 @@
 
 /obj/structure/transit_tube/station/pod_stopped(obj/structure/transit_tube_pod/pod, from_dir)
 	pod_moving = TRUE
-	addtimer(CALLBACK(src, .proc/pod_stopped_callback, pod), 5)
+	addtimer(CALLBACK(src, PROC_REF(pod_stopped_callback), pod), 5)
 
 /obj/structure/transit_tube/station/proc/pod_stopped_callback(obj/structure/transit_tube_pod/pod)
 	launch_cooldown = world.time + LAUNCH_COOLDOWN

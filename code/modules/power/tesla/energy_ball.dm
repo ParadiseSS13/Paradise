@@ -35,9 +35,9 @@
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	miniball = is_miniball
-	RegisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN, .proc/on_start_orbit)
-	RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, .proc/on_stop_orbit)
-	RegisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING, .proc/on_parent_delete)
+	RegisterSignal(src, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(on_start_orbit))
+	RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, PROC_REF(on_stop_orbit))
+	RegisterSignal(parent_energy_ball, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_delete))
 	. = ..()
 	if(!is_miniball)
 		set_light(10, 7, "#5e5edd")
@@ -126,7 +126,7 @@
 		energy_to_raise = energy_to_raise * 1.25
 
 		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, TRUE, extrarange = 30, channel = CHANNEL_ENGINE)
-		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)
+		addtimer(CALLBACK(src, PROC_REF(new_mini_ball)), 100)
 
 	else if(energy < energy_to_lower && length(orbiting_balls))
 		energy_to_raise = energy_to_raise / 1.25
