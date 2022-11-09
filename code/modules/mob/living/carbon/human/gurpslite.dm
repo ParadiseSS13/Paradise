@@ -106,6 +106,20 @@
 	result = prob(value1)
 	return result
 
+/proc/adjustskill(var/mob/living/carbon/human/H, skill, amount)
+	var/datum/skills/skilldat = H.skills
+	var/datum/hud/human/hud =H.hud_used
+	switch(skill)
+		if("strength")
+			skilldat.strength += amount
+		if("intelligence")
+			skilldat.intelligence += amount
+		if("wisdom")
+			skilldat.wisdom += amount
+		if("perception")
+			skilldat.perception += amount
+	hud.refreshskills()
+
 /datum/skills
 	var/wisdom = 0
 	var/strength = 0
@@ -117,4 +131,3 @@
 	set name = "Teach skill"
 	set desc = "Teach someone your skills."
 	set src in view(1)
-

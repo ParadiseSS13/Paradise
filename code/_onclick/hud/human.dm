@@ -56,6 +56,11 @@
 
 /datum/hud/human
 	var/hud_alpha = 255
+	var/obj/screen/skillsui1
+	var/obj/screen/skillsui2
+	var/obj/screen/skillsui3
+	var/obj/screen/skillsui4
+	var/datum/skills/skills
 
 /datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
 	..()
@@ -324,11 +329,32 @@
 	mymob.throw_icon.alpha = ui_alpha
 	hotkeybuttons += mymob.throw_icon
 
+	var/mob/living/carbon/human/myH = mymob
+	skills = myH.skills
+
 	mymob.healths = new /obj/screen/healths()
 	infodisplay += mymob.healths
 
-	var/skillsui1 = new /obj/screen/skill
+	skillsui1 = new /obj/screen/skill
+	skillsui1.name = "strength"
+	skillsui1.screen_loc = "EAST-2:28,CENTER+6:27"
+	skillsui1.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.strength]</font></div>"
 	infodisplay += skillsui1
+	skillsui2 = new /obj/screen/skill
+	skillsui2.name = "intelligence"
+	skillsui2.screen_loc = "EAST-3:28,CENTER+6:27"
+	skillsui2.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.intelligence]</font></div>"
+	infodisplay += skillsui2
+	skillsui3 = new /obj/screen/skill
+	skillsui3.name = "wisdom"
+	skillsui3.screen_loc = "EAST-4:28,CENTER+6:27"
+	skillsui3.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.wisdom]</font></div>"
+	infodisplay += skillsui3
+	skillsui4 = new /obj/screen/skill
+	skillsui4.name = "perception"
+	skillsui4.screen_loc = "EAST-5:28,CENTER+6:27"
+	skillsui4.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.perception]</font></div>"
+	infodisplay += skillsui4
 
 	mymob.overlay_fullscreen("noise", /obj/screen/fullscreen/noise)
 
@@ -498,3 +524,17 @@
 	else
 		client.screen -= hud_used.hotkeybuttons
 		hud_used.hotkey_ui_hidden = TRUE
+
+/datum/hud/human/proc/refreshskills()
+	infodisplay -= skillsui1
+	infodisplay -= skillsui1
+	infodisplay -= skillsui1
+	infodisplay -= skillsui1
+	skillsui1.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.strength]</font></div>"
+	skillsui2.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.intelligence]</font></div>"
+	skillsui3.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.wisdom]</font></div>"
+	skillsui4.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.perception]</font></div>"
+	infodisplay += skillsui1
+	infodisplay += skillsui1
+	infodisplay += skillsui1
+	infodisplay += skillsui1

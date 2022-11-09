@@ -70,6 +70,7 @@
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	//strength stuff
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 
