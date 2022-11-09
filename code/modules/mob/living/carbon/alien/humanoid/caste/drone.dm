@@ -31,7 +31,7 @@
 	if(powerc(500))
 		// Queen check
 		var/no_queen = TRUE
-		for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)
+		for(var/mob/living/carbon/alien/humanoid/queen/large/Q in GLOB.alive_mob_list)
 			if(!Q.key && Q.get_int_organ(/obj/item/organ/internal/brain/))
 				continue
 			no_queen = FALSE
@@ -41,7 +41,7 @@
 			to_chat(src, "<span class='noticealien'>You begin to evolve!</span>")
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
-			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(loc)
+			var/mob/living/carbon/alien/humanoid/queen/large/new_xeno = new(loc)
 			mind.transfer_to(new_xeno)
 			new_xeno.mind.name = new_xeno.name
 			SSblackbox.record_feedback("tally", "alien_growth", 1, "queen")

@@ -1840,7 +1840,7 @@
 	..()
 	mind.assigned_role = "Alien"
 	//XENO HUMANOID
-/mob/living/carbon/alien/humanoid/queen/mind_initialize()
+/mob/living/carbon/alien/humanoid/queen/large/mind_initialize()
 	..()
 	mind.special_role = SPECIAL_ROLE_XENOMORPH_QUEEN
 

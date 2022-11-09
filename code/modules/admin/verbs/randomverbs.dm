@@ -380,7 +380,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					if("Hunter")	new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
 					if("Sentinel")	new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
 					if("Drone")		new_xeno = new /mob/living/carbon/alien/humanoid/drone(T)
-					if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen(T)
+					if("Queen")		new_xeno = new /mob/living/carbon/alien/humanoid/queen/large(T)
 					else//If we don't know what special role they have, for whatever reason, or they're a larva.
 						create_xeno(G_found.ckey)
 						return
