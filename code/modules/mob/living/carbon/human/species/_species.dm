@@ -489,7 +489,7 @@
 
 		var/str = user.skills.strength
 
-		var/damage = roll_dice(6, FALSE, FALSE, 2, str)
+		var/damage = roll_dice(6, FALSE, FALSE, 2, str + human_roll_mods(user))
 		damage += attack.damage
 		damage += user.physiology.melee_bonus
 		if(!damage)
