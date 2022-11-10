@@ -54,6 +54,8 @@
 	var/list/enemies = list()
 	var/retaliate_only = FALSE //if true, will attack only after being attacked
 
+	var/mob_attack_logs = list() //for hostiles and megafauna
+
 /mob/living/simple_animal/hostile/Initialize(mapload)
 	. = ..()
 
@@ -383,6 +385,8 @@
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
+	if(!client)
+		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"
 	in_melee = TRUE
 	return target.attack_animal(src)
 

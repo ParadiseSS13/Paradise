@@ -96,6 +96,7 @@
 	if(!.)
 		return
 	var/turf/newloc = loc
+	mob_attack_logs += "[time_stamp()] Moved via shuttle from [COORD(oldloc)] to [COORD(newloc)] caller: [caller ? "[caller]" : "unknown" ]"
 	message_admins("Megafauna[stat == DEAD ? "(DEAD)" : null] [src] ([ADMIN_FLW(src,"FLW")]) moved via shuttle from [ADMIN_COORDJMP(oldloc)] to [ADMIN_COORDJMP(newloc)][caller ? " called by [ADMIN_LOOKUPFLW(caller)]" : ""]")
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
@@ -106,6 +107,8 @@
 		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
 	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
 		adjustBruteLoss(-L.maxHealth/2)
+	if(L.mind)
+		mob_attack_logs += "[time_stamp()] Devours [key_name_log(L)] at [COORD(src)]"
 	L.gib()
 	return TRUE
 
@@ -119,6 +122,27 @@
 
 		if(3)
 			adjustBruteLoss(50)
+
+/mob/living/simple_animal/hostile/megafauna/GiveTarget(atom/new_target)
+	var/mob/living/L = new_target
+	if(istype(L) && L.mind)
+		add_attack_logs(src, L, "Spotted a new target")
+		mob_attack_logs += "[time_stamp()] Spotted a new target [L][COORD(L)] at [COORD(src)]"
+	..()
+
+/mob/living/simple_animal/hostile/megafauna/Aggro()
+	var/mob/living/L = target
+	if(istype(L) && L.mind)
+		add_attack_logs(src, L, "Aggrod on")
+		mob_attack_logs += "[time_stamp()] Aggrod on [L][COORD(L)] at [COORD(src)]"
+	..()
+
+/mob/living/simple_animal/hostile/megafauna/LoseTarget()
+	var/mob/living/L = target
+	if(istype(L) && L.mind)
+		add_attack_logs(src, L, "Lost")
+		mob_attack_logs += "[time_stamp()] Lost [L][COORD(L)] at [COORD(src)]"
+	..()
 
 /mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
 	recovery_time = world.time + buffer_time
