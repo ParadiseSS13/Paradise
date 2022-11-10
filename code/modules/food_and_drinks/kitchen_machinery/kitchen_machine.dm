@@ -268,11 +268,13 @@
 /obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)
 	if(!recipes_to_make)
 		return
+
 	var/datum/reagents/temp_reagents = new(500)
 	for(var/i in 1 to recipes_to_make.len)		//cycle through each entry on the recipes_to_make list for processing
 		var/list/L = recipes_to_make[i]
 		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
 		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
+
 		if(recipe == RECIPE_FAIL)		//we have a failure and create a burned mess
 			//failed recipe
 			fail()
@@ -280,10 +282,12 @@
 			for(var/obj/O in source.contents)	//begin processing the ingredients supplied
 				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
 					continue
+
 				if(O.reagents)
 					O.reagents.del_reagent("nutriment")
 					O.reagents.update_total()
 					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
+
 				qdel(O)
 			source.reagents.clear_reagents()
 
