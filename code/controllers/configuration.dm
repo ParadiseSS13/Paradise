@@ -1016,3 +1016,8 @@
 			runnable_modes[M] = probabilities[M.config_tag]
 //			to_chat(world, "DEBUG: runnable_mode\[[runnable_modes.len]\] = [M.config_tag]")
 	return runnable_modes
+
+/datum/configuration/vv_edit_var(var_name, var_value)
+	if(findtext(var_name, "log_") && usr?.client?.holder?.rights != R_HOST)
+		return FALSE
+	return ..()
