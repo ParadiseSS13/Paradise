@@ -326,7 +326,7 @@
 
 //Legion infested mobs
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
+/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE)
 	. = ..()
 	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
 	H.mutations.Add(DWARF)

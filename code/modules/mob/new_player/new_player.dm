@@ -266,11 +266,12 @@
 				return FALSE
 
 		//Prevents people rejoining as same character.
-		for (var/mob/living/carbon/human/C in GLOB.mob_list)
-			var/char_name = client.prefs.real_name
-			if(char_name == C.real_name)
-				to_chat (usr, "<span class='danger'>There is a character that already exists with the same name: <b>[C.real_name]</b>, please join with a different one.</span>")
-				return
+		if(!is_admin(usr)) //Админам можно всё
+			for(var/C in GLOB.human_names_list)
+				var/char_name = client.prefs.real_name
+				if(char_name == C)
+					to_chat (usr, "<span class='danger'>There is a character that already exists with the same name: <b>[C]</b>, please join with a different one.</span>")
+					return
 
 		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
 		return
@@ -605,6 +606,7 @@
 			new_character.rename_self("mime")
 		mind.original = new_character
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
+		GLOB.human_names_list += new_character.real_name
 
 
 	new_character.key = key		//Manually transfer the key to log them in

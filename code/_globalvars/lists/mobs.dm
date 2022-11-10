@@ -34,3 +34,5 @@ GLOBAL_LIST_EMPTY(sec_hud_users)
 GLOBAL_LIST_EMPTY(antag_hud_users)
 GLOBAL_LIST_EMPTY(surgeries_list)
 GLOBAL_LIST_EMPTY(hear_radio_list)			//Mobs that hear the radio even if there's no client
+
+GLOBAL_LIST_EMPTY(human_names_list)			//List of names for all humans that have ever entered the round

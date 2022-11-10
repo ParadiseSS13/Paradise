@@ -29,6 +29,7 @@
 	outfit = /datum/outfit/space_base_syndicate
 	assignedrole = TAIPAN_SCIENTIST
 	del_types = list() // Necessary to prevent del_types from removing radio!
+	allow_prefs_prompt = TRUE
 	allow_species_pick = TRUE
 	pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Drask", "Vox", "Plasmaman", "Machine", "Kidan", "Grey", "Nucleation", "Slime People", "Wryn")
 	faction = list("syndicate")
@@ -81,9 +82,7 @@
 
 /datum/outfit/space_base_syndicate/pre_equip(mob/living/carbon/human/H)
 	if(H.dna.species)
-
 		var/race = H.dna.species.name
-
 		switch(race)
 			if("Vox", "Vox Armalis")
 				box = /obj/item/storage/box/survival_vox
@@ -129,6 +128,7 @@
 		H.change_dna(D, TRUE, TRUE)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/special(mob/living/carbon/human/H)
+	GLOB.human_names_list += H.real_name
 	SEND_SOUND(H, 'sound/effects/contractstartup.ogg')
 	H.give_taipan_hud()
 

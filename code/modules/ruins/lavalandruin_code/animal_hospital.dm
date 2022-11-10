@@ -13,7 +13,7 @@
 	assignedrole = "Translocated Vet"
 	allow_species_pick = TRUE
 
-/obj/effect/mob_spawn/human/doctor/alive/lavaland/equip(mob/living/carbon/human/H)
+/obj/effect/mob_spawn/human/doctor/alive/lavaland/equip(mob/living/carbon/human/H, use_prefs = FALSE)
 	..()
 	H.rename_self(assignedrole)
 

@@ -131,7 +131,7 @@
 			return
 		add_game_logs("golem-swapped into [src]", user)
 		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
-		create(ckey = user.ckey, name = user.real_name)
+		create(plr = user, name = user.real_name)
 		user.death()
 		return
 
