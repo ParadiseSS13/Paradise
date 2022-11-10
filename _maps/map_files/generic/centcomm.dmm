@@ -1149,19 +1149,7 @@
 	dir = 1
 	},
 /obj/structure/mineral_door/wood{
-	name = "main chamber"
-	},
-/turf/simulated/floor/wood,
-/area/wizard_station)
-"eP" = (
-/obj/effect/turf_decal/woodsiding{
-	dir = 1
-	},
-/obj/structure/mineral_door/wood{
-	name = "main chamber"
-	},
-/obj/structure/mineral_door/wood{
-	name = "main chamber"
+	name = "Main chamber"
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
@@ -10983,7 +10971,7 @@
 	dir = 4
 	},
 /obj/structure/mineral_door/wood{
-	name = "changing chamber"
+	name = "Changing chamber"
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
@@ -62732,7 +62720,7 @@ eo
 eo
 eo
 eo
-eP
+eO
 ed
 ed
 ed
