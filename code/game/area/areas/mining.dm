@@ -129,3 +129,8 @@
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"
+
+/area/lavaland/surface/outdoors/necropolis
+	name = "Necropolis"
+	icon_state = "unexplored"
+	tele_proof = TRUE
