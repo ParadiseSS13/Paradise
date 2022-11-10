@@ -131,11 +131,11 @@
 
 /obj/item/organ/internal/eyes/cybernetic/meson/insert(mob/living/carbon/human/M, special = FALSE)
 	ADD_TRAIT(M, TRAIT_MESON_VISION, "meson_vision")
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/eyes/cybernetic/meson/remove(mob/living/carbon/human/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_MESON_VISION, "meson_vision")
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/eyes/cybernetic/xray
 	name = "\improper X-ray eyes"
