@@ -8,6 +8,7 @@
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of sneaking and stealthy attacks."
 	stealthy_deploying = TRUE
 	attacktext = "slashes"
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 	var/toggle = FALSE
 	var/stealthcooldown = 0
 	var/default_stealth_cooldown = 10 SECONDS
