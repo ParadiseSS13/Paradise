@@ -329,7 +329,7 @@
 			SSeconomy.process_supply_order(order, paid_for) //add order to shopping list
 	else //if its a department account with pin or higher security or need QM approval, go ahead and add this to the departments section in request list
 		SSeconomy.process_supply_order(order, FALSE)
-		playsound(loc, 'sound/machines/ping.ogg', 25, 0)
+		playsound(loc, 'sound/machines/ping.ogg', 15, 0)
 		to_chat(user, "<span class='notice'>Order Sent.</span>")
 		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", "cargo")
 
