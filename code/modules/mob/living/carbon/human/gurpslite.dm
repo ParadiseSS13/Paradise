@@ -116,6 +116,8 @@
 			skilldat.intelligence += amount
 		if("wisdom")
 			skilldat.wisdom += amount
+		if("dexterity")
+			skilldat.dexterity += amount
 		if("perception")
 			skilldat.perception += amount
 	hud.refreshskills()
@@ -130,6 +132,8 @@
 			skilldat.intelligence = amount
 		if("wisdom")
 			skilldat.wisdom = amount
+		if("dexterity")
+			skilldat.dexterity = amount
 		if("perception")
 			skilldat.perception = amount
 	hud.refreshskills()
@@ -138,6 +142,7 @@
 	var/wisdom = 0
 	var/strength = 0
 	var/intelligence = 0
+	var/dexterity = 10
 	var/perception = 12
 
 /mob/living/Carbon/human/verb/teach(/mob/living/Carbon/human/H)

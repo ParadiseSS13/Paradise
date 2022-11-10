@@ -60,6 +60,7 @@
 	var/obj/screen/skillsui2
 	var/obj/screen/skillsui3
 	var/obj/screen/skillsui4
+	var/obj/screen/skillsui5
 	var/datum/skills/skills
 
 /datum/hud/human/New(mob/living/carbon/human/owner, ui_style = 'icons/mob/screen_white.dmi', ui_color = "#ffffff", ui_alpha = 255)
@@ -336,24 +337,29 @@
 	infodisplay += mymob.healths
 
 	skillsui1 = new /obj/screen/skill
-	skillsui1.name = "strength"
+	skillsui1.name = "Strength"
 	skillsui1.screen_loc = "EAST-2:28,CENTER+6:27"
 	skillsui1.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.strength]</font></div>"
 	infodisplay += skillsui1
 	skillsui2 = new /obj/screen/skill
-	skillsui2.name = "intelligence"
+	skillsui2.name = "Intelligence"
 	skillsui2.screen_loc = "EAST-3:28,CENTER+6:27"
 	skillsui2.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.intelligence]</font></div>"
 	infodisplay += skillsui2
 	skillsui3 = new /obj/screen/skill
-	skillsui3.name = "wisdom"
+	skillsui3.name = "Wisdom"
 	skillsui3.screen_loc = "EAST-4:28,CENTER+6:27"
 	skillsui3.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.wisdom]</font></div>"
 	infodisplay += skillsui3
 	skillsui4 = new /obj/screen/skill
-	skillsui4.name = "perception"
+	skillsui4.name = "Dexterity"
 	skillsui4.screen_loc = "EAST-5:28,CENTER+6:27"
-	skillsui4.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.perception]</font></div>"
+	skillsui4.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.dexterity]</font></div>"
+	infodisplay += skillsui4
+	skillsui5 = new /obj/screen/skill
+	skillsui5.name = "Perception"
+	skillsui5.screen_loc = "EAST-6:28,CENTER+6:27"
+	skillsui5.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.perception]</font></div>"
 	infodisplay += skillsui4
 
 	mymob.overlay_fullscreen("noise", /obj/screen/fullscreen/noise)
@@ -527,14 +533,17 @@
 
 /datum/hud/human/proc/refreshskills()
 	infodisplay -= skillsui1
-	infodisplay -= skillsui1
-	infodisplay -= skillsui1
-	infodisplay -= skillsui1
+	infodisplay -= skillsui2
+	infodisplay -= skillsui3
+	infodisplay -= skillsui4
+	infodisplay -= skillsui5
 	skillsui1.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.strength]</font></div>"
 	skillsui2.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.intelligence]</font></div>"
 	skillsui3.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.wisdom]</font></div>"
-	skillsui4.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.perception]</font></div>"
+	skillsui4.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.dexterity]</font></div>"
+	skillsui5.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.perception]</font></div>"
 	infodisplay += skillsui1
-	infodisplay += skillsui1
-	infodisplay += skillsui1
-	infodisplay += skillsui1
+	infodisplay += skillsui2
+	infodisplay += skillsui3
+	infodisplay += skillsui4
+	infodisplay += skillsui5
