@@ -1262,6 +1262,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		lamp_recharging = 1
 		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
 			lamp_recharging = 0
+
 	else
 		set_light(light_range + lamp_intensity)
 
@@ -1643,6 +1644,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/extinguish_light()
+	..()
 	update_headlamp(1, 150)
 
 /mob/living/silicon/robot/rejuvenate()
