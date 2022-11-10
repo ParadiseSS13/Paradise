@@ -20,6 +20,7 @@
 	max_damage = 35
 	min_broken_damage = 20
 	amputation_point = "upper left trunk"
+	convertable_children = list(/obj/item/organ/external/hand/diona)
 
 /obj/item/organ/external/arm/right/diona
 	species_type = /datum/species/diona
@@ -27,6 +28,7 @@
 	max_damage = 35
 	min_broken_damage = 20
 	amputation_point = "upper right trunk"
+	convertable_children = list(/obj/item/organ/external/hand/right/diona)
 
 /obj/item/organ/external/leg/diona
 	species_type = /datum/species/diona
@@ -34,6 +36,7 @@
 	max_damage = 35
 	min_broken_damage = 20
 	amputation_point = "lower left fork"
+	convertable_children = list(/obj/item/organ/external/foot/diona)
 
 /obj/item/organ/external/leg/right/diona
 	species_type = /datum/species/diona
@@ -41,6 +44,7 @@
 	max_damage = 35
 	min_broken_damage = 20
 	amputation_point = "lower right fork"
+	convertable_children = list(/obj/item/organ/external/foot/right/diona)
 
 /obj/item/organ/external/foot/diona
 	species_type = /datum/species/diona
