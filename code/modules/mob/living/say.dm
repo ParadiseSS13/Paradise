@@ -252,8 +252,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
 
-	// Do this so it gets logged for all types of communication
-	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
@@ -261,7 +259,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	// Log of what we've said, plain message, no spans or junk
 	// handle_message_mode should have logged this already if it handled it
-	add_say_logs(src, log_message)
+	add_say_logs(src, "'[message]'", null, message_mode)
 
 	var/list/handle_v = handle_speech_sound()
 	var/sound/speech_sound = handle_v[1]

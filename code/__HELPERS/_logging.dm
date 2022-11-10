@@ -299,8 +299,8 @@ GLOBAL_PROTECT(log_end)
 	else
 		log_runtime(EXCEPTION("Got non-mob variable [user] with arguments [what_said] [language] [target]"))
 		return
-	actor.create_log(SAY_LOG, "[language ? "([language])" : ""] [what_said]", target)
-	log_say("[language ? "([language])" : ""] [what_said] [target ? "to [target]" : null]", actor)
+	actor.create_log(SAY_LOG, "[language ? "([language]) " : ""][what_said]", target)
+	log_say("[language ? "([language]) " : ""][what_said][target ? " to [target]" : null]", actor)
 
 // Proc for conversion log creation
 // * user is who gets converted in something
