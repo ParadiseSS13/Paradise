@@ -15,6 +15,9 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		return
 	if(alert("Do you want to send in the HONKsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
+	var/is_security_clowns = FALSE
+	if(alert("Какую группу вы хотите послать?",,"ХОНК-сквад","ХОНК-смотрители")=="ХОНК-смотрители")
+		is_security_clowns = TRUE
 	alert("This 'mode' will go on until proper levels of HONK have been restored. You may also admin-call the evac shuttle when appropriate. Assigning the team's detailed task is recommended from there. While you will be able to manually pick the candidates from active ghosts, their assignment in the squad will be random.")
 
 	var/input = null
@@ -54,7 +57,7 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		if(L.name == "HONKsquad")
 			honk_leader_selected = honksquad_number == 1?1:0
 
-			var/mob/living/carbon/human/new_honksquad = create_honksquad(L, honk_leader_selected)
+			var/mob/living/carbon/human/new_honksquad = is_security_clowns ? create_honksquad_security(L, honk_leader_selected) : create_honksquad(L, honk_leader_selected)
 
 			if(commandos.len)
 				new_honksquad.key = pick(commandos)
@@ -138,3 +141,26 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 	equip_to_slot_or_del(W, slot_wear_id)
 
 	return 1
+
+/client/proc/create_honksquad_security(obj/spawn_location, honk_leader_selected = 0)
+	var/mob/living/carbon/human/new_honksquad = new(spawn_location.loc)
+
+	new_honksquad.dna.ready_dna(new_honksquad)//Creates DNA.
+
+	//Creates mind stuff.
+	new_honksquad.mind_initialize()
+	new_honksquad.mind.assigned_role = SPECIAL_ROLE_HONKSQUAD
+	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
+	new_honksquad.mind.offstation_role = TRUE
+	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
+
+	//экипируем уже готовы пресетом
+	if(honk_leader_selected)
+		new_honksquad.equipOutfit(/datum/outfit/admin/clown_security/warden)
+	else
+		if(prob(25))
+			new_honksquad.equipOutfit(/datum/outfit/admin/clown_security/physician)
+		else
+			new_honksquad.equipOutfit(/datum/outfit/admin/clown_security)
+
+	return new_honksquad

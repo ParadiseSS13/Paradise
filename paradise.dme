@@ -421,6 +421,7 @@
 #include "code\datums\looping_sounds\weather.dm"
 #include "code\datums\outfits\outfit.dm"
 #include "code\datums\outfits\outfit_admin.dm"
+#include "code\datums\outfits\outfit_security_clown.dm"
 #include "code\datums\outfits\plasmamen.dm"
 #include "code\datums\outfits\vv_outfit.dm"
 #include "code\datums\ruins\lavaland.dm"
