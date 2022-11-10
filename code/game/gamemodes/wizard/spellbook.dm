@@ -263,6 +263,13 @@
 	log_name = "EJ"
 	category = "Mobility"
 
+/datum/spellbook_entry/spacetime_dist
+	name = "Spacetime Distortion"
+	spell_type = /obj/effect/proc_holder/spell/spacetime_dist
+	cost = 1 //Better defence than greater forcewall (maybe) but good luck hitting anyone, so 1 point.
+	log_name = "STD" //listen it can't be SD and no one ever sees this unless they are stat profiling
+	category = "Mobility"
+
 /datum/spellbook_entry/greaterknock
 	name = "Greater Knock"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock/greater
