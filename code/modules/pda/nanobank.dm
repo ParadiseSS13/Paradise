@@ -157,7 +157,7 @@
 	if(account_database.try_authenticate_login(attempt_account, tried_pin, FALSE, FALSE, FALSE))
 		user_account = attempt_account
 		//lets make sure to logout if the account gets deleted somehow (such as cryo'ing)
-		RegisterSignal(user_account, COMSIG_PARENT_QDELETING, .proc/logout)
+		RegisterSignal(user_account, COMSIG_PARENT_QDELETING, PROC_REF(logout))
 		if(!LAZYLEN(user_account.associated_nanobank_programs) || !(src in user_account.associated_nanobank_programs))
 			LAZYADD(user_account.associated_nanobank_programs, src)
 		return TRUE

@@ -104,7 +104,7 @@
 	user.drop_item()
 	id.forceMove(src)
 	held_card = id
-	RegisterSignal(held_card, COMSIG_PARENT_QDELETING, .proc/clear_held_card)
+	RegisterSignal(held_card, COMSIG_PARENT_QDELETING, PROC_REF(clear_held_card))
 	if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 		authenticated_account = null
 
