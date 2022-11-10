@@ -134,7 +134,7 @@
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
 	jobtype = /datum/job/nanotrasenrep
-	uniform = /obj/item/clothing/under/rank/civilian/dress_shirt
+	uniform = /obj/item/clothing/under/rank/centcom/representative
 	suit = /obj/item/clothing/suit/storage/ntrep
 	shoes = /obj/item/clothing/shoes/centcom
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -222,7 +222,7 @@
 /datum/outfit/job/judge
 	name = "Magistrate"
 	jobtype = /datum/job/judge
-	uniform = /obj/item/clothing/under/suit/really_black
+	uniform = /obj/item/clothing/under/rank/centcom/magistrate
 	suit = /obj/item/clothing/suit/judgerobe
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom

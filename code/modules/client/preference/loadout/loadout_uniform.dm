@@ -203,6 +203,11 @@
 	path = /obj/item/clothing/under/rank/security/head_of_security/skirt
 	allowed_roles = list("Head of Security")
 
+/datum/gear/uniform/skirt/job/magistrate
+	display_name = "Skirt, magistrate"
+	path = /obj/item/clothing/under/rank/centcom/magistrate/skirt
+	allowed_roles = list("Magistrate")
+
 /datum/gear/uniform/skirt/job/ntrep
 	display_name = "Skirt, nt rep"
 	path = /obj/item/clothing/under/rank/centcom/representative/skirt

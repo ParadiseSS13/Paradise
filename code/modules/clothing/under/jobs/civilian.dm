@@ -137,13 +137,6 @@
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"
 
-/obj/item/clothing/under/rank/civilian/dress_shirt
-	desc = "A well-ironed dress shirt and matching set of black pants."
-	name = "dress shirt"
-	icon_state = "internalaffairs"
-	item_state = "internalaffairs"
-	item_color = "internalaffairs"
-
 /obj/item/clothing/under/rank/civilian/lawyer
 	name = "lawyer suit"
 	desc = "Slick threads."
