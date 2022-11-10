@@ -225,7 +225,7 @@
 	if(status == BURST)
 		obj_integrity = integrity_failure
 	else if(status != GROWN)
-		addtimer(CALLBACK(src, /obj/structure/alien/egg/.proc/grow), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/alien/egg, grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -265,7 +265,7 @@
 		flick("egg_opening", src)
 		status = BURSTING
 		qdel(GetComponent(/datum/component/proximity_monitor))
-		addtimer(CALLBACK(src, /obj/structure/alien/egg/.proc/hatch), 1.5 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/alien/egg, hatch)), 1.5 SECONDS)
 
 ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
 /obj/structure/alien/egg/proc/hatch(kill)
