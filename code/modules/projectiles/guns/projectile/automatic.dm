@@ -302,10 +302,10 @@
 
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 Laser Carbine"
-	desc = "A short, compact carbine like rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
+	name = "\improper IK-60 laser carbine"
+	desc = "A compact, twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lasercarbine"
-	item_state = "laser"
+	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
@@ -317,3 +317,4 @@
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"

@@ -80,7 +80,7 @@
 	if(!isliving(M))
 		return
 	M.IgniteMob()
-	if(!istype(M, /mob))
+	if(!ismob(M))
 		return
 
 	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && lit)

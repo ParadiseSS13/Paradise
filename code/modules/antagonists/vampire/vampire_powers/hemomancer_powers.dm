@@ -103,7 +103,7 @@
 			continue
 		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
-	addtimer(CALLBACK(src, .proc/apply_slowdown, T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_slowdown), T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
 	for(var/mob/living/L in range(distance, T))

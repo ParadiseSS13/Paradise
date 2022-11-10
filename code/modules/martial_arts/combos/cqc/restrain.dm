@@ -25,7 +25,7 @@
 				target.adjustStaminaLoss(40)
 
 		CQC.restraining = TRUE
-		addtimer(CALLBACK(CQC, /datum/martial_art/cqc/.proc/drop_restraining), 5 SECONDS, TIMER_UNIQUE)
+		addtimer(CALLBACK(CQC, TYPE_PROC_REF(/datum/martial_art/cqc, drop_restraining)), 5 SECONDS, TIMER_UNIQUE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Restrain", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

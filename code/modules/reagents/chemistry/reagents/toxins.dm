@@ -1059,7 +1059,7 @@
 			var/mob/living/carbon/C = M
 			if(!C.wear_mask) // If not wearing a mask
 				C.adjustToxLoss(lethality)
-		if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
+		if(isnymph(M)) //nymphs take EVEN MORE damage
 			var/mob/living/simple_animal/diona/D = M
 			D.adjustHealth(100)
 	..()

@@ -414,7 +414,7 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		var/list/path_to_take = get_path_to(src, get_turf(parrot_interest), /turf/proc/Distance_cardinal)
+		var/list/path_to_take = get_path_to(src, parrot_interest)
 		if(length(path_to_take) <= 1) // The target is below us
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -439,7 +439,7 @@
 			icon_state = "parrot_sit"
 			return
 
-		var/list/path_to_take = get_path_to(src, get_turf(parrot_perch), /turf/proc/Distance_cardinal)
+		var/list/path_to_take = get_path_to(src, parrot_perch)
 		if(length(path_to_take) <= 1) // The target is below us
 			parrot_perch = null
 			parrot_state = PARROT_WANDER
@@ -544,7 +544,7 @@
 		var/turf/T = get_turf(O)
 		if(my_turf != T)
 			var/cache_id = "[my_turf.UID()]_[T.UID()]"
-			computed_paths[cache_id] = computed_paths[cache_id] || get_path_to(src, T, /turf/proc/Distance_cardinal)
+			computed_paths[cache_id] = computed_paths[cache_id] || get_path_to(src, T)
 			if(!length(computed_paths[cache_id]))
 				continue
 
@@ -760,5 +760,5 @@
 	animate(held_item_icon, transform = m180)
 	underlays += held_item_icon
 
-/mob/living/simple_animal/parrot/CanAStarPassTo(ID, dir, obj/destination)
+/mob/living/simple_animal/parrot/CanPathfindPassTo(ID, dir, obj/destination)
 	return is_type_in_typecache(destination, desired_perches)

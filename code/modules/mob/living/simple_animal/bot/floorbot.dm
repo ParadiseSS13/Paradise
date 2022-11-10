@@ -214,29 +214,12 @@
 				bot_patrol()
 
 	if(target)
-		if(path.len == 0)
-			if(!istype(target, /turf/))
-				var/turf/TL = get_turf(target)
-				path = get_path_to(src, TL, /turf/proc/Distance_cardinal, 0, 30, id=access_card,simulated_only = 0)
-			else
-				path = get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 30, id=access_card,simulated_only = 0)
-
-			if(!bot_move(target))
-				add_to_ignore(target)
-				target = null
-				mode = BOT_IDLE
-				return
-		else if( !bot_move(target) )
-			target = null
-			mode = BOT_IDLE
-			return
-
 		if(loc == target || loc == target.loc)
 			if(istype(target, /obj/item/stack/tile/plasteel))
 				start_eattile(target)
 			else if(istype(target, /obj/item/stack/sheet/metal))
 				start_maketile(target)
-			else if(istype(target, /turf/) && emagged < 2)
+			else if(isturf(target) && emagged < 2)
 				repair(target)
 			else if(emagged == 2 && isfloorturf(target))
 				var/turf/simulated/floor/F = target
@@ -247,9 +230,25 @@
 				else
 					F.ReplaceWithLattice()
 				audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
-				addtimer(CALLBACK(src, .proc/inc_amount_callback), 5 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(inc_amount_callback)), 5 SECONDS)
 
 			path = list()
+			return
+		if(!length(path))
+			if(!isturf(target))
+				var/turf/TL = get_turf(target)
+				path = get_path_to(src, TL, 30, id=access_card,simulated_only = 0)
+			else
+				path = get_path_to(src, target, 30, id=access_card,simulated_only = 0)
+
+			if(!bot_move(target))
+				add_to_ignore(target)
+				target = null
+				mode = BOT_IDLE
+				return
+		else if(!bot_move(target))
+			target = null
+			mode = BOT_IDLE
 			return
 
 	oldloc = loc
@@ -322,14 +321,14 @@
 		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
-		addtimer(CALLBACK(src, .proc/make_bridge_plating, target_turf), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
 
 	else
 		var/turf/simulated/floor/F = target_turf
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
-		addtimer(CALLBACK(src, .proc/make_bridge_plating, F), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
 	if(mode != BOT_REPAIRING)
@@ -363,7 +362,7 @@
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
 	mode = BOT_REPAIRING
-	addtimer(CALLBACK(src, .proc/do_eattile, T), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
 	if(isnull(T))
@@ -386,7 +385,7 @@
 		return
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
 	mode = BOT_REPAIRING
-	addtimer(CALLBACK(src, .proc/do_maketile, M), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
 	if(isnull(M))

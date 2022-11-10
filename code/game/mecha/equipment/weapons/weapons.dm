@@ -171,7 +171,7 @@
 	life -= 10
 	if(ismob(A))
 		var/mob/M = A
-		if(istype(firer, /mob))
+		if(ismob(firer))
 			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
 		else
 			add_attack_logs(src, M, "Mecha-shot with <b>[src]</b> (no firer)")

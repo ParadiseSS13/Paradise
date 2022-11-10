@@ -1,4 +1,3 @@
-GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new()) // Why the hell are captain announcements minor
 /datum/job/captain
 	title = "Captain"
 	flag = JOB_CAPTAIN
@@ -23,7 +22,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new()) // Why
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	GLOB.captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
+	// Why the hell are captain announcements minor
+	GLOB.minor_announcement.Announce("All hands, Captain [H.real_name] on deck!")
 
 /datum/outfit/job/captain
 	name = "Captain"

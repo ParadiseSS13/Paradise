@@ -80,7 +80,7 @@
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
-	INVOKE_ASYNC(src, .proc/set_mode_in_db) // Async query, dont bother slowing roundstart
+	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query), dont bother slowing roundstart
 
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
@@ -240,7 +240,7 @@
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.client && player.ready && player.has_valid_preferences())
+		if(player.client && player.ready)
 			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player

@@ -65,7 +65,7 @@
 		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(mob/other)
-	if(istype(other, /mob/living/simple_animal/diona))
+	if(isnymph(other))
 		return 1
 	return 0
 
