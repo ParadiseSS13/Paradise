@@ -270,16 +270,15 @@
 		return
 
 	var/datum/reagents/temp_reagents = new(500)
-	for(var/list/L as anything in recipes_to_make)		//cycle through each entry on the recipes_to_make list for processing
-		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
-		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
+	for(var/list/L as anything in recipes_to_make)
+		var/obj/source = L[1] // The machine or a mixing bowl
+		var/datum/recipe/recipe = L[2] // Valid recipe or RECIPE_FAIL
 
-		if(recipe == RECIPE_FAIL)		//we have a failure and create a burned mess
-			//failed recipe
+		if(recipe == RECIPE_FAIL)
 			fail()
-		else	//we have a valid recipe to begin making
-			for(var/obj/O in source.contents)	//begin processing the ingredients supplied
-				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
+		else
+			for(var/obj/O in source.contents) // Process supplied ingredients
+				if(istype(O, /obj/item/mixing_bowl)) // Mixing bowls are not ingredients, ignore
 					continue
 
 				if(O.reagents)
@@ -296,11 +295,11 @@
 				temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
 			temp_reagents.clear_reagents()
 
-			var/obj/byproduct = recipe.get_byproduct()	//if the recipe has a byproduct, handle returning that (such as re-usable candy moulds)
+			var/obj/byproduct = recipe.get_byproduct()
 			if(byproduct)
 				new byproduct(loc)
 
-			if(istype(source, /obj/item/mixing_bowl))	//if the recipe's source was a mixing bowl, make it a little dirtier and return that for re-use.
+			if(istype(source, /obj/item/mixing_bowl)) // Cooking in mixing bowls returns them dirtier
 				var/obj/item/mixing_bowl/mb = source
 				mb.make_dirty(5 * efficiency)
 				mb.forceMove(loc)
