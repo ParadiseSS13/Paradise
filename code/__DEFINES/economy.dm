@@ -51,12 +51,12 @@
 
 ///supply packs
 
-#define SUPPLY_EMERGENCY 1
-#define SUPPLY_SECURITY 2
-#define SUPPLY_ENGINEER 3
-#define SUPPLY_MEDICAL 4
-#define SUPPLY_SCIENCE 5
-#define SUPPLY_ORGANIC 6
-#define SUPPLY_MATERIALS 7
-#define SUPPLY_MISC 8
-#define SUPPLY_VEND 9
+#define SUPPLY_EMERGENCY 	1
+#define SUPPLY_SECURITY 	2
+#define SUPPLY_ENGINEER 	3
+#define SUPPLY_MEDICAL 		4
+#define SUPPLY_SCIENCE 		5
+#define SUPPLY_ORGANIC 		6
+#define SUPPLY_MATERIALS 	7
+#define SUPPLY_MISC 		8
+#define SUPPLY_VEND 		9

@@ -62,7 +62,7 @@
 				data["transactions"] = list()
 				for(var/datum/transaction/T in detailed_account_view.account_log)
 					var/list/transaction_info = list(
-						"targetname" = T.transactor,
+						"target_name" = T.transactor,
 						"time" = T.time,
 						"purpose" = T.purpose,
 						"amount" = T.amount,

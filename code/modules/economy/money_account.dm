@@ -58,19 +58,8 @@
 	if(!QDELETED(database_holder))
 		if(account_type == ACCOUNT_TYPE_PERSONAL)
 			database_holder.user_accounts -= src //remove reference to this account incase this was not deleted the "correct" way through an account db
-		else if(istype(database_holder, /datum/money_account_database/main_station) && account_type == ACCOUNT_TYPE_DEPARTMENT)
-			//we do not want department accounts being deleted ever unless we really really mean to
-			var/datum/money_account_database/main_station/station_db = database_holder
-			if(!force)
-				return QDEL_HINT_LETMELIVE
-			else if(src == station_db.get_account_by_department(DEPARTMENT_SUPPLY))
-				//its panic time! We should never get here, however this should be enough idiot-proofing to keep the round going
-				log_debug("Somebody or something destroyed (with force) the Supply Department Money Account, making a new one to prevent economy from breaking")
-				SSeconomy.cargo_account = null
-				station_db.department_accounts[DEPARTMENT_SUPPLY] = null
-				station_db.create_department_account(DEPARTMENT_SUPPLY, payday_amount, credit_balance)
-				var/datum/money_account/new_cargo_account = station_db.get_account_by_department(DEPARTMENT_SUPPLY)
-				SSeconomy.cargo_account = new_cargo_account
+		else if(!force && istype(database_holder, /datum/money_account_database/main_station) && account_type == ACCOUNT_TYPE_DEPARTMENT)
+			return QDEL_HINT_LETMELIVE //we do not want department accounts being deleted ever unless we really really mean to
 
 	for(var/datum/transfer_request/request as anything in transfer_requests)
 		resolve_transfer_request(request, FALSE)
@@ -194,7 +183,7 @@
 		CRASH("Attempted to add a transfer request to a money account ([account_name]) with a null or zero amount")
 	if(LAZYLEN(associated_nanobank_programs))
 		for(var/datum/data/pda/app/nanobank/program as anything in associated_nanobank_programs)
-			program.notify("NanoBank Transfer Request Recieved", TRUE)
+			program.notify("NanoBank Transfer Request Received", TRUE)
 	LAZYADD(transfer_requests, request)
 
 /datum/money_account/proc/resolve_transfer_request(datum/transfer_request/request)

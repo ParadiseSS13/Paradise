@@ -41,7 +41,7 @@
 		return FALSE
 
 	if(cash_stored >= merch.cost)
-		pay_with_cash(merch.cost, "Purchase of [merch.name]", machine_id, user, account_database.vendor_account)
+		pay_with_cash(merch.cost, "Purchase of [merch.name]", name, user, account_database.vendor_account)
 		give_change(user)
 	else
 		var/mob/living/carbon/human/H = user
@@ -63,6 +63,7 @@
 	D.wrapped = merch
 	merch.forceMove(D)
 	user.put_in_hands(D)
+	SSeconomy.total_vendor_transactions++
 
 /obj/machinery/economy/merch/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

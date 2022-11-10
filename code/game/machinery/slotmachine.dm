@@ -56,9 +56,9 @@
 			return
 		if(!user_account || user_account.credit_balance < 50)
 			return
-		if(!account_database.charge_account(user_account, 50, "Slot Machine Charge", machine_id, FALSE, TRUE))
+		if(!account_database.charge_account(user_account, 50, "Slot Machine Charge", "DonkBook Betting", FALSE, TRUE))
 			return //we want to surpress transaction logs here in-case someone uses the slot machine 100+ times
-		account_database.credit_account(account_database.vendor_account, 50, "Slot Machine Charge", machine_id, TRUE)
+		account_database.credit_account(account_database.vendor_account, 50, "Slot Machine Charge", "DonkBook Betting", TRUE)
 		plays++
 		working = TRUE
 		icon_state = "slots-on"
@@ -105,8 +105,8 @@
 		playsound(loc, sound, 55, 1)
 	if(!user_account)
 		return
-	account_database.charge_account(account_database.vendor_account, amount, "Slot Machine Payout", machine_id, TRUE, FALSE)
-	account_database.credit_account(user_account, amount, "Slot Machine Winnings Deposit", machine_id, FALSE)
+	account_database.charge_account(account_database.vendor_account, amount, "Slot Machine Payout", "DonkBook Betting", TRUE, FALSE)
+	account_database.credit_account(user_account, amount, "Slot Machine Winnings Deposit", "DonkBook Betting", FALSE)
 
 /obj/machinery/economy/slot_machine/wrench_act(mob/user, obj/item/I)
 	. = TRUE

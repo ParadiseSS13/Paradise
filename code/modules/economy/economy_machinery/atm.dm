@@ -94,7 +94,7 @@
 /obj/machinery/economy/atm/insert_cash(obj/item/stack/spacecash/cash_money, mob/user)
 	visible_message("<span class='info'>[user] inserts [cash_money] into [src].</span>")
 	cash_stored += cash_money.amount
-	account_database.credit_account(authenticated_account, cash_money.amount, "ATM Deposit", machine_id, FALSE)
+	account_database.credit_account(authenticated_account, cash_money.amount, "ATM Deposit", name, FALSE)
 	cash_money.use(cash_money.amount)
 	return TRUE
 
@@ -132,7 +132,6 @@
 	var/list/data = list()
 
 	data["view_screen"] = view_screen
-	data["machine_id"] = machine_id
 	data["held_card_name"] = held_card?.name
 	data["linked_db"] = account_database ? TRUE : FALSE
 
@@ -148,7 +147,8 @@
 				"time" = T.time,
 				"target_name" = T.transactor,
 				"purpose" = T.purpose,
-				"amount" = T.amount
+				"amount" = T.amount,
+				"is_deposit" = T.is_deposit
 			)
 			data["transaction_log"] += list(transaction_info)
 
@@ -185,11 +185,12 @@
 			var/tried_account_num = text2num(params["account_num"]) ? text2num(params["account_num"]) : held_card?.associated_account_number
 			var/tried_pin = text2num(params["account_pin"])
 			attempt_login(tried_account_num, tried_pin, user)
-
 		if("withdrawal")
 			var/amount = max(text2num(params["funds_amount"]), 0)
 			if(amount)
 				withdraw(amount, user)
+		if("balance_statement")
+			print_balance_statement()
 		if("insert_card")
 			if(held_card)
 				eject_inserted_id(user)
@@ -233,7 +234,7 @@
 	//else failed login
 
 	login_attempts++
-	account_database.log_account_action(user_account, 0, "Unauthorised login attempt", machine_id, log_on_database = FALSE)
+	account_database.log_account_action(user_account, 0, "Unauthorised login attempt", name, log_on_database = FALSE)
 	to_chat(user, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [3 - login_attempts] attempt\s remaining.</span>")
 	if(login_attempts >= 3)
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
@@ -266,7 +267,7 @@
 		to_chat(user, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
 		return
 
-	if(account_database.charge_account(authenticated_account, amount, FALSE))
+	if(account_database.charge_account(authenticated_account, amount, "Cash Withdrawal", name, FALSE, FALSE))
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
 		dispense_space_cash(amount, user)
 
@@ -284,8 +285,7 @@
 		<i>Account holder:</i> [authenticated_account.account_name]<br>
 		<i>Account number:</i> [authenticated_account.account_number]<br>
 		<i>Balance:</i> $[authenticated_account.credit_balance]<br>
-		<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
-		<i>Service terminal ID:</i> [machine_id]<br>"}
+		<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]"}
 
 	//stamp the paper
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')

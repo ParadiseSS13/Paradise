@@ -108,7 +108,7 @@ const Transfer = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Amount">
           <Input
-            placeholder="Credit Value up to 5000"
+            placeholder="Up to 5000"
             onInput={(e, value) => setTransferAmount(value)}
           />
         </LabeledList.Item>
@@ -139,7 +139,6 @@ const Transfer = (props, context) => {
             <b>Request from {request.requester}</b>
             <LabeledList>
               <LabeledList.Item label="Amount">{request.amount}</LabeledList.Item>
-              <LabeledList.Item label="Reason">{request.purpose}</LabeledList.Item>
               <LabeledList.Item label="Time">{request.time} Minutes ago</LabeledList.Item>
               <LabeledList.Item label="Actions">
                 <Button.Confirm
@@ -214,10 +213,10 @@ const Transactions = (props, context) => {
       </Table.Row>
       {transaction_log.map((t) => (
         <Table.Row key={t}>
-          <Table.Cell p="1rem">{t.time}</Table.Cell>
-          <Table.Cell>{t.purpose}</Table.Cell>
-          <Table.Cell>${t.amount}</Table.Cell>
-          <Table.Cell>{t.target_name}</Table.Cell>
+            <Table.Cell>{t.time}</Table.Cell>
+            <Table.Cell>{t.purpose}</Table.Cell>
+            <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
+            <Table.Cell>{t.target_name}</Table.Cell>
         </Table.Row>
       ))}
     </Table>

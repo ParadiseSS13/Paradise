@@ -8,9 +8,6 @@
 	anchored = TRUE
 	density = TRUE
 
-	///the id for this economy machine, used for labelling transactions
-	var/machine_id = ""
-
 	///Can this machine access restricted money accounts?
 	var/restricted_bypass = FALSE
 

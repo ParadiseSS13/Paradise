@@ -100,48 +100,32 @@ const ChangeSecurityLevel = (props, context) => {
         <Divider />
         <LabeledList.Item label="Level">
           <Button
-            content="Zero"
+            content="Account Number"
             icon="unlock"
             selected={security_level === 0}
-            onClick={() =>
-              act('change_security_level', { new_security_level: 0 })
-            }
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Description">
-          Either the account number or card is required to access this account.
-          EFTPOS transactions will require a card and ask for a pin, but not
-          verify the pin is correct.
-        </LabeledList.Item>
-        <Divider />
-        <LabeledList.Item label="Level">
-          <Button
-            content="One"
-            icon="unlock"
-            selected={security_level === 1}
             onClick={() =>
               act('change_security_level', { new_security_level: 1 })
             }
           />
         </LabeledList.Item>
         <LabeledList.Item label="Description">
-          An account number and pin must be manually entered to access this
-          account and process transactions.
+          Either the account number or card is required to access this account.
+          EFTPOS transactions will require a card.
         </LabeledList.Item>
         <Divider />
         <LabeledList.Item label="Level">
           <Button
-            content="Two"
-            selected={security_level === 2}
+            content="Account Pin"
             icon="unlock"
+            selected={security_level === 2}
             onClick={() =>
               act('change_security_level', { new_security_level: 2 })
             }
           />
         </LabeledList.Item>
         <LabeledList.Item label="Description">
-          In addition to account number and pin, a card is required to access
-          this account and process transactions.
+          An account number and pin must be manually entered to access this
+          account and process transactions.
         </LabeledList.Item>
       </LabeledList>
       <Divider />
@@ -168,13 +152,13 @@ const TransferFunds = (props, context) => {
     <Section title="Transfer Fund">
       <LabeledList>
         <LabeledList.Item label="Account Balance">${money}</LabeledList.Item>
-        <LabeledList.Item label="Target account number">
+        <LabeledList.Item label="Target Account Number">
           <Input
-            placeholder="6 Digit Number"
+            placeholder="7 Digit Number"
             onInput={(e, value) => setTargetAccNumber(value)}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Funds to transfer">
+        <LabeledList.Item label="Funds to Transfer">
           <Input onInput={(e, value) => setFundsAmount(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Transaction Purpose">
@@ -322,9 +306,9 @@ const ViewTransactionLogs = (props, context) => {
         </Table.Row>
         {transaction_log.map((t) => (
           <Table.Row key={t}>
-            <Table.Cell p="1rem">{t.date} {t.time}</Table.Cell>
+            <Table.Cell>{t.time}</Table.Cell>
             <Table.Cell>{t.purpose}</Table.Cell>
-            <Table.Cell>${t.amount}</Table.Cell>
+            <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
             <Table.Cell>{t.target_name}</Table.Cell>
           </Table.Row>
         ))}

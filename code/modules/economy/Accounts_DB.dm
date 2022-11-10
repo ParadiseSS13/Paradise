@@ -74,6 +74,7 @@
 		var/database_log = amount >= DATABASE_LOG_THRESHHOLD ? TRUE : FALSE
 		log_account_action(account, amount, purpose, transactor, is_deposit = TRUE, log_on_database = database_log) //no if check here for now, since deposit credits currently will always return true
 	if(. && account == vendor_account)
+		SSeconomy.current_10_minute_spending += amount
 		SSeconomy.total_space_credits -= amount //space credits go to die in the vendor_account for now
 		SSeconomy.space_credits_destroyed += amount
 
@@ -115,6 +116,8 @@
 		return TRUE
 	if(charge_account(user_account, request.amount, "Transfer to [request.requesting_account.account_name]", "NanoBank Transfer Services", FALSE, FALSE))
 		credit_account(request.requesting_account, request.amount, "Transfer from [user_account.account_name]", "NanoBank Transfer Services", FALSE)
+		if(request.amount >= 5) //we don't care about miniscule transfers
+			SSeconomy.total_credit_transfers++
 		user_account.resolve_transfer_request(request) //this must be called after we're done referencing of it, cause the request will get deleted
 		return TRUE
 	return FALSE

@@ -22,10 +22,8 @@
 
 /datum/data/pda/app/nanobank/Destroy()
 	if(user_account)
-		//because we have a user account, we know that this LAZYLIST has atleast a single entry in it so we dont need to use LAZYREMOVE
-		if(src in user_account.associated_nanobank_programs)
-			user_account.associated_nanobank_programs -= src //removing references to this program
-			UNSETEMPTY(user_account.associated_nanobank_programs) //since we're not going to use LAZYREMOVE, we still want to unset list incase its now empty
+		//because we have a user account, we know its in the user account's anp list
+		LAZYREMOVE(user_account.associated_nanobank_programs, src) //removing references to this program
 		logout() //removing signals
 	return ..()
 
@@ -54,7 +52,8 @@
 				"time" = T.time,
 				"target_name" = T.transactor,
 				"purpose" = T.purpose,
-				"amount" = T.amount
+				"amount" = T.amount,
+				"is_deposit" = T.is_deposit
 			)
 			data["transaction_log"] += list(transaction_info)
 
@@ -117,8 +116,8 @@
 			if(!transfer_amount || transfer_amount < 0) //if null, 0, or negative amount
 				return
 			var/datum/money_account/request_from = locateUID(params["transfer_to_account"])
-			if(!istype(request_from) || request_from == src)
-				return //account no longer exists or something fucked is going on
+			if(!istype(request_from) || request_from == user_account)
+				return //account no longer exists or they're trying to send to themselves
 			if(create_fund_request(user, transfer_amount, purpose, request_from))
 				to_chat(user, "<span class='notice'>NanoBank: Transfer Request Submitted</span>")
 				last_transaction = world.time
@@ -173,8 +172,8 @@
 
 
 /datum/data/pda/app/nanobank/proc/transfer_funds(mob/user, amount, datum/money_account/target)
-	if(account_database.charge_account(user_account, amount, "Transfer to [target.account_name]", "NanoBank", FALSE, FALSE))
-		account_database.credit_account(target, amount, "Transfer from [user_account.account_name]", "NanoBank", FALSE)
+	if(account_database.charge_account(user_account, amount, "Transfer to [target.account_name]", "NanoBank Transfer Services", FALSE, FALSE))
+		account_database.credit_account(target, amount, "Transfer from [user_account.account_name]", "NanoBank Transfer Services", FALSE)
 		return TRUE
 	else
 		error_message(user, "Insufficient Funds")
@@ -213,7 +212,7 @@
 /datum/data/pda/app/nanobank/proc/get_available_account_data()
 	var/list/found_accounts = list()
 	for(var/datum/money_account/account as anything in account_database.user_accounts)
-		if(account != src)
+		if(account != user_account)
 			var/list/account_data = list(
 				"name" = account.account_name,
 				"UID"  = account.UID()

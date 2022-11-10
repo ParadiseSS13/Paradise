@@ -668,12 +668,12 @@
 				return
 
 			if(cash_transaction >= currently_vending.price)
-				paid = pay_with_cash(currently_vending.price, "Vendor Transaction", machine_id, user, GLOB.station_money_database.vendor_account)
+				paid = pay_with_cash(currently_vending.price, "Vendor Transaction", name, user, GLOB.station_money_database.vendor_account)
 			else if(istype(C, /obj/item/card))
 				// Because this uses H.get_idcard(TRUE), it will attempt to use:
 				// active hand, inactive hand, pda.id, and then wear_id ID in that order
 				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-				paid = pay_with_card(C, currently_vending.price, "Vendor transaction", machine_id, user, GLOB.station_money_database.vendor_account)
+				paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, GLOB.station_money_database.vendor_account)
 			else if(user.can_advanced_admin_interact())
 				to_chat(user, "<span class='notice'>Vending object due to admin interaction.</span>")
 				paid = TRUE
@@ -684,6 +684,7 @@
 				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
 				return
 			if(paid)
+				SSeconomy.total_vendor_transactions++
 				vend(currently_vending, user)
 				. = TRUE
 			else

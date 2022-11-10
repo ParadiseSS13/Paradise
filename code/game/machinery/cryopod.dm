@@ -364,6 +364,8 @@
 
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)
+		if(occupant.mind.initial_account)
+			GLOB.station_money_database.delete_user_account(occupant.mind.initial_account, "NAS Trurl Financial Services", FALSE)
 		for(var/datum/objective/O in GLOB.all_objectives)
 			if(O.target != occupant.mind)
 				continue

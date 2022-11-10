@@ -273,20 +273,16 @@ const DetailedAccountInfo = (properties, context) => {
         <Table>
           <Table.Row header>
             <Table.Cell>Timestamp</Table.Cell>
-            <Table.Cell>Target</Table.Cell>
             <Table.Cell>Reason</Table.Cell>
             <Table.Cell>Value</Table.Cell>
             <Table.Cell>Terminal</Table.Cell>
           </Table.Row>
           {transactions.map((t) => (
             <Table.Row key={t}>
-              <Table.Cell>
-                {t.date} {t.time}
-              </Table.Cell>
-              <Table.Cell>{t.target_name}</Table.Cell>
+              <Table.Cell>{t.time}</Table.Cell>
               <Table.Cell>{t.purpose}</Table.Cell>
               <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
-              <Table.Cell>{t.source_terminal}</Table.Cell>
+              <Table.Cell>{t.target_name}</Table.Cell>
             </Table.Row>
           ))}
         </Table>

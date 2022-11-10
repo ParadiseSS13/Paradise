@@ -18,6 +18,24 @@ SUBSYSTEM_DEF(economy)
 	var/space_credits_destroyed = 0
 	///The amount of space credits that have been created out of thin air, does not include credits created at round-start
 	var/space_credits_created = 0
+	///The amount of transfers (that are worth more than a few credits) that have been accepted during the round
+	var/total_credit_transfers = 0
+	///the amount of venor purchases during the round
+	var/total_vendor_transactions = 0
+	///amount of money spent in this 15 minute slot during the round
+	var/current_10_minute_spending = 0
+
+	///list of vars that will be tracked throughout the round (a new entry for each key list will be added every 15 minutes)
+	var/list/economy_data = list(
+		"totalcash" = list(),
+		"totalcredits" = list(),
+		"creditsdestroyed" = list(),
+		"totaltransfers" = list(),
+		"moneyvelocity" = list(),
+		"totalvends" = list()
+	)
+	///time to next stats check
+	var/next_data_check = 0
 
 
 	//////CARGO VARIABLES/////
@@ -44,6 +62,18 @@ SUBSYSTEM_DEF(economy)
 	///Full list of all available supply packs to purchase
 	var/list/supply_packs = list()
 	var/sold_atoms = ""
+
+	var/list/all_supply_groups = list(
+		SUPPLY_EMERGENCY,
+		SUPPLY_SECURITY,
+		SUPPLY_ENGINEER,
+		SUPPLY_MEDICAL,
+		SUPPLY_SCIENCE,
+		SUPPLY_ORGANIC,
+		SUPPLY_MATERIALS,
+		SUPPLY_MISC,
+		SUPPLY_VEND
+	)
 
 	//////Paycheck Variables/////
 	///time to next payday
@@ -78,7 +108,8 @@ SUBSYSTEM_DEF(economy)
 			WARNING("SSeconomy could not locate the supply department account")
 	if(GLOB.centcomm_money_database)
 		populate_cc_database()
-
+	//need to set this back to 0 due to how this is tracked (and so we have a clean slate for roundstart)
+	current_10_minute_spending = 0
 	ordernum = rand(1,9000)
 
 	for(var/typepath in subtypesof(/datum/supply_packs))
@@ -96,6 +127,15 @@ SUBSYSTEM_DEF(economy)
 	if(next_paycheck_delay <= world.time)
 		next_paycheck_delay = 30 MINUTES + world.time
 		payday()
+	if(next_data_check <= world.time)
+		next_data_check = 10 MINUTES + world.time
+		economy_data["totalcash"] += total_space_cash
+		economy_data["totalcredits"] += total_space_credits
+		economy_data["creditsdestroyed"] += space_credits_destroyed - listgetindex(economy_data["creditsdestroyed"], length(economy_data["creditsdestroyed"]))
+		economy_data["totaltransfers"] += total_credit_transfers - listgetindex(economy_data["totaltransfers"], length(economy_data["totaltransfers"]))
+		economy_data["totalvends"] += total_vendor_transactions
+		economy_data["moneyvelocity"] += round((current_10_minute_spending / total_space_cash), 0.001)
+		current_10_minute_spending = 0
 	process_job_tasks()
 
 
