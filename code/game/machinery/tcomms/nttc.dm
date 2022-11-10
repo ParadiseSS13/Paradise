@@ -299,7 +299,7 @@
 		var/job = tcm.sender_job
 		var/rank = tcm.sender_rank
 		var/realjob = job
-		if (!(job in all_jobs))
+		if(!(job in all_jobs))
 			realjob = rank
 
 		if((realjob in ert_jobs) || (realjob in heads) || (realjob in cc_jobs) || (realjob in tsf_jobs))
