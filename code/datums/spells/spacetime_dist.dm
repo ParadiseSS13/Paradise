@@ -2,7 +2,8 @@
 /obj/effect/proc_holder/spell/spacetime_dist
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, \
-		randomizing the layout and making proper movement impossible. The strings vibrate..."
+		randomizing the layout and making proper movement impossible. The strings vibrate... \
+		Upgrading the spell increases range, it does not lower cooldown"
 	sound = 'sound/magic/strings.ogg'
 	action_icon_state = "spacetime"
 
@@ -11,11 +12,12 @@
 	clothes_req = TRUE
 	invocation = "none"
 	centcom_cancast = FALSE //Prevent people from getting to centcom
-	level_max = 1 //No upgrades
+	cooldown_min = 30 SECONDS //No reduction, just more range.
+	level_max = 3
 
-	/// Weather we're ready to cast again yet or not. In the event someone lowers their cooldown with charge.
+	/// Whether we're ready to cast again yet or not. In the event someone lowers their cooldown with charge.
 	var/ready = TRUE
-	/// The radius of the scramble around the caster
+	/// The radius of the scramble around the caster. Increased by 3 * spell_level
 	var/scramble_radius = 7
 	/// The duration of the scramble
 	var/duration = 20 SECONDS
@@ -84,7 +86,7 @@
  */
 /obj/effect/proc_holder/spell/spacetime_dist/proc/get_targets_to_scramble(atom/center)
 	// Get turfs around the center
-	var/list/turfs = spiral_range_turfs(scramble_radius, center)
+	var/list/turfs = spiral_range_turfs(scramble_radius + 3 * spell_level, center) // 7 10 13 16
 	if(!length(turfs))
 		return
 
