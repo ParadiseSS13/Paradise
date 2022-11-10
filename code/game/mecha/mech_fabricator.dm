@@ -191,6 +191,9 @@
 	add_overlay("[icon_state]-active")
 	addtimer(CALLBACK(src, .proc/build_design_timer_finish, D, final_cost), build_time)
 
+	return TRUE
+
+/obj/machinery/mecha_part_fabricator/proc/log_printing_design(datum/design/D)
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		if(S.disabled)
 			continue
@@ -198,8 +201,6 @@
 			continue
 		if(istype(S, /obj/machinery/r_n_d/server/robotics) || istype(S, /obj/machinery/r_n_d/server/centcom))
 			S.add_usage_log(usr, D, src)
-
-	return TRUE
 
 /**
   * Called when the timer for building a design finishes.
@@ -400,6 +401,7 @@
 			if(!D)
 				return
 			build_design(D)
+			log_printing_design(D)
 		if("queue")
 			var/id = params["id"]
 			if(!(id in local_designs.known_designs))
@@ -408,6 +410,7 @@
 			if(!(D.build_type & allowed_design_types) || length(D.reagents_list))
 				return
 			LAZYADD(build_queue, D)
+			log_printing_design(D)
 			process_queue()
 		if("queueall")
 			LAZYINITLIST(build_queue)
@@ -416,6 +419,7 @@
 				if(!(D.build_type & allowed_design_types) || !(selected_category in D.category) || length(D.reagents_list))
 					continue
 				build_queue += D
+				log_printing_design(D)
 			process_queue()
 		if("unqueue")
 			if(!build_queue)
