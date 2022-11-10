@@ -270,8 +270,7 @@
 		return
 
 	var/datum/reagents/temp_reagents = new(500)
-	for(var/i in 1 to recipes_to_make.len)		//cycle through each entry on the recipes_to_make list for processing
-		var/list/L = recipes_to_make[i]
+	for(var/list/L as anything in recipes_to_make)		//cycle through each entry on the recipes_to_make list for processing
 		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
 		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
 
@@ -291,8 +290,8 @@
 				qdel(O)
 			source.reagents.clear_reagents()
 
-			var/reagents_per_serving = temp_reagents.total_volume/efficiency
-			for(var/j in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
+			var/reagents_per_serving = temp_reagents.total_volume / efficiency
+			for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
 				var/obj/cooked = new recipe.result()
 				temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
 				cooked.forceMove(loc)
