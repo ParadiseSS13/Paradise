@@ -688,7 +688,7 @@
 "cN" = (
 /obj/structure/chair/sofa/corner{
 	dir = 6;
-	color = "#7002b0"
+	color = "#63009c"
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
@@ -1003,7 +1003,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ej" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/comfy/purp{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -1145,18 +1145,25 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
 "eO" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
 /obj/structure/mineral_door/wood{
 	name = "main chamber"
 	},
-/obj/effect/turf_decal/woodsiding,
-/turf/simulated/floor/carpet/purple,
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "eP" = (
-/obj/effect/turf_decal/woodsiding,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
 /obj/structure/mineral_door/wood{
 	name = "main chamber"
 	},
-/turf/simulated/floor/carpet/purple,
+/obj/structure/mineral_door/wood{
+	name = "main chamber"
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "eQ" = (
 /turf/simulated/floor/holofloor,
@@ -1260,11 +1267,6 @@
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
-"fk" = (
-/turf/simulated/wall/indestructible/fakeglass{
-	color = "#008000"
-	},
-/area/wizard_station)
 "fm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1272,7 +1274,7 @@
 "fn" = (
 /obj/structure/chair/sofa/left{
 	dir = 4;
-	color = "#7002b0"
+	color = "#63009c"
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
@@ -1316,11 +1318,14 @@
 "fv" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mug/novelty,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
+	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "fw" = (
 /obj/structure/chair/sofa/right{
-	color = "#7002b0"
+	color = "#63009c"
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
@@ -1937,7 +1942,7 @@
 /area/shuttle/administration)
 "hy" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/showcase,
+/obj/item/twohanded/required/kirbyplants,
 /obj/structure/window/reinforced/clockwork{
 	dir = 4
 	},
@@ -7890,11 +7895,6 @@
 	icon_state = "vault"
 	},
 /area/shuttle/escape)
-"Eh" = (
-/obj/structure/flora/rock/jungle,
-/obj/item/candle/eternal/wizard,
-/turf/simulated/floor/grass/jungle,
-/area/wizard_station)
 "Ei" = (
 /obj/structure/holohoop{
 	dir = 1
@@ -8241,9 +8241,6 @@
 "FN" = (
 /obj/machinery/recharger,
 /obj/structure/table/wood,
-/obj/item/candle/eternal/wizard{
-	pixel_y = 11
-	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "FP" = (
@@ -10158,6 +10155,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"MV" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "MX" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -10961,7 +10962,7 @@
 /area/shuttle/administration)
 "Qj" = (
 /obj/structure/chair/sofa{
-	color = "#7002b0"
+	color = "#63009c"
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
@@ -10975,10 +10976,16 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Qn" = (
-/obj/structure/mineral_door/wood{
-	name = "changing chamber"
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/structure/mineral_door/wood{
+	name = "main chamber"
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "Qr" = (
 /turf/simulated/floor/plasteel{
@@ -11010,6 +11017,7 @@
 /mob/living/simple_animal/hostile/creature{
 	name = "Experiment 35b"
 	},
+/obj/item/candle/eternal/wizard,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
 "QA" = (
@@ -11546,11 +11554,6 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
-"SM" = (
-/obj/structure/flora/junglebush,
-/obj/item/candle/eternal/wizard,
-/turf/simulated/floor/grass/jungle,
-/area/wizard_station)
 "SN" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = -32
@@ -12048,6 +12051,14 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"Vf" = (
+/obj/structure/statue/sandstone/venus{
+	color = "#5c5c5c";
+	desc = "She lies just out of reach, as always. She somehow has your only toolbox.";
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/airless,
+/area/wizard_station)
 "Vg" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59643,10 +59654,10 @@ ZL
 ed
 ed
 GG
-fk
+GN
 Ue
 RT
-Eh
+yx
 xH
 UJ
 UJ
@@ -59900,7 +59911,7 @@ Rt
 fx
 ed
 ed
-fk
+GN
 xo
 Hj
 Ue
@@ -60157,7 +60168,7 @@ BR
 fz
 ed
 fx
-fk
+GN
 Ue
 Wk
 Qy
@@ -60414,7 +60425,7 @@ hy
 ed
 ed
 Gj
-fk
+GN
 yx
 Ee
 Ue
@@ -60671,10 +60682,10 @@ iO
 ed
 ed
 MU
-fk
+GN
 sl
 Lu
-SM
+Wk
 xH
 UJ
 UJ
@@ -62726,7 +62737,7 @@ ed
 ed
 ed
 ed
-ed
+MV
 ai
 qu
 qu
@@ -64009,7 +64020,7 @@ BX
 UJ
 UJ
 UJ
-BX
+Vf
 BX
 BX
 UJ
