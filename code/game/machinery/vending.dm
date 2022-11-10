@@ -1878,7 +1878,7 @@
 	icon_state = "crittercare"
 	icon_lightmask = "crittercare"
 	icon_panel = "drobe"
-	products = list(/obj/item/petcollar = 5, /obj/item/storage/firstaid/aquatic_kit/full =5, /obj/item/fish_eggs/goldfish = 5,
+	products = list(/obj/item/petcollar = 5, /obj/item/storage/firstaid/aquatic_kit/full = 5, /obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/fish_eggs/feederfish = 10,
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
 					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5,
