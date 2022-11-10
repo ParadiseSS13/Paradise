@@ -590,7 +590,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 
 /// Mob spawners, spawns a mob and deletes the landmark
+
+/obj/effect/landmark/mob_spawner
+	///The mob we use for the spawner
+	var/mobtype = null
+
 /obj/effect/landmark/mob_spawner/goliath
+	mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
@@ -598,10 +604,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	if(prob(1))
 		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
 	else
-		new /mob/living/simple_animal/hostile/asteroid/goliath/beast(loc)
+		new mobtype(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/mob_spawner/legion
+	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
@@ -609,10 +616,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	if(prob(5))
 		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
 	else
-		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion(loc)
+		new mobtype(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/mob_spawner/watcher
+	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
@@ -623,15 +631,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 		else
 			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
 	else
-		new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher(loc)
+		new mobtype(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/mob_spawner/goldgrub
+	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/goldgrub/Initialize(mapload)
 	. = ..()
-	new /mob/living/simple_animal/hostile/asteroid/goldgrub(loc)
+	new mobtype(loc)
 	return INITIALIZE_HINT_QDEL
 
 // Damage tiles
