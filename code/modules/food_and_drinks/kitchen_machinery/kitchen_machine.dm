@@ -292,9 +292,8 @@
 
 			var/reagents_per_serving = temp_reagents.total_volume / efficiency
 			for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
-				var/obj/cooked = new recipe.result()
+				var/obj/cooked = new recipe.result(loc)
 				temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
-				cooked.forceMove(loc)
 			temp_reagents.clear_reagents()
 
 			var/obj/byproduct = recipe.get_byproduct()	//if the recipe has a byproduct, handle returning that (such as re-usable candy moulds)
