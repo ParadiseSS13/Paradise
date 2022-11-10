@@ -219,7 +219,7 @@ emp_act
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	var/obj/item/shield = get_best_shield()
 
-	if(shield && shield.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+	if(shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
 
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
@@ -239,12 +239,12 @@ emp_act
 	if(!right_hand_parry && !left_hand_parry)
 		return null // no parry component
 
-	if((right_hand_parry && left_hand_parry))
+	if(right_hand_parry && left_hand_parry)
 		if(right_hand_parry.stamina_coefficient > left_hand_parry.stamina_coefficient) // try and parry with your best item
 			return left_hand_parry.parent
 		else
 			return right_hand_parry.parent
-	return (right_hand_parry && right_hand_parry.parent) || (left_hand_parry && left_hand_parry.parent) // parry with whichever hand has an item that can parry
+	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
