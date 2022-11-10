@@ -101,7 +101,7 @@
 	is_operating = FALSE
 
 	if(state_open && close_delay != -1)
-		addtimer(CALLBACK(src, .proc/operate), close_delay)
+		addtimer(CALLBACK(src, PROC_REF(operate)), close_delay)
 
 /obj/structure/mineral_door/update_icon_state()
 	if(state_open)

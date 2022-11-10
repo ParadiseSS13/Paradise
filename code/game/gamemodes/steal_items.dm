@@ -130,12 +130,6 @@
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
 
-/datum/theft_objective/ablative
-	name = "an ablative trenchcoat"
-	typepath = /obj/item/clothing/suit/hooded/ablative
-	protected_jobs = list("Head of Security", "Warden")
-	location_override = "the Armory"
-
 /datum/theft_objective/krav
 	name = "the warden's krav maga martial arts gloves"
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec

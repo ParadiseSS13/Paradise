@@ -133,8 +133,11 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
 			declare_completion()
-			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
-			if(GLOB.configuration.vote.enable_map_voting)
+			addtimer(CALLBACK(src, PROC_REF(call_reboot)), 5 SECONDS)
+			// Start a map vote IF
+			// - Map rotate doesnt have a mode for today and map voting is enabled
+			// - Map rotate has a mode for the day and it ISNT full random
+			if(((!SSmaprotate.setup_done) && GLOB.configuration.vote.enable_map_voting) || (SSmaprotate.setup_done && (SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)))
 				SSvote.start_vote(new /datum/vote/map)
 			else
 				// Pick random map
@@ -329,11 +332,13 @@ SUBSYSTEM_DEF(ticker)
 	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
-	RunUnitTests()
+	// Run map tests first in case unit tests futz with map state
+	GLOB.test_runner.RunMap()
+	GLOB.test_runner.Run()
 	#endif
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
-	addtimer(CALLBACK(src, .proc/handle_antagfishing_reporting), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(handle_antagfishing_reporting)), 10 SECONDS)
 	return TRUE
 
 

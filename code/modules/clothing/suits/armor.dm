@@ -373,7 +373,7 @@
 	disabled = TRUE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
-	addtimer(CALLBACK(src, .proc/reboot), disable_time SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), disable_time SECONDS)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
@@ -461,7 +461,7 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
 		owner.make_invisible()
-		addtimer(CALLBACK(owner, /mob/living/.proc/reset_visibility), 4 SECONDS)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
 		return TRUE
 
 /obj/item/clothing/suit/armor/reactive/tesla
@@ -524,7 +524,7 @@
 					var/mob/living/M = AM
 					to_chat(M, "<span class='userdanger'>You're thrown back by [owner]'s reactive armor!</span>")
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
-				INVOKE_ASYNC(AM, /atom/movable/.proc/throw_at, throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
+				INVOKE_ASYNC(AM, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
 		return TRUE
 

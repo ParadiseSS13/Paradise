@@ -349,7 +349,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
-	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, .proc/layCable)
+	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, PROC_REF(layCable))
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach()
 	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)

@@ -48,7 +48,7 @@
 /obj/effect/hallucination/chaser/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	name = "\proper monkey ([rand(100, 999)])"
-	think_timer = addtimer(CALLBACK(src, .proc/think), think_interval, TIMER_LOOP | TIMER_STOPPABLE)
+	think_timer = addtimer(CALLBACK(src, PROC_REF(think)), think_interval, TIMER_LOOP | TIMER_STOPPABLE)
 
 /obj/effect/hallucination/chaser/Destroy()
 	deltimer(think_timer)
