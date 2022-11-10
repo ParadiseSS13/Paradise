@@ -77,7 +77,7 @@
 		armour_penetration_percentage = 100
 		obj_damage = 0
 		environment_smash = ENVIRONMENT_SMASH_NONE
-		alpha = 5
+		alpha = 10
 		if(!forced)
 			to_chat(src, "<span class='danger'>You enter stealth, becoming mostly invisible, empowering your next attack.</span>")
 		updatestealthalert()
