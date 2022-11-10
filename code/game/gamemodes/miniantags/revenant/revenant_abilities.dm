@@ -318,6 +318,9 @@
 		return
 	var/successes = 0
 	for(var/obj/item/nearby_item as anything in targets)
+		if(successes >= max_targets) // End loop if we've already got 7 spooky items
+			break
+
 		// Don't throw around anchored things or dense things
 		// (Or things not on a turf but I am not sure if range can catch that)
 		if(nearby_item.anchored || nearby_item.density || nearby_item.move_resist == INFINITY || !isturf(nearby_item.loc))
@@ -326,22 +329,20 @@
 		if(nearby_item.flags & ABSTRACT)
 			continue
 		// Don't throw things we can't see
-		if(nearby_item.invisibility >= INVISIBILITY_REVENANT)
+		if(nearby_item.invisibility > user.see_invisible)
 			continue
 
-		var/distance_from_user = clamp(get_dist(get_turf(nearby_item), get_turf(user)), 1, 127) // get_dist() never returns more than 127, but same tile dists return -1
-		var/chance_of_haunting = 150 * (1 / distance_from_user) // The further away things are, the less likely they are to be picked
+		var/distance_from_user = max(get_dist(get_turf(nearby_item), get_turf(user)), 1) // get_dist() for same tile dists return -1, we do not want that
+		var/chance_of_haunting = 150 / distance_from_user // The further away things are, the less likely they are to be picked
 		if(!prob(chance_of_haunting))
 			continue
-
-		if(successes >= max_targets) // End loop if we've already got 7 spooky items
-			break
 
 		make_spooky(nearby_item, user)
 		successes++
 
-	if(!successes)
+	if(!successes) //no items to throw
 		return
+
 	// Stop the looping attacks after 65 seconds, roughly 14 attack cycles depending on lag
 	addtimer(CALLBACK(src, PROC_REF(stop_timers)), 65 SECONDS, TIMER_UNIQUE)
 
@@ -355,7 +356,7 @@
 	possessed_object.health = 100
 	possessed_object.escape_chance = 100 // We cannot be contained
 
-	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 2 SECONDS, TIMER_UNIQUE) // Short warm up for floaty ambience
+	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 2 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
 	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 5 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
 	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
 
