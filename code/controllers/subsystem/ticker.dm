@@ -322,7 +322,7 @@ SUBSYSTEM_DEF(ticker)
 				M.client.screen += cinematic	//show every client the cinematic
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD || !(issilicon(M) && override == "AI malfunction"))
+			if(M.stat != DEAD && !(issilicon(M) && override == "AI malfunction"))
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					var/mob/ghost = M.ghostize()
