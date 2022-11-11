@@ -385,7 +385,10 @@
 			if((istype(affecting, /mob/living/simple_animal/hostile/poison/bees))) //Eating a bee will end up damaging you
 				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
 				mouth.receive_damage(1)
-				user.reagents.add_reagent("spidertoxin", 5)
+				if(istype(affecting, /mob/living/simple_animal/hostile/poison/bees/syndi))
+					user.reagents.add_reagent("facid", rand(1, 5))
+				else
+					user.reagents.add_reagent("spidertoxin", 5)
 				to_chat(user, "<span class='danger'>Your mouth has been stung, it's now bloated!</span>")
 			affecting.forceMove(user)
 			LAZYADD(attacker.stomach_contents, affecting)
