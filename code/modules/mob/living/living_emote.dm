@@ -11,10 +11,6 @@
 	. = ..()
 	if(user.mind?.miming)
 		return FALSE  // shh
-	if(user.is_muzzled())
-		if(intentional == FALSE)
-			return TRUE
-		return FALSE
 	return .
 
 /datum/emote/living/blush
@@ -89,6 +85,11 @@
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/brain,
 	)
+
+/datum/emote/living/deathgasp/should_play_sound(mob/user, intentional)
+	. = ..()
+	if(user.is_muzzled() && intentional)
+		return FALSE
 
 /datum/emote/living/deathgasp/get_sound(mob/living/user)
 	. = ..()
