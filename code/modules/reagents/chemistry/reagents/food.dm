@@ -223,7 +223,7 @@
 				victim.EyeBlind(2 SECONDS)
 				victim.Confused(6 SECONDS)
 				victim.damageoverlaytemp = 60
-				victim.Weaken(6 SECONDS)
+				victim.KnockDown(6 SECONDS)
 				victim.drop_item()
 				return
 			else if( eyes_covered ) // Eye cover is better than mouth cover
@@ -239,7 +239,7 @@
 				victim.EyeBlind(4 SECONDS)
 				victim.Confused(12 SECONDS)
 				victim.damageoverlaytemp = 75
-				victim.Weaken(10 SECONDS)
+				victim.KnockDown(10 SECONDS)
 				victim.drop_item()
 
 /datum/reagent/consumable/frostoil
