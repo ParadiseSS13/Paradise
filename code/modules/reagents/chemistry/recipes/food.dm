@@ -47,8 +47,7 @@
 	name = "Cheesewheel"
 	id = "cheesewheel"
 	result = null
-	required_reagents = list("milk" = 40)
-	required_catalysts = list("enzyme" = 5)
+	required_reagents = list("milk" = 40, "enzyme" = 5)
 	result_amount = 1
 
 /datum/chemical_reaction/cheesewheel/on_reaction(datum/reagents/holder, created_volume)
