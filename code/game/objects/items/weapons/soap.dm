@@ -13,6 +13,7 @@
 	discrete = 1
 	var/cleanspeed = 50 //slower than mop
 	var/times_eaten = 0 //How many times a Drask has chewed on this bar of soap
+	var/max_bites = 4 //The maximum amount of bites before the soap is depleted
 
 /obj/item/soap/Initialize(mapload)
 	. = ..()
@@ -27,7 +28,7 @@
 			times_eaten += 1
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
-			if(times_eaten <= 3)
+			if(times_eaten < max_bites)
 				to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
 				return
 			else
