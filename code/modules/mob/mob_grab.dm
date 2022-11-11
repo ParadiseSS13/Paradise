@@ -382,7 +382,11 @@
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
-
+			if((istype(affecting, /mob/living/simple_animal/hostile/poison/bees))) //Eating a bee will end up damaging you
+				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
+				mouth.receive_damage(1)
+				user.reagents.add_reagent("spidertoxin", 5)
+				to_chat(user, "<span class='danger'>Your mouth has been stinged. IT HURTS!</span>")
 			affecting.forceMove(user)
 			LAZYADD(attacker.stomach_contents, affecting)
 			qdel(src)
