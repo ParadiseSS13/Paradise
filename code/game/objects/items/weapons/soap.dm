@@ -25,16 +25,15 @@
 	if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && isdrask(muncher))
-			times_eaten += 1
+			times_eaten++
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
 			if(times_eaten < max_bites)
 				to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
-				return
 			else
 				to_chat(user, "<span class='notice'>You finish eating [src].</span>")
 				qdel(src)
-				return
+			return
 	target.cleaning_act(user, src, cleanspeed)
 
 /obj/item/soap/examine(mob/user)
