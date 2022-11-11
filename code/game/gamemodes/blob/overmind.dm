@@ -81,7 +81,7 @@
 	B.color = blob_reagent_datum?.complementary_color
 	B.overmind = src
 	blob_mobs += B
-	RegisterSignal(B, COMSIG_PARENT_QDELETING, .proc/on_blob_mob_death)
+	RegisterSignal(B, COMSIG_PARENT_QDELETING, PROC_REF(on_blob_mob_death))
 
 /mob/camera/blob/proc/on_blob_mob_death(mob/living/simple_animal/hostile/blob/B)
 	blob_mobs -= B

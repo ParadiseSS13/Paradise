@@ -71,7 +71,7 @@
 				to_chat(M, telegraph_message)
 			if(telegraph_sound)
 				SEND_SOUND(M, sound(telegraph_sound))
-	addtimer(CALLBACK(src, .proc/start), telegraph_duration)
+	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
 
 /datum/weather/proc/start()
 	if(stage >= MAIN_STAGE)
@@ -85,7 +85,7 @@
 				to_chat(M, weather_message)
 			if(weather_sound)
 				SEND_SOUND(M, sound(weather_sound))
-	addtimer(CALLBACK(src, .proc/wind_down), weather_duration)
+	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
 /datum/weather/proc/wind_down()
 	if(stage >= WIND_DOWN_STAGE)
@@ -99,7 +99,7 @@
 				to_chat(M, end_message)
 			if(end_sound)
 				SEND_SOUND(M, sound(end_sound))
-	addtimer(CALLBACK(src, .proc/end), end_duration)
+	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
 
 /datum/weather/proc/end()
 	if(stage == END_STAGE)
