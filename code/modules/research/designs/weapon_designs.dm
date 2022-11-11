@@ -262,7 +262,7 @@
 	category = list("Weapons")
 
 /datum/design/pyroclaw
-	name = "Fusion gauntlets"
+	name = "Fusion Gauntlets"
 	desc = "A pair of gloves designed to make superheated claws capable of cutting through almost anything. Needs a pyro anomaly core"
 	id = "pyro_gloves"
 	req_tech = list("combat" = 7, "materials" = 7, "engineering" = 7, "plasmatech" = 7)
