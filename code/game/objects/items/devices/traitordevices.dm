@@ -1,8 +1,11 @@
 /obj/item/jammer
 	name = "radio jammer"
-	desc = "Device used to disrupt nearby radio communication."
+	desc = "Fog of war that fits your pocket. Flicking the switch and extending the antenna will scramble nearby radio comms, making outgoing messages hard to understand."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
+	item_state = "jammer"
+	w_class = WEIGHT_CLASS_TINY
+	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	var/active = FALSE
 	var/range = 12
 
@@ -10,13 +13,22 @@
 	GLOB.active_jammers -= src
 	return ..()
 
+/obj/item/jammer/update_icon_state()
+	if(active)
+		icon_state = "[initial(icon_state)]-on"
+	else
+		icon_state = "[initial(icon_state)]"
+
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You [active ? "deactivate" : "activate"] [src].</span>")
+	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."] </span>")
 	active = !active
+	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		GLOB.active_jammers |= src
 	else
 		GLOB.active_jammers -= src
+	for(var/datum/action/item_action/toggle_radio_jammer/A in actions)
+		A.UpdateButtonIcon()
 
 /obj/item/teleporter
 	name = "syndicate teleporter"

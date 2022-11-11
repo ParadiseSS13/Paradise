@@ -405,7 +405,7 @@
 			if(!H.bodyparts_by_name[name])
 				continue
 			affecting = H.bodyparts_by_name[name]
-			if(!istype(affecting, /obj/item/organ/external))
+			if(!isorgan(affecting))
 				continue
 			affecting.heal_damage(4, 0, updating_health = FALSE)
 		H.UpdateDamageIcon()
@@ -491,11 +491,11 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(istype(user.loc,/mob/) || IS_HORIZONTAL(user) || user.IsStunned() || user.buckled || user.stat)
+	if(ismob(user.loc) || IS_HORIZONTAL(user) || user.IsStunned() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 
-	if(istype(user.loc,/turf/))
+	if(isturf(user.loc))
 		if(user.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/living/M in range(user, 1))
 				if(M.pulling == user)
@@ -720,7 +720,7 @@
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
 	spelltype =/obj/effect/proc_holder/spell/morph
-	activation_messages = list("Your body feels if can alter its appearance.")
+	activation_messages = list("Your body feels like it can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
 
@@ -747,7 +747,7 @@
 	if(!ishuman(user))
 		return
 
-	if(istype(user.loc,/mob/))
+	if(ismob(user.loc))
 		to_chat(user, "<span class='warning'>You can't change your appearance right now!</span>")
 		return
 	var/mob/living/carbon/human/M = user
@@ -970,7 +970,7 @@
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
-		addtimer(CALLBACK(src, .proc/removeAvailability, target), 100)
+		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 100)
 
 /obj/effect/proc_holder/spell/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)

@@ -397,7 +397,7 @@
 /obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/flash))
-		if(istype(user,/mob/living/silicon/robot))
+		if(isrobot(user))
 			to_chat(user, "<span class='warning'>How do you propose to do that?</span>")
 			return
 		else if(flash1 && flash2)

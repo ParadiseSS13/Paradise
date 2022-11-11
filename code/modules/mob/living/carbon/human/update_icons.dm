@@ -409,6 +409,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_hands_layer()
 	remove_overlay(HANDS_LAYER)
 
+	if(w_uniform?.body_parts_covered & HANDS)
+		return
+
 	var/mutable_appearance/hands_appearance = new()
 	hands_appearance.layer = -HANDS_LAYER
 
@@ -422,6 +425,26 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[HANDS_LAYER] = hands_appearance
 
+	apply_overlay(HANDS_LAYER)
+
+/mob/living/carbon/human/golem/update_hands_layer()
+	remove_overlay(HANDS_LAYER)
+
+	var/mutable_appearance/hands_appearance = new()
+	hands_appearance.layer = -HANDS_LAYER
+
+	var/obj/item/organ/external/hand/l_hand = get_limb_by_name("l_hand")
+	var/obj/item/organ/external/hand/right/r_hand = get_limb_by_name("r_hand")
+	var/datum/species/golem/G = dna.species
+	var/icon/golem_icon = G.icobase
+
+	if(G.golem_colour)
+		if(l_hand)
+			hands_appearance.overlays += icon(golem_icon.ColorTone(G.golem_colour), "l_hand")
+		if(r_hand)
+			hands_appearance.overlays += icon(golem_icon.ColorTone(G.golem_colour), "r_hand")
+
+	overlays_standing[HANDS_LAYER] = hands_appearance
 	apply_overlay(HANDS_LAYER)
 
 //FACIAL HAIR OVERLAY
@@ -632,6 +655,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)
 	apply_overlay(UNIFORM_LAYER)
+	update_hands_layer()
 
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)

@@ -20,7 +20,7 @@
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our restraints!</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, O), 3 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(dissolve_restraint), user, O), 3 SECONDS)
 		used = TRUE
 
 	if(user.legcuffed)
@@ -29,7 +29,7 @@
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid on [user.p_their()] [O.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our leg restraints!</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, O), 3 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(dissolve_restraint), user, O), 3 SECONDS)
 		used = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime && !used)
@@ -38,7 +38,7 @@
 			return FALSE
 		user.visible_message("<span class='warning'>[user] vomits a glob of acid across the front of [user.p_their()] [S.name]!</span>", \
 			"<span class='warning'>We vomit acidic ooze onto our straight jacket!</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, S), 3 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(dissolve_restraint), user, S), 3 SECONDS)
 		used = TRUE
 
 	if(istype(user.loc, /obj/structure/closet) && !used)
@@ -47,7 +47,7 @@
 			return FALSE
 		C.visible_message("<span class='warning'>[C]'s hinges suddenly begin to melt and run!</span>")
 		to_chat(user, "<span class='warning'>We vomit acidic goop onto the interior of [C]!</span>")
-		addtimer(CALLBACK(src, .proc/open_closet, user, C), 7 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(open_closet), user, C), 7 SECONDS)
 		used = TRUE
 
 	if(istype(user.loc, /obj/structure/spider/cocoon) && !used)
@@ -56,7 +56,7 @@
 			return FALSE
 		C.visible_message("<span class='warning'>[src] shifts and starts to fall apart!</span>")
 		to_chat(user, "<span class='warning'>We secrete acidic enzymes from our skin and begin melting our cocoon...</span>")
-		addtimer(CALLBACK(src, .proc/dissolve_cocoon, user, C), 2.5 SECONDS) //Very short because it's just webs
+		addtimer(CALLBACK(src, PROC_REF(dissolve_cocoon), user, C), 2.5 SECONDS) //Very short because it's just webs
 		used = TRUE
 	for(var/obj/item/grab/G in user.grabbed_by)
 		var/mob/living/carbon/M = G.assailant

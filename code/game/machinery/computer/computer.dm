@@ -46,7 +46,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/computer/.proc/flicker_event)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/computer, flicker_event))
 
 	return TRUE
 
@@ -165,7 +165,8 @@
 
 /obj/machinery/computer/attack_hand(mob/user)
 	/* Observers can view computers, but not actually use them via Topic*/
-	if(istype(user, /mob/dead/observer)) return 0
+	if(isobserver(user))
+		return FALSE
 	return ..()
 
 /obj/machinery/computer/screwdriver_act(mob/user, obj/item/I)

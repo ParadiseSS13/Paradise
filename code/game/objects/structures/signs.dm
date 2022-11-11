@@ -336,7 +336,7 @@
 	icon_state = "direction_evac"
 
 /obj/structure/sign/directions/cargo
-	desc = "A direction sign, pointing out which way the Cargo Department is."
+	desc = "A direction sign, pointing out which way the Supply Department is."
 	icon_state = "direction_supply"
 
 /obj/structure/sign/explosives

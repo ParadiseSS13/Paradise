@@ -35,6 +35,7 @@
 	assignedrole = "Syndicate Researcher"
 	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_species_pick = TRUE
+	skin_tone = 255
 
 /obj/effect/mob_spawn/human/spacebase_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))

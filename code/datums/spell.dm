@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			var/location
 			if(isliving(target))
 				location = target.loc
-			else if(istype(target,/turf))
+			else if(isturf(target))
 				location = target
 			var/obj/effect/overlay/spell = new /obj/effect/overlay(location)
 			spell.icon = overlay_icon
@@ -397,7 +397,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		var/location
 		if(isliving(target))
 			location = target.loc
-		else if(istype(target,/turf))
+		else if(isturf(target))
 			location = target
 		if(isliving(target) && message)
 			to_chat(target, text("[message]"))
@@ -461,13 +461,16 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 	return
 
-/obj/effect/proc_holder/spell/aoe_turf
+/obj/effect/proc_holder/spell/aoe
+	name = "Spell"
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
+	/// How far does it effect
+	var/aoe_range = 7
 
 // Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
-// With this override, all /aoe_turf type spells will only generate 1 log, saying that the user has cast the spell.
-/obj/effect/proc_holder/spell/aoe_turf/write_custom_logs(list/targets, mob/user)
+// With this override, all /aoe type spells will only generate 1 log, saying that the user has cast the spell.
+/obj/effect/proc_holder/spell/aoe/write_custom_logs(list/targets, mob/user)
 	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
 
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)

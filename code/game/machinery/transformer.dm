@@ -2,7 +2,7 @@
 	name = "Automatic Robotic Factory 5000"
 	desc = "A large metallic machine with an entrance and an exit. A sign on the side reads, 'human go in, robot come out'. Has a cooldown between each use."
 	icon = 'icons/obj/recycling.dmi'
-	icon_state = "separator-AO1"
+	icon_state = "grinder-b1"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = TRUE
 	density = TRUE
@@ -52,7 +52,7 @@
 
 /obj/machinery/transformer/update_icon_state()
 	if(is_on_cooldown || stat & (BROKEN|NOPOWER))
-		icon_state = "separator-AO0"
+		icon_state = "grinder-b0"
 	else
 		icon_state = initial(icon_state)
 
@@ -94,8 +94,8 @@
 	// Activate the cooldown
 	is_on_cooldown = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
-	addtimer(CALLBACK(null, .proc/playsound, loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown_duration)
+	addtimer(CALLBACK(null, GLOBAL_PROC_REF(playsound), loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
 
 	H.emote("scream")
 	if(!masterAI) // If the factory was placed via admin spawning or other means, it wont have an owner_AI.
@@ -141,7 +141,7 @@
 	// Activate the cooldown
 	is_on_cooldown = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown_duration)
 
 /obj/machinery/transformer/xray
 	name = "Automatic X-Ray 5000"
@@ -170,7 +170,7 @@
 
 /obj/machinery/transformer/xray/update_icon_state()
 	if(stat & (BROKEN|NOPOWER))
-		icon_state = "separator-AO0"
+		icon_state = "grinder-b0"
 	else
 		icon_state = initial(icon_state)
 
@@ -196,7 +196,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	flick("separator-AO0",src)
+	flick("grinder-b0",src)
 	playsound(loc, 'sound/effects/alert.ogg', 50, 0)
 	sleep(5)
 	H.rad_act(rand(150, 200))
@@ -212,7 +212,7 @@
 /obj/machinery/transformer/xray/proc/scan(obj/item/I)
 	if(scan_rec(I))
 		playsound(loc, 'sound/effects/alert.ogg', 50, 0)
-		flick("separator-AO0",src)
+		flick("grinder-b0",src)
 	else
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		sleep(30)

@@ -18,7 +18,8 @@ Mineral Sheets
 GLOBAL_LIST_INIT(sandstone_recipes, list (
 	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("sandstone door", /obj/structure/mineral_door/sandstone, 10, one_per_turf = TRUE, on_floor = TRUE),
-  	new /datum/stack_recipe("sandstone airlock assembly", /obj/structure/door_assembly/door_assembly_sandstone, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+  	new /datum/stack_recipe("sandstone airlock assembly", /obj/structure/door_assembly/door_assembly_sandstone, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("sarcophagus", /obj/structure/closet/coffin/sarcophagus, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, one_per_turf = TRUE, on_floor = TRUE),
 	null,

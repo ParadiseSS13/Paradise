@@ -202,7 +202,7 @@
 		stat |= MAINT
 		constructed = TRUE
 		update_icon()
-		addtimer(CALLBACK(src, .proc/update), 5)
+		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
@@ -259,7 +259,7 @@
 
 	set_light(1, LIGHTING_MINIMUM_POWER)
 
-	addtimer(CALLBACK(src, .proc/update), 5)
+	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
@@ -850,7 +850,7 @@
 	data["chargingStatus"] = charging
 	data["totalLoad"] = round(lastused_equip + lastused_light + lastused_environ)
 	data["coverLocked"] = coverlocked
-	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconUser"] = issilicon(user)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
 	data["nightshiftLights"] = nightshift_lights
@@ -906,7 +906,7 @@
 				deltimer(emergency_power_timer)
 				emergency_power_timer = null
 		else
-			emergency_power_timer = addtimer(CALLBACK(src, .proc/turn_emergency_power_off), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
+			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			spawn(10)
 //				to_chat(world, " [area.name] [area.power_equip]")
@@ -914,7 +914,7 @@
 		area.power_light = 0
 		area.power_equip = 0
 		area.power_environ = 0
-		emergency_power_timer = addtimer(CALLBACK(src, .proc/turn_emergency_power_off), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
+		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
@@ -922,14 +922,14 @@
 /obj/machinery/power/apc/proc/turn_emergency_power_off()
 	emergency_power = FALSE
 	for(var/obj/machinery/light/L in area)
-		INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+		INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
 		return 1
 
 	autoflag = 5
-	if(istype(user, /mob/living/silicon))
+	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
 		if(                                                             \
@@ -944,7 +944,7 @@
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
 			return FALSE
 	else
-		if((!in_range(src, user) || !istype(loc, /turf)))
+		if((!in_range(src, user) || !isturf(loc)))
 			return FALSE
 
 	var/mob/living/carbon/human/H = user
@@ -1017,7 +1017,7 @@
 				update()
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
-				INVOKE_ASYNC(src, /obj/machinery/power/apc.proc/overload_lighting)
+				INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 		if("hack")
 			if(get_malf_status(usr))
 				malfhack(usr)
@@ -1030,7 +1030,7 @@
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
 			for(var/obj/machinery/light/L in area)
-				INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+				INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 				CHECK_TICK
 
 /obj/machinery/power/apc/proc/toggle_breaker()
@@ -1051,7 +1051,7 @@
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you can only hack one APC at a time.")
 	malf.malfhack = src
-	malf.malfhacking = addtimer(CALLBACK(malf, /mob/living/silicon/ai/.proc/malfhacked, src), 600, TIMER_STOPPABLE)
+	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked), src), 600, TIMER_STOPPABLE)
 	var/obj/screen/alert/hackingapc/A
 	A = malf.throw_alert("hackingapc", /obj/screen/alert/hackingapc)
 	A.target = src

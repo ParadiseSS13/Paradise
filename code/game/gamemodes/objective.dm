@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 	target = null
-	INVOKE_ASYNC(src, .proc/post_target_cryo)
+	INVOKE_ASYNC(src, PROC_REF(post_target_cryo))
 
 /**
   * Called a tick after when the objective's target goes to cryo.
@@ -290,7 +290,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	needs_target = FALSE
 
 /datum/objective/block/check_completion()
-	if(!istype(owner.current, /mob/living/silicon))
+	if(!issilicon(owner.current))
 		return FALSE
 	if(SSticker.mode.station_was_nuked)
 		return TRUE

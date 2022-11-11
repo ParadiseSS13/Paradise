@@ -102,7 +102,8 @@
 /area/shuttle/escape)
 "ar" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
+	dir = 4
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -140,7 +141,9 @@
 	},
 /area/shuttle/escape)
 "ax" = (
-/obj/machinery/computer/station_alert,
+/obj/machinery/computer/station_alert{
+	dir = 8
+	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
 	},
@@ -150,7 +153,9 @@
 	},
 /area/shuttle/escape)
 "ay" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -181,7 +186,9 @@
 	},
 /area/shuttle/escape)
 "aC" = (
-/obj/machinery/computer/atmos_alert,
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -220,7 +227,6 @@
 /area/shuttle/escape)
 "aI" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
@@ -235,7 +241,6 @@
 /area/shuttle/escape)
 "aL" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary";
 	normalspeed = 0;
 	req_access_txt = "5"
@@ -287,7 +292,9 @@
 	},
 /area/shuttle/escape)
 "aU" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -419,7 +426,7 @@
 /area/shuttle/escape)
 "bm" = (
 /obj/machinery/sleeper/upgraded{
-	dir = 4
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -605,7 +612,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/sunnybush,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "bS" = (
 /obj/structure/chair/comfy/shuttle{
@@ -652,7 +659,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/window/full/shuttle,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
 "bZ" = (
 /obj/machinery/recharge_station/upgraded,
@@ -752,7 +759,6 @@
 /area/shuttle/escape)
 "sc" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Medical Seating";
 	normalspeed = 0;
 	req_access_txt = "5"
@@ -782,6 +788,14 @@
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
+	},
+/area/shuttle/escape)
+"AU" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
 	},
 /area/shuttle/escape)
 "PY" = (
@@ -1233,10 +1247,10 @@ bx
 ab
 ba
 aS
-aU
-aU
-aU
-aU
+AU
+AU
+AU
+AU
 aS
 ba
 ba
