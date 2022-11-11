@@ -56,9 +56,9 @@
 			return
 		if(!user_account || user_account.credit_balance < 50)
 			return
-		if(!account_database.charge_account(user_account, 50, "Slot Machine Charge", "DonkBook Betting", FALSE, TRUE))
+		if(!account_database.charge_account(user_account, 10, "Slot Machine Charge", "DonkBook Betting", FALSE, TRUE))
 			return //we want to surpress transaction logs here in-case someone uses the slot machine 100+ times
-		account_database.credit_account(account_database.vendor_account, 50, "Slot Machine Charge", "DonkBook Betting", TRUE)
+		account_database.credit_account(account_database.vendor_account, 10, "Slot Machine Charge", "DonkBook Betting", TRUE)
 		plays++
 		working = TRUE
 		icon_state = "slots-on"

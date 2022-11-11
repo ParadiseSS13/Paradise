@@ -45,7 +45,21 @@
 		data["owner_name"] = user_account.account_name
 		data["money"] = user_account.credit_balance
 		data["security_level"] = user_account.security_level
-
+		data["is_department_account"] = (user_account.account_type == ACCOUNT_TYPE_DEPARTMENT)
+		if(data["is_department_account"])
+			data["department_members"] = list()
+			for(var/datum/station_department/department as anything in SSjobs.station_departments)
+				if(department.department_account == user_account)
+					data["auto_approve_amount"] = department.auto_approval_cap
+					data["auto_approve"] = department.crate_auto_approve
+					for(var/datum/department_member/member in department.members)
+						var/list/member_data = list(
+							"name" = member.name,
+							"job" = member.role,
+							"can_approve" = member.can_approve_crates,
+						)
+						data["department_members"] += list(member_data)
+					break
 		data["transaction_log"] = list()
 		for(var/datum/transaction/T as anything in user_account.account_log)
 			var/list/transaction_info = list(
@@ -140,6 +154,27 @@
 			var/attempt_pin = input_account_pin(user)
 			if(account_database.try_authenticate_login(user_account, attempt_pin, FALSE, FALSE, FALSE))
 				user_account.security_level = new_sec_level
+		if("toggle_member_approval")
+			for(var/datum/station_department/department as anything in SSjobs.station_departments)
+				if(department.department_account == user_account)
+					for(var/datum/department_member/member in department.members)
+						if(member.name == params["member"] && member.member_account != user_account)
+							member.can_approve_crates = !member.can_approve_crates
+							break
+					break
+		if("toggle_auto_approve")
+			for(var/datum/station_department/department as anything in SSjobs.station_departments)
+				if(department.department_account == user_account)
+					department.crate_auto_approve = !department.crate_auto_approve
+					break
+		if("set_approve_amount")
+			var/new_amount = text2num(params["approve_amount"])
+			for(var/datum/station_department/department as anything in SSjobs.station_departments)
+				if(department.department_account == user_account)
+					if(new_amount)
+						department.auto_approval_cap = clamp(new_amount, 0, 3000)
+					else
+						department.auto_approval_cap = 0
 
 	if(play_beep && !pda.silent)
 		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
@@ -154,7 +189,7 @@
 		to_chat(user, "<span class='warning'>Authentification Failure: User Account Not Found.</span>")
 		return FALSE
 
-	if(account_database.try_authenticate_login(attempt_account, tried_pin, FALSE, FALSE, FALSE))
+	if(account_database.try_authenticate_login(attempt_account, tried_pin, TRUE, FALSE, FALSE))
 		user_account = attempt_account
 		//lets make sure to logout if the account gets deleted somehow (such as cryo'ing)
 		RegisterSignal(user_account, COMSIG_PARENT_QDELETING, PROC_REF(logout))

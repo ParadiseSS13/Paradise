@@ -1,6 +1,8 @@
 import { filter } from 'common/collections';
 import { useBackend, useLocalState } from "../../backend";
-import { Box, Button, Dropdown, Icon, Input, LabeledList, Section, Tabs, Table } from "../../components";
+import { Box, Button, Dropdown, Icon, Input, LabeledList, Section, Tabs, Table, Divider, Flex } from "../../components";
+import { FlexItem } from '../../components/Flex';
+import { TableRow } from '../../components/Table';
 
 export const pda_nanobank = (props, context) => {
   const { act, data } = useBackend(context);
@@ -168,34 +170,88 @@ const Transfer = (props, context) => {
 
 const AccountActions = (props, context) => {
   const { act, data } = useBackend(context);
-  const { security_level } = data;
+  const { security_level, department_members, auto_approve, auto_approve_amount, is_department_account } = data;
 
   return (
-    <LabeledList>
-      <LabeledList.Item label="Account Security">
-        <Button
-          icon="user-lock"
-          selected={security_level === 1}
-          content="Account Number Only"
-          onClick={() => act('set_security', {
-            new_security_level: 1
-          })} />
-        <Button
-          icon="user-lock"
-          selected={security_level === 2}
-          content="Pin Entry Required"
-          onClick={() => act('set_security', {
-            new_security_level: 2
-          })} />
-      </LabeledList.Item>
-      <LabeledList.Item label="Logout">
-        <Button
-          icon="sign-out-alt"
-          width="auto"
-          content="Logout"
-          onClick={() => act('logout')} />
-      </LabeledList.Item>
-    </LabeledList>
+    <>
+      <LabeledList>
+        <LabeledList.Item label="Account Security">
+          <Button
+            icon="user-lock"
+            selected={security_level === 1}
+            content="Account Number Only"
+            onClick={() => act('set_security', {
+              new_security_level: 1
+            })} />
+          <Button
+            icon="user-lock"
+            selected={security_level === 2}
+            content="Pin Entry Required"
+            onClick={() => act('set_security', {
+              new_security_level: 2
+            })} />
+        </LabeledList.Item>
+        <LabeledList.Item label="Logout">
+          <Button
+            icon="sign-out-alt"
+            width="auto"
+            content="Logout"
+            onClick={() => act('logout')} />
+        </LabeledList.Item>
+      </LabeledList>
+
+      {Boolean(is_department_account) &&
+        <>
+          <Divider />
+          <LabeledList>
+            <LabeledList.Item label="Auto Approve Orders">
+              <Button
+                color={auto_approve ? "good" : "bad"}
+                content={auto_approve ? "Yes" : "No"}
+                onClick={() => act('toggle_auto_approve')}
+              />
+            </LabeledList.Item>
+          </LabeledList>
+            <Flex mt={1}>
+              <FlexItem mr={.5}>
+                {"Auto Approve Purchases when <="}
+              </FlexItem>
+              <FlexItem>
+                <Input
+                  placeholder="# Credits"
+                  value={auto_approve_amount}
+                  onInput={(e, value) => act('set_approve_amount', {
+                    approve_amount: value,
+                  })}
+                />
+              </FlexItem>
+            </Flex>
+
+          <Divider />
+          <Table>
+            <Table.Row header>
+              <Table.Cell>Name</Table.Cell>
+              <Table.Cell>Occupation</Table.Cell>
+              <Table.Cell>Can Approve Crates</Table.Cell>
+            </Table.Row>
+            {department_members.map(member => (
+              <Table.Row key={member}>
+                <Table.Cell>{member.name}</Table.Cell>
+                <Table.Cell>{member.job}</Table.Cell>
+                <Table.Cell>
+                  <Button
+                    color={member.can_approve ? "good" : "bad"}
+                    content={member.can_approve ? "Yes" : "No"}
+                    onClick={() => act('toggle_member_approval', {
+                      member: member.name
+                    })} />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </>
+      }
+    </>
   );
 };
 

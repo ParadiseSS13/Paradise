@@ -26,15 +26,17 @@
 /datum/job_objective/make_cyborg
 	objective_name = "Construct Additional Cyborgs"
 	description = "Construct atleast one cyborg for the station to increase workplace productivity"
+	gives_payout = TRUE
 	completion_payment = 100
 
-/datum/job_objective/further_research/check_for_completion()
+/datum/job_objective/make_cyborg/check_for_completion()
 	return completed
 
 //RIPLEY's
 /datum/job_objective/make_ripley
 	objective_name = "Construct a Ripley Mech"
 	description = "Construct a Ripley Mech for station usage"
+	gives_payout = TRUE
 	completion_payment = 200
 
 /datum/job_objective/make_ripley/check_for_completion()

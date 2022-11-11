@@ -55,10 +55,12 @@
 					data["department_accounts"] += list(account_data)
 			if(AUT_ACCINF)
 				data["account_number"] = detailed_account_view.account_number
+				data["account_pin"] = detailed_account_view.account_pin
 				data["owner_name"] = detailed_account_view.account_name
 				data["money"] = detailed_account_view.credit_balance
 				data["suspended"] = detailed_account_view.suspended
 
+				data["is_department_account"] = (detailed_account_view.account_type == ACCOUNT_TYPE_DEPARTMENT)
 				data["transactions"] = list()
 				for(var/datum/transaction/T in detailed_account_view.account_log)
 					var/list/transaction_info = list(

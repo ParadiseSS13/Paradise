@@ -227,12 +227,13 @@ const AccountsActions = (properties, context) => {
 const DetailedAccountInfo = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
-    is_printing,
     account_number,
     owner_name,
     money,
     suspended,
     transactions,
+    account_pin,
+    is_department_account
   } = data;
   return (
     <Fragment>
@@ -251,6 +252,11 @@ const DetailedAccountInfo = (properties, context) => {
           <LabeledList.Item label="Account Number">
             #{account_number}
           </LabeledList.Item>
+          {!!is_department_account &&
+            <LabeledList.Item label="Account Pin">
+              {account_pin}
+            </LabeledList.Item>
+          }
           <LabeledList.Item label="Account Holder">
             {owner_name}
           </LabeledList.Item>

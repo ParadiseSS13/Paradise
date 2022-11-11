@@ -10,21 +10,44 @@
 	var/account_access = list()
 	///The money account tied to this department
 	var/datum/money_account/department_account
+	///Will this department's account auto approve crates?
+	var/crate_auto_approve = FALSE
+	///If there is auto approval, is it capped?
+	var/auto_approval_cap = 0
 
 	///The occupation name of the person in charge of this department officially
 	var/head_of_staff
 	///A list of occupation names in this department
 	var/department_roles = list()
 
+	var/list/members = list()
+
+/datum/department_member
+	///Name of the department member
+	var/name
+	///Occupation of the department member
+	var/role
+	///Can this department member approve crates for the department?
+	var/can_approve_crates = FALSE
+	///This department members money account
+	var/datum/money_account/member_account
+
 /datum/station_department/can_vv_delete()
 	message_admins("An admin attempted to VV delete a station_department datum, please stop doing this it will break cargo")
 	return FALSE
 
-
-/datum/station_department/proc/has_account_access(list/access)
+///checks to see if the crew members has the right access or is whitelisted on the department account
+/datum/station_department/proc/has_account_access(list/access, datum/money_account/account)
 	if(!length(account_access))
 		return TRUE
-	return has_access(list(), account_access, access)
+	if(has_access(list(), account_access, access))
+		return TRUE
+	if(!account)
+		return FALSE
+	for(var/datum/department_member/member as anything in members)
+		if(member.can_approve_crates && member.member_account == account)
+			return TRUE
+	return FALSE
 
 /datum/station_department/command
 	department_name = DEPARTMENT_COMMAND
@@ -67,6 +90,7 @@
 	department_roles = list(
 		"Research Director",
 		"Scientist",
+		"Xenobiologist",
 		"Geneticist",	//Part of both medical and science
 		"Roboticist",
 	)

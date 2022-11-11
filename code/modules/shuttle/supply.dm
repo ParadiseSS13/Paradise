@@ -1,3 +1,5 @@
+#define MAX_CRATE_DELIVERY 40
+
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
@@ -65,7 +67,13 @@
 	if(!is_station_level(z))		//we only buy when we are -at- the station
 		return 1
 
-	if(!length(SSeconomy.shoppinglist))
+	for(var/datum/supply_order/order as anything in SSeconomy.shoppinglist)
+		if(length(SSeconomy.deliverylist) >= MAX_CRATE_DELIVERY)
+			break
+		SSeconomy.deliverylist += order
+		SSeconomy.shoppinglist -= order
+
+	if(!length(SSeconomy.deliverylist))
 		return 2
 
 	var/list/emptyTurfs = list()
@@ -86,18 +94,18 @@
 
 		emptyTurfs += T
 
-	for(var/datum/supply_order/SO in SSeconomy.shoppinglist)
+	for(var/datum/supply_order/SO in SSeconomy.deliverylist)
 		if(!SO.object)
 			throw EXCEPTION("Supply Order [SO] has no object associated with it.")
 			continue
 
 		var/turf/T = pick_n_take(emptyTurfs)		//turf we will place it in
 		if(!T)
-			SSeconomy.shoppinglist.Cut(1, SSeconomy.shoppinglist.Find(SO))
+			SSeconomy.deliverylist.Cut(1, SSeconomy.deliverylist.Find(SO))
 			return
 		SO.createObject(T)
 
-	SSeconomy.shoppinglist.Cut()
+	SSeconomy.deliverylist.Cut()
 
 /obj/docking_port/mobile/supply/proc/sell()
 	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
@@ -206,5 +214,6 @@
 		credits_to_deposit += credits_from_crates
 
 	SSeconomy.centcom_message += "[msg]<hr>"
-	GLOB.station_money_database.credit_account(SSeconomy.cargo_account, credits_to_deposit, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
+	if(credits_to_deposit > 0)
+		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, credits_to_deposit, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
 

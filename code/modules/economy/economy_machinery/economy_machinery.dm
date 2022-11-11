@@ -29,10 +29,7 @@
 	reconnect_database()
 
 /obj/machinery/economy/proc/reconnect_database()
-	if(is_station_level(z))
-		account_database = GLOB.station_money_database
-	else
-		account_database = null
+	account_database = GLOB.station_money_database
 
 /obj/machinery/economy/proc/attempt_account_authentification(datum/money_account/customer_account, attempted_pin, mob/user)
 	var/attempt_pin = attempted_pin

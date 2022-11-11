@@ -96,9 +96,11 @@
 				can_approve = TRUE
 				can_deny = TRUE
 		else if(order.requires_head_approval)
-			if(C && order.ordered_by_department.has_account_access(C.access))
+			if(C && order.ordered_by_department.has_account_access(C.access, GLOB.station_money_database.find_user_account(C.associated_account_number)))
 				can_approve = TRUE //if the crate DOESN'T need QM approval (or QM already approved it), you get app and deny rights
 				can_deny = TRUE
+			if(C && has_qm_access(C.access))
+				can_deny = TRUE //QM can deny any order at any time
 
 		var/list/request_data = list(
 			"ordernum" = order.ordernum,
@@ -110,7 +112,8 @@
 			"req_qm_approval" = order.requires_qm_approval,
 			"req_head_approval" = order.requires_head_approval,
 			"can_approve" = can_approve,
-			"can_deny" = can_deny)
+			"can_deny" = can_deny
+		)
 		//The way approval rights is determined
 		//If a crate requires QM approval and head approval - Only the QM can approve it for now, heads can still deny it at this point however
 		//If a crate requires head approval - They can approve it as long as they have department account access and the crate doesn't still need QM approval
@@ -170,6 +173,18 @@
 		orders += list(order_data)
 	return orders
 
+/obj/machinery/computer/supplycomp/proc/build_shipment_list_data()
+	var/list/orders = list()
+	for(var/datum/supply_order/order as anything in SSeconomy.deliverylist)
+		var/list/order_data = list(
+			"ordernum" = order.ordernum,
+			"supply_type" = order.object.name,
+			"orderedby" = order.orderedby,
+			"comment" = order.comment
+		)
+		orders += list(order_data)
+	return orders
+
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(!cargo_account || !account_database)
 		reconnect_database()
@@ -184,8 +199,8 @@
 	data["requests"] = build_request_data(user)
 	data["accounts"] = build_account_data(user)
 	data["orders"] = build_shopping_list_data()
+	data["shipments"] = build_shipment_list_data()
 	data["is_public"] = is_public
-	data["approve_ready"] = (SSshuttle.supply.getDockedId() == "supply_away") && SSshuttle.supply.mode == SHUTTLE_IDLE
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(60 SECONDS)
@@ -274,8 +289,6 @@
 			var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, amount, reason)
 			order_crate(user, order, selected_account)
 		if("approve")
-			if(SSshuttle.supply.getDockedId() != "supply_away" || SSshuttle.supply.mode != SHUTTLE_IDLE)
-				return
 			var/ordernum = text2num(params["ordernum"])
 			if(!ordernum)
 				return
@@ -306,13 +319,14 @@
 				if(department.department_account == selected_account)
 					order.ordered_by_department = department //now that we know which department this is for, attach it to the order
 					order.orderedbyaccount = selected_account
-					order.requires_head_approval = TRUE //because its a department order, automatically require head approval
+					order.requires_head_approval = TRUE
+
 					if(length(order.object.department_restrictions))
 						//this crate has a department whitelist description
 						if(!(department.department_name in order.object.department_restrictions))
 							//this department is not in this whitelist, require QM approval
 							order.requires_qm_approval = TRUE
-
+					break
 		else if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL && length(order.object.department_restrictions))
 			order.requires_qm_approval = TRUE
 
@@ -324,11 +338,13 @@
 			var/paid_for = FALSE
 			if(!order.requires_qm_approval && pay_with_account(selected_account, order.object.cost, "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 				paid_for = TRUE
-			playsound(loc, 'sound/machines/ping.ogg', 25, 0)
-			to_chat(user, "<span class='notice'>Order Sent.</span>")
+				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
+				to_chat(user, "<span class='notice'>Order Sent.</span>")
 			SSeconomy.process_supply_order(order, paid_for) //add order to shopping list
 	else //if its a department account with pin or higher security or need QM approval, go ahead and add this to the departments section in request list
 		SSeconomy.process_supply_order(order, FALSE)
+		if(order.ordered_by_department.crate_auto_approve && order.ordered_by_department.auto_approval_cap >= order.object.cost)
+			approve_crate(user, order.ordernum)
 		playsound(loc, 'sound/machines/ping.ogg', 15, 0)
 		to_chat(user, "<span class='notice'>Order Sent.</span>")
 		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", "cargo")
@@ -355,9 +371,14 @@
 				return TRUE
 
 			if(order.requires_head_approval)
-				if(!department_order.ordered_by_department.has_account_access(user.get_access()))
-					return //no access!
-				if(attempt_account_authentification(account, user))
+				//if they do not have access to this account
+				if(!department_order.ordered_by_department.has_account_access(user.get_access(), user.get_worn_id_account()))
+					//and the dept account doesn't have auto approve enabled (or does and the crate is too expensive for auto approve)
+					if(!department_order.ordered_by_department.crate_auto_approve || department_order.ordered_by_department.auto_approval_cap < pack.cost)
+						return //no access!
+
+				///just give the account pin here, its too much work for players to get the department account pin number since approval is access locked anyway
+				if(attempt_account_authentification(account, user, account.account_pin))
 					if(pay_with_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
 						order.requires_head_approval = FALSE
 						SSeconomy.process_supply_order(order, TRUE)
@@ -409,11 +430,11 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/supplycomp/proc/attempt_account_authentification(datum/money_account/customer_account, mob/user)
+/obj/machinery/computer/supplycomp/proc/attempt_account_authentification(datum/money_account/customer_account, mob/user, pin)
 	if(customer_account.security_level > ACCOUNT_SECURITY_RESTRICTED)
 		return FALSE
-	var/attempt_pin
-	if(customer_account.security_level != ACCOUNT_SECURITY_ID)
+	var/attempt_pin = pin
+	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
 		attempt_pin = input("Enter pin code", "Vendor transaction") as num
 		if(!Adjacent(user))

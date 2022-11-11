@@ -229,6 +229,7 @@ const CataloguePane = (_properties, context) => {
                 <Button
                   content="Order 1"
                   icon="shopping-cart"
+                  disabled={!selectedAccount}
                   onClick={() =>
                     act('order', {
                       crate: c.ref,
@@ -240,6 +241,7 @@ const CataloguePane = (_properties, context) => {
                 <Button
                   content="Order Multiple"
                   icon="cart-plus"
+                  disabled={!selectedAccount}
                   onClick={() =>
                     act('order', {
                       crate: c.ref,
@@ -336,7 +338,7 @@ const GetRequestNotice = (_properties, context) => {
 
 const DetailsPane = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { requests, approve_ready, orders } = data;
+  const { requests, orders, shipments } = data;
   return (
     <Section title="Orders">
       <Box maxHeight={15} overflowY="auto" overflowX="hidden">
@@ -355,7 +357,7 @@ const DetailsPane = (_properties, context) => {
                 <Button
                   content="Approve"
                   color="green"
-                  disabled={!approve_ready || !r.can_approve}
+                  disabled={!r.can_approve}
                   onClick={() =>
                     act('approve', {
                       ordernum: r.ordernum,
@@ -376,9 +378,22 @@ const DetailsPane = (_properties, context) => {
             </Table.Row>
           ))}
         </Table>
-        <Box bold>Confirmed Orders</Box>
+        <Box bold>Orders Awaiting Delivery</Box>
         <Table m="0.5rem">
           {orders.map((r) => (
+            <Table.Row key={r.ordernum}>
+              <Table.Cell>
+                <Box>
+                  - #{r.ordernum}: {r.supply_type} for <b>{r.orderedby}</b>
+                </Box>
+                <Box italic>Reason: {r.comment}</Box>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table>
+        <Box bold>Order in Transit</Box>
+        <Table m="0.5rem">
+          {shipments.map((r) => (
             <Table.Row key={r.ordernum}>
               <Table.Cell>
                 <Box>

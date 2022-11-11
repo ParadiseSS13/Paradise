@@ -27,12 +27,15 @@ SUBSYSTEM_DEF(economy)
 
 	///list of vars that will be tracked throughout the round (a new entry for each key list will be added every 15 minutes)
 	var/list/economy_data = list(
-		"totalcash" = list(),
-		"totalcredits" = list(),
-		"creditsdestroyed" = list(),
-		"totaltransfers" = list(),
-		"moneyvelocity" = list(),
-		"totalvends" = list()
+		"totalcash" = list(),         //how much space cash is in circulation
+		"totalcredits" = list(),      //How many space credits are in circulation
+		"creditsdestroyed" = list(),  //How many space credits have been removed from the round
+		"totaltransfers" = list(),    //How many transfers have been accped (above $4) this round
+		"moneyvelocity" = list(),     //What is the money velocity of this 10 minute period  GDP/MS
+		"totalvends" = list(),        //How many purchases have been made from vendors this round
+		"stagnant_accounts" = list(), //How many accounts have not made any transactions this round
+		"stagnant_cash" = list(),     //How many credits are sitting in stagnant accounts this round
+		"non_stagnant_cash" = list()  //How many credits are in active accounts this round
 	)
 	///time to next stats check
 	var/next_data_check = 0
@@ -45,7 +48,7 @@ SUBSYSTEM_DEF(economy)
 	var/ordernum = 1
 
 	var/credits_per_manifest = 5				//points gained per slip returned
-	var/credits_per_crate = 20			//points gained per crate returned
+	var/credits_per_crate = 15			//points gained per crate returned
 	var/credits_per_intel = 750			//points gained per intel returned
 	var/credits_per_plasma = 10			//points gained per plasma returned
 	var/credits_per_design = 20			//points gained per research design returned
@@ -57,8 +60,11 @@ SUBSYSTEM_DEF(economy)
 
 	///Requested crates, waiting for approval by department heads
 	var/list/requestlist = list()
-	///Approved Crates, waiting to be delivered on next shuttle shipment
+	///Approved Crates, waiting to be delivered
 	var/list/shoppinglist = list()
+	///Crates that will be on next shuttle
+	var/list/deliverylist = list()
+
 	///Full list of all available supply packs to purchase
 	var/list/supply_packs = list()
 	var/sold_atoms = ""
@@ -133,8 +139,17 @@ SUBSYSTEM_DEF(economy)
 		economy_data["totalcredits"] += total_space_credits
 		economy_data["creditsdestroyed"] += space_credits_destroyed - listgetindex(economy_data["creditsdestroyed"], length(economy_data["creditsdestroyed"]))
 		economy_data["totaltransfers"] += total_credit_transfers - listgetindex(economy_data["totaltransfers"], length(economy_data["totaltransfers"]))
-		economy_data["totalvends"] += total_vendor_transactions
+		economy_data["totalvends"] += total_vendor_transactions - listgetindex(economy_data["totalvends"], length(economy_data["totalvends"]))
 		economy_data["moneyvelocity"] += round((current_10_minute_spending / total_space_cash), 0.001)
+		var/stagnant_count = 0
+		var/stagnant_cash = 0
+		for(var/datum/money_account/account as anything in GLOB.station_money_database.user_accounts)
+			if(length(account.account_log) <= payday_count)
+				stagnant_count++
+				stagnant_cash += account.credit_balance
+		economy_data["stagnant_accounts"] += stagnant_count++
+		economy_data["stagnant_cash"] = stagnant_cash
+		economy_data["non_stagnant_cash"] = total_space_credits - stagnant_cash
 		current_10_minute_spending = 0
 	process_job_tasks()
 
@@ -207,7 +222,11 @@ SUBSYSTEM_DEF(economy)
 		CRASH("finalize_supply_order() called with a null datum/supply_order")
 	if(order in requestlist)
 		requestlist -= order
-	shoppinglist += order
+
+	if(SSshuttle.supply.getDockedId() == "supply_away" && SSshuttle.supply.mode == SHUTTLE_IDLE)
+		deliverylist += order
+	else
+		shoppinglist += order
 
 ////////////////////////////
 /// Paycheck Stuff /////////

@@ -753,10 +753,10 @@
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
 					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5,
 					)
-	prices = list(/obj/item/clothing/accessory/petcollar = 200, /obj/item/storage/firstaid/aquatic_kit/full = 100, /obj/item/fish_eggs/goldfish = 10,
+	prices = list(/obj/item/clothing/accessory/petcollar = 75, /obj/item/storage/firstaid/aquatic_kit/full = 50, /obj/item/fish_eggs/goldfish = 10,
 					/obj/item/fish_eggs/clownfish = 30, /obj/item/fish_eggs/shark = 30, /obj/item/fish_eggs/feederfish = 20,
 					/obj/item/fish_eggs/salmon = 30, /obj/item/fish_eggs/catfish = 30, /obj/item/fish_eggs/glofish = 10,
-					/obj/item/fish_eggs/electric_eel = 30, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 100,
+					/obj/item/fish_eggs/electric_eel = 30, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 50,
 					)
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
 	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
