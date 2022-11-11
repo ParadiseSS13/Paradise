@@ -188,6 +188,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	. = ..()
 	if(mess)
 		. += "It's filled with blood and viscera. You swear you can see it moving..."
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>Yellow ooze is dripping out of the synthmeat storage chamber...</span>"
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
@@ -432,6 +434,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/emag_act(user)
 	malfunction()
 
+/obj/machinery/clonepod/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(user, "<span class='warning'>A droplet of bananium ooze seeps into the synthmeat storage chamber...</span>")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+
 /obj/machinery/clonepod/proc/update_clone_antag(mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
 	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
@@ -483,6 +492,14 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+			occupant.dna.SetSEState(GLOB.clumsyblock, TRUE, FALSE)
+			occupant.dna.SetSEState(GLOB.comicblock, TRUE, FALSE)
+			singlemutcheck(occupant, GLOB.clumsyblock, MUTCHK_FORCED)
+			singlemutcheck(occupant, GLOB.comicblock, MUTCHK_FORCED)
+			occupant.dna.default_blocks.Add(GLOB.clumsyblock) //Until Genetics fixes you, this is your life now
+			occupant.dna.default_blocks.Add(GLOB.comicblock)
 		occupant.flash_eyes(visual = 1)
 		clonemind = null
 
