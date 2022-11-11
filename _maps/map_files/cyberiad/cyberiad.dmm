@@ -10805,7 +10805,6 @@
 /turf/simulated/wall,
 /area/maintenance/abandonedbar)
 "aCO" = (
-/obj/machinery/vending/autodrobe,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "aCP" = (
@@ -26946,7 +26945,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bnG" = (
-/obj/machinery/vending/autodrobe,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bnH" = (
@@ -87453,7 +87451,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
 "sXh" = (
-/obj/machinery/vending/autodrobe,
+
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

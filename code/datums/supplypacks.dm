@@ -1936,11 +1936,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "HEADER"
 	group = SUPPLY_VEND
 
-/datum/supply_packs/vending/autodrobe
-	name = "Autodrobe Supply Crate"
-	contains = list(/obj/item/vending_refill/autodrobe)
-	cost = 15
-	containername = "autodrobe supply crate"
+
 
 /datum/supply_packs/vending/clothes
 	name = "ClothesMate Supply Crate"

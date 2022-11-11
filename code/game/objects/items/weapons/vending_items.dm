@@ -67,9 +67,7 @@
 	machine_name = "cigarette"
 	icon_state = "refill_smoke"
 
-/obj/item/vending_refill/autodrobe
-	machine_name = "AutoDrobe"
-	icon_state = "refill_costume"
+
 
 /obj/item/vending_refill/hatdispenser
 	machine_name = "hat"

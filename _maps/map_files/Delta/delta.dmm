@@ -7721,7 +7721,6 @@
 	},
 /area/maintenance/fore)
 "aBq" = (
-/obj/machinery/vending/autodrobe,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -13869,7 +13868,6 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/vending/autodrobe,
 /turf/simulated/floor/plasteel,
 /area/storage/art)
 "aPR" = (
@@ -55974,7 +55972,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "cDl" = (
-/obj/machinery/vending/autodrobe,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "cDm" = (
@@ -76322,7 +76319,6 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "dwR" = (
-/obj/machinery/vending/autodrobe,
 /obj/machinery/light/small{
 	dir = 1
 	},

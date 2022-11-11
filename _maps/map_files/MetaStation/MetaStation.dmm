@@ -12983,7 +12983,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aVp" = (
-/obj/machinery/vending/autodrobe,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 30
@@ -32301,7 +32300,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bRG" = (
-/obj/machinery/vending/autodrobe,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -52266,7 +52264,6 @@
 	},
 /area/security/permabrig)
 "daZ" = (
-/obj/machinery/vending/autodrobe,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},

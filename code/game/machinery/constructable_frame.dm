@@ -248,7 +248,6 @@ to destroy them and players will be able to make replacements.
 		"Hatlord 9000" =						/obj/machinery/vending/hatdispenser,
 		"Suitlord 9000" =						/obj/machinery/vending/suitdispenser,
 		"Shoelord 9000" =						/obj/machinery/vending/shoedispenser,
-		"AutoDrobe" =							/obj/machinery/vending/autodrobe,
 		"ClothesMate" =							/obj/machinery/vending/clothing,
 		"NanoMed Plus" =						/obj/machinery/vending/medical,
 		"NanoMed" =								/obj/machinery/vending/wallmed,

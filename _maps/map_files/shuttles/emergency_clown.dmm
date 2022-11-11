@@ -335,7 +335,6 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bk" = (
-/obj/machinery/vending/autodrobe,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bl" = (
