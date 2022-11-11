@@ -218,7 +218,7 @@
 			if(usr.holy_check())
 				return
 			if(!is_level_reachable(usr.z))
-				to_chat(usr, "<span class='warning'>\The energies of this place interfere with the metal shaping!</span>")
+				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 				return
 			if(locate(/obj/structure/cult) in get_turf(src))
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")

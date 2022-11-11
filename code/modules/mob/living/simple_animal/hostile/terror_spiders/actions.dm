@@ -192,7 +192,7 @@
 		M.Weaken(8 SECONDS)
 		if(iscarbon(M))
 			web_special_ability(M)
-			addtimer(CALLBACK(src, .proc/after_carbon_crossed, M), 7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+			addtimer(CALLBACK(src, PROC_REF(after_carbon_crossed), M), 7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /**
   * Called some time after a carbon mob crossed the terror web.
@@ -269,7 +269,7 @@
 							else if(ismachinery(O))
 								O.loc = C
 								large_cocoon = 1
-							else if(istype(O, /obj/structure) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
+							else if(isstructure(O) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
 								O.loc = C
 								large_cocoon = 1
 					for(var/mob/living/L in C.loc)

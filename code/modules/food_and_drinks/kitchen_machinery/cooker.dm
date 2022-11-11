@@ -92,7 +92,7 @@
 	soundloop.stop()
 	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
-	smoke.set_up(5, 0, src)
+	smoke.set_up(5, FALSE, src)
 	smoke.start()
 	if(prob(firechance))
 		var/turf/location = get_turf(src)
@@ -148,7 +148,7 @@
 			else
 				L.death()
 		break
-	addtimer(CALLBACK(src, .proc/finish_cook, I, user), cooktime)
+	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
 
 /obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
 	if(QDELETED(I)) //For situations where the item being cooked gets deleted mid-cook (primed grenades)

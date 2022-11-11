@@ -252,12 +252,12 @@ if(!result || result.ckey != __ckey){\
 	if(href_list["add_mob"])
 		var/list/mobs = getpois(TRUE, TRUE)
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
-		A.on_close(CALLBACK(src, .proc/add_mob, usr))
+		A.on_close(CALLBACK(src, PROC_REF(add_mob), usr))
 		return
 	if(href_list["add_ckey"])
 		var/list/ckeys = GLOB.logging.get_ckeys_logged()
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", ckeys)
-		A.on_close(CALLBACK(src, .proc/add_ckey, usr))
+		A.on_close(CALLBACK(src, PROC_REF(add_ckey), usr))
 		return
 	if(href_list["remove_mob"])
 		var/mob/M = locate(href_list["remove_mob"])

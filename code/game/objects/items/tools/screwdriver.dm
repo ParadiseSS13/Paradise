@@ -12,7 +12,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	materials = list(MAT_METAL=75)
+	materials = list(MAT_METAL = 350)
 	attack_verb = list("stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'

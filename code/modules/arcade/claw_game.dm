@@ -58,7 +58,7 @@ GLOBAL_VAR(claw_game_html)
 		atom_say("WINNER!")
 	new /obj/item/toy/prizeball(get_turf(src))
 	playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, /atom/.proc/update_icon, UPDATE_ICON_STATE), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), 10)
 
 /obj/machinery/arcade/claw/start_play(mob/user as mob)
 	..()

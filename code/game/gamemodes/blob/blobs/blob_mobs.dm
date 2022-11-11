@@ -224,8 +224,11 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
 	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> <span class='message'>states, \"[message]\"</span></span></i></font>"
+	var/rendered
+	var/follow_text
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
-			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
-				M.show_message(rendered, 2)
+			follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost = M)])" : ""
+			rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span></i></font>"
+			if(isovermind(M) || isobserver(M) || istype(M, /mob/living/simple_animal/hostile/blob/blobbernaut))
+				M.show_message(rendered, EMOTE_AUDIBLE)

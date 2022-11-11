@@ -8,7 +8,7 @@
 	qnty = rand(45,125)
 
 /datum/event/dust/meaty/start()
-	INVOKE_ASYNC(src, .proc/spawn_meaty_ores)
+	INVOKE_ASYNC(src, PROC_REF(spawn_meaty_ores))
 
 /datum/event/dust/meaty/proc/spawn_meaty_ores()
 	while(qnty-- > 0)

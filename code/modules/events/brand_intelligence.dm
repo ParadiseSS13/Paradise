@@ -20,7 +20,7 @@
 	for(var/obj/machinery/vending/V in GLOB.machines)
 		if(!is_station_level(V.z))
 			continue
-		RegisterSignal(V, COMSIG_PARENT_QDELETING, .proc/vendor_destroyed)
+		RegisterSignal(V, COMSIG_PARENT_QDELETING, PROC_REF(vendor_destroyed))
 		vendingMachines.Add(V)
 
 	if(!length(vendingMachines))

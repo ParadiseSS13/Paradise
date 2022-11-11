@@ -48,7 +48,7 @@
 		else
 			track = "[speaker_name] ([jobname])"
 	else
-		if(istype(follow_target, /mob/living/simple_animal/bot))
+		if(isbot(follow_target))
 			track = "<a href='byond://?src=[UID()];trackbot=\ref[follow_target]'>[speaker_name] ([jobname])</a>"
 		else
 			mob_to_track = speaker
@@ -150,9 +150,8 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 /mob/living/silicon/ai/proc/ai_voice_announcement_to_text(words)
 	var/words_string = jointext(words, " ")
-	var/formatted_message = "<h1 class='alert'>A.I. Announcement</h1>"
-	formatted_message += "<br><span class='alert'>[words_string]</span>"
-	formatted_message += "<br><span class='alert'> -[src]</span>"
+	// Don't go through .Announce because we need to filter by clients which have TTS enabled
+	var/formatted_message = announcer.Format(words_string, "A.I. Announcement")
 
 	var/announce_sound = sound('sound/misc/notice2.ogg')
 	for(var/player in GLOB.player_list)

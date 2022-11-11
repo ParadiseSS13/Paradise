@@ -181,6 +181,9 @@
 	else if(A == node3)
 		return parent3
 
+/obj/machinery/atmospherics/trinary/is_pipenet_split()
+	return FALSE
+
 /obj/machinery/atmospherics/trinary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)
 		parent1 = New

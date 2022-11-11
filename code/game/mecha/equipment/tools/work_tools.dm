@@ -91,7 +91,7 @@
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill/action(atom/target)
 	if(!action_checks(target)) return
 	if(!cargo_holder) return
-	if(istype(target,/obj))
+	if(isobj(target))
 		var/obj/O = target
 		if(!O.anchored)
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
@@ -110,7 +110,7 @@
 		else
 			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
 
-	else if(istype(target,/mob/living))
+	else if(isliving(target))
 		var/mob/living/M = target
 		if(M.stat == DEAD) return
 		if(chassis.occupant.a_intent == INTENT_HARM)
@@ -221,7 +221,7 @@
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
 		return
 
-	if(!istype(target, /turf) && !istype(target, /obj/machinery/door/airlock))
+	if(!isturf(target) && !istype(target, /obj/machinery/door/airlock))
 		target = get_turf(target)
 
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -313,7 +313,7 @@
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target)
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
 		return
-	if(!istype(target, /turf))
+	if(!isturf(target))
 		target = get_turf(target)
 	if(!action_checks(target) || get_dist(chassis, target)>3)
 		return
@@ -349,7 +349,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()
-	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, .proc/layCable)
+	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, PROC_REF(layCable))
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach()
 	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)

@@ -87,7 +87,7 @@
 	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
 		return 1
 
-	if(species_restricted && istype(M,/mob/living/carbon/human))
+	if(species_restricted && ishuman(M))
 
 		var/wearable = null
 		var/exclusive = null
@@ -335,12 +335,12 @@ BLIND     // can't see anything
 				to_chat(user, "Your suit will now report your vital lifesigns.")
 			if(SUIT_SENSOR_TRACKING)
 				to_chat(user, "Your suit will now report your vital lifesigns as well as your coordinate position.")
-		if(istype(user,/mob/living/carbon/human))
+		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if(istype(src.loc, /mob))
+	else if(ismob(src.loc))
 		switch(sensor_mode)
 			if(SUIT_SENSOR_OFF)
 				for(var/mob/V in viewers(user, 1))
@@ -354,7 +354,7 @@ BLIND     // can't see anything
 			if(SUIT_SENSOR_TRACKING)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
-		if(istype(src,/mob/living/carbon/human))
+		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
 				H.update_suit_sensors()

@@ -219,7 +219,7 @@
 
 		fireflash(T, min(max(0, volume / 40), 8))
 		var/datum/effect_system/smoke_spread/bad/BS = new
-		BS.set_up(1, 0, T)
+		BS.set_up(1, FALSE, T)
 		BS.start()
 		if(!QDELETED(old_holder) && reagent_after_burning)
 			old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))
@@ -329,7 +329,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
-			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
 	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)

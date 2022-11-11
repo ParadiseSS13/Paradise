@@ -310,10 +310,10 @@
 		if(WEST)
 			if(AM.loc.x != loc.x - 1) return
 
-	if(istype(AM, /obj))
+	if(isobj(AM))
 		var/obj/O = AM
 		O.loc = src
-	else if(istype(AM, /mob))
+	else if(ismob(AM))
 		var/mob/M = AM
 		M.loc = src
 	flush()

@@ -34,7 +34,7 @@
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 	update_icons()
 
 /mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)

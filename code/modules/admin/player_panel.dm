@@ -375,11 +375,11 @@
 			for(var/obj/item/disk/nuclear/N in GLOB.poi_list)
 				dat += "<tr><td>[N.name], "
 				var/atom/disk_loc = N.loc
-				while(!istype(disk_loc, /turf))
-					if(istype(disk_loc, /mob))
+				while(!isturf(disk_loc))
+					if(ismob(disk_loc))
 						var/mob/M = disk_loc
 						dat += "carried by <a href='?src=[UID()];adminplayeropts=[M.UID()]'>[M.real_name]</a> "
-					if(istype(disk_loc, /obj))
+					if(isobj(disk_loc))
 						var/obj/O = disk_loc
 						dat += "in \a [O.name] "
 					disk_loc = disk_loc.loc

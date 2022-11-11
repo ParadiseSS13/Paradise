@@ -55,15 +55,6 @@
 	name = "\improper Trans-Solar Federation commander's uniform"
 	desc = "Gold trim on space-black cloth, this uniform is worn by generals of the Trans-Solar Federation. It has exotic materials for protection."
 
-/obj/item/clothing/under/rank/centcom/blueshield
-	name = "formal blueshield's uniform"
-	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
-	icon_state = "officer"
-	item_state = "g_suit"
-	item_color = "officer"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
-	displays_id = FALSE
-
 /obj/item/clothing/under/rank/centcom/representative
 	name = "formal Nanotrasen Representative's uniform"
 	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
@@ -117,3 +108,11 @@
 	icon_state = "blueshieldf"
 	item_state = "blueshieldf"
 	item_color = "blueshieldf"
+
+/obj/item/clothing/under/rank/centcom/blueshield/formal
+	name = "formal blueshield's uniform"
+	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
+	icon_state = "officer"
+	item_state = "g_suit"
+	item_color = "officer"
+	displays_id = FALSE

@@ -66,7 +66,7 @@
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			show_content(user)
 		else
 			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
@@ -375,7 +375,7 @@
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
 		user.unEquip(P)
-		if(istype(user, /mob/living/carbon/human))
+		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
 				h_user.unEquip(src)
@@ -400,7 +400,7 @@
 			else if(h_user.head == src)
 				h_user.unEquip(src)
 				h_user.put_in_hands(B)
-			else if(!istype(src.loc, /turf))
+			else if(!isturf(src.loc))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
@@ -742,7 +742,7 @@
 					to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
 					organ.insert(target)
 			else if(myeffect == "Cluwne")
-				if(istype(target, /mob/living/carbon/human))
+				if(ishuman(target))
 					var/mob/living/carbon/human/H = target
 					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 					H.makeCluwne()

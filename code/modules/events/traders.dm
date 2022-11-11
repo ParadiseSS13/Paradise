@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 	trader_objectives = forge_trader_objectives()
 
-	INVOKE_ASYNC(src, .proc/spawn_traders, spawnlocs)
+	INVOKE_ASYNC(src, PROC_REF(spawn_traders), spawnlocs)
 
 /datum/event/traders/proc/spawn_traders(list/spawnlocs)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Sol Trader?", ROLE_TRADER, TRUE)
@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
 	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
 	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/show_objectives, M.mind), 25)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(show_objectives), M.mind), 25)
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()

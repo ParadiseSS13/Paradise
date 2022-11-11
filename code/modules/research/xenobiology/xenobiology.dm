@@ -188,6 +188,21 @@
 	origin_tech = "biotech=6"
 	var/list/not_interested = list()
 	var/sentience_type = SENTIENCE_ORGANIC
+	var/heat_stage = 0 //When used at stage 2 or above, the Sentience Potion explodes. Stop bugging ghosts
+
+/obj/item/slimepotion/sentience/examine(mob/user)
+	. = ..()
+	if(!user.Adjacent(src))
+		return
+
+	switch(heat_stage)
+		if(1)
+			. += "<span class='warning'>The vial is hot to the touch.</span>"
+		if(2)
+			. += "<span class='warning'>The vial is scalding hot! Is it really a good idea to use this..?</span>"
+
+/obj/item/slimepotion/sentience/attack()
+	return
 
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
 	if(!proximity_flag)
@@ -205,6 +220,14 @@
 		to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
 		return ..()
 
+	if(heat_stage >= 2)
+		to_chat(user, "<span class='danger'>[src] violently explodes!</span>")
+		var/turf/T = get_turf(loc)
+		if(T)
+			T.hotspot_expose(700, 125)
+			explosion(T, -1, -1, 2, 3)
+		qdel(src)
+		return
 	to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
 	being_used = TRUE
 
@@ -231,8 +254,22 @@
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
+		heat_stage += 1
+		addtimer(CALLBACK(src, PROC_REF(cooldown_potion)), 60 SECONDS)
+		if(user.Adjacent(src))
+			switch(heat_stage)
+				if(1)
+					to_chat(user, "<span class='warning'>An intense heat emanates from [src]. It might need to cool off for awhile.</span>")
+				if(2)
+					to_chat(user, "<span class='warning'>[src] is boiling hot! You shudder to think what would happen if you used it again...</span>")
 		being_used = FALSE
 		..()
+
+/obj/item/slimepotion/sentience/proc/cooldown_potion()
+	if(!heat_stage)
+		return
+
+	heat_stage -= 1
 
 /obj/item/slimepotion/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
 	return
@@ -430,7 +467,7 @@
 /obj/effect/timestop/New()
 	..()
 	for(var/mob/living/M in GLOB.player_list)
-		for(var/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
+		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
 			immune |= M
 
 
@@ -444,7 +481,7 @@
 					continue
 				M.notransform = TRUE
 				M.anchored = TRUE
-				if(istype(M, /mob/living/simple_animal/hostile))
+				if(ishostile(M))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
 					H.LoseTarget()
@@ -472,7 +509,7 @@
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
 	M.notransform = FALSE
 	M.anchored = FALSE
-	if(istype(M, /mob/living/simple_animal/hostile))
+	if(ishostile(M))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)
 

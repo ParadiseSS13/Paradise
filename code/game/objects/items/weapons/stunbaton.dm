@@ -163,11 +163,6 @@
 		return
 	var/mob/living/L = M
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(check_martial_counter(H, user))
-			return
-
 	if(user.a_intent == INTENT_HARM)
 		if(turned_on)
 			baton_stun(L, user)
@@ -202,7 +197,7 @@
 		H.adjustStaminaLoss(stam_damage)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
-	addtimer(CALLBACK(src, .proc/baton_knockdown, L, user_UID, knockdown_duration), knockdown_delay)
+	addtimer(CALLBACK(src, PROC_REF(baton_knockdown), L, user_UID, knockdown_duration), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 

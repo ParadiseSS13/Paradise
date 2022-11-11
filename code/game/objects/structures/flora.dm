@@ -57,10 +57,26 @@
 	icon = 'icons/obj/flora/jungletrees.dmi'
 	pixel_x = -48
 	pixel_y = -20
+	///Hard ref to the tree's shadow
+	var/obj/effect/abstract/shadow/shadow_reference
 
 /obj/structure/flora/tree/jungle/Initialize(mapload)
 	. = ..()
+
 	icon_state = "[icon_state][rand(1, 6)]"
+	add_transparency_component()
+	//Code to create and place the tree's shadow
+	shadow_reference = new /obj/effect/abstract/shadow(get_turf(src))
+	shadow_reference.pixel_x = pixel_x
+	shadow_reference.pixel_y = pixel_y
+	shadow_reference.icon = icon
+	shadow_reference.icon_state = "[icon_state]_shadow"
+
+/obj/structure/flora/tree/jungle/Destroy()
+	QDEL_NULL(shadow_reference)
+	return ..()
+
+/obj/structure/flora/tree/jungle/proc/add_transparency_component()
 	AddComponent(/datum/component/largetransparency, -1, 1, 2, 2)
 
 /obj/structure/flora/tree/jungle/small
@@ -68,9 +84,14 @@
 	pixel_x = -32
 	icon = 'icons/obj/flora/jungletreesmall.dmi'
 
-/obj/structure/flora/tree/jungle/small/Initialize(mapload)
-	. = ..()
+/obj/structure/flora/tree/jungle/small/add_transparency_component()
 	AddComponent(/datum/component/largetransparency)
+
+/obj/effect/abstract/shadow
+	name = "tree shadow, do not manually place"
+	desc = "If you see this something has gone wrong, scream for a coder."
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	invisibility = NONE
 
 //grass
 /obj/structure/flora/grass
@@ -392,8 +413,6 @@
 	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/grass/jungle/b //s34n todo: delete these and mapedit
-
 //Jungle rocks
 
 /obj/structure/flora/rock/jungle
@@ -421,9 +440,6 @@
 /obj/structure/flora/junglebush/Initialize(mapload)
 	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
-
-/obj/structure/flora/junglebush/b //s34n todo: delete these and mapedit
-/obj/structure/flora/junglebush/c //s34n todo: delete these and mapedit
 
 /obj/structure/flora/junglebush/large
 	icon = 'icons/obj/flora/largejungleflora.dmi'

@@ -319,7 +319,7 @@
 		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
-		INVOKE_ASYNC(src, .proc/jedi_spin, user)
+		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
@@ -822,7 +822,7 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(istype(A, /obj/structure) || ismecha(A))
+			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
@@ -931,7 +931,7 @@
 	user.put_in_hands(W)
 	on_cooldown = TRUE
 	flags |= NODROP
-	addtimer(CALLBACK(src, .proc/reboot), 2 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
 	do_sparks(rand(1,6), 1, loc)
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)

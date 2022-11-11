@@ -169,13 +169,13 @@
 		return
 	if(volume < 3)
 		return
-	if(!data["donor"] || istype(data["donor"], /mob/living/carbon/human))
+	if(!data["donor"] || ishuman(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
 		if(!blood_prop) //first blood!
 			blood_prop = new(T)
 			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-	else if(istype(data["donor"], /mob/living/carbon/alien))
+	else if(isalien(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)

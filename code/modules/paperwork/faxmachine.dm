@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	flick(receive_anim, src)
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-	addtimer(CALLBACK(src, .proc/print_fax, incoming), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(print_fax), incoming), 2 SECONDS)
 	return TRUE
 
 /obj/machinery/photocopier/faxmachine/proc/print_fax(obj/item/incoming)

@@ -20,7 +20,7 @@
 	throw_speed = 3
 	drop_sound = 'sound/items/handling/multitool_drop.ogg'
 	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
-	materials = list(MAT_METAL=50, MAT_GLASS=20)
+	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=2"
 	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL

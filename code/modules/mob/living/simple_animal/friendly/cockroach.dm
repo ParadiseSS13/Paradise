@@ -34,7 +34,7 @@
 				death()
 			else
 				visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
-	else if(istype(AM, /obj/structure))
+	else if(isstructure(AM))
 		visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
 		death()
 

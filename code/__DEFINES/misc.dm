@@ -117,6 +117,15 @@
 	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
   )
 
+/// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
+// order of the additions: top edge + bottom edge + left edge + right edge
+#define RANGE_EDGE_TURFS(RADIUS, CENTER)\
+	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
+	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
+	(CENTER.x - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? block(locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list())
+
+
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
 	GLOB.dview_mob.see_invisible = invis_flags; \
@@ -163,18 +172,18 @@
 
 //Human Overlays Indexes/////////
 #define WING_LAYER				41
-#define WING_UNDERLIMBS_LAYER		40
-#define BODY_LAYER				39
-#define MUTANTRACE_LAYER		38
-#define TAIL_UNDERLIMBS_LAYER	37	//Tail split-rendering.
-#define LIMBS_LAYER				36
-#define INTORGAN_LAYER			35
-#define MARKINGS_LAYER			34
-#define UNDERWEAR_LAYER			33
-#define MUTATIONS_LAYER			32
-#define H_DAMAGE_LAYER			31
-#define UNIFORM_LAYER			30
-#define ID_LAYER				29
+#define WING_UNDERLIMBS_LAYER	40
+#define MUTANTRACE_LAYER		39
+#define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
+#define LIMBS_LAYER				37
+#define INTORGAN_LAYER			36
+#define MARKINGS_LAYER			35
+#define UNDERWEAR_LAYER			34
+#define MUTATIONS_LAYER			33
+#define H_DAMAGE_LAYER			32
+#define UNIFORM_LAYER			31
+#define ID_LAYER				30
+#define HANDS_LAYER				29	//Exists to overlay hands over jumpsuits
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27
 #define EARS_LAYER				26
@@ -485,6 +494,12 @@
 #define LINDA_SPAWN_N2O 64
 #define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256
+
+// Throwing these defines here for the TM to minimise conflicts
+#define MAPROTATION_MODE_NORMAL_VOTE "Vote"
+#define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
+#define MAPROTATION_MODE_FULL_RANDOM "Random"
+
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"
