@@ -19,6 +19,8 @@
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
 	var/force_no_power_icon_state = FALSE
+	reqintelligence = 4
+	reqwisdom = 4
 
 /obj/machinery/computer/Initialize()
 	. = ..()

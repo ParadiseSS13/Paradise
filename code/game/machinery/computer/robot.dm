@@ -7,6 +7,8 @@
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/robotics
 	var/temp = null
+	reqintelligence = 6
+	reqwisdom = 6
 
 	light_color = LIGHT_COLOR_PURPLE
 

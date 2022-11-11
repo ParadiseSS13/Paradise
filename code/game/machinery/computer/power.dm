@@ -20,6 +20,7 @@
 	var/next_record = 0
 	/// The history list itself of the power
 	var/list/history = list()
+	reqintelligence = 4
 
 /obj/machinery/computer/monitor/secret //Hides the power monitor (such as ones on ruins & CentCom) from PDA's to prevent metagaming.
 	name = "outdated power monitoring console"

@@ -5,6 +5,7 @@
 	icon_screen = "cameras"
 	light_color = LIGHT_COLOR_RED
 	circuit = /obj/item/circuitboard/camera
+	reqintelligence = 3
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
 

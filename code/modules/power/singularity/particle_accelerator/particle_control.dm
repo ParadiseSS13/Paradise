@@ -18,6 +18,8 @@
 	var/assembled = 0
 	var/parts = null
 	var/datum/wires/particle_acc/control_box/wires = null
+	reqwisdom = 7
+	reqintelligence = 7
 
 /obj/machinery/particle_accelerator/control_box/Initialize(mapload)
 	. = ..()

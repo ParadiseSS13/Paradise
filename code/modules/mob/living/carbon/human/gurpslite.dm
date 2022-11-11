@@ -120,6 +120,8 @@
 			skilldat.dexterity += amount
 		if("perception")
 			skilldat.perception += amount
+			var/obj/screen/fullscreen/noise/N = H.screens["noise"]
+			N.icon_state = addtext(num2text(9 - skilldat.perception), "j")
 	hud.refreshskills()
 
 /proc/setskill(var/mob/living/carbon/human/H, skill, amount)
@@ -136,6 +138,8 @@
 			skilldat.dexterity = amount
 		if("perception")
 			skilldat.perception = amount
+			var/obj/screen/fullscreen/noise/N = H.screens["noise"]
+			N.icon_state = addtext(num2text(9 - skilldat.perception), "j")
 	hud.refreshskills()
 
 /datum/skills
@@ -143,7 +147,7 @@
 	var/strength = 0
 	var/intelligence = 0
 	var/dexterity = 10
-	var/perception = 12
+	var/perception = 5
 
 /mob/living/Carbon/human/verb/teach(/mob/living/Carbon/human/H)
 	set category = null

@@ -26,6 +26,8 @@
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
 	var/obj/machinery/buffer // simple machine buffer for device linkage
+	reqintelligence = 4
+	reqwisdom = 5
 
 /obj/item/multitool/proc/IsBufferA(typepath)
 	if(!buffer)

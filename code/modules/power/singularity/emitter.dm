@@ -14,6 +14,7 @@
 	use_power = NO_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 300
+	reqwisdom = 6
 
 	/// Is the emitter turned on
 	var/active = FALSE

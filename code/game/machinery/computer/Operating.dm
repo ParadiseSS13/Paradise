@@ -22,6 +22,7 @@
 	/// about the mob - use `table.patient` instead.
 	var/mob/living/carbon/currentPatient
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
+	reqintelligence = 6
 
 /obj/machinery/computer/operating/Initialize(mapload)
 	. = ..()
