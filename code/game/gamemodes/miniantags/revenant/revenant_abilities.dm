@@ -343,6 +343,9 @@
 
 	if(!successes) //no items to throw
 		to_chat(user, "<span class='revennotice'>No nearby objects to haunt!</span>")
+		user.essence += cast_amount //refund the spell and reset
+		cooldown_handler.revert_cast()
+		action.UpdateButtonIcon()
 		return
 
 	// Stop the looping attacks after 65 seconds, roughly 14 attack cycles depending on lag
