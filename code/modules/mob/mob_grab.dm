@@ -386,7 +386,7 @@
 				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
 				mouth.receive_damage(1)
 				user.reagents.add_reagent("spidertoxin", 5)
-				to_chat(user, "<span class='danger'>Your mouth has been stinged. IT HURTS!</span>")
+				to_chat(user, "<span class='danger'>Your mouth has been stinged, it's now bloated!</span>")
 			affecting.forceMove(user)
 			LAZYADD(attacker.stomach_contents, affecting)
 			qdel(src)
