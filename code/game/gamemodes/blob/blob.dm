@@ -10,9 +10,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	name = "blob"
 	config_tag = "blob"
 
-	required_players = 30
-	required_enemies = 1
-	recommended_enemies = 1
+	required_players = 1
+	required_enemies = 0
+	recommended_enemies = 0
 	restricted_jobs = list("Cyborg", "AI")
 
 	var/burst = 0
@@ -73,8 +73,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	log_game("[key_name(blob)] has been selected as a Blob")
 	greet_blob(blobmind)
-	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
-	addtimer(CALLBACK(src, PROC_REF(burst_blob), blobmind), 60 SECONDS)
+	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated! You don't have long before you burst!</span>")
+	blob.apply_status_effect(STATUS_EFFECT_BLOB_BURST, 60 SECONDS, CALLBACK(src, PROC_REF(burst_blob)))
 	return 1
 
 /datum/game_mode/blob/proc/make_blobs(count)
@@ -147,20 +147,18 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /datum/game_mode/blob/post_setup()
 
+	var/wait_time = rand(waittime_l, waittime_h)
 	for(var/datum/mind/blob in infected_crew)
 		greet_blob(blob)
 		update_blob_icons_added(blob)
+		blob.current.apply_status_effect(STATUS_EFFECT_BLOB_BURST, 10 SECONDS * 2.5, CALLBACK(src, PROC_REF(burst_blob), blob))
 
 	if(SSshuttle)
 		SSshuttle.emergencyNoEscape = 1
 
 	spawn(0)
 
-		var/wait_time = rand(waittime_l, waittime_h)
-
 		sleep(wait_time)
-
-		send_intercept(0)
 
 		sleep(100)
 
@@ -169,8 +167,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		sleep(wait_time)
 
 		show_message("<span class='userdanger'>You feel like you are about to burst.</span>")
-
-		addtimer(CALLBACK(src, PROC_REF(burst_blobs)), (wait_time / 2))
 
 		// Stage 1
 		addtimer(CALLBACK(src, PROC_REF(stage), 1), (wait_time * 2 + wait_time / 2))
