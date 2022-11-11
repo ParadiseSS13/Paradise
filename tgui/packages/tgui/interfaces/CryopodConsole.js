@@ -1,6 +1,7 @@
 import { useBackend } from '../backend';
 import { Button, Section, NoticeBox, LabeledList, Collapsible } from '../components';
 import { Window } from '../layouts';
+import { toTitleCase } from 'common/string';
 
 export const CryopodConsole = (props, context) => {
   const { data } = useBackend(context);
@@ -52,7 +53,7 @@ const ItemList = (props, context) => {
     if (itemName.startsWith('the ')) {
       itemName = itemName.slice(4, itemName.length);
     }
-    return itemName.replace(/^\w/, (c) => c.toUpperCase());
+    return toTitleCase(itemName);
   };
 
   return (

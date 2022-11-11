@@ -97,15 +97,15 @@
 
 	add_fingerprint(user)
 
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		return
+
+	if(!allow_items)
+		return
+
 	switch(action)
 		if("one_item")
-			if(!allowed(user))
-				to_chat(user, "<span class='warning'>Access Denied.</span>")
-				return
-
-			if(!allow_items)
-				return
-
 			if(!params["item"])
 				return
 
@@ -118,13 +118,6 @@
 			dispense_item(item)
 
 		if("all_items")
-			if(!allowed(user))
-				to_chat(user, "<span class='warning'>Access Denied.</span>")
-				return
-
-			if(!allow_items)
-				return
-
 			visible_message("<span class='notice'>[src] beeps happily as it dispenses the desired objects.</span>")
 
 			for(var/obj/item/item in frozen_items)
