@@ -360,7 +360,7 @@
 	skillsui5.name = "Perception"
 	skillsui5.screen_loc = "EAST-6:28,CENTER+6:27"
 	skillsui5.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.perception]</font></div>"
-	infodisplay += skillsui4
+	infodisplay += skillsui5
 
 	mymob.overlay_fullscreen("noise", /obj/screen/fullscreen/noise)
 

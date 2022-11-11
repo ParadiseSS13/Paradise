@@ -1,8 +1,20 @@
+/obj/item
+	var/reqwisdom = 2
+	var/reqintelligence = 2
+	var/reqdexterity = 2
+
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
 /obj/item/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks)
 	// No delay means there is no start message, and no reason to call tool_start_check before use_tool.
 	// Run the start check here so we wouldn't have to call it manually.
+	var/mob/living/carbon/human/H = user
+	if(H.skills.wisdom < reqwisdom || H.skills.intelligence < reqintelligence)
+		to_chat(user, "<span class='warning'>You do not know how to use [src].</span>")
+		return
+	if(H.skills.dexterity < reqdexterity)
+		to_chat(user, "<span class='warning'>You're too shaky to use [src].</span>")
+		return
 	target.add_fingerprint(user)
 	if(!tool_start_check(target, user, amount) && !delay)
 		return
