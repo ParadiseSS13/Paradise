@@ -12,6 +12,7 @@
 	throw_range = 20
 	discrete = 1
 	var/cleanspeed = 50 //slower than mop
+	var/times_eaten = 0 //How many times a Drask has chewed on this bar of soap
 
 /obj/item/soap/Initialize(mapload)
 	. = ..()
@@ -23,11 +24,26 @@
 	if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && isdrask(muncher))
-			to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
+			times_eaten += 1
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.adjust_nutrition(2)
-		return
+			if(times_eaten <= 3)
+				to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
+				return
+			else
+				to_chat(user, "<span class='notice'>You finish eating [src].</span>")
+				qdel(src)
+				return
 	target.cleaning_act(user, src, cleanspeed)
+
+/obj/item/soap/examine(mob/user)
+	. = ..()
+	if(!user.Adjacent(src) || !times_eaten)
+		return
+	if(times_eaten == 1)
+		. += "<span class='notice'>[src] was bitten by someone!</span>"
+	else
+		. += "<span class='notice'>[src] was bitten multiple times!</span>"
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
