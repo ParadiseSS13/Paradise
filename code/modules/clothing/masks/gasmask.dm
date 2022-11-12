@@ -116,20 +116,24 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
-
+/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
 	var/mob/M = usr
-	var/list/options = list()
-	options["True Form"] = "clown"
-	options["The Feminist"] = "sexyclown"
-	options["The Madman"] = "joker"
-	options["The Rainbow Color"] ="rainbow"
+	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
+							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
+							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
+							"The Rainbow Color" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
+	var/list/mask_icons = list("True Form" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
+							"The Feminist" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
+							"The Madman" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
+							"The Rainbow Color" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
+	var/mask_choice = show_radial_menu(user, src, mask_icons)
+	var/picked_mask = mask_type[mask_choice]
 
-	var/choice = input(M,"To what form do you wish to Morph this mask?","Morph Mask") in options
-
-	if(src && choice && !M.stat && in_range(M,src))
-		icon_state = options[choice]
-		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
+	if(src && picked_mask && !M.stat && in_range(M,src))
+		var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
+		qdel(src)
+		user.put_in_active_hand(new_mask)
+		to_chat(M, "Your Clown Mask has now morphed into its new form, all praise the Honk Mother!")
 		return 1
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
@@ -137,6 +141,18 @@
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
+
+/obj/item/clothing/mask/gas/clown_hat/joker
+	name = "deranged clown wig and mask"
+	desc = "A fiendish clown mask that inspires a deranged mirth."
+	icon_state = "joker"
+	item_state = "joker"
+
+/obj/item/clothing/mask/gas/clown_hat/rainbow
+	name = "rainbow clown wig and mask"
+	desc = "A colorful clown mask for the clown that loves to dazzle and impress."
+	icon_state = "rainbow"
+	item_state = "rainbow"
 
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"
