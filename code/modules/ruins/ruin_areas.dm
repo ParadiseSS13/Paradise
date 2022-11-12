@@ -43,7 +43,7 @@
 	icon_state = "Sleep"
 
 /area/ruin/onehalf/bridge
-	name = "Bridge"
+	name = "Old Mining Bay Bridge"
 	icon_state = "bridge"
 
 // Old tcommsat
