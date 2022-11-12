@@ -40,7 +40,7 @@
 	slip.ordernumber = ordernum
 
 	var/stationName = station_name()
-	var/packagesAmt = length(SSeconomy.shoppinglist)
+	var/packagesAmt = length(SSeconomy.shopping_list)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
 	slip.info = "<h3>NAS Trurl Shipping Manifest</h3><hr><br>"

@@ -81,7 +81,7 @@
 		var/mob/living/carbon/human/H = user
 		C = H.get_idcard(TRUE)
 
-	for(var/datum/supply_order/order as anything in SSeconomy.requestlist)
+	for(var/datum/supply_order/order as anything in SSeconomy.request_list)
 		//can this specific order request be approved the the mob user?
 		var/can_approve = FALSE
 		//can this specific order request be denied the the mob user?
@@ -163,7 +163,7 @@
 
 /obj/machinery/computer/supplycomp/proc/build_shopping_list_data()
 	var/list/orders = list()
-	for(var/datum/supply_order/order as anything in SSeconomy.shoppinglist)
+	for(var/datum/supply_order/order as anything in SSeconomy.shopping_list)
 		var/list/order_data = list(
 			"ordernum" = order.ordernum,
 			"supply_type" = order.object.name,
@@ -175,7 +175,7 @@
 
 /obj/machinery/computer/supplycomp/proc/build_shipment_list_data()
 	var/list/orders = list()
-	for(var/datum/supply_order/order as anything in SSeconomy.deliverylist)
+	for(var/datum/supply_order/order as anything in SSeconomy.delivery_list)
 		var/list/order_data = list(
 			"ordernum" = order.ordernum,
 			"supply_type" = order.object.name,
@@ -351,7 +351,7 @@
 		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", "cargo")
 
 /obj/machinery/computer/supplycomp/proc/approve_crate(mob/user, order_num)
-	for(var/datum/supply_order/department_order in SSeconomy.requestlist)
+	for(var/datum/supply_order/department_order in SSeconomy.request_list)
 		if(department_order.ordernum == order_num)
 			var/datum/supply_order/order = department_order
 			var/datum/supply_packs/pack = order.object
@@ -366,7 +366,7 @@
 						SSeconomy.process_supply_order(order, TRUE) //send 'er back through
 						return TRUE
 					atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
-					SSeconomy.requestlist -= order //just remove order at this poin
+					SSeconomy.request_list -= order //just remove order at this poin
 				else
 					return TRUE
 				return TRUE
@@ -387,7 +387,7 @@
 						SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
 					else
 						atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
-						SSeconomy.requestlist -= order
+						SSeconomy.request_list -= order
 
 
 			//how did we get here?
@@ -397,19 +397,19 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		C = H.get_idcard(TRUE)
-	for(var/datum/supply_order/department_order as anything in SSeconomy.requestlist)
+	for(var/datum/supply_order/department_order as anything in SSeconomy.request_list)
 		if(department_order.ordernum == order_num)
 			var/datum/supply_order/order = department_order
 			// allow cancelling of our own orders
 			if(C && order.orderedby == C.registered_name)
-				SSeconomy.requestlist -= order
+				SSeconomy.request_list -= order
 				return
 			// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
 			else
 				if(order.requires_qm_approval && (ACCESS_QM in C.access))
-					SSeconomy.requestlist -= order
+					SSeconomy.request_list -= order
 				else if(order.requires_head_approval && (order.ordered_by_department.has_account_access(C.access)))
-					SSeconomy.requestlist -= order
+					SSeconomy.request_list -= order
 				else
 					return //how did we get here?
 				investigate_log("| [key_name(user)] has denied an order for [order.object.name].", "cargo")

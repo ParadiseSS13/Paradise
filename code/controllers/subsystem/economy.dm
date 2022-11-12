@@ -54,16 +54,16 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_design = 20			//points gained per research design returned
 
 	var/centcom_message					//Remarks from Centcom on how well you checked the last order.
-	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
-	var/list/techLevels = list()
-	var/list/researchDesigns = list()
+	var/list/discovered_plants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
+	var/list/tech_levels = list()
+	var/list/research_designs = list()
 
 	///Requested crates, waiting for approval by department heads
-	var/list/requestlist = list()
+	var/list/request_list = list()
 	///Approved Crates, waiting to be delivered
-	var/list/shoppinglist = list()
+	var/list/shopping_list = list()
 	///Crates that will be on next shuttle
-	var/list/deliverylist = list()
+	var/list/delivery_list = list()
 
 	///Full list of all available supply packs to purchase
 	var/list/supply_packs = list()
@@ -135,25 +135,26 @@ SUBSYSTEM_DEF(economy)
 		payday()
 	if(next_data_check <= world.time)
 		next_data_check = 10 MINUTES + world.time
-		economy_data["totalcash"] += total_space_cash
-		economy_data["totalcredits"] += total_space_credits
-		economy_data["creditsdestroyed"] += space_credits_destroyed - listgetindex(economy_data["creditsdestroyed"], length(economy_data["creditsdestroyed"]))
-		economy_data["totaltransfers"] += total_credit_transfers - listgetindex(economy_data["totaltransfers"], length(economy_data["totaltransfers"]))
-		economy_data["totalvends"] += total_vendor_transactions - listgetindex(economy_data["totalvends"], length(economy_data["totalvends"]))
-		economy_data["moneyvelocity"] += round((current_10_minute_spending / total_space_cash), 0.001)
-		var/stagnant_count = 0
-		var/stagnant_cash = 0
-		for(var/datum/money_account/account as anything in GLOB.station_money_database.user_accounts)
-			if(length(account.account_log) <= payday_count)
-				stagnant_count++
-				stagnant_cash += account.credit_balance
-		economy_data["stagnant_accounts"] += stagnant_count++
-		economy_data["stagnant_cash"] = stagnant_cash
-		economy_data["non_stagnant_cash"] = total_space_credits - stagnant_cash
-		current_10_minute_spending = 0
+		record_economy_data()
 	process_job_tasks()
 
-
+/datum/controller/subsystem/economy/proc/record_economy_data()
+	economy_data["totalcash"] += total_space_cash
+	economy_data["totalcredits"] += total_space_credits
+	economy_data["creditsdestroyed"] += space_credits_destroyed - listgetindex(economy_data["creditsdestroyed"], length(economy_data["creditsdestroyed"]))
+	economy_data["totaltransfers"] += total_credit_transfers - listgetindex(economy_data["totaltransfers"], length(economy_data["totaltransfers"]))
+	economy_data["totalvends"] += total_vendor_transactions - listgetindex(economy_data["totalvends"], length(economy_data["totalvends"]))
+	economy_data["moneyvelocity"] += round((current_10_minute_spending / total_space_cash), 0.001)
+	var/stagnant_count = 0
+	var/stagnant_cash = 0
+	for(var/datum/money_account/account as anything in GLOB.station_money_database.user_accounts)
+		if(length(account.account_log) <= payday_count)
+			stagnant_count++
+			stagnant_cash += account.credit_balance
+	economy_data["stagnant_accounts"] += stagnant_count
+	economy_data["stagnant_cash"] = stagnant_cash
+	economy_data["non_stagnant_cash"] = total_space_credits - stagnant_cash
+	current_10_minute_spending = 0
 /*
   * # generate_account_number()
   *
@@ -202,8 +203,8 @@ SUBSYSTEM_DEF(economy)
 	if(!order)
 		CRASH("process_supply_order() called with a null datum/supply_order")
 
-	if(!paid_for && !(order in requestlist))
-		requestlist += order //submit a request but do not finalize it
+	if(!paid_for && !(order in request_list))
+		request_list += order //submit a request but do not finalize it
 		return TRUE
 
 	if(order.requires_head_approval || order.requires_qm_approval)
@@ -213,20 +214,20 @@ SUBSYSTEM_DEF(economy)
 	if(paid_for)
 		finalize_supply_order(order) //if payment was succesful, add order to shoppinglist
 		return TRUE
-	//we shouldn't be here, this means that the crate isn't paid for and doesn't need approval
+	log_debug("process_supply_order() called on Crate [order.ordernum] ordered by [order.orderedby] but isn't paid for and doesn't need approval, deleting")
 	qdel(order) //only the strong will survive
 	return FALSE
 
 /datum/controller/subsystem/economy/proc/finalize_supply_order(datum/supply_order/order)
 	if(!order)
 		CRASH("finalize_supply_order() called with a null datum/supply_order")
-	if(order in requestlist)
-		requestlist -= order
+	if(order in request_list)
+		request_list -= order
 
 	if(SSshuttle.supply.getDockedId() == "supply_away" && SSshuttle.supply.mode == SHUTTLE_IDLE)
-		deliverylist += order
+		delivery_list += order
 	else
-		shoppinglist += order
+		shopping_list += order
 
 ////////////////////////////
 /// Paycheck Stuff /////////
@@ -263,28 +264,28 @@ SUBSYSTEM_DEF(economy)
 	total_space_credits += total_payout
 	//alert admins and c*ders alike
 	log_debug("Payday Count: [payday_count] - [total_payout] credits paid out to [total_accounts] accounts")
-	message_admins("Here comes the money! Payday: [total_payout] credits paid out to [total_accounts] accounts")
 
 
 //Called by the gameticker
 /datum/controller/subsystem/economy/proc/process_job_tasks()
 	for(var/mob/M in GLOB.player_list) //why not just make a global list of players with job objectives???? someone else fix this ~sirryan
-		if(M.mind)
-			for(var/datum/job_objective/objective as anything in M.mind.job_objectives)
-				if(objective.completed && objective.payout_given)
-					continue //objective is completed and we've already given out award
-				if(!objective.is_completed())
-					continue //object is not completed, do not proceed
-				if(objective.completion_payment == 0)
-					objective.payout_given = TRUE
-					continue //objective doesn't giveout payout
+		if(!M.mind)
+			continue
+		for(var/datum/job_objective/objective as anything in M.mind.job_objectives)
+			if(objective.completed && objective.payout_given)
+				continue //objective is completed and we've already given out award
+			if(!objective.is_completed())
+				continue //object is not completed, do not proceed
+			if(objective.completion_payment == 0)
+				objective.payout_given = TRUE
+				continue //objective doesn't giveout payout
 
-				if(objective.owner_account)
-					objective.owner_account.modify_payroll(objective.completion_payment, TRUE, "Job Objective \"[objective.objective_name]\" completed, award will be included in next paycheck")
-					objective.payout_given = TRUE
-				else
-					log_debug("Job objective ([objective.objective_name]) does not have an associated money account")
-				break
+			if(objective.owner_account)
+				objective.owner_account.modify_payroll(objective.completion_payment, TRUE, "Job Objective \"[objective.objective_name]\" completed, award will be included in next paycheck")
+				objective.payout_given = TRUE
+			else
+				log_debug("Job objective ([objective.objective_name]) does not have an associated money account")
+			break
 
 //
 //   The NanoCoin Economy is booming

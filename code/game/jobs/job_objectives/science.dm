@@ -11,8 +11,8 @@
 
 /datum/job_objective/further_research/check_for_completion()
 	var/tech_above_two = 0
-	for(var/tech in SSeconomy.techLevels)
-		if(SSeconomy.techLevels[tech] > 2)
+	for(var/tech in SSeconomy.tech_levels)
+		if(SSeconomy.tech_levels[tech] > 2)
 			tech_above_two++
 	if(tech_above_two >= 6)
 		return TRUE

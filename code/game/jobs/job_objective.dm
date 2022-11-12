@@ -1,7 +1,5 @@
 /datum/mind/proc/find_job_task(typepath)
-	for(var/datum/job_objective/task as anything in job_objectives)
-		if(istype(task, typepath))
-			return task
+	return locate(typepath) in job_objectives
 
 /datum/job_objective
 	///Fluff name of the objective

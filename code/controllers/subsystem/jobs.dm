@@ -602,26 +602,28 @@ SUBSYSTEM_DEF(jobs)
 		member.can_approve_crates = job?.department_account_access
 		department.members += member
 
-	spawn(0)
-		to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
+	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
 
 	// If they're head, give them the account info for their department
-	if(job?.department_account_access)
-		remembered_info = ""
-		//we use the first entry in the list because it prioritizes generic departments over command
-		for(var/datum/station_department/department as anything in users_departments)
-			if(job.title != department.head_of_staff && job.title != "Quartermaster")
-				continue
-			var/datum/money_account/department_account = department.department_account
-			if(department_account)
-				remembered_info += "<b>As a head of staff you have access to your department's funds<br>"
-				remembered_info += "<b>The [department.department_name] department's account number is:</b> #[department_account.account_number]<br>"
-				remembered_info += "<b>The [department.department_name] department's account pin is:</b> [department_account.account_pin]<br>"
-				remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
+	if(!job?.department_account_access)
+		return
 
-			H.mind.store_memory(remembered_info)
-			spawn(0)
-				to_chat(H, "<span class='boldnotice'>The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]</span>")
+	remembered_info = ""
+	//we use the first entry in the list because it prioritizes generic departments over command
+	for(var/datum/station_department/department as anything in users_departments)
+		if(job.title != department.head_of_staff && job.title != "Quartermaster")
+			continue
+		var/datum/money_account/department_account = department.department_account
+		if(!department_account)
+			return
+
+		remembered_info += "<b>As a head of staff you have access to your department's funds<br>"
+		remembered_info += "<b>The [department.department_name] department's account number is:</b> #[department_account.account_number]<br>"
+		remembered_info += "<b>The [department.department_name] department's account pin is:</b> [department_account.account_pin]<br>"
+		remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
+
+		H.mind.store_memory(remembered_info)
+		to_chat(H, "<span class='boldnotice'>The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]</span>")
 
 
 

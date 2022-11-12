@@ -67,13 +67,13 @@
 	if(!is_station_level(z))		//we only buy when we are -at- the station
 		return 1
 
-	for(var/datum/supply_order/order as anything in SSeconomy.shoppinglist)
-		if(length(SSeconomy.deliverylist) >= MAX_CRATE_DELIVERY)
+	for(var/datum/supply_order/order as anything in SSeconomy.shopping_list)
+		if(length(SSeconomy.delivery_list) >= MAX_CRATE_DELIVERY)
 			break
-		SSeconomy.deliverylist += order
-		SSeconomy.shoppinglist -= order
+		SSeconomy.delivery_list += order
+		SSeconomy.shopping_list -= order
 
-	if(!length(SSeconomy.deliverylist))
+	if(!length(SSeconomy.delivery_list))
 		return 2
 
 	var/list/emptyTurfs = list()
@@ -94,18 +94,18 @@
 
 		emptyTurfs += T
 
-	for(var/datum/supply_order/SO in SSeconomy.deliverylist)
+	for(var/datum/supply_order/SO in SSeconomy.delivery_list)
 		if(!SO.object)
 			throw EXCEPTION("Supply Order [SO] has no object associated with it.")
 			continue
 
 		var/turf/T = pick_n_take(emptyTurfs)		//turf we will place it in
 		if(!T)
-			SSeconomy.deliverylist.Cut(1, SSeconomy.deliverylist.Find(SO))
+			SSeconomy.delivery_list.Cut(1, SSeconomy.delivery_list.Find(SO))
 			return
 		SO.createObject(T)
 
-	SSeconomy.deliverylist.Cut()
+	SSeconomy.delivery_list.Cut()
 
 /obj/docking_port/mobile/supply/proc/sell()
 	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
@@ -140,9 +140,6 @@
 				SSeconomy.sold_atoms += " [thing:name]"
 				if(find_slip && istype(thing,/obj/item/paper/manifest))
 					var/obj/item/paper/manifest/slip = thing
-					if(length(slip.stamped))
-						if(/obj/item/stamp/denied in slip.stamped) //need to test this lol
-							continue
 					credits_to_deposit += SSeconomy.credits_per_manifest
 					msg += "<span class='good'>+[SSeconomy.credits_per_manifest]</span>: Package [slip.ordernumber] accorded.<br>"
 
@@ -162,9 +159,9 @@
 						continue
 					var/datum/tech/tech = disk.stored
 
-					var/cost = tech.getCost(SSeconomy.techLevels[tech.id])
+					var/cost = tech.getCost(SSeconomy.tech_levels[tech.id])
 					if(cost)
-						SSeconomy.techLevels[tech.id] = tech.level
+						SSeconomy.tech_levels[tech.id] = tech.level
 						research_credits += cost / 2
 						credits_to_deposit += cost / 2
 						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
@@ -175,10 +172,10 @@
 					if(!disk.blueprint)
 						continue
 					var/datum/design/design = disk.blueprint
-					if(design.id in SSeconomy.researchDesigns)
+					if(design.id in SSeconomy.research_designs)
 						continue
 					credits_to_deposit += SSeconomy.credits_per_design
-					SSeconomy.researchDesigns += design.id
+					SSeconomy.research_designs += design.id
 					msg += "<span class='good'>+[SSeconomy.credits_per_design]</span>: [design.name] design.<br>"
 
 				// Sell exotic plants
@@ -186,17 +183,17 @@
 					var/obj/item/seeds/S = thing
 					if(S.rarity == 0) // Mundane species
 						msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
-					else if(SSeconomy.discoveredPlants[S.type]) // This species has already been sent to CentComm
-						var/potDiff = S.potency - SSeconomy.discoveredPlants[S.type] // Compare it to the previous best
+					else if(SSeconomy.discovered_plants[S.type]) // This species has already been sent to CentComm
+						var/potDiff = S.potency - SSeconomy.discovered_plants[S.type] // Compare it to the previous best
 						if(potDiff > 0) // This sample is better
-							SSeconomy.discoveredPlants[S.type] = S.potency
+							SSeconomy.discovered_plants[S.type] = S.potency
 							msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
 							service_credits += potDiff / 2
 							credits_to_deposit += potDiff / 2
 						else // This sample is worthless
-							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([SSeconomy.discoveredPlants[S.type]] potency).<br>"
+							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([SSeconomy.discovered_plants[S.type]] potency).<br>"
 					else // This is a new discovery!
-						SSeconomy.discoveredPlants[S.type] = S.potency
+						SSeconomy.discovered_plants[S.type] = S.potency
 						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 						credits_to_deposit += S.rarity / 2 // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
 						credits_to_deposit += S.rarity / 2

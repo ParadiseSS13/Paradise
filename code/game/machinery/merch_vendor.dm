@@ -33,6 +33,7 @@
 /obj/machinery/economy/merch/attackby(obj/item/I, mob/user)
 	if(isspacecash(I))
 		insert_cash(I, user)
+		return TRUE
 
 	return ..()
 
@@ -116,6 +117,7 @@
 					var/datum/money_account/account = user.get_worn_id_account()
 					if(do_purchase(account, merch, user)) //null checking done in proc
 						to_chat(user, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")
+					break
 		if("change")
 			. = TRUE
 			give_change(user)
