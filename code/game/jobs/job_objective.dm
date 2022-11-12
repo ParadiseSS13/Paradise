@@ -48,7 +48,7 @@
 
 	for(var/datum/mind/employee in SSticker.minds)
 
-		if(length(!employee.job_objectives)) //If the employee had no objectives, don't need to process this.
+		if(!length(employee.job_objectives)) //If the employee had no objectives, don't need to process this.
 			continue
 
 		if(employee.assigned_role == employee.special_role || employee.offstation_role) //If the character is an offstation character, skip them.

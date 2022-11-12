@@ -40,7 +40,7 @@
 
 	// Send data
 	data["working"] = working
-	data["money"] = user_account ? user_account.credit_balance : null
+	data["money"] = user_account?.credit_balance
 	data["plays"] = plays
 	data["result"] = result
 	data["resultlvl"] = resultlvl

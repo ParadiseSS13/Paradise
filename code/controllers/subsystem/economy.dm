@@ -116,7 +116,7 @@ SUBSYSTEM_DEF(economy)
 		populate_cc_database()
 	//need to set this back to 0 due to how this is tracked (and so we have a clean slate for roundstart)
 	current_10_minute_spending = 0
-	ordernum = rand(1,9000)
+	ordernum = rand(1, 9000)
 
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = new typepath()
@@ -240,13 +240,13 @@ SUBSYSTEM_DEF(economy)
 	var/list/all_station_accounts = station_db.user_accounts + station_db.get_all_department_accounts()
 	for(var/datum/money_account/account in all_station_accounts)
 		var/amount_to_pay = account.payday_amount + global_paycheck_bonus - global_paycheck_deducation
-		if(length(account.pay_check_bonuses))
+		if(LAZYLEN(account.pay_check_bonuses))
 			for(var/bonus in account.pay_check_bonuses)
 				amount_to_pay += bonus
-				LAZYREMOVE(account.pay_check_bonuses, bonus)
+			account.pay_check_bonuses = null
 		for(var/deduction in account.pay_check_deductions)
 			amount_to_pay = max(amount_to_pay - deduction, 0)
-			LAZYREMOVE(account.pay_check_deductions, deduction)
+		account.pay_check_deductions = null
 		station_db.credit_account(account, amount_to_pay, "Payday", "NAS Trurl Payroll", FALSE)
 		if(account.account_type == ACCOUNT_TYPE_PERSONAL)
 			if(LAZYLEN(account.associated_nanobank_programs))

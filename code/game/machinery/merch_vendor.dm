@@ -50,7 +50,7 @@
 			if(!C || !pay_with_card(C, merch.cost, "Purchase of [merch.name]", "NAS Trurl Merchandising", user, account_database.vendor_account))
 				return FALSE
 		else
-			to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
+			to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.</span>")
 			return FALSE
 
 	deliver(merch, user)
