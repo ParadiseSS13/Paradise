@@ -729,3 +729,8 @@
 		return "#e67e22" // Patreon orange
 	return null
 
+
+// Removes HTML tags, preserving text
+/proc/strip_html_tags(the_text)
+	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
+	return html_replacer.Replace(the_text, "")
