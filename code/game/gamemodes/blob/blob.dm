@@ -168,7 +168,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	addtimer(CALLBACK(src, PROC_REF(stage), 1), (wait_time * 4 + wait_time / 2))
 
 	// Stage 2
-	addtimer(CALLBACK(src, PROC_REF(stage), 2), 50 MINUTES + wait_time * 4)
+	addtimer(CALLBACK(src, PROC_REF(stage), 2), 50 MINUTES + wait_time * 2)
 
 	return ..()
 
