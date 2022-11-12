@@ -1,7 +1,6 @@
 /datum/status_effect/blob_burst
 	alert_type = /obj/screen/alert/status_effect/blob_burst
 	var/datum/callback/blob_burst_callback
-	var/font_size = 7
 
 /datum/status_effect/blob_burst/on_creation(mob/living/new_owner, duration = 120 SECONDS, datum/callback/burst_callback)
 	. = ..()
@@ -19,6 +18,6 @@
 
 /obj/screen/alert/status_effect/blob_burst
 	name = "Blob burst"
-	desc = "You're about to burst into a blob! Be sure to find a safe place before that."
+	desc = "You're about to burst into a blob, be sure to find a safe place before that you burst!"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "ui_tocore"
