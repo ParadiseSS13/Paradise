@@ -165,7 +165,8 @@
 /obj/effect/proc_holder/spell/aoe/revenant/revert_cast(mob/user)
 	. = ..()
 	to_chat(user, "<span class='revennotice'>Your ability wavers and fails!</span>")
-	user.essence += cast_amount //refund the spell and reset
+	var/mob/living/simple_animal/revenant/R = user
+	R?.essence += cast_amount //refund the spell and reset
 
 /obj/effect/proc_holder/spell/aoe/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
