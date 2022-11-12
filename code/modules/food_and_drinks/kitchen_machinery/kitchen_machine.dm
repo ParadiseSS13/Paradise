@@ -276,35 +276,36 @@
 
 		if(recipe == RECIPE_FAIL)
 			fail()
-		else
-			for(var/obj/O in source.contents) // Process supplied ingredients
-				if(istype(O, /obj/item/mixing_bowl)) // Mixing bowls are not ingredients, ignore
-					continue
+			continue
 
-				if(O.reagents)
-					O.reagents.del_reagent("nutriment")
-					O.reagents.update_total()
-					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
+		for(var/obj/O in source.contents) // Process supplied ingredients
+			if(istype(O, /obj/item/mixing_bowl)) // Mixing bowls are not ingredients, ignore
+				continue
 
-				qdel(O)
-			source.reagents.clear_reagents()
+			if(O.reagents)
+				O.reagents.del_reagent("nutriment")
+				O.reagents.update_total()
+				O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
 
-			var/reagents_per_serving = temp_reagents.total_volume / efficiency
-			for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
-				var/obj/cooked = new recipe.result(loc)
-				temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
-			temp_reagents.clear_reagents()
+			qdel(O)
+		source.reagents.clear_reagents()
 
-			var/obj/byproduct = recipe.get_byproduct()
-			if(byproduct)
-				new byproduct(loc)
+		var/reagents_per_serving = temp_reagents.total_volume / efficiency
+		for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
+			var/obj/cooked = new recipe.result(loc)
+			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
+		temp_reagents.clear_reagents()
 
-			if(istype(source, /obj/item/mixing_bowl)) // Cooking in mixing bowls returns them dirtier
-				var/obj/item/mixing_bowl/mb = source
-				mb.make_dirty(5 * efficiency)
-				mb.forceMove(loc)
+		var/obj/byproduct = recipe.get_byproduct()
+		if(byproduct)
+			new byproduct(loc)
+
+		if(istype(source, /obj/item/mixing_bowl)) // Cooking in mixing bowls returns them dirtier
+			var/obj/item/mixing_bowl/mb = source
+			mb.make_dirty(5 * efficiency)
+			mb.forceMove(loc)
+
 	stop()
-	return
 
 /obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
