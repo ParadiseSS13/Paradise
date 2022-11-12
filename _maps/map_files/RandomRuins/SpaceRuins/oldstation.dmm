@@ -340,7 +340,7 @@
 "cN" = (
 /obj/structure/sign/poster/official/nanomichi_ad,
 /turf/simulated/wall/rust,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "cX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer{
@@ -451,7 +451,7 @@
 	obj_integrity = 35
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "dU" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -642,7 +642,7 @@
 "fe" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/ancientstation/atmosfoyer)
+/area/template_noop)
 "ff" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock,
@@ -836,7 +836,7 @@
 	desc = "Piece of cable."
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "gp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -860,7 +860,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "gz" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -996,6 +996,18 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"hm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stock_parts/matter_bin,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ancientstation/thetacorridor)
 "hn" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
@@ -1036,9 +1048,21 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betamincorridor)
 "hE" = (
-/obj/item/stack/rods,
-/turf/template_noop,
-/area/ruin/space/ancientstation/atmosfoyer)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/safe/floor{
+	known_by = list("theta")
+	},
+/obj/item/stack/sheet/mineral/diamond/fifty{
+	amount = 1;
+	layer = 3.1
+	},
+/obj/item/stack/sheet/bluespace_crystal{
+	amount = 2
+	},
+/obj/item/areaeditor/theta,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/comm)
 "hH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1062,7 +1086,7 @@
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "hR" = (
 /obj/structure/lattice,
 /obj/item/stack/tile,
@@ -1074,7 +1098,7 @@
 "hZ" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "if" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -1123,7 +1147,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "iu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/generic,
@@ -1169,7 +1193,7 @@
 /obj/structure/grille/broken,
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "iK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -1270,8 +1294,10 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/ancientstation/atmos)
 "jn" = (
-/turf/template_noop,
-/area/ruin/space/ancientstation/atmosfoyer)
+/obj/machinery/door/airlock/science,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "jo" = (
 /obj/structure/girder,
 /turf/simulated/mineral/random,
@@ -1513,7 +1539,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "kZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1799,9 +1825,10 @@
 /turf/template_noop,
 /area/template_noop)
 "nv" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/ruin/space/ancientstation/atmosfoyer)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/science,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "nA" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ancient"
@@ -2197,7 +2224,7 @@
 	desc = "And another one."
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "rb" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
@@ -2220,6 +2247,16 @@
 /obj/machinery/smartfridge/secure/extract,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/rnd)
+"rm" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ancientstation/thetacorridor)
 "rq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2317,7 +2354,7 @@
 /obj/structure/girder,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "sz" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -2330,17 +2367,17 @@
 	obj_integrity = 25
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "sA" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "sF" = (
 /obj/item/solar_assembly,
 /obj/structure/lattice,
 /turf/template_noop,
-/area/ruin/space/ancientstation/atmosfoyer)
+/area/template_noop)
 "sH" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -2348,6 +2385,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
+"sI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/matter_bin,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "sQ" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -2525,7 +2570,7 @@
 	dir = 5;
 	icon_state = "whitehall"
 	},
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "uJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2692,7 +2737,7 @@
 "wh" = (
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "wi" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
@@ -2711,7 +2756,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "wp" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -2886,7 +2931,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "xD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -2919,7 +2964,7 @@
 "yd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "yh" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -2957,7 +3002,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "yt" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -2975,13 +3020,20 @@
 /area/ruin/space/ancientstation/betaengi)
 "yO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/item/paper/safe_code{
+	owner = "theta";
+	pixel_x = -6;
+	pixel_y = -6
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ancientstation/thetacorridor)
 "yQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -3383,7 +3435,7 @@
 /obj/item/circuitboard/sleeper,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "BJ" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -3816,7 +3868,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "EV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating/airless,
@@ -3855,7 +3907,7 @@
 /turf/simulated/wall/rust{
 	damage = 70
 	},
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "Fl" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -4012,7 +4064,7 @@
 	icon_state = "greencross"
 	},
 /turf/simulated/wall/rust,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "Gm" = (
 /obj/item/circuitboard/grounding_rod,
 /turf/template_noop,
@@ -4165,7 +4217,7 @@
 "HL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "HM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -4376,7 +4428,7 @@
 	obj_integrity = 25
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "Jy" = (
 /turf/simulated/mineral/random,
 /area/ruin/space/ancientstation/betacargo)
@@ -4656,9 +4708,23 @@
 	},
 /area/ruin/space/ancientstation/kitchen)
 "Lz" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
-/area/template_noop)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	external_pressure_bound = 140;
+	external_pressure_bound_default = 140;
+	name = "server vent";
+	on = 1;
+	pressure_checks = 0
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ancientstation/thetacorridor)
 "LA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4749,7 +4815,7 @@
 	dir = 4;
 	icon_state = "whitehall"
 	},
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "Mn" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -4797,7 +4863,7 @@
 /turf/simulated/wall/rust{
 	damage = 30
 	},
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "MN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -4920,7 +4986,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/ancientstation/atmosfoyer)
+/area/template_noop)
 "Nw" = (
 /obj/structure/cable,
 /obj/machinery/power/apc{
@@ -5110,7 +5176,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "Pc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
@@ -5240,7 +5306,7 @@
 "PY" = (
 /obj/structure/firelock_frame,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "Qb" = (
 /obj/structure/table,
 /obj/item/paper/fluff/ruins/oldstation/protosing,
@@ -5264,8 +5330,15 @@
 /area/template_noop)
 "Qf" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/obj/machinery/door/airlock/science,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/oil/streak{
+	desc = "It's black and greasy with some little metal pieces in it."
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "Qg" = (
 /obj/structure/table,
 /obj/item/pen,
@@ -5388,11 +5461,11 @@
 /area/ruin/space/ancientstation/engi)
 "QS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "QT" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -5599,7 +5672,7 @@
 "SH" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "SJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5838,9 +5911,12 @@
 /area/ruin/space/ancientstation/rnd)
 "Ut" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/mob/living/simple_animal/hostile/hivebot/strong,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "Uu" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -5903,7 +5979,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
+/area/ruin/space/ancientstation/betanorth)
 "UM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -6161,11 +6237,12 @@
 /area/ruin/space/ancientstation/rnd)
 "VY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/door/airlock/science,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/airless,
-/area/template_noop)
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "Wb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
@@ -6215,9 +6292,23 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/sec)
 "Wu" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating/airless,
-/area/template_noop)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8;
+	external_pressure_bound = 140;
+	external_pressure_bound_default = 140;
+	name = "server vent";
+	on = 1;
+	pressure_checks = 0
+	},
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ancientstation/thetacorridor)
 "Wy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/robot{
@@ -6261,8 +6352,16 @@
 	},
 /area/ruin/space/ancientstation/sec)
 "WQ" = (
-/turf/simulated/wall/rust,
-/area/template_noop)
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/hivebot/strong,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ancientstation/thetacorridor)
 "WV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6624,8 +6723,17 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
 "Zx" = (
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/ancientstation/atmosfoyer)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stock_parts/manipulator,
+/turf/simulated/floor/bluegrid{
+	icon_state = "gcircuit";
+	name = "Mainframe Floor";
+	nitrogen = 100;
+	oxygen = 0;
+	temperature = 80
+	},
+/area/ruin/space/ancientstation/thetacorridor)
 "Zy" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -6704,10 +6812,14 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "ZR" = (
-/turf/simulated/wall/rust{
-	damage = 50
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
+	current_temperature = 80;
+	dir = 1;
+	on = 1
 	},
-/area/template_noop)
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/thetacorridor)
 "ZT" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -7703,7 +7815,7 @@ ZO
 ZO
 Vf
 gl
-Ng
+gP
 Qs
 Ca
 dp
@@ -7711,12 +7823,12 @@ uj
 dp
 dp
 BE
-yO
-yO
+dp
+dp
 qX
 PY
-XJ
-Vf
+hI
+QT
 ZO
 Vf
 Vf
@@ -7760,11 +7872,11 @@ WV
 XK
 vl
 kX
-Ut
-Ut
+WV
+WV
 HL
-ZN
-ZN
+Hw
+Hw
 ZO
 ZO
 ZO
@@ -7799,20 +7911,20 @@ ZO
 ZO
 ZO
 ZO
-ZR
+lB
 ZY
 iS
-WQ
+Ip
 Gi
 dQ
 xA
 iF
 Fi
 MG
-XJ
-XJ
+hI
+hI
 SH
-Vf
+QT
 ZO
 ZO
 ZO
@@ -7847,18 +7959,18 @@ ZO
 ZO
 ZO
 Vf
-Ng
+gP
 nD
 Xg
-WQ
+Ip
 Jx
-ZN
+Hw
 OX
 Ub
 Vf
 ZO
 Vf
-Lz
+mF
 ZO
 ZO
 ZO
@@ -7894,11 +8006,11 @@ ZO
 ZO
 ZO
 ZO
-Lz
-Ng
+mF
+gP
 Zz
 Om
-ZR
+lB
 Vf
 wh
 Vf
@@ -7943,7 +8055,7 @@ ZO
 ZO
 ZO
 Vf
-ZR
+lB
 bH
 Hw
 sx
@@ -7991,7 +8103,7 @@ ZO
 ZO
 ZO
 ZO
-ZN
+Hw
 mF
 QT
 Vf
@@ -8044,7 +8156,7 @@ QT
 wV
 ZO
 Vf
-ZN
+Hw
 ZO
 ZO
 ZO
@@ -8090,9 +8202,9 @@ ZO
 hZ
 QT
 wV
-Ng
-ZN
-ZN
+gP
+Hw
+Hw
 Vf
 ZO
 ZO
@@ -8134,15 +8246,15 @@ ZO
 ZO
 ZO
 ZO
-ZN
-XJ
+Hw
+hI
 kI
 hI
 sA
 ZO
 Vf
 yd
-ZN
+Hw
 Vf
 Vf
 hY
@@ -8181,17 +8293,17 @@ ZO
 ZO
 ZO
 ZO
-ZN
-Qf
-WQ
+Hw
+Qs
+Ip
 Zz
 Om
 sz
-ZN
-Qf
-QS
+Hw
+Qs
+nD
 BI
-ZN
+Hw
 Vf
 Vf
 Vf
@@ -8229,15 +8341,15 @@ ZO
 ZO
 ZO
 ZO
-XJ
-WQ
-WQ
+hI
+Ip
+Ip
 kK
 nb
-WQ
+Ip
 uG
 wl
-QS
+nD
 Mm
 ER
 ZO
@@ -8277,28 +8389,28 @@ ZO
 ZO
 ZO
 Vf
-ZN
-ZN
-WQ
+Hw
+Hw
+Ip
 ZY
 iS
-WQ
+Ip
 cN
-Wu
+jR
 ys
-Wu
+jR
 Gi
-XJ
-Lz
+hI
+mF
 Vf
 ZO
 ZO
 ZO
 ZO
 ZO
-jn
+ZO
 Nr
-Zx
+ZN
 sF
 ll
 Zr
@@ -8335,20 +8447,20 @@ XK
 WV
 Vi
 vM
-Ut
-Ut
-VY
+WV
+WV
+XK
 HL
-ZN
+Hw
 Vf
 ZO
 ZO
 ZO
-nv
+Vf
 fe
-Zx
-Zx
-jn
+ZN
+ZN
+ZO
 ZO
 tL
 Vf
@@ -8375,7 +8487,7 @@ ZO
 hY
 hY
 hY
-Ng
+gP
 Qs
 Qz
 dp
@@ -8383,20 +8495,20 @@ qV
 dp
 dp
 BM
-yO
-yO
+dp
+dp
 gv
-Qf
-ZN
+Qs
+Hw
 UL
 Vf
 Vf
 Vf
-nv
+Vf
 fe
 fe
-Zx
-Zx
+ZN
+ZN
 ZO
 Vf
 ZO
@@ -8439,12 +8551,12 @@ La
 Eg
 yS
 Pp
-yS
-jn
-jn
-jn
-jn
-jn
+ZO
+ZO
+ZO
+ZO
+ZO
+ZO
 ZO
 ZO
 Vf
@@ -8487,12 +8599,12 @@ SV
 yS
 yS
 Pp
-yS
-jn
-jn
-jn
-jn
-jn
+ZO
+ZO
+ZO
+ZO
+ZO
+ZO
 ZO
 ZO
 Vf
@@ -8535,12 +8647,12 @@ Rp
 Pp
 Pp
 Rp
-yS
-jn
-hE
-jn
-jn
-jn
+ZO
+ZO
+tL
+ZO
+ZO
+ZO
 ZO
 ZO
 Vf
@@ -8583,12 +8695,12 @@ Rp
 yS
 Pp
 Rp
-yS
-jn
-jn
-nv
-jn
-jn
+ZO
+ZO
+ZO
+Vf
+ZO
+ZO
 ZO
 ZO
 Vf
@@ -8621,17 +8733,17 @@ Ep
 sV
 yw
 Eg
-yS
-yS
-yS
-Pp
+ZO
+ZO
+ZO
+Vf
 RY
-Pp
-yS
-yS
+Vf
+ZO
+ZO
 La
 Eg
-yS
+ZO
 ZO
 ZO
 Vf
@@ -8672,9 +8784,9 @@ Vf
 ZO
 ZO
 ZO
-yS
-Pp
-yS
+ZO
+Vf
+ZO
 ZO
 ZO
 ZO
@@ -8720,9 +8832,9 @@ Vf
 ZO
 ZO
 ZO
-yS
-Pp
-yS
+ZO
+Vf
+ZO
 ZO
 ZO
 ZO
@@ -9858,7 +9970,7 @@ ZO
 ZT
 di
 kF
-bO
+hE
 eb
 eM
 ud
@@ -10844,9 +10956,9 @@ oK
 sZ
 xD
 tz
-ZO
-ZO
-ZO
+tz
+tz
+tz
 Vf
 ZO
 ZO
@@ -10892,9 +11004,9 @@ jE
 MN
 oK
 tz
-ZO
-ZO
-ZO
+yO
+Zx
+tz
 Vf
 ZO
 ZO
@@ -10940,9 +11052,9 @@ JD
 Fc
 JD
 tz
-ZO
-ZO
-ZO
+Lz
+WQ
+tz
 Vf
 ZO
 ZO
@@ -10988,9 +11100,9 @@ Se
 Se
 Cw
 tz
-ZO
-ZO
-ZO
+Qf
+tz
+tz
 Vf
 ZO
 ZO
@@ -11035,10 +11147,10 @@ Vl
 Vu
 YP
 Zl
+jn
+QS
+ZR
 tz
-ZO
-ZO
-ZO
 Vf
 ZO
 ZO
@@ -11659,10 +11771,10 @@ oK
 IC
 Lo
 oK
+nv
+Ut
+sI
 tz
-ZO
-ZO
-ZO
 ZO
 ZO
 ZO
@@ -11708,9 +11820,9 @@ Dy
 oK
 Ij
 tz
-ZO
-ZO
-ZO
+VY
+tz
+tz
 ZO
 ZO
 ZO
@@ -11756,9 +11868,9 @@ tz
 HC
 tz
 tz
-ZO
-ZO
-ZO
+Wu
+rm
+tz
 ZO
 ZO
 ZO
@@ -11804,9 +11916,9 @@ Ia
 AQ
 Ia
 tz
-ZO
-ZO
-ZO
+WQ
+hm
+tz
 ZO
 ZO
 ZO
@@ -11852,9 +11964,9 @@ lc
 wJ
 on
 tz
-ZO
-ZO
-ZO
+tz
+tz
+tz
 ZO
 ZO
 ZO
