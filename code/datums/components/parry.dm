@@ -14,9 +14,9 @@
 	var/parry_cooldown
 
 /datum/component/parry/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/equipped)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/dropped)
-	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, .proc/attempt_parry)
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(dropped))
+	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, PROC_REF(attempt_parry))
 
 /datum/component/parry/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED)
@@ -42,7 +42,7 @@
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 	if(slot in list(slot_l_hand, slot_r_hand))
-		RegisterSignal(user, COMSIG_LIVING_RESIST, .proc/start_parry)
+		RegisterSignal(user, COMSIG_LIVING_RESIST, PROC_REF(start_parry))
 	else
 		UnregisterSignal(user, COMSIG_LIVING_RESIST)
 
