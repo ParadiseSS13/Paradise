@@ -1028,7 +1028,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	faction = "syndicate"
 	emp_vulnerable = FALSE
-	density = TRUE
 
 	lethal = TRUE
 	lethal_is_configurable = FALSE
@@ -1041,6 +1040,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_synth	= TRUE
 	ailock = TRUE
 	var/area/syndicate_depot/core/depotarea
+
+/obj/machinery/porta_turret/syndicate/CanPass(atom/A)
+    return !isliving(A)
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
