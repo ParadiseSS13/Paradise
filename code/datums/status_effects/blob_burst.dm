@@ -11,7 +11,7 @@
 
 /datum/status_effect/blob_burst/tick()
 	var/time_left = (duration - world.time) / 10
-	linked_alert.maptext = MAPTEXT_CENTER("[round(time_left)]")
+	linked_alert.maptext = MAPTEXT_CENTER(round(time_left))
 
 /datum/status_effect/blob_burst/on_timeout()
 	blob_burst_callback.Invoke()
