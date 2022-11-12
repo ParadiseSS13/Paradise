@@ -276,7 +276,7 @@ GLOBAL_LIST_EMPTY(safes)
 					current_tumbler_index = 1
 
 				if(!invalid_turn && dial == tumblers[current_tumbler_index])
-					notify_user(usr, canhear, list("tink", "krink", "plink"), ticks, i)
+					notify_user(usr, canhear, list("tink", "krink", "plink"), ticks, i, TRUE)
 					current_tumbler_index++
 				else
 					notify_user(usr, canhear, list("clack", "scrape", "clank"), ticks, i)
@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(safes)
 					current_tumbler_index = 1
 
 				if(!invalid_turn && dial == tumblers[current_tumbler_index])
-					notify_user(usr, canhear, list("tonk", "krunk", "plunk"), ticks, i)
+					notify_user(usr, canhear, list("tonk", "krunk", "plunk"), ticks, i, TRUE)
 					current_tumbler_index++
 				else
 					notify_user(usr, canhear, list("click", "chink", "clink"), ticks, i)
@@ -330,14 +330,14 @@ GLOBAL_LIST_EMPTY(safes)
 /**
   * Called every dial turn to provide feedback if possible.
   */
-/obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick)
+/obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick, correct_sound)
 	if(!canhear)
 		return
 
 	if(current_tick == 2)
 		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
 	if(total_ticks == 1 || prob(SOUND_CHANCE))
-		to_chat(user, "<span class='italics'>You hear a [pick(sounds)] from [src].</span>")
+		to_chat(user, "<span class='[correct_sound ? "boldnotice" : "italics"]'>You hear a [pick(sounds)] from [src].</span>")
 
 /**
   * Returns the combination to unlock the safe as text.
