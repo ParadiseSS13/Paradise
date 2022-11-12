@@ -163,17 +163,12 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
-	var/cycles_alive = 0
-	var/cycles_limit = 60
-	var/has_burst = FALSE
 
 /mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
 	. = ..()
 	apply_status_effect(STATUS_EFFECT_BLOB_BURST, 120 SECONDS, CALLBACK(src, PROC_REF(burst), FALSE))
 
 /mob/living/simple_animal/mouse/blobinfected/Life()
-	cycles_alive++
-	var/timeleft = (cycles_limit - cycles_alive) * 2
 	if(ismob(loc)) // if someone ate it, burst immediately
 		burst(FALSE)
 	return ..()
@@ -183,14 +178,11 @@
 	return ..(gibbed)
 
 /mob/living/simple_animal/mouse/blobinfected/proc/burst(gibbed)
-	if(has_burst)
-		return FALSE
 	var/turf/T = get_turf(src)
 	if(!is_station_level(T.z) || isspaceturf(T))
 		to_chat(src, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
 		apply_status_effect(STATUS_EFFECT_BLOB_BURST, 5 SECONDS, CALLBACK(src, PROC_REF(burst), FALSE))
 		return FALSE
-	has_burst = TRUE
 	var/datum/mind/blobmind = mind
 	var/client/C = client
 	if(istype(blobmind) && istype(C))
