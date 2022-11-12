@@ -20,7 +20,7 @@
 	/// The radius of the scramble around the caster. Increased by 3 * spell_level
 	var/scramble_radius = 7
 	/// The duration of the scramble
-	var/duration = 20 SECONDS
+	var/duration = 15 SECONDS
 	/// A lazylist of all scramble effects this spell has created.
 	var/list/effects
 
