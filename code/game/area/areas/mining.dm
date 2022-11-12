@@ -125,7 +125,7 @@
 	icon_state = "unexplored"
 
 /area/lavaland/surface/outdoors/unexplored/danger //megafauna will also spawn here
-	icon_state = "danger"
+	icon_state = "cave"
 
 /area/lavaland/surface/outdoors/explored
 	name = "Lavaland Labor Camp"
