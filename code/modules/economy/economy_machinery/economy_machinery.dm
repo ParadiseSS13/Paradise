@@ -55,7 +55,7 @@
 	if(customer_account.suspended)
 		to_chat(user, "<span class='warning'>Unable to access account: account suspended.</span>")
 		return FALSE
-	if(!attempt_account_authentification(customer_account, user))
+	if(!attempt_account_authentification(customer_account, null, user))
 		return FALSE
 	if(!account_database.charge_account(customer_account, amount, purpose, transactor, allow_overdraft = FALSE, supress_log = FALSE))
 		to_chat(user, "<span class='warning'>Unable to complete transaction: account has insufficient credit balance to purchase this.</span>")

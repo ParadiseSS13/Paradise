@@ -113,18 +113,13 @@ export const MerchVendor = (props, context) => {
 
 const MerchVendorNavigation = (properties, context) => {
   const { data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 1);
   const {
     login_state,
   } = data
 
   return (
     <Tabs>
-      <Tabs.Tab
-        selected={0 === tabIndex}
-        onClick={() => setTabIndex(0)}>
-        Apparel
-      </Tabs.Tab>
       <Tabs.Tab
         selected={1 === tabIndex}
         onClick={() => setTabIndex(1)}>

@@ -236,11 +236,9 @@
 					/obj/item/clothing/head/beret/med = 20,
 					/obj/item/clothing/suit/storage/labcoat/chemist = 75,
 					/obj/item/clothing/accessory/armband/med = 20,
-					/obj/item/clothing/mask/gas = 40,
 					/obj/item/clothing/shoes/laceup = 30,
 					/obj/item/clothing/shoes/white = 20,
 					/obj/item/clothing/shoes/sandal/white = 20,
-					/obj/item/storage/bag/chemistry = 25,
 					/obj/item/storage/backpack/chemistry = 50,
 					/obj/item/storage/backpack/satchel_chem = 50,
 					/obj/item/storage/backpack/duffel/chemistry = 50)

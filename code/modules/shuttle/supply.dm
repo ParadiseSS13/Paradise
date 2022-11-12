@@ -117,6 +117,8 @@
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 	var/credits_to_deposit = 0
+	var/research_credits = 0
+	var/service_credits = 0
 
 	for(var/atom/movable/MA in areaInstance)
 		if(MA.anchored)
@@ -163,7 +165,8 @@
 					var/cost = tech.getCost(SSeconomy.techLevels[tech.id])
 					if(cost)
 						SSeconomy.techLevels[tech.id] = tech.level
-						credits_to_deposit += cost
+						research_credits += cost / 2
+						credits_to_deposit += cost / 2
 						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
 
 				// Sell designs
@@ -188,13 +191,15 @@
 						if(potDiff > 0) // This sample is better
 							SSeconomy.discoveredPlants[S.type] = S.potency
 							msg += "<span class='good'>+[potDiff]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
-							credits_to_deposit += potDiff
+							service_credits += potDiff / 2
+							credits_to_deposit += potDiff / 2
 						else // This sample is worthless
 							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([SSeconomy.discoveredPlants[S.type]] potency).<br>"
 					else // This is a new discovery!
 						SSeconomy.discoveredPlants[S.type] = S.potency
 						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-						credits_to_deposit += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+						credits_to_deposit += S.rarity / 2 // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+						credits_to_deposit += S.rarity / 2
 		qdel(MA)
 		SSeconomy.sold_atoms += "."
 
@@ -216,4 +221,6 @@
 	SSeconomy.centcom_message += "[msg]<hr>"
 	if(credits_to_deposit > 0)
 		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, credits_to_deposit, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
+		GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE), research_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
+		GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), service_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
 

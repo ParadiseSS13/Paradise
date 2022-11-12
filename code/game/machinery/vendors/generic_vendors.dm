@@ -785,13 +785,13 @@
 	contraband = list(/obj/item/lighter/zippo = 4)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60,
-		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 80,
-		/obj/item/storage/fancy/cigarettes/cigpack_midori = 100,
-		/obj/item/storage/fancy/cigarettes/cigpack_random = 120,
+	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
+		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
+		/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
+		/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
 		/obj/item/reagent_containers/food/pill/patch/nicotine = 70,
 		/obj/item/storage/box/matches = 20,
-		/obj/item/lighter/random = 60,
+		/obj/item/lighter/random = 40,
 		/obj/item/storage/fancy/rollingpapers = 30)
 	refill_canister = /obj/item/vending_refill/cigarette
 

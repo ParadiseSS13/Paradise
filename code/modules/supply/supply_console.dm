@@ -288,6 +288,7 @@
 			var/datum/money_account/selected_account = locateUID(params["account"])
 			var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, amount, reason)
 			order_crate(user, order, selected_account)
+			generate_requisition_paper(order)
 		if("approve")
 			var/ordernum = text2num(params["ordernum"])
 			if(!ordernum)
@@ -457,6 +458,30 @@
 		return FALSE
 	account_database.credit_account(target, amount, purpose, transactor, FALSE)
 	return TRUE
+
+/obj/machinery/computer/supplycomp/proc/generate_requisition_paper(datum/supply_order/order)
+
+	var/obj/item/paper/request_form/reqform = new(get_turf(src))
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	reqform.name = "Requisition Form - [order.crates] '[order.object.name]' for [order.orderedby]"
+	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
+	reqform.info += "INDEX: #[order.ordernum]<br>"
+	reqform.info += "REQUESTED BY: [order.orderedby]<br>"
+	reqform.info += "RANK: [order.orderedbyRank]<br>"
+	reqform.info += "REASON: [order.comment]<br>"
+	reqform.info += "SUPPLY CRATE TYPE: [order.object.name]<br>"
+	reqform.info += "NUMBER OF CRATES: [order.crates]<br>"
+	reqform.info += "ACCESS RESTRICTION: [order.object.access ? get_access_desc(order.object.access) : "None"]<br>"
+	reqform.info += "CONTENTS:<br>"
+	reqform.info += order.object.manifest
+	reqform.info += "<hr>"
+	reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
+
+	reqform.order_number = order.ordernum
+
+	reqform.update_icon(UPDATE_ICON_STATE)	//Fix for appearing blank when printed.
+
+	return reqform
 
 /obj/machinery/computer/supplycomp/emag_act(mob/user)
 	if(!hacked)

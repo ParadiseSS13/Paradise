@@ -70,7 +70,7 @@
 	department_name = DEPARTMENT_SECURITY
 
 	account_starting_balance = DEPARTMENT_BALANCE_HIGH
-	account_base_pay = DEPARTMENT_BASE_PAY_HIGH
+	account_base_pay = DEPARTMENT_BASE_PAY_MEDIUM
 	account_access = list(ACCESS_HOS)
 	department_roles = list(
 		"Head of Security",

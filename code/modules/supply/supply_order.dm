@@ -20,29 +20,9 @@
 	///does this order need to be approve by the QM?
 	var/requires_qm_approval = FALSE
 
-/datum/supply_order/proc/generateRequisition(atom/_loc)
-	if(!object)
-		return
-
-	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
-	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
-	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
-	reqform.info += "INDEX: #[SSeconomy.ordernum]<br>"
-	reqform.info += "REQUESTED BY: [orderedby]<br>"
-	reqform.info += "RANK: [orderedbyRank]<br>"
-	reqform.info += "REASON: [comment]<br>"
-	reqform.info += "SUPPLY CRATE TYPE: [object.name]<br>"
-	reqform.info += "NUMBER OF CRATES: [crates]<br>"
-	reqform.info += "ACCESS RESTRICTION: [object.access ? get_access_desc(object.access) : "None"]<br>"
-	reqform.info += "CONTENTS:<br>"
-	reqform.info += object.manifest
-	reqform.info += "<hr>"
-	reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
-
-	reqform.update_icon(UPDATE_ICON_STATE)	//Fix for appearing blank when printed.
-
-	return reqform
+/obj/item/paper/request_form
+	name = "request form"
+	var/order_number
 
 /datum/supply_order/proc/createObject(atom/_loc, errors = 0)
 	if(!object)

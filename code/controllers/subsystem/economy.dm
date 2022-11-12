@@ -270,7 +270,7 @@ SUBSYSTEM_DEF(economy)
 /datum/controller/subsystem/economy/proc/process_job_tasks()
 	for(var/mob/M in GLOB.player_list) //why not just make a global list of players with job objectives???? someone else fix this ~sirryan
 		if(M.mind)
-			for(var/datum/job_objective/objective in M.mind.job_objectives)
+			for(var/datum/job_objective/objective as anything in M.mind.job_objectives)
 				if(objective.completed && objective.payout_given)
 					continue //objective is completed and we've already given out award
 				if(!objective.is_completed())

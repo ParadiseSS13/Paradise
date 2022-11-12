@@ -1,7 +1,7 @@
 /obj/machinery/economy/merch
 	name = "Nanotrasen Merchandise Vendor"
-	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon = 'icons/obj/vending.dmi'
+	icon_state = "nt_merch"
 	light_color = LIGHT_COLOR_GREEN
 
 	var/static/list/merchandise = list()
