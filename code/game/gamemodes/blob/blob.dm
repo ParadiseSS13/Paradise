@@ -23,6 +23,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	var/blobwincount = 350
 
+	/// Lower bound on time before messages, bursts and intercepts happen
+	var/const/wait_time_low = 600 SECONDS
+	/// Upper bound on time before messages, bursts and intercepts happen
+	var/const/wait_time_high = 180 SECONDS
+
 	var/list/infected_crew = list()
 
 /datum/game_mode/blob/pre_setup()
@@ -147,32 +152,23 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /datum/game_mode/blob/post_setup()
 
-	var/wait_time = rand(waittime_l, waittime_h)
+	var/wait_time = rand(wait_time_low, wait_time_high)
 	for(var/datum/mind/blob in infected_crew)
 		greet_blob(blob)
 		update_blob_icons_added(blob)
-		blob.current.apply_status_effect(STATUS_EFFECT_BLOB_BURST, 10 SECONDS * 2.5, CALLBACK(src, PROC_REF(burst_blob), blob))
+		blob.current.apply_status_effect(STATUS_EFFECT_BLOB_BURST, wait_time * 2.5, CALLBACK(src, PROC_REF(burst_blob), blob))
 
 	if(SSshuttle)
-		SSshuttle.emergencyNoEscape = 1
+		SSshuttle.emergencyNoEscape = TRUE
 
-	spawn(0)
+	addtimer(CALLBACK(src, PROC_REF(show_message), "<span class='userdanger'>You feel tired and bloated.</span>"), wait_time)
+	addtimer(CALLBACK(src, PROC_REF(show_message), "<span class='userdanger'>You feel like you are about to burst.</span>"), wait_time * 2)
 
-		sleep(wait_time)
+	// Stage 1
+	addtimer(CALLBACK(src, PROC_REF(stage), 1), (wait_time * 4 + wait_time / 2))
 
-		sleep(100)
-
-		show_message("<span class='userdanger'>You feel tired and bloated.</span>")
-
-		sleep(wait_time)
-
-		show_message("<span class='userdanger'>You feel like you are about to burst.</span>")
-
-		// Stage 1
-		addtimer(CALLBACK(src, PROC_REF(stage), 1), (wait_time * 2 + wait_time / 2))
-
-		// Stage 2
-		addtimer(CALLBACK(src, PROC_REF(stage), 2), 50 MINUTES)
+	// Stage 2
+	addtimer(CALLBACK(src, PROC_REF(stage), 2), 50 MINUTES + wait_time * 4)
 
 	return ..()
 
