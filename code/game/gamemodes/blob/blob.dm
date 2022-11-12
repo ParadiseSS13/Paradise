@@ -10,9 +10,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	name = "blob"
 	config_tag = "blob"
 
-	required_players = 1
-	required_enemies = 0
-	recommended_enemies = 0
+	required_players = 30
+	required_enemies = 1
+	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
 
 	var/burst = 0
