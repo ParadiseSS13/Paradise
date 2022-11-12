@@ -120,7 +120,7 @@
 	/// A flags which save people from being thrown about
 	var/obj/effect/cross_action/spacetime_dist/linked_dist
 	var/busy = FALSE
-	var/walks_left = 50 //prevents the game from hanging in extreme cases (such as minigun fire)
+	var/walks_left = 50 //prevents the game from hanging in extreme cases
 
 /obj/effect/cross_action/singularity_act()
 	return
@@ -145,7 +145,7 @@
 	AM.forceMove(get_turf(src))
 	busy = FALSE
 
-/obj/effect/cross_action/spacetime_dist/Crossed(AM as mob|obj, oldloc)
+/obj/effect/cross_action/spacetime_dist/Crossed(atom/movable/AM, oldloc)
 	if(!busy)
 		walk_link(AM)
 
