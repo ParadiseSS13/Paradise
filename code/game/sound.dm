@@ -216,6 +216,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				soundin = pick('sound/goonstation/machines/ambicomp1.ogg', 'sound/goonstation/machines/ambicomp2.ogg', 'sound/goonstation/machines/ambicomp3.ogg')
 			if("ricochet")
 				soundin = pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg','sound/weapons/effects/ric3.ogg','sound/weapons/effects/ric4.ogg','sound/weapons/effects/ric5.ogg')
+			if("bullet")
+				soundin = pick('sound/weapons/bullet.ogg', 'sound/weapons/bullet2.ogg', 'sound/weapons/bullet3.ogg')
 			if("terminal_type")
 				soundin = pick('sound/machines/terminal_button01.ogg', 'sound/machines/terminal_button02.ogg', 'sound/machines/terminal_button03.ogg',
 							  'sound/machines/terminal_button04.ogg', 'sound/machines/terminal_button05.ogg', 'sound/machines/terminal_button06.ogg',

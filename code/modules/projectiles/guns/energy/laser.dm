@@ -81,7 +81,7 @@
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator
 	select_name = "accelerator"
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
 
 /obj/item/projectile/beam/laser/accelerator
 	name = "accelerator laser"

@@ -2,6 +2,7 @@
 	name = "energy"
 	icon_state = "spark"
 	damage = 0
+	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = BURN
 	flag = "energy"
 	is_reflectable = TRUE
@@ -44,6 +45,7 @@
 	name = "declone"
 	icon_state = "declone"
 	damage = 20
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = CLONE
 	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -62,6 +64,7 @@
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
+	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
 	nodamage = 0
@@ -96,5 +99,6 @@
 	name = "plasma bolt"
 	icon_state = "energy"
 	damage = 20
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = TOX
 	irradiate = 20

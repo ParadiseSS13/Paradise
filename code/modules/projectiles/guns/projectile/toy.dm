@@ -65,6 +65,7 @@
 	name = "foam force shotgun"
 	desc = "A toy shotgun with wood furniture and a four-shell capacity underneath. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
+	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	force = 0
 	throwforce = 0
 	origin_tech = null
@@ -91,6 +92,7 @@
 	name = "donksoft SMG"
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
+	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	can_suppress = 0
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
@@ -105,6 +107,7 @@
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
+	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	can_suppress = 0
 	needs_permit = 0
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
@@ -121,6 +124,7 @@
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "tommygun"
 	item_state = "shotgun"
+	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -128,6 +132,7 @@
 	name = "donksoft sniper rifle"
 	desc = "A recoil-operated, semi-automatic donksoft sniper rifle. Perfect to annoy/kill the neighbour’s cat! Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
+	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	can_suppress = FALSE
 	needs_permit = FALSE
 	zoomable = FALSE

@@ -7,6 +7,7 @@
 	var/emp_range = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
+	hitsound = 'sound/weapons/tap.ogg'
 
 /obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
@@ -52,6 +53,7 @@
 	flag = "energy"
 	var/temperature = 300
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	hitsound = 'sound/weapons/tap.ogg'
 
 /obj/item/projectile/temp/New(loc, shot_temp)
 	..()
@@ -126,6 +128,7 @@
 	name = "alpha somatoray"
 	icon_state = "energy"
 	damage = 0
+	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = 1
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -159,6 +162,7 @@
 	name = "beta somatoray"
 	icon_state = "energy2"
 	damage = 0
+	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = 1
 	flag = "energy"
@@ -242,6 +246,7 @@
 	icon_state = "plasmacutter"
 	damage_type = BRUTE
 	damage = 5
+	hitsound = "bullet"
 	range = 3
 	dismemberment = 20
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser

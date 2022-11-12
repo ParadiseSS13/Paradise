@@ -36,7 +36,6 @@
 	name = "biological demolecularisor"
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
 	icon_state = "decloner"
-	fire_sound = 'sound/weapons/pulse3.ogg'
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
@@ -145,7 +144,6 @@
 	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
 	toolspeed = 1
 	container_type = OPENCONTAINER
@@ -298,8 +296,6 @@
 	name = "plasma pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	icon_state = "toxgun"
-	fire_sound = 'sound/effects/stealthoff.ogg'
-
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
@@ -329,7 +325,6 @@
 	item_state = "tempgun_4"
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
-	fire_sound = 'sound/weapons/pulse3.ogg'
 	desc = "A gun that changes the body temperature of its targets."
 	var/temperature = 300
 	var/target_temperature = 300

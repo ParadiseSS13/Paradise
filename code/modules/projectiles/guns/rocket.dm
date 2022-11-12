@@ -47,7 +47,7 @@
 	if(rockets.len)
 		var/obj/item/ammo_casing/rocket/I = rockets[1]
 		var/obj/item/missile/M = new /obj/item/missile(user.loc)
-		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
+		playsound(user.loc, 'sound/weapons/gunshots/1launcher.ogg', 70, 1)
 		M.primed = 1
 		M.throw_at(target, missile_range, missile_speed, user, 1)
 		add_attack_logs(user, target, "fired rocket launcher [name]")

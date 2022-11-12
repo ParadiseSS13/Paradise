@@ -22,6 +22,7 @@
 	name = "magnetic spear"
 	desc = "WHITE WHALE, HOLY GRAIL"
 	damage = 30 //takes 3 spears to kill a mega carp, one to kill a normal carp
+	hitsound = 'sound/weapons/pierce.ogg'
 	icon_state = "magspear"
 	ammo_type = /obj/item/ammo_casing/caseless/magspear
 
@@ -29,6 +30,8 @@
 	name = "foam dart"
 	desc = "I hope you're wearing eye protection."
 	damage = 0 // It's a damn toy.
+	hitsound = 'sound/weapons/tap.ogg'
+	hitsound_wall = 'sound/weapons/tap.ogg'
 	damage_type = OXY
 	nodamage = 1
 	icon = 'icons/obj/guns/toy.dmi'

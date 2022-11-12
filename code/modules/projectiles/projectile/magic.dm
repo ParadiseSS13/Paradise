@@ -2,6 +2,8 @@
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
+	hitsound = 'sound/weapons/magic.ogg'
+	hitsound_wall = 'sound/weapons/magic.ogg'
 	damage_type = OXY
 	nodamage = 1
 	armour_penetration = 100

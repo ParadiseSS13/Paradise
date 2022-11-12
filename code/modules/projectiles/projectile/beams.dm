@@ -21,6 +21,7 @@
 	name = "heavy laser"
 	icon_state = "heavylaser"
 	damage = 40
+	hitsound = 'sound/weapons/resonator_blast.ogg'
 
 /obj/item/projectile/beam/laser/slug
 	name = "laser slug beam"
@@ -30,6 +31,7 @@
 /obj/item/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
+	hitsound = 'sound/weapons/tap.ogg'
 	nodamage = 1
 	log_override = TRUE
 
@@ -42,6 +44,7 @@
 	name = "xray beam"
 	icon_state = "xray"
 	damage = 15
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	tile_dropoff = 0.75
 	irradiate = 30
 	forcedodge = 1
@@ -56,7 +59,7 @@
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = "energy"
-	hitsound = 'sound/weapons/tap.ogg'
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
@@ -65,6 +68,8 @@
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+	hitsound_wall = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARKBLUE
 
@@ -80,6 +85,7 @@
 	name = "emitter beam"
 	icon_state = "emitter"
 	damage = 30
+	hitsound = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
 
@@ -127,6 +133,7 @@
 	name = "sniper beam"
 	icon_state = "sniperlaser"
 	damage = 60
+	hitsound = 'sound/weapons/resonator_blast.ogg'
 	stun = 2
 	weaken = 2
 	stutter = 2
@@ -136,6 +143,7 @@
 
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
 
 /obj/item/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
@@ -158,6 +166,7 @@
 	name = "instagib laser"
 	icon_state = "purple_laser"
 	damage = 200
+	hitsound = 'sound/weapons/resonator_blast.ogg'
 	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE

@@ -7,7 +7,7 @@
 	icon_state = "dshotgun-sawn"
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
@@ -61,7 +61,7 @@
 	force = 10
 	can_suppress = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/genhit.ogg'
 	burst_size = 1
 	fire_delay = 0
 	select = 0

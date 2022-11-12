@@ -6,7 +6,7 @@
 	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
-	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
+	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 40

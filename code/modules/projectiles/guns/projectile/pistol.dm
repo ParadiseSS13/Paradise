@@ -7,7 +7,7 @@
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/m10mm
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
 	can_suppress = 1
@@ -27,6 +27,7 @@
 	icon_state = "m1911"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	can_suppress = 0
 
 //Enforcer//
@@ -36,6 +37,7 @@
 	icon_state = "enforcer_grey"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
 	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
@@ -92,7 +94,7 @@
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistolH.ogg'
+	fire_sound = 'sound/weapons/gunshots/1deagle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
 	can_suppress = 0
