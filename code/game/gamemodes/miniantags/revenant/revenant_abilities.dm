@@ -162,6 +162,11 @@
 	else
 		name = "[initial(name)] ([cast_amount]E)"
 
+/obj/effect/proc_holder/spell/aoe/revenant/revert_cast(mob/user)
+	. = ..()
+	to_chat(user, "<span class='revennotice'>Your ability wavers and fails!</span>")
+	user.essence += cast_amount //refund the spell and reset
+
 /obj/effect/proc_holder/spell/aoe/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
 		return FALSE
@@ -342,10 +347,7 @@
 		successes++
 
 	if(!successes) //no items to throw
-		to_chat(user, "<span class='revennotice'>No nearby objects to haunt!</span>")
-		user.essence += cast_amount //refund the spell and reset
-		cooldown_handler.revert_cast()
-		action.UpdateButtonIcon()
+		revert_cast()
 		return
 
 	// Stop the looping attacks after 65 seconds, roughly 14 attack cycles depending on lag
@@ -386,7 +388,7 @@
 /// Sets the glow on the haunted object, scales up based on throwforce
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/set_outline(mob/living/simple_animal/possessed_object/possessed_object)
 	possessed_object.remove_filter("haunt_glow")
-	var/outline_size = round((possessed_object.possessed_item.throwforce / 15) * 3, 1)
+	var/outline_size = min((possessed_object.possessed_item.throwforce / 15) * 3, 3)
 	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = outline_size)) // Give it spooky purple outline
 
 /// Stop all attack timers cast by the previous spell use
