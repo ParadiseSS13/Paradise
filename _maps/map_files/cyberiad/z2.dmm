@@ -23166,7 +23166,6 @@
 "pBn" = (
 /turf/unsimulated/wall{
 	icon_state = "iron14";
-	layer = 10
 	},
 /area/syndicate_mothership)
 "pBo" = (
@@ -25882,7 +25881,6 @@
 "rkr" = (
 /turf/unsimulated/wall{
 	icon_state = "iron12";
-	layer = 10
 	},
 /area/syndicate_mothership)
 "rlj" = (
