@@ -128,11 +128,6 @@
 /obj/effect/cross_action/singularity_pull()
 	return
 
-/obj/effect/cross_action/spacetime_dist/Initialize(mapload)
-	. = ..()
-	setDir(pick(NORTH, SOUTH, EAST, WEST))
-	AddElement(/datum/element/connect_loc, src)
-
 /obj/effect/cross_action/spacetime_dist/proc/walk_link(atom/movable/AM)
 	if(linked_dist && walks_left > 0)
 		flick("purplesparkles", src)
