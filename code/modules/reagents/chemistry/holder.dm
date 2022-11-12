@@ -237,6 +237,16 @@
 	R.handle_reactions()
 	return amount
 
+/datum/reagents/proc/can_metabolize(mob/living/carbon/human/H, datum/reagent/R)
+	if(!H.dna.species || !H.dna.species.reagent_tag)
+		return FALSE
+	if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
+		return TRUE
+	if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
+		return TRUE
+	//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
+	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
+		return TRUE
 
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
@@ -261,17 +271,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent
-			var/can_process = FALSE
-			//If we somehow avoided getting a species or reagent_tag set, we'll assume we aren't meant to process ANY reagents (CODERS: SET YOUR SPECIES AND TAG!)
-			if(H.dna.species && H.dna.species.reagent_tag)
-				if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-					can_process = TRUE
-				if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-					can_process = TRUE
-				//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-				if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
-					can_process = TRUE
-
+			var/can_process = can_metabolize(H, R)
 			//If handle_reagents returns 0, it's doing the reagent removal on its own
 			var/species_handled = !(H.dna.species.handle_reagents(H, R))
 			can_process = can_process && !species_handled
@@ -480,8 +480,8 @@
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
 		if(R.id == reagent)
-			if(isliving(my_atom))
-				var/mob/living/M = my_atom
+			if(ishuman(my_atom) && can_metabolize(my_atom, R))
+				var/mob/living/carbon/human/M = my_atom
 				R.on_mob_delete(M)
 			cached_reagents -= A
 			qdel(A)
@@ -617,7 +617,7 @@
 		if(data)
 			R.data = data
 
-		if(isliving(my_atom))
+		if(ishuman(my_atom) && can_metabolize(my_atom, R))
 			R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
 		update_total()
 		if(my_atom)

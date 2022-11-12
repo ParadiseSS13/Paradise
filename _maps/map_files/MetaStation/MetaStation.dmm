@@ -32647,7 +32647,6 @@
 /area/solar/port)
 "bSx" = (
 /obj/machinery/vending/dinnerware,
-/obj/machinery/vending/dinnerware,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -85759,7 +85758,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "tkb" = (
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -95001,7 +95000,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "yib" = (
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/machinery/light{
 	dir = 4

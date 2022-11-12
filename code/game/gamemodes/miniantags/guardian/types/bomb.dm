@@ -51,7 +51,7 @@
 	appearance = A.appearance
 	dir = A.dir
 	move_resist = A.move_resist
-	addtimer(CALLBACK(src, .proc/disable), 600)
+	addtimer(CALLBACK(src, PROC_REF(disable)), 600)
 
 /obj/item/guardian_bomb/proc/disable()
 	add_attack_logs(null, stored_obj, "booby trap expired")
@@ -64,7 +64,7 @@
 	if(!istype(user))
 		return
 	to_chat(user, "<span class='danger'>[src] was boobytrapped!</span>")
-	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
+	if(isguardian(spawner))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			add_attack_logs(user, stored_obj, "booby trap defused")

@@ -29,7 +29,7 @@
 /obj/effect/proc_holder/spell/vampire/self/stomp/cast(list/targets, mob/user)
 	var/turf/T = get_turf(user)
 	playsound(T, 'sound/effects/meteorimpact.ogg', 100, TRUE)
-	addtimer(CALLBACK(src, .proc/hit_check, 1, T, user), 0.2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(hit_check), 1, T, user), 0.2 SECONDS)
 	new /obj/effect/temp_visual/stomp(T)
 
 /obj/effect/proc_holder/spell/vampire/self/stomp/proc/hit_check(range, turf/start_turf, mob/user, safe_targets = list())
@@ -49,12 +49,12 @@
 		if(L.move_resist > MOVE_FORCE_VERY_STRONG)
 			continue
 		var/throw_target = get_edge_target_turf(L, get_dir(start_turf, L))
-		INVOKE_ASYNC(L, /atom/movable/.proc/throw_at, throw_target, 3, 4)
+		INVOKE_ASYNC(L, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 3, 4)
 		L.KnockDown(1 SECONDS)
 		safe_targets += L
 	var/new_range = range + 1
 	if(new_range <= max_range)
-		addtimer(CALLBACK(src, .proc/hit_check, new_range, start_turf, user, safe_targets), 0.2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(hit_check), new_range, start_turf, user, safe_targets), 0.2 SECONDS)
 
 /obj/effect/temp_visual/stomp
 	icon = 'icons/effects/seismic_stomp_effect.dmi'
@@ -160,10 +160,10 @@
 	switch(firer.a_intent)
 		if(INTENT_DISARM)
 			throw_target = get_edge_target_turf(L, get_dir(firer, L))
-			L.throw_at(throw_target, 2, 5, spin = FALSE, callback = CALLBACK(src, .proc/create_snare, L)) // shove away
+			L.throw_at(throw_target, 2, 5, spin = FALSE, callback = CALLBACK(src, PROC_REF(create_snare), L)) // shove away
 		if(INTENT_GRAB)
 			throw_target = get_step(firer, get_dir(firer, L))
-			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/create_snare, L)) // pull towards
+			L.throw_at(throw_target, 2, 5, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, PROC_REF(create_snare), L)) // pull towards
 
 /obj/item/projectile/magic/demonic_grasp/proc/create_snare(mob/target)
 	new /obj/effect/temp_visual/demonic_snare(target.loc)
@@ -200,4 +200,4 @@
 	if(isliving(user))
 		var/mob/living/L = user
 		L.apply_status_effect(STATUS_EFFECT_CHARGING)
-		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, /mob/living/.proc/remove_status_effect, STATUS_EFFECT_CHARGING))
+		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))

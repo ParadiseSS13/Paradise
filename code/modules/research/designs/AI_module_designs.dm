@@ -92,6 +92,16 @@
 	build_path = /obj/item/aiModule/antimov
 	category = list("AI Modules")
 
+/datum/design/pranksimov_module
+	name = "Core AI Module (Pranksimov)"
+	desc = "Allows for the construction of a Pranksimov AI Core Module."
+	id = "pranksimov_module"
+	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_BANANIUM = 100)
+	build_path = /obj/item/aiModule/pranksimov
+	category = list("AI Modules")
+
 /datum/design/asimov
 	name = "Core AI Module (Asimov)"
 	desc = "Allows for the construction of a Asimov AI Core Module."

@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
 
-	materials = list(MAT_METAL=75)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 
 	var/const/FREQ_LISTENING = 1
 	var/atom/follow_target // Custom follow target for autosay-using bots
@@ -313,7 +313,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	universal_speak = TRUE
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)
+	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -407,7 +407,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		jobname = "Cyborg"
 
 	// --- Personal AI (pAI) ---
-	else if(istype(M, /mob/living/silicon/pai))
+	else if(ispAI(M))
 		jobname = "Personal AI"
 
 	// --- Unidentifiable mob ---
@@ -463,7 +463,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
-			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(broadcast_callback), tcm), 2 SECONDS)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not, on all z levels
 			for(var/z in 1 to world.maxz)
@@ -591,7 +591,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/emp_act(severity)
 	on = FALSE
 	disable_timer++
-	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
+	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")

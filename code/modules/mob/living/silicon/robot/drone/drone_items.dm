@@ -21,7 +21,7 @@
 		/obj/item/mounted/frame/apc_frame,
 		/obj/item/mounted/frame/alarm_frame,
 		/obj/item/mounted/frame/firealarm,
-		/obj/item/mounted/frame/newscaster_frame,
+		/obj/item/mounted/frame/display/newscaster_frame,
 		/obj/item/mounted/frame/intercom,
 		/obj/item/mounted/frame/extinguisher,
 		/obj/item/mounted/frame/light_switch,

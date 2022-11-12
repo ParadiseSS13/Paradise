@@ -315,7 +315,7 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
-		GLOB.command_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
+		GLOB.major_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
 		qdel(src)
 
 /obj/item/cult_shift
@@ -509,7 +509,7 @@
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
-				addtimer(CALLBACK(src, .proc/readd), 45 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(readd)), 45 SECONDS)
 				if(prob(60))
 					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
@@ -549,7 +549,7 @@
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(reflect_chance))
-		if(istype(loc, /mob))
+		if(ismob(loc))
 			var/mob/user = loc
 			if(user.holy_check())
 				return FALSE
@@ -565,7 +565,7 @@
 	force = 17
 	force_unwielded = 17
 	force_wielded = 24
-	throwforce = 40
+	throwforce = 30
 	throw_speed = 2
 	armour_penetration_percentage = 50
 	block_chance = 30
@@ -595,9 +595,24 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.null_rod_check())
-				L.Weaken(6 SECONDS)
-			break_spear(T)
+			if(L.null_rod_check())
+				return
+			var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
+			if(S)
+				S.trigger()
+			else
+				L.KnockDown(10 SECONDS)
+				L.adjustStaminaLoss(60)
+				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+				L.flash_eyes(1, TRUE)
+				if(issilicon(L))
+					L.emp_act(EMP_HEAVY)
+				else if(iscarbon(L))
+					L.Silence(6 SECONDS)
+					L.Stuttering(16 SECONDS)
+					L.CultSlur(20 SECONDS)
+					L.Jitter(16 SECONDS)
+		break_spear(T)
 	else
 		..()
 
@@ -656,7 +671,7 @@
 			var/mob/living/L = spear.loc
 			L.unEquip(spear)
 			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
-		spear.throw_at(owner, 10, 2, null)
+		spear.throw_at(owner, 10, 2, null, dodgeable = FALSE)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"

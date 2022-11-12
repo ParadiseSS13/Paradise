@@ -115,7 +115,7 @@ STATUS EFFECTS
 	pixel_y = PIXEL_Y_OFFSET_LYING
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_CANNOT_PULL, LYING_DOWN_TRAIT)
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/orient_crawling)
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(orient_crawling))
 	set_density(FALSE)
 	set_lying_angle(pick(90, 270))
 

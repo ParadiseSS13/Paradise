@@ -38,6 +38,9 @@
 		qdel(parent)
 	parent = null
 
+/obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
+	return parent
+
 /obj/machinery/atmospherics/pipe/detailed_examine()
 	return "This pipe, and all other pipes, can be connected or disconnected by a wrench. The internal pressure of the pipe must \
 			be below 300 kPa to do this. More pipes can be obtained from the pipe dispenser.<br> \
