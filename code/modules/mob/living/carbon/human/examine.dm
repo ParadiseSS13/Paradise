@@ -160,8 +160,6 @@
 					if(!foundghost)
 						msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
-	for(var/mob/living/simple_animal/hostile/poison/bees in stomach_contents) //Get bloated mouth from eating a bee
-		msg += "<span class='warning'>[p_their(TRUE)] mouth looks bloated.</span>\n"
 	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
 
