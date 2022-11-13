@@ -1,0 +1,16 @@
+code/modules/mob/living/carbon/human/update_icons.dm
+lineas de codigo cambiadas
+588-590
+605-607
+620-626
+637-639
+709-711
+747-749
+793-795
+810-812
+832-834
+889-891
+923-925
+945-947
+1028-1030
+1055-1057

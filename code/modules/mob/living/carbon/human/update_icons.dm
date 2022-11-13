@@ -585,6 +585,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
+	//HISPANIA CHANGES START
+	remove_overlay(OVER_SHOE_LAYER)
+	//HISPANIA CHANGES END
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
 		if(inv)
@@ -599,9 +602,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/t_color = w_uniform.item_color
 		if(!t_color)
 			t_color = icon_state
-
-		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/under/misc.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
-
+		//HISPANIA CHANGES START
+		var/mutable_appearance/standing = mutable_appearance(w_uniform.hispania_icon ? 'modular_hispania/icons/mob/uniform.dmi' : 'icons/mob/clothing/under/misc.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
+		//HISPANIA CHANGES END
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override
 		if(w_uniform.sprite_sheets)
@@ -614,6 +617,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			bloodsies.color = w_uniform.blood_color
 			standing.overlays += bloodsies
 
+	//HISPANIA CHANGES START
+		var/obj/item/clothing/under/U = w_uniform
+		if(istype(U) && U.over_shoe)
+			standing.layer = -OVER_SHOE_LAYER
+			overlays_standing[OVER_SHOE_LAYER] = standing
+			apply_overlay(OVER_SHOE_LAYER)
+	//HISPANIA CHANGES END
+
 		if(w_uniform.accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
 				var/tie_color = A.item_color
@@ -623,8 +634,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					standing.overlays += image("icon" = A.icon_override, "icon_state" = "[A.icon_state]")
 				else if(A.sprite_sheets && A.sprite_sheets[dna.species.name])
 					standing.overlays += image("icon" = A.sprite_sheets[dna.species.name], "icon_state" = "[A.icon_state]")
-				else
-					standing.overlays += image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
+				else//HISPANIA CHANGES START
+					standing.overlays += image("icon" = A.hispania_icon ? 'modular_hispania/icons/mob/ties.dmi' : 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
+					//HISPANIA CHANGES END
 		standing.alpha = w_uniform.alpha
 		standing.color = w_uniform.color
 		overlays_standing[UNIFORM_LAYER] = standing
@@ -694,9 +706,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(gloves.icon_override, "[t_state]", layer = -GLOVES_LAYER)
 		else if(gloves.sprite_sheets && gloves.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(gloves.sprite_sheets[dna.species.name], "[t_state]", layer = -GLOVES_LAYER)
-		else
-			standing = mutable_appearance('icons/mob/clothing/hands.dmi', "[t_state]", layer = -GLOVES_LAYER)
-
+		else//HISPANIA CHANGES START
+			standing = mutable_appearance(gloves.hispania_icon ? 'modular_hispania/icons/mob/hands.dmi' : 'icons/mob/clothing/hands.dmi', "[t_state]", layer = -GLOVES_LAYER)
+			//HISPANIA CHANGES END
 		if(gloves.blood_DNA)
 			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "bloodyhands")
 			bloodsies.color = gloves.blood_color
@@ -732,9 +744,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			new_glasses = mutable_appearance(glasses.icon_override, "[glasses.icon_state]", layer = -GLASSES_LAYER)
 		else if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.dna.species.name])
 			new_glasses = mutable_appearance(glasses.sprite_sheets[head_organ.dna.species.name], "[glasses.icon_state]", layer = -GLASSES_LAYER)
-		else
-			new_glasses = mutable_appearance('icons/mob/clothing/eyes.dmi', "[glasses.icon_state]", layer = -GLASSES_LAYER)
-
+		else//HISPANIA CHANGES START
+			new_glasses = mutable_appearance(glasses.hispania_icon ? 'modular_hispania/icons/mob/eyes.dmi' : 'icons/mob/clothing/eyes.dmi', "[glasses.icon_state]", layer = -GLASSES_LAYER)
+			//HISPANIA CHANGES END
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		var/obj/item/clothing/glasses/G = glasses
 		if(istype(G) && G.over_mask) //If the user's used the 'wear over mask' verb on the glasses.
@@ -778,9 +790,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
 			else if(l_ear.sprite_sheets && l_ear.sprite_sheets[dna.species.name])
 				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.sprite_sheets[dna.species.name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
-
+			else//HISPANIA CHANGES START
+				overlays_standing[EARS_LAYER] = mutable_appearance(l_ear.hispania_icon ? 'modular_hispania/icons/mob/ears.dmi' : 'icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
+				//HISPANIA CHANGES END
 		if(r_ear)
 			if(client && hud_used && hud_used.hud_shown)
 				if(hud_used.inventory_shown)			//if the inventory is open ...
@@ -795,10 +807,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.icon_override, "[t_type]", layer = -EARS_LAYER)
 			else if(r_ear.sprite_sheets && r_ear.sprite_sheets[dna.species.name])
 				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.sprite_sheets[dna.species.name], "[t_type]", layer = -EARS_LAYER)
-			else
-				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
+			else//HISPANIA CHANGES START
+				overlays_standing[EARS_LAYER] = mutable_appearance(r_ear.hispania_icon ? 'modular_hispania/icons/mob/ears.dmi' : 'icons/mob/clothing/ears.dmi', "[t_type]", layer = -EARS_LAYER)
+				//HISPANIA CHANGES END
 	apply_overlay(EARS_LAYER)
-
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
 	if(client && hud_used)
@@ -817,8 +829,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(shoes.icon_override, "[shoes.icon_state]", layer = -SHOES_LAYER)
 		else if(shoes.sprite_sheets && shoes.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(shoes.sprite_sheets[dna.species.name], "[shoes.icon_state]", layer = -SHOES_LAYER)
-		else
-			standing = mutable_appearance('icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
+		else//HISPANIA CHANGES START
+			standing = mutable_appearance(shoes.hispania_icon ? 'modular_hispania/icons/mob/feet.dmi' : 'icons/mob/clothing/feet.dmi', "[shoes.icon_state]", layer = -SHOES_LAYER)
+			//HISPANIA CHANGES END
 
 		if(shoes.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
@@ -873,8 +886,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				var/obj/item/clothing/head/helmet/space/plasmaman/P = head
 				if(!P.up)
 					standing.overlays += P.visor_icon
-		else
-			standing = mutable_appearance('icons/mob/clothing/head.dmi', "[head.icon_state]", layer = -HEAD_LAYER)
+		else//HISPANIA CHANGES START
+			standing = mutable_appearance(head.hispania_icon ? 'modular_hispania/icons/mob/head.dmi' : 'icons/mob/clothing/head.dmi', "[head.icon_state]", layer = -HEAD_LAYER)
+			//HISPANIA CHANGES END
 
 		if(head.blood_DNA)
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
@@ -906,11 +920,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[BELT_LAYER] = mutable_appearance(belt.icon_override, "[t_state]", layer = -BELT_LAYER)
 		else if(belt.sprite_sheets && belt.sprite_sheets[dna.species.name])
 			overlays_standing[BELT_LAYER] = mutable_appearance(belt.sprite_sheets[dna.species.name], "[t_state]", layer = -BELT_LAYER)
-		else
-			overlays_standing[BELT_LAYER] = mutable_appearance('icons/mob/clothing/belt.dmi', "[t_state]", layer = -BELT_LAYER)
+		else//HISPANIA CHANGES START
+			overlays_standing[BELT_LAYER] = mutable_appearance(belt.hispania_icon ? 'modular_hispania/icons/mob/belt.dmi' : 'icons/mob/clothing/belt.dmi', "[t_state]", layer = -BELT_LAYER)
+			//HISPANIA CHANGES END
 	apply_overlay(BELT_LAYER)
-
-
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
 	if(client && hud_used)
@@ -929,8 +942,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(wear_suit.icon_override, "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(wear_suit.sprite_sheets[dna.species.name], "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-		else
-			standing = mutable_appearance('icons/mob/clothing/suit.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
+		else//HISPANIA CHANGES START
+			standing = mutable_appearance(wear_suit.hispania_icon ? 'modular_hispania/icons/mob/suit.dmi' : 'icons/mob/clothing/suit.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
+			//HISPANIA CHANGES END
 
 		if(wear_suit.breakouttime)
 			drop_l_hand()
@@ -1011,9 +1025,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			else if(wear_mask.sprite_sheets && wear_mask.sprite_sheets[dna.species.name])
 				mask_icon = new(wear_mask.sprite_sheets[dna.species.name])
 				standing = mutable_appearance(wear_mask.sprite_sheets[dna.species.name], "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
-			else
-				standing = mutable_appearance('icons/mob/clothing/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
-
+			else//HISPANIA CHANGES START
+				standing = mutable_appearance(wear_mask.hispania_icon ? 'modular_hispania/icons/mob/mask.dmi' : 'icons/mob/clothing/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
+				//HISPANIA CHANGES END
 			if(!istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA)
 				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "maskblood")
 				bloodsies.color = wear_mask.blood_color
@@ -1038,8 +1052,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(back.icon_override, "[t_state]", layer = -BACK_LAYER)
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[t_state]", layer = -BACK_LAYER)
-		else
-			standing = mutable_appearance('icons/mob/clothing/back.dmi', "[t_state]", layer = -BACK_LAYER)
+		else//HISPANIA CHANGES START
+			standing = mutable_appearance(back.hispania_icon ? 'modular_hispania/icons/mob/back.dmi' : 'icons/mob/clothing/back.dmi', "[back.icon_state]", layer = -BACK_LAYER)
+			//HISPANIA CHANGES END
 
 		//create the image
 		standing.alpha = back.alpha

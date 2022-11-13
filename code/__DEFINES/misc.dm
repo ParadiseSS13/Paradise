@@ -171,6 +171,7 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
+#define OVER_SHOE_LAYER			42 // HISPANIA CHANGES START & END sirve para que la ropa renderee por encima de los zapatos, si no los zapatos toman prioridad.
 #define WING_LAYER				41
 #define WING_UNDERLIMBS_LAYER	40
 #define MUTANTRACE_LAYER		39
@@ -212,7 +213,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			41
+#define TOTAL_LAYERS			42 // HISPANIA CHANGES START & END, se puso 42 por el overshoe defines
 
 ///Access Region Codes///
 #define REGION_ALL			0
