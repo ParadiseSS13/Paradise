@@ -53,7 +53,7 @@ GLOBAL_PROTECT(log_end)
 
 /proc/log_access_in(client/new_client)
 	if(config.log_access)
-		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version]"
+		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
 
 /proc/log_access_out(mob/last_mob)
