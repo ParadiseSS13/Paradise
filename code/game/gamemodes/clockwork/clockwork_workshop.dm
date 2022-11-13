@@ -50,10 +50,10 @@
 	item_list["Consumables"] = list(
 		CLOCK_DESIGN("Integration Cog", /obj/item/clockwork/integration_cog, 100, 0, 3),
 		CLOCK_DESIGN("Soul Vessel", /obj/item/mmi/robotic_brain/clockwork, 500, 100, 5),
-		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 1000, 200, 10),
-		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 1500, 400, 20),
-		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 1000, 300, 15),
-		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 600, 15),
+		CLOCK_DESIGN("Clocked Upgrade", /obj/item/borg/upgrade/clockwork, 1000, 200, 5),
+		CLOCK_DESIGN("Cogscarab", /obj/item/clockwork/cogscarab, 1800, 450, 20),
+		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 1200, 300, 10),
+		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 15),
 	)
 
 /obj/structure/clockwork/functional/workshop/Destroy()

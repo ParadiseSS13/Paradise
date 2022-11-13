@@ -120,12 +120,14 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(players >= CLOCK_POPULATION_THRESHOLD)
 		// Highpop
 		reveal_percent = CLOCK_CREW_REVEAL_HIGH
-		power_reveal_number = round(CLOCK_POWER_REVEAL_HIGH * CLOCK_POWER_PER_CREW * (players + clockers),1)
+		clocker_objs.power_goal = 1200 + length(GLOB.player_list)*CLOCK_POWER_PER_CREW_HIGH
+		power_reveal_number = round(clocker_objs.power_goal * 0.67) // 2/3 of power goal
 		crew_reveal_number = round(CLOCK_CREW_REVEAL_HIGH * (players - clockers),1)
 	else
 		// Lowpop
 		reveal_percent = CLOCK_CREW_REVEAL_LOW
-		power_reveal_number = round(CLOCK_POWER_REVEAL_LOW * CLOCK_POWER_PER_CREW * (players + clockers),1)
+		clocker_objs.power_goal = 1200 + length(GLOB.player_list)*CLOCK_POWER_PER_CREW_LOW
+		power_reveal_number = round(clocker_objs.power_goal * 0.67) // 2/3 of power goal
 		crew_reveal_number = round(CLOCK_CREW_REVEAL_LOW * (players - clockers),1)
 	add_game_logs("Clockwork Cult power/crew reveal numbers: [power_reveal_number]/[crew_reveal_number].")
 

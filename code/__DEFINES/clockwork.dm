@@ -13,7 +13,7 @@
 #define TELEPORT_SPELL 4
 #define HEAL_SPELL 5
 #define HIDE_SPELL 6
-// Ratvarian spear enchant type
+// Ratvarian spear enchant type (borgs too)
 #define CONFUSE_SPELL 1
 #define DISABLE_SPELL 2
 // Clock hammer
@@ -85,9 +85,7 @@ GLOBAL_LIST_INIT(shard_spells, list(
 	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 9),
 	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 9)
 ))
-/// Power per crew for summoning. For example if 45 players on station, the Ratvar will demand 45*number.
-#define CLOCK_POWER_PER_CREW 300
-#define CLOCK_POWER_GAIN_MAXIMUM 1000
+
 /// Power gains permanent
 #define CLOCK_POWER_CONVERT 200
 #define CLOCK_POWER_SACRIFICE 500
@@ -98,14 +96,20 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define COG_MAX_SIPHON_THRESHOLD 0.25 //The cog will not siphon power if the APC's cell is at this % of power
 // amount of metal per brass
 #define CLOCK_METAL_TO_BRASS 10
+//Cogscarab: a wind up timer of how long can droney live without beacon
+#define CLOCK_MAX_WIND_UP_TIMER 150
 
 // Clockwork Status
 /// At what population does it switch to highpop values
-#define CLOCK_POPULATION_THRESHOLD 80
+#define CLOCK_POPULATION_THRESHOLD 70
+/// Power per crew demand. (Lowpop)
+#define CLOCK_POWER_PER_CREW_LOW 320
 /// Percent for power to reveal (Lowpop)
 #define CLOCK_POWER_REVEAL_LOW 0.7
 /// Percent clockers to reveal (Lowpop)
 #define CLOCK_CREW_REVEAL_LOW 0.35
+/// Power per crew demand. (highpop)
+#define CLOCK_POWER_PER_CREW_HIGH 180
 /// Percent for power to reveal (Highpop)
 #define CLOCK_POWER_REVEAL_HIGH 0.5
 /// Percent clockers to reveal (Highpop)

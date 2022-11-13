@@ -1411,6 +1411,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
 		state = 1
+	if(isclocker(src))
+		return
 	if(state)
 		throw_alert("locked", /obj/screen/alert/locked)
 	else

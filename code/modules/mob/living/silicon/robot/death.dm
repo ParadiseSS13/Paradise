@@ -16,7 +16,7 @@
 	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
 
 	flick("gibbed-r", animation)
-	if(isclocker(src))
+	if(isclocker(src) || iscogscarab(src))
 		clockgibs(loc)
 	else
 		robogibs(loc)

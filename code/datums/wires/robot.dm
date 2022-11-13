@@ -28,7 +28,7 @@
 					R.lawsync()
 					R.show_laws()
 			else
-				if(!R.lawupdate && !R.emagged)
+				if(!R.lawupdate && !R.emagged && !isclocker(R))
 					R.lawupdate = TRUE
 
 		if(WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
@@ -50,7 +50,7 @@
 	var/mob/living/silicon/robot/R = holder
 	switch(wire)
 		if(WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
-			if(!R.emagged)
+			if(!R.emagged && !isclocker(R))
 				R.connect_to_ai(select_active_ai())
 
 		if(WIRE_BORG_CAMERA)

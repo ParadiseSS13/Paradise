@@ -10,7 +10,7 @@
 	if(clock_status != RATVAR_IS_ASLEEP)
 		return FALSE
 	clock_status = RATVAR_DEMANDS_POWER
-	power_goal = 1200 + length(GLOB.player_list)*CLOCK_POWER_PER_CREW // 1200 as 3 clockers(or 4) + all crew * Per_crew
+	//power_goal in gamemode/clockwork_threshold_check
 	beacon_goal = 3 + round(length(GLOB.player_list)*0.1) // 3 + all crew* 0.1
 	clocker_goal = round(CLOCK_CREW_REVEAL_HIGH * (length(GLOB.player_list) - SSticker.mode.get_clockers()),1)
 	if(obj_demand.check_completion())
@@ -92,6 +92,8 @@
 
 // After all goals 've completed check this proc for start summoning
 /datum/clockwork_objectives/proc/ratvar_is_ready()
+	if(clock_status >= RATVAR_NEEDS_SUMMONING) //or already prepared or summoned
+		return
 	clock_status = RATVAR_NEEDS_SUMMONING
 	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 		if(clock_mind && clock_mind.current)

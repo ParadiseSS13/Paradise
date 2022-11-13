@@ -13,7 +13,7 @@
 /datum/spell_enchant
 	var/name = "Spell Item Enchanter"
 	var/enchantment = NO_SPELL
-	var/req_amount = 0
+	var/req_amount = 0 //this var is scraped (for now)
 	var/time = 3
 	var/spell_action = FALSE // If we item needs an action button
 
@@ -84,7 +84,7 @@
 					return
 		if(QDELETED(src) || owner.incapacitated())
 			return
-	if(item?.enchants.len) // it just works
+	if(item?.enchants?.len) // it just works
 		if(item.enchant_type == CASTING_SPELL)
 			to_chat(owner, "<span class='warning'> You can't enchant [item] right now while spell is working!</span>")
 			return
@@ -263,7 +263,8 @@
 			return
 		var/quantity = (candidate.amount - (candidate.amount % CLOCK_METAL_TO_BRASS)) / CLOCK_METAL_TO_BRASS
 		if(candidate.use(quantity * CLOCK_METAL_TO_BRASS))
-			new /obj/item/stack/sheet/brass(turf_target, quantity)
+			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
+			user.put_in_hands(B)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 		else
@@ -275,7 +276,8 @@
 		var/obj/item/stack/sheet/plasteel/candidate = target
 		var/quantity = candidate.amount
 		if(candidate.use(quantity))
-			new /obj/item/stack/sheet/brass(turf_target, quantity)
+			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
+			user.put_in_hands(B)
 			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 

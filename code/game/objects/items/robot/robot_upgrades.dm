@@ -31,7 +31,8 @@
 	if(..())
 		return
 
-	R.reset_module()
+	if(!isclocker(R))
+		R.reset_module()
 
 	return TRUE
 

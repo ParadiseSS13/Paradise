@@ -673,6 +673,7 @@
 	modules += new /obj/item/multitool/brass(src)
 	modules += new /obj/item/gripper/cogscarab(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/clockwork/brassmaker(src)
 	modules += new /obj/item/extinguisher(src)
 	emag = null
 
@@ -706,6 +707,7 @@
 	modules += new /obj/item/gripper/cogscarab(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
+	modules += new /obj/item/clockwork/brassmaker(src)
 	modules += new /obj/item/extinguisher(src)
 	emag = new /obj/item/toy/carpplushie/gold(src)
 
@@ -792,7 +794,8 @@
 	var/energy
 
 /datum/robot_energy_storage/New(var/obj/item/robot_module/R = null)
-	energy = max_energy
+	if(!energy)
+		energy = max_energy
 	if(R)
 		R.storages |= src
 	return
@@ -825,7 +828,7 @@
 	name = "Wire Storage"
 
 /datum/robot_energy_storage/brass
-	max_energy = 10
+	max_energy = 30
 	recharge_rate = 0
 	energy = 1
 	name = "Brass Storage"
