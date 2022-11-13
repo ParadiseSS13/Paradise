@@ -21,10 +21,7 @@ GLOBAL_LIST_INIT(sandstone_recipes, list (
   	new /datum/stack_recipe("sandstone airlock assembly", /obj/structure/door_assembly/door_assembly_sandstone, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("sarcophagus", /obj/structure/closet/coffin/sarcophagus, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
-	new /datum/stack_recipe_list("sandstone statues", list(
-		new /datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("Bust Statue", /obj/structure/statue/sandstone/bust, 10, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
-		)),
+	new /datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("Breakdown into sand", /obj/item/stack/ore/glass, 1, one_per_turf = FALSE, on_floor = TRUE),
 	))
