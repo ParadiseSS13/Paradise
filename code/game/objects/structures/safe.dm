@@ -249,8 +249,14 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
-			canhear = TRUE
+		var/list/accessories = H.w_uniform?.accessories
+		if(H.can_hear()) // This is cursed but is_type_in_list somehow fails
+			if(H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+				canhear = TRUE
+			else
+				for(var/obj/item/clothing/accessory/stethoscope/S in accessories)
+					canhear = TRUE
+					break
 
 	. = TRUE
 	switch(action)
