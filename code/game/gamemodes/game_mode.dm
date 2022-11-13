@@ -46,10 +46,7 @@
 ///can_start()
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
 /datum/game_mode/proc/can_start()
-	var/playerC = 0
-	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.client)&&(player.ready))
-			playerC++
+	var/playerC = num_players()
 
 	if(playerC < required_enemies)
 		return 0
