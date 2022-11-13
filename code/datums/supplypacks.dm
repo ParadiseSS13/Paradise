@@ -1638,6 +1638,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/under/officeruniform,
 					/obj/item/clothing/suit/lordadmiral,
 					/obj/item/clothing/head/lordadmiralhat,
+					/obj/item/clothing/head/hasturhood,
 					/obj/item/clothing/suit/hastur,
 					/obj/item/clothing/suit/monkeysuit,
 					/obj/item/clothing/mask/gas/monkeymask,
