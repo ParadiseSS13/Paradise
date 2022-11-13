@@ -35,6 +35,7 @@
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/datum/mind/victims = list()	//Свободные жертвы PREVENT/ASSASINATE целей для PROTECT (или не повтора целей)
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 

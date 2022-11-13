@@ -86,6 +86,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -100,6 +102,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return 1
 		return 0
 	return 1
+
 
 
 /datum/objective/mutiny
@@ -134,6 +137,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	// them win or lose based on cryo is silly so we remove the objective.
 	qdel(src)
 
+
 /datum/objective/maroon
 	martyr_compatible = 1
 
@@ -141,6 +145,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && target.current)
 		explanation_text = "Prevent from escaping alive or assassinate [target.current.real_name], the [target.assigned_role]."
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -169,6 +175,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && target.current)
 		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -193,7 +201,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 1
 
 /datum/objective/protect/find_target()
-	..()
+	var/list/datum/mind/temp_victims = SSticker.mode.victims.Copy()
+	for(var/datum/objective/objective in owner.objectives)
+		temp_victims.Remove(objective.target)
+	temp_victims.Remove(owner)
+
+	if (length(temp_victims))
+		target = pick(temp_victims)
+	else
+		..()
+
 	if(target && target.current)
 		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
 	else
@@ -202,16 +219,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/protect/check_completion()
 	if(!target) //If it's a free objective.
-		return 1
+		return TRUE
 	if(target.current)
 		if(target.current.stat == DEAD)
-			return 0
-		if(issilicon(target.current))
-			return 0
+			return FALSE
 		if(isbrain(target.current))
-			return 0
-		return 1
-	return 0
+			return FALSE
+		if(!iscarbon(target.current))
+			return FALSE
+		return TRUE
+	return FALSE
 
 /datum/objective/protect/mindslave //subtype for mindslave implants
 
@@ -335,6 +352,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		target = pick(possible_targets)
 	if(target && target.current)
 		target_real_name = target.current.real_name
+		if (!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
 		explanation_text = "Free Objective"
