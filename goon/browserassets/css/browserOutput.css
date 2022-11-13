@@ -434,3 +434,5 @@ span.body .coderesponses {color: #FF0000;}
 .announcement.minor h1 { font-size: 80%; }
 .announcement.minor h2 { font-size: 70%; }
 .announcement.sec h1 { color: #f00; font-size: 80%; font-family: Verdana, sans-serif; }
+
+.bolditalics {font-style: italic; font-weight: bold;}
