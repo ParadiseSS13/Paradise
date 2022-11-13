@@ -331,20 +331,20 @@
 
 /datum/gear/uniform/suit/redhawaiianshirt
 	display_name = "Red Hawaiian T-Shirt"
-	description = "A nice t-shirt to remind about warm beaches. This one is red"
+	description = "A nice t-shirt to remind about warm beaches. This one is red."
 	path = /obj/item/clothing/under/misc/redhawaiianshirt
 
 /datum/gear/uniform/suit/bluehawaiianshirt
 	display_name = "Blue Hawaiian T-Shirt"
-	description = "A nice t-shirt to remind about warm beaches. This one is blue"
+	description = "A nice t-shirt to remind about warm beaches. This one is blue."
 	path = /obj/item/clothing/under/misc/bluehawaiianshirt
 
 /datum/gear/uniform/suit/pinkhawaiianshirt
 	display_name = "Pink Hawaiian T-Shirt"
-	description = "A nice t-shirt to remind about warm beaches. This one is pink"
+	description = "A nice t-shirt to remind about warm beaches. This one is pink."
 	path = /obj/item/clothing/under/misc/pinkhawaiianshirt
 
 /datum/gear/uniform/suit/orangehawaiianshirt
 	display_name = "Orange Hawaiian T-Shirt"
-	description = "A nice t-shirt to remind about warm beaches. This one is orange"
+	description = "A nice t-shirt to remind about warm beaches. This one is orange."
 	path = /obj/item/clothing/under/misc/orangehawaiianshirt
