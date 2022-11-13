@@ -340,11 +340,11 @@
 	path = /obj/item/clothing/under/misc/bluehawaiianshirt
 
 /datum/gear/uniform/suit/pinkhawaiianshirt
-	display_name = "Red Hawaiian T-Shirt"
+	display_name = "Pink Hawaiian T-Shirt"
 	description = "A nice t-shirt to remind about warm beaches. This one is pink"
 	path = /obj/item/clothing/under/misc/pinkhawaiianshirt
 
 /datum/gear/uniform/suit/orangehawaiianshirt
-	display_name = "Red Hawaiian T-Shirt"
+	display_name = "Orange Hawaiian T-Shirt"
 	description = "A nice t-shirt to remind about warm beaches. This one is orange"
 	path = /obj/item/clothing/under/misc/orangehawaiianshirt
