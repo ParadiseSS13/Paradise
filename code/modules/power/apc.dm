@@ -808,12 +808,18 @@
 /obj/machinery/power/apc/interact(mob/user)
 	if(!user)
 		return
-
-	if(panel_open)
-		wires.Interact(user)
-
-	return ui_interact(user)
-
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(panel_open)
+			wires.Interact(user)
+		if(H.skills.wisdom < reqwisdom || H.skills.intelligence < reqintelligence)
+			to_chat(user, "<span class='warning'>You do not know how to use [src].</span>")
+		else
+			return ui_interact(user)
+	else
+		if(panel_open)
+			wires.Interact(user)
+		return ui_interact(user)
 
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
 	if(!istype(malf))

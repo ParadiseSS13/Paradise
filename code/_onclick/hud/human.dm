@@ -374,7 +374,7 @@
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
-	fov = new /obj/screen/fov()//fov
+	fov = new /obj/screen/fullscreen/fov()//fov
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	infodisplay += lingchemdisplay

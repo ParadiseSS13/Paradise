@@ -150,3 +150,12 @@
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER
 #undef CRIT_LAYER
+
+/obj/screen/fullscreen/fov
+	icon = 'icons/mob/hide.dmi'
+	icon_state = "behind3"
+	name = " "
+	screen_loc = "1,1"
+	mouse_opacity = 0
+	layer = 18
+	plane = CAMERA_STATIC_PLANE

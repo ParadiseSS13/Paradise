@@ -543,12 +543,3 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "EAST-2:28,CENTER+6:27"
 	name = "skill"
-
-/obj/screen/fov
-	icon = 'icons/mob/hide.dmi'
-	icon_state = "behind3"
-	name = " "
-	screen_loc = "1,1"
-	mouse_opacity = 0
-	layer = 18
-	plane = CAMERA_STATIC_PLANE

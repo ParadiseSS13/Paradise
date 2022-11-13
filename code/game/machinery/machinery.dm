@@ -278,6 +278,7 @@
 		var/mob/living/carbon/human/H = user
 		if(H.skills.intelligence < reqintelligence || H.skills.wisdom < reqwisdom)
 			to_chat(user, "<span class='warning'>You do not know how to use [src].</span>")
+			ui_close(H)
 			return TRUE
 		if(H.getBrainLoss() >= 60)
 			visible_message("<span class='warning'>[H] stares cluelessly at [src] and drools.</span>")

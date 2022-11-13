@@ -23,6 +23,8 @@
 	var/window_x = 300
 	/// The height of the wire TGUI window. Will get longer as needed, based on the `wire_count`.
 	var/window_y = 100
+	var/reqdexterity = 4
+	var/reqwisdom = 4
 
 /datum/wires/New(atom/_holder)
 	..()
@@ -79,8 +81,15 @@
  * * user - the mob trying to interact with the wires.
  */
 /datum/wires/proc/Interact(mob/user)
-	if(user && istype(user) && holder && interactable(user))
-		ui_interact(user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.skills.wisdom < reqwisdom || H.skills.dexterity < reqdexterity)
+			to_chat(user, "<span class='warning'>You're afraid you might end up shocking yourself.</span>")
+		else
+			ui_interact(user)
+	else
+		if(user && istype(user) && holder && interactable(user))
+			ui_interact(user)
 
 /**
  * Base proc, intended to be overriden. Wire datum specific checks you want to run before the TGUI is shown to the user should go here.

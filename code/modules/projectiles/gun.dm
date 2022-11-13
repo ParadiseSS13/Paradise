@@ -177,12 +177,14 @@
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check)
 		if(istype(user))
-			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
-				var/shot_leg = pick("l_foot", "r_foot")
-				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_item()
-				return
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				if(HAS_TRAIT(user, TRAIT_CLUMSY) || H.skills.dexterity < 4 && prob(40))
+					to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+					var/shot_leg = pick("l_foot", "r_foot")
+					process_fire(user, user, 0, params, zone_override = shot_leg)
+					user.drop_item()
+					return
 
 	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
@@ -224,6 +226,9 @@
 	var/randomized_gun_spread = 0
 	if(spread)
 		randomized_gun_spread =	rand(0,spread)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			randomized_gun_spread -= H.skills.strength
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if(burst_size > 1)

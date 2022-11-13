@@ -31,6 +31,7 @@
 
 	var/name_tag = null
 	var/obj/machinery/power/terminal/terminal = null
+	reqwisdom = 5
 
 /obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
@@ -339,7 +340,14 @@
 
 /obj/machinery/power/smes/attack_hand(mob/user)
 	add_fingerprint(user)
-	ui_interact(user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.skills.wisdom < reqwisdom || H.skills.intelligence < reqintelligence)
+			to_chat(user, "<span class='warning'>You do not know how to use [src].</span>")
+		else
+			ui_interact(user)
+	else
+		ui_interact(user)
 
 /obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & BROKEN)
