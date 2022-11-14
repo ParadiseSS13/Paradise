@@ -1,3 +1,5 @@
+#define OVEREAT_LIMIT 7 //If you've eaten soap this many times in the last 20 seconds, you get a tummyache
+
 /obj/item/soap
 	name = "soap"
 	desc = "A cheap bar of soap. Doesn't smell."
@@ -15,7 +17,6 @@
 	var/times_eaten = 0 //How many times a Drask has chewed on this bar of soap
 	var/max_bites = 30 //The maximum amount of bites before the soap is depleted
 	var/overeat_counter = 0 //How many times this bar of soap has been RECENTLY chewed on.
-	var/overeat_limit = 7 //If you've eaten soap this many times in the last 20 seconds, you get a tummyache
 
 /obj/item/soap/Initialize(mapload)
 	. = ..()
@@ -42,7 +43,7 @@
 	else
 		to_chat(user, "<span class='notice'>You finish eating [src].</span>")
 		qdel(src)
-	if(overeat_counter >= overeat_limit)
+	if(overeat_counter >= OVEREAT_LIMIT)
 		user.Weaken(12 SECONDS)
 		user.adjust_nutrition(-30)
 		playsound(user, "sound/goonstation/misc/gurggle.ogg", 50, TRUE)
