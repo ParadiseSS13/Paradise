@@ -145,8 +145,8 @@
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover))
-		if(mover.checkpass(PASSDOOR))
-			return !locked // Disallow if door is bolted
+		if(mover.checkpass(PASSDOOR) && !locked)
+			return TRUE
 		if(mover.checkpass(PASSGLASS))
 			return !opacity
 	return !density

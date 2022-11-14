@@ -739,8 +739,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSDOOR)) // We really dont want mice/drones to get shocked on a door they're passing through
-		return !locked // Disallow if door is bolted
+	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked) // We really dont want mice/drones to get shocked on a door they're passing through
+		return TRUE
 	if(isElectrified() && density && isitem(mover))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
