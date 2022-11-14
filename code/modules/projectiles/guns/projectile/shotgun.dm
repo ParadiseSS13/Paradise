@@ -224,7 +224,6 @@
 		pump_reload(M)
 	else
 		pump_unload(M)
-	icon_state = "moistnugget_open"
 	update_icon(UPDATE_ICON_STATE)
 	return 1
 
