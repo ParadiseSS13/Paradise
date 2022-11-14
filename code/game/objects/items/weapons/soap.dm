@@ -44,10 +44,10 @@
 		to_chat(user, "<span class='notice'>You finish eating [src].</span>")
 		qdel(src)
 	if(overeat_counter >= OVEREAT_LIMIT)
-		user.Weaken(12 SECONDS)
+		user.Weaken(5 SECONDS)
 		user.adjust_nutrition(-30)
 		playsound(user, "sound/goonstation/misc/gurggle.ogg", 50, TRUE)
-		to_chat(user, "<span class='warning'>The lye in [src] gives you a horrible stomachache!</span>")
+		user.visible_message("<span class='warning'>[user] clutches their stomach in agony!</span>", "<span class='danger'>The lye in [src] gives you a horrible stomachache!</span>")
 
 /obj/item/soap/proc/cooldown_overeat()
 	if(!overeat_counter)
@@ -60,11 +60,9 @@
 		return
 	if(times_eaten < (max_bites * 0.3))
 		. += "<span class='notice'>[src] has bite marks on it!</span>"
-		return
-	if(times_eaten < (max_bites * 0.6))
+	else if(times_eaten < (max_bites * 0.6))
 		. += "<span class='notice'>Big chunks of [src] have been chewed off!</span>"
-		return
-	if(times_eaten < (max_bites * 0.9))
+	else if(times_eaten < (max_bites * 0.9))
 		. += "<span class='notice'>Most of [src] has been gnawed away!</span>"
 	else
 		. += "<span class='notice'>[src] has been eaten down to a sliver!</span>"
