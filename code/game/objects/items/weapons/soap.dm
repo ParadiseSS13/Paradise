@@ -13,7 +13,9 @@
 	discrete = 1
 	var/cleanspeed = 50 //slower than mop
 	var/times_eaten = 0 //How many times a Drask has chewed on this bar of soap
-	var/max_bites = 4 //The maximum amount of bites before the soap is depleted
+	var/max_bites = 30 //The maximum amount of bites before the soap is depleted
+	var/overeat_counter = 0 //How many times this bar of soap has been RECENTLY chewed on.
+	var/overeat_limit = 7 //If you've eaten soap this many times in the last 20 seconds, you get a tummyache
 
 /obj/item/soap/Initialize(mapload)
 	. = ..()
@@ -25,25 +27,46 @@
 	if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && isdrask(muncher))
-			times_eaten++
-			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-			user.adjust_nutrition(2)
-			if(times_eaten < max_bites)
-				to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
-			else
-				to_chat(user, "<span class='notice'>You finish eating [src].</span>")
-				qdel(src)
+			eat_soap(muncher)
 			return
 	target.cleaning_act(user, src, cleanspeed)
+
+/obj/item/soap/proc/eat_soap(mob/living/carbon/human/drask/user)
+	times_eaten++
+	overeat_counter++
+	addtimer(CALLBACK(src, PROC_REF(cooldown_overeat)), 20 SECONDS)
+	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+	user.adjust_nutrition(5)
+	if(times_eaten < max_bites)
+		to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
+	else
+		to_chat(user, "<span class='notice'>You finish eating [src].</span>")
+		qdel(src)
+	if(overeat_counter >= overeat_limit)
+		user.Weaken(12 SECONDS)
+		user.adjust_nutrition(-30)
+		playsound(user, "sound/goonstation/misc/gurggle.ogg", 50, TRUE)
+		to_chat(user, "<span class='warning'>The lye in [src] gives you a horrible stomachache!</span>")
+
+/obj/item/soap/proc/cooldown_overeat()
+	if(!overeat_counter)
+		return
+	overeat_counter--
 
 /obj/item/soap/examine(mob/user)
 	. = ..()
 	if(!user.Adjacent(src) || !times_eaten)
 		return
-	if(times_eaten == 1)
-		. += "<span class='notice'>[src] was bitten by someone!</span>"
+	if(times_eaten < (max_bites * 0.3))
+		. += "<span class='notice'>[src] has bite marks on it!</span>"
+		return
+	if(times_eaten < (max_bites * 0.6))
+		. += "<span class='notice'>Big chunks of [src] have been chewed off!</span>"
+		return
+	if(times_eaten < (max_bites * 0.9))
+		. += "<span class='notice'>Most of [src] has been gnawed away!</span>"
 	else
-		. += "<span class='notice'>[src] was bitten multiple times!</span>"
+		. += "<span class='notice'>[src] has been eaten down to a sliver!</span>"
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
