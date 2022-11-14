@@ -34,7 +34,7 @@
 					/obj/item/pizzabox/pepperoni,
 					/obj/item/pizzabox/vegetable,
 					/obj/item/pizzabox/hawaiian)
-	cost = 750
+	cost = 500
 	containername = "Pizza crate"
 
 /datum/supply_packs/organic/monkey

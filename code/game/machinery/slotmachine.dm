@@ -54,7 +54,7 @@
 	if(action == "spin")
 		if(working)
 			return
-		if(!user_account || user_account.credit_balance < 50)
+		if(!user_account || user_account.credit_balance < 10)
 			return
 		if(!account_database.charge_account(user_account, 10, "Slot Machine Charge", "DonkBook Betting", FALSE, TRUE))
 			return //we want to surpress transaction logs here in-case someone uses the slot machine 100+ times

@@ -76,7 +76,7 @@ const IntroductionAndCard = (props, context) => {
   const { machine_id, held_card_name } = data;
   return (
     <Section title="Nanotrasen Automatic Teller Machine">
-      <Box>For all your monetary need!</Box>
+      <Box>For all your monetary needs!</Box>
       <Divider />
       <LabeledList>
         <LabeledList.Item label="Card">
@@ -210,7 +210,7 @@ const DefaultScreen = (props, context) => {
           </LabeledList.Item>
           <LabeledList.Item>
             <Button
-              content="Withdraw Fund"
+              content="Withdraw Funds"
               icon="sign-out-alt"
               onClick={() => act('withdrawal', { funds_amount: fundsAmount })}
             />

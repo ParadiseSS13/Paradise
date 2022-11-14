@@ -302,6 +302,10 @@ const GetRequestNotice = (_properties, context) => {
       head_name = 'CAP';
       head_color = 'blue';
       break;
+    case "Assistant":
+      head_name = 'Any Head';
+      head_color = 'grey';
+      break;
   }
 
   return (

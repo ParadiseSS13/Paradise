@@ -454,7 +454,7 @@
 
 /datum/supply_packs/misc/station_goal/bluespace_tap
 	name = "Bluespace Harvester Parts"
-	cost = 1500
+	cost = 1000
 	contains = list(
 					/obj/item/circuitboard/machine/bluespace_tap,
 					/obj/item/paper/bluespace_tap
@@ -463,7 +463,7 @@
 
 /datum/supply_packs/misc/station_goal/dna_vault
 	name = "DNA Vault Parts"
-	cost = 1200
+	cost = 1000
 	contains = list(
 					/obj/item/circuitboard/machine/dna_vault
 					)
@@ -471,7 +471,7 @@
 
 /datum/supply_packs/misc/station_goal/dna_probes
 	name = "DNA Vault Samplers"
-	cost = 400
+	cost = 250
 	contains = list(/obj/item/dna_probe,
 					/obj/item/dna_probe,
 					/obj/item/dna_probe,
@@ -482,7 +482,7 @@
 
 /datum/supply_packs/misc/station_goal/shield_sat
 	name = "Shield Generator Satellite"
-	cost = 300
+	cost = 250
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
@@ -492,7 +492,7 @@
 
 /datum/supply_packs/misc/station_goal/shield_sat_control
 	name = "Shield System Control Board"
-	cost = 1000
+	cost = 750
 	contains = list(
 					/obj/item/circuitboard/computer/sat_control
 					)
