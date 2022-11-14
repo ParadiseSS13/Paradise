@@ -1042,7 +1042,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/area/syndicate_depot/core/depotarea
 
 /obj/machinery/porta_turret/syndicate/CanPass(atom/A)
-    return !isliving(A)
+    return (stat & BROKEN || !isliving(A))
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
