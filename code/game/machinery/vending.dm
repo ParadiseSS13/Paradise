@@ -1248,7 +1248,7 @@
 					/obj/item/reagent_containers/hypospray/safety = 2,
 					/obj/item/sensor_device = 2,
 					/obj/item/pinpointer/crew = 2)
-	contraband = list(/obj/item/reagent_containers/syringe/insulin = 6,
+	contraband = list(/obj/item/reagent_containers/syringe/insulin = 4,
 					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
 					/obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
