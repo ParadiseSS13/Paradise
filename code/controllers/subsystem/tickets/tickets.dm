@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(tickets)
 		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
 		"Reject" = "Reject",
 		"Man Up" = "Man Up",
-		)
+	)
 
 	if(GLOB.configuration.url.banappeals_url)
 		response_phrases["Appeal on the Forums"] = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>"
@@ -342,6 +342,8 @@ SUBSYSTEM_DEF(tickets)
 	var/staff_ckey
 	/// The time the staff member took the ticket
 	var/staff_take_time
+	/// List of adminwho data
+	var/list/adminwho_data = list()
 
 
 /datum/ticket/New(tit, raw_tit, cont, num, the_ckey)
@@ -357,6 +359,14 @@ SUBSYSTEM_DEF(tickets)
 	setCooldownPeriod()
 	ticketNum = num
 	ticketState = TICKET_OPEN
+
+	var/list/this_data = list()
+	for(var/client/C in GLOB.admins)
+		this_data["ckey"] = C.ckey
+		this_data["rank"] = C?.holder.rank
+		this_data["afk"] = C.inactivity
+
+		adminwho_data += list(this_data)
 
 //Set the cooldown period for the ticket. The time when it's created plus the defined cooldown time.
 /datum/ticket/proc/setCooldownPeriod()
@@ -690,9 +700,9 @@ UI STUFF
 		var/all_responses_txt = json_encode(raw_responses)
 
 		var/datum/db_query/Q = SSdbcore.NewQuery({"INSERT INTO tickets
-			(ticket_num, ticket_type, real_filetime, relative_filetime, ticket_creator, ticket_topic, ticket_taker, ticket_take_time, all_responses, end_round_state)
+			(ticket_num, ticket_type, real_filetime, relative_filetime, ticket_creator, ticket_topic, ticket_taker, ticket_take_time, all_responses, end_round_state, awho)
 			VALUES
-			(:tnum, :ttype, :realt, :relativet, :tcreator, :ttopic, :ttaker, :ttaketime, :allresponses, :endstate)"},
+			(:tnum, :ttype, :realt, :relativet, :tcreator, :ttopic, :ttaker, :ttaketime, :allresponses, :endstate, :awho)"},
 			list(
 				"tnum" = T.ticketNum,
 				"ttype" = db_save_id,
@@ -704,6 +714,7 @@ UI STUFF
 				"ttaketime" = T.staff_take_time,
 				"allresponses" = all_responses_txt,
 				"endstate" = end_state_txt,
+				"awho" = json_encode(T.adminwho_data),
 			))
 
 		all_queries += Q
