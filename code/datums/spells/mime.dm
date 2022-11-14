@@ -34,7 +34,7 @@
 	school = "mime"
 	panel = "Mime"
 	clothes_req = FALSE
-	base_cooldown = 300 SECONDS
+	base_cooldown = 5 MINUTES
 	human_req = TRUE
 
 	action_icon_state = "mime_silence"
