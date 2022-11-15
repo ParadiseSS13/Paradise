@@ -91048,10 +91048,6 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/apmaint)
-"mvR" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "myN" = (
 /obj/structure/bed,
 /obj/item/bedsheet/hos,
@@ -111004,7 +111000,7 @@ aaa
 aaa
 aaa
 abj
-mvR
+abj
 aaa
 abj
 abj
@@ -126170,7 +126166,7 @@ aaa
 abj
 aaa
 abj
-mvR
+abj
 aaa
 aaa
 aaa
