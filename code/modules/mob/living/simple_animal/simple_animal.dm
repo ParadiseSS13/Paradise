@@ -69,6 +69,8 @@
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 	var/can_hide = FALSE
+	/// Allows a mob to pass unbolted doors while hidden
+	var/pass_door_while_hidden = FALSE
 
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
