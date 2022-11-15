@@ -46,8 +46,6 @@
 	for(var/key in premium)
 		. += premium[key]
 
-//NOTE I decided to go for about 1/3 of a machine's capacity
-
 /obj/item/vending_refill/boozeomat
 	machine_name = "Booze-O-Mat"
 	icon_state = "refill_booze"
