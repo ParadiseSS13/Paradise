@@ -344,9 +344,9 @@
 
 	return returntext
 
-/proc/Gibberish_all(list/message_pieces, p)
+/proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
-		S.message = Gibberish(S.message, p)
+		S.message = Gibberish(S.message, p, replace_rate)
 
 
 /proc/muffledspeech(phrase)
