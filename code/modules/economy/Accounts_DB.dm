@@ -31,7 +31,7 @@
 	user_accounts += new_account
 	new_account.database_holder = src
 	if(!supress_log)
-		log_account_action(new_account, null, "Account Creation", terminal, log_on_database = TRUE)
+		log_account_action(new_account, starting_funds, "Account Creation", terminal, log_on_database = TRUE)
 	return new_account
 
 /datum/money_account_database/proc/create_vendor_account()
