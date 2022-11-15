@@ -87,8 +87,8 @@
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
 
-	if(SSticker && SSticker.mode)
-		INVOKE_ASYNC(SSblackbox, /datum/controller/subsystem/blackbox/proc/ReportDeath, src)
+	if(SSticker.mode)
+		INVOKE_ASYNC(SSblackbox, TYPE_PROC_REF(/datum/controller/subsystem/blackbox, ReportDeath), src)
 
 /mob/living/carbon/human/update_revive(updating)
 	. = ..()
