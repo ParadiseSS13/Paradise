@@ -69304,6 +69304,11 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/machinery/camera{
+	c_tag = "Research Test Lab";
+	network = list("Research","SS13");
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "dhV" = (
