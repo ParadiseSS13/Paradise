@@ -170,6 +170,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/setPipenet(datum/pipeline/P)
 	if(!P)
 		stack_trace("[src] attempted to join a null pipenet at Nearby: [x], [y], [z]")
+		message_admins("[src] attempted to join a null pipenet at Nearby: [x], [y], [z] | Call a headcoder or AA")
 	return
 
 /obj/machinery/atmospherics/proc/replacePipenet()
