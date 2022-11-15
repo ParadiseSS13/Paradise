@@ -320,9 +320,7 @@
 		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
-		if(!panel_open)
-			to_chat(user, "<span class='warning'>You should probably unscrew the service panel first!</span>")
-		else if (stat & (BROKEN|NOPOWER))
+		if (stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
 		else
 			//if the panel is open we attempt to refill the machine
