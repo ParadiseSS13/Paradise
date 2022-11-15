@@ -66,33 +66,33 @@
 		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
 
 /obj/machinery/economy/slot_machine/proc/spin_slots(userName)
-	switch(rand(1,5000))
+	switch(rand(1, 5000))
 		if(1)
 			atom_say("JACKPOT! [userName] has won ten thousand credits!")
-			GLOB.event_announcement.Announce("Congratulations to [userName] on winning the Jackpot of TEN THOUSAND CREDITS!", "Jackpot Winner")
+			GLOB.event_announcement.Announce("Congratulations to [userName] on winning the Jackpot of TWO THOUSAND CREDITS!", "Jackpot Winner")
 			result = "JACKPOT! You win ten thousand credits!"
 			resultlvl = "teal"
-			win_money(10000, 'sound/goonstation/misc/airraid_loop.ogg')
+			win_money(2000, 'sound/goonstation/misc/airraid_loop.ogg')
 		if(2 to 20)
-			atom_say("Big Winner! [userName] has won a thousand credits!")
-			result = "You win a thousand credits!"
+			atom_say("Big Winner! [userName] has won two hundred credits!")
+			result = "You win a two hundred credits!"
 			resultlvl = "green"
-			win_money(1000, 'sound/goonstation/misc/klaxon.ogg')
+			win_money(200, 'sound/goonstation/misc/klaxon.ogg')
 		if(21 to 100)
-			atom_say("Winner! [userName] has won five hundred credits!")
-			result = "You win five hundred credits!"
+			atom_say("Winner! [userName] has won a hundred credits!")
+			result = "You win a hundred credits!"
 			resultlvl = "green"
-			win_money(500, 'sound/goonstation/misc/bell.ogg')
+			win_money(100, 'sound/goonstation/misc/bell.ogg')
 		if(101 to 500)
-			atom_say("Winner! [userName] has won two hundred credits!")
-			result = "You win two hundred credits!"
+			atom_say("Winner! [userName] has won forty credits!")
+			result = "You win forty credits!"
 			resultlvl = "green"
-			win_money(200)
+			win_money(40)
 		if(501 to 1000)
-			atom_say("Winner! [userName] has won fifty credits!")
-			result = "You win fifty credits!"
+			atom_say("Winner! [userName] has won ten credits!")
+			result = "You win ten credits!"
 			resultlvl = "green"
-			win_money(50)
+			win_money(10)
 		else
 			result = "No luck!"
 			resultlvl = "orange"
