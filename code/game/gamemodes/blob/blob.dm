@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	var/blobwincount = 350
 
 	/// Lower bound on time before messages, bursts and intercepts happen
-	var/const/wait_time_low = 600 SECONDS
+	var/const/wait_time_low = 60 SECONDS
 	/// Upper bound on time before messages, bursts and intercepts happen
 	var/const/wait_time_high = 180 SECONDS
 
