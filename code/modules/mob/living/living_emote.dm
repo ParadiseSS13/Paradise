@@ -71,7 +71,7 @@
 	cooldown = 10 SECONDS
 	volume = 40
 	unintentional_stat_allowed = DEAD
-	muzzle_ignore = TRUE
+	muzzle_ignore = TRUE // makes sure that sound is played upon death
 	bypass_unintentional_cooldown = TRUE  // again, this absolutely MUST play when a user dies, if it can.
 	message = "seizes up and falls limp, their eyes dead and lifeless..."
 	message_alien = "seizes up and falls limp, their eyes dead and lifeless..."
