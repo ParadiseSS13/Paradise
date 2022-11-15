@@ -166,6 +166,7 @@
 	return list(node1, node2, node3)
 
 /obj/machinery/atmospherics/trinary/setPipenet(datum/pipeline/P, obj/machinery/atmospherics/A)
+	. = ..()
 	if(A == node1)
 		parent1 = P
 	else if(A == node2)

@@ -167,7 +167,9 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/returnPipenetAir()
 	return
 
-/obj/machinery/atmospherics/proc/setPipenet()
+/obj/machinery/atmospherics/proc/setPipenet(datum/pipeline/P)
+	if(!P)
+		stack_trace("[src] attempted to join a null pipenet at Nearby: [x], [y], [z]")
 	return
 
 /obj/machinery/atmospherics/proc/replacePipenet()

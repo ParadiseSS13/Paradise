@@ -80,6 +80,7 @@
 	..()
 
 /obj/machinery/atmospherics/pipe/setPipenet(datum/pipeline/P)
+	. = ..()
 	parent = P
 
 /obj/machinery/atmospherics/pipe/color_cache_name(obj/machinery/atmospherics/node)

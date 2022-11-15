@@ -78,6 +78,7 @@
 	return list(node)
 
 /obj/machinery/atmospherics/unary/setPipenet(datum/pipeline/P)
+	. = ..()
 	parent = P
 
 /obj/machinery/atmospherics/unary/returnPipenet()

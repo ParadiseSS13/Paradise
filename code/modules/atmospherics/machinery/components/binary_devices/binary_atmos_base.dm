@@ -117,6 +117,7 @@
 		return list(node1, node2)
 
 /obj/machinery/atmospherics/binary/setPipenet(datum/pipeline/P, obj/machinery/atmospherics/A)
+	. = ..()
 	if(A == node1)
 		parent1 = P
 	else if(A == node2)
