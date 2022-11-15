@@ -20,7 +20,7 @@
 	immunity_type = "burn"
 	var/damage = 4
 	/// Areas which are "semi-protected". Mobs inside these areas take reduced burn damage from the solar flare.
-	var/semi_protected_areas = list(/area/hallway/secondary/entry)
+	var/list/semi_protected_areas = list(/area/hallway/secondary/entry)
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
