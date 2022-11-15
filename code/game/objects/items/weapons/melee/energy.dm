@@ -124,7 +124,6 @@
 	armour_penetration_percentage = 50
 	armour_penetration_flat = 10
 	origin_tech = "combat=3;magnets=4;syndicate=4"
-	block_chance = 50
 	sharp = TRUE
 	var/hacked = FALSE
 
@@ -132,6 +131,7 @@
 	..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/energy/sword/detailed_examine()
 	return "The energy sword is a very strong melee weapon, capable of severing limbs easily, if they are targeted. It can also has a chance \

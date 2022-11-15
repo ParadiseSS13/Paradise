@@ -363,6 +363,7 @@
 #include "code\datums\components\material_container.dm"
 #include "code\datums\components\orbiter.dm"
 #include "code\datums\components\paintable.dm"
+#include "code\datums\components\parry.dm"
 #include "code\datums\components\persistent_overlay.dm"
 #include "code\datums\components\proximity_monitor.dm"
 #include "code\datums\components\radioactive.dm"
