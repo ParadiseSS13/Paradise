@@ -390,7 +390,7 @@
 				else
 					user.reagents.add_reagent("spidertoxin", 5)
 				to_chat(user, "<span class='danger'>Your mouth has been stung, it's now bloating!</span>")
-				user.visible_message("<span class='warning'>[user]'s mouth begins to bloat...</span>")
+				user.visible_message("<span class='warning'>[user]'s mouth became bloated.</span>")
 			affecting.forceMove(user)
 			LAZYADD(attacker.stomach_contents, affecting)
 			qdel(src)
