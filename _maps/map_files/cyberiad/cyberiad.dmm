@@ -46994,7 +46994,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_y = 30
- 	},
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cmk" = (
@@ -61434,7 +61434,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_y = 30
- 	},
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
@@ -77786,7 +77786,6 @@
 /area/medical/morgue)
 "laL" = (
 /obj/structure/table,
-/obj/item/storage/photo_album,
 /obj/item/camera,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
@@ -82166,7 +82165,7 @@
 /area/maintenance/apmaint)
 "oGf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -82574,7 +82573,8 @@
 	},
 /area/medical/virology)
 "oWe" = (
-/obj/machinery/vending/coffee/free,
+/obj/structure/table,
+/obj/item/storage/photo_album,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "oWz" = (

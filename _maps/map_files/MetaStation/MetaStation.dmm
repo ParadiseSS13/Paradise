@@ -10398,7 +10398,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_x = 30
- 	},
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aOk" = (
@@ -18848,7 +18848,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_x = 30
- 	},
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -79328,7 +79328,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
