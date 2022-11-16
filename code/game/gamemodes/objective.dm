@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/block/check_completion()
 	for(var/datum/mind/M in get_owners())
-		if(!M.current || issilicon(M.current))
+		if(!M.current || !issilicon(M.current))
 			return FALSE
 	if(SSticker.mode.station_was_nuked)
 		return TRUE
