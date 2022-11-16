@@ -1,5 +1,3 @@
-#define OVEREAT_LIMIT 7 //If you've eaten soap this many times in the last 20 seconds, you get a tummyache
-
 /obj/item/soap
 	name = "soap"
 	desc = "A cheap bar of soap. Doesn't smell."
@@ -16,7 +14,6 @@
 	var/cleanspeed = 50 //slower than mop
 	var/times_eaten = 0 //How many times a Drask has chewed on this bar of soap
 	var/max_bites = 30 //The maximum amount of bites before the soap is depleted
-	var/overeat_counter = 0 //How many times this bar of soap has been RECENTLY chewed on.
 
 /obj/item/soap/Initialize(mapload)
 	. = ..()
@@ -34,8 +31,6 @@
 
 /obj/item/soap/proc/eat_soap(mob/living/carbon/human/drask/user)
 	times_eaten++
-	overeat_counter++
-	addtimer(CALLBACK(src, PROC_REF(cooldown_overeat)), 20 SECONDS)
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 	user.adjust_nutrition(5)
 	if(times_eaten < max_bites)
@@ -43,16 +38,6 @@
 	else
 		to_chat(user, "<span class='notice'>You finish eating [src].</span>")
 		qdel(src)
-	if(overeat_counter >= OVEREAT_LIMIT)
-		user.Weaken(5 SECONDS)
-		user.adjust_nutrition(-30)
-		playsound(user, "sound/goonstation/misc/gurggle.ogg", 50, TRUE)
-		user.visible_message("<span class='warning'>[user] clutches their stomach in agony!</span>", "<span class='danger'>The lye in [src] gives you a horrible stomachache!</span>")
-
-/obj/item/soap/proc/cooldown_overeat()
-	if(!overeat_counter)
-		return
-	overeat_counter--
 
 /obj/item/soap/examine(mob/user)
 	. = ..()
