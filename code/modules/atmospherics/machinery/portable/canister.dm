@@ -381,10 +381,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 					if(air_contents.toxins > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
+						usr.create_log(MISC_LOG, "has opened a canister of plasma")
 
 					if(air_contents.sleeping_agent > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
+						usr.create_log(MISC_LOG, "has opened a canister of N2O")
 
 			else
 				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding_tank || "air"].<br>"
