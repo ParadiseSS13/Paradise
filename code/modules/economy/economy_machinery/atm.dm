@@ -106,7 +106,7 @@
 	held_card = id
 	RegisterSignal(held_card, COMSIG_PARENT_QDELETING, PROC_REF(clear_held_card))
 	if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
-		authenticated_account = null
+		clear_account()
 
 /obj/machinery/economy/atm/proc/eject_inserted_id(mob/user)
 	if(!held_card)
@@ -115,12 +115,18 @@
 	UnregisterSignal(held_card, COMSIG_PARENT_QDELETING)
 	if(ishuman(user))
 		user.put_in_hands(held_card)
-	authenticated_account = null
+	logout()
 	held_card = null
 
 ///ensures proper GC of ID card
 /obj/machinery/economy/atm/proc/clear_held_card()
 	held_card = null
+
+
+///ensures proper GC of money account
+/obj/machinery/economy/atm/proc/clear_account()
+	UnregisterSignal(authenticated_account, COMSIG_PARENT_QDELETING)
+	authenticated_account = null
 
 /obj/machinery/economy/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -228,7 +234,7 @@
 
 	if(attempt_account_authentification(user_account, account_pin, user))
 		authenticated_account = user_account
-
+		RegisterSignal(authenticated_account, COMSIG_PARENT_QDELETING, PROC_REF(clear_account))
 		return TRUE
 
 	//else failed login
@@ -242,7 +248,7 @@
 		lockout_time = world.time + LOCKOUT_TIME
 
 /obj/machinery/economy/atm/proc/logout()
-	authenticated_account = null
+	clear_account()
 	view_screen = ATM_SCREEN_DEFAULT
 	login_attempts = 0
 

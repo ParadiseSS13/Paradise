@@ -217,7 +217,9 @@
 
 	SSeconomy.centcom_message += "[msg]<hr>"
 	if(credits_to_deposit > 0)
+		credits_to_deposit -= (research_credits + service_credits)
 		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, credits_to_deposit, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
-		GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE), research_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
-		GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), service_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
-
+		if(research_credits)
+			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SCIENCE), research_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)
+		if(service_credits)
+			GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SERVICE), service_credits, "Supply Shuttle Exports Payment", "Central Command Supply Master", supress_log = FALSE)

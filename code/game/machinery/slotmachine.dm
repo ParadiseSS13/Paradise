@@ -20,6 +20,19 @@
 /obj/machinery/economy/slot_machine/attack_hand(mob/user as mob)
 	ui_interact(user)
 
+/obj/machinery/economy/slot_machine/proc/set_user_account(var/datum/money_account/account)
+	if(user_account)
+		if(user_account == account)
+			return
+		clear_user_account()
+	user_account = account
+	if(user_account)
+		RegisterSignal(account, COMSIG_PARENT_QDELETING, PROC_REF(clear_user_account))
+
+/obj/machinery/economy/slot_machine/proc/clear_user_account()
+	UnregisterSignal(user_account, COMSIG_PARENT_QDELETING)
+	user_account = null
+
 /obj/machinery/economy/slot_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -29,14 +42,7 @@
 /obj/machinery/economy/slot_machine/ui_data(mob/user)
 	var/list/data = list()
 	// Get account
-	user_account = user.get_worn_id_account()
-	if(!user_account)
-		var/obj/item/card/id/id_card = user.get_active_hand()
-		if(istype(id_card))
-			user_account = id_card.get_card_account()
-		else
-			user_account = null
-
+	set_user_account(user.get_worn_id_account())
 
 	// Send data
 	data["working"] = working

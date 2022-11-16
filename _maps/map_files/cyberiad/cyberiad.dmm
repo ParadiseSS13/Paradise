@@ -19262,7 +19262,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aWR" = (
-/obj/machinery/economy/vending/coffee/free,
+/obj/machinery/economy/vending/coffee,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -19271,7 +19271,7 @@
 	},
 /area/medical/reception)
 "aWS" = (
-/obj/machinery/economy/vending/chinese/free,
+/obj/machinery/economy/vending/chinese,
 /obj/machinery/newscaster{
 	dir = 2;
 	name = "north bump";

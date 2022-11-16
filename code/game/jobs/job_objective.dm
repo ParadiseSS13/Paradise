@@ -25,6 +25,14 @@
 	owner = new_owner
 	owner.job_objectives += src
 
+/datum/job_objective/proc/set_owner_account(datum/money_account/account) //needed for GC'ing
+	owner_account = account
+	RegisterSignal(owner_account, COMSIG_PARENT_QDELETING, PROC_REF(clear_owner_account))
+
+/datum/job_objective/proc/clear_owner_account() //needed for GC'ing
+	UnregisterSignal(owner_account, COMSIG_PARENT_QDELETING)
+	owner_account = null
+
 /datum/job_objective/proc/is_completed()
 	if(!completed)
 		completed = check_for_completion()
@@ -33,9 +41,6 @@
 /datum/job_objective/proc/check_for_completion()
 	//please override me :)
 	CRASH("check_for_completion() not overridden on [type]")
-
-
-
 
 
 
