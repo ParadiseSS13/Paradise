@@ -75,6 +75,7 @@
 	throwforce = 0
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
+	actions_types = list(/datum/action/item_action/laugh_track)
 	var/cooldown
 	var/laugh_cooldown = 30 SECONDS
 
