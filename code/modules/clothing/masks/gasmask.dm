@@ -109,7 +109,7 @@
 
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"
-	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
+	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask. Its form can be changed by using it in your hand."
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
@@ -138,19 +138,19 @@
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
-	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
+	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers. Its form can be changed by using it in your hand."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 
 /obj/item/clothing/mask/gas/clown_hat/joker
 	name = "deranged clown wig and mask"
-	desc = "A fiendish clown mask that inspires a deranged mirth."
+	desc = "A fiendish clown mask that inspires a deranged mirth. Its form can be changed by using it in your hand."
 	icon_state = "joker"
 	item_state = "joker"
 
 /obj/item/clothing/mask/gas/clown_hat/rainbow
 	name = "rainbow clown wig and mask"
-	desc = "A colorful clown mask for the clown that loves to dazzle and impress."
+	desc = "A colorful clown mask for the clown that loves to dazzle and impress. Its form can be changed by using it in your hand."
 	icon_state = "rainbow"
 	item_state = "rainbow"
 
