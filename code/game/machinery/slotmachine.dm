@@ -20,7 +20,7 @@
 /obj/machinery/economy/slot_machine/attack_hand(mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/economy/slot_machine/proc/set_user_account(var/datum/money_account/account)
+/obj/machinery/economy/slot_machine/proc/set_user_account(datum/money_account/account)
 	if(user_account)
 		if(user_account == account)
 			return

@@ -618,7 +618,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!department_account)
 			return
 
-		remembered_info += "<b>As a head of staff you have access to your department's money account through your PDA's NanoBank or a station ATM<br>"
+		remembered_info += "As a head of staff you have access to your department's money account through your PDA's NanoBank or a station ATM<br>"
 		remembered_info += "<b>The [department.department_name] department's account number is:</b> #[department_account.account_number]<br>"
 		remembered_info += "<b>The [department.department_name] department's account pin is:</b> [department_account.account_pin]<br>"
 		remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
