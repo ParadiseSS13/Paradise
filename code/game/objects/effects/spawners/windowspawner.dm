@@ -89,8 +89,3 @@
 	name = "plastitanium window spawner"
 	icon_state = "plastitaniumwindow_spawner"
 	window_to_spawn_full = /obj/structure/window/full/plastitanium
-
-/obj/effect/spawner/window/ice
-	name = "ice window spawner"
-	icon_state = "icewindow_spawner"
-	window_to_spawn_full = /obj/structure/window/full/reinforced/ice
