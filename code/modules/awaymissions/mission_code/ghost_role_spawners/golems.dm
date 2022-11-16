@@ -117,7 +117,7 @@
 		else
 			H.rename_character(null, name)
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall(null))
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 			H.mind.miming = TRUE
 

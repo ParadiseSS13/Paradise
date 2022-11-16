@@ -165,3 +165,4 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcer, new(config_type = /datum
 	default_title = ANNOUNCE_KIND_AI
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_AI
+	sound = sound('sound/misc/notice2.ogg')
