@@ -425,7 +425,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			if((M.assigned_role in O.protected_jobs) || (O in M.targets))
 				has_invalid_owner = TRUE
 				break
-		if(!has_invalid_owner)
+		if(has_invalid_owner)
 			continue
 		if(O.flags & 2) // THEFT_FLAG_UNIQUE
 			continue
