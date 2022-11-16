@@ -150,6 +150,13 @@
 	underlays += mutable_appearance('icons/obj/structures.dmi', "grille") //add a grille underlay
 	underlays += mutable_appearance('icons/turf/floors.dmi', "plating") //add the plating underlay, below the grille
 
+/turf/simulated/wall/indestructible/fakeglass/brass
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon_state = "clockwork_window-0"
+	base_icon_state = "clockwork_window"
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
+
 /turf/simulated/wall/indestructible/opsglass
 	name = "window"
 	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'

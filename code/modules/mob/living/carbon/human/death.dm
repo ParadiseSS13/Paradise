@@ -1,16 +1,10 @@
 /mob/living/carbon/human/gib()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	var/atom/movable/overlay/animation = null
 	notransform = TRUE
 	icon = null
 	invisibility = 101
 	if(!ismachineperson(src))
-		animation = new(loc)
-		animation.icon_state = "blank"
-		animation.icon = 'icons/mob/mob.dmi'
-		animation.master = src
-
 		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 	else
 		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
@@ -36,12 +30,10 @@
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 	if(!ismachineperson(src))
-		flick("gibbed-h", animation)
 		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 		do_sparks(3, 1, src)
-	QDEL_IN(animation, 15)
 	QDEL_IN(src, 0)
 	return TRUE
 
@@ -95,8 +87,8 @@
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
 
-	if(SSticker && SSticker.mode)
-		INVOKE_ASYNC(SSblackbox, /datum/controller/subsystem/blackbox/proc/ReportDeath, src)
+	if(SSticker.mode)
+		INVOKE_ASYNC(SSblackbox, TYPE_PROC_REF(/datum/controller/subsystem/blackbox, ReportDeath), src)
 
 /mob/living/carbon/human/update_revive(updating)
 	. = ..()

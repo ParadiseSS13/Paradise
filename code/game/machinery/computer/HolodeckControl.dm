@@ -440,7 +440,10 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 50
+
+/obj/item/holo/claymore/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 
 /obj/item/holo/claymore/blue
@@ -462,8 +465,11 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration_percentage = 50
-	block_chance = 50
 	var/active = FALSE
+
+/obj/item/holo/esword/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/holo/esword/green/New()
 	..()

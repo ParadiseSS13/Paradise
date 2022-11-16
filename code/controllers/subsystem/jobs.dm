@@ -276,12 +276,12 @@ SUBSYSTEM_DEF(jobs)
 
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
+		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
 
 	Debug("DO, Len: [unassigned.len]")
-	if(unassigned.len == 0)
-		return 0
+	if(!length(unassigned))
+		return FALSE
 
 	//Shuffle players and jobs
 	unassigned = shuffle(unassigned)
@@ -392,7 +392,7 @@ SUBSYSTEM_DEF(jobs)
 			unassigned -= player
 
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
-	return 1
+	return TRUE
 
 /datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE, log_to_db = TRUE)
 	if(!H)

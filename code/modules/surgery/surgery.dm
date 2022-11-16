@@ -97,6 +97,9 @@
 	if(!self_operable && user == target)
 		return FALSE
 
+	if(lying_required && !on_operable_surface(target))
+		return FALSE
+
 	var/datum/surgery_step/step = get_surgery_step()
 	if(step)
 		var/obj/item/tool = user.get_active_hand()

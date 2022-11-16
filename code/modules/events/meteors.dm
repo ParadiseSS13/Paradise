@@ -17,7 +17,7 @@
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
 	if(waves && activeFor >= next_meteor)
-		INVOKE_ASYNC(GLOBAL_PROC, .proc/spawn_meteors, get_meteor_count(), get_meteors())
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), get_meteor_count(), get_meteors())
 		next_meteor += rand(15, 30) / severity
 		waves--
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
