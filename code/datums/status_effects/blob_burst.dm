@@ -3,11 +3,15 @@
 	var/datum/callback/blob_burst_callback
 
 /datum/status_effect/blob_burst/on_creation(mob/living/new_owner, duration = 120 SECONDS, datum/callback/burst_callback)
+	src.duration = duration
 	. = ..()
 	if(!.)
 		return
-	src.duration = duration
 	blob_burst_callback = burst_callback
+
+/datum/status_effect/blob_burst/Destroy()
+	blob_burst_callback = null
+	return ..()
 
 /datum/status_effect/blob_burst/tick()
 	var/time_left = (duration - world.time) / 10
