@@ -5,6 +5,8 @@
 /*
 	mouse_drag_pointer
 	Beach Ball
+	petcollar
 */
 
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+

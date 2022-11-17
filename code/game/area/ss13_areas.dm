@@ -529,7 +529,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Wizard's Den"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ninja
 	name = "\improper Ninja Area Parent"

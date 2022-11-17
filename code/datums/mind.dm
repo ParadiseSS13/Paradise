@@ -76,7 +76,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	QDEL_LIST(antag_datums)
+	remove_all_antag_datums()
 	current = null
 	return ..()
 
@@ -968,7 +968,7 @@
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
+				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
@@ -1541,14 +1541,20 @@
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
 	var/datum/antagonist/A = has_antag_datum(datum_type)
-	LAZYREMOVE(antag_datums, A)
 	qdel(A)
 
 /**
  * Removes all antag datums from the src mind.
+ *
+ * Use this over doing `QDEL_LIST(antag_datums)`.
  */
-/datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
-	QDEL_LIST(antag_datums)
+/datum/mind/proc/remove_all_antag_datums()
+	// This is not `QDEL_LIST(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
+	// Then `QDEL_LIST` would runtime because it would be doing `null.Cut()`.
+	for(var/datum/antagonist/A as anything in antag_datums)
+		qdel(A)
+	antag_datums?.Cut()
+	antag_datums = null
 
 /// This proc sets the hijack speed for a mob. If greater than zero, they can hijack. Outputs in seconds.
 /datum/mind/proc/get_hijack_speed()
@@ -1652,7 +1658,7 @@
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
-		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
+		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
@@ -1787,7 +1793,7 @@
 			H.update_inv_w_uniform()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
-	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
+	addtimer(CALLBACK(src, PROC_REF(remove_zealot), jumpsuit), convert_duration) //deconverts after the timer expires
 	return TRUE
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)

@@ -267,7 +267,7 @@
 	create_plasma(T)
 	expand_queue += T
 	processed[T] = TRUE
-	expand_timer = addtimer(CALLBACK(src, .proc/expand), expand_delay, TIMER_LOOP | TIMER_STOPPABLE)
+	expand_timer = addtimer(CALLBACK(src, PROC_REF(expand)), expand_delay, TIMER_LOOP | TIMER_STOPPABLE)
 
 /obj/effect/hallucination/plasma_flood/Destroy()
 	deltimer(expand_timer)

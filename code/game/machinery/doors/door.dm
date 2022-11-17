@@ -144,8 +144,11 @@
 			bound_height = width * world.icon_size
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return !opacity
+	if(istype(mover))
+		if(mover.checkpass(PASSDOOR) && !locked)
+			return TRUE
+		if(mover.checkpass(PASSGLASS))
+			return !opacity
 	return !density
 
 /obj/machinery/door/CanAtmosPass()
@@ -448,7 +451,7 @@
 		close()
 
 /obj/machinery/door/proc/autoclose_in(wait)
-	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)

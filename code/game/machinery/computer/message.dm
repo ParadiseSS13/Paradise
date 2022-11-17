@@ -42,7 +42,7 @@
 	//If the monitor isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer && length(GLOB.message_servers))
 		linkedServer = GLOB.message_servers[1]
-		RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, .proc/unlink_server)
+		RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, PROC_REF(unlink_server))
 
 /obj/machinery/computer/message_monitor/proc/unlink_server()
 	SIGNAL_HANDLER

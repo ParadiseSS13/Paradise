@@ -666,7 +666,7 @@
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
-	addtimer(CALLBACK(src, .proc/print_newspaper_finish), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
@@ -703,7 +703,7 @@
 	else
 		return
 	alert = TRUE
-	addtimer(CALLBACK(src, .proc/alert_timer_finish), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
 	update_icon(UPDATE_OVERLAYS)
 
 /**
