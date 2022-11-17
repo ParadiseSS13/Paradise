@@ -32,6 +32,7 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = FALSE
 	can_hide = TRUE
+	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -209,7 +210,7 @@
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!(istype(user, /mob/living/silicon/robot/drone)))
+	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))

@@ -1180,14 +1180,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Corgi Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/corgi
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(/obj/item/petcollar)
 	containername = "corgi crate"
 
 /datum/supply_packs/organic/cat
 	name = "Cat Crate"
 	cost = 50 //Cats are worth as much as corgis.
 	containertype = /obj/structure/closet/critter/cat
-	contains = list(/obj/item/clothing/accessory/petcollar,
+	contains = list(/obj/item/petcollar,
 					/obj/item/toy/cattoy)
 	containername = "cat crate"
 
@@ -1195,14 +1195,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Pug Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/pug
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(/obj/item/petcollar)
 	containername = "pug crate"
 
 /datum/supply_packs/organic/fox
 	name = "Fox Crate"
 	cost = 55 //Foxes are cool.
 	containertype = /obj/structure/closet/critter/fox
-	contains = list(/obj/item/clothing/accessory/petcollar)
+	contains = list(/obj/item/petcollar)
 	containername = "fox crate"
 
 /datum/supply_packs/organic/butterfly

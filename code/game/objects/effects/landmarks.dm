@@ -463,7 +463,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/costume/butler/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(src.loc)
-	new /obj/item/clothing/under/suit(src.loc)
+	new /obj/item/clothing/under/suit/black(loc)
 	new /obj/item/clothing/head/that(src.loc)
 	return INITIALIZE_HINT_QDEL
 

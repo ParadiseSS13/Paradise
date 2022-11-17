@@ -137,7 +137,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
-	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
@@ -147,7 +147,7 @@
 		new /obj/item/shard(loc)
 	else
 		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
-		new /obj/item/mounted/frame/newscaster_frame(loc)
+		new /obj/item/mounted/frame/display/newscaster_frame(loc)
 	qdel(src)
 
 /obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
@@ -666,7 +666,7 @@
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
-	addtimer(CALLBACK(src, .proc/print_newspaper_finish), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
@@ -703,7 +703,7 @@
 	else
 		return
 	alert = TRUE
-	addtimer(CALLBACK(src, .proc/alert_timer_finish), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
 	update_icon(UPDATE_OVERLAYS)
 
 /**

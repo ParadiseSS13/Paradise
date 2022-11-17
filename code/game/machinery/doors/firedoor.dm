@@ -264,9 +264,9 @@
 	if(operating || !hasPower() || !nextstate)
 		return
 	if(nextstate == FD_OPEN)
-		INVOKE_ASYNC(src, .proc/open, auto_close)
+		INVOKE_ASYNC(src, PROC_REF(open), auto_close)
 	if(nextstate == FD_CLOSED)
-		INVOKE_ASYNC(src, .proc/close)
+		INVOKE_ASYNC(src, PROC_REF(close))
 	nextstate = null
 
 /obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
@@ -335,7 +335,7 @@
 	icon_state = "door_electronics"
 	desc = "A circuit board used in construction of firelocks."
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'

@@ -73,6 +73,9 @@
 /// Note "ckey" for CID info tracking. Do not EVER update this.
 #define CIDTRACKING_PSUEDO_CKEY "ALICE-CIDTRACKING"
 
+/// Note "ckey" for roundstart antag rolling tracking. Do not EVER update this.
+#define ANTAGTRACKING_PSUEDO_CKEY "ALICE-ANTAGTRACKING"
+
 // Connection types. These match enums in the SQL DB. Dont change them
 /// Client was let into the server
 #define CONNECTION_TYPE_ESTABLISHED "ESTABLISHED"

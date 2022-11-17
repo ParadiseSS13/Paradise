@@ -159,7 +159,7 @@
 		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				var/obj/machinery/shield/new_shield = new(target_tile)
-				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, .proc/remove_shield) // Ensures they properly GC
+				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, PROC_REF(remove_shield)) // Ensures they properly GC
 				deployed_shields += new_shield
 
 /obj/machinery/shieldgen/proc/remove_shield(obj/machinery/shield/S)
@@ -379,7 +379,7 @@
 	activated = TRUE
 	START_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
-		INVOKE_ASYNC(src, .proc/try_link_generators, direction)
+		INVOKE_ASYNC(src, PROC_REF(try_link_generators), direction)
 
 /obj/machinery/shieldwallgen/proc/try_link_generators(direction)
 	var/turf/current_turf = loc
@@ -559,7 +559,7 @@
 		return FALSE
 	return ..(mover, target, height)
 
-/obj/machinery/shieldwall/syndicate/CanAStarPass(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(isliving(caller))
 		var/mob/living/M = caller
 		if("syndicate" in M.faction)

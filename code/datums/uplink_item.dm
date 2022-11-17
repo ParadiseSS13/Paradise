@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		return FALSE
 
 	// If the uplink's holder is in the user's contents
-	if((U.loc in user.contents || (in_range(U.loc, user) && istype(U.loc.loc, /turf))))
+	if((U.loc in user.contents || (in_range(U.loc, user) && isturf(U.loc.loc))))
 		if(cost > U.uses)
 			return FALSE
 
@@ -344,7 +344,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/powergloves
 	name = "Power Gloves"
-	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
+	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. \
+			Must be standing on a powered cable to use. \
+			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on."
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 10
@@ -452,8 +454,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate .357 Revolver"
 	reference = "SR"
-	desc = "A brutally simple syndicate revolver that fires .357 Magnum cartridges and has 7 chambers."
-	item = /obj/item/gun/projectile/revolver
+	desc = "A brutally simple syndicate revolver that fires .357 Magnum cartridges and has 7 chambers. Comes with a spare speed loader."
+	item = /obj/item/storage/box/syndie_kit/revolver
 	cost = 13
 	surplus = 50
 
@@ -609,6 +611,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SSC"
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
+	cost = 25
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Toy Submachine Gun"
@@ -886,7 +889,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/cqc
 	name = "CQC Manual"
-	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
+	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. \
+			Changes your unarmed damage to deal non-lethal stamina damage. \
+			Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
 	cost = 13
@@ -1062,7 +1067,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/syndicate_bomb/nuke
 	reference = "NSB"
 	cost = 11
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
 	cant_discount = TRUE
 	hijack_only = FALSE
@@ -1081,7 +1086,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/explosives/emp_bomb/nuke
 	reference = "NSBEMP"
 	cost = 10
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1155,7 +1160,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "NAPG"
 	hijack_only = FALSE
 	cost = 12
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1219,6 +1224,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			telecrystals normally."
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 4
 
 /datum/uplink_item/stealthy_tools/agent_card
@@ -1237,6 +1243,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/stealthy_tools/chameleon/nuke
+	reference = "NCHAM"
+	cost = 6
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
+
 /datum/uplink_item/stealthy_tools/voice_modulator
 	name = "Chameleon Voice Modulator Mask"
 	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
@@ -1245,11 +1256,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/stealthy_tools/chameleon/nuke
-	reference = "NCHAM"
-	cost = 6
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
 	name = "No-Slip Chameleon Shoes"
@@ -1263,8 +1269,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	reference = "NNSSS"
 	cost = 4
-	excludefrom = list()
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon-Projector"
@@ -1311,21 +1316,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/flashlight/emp
 	cost = 4
 	surplus = 30
-
-/datum/uplink_item/stealthy_tools/syndigaloshes
-	name = "No-Slip Chameleon Shoes"
-	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. They do not work on heavily lubricated surfaces."
-	reference = "NOCS"
-	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 2
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
-	reference = "NOCSN"
-	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 4
-	excludefrom = list()
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
@@ -1557,7 +1547,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"
-	desc = "This device will disrupt any nearby outgoing radio communication when activated."
+	desc = "When turned on this device will scramble any outgoing radio communications near you, making them hard to understand."
 	reference = "RJ"
 	item = /obj/item/jammer
 	cost = 4
@@ -1746,6 +1736,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	cant_discount = TRUE
 
+/datum/uplink_item/badass/bomber
+	name = "Syndicate Bomber Jacket"
+	desc = "An awesome jacket to help you style on Nanotrasen with. The lining is made of a thin polymer to provide a small amount of armor. Does not provide any extra storage space."
+	reference = "JCKT"
+	item = /obj/item/clothing/suit/jacket/syndicatebomber
+	cost = 1
+
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
@@ -1839,7 +1836,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
 	reference = "SYB"
-	item = /obj/item/storage/box/syndicate
+	item = /obj/item/storage/box/syndie_kit/bundle
 	cost = 20
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -1848,7 +1845,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A crate containing 50 telecrystals worth of random syndicate leftovers."
 	reference = "SYSC"
 	cost = 20
-	item = /obj/item/storage/box/syndicate
+	item = /obj/item/storage/box/syndie_kit/bundle
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 50
 

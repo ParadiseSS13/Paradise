@@ -73,7 +73,9 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "as" = (
-/obj/machinery/computer/robotics,
+/obj/machinery/computer/robotics{
+	dir = 4
+	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "at" = (
@@ -92,9 +94,6 @@
 	},
 /area/shuttle/escape)
 "av" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -379,6 +378,12 @@
 "Dr" = (
 /turf/simulated/wall/indestructible/syndicate,
 /area/shuttle/escape)
+"Uo" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/noslip,
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -620,7 +625,7 @@ aa
 ab
 ac
 ab
-aw
+Uo
 ab
 aD
 aD

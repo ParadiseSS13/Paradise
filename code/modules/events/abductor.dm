@@ -1,12 +1,12 @@
 /datum/event/abductor
 
 /datum/event/abductor/start()
-	INVOKE_ASYNC(src, .proc/try_makeAbductorTeam)
+	INVOKE_ASYNC(src, PROC_REF(try_makeAbductorTeam))
 
 /datum/event/abductor/proc/try_makeAbductorTeam()
 	if(!makeAbductorTeam())
 		message_admins("Abductor event failed to find players. Retrying in 30s.")
-		addtimer(CALLBACK(src, .proc/makeAbductorTeam), 30 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(makeAbductorTeam)), 30 SECONDS)
 
 /datum/event/abductor/proc/makeAbductorTeam()
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for an Abductor Team?", ROLE_ABDUCTOR, TRUE)

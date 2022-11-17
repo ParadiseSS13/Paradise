@@ -390,7 +390,7 @@
 	target_set = TRUE
 	mode = MODE_DET
 	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
-	addtimer(CALLBACK(src, .proc/stop_tracking), 1 MINUTES, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(stop_tracking)), 1 MINUTES, TIMER_UNIQUE)
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/stop_tracking()

@@ -157,6 +157,13 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/returnPipenet()
 	return
 
+/**
+ * Whether or not this atmos machine has multiple pipenets attached to it
+ * Used to determine if a ventcrawler should update their vision or not
+ */
+/obj/machinery/atmospherics/proc/is_pipenet_split()
+	return FALSE
+
 /obj/machinery/atmospherics/proc/returnPipenetAir()
 	return
 
@@ -317,7 +324,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(returnPipenet(target_move) != target_move.returnPipenet())
+			if(is_pipenet_split()) // Going away from a split means we want to update the view of the pipenet
 				user.update_pipe_vision(target_move)
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)

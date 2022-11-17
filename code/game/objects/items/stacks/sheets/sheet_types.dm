@@ -126,6 +126,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
+	table_type = /obj/structure/table
 
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_energy_storage/metal
@@ -177,6 +178,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	origin_tech = "materials=2"
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
+	table_type = /obj/structure/table/reinforced
 
 /obj/item/stack/sheet/plasteel/New(loc, amount=null)
 	recipes = GLOB.plasteel_recipes
@@ -197,8 +199,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
 	new /datum/stack_recipe("firebrand", /obj/item/match/firebrand, 2, time = 10 SECONDS),
 	null,
+	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 	new /datum/stack_recipe_list("wood structures", list(
-		new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 		new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS),
 		new /datum/stack_recipe("wooden chair", /obj/structure/chair/wood, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("bamboo stool", /obj/structure/chair/stool/bamboo, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -243,6 +245,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
 	sheettype = "wood"
+	table_type = /obj/structure/table/wood
 
 /obj/item/stack/sheet/wood/New(loc, amount=null)
 	recipes = GLOB.wood_recipes
@@ -497,6 +500,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	throw_speed = 1
 	throw_range = 3
 	turf_type = /turf/simulated/floor/clockwork
+	table_type = /obj/structure/table/reinforced/brass
 
 /obj/item/stack/tile/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)

@@ -252,7 +252,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
 			if(A.invisibility)
-				if(see_ghosts && istype(A,/mob/dead/observer))
+				if(see_ghosts && isobserver(A))
 					var/mob/dead/observer/O = A
 					if(O.orbiting_uid)
 						continue
@@ -314,7 +314,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		if(M.invisibility)
-			if(see_ghosts && istype(M,/mob/dead/observer))
+			if(see_ghosts && isobserver(M))
 				var/mob/dead/observer/O = M
 				if(O.orbiting_uid)
 					continue
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
@@ -360,7 +360,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
-	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // fucking magic numbers
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // fucking magic numbers
 
 /obj/item/camera/proc/reset_cooldown()
 	icon_state = icon_on
@@ -484,7 +484,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	icon_state = icon_off
 	on = FALSE
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // magic numbers here too
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // magic numbers here too
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)

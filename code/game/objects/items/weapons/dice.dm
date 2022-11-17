@@ -155,7 +155,7 @@
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
 
-		addtimer(CALLBACK(src, .proc/effect, user, .), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
@@ -280,7 +280,7 @@
 		if(17)
 			//Tator Kit
 			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
-			new /obj/item/storage/box/syndicate(drop_location())
+			new /obj/item/storage/box/syndie_kit/bundle(drop_location())
 			create_smoke(2)
 		if(18)
 			//Captain ID
@@ -358,7 +358,7 @@
 	else
 		triggered = TRUE
 		visible_message("<span class='notice'>You hear a quiet click.</span>")
-		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(boom), user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)
 	var/capped = TRUE

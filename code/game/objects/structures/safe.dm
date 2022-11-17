@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(safes)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
-					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill, TIMER_STOPPABLE)
+					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()
@@ -182,6 +182,7 @@ GLOBAL_LIST_EMPTY(safes)
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
 			broken = FALSE
+			locked = FALSE
 			update_icon()
 		else if(I.w_class + space <= maxspace)
 			if(!user.drop_item())
@@ -355,7 +356,7 @@ GLOBAL_LIST_EMPTY(safes)
 	cut_overlay(progress_bar)
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
-	
+
 /**
   * # Floor Safe
   *

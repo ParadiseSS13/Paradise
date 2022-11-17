@@ -63,7 +63,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(istype(target,/turf/) || isstructure(target))
+	if(isturf(target) || isstructure(target))
 		target.ex_act(2)
 	..()
 
@@ -141,6 +141,7 @@
 	name = "instagib laser"
 	icon_state = "purple_laser"
 	damage = 200
+	armour_penetration_percentage = 100
 	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE

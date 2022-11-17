@@ -190,7 +190,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/vending/.proc/flicker_event)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/vending, flicker_event))
 
 	return TRUE
 
@@ -633,7 +633,7 @@
 			if(!coin)
 				to_chat(usr, "<span class='warning'>There is no coin in this machine.</span>")
 				return
-			if(istype(usr, /mob/living/silicon))
+			if(issilicon(usr))
 				to_chat(usr, "<span class='warning'>You lack hands.</span>")
 				return
 			to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
@@ -768,7 +768,7 @@
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend, src)
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, .proc/delayed_vend, R, user), vend_delay)
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
 
 /obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
 	do_vend(R, user)
@@ -1878,12 +1878,12 @@
 	icon_state = "crittercare"
 	icon_lightmask = "crittercare"
 	icon_panel = "drobe"
-	products = list(/obj/item/clothing/accessory/petcollar = 5, /obj/item/storage/firstaid/aquatic_kit/full =5, /obj/item/fish_eggs/goldfish = 5,
+	products = list(/obj/item/petcollar = 5, /obj/item/storage/firstaid/aquatic_kit/full = 5, /obj/item/fish_eggs/goldfish = 5,
 					/obj/item/fish_eggs/clownfish = 5, /obj/item/fish_eggs/shark = 5, /obj/item/fish_eggs/feederfish = 10,
 					/obj/item/fish_eggs/salmon = 5, /obj/item/fish_eggs/catfish = 5, /obj/item/fish_eggs/glofish = 5,
 					/obj/item/fish_eggs/electric_eel = 5, /obj/item/fish_eggs/shrimp = 10, /obj/item/toy/pet_rock = 5,
 					)
-	prices = list(/obj/item/clothing/accessory/petcollar = 50, /obj/item/storage/firstaid/aquatic_kit/full = 60, /obj/item/fish_eggs/goldfish = 10,
+	prices = list(/obj/item/petcollar = 50, /obj/item/storage/firstaid/aquatic_kit/full = 60, /obj/item/fish_eggs/goldfish = 10,
 					/obj/item/fish_eggs/clownfish = 10, /obj/item/fish_eggs/shark = 10, /obj/item/fish_eggs/feederfish = 5,
 					/obj/item/fish_eggs/salmon = 10, /obj/item/fish_eggs/catfish = 10, /obj/item/fish_eggs/glofish = 10,
 					/obj/item/fish_eggs/electric_eel = 10, /obj/item/fish_eggs/shrimp = 5, /obj/item/toy/pet_rock = 100,
@@ -1951,6 +1951,7 @@
 					/obj/item/clothing/suit/storage/det_suit/forensics/blue = 1,
 					/obj/item/clothing/suit/armor/vest/det_suit = 1,
 					/obj/item/clothing/head/det_hat = 2,
+					/obj/item/clothing/glasses/sunglasses/noir = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/brown = 2,
