@@ -20,6 +20,7 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	can_hide = TRUE
+	pass_door_while_hidden = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
