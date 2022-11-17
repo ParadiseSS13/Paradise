@@ -1,11 +1,15 @@
 /obj/item/shield
 	name = "shield"
-	block_chance = 50
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 
+/obj/item/shield/proc/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+
+/obj/item/shield/Initialize(mapload)
+	. = ..()
+	add_parry_component()
+
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == THROWN_PROJECTILE_ATTACK)
-		final_block_chance += 30
 	if(attack_type == LEAP_ATTACK)
 		final_block_chance = 100
 	return ..()
@@ -25,9 +29,9 @@
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 
-/obj/item/shield/riot/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/melee/baton))
-		if(cooldown < world.time - 25)
+		if(cooldown < world.time - 2.5 SECONDS)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
@@ -43,8 +47,10 @@
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	block_chance = 0
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/shield/riot/roman/fake/add_parry_component()
+	return
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
@@ -54,7 +60,10 @@
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
-	block_chance = 30
+
+/obj/item/shield/riot/buckler/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
+
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -68,6 +77,9 @@
 	origin_tech = "materials=4;magnets=5;syndicate=6"
 	attack_verb = list("shoved", "bashed")
 	var/active = FALSE
+
+/obj/item/shield/energy/add_parry_component()
+	return
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(istype(hitby, /obj/item/projectile))
@@ -111,6 +123,7 @@
 	if(!forced)
 		add_fingerprint(user)
 	return
+
 /obj/item/shield/riot/tele
 	name = "telescopic shield"
 	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."
@@ -127,7 +140,7 @@
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
-	return 0
+	return FALSE // by not calling the parent the hit_reaction signal is never sent
 
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active
