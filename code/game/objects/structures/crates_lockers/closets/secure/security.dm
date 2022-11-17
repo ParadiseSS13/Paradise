@@ -134,20 +134,8 @@
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/belt/security/full(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
-	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/head/beret/centcom/officer(src)
-	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
-	new /obj/item/clothing/suit/armor/vest/blueshield(src)
-	new /obj/item/clothing/suit/storage/blueshield(src)
-	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/clothing/accessory/blue(src)
-	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
-	new /obj/item/clothing/under/rank/centcom/blueshield/formal(src)
-
+	new /obj/item/storage/bag/garment/blueshield(src)
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
@@ -161,19 +149,9 @@
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/paicard(src)
 	new /obj/item/flash(src)
-	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/gloves/color/white(src)
-	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/oldman(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
-	new /obj/item/clothing/under/suit/female(src)
-	new /obj/item/clothing/under/rank/centcom/representative(src)
-	new /obj/item/clothing/head/ntrep(src)
-	new /obj/item/clothing/shoes/sandal/fancy(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
-
+	new /obj/item/storage/bag/garment/nanotrasen_representative(src)
 
 /obj/structure/closet/secure_closet/security/cargo
 
@@ -303,19 +281,12 @@
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/flash(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/gloves/color/white(src)
-	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/clothing/under/suit/really_black(src)
-	new /obj/item/clothing/under/rank/centcom/magistrate(src)
-	new /obj/item/clothing/suit/judgerobe(src)
-	new /obj/item/clothing/head/powdered_wig(src)
-	new /obj/item/clothing/head/justice_wig(src)
 	new /obj/item/radio/headset/heads/magistrate(src)
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/storage/bag/garment/magistrate(src)
 
 /obj/structure/closet/secure_closet/iaa
 	name = "internal affairs locker"
