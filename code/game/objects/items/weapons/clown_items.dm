@@ -62,6 +62,9 @@
 				continue
 		M.emote("flip")
 
+#define LAUGH_COOLDOWN 30 SECONDS
+#define LAUGH_COOLDOWN_CMAG 10 SECONDS
+
 /obj/item/clown_recorder
 	name = "clown recorder"
 	desc = "When you just can't get those laughs coming the natural way!"
@@ -77,17 +80,21 @@
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	actions_types = list(/datum/action/item_action/laugh_track)
 	var/cooldown
-	var/laugh_cooldown = 30 SECONDS
 
 /obj/item/clown_recorder/attack_self(mob/user)
 	if(cooldown > world.time)
 		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
 		return
 	playsound(src, 'sound/voice/sitcom_laugh.ogg', 50, FALSE)
-	cooldown = world.time + laugh_cooldown
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		cooldown = world.time + LAUGH_COOLDOWN
+	else
+		cooldown = world.time + LAUGH_COOLDOWN_CMAG
 
 /obj/item/clown_recorder/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
-		laugh_cooldown = 10 SECONDS
 		ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+
+#undef LAUGH_COOLDOWN
+#undef LAUGH_COOLDOWN_CMAG
