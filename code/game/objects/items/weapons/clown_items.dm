@@ -94,7 +94,7 @@
 /obj/item/clown_recorder/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
-		ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 #undef LAUGH_COOLDOWN
 #undef LAUGH_COOLDOWN_CMAG
