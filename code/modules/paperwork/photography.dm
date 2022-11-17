@@ -577,6 +577,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.network = list("news")
 		GLOB.cameranet.removeCamera(camera)
 		camera.c_tag = user.name
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.machines)
+			T.icon_screen = "entertainment"
+			T.update_icon()
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
 /obj/item/videocam/examine(mob/user)
