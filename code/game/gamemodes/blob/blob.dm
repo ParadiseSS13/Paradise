@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	addtimer(CALLBACK(src, PROC_REF(show_message), "<span class='userdanger'>You feel like you are about to burst.</span>"), wait_time * 2)
 
 	// Stage 1
-	addtimer(CALLBACK(src, PROC_REF(stage), 1), (wait_time * 4 + wait_time / 2))
+	addtimer(CALLBACK(src, PROC_REF(stage), 1), (wait_time * 4.5))
 
 	// Stage 2
 	addtimer(CALLBACK(src, PROC_REF(stage), 2), 50 MINUTES + wait_time * 2)
