@@ -126,6 +126,21 @@
 
 	return FALSE
 
+/obj/item/candle/eternal/wizard
+	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
+	start_lit = TRUE
+
+/obj/item/candle/eternal/wizard/attack_self(mob/user)
+	return
+
+/obj/item/candle/eternal/wizard/process()
+	return
+
+/obj/item/candle/eternal/wizard/light(show_message)
+	. = ..()
+	if(lit)
+		set_light(CANDLE_LUM * 2)
+
 #undef TALL_CANDLE
 #undef MID_CANDLE
 #undef SHORT_CANDLE
