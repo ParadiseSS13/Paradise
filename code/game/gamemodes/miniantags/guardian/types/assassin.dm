@@ -40,8 +40,7 @@
 /mob/living/simple_animal/hostile/guardian/assassin/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && !visual_effect_icon)
 		visual_effect_icon = ATTACK_EFFECT_CLAW
-	..()
-
+	return ..()
 
 /mob/living/simple_animal/hostile/guardian/assassin/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
@@ -50,7 +49,7 @@
 
 /mob/living/simple_animal/hostile/guardian/assassin/Manifest()
 	. = ..()
-	ToggleMode(0)
+	ToggleMode(FALSE)
 
 /mob/living/simple_animal/hostile/guardian/assassin/ToggleMode(forced = 0)
 	if(toggle)

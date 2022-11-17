@@ -43,7 +43,8 @@
 	var/bio_fluff_string = "Your scarabs fail to mutate. This shouldn't happen! Submit a bug report!"
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/name_color = "white"//only used with protector shields for the time being
-	var/stealthy_deploying = FALSE //If true, it will not make a message on host when hit, or make an effect deploying or recalling
+	/// If true, it will not make a message on host when hit, or make an effect when deploying or recalling
+	var/stealthy_deploying = FALSE 
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
@@ -94,10 +95,10 @@
 				Recall(TRUE)
 			else
 				if(!stealthy_deploying)
-					new /obj/effect/temp_visual/guardian/phase/out(loc)
+					new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
 				if(!stealthy_deploying)
-					new /obj/effect/temp_visual/guardian/phase/out(loc)
+					new /obj/effect/temp_visual/guardian/phase(get_turf(src))
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
@@ -175,7 +176,7 @@
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
 		if(!stealthy_deploying)
-			new /obj/effect/temp_visual/guardian/phase(loc)
+			new /obj/effect/temp_visual/guardian/phase(get_turf(src))
 		reset_perspective()
 		cooldown = world.time + 30
 
