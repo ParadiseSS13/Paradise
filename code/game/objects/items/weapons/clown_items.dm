@@ -79,7 +79,7 @@
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	actions_types = list(/datum/action/item_action/laugh_track)
-	var/cooldown
+	var/cooldown = 0
 
 /obj/item/clown_recorder/attack_self(mob/user)
 	if(cooldown > world.time)
