@@ -324,16 +324,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	needs_target = FALSE
 
 /datum/objective/escape/check_completion()
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
-		return FALSE
-	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
-		return TRUE
-	if(SSticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
-		return TRUE
 	var/list/owners = get_owners()
 	for(var/datum/mind/M in owners)
+		// These are mandatory conditions, they should come before the freebie conditions below.
 		if(QDELETED(M.current) || M.current.stat == DEAD || issilicon(M.current) || isbrain(M.current))
 			return FALSE
+
+	if(SSticker.force_ending) // This one isn't their fault, so lets just assume good faith.
+		return TRUE
+	if(SSticker.mode.station_was_nuked) // If they escaped the blast somehow, let them win.
+		return TRUE
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
+		return FALSE
+
+	for(var/datum/mind/M in owners)
 		var/turf/location = get_turf(M.current)
 		if(istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
 			return FALSE
