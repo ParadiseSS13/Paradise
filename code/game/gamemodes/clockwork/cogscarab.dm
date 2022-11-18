@@ -170,7 +170,7 @@
 	if(status_flags & GODMODE)
 		return
 	if(health <= -maxHealth && stat != DEAD)
-		ghostize(FALSE)
+		ghostize(TRUE)
 		gib()
 		log_debug("died of damage, trigger reason: [reason]")
 		return

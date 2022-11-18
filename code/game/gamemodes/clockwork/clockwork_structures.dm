@@ -128,6 +128,9 @@
 			if(L.reagents?.has_reagent("holywater"))
 				to_chat(L, "<span class='warning'>You feel a terrible liquid disappearing from your body.</span>")
 				L.reagents.del_reagent("holywater")
+			if(iscogscarab(L))
+				var/mob/living/silicon/robot/cogscarab/C = L
+				C.wind_up_timer = min(C.wind_up_timer + 25, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 25 seconds. roughly, every second 5 to timer.
 			if(!(L.health < L.maxHealth))
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
@@ -136,9 +139,6 @@
 				L.heal_overall_damage(10, 10, TRUE, FALSE, TRUE)
 			if(isrobot(L))
 				L.heal_overall_damage(5, 5, TRUE)
-				if(iscogscarab(L))
-					var/mob/living/silicon/robot/cogscarab/C = L
-					C.wind_up_timer = min(C.wind_up_timer + 25, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 25 seconds. roughly, every second 5 to timer.
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
