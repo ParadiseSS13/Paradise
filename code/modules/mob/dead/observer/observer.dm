@@ -155,6 +155,7 @@ Works together with spawning an observer, noted above.
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		GLOB.respawnable_list -= src
 		if(ghost.can_reenter_corpse)

@@ -1220,6 +1220,8 @@
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
+	if(occupant && occupant.client)
+		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 	if(ishuman(occupant))
 		mob_container = occupant
 		RemoveActions(occupant, human_occupant = 1)

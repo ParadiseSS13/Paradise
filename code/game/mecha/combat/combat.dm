@@ -23,12 +23,6 @@
 	else
 		return 0
 
-
-/obj/mecha/combat/go_out()
-	if(occupant && occupant.client)
-		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
-	..()
-
 /obj/mecha/combat/Topic(href,href_list)
 	..()
 	var/datum/topic_input/afilter = new(href, href_list)
