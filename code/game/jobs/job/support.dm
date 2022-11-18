@@ -433,7 +433,7 @@
 	l_hand = /obj/item/storage/bag/books
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam = 1)
+		/obj/item/videocam/videocam_adv = 1)
 
 /datum/job/barber
 	title = "Barber"

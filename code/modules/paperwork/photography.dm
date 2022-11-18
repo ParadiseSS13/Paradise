@@ -547,7 +547,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam
 	name = "video camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "This video camera can send live feeds to the entertainment network."
+	desc = "This video camera can send live feeds to the entertainment network. You must wield to use it."
 	icon_state = "videocam"
 	item_state = "videocam"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -570,7 +570,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		icon_state = icon_off
 		camera.c_tag = null
 		QDEL_NULL(camera)
-	to_chat(user, "You switch the camera [on ? "on" : "off"].")
+	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
 
 /obj/item/videocam/attack_self(mob/user)
 	camera_state(user)
@@ -601,6 +601,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 
+/obj/item/videocam/videocam_adv
+	name = "advanced video camera"
+	desc = "This video camera allows you to send live feeds even when attached to a belt."
+	slot_flags = SLOT_BELT
 
 ///hauntings, like hallucinations but more spooky
 
