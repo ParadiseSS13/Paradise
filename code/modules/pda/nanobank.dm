@@ -126,7 +126,7 @@
 			var/transfer_amount = text2num(params["amount"])
 			var/purpose = length(params["purpose"]) ? params["purpose"] : ""
 			if(length(purpose) >= MAX_NAME_LEN)
-				error_message(user, "Purpose too long, please limit to 50 characters max")
+				error_message(user, "Purpose too long, please limit to [MAX_NAME_LEN] characters max")
 			if(!transfer_amount || transfer_amount < 0) //if null, 0, or negative amount
 				return
 			var/datum/money_account/request_from = locateUID(params["transfer_to_account"])
@@ -228,6 +228,7 @@
 		error_message(user, "Unable to apply selected security restrictions")
 		///attempted new security level is NOT an available option, likely user spoofing values
 		message_admins("[ADMIN_LOOKUPFLW(user)] attempted to set account security to an unavailable option, possible href exploit!")
+		return
 	if(account_database.try_authenticate_login(user_account, attempted_pin, FALSE, FALSE, FALSE))
 		user_account.security_level = new_security_level
 	else

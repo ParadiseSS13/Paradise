@@ -67,7 +67,6 @@
 	database_holder = null
 	SSeconomy.total_space_credits -= credit_balance
 	SSeconomy.space_credits_destroyed += credit_balance
-	credit_balance = 0
 	return ..()
 
 

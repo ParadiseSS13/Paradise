@@ -70,10 +70,13 @@
 	if(!online)
 		return
 	. = account.deposit_credits(amount)
-	if(. && !supress_log)
+	if(!.)
+		return
+
+	if(!supress_log)
 		var/database_log = amount >= DATABASE_LOG_THRESHHOLD ? TRUE : FALSE
 		log_account_action(account, amount, purpose, transactor, is_deposit = TRUE, log_on_database = database_log) //no if check here for now, since deposit credits currently will always return true
-	if(. && account == vendor_account)
+	if(account == vendor_account)
 		SSeconomy.current_10_minute_spending += amount
 		SSeconomy.total_space_credits -= amount //space credits go to die in the vendor_account for now
 		SSeconomy.space_credits_destroyed += amount
@@ -132,7 +135,7 @@
 	var/list/department_accounts = list()
 
 /datum/money_account_database/main_station/create_account(account_name = "Unnamed", starting_funds = CREW_MEMBER_STARTING_BALANCE, _security_level = ACCOUNT_SECURITY_ID, terminal, supress_log = FALSE)
-	var/datum/money_account/new_account	= ..(account_name, starting_funds, _security_level, terminal, supress_log)
+	var/datum/money_account/new_account = ..(account_name, starting_funds, _security_level, terminal, supress_log)
 	new_account.set_credits(starting_funds)
 	return new_account
 
@@ -172,6 +175,6 @@
 /datum/money_account_database/central_command
 
 /datum/money_account_database/central_command/create_account(account_name = "NAS Trurl Account", starting_funds = CC_OFFICER_STARTING_BALANCE, _security_level = ACCOUNT_SECURITY_CC, supress_log = FALSE)
-	var/datum/money_account/new_account	= ..()
+	var/datum/money_account/new_account = ..()
 	new_account.set_credits(starting_funds)
 	return new_account

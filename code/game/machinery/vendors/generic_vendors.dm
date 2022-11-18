@@ -1,9 +1,9 @@
 //general-use clothing vendors, wardrobe vendors are in another file
 /obj/machinery/economy/vending/assist
-	products = list(	/obj/item/assembly/prox_sensor = 5, /obj/item/assembly/igniter = 3, /obj/item/assembly/signaler = 4,
+	products = list(/obj/item/assembly/prox_sensor = 5, /obj/item/assembly/igniter = 3, /obj/item/assembly/signaler = 4,
 						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
 	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
-	ads_list = list("Only the finest!","Have some tools.","The most robust equipment.","The finest gear in space!")
+	ads_list = list("Only the finest!", "Have some tools.", "The most robust equipment.", "The finest gear in space!")
 	refill_canister = /obj/item/vending_refill/assist
 
 /obj/machinery/economy/vending/boozeomat
@@ -40,8 +40,8 @@
 	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
 					  /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 	vend_delay = 15
-	slogan_list = list("I hope nobody asks me for a bloody cup o' tea...","Alcohol is humanity's friend. Would you abandon a friend?","Quite delighted to serve you!","Is nobody thirsty on this station?")
-	ads_list = list("Drink up!","Booze is good for you!","Alcohol is humanity's best friend.","Quite delighted to serve you!","Care for a nice, cold beer?","Nothing cures you like booze!","Have a sip!","Have a drink!","Have a beer!","Beer is good for you!","Only the finest alcohol!","Best quality booze since 2053!","Award-winning wine!","Maximum alcohol!","Man loves beer.","A toast for progress!")
+	slogan_list = list("I hope nobody asks me for a bloody cup o' tea...", "Alcohol is humanity's friend. Would you abandon a friend?", "Quite delighted to serve you!", "Is nobody thirsty on this station?")
+	ads_list = list("Drink up!", "Booze is good for you!", "Alcohol is humanity's best friend.", "Quite delighted to serve you!", "Care for a nice, cold beer?", "Nothing cures you like booze!", "Have a sip!", "Have a drink!", "Have a beer!", "Beer is good for you!", "Only the finest alcohol!", "Best quality booze since 2053!", "Award-winning wine!", "Maximum alcohol!", "Man loves beer.", "A toast for progress!")
 	refill_canister = /obj/item/vending_refill/boozeomat
 
 /obj/machinery/economy/vending/boozeomat/syndicate_access

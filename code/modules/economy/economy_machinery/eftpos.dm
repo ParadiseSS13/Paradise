@@ -94,14 +94,14 @@
 			if(account_database)
 				var/attempt_account_num = input("Enter account number to pay EFTPOS charges into", "New account number") as num
 				var/attempt_pin = input("Enter pin code", "Account pin") as num
+				if(!Adjacent(user))
+					return
 				var/datum/money_account/target_account = GLOB.station_money_database.find_user_account(attempt_account_num, include_departments = TRUE)
 				if(!target_account)
 					for(var/department_key in GLOB.station_money_database.department_accounts)
 						var/datum/money_account/department_account = GLOB.station_money_database.department_accounts[department_key]
 						if(department_account.account_number == attempt_account_num)
 							target_account = department_account
-				if(!Adjacent(user))
-					return
 				if(target_account && GLOB.station_money_database.try_authenticate_login(target_account, attempt_pin, TRUE, FALSE, FALSE))
 					linked_account = target_account
 				else

@@ -595,14 +595,14 @@ SUBSYSTEM_DEF(jobs)
 	//add them to their department datum, (this relates a lot to money account I promise)
 	var/list/users_departments = get_departments_from_job(job.title)
 	for(var/datum/station_department/department as anything in users_departments)
-		var/datum/department_member/member = new()
+		var/datum/department_member/member = new
 		member.name = H.real_name
 		member.role = job.title
 		member.member_account = account
 		member.can_approve_crates = job?.department_account_access
 		department.members += member
 
-	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will recieve a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
+	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
 	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
 
 	// If they're head, give them the account info for their department
@@ -624,7 +624,7 @@ SUBSYSTEM_DEF(jobs)
 		remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
 
 		H.mind.store_memory(remembered_info)
-		to_chat(H, "<span class='boldnotice'>Your department will recieve a $[department_account.payday_amount] credit stipend every 30 minutes</span>")
+		to_chat(H, "<span class='boldnotice'>Your department will receive a $[department_account.payday_amount] credit stipend every 30 minutes</span>")
 		to_chat(H, "<span class='boldnotice'>The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]</span>")
 
 

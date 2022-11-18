@@ -9,7 +9,8 @@
 	var/amount = 0
 	///How many we can store at maximum
 	var/max_amount = 0
-	var/price = 0  // Price to buy one
+	/// Price to buy one
+	var/price = 0 
 
 /obj/machinery/economy/vending
 	name = "\improper Vendomat"
@@ -272,10 +273,9 @@
   */
 /obj/machinery/economy/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
-	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
+	for(var/datum/data/vending_product/record as anything in recordlist)
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
-		if (diff)
+		if(diff)
 			productlist[record.product_path] -= diff
 			record.amount += diff
 			. += diff
@@ -301,8 +301,7 @@
   */
 /obj/machinery/economy/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
-	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
+	for(var/datum/data/vending_product/record as anything in recordlist)
 		.[record.product_path] += record.amount
 
 /obj/machinery/economy/vending/deconstruct(disassembled = TRUE)
@@ -314,7 +313,6 @@
 		..()
 
 /obj/machinery/economy/vending/attackby(obj/item/I, mob/user, params)
-
 	if(isspacecash(I))
 		insert_cash(I, user)
 		return
@@ -373,11 +371,12 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(anchored)
-		panel_open = !panel_open
-		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
-		update_icon(UPDATE_OVERLAYS)
-		SStgui.update_uis(src)
+	if(!anchored)
+		return
+	panel_open = !panel_open
+	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	update_icon(UPDATE_OVERLAYS)
+	SStgui.update_uis(src)
 
 /obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -473,9 +472,8 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	if(seconds_electrified != 0)
-		if(shock(user, 100))
-			return
+	if(seconds_electrified != 0 && shock(user, 100))
+		return
 
 	ui_interact(user)
 	wires.Interact(user)
@@ -537,10 +535,9 @@
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = FALSE,
-			inum = i
+			inum = i++
 		)
 		data["product_records"] += list(data_pr)
-		i++
 	data["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
 		var/list/data_cr = list(
@@ -633,7 +630,7 @@
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 					to_chat(user, "<span class='warning'>ERROR: machine does not allow extended_inventory in current state. Report this bug.</span>")
 					return
-			else if (!(R in record_to_check))
+			else if(!(R in record_to_check))
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(user)]!")
 				return
@@ -724,7 +721,7 @@
 
 	R.amount--
 
-	if(((last_reply + (vend_delay + 200)) <= world.time) && vend_reply)
+	if(last_reply + vend_delay + 200 <= world.time && vend_reply)
 		speak(vend_reply)
 		last_reply = world.time
 
@@ -775,7 +772,7 @@
 		seconds_electrified--
 
 	//Pitch to the people!  Really sell it!
-	if(((last_slogan + slogan_delay) <= world.time) && (LAZYLEN(slogan_list)) && (!shut_up) && prob(5))
+	if(last_slogan + slogan_delay <= world.time && LAZYLEN(slogan_list) && !shut_up && prob(5))
 		var/slogan = pick(slogan_list)
 		speak(slogan)
 		last_slogan = world.time
@@ -800,7 +797,7 @@
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
-	if((stat & (BROKEN|NOPOWER)))
+	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)

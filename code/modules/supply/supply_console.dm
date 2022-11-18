@@ -39,7 +39,6 @@
 		return TRUE
 
 	ui_interact(user)
-	return
 
 /obj/machinery/computer/supplycomp/proc/has_qm_access(list/access)
 	return (ACCESS_QM in access) ? TRUE : FALSE

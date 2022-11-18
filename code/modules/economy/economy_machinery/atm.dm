@@ -112,14 +112,14 @@
 	if(!held_card)
 		return
 	held_card.forceMove(loc)
-	UnregisterSignal(held_card, COMSIG_PARENT_QDELETING)
 	if(ishuman(user))
 		user.put_in_hands(held_card)
 	logout()
-	held_card = null
+	clear_held_card()
 
 ///ensures proper GC of ID card
 /obj/machinery/economy/atm/proc/clear_held_card()
+	UnregisterSignal(held_card, COMSIG_PARENT_QDELETING)
 	held_card = null
 
 
