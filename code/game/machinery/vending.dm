@@ -1867,7 +1867,7 @@
 	/obj/item/c_tube = 10,/obj/item/pen = 5,/obj/item/pen/blue = 5,
 	/obj/item/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
-	premium = list(/obj/item/poster/random_contraband = 5)
+	premium = list(/obj/item/poster/random_contraband = 5, /obj/item/pen/fancy = 2)
 
 /obj/machinery/vending/crittercare
 	name = "\improper CritterCare"
