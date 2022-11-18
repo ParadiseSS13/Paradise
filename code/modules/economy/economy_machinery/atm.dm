@@ -173,7 +173,7 @@
 			var/transfer_amount = text2num(params["funds_amount"])
 			var/target_account_number = text2num(params["target_acc_number"])
 			var/transfer_purpose = params["purpose"]
-			transfer_credits(transfer_amount, target_account_number, transfer_purpose)
+			transfer_credits(transfer_amount, target_account_number, transfer_purpose, user)
 		if("view_screen")
 			var/list/valid_screen = list(ATM_SCREEN_DEFAULT, ATM_SCREEN_SECURITY, ATM_SCREEN_TRANSFER, ATM_SCREEN_LOGS)
 			var/screen_proper = text2num(params["view_screen"])
@@ -251,7 +251,7 @@
 	view_screen = ATM_SCREEN_DEFAULT
 	login_attempts = 0
 
-/obj/machinery/economy/atm/proc/transfer_credits(amount, target_account_number, mob/user)
+/obj/machinery/economy/atm/proc/transfer_credits(amount, target_account_number, purpose, mob/user)
 	if(!authenticated_account)
 		return
 	if(amount <= 0)
@@ -260,7 +260,7 @@
 	if(account_database.charge_account(authenticated_account, amount, FALSE))
 		var/datum/money_account/target_account = account_database.find_user_account(target_account_number, include_departments = TRUE)
 		if(target_account)
-			account_database.credit_account(target_account, amount)
+			account_database.credit_account(target_account, amount, purpose, name, FALSE)
 			to_chat(user, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")
 	else
 		to_chat(user, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
