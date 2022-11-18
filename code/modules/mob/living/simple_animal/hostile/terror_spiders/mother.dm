@@ -16,7 +16,7 @@
 	You can pickup and incubate spiderlings to ensure they mature safely and at a faster rate, and your webs cannot be passed by spiderlings to keep them closer to nests. \
 	You can also produce royal jelly for other spiders to consume for faster health regeneration. \
 	Both of these require you to expend your own regeneration, though you gain much more from webbing corpses than other spiders. \
-	While you can open powered doors and bust open vents like a brown spider, you have low health and deal low damage, so should avoid fights wherever possible."
+	While you can open powered doors and bust open vents like a brown spider, you have low health and deal low damage, so you should avoid fights wherever possible."
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
