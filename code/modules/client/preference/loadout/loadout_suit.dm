@@ -110,6 +110,16 @@
 	path = /obj/item/clothing/suit/jacket/miningbomber
 	allowed_roles = list("Quartermaster", "Shaft Miner")
 
+/datum/gear/suit/engi_bomber_jacket
+	display_name = "Engineering bomber jacket"
+	path = /obj/item/clothing/suit/jacket/engibomber
+	allowed_roles = list("Chief Engineer", "Station Engineer")
+
+/datum/gear/suit/atmos_bomber_jacket
+	display_name = "Atmospherics bomber jacket"
+	path = /obj/item/clothing/suit/jacket/atmosbomber
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
 /datum/gear/suit/ol_miljacket
 	display_name = "Military jacket, olive"
 	path = /obj/item/clothing/suit/jacket/miljacket
