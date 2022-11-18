@@ -60,7 +60,7 @@
 				qdel(animation)
 			var/sound
 			if(isslaughterdemon(src))
-				var/mob/living/simple_animal/slaughter/SD = src
+				var/mob/living/simple_animal/demon/slaughter/SD = src
 				sound = SD.feast_sound
 			else
 				sound = 'sound/misc/demon_consume.ogg'
@@ -80,8 +80,8 @@
 					to_chat(src, "<span class='warning'>You devour [kidnapped], but this measly meal barely sates your appetite!</span>")
 					adjustBruteLoss(-25)
 					adjustFireLoss(-25)
-				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
-					var/mob/living/simple_animal/slaughter/demon = src
+				if(istype(src, /mob/living/simple_animal/demon/slaughter)) //rason, do not want humans to get this
+					var/mob/living/simple_animal/demon/slaughter/demon = src
 					demon.devoured++
 					to_chat(kidnapped, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
 					kidnapped.adjustBruteLoss(1000)

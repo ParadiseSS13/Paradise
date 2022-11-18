@@ -1,9 +1,9 @@
 /datum/event/spawn_slaughter
 	var/key_of_slaughter
-	var/demon = /mob/living/simple_animal/slaughter/lesser
+	var/demon = /mob/living/simple_animal/demon/slaughter/lesser
 
 /datum/event/spawn_slaughter/proc/get_slaughter()
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/slaughter)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/demon/slaughter)
 	if(!length(candidates))
 		kill()
 		return
@@ -26,7 +26,7 @@
 		kill()
 		return
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
-	var/mob/living/simple_animal/slaughter/S = new demon(holder)
+	var/mob/living/simple_animal/demon/slaughter/S = new demon(holder)
 	S.holder = holder
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Slaughter Demon"
@@ -38,4 +38,4 @@
 	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 
 /datum/event/spawn_slaughter/greater
-	demon = /mob/living/simple_animal/slaughter
+	demon = /mob/living/simple_animal/demon/slaughter

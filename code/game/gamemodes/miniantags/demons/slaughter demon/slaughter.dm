@@ -1,42 +1,15 @@
 //////////////////The Monster
 
-/mob/living/simple_animal/slaughter
+/mob/living/simple_animal/demon/slaughter
 	name = "slaughter demon"
 	real_name = "slaughter demon"
 	desc = "A large, menacing creature covered in armored black scales. You should run."
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
-	speak_emote = list("gurgles")
-	emote_hear = list("wails","screeches")
-	response_help  = "thinks better of touching"
-	response_disarm = "flails at"
-	response_harm   = "punches"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
 	icon_living = "daemon"
-	speed = 1
-	a_intent = INTENT_HARM
-	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
-	stop_automated_movement = TRUE
-	status_flags = CANPUSH
-	attack_sound = 'sound/misc/demon_attack1.ogg'
-	var/feast_sound = 'sound/misc/demon_consume.ogg'
-	death_sound = 'sound/misc/demon_dies.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = INFINITY
-	faction = list("slaughter")
-	attacktext = "wildly tears into"
-	maxHealth = 200
-	health = 200
-	environment_smash = 1
-	obj_damage = 50
-	melee_damage_lower = 30
-	melee_damage_upper = 30
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	var/boost = 0
-
-
+	var/feast_sound = 'sound/misc/demon_consume.ogg'
 	var/devoured = 0
 	var/list/consumed_mobs = list()
 
@@ -55,7 +28,7 @@
 	var/datum/action/innate/demon/whisper/whisper_action
 
 
-/mob/living/simple_animal/slaughter/New()
+/mob/living/simple_animal/demon/slaughter/New()
 	..()
 	remove_from_all_data_huds()
 	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
@@ -68,14 +41,14 @@
 	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
 
 
-/mob/living/simple_animal/slaughter/Life(seconds, times_fired)
+/mob/living/simple_animal/demon/slaughter/Life(seconds, times_fired)
 	..()
 	if(boost < world.time)
 		speed = 1
 	else
 		speed = 0
 
-/mob/living/simple_animal/slaughter/proc/attempt_objectives()
+/mob/living/simple_animal/demon/slaughter/proc/attempt_objectives()
 	if(mind)
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
@@ -100,28 +73,28 @@
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
 
-/mob/living/simple_animal/slaughter/Destroy()
+/mob/living/simple_animal/demon/slaughter/Destroy()
 	// Only execute the below if we successfully died
 	for(var/mob/living/M in consumed_mobs)
 		release_consumed(M)
 	. = ..()
 
-/mob/living/simple_animal/slaughter/proc/release_consumed(mob/living/M)
+/mob/living/simple_animal/demon/slaughter/proc/release_consumed(mob/living/M)
 	M.forceMove(get_turf(src))
 
-/mob/living/simple_animal/slaughter/phasein()
+/mob/living/simple_animal/demon/slaughter/phasein()
 	. = ..()
 	speed = 0
 	boost = world.time + 60
 
 // Midround slaughter demon, less tanky
 
-/mob/living/simple_animal/slaughter/lesser
+/mob/living/simple_animal/demon/slaughter/lesser
 	maxHealth = 130
 	health = 130
 
 // Cult slaughter demon
-/mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
+/mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
@@ -163,10 +136,10 @@
 		return 0
 	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
 
-/mob/living/simple_animal/slaughter/cult/New()
+/mob/living/simple_animal/demon/slaughter/cult/New()
 	..()
 	spawn(5)
-		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/slaughter/cult)
+		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
 		if(!demon_candidates.len)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
@@ -174,7 +147,7 @@
 		if(QDELETED(src)) // Just in case
 			return
 		var/mob/M = pick(demon_candidates)
-		var/mob/living/simple_animal/slaughter/cult/S = src
+		var/mob/living/simple_animal/demon/slaughter/cult/S = src
 		if(!M || !M.client)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)
@@ -295,7 +268,7 @@
 	return 0 // Always beating.
 
 
-/mob/living/simple_animal/slaughter/laughter
+/mob/living/simple_animal/demon/slaughter/laughter
 	// The laughter demon! It's everyone's best friend! It just wants to hug
 	// them so much, it wants to hug everyone at once!
 	name = "laughter demon"
@@ -324,7 +297,7 @@
 	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 
-/mob/living/simple_animal/slaughter/laughter/release_consumed(mob/living/M)
+/mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, 1, -1)
@@ -346,7 +319,7 @@
 /datum/objective/slaughter/check_completion()
 	if(!isslaughterdemon(owner.current) || !owner.current)
 		return 0
-	var/mob/living/simple_animal/slaughter/R = owner.current
+	var/mob/living/simple_animal/demon/slaughter/R = owner.current
 	if(!R || R.stat == DEAD)
 		return 0
 	var/deathCount = R.devoured
