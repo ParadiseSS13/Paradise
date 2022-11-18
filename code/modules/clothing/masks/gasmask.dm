@@ -117,7 +117,6 @@
 	dog_fashion = /datum/dog_fashion/head/clown
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
-	var/mob/M = usr
 	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
 							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
@@ -129,11 +128,15 @@
 	var/mask_choice = show_radial_menu(user, src, mask_icons)
 	var/picked_mask = mask_type[mask_choice]
 
-	if(src && picked_mask && !M.stat && in_range(M,src))
+	if(QDELETED(src) || !picked_mask)
+		return
+	if(user.stat || !in_range(user, src))
+		return
+	else
 		var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
 		qdel(src)
 		user.put_in_active_hand(new_mask)
-		to_chat(M, "Your Clown Mask has now morphed into its new form, all praise the Honk Mother!")
+		to_chat(user, "<span class='notice'>Your Clown Mask has now morphed into its new form, all praise the Honk Mother!</span>")
 		return 1
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
