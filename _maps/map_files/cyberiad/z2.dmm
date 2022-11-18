@@ -9103,6 +9103,10 @@
 /obj/item/FixOVein/alien,
 /obj/item/bonesetter/alien,
 /obj/item/bonegel/alien,
+/obj/item/healthanalyzer/abductor{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
 "guC" = (
@@ -25974,6 +25978,10 @@
 /obj/item/FixOVein/alien,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
+/obj/item/healthanalyzer/abductor{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
 "rnU" = (
@@ -35430,6 +35438,10 @@
 "xoc" = (
 /obj/structure/table/abductor,
 /obj/item/storage/box/alienhandcuffs,
+/obj/item/storage/firstaid_abductor{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
 "xoF" = (
