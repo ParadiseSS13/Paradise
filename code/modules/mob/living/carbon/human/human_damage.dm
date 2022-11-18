@@ -190,6 +190,11 @@
 		amount = amount * dna.species.tox_mod
 	. = ..()
 
+	if(amount > 0 && mind)
+		for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
+			if (mind == objective.target)
+				objective.take_damage(amount, TOX)
+
 /mob/living/carbon/human/setToxLoss(amount)
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.tox_mod

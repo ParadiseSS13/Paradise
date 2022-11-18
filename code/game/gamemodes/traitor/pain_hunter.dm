@@ -6,9 +6,12 @@
 	var/damage_target = 0
 	var/saved_target_name = "Безымянный"
 	var/saved_target_role = "без роли"
+	var/saved_own_text = "лично"
 
 /datum/objective/pain_hunter/proc/take_damage(var/take_damage, var/take_damage_type)
-	if (damage_type != take_damage_type)
+	if(damage_type != take_damage_type)
+		return
+	if(target.current.stat == DEAD)
 		return
 	damage_target += take_damage
 	update_explain_text()
@@ -44,25 +47,15 @@
 	update_explain_text()
 
 /datum/objective/pain_hunter/proc/update_explain_text()
-	if(target)
-		explanation_text = "Преподать урок и лично нанести [saved_target_name], [saved_target_role], не менее [damage_need] единиц [damage_explain()]. Цель должна выжить. \nПрогресс: [damage_target]/[damage_need]"
+	explanation_text = "Преподать урок и [saved_own_text] нанести [saved_target_name], [saved_target_role], не менее [damage_need] единиц [damage_explain()]. Цель должна выжить. \nПрогресс: [damage_target]/[damage_need]"
 
 /datum/objective/pain_hunter/check_completion()
 	if(target && target.current)
 		if(target.current.stat == DEAD)
 			return FALSE
-		if(issilicon(target.current))
+		if(!ishuman(target.current))
 			return FALSE
-		if(!iscarbon(target.current))
-			return FALSE
-		var/mob/living/carbon/body = target.current
-		switch (damage_type)
-			if(BRUTE)
-				return body.getBruteLoss() >= damage_target
-			if(BURN)
-				return body.getFireLoss() >= damage_target
-			//if(TOX)
-			//	return body.getToxLoss() >= damage_target
+		return damage_target >= damage_need
 	return FALSE
 
 /datum/objective/pain_hunter/proc/random_type()
@@ -72,9 +65,10 @@
 	else
 		damage_type = BURN
 		damage_need = rand(3, 12) * 50
-		//if (prob(30))
-		//	damage_type = TOX
-		//	damage_need = rand(2, 6) * 50
+		if (prob(20))
+			saved_own_text = "любым источником"
+			damage_type = TOX
+			damage_need = rand(3, 7) * 50
 
 /datum/objective/pain_hunter/proc/damage_explain()
 	var/damage_explain = damage_type

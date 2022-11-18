@@ -447,7 +447,7 @@ emp_act
 
 	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
-	if(mind && stat != DEAD && user.mind?.objectives)
+	if(mind && user?.mind?.objectives)
 		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
 			if(mind == objective.target)
 				objective.take_damage(I.force * weakness, I.damtype)

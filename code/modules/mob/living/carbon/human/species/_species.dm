@@ -469,7 +469,7 @@
 
 		target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] [attack_species] [target.declent_ru(ACCUSATIVE)]!</span>")
 
-		if(target.mind && target.stat != DEAD && user.mind?.objectives)
+		if(target.mind && user?.mind?.objectives)
 			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
 				if(target.mind == objective.target)
 					objective.take_damage(damage, damage_type)
