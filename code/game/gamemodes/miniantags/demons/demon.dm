@@ -26,3 +26,10 @@
 	melee_damage_upper = 30
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	var/datum/action/innate/demon/whisper/whisper_action
+
+/mob/living/simple_animal/demon/Initialize(mapload)
+	. = ..()
+	whisper_action = new()
+	whisper_action.Grant(src)
+

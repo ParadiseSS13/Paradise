@@ -25,8 +25,6 @@
 	del_on_death = TRUE
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 
-	var/datum/action/innate/demon/whisper/whisper_action
-
 
 /mob/living/simple_animal/demon/slaughter/New()
 	..()
@@ -34,8 +32,6 @@
 	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
-	whisper_action = new()
-	whisper_action.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = TRUE
 	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
