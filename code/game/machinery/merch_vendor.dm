@@ -1,5 +1,6 @@
 /obj/machinery/economy/merch
 	name = "Nanotrasen Merchandise Vendor"
+	desc = "The one-stop-shop for all your Nanotrasen Swag"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "nt_merch"
 	light_color = LIGHT_COLOR_GREEN
@@ -37,10 +38,17 @@
 
 	return ..()
 
-/obj/machinery/economy/merch/proc/do_purchase(datum/money_account/customer_account, datum/merch_item/merch, mob/user)
+/obj/machinery/economy/merch/proc/do_purchase(datum/merch_item/merch, mob/user)
 	if(!merch)
 		return FALSE
 
+	if(!attempt_transaction(merch, user))
+		return FALSE
+
+	deliver(merch, user)
+	return TRUE
+
+/obj/machinery/economy/merch/proc/attempt_transaction(datum/merch_item/merch, mob/user)
 	if(cash_stored >= merch.cost)
 		pay_with_cash(merch.cost, "Purchase of [merch.name]", name, user, account_database.vendor_account)
 		give_change(user)
@@ -53,9 +61,6 @@
 		else
 			to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.</span>")
 			return FALSE
-
-	deliver(merch, user)
-	return TRUE
 
 /obj/machinery/economy/merch/proc/deliver(datum/merch_item/item, mob/user)
 	var/obj/item/merch = new item.typepath(get_turf(src))
@@ -114,8 +119,7 @@
 			. = TRUE
 			for(var/datum/merch_item/merch in merchandise[params["category"]])
 				if(merch.name == params["name"])
-					var/datum/money_account/account = user.get_worn_id_account()
-					if(do_purchase(account, merch, user)) //null checking done in proc
+					if(do_purchase(merch, user)) //null checking done in proc
 						to_chat(user, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")
 					break
 		if("change")

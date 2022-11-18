@@ -128,6 +128,8 @@
 		if("toggle_lock")
 			if(transaction_locked)
 				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
+				if(!Adjacent(user))
+					return
 				if(attempt_code == access_code)
 					transaction_locked = FALSE
 					transaction_paid = FALSE
@@ -187,7 +189,7 @@
 	if(!GLOB.station_money_database.charge_account(D, transaction_amount, transaction_purpose, machine_name, FALSE, FALSE))
 		to_chat(user, "[bicon(src)]<span class='warning'>Insufficient credits in your account!</span>")
 		return
-
+	GLOB.station_money_database.credit_account(linked_account, transaction_amount, transaction_purpose, machine_name, FALSE)
 	playsound(src, 'sound/machines/chime.ogg', 50, 1)
 	visible_message("<span class='notice'>[src] chimes!</span>")
 	transaction_paid = TRUE

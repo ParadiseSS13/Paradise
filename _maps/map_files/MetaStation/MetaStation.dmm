@@ -6778,7 +6778,7 @@
 /area/engine/engineering)
 "aEA" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/economy/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aEB" = (
@@ -10398,7 +10398,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_x = 30
- 	},
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aOk" = (
@@ -18848,7 +18848,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_x = 30
- 	},
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -80338,7 +80338,7 @@
 	},
 /area/security/brig)
 "qEn" = (
-/obj/machinery/economy/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light_switch{
 	dir = 4;

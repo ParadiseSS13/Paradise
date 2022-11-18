@@ -47,14 +47,21 @@ SUBSYSTEM_DEF(economy)
 	///Current Order number
 	var/ordernum = 1
 
-	var/credits_per_manifest = 5				//points gained per slip returned
-	var/credits_per_crate = 15			//points gained per crate returned
-	var/credits_per_intel = 750			//points gained per intel returned
-	var/credits_per_plasma = 10			//points gained per plasma returned
-	var/credits_per_design = 20			//points gained per research design returned
+	/// points gained per slip returned
+	var/credits_per_manifest = 5
+	/// points gained per crate returned
+	var/credits_per_crate = 15
+	/// points gained per intel returned
+	var/credits_per_intel = 750
+	/// points gained per plasma returned
+	var/credits_per_plasma = 10
+	/// points gained per research design returned
+	var/credits_per_design = 20
 
-	var/centcom_message					//Remarks from Centcom on how well you checked the last order.
-	var/list/discovered_plants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
+	/// Remarks from Centcom on how well you checked the last order.
+	var/centcom_message
+	/// Typepaths for unusual plants we've already sent CentComm, associated with their potencies
+	var/list/discovered_plants = list()
 	var/list/tech_levels = list()
 	var/list/research_designs = list()
 
@@ -82,9 +89,9 @@ SUBSYSTEM_DEF(economy)
 	)
 
 	//////Paycheck Variables/////
-	///time to next payday
+	/// time to next payday
 	var/next_paycheck_delay = 0
-	///total paydays this round
+	/// total paydays this round
 	var/payday_count = 0
 
 	var/global_paycheck_bonus = 0
@@ -246,7 +253,8 @@ SUBSYSTEM_DEF(economy)
 				amount_to_pay += bonus
 			account.pay_check_bonuses = null
 		for(var/deduction in account.pay_check_deductions)
-			amount_to_pay = max(amount_to_pay - deduction, 0)
+			amount_to_pay -= deduction
+		amount_to_pay = max(amount_to_pay, 0)
 		account.pay_check_deductions = null
 		station_db.credit_account(account, amount_to_pay, "Payday", "NAS Trurl Payroll", FALSE)
 		if(account.account_type == ACCOUNT_TYPE_PERSONAL)
@@ -283,8 +291,6 @@ SUBSYSTEM_DEF(economy)
 			if(objective.owner_account)
 				objective.owner_account.modify_payroll(objective.completion_payment, TRUE, "Job Objective \"[objective.objective_name]\" completed, award will be included in next paycheck")
 				objective.payout_given = TRUE
-			else
-				log_debug("Job objective ([objective.objective_name]) does not have an associated money account")
 			break
 
 //

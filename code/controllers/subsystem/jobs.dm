@@ -576,11 +576,8 @@ SUBSYSTEM_DEF(jobs)
 
 //fuck
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/account
-	if(job?.department_account_access)
-		account = GLOB.station_money_database.create_account(H.real_name, COMMAND_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
-	else
-		account = GLOB.station_money_database.create_account(H.real_name, CREW_MEMBER_STARTING_BALANCE, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
+	var/starting_balance = job?.department_account_access ? COMMAND_MEMBER_STARTING_BALANCE : CREW_MEMBER_STARTING_BALANCE
+	var/datum/money_account/account = GLOB.station_money_database.create_account(H.real_name, starting_balance, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
 
 	for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
 		objective.owner_account = account
@@ -609,8 +606,10 @@ SUBSYSTEM_DEF(jobs)
 	if(!job?.department_account_access)
 		return
 
-	remembered_info = ""
-	//we use the first entry in the list because it prioritizes generic departments over command
+	announce_department_accounts(users_departments, H, job)
+
+/datum/controller/subsystem/jobs/proc/announce_department_accounts(users_departments, mob/living/H, datum/job/job)
+	var/remembered_info = ""
 	for(var/datum/station_department/department as anything in users_departments)
 		if(job.title != department.head_of_staff && job.title != "Quartermaster")
 			continue
@@ -626,8 +625,6 @@ SUBSYSTEM_DEF(jobs)
 		H.mind.store_memory(remembered_info)
 		to_chat(H, "<span class='boldnotice'>Your department will receive a $[department_account.payday_amount] credit stipend every 30 minutes</span>")
 		to_chat(H, "<span class='boldnotice'>The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]</span>")
-
-
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()

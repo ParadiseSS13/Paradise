@@ -35276,7 +35276,7 @@
 /turf/simulated/floor/plating,
 /area/engine/equipmentstorage)
 "bHZ" = (
-/obj/machinery/economy/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "bIa" = (
@@ -46990,7 +46990,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_y = 30
- 	},
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cmk" = (
@@ -61430,7 +61430,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_y = 30
- 	},
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)

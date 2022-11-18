@@ -122,7 +122,6 @@
 	UnregisterSignal(held_card, COMSIG_PARENT_QDELETING)
 	held_card = null
 
-
 ///ensures proper GC of money account
 /obj/machinery/economy/atm/proc/clear_account()
 	UnregisterSignal(authenticated_account, COMSIG_PARENT_QDELETING)

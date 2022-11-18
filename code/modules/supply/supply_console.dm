@@ -262,7 +262,7 @@
 				var/num_input = input(user, "Amount", "How many crates? (20 Max)") as null|num
 				if(!num_input || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
 					return
-				amount = clamp(round(num_input), 1, 20)
+				amount = clamp(round(num_input), 1, 10)
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
 				return
@@ -285,9 +285,14 @@
 
 			//===orderee account information===
 			var/datum/money_account/selected_account = locateUID(params["account"])
-			var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, amount, reason)
-			order_crate(user, order, selected_account)
-			generate_requisition_paper(order)
+			for(var/i in 1 to amount)
+				var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, amount, reason)
+				order_crate(user, order, selected_account)
+				if(i == 1)
+					playsound(loc, 'sound/machines/ping.ogg', 15, 0)
+					to_chat(user, "<span class='notice'>Order Sent.</span>")
+					generate_requisition_paper(order)
+
 		if("approve")
 			var/ordernum = text2num(params["ordernum"])
 			if(!ordernum)
@@ -338,15 +343,11 @@
 			var/paid_for = FALSE
 			if(!order.requires_qm_approval && pay_with_account(selected_account, order.object.cost, "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 				paid_for = TRUE
-				playsound(loc, 'sound/machines/ping.ogg', 25, 0)
-				to_chat(user, "<span class='notice'>Order Sent.</span>")
 			SSeconomy.process_supply_order(order, paid_for) //add order to shopping list
 	else //if its a department account with pin or higher security or need QM approval, go ahead and add this to the departments section in request list
 		SSeconomy.process_supply_order(order, FALSE)
 		if(order.ordered_by_department.crate_auto_approve && order.ordered_by_department.auto_approval_cap >= order.object.cost)
 			approve_crate(user, order.ordernum)
-		playsound(loc, 'sound/machines/ping.ogg', 15, 0)
-		to_chat(user, "<span class='notice'>Order Sent.</span>")
 		investigate_log("| [key_name(user)] has placed an order for [order.object.amount] [order.object.name] with reason: '[order.comment]'", "cargo")
 
 /obj/machinery/computer/supplycomp/proc/approve_crate(mob/user, order_num)

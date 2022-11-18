@@ -10,7 +10,7 @@
 	///How many we can store at maximum
 	var/max_amount = 0
 	/// Price to buy one
-	var/price = 0 
+	var/price = 0
 
 /obj/machinery/economy/vending
 	name = "\improper Vendomat"
@@ -804,33 +804,34 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/economy/vending/obj_break(damage_flag)
-	if(!(stat & BROKEN))
-		stat |= BROKEN
-		set_light(0)
-		update_icon(UPDATE_OVERLAYS)
+	if(stat & BROKEN)
+		return
+	stat |= BROKEN
+	set_light(0)
+	update_icon(UPDATE_OVERLAYS)
 
-		var/dump_amount = 0
-		var/found_anything = TRUE
-		while(found_anything)
-			found_anything = FALSE
-			for(var/record in shuffle(product_records))
-				var/datum/data/vending_product/R = record
-				if(R.amount <= 0) //Try to use a record that actually has something to dump.
-					continue
-				var/dump_path = R.product_path
-				if(!dump_path)
-					continue
-				R.amount--
-				// busting open a vendor will destroy some of the contents
-				if(found_anything && prob(80))
-					continue
+	var/dump_amount = 0
+	var/found_anything = TRUE
+	while(found_anything)
+		found_anything = FALSE
+		for(var/record in shuffle(product_records))
+			var/datum/data/vending_product/R = record
+			if(R.amount <= 0) //Try to use a record that actually has something to dump.
+				continue
+			var/dump_path = R.product_path
+			if(!dump_path)
+				continue
+			R.amount--
+			// busting open a vendor will destroy some of the contents
+			if(found_anything && prob(80))
+				continue
 
-				var/obj/O = new dump_path(loc)
-				step(O, pick(GLOB.alldirs))
-				found_anything = TRUE
-				dump_amount++
-				if(dump_amount >= 16)
-					return
+			var/obj/O = new dump_path(loc)
+			step(O, pick(GLOB.alldirs))
+			found_anything = TRUE
+			dump_amount++
+			if(dump_amount >= 16)
+				return
 
 //Somebody cut an important wire and now we're following a new definition of "pitch."
 /obj/machinery/economy/vending/proc/throw_item()

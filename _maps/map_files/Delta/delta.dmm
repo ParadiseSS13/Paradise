@@ -46706,7 +46706,7 @@
 	},
 /area/engine/engineering)
 "cik" = (
-/obj/machinery/economy/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light{
 	dir = 4
