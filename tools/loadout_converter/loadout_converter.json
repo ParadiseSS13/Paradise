@@ -320,10 +320,6 @@
 		"pants%2c+blue": "/datum/gear/uniform/pants/bluepants",
 		"trackpants": "/datum/gear/uniform/pants/trackpants",
 		"pants%2c+khaki": "/datum/gear/uniform/pants/khakipants",
-		"red+hawaiian+tshirt": "/datum/gear/uniform/suit/redhawaiianshirt",
-		"blue+hawaiian+tshirt": "/datum/gear/uniform/suit/bluehawaiianshirt",
-		"pink+hawaiian+tshirt": "/datum/gear/uniform/suit/pinkhawaiianshirt",
-		"orange+hawaiian+tshirt": "/datum/gear/uniform/suit/orangehawaiianshirt",
 		"pants%2c+camo": "/datum/gear/uniform/pants/caopants"
 	}
 }
