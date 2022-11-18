@@ -129,15 +129,12 @@
 	var/mask_choice = show_radial_menu(user, src, mask_icons)
 	var/picked_mask = mask_type[mask_choice]
 
-	if(QDELETED(src) || !picked_mask)
-		return
-	if(M.stat || !in_range(M, src))
-	    return
-	var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
-	qdel(src)
-	user.put_in_active_hand(new_mask)
-	to_chat(M, "<span class='notice'>Your Clown Mask has now morphed into its new form, all praise the Honk Mother!</span>")
-	return 1
+	if(src && picked_mask && !M.stat && in_range(M,src))
+		var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
+		qdel(src)
+		user.put_in_active_hand(new_mask)
+		to_chat(M, "Your Clown Mask has now morphed into its new form, all praise the Honk Mother!")
+		return 1
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
