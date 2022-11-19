@@ -56,7 +56,7 @@
 
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
-		firer.Beam(src, icon_state = "sendbeam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		firer.Beam(src, icon_state = "black_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
 	. = ..()
 
 

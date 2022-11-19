@@ -134,9 +134,9 @@
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Xenomorph"
 					antagonists += list(antag_serialized)
-				else if(isslaughterdemon(M))
+				else if(isdemon(M))
 					var/list/antag_serialized = serialized.Copy()
-					antag_serialized["antag"] = "Slaughter Demon"
+					antag_serialized["antag"] = "Demon"
 					antagonists += list(antag_serialized)
 		else
 			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.

@@ -1,9 +1,9 @@
 /datum/event/spawn_slaughter
 	var/key_of_slaughter
-	var/demon = /mob/living/simple_animal/demon/slaughter/lesser
+	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter/lesser
 
 /datum/event/spawn_slaughter/proc/get_slaughter()
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/demon/slaughter)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [initial(demon.name)]?", ROLE_DEMON, TRUE, source = demon)
 	if(!length(candidates))
 		kill()
 		return
@@ -26,16 +26,19 @@
 		kill()
 		return
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
-	var/mob/living/simple_animal/demon/slaughter/S = new demon(holder)
+	var/mob/living/simple_animal/demon/S = new demon(holder)
 	S.holder = holder
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = "Slaughter Demon"
-	player_mind.special_role = SPECIAL_ROLE_SLAUGHTER_DEMON
-	message_admins("[key_name_admin(S)] has been made into a Slaughter Demon by an event.")
-	log_game("[key_name_admin(S)] was spawned as a Slaughter Demon by an event.")
+	player_mind.assigned_role = "Demon"
+	player_mind.special_role = SPECIAL_ROLE_DEMON
+	message_admins("[key_name_admin(S)] has been made into a [S.name] by an event.")
+	log_game("[key_name_admin(S)] was spawned as a [S.name] by an event.")
 
 /datum/event/spawn_slaughter/start()
 	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 
 /datum/event/spawn_slaughter/greater
 	demon = /mob/living/simple_animal/demon/slaughter
+
+/datum/event/spawn_slaughter/shadow
+	demon = /mob/living/simple_animal/demon/shadow
