@@ -40,7 +40,6 @@
 				custom_emote(EMOTE_VISIBLE, "eats \the [M]!")
 				playsound(loc, eating_sound, 20, 1)
 				M.death()
-				stop_automated_movement = FALSE
 				break
 		for(var/obj/structure/spider/spiderling/Spider in view(1, src))
 			if(Adjacent(Spider) && HAS_TRAIT(Spider, TRAIT_EDIBLE_BUG))
@@ -51,8 +50,7 @@
 				else
 					custom_emote(EMOTE_VISIBLE, "eats \the [Spider]!")
 					playsound(loc, eating_sound, 20, 1)
-					Spider.Destroy()
-					stop_automated_movement = FALSE
+					qdel(Spider)
 					break
 
 /mob/living/simple_animal/lizard/verb/lose_tail()
@@ -62,7 +60,7 @@
 
 	if(stat != CONSCIOUS)
 		return
-	if(still_has_tail == FALSE)
+	if(!still_has_tail)
 		to_chat(usr, "<span class='warning'>You have no tail to shed!</span>")
 		return
 	for(var/obj/item/grab/G in usr.grabbed_by)
