@@ -330,7 +330,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		data["holdingTank"] = list("name" = holding_tank.name, "tankPressure" = round(holding_tank.air_contents.return_pressure()))
 	return data
 
-/obj/machinery/atmospherics/portable/canister/ui_act(action, params)
+/obj/machinery/atmospherics/portable/canister/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -348,7 +348,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 					else
 						name = "canister"
 				else
-					to_chat(usr, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
+					to_chat(ui.user, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
 					. = FALSE
 
 		if("pressure")
@@ -367,27 +367,29 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				pressure = text2num(pressure)
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
-				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", "atmos")
+				investigate_log("was set to [release_pressure] kPa by [key_name(ui.user)].", "atmos")
 
 		if("valve")
 			var/logmsg
 			valve_open = !valve_open
 			if(valve_open)
-				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the [holding_tank || "air"].<br>"
+				logmsg = "Valve was <b>opened</b> by [key_name(ui.user)], starting a transfer into the [holding_tank || "air"].<br>"
 
 				if(!holding_tank)
-					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the air.<br>"
+					logmsg = "Valve was <b>opened</b> by [key_name(ui.user)], starting a transfer into the air.<br>"
 
 					if(air_contents.toxins > 0)
-						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
+						message_admins("[key_name_admin(ui.user)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						log_admin("[key_name(ui.user)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
+						ui.user.create_log(MISC_LOG, "has opened a canister of plasma")
 
 					if(air_contents.sleeping_agent > 0)
-						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-						log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
+						message_admins("[key_name_admin(ui.user)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						log_admin("[key_name(ui.user)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
+						ui.user.create_log(MISC_LOG, "has opened a canister of N2O")
 
 			else
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding_tank || "air"].<br>"
+				logmsg = "Valve was <b>closed</b> by [key_name(ui.user)], stopping the transfer into the [holding_tank || "air"].<br>"
 
 			investigate_log(logmsg, "atmos")
 			release_log += logmsg
@@ -396,8 +398,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			if(holding_tank)
 				if(valve_open)
 					valve_open = FALSE
-					release_log += "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding_tank]<br>"
-				replace_tank(usr, FALSE)
+					release_log += "Valve was <b>closed</b> by [key_name(ui.user)], stopping the transfer into the [holding_tank]<br>"
+				replace_tank(ui.user, FALSE)
 
 		if("recolor")
 			if(can_label)
@@ -405,7 +407,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				var/cnum = text2num(params["nc"])
 
 				if(isnull(colorcontainer[ctype]))
-					message_admins("[key_name_admin(usr)] passed an invalid ctype var to a canister.")
+					message_admins("[key_name_admin(ui.user)] passed an invalid ctype var to a canister.")
 					return
 
 				var/newcolor = sanitize_integer(cnum, 0, length(colorcontainer[ctype]["options"]))
@@ -413,7 +415,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				newcolor++ // javascript starts arrays at 0, byond (for some reason) starts them at 1, this converts JS values to byond values
 				canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 	update_icon()
 
 /obj/machinery/atmospherics/portable/canister/atmos_init()
