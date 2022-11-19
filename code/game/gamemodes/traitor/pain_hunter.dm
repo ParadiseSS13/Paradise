@@ -61,14 +61,14 @@
 /datum/objective/pain_hunter/proc/random_type()
 	if (prob(70))
 		damage_type = BRUTE
-		damage_need = rand(2, 8) * 100
+		damage_need = rand(2, 4) * 100
 	else
 		damage_type = BURN
-		damage_need = rand(3, 12) * 50
+		damage_need = rand(3, 6) * 50
 		if (prob(20))
 			saved_own_text = "любым источником"
 			damage_type = TOX
-			damage_need = rand(3, 7) * 50
+			damage_need = rand(2, 4) * 50
 
 /datum/objective/pain_hunter/proc/damage_explain()
 	var/damage_explain = damage_type
