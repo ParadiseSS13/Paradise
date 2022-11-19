@@ -1,5 +1,5 @@
 /mob/living/simple_animal/lizard
-	name = "Lizard"
+	name = "lizard"
 	desc = "A cute tiny lizard."
 	icon = 'icons/mob/critter.dmi'
 	icon_state = "lizard"
@@ -15,7 +15,7 @@
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
@@ -24,13 +24,66 @@
 	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	gold_core_spawnable = FRIENDLY_SPAWN
+	var/eats_bugs = TRUE
+	var/eating_sound = 'sound/weapons/bite.ogg'
+	/// Lizards start with a tail
+	var/still_has_tail = TRUE 
+
+/mob/living/simple_animal/lizard/handle_automated_action()
+	if(!stat && !buckled)
+		if(prob(1))
+			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue", "wags its tail.", "lies down."))
+
+	if(eats_bugs && isturf(loc) && !incapacitated())
+		for(var/mob/living/M in view(1, src))
+			if(!M.stat && Adjacent(M) && HAS_TRAIT(M, TRAIT_EDIBLE_BUG))
+				custom_emote(EMOTE_VISIBLE, "eats \the [M]!")
+				playsound(loc, eating_sound, 20, 1)
+				M.death()
+				stop_automated_movement = FALSE
+				break
+		for(var/obj/structure/spider/spiderling/Spider in view(1, src))
+			if(Adjacent(Spider) && HAS_TRAIT(Spider, TRAIT_EDIBLE_BUG))
+				if(prob(90)) // Slippery things aren't they?
+					visible_message("<span class='notice'>The spiderling skitters away from the [src]!")
+					Spider.random_skitter()
+					return
+				else
+					custom_emote(EMOTE_VISIBLE, "eats \the [Spider]!")
+					playsound(loc, eating_sound, 20, 1)
+					Spider.Destroy()
+					stop_automated_movement = FALSE
+					break
+
+/mob/living/simple_animal/lizard/verb/lose_tail()
+	set name = "Lose tail"
+	set desc = "Allows you to lose your tail and escape a sticky situation. Takes 5 minutes for your tail to grow back."
+	set category = "Animal"
+
+	if(stat != CONSCIOUS)
+		return
+	if(still_has_tail == FALSE)
+		to_chat(usr, "<span class='warning'>You have no tail to shed!</span>")
+		return
+	for(var/obj/item/grab/G in usr.grabbed_by)
+		var/mob/living/carbon/M = G.assailant
+		usr.visible_message("<span class='warning'>[usr] suddenly sheds their tail and slips out of [M]'s grasp!</span>")
+		M.KnockDown(3 SECONDS) // FUCK I TRIPPED
+		playsound(usr.loc, "sound/misc/slip.ogg", 75, 1)
+		still_has_tail = FALSE
+		addtimer(CALLBACK(src, PROC_REF(new_tail)), 5 MINUTES)
+
+/mob/living/simple_animal/lizard/proc/new_tail()
+	still_has_tail = TRUE
+	to_chat(src, "<span class='notice'>You regrow your tail!</span>")
+	return
 
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
-		C.stored_comms["wood"] += 2
+		C.stored_comms["wood"] += 2 //TODO make this stuff not wood because borgs don't have a wood module, only drones, and this doesn't work with drones - GDN
 		C.stored_comms["glass"] += 2
 		qdel(src)
 		return TRUE
