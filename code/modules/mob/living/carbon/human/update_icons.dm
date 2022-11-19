@@ -280,6 +280,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_head_accessory()
 	//markings
 	update_markings()
+	update_hands_layer()
 	//hair
 	update_hair()
 	update_fhair()
@@ -412,40 +413,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(w_uniform?.body_parts_covered & HANDS)
 		return
 
-	var/mutable_appearance/hands_appearance = new()
-	hands_appearance.layer = -HANDS_LAYER
+	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1] // overlays_standing[LIMBS_LAYER] is a list.
+	var/icon/hands_icon = icon(body_layer.icon) // Copy of the body layer sprite.
 
-	var/obj/item/organ/external/hand/l_hand = get_limb_by_name("l_hand")
-	var/obj/item/organ/external/hand/right/r_hand = get_limb_by_name("r_hand")
+	var/mask_state = "hands_mask"
 
-	if(l_hand)
-		hands_appearance.overlays += l_hand.mob_icon
-	if(r_hand)
-		hands_appearance.overlays += r_hand.mob_icon
+	if(dna.species.name in list("Drask", "Grey", "Vox"))
+		mask_state = "hands_mask_[lowertext(dna.species.name)]"
 
-	overlays_standing[HANDS_LAYER] = hands_appearance
+	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', mask_state), ICON_MULTIPLY)
 
+	overlays_standing[HANDS_LAYER] = mutable_appearance(hands_icon)
 	apply_overlay(HANDS_LAYER)
 
-/mob/living/carbon/human/golem/update_hands_layer()
-	remove_overlay(HANDS_LAYER)
-
-	var/mutable_appearance/hands_appearance = new()
-	hands_appearance.layer = -HANDS_LAYER
-
-	var/obj/item/organ/external/hand/l_hand = get_limb_by_name("l_hand")
-	var/obj/item/organ/external/hand/right/r_hand = get_limb_by_name("r_hand")
-	var/datum/species/golem/G = dna.species
-	var/icon/golem_icon = G.icobase
-
-	if(G.golem_colour)
-		if(l_hand)
-			hands_appearance.overlays += icon(golem_icon.ColorTone(G.golem_colour), "l_hand")
-		if(r_hand)
-			hands_appearance.overlays += icon(golem_icon.ColorTone(G.golem_colour), "r_hand")
-
-	overlays_standing[HANDS_LAYER] = hands_appearance
-	apply_overlay(HANDS_LAYER)
 
 //FACIAL HAIR OVERLAY
 /mob/living/carbon/human/proc/update_fhair()
@@ -571,7 +551,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_wear_pda()
 	UpdateDamageIcon()
 	force_update_limbs()
-	update_hands_layer()
 	update_tail_layer()
 	update_wing_layer()
 	update_halo_layer()
