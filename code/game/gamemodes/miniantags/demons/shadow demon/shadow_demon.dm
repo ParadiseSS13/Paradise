@@ -4,6 +4,7 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "shadow_demon"
 	icon_living = "shadow_demon"
+	move_resist = MOVE_FORCE_STRONG
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
@@ -18,7 +19,7 @@
 
 
 
-/mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM)
+/mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(!isliving(AM)) // when a living creature is thrown at it, it slam
 		return ..()
 	var/mob/living/L = AM
