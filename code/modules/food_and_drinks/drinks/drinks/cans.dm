@@ -41,7 +41,7 @@
 	qdel(src)
 	return crushed_can
 
-/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/user)
+/obj/item/reagent_containers/food/drinks/cans/CtrlClick(mob/user)
 	var/mob/living/carbon/human/H
 	if(!can_shake || !ishuman(user))
 		return
