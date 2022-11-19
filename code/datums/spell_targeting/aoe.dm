@@ -8,8 +8,9 @@
 
 /datum/spell_targeting/aoe/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
 	var/list/targets = list()
+	var/spell_center = use_turf_of_user ? get_turf(user) : user
 
-	for(var/atom/target in view_or_range(range, user, selection_type))
+	for(var/atom/target in view_or_range(range, spell_center, selection_type))
 		if(valid_target(target, user, spell, FALSE))
 			targets += target
 	if(inner_radius >= 0)

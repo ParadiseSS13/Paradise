@@ -97,7 +97,7 @@
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
-/obj/machinery/door/firedoor/extinguish_light()
+/obj/machinery/door/firedoor/extinguish_light(force = FALSE)
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
 

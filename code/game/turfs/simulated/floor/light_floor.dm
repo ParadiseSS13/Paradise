@@ -76,7 +76,7 @@
 	on = light
 	update_icon()
 
-/turf/simulated/floor/light/extinguish_light()
+/turf/simulated/floor/light/extinguish_light(force = FALSE)
 	toggle_light(FALSE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 

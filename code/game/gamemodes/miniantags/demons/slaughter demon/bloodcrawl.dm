@@ -110,33 +110,34 @@
 	icon = 'icons/effects/blood.dmi'
 	flags = NODROP|ABSTRACT
 
-/mob/living/proc/phasein(obj/effect/decal/cleanable/B)
+/mob/living/proc/phasein(atom/A)
 
 	if(notransform)
 		to_chat(src, "<span class='warning'>Finish eating first!</span>")
 		return 0
-	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
-	if(!do_after(src, 20, target = B))
+	A.visible_message("<span class='warning'>[A] starts to bubble...</span>")
+	if(!do_after(src, 20, target = A))
 		return
-	if(!B)
+	if(!A)
 		return
-	forceMove(B.loc)
+	var/turf/tele_loc = isturf(A) ? A : A.loc
+	forceMove(tele_loc)
 	client.eye = src
 
-	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
+	var/atom/movable/overlay/animation = new /atom/movable/overlay(tele_loc)
 	animation.name = "odd blood"
 	animation.density = FALSE
 	animation.anchored = TRUE
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
 	animation.layer = 5
-	animation.master = B.loc
+	animation.master = tele_loc
 	animation.dir = dir
 
 	if(prob(25) && isslaughterdemon(src))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
 		playsound(get_turf(src), pick(voice),50, 1, -1)
-	visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")
+	visible_message("<span class='warning'><B>\The [src] rises out of \the [A]!</B>")
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 
 	flick("jauntup",animation)
@@ -150,7 +151,7 @@
 			qdel(BC)
 
 	var/oldcolor = color
-	color = B.color
+	color = A.color
 	sleep(6)//wait for animation to finish
 	if(animation)
 		qdel(animation)
