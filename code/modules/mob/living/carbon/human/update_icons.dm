@@ -413,19 +413,24 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(w_uniform?.body_parts_covered & HANDS)
 		return
 
-	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1] // overlays_standing[LIMBS_LAYER] is a list.
-	var/icon/hands_icon = icon(body_layer.icon) // Copy of the body layer sprite.
-
 	var/mask_state = "hands_mask"
-
 	if(dna.species.name in list("Drask", "Grey", "Vox"))
 		mask_state = "hands_mask_[lowertext(dna.species.name)]"
+	var/icon/hands_mask = icon('icons/mob/clothing/masking_helpers.dmi', mask_state)
 
-	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', mask_state), ICON_MULTIPLY)
+	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1]
+	var/icon/body_hands = icon(body_layer.icon)
+	body_hands.Blend(hands_mask, ICON_MULTIPLY)
 
-	overlays_standing[HANDS_LAYER] = mutable_appearance(hands_icon)
+	var/mutable_appearance/markings_layer = overlays_standing[MARKINGS_LAYER]
+	var/icon/markings_hands = icon(markings_layer.icon)
+	markings_hands.Blend(hands_mask, ICON_MULTIPLY)
+
+	var/mutable_appearance/final_sprite = mutable_appearance(body_hands, layer = -HANDS_LAYER)
+	final_sprite.overlays += markings_hands
+
+	overlays_standing[HANDS_LAYER] = final_sprite
 	apply_overlay(HANDS_LAYER)
-
 
 //FACIAL HAIR OVERLAY
 /mob/living/carbon/human/proc/update_fhair()
