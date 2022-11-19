@@ -85,7 +85,7 @@
 	if(cooldown > world.time)
 		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
 		return
-	playsound(src, 'sound/voice/sitcom_laugh.ogg', 50, FALSE)
+	playsound(src, pick('sound/voice/sitcom_laugh.ogg', 'sound/voice/sitcom_laugh2.ogg'), 50, FALSE)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		cooldown = world.time + LAUGH_COOLDOWN
 	else
