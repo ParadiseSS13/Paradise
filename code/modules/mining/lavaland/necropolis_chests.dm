@@ -503,7 +503,6 @@
 	force = 15
 	armour_penetration_percentage = 40
 	armour_penetration_flat = 10
-	block_chance = 50
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -524,6 +523,7 @@
 
 /obj/item/cursed_katana/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	for(var/combo in combo_list)
 		var/list/combo_specifics = combo_list[combo]
 		var/step_string = english_list(combo_specifics[COMBO_STEPS])

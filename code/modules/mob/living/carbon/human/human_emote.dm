@@ -700,6 +700,8 @@
 	key_third_person = "rattles"
 	message = "rattles their bones."
 	message_param = "rattles their bones at %t."
+	sound = "sound/voice/plas_rattle.ogg"
+	volume = 80
 	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)
 
 /datum/emote/living/carbon/human/crack/slime

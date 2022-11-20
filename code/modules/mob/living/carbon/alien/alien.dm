@@ -7,7 +7,7 @@
 	gender = NEUTER
 	dna = null
 
-	var/nightvision = FALSE
+	var/nightvision = TRUE
 	see_in_dark = 4
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie

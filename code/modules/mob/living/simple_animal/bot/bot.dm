@@ -594,7 +594,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 /mob/living/simple_animal/bot/proc/bot_patrol()
-	set_path(null)
 	patrol_step()
 	addtimer(CALLBACK(src, PROC_REF(do_patrol)), 5)
 
