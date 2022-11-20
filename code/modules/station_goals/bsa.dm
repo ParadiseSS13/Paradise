@@ -213,7 +213,7 @@
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
-	if(istype(target,/obj/item/gps))
+	if(istype(target, /obj/item/gps))
 		var/obj/item/gps/G = target
 		message_admins("[key_name_admin(user)] has launched an artillery strike at GPS named [G.gpstag].")
 
