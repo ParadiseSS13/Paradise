@@ -1,7 +1,7 @@
-/datum/unit_test/origin_tech
+/datum/unit_test/origin_tech/Run()
 	var/regex/nums = regex("^\[0-9]+")
 	for(var/tpath in subtypesof(/obj/item))
-    	var/obj/item/I = tpath
+		var/obj/item/I = tpath
     	var/tech_str = initial(I.origin_tech)
 
     	var/list/tech_list = params2list(tech_str)
