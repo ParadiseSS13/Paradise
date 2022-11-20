@@ -23,6 +23,8 @@
 		return
 	A.attack_ghost(src)
 	if(ishuman(A) && in_range(src, A))
+		if(isLivingSSD(A) && client.send_ssd_warning(A)) //Do NOT Harvest SSD people unless you accept the warning
+			return
 		Harvest(A)
 
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
@@ -161,6 +163,12 @@
 		name = "[initial(name)] ([unlock_amount]E)"
 	else
 		name = "[initial(name)] ([cast_amount]E)"
+
+/obj/effect/proc_holder/spell/aoe/revenant/revert_cast(mob/user)
+	. = ..()
+	to_chat(user, "<span class='revennotice'>Your ability wavers and fails!</span>")
+	var/mob/living/simple_animal/revenant/R = user
+	R?.essence += cast_amount //refund the spell and reset
 
 /obj/effect/proc_holder/spell/aoe/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
@@ -316,6 +324,7 @@
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
+
 	var/successes = 0
 	for(var/obj/item/nearby_item as anything in targets)
 		if(successes >= max_targets) // End loop if we've already got 7 spooky items
@@ -341,6 +350,7 @@
 		successes++
 
 	if(!successes) //no items to throw
+		revert_cast()
 		return
 
 	// Stop the looping attacks after 65 seconds, roughly 14 attack cycles depending on lag
@@ -350,28 +360,39 @@
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
 	new /obj/effect/temp_visual/revenant(get_turf(item_to_possess)) // Thematic spooky visuals
 	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess) // Begin haunting object
-	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = 1)) // Give it spooky purple outline
-	item_to_possess.throwforce = clamp(item_to_possess.throwforce, item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower. Undone on possessed mob death
+	item_to_possess.throwforce = min(item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower
+	set_outline(possessed_object)
 	possessed_object.maxHealth = 100 // Double the regular HP of possessed objects
 	possessed_object.health = 100
 	possessed_object.escape_chance = 100 // We cannot be contained
 
-	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 2 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
-	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 5 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
+	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
+	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
 	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
 
 /// Handles finding a valid target and throwing us at it
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
 	var/list/potential_victims = list()
 	for(var/mob/living/carbon/potential_victim in range(aoe_range, get_turf(possessed_object)))
-		if(!can_see(possessed_object, potential_victim)) // You can't see me
+		if(!can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
 			continue
 		if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
 			continue
 		potential_victims.Add(potential_victim)
 
+	if(!length(potential_victims))
+		possessed_object.possessed_item.throwforce = min(possessed_object.possessed_item.throwforce + 5, 15) // If an item is stood still for a while it can gather power
+		set_outline(possessed_object)
+		return
+
 	var/mob/living/carbon/victim = pick(potential_victims)
-	possessed_object.throw_at(victim, 15, 2, user, dodgeable = FALSE)
+	possessed_object.throw_at(victim, aoe_range, 2, user)
+
+/// Sets the glow on the haunted object, scales up based on throwforce
+/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/set_outline(mob/living/simple_animal/possessed_object/possessed_object)
+	possessed_object.remove_filter("haunt_glow")
+	var/outline_size = min((possessed_object.possessed_item.throwforce / 15) * 3, 3)
+	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = outline_size)) // Give it spooky purple outline
 
 /// Stop all attack timers cast by the previous spell use
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/stop_timers()

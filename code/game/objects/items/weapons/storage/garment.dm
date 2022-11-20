@@ -131,3 +131,51 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
+
+/obj/item/storage/bag/garment/nanotrasen_representative
+	name = "\improper Nanotrasen representative's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the Nanotrasen representative."
+
+/obj/item/storage/bag/garment/nanotrasen_representative/populate_contents()
+	new /obj/item/clothing/head/ntrep(src)
+	new /obj/item/clothing/under/rank/centcom/representative(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/oldman(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
+	new /obj/item/clothing/under/suit/female(src)
+	new /obj/item/clothing/shoes/centcom(src)
+	new /obj/item/clothing/shoes/sandal/fancy(src)
+	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/gloves/color/white(src)
+
+/obj/item/storage/bag/garment/magistrate
+	name = "magistrate's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the magistrate."
+
+/obj/item/storage/bag/garment/magistrate/populate_contents()
+	new /obj/item/clothing/head/justice_wig(src)
+	new /obj/item/clothing/head/powdered_wig(src)
+	new /obj/item/clothing/under/suit/really_black(src)
+	new /obj/item/clothing/under/rank/centcom/magistrate(src)
+	new /obj/item/clothing/suit/judgerobe(src)
+	new /obj/item/clothing/shoes/centcom(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/gloves/color/white(src)
+
+/obj/item/storage/bag/garment/blueshield
+	name = "blueshield's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the blueshield."
+
+/obj/item/storage/bag/garment/blueshield/populate_contents()
+	new /obj/item/clothing/head/beret/centcom/officer(src)
+	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
+	new /obj/item/clothing/under/rank/centcom/blueshield/formal(src)
+	new /obj/item/clothing/suit/armor/vest/blueshield(src)
+	new /obj/item/clothing/suit/storage/blueshield(src)
+	new /obj/item/clothing/shoes/centcom(src)
+	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
+	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
+	new /obj/item/clothing/accessory/blue(src)
