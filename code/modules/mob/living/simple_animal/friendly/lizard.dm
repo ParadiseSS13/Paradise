@@ -24,17 +24,16 @@
 	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	gold_core_spawnable = FRIENDLY_SPAWN
-	var/eats_bugs = TRUE
 	var/eating_sound = 'sound/weapons/bite.ogg'
 	/// Lizards start with a tail
-	var/still_has_tail = TRUE 
+	var/has_tail = TRUE 
 
 /mob/living/simple_animal/lizard/handle_automated_action()
 	if(!stat && !buckled)
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue", "wags its tail.", "lies down."))
 
-	if(eats_bugs && isturf(loc) && !incapacitated())
+	if(isturf(loc) && !incapacitated())
 		for(var/mob/living/M in view(1, src))
 			if(!M.stat && Adjacent(M) && HAS_TRAIT(M, TRAIT_EDIBLE_BUG))
 				custom_emote(EMOTE_VISIBLE, "eats \the [M]!")
@@ -60,7 +59,7 @@
 
 	if(stat != CONSCIOUS)
 		return
-	if(!still_has_tail)
+	if(!has_tail)
 		to_chat(usr, "<span class='warning'>You have no tail to shed!</span>")
 		return
 	for(var/obj/item/grab/G in usr.grabbed_by)
@@ -68,11 +67,11 @@
 		usr.visible_message("<span class='warning'>[usr] suddenly sheds their tail and slips out of [M]'s grasp!</span>")
 		M.KnockDown(3 SECONDS) // FUCK I TRIPPED
 		playsound(usr.loc, "sound/misc/slip.ogg", 75, 1)
-		still_has_tail = FALSE
+		has_tail = FALSE
 		addtimer(CALLBACK(src, PROC_REF(new_tail)), 5 MINUTES)
 
 /mob/living/simple_animal/lizard/proc/new_tail()
-	still_has_tail = TRUE
+	has_tail = TRUE
 	to_chat(src, "<span class='notice'>You regrow your tail!</span>")
 	return
 
