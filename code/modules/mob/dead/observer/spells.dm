@@ -47,3 +47,29 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 		return
 
 	cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
+
+/obj/effect/proc_holder/spell/unrest //make them a revanent
+	name = "Become Unrestful"
+	desc = "Become uncontent with your death (become a wraith and get revenge on who or what killed you)"
+	selection_activated_message		= "<span class='notice'>You rip open the veil through shear anger!"
+
+	ghost = TRUE
+
+	action_icon_state = "boo"
+	school = "transmutation"
+	base_cooldown = 3 MINUTES
+	starts_charged = TRUE
+	clothes_req = FALSE
+	stat_allowed = UNCONSCIOUS
+	invocation = ""
+	invocation_type = "none"
+	create_attack_logs = TRUE
+
+/obj/effect/proc_holder/spell/unrest/cast(mob/user = usr)
+	user.change_mob_type("/mob/living/simple_animal/revenant")
+	to_chat(user,"<span class='notice'>You rip open the veil through shear anger!")
+	cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
+
+
+/obj/effect/proc_holder/spell/unrest/create_new_targeting()
+	return new /datum/spell_targeting/self
