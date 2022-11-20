@@ -382,15 +382,14 @@
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
-			if((istype(affecting, /mob/living/simple_animal/hostile/poison/bees))) //Eating a bee will end up damaging you
+			if(istype(affecting, /mob/living/simple_animal/hostile/poison/bees)) //Eating a bee will end up damaging you
 				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
 				mouth.receive_damage(1)
 				if(istype(affecting, /mob/living/simple_animal/hostile/poison/bees/syndi))
 					user.reagents.add_reagent("facid", rand(1, 5))
 				else
 					user.reagents.add_reagent("spidertoxin", 5)
-				to_chat(user, "<span class='danger'>Your mouth has been stung, it's now bloating!</span>")
-				user.visible_message("<span class='warning'>[user]'s mouth became bloated.</span>")
+				user.visible_message("<span class='warning'>[user]'s mouth became bloated.</span>", "<span class='danger'>Your mouth has been stung, it's now bloating!</span>")
 			affecting.forceMove(user)
 			LAZYADD(attacker.stomach_contents, affecting)
 			qdel(src)
