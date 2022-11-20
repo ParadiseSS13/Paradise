@@ -33,14 +33,15 @@
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue", "wags its tail.", "lies down."))
 
-	if(isturf(loc) && !incapacitated())
-		for(var/mob/living/M in view(1, src))
-			if(!M.stat && Adjacent(M) && HAS_TRAIT(M, TRAIT_EDIBLE_BUG))
+	if(isturf(loc))
+		var/list/lizard_view = view(1, src)
+		for(var/mob/living/M in lizard_view)
+			if(M.stat == CONSCIOUS && Adjacent(M) && HAS_TRAIT(M, TRAIT_EDIBLE_BUG))
 				custom_emote(EMOTE_VISIBLE, "eats \the [M]!")
 				playsound(loc, eating_sound, 20, 1)
 				M.death()
 				break
-		for(var/obj/structure/spider/spiderling/Spider in view(1, src))
+		for(var/obj/structure/spider/spiderling/Spider in lizard_view)
 			if(Adjacent(Spider) && HAS_TRAIT(Spider, TRAIT_EDIBLE_BUG))
 				if(prob(90)) // Slippery things aren't they?
 					visible_message("<span class='notice'>The spiderling skitters away from the [src]!")
@@ -73,7 +74,6 @@
 /mob/living/simple_animal/lizard/proc/new_tail()
 	has_tail = TRUE
 	to_chat(src, "<span class='notice'>You regrow your tail!</span>")
-	return
 
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
