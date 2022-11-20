@@ -7,5 +7,5 @@
 		var/list/tech_list = params2list(tech_str)
 
 		for(var/k in tech_list)
-		if(length(nums.Replace(tech_list[k], "")) > 0)
-			Fail("Invalid origin tech for [tpath]: [tech_str]")
+			if(length(nums.Replace(tech_list[k], "")) > 0)
+				Fail("Invalid origin tech for [tpath]: [tech_str]")
