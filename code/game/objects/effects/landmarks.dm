@@ -595,44 +595,47 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	///The mob we use for the spawner
 	var/mobtype = null
 
+/obj/effect/landmark/mob_spawner/Initialize(mapload)
+	. = ..()
+	new mobtype(loc)
+	return INITIALIZE_HINT_QDEL
+
 /obj/effect/landmark/mob_spawner/goliath
 	mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
-	. = ..()
 	if(prob(1))
 		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
+		return INITIALIZE_HINT_QDEL
 	else
-		new mobtype(loc)
-	return INITIALIZE_HINT_QDEL
+		. = ..()
 
 /obj/effect/landmark/mob_spawner/legion
 	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
-	. = ..()
 	if(prob(5))
 		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
+		return INITIALIZE_HINT_QDEL
 	else
-		new mobtype(loc)
-	return INITIALIZE_HINT_QDEL
+		. = ..()
 
 /obj/effect/landmark/mob_spawner/watcher
 	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
-	. = ..()
 	if(prob(1))
 		if(prob(75))
 			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
+			return INITIALIZE_HINT_QDEL
 		else
 			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
+			return INITIALIZE_HINT_QDEL
 	else
-		new mobtype(loc)
-	return INITIALIZE_HINT_QDEL
+		. = ..()
 
 /obj/effect/landmark/mob_spawner/goldgrub
 	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
@@ -640,8 +643,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/goldgrub/Initialize(mapload)
 	. = ..()
-	new mobtype(loc)
-	return INITIALIZE_HINT_QDEL
 
 // Damage tiles
 /obj/effect/landmark/damageturf
