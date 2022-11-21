@@ -119,8 +119,6 @@ SUBSYSTEM_DEF(economy)
 		cargo_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
 	if(!cargo_account)
 		WARNING("SSeconomy could not locate the supply department account")
-	if(GLOB.centcomm_money_database)
-		populate_cc_database()
 	//need to set this back to 0 due to how this is tracked (and so we have a clean slate for roundstart)
 	current_10_minute_spending = 0
 	ordernum = rand(1, 9000)
@@ -181,10 +179,6 @@ SUBSYSTEM_DEF(economy)
 		department.department_account = station_db.get_account_by_department(department.department_name)
 	//some crates ordered outside of cargo members still need QM explicit approval
 	station_db.create_vendor_account()
-
-/datum/controller/subsystem/economy/proc/populate_cc_database()
-	var/datum/money_account_database/central_command/cc_db = GLOB.centcomm_money_database
-	money_account_databases += cc_db
 
 ////////////////////////////
 /// Supply Stuff /////////
