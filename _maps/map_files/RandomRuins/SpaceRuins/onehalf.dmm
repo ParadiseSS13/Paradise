@@ -726,14 +726,14 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bK" = (
-/obj/machinery/vending/coffee{
+/obj/machinery/economy/vending/coffee{
 	name = "\improper Solar's Best Hot Drinks"
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
 "bL" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
@@ -853,8 +853,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/table,
-/obj/item/stack/spacecash/c1000,
-/obj/item/stack/spacecash/c500{
+/obj/item/stack/spacecash/c100,
+/obj/item/stack/spacecash/c50{
 	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel,
@@ -1110,7 +1110,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/vending/sovietsoda,
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "cR" = (
