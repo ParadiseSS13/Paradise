@@ -1,3 +1,4 @@
+// Unit test to ensure people have appropriately set up their origin_techs in items, ensuring they give the appropriate resources in RnD breakdown
 /datum/unit_test/origin_tech/Run()
 	var/regex/nums = regex("^\[0-9]+")
 	for(var/tpath in subtypesof(/obj/item))
