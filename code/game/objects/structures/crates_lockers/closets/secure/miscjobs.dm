@@ -10,6 +10,7 @@
 	new /obj/item/clothing/shoes/clown_shoes(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/mask/gas/clown_hat(src)
+	new /obj/item/clown_recorder(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/reagent_containers/spray/waterflower(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
