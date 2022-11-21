@@ -605,95 +605,98 @@
 			. = TRUE
 			give_change(user)
 		if("vend")
-			if(!vend_ready)
-				to_chat(user, "<span class='warning'>The vending machine is busy!</span>")
-				return
-			if(panel_open)
-				to_chat(user, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
-				return
 			var/key = text2num(params["inum"])
-			var/list/display_records = product_records + coin_records
-			if(extended_inventory)
-				display_records = product_records + coin_records + hidden_records
-			if(key < 1 || key > length(display_records))
-				to_chat(user, "<span class='warning'>ERROR: invalid inum passed to vendor. Report this bug.</span>")
-				return
-			var/datum/data/vending_product/R = display_records[key]
-			if(!istype(R))
-				to_chat(user, "<span class='warning'>ERROR: unknown vending_product record. Report this bug.</span>")
-				return
-			var/list/record_to_check = product_records + coin_records
-			if(extended_inventory)
-				record_to_check = product_records + coin_records + hidden_records
-			if(!R || !istype(R) || !R.product_path)
-				to_chat(user, "<span class='warning'>ERROR: unknown product record. Report this bug.</span>")
-				return
-			if(R in hidden_records)
-				if(!extended_inventory)
-					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
-					to_chat(user, "<span class='warning'>ERROR: machine does not allow extended_inventory in current state. Report this bug.</span>")
-					return
-			else if(!(R in record_to_check))
-				// Exploit prevention, stop the user
-				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(user)]!")
-				return
-			if(R.amount <= 0)
-				to_chat(user, "Sold out of [R.name].")
-				flick(icon_deny, src)
-				return
-
-			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
-
-			if(!ishuman(user) || R.price <= 0)
-				// Either the purchaser is not human, or the item is free.
-				// Skip all payment logic.
-				vend(R, user)
-				add_fingerprint(user)
-				vend_ready = TRUE
-				. = TRUE
-				return
-
-			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
-
-			var/mob/living/carbon/human/H = user
-			var/obj/item/card/id/C = H.get_idcard(TRUE)
-
-			currently_vending = R
-			var/paid = FALSE
-
-			if(cash_transaction < currently_vending.price && GLOB.station_money_database.vendor_account?.suspended)
-				to_chat(user, "Vendor account offline. Unable to process transaction.")
-				flick(icon_deny, src)
-				vend_ready = TRUE
-				return
-
-			if(cash_transaction >= currently_vending.price)
-				paid = pay_with_cash(currently_vending.price, "Vendor Transaction", name, user, GLOB.station_money_database.vendor_account)
-			else if(istype(C, /obj/item/card))
-				// Because this uses H.get_idcard(TRUE), it will attempt to use:
-				// active hand, inactive hand, pda.id, and then wear_id ID in that order
-				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-				paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, GLOB.station_money_database.vendor_account)
-			else if(user.can_advanced_admin_interact())
-				to_chat(user, "<span class='notice'>Vending object due to admin interaction.</span>")
-				paid = TRUE
-			else
-				to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
-				vend_ready = TRUE
-				flick(icon_deny, src)
-				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
-				return
-			if(paid)
-				SSeconomy.total_vendor_transactions++
-				vend(currently_vending, user)
-				. = TRUE
-			else
-				to_chat(user, "<span class='warning'>Payment failure: unable to process payment.")
-				vend_ready = TRUE
+			try_vend(key, user)
 	if(.)
 		add_fingerprint(user)
 
 
+/obj/machinery/economy/vending/proc/try_vend(key, mob/user)
+	if(!vend_ready)
+		to_chat(user, "<span class='warning'>The vending machine is busy!</span>")
+		return
+	if(panel_open)
+		to_chat(user, "<span class='warning'>The vending machine cannot dispense products while its service panel is open!</span>")
+		return
+
+	var/list/display_records = product_records + coin_records
+	if(extended_inventory)
+		display_records = product_records + coin_records + hidden_records
+	if(key < 1 || key > length(display_records))
+		to_chat(user, "<span class='warning'>ERROR: invalid inum passed to vendor. Report this bug.</span>")
+		return
+	var/datum/data/vending_product/R = display_records[key]
+	if(!istype(R))
+		to_chat(user, "<span class='warning'>ERROR: unknown vending_product record. Report this bug.</span>")
+		return
+	var/list/record_to_check = product_records + coin_records
+	if(extended_inventory)
+		record_to_check = product_records + coin_records + hidden_records
+	if(!R || !istype(R) || !R.product_path)
+		to_chat(user, "<span class='warning'>ERROR: unknown product record. Report this bug.</span>")
+		return
+	if(R in hidden_records)
+		if(!extended_inventory)
+			// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
+			to_chat(user, "<span class='warning'>ERROR: machine does not allow extended_inventory in current state. Report this bug.</span>")
+			return
+	else if(!(R in record_to_check))
+		// Exploit prevention, stop the user
+		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(user)]!")
+		return
+	if(R.amount <= 0)
+		to_chat(user, "Sold out of [R.name].")
+		flick(icon_deny, src)
+		return
+
+	vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
+
+	if(!ishuman(user) || R.price <= 0)
+		// Either the purchaser is not human, or the item is free.
+		// Skip all payment logic.
+		vend(R, user)
+		add_fingerprint(user)
+		vend_ready = TRUE
+		. = TRUE
+		return
+
+	// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
+
+	var/mob/living/carbon/human/H = user
+	var/obj/item/card/id/C = H.get_idcard(TRUE)
+
+	currently_vending = R
+	var/paid = FALSE
+
+	if(cash_transaction < currently_vending.price && GLOB.station_money_database.vendor_account?.suspended)
+		to_chat(user, "Vendor account offline. Unable to process transaction.")
+		flick(icon_deny, src)
+		vend_ready = TRUE
+		return
+
+	if(cash_transaction >= currently_vending.price)
+		paid = pay_with_cash(currently_vending.price, "Vendor Transaction", name, user, GLOB.station_money_database.vendor_account)
+	else if(istype(C, /obj/item/card))
+		// Because this uses H.get_idcard(TRUE), it will attempt to use:
+		// active hand, inactive hand, pda.id, and then wear_id ID in that order
+		// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
+		paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, GLOB.station_money_database.vendor_account)
+	else if(user.can_advanced_admin_interact())
+		to_chat(user, "<span class='notice'>Vending object due to admin interaction.</span>")
+		paid = TRUE
+	else
+		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.")
+		vend_ready = TRUE
+		flick(icon_deny, src)
+		. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
+		return
+	if(paid)
+		SSeconomy.total_vendor_transactions++
+		vend(currently_vending, user)
+		. = TRUE
+	else
+		to_chat(user, "<span class='warning'>Payment failure: unable to process payment.")
+		vend_ready = TRUE
 /obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, "<span class='warning'>Access denied.</span>")//Unless emagged of course
