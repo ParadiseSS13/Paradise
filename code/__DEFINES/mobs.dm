@@ -148,6 +148,10 @@
 #define AI_CHECK_WIRELESS 1
 #define AI_CHECK_RADIO 2
 
+// Robot notify AI type
+#define ROBOT_NOTIFY_AI_CONNECTED 1 //New Cyborg
+#define ROBOT_NOTIFY_AI_MODULE 2 //New Module
+#define ROBOT_NOTIFY_AI_NAME 3 //New Name
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE 0
 #define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect

@@ -474,7 +474,8 @@
 	var/mob/living/silicon/silicon = current
 	. = "<br>Current Laws:<b>[silicon.laws.name]</b> <a href='?src=[UID()];silicon=lawmanager'>Law Manager</a>"
 	var/mob/living/silicon/robot/robot = current
-	if(istype(robot) && robot.emagged)
+	if(istype(robot))
+		. += "<br><b>Cyborg Module: [robot.module ? robot.module : "None" ]</b> <a href='?src=[UID()];silicon=borgpanel'>Borg Panel</a>"
 		if(robot.emagged)
 			. += "<br>Cyborg: <b><font color='red'>Is emagged!</font></b> <a href='?src=[UID()];silicon=unemag'>Unemag!</a>"
 		if(robot.laws.zeroth_law)
@@ -1808,6 +1809,11 @@
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
+			if("borgpanel")
+				var/mob/living/silicon/robot/R = current
+				var/datum/borgpanel/B = new(usr, R)
+				B.ui_interact(usr, state = GLOB.admin_state)
+				log_and_message_admins("has opened [R]'s Borg Panel.")
 			if("lawmanager")
 				var/mob/living/silicon/S = current
 				var/datum/ui_module/law_manager/L = new(S)

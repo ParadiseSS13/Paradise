@@ -17,6 +17,10 @@
 	var/channels = list()
 	var/list/custom_removals = list()
 
+	///List of skins the borg can be reskinned to, optional
+	var/list/borg_skins
+	//If decides not to choose
+	var/default_skin
 
 /obj/item/robot_module/emp_act(severity)
 	if(modules)
@@ -160,6 +164,14 @@
 	name = "generalist robot module"
 	module_type = "Standard"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
+	channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
+	default_skin = "Robot-STD"
+	borg_skins = list(
+		"Basic" = "Robot-STD",
+		"Android" = "droid",
+		"Default" = "Standard",
+		"Noble-STD" = "Noble-STD"
+	)
 
 /obj/item/robot_module/standard/New()
 	..()
@@ -209,6 +221,17 @@
 	name = "medical robot module"
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	channels = list("Medical" = 1)
+	default_skin = "Robot-MED"
+	borg_skins = list(
+		"Standard" = "Standard-Medi",
+		"Basic" = "Robot-MED",
+		"Surgeon" = "surgeon",
+		"Advanced Droid" = "droid-medical",
+		"Needles" = "Robot-SRG",
+		"Noble-MED" = "Noble-MED",
+		"Cricket" = "Cricket-MEDI"
+	)
 
 /obj/item/robot_module/medical/New()
 	..()
@@ -260,6 +283,16 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
+	channels = list("Engineering" = 1)
+	default_skin = "Robot-ENG"
+	borg_skins = list(
+		"Basic" = "Robot-ENG",
+		"Antique" = "Robot-ENG2",
+		"Landmate" = "landmate",
+		"Standard" = "Standard-Engi",
+		"Noble-ENG" = "Noble-ENG",
+		"Cricket" = "Cricket-ENGI"
+	)
 
 /obj/item/robot_module/engineering/New()
 	..()
@@ -301,6 +334,17 @@
 	name = "security robot module"
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	channels = list("Security" = 1)
+	default_skin = "Robot-SEC"
+	borg_skins = list(
+		"Basic" = "Robot-SEC",
+		"Red Knight" = "Security",
+		"Black Knight" = "securityrobot",
+		"Bloodhound" = "bloodhound",
+		"Standard" = "Standard-Secy",
+		"Noble-SEC" = "Noble-SEC",
+		"Cricket" = "Cricket-SEC"
+	)
 
 /obj/item/robot_module/security/New()
 	..()
@@ -319,6 +363,16 @@
 /obj/item/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
+	channels = list("Service" = 1)
+	default_skin = "Robot-JAN"
+	borg_skins = list(
+		"Basic" = "Robot-JAN",
+		"Mopbot" = "Robot-JAN2",
+		"Mop Gear Rex" = "mopgearrex",
+		"Standard" = "Standard-Jani",
+		"Noble-CLN" = "Noble-CLN",
+		"Cricket" = "Cricket-JANI"
+	)
 
 /obj/item/robot_module/janitor/New()
 	..()
@@ -340,9 +394,22 @@
 /obj/item/robot_module/butler
 	name = "service robot module"
 	module_type = "Service"
+	channels = list("Service" = 1)
+	default_skin = "Robot-MAN"
+	borg_skins = list(
+		"Waitress" = "Robot-LDY",
+		"Kent" = "toiletbot",
+		"Bro" = "Robot-RLX",
+		"Rich" = "maximillion",
+		"Default" = "Robot-MAN",
+		"Standard" = "Standard-Serv",
+		"Noble-SRV" = "Noble-SRV",
+		"Cricket" = "Cricket-SERV"
+	)
 
 /obj/item/robot_module/butler/New()
 	..()
+
 	modules += new /obj/item/handheld_chem_dispenser/booze(src)
 	modules += new /obj/item/handheld_chem_dispenser/soda(src)
 
@@ -410,6 +477,17 @@
 		/datum/action/innate/robot_sight/meson,
 	)
 	custom_removals = list("KA modkits")
+	channels = list("Supply" = 1)
+	default_skin = "Robot-MNR"
+	borg_skins = list(
+		"Basic" = "Robot-MNR",
+		"Advanced Droid" = "droid-miner",
+		"Treadhead" = "Miner",
+		"Standard" = "Standard-Mine",
+		"Noble-DIG" = "Noble-DIG",
+		"Cricket" = "Cricket-MINE",
+		"Lavaland" = "lavaland"
+	)
 
 /obj/item/robot_module/miner/New()
 	..()
@@ -546,6 +624,9 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
+	channels = list("Security" = 1)
+	default_skin = "droidcombat"
+	borg_skins = list("Destroyer" = "droidcombat")
 
 /obj/item/robot_module/destroyer/New()
 	..()
@@ -565,6 +646,8 @@
 	name = "combat robot module"
 	module_type = "Malf"
 	module_actions = list()
+	default_skin = "ertgamma"
+	borg_skins = list("ERT-GAMMA" = "ertgamma")
 
 /obj/item/robot_module/combat/New()
 	..()
@@ -589,6 +672,8 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal/alien,
 	)
+	default_skin = "xenoborg"
+	borg_skins = list("Xenoborg" = "xenoborg")
 
 /obj/item/robot_module/alien/hunter/add_default_robot_items()
 	return

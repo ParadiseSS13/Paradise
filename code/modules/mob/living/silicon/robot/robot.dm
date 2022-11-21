@@ -41,6 +41,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	// Components are basically robot organs.
 	var/list/components = list()
+	var/list/upgrades = list()
 
 	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/mmi/mmi = null
@@ -110,7 +111,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/module_actions = list()
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
-	var/increased_storage = FALSE
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -179,7 +179,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	diag_hud_set_borgcell()
 	scanner = new(src)
-	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
 
 /mob/living/silicon/robot/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
@@ -210,7 +209,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return 0
 
 	if(oldname != real_name)
-		notify_ai(3, oldname, newname)
+		notify_ai(ROBOT_NOTIFY_AI_NAME, oldname, newname)
 		custom_name = (newname != get_default_name()) ? newname : null
 		setup_PDA()
 
@@ -334,7 +333,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		robot_module_hat_offset(icon_state)
 		return
 	designation = modtype
-	var/module_sprites[0] //Used to store the associations between sprite names and sprite index.
 
 	if(module)
 		return
@@ -342,50 +340,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	switch(modtype)
 		if("Generalist")
 			module = new /obj/item/robot_module/standard(src)
-			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
-			module_sprites["Basic"] = "Robot-STD"
-			module_sprites["Android"] = "droid"
-			module_sprites["Default"] = "Standard"
-			module_sprites["Noble-STD"] = "Noble-STD"
 
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Waitress"] = "Robot-LDY"
-			module_sprites["Kent"] = "toiletbot"
-			module_sprites["Bro"] = "Robot-RLX"
-			module_sprites["Rich"] = "maximillion"
-			module_sprites["Default"] = "Robot-MAN"
-			module_sprites["Standard"] = "Standard-Serv"
-			module_sprites["Noble-SRV"] = "Noble-SRV"
-			module_sprites["Cricket"] = "Cricket-SERV"
 			see_reagents = TRUE
 
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
-			module.channels = list("Supply" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Mining Outpost")
-			module_sprites["Basic"] = "Robot-MNR"
-			module_sprites["Advanced Droid"] = "droid-miner"
-			module_sprites["Treadhead"] = "Miner"
-			module_sprites["Standard"] = "Standard-Mine"
-			module_sprites["Noble-DIG"] = "Noble-DIG"
-			module_sprites["Cricket"] = "Cricket-MINE"
-			module_sprites["Lavaland"] = "lavaland"
 
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
-			module.channels = list("Medical" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Medical")
-			module_sprites["Basic"] = "Robot-MED"
-			module_sprites["Surgeon"] = "surgeon"
-			module_sprites["Advanced Droid"] = "droid-medical"
-			module_sprites["Needles"] = "Robot-SRG"
-			module_sprites["Standard"] = "Standard-Medi"
-			module_sprites["Noble-MED"] = "Noble-MED"
-			module_sprites["Cricket"] = "Cricket-MEDI"
 			status_flags &= ~CANPUSH
 			see_reagents = TRUE
 
@@ -402,53 +370,28 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					to_chat(src, "<span class='warning'>There are too many Security cyborgs active. Please choose another module.</span>")
 					return
 			module = new /obj/item/robot_module/security(src)
-			module.channels = list("Security" = 1)
-			module_sprites["Basic"] = "Robot-SEC"
-			module_sprites["Red Knight"] = "Security"
-			module_sprites["Black Knight"] = "securityrobot"
-			module_sprites["Bloodhound"] = "bloodhound"
-			module_sprites["Standard"] = "Standard-Secy"
-			module_sprites["Noble-SEC"] = "Noble-SEC"
-			module_sprites["Cricket"] = "Cricket-SEC"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
-			module.channels = list("Engineering" = 1)
 			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Engineering")
-			module_sprites["Basic"] = "Robot-ENG"
-			module_sprites["Antique"] = "Robot-ENG2"
-			module_sprites["Landmate"] = "landmate"
-			module_sprites["Standard"] = "Standard-Engi"
-			module_sprites["Noble-ENG"] = "Noble-ENG"
-			module_sprites["Cricket"] = "Cricket-ENGI"
+
 			magpulse = 1
 
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
-			module.channels = list("Service" = 1)
-			module_sprites["Basic"] = "Robot-JAN"
-			module_sprites["Mopbot"]  = "Robot-JAN2"
-			module_sprites["Mop Gear Rex"] = "mopgearrex"
-			module_sprites["Standard"] = "Standard-Jani"
-			module_sprites["Noble-CLN"] = "Noble-CLN"
-			module_sprites["Cricket"] = "Cricket-JANI"
 
 		if("Destroyer") // Rolling Borg
 			module = new /obj/item/robot_module/destroyer(src)
-			module.channels = list("Security" = 1)
-			icon_state =  "droidcombat"
 			status_flags &= ~CANPUSH
 
 		if("Combat") // Gamma ERT
 			module = new /obj/item/robot_module/combat(src)
-			icon_state = "ertgamma"
 			status_flags &= ~CANPUSH
 
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
-			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 
 		if("Syndicate Saboteur")
@@ -479,9 +422,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	//subsystems
 	module.add_subsystems_and_actions(src)
 
-	//Custom_sprite check and entry
-	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
-		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
@@ -490,10 +430,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
 		status_flags &= ~CANPUSH
 
-	choose_icon(6,module_sprites)
+	choose_icon()
 	if(!static_radio_channels)
 		radio.config(module.channels)
-	notify_ai(2)
+	notify_ai(ROBOT_NOTIFY_AI_MODULE)
 
 	robot_module_hat_offset(icon_state)
 
@@ -552,7 +492,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	robot_module_hat_offset(icon_state)
 
 /mob/living/silicon/robot/proc/reset_module()
-	notify_ai(2)
+	notify_ai(ROBOT_NOTIFY_AI_MODULE)
 
 	uneq_all()
 	SStgui.close_user_uis(src)
@@ -571,14 +511,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_icons()
 	update_headlamp()
 
-	speed = 0 // Remove upgrades.
-	increased_storage = FALSE // Remove storage upgrade
-	ionpulse = FALSE
-	magpulse = FALSE
-	add_language("Robot Talk", 1)
-	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
-		weather_immunities -= "lava"
+	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
+		qdel(upgrade)
 
+	add_language("Robot Talk", 1)
 	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
@@ -853,7 +789,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				return
 			if(U.action(src))
 				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
-				U.forceMove(src)
+				install_upgrade(U)
 			else
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
 
@@ -1189,6 +1125,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	popup.set_content(dat)
 	popup.open()
 
+/mob/living/silicon/robot/proc/install_upgrade(obj/item/borg/upgrade/upgrade)
+	if(!upgrade.instant_use)
+		RegisterSignal(upgrade, COMSIG_PARENT_QDELETING, .proc/on_upgrade_deleted)
+		upgrades += upgrade
+		upgrade.forceMove(src)
+	else
+		qdel(upgrade)
+
+///Called when an applied upgrade is deleted.
+/mob/living/silicon/robot/proc/on_upgrade_deleted(obj/item/borg/upgrade/old_upgrade)
+	SIGNAL_HANDLER
+	if(!QDELETED(src))
+		old_upgrade.deactivate(src)
+	upgrades -= old_upgrade
+	UnregisterSignal(old_upgrade, COMSIG_PARENT_QDELETING)
 
 /mob/living/silicon/robot/Topic(href, href_list)
 	if(..())
@@ -1420,57 +1371,44 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lockcharge = state
 	update_canmove()
 
-/mob/living/silicon/robot/proc/choose_icon(var/triesleft, var/list/module_sprites)
-
-	if(triesleft<1 || !module_sprites.len)
-		return
-	else
-		triesleft--
-
-	var/icontype
-	lockcharge = 1  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
-	icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
-
-	if(icontype)
-		if(icontype == "Custom")
-			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		else
-			icon = 'icons/mob/robots.dmi'
-		icon_state = module_sprites[icontype]
-		if(icontype == "Bro")
-			module.module_type = "Brobot"
-			update_module_icon()
-		lockcharge = null
-		var/list/names = splittext(icontype, "-")
+// Proc that calls radial menu for borg to choose AFTER he chose his module.
+// In module there is borg_skins
+/mob/living/silicon/robot/proc/choose_icon()
+	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
+		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
+		icon_state =  "[src.ckey]-[modtype]"
+		var/list/names = splittext(src.ckey, "-")
 		custom_panel = trim(names[1])
-	else
-		to_chat(src, "Something is badly wrong with the sprite selection. Harass a coder.")
-		icon_state = module_sprites[1]
-		lockcharge = null
 		return
 
-	update_icons()
-
-	if(triesleft >= 1)
-		var/choice = input("Look at your icon - is this what you want?") in list("Yes","No")
-		if(choice=="No")
-			choose_icon(triesleft, module_sprites)
-			return
-		else
-			triesleft = 0
-			return
+	icon_state = module.default_skin
+	if(length(module.borg_skins) <= 1) // it's a default
+		return
+	lockcharge = TRUE  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
+	var/list/choices = list()
+	for(var/skin in module.borg_skins)
+		var/image/skin_image = image(icon = icon, icon_state = module.borg_skins[skin])
+		skin_image.add_overlay("eyes-[module.borg_skins[skin]]")
+		choices[skin] = skin_image
+	var/choice = show_radial_menu(src, src, choices, require_near = TRUE)
+	if(choice)
+		icon_state = module.borg_skins[choice]
+		update_icons()
+		to_chat(src, "<span class='notice'>Your icon has been set. You now require a reset module to change it.</span>")
 	else
-		to_chat(src, "Your icon has been set. You now require a module reset to change it.")
+		to_chat(src, "<span class='notice'>Your icon has been set by default. You now require a reset module to change it.</span>")
+	lockcharge = FALSE
+	return
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
-		if(1) //New Cyborg
+		if(ROBOT_NOTIFY_AI_CONNECTED) //New Cyborg
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>")
-		if(2) //New Module
+		if(ROBOT_NOTIFY_AI_MODULE) //New Module
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>")
-		if(3) //New Name
+		if(ROBOT_NOTIFY_AI_NAME) //New Name
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
@@ -1484,7 +1422,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		disconnect_from_ai()
 		connected_ai = AI
 		connected_ai.connected_robots |= src
-		notify_ai(1)
+		notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		sync()
 
 /mob/living/silicon/robot/adjustOxyLoss(var/amount)

@@ -168,7 +168,7 @@
 		if(isrobot(M))
 			var/mob/living/silicon/robot/Robot = M
 			QDEL_NULL(Robot.mmi)
-			Robot.notify_ai(1)
+			Robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		else
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M

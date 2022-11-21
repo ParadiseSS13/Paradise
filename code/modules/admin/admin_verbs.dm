@@ -34,6 +34,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/admin_deny_shuttle,	/*toggles availability of shuttle calling*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
+	/client/proc/open_borgopanel,		/* Opens Cyborg Panel to change anything in it */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
 	/client/proc/toggleprayers,			/*toggles prayers on/off*/

@@ -11,28 +11,37 @@
 	var/installed = 0
 	var/require_module = FALSE
 	var/module_type = null
+	var/instant_use = FALSE
 
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
 		to_chat(usr, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
-		return TRUE
+		return FALSE
+	if(src in R.upgrades)
+		to_chat(R, "<span class='notice'>There is already [src] inside!</span>")
+		return FALSE
 	if(module_type && !istype(R.module, module_type))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
 		to_chat(usr, "There's no mounting point for the module!")
-		return TRUE
+		return FALSE
+	return TRUE
+
+/obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/robot/R, user = usr)
+	if (!(src in R.upgrades))
+		return FALSE
+	return TRUE
 
 /obj/item/borg/upgrade/reset
 	name = "cyborg module reset board"
 	desc = "Used to reset a cyborg's module. Destroys any other upgrades applied to the cyborg."
 	icon_state = "cyborg_upgrade1"
 	require_module = TRUE
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/R)
 	if(..())
-		return
-
-	if(!isclocker(R))
-		R.reset_module()
+		if(!isclocker(R))
+			R.reset_module()
 
 	return TRUE
 
@@ -41,46 +50,43 @@
 	desc = "Used to rename a cyborg."
 	icon_state = "cyborg_upgrade1"
 	var/heldname = "default name"
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
 	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 
 /obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
 	if(..())
-		return
-	if(!R.allow_rename)
-		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
-		return 0
-	R.notify_ai(3, R.name, heldname)
-	R.name = heldname
-	R.custom_name = heldname
-	R.real_name = heldname
-	if(R.mmi && R.mmi.brainmob)
-		R.mmi.brainmob.name = R.name
-	return TRUE
+		if(!R.allow_rename)
+			to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
+			return 0
+		R.notify_ai(ROBOT_NOTIFY_AI_NAME, R.name, heldname)
+		R.name = heldname
+		R.custom_name = heldname
+		R.real_name = heldname
+		if(R.mmi && R.mmi.brainmob)
+			R.mmi.brainmob.name = R.name
+		return TRUE
 
 /obj/item/borg/upgrade/restart
 	name = "cyborg emergency reboot module"
 	desc = "Used to force a reboot of a disabled-but-repaired cyborg, bringing it back online."
 	icon_state = "cyborg_upgrade1"
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/R)
 	if(R.health < 0)
 		to_chat(usr, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
-		return 0
-
+		return FALSE
 	if(!R.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
 			if(ghost.mind && ghost.mind.current == R)
 				R.key = ghost.key
-
 	R.stat = CONSCIOUS
 	GLOB.dead_mob_list -= R //please never forget this ever kthx
 	GLOB.alive_mob_list += R
-	R.notify_ai(1)
-
+	R.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 	return TRUE
-
 
 /obj/item/borg/upgrade/vtec
 	name = "robotic VTEC Module"
@@ -91,15 +97,13 @@
 
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
-		return
-	if(R.speed < 0)
-		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
-		return
+		R.speed = -1 // Gotta go fast.
 
-	R.speed = -1 // Gotta go fast.
+		return TRUE
 
-	return TRUE
+/obj/item/borg/upgrade/vtec/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		R.speed = 0
 
 /obj/item/borg/upgrade/disablercooler
 	name = "cyborg rapid disabler cooling module"
@@ -111,20 +115,20 @@
 
 /obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R)
 	if(..())
-		return
+		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
+		if(!T)
+			to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
+			return
+		T.charge_delay = max(2 , T.charge_delay - 4)
 
-	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
-	if(!T)
-		to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
-		return
-	if(T.charge_delay <= 2)
-		to_chat(R, "<span class='notice'>A cooling unit is already installed!</span>")
-		to_chat(usr, "<span class='notice'>There's no room for another cooling unit!</span>")
-		return
+		return TRUE
 
-	T.charge_delay = max(2 , T.charge_delay - 4)
-
-	return TRUE
+/obj/item/borg/upgrade/disablercooler/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
+		if(!T)
+			return FALSE
+		T.charge_delay = initial(T.charge_delay)
 
 /obj/item/borg/upgrade/thrusters
 	name = "ion thruster upgrade"
@@ -134,14 +138,12 @@
 
 /obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
 	if(..())
-		return
+		R.ionpulse = TRUE
+		return TRUE
 
-	if(R.ionpulse)
-		to_chat(usr, "<span class='notice'>This unit already has ion thrusters installed!</span>")
-		return
-
-	R.ionpulse = 1
-	return TRUE
+/obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		R.ionpulse = FALSE
 
 /obj/item/borg/upgrade/ddrill
 	name = "mining cyborg diamond drill"
@@ -153,17 +155,24 @@
 
 /obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R)
 	if(..())
-		return
+		for(var/obj/item/pickaxe/drill/cyborg/D in R.module.modules)
+			qdel(D)
+		for(var/obj/item/shovel/S in R.module.modules)
+			qdel(S)
 
-	for(var/obj/item/pickaxe/drill/cyborg/D in R.module.modules)
-		qdel(D)
-	for(var/obj/item/shovel/S in R.module.modules)
-		qdel(S)
+		R.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
+		R.module.rebuild()
 
-	R.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
-	R.module.rebuild()
+		return TRUE
 
-	return TRUE
+/obj/item/borg/upgrade/ddrill/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		for(var/obj/item/pickaxe/drill/cyborg/diamond/DD in R.module)
+			qdel(DD)
+
+		R.module.modules += new /obj/item/pickaxe/drill/cyborg(R.module)
+		R.module.modules += new /obj/item/shovel(R.module)
+		R.module.rebuild()
 
 /obj/item/borg/upgrade/soh
 	name = "mining cyborg satchel of holding"
@@ -175,15 +184,21 @@
 
 /obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
 	if(..())
-		return
+		for(var/obj/item/storage/bag/ore/cyborg/S in R.module.modules)
+			qdel(S)
 
-	for(var/obj/item/storage/bag/ore/cyborg/S in R.module.modules)
-		qdel(S)
+		R.module.modules += new /obj/item/storage/bag/ore/holding/cyborg(R.module)
+		R.module.rebuild()
 
-	R.module.modules += new /obj/item/storage/bag/ore/holding(R.module)
-	R.module.rebuild()
+		return TRUE
 
-	return TRUE
+/obj/item/borg/upgrade/soh/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		for(var/obj/item/storage/bag/ore/holding/cyborg/H in R.module)
+			qdel(H)
+
+		R.module.modules += new /obj/item/storage/bag/ore/cyborg(R.module)
+		R.module.rebuild()
 
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
@@ -195,27 +210,50 @@
 
 /obj/item/borg/upgrade/abductor_engi/action(mob/living/silicon/robot/R)
 	if(..())
+		for(var/obj/item/weldingtool/largetank/cyborg/W in R.module.modules)
+			qdel(W)
+		for(var/obj/item/screwdriver/cyborg/S in R.module.modules)
+			qdel(S)
+		for(var/obj/item/wrench/cyborg/E in R.module.modules)
+			qdel(E)
+		for(var/obj/item/crowbar/cyborg/C in R.module.modules)
+			qdel(C)
+		for(var/obj/item/wirecutters/cyborg/I in R.module.modules)
+			qdel(I)
+		for(var/obj/item/multitool/cyborg/M in R.module.modules)
+			qdel(M)
+		R.module.modules += new /obj/item/weldingtool/abductor(R.module)
+		R.module.modules += new /obj/item/wrench/abductor(R.module)
+		R.module.modules += new /obj/item/screwdriver/abductor(R.module)
+		R.module.modules += new /obj/item/crowbar/abductor(R.module)
+		R.module.modules += new /obj/item/wirecutters/abductor(R.module)
+		R.module.modules += new /obj/item/multitool/abductor(R.module)
+		R.module.rebuild()
+		return TRUE
+
+/obj/item/borg/upgrade/abductor_engi/deactivate(mob/living/silicon/robot/R)
+	if(..())
 		return
 
-	for(var/obj/item/weldingtool/largetank/cyborg/W in R.module.modules)
+	for(var/obj/item/weldingtool/abductor/W in R.module.modules)
 		qdel(W)
-	for(var/obj/item/screwdriver/cyborg/S in R.module.modules)
+	for(var/obj/item/screwdriver/abductor/S in R.module.modules)
 		qdel(S)
-	for(var/obj/item/wrench/cyborg/E in R.module.modules)
+	for(var/obj/item/wrench/abductor/E in R.module.modules)
 		qdel(E)
-	for(var/obj/item/crowbar/cyborg/C in R.module.modules)
+	for(var/obj/item/crowbar/abductor/C in R.module.modules)
 		qdel(C)
-	for(var/obj/item/wirecutters/cyborg/I in R.module.modules)
+	for(var/obj/item/wirecutters/abductor/I in R.module.modules)
 		qdel(I)
-	for(var/obj/item/multitool/cyborg/M in R.module.modules)
+	for(var/obj/item/multitool/abductor/M in R.module.modules)
 		qdel(M)
 
 	R.module.modules += new /obj/item/weldingtool/abductor(R.module)
-	R.module.modules += new /obj/item/wrench/abductor(R.module)
-	R.module.modules += new /obj/item/screwdriver/abductor(R.module)
-	R.module.modules += new /obj/item/crowbar/abductor(R.module)
-	R.module.modules += new /obj/item/wirecutters/abductor(R.module)
-	R.module.modules += new /obj/item/multitool/abductor(R.module)
+	R.module.modules += new /obj/item/wrench/cyborg(R.module)
+	R.module.modules += new /obj/item/screwdriver/cyborg(R.module)
+	R.module.modules += new /obj/item/crowbar/cyborg(R.module)
+	R.module.modules += new /obj/item/wirecutters/cyborg(R.module)
+	R.module.modules += new /obj/item/multitool/cyborg(R.module)
 	R.module.rebuild()
 
 	return TRUE
@@ -230,33 +268,62 @@
 
 /obj/item/borg/upgrade/abductor_medi/action(mob/living/silicon/robot/R)
 	if(..())
+		for(var/obj/item/scalpel/laser/laser1/L in R.module.modules)
+			qdel(L)
+		for(var/obj/item/hemostat/H in R.module.modules)
+			qdel(H)
+		for(var/obj/item/retractor/E in R.module.modules)
+			qdel(E)
+		for(var/obj/item/bonegel/B in R.module.modules)
+			qdel(B)
+		for(var/obj/item/FixOVein/F in R.module.modules)
+			qdel(F)
+		for(var/obj/item/bonesetter/S in R.module.modules)
+			qdel(S)
+		for(var/obj/item/circular_saw/C in R.module.modules)
+			qdel(C)
+		for(var/obj/item/surgicaldrill/D in R.module.modules)
+			qdel(D)
+		R.module.modules += new /obj/item/scalpel/laser/laser3(R.module) //no abductor laser scalpel, so next best thing.
+		R.module.modules += new /obj/item/hemostat/alien(R.module)
+		R.module.modules += new /obj/item/retractor/alien(R.module)
+		R.module.modules += new /obj/item/bonegel/alien(R.module)
+		R.module.modules += new /obj/item/FixOVein/alien(R.module)
+		R.module.modules += new /obj/item/bonesetter/alien(R.module)
+		R.module.modules += new /obj/item/circular_saw/alien(R.module)
+		R.module.modules += new /obj/item/surgicaldrill/alien(R.module)
+		R.module.rebuild()
+		return TRUE
+
+/obj/item/borg/upgrade/abductor_medi/deactivate(mob/living/silicon/robot/R)
+	if(..())
 		return
 
-	for(var/obj/item/scalpel/laser/laser1/L in R.module.modules)
+	for(var/obj/item/scalpel/laser/laser3/L in R.module.modules)
 		qdel(L)
-	for(var/obj/item/hemostat/H in R.module.modules)
+	for(var/obj/item/hemostat/alien/H in R.module.modules)
 		qdel(H)
-	for(var/obj/item/retractor/E in R.module.modules)
+	for(var/obj/item/retractor/alien/E in R.module.modules)
 		qdel(E)
-	for(var/obj/item/bonegel/B in R.module.modules)
+	for(var/obj/item/bonegel/alien/B in R.module.modules)
 		qdel(B)
-	for(var/obj/item/FixOVein/F in R.module.modules)
+	for(var/obj/item/FixOVein/alien/F in R.module.modules)
 		qdel(F)
-	for(var/obj/item/bonesetter/S in R.module.modules)
+	for(var/obj/item/bonesetter/alien/S in R.module.modules)
 		qdel(S)
-	for(var/obj/item/circular_saw/C in R.module.modules)
+	for(var/obj/item/circular_saw/alien/C in R.module.modules)
 		qdel(C)
-	for(var/obj/item/surgicaldrill/D in R.module.modules)
+	for(var/obj/item/surgicaldrill/alien/D in R.module.modules)
 		qdel(D)
 
-	R.module.modules += new /obj/item/scalpel/laser/laser3(R.module) //no abductor laser scalpel, so next best thing.
-	R.module.modules += new /obj/item/hemostat/alien(R.module)
-	R.module.modules += new /obj/item/retractor/alien(R.module)
-	R.module.modules += new /obj/item/bonegel/alien(R.module)
-	R.module.modules += new /obj/item/FixOVein/alien(R.module)
-	R.module.modules += new /obj/item/bonesetter/alien(R.module)
-	R.module.modules += new /obj/item/circular_saw/alien(R.module)
-	R.module.modules += new /obj/item/surgicaldrill/alien(R.module)
+	R.module.modules += new /obj/item/scalpel/laser/laser1(R.module)
+	R.module.modules += new /obj/item/hemostat(R.module)
+	R.module.modules += new /obj/item/retractor(R.module)
+	R.module.modules += new /obj/item/bonegel(R.module)
+	R.module.modules += new /obj/item/FixOVein(R.module)
+	R.module.modules += new /obj/item/bonesetter(R.module)
+	R.module.modules += new /obj/item/circular_saw(R.module)
+	R.module.modules += new /obj/item/surgicaldrill(R.module)
 	R.module.rebuild()
 
 	return TRUE
@@ -270,12 +337,14 @@
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
 	if(..())
-		return
-	if(R.weapons_unlock)
-		to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have be disabled.</span>")
-		return
-	R.weapons_unlock = 1
-	return TRUE
+		to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have been disabled.</span>")
+		R.weapons_unlock = TRUE
+		return TRUE
+
+/obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		to_chat(R, "<span class='notice'>Notice: Safety Overide Protocols have been restored.</span>")
+		R.weapons_unlock = FALSE
 
 /obj/item/borg/upgrade/lavaproof
 	name = "mining cyborg lavaproof chassis"
@@ -287,10 +356,12 @@
 
 /obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R)
 	if(..())
-		return
-	if(istype(R))
 		R.weather_immunities += "lava"
-	return TRUE
+		return TRUE
+
+/obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..() && ("lava" in R.weather_immunities))
+		R.weather_immunities -= "lava"
 
 /obj/item/borg/upgrade/selfrepair
 	name = "self-repair module"
@@ -303,25 +374,26 @@
 	var/on = 0
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
+	var/datum/action/toggle_action
 
 /obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R)
 	if(..())
-		return
+		icon_state = "selfrepair_off"
+		var/datum/action/A = new /datum/action/item_action/toggle(src)
+		A.Grant(R)
+		return TRUE
 
-	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
-	if(U)
-		to_chat(usr, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
-		return 0
-
-	cyborg = R
-	icon_state = "selfrepair_off"
-	var/datum/action/A = new /datum/action/item_action/toggle(src)
-	A.Grant(R)
-	return TRUE
+/obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		toggle_action.Remove(R)
+		QDEL_NULL(toggle_action)
+		STOP_PROCESSING(SSobj, src)
+		if(!QDELETED(src))
+			qdel(src)
 
 /obj/item/borg/upgrade/selfrepair/Destroy()
 	cyborg = null
-	STOP_PROCESSING(SSobj, src)
 	on = 0
 	return ..()
 
@@ -329,10 +401,10 @@
 	on = !on
 	if(on)
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
-		START_PROCESSING(SSobj, src)
+		activate_sr()
 	else
 		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
-		STOP_PROCESSING(SSobj, src)
+		deactivate_sr()
 	update_icon()
 
 /obj/item/borg/upgrade/selfrepair/update_icon()
@@ -344,9 +416,14 @@
 	else
 		icon_state = "cyborg_upgrade5"
 
-/obj/item/borg/upgrade/selfrepair/proc/deactivate()
+/obj/item/borg/upgrade/selfrepair/proc/activate_sr()
+	START_PROCESSING(SSobj, src)
+	on = TRUE
+	update_icon()
+
+/obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	STOP_PROCESSING(SSobj, src)
-	on = 0
+	on = FALSE
 	update_icon()
 
 /obj/item/borg/upgrade/selfrepair/process()
@@ -357,12 +434,12 @@
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
 			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
-			deactivate()
+			deactivate_sr()
 			return
 
 		if(cyborg.cell.charge < powercost * 2)
 			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please recharge.</span>")
-			deactivate()
+			deactivate_sr()
 			return
 
 		if(cyborg.health < cyborg.maxHealth)
@@ -387,7 +464,7 @@
 			to_chat(cyborg, "<span class='notice'>Self-repair is active in <span class='boldnotice'>[msgmode]</span> mode.</span>")
 			msg_cooldown = world.time
 	else
-		deactivate()
+		deactivate_sr()
 
 /obj/item/borg/upgrade/storageincreaser
 	name = "storage increaser"
@@ -398,19 +475,18 @@
 
 /obj/item/borg/upgrade/storageincreaser/action(mob/living/silicon/robot/R)
 	if(..())
-		return
-	if(R.increased_storage)
-		to_chat(usr, "<span class='warning'>This unit is already equipped with a storage increaser upgrade.</span>")
-		return 0
-	var/obj/item/robot_module/M = locate() in R
-	if(!M)
-		return
-	for(var/datum/robot_energy_storage/ES in M.storages)
-		ES.max_energy *= 3
-		ES.recharge_rate *= 2
-		ES.energy = ES.max_energy
-	R.increased_storage = TRUE
-	return TRUE
+		for(var/datum/robot_energy_storage/ES in R.module.storages)
+			ES.max_energy *= 3
+			ES.recharge_rate *= 2
+			ES.energy = ES.max_energy
+		return TRUE
+
+/obj/item/borg/upgrade/storageincreaser/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		for(var/datum/robot_energy_storage/ES in R.module.storages)
+			ES.max_energy = initial(ES.max_energy)
+			ES.recharge_rate = initial(ES.recharge_rate)
+			ES.energy = initial(ES.max_energy)
 
 /obj/item/borg/upgrade/hypospray
 	name = "cyborg hypospray upgrade"
@@ -421,30 +497,35 @@
 
 /obj/item/borg/upgrade/hypospray/action(mob/living/silicon/robot/R)
 	if(..())
-		return
+		var/obj/item/reagent_containers/borghypo/basic/H2 = locate() in R.module.modules
+		if(H2)
+			qdel(H2)
+			R.module.modules += new /obj/item/reagent_containers/borghypo/basic/upgraded(R.module)
+			R.module.rebuild()
+			return TRUE
 
-	if(locate(/obj/item/borg/upgrade/hypospray) in R)
-		to_chat(usr, "<span class='warning'>This unit is already equipped with a cyborg hypospray upgrade.</span>")
+		var/obj/item/reagent_containers/borghypo/H = locate() in R.module.modules
+		if(H)
+			qdel(H)
+			R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
+			R.module.rebuild()
+			return TRUE
+
+		to_chat(usr, "<span class='notice'>There's no hypospray in this unit!</span>")
 		return 0
 
-	var/obj/item/reagent_containers/borghypo/basic/H2 = locate() in R.module.modules
-	if(H2)
-		R.module.modules.Remove(H2)
-		qdel(H2)
-		R.module.modules += new /obj/item/reagent_containers/borghypo/basic/upgraded(R.module)
-		R.module.rebuild()
-		return TRUE
-
-	var/obj/item/reagent_containers/borghypo/H = locate() in R.module.modules
-	if(H)
-		R.module.modules.Remove(H)
-		qdel(H)
-		R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
-		R.module.rebuild()
-		return TRUE
-
-	to_chat(usr, "<span class='notice'>There's no hypospray in this unit!</span>")
-	return 0
+/obj/item/borg/upgrade/hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		var/obj/item/reagent_containers/borghypo/basic/upgraded/H2 = locate() in R.module.modules
+		if(H2)
+			qdel(H2)
+			R.module.modules += new /obj/item/reagent_containers/borghypo/basic(R.module)
+			R.module.rebuild()
+		var/obj/item/reagent_containers/borghypo/upgraded/H = locate() in R.module.modules
+		if(H)
+			qdel(H)
+			R.module.modules += new /obj/item/reagent_containers/borghypo(R.module)
+			R.module.rebuild()
 
 /obj/item/borg/upgrade/syndie_rcd
 	name = "Syndicate cyborg RCD upgrade"
@@ -454,14 +535,22 @@
 
 /obj/item/borg/upgrade/syndie_rcd/action(mob/living/silicon/robot/R)
 	if(..())
-		return
+		var/obj/item/rcd/borg/borg_rcd = locate() in R.module.modules
+		if(!borg_rcd)
+			to_chat(usr, "<span class='notice'>There's no RCD in this unit!</span>")
+			return 0
+		for(borg_rcd in R.module.modules)
+			qdel(borg_rcd)
+		R.module.modules += new /obj/item/rcd/syndicate/borg(R.module)
+		R.module.rebuild()
+		return TRUE
 
-	var/obj/item/rcd/borg/borg_rcd = locate() in R.module.modules
-	if(!borg_rcd)
-		to_chat(usr, "<span class='notice'>There's no RCD in this unit!</span>")
-		return 0
-	for(borg_rcd in R.module.modules)
-		qdel(borg_rcd)
-	R.module.modules += new /obj/item/rcd/syndicate/borg(R.module)
-	R.module.rebuild()
-	return TRUE
+/obj/item/borg/upgrade/syndie_rcd/deactivate(mob/living/silicon/robot/R)
+	if(..())
+		var/obj/item/rcd/syndicate/borg/borg_rcd = locate() in R.module.modules
+		if(!borg_rcd)
+			return
+		for(borg_rcd in R.module.modules)
+			qdel(borg_rcd)
+		R.module.modules += new /obj/item/rcd/borg(R.module)
+		R.module.rebuild()

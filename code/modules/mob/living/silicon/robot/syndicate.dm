@@ -97,11 +97,7 @@
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
 	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
-	SR.cyborg = src
-	SR.icon_state = "selfrepair_off"
-
-	var/datum/action/self_repair = new /datum/action/item_action/toggle(SR)
-	self_repair.Grant(src)
+	SR.action(src)
 
 	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
 	thermals.Grant(src)
