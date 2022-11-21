@@ -41,16 +41,16 @@
 				playsound(loc, eating_sound, 20, 1)
 				M.death()
 				break
-		for(var/obj/structure/spider/spiderling/Spider in lizard_view)
-			if(Adjacent(Spider) && HAS_TRAIT(Spider, TRAIT_EDIBLE_BUG))
+		for(var/obj/structure/spider/spiderling/spider in lizard_view)
+			if(Adjacent(spider) && HAS_TRAIT(spider, TRAIT_EDIBLE_BUG))
 				if(prob(90)) // Slippery things aren't they?
-					visible_message("<span class='notice'>The spiderling skitters away from the [src]!")
-					Spider.random_skitter()
+					visible_message("<span class='notice'>The spiderling skitters away from the [src]!</span>")
+					spider.random_skitter()
 					return
 				else
-					custom_emote(EMOTE_VISIBLE, "eats \the [Spider]!")
+					custom_emote(EMOTE_VISIBLE, "eats \the [spider]!")
 					playsound(loc, eating_sound, 20, 1)
-					qdel(Spider)
+					qdel(spider)
 					break
 
 /mob/living/simple_animal/lizard/verb/lose_tail()
