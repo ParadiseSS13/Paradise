@@ -369,7 +369,7 @@
 	var/access_time = 0.7 SECONDS
 
 /obj/item/storage/backpack/duffel/remove_from_storage(obj/item/I, atom/new_location)
-	if(!access_time || (I.loc != src))
+	if(!access_time)
 		return ..() //its not in the fooken bag (this proc is called twice when removing things for some reason) OR there should be no delay
 
 	if(!istype(I))
@@ -383,7 +383,6 @@
 		return FALSE
 
 	return ..()
-
 
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
