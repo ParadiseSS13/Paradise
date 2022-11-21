@@ -129,7 +129,7 @@ SUBSYSTEM_DEF(economy)
 		var/datum/supply_packs/P = typepath
 		if(initial(P.name) == "HEADER")
 			continue // To filter out group headers
-		P = new
+		P = new typepath()
 		supply_packs["[P.type]"] = P
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
