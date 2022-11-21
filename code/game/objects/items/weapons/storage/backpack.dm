@@ -356,30 +356,67 @@
 	new /obj/item/crowbar(src)
 
 /*
- * Duffelbags - My thanks to MrSnapWalk for the original icon and Neinhaus for the job variants - Dave.
+ * Duffelbags
  */
 
 /obj/item/storage/backpack/duffel
 	name = "duffelbag"
-	desc = "A large grey duffelbag designed to hold more items than a regular bag."
+	desc = "A large grey duffelbag designed to hold more items than a regular bag. It slows you down when you carry it unzipped."
 	icon_state = "duffel"
 	item_state = "duffel"
 	max_combined_w_class = 30
+	/// Is the bag zipped up?
+	var/zipped = TRUE
 	/// How long it takes to pull things out of this bag
-	var/access_time = 0.7 SECONDS
+	var/zip_time = 0.7 SECONDS
+
+/obj/item/storage/backpack/duffel/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is currently [zipped ? "zipped" : "unzipped"].</span>"
+	if(zipped)
+		. += "<span class='notice'>Ctrl+click or use the verb to un-zip it!</span>"
+
+/obj/item/storage/backpack/duffel/CtrlClick(mob/user)
+	. = ..()
+	handle_zipping()
+
+/obj/item/storage/backpack/duffel/verb/handle_zipping()
+	set name = "Toggle Duffelbag Zip"
+	set category = "Object"
+	set src in usr
+
+	if(!zip_time || do_after(usr, zip_time, target = src))
+		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
+		zipped = !zipped
+
+		if(!zipped && zip_time) // Handle slowdown and stuff now that we just zipped it
+			slowdown = 1
+			return
+
+		slowdown = 0
+		hide_from_all()
+		for(var/obj/item/storage/container in src)
+			container.hide_from_all() // Hide everything inside the bag too
+
+// The following three procs handle refusing access to contents if the duffel is zipped
+
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning)
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return ..()
 
 /obj/item/storage/backpack/duffel/remove_from_storage(obj/item/I, atom/new_location)
-	if(!access_time)
-		return ..() //its not in the fooken bag (this proc is called twice when removing things for some reason) OR there should be no delay
-
-	if(!istype(I))
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE
 
-	var/mob/M = usr
-	if(!istype(M))
-		return FALSE
+	return ..()
 
-	if(!do_after(M, access_time, target = I, use_default_checks = FALSE))
+/obj/item/storage/backpack/duffel/show_to(mob/user)
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE
 
 	return ..()
@@ -391,7 +428,7 @@
 	item_state = "duffel-syndiammo"
 	origin_tech = "syndicate=1"
 	silent = TRUE
-	access_time = 0
+	zip_time = 0
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/syndie/med
