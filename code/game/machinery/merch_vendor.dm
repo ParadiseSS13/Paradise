@@ -50,17 +50,20 @@
 
 /obj/machinery/economy/merch/proc/attempt_transaction(datum/merch_item/merch, mob/user)
 	if(cash_stored >= merch.cost)
-		pay_with_cash(merch.cost, "Purchase of [merch.name]", name, user, account_database.vendor_account)
-		give_change(user)
-	else
-		var/mob/living/carbon/human/H = user
-		if(istype(H))
-			var/obj/item/card/id/C = H.get_idcard(TRUE)
-			if(!C || !pay_with_card(C, merch.cost, "Purchase of [merch.name]", "NAS Trurl Merchandising", user, account_database.vendor_account))
-				return FALSE
-		else
-			to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.</span>")
+		if(pay_with_cash(merch.cost, "Purchase of [merch.name]", name, user, account_database.vendor_account))
+			give_change(user)
+			return TRUE
+		return FALSE
+
+	var/mob/living/carbon/human/H = user
+	if(istype(H))
+		var/obj/item/card/id/C = H.get_idcard(TRUE)
+		if(!C || !pay_with_card(C, merch.cost, "Purchase of [merch.name]", "NAS Trurl Merchandising", user, account_database.vendor_account))
 			return FALSE
+	else
+		to_chat(user, "<span class='warning'>Payment failure: you have no ID or other method of payment.</span>")
+		return FALSE
+	return TRUE
 
 /obj/machinery/economy/merch/proc/deliver(datum/merch_item/item, mob/user)
 	var/obj/item/merch = new item.typepath(get_turf(src))

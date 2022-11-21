@@ -43,7 +43,7 @@ const VendingRow = (props, context) => {
 
 const MerchProducts = (props, context) => {
   const { data } = useBackend(context);
-  const [tabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex] = useLocalState(context, 'tabIndex', 1);
   const {
     products,
     imagelist,

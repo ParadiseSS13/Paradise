@@ -632,7 +632,7 @@
 	var/list/record_to_check = product_records + coin_records
 	if(extended_inventory)
 		record_to_check = product_records + coin_records + hidden_records
-	if(!R || !istype(R) || !R.product_path)
+	if(!R.product_path)
 		log_debug("player attempted to access an unknown product record at a [name] vendor.</span>")
 		return
 	if(R in hidden_records)
@@ -697,6 +697,7 @@
 	else
 		to_chat(user, "<span class='warning'>Payment failure: unable to process payment.")
 		vend_ready = TRUE
+
 /obj/machinery/economy/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, "<span class='warning'>Access denied.</span>")//Unless emagged of course
