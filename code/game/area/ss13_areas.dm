@@ -683,6 +683,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bar Maintenance"
 	icon_state = "fsmaint"
 
+/area/maintenance/tourist
+	name = "Tourist Area Maintenance"
+	icon_state = "fsmaint"
+
 /area/maintenance/asmaint
 	name = "Medbay Maintenance"
 	icon_state = "asmaint"
@@ -711,13 +715,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Locker Room Maintenance"
 	icon_state = "pmaint"
 
+/area/maintenance/brig
+	name = "Brig Maintenance"
+	icon_state = "pmaint"
+
 /area/maintenance/perma
 	name = "Prison Maintenance"
 	icon_state = "green"
-
-/area/maintenance/aft
-	name = "Engineering Maintenance"
-	icon_state = "amaint"
 
 /area/maintenance/atmospherics
 	name = "Atmospherics Maintenance"
@@ -768,6 +772,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/maintenance/consarea
 	name = "Alternate Construction Area"
+	icon_state = "yellow"
+
+/area/maintenance/consarea_virology
+	name = "Virology Maintenance Construction Area"
 	icon_state = "yellow"
 
 /area/maintenance/detectives_office
@@ -856,6 +864,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hallway/secondary/construction
 	name = "\improper Construction Area"
 	icon_state = "construction"
+
+/area/hallway/secondary/garden
+	name = "\improper Garden"
+	icon_state = "hydro"
 
 /area/hallway/secondary/entry
 	name = "\improper Arrivals Hallway"
@@ -1480,7 +1492,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "medresearch"
 
 /area/medical/research
-	name = "\improper Medical Research"
+	name = "\improper Research Division"
 	icon_state = "research"
 
 /area/medical/research/nhallway
@@ -2223,7 +2235,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/aisat
-	name = "\improper AI Satellite Exterior"
+	name = "\improper AI Satellite Hallway"
 	icon_state = "yellow"
 
 /area/aisat/entrance
@@ -2231,7 +2243,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "ai_foyer"
 
 /area/aisat/maintenance
-	name = "\improper AI Satellite Maintenance"
+	name = "\improper AI Satellite Service"
+	icon_state = "storage"
+
+/area/aisat/atmospherics
+	name = "\improper AI Satellite Atmospherics"
 	icon_state = "storage"
 
 /area/turret_protected/aisat_interior

@@ -12,7 +12,7 @@
 #define PROMOTIONS_FOR_EVERYONE 2000
 #define AMBASSADORS_OF_DISCOVERY 3000
 #define PRIDE_OF_SCIENCE 4000
-#define NANOTRANSEN_FINEST 5000
+#define NANOTRASEN_FINEST 5000
 
 /datum/controller/subsystem/ticker/proc/scoreboard()
 	//Print a list of antagonists to the server log
@@ -216,8 +216,8 @@
 		if(MACHINE_THIRTEEN to PROMOTIONS_FOR_EVERYONE-1) score_rating = 			"Образцовый экипаж"
 		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating = 	"Всем — премия!"
 		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating = 			"Пионеры новых открытий"
-		if(PRIDE_OF_SCIENCE to NANOTRANSEN_FINEST-1) score_rating = 				"Гордость науки во плоти"
-		if(NANOTRANSEN_FINEST to INFINITY) score_rating = 							"Лучшие кадры НаноТрейзен"
+		if(PRIDE_OF_SCIENCE to NANOTRASEN_FINEST-1) score_rating = 					"Гордость науки во плоти"
+		if(NANOTRASEN_FINEST to INFINITY) score_rating = 							"Лучшие кадры НаноТрейзен"
 
 	dat += "<b><u>РЕЙТИНГ:</u></b> [score_rating]"
 	src << browse(dat, "window=roundstats;size=700x900")
@@ -262,4 +262,4 @@
 #undef PROMOTIONS_FOR_EVERYONE
 #undef AMBASSADORS_OF_DISCOVERY
 #undef PRIDE_OF_SCIENCE
-#undef NANOTRANSEN_FINEST
+#undef NANOTRASEN_FINEST
