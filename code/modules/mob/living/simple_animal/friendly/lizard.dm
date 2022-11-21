@@ -33,25 +33,26 @@
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue", "wags its tail.", "lies down."))
 
-	if(isturf(loc))
-		var/list/lizard_view = view(1, src)
-		for(var/mob/living/M in lizard_view)
-			if(M.stat == CONSCIOUS && Adjacent(M) && HAS_TRAIT(M, TRAIT_EDIBLE_BUG))
-				custom_emote(EMOTE_VISIBLE, "eats \the [M]!")
+	if(!isturf(loc))
+		return
+	var/list/lizard_view = view(1, src)
+	for(var/mob/living/M in lizard_view)
+		if(M.stat == CONSCIOUS && Adjacent(M) && HAS_TRAIT(M, TRAIT_EDIBLE_BUG))
+			custom_emote(EMOTE_VISIBLE, "eats \the [M]!")
+			playsound(loc, eating_sound, 20, 1)
+			M.death()
+			break
+	for(var/obj/structure/spider/spiderling/spider in lizard_view)
+		if(Adjacent(spider) && HAS_TRAIT(spider, TRAIT_EDIBLE_BUG))
+			if(prob(90)) // Slippery things aren't they?
+				visible_message("<span class='notice'>The spiderling skitters away from the [src]!</span>")
+				spider.random_skitter()
+				return
+			else
+				custom_emote(EMOTE_VISIBLE, "eats \the [spider]!")
 				playsound(loc, eating_sound, 20, 1)
-				M.death()
+				qdel(spider)
 				break
-		for(var/obj/structure/spider/spiderling/spider in lizard_view)
-			if(Adjacent(spider) && HAS_TRAIT(spider, TRAIT_EDIBLE_BUG))
-				if(prob(90)) // Slippery things aren't they?
-					visible_message("<span class='notice'>The spiderling skitters away from the [src]!</span>")
-					spider.random_skitter()
-					return
-				else
-					custom_emote(EMOTE_VISIBLE, "eats \the [spider]!")
-					playsound(loc, eating_sound, 20, 1)
-					qdel(spider)
-					break
 
 /mob/living/simple_animal/lizard/verb/lose_tail()
 	set name = "Lose tail"
