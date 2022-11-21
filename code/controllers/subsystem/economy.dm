@@ -125,10 +125,11 @@ SUBSYSTEM_DEF(economy)
 	current_10_minute_spending = 0
 	ordernum = rand(1, 9000)
 
-	for(var/datum/supply_packs/typepath in subtypesof(/datum/supply_packs))
-		if(initial(typepath.name) == "HEADER")
+	for(var/typepath in subtypesof(/datum/supply_packs))
+		var/datum/supply_packs/P = typepath
+		if(initial(P.name) == "HEADER")
 			continue // To filter out group headers
-		var/datum/supply_packs/P = new typepath()
+		P = new
 		supply_packs["[P.type]"] = P
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
