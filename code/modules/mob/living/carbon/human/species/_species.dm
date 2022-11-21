@@ -802,7 +802,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
-		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
+		if(A && A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
 			return
 
 	if(H.mind && H.mind.vampire)
