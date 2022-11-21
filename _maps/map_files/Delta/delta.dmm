@@ -48044,7 +48044,6 @@
 /area/security/range)
 "cli" = (
 /obj/structure/target_stake,
-/obj/item/target/syndicate,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -48056,6 +48055,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/magnetic_module,
 /turf/simulated/floor/plasteel,
 /area/security/range)
 "clj" = (
@@ -96849,6 +96849,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"uFf" = (
+/obj/item/target/syndicate,
+/turf/simulated/floor/plating,
+/area/security/range)
 "uGp" = (
 /obj/structure/statue/bananium/clown,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -152066,7 +152070,7 @@ cgg
 ceE
 cgq
 jIs
-cjz
+uFf
 clg
 cmE
 cjr
