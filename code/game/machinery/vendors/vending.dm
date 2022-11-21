@@ -623,22 +623,22 @@
 	if(extended_inventory)
 		display_records = product_records + coin_records + hidden_records
 	if(key < 1 || key > length(display_records))
-		to_chat(user, "<span class='warning'>ERROR: invalid inum passed to vendor. Report this bug.</span>")
+		log_debug("invalid inum passed to a [name] vendor.</span>")
 		return
 	var/datum/data/vending_product/R = display_records[key]
 	if(!istype(R))
-		to_chat(user, "<span class='warning'>ERROR: unknown vending_product record. Report this bug.</span>")
+		log_debug("player attempted to access an unknown vending_product at a [name] vendor.</span>")
 		return
 	var/list/record_to_check = product_records + coin_records
 	if(extended_inventory)
 		record_to_check = product_records + coin_records + hidden_records
 	if(!R || !istype(R) || !R.product_path)
-		to_chat(user, "<span class='warning'>ERROR: unknown product record. Report this bug.</span>")
+		log_debug("player attempted to access an unknown product record at a [name] vendor.</span>")
 		return
 	if(R in hidden_records)
 		if(!extended_inventory)
 			// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
-			to_chat(user, "<span class='warning'>ERROR: machine does not allow extended_inventory in current state. Report this bug.</span>")
+			log_debug("player attempted to access a [name] vendor extended inventory when it was not allowed.</span>")
 			return
 	else if(!(R in record_to_check))
 		// Exploit prevention, stop the user
