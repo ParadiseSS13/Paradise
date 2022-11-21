@@ -192,7 +192,7 @@
 
 /obj/effect/proc_holder/spell/forcewall
 	name = "Force Wall"
-	desc = "This spell creates a small unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
+	desc = "This spell creates a 3 tile wide unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
 	school = "transmutation"
 	base_cooldown = 100
@@ -203,30 +203,18 @@
 	action_icon_state = "shield"
 	cooldown_min = 50 //12 deciseconds reduction per rank
 	var/wall_type = /obj/effect/forcefield/wizard
-	var/large = FALSE
 
 /obj/effect/proc_holder/spell/forcewall/create_new_targeting()
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/forcewall/cast(list/targets, mob/user = usr)
 	new wall_type(get_turf(user), user)
-	if(large) //Extra THICK
-		if(user.dir == SOUTH || user.dir == NORTH)
-			new wall_type(get_step(user, EAST), user)
-			new wall_type(get_step(user, WEST), user)
-		else
-			new wall_type(get_step(user, NORTH), user)
-			new wall_type(get_step(user, SOUTH), user)
-
-/obj/effect/proc_holder/spell/forcewall/greater
-	name = "Greater Force Wall"
-	desc = "Create a larger magical barrier that only you can pass through, but requires wizard garb. Lasts 30 seconds."
-
-	clothes_req = TRUE
-	invocation = "TARCOL GRANDI ZHERI"
-	invocation_type = "shout"
-	large = TRUE
-	action_icon_state = "shield_greater"
+	if(user.dir == SOUTH || user.dir == NORTH)
+		new wall_type(get_step(user, EAST), user)
+		new wall_type(get_step(user, WEST), user)
+	else
+		new wall_type(get_step(user, NORTH), user)
+		new wall_type(get_step(user, SOUTH), user)
 
 /obj/effect/proc_holder/spell/aoe/conjure/timestop
 	name = "Stop Time"
