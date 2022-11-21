@@ -117,18 +117,18 @@ SUBSYSTEM_DEF(economy)
 	if(GLOB.station_money_database)
 		populate_station_database()
 		cargo_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
-		if(!cargo_account)
-			WARNING("SSeconomy could not locate the supply department account")
+	if(!cargo_account)
+		WARNING("SSeconomy could not locate the supply department account")
 	if(GLOB.centcomm_money_database)
 		populate_cc_database()
 	//need to set this back to 0 due to how this is tracked (and so we have a clean slate for roundstart)
 	current_10_minute_spending = 0
 	ordernum = rand(1, 9000)
 
-	for(var/typepath in subtypesof(/datum/supply_packs))
-		var/datum/supply_packs/P = new typepath()
-		if(P.name == "HEADER")
+	for(var/datum/supply_packs/typepath in subtypesof(/datum/supply_packs))
+		if(initial(typepath.name) == "HEADER")
 			continue // To filter out group headers
+		var/datum/supply_packs/P = new typepath()
 		supply_packs["[P.type]"] = P
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
@@ -189,7 +189,7 @@ SUBSYSTEM_DEF(economy)
 /// Supply Stuff /////////
 ////////////////////////
 
-/datum/controller/subsystem/economy/proc/generate_supply_order(packID, orderedby, occupation, amount, comment)
+/datum/controller/subsystem/economy/proc/generate_supply_order(packID, orderedby, occupation, comment)
 	if(!packID)
 		return FALSE
 	var/datum/supply_packs/pack = locateUID(packID)
@@ -202,7 +202,6 @@ SUBSYSTEM_DEF(economy)
 	order.orderedby = orderedby
 	order.orderedbyRank = occupation
 	order.comment = comment
-	order.crates = amount
 
 	return order
 

@@ -22,6 +22,7 @@
 	var/list/ui_manifest = list()
 
 /datum/supply_packs/New()
+	. = ..()
 	manifest += "<ul>"
 	for(var/path in contains)
 		if(!path)

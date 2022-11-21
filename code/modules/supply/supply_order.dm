@@ -13,8 +13,6 @@
 	var/datum/station_department/ordered_by_department
 	///Reason/purpose for order given by orderer
 	var/comment
-	///amount of crates purchased
-	var/crates
 	///does this order need to be approve by the department head?
 	var/requires_head_approval = FALSE
 	///does this order need to be approve by the QM?
@@ -29,13 +27,13 @@
 		return
 
 	//create the crate
-	var/atom/Crate = new object.containertype(_loc)
-	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
+	var/obj/structure/closet/crate/crate = new object.containertype(_loc)
+	crate.name = "[object.containername] [comment ? "([comment])":"" ]"
 	if(object.access)
-		Crate:req_access = list(text2num(object.access))
+		crate.req_access = list(text2num(object.access))
 
 	//create the manifest slip
-	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
+	var/obj/item/paper/manifest/slip = new
 	slip.points = object.cost
 	slip.ordernumber = ordernum
 
@@ -68,13 +66,13 @@
 	for(var/typepath in contains)
 		if(!typepath)
 			continue
-		var/atom/A = new typepath(Crate)
+		var/atom/A = new typepath(crate)
 		if(object.amount && A.vars.Find("amount") && A:amount)
 			A:amount = object.amount
 		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
 
-	if(istype(Crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
-		var/obj/structure/closet/critter/CritCrate = Crate
+	if(istype(crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
+		var/obj/structure/closet/critter/CritCrate = crate
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
@@ -82,18 +80,18 @@
 	//manifest finalisation
 	slip.info += "</ul><br>"
 	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
-	slip.loc = Crate
-	if(istype(Crate, /obj/structure/closet/crate))
-		var/obj/structure/closet/crate/CR = Crate
+	slip.loc = crate
+	if(istype(crate, /obj/structure/closet/crate))
+		var/obj/structure/closet/crate/CR = crate
 		CR.manifest = slip
 		CR.update_icon()
 		CR.announce_beacons = object.announce_beacons.Copy()
-	if(istype(Crate, /obj/structure/largecrate))
-		var/obj/structure/largecrate/LC = Crate
+	if(istype(crate, /obj/structure/largecrate))
+		var/obj/structure/largecrate/LC = crate
 		LC.manifest = slip
 		LC.update_icon()
 
-	return Crate
+	return crate
 
 /obj/item/paper/manifest
 	name = "supply manifest"

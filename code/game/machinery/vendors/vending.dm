@@ -374,7 +374,12 @@
 	if(!anchored)
 		return
 	panel_open = !panel_open
-	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+
+	if(panel_open)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
@@ -547,11 +552,10 @@
 			max_amount = R.max_amount,
 			req_coin = TRUE,
 			is_hidden = FALSE,
-			inum = i,
+			inum = i++,
 			premium = TRUE
 		)
 		data["coin_records"] += list(data_cr)
-		i++
 	data["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
 		var/list/data_hr = list(
@@ -561,11 +565,10 @@
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = TRUE,
-			inum = i,
+			inum = i++,
 			premium = TRUE
 		)
 		data["hidden_records"] += list(data_hr)
-		i++
 	data["imagelist"] = imagelist
 	return data
 

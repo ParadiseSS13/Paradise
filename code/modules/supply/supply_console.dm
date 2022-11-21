@@ -1,3 +1,4 @@
+#define MULTIPLE_CRATE_MAX 10
 
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
@@ -24,11 +25,8 @@
 	reconnect_database()
 
 /obj/machinery/computer/supplycomp/proc/reconnect_database()
-	if(is_station_level(z))
-		account_database = GLOB.station_money_database
-		cargo_account = account_database.get_account_by_department(DEPARTMENT_SUPPLY)
-	else
-		account_database = null
+	account_database = GLOB.station_money_database
+	cargo_account = account_database.get_account_by_department(DEPARTMENT_SUPPLY)
 
 /obj/machinery/computer/supplycomp/attack_ai(mob/user)
 	return attack_hand(user)
@@ -243,10 +241,6 @@
 	if(!is_public && !is_authorized(user))
 		return
 
-	if(!SSshuttle)
-		stack_trace("The SSshuttle controller datum is missing somehow.")
-		return
-
 	. = TRUE
 	add_fingerprint(user)
 
@@ -259,10 +253,10 @@
 				return
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
-				var/num_input = input(user, "Amount", "How many crates? (20 Max)") as null|num
+				var/num_input = input(user, "Amount", "How many crates? ([MULTIPLE_CRATE_MAX] Max)") as null|num
 				if(!num_input || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
 					return
-				amount = clamp(round(num_input), 1, 10)
+				amount = clamp(round(num_input), 1, MULTIPLE_CRATE_MAX)
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
 				return
@@ -286,12 +280,12 @@
 			//===orderee account information===
 			var/datum/money_account/selected_account = locateUID(params["account"])
 			for(var/i in 1 to amount)
-				var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, amount, reason)
+				var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, reason)
 				order_crate(user, order, selected_account)
 				if(i == 1)
 					playsound(loc, 'sound/machines/ping.ogg', 15, 0)
 					to_chat(user, "<span class='notice'>Order Sent.</span>")
-					generate_requisition_paper(order)
+					generate_requisition_paper(order, amount)
 
 		if("approve")
 			var/ordernum = text2num(params["ordernum"])
@@ -318,22 +312,20 @@
 	var/datum/money_account/selected_account = account
 	if(!istype(selected_account)) //if no account found, just default to cargo account
 		CRASH("order_crate called without a specified money account")
-	else
-		if(selected_account.account_type == ACCOUNT_TYPE_DEPARTMENT)
-			for(var/datum/station_department/department in SSjobs.station_departments)
-				if(department.department_account == selected_account)
-					order.ordered_by_department = department //now that we know which department this is for, attach it to the order
-					order.orderedbyaccount = selected_account
-					order.requires_head_approval = TRUE
+	if(selected_account.account_type == ACCOUNT_TYPE_DEPARTMENT)
+		for(var/datum/station_department/department in SSjobs.station_departments)
+			if(department.department_account == selected_account)
+				order.ordered_by_department = department //now that we know which department this is for, attach it to the order
+				order.orderedbyaccount = selected_account
+				order.requires_head_approval = TRUE
 
-					if(length(order.object.department_restrictions))
-						//this crate has a department whitelist description
-						if(!(department.department_name in order.object.department_restrictions))
-							//this department is not in this whitelist, require QM approval
-							order.requires_qm_approval = TRUE
-					break
-		else if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL && length(order.object.department_restrictions))
-			order.requires_qm_approval = TRUE
+				if(length(order.object.department_restrictions) && !(department.department_name in order.object.department_restrictions))
+					//this crate has a department whitelist description
+					//this department is not in this whitelist, require QM approval
+					order.requires_qm_approval = TRUE
+				break
+	else if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL && length(order.object.department_restrictions))
+		order.requires_qm_approval = TRUE
 
 	//===Handle Supply Order===
 	if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL)
@@ -352,45 +344,44 @@
 
 /obj/machinery/computer/supplycomp/proc/approve_crate(mob/user, order_num)
 	for(var/datum/supply_order/department_order in SSeconomy.request_list)
-		if(department_order.ordernum == order_num)
-			var/datum/supply_order/order = department_order
-			var/datum/supply_packs/pack = order.object
-			var/datum/money_account/account = order.orderedbyaccount
+		if(department_order.ordernum != order_num)
+			continue
+		var/datum/supply_order/order = department_order
+		var/datum/supply_packs/pack = order.object
+		var/datum/money_account/account = order.orderedbyaccount
 
-			if(order.requires_qm_approval)
-				if(!has_qm_access(user.get_access()))
-					return FALSE
-				order.requires_qm_approval = FALSE
-				if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
-					if(pay_with_account(account, order.object.cost, "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
-						SSeconomy.process_supply_order(order, TRUE) //send 'er back through
-						return TRUE
-					atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
-					SSeconomy.request_list -= order //just remove order at this poin
-				else
+		if(order.requires_qm_approval)
+			if(!has_qm_access(user.get_access()))
+				return FALSE
+			order.requires_qm_approval = FALSE
+			if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
+				if(pay_with_account(account, order.object.cost, "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
+					SSeconomy.process_supply_order(order, TRUE) //send 'er back through
 					return TRUE
+				atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
+				SSeconomy.request_list -= order //just remove order at this poin
+			else
 				return TRUE
+			return TRUE
 
-			if(order.requires_head_approval)
-				//if they do not have access to this account
-				if(!department_order.ordered_by_department.has_account_access(user.get_access(), user.get_worn_id_account()))
-					//and the dept account doesn't have auto approve enabled (or does and the crate is too expensive for auto approve)
-					if(!department_order.ordered_by_department.crate_auto_approve || department_order.ordered_by_department.auto_approval_cap < pack.cost)
-						return //no access!
+		if(order.requires_head_approval)
+			//if they do not have access to this account
+			if(!department_order.ordered_by_department.has_account_access(user.get_access(), user.get_worn_id_account()))
+				//and the dept account doesn't have auto approve enabled (or does and the crate is too expensive for auto approve)
+				if(!department_order.ordered_by_department.crate_auto_approve || department_order.ordered_by_department.auto_approval_cap < pack.cost)
+					return //no access!
 
-				///just give the account pin here, its too much work for players to get the department account pin number since approval is access locked anyway
-				if(attempt_account_authentification(account, user, account.account_pin))
-					if(pay_with_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
-						order.requires_head_approval = FALSE
-						SSeconomy.process_supply_order(order, TRUE)
-						investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
-						SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
-					else
-						atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
-						SSeconomy.request_list -= order
-
-
-			//how did we get here?
+			///just give the account pin here, its too much work for players to get the department account pin number since approval is access locked anyway
+			if(attempt_account_authentification(account, user, account.account_pin))
+				if(pay_with_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
+					order.requires_head_approval = FALSE
+					SSeconomy.process_supply_order(order, TRUE)
+					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
+					SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
+				else
+					atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
+					SSeconomy.request_list -= order
+		break
 
 /obj/machinery/computer/supplycomp/proc/deny_crate(mob/user, order_num)
 	var/obj/item/card/id/C
@@ -398,22 +389,22 @@
 		var/mob/living/carbon/human/H = user
 		C = H.get_idcard(TRUE)
 	for(var/datum/supply_order/department_order as anything in SSeconomy.request_list)
-		if(department_order.ordernum == order_num)
-			var/datum/supply_order/order = department_order
-			// allow cancelling of our own orders
-			if(C && order.orderedby == C.registered_name)
-				SSeconomy.request_list -= order
-				return
-			// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
-			else
-				if(order.requires_qm_approval && (ACCESS_QM in C.access))
-					SSeconomy.request_list -= order
-				else if(order.requires_head_approval && (order.ordered_by_department.has_account_access(C.access)))
-					SSeconomy.request_list -= order
-				else
-					return //how did we get here?
-				investigate_log("| [key_name(user)] has denied an order for [order.object.name].", "cargo")
-				return
+		if(department_order.ordernum != order_num)
+			continue
+		var/datum/supply_order/order = department_order
+		// allow cancelling of our own orders
+		if(C && order.orderedby == C.registered_name)
+			SSeconomy.request_list -= order
+			return
+		// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
+		if(order.requires_qm_approval && (ACCESS_QM in C.access))
+			SSeconomy.request_list -= order
+		else if(order.requires_head_approval && (order.ordered_by_department.has_account_access(C.access)))
+			SSeconomy.request_list -= order
+		else
+			return //how did we get here?
+		investigate_log("| [key_name(user)] has denied an order for [order.object.name].", "cargo")
+		break
 
 /obj/machinery/computer/supplycomp/proc/move_shuttle(mob/user)
 	if(is_public) // Public consoles cant move the shuttle. Dont allow exploiters.
@@ -427,7 +418,7 @@
 		SSshuttle.supply.request(SSshuttle.getDock("supply_home"))
 
 /obj/machinery/computer/supplycomp/proc/pay_for_crate(datum/money_account/customer_account, mob/user, datum/supply_order/order)
-	if(pay_with_account(customer_account, order.object.cost, "Purchase of [order.crates]x [order.object.name]", "Cargo Requests Console", user, cargo_account, TRUE))
+	if(pay_with_account(customer_account, order.object.cost, "Purchase of [order.object.name]", "Cargo Requests Console", user, cargo_account, TRUE))
 		return TRUE
 	return FALSE
 
@@ -459,18 +450,18 @@
 	account_database.credit_account(target, amount, purpose, transactor, FALSE)
 	return TRUE
 
-/obj/machinery/computer/supplycomp/proc/generate_requisition_paper(datum/supply_order/order)
+/obj/machinery/computer/supplycomp/proc/generate_requisition_paper(datum/supply_order/order, amount)
 
 	var/obj/item/paper/request_form/reqform = new(get_turf(src))
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	reqform.name = "Requisition Form - [order.crates] '[order.object.name]' for [order.orderedby]"
+	reqform.name = "Requisition Form - [amount] '[order.object.name]' for [order.orderedby]"
 	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
 	reqform.info += "INDEX: #[order.ordernum]<br>"
 	reqform.info += "REQUESTED BY: [order.orderedby]<br>"
 	reqform.info += "RANK: [order.orderedbyRank]<br>"
 	reqform.info += "REASON: [order.comment]<br>"
 	reqform.info += "SUPPLY CRATE TYPE: [order.object.name]<br>"
-	reqform.info += "NUMBER OF CRATES: [order.crates]<br>"
+	reqform.info += "NUMBER OF CRATES: [amount]<br>"
 	reqform.info += "ACCESS RESTRICTION: [order.object.access ? get_access_desc(order.object.access) : "None"]<br>"
 	reqform.info += "CONTENTS:<br>"
 	reqform.info += order.object.manifest
@@ -487,7 +478,6 @@
 	if(!hacked)
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
-		return
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
@@ -497,3 +487,5 @@
 	circuit = /obj/item/circuitboard/ordercomp
 	req_access = list()
 	is_public = TRUE
+
+#undef MULTIPLE_CRATE_MAX
