@@ -365,7 +365,25 @@
 	icon_state = "duffel"
 	item_state = "duffel"
 	max_combined_w_class = 30
-	slowdown = 1
+	/// How long it takes to pull things out of this bag
+	var/access_time = 0.7 SECONDS
+
+/obj/item/storage/backpack/duffel/remove_from_storage(obj/item/I, atom/new_location)
+	if(!access_time || (I.loc != src))
+		return ..() //its not in the fooken bag (this proc is called twice when removing things for some reason) OR there should be no delay
+
+	if(!istype(I))
+		return FALSE
+
+	var/mob/M = usr
+	if(!istype(M))
+		return FALSE
+
+	if(!do_after(M, access_time, target = I, use_default_checks = FALSE))
+		return FALSE
+
+	return ..()
+
 
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
@@ -374,7 +392,7 @@
 	item_state = "duffel-syndiammo"
 	origin_tech = "syndicate=1"
 	silent = TRUE
-	slowdown = 0
+	access_time = 0
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/syndie/med
