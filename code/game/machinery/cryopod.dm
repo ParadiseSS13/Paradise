@@ -401,8 +401,6 @@
 			if(O.target != occupant.mind)
 				continue
 			O.on_target_cryo()
-		if(occupant.mind in SSticker.mode.victims)
-			SSticker.mode.victims.Remove(occupant.mind)
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
