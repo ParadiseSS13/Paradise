@@ -6,13 +6,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	Busy symbols by languages:
 	0 1 2 3 4 5 6 7 8 9
-	% ? ^
+	% ? ^ '
 
 	Busy letters by radio(eng):
 	c e h i l m n p r s t u w x z
 
 	Busy letters by radio(rus):
-	б г д е ё з к р с т у ц ч ш ы ь я
+	б г д е ё з к р с т у ц ч ш ы ь я Э
 
 	Busy symbols by radio:
 	~ , $ _ - + *
@@ -33,6 +33,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":s" = "Security",		"#s" = "Security",		"№s" = "Security",		".s" = "Security",
 	  ":w" = "whisper",			"#w" = "whisper",		"№w" = "whisper",		".w" = "whisper",
 	  ":t" = "Syndicate",		"#t" = "Syndicate",		"№t" = "Syndicate",		".t" = "Syndicate",
+	  ":'" = "Soviet",			"#'" = "Soviet",		"№'" = "Soviet",		".'" = "Soviet",
 	  ":u" = "Supply",			"#u" = "Supply",		"№u" = "Supply",		".u" = "Supply",
 	  ":z" = "Service",			"#z" = "Service",		"№z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",		"#p" = "AI Private",	"№p" = "AI Private",	".p" = "AI Private",
@@ -50,6 +51,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":S" = "Security",		"#S" = "Security",		"№S" = "Security",		".S" = "Security",
 	  ":W" = "whisper",			"#W" = "whisper",		"№W" = "whisper",		".W" = "whisper",
 	  ":T" = "Syndicate",		"#T" = "Syndicate",		"№T" = "Syndicate",		".T" = "Syndicate",
+	  ":'" = "Soviet",			"#'" = "Soviet",		"№'" = "Soviet",		".'" = "Soviet",
 	  ":U" = "Supply",			"#U" = "Supply",		"№U" = "Supply",		".U" = "Supply",
 	  ":Z" = "Service",			"#Z" = "Service",		"№Z" = "Service",		".Z" = "Service",
 	  ":P" = "AI Private",		"#P" = "AI Private",	"№P" = "AI Private",	".P" = "AI Private",
@@ -67,6 +69,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":ы" = "Security",		"#ы" = "Security",		"№ы" = "Security",		".ы" = "Security",
 	  ":ц" = "whisper",			"#ц" = "whisper",		"№ц" = "whisper",		".ц" = "whisper",
 	  ":е" = "Syndicate",		"#е" = "Syndicate",		"№е" = "Syndicate",		".е" = "Syndicate",
+	  ":э" = "Soviet",			"#э" = "Soviet",		"№э" = "Soviet",		".э" = "Soviet",
 	  ":б" = "SyndTaipan",		"#б" = "SyndTaipan",	"№б" = "SyndTaipan",	".б" = "SyndTaipan",
 	  ":г" = "Supply",			"#г" = "Supply",		"№г" = "Supply",		".г" = "Supply",
 	  ":я" = "Service",			"#я" = "Service",		"№я" = "Service",		".я" = "Service",
@@ -84,6 +87,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":Ы" = "Security",		"#Ы" = "Security",		"№Ы" = "Security",		".Ы" = "Security",
 	  ":Ц" = "whisper",			"#Ц" = "whisper",		"№Ц" = "whisper",		".Ц" = "whisper",
 	  ":Е" = "Syndicate",		"#Е" = "Syndicate",		"№Е" = "Syndicate",		".Е" = "Syndicate",
+	  ":Э" = "Soviet",			"#Э" = "Soviet",		"№Э" = "Soviet",		".Э" = "Soviet",
 	  ":Б" = "SyndTaipan",		"#Б" = "SyndTaipan",	"№Б" = "SyndTaipan",	".Б" = "SyndTaipan",
 	  ":Г" = "Supply",			"#Г" = "Supply",		"№Г" = "Supply",		".Г" = "Supply",
 	  ":Я" = "Service",			"#Я" = "Service",		"№Я" = "Service",		".Я" = "Service",

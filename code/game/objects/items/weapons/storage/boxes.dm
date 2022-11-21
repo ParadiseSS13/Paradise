@@ -1095,6 +1095,22 @@
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
+/obj/item/storage/box/soviet
+	name = "boxed survival kit"
+	desc = "A standard issue Soviet military survival kit."
+	icon_state = "box_soviet"
+
+/obj/item/storage/box/soviet/New()
+	..()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+
 /obj/item/storage/box/clown
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown"

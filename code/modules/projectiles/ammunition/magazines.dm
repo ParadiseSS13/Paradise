@@ -373,6 +373,16 @@
 	max_ammo = 30
 	multiple_sprites = 2
 
+/obj/item/ammo_box/magazine/ak814
+	name = "AK magazine (5.45x39mm)"
+	icon_state = "ak814"
+	desc= "A universal magazine for an AK style rifle."
+	origin_tech = "combat=5;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/a545
+	caliber = "a545"
+	max_ammo = 30
+	multiple_sprites = 2
+
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	desc = "A drum magazine."

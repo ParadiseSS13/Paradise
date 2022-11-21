@@ -15,6 +15,7 @@ SUBSYSTEM_DEF(radio)
 	"Syndicate" 	= SYND_FREQ,
 	"SyndTaipan" 	= SYND_TAIPAN_FREQ,
 	"SyndTeam" 		= SYNDTEAM_FREQ,
+	"Soviet"		= SOV_FREQ,
 	"Supply" 		= SUP_FREQ,
 	"Service" 		= SRV_FREQ,
 	"AI Private"	= AI_FREQ,
@@ -60,6 +61,8 @@ SUBSYSTEM_DEF(radio)
 			return "srvradio"
 		if(PROC_FREQ)
 			return "proradio"
+		if(SOV_FREQ)
+			return "sovradio"
 		if(SPY_SPIDER_FREQ)
 			return "spyradio"
 		if(NINJA_FREQ)

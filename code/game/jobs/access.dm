@@ -472,6 +472,9 @@
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
 
+/proc/get_all_soviet_jobs()
+	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral")
+
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
 /obj/proc/GetJobRealName()
@@ -572,6 +575,7 @@
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
 	var/solgov = get_all_solgov_jobs()
+	var/soviet = get_all_soviet_jobs()
 
 	if(assignmentName in centcom) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
@@ -582,6 +586,11 @@
 		return "solgov"
 	if(rankName in solgov)
 		return "solgov"
+
+	if(assignmentName in soviet) //Return with the U.S.S.P logo if it is a Soviet job
+		return "soviet"
+	if(rankName in soviet)
+		return "soviet"
 
 	if(assignmentName in job_icons) //Check if the job has a hud icon
 		return assignmentName

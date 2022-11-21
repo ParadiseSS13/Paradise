@@ -206,13 +206,13 @@
 
 /obj/item/gun/projectile/shotgun/boltaction
 	name = "\improper Mosin Nagant"
-	desc = "This piece of junk looks like something that could have been used 700 years ago."
+	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
 	slot_flags = 0 //no SLOT_BACK sprite, alas
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/1rifle.ogg'
-	var/bolt_open = 0
+	bolt_open = FALSE
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
@@ -224,6 +224,7 @@
 	else
 		pump_unload(M)
 	bolt_open = !bolt_open
+	icon_state = "moistnugget_open"
 	update_icon()	//I.E. fix the desc
 	return 1
 

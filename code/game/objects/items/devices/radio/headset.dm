@@ -138,6 +138,17 @@
 	freerange = TRUE
 	freqlock = FALSE
 
+/obj/item/radio/headset/alt/soviet
+	name = "\improper Soviet bowman headset"
+	desc = "A headset linked to the soviet military frequency in this sector. Protects ears from flashbangs."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks1type = /obj/item/encryptionkey/soviet
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary

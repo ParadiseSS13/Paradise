@@ -545,69 +545,230 @@
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/storage/backpack/satchel
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/sovietsidecap
 	id = /obj/item/card/id
+	shoes = /obj/item/clothing/shoes/combat
+	l_ear = /obj/item/radio/headset/alt/soviet
 
 /datum/outfit/admin/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
+	. = ..()
+
+
+	H.rename_character(null, "[H.gender==FEMALE ? pick(GLOB.first_names_female) : pick(GLOB.first_names_male)] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+	H.add_language("Neo-Russkiya")
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
+		H.sec_hud_set_ID()
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
 
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/radio/headset
+	gloves = null
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1
 	)
 
+/datum/outfit/admin/soviet/conscript
+	name = "Soviet Conscript"
+
+	gloves = null
+	r_pocket = /obj/item/flashlight/seclite
+	r_hand = /obj/item/gun/projectile/shotgun/boltaction
+	belt = /obj/item/gun/projectile/revolver/nagant
+
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/ammo_box/a762 = 4
+	)
+
+/datum/outfit/admin/soviet/conscript/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	. = ..()
+
+	H.rename_character(null, "[pick("Рядовой", "Ефрейтор", "Младший сержант", "Сержант")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+
+	H.add_language("Neo-Russkiya")
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
+		H.sec_hud_set_ID()
+
 /datum/outfit/admin/soviet/soldier
 	name = "Soviet Soldier"
 
-	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/combat
-	l_ear = /obj/item/radio/headset/syndicate
+	suit = /obj/item/clothing/suit/sovietcoat
 	glasses = /obj/item/clothing/glasses/sunglasses
+	r_pocket = /obj/item/flashlight/seclite
+	belt = /obj/item/gun/projectile/automatic/pistol/APS
 
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/card/emag = 1,
-		/obj/item/flashlight = 1,
-		/obj/item/grenade/plastic/c4 = 2,
-		/obj/item/gun/projectile/revolver/mateba = 1,
-		/obj/item/ammo_box/a357 = 3
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/lighter = 1,
+		/obj/item/storage/fancy/cigarettes/cigpack_robust = 1,
+		/obj/item/ammo_box/magazine/pistolm9mm = 2
 	)
+
+/datum/outfit/admin/soviet/soldier/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	. = ..()
+
+	H.rename_character(null, "[pick("Младший сержант", "Сержант", "Старший сержант", "Старшина", "Прапорщик", "Старший прапорщик", "Младший лейтенант", "Лейтенант")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+
+	H.add_language("Neo-Russkiya")
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
+		H.sec_hud_set_ID()
+
+/datum/outfit/admin/soviet/officer
+	name = "Soviet Officer"
+
+	suit = /obj/item/clothing/suit/sovietcoat/officer
+	uniform = /obj/item/clothing/under/sovietofficer
+	head = /obj/item/clothing/head/sovietofficerhat
+	glasses = /obj/item/clothing/glasses/sunglasses
+	belt = /obj/item/gun/projectile/revolver/mateba
+	l_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/flashlight/seclite
+
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/lighter/zippo = 1,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/ammo_box/a357 = 2
+	)
+
+/datum/outfit/admin/soviet/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	. = ..()
+
+	H.rename_character(null, "[pick("Старший лейтенант","Капитан", "Майор", "Подполковник", "Полковник")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+
+
+	H.add_language("Neo-Russkiya")
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
+		H.sec_hud_set_ID()
+
+/datum/outfit/admin/soviet/marine
+	name = "Soviet Marine"
+
+	suit = /obj/item/clothing/suit/space/hardsuit/soviet
+	head = null
+	mask = /obj/item/clothing/mask/gas
+	glasses = /obj/item/clothing/glasses/night
+	belt = /obj/item/storage/belt/military/assault/soviet/full
+	l_pocket = /obj/item/card/emag
+	r_pocket = /obj/item/melee/classic_baton/telescopic
+	l_hand = /obj/item/gun/projectile/automatic/ak814
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/ammo_box/magazine/pistolm9mm = 1,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/lighter/zippo = 1
+	)
+
+/datum/outfit/admin/soviet/marine/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	. = ..()
+
+	H.rename_character(null, "[pick("Сержант", "Старший сержант", "Старшина", "Прапорщик", "Старший прапорщик", "Младший лейтенант", "Лейтенант")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+
+
+	H.add_language("Neo-Russkiya")
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
+		H.sec_hud_set_ID()
+
+/datum/outfit/admin/soviet/marine/captain
+	name = "Soviet Marine Captain"
+
+	uniform = /obj/item/clothing/under/sovietofficer
+	suit = /obj/item/clothing/suit/space/hardsuit/soviet/commander
+
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/gun/projectile/revolver/mateba = 1,
+		/obj/item/ammo_box/a357 = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/lighter/zippo = 1
+	)
+
+/datum/outfit/admin/soviet/marine/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	. = ..()
+
+	H.rename_character(null, "[pick("Старший лейтенант", "Капитан", "Майор", "Подполковник", "Полковник")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+
+
+	H.add_language("Neo-Russkiya")
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
+		H.sec_hud_set_ID()
 
 /datum/outfit/admin/soviet/admiral
 	name = "Soviet Admiral"
 
-	suit = /obj/item/clothing/suit/hgpirate
-	belt = null
-	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/combat
-	head = /obj/item/clothing/head/hgpiratecap
-	mask = null
+	uniform = /obj/item/clothing/under/sovietadmiral
+	head = /obj/item/clothing/head/sovietadmiralhat
+	belt = /obj/item/gun/projectile/revolver/mateba
 	l_ear = /obj/item/radio/headset/syndicate
-	r_ear = null
+	r_ear = /obj/item/radio/headset/alt/soviet
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	l_pocket = null
-	r_pocket = null
-	suit_store = null
-	l_hand = null
-	r_hand = null
-	pda = null
-
+	l_pocket = /obj/item/melee/classic_baton/telescopic
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
-		/obj/item/gun/projectile/revolver/mateba = 1,
+		/obj/item/storage/box/soviet = 1,
 		/obj/item/ammo_box/a357 = 3
 	)
+
+/datum/outfit/admin/soviet/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	. = ..()
+
+	H.rename_character(null, "[pick("Адмирал")] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
+
+
+	H.add_language("Neo-Russkiya")
+	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
+		H.sec_hud_set_ID()
 
 /datum/outfit/admin/solgov_rep
 	name = "Solar Federation Representative"

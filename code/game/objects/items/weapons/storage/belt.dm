@@ -429,6 +429,15 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
+/obj/item/storage/belt/military/assault/soviet/full/New()
+	..()
+	new /obj/item/ammo_box/magazine/ak814(src)
+	new /obj/item/ammo_box/magazine/ak814(src)
+	new /obj/item/ammo_box/magazine/ak814(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/storage/pill_bottle/sovietstimulants(src)
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."

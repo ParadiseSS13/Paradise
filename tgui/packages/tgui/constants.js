@@ -62,6 +62,11 @@ export const RADIO_CHANNELS = [
     color: '#a52a2a',
   },
   {
+    name: 'Soviet',
+    freq: 1217,
+    color: '#f7941d',
+  },
+  {
     name: 'SyndTaipan',
     freq: 1227,
     color: '#ffec8b',

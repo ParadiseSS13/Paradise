@@ -31,6 +31,19 @@
 	new /obj/item/reagent_containers/food/pill/zoom( src )
 	new /obj/item/reagent_containers/food/pill/zoom( src )
 
+/obj/item/storage/pill_bottle/sovietstimulants
+	name = "\improper Soviet combat stimulants"
+	desc = "Increases user speed and performance for surprise and shock warfare. Effects wear off quickly. Take at the moment of enemy contact for maximum effect."
+	wrapper_color = COLOR_RED
+
+/obj/item/storage/pill_bottle/sovietstimulants/New()
+	..()
+	new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
+	new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
+	new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
+	new /obj/item/reagent_containers/food/pill/stimulative_agent(src)
+
+
 /obj/item/reagent_containers/food/pill/random_drugs
 	name = "pill"
 	desc = "A cocktail of illicit designer drugs, who knows what might be in here."

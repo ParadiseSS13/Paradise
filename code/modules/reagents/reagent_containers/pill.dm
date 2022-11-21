@@ -87,6 +87,12 @@
 	icon_state = "pill8"
 	list_reagents = list("methamphetamine" = 5)
 
+/obj/item/reagent_containers/food/pill/stimulative_agent
+	name = "combat stimulant pill"
+	desc = "Used by elite soldiers to increase speed and battle performance."
+	icon_state = "pill15"
+	list_reagents = list("stimulative_agent" = 5)
+
 /obj/item/reagent_containers/food/pill/haloperidol
 	name = "Haloperidol pill"
 	desc = "Haloperidol is an anti-psychotic use to treat psychiatric problems."

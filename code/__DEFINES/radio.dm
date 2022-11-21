@@ -19,6 +19,7 @@
 #define SYND_FREQ 1213
 #define SYND_TAIPAN_FREQ 1227 //Taipan frequency
 #define SYNDTEAM_FREQ 1244
+#define SOV_FREQ 1217 //Soviet
 #define SPY_SPIDER_FREQ	1251
 #define NINJA_FREQ 1265
 #define DTH_FREQ 1341 //Special Operations
