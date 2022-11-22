@@ -6,7 +6,7 @@
 	ranged_cooldown_time = 40
 	speed = -1
 	damage_transfer = 0.6
-	playstyle_string = "As a <b>Charger</b> type you do medium damage, have medium damage resistance, move very fast, and can charge at a location, damaging any target hit and forcing them to the ground. (Click a tile to use your charge ability)"
+	playstyle_string = "As a <b>Charger</b> type you do medium damage, have medium damage resistance, move very fast, and can charge at a location, damaging any target hit and forcing them to the ground. (Click a tile or foe to use your charge ability)"
 	magic_fluff_string = "..And draw the Hunter, an alien master of rapid assault."
 	tech_fluff_string = "Boot sequence complete. Charge modules loaded. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to deal damage."
@@ -32,7 +32,7 @@
 
 /mob/living/simple_animal/hostile/guardian/charger/Shoot(atom/targeted_atom)
 	charging = TRUE
-	throw_at(targeted_atom, range, 1, src, 0, callback = CALLBACK(src, .proc/charging_end))
+	throw_at(targeted_atom, range, 1, src, 0, callback = CALLBACK(src, PROC_REF(charging_end)))
 
 /mob/living/simple_animal/hostile/guardian/charger/proc/charging_end()
 	charging = FALSE

@@ -432,7 +432,7 @@
 /obj/item/robot_module/janitor/Initialize(mapload)
 	. = ..()
 	var/mob/living/silicon/robot/R = loc
-	RegisterSignal(R, COMSIG_MOVABLE_MOVED, .proc/on_cyborg_move)
+	RegisterSignal(R, COMSIG_MOVABLE_MOVED, PROC_REF(on_cyborg_move))
 
 /**
  * Proc called after the janitor cyborg has moved, in order to clean atoms at it's new location.

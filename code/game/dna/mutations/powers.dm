@@ -704,7 +704,7 @@
 			var/mob/living/carbon/human/H = M
 			if(H.mind && H.mind.initial_account)
 				numbers += H.mind.initial_account.account_number
-				numbers += H.mind.initial_account.remote_access_pin
+				numbers += H.mind.initial_account.account_pin
 			if(numbers.len>0)
 				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
@@ -720,7 +720,7 @@
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
 	spelltype =/obj/effect/proc_holder/spell/morph
-	activation_messages = list("Your body feels if can alter its appearance.")
+	activation_messages = list("Your body feels like it can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
 
@@ -970,7 +970,7 @@
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
-		addtimer(CALLBACK(src, .proc/removeAvailability, target), 100)
+		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 100)
 
 /obj/effect/proc_holder/spell/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)

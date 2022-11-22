@@ -23,6 +23,8 @@
 		return
 	A.attack_ghost(src)
 	if(ishuman(A) && in_range(src, A))
+		if(isLivingSSD(A) && client.send_ssd_warning(A)) //Do NOT Harvest SSD people unless you accept the warning
+			return
 		Harvest(A)
 
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
@@ -87,7 +89,7 @@
  										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
 					drained_mobs.Add(mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
-					target.death(0)
+					target.death()
 				else
 					to_chat(src, "<span class='revenwarning'>[target ? "[target] has":"They have"] been drawn out of your grasp. The link has been broken.</span>")
 					draining = 0
@@ -139,26 +141,36 @@
 			to_chat(user, "<span class='revennotice'><b>You transmit to [M]:</b> [msg]</span>")
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant
+/obj/effect/proc_holder/spell/aoe/revenant
+	name = "Spell"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_revenant"
 	panel = "Revenant Abilities (Locked)"
-	name = "Report this to a coder"
-	var/reveal = 80 //How long it reveals the revenant in deciseconds
-	var/stun = 20 //How long it stuns the revenant in deciseconds
-	var/locked = TRUE //If it's locked and needs to be unlocked before use
-	var/unlock_amount = 100 //How much essence it costs to unlock
-	var/cast_amount = 50 //How much essence it costs to use
+	/// How long it reveals the revenant in deciseconds
+	var/reveal = 8 SECONDS
+	/// How long it stuns the revenant in deciseconds
+	var/stun = 2 SECONDS
+	/// If it's locked and needs to be unlocked before use
+	var/locked = TRUE
+	/// How much essence it costs to unlock
+	var/unlock_amount = 100
+	/// How much essence it costs to use
+	var/cast_amount = 50
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/New()
+/obj/effect/proc_holder/spell/aoe/revenant/New()
 	..()
 	if(locked)
 		name = "[initial(name)] ([unlock_amount]E)"
 	else
 		name = "[initial(name)] ([cast_amount]E)"
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/aoe/revenant/revert_cast(mob/user)
+	. = ..()
+	to_chat(user, "<span class='revennotice'>Your ability wavers and fails!</span>")
+	var/mob/living/simple_animal/revenant/R = user
+	R?.essence += cast_amount //refund the spell and reset
+
+/obj/effect/proc_holder/spell/aoe/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
 		return FALSE
 	if(cooldown_handler.is_on_cooldown())
@@ -170,7 +182,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/aoe/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
 	if(locked)
 		if(!user.castcheck(-unlock_amount))
 			cooldown_handler.revert_cast()
@@ -192,31 +204,29 @@
 	return TRUE
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload
+/obj/effect/proc_holder/spell/aoe/revenant/overload
 	name = "Overload Lights"
 	desc = "Directs a large amount of essence into nearby electrical lights, causing lights to shock those nearby."
-	base_cooldown = 200
-	stun = 30
+	base_cooldown = 20 SECONDS
+	stun = 3 SECONDS
 	cast_amount = 45
 	var/shock_range = 2
-	var/shock_damage = 20
+	var/shock_damage = 40
 	action_icon_state = "overload_lights"
+	aoe_range = 5
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = 5
-	return T
+/obj/effect/proc_holder/spell/aoe/revenant/overload/create_new_targeting()
+	var/datum/spell_targeting/aoe/targeting = new()
+	targeting.range = aoe_range
+	targeting.allowed_type = /obj/machinery/light
+	return targeting
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/aoe/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
-		for(var/turf/T in targets)
-			select_lights(T, user)
+		for(var/obj/machinery/light/L as anything in targets)
+			INVOKE_ASYNC(src, PROC_REF(shock_lights), L, user)
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/select_lights(turf/T, mob/living/simple_animal/revenant/user)
-	for(var/obj/machinery/light/L in T.contents)
-		INVOKE_ASYNC(src, .proc/shock_lights, L, user)
-
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
+/obj/effect/proc_holder/spell/aoe/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
 	if(!L.on)
 		return
 	L.visible_message("<span class='warning'><b>\The [L] suddenly flares brightly and begins to spark!</span>")
@@ -231,26 +241,28 @@
 			continue
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
+		M.Stun(3 SECONDS)
 		do_sparks(4, 0, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/defile
+/obj/effect/proc_holder/spell/aoe/revenant/defile
 	name = "Defile"
 	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
-	base_cooldown = 150
-	stun = 10
-	reveal = 40
+	base_cooldown = 15 SECONDS
+	stun = 1 SECONDS
+	reveal = 4 SECONDS
 	unlock_amount = 75
 	cast_amount = 30
 	action_icon_state = "defile"
+	aoe_range = 4
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/defile/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = 4
-	return T
+/obj/effect/proc_holder/spell/aoe/revenant/defile/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
+	targeting.range = aoe_range
+	return targeting
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/aoe/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
 	for(var/turf/T in targets)
@@ -259,30 +271,162 @@
 			A.defile()
 
 //Malfunction: Makes bad stuff happen to robots and machines.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction
+/obj/effect/proc_holder/spell/aoe/revenant/malfunction
 	name = "Malfunction"
 	desc = "Corrupts and damages nearby machines and mechanical objects."
 	base_cooldown = 200
 	cast_amount = 45
 	unlock_amount = 150
 	action_icon_state = "malfunction"
+	aoe_range = 2
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = 2
-	return T
+/obj/effect/proc_holder/spell/aoe/revenant/malfunction/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/targeting = new()
+	targeting.range = aoe_range
+	return targeting
 
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/obj/effect/proc_holder/spell/aoe/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, .proc/effect, user, T)
+			INVOKE_ASYNC(src, PROC_REF(effect), user, T)
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
+/obj/effect/proc_holder/spell/aoe/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
 	T.rev_malfunction(TRUE)
 	for(var/atom/A in T.contents)
 		A.rev_malfunction(TRUE)
 
+/**
+ * Makes objects be haunted and then throws them at conscious people to do damage, spooky!
+ */
+/obj/effect/proc_holder/spell/aoe/revenant/haunt_object
+	name = "Haunt Objects"
+	desc = "Empower nearby objects to you with ghostly energy, causing them to attack nearby mortals. \
+		Items closer to you are more likely to be haunted."
+	action_icon_state = "haunt"
+	base_cooldown = 60 SECONDS
+	unlock_amount = 150
+	cast_amount = 50
+	stun = 3 SECONDS
+	reveal = 10 SECONDS
+	aoe_range = 7
+	/// The maximum number of objects to haunt
+	var/max_targets = 7
+	/// A list of all attack timers started by this spell being cast
+	var/list/attack_timers = list()
+
+/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/create_new_targeting()
+	var/datum/spell_targeting/aoe/targeting = new()
+	targeting.range = aoe_range
+	targeting.allowed_type = /obj/item
+	return targeting
+
+/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	if(!attempt_cast(user))
+		return
+
+	var/successes = 0
+	for(var/obj/item/nearby_item as anything in targets)
+		if(successes >= max_targets) // End loop if we've already got 7 spooky items
+			break
+
+		// Don't throw around anchored things or dense things
+		// (Or things not on a turf but I am not sure if range can catch that)
+		if(nearby_item.anchored || nearby_item.density || nearby_item.move_resist == INFINITY || !isturf(nearby_item.loc))
+			continue
+		// Don't throw abstract things
+		if(nearby_item.flags & ABSTRACT)
+			continue
+		// Don't throw things we can't see
+		if(nearby_item.invisibility > user.see_invisible)
+			continue
+
+		var/distance_from_user = max(get_dist(get_turf(nearby_item), get_turf(user)), 1) // get_dist() for same tile dists return -1, we do not want that
+		var/chance_of_haunting = 150 / distance_from_user // The further away things are, the less likely they are to be picked
+		if(!prob(chance_of_haunting))
+			continue
+
+		make_spooky(nearby_item, user)
+		successes++
+
+	if(!successes) //no items to throw
+		revert_cast()
+		return
+
+	// Stop the looping attacks after 65 seconds, roughly 14 attack cycles depending on lag
+	addtimer(CALLBACK(src, PROC_REF(stop_timers)), 65 SECONDS, TIMER_UNIQUE)
+
+/// Handles making an object haunted and setting it up to attack
+/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
+	new /obj/effect/temp_visual/revenant(get_turf(item_to_possess)) // Thematic spooky visuals
+	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess) // Begin haunting object
+	item_to_possess.throwforce = min(item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower
+	set_outline(possessed_object)
+	possessed_object.maxHealth = 100 // Double the regular HP of possessed objects
+	possessed_object.health = 100
+	possessed_object.escape_chance = 100 // We cannot be contained
+
+	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
+	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
+	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
+
+/// Handles finding a valid target and throwing us at it
+/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
+	var/list/potential_victims = list()
+	for(var/mob/living/carbon/potential_victim in range(aoe_range, get_turf(possessed_object)))
+		if(!can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
+			continue
+		if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
+			continue
+		potential_victims.Add(potential_victim)
+
+	if(!length(potential_victims))
+		possessed_object.possessed_item.throwforce = min(possessed_object.possessed_item.throwforce + 5, 15) // If an item is stood still for a while it can gather power
+		set_outline(possessed_object)
+		return
+
+	var/mob/living/carbon/victim = pick(potential_victims)
+	possessed_object.throw_at(victim, aoe_range, 2, user)
+
+/// Sets the glow on the haunted object, scales up based on throwforce
+/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/set_outline(mob/living/simple_animal/possessed_object/possessed_object)
+	possessed_object.remove_filter("haunt_glow")
+	var/outline_size = min((possessed_object.possessed_item.throwforce / 15) * 3, 3)
+	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = outline_size)) // Give it spooky purple outline
+
+/// Stop all attack timers cast by the previous spell use
+/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/stop_timers()
+	for(var/I in attack_timers)
+		deltimer(I)
+
+/**
+ * Gives everyone in a 7 tile radius 2 minutes of hallucinations
+ */
+/obj/effect/proc_holder/spell/aoe/revenant/hallucinations
+	name = "Hallucination Aura"
+	desc = "Toy with the living nearby, giving them glimpses of things that could be or once were."
+	action_icon_state = "hallucinations"
+	base_cooldown = 15 SECONDS
+	unlock_amount = 50
+	cast_amount = 25
+	stun = 1 SECONDS
+	reveal = 3 SECONDS
+
+/obj/effect/proc_holder/spell/aoe/revenant/hallucinations/create_new_targeting()
+	var/datum/spell_targeting/aoe/targeting = new()
+	targeting.range = aoe_range
+	targeting.allowed_type = /mob/living
+	return targeting
+
+/obj/effect/proc_holder/spell/aoe/revenant/hallucinations/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	if(!attempt_cast(user))
+		return
+
+	for(var/mob/living/M as anything in targets)
+		M.AdjustHallucinate(120 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
+		new /obj/effect/temp_visual/revenant(get_turf(M))
+
+/// Begin defile and malfunction on-atom definitions
 
 /atom/proc/defile()
 	return
@@ -349,7 +493,7 @@
 
 /mob/living/carbon/human/defile()
 	to_chat(src, "<span class='warning'>You suddenly feel [pick("sick and tired", "tired and confused", "nauseated", "dizzy")].</span>")
-	adjustStaminaLoss(25)
+	adjustStaminaLoss(60)
 	adjustToxLoss(5)
 	AdjustConfused(40 SECONDS, bound_lower = 0, bound_upper = 60 SECONDS)
 	new /obj/effect/temp_visual/revenant(loc)
@@ -383,4 +527,3 @@
 
 /obj/machinery/light/defile()
 	flicker(30)
-

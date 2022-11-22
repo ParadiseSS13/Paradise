@@ -56,7 +56,7 @@
 	SEND_SOUND(parent, S)
 	// Save it
 	if(debounce_save)
-		volume_mixer_saving = addtimer(CALLBACK(src, .proc/save_volume_mixer), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
+		volume_mixer_saving = addtimer(CALLBACK(src, PROC_REF(save_volume_mixer)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 	else
 		if(volume_mixer_saving)
 			deltimer(volume_mixer_saving)

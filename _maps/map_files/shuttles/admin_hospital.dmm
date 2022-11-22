@@ -287,7 +287,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bd" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "be" = (
@@ -407,7 +407,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bv" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -449,14 +449,14 @@
 /area/shuttle/administration)
 "bC" = (
 /obj/machinery/computer/shuttle/admin{
-	name = "NHV Asclepius shuttle console"
+	name = "NHV Asclepius shuttle console";
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bD" = (
 /obj/machinery/door/airlock/command{
 	name = "Command Center";
-	req_access = null;
 	req_access_txt = "19"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -479,14 +479,14 @@
 /area/shuttle/administration)
 "bH" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	name = "NHV Asclepius navigation computer"
+	name = "NHV Asclepius navigation computer";
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bI" = (
 /obj/machinery/door/airlock/titanium/glass{
 	name = "Operating Room";
-	req_access = null;
 	req_access_txt = "45"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -500,7 +500,8 @@
 /area/shuttle/administration)
 "bL" = (
 /obj/machinery/computer/communications{
-	name = "NHV Asclepius Communications Console"
+	name = "NHV Asclepius Communications Console";
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -531,7 +532,9 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bR" = (
-/obj/machinery/bodyscanner,
+/obj/machinery/bodyscanner{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bT" = (
@@ -684,7 +687,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cs" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cu" = (
@@ -723,6 +726,22 @@
 /area/shuttle/administration)
 "zD" = (
 /obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"Dw" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/administration)
+"RB" = (
+/obj/machinery/sleeper{
+	dir = 1;
+	icon_state = "sleeper"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/administration)
+"TT" = (
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 
@@ -814,7 +833,7 @@ aw
 aw
 aw
 aw
-ab
+Dw
 ab
 bD
 zD
@@ -854,7 +873,7 @@ aP
 aT
 aP
 bb
-ab
+Dw
 bu
 aw
 aw
@@ -923,7 +942,7 @@ aw
 aw
 aw
 aw
-aw
+RB
 ab
 "}
 (11,1,1) = {"
@@ -978,12 +997,12 @@ ab
 bw
 bG
 aw
-bR
+TT
 ab
 bw
 ck
 aw
-bR
+TT
 ab
 "}
 (14,1,1) = {"
@@ -1068,22 +1087,22 @@ ab
 "}
 (18,1,1) = {"
 ab
-ab
+Dw
 aL
 aL
+Dw
 ab
 ab
-ab
-ab
+Dw
 aL
 aL
+Dw
 ab
 ab
-ab
-ab
+Dw
 aL
 aL
-ab
+Dw
 ab
 "}
 (19,1,1) = {"

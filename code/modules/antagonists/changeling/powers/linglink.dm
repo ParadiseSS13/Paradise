@@ -58,7 +58,7 @@
 				target.say(":g AAAAARRRRGGGGGHHHHH!!")
 				to_chat(target, "<font color=#800040><span class='boldannounce'>You can now communicate in the changeling hivemind, say \":g message\" to communicate!</span>")
 				target.reagents.add_reagent("salbutamol", 40) // So they don't choke to death while you interrogate them
-				addtimer(CALLBACK(src, .proc/end_link, user, target), 180 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(end_link), user, target), 180 SECONDS)
 
 		if(!do_mob(user, target, 2 SECONDS))
 			to_chat(user, "<span class='warning'>Our link with [target] has ended!</span>")

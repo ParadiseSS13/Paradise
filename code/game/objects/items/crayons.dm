@@ -21,6 +21,8 @@
 	var/dat
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
+	var/times_eaten = 0 //How many times this crayon has been gnawed on
+	var/max_bites = 4 //How many times a crayon can be bitten before being depleted. You eated it
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -108,17 +110,25 @@
 			if(!H.check_has_mouth())
 				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
 				return
+		times_eaten++
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
-		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
 		user.adjust_nutrition(5)
-		if(uses)
-			uses -= 5
-			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
-				qdel(src)
+		if(times_eaten < max_bites)
+			to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
+		else
+			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+			qdel(src)
 	else
 		..()
 
+/obj/item/toy/crayon/examine(mob/user)
+	. = ..()
+	if(!user.Adjacent(src) || !times_eaten)
+		return
+	if(times_eaten == 1)
+		. += "<span class='notice'>[src] was bitten by someone!</span>"
+	else
+		. += "<span class='notice'>[src] was bitten multiple times!</span>"
 
 /obj/item/toy/crayon/red
 	name = "red crayon"

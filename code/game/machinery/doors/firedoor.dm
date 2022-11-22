@@ -264,9 +264,9 @@
 	if(operating || !hasPower() || !nextstate)
 		return
 	if(nextstate == FD_OPEN)
-		INVOKE_ASYNC(src, .proc/open, auto_close)
+		INVOKE_ASYNC(src, PROC_REF(open), auto_close)
 	if(nextstate == FD_CLOSED)
-		INVOKE_ASYNC(src, .proc/close)
+		INVOKE_ASYNC(src, PROC_REF(close))
 	nextstate = null
 
 /obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
