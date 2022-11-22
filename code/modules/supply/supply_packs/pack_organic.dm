@@ -275,11 +275,3 @@
 					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 150
 	containername = "beekeeper suits"
-
-//Bottler
-/datum/supply_packs/organic/bottler
-	name = "Brewing Buddy Bottler Unit"
-	contains = list(/obj/machinery/bottler,
-					/obj/item/wrench)
-	cost = 200
-	containername = "bottler crate"
