@@ -588,7 +588,8 @@ in the SQL/updates folder.
   * Windows should generally match the surrounding walls. (i.e. reinforced windows with reinforced walls)
   	* The following should generally be reinforced windows: Windows that transition unsecured and secured areas (brig, bridge, etc), external windows.
   	* Windows in engine areas should be reinforced plasma glass.
-  * Windows that have an easily accessible secondary security method (shutters, blast doors, etc) can be unreinforced, even in secure areas. Use common sense with this.* Windows in high security areas (brig, bridge, head of staff offices, etc) should be electrified by placing a wire node under the window.
+  * Windows that have an easily accessible secondary security method (shutters, blast doors, etc) can be unreinforced, even in secure areas. Use common sense with this.
+  * Windows in high security areas (brig, bridge, head of staff offices, etc) should be electrified by placing a wire node under the window.
   * Lights are to be used sparingly, they draw a significant amount of power.
   * Ensure door and windoor access is correctly set, these are handled by the variables `req_access_txt` and `req_one_access_txt`. Public doors should have both of these values as `"0"`. For a list of access values, see [`code\__DEFINES\access.dm`](code/__DEFINES/access.dm).
     * Always use numerical values encased in quotes for these variables. Multiple access values can be defined by separating them with a `;`, for example: `"28;31"` for kitchen AND cargo access.
