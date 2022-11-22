@@ -740,6 +740,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Review Team` members are people who are denoted as having reviews which can affect mergeability status. People included in this role are:
 
 * [lewcc](https://github.com/lewcc)
+* [S34N](https://github.com/S34NW)
 
 ---
 
