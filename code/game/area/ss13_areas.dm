@@ -2356,7 +2356,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "undersea"
 
 
-// Это зоны для гейта "moonoutpost19"
+// area for AWAY "moonoutpost19"
 /area/moonoutpost19
 	name = "moonoutpost"
 	has_gravity = TRUE
@@ -2379,6 +2379,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_equip = FALSE
 	power_light = FALSE
 	poweralm = FALSE
+	outdoors = TRUE
 
 /area/moonoutpost19/syndicateoutpost
 	name = "Syndicate Outpost"
