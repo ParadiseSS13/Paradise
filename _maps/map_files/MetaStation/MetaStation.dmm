@@ -84128,25 +84128,25 @@
 /area/toxins/xenobiology)
 "sDr" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/riot{
+/obj/item/clothing/suit/armor/riot/sec{
 	pixel_x = 3;
 	pixel_y = 7
 	},
-/obj/item/clothing/suit/armor/riot{
+/obj/item/clothing/suit/armor/riot/sec{
 	pixel_y = 6
 	},
-/obj/item/clothing/suit/armor/riot{
+/obj/item/clothing/suit/armor/riot/sec{
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/clothing/suit/armor/bulletproof{
+/obj/item/clothing/suit/armor/bulletproof/sec{
 	pixel_x = 3;
 	pixel_y = -1
 	},
-/obj/item/clothing/suit/armor/bulletproof{
+/obj/item/clothing/suit/armor/bulletproof/sec{
 	pixel_y = -2
 	},
-/obj/item/clothing/suit/armor/bulletproof{
+/obj/item/clothing/suit/armor/bulletproof/sec{
 	pixel_x = -3;
 	pixel_y = -3
 	},
