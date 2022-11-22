@@ -31,7 +31,7 @@
 /mob/living/simple_animal/lizard/handle_automated_action()
 	if(!stat && !buckled)
 		if(prob(1))
-			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue", "wags its tail.", "lies down."))
+			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue.", "wags its tail.", "lies down."))
 
 	if(!isturf(loc))
 		return
