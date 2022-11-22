@@ -136,7 +136,7 @@
 	qdel(src)
 	user.put_in_active_hand(new_mask)
 	to_chat(user, "<span class='notice'>Your Clown Mask has now morphed into its new form, all praise the Honk Mother!</span>")
-	return 1
+	return TRUE
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
