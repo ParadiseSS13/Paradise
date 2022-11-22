@@ -13947,7 +13947,8 @@
 	name = "east extinguisher cabinet";
 	pixel_x = 27
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -29348,8 +29349,10 @@
 	},
 /area/hallway/primary/port)
 "cET" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkredcorners";
+	dir = 6
 	},
 /area/shuttle/escape)
 "cFb" = (
@@ -46688,7 +46691,8 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -47230,7 +47234,8 @@
 	name = "Escape Shuttle Cell";
 	req_access_txt = "19"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -47290,7 +47295,8 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -48195,9 +48201,10 @@
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "dXW" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkred";
+	dir = 6
 	},
 /area/shuttle/escape)
 "dXX" = (
@@ -74478,7 +74485,8 @@
 /area/atmos/control)
 "jJM" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -92263,9 +92271,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "nNm" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkred";
+	dir = 1
 	},
 /area/shuttle/escape)
 "nNo" = (
@@ -96792,9 +96801,10 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "oMx" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkred";
+	dir = 10
 	},
 /area/shuttle/escape)
 "oMz" = (
@@ -101310,9 +101320,10 @@
 	},
 /area/security/prison/cell_block/A)
 "pJp" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkred";
+	dir = 5
 	},
 /area/shuttle/escape)
 "pJs" = (
@@ -106554,7 +106565,8 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -109307,7 +109319,8 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -118555,7 +118568,8 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "tum" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -128953,7 +128967,8 @@
 	name = "Escape Shuttle Cell";
 	req_access_txt = "2"
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -129431,7 +129446,8 @@
 	dir = 4
 	},
 /obj/structure/closet/walllocker/emerglocker/west,
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -130986,7 +131002,8 @@
 	pixel_x = 33;
 	pixel_y = -7
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
@@ -131020,9 +131037,10 @@
 	},
 /area/turret_protected/aisat)
 "wbr" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkred";
+	dir = 9
 	},
 /area/shuttle/escape)
 "wbx" = (
@@ -135242,9 +135260,10 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint3)
 "wYi" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkred";
+	dir = 8
 	},
 /area/shuttle/escape)
 "wYr" = (
@@ -138943,7 +138962,8 @@
 	},
 /area/crew_quarters/fitness)
 "xJc" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/shuttle/floor4{
+	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkred"
 	},
 /area/shuttle/escape)
@@ -184864,7 +184884,7 @@ aaq
 aaq
 aaq
 bpi
-xnH
+guk
 gZJ
 oOq
 dMP
