@@ -408,7 +408,7 @@
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	desc = "A window."
 	density = TRUE

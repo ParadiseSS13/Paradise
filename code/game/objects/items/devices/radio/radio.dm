@@ -387,8 +387,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/jobname // the mob's "job"
 	var/rankname // the formatting to be used for the mob's job
 
-	if(jammed)
-		Gibberish_all(message_pieces, 100)
+	if(jammed && !syndiekey)
+		Gibberish_all(message_pieces, 100, 70)
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
