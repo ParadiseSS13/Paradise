@@ -380,6 +380,26 @@
 	set category = "Эмоции"
 	usr.user_triggered_emote("hiss")
 
+/mob/living/carbon/human/proc/emote_roar()
+	set name = "< Рычать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("roar")
+
+/mob/living/carbon/human/proc/emote_threat()
+	set name = "< Угрожать >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("threat")
+
+/mob/living/carbon/human/proc/emote_whip()
+	set name = "< Ударить хвостом >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("whip")
+
+/mob/living/carbon/human/proc/emote_whips()
+	set name = "< Хлестать хвостом >"
+	set category = "Эмоции"
+	usr.user_triggered_emote("whips")
+
 /mob/living/carbon/human/proc/emote_hisses()
 	set name = "< Шипеть >"
 	set category = "Эмоции"

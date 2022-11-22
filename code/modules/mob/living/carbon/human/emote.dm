@@ -32,7 +32,7 @@
 	act = lowertext(act)
 
 	switch(act)		//This switch makes sure you have air in your lungs before you scream
-		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes", "roar", "threat")
 			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
 				on_CD = handle_emote_CD()
 				emote("gasp")
@@ -115,6 +115,30 @@
 		if("hisses")
 			if(istajaran(src)) //tajaran hissing(sounds like cat hissing)
 				on_CD = handle_emote_CD()
+			else
+				return
+
+		if("roar")
+			if(isunathi(src))
+				on_CD = handle_emote_CD(50)
+			else
+				return
+
+		if("threat")
+			if(isunathi(src))
+				on_CD = handle_emote_CD(50)
+			else
+				return
+
+		if("whip")
+			if(isunathi(src))
+				on_CD = handle_emote_CD(20)
+			else
+				return
+
+		if("whips")
+			if(isunathi(src))
+				on_CD = handle_emote_CD(40)
 			else
 				return
 
@@ -270,6 +294,48 @@
 				m_type = 2
 			else
 				message = "тихо шипит."
+				m_type = 2
+
+		if("roar")
+			var/M = handle_emote_param(param)
+
+			if(!muzzled)
+				message = "рычит[M ? " на [M]" : ""]."
+				playsound(src, pick('sound/goonstation/voice/unathi/roar.ogg', 'sound/goonstation/voice/unathi/roar2.ogg', 'sound/goonstation/voice/unathi/roar3.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+			else
+				message = "тихо рычит."
+				m_type = 2
+
+		if("whip")
+			var/obj/item/organ/external/tail = src.get_organ("tail")
+			var/M = handle_emote_param(param)
+			m_type = 2
+			if(tail)
+				message = "ударяет хвостом[M ? " грозно смотря на [M]" : ""]."
+				playsound(loc, 'sound/goonstation/voice/unathi/whip_short.ogg', 100)
+			else
+				message = "пытается взмахнуть отсутствующим хвостом."
+
+		if("whips")
+			var/obj/item/organ/external/tail = src.get_organ("tail")
+			var/M = handle_emote_param(param)
+			m_type = 2
+			if(tail)
+				message = "хлестает хвостом[M ? " грозно смотря на [M]" : ""]."
+				playsound(loc, 'sound/goonstation/voice/unathi/whip.ogg', 100)
+			else
+				message = "пытается взмахнуть отсутствующим хвостом."
+
+		if("threat")
+			var/M = handle_emote_param(param)
+
+			if(!muzzled)
+				message = "угрожающе раскрывает пасть[M ? " на [M]" : ""]."
+				playsound(src, pick('sound/goonstation/voice/unathi/threat.ogg', 'sound/goonstation/voice/unathi/threat2.ogg'), 50, 1, frequency = get_age_pitch())
+				m_type = 2
+			else
+				message = "издаёт громкий шум."
 				m_type = 2
 
 		if("hisses")
@@ -1088,9 +1154,9 @@
 				if("Skrell")
 					emotelist += "\n<u>Специфические эмоуты расы Skrell</u> :- warble(s)"
 				if("Tajaran")
-					emotelist += "\n<u>Специфические эмоуты расы Tajaran</u> :- wag(s), swag(s)"
+					emotelist += "\n<u>Специфические эмоуты расы Tajaran</u> :- wag(s), swag(s), hisses"
 				if("Unathi")
-					emotelist += "\n<u>Специфические эмоуты расы Unathi</u> :- wag(s), swag(s), hiss(es)"
+					emotelist += "\n<u>Специфические эмоуты расы Unathi</u> :- wag(s), swag(s), hiss, roar, threat, whip, whips"
 				if("Vox")
 					emotelist += "\n<u>Специфические эмоуты расы Vox</u> :- wag(s), swag(s), quill(s)"
 				if("Vulpkanin")

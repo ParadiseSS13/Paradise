@@ -37,7 +37,10 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	brute_mod = 1.05
+	male_scream_sound = "u_mscream"
+	female_scream_sound = "u_fscream"
+	male_sneeze_sound = 'sound/goonstation/voice/unathi/m_u_sneeze.ogg'
+	female_sneeze_sound = 'sound/goonstation/voice/unathi/f_u_sneeze.ogg'
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
@@ -151,6 +154,10 @@
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag
 	H.verbs |= /mob/living/carbon/human/proc/emote_swag
 	H.verbs |= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs |= /mob/living/carbon/human/proc/emote_roar
+	H.verbs |= /mob/living/carbon/human/proc/emote_threat
+	H.verbs |= /mob/living/carbon/human/proc/emote_whip
+	H.verbs |= /mob/living/carbon/human/proc/emote_whips
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(!lash)
 		lash = new
@@ -161,6 +168,11 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_hiss
+	H.verbs -= /mob/living/carbon/human/proc/emote_roar
+	H.verbs -= /mob/living/carbon/human/proc/emote_threat
+	H.verbs -= /mob/living/carbon/human/proc/emote_whip
+	H.verbs -= /mob/living/carbon/human/proc/emote_whips
+
 	var/datum/action/innate/tail_lash/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)
