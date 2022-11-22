@@ -137,7 +137,7 @@
 					/obj/item/reagent_containers/iv_bag/blood/OMinus,
 					/obj/item/reagent_containers/iv_bag/slime,
 					/obj/item/reagent_containers/iv_bag/blood/vox,
-					/obj/structure/closet/crate/secure)
+					/obj/machinery/iv_drip)
 	cost = 500
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
