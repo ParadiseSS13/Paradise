@@ -17978,7 +17978,7 @@
 /area/atmos)
 "aYO" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos)
 "aYP" = (
 /obj/machinery/space_heater,
@@ -29165,9 +29165,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/aisat)
-"bwN" = (
-/turf/simulated/wall/r_wall,
-/area/engine/gravitygenerator)
 "bwQ" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
@@ -89197,10 +89194,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
-"hdy" = (
-/obj/structure/sign/fire,
-/turf/simulated/wall,
-/area/atmos)
 "hdV" = (
 /obj/effect/spawner/window,
 /obj/structure/cable{
@@ -92561,6 +92554,9 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/misc_lab)
+"nvW" = (
+/turf/simulated/wall/r_wall,
+/area/turret_protected/ai_upload)
 "nyK" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -95889,6 +95885,10 @@
 "tks" = (
 /turf/simulated/floor/wood,
 /area/maintenance/starboard)
+"tkO" = (
+/obj/machinery/status_display,
+/turf/simulated/wall/r_wall,
+/area/atmos)
 "tmo" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -117527,13 +117527,13 @@ aaa
 aaa
 aaa
 acF
-bwN
-bwN
-bwN
-bwN
-bwN
-bwN
-bwN
+bzL
+bzL
+bzL
+bzL
+bzL
+bzL
+bzL
 acF
 abj
 abj
@@ -117784,13 +117784,13 @@ aaa
 aaa
 aaa
 acF
-bwN
+bzL
 bzE
 bzE
 bDb
 bzE
 bzE
-bwN
+bzL
 acF
 dij
 aaa
@@ -118041,13 +118041,13 @@ aaa
 aaa
 aaa
 abj
-bwN
+bzL
 bzE
 bBi
 bBj
 bEG
 bGB
-bwN
+bzL
 abj
 dij
 aaa
@@ -118298,13 +118298,13 @@ aaa
 aaa
 aaa
 abj
-bwN
+bzL
 bzE
 bBj
 bDc
 bBj
 bzE
-bwN
+bzL
 abj
 abj
 abj
@@ -118555,13 +118555,13 @@ aaa
 aaa
 aaa
 acF
-bwN
+bzL
 bzE
 bBi
 bBj
 bBi
 bzE
-bwN
+bzL
 abj
 dij
 aaa
@@ -118812,13 +118812,13 @@ aaa
 aaa
 aaa
 acF
-bwN
+bzL
 bzE
 bzE
 bzE
 bzE
 bzE
-bwN
+bzL
 abj
 abj
 aaa
@@ -119069,13 +119069,13 @@ aaa
 aaa
 aaa
 acF
-bwN
+bzL
 bzG
 bBl
 bDd
 bBl
 bGs
-bwN
+bzL
 abj
 bVs
 bXG
@@ -119326,13 +119326,13 @@ aaa
 aaa
 aaa
 abj
-bwN
+bzL
 bzH
 bBo
 bfO
 bge
 bGu
-bwN
+bzL
 abj
 bXF
 abj
@@ -119583,13 +119583,13 @@ abj
 abj
 abj
 abj
-bwN
+bzL
 bzI
 bBn
 bDf
 bEI
 bGv
-bwN
+bzL
 byl
 bPD
 byl
@@ -119840,13 +119840,13 @@ aSN
 aSN
 abj
 abj
-bwN
+bzL
 bzJ
 bBp
 bDh
 bEK
 bGw
-bwN
+bzL
 bJZ
 bPE
 bVt
@@ -120097,13 +120097,13 @@ bpv
 aSN
 abj
 abj
-bwN
+bzL
 bzK
 bBr
 bDg
 bEM
 bGx
-bwN
+bzL
 byl
 bPF
 byl
@@ -120354,13 +120354,13 @@ bpv
 aSN
 abj
 bzL
-bwN
+bzL
 bzL
 bEL
 bDi
 bEL
 bzL
-bwN
+bzL
 opo
 bMd
 bNW
@@ -121361,9 +121361,9 @@ aMC
 ohO
 ohO
 ohO
-aXo
-aXo
-aXo
+aOg
+aOg
+aOg
 bmN
 aOb
 baj
@@ -121375,7 +121375,7 @@ aYO
 bmN
 aOb
 baj
-aXo
+aOg
 baj
 aOb
 bmN
@@ -123434,9 +123434,9 @@ bmA
 ohO
 bpF
 ohO
-aXo
-aXo
-aXo
+aOg
+aOg
+aOg
 byl
 byl
 byl
@@ -123693,7 +123693,7 @@ bpG
 brG
 btm
 buu
-aXo
+aOg
 bwV
 byt
 bzS
@@ -123950,7 +123950,7 @@ bpH
 brH
 aYK
 buv
-aXo
+aOg
 bwW
 bIA
 bIA
@@ -124207,7 +124207,7 @@ bpI
 brI
 brI
 buw
-aXq
+tkO
 bwX
 byv
 bKr
@@ -124464,7 +124464,7 @@ bpJ
 brJ
 btn
 bux
-aXo
+aOg
 byl
 byl
 byl
@@ -124721,7 +124721,7 @@ bpK
 brK
 bto
 buy
-aXo
+aOg
 bwY
 bOg
 bzW
@@ -125235,7 +125235,7 @@ bpM
 brL
 btq
 buA
-hdy
+aOk
 bxa
 bOi
 bzW
@@ -125487,12 +125487,12 @@ mzZ
 ban
 bkM
 bmI
-aXo
-aXo
+aOg
+aOg
 ohO
 btr
 mhi
-aXo
+aOg
 aXo
 aXo
 aXo
@@ -125744,7 +125744,7 @@ ban
 ban
 bkM
 bmJ
-aXo
+aOg
 brN
 brN
 bts
@@ -126001,7 +126001,7 @@ bhp
 bhp
 bkN
 bmK
-aXo
+aOg
 brO
 brO
 btt
@@ -126258,7 +126258,7 @@ bhq
 biZ
 bkO
 bmL
-aXo
+aOg
 bpQ
 brP
 btu
@@ -126515,7 +126515,7 @@ bhr
 bja
 bkP
 bmM
-aXo
+aOg
 btv
 btv
 btv
@@ -126756,9 +126756,9 @@ atd
 atd
 atd
 aOl
-aXo
-aXo
-aXo
+aOg
+aOg
+aOg
 aUi
 aOb
 aUi
@@ -126770,9 +126770,9 @@ aYO
 bmN
 aOb
 baj
-aXo
+aOg
 bmN
-aXo
+aOg
 btw
 brR
 btw
@@ -136808,7 +136808,7 @@ bCl
 byU
 bFy
 bHn
-bOT
+nvW
 bOT
 bOT
 bOT
@@ -137065,7 +137065,7 @@ bCl
 byU
 bFy
 bHo
-bOT
+nvW
 bKP
 bMW
 bOO
@@ -137322,7 +137322,7 @@ bCq
 bEd
 bFF
 bHp
-bOT
+nvW
 bMY
 bMX
 bOP
@@ -137579,7 +137579,7 @@ bCr
 bEe
 bFG
 bHq
-bOT
+nvW
 bKR
 bMX
 bKG
@@ -137836,7 +137836,7 @@ bCs
 bEf
 bFI
 bHs
-bOT
+nvW
 bKS
 bMY
 bKI
@@ -138350,7 +138350,7 @@ bEb
 bEh
 bFJ
 bHt
-bOT
+nvW
 bKU
 bMY
 bKJ
@@ -138607,7 +138607,7 @@ bCr
 bEi
 bFK
 bHu
-bOT
+nvW
 bKV
 bMX
 bKY
@@ -138864,7 +138864,7 @@ bCu
 bEj
 bFL
 bHv
-bOT
+nvW
 bMY
 bMX
 bOR
@@ -139121,7 +139121,7 @@ bCl
 byU
 bFy
 bHw
-bOT
+nvW
 bKP
 bNa
 bOS
@@ -139378,7 +139378,7 @@ bCv
 byU
 bFy
 cHe
-bOT
+nvW
 bOT
 bOT
 bOT

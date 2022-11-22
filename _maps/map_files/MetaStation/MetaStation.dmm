@@ -55189,6 +55189,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"epx" = (
+/turf/simulated/wall/r_wall,
+/area/maintenance/starboard)
 "epG" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -57210,7 +57213,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos)
 "fno" = (
 /obj/structure/disposalpipe/segment,
@@ -58722,7 +58725,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 10
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos/distribution)
 "fWS" = (
 /obj/effect/turf_decal/stripes/line,
@@ -64525,7 +64528,7 @@
 /area/security/permabrig)
 "iLE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/blue,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos/distribution)
 "iLI" = (
 /obj/machinery/door/airlock/maintenance,
@@ -64760,7 +64763,7 @@
 	},
 /area/toxins/mixing)
 "iRu" = (
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos/distribution)
 "iSf" = (
 /obj/effect/spawner/window,
@@ -68207,6 +68210,10 @@
 /obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /turf/simulated/floor/plasteel,
+/area/maintenance/starboard)
+"kJQ" = (
+/obj/effect/spawner/random_spawners/fungus_probably,
+/turf/simulated/wall/r_wall,
 /area/maintenance/starboard)
 "kJT" = (
 /obj/structure/disposalpipe/segment{
@@ -75637,7 +75644,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos/distribution)
 "omK" = (
 /obj/structure/chair/stool{
@@ -79364,7 +79371,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos/control)
 "qhG" = (
 /obj/effect/spawner/window,
@@ -79976,6 +79983,9 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
+"qxL" = (
+/turf/simulated/wall/r_wall,
+/area/atmos/control)
 "qyo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/turf_decal/stripes/line{
@@ -80196,7 +80206,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 10
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos/control)
 "qGf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84884,6 +84894,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
+"sWE" = (
+/turf/simulated/wall/r_wall,
+/area/atmos)
 "sWO" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -93160,7 +93173,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos/control)
 "xpD" = (
 /obj/structure/cable/yellow{
@@ -93535,7 +93548,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 10
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/atmos/control)
 "xBl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -133611,13 +133624,13 @@ ssc
 bwE
 bgV
 asJ
-dcx
-aoG
-aoG
-aoG
-aoG
-aoG
-cte
+kJQ
+epx
+epx
+epx
+epx
+epx
+cmB
 cqG
 csl
 ctr
@@ -133868,13 +133881,13 @@ cQF
 czZ
 asJ
 oFQ
-aoG
+epx
 chs
 ckb
 agj
 cmF
 cnJ
-cte
+cmB
 cte
 cte
 cte
@@ -134125,7 +134138,7 @@ oFQ
 cdm
 asJ
 lRY
-aoG
+epx
 ciF
 clz
 clz
@@ -134381,8 +134394,8 @@ aoG
 cwQ
 cPd
 coX
-aoG
-aoG
+epx
+epx
 chQ
 aRQ
 cso
@@ -134895,7 +134908,7 @@ asJ
 aAL
 cfy
 asJ
-aoG
+epx
 cgW
 chX
 cjB
@@ -135152,7 +135165,7 @@ csf
 aoG
 aQT
 cLr
-aoG
+epx
 chf
 ciJ
 cjq
@@ -135405,14 +135418,14 @@ bVL
 dbI
 aXP
 lJt
-aoG
-aoG
+epx
+epx
 cds
-aoG
-aoG
-aAG
+epx
+epx
+sWE
 fmX
-aAG
+sWE
 mpF
 clA
 clA
@@ -135662,14 +135675,14 @@ bVM
 bXt
 csf
 arr
-aoG
+epx
 fcB
 iuU
 fDO
 bCU
 rjm
 pmE
-aAG
+sWE
 oYa
 omW
 omW
@@ -135913,20 +135926,20 @@ oMT
 qgH
 xBg
 xoS
-aoG
-aoG
-aoG
-aoG
-aoG
-aoG
-aoG
+epx
+epx
+epx
+epx
+epx
+epx
+epx
 blr
 pRz
 fWW
 fWW
 rqW
 pmE
-aAG
+sWE
 abq
 bGL
 bGL
@@ -136424,7 +136437,7 @@ ceF
 chR
 sNA
 nyT
-ceF
+qxL
 nfk
 jVQ
 cka
@@ -139010,7 +139023,7 @@ swW
 csp
 isU
 kOd
-aAG
+sWE
 abq
 bGL
 bGL
@@ -139267,7 +139280,7 @@ sHf
 lSg
 mEu
 pRI
-aAG
+sWE
 abq
 abq
 abq
@@ -139520,12 +139533,12 @@ bzL
 bHG
 bzL
 bIt
-aAG
-aAG
-aAG
+sWE
+sWE
+sWE
 wul
-aAG
-aAG
+sWE
+sWE
 abq
 aaa
 aaa
@@ -139779,10 +139792,10 @@ abq
 bMj
 abq
 abq
-aAG
+sWE
 ciI
 jJf
-aAG
+sWE
 abq
 abq
 abq
@@ -140036,10 +140049,10 @@ bZN
 bMk
 bGL
 abq
-aAG
+sWE
 cja
-aAG
-aAG
+sWE
+sWE
 aaa
 abq
 aaa

@@ -50469,7 +50469,7 @@
 /area/maintenance/incinerator)
 "cwy" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "cwz" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -69023,6 +69023,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"eyF" = (
+/turf/simulated/wall/r_wall,
+/area/turret_protected/ai_upload)
 "ezy" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -79491,6 +79494,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
+"mMy" = (
+/turf/simulated/wall/r_wall,
+/area/server)
 "mMB" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -86229,6 +86235,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"slK" = (
+/turf/simulated/wall/r_wall,
+/area/engine/gravitygenerator)
 "smL" = (
 /obj/structure/toilet{
 	dir = 4
@@ -87090,9 +87099,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
-"sWI" = (
-/turf/simulated/wall,
-/area/maintenance/incinerator)
 "sXh" = (
 /obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/plasteel{
@@ -87614,7 +87620,7 @@
 /area/maintenance/asmaint2)
 "tzm" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "tzW" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -111165,7 +111171,7 @@ cgQ
 cgQ
 cqs
 lNi
-sWI
+cwx
 cyo
 czP
 cAX
@@ -111422,13 +111428,13 @@ vdx
 cgQ
 cqs
 lNi
-sWI
+cwx
 cyn
 czH
 cBm
 czJ
 cDV
-sWI
+cwx
 amh
 aaa
 aaa
@@ -111679,13 +111685,13 @@ mmE
 heN
 coL
 fWy
-sWI
+cwx
 cyb
 czQ
 cBa
 cCt
 cDL
-sWI
+cwx
 aab
 aab
 cNF
@@ -111942,7 +111948,7 @@ czJ
 cBb
 cCz
 cDX
-sWI
+cwx
 ayi
 aab
 cpz
@@ -112199,7 +112205,7 @@ czK
 cBc
 aag
 cDZ
-sWI
+cwx
 aaa
 aab
 cNM
@@ -112450,13 +112456,13 @@ cqz
 gYs
 ctN
 mKg
-sWI
+cwx
 cye
 czK
 cBd
 czJ
 cBb
-sWI
+cwx
 ayi
 aab
 aaa
@@ -112713,7 +112719,7 @@ czR
 cBn
 cCD
 cDO
-sWI
+cwx
 ayi
 aab
 aab
@@ -112964,13 +112970,13 @@ gzN
 cgQ
 coL
 fmg
-sWI
+cwx
 cwy
-sWI
-sWI
+cwx
+cwx
 cCC
-sWI
-sWI
+cwx
+cwx
 cLi
 cLi
 cLi
@@ -119096,14 +119102,14 @@ bmb
 bgP
 bmV
 bAy
-bxl
-bxl
+bxm
+bxm
 bzR
 bzR
 bzR
-bxl
-bxl
-bxl
+bxm
+bxm
+bxm
 bMs
 bNZ
 bME
@@ -119353,7 +119359,7 @@ bmb
 bgP
 bmV
 bAB
-bxl
+bxm
 byG
 bzN
 bDo
@@ -119610,14 +119616,14 @@ blZ
 bsp
 bwN
 bAA
-bxl
+bxm
 byH
 bEN
 bHg
 bHg
 bJG
 bxl
-bxl
+bxm
 bMv
 bOj
 bMG
@@ -119867,14 +119873,14 @@ qPj
 bsu
 bwS
 bwg
-bxl
+bxm
 byI
 bEZ
 bDs
 bDs
 bJH
 bJa
-bxl
+bxm
 bMC
 bOo
 bMG
@@ -120124,14 +120130,14 @@ qPj
 bdi
 bwR
 bkR
-bxl
+bxm
 byJ
 bEV
 bBu
 bCG
 bJH
 bFF
-bxl
+bxm
 bMB
 bOl
 bMG
@@ -120388,9 +120394,9 @@ bBv
 bCC
 bJH
 bFI
-bxl
-bxl
-bxl
+bxm
+bxm
+bxm
 bMG
 bOC
 bQl
@@ -121170,7 +121176,7 @@ bQo
 bQo
 bQo
 bQo
-bQo
+bMG
 cdY
 cgb
 ciS
@@ -121409,7 +121415,7 @@ bqR
 bqS
 bxu
 bvV
-bvX
+eyF
 bvX
 bvX
 bvX
@@ -121427,7 +121433,7 @@ bTJ
 bVB
 bXc
 bYU
-bTJ
+mMy
 ces
 cgi
 cji
@@ -121665,8 +121671,8 @@ bpo
 bqS
 bqS
 bxr
-bvX
-bvX
+eyF
+eyF
 byO
 bzT
 bBy
@@ -121684,7 +121690,7 @@ bTJ
 bXr
 bYZ
 cbe
-bTJ
+mMy
 cfv
 cgh
 cjh
@@ -121922,7 +121928,7 @@ bpt
 bqS
 bqS
 bxA
-bvX
+eyF
 bxo
 bDV
 bFb
@@ -121941,7 +121947,7 @@ bTJ
 bXt
 bZe
 cbg
-bTJ
+mMy
 ceu
 cgj
 cdN
@@ -122179,7 +122185,7 @@ bpq
 buo
 bvA
 bxw
-bvX
+eyF
 bxp
 bDT
 bxq
@@ -122198,7 +122204,7 @@ bTJ
 bTJ
 bZd
 bTJ
-bTJ
+mMy
 cet
 cgj
 cdN
@@ -122436,7 +122442,7 @@ bpu
 bqU
 bsF
 bxD
-bvX
+eyF
 bxq
 bDY
 byP
@@ -122455,7 +122461,7 @@ bTN
 bFC
 bZg
 cbh
-bFC
+slK
 cew
 cgl
 cjk
@@ -122950,7 +122956,7 @@ bpw
 bqV
 bsF
 bxO
-bvX
+eyF
 bxt
 bEa
 byP
@@ -122969,7 +122975,7 @@ bTP
 bFC
 bZn
 cbi
-bFC
+slK
 cey
 cgm
 cfv
@@ -123207,7 +123213,7 @@ aYg
 bup
 bvB
 bxK
-bvX
+eyF
 bxs
 bDZ
 bxq
@@ -123226,7 +123232,7 @@ bFC
 bFC
 bFC
 bFC
-bFC
+slK
 cex
 cgj
 bGt
@@ -123464,7 +123470,7 @@ bpt
 bqS
 bvC
 bxY
-bvX
+eyF
 bxo
 bEd
 bFf
@@ -123483,7 +123489,7 @@ bFC
 aaa
 aaa
 aaa
-bFC
+slK
 ceB
 cgj
 cfv
@@ -123721,8 +123727,8 @@ bpx
 bqX
 bsC
 bxU
-bvX
-bvX
+eyF
+eyF
 bEb
 bFe
 bBB
@@ -123740,7 +123746,7 @@ aaa
 aaa
 aaa
 aaa
-bFC
+slK
 ceA
 cgn
 cfv
@@ -123979,7 +123985,7 @@ bqY
 bsF
 bxZ
 bvY
-bvX
+eyF
 bvX
 bvX
 bvX
@@ -123997,7 +124003,7 @@ aaa
 aaa
 aaa
 aaa
-bFC
+slK
 ceD
 cgj
 cfv
