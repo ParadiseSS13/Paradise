@@ -54,6 +54,7 @@
 		if(H.stat == DEAD)
 			to_chat(user, "<span class='danger'>[H] doesn't respond at all!</span>")
 		else
+			playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
 			H.set_heartattack(FALSE)
 			var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 			if(H.health <= HEALTH_THRESHOLD_CRIT)
