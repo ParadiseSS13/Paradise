@@ -368,7 +368,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bs" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28
