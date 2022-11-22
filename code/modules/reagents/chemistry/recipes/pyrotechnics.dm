@@ -164,15 +164,14 @@
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	do_sparks(2, 1, location)
-	addtimer(CALLBACK(null, GLOBAL_PROC_REF(blackpowder_detonate), holder, created_volume), rand(5, 15))
+	addtimer(CALLBACK(src, PROC_REF(blackpowder_detonate), holder, location, created_volume), rand(5, 15))
 
-/proc/blackpowder_detonate(datum/reagents/holder, created_volume)
-	var/turf/T = get_turf(holder.my_atom)
+/datum/chemical_reaction/blackpowder_explosion/proc/blackpowder_detonate(datum/reagents/holder, turf/location, created_volume)
 	var/ex_severe = round(created_volume / 100)
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	explosion(T, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+	explosion(location, ex_severe, ex_heavy,ex_light, ex_flash, 1)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
