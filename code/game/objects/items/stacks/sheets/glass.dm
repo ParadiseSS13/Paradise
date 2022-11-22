@@ -73,7 +73,10 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
-		V.use(1)
+		if(V.get_amount() < 5)
+			to_chat(user, "<b>There is not enough rods in this stack. You need 5 rods.</b>")
+			return
+		V.use(5)
 		var/obj/item/stack/sheet/glass/G = src
 		src = null
 		var/replace = (user.get_inactive_hand()==G)
@@ -103,7 +106,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	desc = "Glass which seems to have rods or something stuck in them."
 	singular_name = "reinforced glass sheet"
 	icon_state = "sheet-rglass"
-	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 100)
 	resistance_flags = ACID_PROOF
 	origin_tech = "materials=2"
