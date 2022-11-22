@@ -73,10 +73,9 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
-		if(V.get_amount() < 5)
+		if(!V.use(5))
 			to_chat(user, "<b>There is not enough rods in this stack. You need 5 rods.</b>")
 			return
-		V.use(5)
 		var/obj/item/stack/sheet/glass/G = src
 		src = null
 		var/replace = (user.get_inactive_hand()==G)
