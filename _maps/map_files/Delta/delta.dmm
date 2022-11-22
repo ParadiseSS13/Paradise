@@ -47055,6 +47055,8 @@
 "dUK" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "dUN" = (
@@ -52387,6 +52389,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -133268,9 +133273,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/item/paper_bin,
-/obj/structure/table/wood,
-/obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -133279,6 +133281,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/spirit_board,
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "wBq" = (
