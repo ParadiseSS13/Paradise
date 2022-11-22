@@ -1377,12 +1377,13 @@
 	power_destroy()
 
 /obj/machinery/power/apc/proc/power_destroy() // Caused only by explosions and teslas, not for deconstruction
-	if(obj_integrity <= integrity_failure && opened == APC_COVER_OFF)
-		var/drop_loc = drop_location()
-		new /obj/item/stack/sheet/metal(drop_loc, 3) // Metal from the frame
-		new /obj/item/stack/cable_coil(drop_loc, 10) // wiring from the terminal and the APC, some lost due to explosion
-		qdel(terminal) // We don't want floating terminals
-		qdel(src)
+	if(obj_integrity > integrity_failure || opened != APC_COVER_OFF)
+		return
+	var/drop_loc = drop_location()
+	new /obj/item/stack/sheet/metal(drop_loc, 3) // Metal from the frame
+	new /obj/item/stack/cable_coil(drop_loc, 10) // wiring from the terminal and the APC, some lost due to explosion
+	QDEL_NULL(terminal) // We don't want floating terminals
+	qdel(src)
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()
