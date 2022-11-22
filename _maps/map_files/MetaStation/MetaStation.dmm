@@ -1809,6 +1809,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/security/brig)
 "amI" = (
@@ -3328,10 +3331,6 @@
 	icon_state = "dark"
 	},
 /area/engine/gravitygenerator)
-"asT" = (
-/obj/structure/sign/security,
-/turf/simulated/wall/r_wall,
-/area/security/processing)
 "asU" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -12894,8 +12893,12 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "caution"
 	},
 /area/atmos/control)
 "aVk" = (
@@ -28479,7 +28482,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/atmos/control)
 "bGE" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
@@ -30911,7 +30914,7 @@
 	network = list("Turbine")
 	},
 /turf/space,
-/area/maintenance/turbine)
+/area/space/nearstation)
 "bNS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -44498,7 +44501,9 @@
 /obj/machinery/door/window/northright,
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cBx" = (
@@ -60331,6 +60336,9 @@
 "gLH" = (
 /obj/machinery/economy/vending/cigarette,
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -61001,6 +61009,9 @@
 /area/toxins/test_chamber)
 "hfb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -63133,10 +63144,6 @@
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
-"ieA" = (
-/obj/structure/sign/electricshock,
-/turf/simulated/wall/r_wall,
-/area/security/prisonlockers)
 "ieT" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -64268,9 +64275,6 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "iEX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -81007,6 +81011,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"rcQ" = (
+/obj/structure/sign/security{
+	pixel_y = 32
+	},
+/turf/space,
+/area/space/nearstation)
 "rcY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -82086,17 +82096,6 @@
 	icon_state = "black"
 	},
 /area/security/permabrig)
-"rBT" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engine/engineering)
 "rCq" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -83165,7 +83164,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/security/securearmoury)
+/area/space)
 "saw" = (
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
@@ -86484,6 +86483,10 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
+"tHk" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "tHm" = (
 /obj/structure/table/reinforced,
 /obj/structure/table/reinforced,
@@ -117635,7 +117638,7 @@ tfl
 tfl
 tfl
 tfl
-ieA
+tfl
 amE
 ufj
 aky
@@ -118421,8 +118424,8 @@ lGL
 dBT
 axN
 hvR
-asT
-aaa
+aHI
+rcQ
 nKT
 hOu
 xJy
@@ -138719,7 +138722,7 @@ ans
 aBZ
 hQX
 tSX
-avA
+tHk
 iLI
 aDi
 gHz
@@ -139237,7 +139240,7 @@ apL
 aBZ
 iJz
 enh
-rBT
+vZU
 aHi
 vIz
 aDL
