@@ -12,6 +12,17 @@
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
+/datum/supply_packs/engineering/tools		//the most robust crate
+	name = "Toolbox Crate"
+	contains = list(/obj/item/storage/toolbox/electrical,
+					/obj/item/storage/toolbox/electrical,
+					/obj/item/storage/toolbox/electrical,
+					/obj/item/storage/toolbox/mechanical,
+					/obj/item/storage/toolbox/mechanical,
+					/obj/item/storage/toolbox/mechanical)
+	cost = 500
+	containername = "electrical maintenance crate"
+
 /datum/supply_packs/vending/engivend
 	name = "Engineering Vendor Supply Crate"
 	cost = 50
