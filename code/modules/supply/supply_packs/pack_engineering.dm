@@ -12,17 +12,6 @@
 	containertype = /obj/structure/largecrate
 	containername = "fuel tank crate"
 
-/datum/supply_packs/engineering/tools		//the most robust crate
-	name = "Toolbox Crate"
-	contains = list(/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/mechanical,
-					/obj/item/storage/toolbox/mechanical,
-					/obj/item/storage/toolbox/mechanical)
-	cost = 500
-	containername = "electrical maintenance crate"
-
 /datum/supply_packs/vending/engivend
 	name = "Engineering Vendor Supply Crate"
 	cost = 50
@@ -194,7 +183,7 @@
 	access = ACCESS_EVA
 
 /datum/supply_packs/engineering/inflatable
-	name = "Inflatable barriers Crate"
+	name = "Inflatable Barriers Crate"
 	contains = list(/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable)
@@ -220,17 +209,3 @@
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
-
-/datum/supply_packs/engineering/conveyor
-	name = "Conveyor Assembly Crate"
-	contains = list(/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_switch_construct,
-					/obj/item/paper/conveyor)
-	cost = 100
-	containername = "conveyor assembly crate"
-	department_restrictions = list() //anyone should be able to order conveyors (especially since they can just be made at an autolathe)

@@ -136,18 +136,11 @@
 					/obj/item/reagent_containers/iv_bag/blood/OPlus,
 					/obj/item/reagent_containers/iv_bag/blood/OMinus,
 					/obj/item/reagent_containers/iv_bag/slime,
-					/obj/item/reagent_containers/iv_bag/blood/vox)
+					/obj/item/reagent_containers/iv_bag/blood/vox,
+					/obj/structure/closet/crate/secure)
 	cost = 500
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "blood pack crate"
-
-/datum/supply_packs/medical/iv_drip
-	name = "IV Drip Crate"
-	contains = list(/obj/machinery/iv_drip)
-	cost = 300
-	containertype = /obj/structure/closet/crate/secure
-	containername = "IV drip crate"
-	access = ACCESS_MEDICAL
 
 /datum/supply_packs/medical/surgery
 	name = "Surgery Crate"
