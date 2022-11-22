@@ -55,8 +55,8 @@
 	density = TRUE
 	pass_flags = LETPASSTHROW
 
-/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/grab) && get_dist(src,user) <= 1)
+/obj/structure/holohoop/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/grab) && get_dist(src, user) <= 1)
 		var/obj/item/grab/G = W
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
@@ -72,7 +72,7 @@
 		return
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && !istype(AM,/obj/item/projectile))
+	if(isitem(AM) && !istype(AM, /obj/item/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
 			visible_message("<span class='notice'>Swish! [AM] lands in [src].</span>")
