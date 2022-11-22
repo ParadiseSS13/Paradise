@@ -18175,14 +18175,9 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "bip" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Arrivals Shuttle Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/arrival/station)
-"biq" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
+/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/indestructible,
 /area/shuttle/arrival/station)
 "bit" = (
 /obj/machinery/firealarm{
@@ -18918,57 +18913,58 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "bka" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker/north,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
+	},
 /area/shuttle/arrival/station)
 "bkb" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = -32
+	},
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
+	},
 /area/shuttle/arrival/station)
 "bkc" = (
-/obj/machinery/computer/arcade,
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
+	},
 /area/shuttle/arrival/station)
 "bkd" = (
-/obj/structure/closet/wardrobe/green,
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/structure/closet/wardrobe/mixed,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
+	},
 /area/shuttle/arrival/station)
 "bke" = (
-/obj/structure/closet/wardrobe/black,
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-left-MS";
-	pixel_y = 32
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bkf" = (
-/obj/structure/closet/wardrobe/mixed,
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-right-MS";
-	pixel_y = 32
+/obj/structure/closet/wardrobe/xenos,
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"bkg" = (
-/obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bkh" = (
-/obj/machinery/camera{
-	c_tag = "Arrivals Shuttle"
-	},
+/obj/structure/closet/walllocker/emerglocker/north,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
+	},
 /area/shuttle/arrival/station)
 "bkk" = (
 /obj/effect/spawner/window,
@@ -19693,39 +19689,19 @@
 	icon_state = "dark"
 	},
 /area/aisat)
-"blP" = (
-/obj/structure/chair/comfy/shuttle,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"blQ" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "blS" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/arrival/station)
-"blU" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible/arrivals_shuttle,
 /area/shuttle/arrival/station)
 "blV" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "burst_r"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible,
 /area/shuttle/arrival/station)
 "blW" = (
 /obj/machinery/light{
@@ -20435,7 +20411,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible,
 /area/shuttle/arrival/station)
 "bnI" = (
 /obj/effect/spawner/window/reinforced,
@@ -21185,19 +21161,6 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai)
-"bpw" = (
-/obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"bpx" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "bpy" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "packageSort2";
@@ -21977,47 +21940,22 @@
 /turf/simulated/floor/plating/airless,
 /area/solar/auxport)
 "brp" = (
-/obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
+	},
 /area/shuttle/arrival/station)
 "brq" = (
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"brr" = (
-/obj/structure/sign/double/map/left{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-left-MS";
-	pixel_y = -32
-	},
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"brs" = (
-/obj/structure/sign/double/map/right{
-	desc = "A framed picture of the station. Clockwise from security at the top (red), you see engineering (yellow), science (purple), escape (red and white), medbay (green), arrivals (blue and white), and finally cargo (brown).";
-	icon_state = "map-right-MS";
-	pixel_y = -32
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"brt" = (
-/obj/machinery/requests_console{
-	department = "Arrival shuttle";
-	pixel_y = -30
-	},
-/obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "bru" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "burst_l"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible,
 /area/shuttle/arrival/station)
 "brv" = (
 /obj/structure/cable/yellow{
@@ -59628,6 +59566,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
+"gsJ" = (
+/turf/simulated/wall/indestructible/arrivals_shuttle,
+/area/shuttle/arrival/station)
 "gsM" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -61964,6 +61905,9 @@
 	},
 /turf/simulated/floor/bluegrid/telecomms,
 /area/toxins/xenobiology)
+"hCK" = (
+/turf/simulated/wall/indestructible/fakeglass/arrivals_shuttle,
+/area/shuttle/arrival/station)
 "hCM" = (
 /obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
@@ -64907,6 +64851,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard)
+"iTy" = (
+/obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "spooky";
+	name = "Observer-Start"
+	},
+/turf/simulated/floor/indestructible/arrivals_shuttle{
+	icon_state = "titanium_blue"
+	},
+/area/shuttle/arrival/station)
 "iTB" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -73160,7 +73114,7 @@
 	},
 /area/medical/medbreak)
 "mXy" = (
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/arrivals_shuttle,
 /area/shuttle/arrival/station)
 "mXE" = (
 /obj/structure/table,
@@ -80046,6 +80000,10 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
+"qyR" = (
+/obj/structure/closet/wardrobe/black,
+/turf/simulated/floor/indestructible/arrivals_shuttle,
+/area/shuttle/arrival/station)
 "qzz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
@@ -82495,10 +82453,12 @@
 	},
 /area/medical/exam_room)
 "rJJ" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Arrivals Shuttle Airlock"
+/obj/machinery/requests_console{
+	department = "Arrival Shuttle";
+	name = "Arrival Shuttle Requests Console";
+	pixel_x = -30
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/arrivals_shuttle,
 /area/shuttle/arrival/station)
 "rJR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
@@ -85367,6 +85327,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/medmaint)
+"tfL" = (
+/turf/simulated/wall/indestructible/arrivals_shuttle/nodiagonal,
+/area/shuttle/arrival/station)
 "tfM" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -87648,6 +87611,13 @@
 	icon_state = "white"
 	},
 /area/maintenance/aft)
+"uqS" = (
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/turf/simulated/floor/indestructible/arrivals_shuttle,
+/area/shuttle/arrival/station)
 "urH" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -89910,6 +89880,10 @@
 	icon_state = "white"
 	},
 /area/medical/reception)
+"vBm" = (
+/obj/structure/closet/wardrobe/grey,
+/turf/simulated/floor/indestructible/arrivals_shuttle,
+/area/shuttle/arrival/station)
 "vBv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -104310,11 +104284,11 @@ aUN
 abq
 aaa
 aaa
-bin
-bin
-biq
-bin
-bin
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 abq
@@ -104567,11 +104541,11 @@ bhR
 abq
 aaa
 aaa
-bin
-blP
-mXy
-bpw
-bin
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 abq
@@ -104824,11 +104798,11 @@ aUN
 abq
 aaa
 aaa
-bin
-blQ
-mXy
-bpx
-bin
+gsJ
+gsJ
+gsJ
+gsJ
+gsJ
 aaa
 aaa
 abq
@@ -105080,13 +105054,13 @@ bga
 aWD
 abq
 aaa
-bin
-bin
-bin
+gsJ
+gsJ
+qyR
 rJJ
-bin
-bin
-bin
+vBm
+gsJ
+gsJ
 aaa
 abq
 aWD
@@ -105337,13 +105311,13 @@ dgx
 aUN
 aUN
 aUN
-bin
+gsJ
 bka
 mXy
 mXy
 mXy
 brp
-bin
+gsJ
 aUN
 aUN
 aUN
@@ -105592,17 +105566,17 @@ aZk
 myY
 dgx
 bdR
+avX
 aYg
-bdR
 bip
-bkb
+brp
 blS
 blS
 blS
-bkb
+brp
 bip
-bdR
 bzw
+avX
 bdR
 eGG
 bFe
@@ -105851,13 +105825,13 @@ dgx
 aUN
 aUN
 aUN
-bin
+gsJ
 bkc
-bkb
-bkb
-bkb
+brp
+brp
+brp
 brq
-bin
+gsJ
 aUN
 aUN
 aUN
@@ -106108,13 +106082,13 @@ bcR
 bcy
 bhb
 aUN
-biq
+gsJ
 bkd
 blS
 blS
 blS
 bkb
-biq
+gsJ
 aUN
 bAR
 bzx
@@ -106365,13 +106339,13 @@ bBt
 dgx
 bhb
 aUN
-bin
+hCK
 bke
-bkb
-bkb
-bkb
-brr
-bin
+brp
+iTy
+brp
+brp
+hCK
 aUN
 bAQ
 baJ
@@ -106622,13 +106596,13 @@ bBt
 dgx
 bhW
 aUN
-bin
+hCK
 bkf
 blS
 blS
 blS
-brs
-bin
+brp
+hCK
 aUN
 bhb
 baJ
@@ -106879,13 +106853,13 @@ bcS
 bed
 bhj
 aUN
-biq
-bkg
-bkb
-bkb
-bkb
-bkb
-biq
+gsJ
+brp
+brp
+brp
+brp
+brp
+gsJ
 aUN
 bDU
 bzy
@@ -107136,13 +107110,13 @@ dgx
 aUN
 aUN
 aUN
-bin
+gsJ
 bkh
 blS
 blS
 blS
-brt
-bin
+brq
+gsJ
 aUN
 aUN
 aUN
@@ -107391,17 +107365,17 @@ aWD
 tjR
 dgx
 bdR
+avX
 aYg
-bdR
 bip
-bkb
+brp
 mXy
+uqS
 mXy
-mXy
-bkb
+brp
 bip
-bdR
 bzw
+avX
 bdR
 bOz
 bFG
@@ -107650,13 +107624,13 @@ dgx
 aUN
 aUN
 aUN
-bin
-bin
-blU
-blU
-blU
-bin
-bin
+tfL
+gsJ
+gsJ
+gsJ
+gsJ
+gsJ
+tfL
 aUN
 aUN
 aUN

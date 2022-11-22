@@ -48,6 +48,10 @@
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
 
+/turf/simulated/floor/indestructible/arrivals_shuttle
+	name = "shuttle floor"
+	icon_state = "titanium"
+
 /turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
 	if(prob(12))
