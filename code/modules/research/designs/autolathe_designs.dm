@@ -209,7 +209,7 @@
 	desc = "Metal + Glass"
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
-	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = 5000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/rglass
 	category = list("initial","Construction")
 	maxstack = 50
