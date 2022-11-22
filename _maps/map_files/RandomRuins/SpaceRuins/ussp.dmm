@@ -4143,10 +4143,7 @@
 	name = "Derelict Annex"
 	})
 "jw" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
@@ -4188,10 +4185,7 @@
 	})
 "jC" = (
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
 /obj/machinery/light/small{
@@ -4973,10 +4967,7 @@
 	})
 "kZ" = (
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5024,10 +5015,7 @@
 	name = "Derelict Annex"
 	})
 "le" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
 /obj/structure/rack,

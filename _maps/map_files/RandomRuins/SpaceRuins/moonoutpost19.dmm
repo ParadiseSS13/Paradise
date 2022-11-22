@@ -256,11 +256,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "aG" = (
