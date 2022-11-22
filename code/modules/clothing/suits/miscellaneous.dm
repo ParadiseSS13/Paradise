@@ -714,12 +714,6 @@
 	icon_state = "creamsuit"
 	item_state = "creamsuit"
 
-/obj/item/clothing/under/stripper/mankini
-	name = "the mankini"
-	desc = "No honest man would wear this abomination"
-	icon_state = "mankini"
-	item_color = "mankini"
-
 /obj/item/clothing/suit/jacket/miljacket
 	name = "olive military jacket"
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in olive."

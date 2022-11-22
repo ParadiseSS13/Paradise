@@ -5660,7 +5660,7 @@
 /area/ruin/space/derelict/arrival)
 "mx" = (
 /obj/structure/closet/crate/can,
-/obj/item/clothing/under/stripper/mankini{
+/obj/item/clothing/under/costume/mankini{
 	desc = "No honest Russian would wear this abomination";
 	name = "lucky underwear"
 	},
