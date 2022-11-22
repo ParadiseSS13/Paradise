@@ -57,8 +57,8 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	action_icon_state = "boo"
 	school = "transmutation"
-	base_cooldown = 3 MINUTES
-	starts_charged = TRUE
+	base_cooldown = 8 MINUTES
+	starts_charged = FALSE
 	clothes_req = FALSE
 	stat_allowed = UNCONSCIOUS
 	invocation = ""
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	create_attack_logs = TRUE
 
 /obj/effect/proc_holder/spell/unrest/cast(mob/user = usr)
-	user.change_mob_type("/mob/living/simple_animal/revenant")
+	user.change_mob_type("/mob/living/simple_animal/revenant",null,"vengefull spirit", TRUE, TRUE)
 	to_chat(user,"<span class='notice'>You rip open the veil through shear anger!")
 	cooldown_handler.start_recharge(cooldown_handler.recharge_duration * 0.1)
 
