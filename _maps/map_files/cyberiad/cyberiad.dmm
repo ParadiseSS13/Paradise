@@ -79,6 +79,9 @@
 /area/aisat/entrance{
 	name = "\improper AI Satellite Atmospherics"
 	})
+"aaq" = (
+/turf/simulated/wall,
+/area/teleporter)
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -422,7 +425,7 @@
 /turf/simulated/floor/plating,
 /area/security/range)
 "adj" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -683,7 +686,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
 "aeh" = (
@@ -691,7 +694,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
 "aei" = (
@@ -1183,7 +1186,7 @@
 	},
 /area/security/brig)
 "afU" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -3165,7 +3168,7 @@
 /area/security/hos)
 "alK" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/brig)
 "alL" = (
@@ -3207,7 +3210,7 @@
 /area/security/brig)
 "alN" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -3314,7 +3317,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/warden)
 "alV" = (
@@ -3465,7 +3468,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/main)
 "amr" = (
@@ -3592,7 +3595,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/warden)
 "amE" = (
@@ -3940,7 +3943,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/main)
 "any" = (
@@ -4890,7 +4893,7 @@
 /area/security/seceqstorage)
 "apm" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/main)
 "apn" = (
@@ -5020,7 +5023,7 @@
 /area/security/seceqstorage)
 "apD" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/seceqstorage)
 "apE" = (
@@ -5129,7 +5132,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/main)
 "apS" = (
@@ -5287,7 +5290,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/warden)
 "aqx" = (
@@ -5300,7 +5303,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/warden)
 "aqy" = (
@@ -5332,7 +5335,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/main)
 "aqB" = (
@@ -5350,7 +5353,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/main)
 "aqC" = (
@@ -5363,7 +5366,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/main)
 "aqD" = (
@@ -5572,7 +5575,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -5936,7 +5939,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/evidence)
 "arP" = (
@@ -5958,7 +5961,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/evidence)
 "arR" = (
@@ -6869,7 +6872,7 @@
 	},
 /area/security/brig)
 "atS" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -6966,7 +6969,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/seceqstorage)
 "auj" = (
@@ -7117,7 +7120,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -7126,7 +7129,7 @@
 /area/security/lobby)
 "auE" = (
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/processing)
 "auF" = (
@@ -7146,7 +7149,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -7163,7 +7166,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -8857,7 +8860,7 @@
 /turf/simulated/floor/plating,
 /area/security/execution)
 "ayC" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -9153,9 +9156,6 @@
 	id = "Processing"
 	},
 /turf/simulated/floor/plating,
-/area/security/processing)
-"aza" = (
-/turf/simulated/wall/r_wall,
 /area/security/processing)
 "azb" = (
 /obj/machinery/access_button{
@@ -9720,9 +9720,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
-"aAm" = (
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/courtroom)
 "aAp" = (
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
@@ -10167,7 +10164,7 @@
 /turf/space,
 /area/space)
 "aBn" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/crew_quarters/courtroom)
 "aBo" = (
@@ -10328,7 +10325,7 @@
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "aBN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
@@ -10762,7 +10759,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/brig)
 "aCL" = (
@@ -11093,7 +11090,7 @@
 	},
 /area/crew_quarters/dorms)
 "aDw" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/auxsolarport)
 "aDx" = (
 /obj/structure/sign/vacuum/external{
@@ -11760,9 +11757,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"aFd" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/abandonedbar)
 "aFh" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12025,9 +12019,6 @@
 "aFI" = (
 /turf/simulated/wall,
 /area/crew_quarters/arcade)
-"aFJ" = (
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/dorms)
 "aFK" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -12097,7 +12088,7 @@
 /area/maintenance/auxsolarport)
 "aFT" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/auxsolarport)
 "aFU" = (
 /obj/structure/table,
@@ -12517,7 +12508,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "aGT" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/auxsolarstarboard)
 "aGU" = (
 /obj/structure/cable{
@@ -12608,7 +12599,7 @@
 /area/maintenance/fsmaint)
 "aHg" = (
 /obj/structure/sign/electricshock,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/fpmaint2)
 "aHh" = (
 /obj/machinery/door/airlock/engineering{
@@ -12621,10 +12612,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
-"aHi" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/r_wall,
 /area/maintenance/fpmaint2)
 "aHj" = (
 /obj/machinery/economy/vending/cigarette,
@@ -12773,9 +12760,6 @@
 	icon_state = "darkblue"
 	},
 /area/crew_quarters/courtroom)
-"aHE" = (
-/turf/simulated/wall/r_wall,
-/area/security/detectives_office)
 "aHF" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -12956,7 +12940,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aIe" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/clownoffice)
 "aIf" = (
@@ -12982,7 +12966,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aIh" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/mimeoffice)
 "aIi" = (
@@ -13683,7 +13667,7 @@
 /area/maintenance/fpmaint2)
 "aJH" = (
 /obj/structure/sign/electricshock,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/auxsolarstarboard)
 "aJI" = (
 /obj/structure/closet/emcloset,
@@ -14178,9 +14162,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"aLd" = (
-/turf/simulated/wall/r_wall,
-/area/hallway/secondary/entry)
 "aLe" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -14713,7 +14694,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -15879,7 +15860,7 @@
 	},
 /area/civilian/barber)
 "aPf" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/crew_quarters/arcade)
 "aPg" = (
@@ -17218,7 +17199,7 @@
 	},
 /area/crew_quarters/dorms)
 "aSl" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/crew_quarters/sleep)
 "aSm" = (
@@ -17277,12 +17258,6 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
-"aSt" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/fpmaint2)
-"aSu" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/fpmaint)
 "aSv" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -17328,7 +17303,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aSA" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/gateway)
 "aSB" = (
 /obj/structure/cable{
@@ -17963,7 +17938,7 @@
 	id_tag = "imnotmakingyoulubepissoff";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
@@ -18422,9 +18397,6 @@
 /area/hallway/secondary/garden)
 "aVi" = (
 /turf/simulated/wall,
-/area/storage/primary)
-"aVj" = (
-/turf/simulated/wall/r_wall,
 /area/storage/primary)
 "aVk" = (
 /obj/structure/closet/secure_closet/freezer/money,
@@ -22746,7 +22718,7 @@
 	},
 /area/hallway/primary/port)
 "beP" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/garden)
 "beQ" = (
@@ -22757,7 +22729,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/garden)
 "beR" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/storage/primary)
 "beS" = (
@@ -22788,7 +22760,7 @@
 /area/crew_quarters/dorms)
 "beU" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/storage/primary)
 "beV" = (
@@ -22905,7 +22877,7 @@
 /area/crew_quarters/dorms)
 "bfe" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/gateway)
 "bff" = (
 /obj/machinery/door/airlock/maintenance{
@@ -23459,7 +23431,7 @@
 	},
 /area/chapel/main)
 "bgg" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/chapel/office)
 "bgi" = (
@@ -23774,7 +23746,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/nw)
 "bgT" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/crew_quarters/mrchangs)
 "bgU" = (
@@ -25051,7 +25023,7 @@
 	},
 /area/chapel/main)
 "bjB" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/hydroponics)
 "bjD" = (
@@ -25116,7 +25088,7 @@
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
 	name = "KEEP CLEAR: DOCKING AREA"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/hallway/secondary/entry)
 "bjR" = (
 /obj/effect/spawner/window/reinforced,
@@ -26004,7 +25976,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/civilian/pet_store)
 "blO" = (
@@ -26385,7 +26357,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bmy" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "bmz" = (
@@ -26935,7 +26907,7 @@
 /turf/simulated/wall,
 /area/storage/tools)
 "bnT" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/storage/tools)
 "bnU" = (
@@ -28236,9 +28208,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
 /area/library)
-"bqN" = (
-/turf/simulated/wall/r_wall,
-/area/hallway/primary/central/nw)
 "bqO" = (
 /obj/machinery/computer/prisoner{
 	req_access = null;
@@ -28852,7 +28821,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/bridge)
 "bsv" = (
@@ -28966,7 +28935,7 @@
 	},
 /area/hallway/primary/central/ne)
 "bsL" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/hallway/primary/central/ne)
 "bsM" = (
 /obj/machinery/light_switch{
@@ -28980,7 +28949,7 @@
 /turf/simulated/floor/wood,
 /area/civilian/pet_store)
 "bsN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/crew_quarters/bar)
 "bsO" = (
@@ -29180,10 +29149,6 @@
 /obj/item/camera_film,
 /turf/simulated/floor/wood,
 /area/library)
-"btk" = (
-/obj/structure/sign/poster/official/random,
-/turf/simulated/wall/r_wall,
-/area/hallway/secondary/exit)
 "btl" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -30214,7 +30179,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bvX" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/turret_protected/ai_upload)
 "bvY" = (
 /obj/structure/filingcabinet/filingcabinet,
@@ -30312,7 +30277,7 @@
 "bwg" = (
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/bridge)
 "bwh" = (
@@ -32058,7 +32023,7 @@
 	},
 /area/crew_quarters/locker/locker_toilet)
 "bzR" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	id_tag = "heads_meeting";
@@ -32371,10 +32336,6 @@
 /obj/machinery/door/window/eastleft{
 	name = "Mail";
 	req_access_txt = "50"
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/disposalpipe/segment{
@@ -33540,7 +33501,7 @@
 	},
 /area/turret_protected/ai_upload)
 "bDX" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "bDY" = (
@@ -33758,9 +33719,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/locker/locker_toilet)
-"bEA" = (
-/turf/simulated/wall/r_wall,
-/area/assembly/robotics)
 "bEB" = (
 /obj/structure/closet/crate,
 /obj/structure/cable{
@@ -33782,9 +33740,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
-"bED" = (
-/turf/simulated/wall/r_wall,
-/area/toxins/lab)
 "bEE" = (
 /obj/machinery/door/window/eastright{
 	name = "Coroner";
@@ -34159,7 +34114,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bFC" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/engine/gravitygenerator)
 "bFD" = (
 /obj/machinery/ai_status_display{
@@ -34544,9 +34499,6 @@
 	icon_state = "whitehall"
 	},
 /area/medical/reception)
-"bGr" = (
-/turf/simulated/wall/r_wall,
-/area/assembly/chargebay)
 "bGt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -34775,13 +34727,6 @@
 "bHc" = (
 /obj/structure/disposaloutlet{
 	dir = 4
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -35172,7 +35117,7 @@
 /area/hallway/secondary/entry)
 "bHY" = (
 /obj/structure/sign/radiation/rad_area,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
@@ -35226,7 +35171,7 @@
 	},
 /area/assembly/chargebay)
 "bIh" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	id_tag = "imnotmakingyoulubepissoff";
@@ -35290,7 +35235,7 @@
 	},
 /area/toxins/lab)
 "bIq" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/reception)
 "bIs" = (
@@ -35351,7 +35296,7 @@
 	},
 /area/medical/genetics)
 "bIB" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bID" = (
@@ -36050,9 +35995,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"bKw" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/port)
 "bKx" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1
@@ -36112,7 +36054,7 @@
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
 	name = "KEEP CLEAR: DOCKING AREA"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/port)
 "bKG" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -36290,9 +36232,6 @@
 	icon_state = "dark"
 	},
 /area/engine/gravitygenerator)
-"bLd" = (
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/captain/bedroom)
 "bLe" = (
 /obj/machinery/suit_storage_unit/captain,
 /turf/simulated/floor/wood,
@@ -36456,7 +36395,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bLI" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
 "bLJ" = (
@@ -37246,7 +37185,7 @@
 	},
 /area/assembly/robotics)
 "bNK" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/biostorage)
 "bNL" = (
@@ -37702,7 +37641,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/engine/gravitygenerator)
 "bOF" = (
@@ -37730,7 +37669,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/engine/gravitygenerator)
 "bOJ" = (
@@ -37757,7 +37696,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/engine/gravitygenerator)
 "bON" = (
@@ -37778,7 +37717,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/engine/gravitygenerator)
 "bOQ" = (
@@ -38565,7 +38504,7 @@
 	},
 /area/medical/chemistry)
 "bQQ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/paramedic)
 "bQR" = (
@@ -38905,7 +38844,7 @@
 	},
 /area/assembly/chargebay)
 "bRV" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/sw)
 "bRW" = (
@@ -38938,7 +38877,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	name = "Privacy Shutters";
@@ -39115,7 +39054,7 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "bSv" = (
@@ -39535,7 +39474,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTe" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "bTf" = (
@@ -39711,7 +39650,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	name = "Privacy Shutters";
@@ -39781,7 +39720,7 @@
 	},
 /area/medical/chemistry)
 "bTJ" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/server)
 "bTK" = (
 /obj/structure/cable{
@@ -39904,7 +39843,7 @@
 	},
 /area/assembly/chargebay)
 "bTZ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/genetics_cloning)
 "bUa" = (
@@ -41329,7 +41268,7 @@
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bXD" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "bXF" = (
@@ -41383,7 +41322,7 @@
 	},
 /area/medical/cryo)
 "bXN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "bXO" = (
@@ -41575,7 +41514,7 @@
 	},
 /area/hallway/primary/central/se)
 "bYd" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/sign/chemistry,
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
@@ -45205,9 +45144,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
-"chr" = (
-/turf/simulated/wall/r_wall,
-/area/medical/cmo)
 "chs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -45261,9 +45197,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/cmo)
-"chA" = (
-/turf/simulated/wall/r_wall,
-/area/medical/medbay2)
 "chB" = (
 /obj/structure/closet/l3closet,
 /obj/item/clothing/mask/gas,
@@ -47979,7 +47912,7 @@
 /turf/simulated/wall,
 /area/medical/surgeryobs)
 "cpy" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "viroshutters";
 	name = "Privacy Shutters";
@@ -48006,9 +47939,6 @@
 	id = "med2"
 	},
 /turf/simulated/floor/plating,
-/area/medical/biostorage)
-"cpC" = (
-/turf/simulated/wall/r_wall,
 /area/medical/biostorage)
 "cpD" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -48327,7 +48257,7 @@
 /turf/simulated/floor/wood,
 /area/blueshield)
 "cqM" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/medical/cmostore)
 "cqN" = (
 /obj/machinery/holosign_switch{
@@ -49643,7 +49573,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "ctu" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/toxins/explab)
 "ctv" = (
@@ -50287,7 +50217,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cvB" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/engine/controlroom)
 "cvC" = (
@@ -50329,7 +50259,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/construction)
 "cvL" = (
@@ -50566,7 +50496,7 @@
 /area/maintenance/incinerator)
 "cwy" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/incinerator)
 "cwz" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -50928,7 +50858,7 @@
 	},
 /area/maintenance/aft)
 "cxz" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/construction)
 "cxA" = (
@@ -51041,9 +50971,6 @@
 "cxN" = (
 /turf/simulated/wall,
 /area/toxins/xenobiology)
-"cxO" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/aft)
 "cxP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -52655,7 +52582,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cBP" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio4";
 	name = "Chamber 4 Containment Blast Doors"
@@ -52707,7 +52634,7 @@
 	},
 /area/construction)
 "cCc" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	name = "Testing Lab Shutters";
@@ -54264,7 +54191,7 @@
 	},
 /area/hallway/primary/aft)
 "cGK" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/atmos/control)
 "cGL" = (
 /obj/structure/rack,
@@ -54819,7 +54746,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "cHU" = (
@@ -54885,7 +54812,7 @@
 	},
 /area/maintenance/aft)
 "cIb" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -54977,7 +54904,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "atmos";
 	name = "Atmos Blast Door"
@@ -55020,7 +54947,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cIs" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio5";
 	name = "Chamber 5 Containment Blast Doors"
@@ -55273,7 +55200,7 @@
 	},
 /area/hallway/primary/central/ne)
 "cJa" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "atmos";
 	name = "Atmos Blast Door"
@@ -55644,11 +55571,11 @@
 /area/maintenance/apmaint2)
 "cKe" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
 "cKf" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
 "cKg" = (
@@ -56162,7 +56089,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cLM" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -56324,7 +56251,7 @@
 	},
 /area/maintenance/aft)
 "cMj" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -56503,7 +56430,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
 "cMI" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -56583,7 +56510,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
 "cMQ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio7";
 	name = "Chamber 7 Containment Blast Doors"
@@ -56656,7 +56583,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cNa" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio7";
 	name = "Chamber 7 Containment Blast Doors"
@@ -57135,7 +57062,7 @@
 /area/maintenance/apmaint2)
 "cOy" = (
 /obj/structure/sign/securearea,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
@@ -57267,12 +57194,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"cOT" = (
-/turf/simulated/wall/r_wall,
-/area/atmos/distribution)
 "cOU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/atmos/distribution)
 "cOV" = (
 /obj/structure/table,
@@ -57285,7 +57209,7 @@
 /area/assembly/assembly_line)
 "cOW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/atmos/distribution)
 "cOY" = (
 /obj/structure/rack{
@@ -57674,7 +57598,7 @@
 	},
 /area/engine/engineering)
 "cPZ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cQa" = (
@@ -57820,9 +57744,6 @@
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"cQy" = (
-/turf/simulated/wall/r_wall,
-/area/maintenance/apmaint2)
 "cQB" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -57913,7 +57834,7 @@
 	},
 /area/atmos)
 "cQN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Engineering";
 	name = "Engineering Security Doors"
@@ -58252,12 +58173,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "cRA" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/portsolar)
-"cRB" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/r_wall,
-/area/maintenance/apmaint2)
 "cRC" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -58469,7 +58386,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cRY" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -58967,7 +58884,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/atmos)
 "cTl" = (
 /obj/item/radio/intercom{
@@ -59532,7 +59449,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/atmos)
 "cUy" = (
 /turf/simulated/floor/plasteel{
@@ -59608,7 +59525,7 @@
 	},
 /area/atmos/distribution)
 "cUT" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "cUV" = (
@@ -59929,7 +59846,7 @@
 	dir = 6
 	},
 /obj/structure/sign/nosmoking_2,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cVM" = (
@@ -59937,7 +59854,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cVN" = (
@@ -59954,14 +59871,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cVQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cVR" = (
@@ -60721,7 +60638,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cYh" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	name = "Research and Development Lab Shutters";
@@ -60782,7 +60699,7 @@
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/toxins/lab)
 "cYq" = (
@@ -60967,7 +60884,7 @@
 /area/atmos)
 "cYU" = (
 /obj/structure/sign/electricshock,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/engine/engine_smes)
 "cYV" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
@@ -61191,7 +61108,7 @@
 /area/toxins/lab)
 "cZF" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/engine/engine_smes)
 "cZG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -61229,7 +61146,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "cZS" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/atmos)
 "cZT" = (
 /obj/structure/chair/office/light{
@@ -62710,7 +62627,7 @@
 /area/atmos)
 "deE" = (
 /obj/structure/sign/electricshock,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/starboardsolar)
 "deF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -63119,7 +63036,7 @@
 /area/maintenance/starboardsolar)
 "dfx" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/storage)
 "dfy" = (
 /obj/structure/chair/stool{
@@ -63962,7 +63879,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/office)
 "dim" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/storage/office)
 "din" = (
@@ -64608,7 +64525,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "djQ" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/starboardsolar)
 "djR" = (
 /obj/machinery/light/small,
@@ -67527,7 +67444,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
 "dsN" = (
@@ -68964,6 +68881,10 @@
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
+"eqv" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/chapel/main)
 "eqQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -69256,7 +69177,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "eFY" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "eGo" = (
@@ -69339,6 +69260,10 @@
 /obj/item/phone/pos,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"eJn" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "eJr" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -70672,7 +70597,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
 "fJa" = (
@@ -70690,7 +70615,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "fJu" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "fJX" = (
@@ -71167,7 +71092,7 @@
 	},
 /area/toxins/hallway)
 "gbw" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio3";
 	name = "Chamber 3 Containment Blast Doors"
@@ -71712,7 +71637,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "gyS" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio4";
@@ -71964,6 +71889,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"gHN" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/security/warden)
 "gIn" = (
 /obj/item/lighter/random,
 /turf/simulated/floor/wood{
@@ -72798,7 +72731,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/sign/electricshock{
 	pixel_x = -32
 	},
@@ -74261,7 +74194,7 @@
 	},
 /area/toxins/mixing)
 "ilj" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio4";
 	name = "Chamber 4 Containment Blast Doors"
@@ -74351,7 +74284,7 @@
 /area/medical/virology)
 "inQ" = (
 /obj/structure/sign/biohazard,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/toxins/xenobiology)
 "inV" = (
 /obj/structure/cable{
@@ -74507,7 +74440,7 @@
 	},
 /area/maintenance/asmaint2)
 "ivZ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio6";
 	name = "Chamber 6 Containment Blast Doors"
@@ -74779,9 +74712,12 @@
 	},
 /area/crew_quarters/dorms)
 "iHE" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/medical/surgeryobs)
+"iHS" = (
+/turf/simulated/wall,
+/area/security/securearmoury)
 "iHY" = (
 /obj/machinery/camera{
 	c_tag = "Virology Monkey Pen"
@@ -75364,7 +75300,7 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "jnE" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	name = "Robotics Lab Shutters";
 	id_tag = "robotics"
@@ -75502,7 +75438,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "jtc" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio2";
 	name = "Chamber 2 Containment Blast Doors"
@@ -75812,7 +75748,7 @@
 /turf/simulated/floor/plating,
 /area/medical/cmo)
 "jEQ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio3";
@@ -76106,6 +76042,10 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
+"jTB" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint2)
 "jTS" = (
 /obj/structure/bed/roller,
 /obj/item/organ/internal/kidneys/vox,
@@ -77237,7 +77177,7 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "kPH" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -77279,7 +77219,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "kSv" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
@@ -79113,7 +79053,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "muq" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio3";
 	name = "Chamber 3 Containment Blast Doors"
@@ -79685,7 +79625,7 @@
 /area/maintenance/apmaint)
 "mQX" = (
 /obj/structure/barricade/wooden,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "mRD" = (
@@ -79884,6 +79824,10 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/medbay2)
+"naS" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/crew_quarters/dorms)
 "naU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -80895,7 +80839,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "nQT" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -80956,6 +80900,10 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"nWk" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "nXc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
@@ -81203,9 +81151,6 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/aft)
-"ogI" = (
-/turf/simulated/wall/r_wall,
-/area/medical/chemistry)
 "ogJ" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -82168,6 +82113,10 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/mixing)
+"oRP" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "oSt" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -82194,6 +82143,10 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
+"oSz" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "oSF" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
@@ -82948,7 +82901,7 @@
 	},
 /area/medical/surgery1)
 "pvT" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/curtain,
 /turf/simulated/floor/plating,
 /area/medical/virology)
@@ -83256,7 +83209,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "pKi" = (
@@ -83707,9 +83660,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
+"qdH" = (
+/obj/effect/spawner/window,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/security/brig)
 "qdO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -84620,7 +84581,7 @@
 	},
 /area/assembly/chargebay)
 "qKN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -84720,6 +84681,9 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/starboard/east)
+"qPj" = (
+/turf/simulated/wall,
+/area/bridge)
 "qPt" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/disposalpipe/segment{
@@ -84867,7 +84831,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "qXs" = (
@@ -85187,7 +85151,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "rjh" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -85809,7 +85773,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "rSo" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
@@ -86284,7 +86248,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "smP" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -87133,6 +87097,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
+"sWI" = (
+/turf/simulated/wall,
+/area/maintenance/incinerator)
 "sXh" = (
 /obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/plasteel{
@@ -87306,7 +87273,7 @@
 	},
 /area/engine/engine_smes)
 "tdd" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio2";
 	name = "Chamber 2 Containment Blast Doors"
@@ -87396,7 +87363,7 @@
 	},
 /area/security/permabrig)
 "tif" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio6";
 	name = "Chamber 6 Containment Blast Doors"
@@ -87426,8 +87393,13 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"tkC" = (
+/obj/structure/cable,
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/security/warden)
 "tlj" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio5";
 	name = "Chamber 5 Containment Blast Doors"
@@ -87649,7 +87621,7 @@
 /area/maintenance/asmaint2)
 "tzm" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall,
 /area/maintenance/incinerator)
 "tzW" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -88608,6 +88580,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"ufE" = (
+/turf/simulated/wall,
+/area/security/evidence)
 "ugg" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -89257,7 +89232,7 @@
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "uHT" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/toxins/server)
 "uHX" = (
@@ -89370,6 +89345,9 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/secondary/exit)
+"uLY" = (
+/turf/simulated/wall,
+/area/maintenance/storage)
 "uMa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -89744,7 +89722,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/hallway)
 "vfc" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
@@ -89807,6 +89785,10 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery)
+"vfF" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/exit)
 "vfJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -90440,6 +90422,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
+"vCz" = (
+/obj/structure/sign/vacuum/external,
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "vCM" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -91318,7 +91305,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "wkX" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenobio4";
@@ -91340,7 +91327,7 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint)
 "wmr" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
@@ -91574,6 +91561,10 @@
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"wvP" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "wvT" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -91615,7 +91606,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "wyf" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -92013,7 +92004,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "wQM" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/sign/lifestar,
 /turf/simulated/floor/plating,
 /area/medical/cryo)
@@ -93384,6 +93375,10 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit)
+"ycd" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/toxins/hallway)
 "ycf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -93568,11 +93563,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
 "yiF" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
 	name = "Testing Lab Shutters";
@@ -102631,7 +102626,7 @@ aSd
 aPI
 aSd
 aab
-aLd
+aMs
 aaa
 aaa
 aVV
@@ -102884,11 +102879,11 @@ aaa
 aMs
 aMs
 aMs
-aLd
+aMs
 aWe
 aSd
 aMs
-aLd
+aMs
 aaa
 aVV
 aVV
@@ -102898,11 +102893,11 @@ aVV
 aVV
 aVV
 aaa
-aLd
+aMs
 aMs
 aSd
 aSd
-aLd
+aMs
 aaa
 aaa
 aaa
@@ -103159,7 +103154,7 @@ aSd
 aSd
 blB
 boP
-aLd
+aMs
 aaa
 aaa
 aaa
@@ -103171,7 +103166,7 @@ aaa
 aaa
 aaa
 aaa
-aLd
+aMs
 aaa
 aaa
 aaa
@@ -103679,7 +103674,7 @@ aaa
 aaa
 aaa
 aaa
-aLd
+aMs
 aaa
 aaa
 aaa
@@ -103912,7 +103907,7 @@ aaa
 aMs
 aMs
 aMs
-aLd
+aMs
 aRa
 aME
 aTo
@@ -104940,7 +104935,7 @@ aab
 aMs
 aNw
 aNw
-aLd
+aMs
 aPT
 aMD
 aSd
@@ -105729,7 +105724,7 @@ aSd
 bpX
 bmS
 bgR
-aLd
+aMs
 aSd
 aSd
 aOQ
@@ -105972,17 +105967,17 @@ aGn
 aPY
 aSf
 aRT
-aLd
-aLd
-aLd
+aMs
+aMs
+aMs
 aSd
 aSd
 aSd
 aSd
 aSd
-aLd
-aLd
-aLd
+aMs
+aMs
+aMs
 bqe
 aSf
 bsl
@@ -106001,7 +105996,7 @@ bBg
 bLs
 bmS
 bMb
-aLd
+aMs
 aaa
 aaa
 aaa
@@ -106751,10 +106746,10 @@ aVc
 aVc
 bgk
 bhE
-aSd
-aSd
-aSd
-aSd
+eJn
+eJn
+eJn
+eJn
 bre
 bgG
 bqr
@@ -107245,7 +107240,7 @@ aAd
 aDw
 aDw
 aDw
-aSt
+aGn
 aHM
 aIJ
 aKW
@@ -107502,7 +107497,7 @@ aAd
 aDu
 aEC
 aFQ
-aSt
+aGn
 aHU
 aHS
 aJZ
@@ -108273,7 +108268,7 @@ aAd
 aDw
 aDw
 aFT
-aHi
+aPc
 aHS
 aHS
 aKa
@@ -109597,7 +109592,7 @@ bJt
 rEZ
 bnK
 gaF
-bKw
+blQ
 aaa
 aaa
 aaa
@@ -109871,7 +109866,7 @@ aaa
 aaa
 cng
 qiN
-cng
+wvP
 twG
 cqs
 csj
@@ -110111,7 +110106,7 @@ bvs
 bvs
 bvs
 bDQ
-bKw
+blQ
 aaa
 aaa
 aaa
@@ -110128,7 +110123,7 @@ aaa
 aaa
 cng
 qiN
-cng
+wvP
 rSD
 cqs
 csj
@@ -110336,7 +110331,7 @@ aLu
 aLr
 aGn
 aGn
-aII
+jTB
 aGn
 aGn
 aRB
@@ -110368,7 +110363,7 @@ bvs
 bwP
 bvs
 hvS
-bKw
+blQ
 aaa
 aaa
 aaa
@@ -110625,7 +110620,7 @@ bvs
 bEW
 bvs
 bMg
-bKw
+blQ
 aaa
 aaa
 aaa
@@ -111106,7 +111101,7 @@ aHl
 aLx
 aGn
 aGn
-aII
+jTB
 aGn
 aGn
 aGn
@@ -111139,7 +111134,7 @@ bJx
 bKq
 bvs
 jdz
-bKw
+blQ
 aaa
 aaa
 aaa
@@ -111166,7 +111161,7 @@ cgQ
 cgQ
 cqs
 lNi
-cwx
+sWI
 cyo
 czP
 cAX
@@ -111402,7 +111397,7 @@ aaa
 bPT
 bRI
 sft
-bPT
+vCz
 sft
 bUg
 bPT
@@ -111423,13 +111418,13 @@ vdx
 cgQ
 cqs
 lNi
-cwx
+sWI
 cyn
 czH
 cBm
 czJ
 cDV
-cwx
+sWI
 amh
 aaa
 aaa
@@ -111680,13 +111675,13 @@ mmE
 heN
 coL
 fWy
-cwx
+sWI
 cyb
 czQ
 cBa
 cCt
 cDL
-cwx
+sWI
 aab
 aab
 cNF
@@ -111916,7 +111911,7 @@ bKB
 bKB
 bRI
 bTr
-bKB
+oSz
 bTr
 bUg
 bKB
@@ -111943,7 +111938,7 @@ czJ
 cBb
 cCz
 cDX
-cwx
+sWI
 ayi
 aab
 cpz
@@ -112200,7 +112195,7 @@ czK
 cBc
 aag
 cDZ
-cwx
+sWI
 aaa
 aab
 cNM
@@ -112451,13 +112446,13 @@ cqz
 gYs
 ctN
 mKg
-cwx
+sWI
 cye
 czK
 cBd
 czJ
 cBb
-cwx
+sWI
 ayi
 aab
 aaa
@@ -112714,7 +112709,7 @@ czR
 cBn
 cCD
 cDO
-cwx
+sWI
 ayi
 aab
 aab
@@ -112965,13 +112960,13 @@ gzN
 cgQ
 coL
 fmg
-cwx
+sWI
 cwy
-cwx
-cwx
+sWI
+sWI
 cCC
-cwx
-cwx
+sWI
+sWI
 cLi
 cLi
 cLi
@@ -113423,16 +113418,16 @@ aGn
 aGn
 aMA
 aRl
-aSu
-aSt
-aSt
-aVj
-aVj
-aVj
-aVj
-aVj
-aVj
-aVj
+aMA
+aGn
+aGn
+aVi
+aVi
+aVi
+aVi
+aVi
+aVi
+aVi
 bdq
 blP
 bjP
@@ -115251,10 +115246,10 @@ byw
 bFq
 bxb
 bxb
-bKB
+oSz
 bVl
 bWO
-bKB
+oSz
 bYM
 bYM
 jdi
@@ -115993,16 +115988,16 @@ aMA
 aMA
 aMA
 aRl
-aSu
-aSu
-aSu
-aSu
-aSu
-aSu
-aSu
-aSu
-aSu
-aSu
+aMA
+aMA
+aMA
+aMA
+aMA
+aMA
+aMA
+aMA
+aMA
+aMA
 bgE
 bmf
 bkr
@@ -116576,7 +116571,7 @@ qJc
 cOx
 aaa
 aaa
-cQy
+cLi
 cTb
 cUf
 cVn
@@ -116832,8 +116827,8 @@ uUa
 qJc
 cOx
 cOx
-cQy
-cRB
+cLi
+cWk
 cTc
 cNB
 cNB
@@ -117537,8 +117532,8 @@ aMA
 aVD
 aMA
 bac
-aSu
-aSu
+aMA
+aMA
 aSA
 aSA
 aSA
@@ -117763,7 +117758,7 @@ qBH
 azV
 afa
 wsT
-agk
+qdH
 aoh
 tXE
 hgU
@@ -118037,10 +118032,10 @@ ayG
 aqW
 aAR
 aDH
-aqI
-aAm
-aAm
-aAm
+auc
+aEl
+aEl
+aEl
 aKh
 aLM
 aMZ
@@ -118294,10 +118289,10 @@ ayQ
 azH
 aAT
 aDJ
-aqI
+auc
 aGr
 aHx
-aAm
+aEl
 aEl
 aEl
 aEl
@@ -118551,7 +118546,7 @@ aIo
 aIo
 aCK
 aDI
-aAm
+aEl
 aGq
 aHw
 aIW
@@ -119147,13 +119142,13 @@ cLd
 cKb
 cNB
 cPj
-rgM
-rgM
-rgM
-rgM
-rgM
+gLG
+gLG
+gLG
+gLG
+gLG
 cVb
-rgM
+gLG
 dar
 dts
 cYq
@@ -119404,7 +119399,7 @@ cLf
 cKb
 cNB
 cPj
-rgM
+gLG
 cUk
 cVh
 cWz
@@ -119607,7 +119602,7 @@ bkv
 bmb
 aaa
 aaa
-bqN
+blZ
 bsp
 bwN
 bAA
@@ -119661,7 +119656,7 @@ cLn
 cKb
 cNB
 cPj
-rgM
+gLG
 cUj
 cVi
 cWy
@@ -119864,7 +119859,7 @@ bpp
 bmb
 aaa
 aaa
-bmc
+qPj
 bsu
 bwS
 bwg
@@ -119918,7 +119913,7 @@ cLf
 cKb
 cNB
 gSd
-rgM
+gLG
 dsI
 iUF
 gCE
@@ -120121,7 +120116,7 @@ bkv
 bmb
 aaa
 aaa
-bmc
+qPj
 bdi
 bwR
 bkR
@@ -120175,7 +120170,7 @@ cOE
 cKb
 cNB
 cPj
-rgM
+gLG
 dsH
 mJT
 fTF
@@ -120432,7 +120427,7 @@ cOQ
 cKb
 cEM
 cPh
-rgM
+gLG
 dsK
 uVt
 cSl
@@ -120646,7 +120641,7 @@ bBw
 bBw
 bJH
 bKJ
-bxm
+bxl
 bMD
 bOq
 bQo
@@ -120689,7 +120684,7 @@ cLD
 cKb
 cNB
 cPj
-rgM
+gLG
 dsK
 uVt
 uVt
@@ -120946,7 +120941,7 @@ cNG
 cKb
 cNB
 cPj
-rgM
+gLG
 dsL
 uVt
 cSp
@@ -121153,25 +121148,25 @@ bqP
 bsw
 bxj
 bvU
-bxm
+bxl
 byN
 bzS
 bBx
 bCD
 bEc
-bxm
-bxm
-bxm
-bxm
-bMG
-bMG
-bMG
-bMG
-bMG
-bMG
-bMG
-bMG
-bMG
+bxl
+bxl
+bxl
+bxl
+bQo
+bQo
+bQo
+bQo
+bQo
+bQo
+bQo
+bQo
+bQo
 cdY
 cgb
 ciS
@@ -121203,7 +121198,7 @@ cNK
 cKb
 cLi
 cPj
-rgM
+gLG
 dsK
 uVt
 dsY
@@ -121416,7 +121411,7 @@ bvX
 bvX
 bvX
 bvX
-bxm
+bxl
 aab
 aab
 aab
@@ -121460,7 +121455,7 @@ dSM
 eWK
 cCp
 cPl
-rgM
+gLG
 dsK
 uVt
 dsY
@@ -122384,7 +122379,7 @@ adb
 abP
 aiz
 xWL
-afm
+aqv
 amC
 agL
 afl
@@ -122903,7 +122898,7 @@ amE
 anE
 aox
 apk
-apP
+gHN
 agP
 aso
 ake
@@ -123155,10 +123150,10 @@ acK
 ajo
 aeS
 alk
-aiv
+iHS
 amD
 anD
-alW
+tkC
 apS
 apS
 agO
@@ -123689,7 +123684,7 @@ ayT
 azK
 ayR
 aCp
-aHE
+axe
 axe
 aFz
 aFz
@@ -123939,14 +123934,14 @@ awK
 aoq
 arq
 asZ
-aAx
+awK
 aua
 axH
-aAx
+awK
 aoq
 arq
 asZ
-aHE
+axe
 aEo
 aFC
 aGz
@@ -123986,7 +123981,7 @@ bvX
 bvX
 bvX
 bvX
-bxv
+bON
 aab
 aab
 aab
@@ -124177,13 +124172,13 @@ aaa
 aiv
 aqR
 ahR
-aiv
-aiv
-aiv
+iHS
+iHS
+iHS
 ajK
 akt
 aku
-aiv
+iHS
 amH
 anJ
 ahY
@@ -124203,7 +124198,7 @@ ayU
 dof
 azx
 aCr
-aHE
+axe
 aEn
 aFB
 aGy
@@ -124237,24 +124232,24 @@ bqZ
 bsE
 bwU
 bvU
-bxv
+bON
 byS
 bzX
 bBC
 bCM
-bxv
-bxv
-bxv
-bxv
-bLd
-bLd
-bLd
-bLd
-bSi
-bSi
-bSi
-bSi
-bSi
+bON
+bON
+bON
+bON
+bOK
+bOK
+bOK
+bOK
+aaq
+aaq
+aaq
+aaq
+aaq
 bSi
 ceC
 cgj
@@ -124432,15 +124427,15 @@ afX
 afX
 aaa
 aiv
-aiv
-aiv
-akB
+iHS
+iHS
+akW
 acC
-aiv
-aiv
-aiv
-aiv
-aiv
+iHS
+iHS
+iHS
+iHS
+iHS
 amJ
 anJ
 aoD
@@ -124460,7 +124455,7 @@ auQ
 azO
 aro
 aCs
-aHE
+axe
 aEp
 aFD
 aGB
@@ -124503,11 +124498,11 @@ bJN
 bKM
 bLe
 bMN
-bLd
+bOK
 bQv
 bTB
 bUD
-bSi
+aaq
 bVP
 bXx
 bXl
@@ -124696,8 +124691,8 @@ alB
 acL
 adi
 atY
-anH
-anH
+anA
+anA
 aui
 anK
 aoC
@@ -124710,14 +124705,14 @@ awK
 aoq
 aru
 asZ
-aAx
+awK
 awa
 axI
-aAx
+awK
 aoq
 aru
 asZ
-aHE
+axe
 axe
 axe
 aGA
@@ -124764,7 +124759,7 @@ bOx
 bQu
 bTj
 bUB
-bSi
+aaq
 bTO
 bXw
 bXl
@@ -124810,9 +124805,9 @@ cYM
 cNV
 cOb
 fJu
-xfI
-xfI
-xfI
+cYM
+cYM
+cYM
 xfI
 cZM
 xfI
@@ -125017,11 +125012,11 @@ bEh
 bFK
 bHw
 bMP
-bLd
+bOK
 bQz
 bOJ
 bQw
-bSi
+aaq
 bTS
 bXz
 bXl
@@ -125261,7 +125256,7 @@ dnC
 bmi
 aaa
 aaa
-bmc
+qPj
 bdP
 byf
 dLF
@@ -125274,11 +125269,11 @@ bEU
 bFL
 bHx
 bMO
-bLd
+bOK
 bQy
 bOK
 bOK
-bSi
+aaq
 bTR
 bXy
 bXl
@@ -125344,13 +125339,13 @@ jxh
 aaa
 aab
 aaa
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
+uLY
+uLY
+uLY
+uLY
+uLY
+uLY
+uLY
 aaa
 aaa
 aaa
@@ -125484,7 +125479,7 @@ ayY
 awV
 awf
 axP
-aza
+awV
 aoq
 aBa
 asZ
@@ -125518,7 +125513,7 @@ bkF
 bmi
 aaa
 aaa
-bmc
+qPj
 bsu
 byt
 bwg
@@ -125531,11 +125526,11 @@ bEs
 bEs
 bEs
 bMR
-bLd
+bOK
 bQD
 bOL
 bQx
-bSi
+aaq
 bTV
 bXX
 bXm
@@ -125583,10 +125578,10 @@ tbU
 gAm
 eMw
 dex
-xfI
-xfI
+cYM
+cYM
 ykt
-xfI
+cYM
 mwe
 cSU
 cSU
@@ -125598,16 +125593,16 @@ dcq
 dcq
 dcq
 dcq
-dcq
-dcq
-dcq
-dcq
+uLY
+uLY
+uLY
+uLY
 dgi
-dcq
+uLY
 ddr
 deP
 dgq
-dcq
+uLY
 aaa
 aaa
 aaa
@@ -125788,11 +125783,11 @@ bEk
 bzY
 bLf
 bMQ
-bLd
 bOK
 bOK
 bOK
-bSi
+bOK
+aaq
 dgl
 bXC
 bXn
@@ -125864,7 +125859,7 @@ dgp
 ddr
 ddr
 ddr
-dcq
+uLY
 aaa
 aaa
 aaa
@@ -126098,30 +126093,30 @@ cZS
 cZS
 cZS
 cZS
-dcq
+uLY
 deL
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
-dcq
+uLY
+uLY
+uLY
+uLY
+uLY
+uLY
+uLY
+uLY
+uLY
+uLY
+uLY
 don
-dcq
+uLY
 dfx
 dfR
-dcq
-dcq
-dcq
+uLY
+uLY
+uLY
 dgC
 doL
 dgC
-dcq
+uLY
 aaa
 aaa
 aaa
@@ -126255,10 +126250,10 @@ arv
 ayp
 awi
 axQ
-aAx
-aAx
-aAx
-aAx
+awK
+awK
+awK
+awK
 aAx
 aEu
 aGK
@@ -126367,18 +126362,18 @@ cQZ
 cQZ
 cQZ
 cQZ
-dcq
+uLY
 dok
-dcq
+uLY
 dfu
 dfQ
-dcq
+uLY
 aaa
-dcq
+uLY
 dou
 doI
 dou
-dcq
+uLY
 aaa
 aaa
 aaa
@@ -126624,12 +126619,12 @@ dki
 dkO
 dkO
 cQZ
-dcq
+uLY
 ddr
-dcq
+uLY
 dfC
 dgb
-dcq
+uLY
 aaa
 aaa
 dou
@@ -126881,12 +126876,12 @@ dkh
 bbM
 dlv
 cQZ
-dcq
+uLY
 dfm
-dcq
+uLY
 dfA
 dfT
-dcq
+uLY
 aaa
 aaa
 dou
@@ -127140,7 +127135,7 @@ dkO
 cQZ
 cYz
 aaa
-dcq
+uLY
 dfE
 dgd
 dgc
@@ -127326,11 +127321,11 @@ aUS
 bAg
 bHs
 bkC
-ogI
-ogI
-ogI
-ogI
-ogI
+bOU
+bOU
+bOU
+bOU
+bOU
 bOU
 bOU
 bOU
@@ -127367,7 +127362,7 @@ cep
 cep
 kcQ
 cep
-cOT
+cVE
 cPZ
 cPZ
 cPZ
@@ -127397,10 +127392,10 @@ cQZ
 cQZ
 aab
 aaa
-dcq
+uLY
 dfD
 dgc
-dcq
+uLY
 aaa
 aaa
 aaa
@@ -127532,12 +127527,12 @@ apN
 aqD
 ahE
 asv
-aFL
-aFL
-aFL
-aFL
+ufE
+ufE
+ufE
+ufE
 axC
-aFL
+ufE
 aFL
 axV
 azm
@@ -127583,7 +127578,7 @@ aUS
 bAh
 bHu
 bAh
-ogI
+bOU
 aTT
 bCW
 bDc
@@ -127789,7 +127784,7 @@ aoJ
 apT
 ago
 aiU
-aFL
+ufE
 alS
 apd
 arK
@@ -127840,7 +127835,7 @@ aUS
 bAk
 bHy
 bAk
-ogI
+bOU
 aTS
 fYx
 bBM
@@ -127881,7 +127876,7 @@ ssc
 ssc
 tWL
 cAu
-cOT
+cVE
 cDk
 cOA
 cPs
@@ -128035,7 +128030,7 @@ aaa
 aab
 anA
 acV
-anH
+anA
 akI
 apO
 apO
@@ -128292,7 +128287,7 @@ aaa
 aab
 anA
 anA
-anH
+anA
 akH
 alC
 anV
@@ -128303,7 +128298,7 @@ aHq
 anA
 ahQ
 aiV
-aFL
+ufE
 ama
 apy
 arO
@@ -128395,7 +128390,7 @@ gfi
 sAi
 yhm
 cep
-cOT
+cVE
 cQg
 cOI
 cPD
@@ -128560,7 +128555,7 @@ apQ
 aqG
 ajU
 aiX
-aFL
+ufE
 auI
 apK
 arQ
@@ -128616,7 +128611,7 @@ aTY
 eng
 bGf
 bIh
-ogI
+bOU
 bTM
 bPg
 bQS
@@ -128652,7 +128647,7 @@ hyH
 ssc
 kcQ
 czq
-cOT
+cVE
 cDl
 cOJ
 cPE
@@ -128817,10 +128812,10 @@ kTA
 aqG
 ajJ
 asy
-aFL
+ufE
 amb
 apG
-aFL
+ufE
 apG
 auI
 aFL
@@ -128873,12 +128868,12 @@ aTW
 wuf
 can
 bGq
-ogI
+bOU
 bLx
 bNy
 bQR
 bSt
-ogI
+bOU
 bZH
 cbv
 caA
@@ -128909,7 +128904,7 @@ vfy
 ssc
 cKh
 cLN
-cOT
+cVE
 cQi
 cRa
 cSo
@@ -129130,12 +129125,12 @@ aUP
 tLB
 bGe
 bJA
-ogI
-ogI
-ogI
-ogI
-ogI
-ogI
+bOU
+bOU
+bOU
+bOU
+bOU
+bOU
 bZJ
 cbO
 bWu
@@ -129166,7 +129161,7 @@ rex
 cDf
 gYr
 cLO
-cOT
+cVE
 cQo
 cRd
 cSr
@@ -129423,7 +129418,7 @@ chq
 cDf
 cKj
 cLO
-cOT
+cVE
 cQm
 cRc
 cSq
@@ -129680,7 +129675,7 @@ ahA
 cDf
 cKi
 cLO
-cxO
+chf
 cQp
 oej
 cQp
@@ -129937,7 +129932,7 @@ plV
 cDf
 cKj
 cLO
-cxO
+chf
 cQp
 cQZ
 cSn
@@ -130194,7 +130189,7 @@ wLp
 cDf
 fEv
 uOG
-cxO
+chf
 cQp
 cQZ
 cSu
@@ -130451,7 +130446,7 @@ xBf
 cDf
 fEv
 cLP
-cxO
+chf
 cQp
 cQZ
 cSs
@@ -130708,7 +130703,7 @@ cDf
 cDf
 sWc
 cts
-cxO
+chf
 cQp
 cQZ
 cSw
@@ -130883,17 +130878,17 @@ att
 ava
 avq
 awl
-aFJ
-aFJ
-aFJ
-aFJ
-aFJ
-aFJ
-aFJ
-aFJ
-aFJ
-aFJ
-aFJ
+aOI
+aOI
+aOI
+aOI
+aOI
+aOI
+aOI
+aOI
+aOI
+aOI
+aOI
 aOI
 aQG
 qFg
@@ -130965,7 +130960,7 @@ ckS
 ckS
 vzf
 xYd
-cxO
+chf
 cQp
 cQZ
 cQZ
@@ -131222,7 +131217,7 @@ czf
 cep
 cjq
 cts
-cxO
+chf
 cNE
 djd
 djd
@@ -131242,13 +131237,13 @@ djd
 djd
 djd
 gNQ
-dgS
+dgT
 fON
 dhL
-dgS
-dgS
-dgS
-dgS
+dgT
+dgT
+dgT
+dgT
 aaa
 aaa
 aab
@@ -131479,33 +131474,33 @@ dgn
 czf
 oEp
 cts
-cxO
-cxO
+chf
+chf
 cAe
 cAe
-cxO
+chf
 cAe
 cAe
-cxO
-cAe
-cAe
-cAe
-cxO
-cxO
+chf
 cAe
 cAe
 cAe
-cxO
-cxO
-cxO
-dgS
-dgS
+chf
+chf
+cAe
+cAe
+cAe
+chf
+chf
+chf
+dgT
+dgT
 cXm
 dcy
 dcV
 ddf
 ddn
-dgS
+dgT
 aaa
 aaa
 aab
@@ -131654,17 +131649,17 @@ awH
 ayg
 aOY
 awl
-aFK
-aFK
-aFK
+naS
+naS
+naS
 gFG
-aFK
-aFK
+naS
+naS
 gFG
-aFK
-aFK
-aFK
-aFK
+naS
+naS
+naS
+naS
 aPk
 ePV
 iGP
@@ -131762,7 +131757,7 @@ vTp
 dcz
 giX
 ddo
-dgS
+dgT
 dgT
 aaa
 aab
@@ -131921,7 +131916,7 @@ sHt
 sHt
 sHt
 sHt
-aFK
+naS
 kiu
 aPm
 aSM
@@ -132178,7 +132173,7 @@ sHt
 sHt
 sHt
 sHt
-aFK
+naS
 kiu
 aPm
 aNQ
@@ -132236,7 +132231,7 @@ cqM
 cqM
 cqM
 cqM
-cpC
+bLK
 pxG
 oGg
 cTx
@@ -132420,11 +132415,11 @@ awl
 awl
 avq
 avq
-atG
-atG
+awl
+awl
 avs
-atG
-atG
+awl
+awl
 sHt
 sHt
 sHt
@@ -132435,7 +132430,7 @@ pwU
 sHt
 sHt
 sHt
-aFK
+naS
 aPm
 aPm
 aSM
@@ -132485,7 +132480,7 @@ bZu
 caP
 ccC
 lzA
-chr
+cfP
 cqM
 gUY
 cqM
@@ -132493,7 +132488,7 @@ gdp
 cmo
 cnJ
 cpd
-cpC
+bLK
 dOo
 oGg
 oRn
@@ -132677,11 +132672,11 @@ atw
 atT
 auK
 bVQ
-atG
+awl
 aup
 avq
 avq
-atG
+awl
 sHt
 sHt
 sHt
@@ -132931,14 +132926,14 @@ aCh
 aqq
 awl
 atu
-atG
+awl
 auA
 axg
 axh
 lQS
 avt
 lQS
-atG
+awl
 sHt
 sHt
 sHt
@@ -133188,20 +133183,20 @@ amL
 aqr
 awl
 awl
-atG
+awl
 axf
 dgk
 axh
 auq
 avp
 auq
-atG
+awl
 aFK
 aFK
 aOI
 gFG
-aFK
-aFK
+naS
+naS
 gFG
 aOI
 aOI
@@ -133280,9 +133275,9 @@ cep
 hVP
 cEx
 chf
-cAe
+nWk
 cmt
-cAe
+nWk
 chf
 chf
 chf
@@ -133513,7 +133508,7 @@ bZw
 caR
 ccF
 cej
-chr
+cfP
 chy
 eAi
 cjv
@@ -133770,7 +133765,7 @@ cfP
 cfP
 cfP
 cfP
-chr
+cfP
 chB
 ciX
 ckD
@@ -134027,8 +134022,8 @@ oZa
 cjF
 ccH
 cek
-chA
-chA
+pAi
+pAi
 cQk
 cQk
 cQk
@@ -135566,7 +135561,7 @@ bVX
 cuQ
 bXQ
 pMM
-cQn
+cQk
 oTy
 ceq
 cQk
@@ -136836,16 +136831,16 @@ oCs
 bHP
 aTH
 cXh
-bGr
-bGr
-bGr
-bGr
-bGr
-bGr
-bGr
-bGr
-bGr
-bGr
+bWj
+bWj
+bWj
+bWj
+bWj
+bWj
+bWj
+bWj
+bWj
+bWj
 cuQ
 tYx
 bGG
@@ -137102,7 +137097,7 @@ bTW
 bUN
 bVA
 bRU
-bGr
+bWj
 cAU
 rCf
 bGG
@@ -137359,8 +137354,8 @@ iNP
 iNP
 ptK
 wCQ
-bGr
-bGr
+bWj
+bWj
 tYx
 cAU
 ceJ
@@ -137607,7 +137602,7 @@ eiq
 bHI
 bwv
 cfy
-bGr
+bWj
 bGc
 bRk
 bLT
@@ -137617,7 +137612,7 @@ bRk
 bSW
 bSJ
 kNY
-bGr
+bWj
 bWn
 chg
 ccW
@@ -137863,8 +137858,8 @@ bau
 bFo
 bHI
 dMJ
-bGr
-bGr
+bWj
+bWj
 qKG
 bLE
 bLT
@@ -137874,7 +137869,7 @@ bLE
 bId
 bSJ
 qQm
-bGr
+bWj
 pMM
 cAU
 cdb
@@ -138131,7 +138126,7 @@ pOl
 hfD
 bSJ
 rwZ
-bGr
+bWj
 pMM
 fQr
 vDR
@@ -138387,11 +138382,11 @@ bPp
 bPp
 bVD
 azq
-bGr
-bGr
+bWj
+bWj
 sBW
-bEA
-bEA
+bIa
+bIa
 cjA
 cuQ
 chU
@@ -138634,7 +138629,7 @@ bau
 pua
 bHI
 cfy
-bGr
+bWj
 bWj
 bIc
 bWe
@@ -138644,11 +138639,11 @@ faK
 bWj
 pgq
 bWe
-bGr
+bWj
 cau
 ccg
 cdC
-bEA
+bIa
 ceK
 cri
 clg
@@ -138905,7 +138900,7 @@ bYl
 cax
 cci
 jpb
-bEA
+bIa
 bYj
 bYj
 bYj
@@ -139451,10 +139446,10 @@ lqd
 cLQ
 oVH
 cBR
-cBR
-cBR
-cBR
-cBR
+cxN
+cxN
+cxN
+cxN
 cZt
 lUp
 lKO
@@ -140943,11 +140938,11 @@ bqg
 boJ
 boJ
 boJ
-aYQ
+eqv
 bvg
 bHI
 cfy
-gLu
+ycd
 bGL
 bPD
 bKi
@@ -140992,7 +140987,7 @@ rKV
 rKV
 mRD
 rKV
-cBR
+cxN
 cBR
 cBR
 gAc
@@ -141249,12 +141244,12 @@ rKV
 cQB
 cRx
 dnY
-cBR
+cxN
 lCQ
 cWr
 kdP
 cNl
-cBR
+cxN
 tlI
 vum
 ojz
@@ -141457,7 +141452,7 @@ bxB
 boJ
 boJ
 boJ
-aYQ
+eqv
 bvg
 bHQ
 wjC
@@ -141511,7 +141506,7 @@ aoo
 vJv
 cWw
 xFt
-cBR
+cxN
 eKA
 ijg
 hra
@@ -141768,7 +141763,7 @@ miN
 xTZ
 qyf
 osm
-cBR
+cxN
 ksj
 mdX
 cga
@@ -141971,16 +141966,16 @@ bmp
 boJ
 boJ
 boJ
-aYQ
+eqv
 bvg
 bHI
 cXh
-gLu
+ycd
 bGD
 bIy
 bKj
 bNC
-bED
+bTb
 bTb
 bTb
 bTb
@@ -142001,9 +141996,9 @@ iZj
 csg
 xdy
 rKV
-gLu
+ycd
 cxS
-gLu
+ycd
 rKV
 qhq
 qhq
@@ -142020,12 +142015,12 @@ rKV
 rKV
 uMj
 rKV
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+cxN
+cxN
+cxN
+cxN
+cxN
+cxN
 mhm
 pAl
 kdh
@@ -142237,7 +142232,7 @@ eER
 vGj
 vGj
 geb
-bED
+bTb
 oyO
 viP
 nin
@@ -142489,12 +142484,12 @@ aYP
 xmi
 bHI
 cXh
-bED
-bED
+bTb
+bTb
 hLG
 cYp
 cYh
-bED
+bTb
 cZp
 cZT
 lXF
@@ -142534,7 +142529,7 @@ cLb
 xDr
 dSD
 fZu
-cBQ
+oRP
 rQO
 ciY
 gjN
@@ -142708,7 +142703,7 @@ aAf
 aAf
 aAf
 aAf
-aFd
+aAf
 aAf
 aGX
 aGX
@@ -142746,7 +142741,7 @@ aYP
 bFH
 bHU
 cXh
-bED
+bTb
 bJr
 bLo
 bNt
@@ -143013,7 +143008,7 @@ cYO
 bRY
 xWj
 cOC
-bED
+bTb
 rKV
 dbx
 rKV
@@ -143270,7 +143265,7 @@ rYr
 bIp
 bUi
 eXy
-bED
+bTb
 cHf
 dbX
 csL
@@ -143527,7 +143522,7 @@ cZk
 daa
 dVQ
 xXO
-bED
+bTb
 bUx
 cga
 csL
@@ -143774,7 +143769,7 @@ bte
 bvh
 bHI
 cXh
-bED
+bTb
 nLa
 bLp
 bNu
@@ -143784,7 +143779,7 @@ ezy
 bIp
 yiu
 tYP
-bED
+bTb
 cKF
 csL
 cga
@@ -144031,17 +144026,17 @@ bEF
 qSF
 bHS
 iBI
-bED
-bED
-bED
-bED
-bED
-bED
-bED
+bTb
+bTb
+bTb
+bTb
+bTb
+bTb
+bTb
 bUT
-bED
-bED
-bED
+bTb
+bTb
+bTb
 auB
 dMM
 gpq
@@ -147368,11 +147363,11 @@ bzO
 bmm
 bBl
 gOd
-bjR
+vfF
 iek
 oWE
 gOd
-bjR
+vfF
 iek
 enR
 bmm
@@ -147882,11 +147877,11 @@ bEG
 buT
 iya
 gOd
-bjR
+vfF
 iek
 mmt
 gOd
-bjR
+vfF
 iek
 ijt
 bmm
@@ -148905,16 +148900,16 @@ bmn
 bmL
 bol
 buE
-bEG
-btk
-bEG
+bEF
+bAK
+bEF
 bqn
 bAE
-bjR
-bjR
-bjR
-bjR
-bjR
+vfF
+vfF
+vfF
+vfF
+vfF
 bAE
 jfJ
 bAE
@@ -149167,11 +149162,11 @@ btp
 bol
 bjR
 boI
-bjR
+vfF
 tnJ
 pXs
 eWC
-bjR
+vfF
 xir
 bjR
 xir

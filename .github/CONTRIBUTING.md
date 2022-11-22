@@ -547,7 +547,8 @@ in the SQL/updates folder.
     * Failure to run Map Merge on a map after editing greatly increases the risk of the map's key dictionary becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
 
 * StrongDMM
-  * When using StrongDMM, the following options should be enabled to avoid file bloat. They can be found under `File > Preferences` in SDMM2.
+  * We only accept contributions from StrongDMM version 2.0 or greater
+  * When using StrongDMM, the following options should be enabled to avoid file bloat. They can be found under `File > Preferences`.
     * Sanitize Variables - Removes variables that are declared on the map, but are the same as default. (For example: A standard floor turf that has `dir = 2` declared on the map will have that variable deleted as it is redundant.)
     * Save format - Either `Initial` or `TGM`, never `DM`.
 
@@ -580,12 +581,14 @@ in the SQL/updates folder.
       * A good example would be the template [Department name] - [Area], so Brig - Cell 1, or Medbay - Treatment Center. Consistency is key to good camera naming.
     * Fire alarms should not be placed next to expected heat sources.
     * Use the following "on" subtype of vents and scrubbers as opposed to var-editing: `/obj/machinery/atmospherics/unary/vent_scrubber/on` and `/obj/machinery/atmospherics/unary/vent_pump/on`
-  * Head of staff officers should contain a requests console.
-  * Firelocks should be used at area boundaries over doors and windows. Firelocks can also be used to break up hallways at reasonable intervals.
+  * Head of staff offices should contain a requests console.
+  * Firelocks should be used at area boundaries over doors and optionally windows. Firelocks can also be used to break up hallways at reasonable intervals.
     * Double firelocks are to be avoided unless absolutely necessary.
     * Maintenance access doors should not have firelocks placed over them.
-  * Windows to secure areas or external areas should be reinforced. Windows in engine areas should be reinforced plasma glass.
-    * Windows in high security areas, such as the brig, bridge, and head of staff offices, should be electrified by placing a wire node under the window.
+  * Windows should generally match the surrounding walls. (i.e. reinforced windows with reinforced walls)
+  	* The following should generally be reinforced windows: Windows that transition unsecured and secured areas (brig, bridge, etc), external windows.
+  	* Windows in engine areas should be reinforced plasma glass.
+  * Windows that have an easily accessible secondary security method (shutters, blast doors, etc) can be unreinforced, even in secure areas. Use common sense with this.* Windows in high security areas (brig, bridge, head of staff offices, etc) should be electrified by placing a wire node under the window.
   * Lights are to be used sparingly, they draw a significant amount of power.
   * Ensure door and windoor access is correctly set, these are handled by the variables `req_access_txt` and `req_one_access_txt`. Public doors should have both of these values as `"0"`. For a list of access values, see [`code\__DEFINES\access.dm`](code/__DEFINES/access.dm).
     * Always use numerical values encased in quotes for these variables. Multiple access values can be defined by separating them with a `;`, for example: `"28;31"` for kitchen AND cargo access.
