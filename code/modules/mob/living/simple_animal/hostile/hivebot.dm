@@ -59,7 +59,7 @@
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
 	name = "Beacon"
-	desc = "Some odd beacon thing"
+	desc = "Some odd beacon thing."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "def_radar-off"
 	icon_living = "def_radar-off"
@@ -75,7 +75,7 @@
 /mob/living/simple_animal/hostile/hivebot/tele/Initialize(mapload)
 	. = ..()
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, 0, src.loc)
+	smoke.set_up(5, FALSE, loc)
 	smoke.start()
 	visible_message("<span class='danger'>[src] warps in!</span>")
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)

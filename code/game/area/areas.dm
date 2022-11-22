@@ -9,7 +9,7 @@
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
-	plane = BLACKNESS_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
+	plane = AREA_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	luminosity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
@@ -158,7 +158,7 @@
 		if(D.operating && D.operating != DOOR_CLOSING)
 			D.nextstate = FD_CLOSED
 		else if(!D.density)
-			INVOKE_ASYNC(D, /obj/machinery/door/firedoor.proc/close)
+			INVOKE_ASYNC(D, TYPE_PROC_REF(/obj/machinery/door/firedoor, close))
 
 /area/proc/air_doors_open()
 	if(!air_doors_activated)
@@ -173,7 +173,7 @@
 		if(D.operating && D.operating != DOOR_OPENING)
 			D.nextstate = FD_OPEN
 		else if(D.density)
-			INVOKE_ASYNC(D, /obj/machinery/door/firedoor.proc/open)
+			INVOKE_ASYNC(D, TYPE_PROC_REF(/obj/machinery/door/firedoor, open))
 
 /area/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -252,7 +252,7 @@
 
 		// At this point, the area is safe and the door is technically functional.
 
-		INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm)) 
+		INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
 		if(D.welded)
 			continue // Alarm is toggled, but door stuck
 		if(D.operating)
@@ -261,7 +261,7 @@
 			else
 				D.nextstate = opening ? FD_OPEN : FD_CLOSED
 		else if(D.density == opening)
-			INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+			INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/firedoor, close)))
 
 /**
   * Generate a firealarm alert for this area
@@ -354,7 +354,7 @@
 
 	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
 		//Cancel silicon alert after 1 minute
-		addtimer(CALLBACK(SSalarm, /datum/controller/subsystem/alarm.proc/cancelAlarm, "Burglar", src, trigger), 600)
+		addtimer(CALLBACK(SSalarm, TYPE_PROC_REF(/datum/controller/subsystem/alarm, cancelAlarm), "Burglar", src, trigger), 600)
 
 /**
   * Trigger the fire alarm visual affects in an area
@@ -492,8 +492,8 @@
 	var/area/newarea
 	var/area/oldarea
 
-	if(istype(A,/mob))
-		var/mob/M=A
+	if(ismob(A))
+		var/mob/M = A
 
 		if(!M.lastarea)
 			M.lastarea = get_area(M)
@@ -504,7 +504,7 @@
 
 		M.lastarea = src
 
-	if(!istype(A,/mob/living))	return
+	if(!isliving(A))	return
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
@@ -526,7 +526,7 @@
 			thunk(M)
 
 /area/proc/thunk(mob/living/carbon/human/M)
-	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
+	if(ishuman(M))  // Only humans can wear magboots, so we give them a chance to.
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
 
@@ -536,13 +536,13 @@
 	if(M.buckled) //Cam't fall down if you are buckled
 		return
 
-	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
+	if(isspaceturf(get_turf(M))) // Can't fall onto nothing.
 		return
 
-	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
+	if((ishuman(M)) && (M.m_intent == MOVE_INTENT_RUN))
 		M.Weaken(10 SECONDS)
 
-	else if(istype(M,/mob/living/carbon/human/))
+	else if(ishuman(M))
 		M.Weaken(4 SECONDS)
 
 
@@ -552,7 +552,7 @@
 	if(!T)
 		T = get_turf(AT)
 	var/area/A = get_area(T)
-	if(istype(T, /turf/space)) // Turf never has gravity
+	if(isspaceturf(T)) // Turf never has gravity
 		return 0
 	else if(A && A.has_gravity) // Areas which always has gravity
 		return 1
@@ -565,11 +565,11 @@
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in src)
-		INVOKE_ASYNC(temp_apc, /obj/machinery/power/apc.proc/overload_lighting, 70)
+		INVOKE_ASYNC(temp_apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting), 70)
 	for(var/obj/machinery/door/airlock/temp_airlock in src)
-		INVOKE_ASYNC(temp_airlock, /obj/machinery/door/airlock.proc/prison_open)
+		INVOKE_ASYNC(temp_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, prison_open))
 	for(var/obj/machinery/door/window/temp_windoor in src)
-		INVOKE_ASYNC(temp_windoor, /obj/machinery/door.proc/open)
+		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")

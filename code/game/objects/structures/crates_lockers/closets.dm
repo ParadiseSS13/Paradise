@@ -38,7 +38,7 @@
 		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
 		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
 		// therefore solving the issue on mapload. During rounds, everything will happen as normal
-		addtimer(CALLBACK(src, .proc/take_contents), 0)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	populate_contents() // Spawn all its stuff
 	update_icon() // Set it to the right icon if needed
 
@@ -131,7 +131,7 @@
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
 			break
-		if(istype(M, /mob/dead/observer))
+		if(isobserver(M))
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
@@ -243,7 +243,7 @@
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(!opened)
 		return
@@ -282,8 +282,7 @@
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)
 	add_fingerprint(user)
-	if(!toggle())
-		to_chat(usr, "<span class='notice'>It won't budge!</span>")
+	toggle(user)
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)

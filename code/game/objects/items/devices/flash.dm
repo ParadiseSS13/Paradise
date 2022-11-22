@@ -33,19 +33,23 @@
 
 /obj/item/flash/attackby(obj/item/I, mob/user, params)
 	if(can_overcharge)
-		if(istype(I, /obj/item/screwdriver))
-			if(battery_panel)
-				to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
-				battery_panel = FALSE
-			else
-				to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
-				battery_panel = TRUE
 		if(battery_panel && !overcharged)
 			if(istype(I, /obj/item/stock_parts/cell))
 				to_chat(user, "<span class='notice'>You jam [I] into the battery compartment on [src].</span>")
 				qdel(I)
 				overcharged = TRUE
 				add_overlay("overcharge")
+
+/obj/item/flash/screwdriver_act(mob/living/user, obj/item/I)
+	if(!can_overcharge)
+		return
+
+	if(battery_panel)
+		to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
+	else
+		to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
+	battery_panel = !battery_panel
+	return TRUE
 
 /obj/item/flash/random/New()
 	..()
@@ -85,7 +89,7 @@
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
 	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	times_used++
 
 	if(user && !clown_check(user))

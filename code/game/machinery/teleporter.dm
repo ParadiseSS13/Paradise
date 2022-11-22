@@ -146,7 +146,7 @@
 
 			atom_say("Processing hub calibration to target...")
 			calibrating = TRUE
-			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
+			addtimer(CALLBACK(src, PROC_REF(calibrateCallback)), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
 /**
 *	Resets the connected powerstation to initial values. Helper function of ui_act
@@ -296,9 +296,9 @@
 /proc/find_loc(obj/R as obj)
 	if(!R)	return null
 	var/turf/T = R.loc
-	while(!istype(T, /turf))
+	while(!isturf(T))
 		T = T.loc
-		if(!T || istype(T, /area))	return null
+		if(!T || isarea(T))	return null
 	return T
 
 /obj/machinery/teleport
@@ -313,9 +313,9 @@
 	Prevents AI from using the teleporter, prints out failure messages for clarity
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
-	if(istype(A, /mob/living/silicon/ai) || istype(A, /obj/structure/AIcore))
+	if(isAI(A) || istype(A, /obj/structure/AIcore))
 		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
-		if(istype(A, /mob/living/silicon/ai))
+		if(isAI(A))
 			var/mob/living/silicon/ai/T = A
 			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
 			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
@@ -484,7 +484,7 @@
 			recalibrating = TRUE
 			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 			update_lighting()
-			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
+			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE

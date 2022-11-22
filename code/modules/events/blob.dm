@@ -10,7 +10,7 @@
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
 /datum/event/blob/start()
-	INVOKE_ASYNC(src, .proc/make_blob)
+	INVOKE_ASYNC(src, PROC_REF(make_blob))
 
 /datum/event/blob/proc/make_blob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
@@ -27,6 +27,8 @@
 	B.key = M.key
 	B.mind.special_role = SPECIAL_ROLE_BLOB
 	SSticker.mode.update_blob_icons_added(B.mind)
+	B.forceMove(vent)
+	B.add_ventcrawl(vent)
 
 	to_chat(B, "<span class='userdanger'>You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around.</span>")
 	to_chat(B, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)</span>")

@@ -237,7 +237,7 @@
 
 /obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			return 0
 
 	return 1
@@ -390,7 +390,7 @@
 /obj/structure/table/holotable/wood
 	name = "wooden table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
-	icon = 'icons/obj/smooth_structures/wood_table.dmi'
+	icon = 'icons/obj/smooth_structures/tables/wood_table.dmi'
 	icon_state = "wood_table-0"
 	base_icon_state = "wood_table"
 	smoothing_groups = list(SMOOTH_GROUP_WOOD_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
@@ -408,8 +408,8 @@
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "rwindow"
+	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
+	icon_state = "reinforced_window-0"
 	desc = "A window."
 	density = TRUE
 	layer = 3.2//Just above doors
@@ -440,7 +440,10 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 50
+
+/obj/item/holo/claymore/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 
 /obj/item/holo/claymore/blue
@@ -462,8 +465,11 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration_percentage = 50
-	block_chance = 50
 	var/active = FALSE
+
+/obj/item/holo/esword/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/holo/esword/green/New()
 	..()
@@ -498,7 +504,7 @@
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
@@ -540,7 +546,7 @@
 		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
 		qdel(W)
 		return
-	else if(istype(W, /obj/item) && get_dist(src,user)<2)
+	else if(isitem(W) && get_dist(src,user)<2)
 		user.drop_item(src)
 		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
 		return

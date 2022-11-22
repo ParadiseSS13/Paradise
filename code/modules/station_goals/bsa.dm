@@ -16,7 +16,7 @@
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_packs/misc/station_goal/bsa/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
+	var/datum/supply_packs/misc/station_goal/bsa/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_cannon/check_completion()
@@ -360,7 +360,7 @@
 	target = options[V]
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
-	if(istype(target,/area))
+	if(isarea(target))
 		var/area/A = target
 		return A.name
 	else if(istype(target,/obj/item/gps))
@@ -368,7 +368,7 @@
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
-	if(istype(target,/area))
+	if(isarea(target))
 		return pick(get_area_turfs(target))
 	else if(istype(target,/obj/item/gps))
 		return get_turf(target)
@@ -397,7 +397,7 @@
 		return null
 	//Totally nanite construction system not an immersion breaking spawning
 	var/datum/effect_system/smoke_spread/s = new
-	s.set_up(4, 0, get_turf(centerpiece))
+	s.set_up(4, FALSE, centerpiece)
 	s.start()
 	var/obj/machinery/bsa/full/cannon = new(get_turf(centerpiece),centerpiece.get_cannon_direction())
 	cannon.controller = src

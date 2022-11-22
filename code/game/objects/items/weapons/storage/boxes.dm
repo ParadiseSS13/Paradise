@@ -746,7 +746,7 @@
 		icon_state = "[item_state]_closed"
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
@@ -829,7 +829,7 @@
 
 /obj/item/storage/box/clown
 	name = "clown box"
-	desc = "A colorful cardboard box for the clown"
+	desc = "A colorful cardboard box for the clown."
 	icon_state = "box_clown"
 	var/robot_arm // This exists for bot construction
 

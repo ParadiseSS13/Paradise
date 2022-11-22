@@ -2,10 +2,9 @@
 
 /turf/simulated/mineral //wall piece
 	name = "rock"
-	icon = 'icons/turf/smoothrocks.dmi'
+	icon = 'icons/turf/walls/smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
-	transform = matrix(1, 0, -4, 0, 1, -4)
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
@@ -17,6 +16,7 @@
 	rad_insulation = RAD_MEDIUM_INSULATION
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
+	color = COLOR_ROCK
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
@@ -29,6 +29,7 @@
 
 /turf/simulated/mineral/Initialize(mapload)
 	. = ..()
+	color = COLOR_ROCK
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in GLOB.cardinal)
 			if(prob(spreadChance))
@@ -40,7 +41,6 @@
 	T.ChangeTurf(type)
 
 /turf/simulated/mineral/shuttleRotate(rotation)
-	setDir(angle2dir(rotation + dir2angle(dir)))
 	QUEUE_SMOOTH(src)
 
 /turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
@@ -76,7 +76,7 @@
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 	ChangeTurf(turf_type, defer_change)
-	addtimer(CALLBACK(src, .proc/AfterChange), 1, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 
 /turf/simulated/mineral/attack_animal(mob/living/simple_animal/user)
@@ -133,14 +133,11 @@
 		/turf/simulated/mineral/gibtonite = 4, /turf/simulated/floor/plating/asteroid/airless/cave = 2, /turf/simulated/mineral/bscrystal = 1)
 		//Currently, Adamantine won't spawn as it has no uses. -Durandan
 	var/mineralChance = 13
-	var/display_icon_state = "rock"
 
 /turf/simulated/mineral/random/Initialize(mapload)
 
 	mineralSpawnChanceList = typelist("mineralSpawnChanceList", mineralSpawnChanceList)
 
-	if(display_icon_state)
-		icon_state = display_icon_state
 	. = ..()
 	if (prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
@@ -156,7 +153,7 @@
 			M.levelupdate()
 
 /turf/simulated/mineral/random/high_chance
-	icon_state = "rock_highchance"
+	color = COLOR_YELLOW
 	mineralChance = 25
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium = 35, /turf/simulated/mineral/diamond = 30, /turf/simulated/mineral/gold = 45, /turf/simulated/mineral/titanium = 45,
@@ -181,7 +178,7 @@
 		/turf/simulated/mineral/silver/volcanic = 50, /turf/simulated/mineral/plasma/volcanic = 50, /turf/simulated/mineral/bscrystal/volcanic = 20)
 
 /turf/simulated/mineral/random/low_chance
-	icon_state = "rock_lowchance"
+	color = COLOR_VIOLET
 	mineralChance = 6
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium = 2, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 4, /turf/simulated/mineral/titanium = 4,
@@ -189,7 +186,6 @@
 		/turf/simulated/mineral/gibtonite = 2, /turf/simulated/mineral/bscrystal = 1)
 
 /turf/simulated/mineral/random/volcanic
-	icon_state = "smoothrocks"
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
@@ -209,7 +205,7 @@
 		/turf/simulated/mineral/uranium = 3, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 8, /turf/simulated/mineral/titanium = 8,
 		/turf/simulated/mineral/silver = 20, /turf/simulated/mineral/plasma = 30, /turf/simulated/mineral/iron = 95,
 		/turf/simulated/mineral/gibtonite = 2)
-	icon_state = "rock_labor"
+	color = COLOR_MAROON
 
 /turf/simulated/mineral/random/labormineral/volcanic
 	environment_type = "basalt"
@@ -422,7 +418,7 @@
 
 /turf/simulated/mineral/gibtonite/proc/explosive_reaction(mob/user = null, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK)
-		activated_overlay = mutable_appearance('icons/turf/smoothrocks.dmi', "rock_Gibtonite_active", ON_EDGED_TURF_LAYER)
+		activated_overlay = mutable_appearance(icon, "rock_Gibtonite_active", ON_EDGED_TURF_LAYER)
 		add_overlay(activated_overlay)
 		name = "gibtonite deposit"
 		desc = "An active gibtonite reserve. Run!"
@@ -489,7 +485,7 @@
 			G.icon_state = "Gibtonite ore 2"
 
 	ChangeTurf(turf_type, defer_change)
-	addtimer(CALLBACK(src, .proc/AfterChange), 1, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 
 
 /turf/simulated/mineral/gibtonite/volcanic

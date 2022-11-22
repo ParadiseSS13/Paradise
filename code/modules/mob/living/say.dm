@@ -174,6 +174,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			muffledspeech_all(message_pieces)
 			verb = "mumbles"
 
+	if(is_facehugged())
+		muffledspeech_all(message_pieces)
+		verb = "gurgles"
+
 	if(!ignore_speech_problems)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
@@ -328,6 +332,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 		return
 
+	if(is_facehugged())
+		to_chat(src, "<span class='danger'>You can't get a word out with this horrible creature on your face!</span>")
+		return
+
 	var/message = multilingual_to_message(message_pieces)
 
 	say_log += "whisper: [message]"
@@ -440,4 +448,4 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, bubble_recipients, 30)

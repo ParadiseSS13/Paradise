@@ -108,7 +108,7 @@
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
-	if(istype(AM0, /obj/item))
+	if(isitem(AM0))
 		to_eat += AM0.GetAllContents()
 	var/items_recycled = 0
 
@@ -121,7 +121,7 @@
 				crush_living(AM)
 			else
 				emergency_stop(AM)
-		else if(istype(AM, /obj/item))
+		else if(isitem(AM))
 			recycle_item(AM)
 			items_recycled++
 		else
@@ -149,7 +149,7 @@
 	emergency_mode = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	L.loc = loc
-	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)

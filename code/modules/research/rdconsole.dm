@@ -160,8 +160,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		files.known_tech[T.id] = T
 	for(var/v in files.known_tech)
 		var/datum/tech/KT = files.known_tech[v]
-		if(KT.level < KT.max_level)
-			KT.level=KT.max_level
+		KT.level = 8
 	files.RefreshResearch()
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)
@@ -324,7 +323,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	flick("d_analyzer_process", linked_destroy)
-	addtimer(CALLBACK(src, .proc/finish_destroyer, user, temp_tech), DECONSTRUCT_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), user, temp_tech), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -452,7 +451,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
 
 	var/key = usr.key
-	addtimer(CALLBACK(src, .proc/finish_machine, key, amount, enough_materials, machine, being_built, efficient_mats), time_to_construct)
+	addtimer(CALLBACK(src, PROC_REF(finish_machine), key, amount, enough_materials, machine, being_built, efficient_mats), time_to_construct)
 
 /obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
 	if(machine)
@@ -530,7 +529,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_tech") //Update the research holder with information from the technology disk.
 			add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
-			addtimer(CALLBACK(src, .proc/update_from_disk), TECH_UPDATE_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), TECH_UPDATE_DELAY)
 
 		if("clear_tech") //Erase data on the technology disk.
 			if(t_disk)
@@ -555,7 +554,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
-			addtimer(CALLBACK(src, .proc/update_from_disk), DESIGN_UPDATE_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), DESIGN_UPDATE_DELAY)
 
 		if("clear_design") //Erases data on the design disk.
 			if(d_disk)
@@ -608,7 +607,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			else
 				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
-				addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)
+				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
 
 		if("togglesync") //Prevents the console from being synced by other consoles. Can still send data.
 			sync = !sync
@@ -643,7 +642,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("find_device") //The R&D console looks for devices nearby to link up with.
 			add_wait_message("Syncing with nearby devices...", SYNC_DEVICE_DELAY)
-			addtimer(CALLBACK(src, .proc/find_devices), SYNC_DEVICE_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(find_devices)), SYNC_DEVICE_DELAY)
 
 		if("disconnect") //The R&D console disconnects with a specific device.
 			switch(params["item"])
@@ -665,7 +664,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
 			if(choice == "Continue")
 				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
-				addtimer(CALLBACK(src, .proc/reset_research), RESET_RESEARCH_DELAY)
+				addtimer(CALLBACK(src, PROC_REF(reset_research)), RESET_RESEARCH_DELAY)
 
 		if("search") //Search for designs with name matching pattern
 			var/query = params["to_search"]
@@ -914,7 +913,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 //helper proc that guarantees the wait message will not freeze the UI
 /obj/machinery/computer/rdconsole/proc/add_wait_message(message, delay)
 	wait_message = message
-	wait_message_timer = addtimer(CALLBACK(src, .proc/clear_wait_message), delay, TIMER_UNIQUE | TIMER_STOPPABLE)
+	wait_message_timer = addtimer(CALLBACK(src, PROC_REF(clear_wait_message)), delay, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 // This is here to guarantee that we never lock the console, so long as the timer
 // process is running

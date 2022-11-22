@@ -30,7 +30,7 @@
 
 /obj/item/desk_bell/MouseDrop(atom/over_object)
 	var/mob/M = usr
-	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) || !Adjacent(M))
+	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) || !Adjacent(M) || anchored)
 		return
 	if(!ishuman(M))
 		return

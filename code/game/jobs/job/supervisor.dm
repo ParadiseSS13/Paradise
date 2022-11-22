@@ -1,4 +1,3 @@
-GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newscast = 0)) // Why the hell are captain announcements minor
 /datum/job/captain
 	title = "Captain"
 	flag = JOB_CAPTAIN
@@ -9,7 +8,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_head = list("Nanotrasen Navy Officer")
 	selection_color = "#ccccff"
 	req_admin_notify = 1
-	is_command = 1
+	is_command = TRUE
+	department_account_access = TRUE
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
@@ -23,7 +23,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	GLOB.captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
+	// Why the hell are captain announcements minor
+	GLOB.minor_announcement.Announce("All hands, Captain [H.real_name] on deck!")
 
 /datum/outfit/job/captain
 	name = "Captain"
@@ -67,6 +68,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
+	department_account_access = TRUE
 	exp_map = list(EXP_TYPE_COMMAND = 1200)
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_EVA, ACCESS_HEADS,
@@ -86,7 +88,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 /datum/outfit/job/hop
 	name = "Head of Personnel"
 	jobtype = /datum/job/hop
-	uniform = /obj/item/clothing/under/rank/head_of_personnel
+	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hopcap
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -134,7 +136,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
 	jobtype = /datum/job/nanotrasenrep
-	uniform = /obj/item/clothing/under/rank/ntrep
+	uniform = /obj/item/clothing/under/rank/civilian/dress_shirt
 	suit = /obj/item/clothing/suit/storage/ntrep
 	shoes = /obj/item/clothing/shoes/centcom
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -177,7 +179,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 /datum/outfit/job/blueshield
 	name = "Blueshield"
 	jobtype = /datum/job/blueshield
-	uniform = /obj/item/clothing/under/rank/blueshield
+	uniform = /obj/item/clothing/under/rank/centcom/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -222,7 +224,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 /datum/outfit/job/judge
 	name = "Magistrate"
 	jobtype = /datum/job/judge
-	uniform = /obj/item/clothing/under/suit_jacket/really_black
+	uniform = /obj/item/clothing/under/suit/really_black
 	suit = /obj/item/clothing/suit/judgerobe
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
@@ -264,7 +266,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 /datum/outfit/job/lawyer
 	name = "Internal Affairs Agent"
 	jobtype = /datum/job/lawyer
-	uniform = /obj/item/clothing/under/rank/internalaffairs
+	uniform = /obj/item/clothing/under/rank/civilian/internalaffairs
 	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_iaa/alt

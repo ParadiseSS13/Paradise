@@ -129,12 +129,12 @@
 								var/i = 0
 								for(var/v in sets)
 									if(++i == sets.len)
-										if(istype(temp, /turf) && (v == "x" || v == "y" || v == "z"))
+										if(isturf(temp) && (v == "x" || v == "y" || v == "z"))
 											continue
 										if(!temp.vv_edit_var(v, SDQL_expression(d, set_list[sets])))
 											to_chat(usr, "[temp] rejected your varedit.")
 										break
-									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || istype(temp.vars[v], /client)))
+									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || isclient(temp.vars[v])))
 										temp = temp.vars[v]
 									else
 										break

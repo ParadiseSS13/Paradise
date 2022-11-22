@@ -496,7 +496,7 @@
 			T0.copyTurf(T1)
 
 			//copy over air
-			if(istype(T1, /turf/simulated))
+			if(issimulatedturf(T1))
 				var/turf/simulated/Ts1 = T1
 				Ts1.copy_air_with_tile(T0)
 

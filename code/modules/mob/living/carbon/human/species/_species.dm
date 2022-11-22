@@ -578,7 +578,7 @@
 								"You hear a loud thud.")
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
 			target.KnockDown(3 SECONDS)
-			addtimer(CALLBACK(target, /mob/living.proc/SetKnockDown, 0), 3 SECONDS) // so you cannot chain stun someone
+			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, SetKnockDown), 0), 3 SECONDS) // so you cannot chain stun someone
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
 	else
@@ -787,7 +787,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>[I] is too big to attach.</span>")
 				return FALSE
-			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
+			if(istype(I, /obj/item/pda) || is_pen(I) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
 			return FALSE
 		if(slot_handcuffed)
@@ -851,7 +851,7 @@
 			return
 		if(prob(15) && head_organ.h_style != "Bald")
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
-			addtimer(CALLBACK(src, .proc/go_bald, H), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 5 SECONDS)
 
 /datum/species/proc/go_bald(mob/living/carbon/human/H)
 	if(QDELETED(H))	//may be called from a timer

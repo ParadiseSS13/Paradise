@@ -70,7 +70,7 @@ GLOBAL_VAR(bomb_set)
 		GLOB.bomb_set = TRUE // So long as there is one nuke timing, it means one nuke is armed.
 		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
 		if(timeleft <= 0)
-			INVOKE_ASYNC(src, .proc/explode)
+			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
 
 /obj/machinery/nuclearbomb/update_overlays()
@@ -430,7 +430,7 @@ GLOBAL_VAR(bomb_set)
 	if(exploded)
 		return
 	if(timing)	//boom
-		INVOKE_ASYNC(src, .proc/explode)
+		INVOKE_ASYNC(src, PROC_REF(explode))
 		return
 
     //if no boom then we need to let the blob capture our nuke

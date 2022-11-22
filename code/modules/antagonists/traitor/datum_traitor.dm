@@ -44,7 +44,7 @@
 		slaved.leave_serv_hud(owner)
 		owner.som = null
 
-	owner.current.client.chatOutput?.clear_syndicate_codes()
+	owner.current.client?.chatOutput?.clear_syndicate_codes()
 
 	// Try removing their uplink, check PDA
 	var/mob/M = owner.current
@@ -208,7 +208,7 @@
 		to_chat(traitor_mob, "<span class='warning'>Unfortunately, the Syndicate wasn't able to give you an uplink.</span>")
 		return FALSE // They had no PDA or radio for whatever reason.
 
-	if(istype(R, /obj/item/radio))
+	if(isradio(R))
 		// generate list of radio freqs
 		var/obj/item/radio/target_radio = R
 		var/freq = PUBLIC_LOW_FREQ

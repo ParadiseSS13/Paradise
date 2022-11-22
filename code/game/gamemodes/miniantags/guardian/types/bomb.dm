@@ -3,7 +3,7 @@
 	melee_damage_upper = 15
 	damage_transfer = 0.6
 	range = 13
-	playstyle_string = "As an <b>Explosive</b> type, you have only moderate close combat abilities, but are capable of converting any adjacent item into a disguised bomb via alt click."
+	playstyle_string = "As an <b>Explosive</b> type, you have only moderate close combat abilities, but are capable of converting any adjacent item into a disguised bomb via alt click even when not manifested."
 	magic_fluff_string = "..And draw the Scientist, master of explosive death."
 	tech_fluff_string = "Boot sequence complete. Explosive modules active. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of stealthily booby trapping items."
@@ -22,7 +22,7 @@
 	if(get_dist(get_turf(src), get_turf(A)) > 1)
 		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
 		return
-	if(istype(A, /obj/))
+	if(isobj(A))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
@@ -51,7 +51,7 @@
 	appearance = A.appearance
 	dir = A.dir
 	move_resist = A.move_resist
-	addtimer(CALLBACK(src, .proc/disable), 600)
+	addtimer(CALLBACK(src, PROC_REF(disable)), 600)
 
 /obj/item/guardian_bomb/proc/disable()
 	add_attack_logs(null, stored_obj, "booby trap expired")
@@ -64,7 +64,7 @@
 	if(!istype(user))
 		return
 	to_chat(user, "<span class='danger'>[src] was boobytrapped!</span>")
-	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
+	if(isguardian(spawner))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			add_attack_logs(user, stored_obj, "booby trap defused")

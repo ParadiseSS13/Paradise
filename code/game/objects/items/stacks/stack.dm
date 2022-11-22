@@ -27,6 +27,8 @@
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 	var/recipe_width = 400 //Width of the recipe popup
 	var/recipe_height = 400 //Height of the recipe popup
+	/// What sort of table is made when applying this stack to a frame?
+	var/table_type
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
@@ -207,10 +209,10 @@
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return FALSE
 
-		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
+		if(R.on_floor && !issimulatedturf(get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
-		if(R.on_floor_or_lattice && !(istype(get_turf(src), /turf/simulated) || locate(/obj/structure/lattice) in get_turf(src)))
+		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src)) || locate(/obj/structure/lattice) in get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
 			return FALSE
 
@@ -218,7 +220,7 @@
 			if(usr.holy_check())
 				return
 			if(!is_level_reachable(usr.z))
-				to_chat(usr, "<span class='warning'>\The energies of this place interfere with the metal shaping!</span>")
+				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 				return
 			if(locate(/obj/structure/cult) in get_turf(src))
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
@@ -252,12 +254,12 @@
 			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
-			if(istype(O, /obj/item))
+			if(isitem(O))
 				usr.put_in_hands(O)
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
+		if(isstorage(O))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END

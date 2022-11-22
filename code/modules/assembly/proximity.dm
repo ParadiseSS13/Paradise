@@ -45,7 +45,7 @@
 /obj/item/assembly/prox_sensor/HasProximity(atom/movable/AM)
 	if(!isobj(AM) && !isliving(AM))
 		return
-	if(istype(AM, /obj/effect))
+	if(iseffect(AM))
 		return
 	if(AM.move_speed < 12)
 		sense()
@@ -56,7 +56,7 @@
 	cooldown = 2
 	pulse(FALSE)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
 /obj/item/assembly/prox_sensor/process()
 	if(timing && (time >= 0))

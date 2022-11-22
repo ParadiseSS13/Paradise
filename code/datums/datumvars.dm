@@ -490,7 +490,7 @@
 		var/datum/D = value
 		item = "<a href='?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
 
-	else if(istype(value, /client))
+	else if(isclient(value))
 		var/client/C = value
 		item = "<a href='?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
 //
@@ -569,7 +569,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumedit"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!istype(D,/datum) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 
@@ -579,7 +579,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/atom/D = locateUID(href_list["subject"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!istype(D,/datum) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 		if(!(href_list["var"] in D.vars))
@@ -594,7 +594,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumchange"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!istype(D,/datum) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 
