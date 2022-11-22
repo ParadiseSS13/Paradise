@@ -204,8 +204,8 @@
 
 ///////////// Costumes
 
-/datum/supply_packs/misc/costume
-	name = "Standard Costume Crate"
+/datum/supply_packs/misc/servicecostume
+	name = "Service Costume Crate"
 	contains = list(/obj/item/storage/backpack/clown,
 					/obj/item/clothing/shoes/clown_shoes,
 					/obj/item/clothing/mask/gas/clown_hat,
@@ -223,9 +223,27 @@
 					)
 	cost = 250
 	containertype = /obj/structure/closet/crate/secure
-	containername = "standard costumes"
+	containername = "service costumes"
 	access = ACCESS_THEATRE
 	department_restrictions = list(DEPARTMENT_SERVICE)
+
+/datum/supply_packs/misc/costume
+	name = "Costume Crate"
+	contains = list(/obj/item/clothing/head/foragecap,
+					/obj/item/clothing/suit/officercoat,
+					/obj/item/clothing/under/costume/officeruniform,
+					/obj/item/clothing/suit/lordadmiral,
+					/obj/item/clothing/head/lordadmiralhat,
+					/obj/item/clothing/head/hasturhood,
+					/obj/item/clothing/suit/hastur,
+					/obj/item/clothing/suit/monkeysuit,
+					/obj/item/clothing/mask/gas/monkeymask,
+					/obj/item/clothing/suit/corgisuit,
+					/obj/item/clothing/head/corgi,
+					/obj/item/clothing/suit/corgisuit/en,
+					/obj/item/clothing/head/corgi/en)
+	cost = 400
+	containername = "costume crate"
 
 /datum/supply_packs/misc/wizard
 	name = "Wizard Costume Crate"
@@ -373,6 +391,18 @@
 					/obj/item/lipstick/random)
 	cost = 400 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"
+
+/datum/supply_packs/misc/wedding
+	name = "Wedding Crate"
+	contains = list(/obj/item/clothing/gloves/ring/gold/blessed,
+					/obj/item/clothing/gloves/ring/gold/blessed,
+					/obj/item/clothing/under/dress/wedding/bride_white,
+					/obj/item/clothing/under/dress/wedding/bride_red,
+					/obj/item/clothing/under/dress/wedding/bride_blue,
+					/obj/item/clothing/under/dress/wedding/bride_purple,
+					/obj/item/clothing/under/dress/wedding/bride_orange)
+	cost = 400
+	containername = "wedding crate"
 
 /datum/supply_packs/misc/teamcolors		//For team sports like space polo
 	name = "Team Jerseys Crate"

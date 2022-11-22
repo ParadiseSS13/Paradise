@@ -43,6 +43,7 @@
 	name = "Standard Justice Enforcer Crat3e"
 	contains = list(/obj/item/clothing/head/helmet/justice,
 					/obj/item/clothing/head/helmet/justice,
+					/obj/item/clothing/head/helmet/justice/escape,
 					/obj/item/clothing/mask/gas/sechailer,
 					/obj/item/clothing/mask/gas/sechailer)
 	cost = 400 //justice comes at a price. An expensive, noisy price.
@@ -55,6 +56,15 @@
 					/obj/item/clothing/suit/armor/vest)
 	cost = 250
 	containername = "armor crate"
+
+/datum/supply_packs/security/armor/bonus
+	name = "Bloody Armor Crate"
+	contains = list(/obj/item/clothing/suit/armor/vest/bloody,
+					/obj/item/clothing/suit/armor/vest/bloody,
+					/obj/item/clothing/suit/armor/vest/bloody)
+	cost = 400
+	containername = "bloody armor crate"
+	contraband = TRUE
 
 ////// Weapons: Basic
 
