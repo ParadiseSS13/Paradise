@@ -232,7 +232,11 @@
 
 /datum/supply_packs/misc/costume
 	name = "Costume Crate"
-	contains = list(/obj/item/clothing/head/foragecap,
+	contains = list(/obj/item/twohanded/staff,
+					/obj/item/clothing/suit/wizrobe/fake,
+					/obj/item/clothing/shoes/sandal,
+					/obj/item/clothing/head/wizard/fake,
+					/obj/item/clothing/head/foragecap,
 					/obj/item/clothing/suit/officercoat,
 					/obj/item/clothing/under/costume/officeruniform,
 					/obj/item/clothing/suit/lordadmiral,
