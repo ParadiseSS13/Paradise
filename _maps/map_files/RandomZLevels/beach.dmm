@@ -765,7 +765,7 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/beach)
 "cZ" = (
-/obj/machinery/vending/boozeomat{
+/obj/machinery/economy/vending/boozeomat{
 	emagged = 1
 	},
 /turf/simulated/floor/wood,
@@ -776,7 +776,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "db" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "dc" = (
@@ -815,11 +815,11 @@
 /turf/simulated/floor/beach/away/coastline/dense,
 /area/awaymission/beach)
 "dl" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "dm" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "dn" = (

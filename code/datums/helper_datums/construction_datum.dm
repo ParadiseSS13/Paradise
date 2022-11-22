@@ -8,7 +8,8 @@
 	var/result
 	var/index
 	var/list/steps_desc
-	var/taskpath = null // Path of job objective completed.
+	///Path of job objective completed.
+	var/taskpath
 
 /datum/construction/New(atom)
 	..()
@@ -83,9 +84,9 @@
 /datum/construction/proc/spawn_result(mob/user, result_name)
 	if(result)
 		if(taskpath)
-			var/datum/job_objective/task = user.mind.findJobTask(taskpath)
+			var/datum/job_objective/task = user.mind.find_job_task(taskpath)
 			if(istype(task))
-				task.unit_completed()
+				task.completed = TRUE
 
 		new result(get_turf(holder))
 		spawn()

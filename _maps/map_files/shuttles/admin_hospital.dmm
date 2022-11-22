@@ -287,7 +287,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bd" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "be" = (
@@ -407,7 +407,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bv" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -687,7 +687,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cs" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "cu" = (

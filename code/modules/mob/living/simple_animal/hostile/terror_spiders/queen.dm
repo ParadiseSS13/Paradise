@@ -12,6 +12,11 @@
 	name = "Queen of Terror spider"
 	desc = "An enormous, terrifying spider. Its egg sac is almost as big as its body, and teeming with spider eggs!"
 	spider_role_summary = "Commander of the spider forces. Lays eggs, directs the brood."
+	spider_intro_text = "As a Queen of Terror Spider, your role is build and maintain a large nest. \
+	You start off being able to ventcrawl like smaller spiders, but once you enter nest mode you will lose this in return for being able to constantly generate spider eggs to lay down as well as being able to smash down walls. \
+	Specialized egg types have a limit on how many can be laid, and you need to remain alive for some time before you can lay the strongest eggs. \
+	You have high health and are armored, with weaker attacks being unable to harm you. While your melee attacks only deal moderate damage, you additionally have access to a powerful ranged acid attack. \
+	You can also open both powered doors and welded vents, and your webs are airtight - being capable of blocking off exposure to space."
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
