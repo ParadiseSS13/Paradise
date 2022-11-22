@@ -231,7 +231,7 @@
 	name = "Costume Crate"
 	contains = list(/obj/item/clothing/head/foragecap,
 					/obj/item/clothing/suit/officercoat,
-					/obj/item/clothing/under/officeruniform,
+					/obj/item/clothing/under/costume/officeruniform,
 					/obj/item/clothing/suit/lordadmiral,
 					/obj/item/clothing/head/lordadmiralhat,
 					/obj/item/clothing/head/hasturhood,
@@ -396,11 +396,11 @@
 	name = "Wedding Crate"
 	contains = list(/obj/item/clothing/gloves/ring/gold/blessed,
 					/obj/item/clothing/gloves/ring/gold/blessed,
-					/obj/item/clothing/under/wedding/bride_white,
-					/obj/item/clothing/under/wedding/bride_red,
-					/obj/item/clothing/under/wedding/bride_blue,
-					/obj/item/clothing/under/wedding/bride_purple,
-					/obj/item/clothing/under/wedding/bride_orange)
+					/obj/item/clothing/under/dress/wedding/bride_white,
+					/obj/item/clothing/under/dress/wedding/bride_red,
+					/obj/item/clothing/under/dress/wedding/bride_blue,
+					/obj/item/clothing/under/dress/wedding/bride_purple,
+					/obj/item/clothing/under/dress/wedding/bride_orange)
 	cost = 400
 	containername = "wedding crate"
 
