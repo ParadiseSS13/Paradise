@@ -289,7 +289,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
-	projectile = /obj/item/projectile/bullet/mime
+	projectile = /obj/item/projectile/bullet/mime/nonlethal
 	projectiles = 20
 	projectile_energy_cost = 50
 
