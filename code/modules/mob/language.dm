@@ -499,6 +499,14 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
+/datum/language/xenos/broadcast(mob/living/speaker, message, speaker_mask)
+	if(isalien(speaker))
+		var/mob/living/carbon/alien/humanoid/alienspeaker = speaker
+		if(alienspeaker.loudspeaker)
+			..(speaker, "<font size=3><b>[message]</b></font>")
+			return
+	..(speaker, message)
+
 /datum/language/terrorspider
 	name = "Spider Hivemind"
 	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
