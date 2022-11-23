@@ -159,6 +159,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
+				/obj/item/multitool/uplink = 3,
 				"" = 60 // This should be a decently high number for chances where no loot will spawn
 				)
 

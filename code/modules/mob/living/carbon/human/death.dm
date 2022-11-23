@@ -98,6 +98,13 @@
 	if(SSticker && SSticker.mode)
 		INVOKE_ASYNC(SSblackbox, /datum/controller/subsystem/blackbox/proc/ReportDeath, src)
 
+	if(blood_volume < 50)
+		if(prob(25))
+			to_chat(src,"you will reawaken soon, you feel it")
+			sleep(360)
+			mind.make_vampire()
+			revive()
+
 /mob/living/carbon/human/update_revive(updating)
 	. = ..()
 	if(. && healthdoll)

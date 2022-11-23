@@ -39973,6 +39973,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/mecha/working/ripley/firefighter,
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bTS" = (
@@ -46994,7 +46995,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_y = 30
- 	},
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "cmk" = (
@@ -61434,7 +61435,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_y = 30
- 	},
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
@@ -73591,6 +73592,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "hBr" = (

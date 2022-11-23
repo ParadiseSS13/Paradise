@@ -7,9 +7,10 @@
         "Revenant",
         "Soul",
         "Spectre",
-        "Spirit"
+        "Spirit",
+		"Fhtagn"
         ],
-    
+
     "adjective": [
         "",
         "Abysmal ",
@@ -31,7 +32,7 @@
         "Vicious ",
         "Violent "
         ],
-    
+
     "theme": [
         "Agony",
         "Anger",
