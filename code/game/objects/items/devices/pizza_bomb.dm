@@ -56,7 +56,7 @@
 /obj/item/pizza_bomb/proc/go_boom()
 	if(disarmed)
 		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on [src], but it's disarmed!</span>")
-		return 
+		return
 	atom_say("Enjoy the pizza!")
 	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
 	message_admins("A pizza bomb set by [key_name_admin(armer)] and opened by [key_name_admin(opener)] has detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
