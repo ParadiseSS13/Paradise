@@ -32,7 +32,7 @@
 /obj/item/beach_ball/dodgeball/throw_impact(atom/hit_atom)
 	. = ..()
 	var/mob/living/carbon/human/M = hit_atom
-	if(ishuman(hit_atom) && istype(M.wear_suit) && (M.wear_suit.type in suit_types))
+	if(ishuman(hit_atom) && (M.wear_suit?.type in suit_types))
 		if(M.r_hand == src || M.l_hand == src)
 			return
 		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
