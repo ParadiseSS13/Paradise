@@ -503,9 +503,8 @@
 	if(isalien(speaker))
 		var/mob/living/carbon/alien/humanoid/alienspeaker = speaker
 		if(alienspeaker.loudspeaker)
-			..(speaker, "<font size=3><b>[message]</b></font>")
-			return
-	..(speaker, message)
+			return ..(speaker, "<font size=3><b>[message]</b></font>")
+	return ..()
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
