@@ -44,7 +44,7 @@
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/name_color = "white"//only used with protector shields for the time being
 	/// If true, it will not make a message on host when hit, or make an effect when deploying or recalling
-	var/stealthy_deploying = FALSE 
+	var/stealthy_deploying = FALSE
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
@@ -96,9 +96,8 @@
 			else
 				if(!stealthy_deploying)
 					new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+					new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
-				if(!stealthy_deploying)
-					new /obj/effect/temp_visual/guardian/phase(get_turf(src))
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
@@ -174,9 +173,10 @@
 		return
 	if(!summoner) return
 	if(loc == summoner)
-		forceMove(get_turf(summoner))
+		var/turf/T = get_turf(summoner)
+		forceMove(T)
 		if(!stealthy_deploying)
-			new /obj/effect/temp_visual/guardian/phase(get_turf(src))
+			new /obj/effect/temp_visual/guardian/phase(T)
 		reset_perspective()
 		cooldown = world.time + 30
 
