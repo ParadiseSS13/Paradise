@@ -607,10 +607,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
 	if(prob(1))
-		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
-		return INITIALIZE_HINT_QDEL
-	else
-		. = ..()
+		mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
+	. = ..()
 
 /obj/effect/landmark/mob_spawner/legion
 	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
@@ -618,10 +616,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
 	if(prob(5))
-		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
-		return INITIALIZE_HINT_QDEL
-	else
-		. = ..()
+		mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
+	. = ..()
 
 /obj/effect/landmark/mob_spawner/watcher
 	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
@@ -629,14 +625,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
 	if(prob(1))
-		if(prob(75))
-			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
-			return INITIALIZE_HINT_QDEL
+		if(prob(25)) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
+			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
 		else
-			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
-			return INITIALIZE_HINT_QDEL
-	else
-		. = ..()
+			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
+	. = ..()
 
 /obj/effect/landmark/mob_spawner/goldgrub
 	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
