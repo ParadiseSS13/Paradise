@@ -25,7 +25,7 @@
 #define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
-#define CLICK_CD_RESIST 20
+#define CLICK_CD_RESIST 8
 #define CLICK_CD_CLICK_ABILITY 6
 #define CLICK_CD_RAPID 2
 
@@ -152,9 +152,7 @@
 
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
-#define MANIFEST_ERROR_NAME		1
-#define MANIFEST_ERROR_COUNT	2
-#define MANIFEST_ERROR_ITEM		4
+
 
 //Turf wet states
 #define TURF_DRY		0

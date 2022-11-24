@@ -338,7 +338,7 @@ byond_account_age_threshold = 3
 # Maximum CIDs a client can have attached to them before they trip a warning
 max_client_cid_history = 20
 # Enable automatic profiling of rounds to profile.json
-enable_auto_profiler = true
+enable_auto_profiler = false # REVERT THIS AFTER 515 BECOMES NOT BUSTED
 # Auto disable OOC when round starts?
 auto_disable_ooc = true
 # Enable/disable the breaking of bones

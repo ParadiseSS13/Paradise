@@ -226,6 +226,14 @@
 	icon_on = "rybysfluffopen"
 	icon_off = "rybysfluff"
 
+/obj/item/lighter/zippo/fluff/warriorstar // Warriorstar: DEADLOCK
+	name = "zippo"
+	desc = "The lighter is made of a pastel purple metal which seems to glimmer even in complete darkness."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "deadlock_zippo"
+	icon_on = "deadlock_zippo_on"
+	icon_off = "deadlock_zippo"
+
 /obj/item/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
 	desc = "This whistle seems to have a strange aura about it. Maybe you should blow on it?"
@@ -236,7 +244,7 @@
 
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
-	addtimer(CALLBACK(src, .proc/summon_sax, user), 20)
+	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
 	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))

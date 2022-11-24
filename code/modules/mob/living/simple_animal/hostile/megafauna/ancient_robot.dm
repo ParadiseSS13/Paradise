@@ -265,7 +265,7 @@ Difficulty: Hard
 	visible_message("<span class='danger'>[src]'s shield fails!</span>")
 	cut_overlay("shield")
 	body_shield_enabled = FALSE
-	addtimer(CALLBACK(src, .proc/body_shield), BODY_SHIELD_COOLDOWN_TIME)
+	addtimer(CALLBACK(src, PROC_REF(body_shield)), BODY_SHIELD_COOLDOWN_TIME)
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/item/projectile/P)
@@ -313,7 +313,7 @@ Difficulty: Hard
 			while(rocks < 3 && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				new /obj/effect/temp_visual/rock(spot)
-				addtimer(CALLBACK(src, .proc/throw_rock, spot, target), 2 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(throw_rock), spot, target), 2 SECONDS)
 				rocks++
 		if(PYRO)
 			visible_message("<span class='danger'>The ground begins to heat up around you!</span>")
@@ -400,7 +400,7 @@ Difficulty: Hard
 	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
 	walk(src, 0)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
-	addtimer(CALLBACK(src, .proc/kaboom), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
 	explosion(get_turf(src), -1, 7, 15, 20)
@@ -464,10 +464,10 @@ Difficulty: Hard
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_walking_orderer(A, B, C, D)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, A), 1)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, B), 2)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, C), 3)
-	addtimer(CALLBACK(src, .proc/fix_specific_leg, D), 4)
+	addtimer(CALLBACK(src, PROC_REF(fix_specific_leg), A), 1)
+	addtimer(CALLBACK(src, PROC_REF(fix_specific_leg), B), 2)
+	addtimer(CALLBACK(src, PROC_REF(fix_specific_leg), C), 3)
+	addtimer(CALLBACK(src, PROC_REF(fix_specific_leg), D), 4)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/leg_control_system(input, horizontal, vertical)
 	var/turf/target = locate(x + horizontal, y + vertical, z)
@@ -562,7 +562,7 @@ Difficulty: Hard
 	core = ancient
 	who_am_i = who
 	ranged_cooldown_time = rand(30, 60) // keeps them not running on the same time
-	addtimer(CALLBACK(src, .proc/beam_setup), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
 
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Destroy()
@@ -591,7 +591,7 @@ Difficulty: Hard
 	update_z(new_z)
 	if(leg_part)
 		QDEL_NULL(leg_part)
-	addtimer(CALLBACK(src, .proc/beam_setup), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE)
 	var/damage = amount * transfer_rate

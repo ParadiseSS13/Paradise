@@ -17,11 +17,15 @@
 	density = FALSE
 	flying = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
+
+/mob/living/simple_animal/butterfly/Initialize(mapload) //Not the poor butterfly!
+	. = ..()
+	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug")
 
 /mob/living/simple_animal/butterfly/New()
 	..()
