@@ -256,7 +256,10 @@
 		for(var/body_accessory_style in valid_body_accessories)
 			body_accessory_styles += list(list("bodyaccessorystyle" = body_accessory_style))
 		data["body_accessory_styles"] = body_accessory_styles
-		data["body_accessory_style"] = (owner.bodypart_tail.body_accessory ? owner.bodypart_tail.body_accessory.name : "None")
+		if(owner.bodypart_tail)
+			data["body_accessory_style"] = (owner.bodypart_tail.body_accessory ? owner.bodypart_tail.body_accessory.name : "None")
+		if(owner.bodypart_wing)
+			data["body_accessory_style"] = (owner.bodypart_wing.body_accessory ? owner.bodypart_wing.body_accessory.name : "None")
 
 	data["change_alt_head"] = can_change_alt_head()
 	if(data["change_alt_head"])
@@ -303,6 +306,8 @@
 	var/marking_flag = HAS_BODY_MARKINGS
 	var/body_flags = owner.dna.species.bodyflags
 	var/tailcheck = TRUE
+	var/wingcheck = TRUE
+
 	if(location == "head")
 		if(!head_organ)
 			log_debug("Missing head!")
@@ -315,12 +320,18 @@
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
 	if(location == "tail")
-		tailcheck = owner.bodypart_tail && (owner.bodypart_tail.dna.species.bodyflags & HAS_TAIL_MARKINGS)
-
-	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag) && tailcheck
+		tailcheck = owner.bodypart_tail && (owner.bodypart_tail.dna.species.bodyflags & HAS_TAIL_MARKINGS & HAS_BODY_ACCESSORY)
+	if(location == "wing")
+		wingcheck = owner.bodypart_wing && (owner.bodypart_wing.dna.species.bodyflags & HAS_BODY_ACCESSORY)
+	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag) && tailcheck && wingcheck
 
 /datum/ui_module/appearance_changer/proc/can_change_body_accessory()
-	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_tail && check_rights(R_ADMIN, 0, owner)
+	if(owner.bodypart_tail)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_tail && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+	if(owner.bodypart_wing)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_wing && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+	else
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
 
 /datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)

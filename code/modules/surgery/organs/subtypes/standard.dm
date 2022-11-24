@@ -348,3 +348,30 @@
 	species_type = /datum/species/monkey/unathi
 	name = "stok tail"
 	icon_name = "stoktail_s"
+
+/obj/item/organ/external/wing
+	limb_name = "wing"
+	name = "wings"
+	icon_name = "wing"
+	max_damage = 30
+	min_broken_damage = 15
+	w_class = WEIGHT_CLASS_SMALL
+	body_part = WING
+	parent_organ = "chest"
+	amputation_point = "spine"
+	var/datum/body_accessory/body_accessory
+	var/list/m_styles = list("wing" = "None")
+	var/list/m_colours = list("wing" = "#000000")
+	s_col = "#000000"
+
+/obj/item/organ/external/wing/New(var/mob/living/carbon/holder)
+	..()
+	var/mob/living/carbon/human/H = holder
+	if(!H)
+		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
+		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
+		tempicon2.Flip(SOUTH)
+		tempicon.Insert(tempicon2,dir=SOUTH)
+		force_icon = tempicon
+		icon_name = null
+		return

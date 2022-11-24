@@ -168,32 +168,34 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				40
-#define MUTANTRACE_LAYER		39
-#define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
-#define LIMBS_LAYER				37
-#define INTORGAN_LAYER			36
-#define MARKINGS_LAYER			35
-#define UNDERWEAR_LAYER			34
-#define MUTATIONS_LAYER			33
-#define H_DAMAGE_LAYER			32
-#define UNIFORM_LAYER			31
-#define ID_LAYER				30
-#define SHOES_LAYER				29
-#define GLOVES_LAYER			28
-#define EARS_LAYER				27
-#define SUIT_LAYER				26
-#define BELT_LAYER				25	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				24
-#define SUIT_STORE_LAYER		23
-#define BACK_LAYER				22
-#define HEAD_ACCESSORY_LAYER	21
-#define FHAIR_LAYER				20
-#define GLASSES_LAYER			19
-#define HAIR_LAYER				18	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		17	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		16	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		15	//Select-layer rendering.
+#define BODY_LAYER				42
+#define MUTANTRACE_LAYER		41
+#define WING_UNDERLIMBS_LAYER	40
+#define TAIL_UNDERLIMBS_LAYER	39	//Tail split-rendering.
+#define LIMBS_LAYER				38
+#define INTORGAN_LAYER			37
+#define MARKINGS_LAYER			36
+#define UNDERWEAR_LAYER			35
+#define MUTATIONS_LAYER			34
+#define H_DAMAGE_LAYER			33
+#define UNIFORM_LAYER			32
+#define ID_LAYER				31
+#define SHOES_LAYER				30
+#define GLOVES_LAYER			29
+#define EARS_LAYER				28
+#define SUIT_LAYER				27
+#define BELT_LAYER				26	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				25
+#define SUIT_STORE_LAYER		24
+#define BACK_LAYER				23
+#define HEAD_ACCESSORY_LAYER	22
+#define FHAIR_LAYER				21
+#define GLASSES_LAYER			20
+#define HAIR_LAYER				19	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		18	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		17	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		16	//Select-layer rendering.
+#define WING_LAYER				15
 #define TAIL_LAYER				14	//bs12 specific. this hack is probably gonna come back to haunt me
 #define FACEMASK_LAYER			13
 #define OVER_MASK_LAYER			12	//Select-layer rendering.
@@ -208,7 +210,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS 			40
+#define TOTAL_LAYERS 			42
 
 ///Access Region Codes///
 #define REGION_ALL			0

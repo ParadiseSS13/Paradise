@@ -98,6 +98,7 @@
 #define BODY_ZONE_L_LEG		"l_leg"
 #define BODY_ZONE_R_LEG		"r_leg"
 #define BODY_ZONE_TAIL		"tail"
+#define BODY_ZONE_WING		"wing"
 
 #define BODY_ZONE_PRECISE_EYES		"eyes"
 #define BODY_ZONE_PRECISE_MOUTH		"mouth"

@@ -37,7 +37,7 @@
 	icon_state = "long"
 
 /datum/sprite_accessory/head_accessory/kidan/moth_antennae
-	name = "Moth Antennae"
+	name = "Nian Antennae"
 	icon_state = "moth"
 
 // Sprites by Travelling Merchant

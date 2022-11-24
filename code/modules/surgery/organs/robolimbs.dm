@@ -11,7 +11,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	var/selectable = 1									 // If set, is it available for selection on attack_self with a robo limb?
 	var/is_monitor										 // If set, limb is a monitor and should be getting monitor styles.
 	var/has_subtypes = 2								 // If null, object is a model. If 1, object is a brand (that serves as the default model) with child models. If 2, object is a brand that has no child models and thus also serves as the model..
-	var/parts = list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand", "tail")	// Defines what parts said brand can replace on a body.
+	var/parts = list("chest", "groin", "head", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "l_arm", "l_hand", "tail", "wing")	// Defines what parts said brand can replace on a body.
 
 /datum/robolimb/bishop
 	company = "Bishop Cybernetics"

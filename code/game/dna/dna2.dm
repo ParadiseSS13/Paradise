@@ -55,10 +55,14 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
-	for(var/b=1;b<=DNA_SE_LENGTH;b++)
+
+	for(var/b = 1; b <= DNA_SE_LENGTH; b++)
 		new_dna.SE[b]=SE[b]
-		if(b<=DNA_UI_LENGTH)
-			new_dna.UI[b]=UI[b]
+		if(b <= DNA_UI_LENGTH)
+			if(b <= length(UI)) //We check index against the length of UI provided, because it may be shorter and thus be out of bounds
+				new_dna.UI[b] = UI[b]
+				continue
+			new_dna.UI[b] = 0
 	new_dna.UpdateUI()
 	new_dna.UpdateSE()
 	return new_dna
@@ -99,7 +103,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/body_marks	= GLOB.marking_styles_list.Find(character.m_styles["body"])
 	var/tail_marks	= GLOB.marking_styles_list.Find(character.m_styles["tail"])
 
-	head_traits_to_dna(H)
+	head_traits_to_dna(character, H)
 	eye_color_to_dna(eyes_organ)
 
 	SetUIValueRange(DNA_UI_SKIN_R,		color2R(character.skin_colour),			255,	1)
@@ -124,6 +128,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+
+	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
 
 	//Set the Gender
 	switch(character.gender)
@@ -151,6 +157,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 // Get a DNA UI block's raw value.
 /datum/dna/proc/GetUIValue(block)
 	if(block <= 0)
+		return FALSE
+	if(block >= length(UI))
 		return FALSE
 	return UI[block]
 

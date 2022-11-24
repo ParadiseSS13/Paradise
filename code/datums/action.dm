@@ -3,6 +3,7 @@
 #define AB_CHECK_LYING 4
 #define AB_CHECK_CONSCIOUS 8
 #define AB_TRANSFER_MIND 16
+#define AB_CHECK_TURF 32
 
 
 /datum/action
@@ -83,6 +84,9 @@
 			return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
+			return FALSE
+	if(check_flags & AB_CHECK_TURF)
+		if(!isturf(owner.loc))
 			return FALSE
 	return TRUE
 

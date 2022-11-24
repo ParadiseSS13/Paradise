@@ -871,6 +871,8 @@
 						icon_num = 5
 					if(istype(O, /obj/item/organ/external/tail) && O.dna.species.tail)
 						new_overlays += "[O.dna.species.tail][icon_num]"
+					if(istype(O, /obj/item/organ/external/wing) && O.dna.species.tail)
+						new_overlays += "[O.dna.species.wing][icon_num]"
 					else
 						new_overlays += "[O.limb_name][icon_num]"
 				healthdoll.overlays += (new_overlays - cached_overlays)

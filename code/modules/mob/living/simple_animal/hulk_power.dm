@@ -145,7 +145,7 @@
 							target = get_turf(get_step(target,cur_dir))
 						var/mob/living/carbon/human/H = M
 						if(istype(H,/mob/living/carbon/human))
-							var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL)
+							var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL, BODY_ZONE_WING)
 							var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
 							H.apply_damage(20,BRUTE,BP)
 							BP.fracture()
@@ -269,7 +269,7 @@
 				var/mob/living/carbon/human/H = M
 				if(istype(H,/mob/living/carbon/human))
 					playsound(H, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
-					var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL)
+					var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL, BODY_ZONE_WING)
 					var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
 					H.apply_damage(20,BRUTE,BP)
 					BP.fracture()
@@ -412,7 +412,7 @@
 		for(var/mob/living/M in view(2, user) - user - user.contents)
 			if(istype(M, /mob/living/carbon/human))
 				var/mob/living/carbon/human/H = M
-				var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL)
+				var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL, BODY_ZONE_WING)
 				var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
 				H.apply_damage(2,BRUTE,BP)
 			else

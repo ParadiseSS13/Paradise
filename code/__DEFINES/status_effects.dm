@@ -73,6 +73,12 @@
 
 //#define STATUS_EFFECT_ICHORIAL_STAIN /datum/status_effect/ichorial_stain //Prevents a servant from being revived by vitality matrices for one minute.
 
+/// Whether a moth's wings are burnt
+#define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings
+
+/// If a moth is in a cocoon
+#define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned
+
 /////////////
 // NEUTRAL //
 /////////////

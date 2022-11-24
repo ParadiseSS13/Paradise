@@ -52,6 +52,8 @@
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!head_accessory_style || !H || H.ha_style == head_accessory_style || !(head_accessory_style in GLOB.head_accessory_styles_list))
 		return
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, head_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
+		return FALSE
 
 	H.ha_style = head_accessory_style
 
@@ -100,22 +102,28 @@
 		update_markings()
 	return 1
 
-/mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style)
+/mob/living/carbon/human/proc/change_body_accessory(var/body_accessory_style, H)
 	var/found
-	if(!body_accessory_style || !bodypart_tail || (bodypart_tail.body_accessory && bodypart_tail.body_accessory.name == body_accessory_style))
+	if(!body_accessory_style || (!bodypart_tail && !bodypart_wing))
 		return
-
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, body_accessory_style) & COMSIG_HUMAN_NO_CHANGE_APPEARANCE)
+		return FALSE
 	for(var/B in GLOB.body_accessory_by_name)
 		if(B == body_accessory_style)
-			bodypart_tail.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
-			found = 1
-
+			if(bodypart_wing)
+				bodypart_wing.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
+				found = 1
+				bodypart_wing.m_styles["wing"] = "None"
+			if(bodypart_tail)
+				bodypart_tail.body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
+				found = 1
+				bodypart_tail.m_styles["tail"] = "None"
 	if(!found)
 		return
 
-	bodypart_tail.m_styles["tail"] = "None"
 	update_tail_layer()
-	return 1
+	update_wing_layer()
+	return TRUE
 
 /mob/living/carbon/human/proc/change_alt_head(var/alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -450,17 +458,18 @@
 	return sortTim(valid_markings, /proc/cmp_text_asc)
 
 /mob/living/carbon/human/proc/generate_valid_body_accessories()
-	var/list/valid_body_accessories = new()
+	var/list/valid_body_accessories = list()
 	for(var/B in GLOB.body_accessory_by_name)
 		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
-		if(check_rights(R_ADMIN, 0, src))
+		if(isnull(A))
+			continue
+		else if(check_rights(R_ADMIN, FALSE, src))
 			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
-		else
-			if(!istype(A))
-				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
-				continue
-			if(bodypart_tail && (bodypart_tail.dna.species.name in A.allowed_species)) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
-				valid_body_accessories += B
+			break
+		else if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+			valid_body_accessories += B
+	if(dna.species.optional_body_accessory)
+		valid_body_accessories += "None"
 
 	return sortTim(valid_body_accessories, /proc/cmp_text_asc)
 

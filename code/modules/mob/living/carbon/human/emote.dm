@@ -147,6 +147,11 @@
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
+		if("flap", "flaps", "aflap", "aflaps","flutter", "flutters")
+			if(ismoth(src))
+				on_CD = handle_emote_CD()
+			else								//Everyone else fails, skip the emote attempt
+				return
 
 		if("warble", "warbles")
 			if(isskrell(src)) //Only Skrell can warble.
@@ -378,7 +383,7 @@
 			m_type = 2
 
 		if("wag", "wags")
-			if(body_accessory)
+			if(istype(body_accessory, /datum/body_accessory/tail))
 				if(body_accessory.try_restrictions(src))
 					message = "начинает махать хвостом."
 					start_tail_wagging()
@@ -394,7 +399,7 @@
 			m_type = 1
 
 		if("swag", "swags")
-			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
+			if((dna.species.bodyflags & TAIL_WAGGING) || istype(body_accessory, /datum/body_accessory/tail))
 				message = "прекращает махать хвостом."
 				stop_tail_wagging()
 			else
@@ -502,11 +507,18 @@
 					to_chat(usr, "Тебе нужно две рабочих руки чтобы хлопать.")
 
 		if("flap", "flaps")
-			if(!restrained())
-				message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
-				m_type = 2
-				if(miming)
-					m_type = 1
+			if(istype(body_accessory, /datum/body_accessory/wing))
+				if(body_accessory.try_restrictions(src))
+					message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
+					m_type = 2
+					if(miming)
+						m_type = 1
+
+		if("flutter", "flutters")
+			message = "маш[pluralize_ru(src.gender,"ет","ют")] крыльями."
+			m_type = 2
+			if(miming)
+				m_type = 1
 
 		if("flip", "flips")
 			m_type = 1
@@ -563,11 +575,12 @@
 									SpinAnimation(5,1)
 
 		if("aflap", "aflaps")
-			if(!restrained())
-				message = "агрессивно маш[pluralize_ru(src.gender,"ет","ут")] крыльями!"
-				m_type = 2
-				if(miming)
-					m_type = 1
+			if(istype(body_accessory, /datum/body_accessory/tail))
+				if(body_accessory.try_restrictions(src))
+					message = "агрессивно маш[pluralize_ru(src.gender,"ет","ут")] крыльями!"
+					m_type = 2
+					if(miming)
+						m_type = 1
 
 		if("drool", "drools")
 			message = "неразборчиво бурч[pluralize_ru(src.gender,"ит","ат")]."
@@ -681,9 +694,9 @@
 				if(!muzzled)
 					message = "хихика[pluralize_ru(src.gender,"ет","ют")]."
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/giggle_female_1.ogg','sound/voice/giggle_female_2.ogg','sound/voice/giggle_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.female_giggle_sound, 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/giggle_male_1.ogg','sound/voice/giggle_male_2.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.male_giggle_sound, 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -762,9 +775,9 @@
 				if(!muzzled)
 					message = "сме[pluralize_ru(src.gender,"ет","ют")]ся[M ? " над [M]" : ""]."
 					if(gender == FEMALE)
-						playsound(src, pick('sound/voice/laugh_female_1.ogg','sound/voice/laugh_female_2.ogg','sound/voice/laugh_female_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.female_laugh_sound, 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, pick('sound/voice/laugh_male_1.ogg','sound/voice/laugh_male_2.ogg','sound/voice/laugh_male_3.ogg'), 70, 1, frequency = get_age_pitch())
+						playsound(src, dna.species.male_laugh_sound, 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "изда[pluralize_ru(src.gender,"ет","ют")] шум."
@@ -1138,13 +1151,13 @@
 					return
 
 		if("help")
-			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
-			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
+			var/emotelist = "airguitar, blink(s), blink(s)_r, blush(es), bow(s)-none/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s), cry, cries, custom, dance, dap(s)-none/mob," \
+			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-none/mob, grin(s), groan(s), grumble(s), grin(s)," \
 			+ " handshake-mob, hug(s)-none/mob, hem, highfive, johnny, jump, laugh(s), look(s)-none/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-none/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-none/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-none/mob, tremble(s), twitch(es), twitch(es)_s," \
 			+ " wave(s), whimper(s), wink(s), yawn(s)"
 
-			switch(dna.species.name)
+			switch(dna.species.name) //dear future coders, do not use strings like this
 				if("Diona")
 					emotelist += "\n<u>Специфические эмоуты рассы Diona</u> :- creak(s)"
 				if("Drask")
@@ -1161,6 +1174,8 @@
 					emotelist += "\n<u>Специфические эмоуты расы Vox</u> :- wag(s), swag(s), quill(s)"
 				if("Vulpkanin")
 					emotelist += "\n<u>Специфические эмоуты расы Vulpkanin</u> :- wag(s), swag(s), growl(s)-none/mob, howl(s)-none/mob"
+				if("Nian")
+					emotelist += "\n<u>Специфические эмоуты расы Nian</u> :- aflap(s), flap(s), flutter(s)"
 
 			if(ismachineperson(src))
 				emotelist += "\n<u>Специфические эмоуты машин</u> :- beep(s)-none/mob, buzz(es)-none/mob, no-none/mob, ping(s)-none/mob, yes-none/mob, buzz2-none/mob"

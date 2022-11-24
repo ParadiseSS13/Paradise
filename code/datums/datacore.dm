@@ -244,7 +244,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Tail
-	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/tail))
+	if(H.body_accessory && (istype(H.body_accessory, /datum/body_accessory/tail) || istype(H.body_accessory, /datum/body_accessory/wing)))
 		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
 		if(H.dna.species.bodyflags & HAS_SKIN_COLOR  && !(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 			temp.Blend(H.skin_colour, H.body_accessory.blend_mode)
@@ -257,6 +257,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 	for(var/obj/item/organ/external/E in H.bodyparts)
 		if(istype(E,/obj/item/organ/external/tail))
+			continue
+		if(istype(E, /obj/item/organ/external/wing))
 			continue
 		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
 

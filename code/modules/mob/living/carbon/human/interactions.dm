@@ -57,6 +57,8 @@
 			if (hashands_p)
 				dat +=  {"• <A href='?src=[UID()];interaction=give'>Передать предмет.</A><BR>"}
 			dat +=  {"• <A href='?src=[UID()];interaction=slap'><font color=darkred>Дать пощечину!</font></A><BR>"}
+			if (P.dna.species.name == "Nian")
+				dat +=  {"• <A href='?src=[UID()];interaction=pullwing'><font color=darkred>Дёрнуть за крылья!</font></A><BR>"}
 			if ((P.dna.species.name == "Tajaran")  || (P.dna.species.name == "Vox")|| (P.dna.species.name == "Vulpkanin") || (P.dna.species.name == "Unathi"))
 				dat +=  {"• <A href='?src=[UID()];interaction=pull'><font color=darkred>Дёрнуть за хвост!</font></A><BR>"}
 				if(P.can_inject(H))

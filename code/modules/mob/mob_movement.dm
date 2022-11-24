@@ -386,9 +386,13 @@
 
 	if(!check_has_body_select())
 		return
-
+	var/next_in_line
+	if(mob.zone_selected == BODY_ZONE_CHEST)
+		next_in_line = BODY_ZONE_WING
+	else
+		next_in_line = BODY_ZONE_CHEST
 	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
-	selector.set_selected_zone(BODY_ZONE_CHEST, mob)
+	selector.set_selected_zone(next_in_line, mob)
 
 /client/verb/body_l_arm()
 	set name = "body-l-arm"

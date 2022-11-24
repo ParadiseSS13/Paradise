@@ -17,10 +17,8 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(GLOB.body_accessory_by_species[species])
-		body_accessory = random_body_accessory(species)
-		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
-			body_accessory = null
+	if(length(GLOB.body_accessory_by_species[species]))
+		body_accessory = random_body_accessory(species, S.optional_body_accessory)
 	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
@@ -207,6 +205,12 @@
 			clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 	return clothes_s
 
+#define ICON_SHIFT_XY(I, X, Y)\
+	if(X)\
+		I.Shift(EAST, X);\
+	if(Y)\
+		I.Shift(NORTH, Y);\
+
 /datum/preferences/proc/update_preview_icon(var/for_observer=0)		//seriously. This is horrendous.
 	qdel(preview_icon_front)
 	qdel(preview_icon_side)
@@ -269,49 +273,52 @@
 		else
 			preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 
-	//Tail
-	if(current_species && (current_species.bodyflags & HAS_TAIL))
-		var/tail_icon
-		var/tail_icon_state
-		var/tail_shift_x
-		var/tail_shift_y
+	// Body accessory
+	if(current_species && (current_species.bodyflags & HAS_BODY_ACCESSORY))
+		var/icon
+		var/icon_state
+		var/offset_x = 0
+		var/offset_y = 0
 		var/blend_mode = ICON_ADD
+		var/icon/underlay = null
 
 		if(body_accessory)
-			var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[body_accessory]
-			tail_icon = accessory.icon
-			tail_icon_state = accessory.icon_state
-			if(accessory.blend_mode)
-				blend_mode = accessory.blend_mode
-			if(accessory.pixel_x_offset)
-				tail_shift_x = accessory.pixel_x_offset
-			if(accessory.pixel_y_offset)
-				tail_shift_y = accessory.pixel_y_offset
-		else
-			tail_icon = "icons/effects/species.dmi"
+			var/datum/body_accessory/BA = GLOB.body_accessory_by_name[body_accessory]
+			if(BA)
+				icon = BA.icon
+				icon_state = BA.icon_state
+				blend_mode = BA.blend_mode || blend_mode
+				offset_x = BA.pixel_x_offset
+				offset_y = BA.pixel_y_offset
+				// If the body accessory has an underlay, account for it.
+				if(BA.has_behind)
+					underlay = new(icon, "[icon_state]_BEHIND")
+		else if(current_species.bodyflags & HAS_TAIL)
+			icon = "icons/effects/species.dmi"
 			if(coloured_tail)
-				tail_icon_state = "[coloured_tail]_s"
+				icon_state = "[coloured_tail]_s"
 			else
-				tail_icon_state = "[current_species.tail]_s"
+				icon_state = "[current_species.tail]_s"
 
-		var/icon/temp = new/icon("icon" = tail_icon, "icon_state" = tail_icon_state)
-		if(tail_shift_x)
-			temp.Shift(EAST, tail_shift_x)
-		if(tail_shift_y)
-			temp.Shift(NORTH, tail_shift_y)
+		if(icon)
+			var/icon/temp = new(icon, icon_state)
+			if((current_species.name != "Nian") && current_species.bodyflags & HAS_SKIN_COLOR)
+				temp.Blend(s_colour, blend_mode)
+			if(current_species.bodyflags & HAS_TAIL_MARKINGS)
+				var/tail_marking = m_styles["tail"]
+				var/datum/sprite_accessory/body_markings/BM = GLOB.marking_styles_list[tail_marking]
+				if(BM)
+					var/icon/t_marking_s = new(BM.icon, "[BM.icon_state]_s")
+					t_marking_s.Blend(m_colours["tail"], ICON_ADD)
+					temp.Blend(t_marking_s, ICON_OVERLAY)
 
-		if(current_species && (current_species.bodyflags & HAS_SKIN_COLOR) && !(current_species.bodyflags & HAS_ICON_SKIN_TONE))
-			temp.Blend(s_colour, blend_mode)
+			// Body accessory has an underlay, add it too.
+			if(underlay)
+				ICON_SHIFT_XY(underlay, offset_x, offset_y)
+				preview_icon.Blend(underlay, ICON_UNDERLAY)
 
-		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))
-			var/tail_marking = m_styles["tail"]
-			var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[tail_marking]
-			if(tail_marking_style && tail_marking_style.species_allowed)
-				var/icon/t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
-				t_marking_s.Blend(m_colours["tail"], ICON_ADD)
-				temp.Blend(t_marking_s, ICON_OVERLAY)
-
-		preview_icon.Blend(temp, ICON_OVERLAY)
+			ICON_SHIFT_XY(temp, offset_x, offset_y)
+			preview_icon.Blend(temp, ICON_OVERLAY)
 
 	//Markings
 	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))
@@ -950,3 +957,5 @@
 	qdel(undershirt_s)
 	qdel(socks_s)
 	qdel(clothes_s)
+
+#undef ICON_SHIFT_XY
