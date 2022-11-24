@@ -384,7 +384,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Cricket" = image('icons/mob/robots.dmi', "Cricket-JANI"),
 				"Mark III" = image('icons/mob/robots.dmi', "bigdrone-cleaning"),
 				"Heavy" = image('icons/mob/robots.dmi', "heavyJani"),
-				"Next-To-Godliness" = image('icons/mob/robots.dmi', "nexttogodliness")
+				"Custodiborg" = image('icons/mob/robots.dmi', "custodiborg")
 			)
 		if("Medical")
 			module_sprites = list(
