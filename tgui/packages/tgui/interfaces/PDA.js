@@ -124,7 +124,7 @@ const PDAFooter = (props, context) => {
   } = data;
 
   return (
-    <Box className="PDA__footer">
+    <Box className="PDA__footer" backgroundColor="#1b1b1b">
       <Flex>
         <Flex.Item basis="33%">
           <Button
