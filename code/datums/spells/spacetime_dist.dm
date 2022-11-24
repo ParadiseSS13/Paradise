@@ -3,7 +3,7 @@
 	name = "Spacetime Distortion"
 	desc = "Entangle the strings of space-time in an area around you, \
 		randomizing the layout and making proper movement impossible. The strings vibrate... \
-		Upgrading the spell increases range, it does not lower cooldown"
+		Upgrading the spell increases range, it does not lower cooldown."
 	sound = 'sound/magic/strings.ogg'
 	action_icon_state = "spacetime"
 
@@ -55,7 +55,7 @@
 		LAZYADD(effects, effect_a)
 		LAZYADD(effects, effect_b)
 
-/turf/proc/photograph(limit=20)
+/turf/proc/photograph(limit = 20)
 	var/image/I = new()
 	I.add_overlay(src)
 	for(var/V in contents)
