@@ -597,6 +597,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	icon = 'icons/effects/spawner_icons.dmi'
 
 /obj/effect/landmark/mob_spawner/Initialize(mapload)
+	. = ..() 
 	new mobtype(loc)
 	return INITIALIZE_HINT_QDEL
 
