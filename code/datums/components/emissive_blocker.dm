@@ -5,7 +5,7 @@
 /datum/component/emissive_blocker/Initialize(_stored_blocker)
 	var/atom/movable/A = parent
 	stored_blocker = _stored_blocker
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, .proc/update_generic_block)
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, PROC_REF(update_generic_block))
 	A.add_overlay(stored_blocker)
 
 /datum/component/emissive_blocker/Destroy()
