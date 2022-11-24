@@ -1953,7 +1953,7 @@
 					P.universal_understand = TRUE
 					P.can_collar = TRUE
 					P.faction = list("neutral")
-					var/obj/item/clothing/accessory/petcollar/C = new
+					var/obj/item/petcollar/C = new
 					P.add_collar(C)
 					var/obj/item/card/id/I = H.wear_id
 					if(I)

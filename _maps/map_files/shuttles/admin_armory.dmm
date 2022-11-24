@@ -16,7 +16,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aP" = (
-/obj/machinery/vending/security,
+/obj/machinery/economy/vending/security,
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -689,7 +689,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Mj" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Mo" = (

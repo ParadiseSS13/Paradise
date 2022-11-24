@@ -520,7 +520,7 @@
 /obj/item/disk/plantgene/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
-		ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
