@@ -3,13 +3,17 @@
 	icon_state = "map_valve0"
 
 	name = "manual valve"
-	desc = "A pipe valve"
+	desc = "A pipe valve."
 
 	can_unwrench = 1
 
 	var/open = 0
 
 	req_one_access_txt = "24;10"
+
+/obj/machinery/atmospherics/binary/valve/examine(mob/user)
+	. = ..()
+	. += "It is currently [open ? "open" : "closed"]."
 
 /obj/machinery/atmospherics/binary/valve/open
 	open = 1
@@ -62,6 +66,7 @@
 		close()
 	else
 		open()
+	to_chat(user, "<span class='notice'>You [open ? "open" : "close"] [src].</span>")
 
 /obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
 	name = "digital valve"
