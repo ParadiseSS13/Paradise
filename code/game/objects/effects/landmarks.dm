@@ -594,9 +594,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/mob_spawner
 	///The mob we use for the spawner
 	var/mobtype = null
+	icon = 'icons/effects/spawner_icons.dmi'
 
 /obj/effect/landmark/mob_spawner/Initialize(mapload)
-	. = ..()
 	new mobtype(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -640,9 +640,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/mob_spawner/goldgrub
 	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
 	icon_state = "questionmark"
-
-/obj/effect/landmark/mob_spawner/goldgrub/Initialize(mapload)
-	. = ..()
 
 // Damage tiles
 /obj/effect/landmark/damageturf
