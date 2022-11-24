@@ -308,16 +308,20 @@ BLIND     // can't see anything
 	else
 		return ..()
 
-/obj/item/clothing/under/proc/set_sensors(mob/user as mob)
-	var/mob/M = user
-	if(istype(M, /mob/dead/)) return
-	if(user.stat || user.restrained()) return
+/obj/item/clothing/under/proc/set_sensors(mob/living/user)
+	if(user.stat || user.restrained())
+		return
+	if(length(user.grabbed_by))
+		for(var/obj/item/grab/grabbed in user.grabbed_by)
+			if(grabbed.state >= GRAB_NECK)
+				to_chat(user, "You can't reach the controls.")
+				return
 	if(has_sensor >= 2)
 		to_chat(user, "The controls are locked.")
-		return 0
+		return
 	if(has_sensor <= 0)
 		to_chat(user, "This suit does not have any sensors.")
-		return 0
+		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes

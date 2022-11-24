@@ -91,7 +91,7 @@
 
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
-	var/list/grabbed_by = list()
+	var/list/obj/item/grab/grabbed_by = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
