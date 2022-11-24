@@ -90411,14 +90411,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
 "ils" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/folder/yellow,
-/obj/item/pen,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/mech_bay_recharge_port,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
