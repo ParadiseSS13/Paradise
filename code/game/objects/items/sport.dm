@@ -27,13 +27,13 @@
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
 	item_state = "dodgeball"
-	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
+	var/list/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 
 /obj/item/beach_ball/dodgeball/throw_impact(atom/hit_atom)
 	. = ..()
 	var/mob/living/carbon/human/M = hit_atom
 	if(ishuman(hit_atom) && istype(M.wear_suit) && (M.wear_suit.type in suit_types))
-		if((M.r_hand == src) || (M.l_hand == src))
+		if(M.r_hand == src || M.l_hand == src)
 			return
 		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
 		M.KnockDown(6 SECONDS)
