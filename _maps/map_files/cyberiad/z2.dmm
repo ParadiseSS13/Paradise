@@ -6691,18 +6691,6 @@
 	tag = "icon-floor"
 	},
 /area/admin)
-"eSH" = (
-/obj/structure/table/reinforced/brass,
-/obj/item/book/manual/nuclear{
-	pixel_x = 5
-	},
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	nitrogen = 100;
-	oxygen = 0;
-	tag = "icon-dark"
-	},
-/area/vox_station)
 "eSX" = (
 /obj/structure/sign/goldenplaque{
 	desc = "Лучший сотрудник века";
@@ -13129,10 +13117,18 @@
 	},
 /area/centcom/evac)
 "jga" = (
-/turf/unsimulated/wall{
-	icon_state = "iron12"
+/obj/structure/table/reinforced/brass,
+/obj/item/clothing/head/collectable/petehat{
+	desc = "It smells faintly of reptile.";
+	name = "fancy leader hat"
 	},
-/area/syndicate_mothership)
+/turf/unsimulated/floor{
+	icon_state = "darkfull";
+	nitrogen = 100;
+	oxygen = 0;
+	tag = "icon-dark"
+	},
+/area/vox_station)
 "jgy" = (
 /turf/unsimulated/wall/abductor{
 	icon_state = "alien23"
@@ -20847,6 +20843,9 @@
 	},
 /obj/structure/table/reinforced/brass,
 /obj/item/trash/can,
+/obj/item/book/manual/nuclear{
+	pixel_x = 5
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	nitrogen = 100;
@@ -23092,11 +23091,6 @@
 	icon_state = "swall_s5"
 	},
 /area/shuttle/escape)
-"pBn" = (
-/turf/unsimulated/wall{
-	icon_state = "iron14";
-	},
-/area/syndicate_mothership)
 "pBo" = (
 /obj/structure/table/wood,
 /obj/item/paicard/syndicate,
@@ -25799,7 +25793,7 @@
 /area/centcom/specops)
 "rkr" = (
 /turf/unsimulated/wall{
-	icon_state = "iron12";
+	icon_state = "iron12"
 	},
 /area/syndicate_mothership)
 "rlj" = (
@@ -26576,15 +26570,19 @@
 /area/centcom/zone3)
 "rFK" = (
 /obj/structure/table/reinforced/brass,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
-/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud{
+	pixel_x = -5
+	},
 /obj/effect/turf_decal/bot_red,
+/obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud{
+	pixel_x = -5
+	},
+/obj/item/clothing/glasses/hud/health{
+	pixel_x = 15
+	},
+/obj/item/clothing/glasses/hud/health{
+	pixel_x = 15
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	nitrogen = 100;
@@ -28398,15 +28396,22 @@
 /area/centcom)
 "sLM" = (
 /obj/structure/table/reinforced/brass,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/shoes/magboots/vox,
 /obj/effect/turf_decal/bot_red,
+/obj/item/clothing/glasses/meson{
+	pixel_x = 5
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_x = 5
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_x = 5
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_x = 5
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_x = 5
+	},
 /turf/unsimulated/floor{
 	icon_state = "darkfull";
 	nitrogen = 100;
@@ -42495,7 +42500,7 @@ wKJ
 dhe
 njL
 njL
-jga
+rkr
 uPA
 uPA
 xAa
@@ -42752,7 +42757,7 @@ njL
 rrf
 njL
 njL
-jga
+rkr
 vGw
 xAa
 xAa
@@ -43009,7 +43014,7 @@ wKJ
 dhe
 wYg
 njL
-jga
+rkr
 hTW
 xAa
 wcf
@@ -43266,7 +43271,7 @@ wfJ
 duM
 njL
 njL
-jga
+rkr
 mly
 xAa
 wcf
@@ -44802,22 +44807,22 @@ mPL
 mPL
 mPL
 mPL
-jga
+rkr
 sfT
 oxv
-jga
+rkr
 jcp
 njL
-jga
+rkr
 njL
 njL
 njL
-jga
+rkr
 amx
 pFs
 dVm
 jeT
-pBn
+mKI
 pUb
 lZI
 aND
@@ -45059,17 +45064,17 @@ mPL
 mPL
 mPL
 mPL
-jga
+rkr
 njL
 njL
-jga
+rkr
 njL
 kmG
-jga
+rkr
 njL
 njL
 njL
-jga
+rkr
 amx
 ezB
 hdH
@@ -45316,22 +45321,22 @@ mPL
 mPL
 mPL
 mPL
-jga
+rkr
 njL
 njL
-jga
+rkr
 jcp
 njL
-jga
+rkr
 njL
 njL
 njL
-jga
+rkr
 veR
 pFs
 dVm
 jeT
-pBn
+mKI
 iMk
 xpe
 mKI
@@ -45576,14 +45581,14 @@ jEz
 xug
 bst
 hJf
-jga
+rkr
 cNr
 cNr
-jga
+rkr
 djG
 njL
 dgj
-jga
+rkr
 pvQ
 pFs
 hdH
@@ -45806,7 +45811,7 @@ wID
 wID
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -45818,10 +45823,10 @@ oYZ
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 njL
-jga
+rkr
 qaK
 kzK
 mRa
@@ -45833,19 +45838,19 @@ qrv
 qrv
 xAa
 hYv
-jga
+rkr
 jcp
 njL
-jga
+rkr
 njL
 njL
 njL
-jga
+rkr
 pvQ
 pFs
 dVm
 jeT
-pBn
+mKI
 iMk
 xpe
 mKI
@@ -46063,7 +46068,7 @@ kXa
 yix
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -46075,10 +46080,10 @@ oYZ
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 njL
-jga
+rkr
 mpH
 lgJ
 mRa
@@ -46090,14 +46095,14 @@ tcz
 tcz
 xAa
 xAa
-jga
+rkr
 njL
 hDv
-jga
+rkr
 njL
 njL
 njL
-jga
+rkr
 pvQ
 ezB
 hdH
@@ -46320,7 +46325,7 @@ kXa
 yix
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -46332,10 +46337,10 @@ oYZ
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 njL
-jga
+rkr
 mpH
 iUr
 mRa
@@ -46347,14 +46352,14 @@ tcz
 tcz
 xAa
 xAa
-jga
+rkr
 njL
 njL
-jga
+rkr
 njL
 njL
 njL
-jga
+rkr
 pFs
 pFs
 fEa
@@ -46577,7 +46582,7 @@ kXa
 yix
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -46589,7 +46594,7 @@ oYZ
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 ayZ
 pwO
@@ -46607,11 +46612,11 @@ xAa
 pwO
 mfF
 njL
-jga
+rkr
 vED
 vED
 vED
-jga
+rkr
 exo
 exo
 aND
@@ -46834,7 +46839,7 @@ kXa
 yix
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -46846,7 +46851,7 @@ lVz
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 njL
 adO
@@ -47121,7 +47126,7 @@ nSq
 tEG
 njL
 njL
-jga
+rkr
 vCX
 qYY
 sbD
@@ -47355,7 +47360,7 @@ mKI
 iMk
 byO
 tkV
-jga
+rkr
 qaB
 gAu
 njL
@@ -47378,7 +47383,7 @@ jEz
 pUb
 njL
 hDv
-jga
+rkr
 cIb
 raO
 raO
@@ -47612,7 +47617,7 @@ jHb
 xug
 njL
 njL
-jga
+rkr
 xyg
 njL
 njL
@@ -47620,7 +47625,7 @@ njL
 ewW
 njL
 njL
-jga
+rkr
 iCh
 njL
 njL
@@ -47632,10 +47637,10 @@ flI
 ssS
 qqs
 vCX
-jga
+rkr
 njL
 njL
-jga
+rkr
 qUv
 raO
 raO
@@ -48379,7 +48384,7 @@ lcX
 mPL
 mPL
 fAh
-jga
+rkr
 dBT
 njL
 njL
@@ -48679,7 +48684,7 @@ afn
 bky
 sfT
 wDG
-jga
+rkr
 mPL
 mPL
 mPL
@@ -48936,7 +48941,7 @@ djx
 njL
 wPJ
 ceq
-jga
+rkr
 fAh
 fAh
 mPL
@@ -49154,7 +49159,7 @@ aND
 pUb
 njL
 njL
-jga
+rkr
 qaB
 njL
 njL
@@ -49162,7 +49167,7 @@ njL
 qPd
 njL
 njL
-jga
+rkr
 iCh
 njL
 njL
@@ -49174,10 +49179,10 @@ cEI
 thL
 ccC
 vCX
-jga
+rkr
 njL
 hDv
-jga
+rkr
 msY
 raO
 raO
@@ -49193,7 +49198,7 @@ djx
 njL
 njL
 giz
-jga
+rkr
 mPL
 wfJ
 mPL
@@ -49411,7 +49416,7 @@ mKI
 iMk
 bEx
 fDK
-jga
+rkr
 xyg
 fso
 njL
@@ -49434,7 +49439,7 @@ jEz
 xug
 njL
 njL
-jga
+rkr
 ccC
 raO
 raO
@@ -49450,7 +49455,7 @@ djx
 djx
 njL
 cIF
-jga
+rkr
 mPL
 mPL
 mPL
@@ -49691,7 +49696,7 @@ xAa
 enf
 njL
 njL
-jga
+rkr
 ssS
 raO
 raO
@@ -49707,7 +49712,7 @@ djx
 hSy
 uSb
 dzB
-jga
+rkr
 hSw
 fAh
 mPL
@@ -49918,7 +49923,7 @@ vUE
 qIa
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -49930,7 +49935,7 @@ fKp
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 njL
 adO
@@ -49948,7 +49953,7 @@ xAa
 enf
 njL
 njL
-jga
+rkr
 qqs
 xEm
 raO
@@ -50175,7 +50180,7 @@ vUE
 qIa
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -50187,7 +50192,7 @@ oYZ
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 ayZ
 wIx
@@ -50221,7 +50226,7 @@ njL
 biT
 iiz
 sfT
-jga
+rkr
 mPL
 wfJ
 mPL
@@ -50432,7 +50437,7 @@ vUE
 qIa
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -50444,10 +50449,10 @@ oYZ
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 njL
-jga
+rkr
 jIe
 tcz
 tcz
@@ -50459,10 +50464,10 @@ gyc
 ard
 gyc
 tcz
-jga
+rkr
 njL
 njL
-jga
+rkr
 rvl
 dfd
 vcx
@@ -50478,7 +50483,7 @@ rJn
 duM
 njL
 lUT
-jga
+rkr
 mPL
 mPL
 mPL
@@ -50689,7 +50694,7 @@ vUE
 qIa
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -50701,10 +50706,10 @@ oYZ
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 njL
-jga
+rkr
 smG
 tcz
 tcz
@@ -50716,10 +50721,10 @@ gyc
 ard
 gyc
 tcz
-jga
+rkr
 jcp
 njL
-jga
+rkr
 mIO
 vcx
 bxc
@@ -50946,7 +50951,7 @@ vUE
 qIa
 wID
 lcX
-jga
+rkr
 oYZ
 oYZ
 oYZ
@@ -50958,10 +50963,10 @@ oYZ
 oYZ
 oYZ
 oYZ
-jga
+rkr
 njL
 njL
-jga
+rkr
 puq
 svW
 cLr
@@ -50973,10 +50978,10 @@ puq
 meL
 puq
 tcz
-jga
+rkr
 njL
 hDv
-jga
+rkr
 fuo
 vcx
 vcx
@@ -50986,13 +50991,13 @@ rkr
 sMH
 qHX
 eMx
-jga
+rkr
 njL
 njL
 biT
 szy
 sfT
-jga
+rkr
 mPL
 mPL
 fAh
@@ -51233,7 +51238,7 @@ jEz
 iMk
 mfF
 njL
-jga
+rkr
 pOd
 fbu
 gly
@@ -51249,7 +51254,7 @@ rJn
 duM
 njL
 lUT
-jga
+rkr
 mPL
 wfJ
 mPL
@@ -51475,7 +51480,7 @@ mPL
 mPL
 fAh
 mPL
-jga
+rkr
 psG
 lZo
 psG
@@ -51487,7 +51492,7 @@ pwO
 qOI
 qOI
 qOI
-jga
+rkr
 njL
 tsP
 jHb
@@ -51744,7 +51749,7 @@ njL
 njL
 njL
 njL
-jga
+rkr
 njL
 njL
 mJI
@@ -51763,7 +51768,7 @@ njL
 biT
 iiz
 sfT
-jga
+rkr
 mPL
 mPL
 mPL
@@ -51988,7 +51993,7 @@ mPL
 mPL
 fAh
 mPL
-jga
+rkr
 eKf
 njL
 njL
@@ -52001,7 +52006,7 @@ njL
 njL
 njL
 rJn
-jga
+rkr
 mfF
 njL
 mJI
@@ -52014,13 +52019,13 @@ tRF
 njL
 xAW
 pZQ
-jga
+rkr
 njL
 rJn
 riL
 njL
 lUT
-jga
+rkr
 mPL
 hSw
 mPL
@@ -52245,7 +52250,7 @@ mPL
 mPL
 mPL
 mPL
-jga
+rkr
 jNu
 njL
 njL
@@ -52258,7 +52263,7 @@ njL
 njL
 njL
 njL
-jga
+rkr
 iSV
 iSV
 aND
@@ -52502,7 +52507,7 @@ fAh
 mPL
 mPL
 mPL
-jga
+rkr
 jPz
 tPs
 njL
@@ -52515,7 +52520,7 @@ wIx
 qOI
 qOI
 qOI
-jga
+rkr
 tcz
 wAy
 mKI
@@ -52525,7 +52530,7 @@ bag
 lwT
 wsG
 rhz
-jga
+rkr
 wOq
 lnX
 aPu
@@ -52534,7 +52539,7 @@ kiB
 oNW
 ygF
 qhl
-jga
+rkr
 mPL
 wfJ
 mPL
@@ -52775,14 +52780,14 @@ jEz
 iMk
 tcz
 tcz
-jga
+rkr
 iEl
 dFP
 dFP
 dFP
 dFP
 por
-jga
+rkr
 jRu
 pFs
 vWR
@@ -52791,7 +52796,7 @@ pFs
 pFs
 pFs
 gii
-jga
+rkr
 mPL
 mPL
 mPL
@@ -53016,7 +53021,7 @@ mPL
 dBD
 mPL
 mPL
-jga
+rkr
 jPz
 njL
 njL
@@ -53029,7 +53034,7 @@ pwO
 wZp
 giR
 mtJ
-jga
+rkr
 mgy
 wAy
 pwO
@@ -53039,7 +53044,7 @@ dFP
 dFP
 dFP
 vyk
-jga
+rkr
 aVe
 kbg
 jwy
@@ -53048,7 +53053,7 @@ vMX
 pFs
 pFs
 iDU
-jga
+rkr
 mPL
 mPL
 fAh
@@ -53273,7 +53278,7 @@ mPL
 mPL
 fAh
 mPL
-jga
+rkr
 jNu
 njL
 njL
@@ -53286,7 +53291,7 @@ yjq
 njL
 njL
 rJn
-jga
+rkr
 mpH
 tcz
 lKj
@@ -53305,7 +53310,7 @@ vEc
 pFs
 pFs
 ndb
-jga
+rkr
 mPL
 mPL
 wfJ
@@ -53530,7 +53535,7 @@ mPL
 dBD
 mPL
 mPL
-jga
+rkr
 eKf
 njL
 njL
@@ -53543,7 +53548,7 @@ yjq
 njL
 njL
 njL
-jga
+rkr
 mpH
 tcz
 tcz
@@ -53562,7 +53567,7 @@ pFs
 pFs
 pFs
 asG
-jga
+rkr
 mPL
 mPL
 mPL
@@ -53800,7 +53805,7 @@ yjq
 njL
 njL
 rJn
-jga
+rkr
 pCl
 qqR
 gzA
@@ -53819,7 +53824,7 @@ pFs
 pFs
 pFs
 skb
-jga
+rkr
 mPL
 mPL
 hSw
@@ -54045,7 +54050,7 @@ mPL
 mPL
 mPL
 mPL
-jga
+rkr
 wax
 xgb
 wax
@@ -54057,7 +54062,7 @@ wIx
 rSR
 giR
 hnI
-jga
+rkr
 odP
 uti
 rdj
@@ -54067,7 +54072,7 @@ pjo
 yae
 vKh
 kIf
-jga
+rkr
 sTX
 nKW
 sTX
@@ -54076,7 +54081,7 @@ gTh
 fxa
 coD
 ndb
-jga
+rkr
 mPL
 mPL
 mPL
@@ -58427,7 +58432,7 @@ piw
 azc
 azc
 gDX
-eSH
+shG
 azc
 kID
 xWx
@@ -58684,7 +58689,7 @@ azc
 azc
 azc
 gDX
-shG
+jga
 bGr
 kID
 ssW

@@ -2563,22 +2563,9 @@
 /area/shuttle/vox)
 "agb" = (
 /obj/structure/rack,
-/obj/item/storage/belt/military{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/belt/military{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/storage/belt/military{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/storage/belt/military{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/aiModule/syndicate,
+/obj/item/multitool/ai_detect,
+/obj/item/jammer,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "agc" = (
@@ -2826,11 +2813,6 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	frequency = 1331;
-	id_tag = "vox_west_vent"
-	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "agy" = (
@@ -2870,11 +2852,6 @@
 	},
 /obj/machinery/light/spot{
 	dir = 8
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1331;
-	id_tag = "vox_east_vent"
 	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -3257,13 +3234,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/security/hos)
-"ahn" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "diagonalWall3"
-	},
-/area/shuttle/vox)
 "aho" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -3323,10 +3293,10 @@
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "ahs" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "diagonalWall3"
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "152"
 	},
+/turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "ahu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -3528,13 +3498,6 @@
 /area/shuttle/vox)
 "ahK" = (
 /obj/machinery/light/spot,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
-"ahL" = (
-/obj/item/clothing/head/collectable/petehat{
-	desc = "It smells faintly of reptile.";
-	name = "fancy leader hat"
-	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ahM" = (
@@ -3794,8 +3757,10 @@
 	},
 /area/security/customs)
 "ail" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden{
-	dir = 1
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "vox_west_vent"
 	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -4535,14 +4500,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"ajC" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	frequency = 1331;
-	id_tag = "vox_west_vent"
-	},
-/turf/simulated/shuttle/plating/vox,
-/area/shuttle/vox)
 "ajD" = (
 /obj/item/storage/toolbox/electrical,
 /obj/item/storage/toolbox/emergency,
@@ -4551,33 +4508,21 @@
 /area/shuttle/vox)
 "ajE" = (
 /obj/structure/rack,
-/obj/item/clothing/accessory/storage/black_vest,
-/obj/item/clothing/suit/space/vox/carapace,
-/obj/item/clothing/head/helmet/space/vox/carapace,
-/obj/item/clothing/mask/breath,
-/obj/item/storage/backpack/duffel/syndie{
-	slowdown = 1
-	},
+/obj/item/gun/dartgun/vox/raider,
+/obj/item/gun/dartgun/vox/raider,
+/obj/item/dart_cartridge,
+/obj/item/dart_cartridge,
+/obj/item/dart_cartridge,
+/obj/item/dart_cartridge,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ajF" = (
 /obj/structure/rack,
-/obj/item/gun/dartgun/vox/raider,
-/obj/item/gun/dartgun/vox/medical,
-/obj/item/dart_cartridge,
-/obj/item/dart_cartridge,
-/obj/item/dart_cartridge,
-/obj/item/dart_cartridge,
-/obj/item/gun/dartgun/vox/medical,
-/obj/item/gun/dartgun/vox/medical,
+/obj/item/gun/energy/spikethrower,
+/obj/item/gun/energy/spikethrower,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ajG" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	frequency = 1331;
-	id_tag = "vox_east_vent"
-	},
 /turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "ajH" = (
@@ -4767,13 +4712,12 @@
 /area/shuttle/vox)
 "ajZ" = (
 /obj/structure/rack,
-/obj/item/clothing/accessory/storage/black_vest,
-/obj/item/clothing/suit/space/vox/medic,
-/obj/item/clothing/head/helmet/space/vox/medic,
-/obj/item/clothing/mask/breath,
-/obj/machinery/light/spot{
-	dir = 8
-	},
+/obj/item/gun/dartgun/vox/medical,
+/obj/item/gun/dartgun/vox/medical,
+/obj/item/dart_cartridge,
+/obj/item/dart_cartridge,
+/obj/item/dart_cartridge,
+/obj/item/dart_cartridge,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aka" = (
@@ -4785,8 +4729,15 @@
 /obj/item/harpoon,
 /obj/item/tank/internals/nitrogen,
 /obj/machinery/light/spot{
-	dir = 4
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
 	},
+/obj/item/pneumatic_cannon,
+/obj/item/harpoon,
+/obj/item/harpoon,
+/obj/item/harpoon,
+/obj/item/harpoon,
+/obj/item/tank/internals/nitrogen,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "akb" = (
@@ -4994,10 +4945,11 @@
 /area/shuttle/vox)
 "akq" = (
 /obj/structure/rack,
-/obj/item/clothing/accessory/storage/black_vest,
-/obj/item/clothing/suit/space/vox/pressure,
-/obj/item/clothing/head/helmet/space/vox/pressure,
-/obj/item/clothing/mask/breath,
+/obj/item/card/emag,
+/obj/item/chameleon,
+/obj/item/clothing/glasses/thermal/monocle{
+	pixel_x = -5
+	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "akr" = (
@@ -5112,10 +5064,9 @@
 /area/security/podbay)
 "akA" = (
 /obj/structure/rack,
-/obj/item/clothing/accessory/storage/black_vest,
-/obj/item/clothing/suit/space/vox/stealth,
-/obj/item/clothing/head/helmet/space/vox/stealth,
-/obj/item/clothing/mask/breath,
+/obj/item/flash/cameraflash,
+/obj/item/pen/edagger,
+/obj/item/storage/box/emps,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "akC" = (
@@ -5708,11 +5659,6 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
-"alz" = (
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/clothing/mask/breath,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
 "alA" = (
 /obj/item/clothing/head/bearpelt,
 /obj/item/xenos_claw,
@@ -6081,10 +6027,12 @@
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "amj" = (
-/obj/item/clothing/head/collectable/xenom,
-/obj/item/clothing/head/chicken,
-/obj/item/aiModule/syndicate,
-/turf/simulated/shuttle/floor4/vox,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "vox_east_vent"
+	},
+/turf/simulated/shuttle/plating/vox,
 /area/shuttle/vox)
 "amk" = (
 /obj/item/stack/spacecash/c1000,
@@ -152628,7 +152576,7 @@ aaa
 aaa
 agZ
 ail
-ajC
+ajG
 adV
 aha
 anK
@@ -153927,7 +153875,7 @@ agw
 agw
 agw
 agw
-ahs
+bRC
 aaa
 aaa
 aaa
@@ -154175,7 +154123,7 @@ aha
 aha
 agZ
 aha
-agZ
+ahs
 aha
 ajE
 ajZ
@@ -154185,7 +154133,7 @@ akR
 alx
 ami
 agZ
-ahs
+bRC
 aaa
 aaa
 aaa
@@ -154440,7 +154388,7 @@ aha
 aha
 akP
 aly
-amj
+aha
 amY
 agZ
 aaa
@@ -154686,16 +154634,16 @@ ahz
 agB
 ahc
 aha
-ahL
-ahZ
 aha
 ahZ
 aha
+ahs
 aha
 aha
 aha
 aha
-ahZ
+aha
+ahs
 aha
 aha
 amZ
@@ -154953,7 +154901,7 @@ aha
 aha
 aha
 akR
-alz
+aha
 amk
 ana
 agZ
@@ -155203,7 +155151,7 @@ aha
 aha
 agZ
 aha
-agZ
+ahs
 aha
 ajF
 aka
@@ -155213,7 +155161,7 @@ akP
 alA
 aml
 agZ
-ahn
+bWI
 aaa
 aaa
 aaa
@@ -155469,7 +155417,7 @@ agw
 agw
 agw
 agw
-ahn
+bWI
 aaa
 aaa
 aaa
@@ -156739,7 +156687,7 @@ aaa
 aaa
 aaa
 agZ
-ail
+amj
 ajG
 aen
 aha
