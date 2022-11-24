@@ -79,6 +79,42 @@
 	path = /obj/item/clothing/suit/storage/labcoat/emt
 	allowed_roles = list("Chief Medical Officer", "Paramedic")
 
+//BOMBER JACKETS
+/datum/gear/suit/bomber
+	main_typepath = /datum/gear/suit/bomber
+
+/datum/gear/suit/bomber/basic
+	display_name = "Bomber jacket"
+	path = /obj/item/clothing/suit/jacket
+
+/datum/gear/suit/bomber/job
+	main_typepath = /datum/gear/suit/bomber/job
+	subtype_selection_cost = FALSE
+
+/datum/gear/suit/bomber/job/sec
+	display_name = "Security bomber jacket"
+	path = /obj/item/clothing/suit/jacket/secbomber
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
+/datum/gear/suit/bomber/job/cargo
+	display_name = "Cargo bomber jacket"
+	path = /obj/item/clothing/suit/jacket/cargobomber
+	allowed_roles = list("Quartermaster", "Cargo Technician")
+
+/datum/gear/suit/bomber/job/miner
+	display_name = "Mining bomber jacket"
+	path = /obj/item/clothing/suit/jacket/miningbomber
+	allowed_roles = list("Quartermaster", "Shaft Miner")
+
+/datum/gear/suit/bomber/job/engi
+	display_name = "Engineering bomber jacket"
+	path = /obj/item/clothing/suit/jacket/engibomber
+	allowed_roles = list("Chief Engineer", "Station Engineer")
+
+/datum/gear/suit/bomber/job/atmos
+	display_name = "Atmospherics bomber jacket"
+	path = /obj/item/clothing/suit/jacket/atmosbomber
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
 //JACKETS
 /datum/gear/suit/leather_jacket
 	display_name = "Leather jacket"
@@ -95,30 +131,6 @@
 /datum/gear/suit/bl_tcoat
 	display_name = "Trenchcoat, black"
 	path = /obj/item/clothing/suit/blacktrenchcoat
-
-/datum/gear/suit/bomber_jacket
-	display_name = "Bomber jacket"
-	path = /obj/item/clothing/suit/jacket
-
-/datum/gear/suit/cargo_bomber_jacket
-	display_name = "Cargo bomber jacket"
-	path = /obj/item/clothing/suit/jacket/cargobomber
-	allowed_roles = list("Quartermaster", "Cargo Technician")
-
-/datum/gear/suit/mining_bomber_jacket
-	display_name = "Mining bomber jacket"
-	path = /obj/item/clothing/suit/jacket/miningbomber
-	allowed_roles = list("Quartermaster", "Shaft Miner")
-
-/datum/gear/suit/engi_bomber_jacket
-	display_name = "Engineering bomber jacket"
-	path = /obj/item/clothing/suit/jacket/engibomber
-	allowed_roles = list("Chief Engineer", "Station Engineer")
-
-/datum/gear/suit/atmos_bomber_jacket
-	display_name = "Atmospherics bomber jacket"
-	path = /obj/item/clothing/suit/jacket/atmosbomber
-	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
 /datum/gear/suit/ol_miljacket
 	display_name = "Military jacket, olive"
@@ -139,11 +151,6 @@
 /datum/gear/suit/secjacket
 	display_name = "Security jacket"
 	path = /obj/item/clothing/suit/armor/secjacket
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
-
-/datum/gear/suit/secbomberjacket
-	display_name = "Security bomber jacket"
-	path = /obj/item/clothing/suit/jacket/secbomber
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/ianshirt
