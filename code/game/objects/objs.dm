@@ -187,7 +187,7 @@
 	src.machine = O
 	if(istype(O))
 		O.in_use = TRUE
-		RegisterSignal(O, COMSIG_PARENT_QDELETING, .proc/unset_machine)
+		RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(unset_machine))
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
@@ -327,9 +327,6 @@ a {
 
 /obj/proc/container_resist(mob/living)
 	return
-
-/obj/proc/CanAStarPass(ID, dir, caller)
-	. = !density
 
 /obj/proc/on_mob_move(dir, mob/user)
 	return

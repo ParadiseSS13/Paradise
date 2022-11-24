@@ -11,6 +11,8 @@
 	var/target_alpha
 	//if this is supposed to prevent clicks if it's transparent.
 	var/toggle_click
+	//The atom's mouse opacity, so it's restored to its default
+	var/initial_mouse_opacity
 	var/list/registered_turfs
 	var/amounthidden = 0
 
@@ -21,13 +23,14 @@
 	y_offset = _y_offset
 	x_size = _x_size
 	y_size = _y_size
+	var/atom/at = parent
 	if(isnull(_initial_alpha))
-		var/atom/at = parent
 		initial_alpha = at.alpha
 	else
 		initial_alpha = _initial_alpha
 	target_alpha = _target_alpha
 	toggle_click = _toggle_click
+	initial_mouse_opacity = at.mouse_opacity
 	registered_turfs = list()
 
 
@@ -36,7 +39,7 @@
 	return ..()
 
 /datum/component/largetransparency/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/OnMove)
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(OnMove))
 	RegisterWithTurfs()
 
 /datum/component/largetransparency/UnregisterFromParent()
@@ -52,9 +55,9 @@
 	registered_turfs = block(lowleft_turf, upright_turf) //small problems with z level edges due to object size offsets, but nothing truly problematic.
 	//register the signals
 	for(var/registered_turf in registered_turfs)
-		RegisterSignal(registered_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_INITIALIZED_ON), .proc/objectEnter)
-		RegisterSignal(registered_turf, COMSIG_ATOM_EXITED, .proc/objectLeave)
-		RegisterSignal(registered_turf, COMSIG_TURF_CHANGE, .proc/OnTurfChange)
+		RegisterSignal(registered_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_INITIALIZED_ON), PROC_REF(objectEnter))
+		RegisterSignal(registered_turf, COMSIG_ATOM_EXITED, PROC_REF(objectLeave))
+		RegisterSignal(registered_turf, COMSIG_TURF_CHANGE, PROC_REF(OnTurfChange))
 		for(var/thing in registered_turf)
 			var/atom/check_atom = thing
 			if(!(check_atom.flags_2 & CRITICAL_ATOM_2))
@@ -76,7 +79,7 @@
 	RegisterWithTurfs()
 
 /datum/component/largetransparency/proc/OnTurfChange()
-	addtimer(CALLBACK(src, .proc/OnMove), 0, TIMER_UNIQUE|TIMER_OVERRIDE) //*pain
+	addtimer(CALLBACK(src, PROC_REF(OnMove)), 0, TIMER_UNIQUE|TIMER_OVERRIDE) //*pain
 
 /datum/component/largetransparency/proc/objectEnter(datum/source, atom/enterer)
 	if(!(enterer.flags_2 & CRITICAL_ATOM_2))
@@ -102,4 +105,4 @@
 	var/atom/parent_atom = parent
 	animate(parent_atom, alpha = initial_alpha, 0.5 SECONDS)
 	if(toggle_click)
-		parent_atom.mouse_opacity = MOUSE_OPACITY_OPAQUE
+		parent_atom.mouse_opacity = initial_mouse_opacity

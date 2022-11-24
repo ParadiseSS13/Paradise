@@ -184,6 +184,7 @@
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
 		ejectpai()
+	set_path(null)
 	if(path_hud)
 		QDEL_NULL(path_hud)
 		path_hud = null
@@ -193,6 +194,7 @@
 		data_hud.remove_hud_from(src)
 
  	GLOB.bots_list -= src
+	QDEL_NULL(path)
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
 
@@ -417,7 +419,7 @@
 
 	if(on)
 		turn_off()
-	addtimer(CALLBACK(src, .proc/un_emp, was_on), severity * 300)
+	addtimer(CALLBACK(src, PROC_REF(un_emp), was_on), severity * 300)
 
 
 /mob/living/simple_animal/bot/proc/un_emp(was_on)
@@ -489,12 +491,12 @@ Movement proc for stepping a bot through a path generated through A-star.
 Pass a positive integer as an argument to override a bot's default speed.
 */
 /mob/living/simple_animal/bot/proc/bot_move(dest, move_speed)
-	if(!dest || !path || path.len == 0) //A-star failed or a path/destination was not set.
+	if(!dest || !path || !length(path)) //A-star failed or a path/destination was not set.
 		set_path(null)
 		return FALSE
 
 	dest = get_turf(dest) //We must always compare turfs, so get the turf of the dest var if dest was originally something else.
-	var/turf/last_node = get_turf(path[path.len]) //This is the turf at the end of the path, it should be equal to dest.
+	var/turf/last_node = get_turf(path[length(path)]) //This is the turf at the end of the path, it should be equal to dest.
 	if(get_turf(src) == dest) //We have arrived, no need to move again.
 		return TRUE
 
@@ -507,7 +509,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(step_count >= 1 && tries < BOT_STEP_MAX_RETRIES)
 		for(var/step_number in 1 to step_count)
 			// Hopefully this wont fill the buckets too much
-			addtimer(CALLBACK(src, .proc/bot_step), BOT_STEP_DELAY * (step_number - 1))
+			addtimer(CALLBACK(src, PROC_REF(bot_step)), BOT_STEP_DELAY * (step_number - 1))
 	else
 		return FALSE
 	return TRUE
@@ -517,21 +519,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(!length(path))
 		return FALSE
 
-	// Only one destination
-	if(length(path) == 1)
-		step_to(src, path[1])
-		set_path(null)
+	if(!step_towards(src, path[1]))
+		tries++
+		return FALSE
 
-	else
-		// Move us slowly
-		Move(path[1], get_dir(src, path[1]), BOT_STEP_DELAY)
-		if(get_turf(src) == path[1]) //Successful move
-			increment_path()
-			tries = 0
-		else
-			tries++
-			return FALSE
-
+	increment_path()
+	tries = 0
 	return TRUE
 
 
@@ -546,18 +539,18 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/datum/job/captain/All = new/datum/job/captain
 	access_card.access = All.get_access() // Give the bot temporary all access
 
-	set_path(get_path_to(src, waypoint, /turf/proc/Distance_cardinal, 0, 200, id = access_card))
+	set_path(get_path_to(src, waypoint, 200, id = access_card))
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
-	if(path && path.len) //Ensures that a valid path is calculated!
+	if(path && length(path)) //Ensures that a valid path is calculated!
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		if(client)
-			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
-			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
+			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
+			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[length(path)-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
-			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [path.len-1] meters to destination.</span>")
+			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [length(path)-1] meters to destination.</span>")
 		pathset = TRUE
 		mode = BOT_RESPONDING
 		tries = 0
@@ -602,14 +595,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/bot_patrol()
 	patrol_step()
-	addtimer(CALLBACK(src, .proc/do_patrol), 5)
+	addtimer(CALLBACK(src, PROC_REF(do_patrol)), 5)
 
 /mob/living/simple_animal/bot/proc/do_patrol()
 	if(mode == BOT_PATROL)
 		patrol_step()
 
 /mob/living/simple_animal/bot/proc/start_patrol()
-
+	set_path(null)
 	if(tries >= BOT_STEP_MAX_RETRIES) //Bot is trapped, so stop trying to patrol.
 		auto_patrol = FALSE
 		tries = 0
@@ -623,7 +616,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 
 	if(patrol_target) // has patrol target
-		INVOKE_ASYNC(src, .proc/target_patrol)
+		INVOKE_ASYNC(src, PROC_REF(target_patrol))
 	else // no patrol target, so need a new one
 		speak("Engaging patrol mode.")
 		find_patrol_target()
@@ -640,27 +633,26 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/patrol_step()
 
-	if(client)		// In use by player, don't actually move.
+	if(client) // In use by player, don't actually move.
 		return
 
-	if(loc == patrol_target)		// reached target
+	if(loc == patrol_target) // reached target
 		//Find the next beacon matching the target.
 		if(!get_next_patrol_target())
 			find_patrol_target() //If it fails, look for the nearest one instead.
 		return
 
-	else if(path.len > 0 && patrol_target)		// valid path
-		var/turf/next = path[1]
-		if(next == loc)
+	else if(length(path) && patrol_target) // valid path
+		if(path[1] == loc)
 			increment_path()
 			return
 
 
-		var/moved = bot_move(patrol_target)//step_towards(src, next)	// attempt to move
+		var/moved = bot_move(patrol_target)//step_towards(src, next) // attempt to move
 		if(!moved) //Couldn't proceed the next step of the path BOT_STEP_MAX_RETRIES times
-			addtimer(CALLBACK(src, .proc/patrol_step_not_moved), 2)
+			addtimer(CALLBACK(src, PROC_REF(patrol_step_not_moved)), 2)
 
-	else	// no path, so calculate new one
+	else // no path, so calculate new one
 		mode = BOT_START_PATROL
 
 /mob/living/simple_animal/bot/proc/patrol_step_not_moved()
@@ -766,13 +758,13 @@ Pass a positive integer as an argument to override a bot's default speed.
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/proc/calc_path(turf/avoid)
 	check_bot_access()
-	set_path(get_path_to(src, patrol_target, /turf/proc/Distance_cardinal, 0, 120, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, patrol_target, 120, id=access_card, exclude=avoid))
 
 /mob/living/simple_animal/bot/proc/calc_summon_path(turf/avoid)
 	set waitfor = FALSE
 	check_bot_access()
-	set_path(get_path_to(src, summon_target, /turf/proc/Distance_cardinal, 0, 150, id=access_card, exclude=avoid))
-	if(!path.len) //Cannot reach target. Give up and announce the issue.
+	set_path(get_path_to(src, summon_target, 150, id=access_card, exclude=avoid))
+	if(!length(path)) //Cannot reach target. Give up and announce the issue.
 		speak("Summon command failed, destination unreachable.",radio_channel)
 		bot_reset()
 
@@ -785,7 +777,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		bot_reset()
 		return
 
-	else if(path.len > 0 && summon_target)		//Proper path acquired!
+	else if(length(path) && summon_target)		//Proper path acquired!
 		var/turf/next = path[1]
 		if(next == loc)
 			increment_path()
@@ -793,7 +785,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 		var/moved = bot_move(summon_target, 3)	// Move attempt
 		if(!moved)
-			addtimer(CALLBACK(src, .proc/try_calc_path), 2)
+			addtimer(CALLBACK(src, PROC_REF(try_calc_path)), 2)
 
 
 	else	// no path, so calculate new one
@@ -1044,6 +1036,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	for(var/V in path_huds_watching_me)
 		var/datum/atom_hud/H = V
 		H.remove_from_hud(src)
+	clear_path_image()
 
 	var/list/path_images = hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
@@ -1090,12 +1083,20 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 
 /mob/living/simple_animal/bot/proc/increment_path()
-	if(!path || !path.len)
+	if(!path || !length(path))
 		return
 	var/image/I = path[path[1]]
 	if(I)
 		I.icon_state = null
 	path.Cut(1, 2)
+
+/mob/living/simple_animal/bot/proc/clear_path_image()
+	if(!path || !length(path))
+		return
+	for(var/P in path)
+		var/image/I = path[P]
+		if(I?.icon_state)
+			I.icon_state = null
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)

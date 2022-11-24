@@ -366,7 +366,7 @@
 
 	var/supplyOrderCount = 0
 	var/list/supplyOrderData = list()
-	for(var/S in SSshuttle.shoppinglist)
+	for(var/S in SSeconomy.shopping_list)
 		var/datum/supply_order/SO = S
 		supplyOrderCount++
 		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
@@ -379,7 +379,7 @@
 
 	var/requestCount = 0
 	var/list/requestData = list()
-	for(var/S in SSshuttle.requestlist)
+	for(var/S in SSeconomy.request_list)
 		var/datum/supply_order/SO = S
 		requestCount++
 		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))

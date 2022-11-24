@@ -88,6 +88,8 @@
 
 
 /mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1)
+	if(stat == DEAD)
+		return FALSE
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return FALSE
 	if(is_muzzled())
@@ -172,7 +174,7 @@
 	//Jitter and other fluff.
 	AdjustJitter(2000 SECONDS)
 	AdjustStuttering(4 SECONDS)
-	addtimer(CALLBACK(src, .proc/secondary_shock, should_stun), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 1 SECONDS)
 	return shock_damage
 
 ///Called slightly after electrocute act to reduce jittering and apply a secondary knockdown.
@@ -548,7 +550,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return
 
 /mob/living/update_pipe_vision(obj/machinery/atmospherics/target_move)
-	if(!client) 
+	if(!client)
 		pipes_shown.Cut()
 		return
 	if(length(pipes_shown) && !target_move)
@@ -859,7 +861,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
 
 /mob/living/carbon/resist_buckle()
-	INVOKE_ASYNC(src, .proc/resist_muzzle)
+	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/I = get_restraining_item()
 	if(!I) // If there is nothing to restrain him then he is not restrained
 		buckled.user_unbuckle_mob(src, src)
@@ -868,7 +870,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/time = I.breakouttime
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
-	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, .proc/buckle_check))))
+	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
 		if(src && buckled)
 			to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")
 	else
@@ -895,7 +897,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/carbon/resist_restraints()
-	INVOKE_ASYNC(src, .proc/resist_muzzle)
+	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
 	var/obj/item/I = null
 	if(handcuffed)
 		I = handcuffed

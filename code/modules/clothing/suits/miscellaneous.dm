@@ -172,6 +172,10 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	dog_fashion = /datum/dog_fashion/back
 
+/obj/item/clothing/suit/corgisuit/en
+	name = "\improper super-hero E-N suit"
+	icon_state = "ensuit"
+
 /obj/item/clothing/suit/corgisuit/super_hero
 	name = "super-hero corgi suit"
 	desc = "A suit made long ago by the ancient empire KFC. This one pulses with a strange power."
@@ -413,9 +417,19 @@
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/head/hooded/winterhood/security
 	icon_state = "winterhood_sec"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		)
 
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
@@ -652,8 +666,12 @@
 /obj/item/clothing/suit/browntrenchcoat
 	name = "brown trench coat"
 	desc = "It makes you stand out. Just the opposite of why it's typically worn. Nice try trying to blend in while wearing it."
-	icon_state = "brtrenchcoat"
-	item_state = "brtrenchcoat"
+	icon_state = "brtrenchcoat_open"
+	item_state = "brtrenchcoat_open"
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -662,8 +680,12 @@
 /obj/item/clothing/suit/blacktrenchcoat
 	name = "black trench coat"
 	desc = "That shade of black just makes you look a bit more evil. Good for those mafia types."
-	icon_state = "bltrenchcoat"
-	item_state = "bltrenchcoat"
+	icon_state = "bltrenchcoat_open"
+	item_state = "bltrenchcoat_open"
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
@@ -705,12 +727,6 @@
 	desc = "A cream coloured, genteel suit."
 	icon_state = "creamsuit"
 	item_state = "creamsuit"
-
-/obj/item/clothing/under/stripper/mankini
-	name = "the mankini"
-	desc = "No honest man would wear this abomination"
-	icon_state = "mankini"
-	item_color = "mankini"
 
 /obj/item/clothing/suit/jacket/miljacket
 	name = "olive military jacket"
@@ -786,6 +802,20 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/jacket/syndicatebomber
+	name = "suspicious bomber jacket"
+	desc = "A suspicious but extremely stylish jacket."
+	icon_state = "bombersyndie"
+	item_state = "bombersyndie"
+	ignore_suitadjust = FALSE
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
+	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+
 /obj/item/clothing/suit/jacket/secbomber
 	name = "security bomber jacket"
 	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."
@@ -802,6 +832,11 @@
 	put_on_delay = 40
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
 	//End of inheritance from Security armour.
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/jacket/engibomber
 	name = "engineering bomber jacket"
