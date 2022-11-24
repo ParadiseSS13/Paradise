@@ -92,26 +92,26 @@
 	subtype_selection_cost = FALSE
 
 /datum/gear/suit/bomber/job/sec
-	display_name = "Security bomber jacket"
+	display_name = "Bomber jacket, security"
 	path = /obj/item/clothing/suit/jacket/secbomber
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 /datum/gear/suit/bomber/job/cargo
-	display_name = "Cargo bomber jacket"
+	display_name = "Bomber jacket, cargo"
 	path = /obj/item/clothing/suit/jacket/cargobomber
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/suit/bomber/job/miner
-	display_name = "Mining bomber jacket"
+	display_name = "Bomber jacket, mining"
 	path = /obj/item/clothing/suit/jacket/miningbomber
 	allowed_roles = list("Quartermaster", "Shaft Miner")
 
 /datum/gear/suit/bomber/job/engi
-	display_name = "Engineering bomber jacket"
+	display_name = "Bomber jacket, engineering"
 	path = /obj/item/clothing/suit/jacket/engibomber
 	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/suit/bomber/job/atmos
-	display_name = "Atmospherics bomber jacket"
+	display_name = "Bomber jacket, atmospherics"
 	path = /obj/item/clothing/suit/jacket/atmosbomber
 	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
