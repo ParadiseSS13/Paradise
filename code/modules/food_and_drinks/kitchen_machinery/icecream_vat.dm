@@ -58,11 +58,10 @@
 	var/list/static/invalid_reagents = list("sprinkles", "cola", "kahlua", "dr_gibb", "vodka", "space-up", "rum", "spacemountainwind", "gin", "cream", "vanilla")
 	if(reag in invalid_reagents)
 		return
-	else
-		if(reagents.total_volume < 500)
-			to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
-			playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
-		return 1
+	if(reagents.total_volume < 500)
+		to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
+		playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
+	return 1
 
 
 /obj/machinery/icemachine/Topic(href, href_list)
