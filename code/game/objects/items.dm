@@ -822,7 +822,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	return
 
 /obj/item/proc/retract_to_linked_implant()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER_DOES_SLEEP
 	if(istype(linked_implant, /obj/item/organ/internal/cyberimp/arm))
 		var/obj/item/organ/internal/cyberimp/arm/arm_implant = linked_implant
 		arm_implant.retract_and_show_radial()
