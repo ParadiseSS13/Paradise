@@ -6794,6 +6794,10 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
+"yy" = (
+/obj/machinery/economy/vending/tool/free,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -65343,7 +65347,7 @@ BZ
 BY
 BZ
 Yi
-sR
+yy
 XJ
 kD
 tX
