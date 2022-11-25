@@ -94,18 +94,18 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
   * Called when the objective's target goes to cryo.
   */
 /datum/objective/proc/on_target_cryo()
-	for(var/datum/mind/M in get_owners())
+	var/list/owners = get_owners()
+	for(var/datum/mind/M in owners)
 		to_chat(M.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
 	target = null
-	INVOKE_ASYNC(src, PROC_REF(post_target_cryo))
+	INVOKE_ASYNC(src, PROC_REF(post_target_cryo), owners)
 
 /**
   * Called a tick after when the objective's target goes to cryo.
   */
-/datum/objective/proc/post_target_cryo()
+/datum/objective/proc/post_target_cryo(list/owners)
 	find_target()
-	var/list/owners = get_owners()
 	if(!target)
 		for(var/datum/mind/M in owners)
 			M.remove_objective(src)
@@ -375,7 +375,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/mob/living/carbon/human/H = owner.current
 	if(..())
 		if(H.dna.real_name == target_real_name)
-			if(H.get_id_name()== target_real_name)
+			if(H.get_id_name() == target_real_name)
 				return TRUE
 	return FALSE
 
@@ -487,13 +487,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		"right hand" = slot_r_hand,
 	)
 	for(var/datum/mind/M in get_owners())
-		var/mob/living/carbon/human/mob = M.current
-		var/where = mob.equip_in_one_of_slots(I, slots)
+		var/mob/living/carbon/human/H = M.current
+		var/where = H.equip_in_one_of_slots(I, slots)
 		if(where)
-			to_chat(mob, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+			to_chat(H, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
 		else
-			to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
-			message_admins("[ADMIN_LOOKUPFLW(mob)] Failed to spawn with their [item_path] theft kit.")
+			to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+			message_admins("[ADMIN_LOOKUPFLW(H)] Failed to spawn with their [item_path] theft kit.")
 			qdel(I)
 
 
