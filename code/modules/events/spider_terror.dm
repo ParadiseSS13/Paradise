@@ -16,13 +16,13 @@
 
 /datum/event/spider_terror/announce()
 	if(successSpawn)
-		GLOB.major_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
+		GLOB.major_announcement.Announce("Confirmed outbreak of level 3-S biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
 /datum/event/spider_terror/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
-	INVOKE_ASYNC(src, .proc/wrappedstart)
+	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
 
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
@@ -68,7 +68,7 @@
 			S.forceMove(vent)
 			S.add_ventcrawl(vent)
 		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
-		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")
+		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
 

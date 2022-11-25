@@ -56,7 +56,7 @@
 				return
 			Infect(target)
 			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
-			addtimer(CALLBACK(src, .proc/death), 10 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(death)), 10 SECONDS)
 
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"

@@ -96,7 +96,7 @@
 	icon_state = "cablecuff"
 	item_state = "cablecuff"
 	cuffed_state = "cablecuff"
-	belt_icon = null
+	belt_icon = "cablecuff"
 	origin_tech = "engineering=2"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 30 SECONDS

@@ -14,12 +14,12 @@
 /datum/spellbook_entry/loadout/lich
 	name = "Defense Focus : Lich"
 	desc = "This spellset uses the Bind Soul spell to safeguard your life as a lich and allow for more dangerous offensive spells to be used. <br> \
-		Ethereal Jaunt provides escape, Fireball and Rod Form are your offensive spells, and Disable Tech and Greater Forcewall provides utility in disabling sec equipment or blocking their path. <br> \
+		Ethereal Jaunt provides escape, Fireball and Rod Form are your offensive spells, and Disable Tech and Forcewall provides utility in disabling sec equipment or blocking their path. <br> \
 		Care should be taken in hiding the item you choose as your phylactery after using Bind Soul, as you cannot revive if it destroyed or too far from your body! <br><br> \
 		</i>Provides Bind Soul, Ethereal Jaunt,  Fireball, Rod Form, Disable Tech, and Greater Forcewall.<i>"
 	log_name = "DL"
 	spells_path = list(/obj/effect/proc_holder/spell/lichdom, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/fireball, \
-		/obj/effect/proc_holder/spell/rod_form, /obj/effect/proc_holder/spell/emplosion/disable_tech, /obj/effect/proc_holder/spell/forcewall/greater)
+		/obj/effect/proc_holder/spell/rod_form, /obj/effect/proc_holder/spell/emplosion/disable_tech, /obj/effect/proc_holder/spell/forcewall)
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/loadout/wands
@@ -31,7 +31,7 @@
 	log_name = "UW"
 	items_path = list(/obj/item/storage/belt/wands/full)
 	spells_path = list(/obj/effect/proc_holder/spell/charge, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/turf_teleport/blink, \
-		/obj/effect/proc_holder/spell/aoe_turf/repulse, /obj/effect/proc_holder/spell/touch/disintegrate)
+		/obj/effect/proc_holder/spell/aoe/repulse, /obj/effect/proc_holder/spell/touch/disintegrate)
 
 //Unique loadouts, which are more gimmicky. Should contain some unique spell or item that separates it from just buying standard wiz spells, and be balanced around a 10 spell point cost.
 /datum/spellbook_entry/loadout/mimewiz
@@ -42,7 +42,7 @@
 	items_path = list(/obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/clothing/suit/wizrobe/mime, /obj/item/clothing/head/wizard/mime, \
 		/obj/item/clothing/mask/gas/mime/wizard, /obj/item/clothing/shoes/sandal/marisa, /obj/item/cane, /obj/item/stack/tape_roll)
 	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/turf_teleport/blink, /obj/effect/proc_holder/spell/area_teleport/teleport, \
-		/obj/effect/proc_holder/spell/touch/mime_malaise, /obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop)
+		/obj/effect/proc_holder/spell/touch/mime_malaise, /obj/effect/proc_holder/spell/aoe/knock, /obj/effect/proc_holder/spell/aoe/conjure/timestop)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
@@ -81,7 +81,7 @@
 	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/shoes/black, \
 		 /obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
 	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/forcewall, \
-		/obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/noclothes)
+		/obj/effect/proc_holder/spell/aoe/knock, /obj/effect/proc_holder/spell/noclothes)
 	category = "Unique"
 	destroy_spellbook = TRUE
 

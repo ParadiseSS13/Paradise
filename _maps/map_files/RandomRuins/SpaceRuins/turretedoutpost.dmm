@@ -147,7 +147,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "C" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "D" = (

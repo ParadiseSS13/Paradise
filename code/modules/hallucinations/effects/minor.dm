@@ -68,7 +68,7 @@
 		var/obj/machinery/door/airlock/A = pick_n_take(airlocks)
 		if(A.locked)
 			continue
-		addtimer(CALLBACK(src, .proc/do_bolt, A), num_bolted++ * rand(5, 7))
+		addtimer(CALLBACK(src, PROC_REF(do_bolt), A), num_bolted++ * rand(5, 7))
 		bolt_amount--
 
 /**
@@ -86,8 +86,8 @@
 	target?.playsound_local(get_turf(A), A.boltDown, 30, FALSE, 3)
 	LAZYSET(bolted, A, bolt_overlay)
 	// Timer and signal to turn it off (only one can happen)
-	RegisterSignal(A, COMSIG_AIRLOCK_OPEN, .proc/do_unbolt)
-	addtimer(CALLBACK(src, .proc/do_unbolt, A, bolt_overlay), bolt_duration)
+	RegisterSignal(A, COMSIG_AIRLOCK_OPEN, PROC_REF(do_unbolt))
+	addtimer(CALLBACK(src, PROC_REF(do_unbolt), A, bolt_overlay), bolt_duration)
 
 /**
   * Called in a timer to fake unbolt the given airlock.

@@ -1,5 +1,6 @@
 /obj/item/aicard
 	name = "inteliCard"
+	desc = "A handy pocket card used to extract an artificial intelligence for transport."
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
 	item_state = "electronic"
@@ -98,7 +99,7 @@
 			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == STATUS_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
 				msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].", ATKLOG_FEW)
 				add_attack_logs(user, AI, "Wiped with [src].")
-				INVOKE_ASYNC(src, .proc/wipe_ai)
+				INVOKE_ASYNC(src, PROC_REF(wipe_ai))
 
 		if("radio")
 			AI.aiRadio.disabledAi = !AI.aiRadio.disabledAi

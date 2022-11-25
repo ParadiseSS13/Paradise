@@ -8,7 +8,8 @@
 	department_head = list("Nanotrasen Navy Officer")
 	selection_color = "#ccccff"
 	req_admin_notify = 1
-	is_command = 1
+	is_command = TRUE
+	department_account_access = TRUE
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
@@ -67,6 +68,7 @@
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
+	department_account_access = TRUE
 	exp_map = list(EXP_TYPE_COMMAND = 1200)
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_EVA, ACCESS_HEADS,

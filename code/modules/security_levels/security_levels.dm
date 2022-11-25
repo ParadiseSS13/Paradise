@@ -32,7 +32,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 		switch(level)
 			if(SEC_LEVEL_GREEN)
-				GLOB.security_announcement.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.", 'sound/AI/green.ogg')
+				GLOB.security_announcement.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.", new_sound2 = 'sound/AI/green.ogg')
 				GLOB.security_level = SEC_LEVEL_GREEN
 				unset_stationwide_emergency_lighting()
 				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
@@ -40,9 +40,11 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
-					GLOB.security_announcement.Announce("The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.","Attention! Security level elevated to blue.", 'sound/AI/blue.ogg')
+					GLOB.security_announcement.Announce("The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted.", "Attention! Security level elevated to blue.",
+					new_sound = 'sound/misc/notice1.ogg',
+					new_sound2 = 'sound/AI/blue.ogg')
 				else
-					GLOB.security_announcement.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.", 'sound/AI/blue.ogg')
+					GLOB.security_announcement.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.", "Attention! Security level lowered to blue.", new_sound2 = 'sound/AI/blue.ogg')
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
@@ -51,9 +53,11 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
-					GLOB.security_announcement.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", 'sound/AI/red.ogg')
+					GLOB.security_announcement.Announce("There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.", "Attention! Code Red!",
+					new_sound = 'sound/misc/notice1.ogg',
+					new_sound2 = 'sound/AI/red.ogg')
 				else
-					GLOB.security_announcement.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!", 'sound/AI/red.ogg')
+					GLOB.security_announcement.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.", "Attention! Code Red!", new_sound2 = 'sound/AI/red.ogg')
 					unset_stationwide_emergency_lighting()
 				GLOB.security_level = SEC_LEVEL_RED
 
@@ -83,7 +87,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 						continue
 					SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
 				set_stationwide_emergency_lighting()
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/epsilon_process), 15 SECONDS)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(epsilon_process)), 15 SECONDS)
 				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 				return
 
@@ -183,7 +187,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				L.fire_mode = TRUE
 			L.on = FALSE
 			L.emergency_mode = TRUE
-			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /proc/unset_stationwide_emergency_lighting()
 	for(var/area/A as anything in GLOB.all_areas)
@@ -200,7 +204,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			L.fire_mode = FALSE
 			L.emergency_mode = FALSE
 			L.on = TRUE
-			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /proc/epsilon_process()
 	GLOB.security_announcement.Announce("Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated.", "Attention! Epsilon security level activated!", 'sound/effects/purge_siren.ogg')

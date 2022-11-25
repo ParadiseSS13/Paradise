@@ -44,7 +44,7 @@
 		slaved.leave_serv_hud(owner)
 		owner.som = null
 
-	owner.current.client.chatOutput?.clear_syndicate_codes()
+	owner.current.client?.chatOutput?.clear_syndicate_codes()
 
 	// Try removing their uplink, check PDA
 	var/mob/M = owner.current

@@ -8,7 +8,7 @@
 
 /datum/action/changeling/sting/New(Target)
 	. = ..()
-	click_override = new(CALLBACK(src, .proc/try_to_sting))
+	click_override = new(CALLBACK(src, PROC_REF(try_to_sting)))
 
 /datum/action/changeling/sting/Destroy(force, ...)
 	if(cling.owner.current.middleClickOverride == click_override)
@@ -137,7 +137,7 @@
 
 /datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "LSD sting (changeling)")
-	addtimer(CALLBACK(src, .proc/start_hallucinations, target, 400 SECONDS), rand(30 SECONDS, 60 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(start_hallucinations), target, 400 SECONDS), rand(30 SECONDS, 60 SECONDS))
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

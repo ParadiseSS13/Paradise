@@ -313,7 +313,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	universal_speak = TRUE
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)
+	lifetime_timer = addtimer(CALLBACK(src, PROC_REF(autocleanup)), 10 SECONDS, TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -385,14 +385,16 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/displayname = M.name	// grab the display name (name you get when you hover over someone's icon)
 	var/voicemask = 0 // the speaker is wearing a voice mask
 	var/jobname // the mob's "job"
+	var/rankname // the formatting to be used for the mob's job
 
-	if(jammed)
-		Gibberish_all(message_pieces, 100)
+	if(jammed && !syndiekey)
+		Gibberish_all(message_pieces, 100, 70)
 
 	// --- Human: use their actual job ---
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		jobname = H.get_assignment()
+		rankname = H.get_authentification_rank()
 
 	// --- Carbon Nonhuman ---
 	else if(iscarbon(M)) // Nonhuman carbon mob
@@ -427,6 +429,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
 		jobname = "Unknown"
+		rankname = "Unknown"
 		voicemask = TRUE
 
 	// Copy the message pieces so we can safely edit comms line without affecting the actual line
@@ -438,6 +441,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/datum/tcomms_message/tcm = new
 	tcm.sender_name = displayname
 	tcm.sender_job = jobname
+	tcm.sender_rank = rankname
 	tcm.message_pieces = message_pieces_copy
 	tcm.source_level = position.z
 	tcm.freq = connection.frequency
@@ -463,7 +467,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
-			addtimer(CALLBACK(src, .proc/broadcast_callback, tcm), 2 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(broadcast_callback), tcm), 2 SECONDS)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not, on all z levels
 			for(var/z in 1 to world.maxz)
@@ -591,7 +595,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/emp_act(severity)
 	on = FALSE
 	disable_timer++
-	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
+	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")

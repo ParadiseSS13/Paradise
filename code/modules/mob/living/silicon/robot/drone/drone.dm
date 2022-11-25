@@ -215,7 +215,7 @@
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-	addtimer(CALLBACK(src, .proc/shut_down, TRUE), EMAG_TIMER)
+	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
 
 	emagged = TRUE
 	density = TRUE
