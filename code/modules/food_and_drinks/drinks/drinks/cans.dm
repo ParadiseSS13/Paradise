@@ -44,7 +44,7 @@
 /obj/item/reagent_containers/food/drinks/cans/CtrlClick(mob/user)
 	var/mob/living/carbon/human/H
 	if(!can_shake || !ishuman(user))
-		return
+		return ..()
 	H = user
 	if(can_opened)
 		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
