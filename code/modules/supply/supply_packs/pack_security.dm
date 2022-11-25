@@ -40,7 +40,7 @@
 	containername = "helmet crate"
 
 /datum/supply_packs/security/justiceinbound
-	name = "Standard Justice Enforcer Crat3e"
+	name = "Standard Justice Enforcer Crate"
 	contains = list(/obj/item/clothing/head/helmet/justice,
 					/obj/item/clothing/head/helmet/justice,
 					/obj/item/clothing/head/helmet/justice/escape,
@@ -162,7 +162,7 @@
 	containername = "tactical webbing crate"
 
 /datum/supply_packs/security/armory/swat
-	name = "SWAT gear crate"
+	name = "SWAT Gear Crate"
 	contains = list(/obj/item/clothing/head/helmet/swat,
 					/obj/item/clothing/head/helmet/swat,
 					/obj/item/clothing/suit/space/swat,
