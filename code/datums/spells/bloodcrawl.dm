@@ -62,7 +62,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/dummy/slaughter/relaymove(mob/user, direction)
-	forceMove(get_step(src,direction))
+	forceMove(get_step(src, direction))
 
 /obj/effect/dummy/slaughter/ex_act()
 	return
@@ -91,7 +91,7 @@
 	var/turf/mob_loc = get_turf(L)
 	visible_message("<span class='danger'>[L] sinks into [A].</span>")
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, 1, -1)
-	var/atom/movable/overlay/animation = new /atom/movable/overlay(mob_loc)
+	var/atom/movable/overlay/animation = new(mob_loc)
 	animation.name = "odd blood"
 	animation.density = FALSE
 	animation.anchored = TRUE
@@ -117,8 +117,8 @@
 	victim.emote("scream")
 	A.visible_message("<span class='warning'><b>[L] drags [victim] into [A]!</b></span>")
 	L.stop_pulling()
-	to_chat(L, "<B>You begin to feast on [victim]. You can not move while you are doing this.</B>")
-	A.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
+	to_chat(L, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
+	A.visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</b></span>")
 	var/sound
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/SD = L
@@ -128,7 +128,7 @@
 
 	for(var/i in 1 to 3)
 		playsound(get_turf(L), sound, 100, 1)
-		sleep(30)
+		sleep(3 SECONDS)
 
 	if(!victim)
 		to_chat(L, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
@@ -186,7 +186,7 @@
 	flags = NODROP | ABSTRACT
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/rise_animation(turf/tele_loc, mob/living/L, atom/A)
-	var/atom/movable/overlay/animation = new /atom/movable/overlay(tele_loc)
+	var/atom/movable/overlay/animation = new(tele_loc)
 	animation.name = "odd blood"
 	animation.density = FALSE
 	animation.anchored = TRUE
@@ -196,9 +196,9 @@
 	animation.master = tele_loc
 	animation.dir = L.dir
 	if(prob(25) && isdemon(L))
-		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
+		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice),50, 1, -1)
-	A.visible_message("<span class='warning'><B>[L] rises out of [A]!</B>")
+	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b>")
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 	QDEL_IN(animation, 0.6 SECONDS)
 

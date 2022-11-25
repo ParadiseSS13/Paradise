@@ -40,8 +40,8 @@
 	base_cooldown = 10 SECONDS
 	fireball_type = /obj/item/projectile/magic/shadow_hand
 
-	selection_activated_message		= "<span class='notice'>You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B></span>"
-	selection_deactivated_message	= "<span class='notice'>You re-absorb the energy...for now.</span>"
+	selection_activated_message = "<span class='notice'>You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b></span>"
+	selection_deactivated_message = "<span class='notice'>You re-absorb the energy...for now.</span>"
 
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
@@ -61,8 +61,7 @@
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
 		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor)
-	. = ..()
-
+	return ..()
 
 /obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
