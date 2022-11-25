@@ -107,35 +107,39 @@
 	return 0
 
 //Drops the item in our left hand
-/mob/proc/drop_l_hand(force = FALSE)
-	return unEquip(l_hand, force) //All needed checks are in unEquip
+/mob/proc/drop_l_hand(force = FALSE, willing)
+	return unEquip(l_hand, force, willing = willing) //All needed checks are in unEquip
 
 //Drops the item in our right hand
-/mob/proc/drop_r_hand(force = FALSE)
-	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
+/mob/proc/drop_r_hand(force = FALSE, willing)
+	return unEquip(r_hand, force, willing = willing) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
-/mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
+/mob/proc/drop_item(willing = FALSE) //THIS. DOES. NOT. NEED. AN. ARGUMENT. // screw you
 	if(hand)
-		return drop_l_hand()
+		return drop_l_hand(FALSE, willing)
 	else
-		return drop_r_hand()
+		return drop_r_hand(FALSE, willing)
 
 //Here lie unEquip and before_item_take, already forgotten and not missed.
 
 /mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
-		return 1
+		return TRUE
 	if((I.flags & NODROP) && !force)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
-/mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
+/mob/proc/unEquip(obj/item/I, force, silent = FALSE, willing) //Force overrides NODROP for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
+	var/drop_loc = TRUE
 	if(!canUnEquip(I, force))
-		return 0
+		if(!((I.flags & DROP_TELEPORT) && willing))
+			return 0
+		SEND_SIGNAL(I, COMSIG_ITEM_DROP_TELEPORT)
+		drop_loc = FALSE // Moving it is handled elsewhere
 
 	if(I == r_hand)
 		r_hand = null
@@ -150,7 +154,8 @@
 	if(I)
 		if(client)
 			client.screen -= I
-		I.forceMove(drop_location())
+		if(drop_loc)
+			I.forceMove(drop_location())
 		I.dropped(src, silent)
 		if(I)
 			I.layer = initial(I.layer)

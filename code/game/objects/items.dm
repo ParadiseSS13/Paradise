@@ -131,6 +131,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
+	/// A linked implant to teleport to
+	var/obj/item/organ/internal/cyberimp/linked_implant
+
 /obj/item/New()
 	..()
 
@@ -173,6 +176,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		m.unEquip(src, 1)
 	QDEL_LIST(actions)
 	master = null
+	linked_implant = null
+	UnregisterSignal(src, COMSIG_ITEM_DROP_TELEPORT)
 	return ..()
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
@@ -815,3 +820,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
 /obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)
 	return
+
+/obj/item/proc/retract_to_linked_implant()
+	SIGNAL_HANDLER
+	if(istype(linked_implant, /obj/item/organ/internal/cyberimp/arm))
+		var/obj/item/organ/internal/cyberimp/arm/arm_implant = linked_implant
+		arm_implant.retract_and_show_radial()
