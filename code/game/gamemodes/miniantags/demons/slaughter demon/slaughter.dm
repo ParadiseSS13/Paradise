@@ -17,7 +17,7 @@
 	var/cooldown = 0
 	var/gorecooldown = 0
 	var/vialspawned = FALSE
-	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon)
+	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
 	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
 						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
@@ -205,7 +205,7 @@
 
 //////////The Loot
 
-//The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
+// Demon heart base type
 /obj/item/organ/internal/heart/demon
 	name = "demon heart"
 	desc = "Still it beats furiously, emanating an aura of utter hate."
@@ -219,10 +219,21 @@
 /obj/item/organ/internal/heart/demon/prepare_eat()
 	return // Just so people don't accidentally waste it
 
+/obj/item/organ/internal/heart/demon/Stop()
+	return 0 // Always beating.
+
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
+
+//////////The Loot
+
+//The loot from killing a slaughter demon - can be consumed to allow the user to blood crawl
+/// SLAUGHTER DEMON HEART
+
+/obj/item/organ/internal/heart/demon/slaughter/attack_self(mob/living/user)
+	..()
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
 	if(!HAS_TRAIT(user, TRAIT_BLOODCRAWL))
@@ -244,21 +255,17 @@
 	to_chat(user, "<span class='warning'>...and you don't feel any different.</span>")
 	qdel(src)
 
-/obj/item/organ/internal/heart/demon/insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = 0)
 	. = ..()
 	if(M.mind)
 		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
-/obj/item/organ/internal/heart/demon/remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = 0)
 	..()
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, "bloodcrawl")
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
-
-/obj/item/organ/internal/heart/demon/Stop()
-	return 0 // Always beating.
-
 
 /mob/living/simple_animal/demon/slaughter/laughter
 	// The laughter demon! It's everyone's best friend! It just wants to hug

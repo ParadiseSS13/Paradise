@@ -5,6 +5,7 @@
 	icon_state = "shadow_demon"
 	icon_living = "shadow_demon"
 	move_resist = MOVE_FORCE_STRONG
+	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
@@ -76,3 +77,23 @@
 
 /obj/effect/ebeam/floor
 	plane = FLOOR_PLANE
+
+/obj/item/organ/internal/heart/demon/shadow
+	name = "heart of darkness"
+	desc = "It still beats furiously, emitting an aura of fear."
+	color = COLOR_BLACK
+
+/obj/item/organ/internal/heart/demon/shadow/attack_self(mob/living/user)
+	. = ..()
+	user.drop_item()
+	insert(user)
+
+/obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = 0)
+	. = ..()
+	if(M.mind)
+		M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+
+/obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = 0)
+	..()
+	if(M.mind)
+		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
