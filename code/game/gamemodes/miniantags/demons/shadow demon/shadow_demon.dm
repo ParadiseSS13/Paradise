@@ -23,11 +23,9 @@
 
 
 /mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(!isliving(AM)) // when a living creature is thrown at it, it slam
-		return ..()
-	var/mob/living/L = AM
-	do_attack_animation(L, ATTACK_EFFECT_SMASH)
-	L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
+	if(isliving(AM)) // when a living creature is thrown at it, dont knock it back
+		return
+	..()
 
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
@@ -46,6 +44,7 @@
 
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
+	panel = "Demon"
 
 	sound = null
 	invocation_type = "none"
@@ -67,13 +66,13 @@
 /obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	if(!isliving(target))
-		var/turf/T = get_turf(target)
-		firer.throw_at(T, 50, 10)
+		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
 	else
 		var/mob/living/L = target
 		L.Immobilize(2 SECONDS)
+		L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
 		L.extinguish_light(TRUE)
-		L.throw_at(firer, 50, 10)
+		L.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
 
 /obj/effect/ebeam/floor
 	plane = FLOOR_PLANE

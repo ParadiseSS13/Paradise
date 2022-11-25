@@ -367,7 +367,6 @@
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
 	set waitfor = 0
 	SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
-	SEND_SIGNAL(hit_atom, COMSIG_MOVABLE_THROWN_HIT)
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
