@@ -5425,7 +5425,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sR" = (
-/obj/machinery/economy/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sS" = (
@@ -6794,10 +6794,6 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
-"yy" = (
-/obj/machinery/economy/vending/tool/free,
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -65347,7 +65343,7 @@ BZ
 BY
 BZ
 Yi
-yy
+sR
 XJ
 kD
 tX
