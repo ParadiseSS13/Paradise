@@ -2,7 +2,9 @@
 <!-- You can view Contributing.MD for a detailed description of the pull request process. -->
 
 ## What Does This PR Do
-<!-- Include a small to medium description of what your PR changes. Document all changes, as not doing this may delay reviews or even discourage maintainers from merging your PR! -->
+<!-- Include a small to medium description of what your PR changes. -->
+<!-- Document all changes, as not doing this may delay reviews or even discourage maintainers from merging your PR! -->
+<!-- If your PR fixes an issue, add "Fixes #1234" somewhere in the PR description. This will automatically close the bug upon PR submission. -->
 
 ## Why It's Good For The Game
 <!-- Add a short description of why you think these changes would benefit the game. If you can't justify it in words, it might not be worth adding. -->

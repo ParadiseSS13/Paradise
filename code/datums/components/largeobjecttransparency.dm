@@ -11,6 +11,8 @@
 	var/target_alpha
 	//if this is supposed to prevent clicks if it's transparent.
 	var/toggle_click
+	//The atom's mouse opacity, so it's restored to its default
+	var/initial_mouse_opacity
 	var/list/registered_turfs
 	var/amounthidden = 0
 
@@ -21,13 +23,14 @@
 	y_offset = _y_offset
 	x_size = _x_size
 	y_size = _y_size
+	var/atom/at = parent
 	if(isnull(_initial_alpha))
-		var/atom/at = parent
 		initial_alpha = at.alpha
 	else
 		initial_alpha = _initial_alpha
 	target_alpha = _target_alpha
 	toggle_click = _toggle_click
+	initial_mouse_opacity = at.mouse_opacity
 	registered_turfs = list()
 
 
@@ -102,4 +105,4 @@
 	var/atom/parent_atom = parent
 	animate(parent_atom, alpha = initial_alpha, 0.5 SECONDS)
 	if(toggle_click)
-		parent_atom.mouse_opacity = MOUSE_OPACITY_OPAQUE
+		parent_atom.mouse_opacity = initial_mouse_opacity

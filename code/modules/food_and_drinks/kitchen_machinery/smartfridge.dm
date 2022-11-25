@@ -432,7 +432,7 @@
   * # Seed Storage
   *
   * Seeds variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
+  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/economy/vending/hydroseeds].
   */
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
