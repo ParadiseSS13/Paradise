@@ -1,6 +1,6 @@
 /mob/living/simple_animal/demon/shadow
 	name = "shadow demon"
-	desc = "A creature thats barely tangable, you can feel its gaze pierce you."
+	desc = "A creature that's barely tangible, you can feel its gaze piercing you"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "shadow_demon"
 	icon_living = "shadow_demon"
@@ -31,10 +31,10 @@
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grappel)
+	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
 	AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl)
 
-/obj/effect/proc_holder/spell/fireball/shadow_grappel
+/obj/effect/proc_holder/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"
 	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure."
 	base_cooldown = 10 SECONDS
@@ -50,7 +50,7 @@
 	invocation_type = "none"
 	invocation = null
 
-/obj/effect/proc_holder/spell/fireball/shadow_grappel/update_icon_state()
+/obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
 	return
 
 /obj/item/projectile/magic/shadow_hand
