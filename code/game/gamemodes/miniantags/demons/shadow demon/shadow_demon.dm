@@ -57,6 +57,7 @@
 	name = "shadow hand"
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
+	var/hit = FALSE
 
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
@@ -64,6 +65,9 @@
 	return ..()
 
 /obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
+	if(hit)
+		return
+	hit = TRUE // to prevent double hits from the pull
 	. = ..()
 	if(!isliving(target))
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
