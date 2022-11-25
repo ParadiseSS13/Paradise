@@ -78,10 +78,6 @@
 /mob/living/simple_animal/demon/slaughter/proc/release_consumed(mob/living/M)
 	M.forceMove(get_turf(src))
 
-/mob/living/simple_animal/demon/slaughter/phasein()
-	. = ..()
-	speed = 0
-	boost = world.time + 60
 
 // Midround slaughter demon, less tanky
 

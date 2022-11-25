@@ -198,7 +198,6 @@
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/simple_animal/demon/slaughter/S = new demon_type(holder)
 	S.vialspawned = TRUE
-	S.holder = holder
 	S.key = C.key
 	S.mind.assigned_role = S.name
 	S.mind.special_role = S.name

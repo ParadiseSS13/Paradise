@@ -27,7 +27,6 @@
 		return
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
 	var/mob/living/simple_animal/demon/S = new demon(holder)
-	S.holder = holder
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = "Demon"
 	player_mind.special_role = SPECIAL_ROLE_DEMON

@@ -13,7 +13,9 @@
 	if(lum_count > 0.2)
 		adjustBruteLoss(40) // 10 seconds in light
 		throw_alert("light", /obj/screen/alert/lightexposure)
+		alpha = 255
 	else
+		alpha = 125
 		adjustBruteLoss(-20)
 		clear_alert("light")
 
@@ -33,31 +35,32 @@
 	AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl)
 
 /obj/effect/proc_holder/spell/fireball/shadow_grappel
-	name = "Shadow Grappel"
+	name = "Shadow Grapple"
 	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure."
-	gain_desc = "You have gained the ability to snare and disrupt people with demonic apendages."
 	base_cooldown = 10 SECONDS
 	fireball_type = /obj/item/projectile/magic/shadow_hand
 
 	selection_activated_message		= "<span class='notice'>You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You re-absorb the energy...for now.</span>"
 
-	action_icon_state = "demonic_grasp"
+	action_background_icon_state = "shadow_demon_bg"
+	action_icon_state = "shadow_grapple"
 
 	sound = null
 	invocation_type = "none"
 	invocation = null
 
-/obj/effect/proc_holder/spell/fireball/demonic_grasp/update_icon_state()
+/obj/effect/proc_holder/spell/fireball/shadow_grappel/update_icon_state()
 	return
 
 /obj/item/projectile/magic/shadow_hand
 	name = "shadow hand"
 	icon_state = "shadow_hand"
+	plane = FLOOR_PLANE
 
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
-		firer.Beam(src, icon_state = "black_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor)
 	. = ..()
 
 
@@ -71,3 +74,6 @@
 		L.Immobilize(2 SECONDS)
 		L.extinguish_light(TRUE)
 		L.throw_at(firer, 50, 10)
+
+/obj/effect/ebeam/floor
+	plane = FLOOR_PLANE
