@@ -677,11 +677,9 @@
 	target.adjustStaminaLoss(60) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/organ/internal/cyberimp/arm/katana/O in H.internal_organs)
-			if(O.holder == src)
-				O.Retract()
+	if(istype(linked_implant, /obj/item/organ/internal/cyberimp/arm))
+		var/obj/item/organ/internal/cyberimp/arm/arm_implant = linked_implant
+		arm_implant.Retract()
 	shattered = TRUE
 	addtimer(CALLBACK(src, PROC_REF(coagulate), user), 45 SECONDS)
 

@@ -252,7 +252,7 @@
 /obj/item/flash/armimplant/burn_out()
 	if(istype(linked_implant, /obj/item/organ/internal/cyberimp/arm))
 		var/obj/item/organ/internal/cyberimp/arm/arm_implant = linked_implant
-		if(arm_implant && arm_implant.owner)
+		if(arm_implant.owner)
 			to_chat(arm_implant.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
 			arm_implant.Retract()
 	else
