@@ -174,6 +174,13 @@
 	for(var/I in 1 to 6)
 		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
 
+/obj/item/storage/box/syndie_kit/assassination
+	name = "shotgun shells"
+
+/obj/item/storage/box/syndie_kit/assassination/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/ammo_casing/shotgun/assassination(src)
+
 /obj/item/storage/box/syndie_kit/emp
 	name = "boxed EMP kit"
 

@@ -320,6 +320,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Bartender")
 
+/datum/uplink_item/jobspecific/assassinationbullets
+	name = "Assasination Shotgun Shells"
+	desc = "A box containing 6 specialised shrapnel shells laced with a silencing toxin, useful for close range assassination."
+	reference = "ASS"
+	item = /obj/item/storage/box/syndie_kit/assassination
+	cost = 6
+	job = list("Bartender")
+
 //Barber
 
 /datum/uplink_item/jobspecific/safety_scissors //Hue
