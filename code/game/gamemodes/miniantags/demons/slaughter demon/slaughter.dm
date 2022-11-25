@@ -320,7 +320,7 @@
 	for(var/datum/mind/M in get_owners())
 		if(!isslaughterdemon(M.current) || QDELETED(M.current))
 			continue
-		var/mob/living/simple_animal/slaughter/R = M.current
+		var/mob/living/simple_animal/demon/slaughter/R = M.current
 		kill_count += R.devoured
 	if(kill_count >= targetKill)
 		return TRUE
