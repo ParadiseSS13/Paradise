@@ -20,7 +20,8 @@
 	. = ..()
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/kitchen.dmi', "icecream_color")
 	var/list/reagent_colors = rgb2num(mix_color_from_reagents(reagents.reagent_list), COLORSPACE_HSV)  //switching to HSV colorspace lets us easily manipulate the saturation and brightness independently
-	filling.color = rgb(reagent_colors[1], ((1.5*reagent_colors[2])-10), (clamp(reagent_colors[3], 85, 100)-10), space = COLORSPACE_HSV) //Clamping the brightness keeps us from having greyish ice cream while still alowing for a range of colours
+	//Clamping the brightness keeps us from having greyish ice cream while still alowing for a range of colours
+	filling.color = rgb(reagent_colors[1], ((1.5 * reagent_colors[2]) - 10), (clamp(reagent_colors[3], 85, 100) - 10), space = COLORSPACE_HSV) 
 	. += filling
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcone
