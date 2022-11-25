@@ -392,7 +392,7 @@
 	if(!occupant && air_contents.total_moles() < 10)
 		return
 
-	if(occupant.stat == DEAD || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
+	if(occupant.stat == DEAD || !(occupant.has_organic_damage() || occupant.has_mutated_organs())) // Why waste energy on dead or healthy people
 		occupant.bodytemperature = T0C
 		return
 
