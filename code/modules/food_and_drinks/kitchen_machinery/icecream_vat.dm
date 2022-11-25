@@ -61,7 +61,7 @@
 	if(reagents.total_volume < 500)
 		to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
 		playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
-	return 1
+	return TRUE
 
 
 /obj/machinery/icemachine/Topic(href, href_list)
