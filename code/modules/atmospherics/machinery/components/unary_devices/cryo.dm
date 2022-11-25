@@ -164,10 +164,10 @@
 	if(!occupant)
 		return
 
-	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
+	if(auto_eject_prefs & AUTO_EJECT_DEAD && occupant.stat == DEAD)
 		auto_eject(AUTO_EJECT_DEAD)
 		return
-	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+	if(auto_eject_prefs & AUTO_EJECT_HEALTHY && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
 		auto_eject(AUTO_EJECT_HEALTHY)
 		return
 
@@ -178,9 +178,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
 	..()
-	if(!node)
-		return
-	if(!on)
+	if(!node || !on)
 		return
 
 	if(air_contents)
@@ -391,29 +389,34 @@
 				running_bob_animation = FALSE
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
-	if(air_contents.total_moles() < 10)
+	if(!occupant && air_contents.total_moles() < 10)
 		return
-	if(occupant)
-		if(occupant.stat == 2 || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
-			occupant.bodytemperature = T0C
-			return
-		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
-		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
-		if(occupant.bodytemperature < T0C)
-			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
-			occupant.Sleeping(stun_time)
-			occupant.Paralyse(stun_time)
-			if(air_contents.oxygen > 2)
-				if(occupant.getOxyLoss())
-					occupant.adjustOxyLoss(-6)
-			else
-				occupant.adjustOxyLoss(-1.2)
-		if(beaker && next_trans == 0)
-			var/proportion = 10 * min(1/beaker.volume, 1)
-			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
-			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
-			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
-			beaker.reagents.trans_to(occupant, 1, 10)
+
+	if(occupant.stat == DEAD || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
+		occupant.bodytemperature = T0C
+		return
+
+	occupant.bodytemperature += 2 * (air_contents.temperature - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
+	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
+
+	if(occupant.bodytemperature < T0C)
+		var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000 / efficiency)) STATUS_EFFECT_CONSTANT
+		occupant.Sleeping(stun_time)
+		occupant.Paralyse(stun_time)
+
+		if(air_contents.oxygen > 2)
+			if(occupant.getOxyLoss())
+				occupant.adjustOxyLoss(-6)
+		else
+			occupant.adjustOxyLoss(-1.2)
+
+	if(beaker && next_trans == 0)
+		var/proportion = 10 * min(1 / beaker.volume, 1)
+		// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
+		// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
+		beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
+		beaker.reagents.trans_to(occupant, 1, 10)
+
 	next_trans++
 	if(next_trans == 17)
 		next_trans = 0
