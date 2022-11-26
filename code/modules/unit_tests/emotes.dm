@@ -40,8 +40,6 @@
 			Fail("emote [cur_emote]'s max_unintentional_stat_allowed is greater than its unintentional_stat_allowed, and would be unusable.")
 
 
-/datum/unit_test/emote/proc/has_punctuation(datum/emote/E, msg)
-	return E.remove_ending_punctuation(msg) == msg
 
 /datum/unit_test/emote/proc/get_emote_keybinds()
 	var/list/bound_emotes = list()
