@@ -255,4 +255,8 @@
 		to_chat(implant.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
 		implant.Retract()
 
+/obj/item/flash/armimplant/Destroy()
+	implant = null
+	return ..()
+
 /obj/item/flash/synthetic //just a regular flash now

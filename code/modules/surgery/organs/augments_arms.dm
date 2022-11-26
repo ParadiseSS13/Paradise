@@ -49,11 +49,6 @@
 	. = ..()
 	RegisterSignal(M, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_to_linked_implant))
 
-/obj/item/organ/internal/cyberimp/arm/proc/retract_to_linked_implant()
-	SIGNAL_HANDLER
-	if((owner.hand && parent_organ == "l_arm") || (!owner.hand && parent_organ == "r_arm"))
-		INVOKE_ASYNC(src, PROC_REF(retract_and_show_radial))
-
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
 	. = ..()
@@ -69,6 +64,11 @@
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
+
+/obj/item/organ/internal/cyberimp/arm/proc/retract_to_linked_implant()
+	SIGNAL_HANDLER
+	if(owner.get_active_hand() == holder)
+		INVOKE_ASYNC(src, PROC_REF(retract_and_show_radial))
 
 /obj/item/organ/internal/cyberimp/arm/proc/retract_and_show_radial()
 	Retract()
@@ -225,7 +225,7 @@
 /obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
 		to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
-		items_list += (new /obj/item/kitchen/knife/combat/cyborg(src))
+		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
 		return TRUE
 	return FALSE
 
