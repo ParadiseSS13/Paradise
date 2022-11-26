@@ -15,7 +15,7 @@
 /datum/ui_module/economy_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "EconomyManager", name, 600, 400, master_ui, state)
+		ui = new(user, src, ui_key, "EconomyManager", name, 600, 350, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
@@ -63,8 +63,8 @@
 					log_and_message_admins("has modified the payroll of the [department_input] department's members by [num_input].")
 				if("crew_member")
 					var/account_input = input(ui.user, "Account Number", "Please Specify Account Number.") as null|num
-					var/datum/money_account/account = GLOB.station_money_database.find_user_account(account_input)
-					if(account)
+					var/datum/money_account/account = GLOB.station_money_database.find_user_account(account_input, FALSE)
+					if(!account)
 						return
 					accounts_to_modify += account
 			if(!length(accounts_to_modify))
