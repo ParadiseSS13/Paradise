@@ -14,6 +14,7 @@
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
 	update_icon()
+	START_PROCESSING(SSobj, src)
 
 /turf/simulated/floor/light/update_icon_state()
 	if(on)
@@ -25,7 +26,19 @@
 
 /turf/simulated/floor/light/BeforeChange()
 	set_light(0)
+	STOP_PROCESSING(SSobj, src)
 	..()
+
+/turf/simulated/floor/light/process()
+	if(power_check() || !on)
+		return
+	extinguish_light()
+
+/turf/simulated/floor/light/proc/power_check()
+	var/area/A = get_area(src)
+	if(!A)
+		return FALSE
+	return A.powered(LIGHT)
 
 /turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)
@@ -71,6 +84,9 @@
 		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
 
 /turf/simulated/floor/light/proc/toggle_light(light)
+	if(!on && !power_check())
+		visible_message("<span class='danger'>[src] doesn't react, it seems to be out of power.</span>")
+		return
 	// 0 = OFF
 	// 1 = ON
 	on = light
