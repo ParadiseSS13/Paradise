@@ -67,7 +67,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/proc/retract_to_linked_implant()
 	SIGNAL_HANDLER
-	if(owner.get_active_hand() == holder)
+	if(holder && holder == owner.get_active_hand())
 		INVOKE_ASYNC(src, PROC_REF(retract_and_show_radial))
 
 /obj/item/organ/internal/cyberimp/arm/proc/retract_and_show_radial()
