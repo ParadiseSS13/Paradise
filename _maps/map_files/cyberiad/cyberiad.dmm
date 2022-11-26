@@ -77464,7 +77464,6 @@
 /area/medical/morgue)
 "laL" = (
 /obj/structure/table,
-/obj/item/storage/photo_album,
 /obj/item/camera,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
@@ -81852,7 +81851,7 @@
 /area/maintenance/apmaint)
 "oGf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/cola/free,
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -82249,7 +82248,8 @@
 	},
 /area/medical/virology)
 "oWe" = (
-/obj/machinery/economy/vending/coffee/free,
+/obj/structure/table,
+/obj/item/storage/photo_album,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "oWz" = (
