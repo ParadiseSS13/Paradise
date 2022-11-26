@@ -21,7 +21,8 @@
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely healthy patients.
 	var/auto_eject_prefs = AUTO_EJECT_HEALTHY | AUTO_EJECT_DEAD
 
-	var/next_trans = 0
+	var/last_injection
+	var/injection_cooldown = 34 SECONDS
 	var/current_heat_capacity = 50
 	var/efficiency
 
@@ -410,16 +411,13 @@
 		else
 			occupant.adjustOxyLoss(-1.2)
 
-	if(beaker && next_trans == 0)
+	if(beaker && world.time >= last_injection + injection_cooldown)
+		// Take 1u from the beaker mix, react and inject 10x the amount
 		var/proportion = 10 * min(1 / beaker.volume, 1)
-		// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
-		// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
 		beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
 		beaker.reagents.trans_to(occupant, 1, 10)
 
-	next_trans++
-	if(next_trans == 17)
-		next_trans = 0
+		last_injection = world.time
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
 	if(air_contents.total_moles() < 1)
