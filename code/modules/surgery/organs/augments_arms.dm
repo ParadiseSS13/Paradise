@@ -23,9 +23,6 @@
 	slot = parent_organ + "_device"
 	items_list = contents.Copy()
 
-	for(var/obj/item/item as anything in items_list)
-		item.linked_implant = src
-
 /obj/item/organ/internal/cyberimp/arm/update_icon_state()
 	if(parent_organ == "r_arm")
 		transform = null
@@ -48,6 +45,14 @@
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	RegisterSignal(M, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_to_linked_implant))
+
+/obj/item/organ/internal/cyberimp/arm/proc/retract_to_linked_implant()
+	SIGNAL_HANDLER
+	if((owner.hand && parent_organ == "l_arm") || (!owner.hand && parent_organ == "r_arm"))
+		INVOKE_ASYNC(src, PROC_REF(retract_and_show_radial))
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -64,10 +69,6 @@
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
-
-/obj/item/organ/internal/cyberimp/arm/proc/add_to_items_list(obj/item/item)
-	items_list += item
-	item.linked_implant = src
 
 /obj/item/organ/internal/cyberimp/arm/proc/retract_and_show_radial()
 	Retract()
@@ -91,7 +92,6 @@
 		var/obj/item/flash/F = holder
 		F.set_light(0)
 
-	holder.UnregisterSignal(holder, COMSIG_ITEM_DROP_TELEPORT)
 	owner.unEquip(holder, 1)
 	holder.forceMove(src)
 	holder = null
@@ -103,7 +103,7 @@
 
 	holder = item
 
-	holder.flags |= NODROP | DROP_TELEPORT
+	holder.flags |= NODROP
 	holder.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	holder.slot_flags = null
 	holder.w_class = WEIGHT_CLASS_HUGE
@@ -135,7 +135,6 @@
 		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
-	item.RegisterSignal(item, COMSIG_ITEM_DROP_TELEPORT, PROC_REF(retract_to_linked_implant))
 
 /obj/item/organ/internal/cyberimp/arm/ui_action_click()
 	if(crit_fail || (!holder && !contents.len))
@@ -226,7 +225,7 @@
 /obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
 		to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
-		add_to_items_list(new /obj/item/kitchen/knife/combat/cyborg(src))
+		items_list += (new /obj/item/kitchen/knife/combat/cyborg(src))
 		return TRUE
 	return FALSE
 
@@ -263,6 +262,12 @@
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "flash")
 
+/obj/item/organ/internal/cyberimp/arm/flash/New()
+	..()
+	if(locate(/obj/item/flash/armimplant) in items_list)
+		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
+		F.implant = src
+
 /obj/item/organ/internal/cyberimp/arm/baton
 	name = "arm electrification implant"
 	desc = "An illegal combat implant that allows the user to administer disabling shocks from their arm."
@@ -274,6 +279,12 @@
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm"
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
+
+/obj/item/organ/internal/cyberimp/arm/combat/New()
+	..()
+	if(locate(/obj/item/flash/armimplant) in items_list)
+		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
+		F.implant = src
 
 /obj/item/organ/internal/cyberimp/arm/combat/centcom
 	name = "NT specops cybernetics implant"

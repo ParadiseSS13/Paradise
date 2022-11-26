@@ -27,9 +27,6 @@
 ///Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS			32768
 
-/// forceMove us somewhere when dropped, used for tool-implants
-#define DROP_TELEPORT			(1<<16) // 65536
-
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
 #define UPDATE_NAME (1<<0)
