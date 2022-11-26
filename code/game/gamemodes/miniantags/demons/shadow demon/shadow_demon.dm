@@ -11,8 +11,9 @@
 	. = ..()
 	var/turf/T = get_turf(src)
 	var/lum_count = T.get_lumcount()
+	var/damage_mod = istype(loc, /obj/effect/dummy/slaughter) ? 0.5 : 1
 	if(lum_count > 0.2)
-		adjustBruteLoss(40) // 10 seconds in light
+		adjustBruteLoss(40 * damage_mod) // 10 seconds in light
 		throw_alert("light", /obj/screen/alert/lightexposure)
 		alpha = 255
 	else
@@ -75,8 +76,8 @@
 		var/mob/living/L = target
 		L.Immobilize(2 SECONDS)
 		L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
-		L.extinguish_light(TRUE)
 		L.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
+	target.extinguish_light(TRUE)
 
 /obj/effect/ebeam/floor
 	plane = FLOOR_PLANE
