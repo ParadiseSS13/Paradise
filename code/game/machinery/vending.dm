@@ -515,7 +515,8 @@
 			return
 
 	ui_interact(user)
-	wires.Interact(user)
+	if(panel_open)
+		wires.Interact(user)
 
 /obj/machinery/vending/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

@@ -151,6 +151,52 @@
 
 /mob/living/Carbon/human/verb/teach(/mob/living/Carbon/human/H)
 	set category = null
-	set name = "Teach skill"
+	set name = "Teach"
 	set desc = "Teach someone your skills."
 	set src in view(1)
+
+/obj/item/paper/verb/teachpaper()
+	set name = "Project knowledge"
+	set category = "Object"
+	set src in usr
+	add_fingerprint(usr)
+	var/mob/living/carbon/human/H = usr
+	if(H)
+		visible_message("[usr] begins to scrawl onto the paper")
+		do_after_once(H, H.skills.intelligence * H.skills.wisdom, 1, src, 1, "you need to stay near the paper")
+		visible_message("[usr] finishes scrawling onto the paper")
+		qdel(src)
+		var/obj/item/research/R = new /obj/item/research/
+		R.wisdom = H.skills.wisdom
+		R.intelligence = H.skills.intelligence
+		if(H.hand)
+			H.equip_to_slot_if_possible(R, slot_l_hand, FALSE)
+		else
+			H.equip_to_slot_if_possible(R, slot_r_hand, FALSE)
+		to_chat(H, "you write down all of your knowledge onto this paper")
+
+
+
+/obj/item/research
+	name = "Research Paper"
+	gender = PLURAL
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "paper"
+	item_state = "paper"
+	throwforce = 0
+	w_class = WEIGHT_CLASS_TINY
+	throw_range = 1
+	throw_speed = 1
+	pressure_resistance = 0
+	resistance_flags = FLAMMABLE
+	max_integrity = 50
+	blocks_emissive = null
+	attack_verb = list("bapped")
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	var/wisdom
+	var/intelligence
+
+/obj/item/research/use(used)
+	. = ..()
+	to_chat(used,"you're learning")

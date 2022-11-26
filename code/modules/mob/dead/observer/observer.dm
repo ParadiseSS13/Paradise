@@ -33,6 +33,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 	var/datum/orbit_menu/orbit_menu
+	var/datum/ghost_move_cooldown/Cmove = new /datum/ghost_move_cooldown
+
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -249,6 +251,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(P.control_computer)
 			P.despawn_occupant()
 	return
+/datum/ghost_move_cooldown
+	/// the world.time the spell will be available again
+	var/recharge_time = 0
+	/// the amount of time that must pass before a spell can be used again
+	var/recharge_duration = 3 // default spell cooldown
+	/// does it start off cooldown?
+	var/starts_off_cooldown = FALSE
+
+/datum/ghost_move_cooldown/proc/start_recharge()
+	var/recharge_increment = recharge_duration
+	recharge_time = world.time + recharge_increment
+
+/datum/ghost_move_cooldown/proc/is_on_cooldown()
+	return recharge_time > world.time
 
 // Ghosts have no momentum, being massless ectoplasm
 /mob/dead/observer/Process_Spacemove(movement_dir)
@@ -258,9 +274,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_parallax_contents()
 	setDir(direct)
 	ghostimage.setDir(dir)
-
 	var/oldloc = loc
+	if(NewLoc)
+		var/turf/T = NewLoc
+		if(T.density == 0 & Cmove.is_on_cooldown() == 0)
+			forceMove(NewLoc)
+	if(Cmove.is_on_cooldown() == 0)
+		Cmove.start_recharge()
 	Moved(oldloc, direct)
+
 
 /mob/dead/observer/can_use_hands()	return 0
 

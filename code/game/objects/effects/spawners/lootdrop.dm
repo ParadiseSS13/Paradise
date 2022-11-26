@@ -131,8 +131,8 @@
 				/obj/item/storage/bag/plasticbag = 20,
 				/obj/item/caution = 10,
 				////////////////CONTRABAND STUFF//////////////////
-				/obj/item/dice/d20/fate/one_use = 2,
-				/obj/item/dice/d20/fate/one_use =1,
+				/obj/item/dice/d20/fate/one_use = 4,
+				/obj/item/dice/d20/fate = 1,
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/grenade/smokebomb = 3,
 				/obj/item/seeds/ambrosia/cruciatus = 3,

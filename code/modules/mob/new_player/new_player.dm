@@ -64,11 +64,6 @@
 		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
-	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
-		output += "<p>Observe (Please wait...)</p>"
-	else
-		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
-
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
