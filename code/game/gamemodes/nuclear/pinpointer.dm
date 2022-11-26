@@ -171,6 +171,8 @@
 	point_at_target(the_disk)
 
 /obj/item/pinpointer/advpinpointer/AltClick(mob/user)
+	if(!isliving(user) || !Adjacent(user))
+		return ..()
 	toggle_mode()
 
 /obj/item/pinpointer/advpinpointer/verb/toggle_mode()
