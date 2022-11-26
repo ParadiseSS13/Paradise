@@ -595,7 +595,7 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/department_member/member = new
 		member.name = H.real_name
 		member.role = job.title
-		member.member_account = account
+		member.set_member_account(account) //we need to set this through a proc so we can register signals
 		member.can_approve_crates = job?.department_account_access
 		department.members += member
 
