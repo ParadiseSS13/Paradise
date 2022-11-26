@@ -103,6 +103,7 @@
 
 /mob/proc/drop_item_v()		//this is dumb.
 	if(stat == CONSCIOUS && isturf(loc))
+		SEND_SIGNAL(usr, COMSIG_MOB_WILLINGLY_DROP)
 		return drop_item()
 	return 0
 
