@@ -161,13 +161,13 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(!occupant)
+	if(!on || !occupant)
 		return
 
 	if(auto_eject_prefs & AUTO_EJECT_DEAD && occupant.stat == DEAD)
 		auto_eject(AUTO_EJECT_DEAD)
 		return
-	if(auto_eject_prefs & AUTO_EJECT_HEALTHY && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+	if(auto_eject_prefs & AUTO_EJECT_HEALTHY && !(occupant.has_organic_damage() || occupant.has_mutated_organs()))
 		auto_eject(AUTO_EJECT_HEALTHY)
 		return
 
@@ -389,7 +389,7 @@
 				running_bob_animation = FALSE
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
-	if(!occupant && air_contents.total_moles() < 10)
+	if(air_contents.total_moles() < 10)
 		return
 
 	if(occupant.stat == DEAD || !(occupant.has_organic_damage() || occupant.has_mutated_organs())) // Why waste energy on dead or healthy people
