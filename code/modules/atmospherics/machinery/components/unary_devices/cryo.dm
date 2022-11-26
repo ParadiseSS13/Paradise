@@ -16,14 +16,14 @@
 	max_integrity = 350
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
 	var/temperature_archived
+	var/current_heat_capacity = 50
+
 	var/mob/living/carbon/occupant = null
-	var/obj/item/reagent_containers/glass/beaker = null
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely healthy patients.
 	var/auto_eject_prefs = AUTO_EJECT_HEALTHY | AUTO_EJECT_DEAD
-
+	var/obj/item/reagent_containers/glass/beaker = null
 	var/last_injection
 	var/injection_cooldown = 34 SECONDS
-	var/current_heat_capacity = 50
 	var/efficiency
 
 	var/running_bob_animation = FALSE // This is used to prevent threads from building up if update_icons is called multiple times
@@ -404,11 +404,8 @@
 		var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000 / efficiency)) STATUS_EFFECT_CONSTANT
 		occupant.Sleeping(stun_time)
 
-		if(air_contents.oxygen > 2)
-			if(occupant.getOxyLoss())
-				occupant.adjustOxyLoss(-6)
-		else
-			occupant.adjustOxyLoss(-1.2)
+		var/heal_mod = air_contents.oxygen < 2 ? 0.2 : 1
+		occupant.adjustOxyLoss(-6 * heal_mod)
 
 	if(beaker && world.time >= last_injection + injection_cooldown)
 		// Take 1u from the beaker mix, react and inject 10x the amount
