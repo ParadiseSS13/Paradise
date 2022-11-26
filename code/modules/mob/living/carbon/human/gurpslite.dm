@@ -161,28 +161,30 @@
 	set src in usr
 	add_fingerprint(usr)
 	var/mob/living/carbon/human/H = usr
-	if(H)
+	var/obj/item/P = H.get_active_hand()
+	if(is_pen(P))
 		visible_message("[usr] begins to scrawl onto the paper")
-		do_after_once(H, H.skills.intelligence * H.skills.wisdom, 1, src, 1, "you need to stay near the paper")
-		visible_message("[usr] finishes scrawling onto the paper")
-		qdel(src)
-		var/obj/item/research/R = new /obj/item/research/
-		R.wisdom = H.skills.wisdom
-		R.intelligence = H.skills.intelligence
-		if(H.hand)
-			H.equip_to_slot_if_possible(R, slot_l_hand, FALSE)
-		else
-			H.equip_to_slot_if_possible(R, slot_r_hand, FALSE)
-		to_chat(H, "you write down all of your knowledge onto this paper")
-
+		if(do_after_once(H, H.skills.intelligence * H.skills.wisdom SECONDS, 1, src, 1, "you need to stay near the paper"))
+			visible_message("[usr] finishes scrawling onto the paper")
+			qdel(src)
+			var/obj/item/research/R = new /obj/item/research/
+			R.wisdom = H.skills.wisdom
+			R.intelligence = H.skills.intelligence
+			if(H.hand)
+				H.equip_to_slot_or_del(R, slot_r_hand)
+			else
+				H.equip_to_slot_or_del(R, slot_l_hand)
+			to_chat(H, "you write down all of your knowledge onto this paper")
+	else
+		to_chat(H, "you need to use a pen for this")
 
 
 /obj/item/research
 	name = "Research Paper"
 	gender = PLURAL
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "paper"
-	item_state = "paper"
+	icon_state = "paper_words"
+	item_state = "paper_words"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
@@ -197,6 +199,27 @@
 	var/wisdom
 	var/intelligence
 
-/obj/item/research/use(used)
+/obj/item/research/attack_self(mob/living/carbon/human/user)
 	. = ..()
-	to_chat(used,"you're learning")
+	to_chat(user, "you start studying the paper")
+	if(wisdom > user.skills.wisdom)
+		if(do_after_once(user, intelligence SECONDS, 1, src, 1, "you need to stay near the paper"))
+			setskill(user,"wisdom", wisdom)
+			to_chat(user, "you become wiser")
+	else
+		to_chat(user, "you cannot find anything distincly wiser")
+	if(intelligence > user.skills.intelligence)
+		if(do_after_once(user, intelligence SECONDS, 1, src, 1, "you need to stay near the paper"))
+			setskill(user,"intelligence", intelligence)
+			to_chat(user, "you become smarter")
+	else
+		to_chat(user, "you cannot find anything distincly smarter")
+
+/obj/item/research/lootable
+	wisdom = 5
+	intelligence = 5
+
+/obj/item/research/lootable/Initialize(mapload)
+	. = ..()
+	wisdom = roll_dice(10,FALSE, FALSE, 2)
+	intelligence = roll_dice(10,FALSE, FALSE, 2)
