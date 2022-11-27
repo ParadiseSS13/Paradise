@@ -165,9 +165,9 @@
 	var/mob/living/carbon/human/H = usr
 	var/obj/item/P = H.get_active_hand()
 	if(is_pen(P))
-		visible_message("[usr] begins to scrawl onto the paper")
-		if(do_after_once(H, H.skills.intelligence * H.skills.wisdom SECONDS, 1, src, 1, "you need to stay near the paper"))
-			visible_message("[usr] finishes scrawling onto the paper")
+		visible_message("[usr] begins to scrawl onto the [src]")
+		if(do_after_once(H, H.skills.intelligence * H.skills.wisdom SECONDS, 1, src, 1, "you decide not to write anything down"))
+			visible_message("[usr] finishes scrawling onto the [src]")
 			qdel(src)
 			var/obj/item/research/R = new /obj/item/research/
 			R.wisdom = H.skills.wisdom
@@ -176,7 +176,8 @@
 				H.equip_to_slot_or_del(R, slot_r_hand)
 			else
 				H.equip_to_slot_or_del(R, slot_l_hand)
-			to_chat(H, "you write down all of your knowledge onto this paper")
+			R.add_fingerprint(user)
+			to_chat(H, "you write down all of your knowledge onto this [src]")
 	else
 		to_chat(H, "you need to use a pen for this")
 
@@ -202,21 +203,87 @@
 	var/wisdom
 	var/intelligence
 
+/obj/item/research/attacked_by(obj/item/I, mob/living/user)
+	add_fingerprint(user)
+	var/mob/living/carbon/human/H = user
+	if(istype(I, /obj/item/research))
+		var/obj/item/research/P = I
+		if(wisdom == P.wisdom & intelligence == P.intelligence)
+			visible_message("[user] begins to study both of the [src] together")
+			if(do_after_once(H, H.skills.intelligence * H.skills.wisdom SECONDS, 1, src, 1, "you decide not to study"))
+				visible_message("[user] combines the [src]")
+				qdel(src)
+				qdel(P)
+				var/obj/item/paper_bundle/B = new(src.loc, default_papers = FALSE)
+				if(wisdom < 20)
+					R.wisdom = wisdom + 1
+				if(intelligence < 20)
+					R.intelligence = intelligence + 1
+				if(H.hand)
+					H.equip_to_slot_or_del(R, slot_r_hand)
+				else
+					H.equip_to_slot_or_del(R, slot_l_hand)
+				R.add_fingerprint(user)
+				to_chat(H, "you put the [src] together into a combined report")
+			else
+				to_chat(H, "none of it seems to make sense together...")
+		else
+			to_chat(H, "none of it seems to make sense together...")
+	else
+		to_chat(H, "none of it seems to make sense together...")
+
 /obj/item/research/attack_self(mob/living/carbon/human/user)
 	. = ..()
-	to_chat(user, "you start studying the paper")
+	to_chat(user, "you start studying the [src]")
 	if(wisdom > user.skills.wisdom)
-		if(do_after_once(user, intelligence SECONDS, 1, src, 1, "you need to stay near the paper"))
+		if(do_after_once(user, intelligence SECONDS, 1, src, 1, "you decide not to study"))
 			setskill(user,"wisdom", wisdom)
 			to_chat(user, "you become wiser")
 	else
-		to_chat(user, "you cannot find anything distincly wiser")
+		to_chat(user, "you cannot find anything distinctly wiser")
 	if(intelligence > user.skills.intelligence)
-		if(do_after_once(user, intelligence SECONDS, 1, src, 1, "you need to stay near the paper"))
+		if(do_after_once(user, intelligence SECONDS, 1, src, 1, "you decide not to study"))
 			setskill(user,"intelligence", intelligence)
 			to_chat(user, "you become smarter")
 	else
-		to_chat(user, "you cannot find anything distincly smarter")
+		to_chat(user, "you cannot find anything distinctly smarter")
+
+/obj/item/doubleresearch
+	name = "Research Guide"
+	desc = "An estimate of knowledge"
+	gender = PLURAL
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "paper_stack_words"
+	item_state = "paper_stack_words"
+	throwforce = 0
+	w_class = WEIGHT_CLASS_TINY
+	throw_range = 1
+	throw_speed = 1
+	pressure_resistance = 0
+	resistance_flags = FLAMMABLE
+	max_integrity = 50
+	blocks_emissive = null
+	attack_verb = list("bapped")
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	var/wisdom
+	var/intelligence
+
+/obj/item/doubleresearch/attack_self(mob/living/carbon/human/user)
+	. = ..()
+	to_chat(user, "you start studying the [src]")
+	if(wisdom > user.skills.wisdom)
+		if(do_after_once(user, intelligence SECONDS, 1, src, 1, "you decide not to study"))
+			setskill(user,"wisdom", wisdom)
+			to_chat(user, "you become wiser")
+	else
+		to_chat(user, "you cannot find anything distinctly wiser")
+	if(intelligence > user.skills.intelligence)
+		if(do_after_once(user, intelligence SECONDS, 1, src, 1, "you decide not to study"))
+			setskill(user,"intelligence", intelligence)
+			to_chat(user, "you become smarter")
+	else
+		to_chat(user, "you cannot find anything distinctly smarter")
 
 /obj/item/research/lootable
 	wisdom = 5
@@ -248,18 +315,26 @@
 	var/cooldown = 0
 	var/strength = 1
 	var/dexterityloss = 1
+	var/timetable = list()
 
 /obj/item/dumbell/attack_self(mob/living/carbon/human/user)
 	. = ..()
 	visible_message("[user] starts pumping iron")
-	if(do_after_once(user, 20 * 10 - user.skills.dexterity * 10, 1, src, 1, "you need to hold the [src]"))
-		if(cooldown < world.time)
+	if(do_after_once(user, 20 SECONDS - user.skills.dexterity SECONDS, 1, src, 1, "you need to hold the [src]"))
+		if(timetable["[user]"] < world.time)
 			visible_message("[user] stops and looks exhausted")
 			if(user.skills.strength < 20)
 				adjustskill(user,"strength", strength)
-				cooldown = 3 MINUTES + world.time
+				timetable += usertotime(user, 3 MINUTES + world.time)
 		else
 			visible_message("[user] drops the [src] in a sweaty shaken panic")
+			user.drop_item()
 			if(user.skills.dexterity > 1)
 				adjustskill(user,"dexterity", -dexterityloss)
-				cooldown = 3 MINUTES + world.time
+				timetable += usertotime(user, 3 MINUTES + world.time)
+
+
+/obj/proc/usertotime(user, time)
+	. = list("name" = "time")
+	.["[user]"] = time
+

@@ -23,11 +23,13 @@
 	density = TRUE
 	anchored = TRUE
 	var/icon_state_inuse
+	var/timetable = list()
 
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
 	return
 
 /obj/structure/weightmachine/attack_hand(mob/living/user)
+	var/mob/living/carbon/human/H = user
 	. = ..()
 	if(.)
 		return
@@ -45,6 +47,18 @@
 		AnimateMachine(user)
 
 		playsound(user, 'sound/machines/click.ogg', 60, 1)
+
+		if(timetable["[H]"] < world.time)
+			visible_message("[user] stops and looks exhausted")
+			if(H.skills.strength < 20)
+				adjustskill(H,"strength", 1)
+				timetable += usertotime(user, 5 MINUTES + world.time)
+		else
+			visible_message("[user] drops the [src] in a sweaty shaken panic")
+			if(H.skills.dexterity > 1)
+				adjustskill(H,"dexterity", -1)
+				timetable += usertotime(user, 5 MINUTES + world.time)
+
 		in_use = FALSE
 		user.pixel_y = 0
 		var/finishmessage = pick("You feel stronger!","You feel like you can take on the world!","You feel robust!","You feel indestructible!")
