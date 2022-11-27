@@ -615,7 +615,7 @@
 #include "code\game\gamemodes\miniantags\abduction\machinery\experiment.dm"
 #include "code\game\gamemodes\miniantags\abduction\machinery\pad.dm"
 #include "code\game\gamemodes\miniantags\demons\demon.dm"
-#include "code\game\gamemodes\miniantags\demons\shadow demon\shadow_demon.dm"
+#include "code\game\gamemodes\miniantags\demons\shadow_demon\shadow_demon.dm"
 #include "code\game\gamemodes\miniantags\demons\slaughter demon\slaughter.dm"
 #include "code\game\gamemodes\miniantags\guardian\guardian.dm"
 #include "code\game\gamemodes\miniantags\guardian\host_actions.dm"

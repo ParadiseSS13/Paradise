@@ -5,7 +5,9 @@
 	icon_state = "shadow_demon"
 	icon_living = "shadow_demon"
 	move_resist = MOVE_FORCE_STRONG
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
+	var/thrown_alert = FALSE
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
@@ -14,12 +16,18 @@
 	var/damage_mod = istype(loc, /obj/effect/dummy/slaughter) ? 0.5 : 1
 	if(lum_count > 0.2)
 		adjustBruteLoss(40 * damage_mod) // 10 seconds in light
-		throw_alert("light", /obj/screen/alert/lightexposure)
+		if(!thrown_alert)
+			thrown_alert = TRUE
+			throw_alert("light", /obj/screen/alert/lightexposure)
+		SEND_SOUND(src, sound('sound/weapons/sear.ogg'))
+		to_chat(src, "<span class='biggerdanger'>The light scalds you!</span>")
 		alpha = 255
 	else
-		alpha = 125
 		adjustBruteLoss(-20)
-		clear_alert("light")
+		if(thrown_alert)
+			thrown_alert = FALSE
+			clear_alert("light")
+		alpha = 125
 
 
 
@@ -32,7 +40,27 @@
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
-	AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl)
+	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/S = new
+	AddSpell(S)
+	if(istype(loc, /obj/effect/dummy/slaughter))
+		S.phased = TRUE
+		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
+
+/mob/living/simple_animal/demon/shadow/proc/check_darkness()
+	var/turf/T = get_turf(src)
+	var/lum_count = T.get_lumcount()
+	if(lum_count > 0.2)
+		if(!thrown_alert)
+			thrown_alert = TRUE
+			throw_alert("light", /obj/screen/alert/lightexposure)
+		alpha = 255
+	else
+		if(thrown_alert)
+			thrown_alert = FALSE
+			clear_alert("light")
+		alpha = 125
+
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"

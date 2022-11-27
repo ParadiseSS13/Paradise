@@ -161,6 +161,8 @@
 		victim.ghostize()
 		qdel(victim)
 
+/obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
+	L.notransform = FALSE
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phaseout(obj/effect/decal/cleanable/B, mob/living/L)
 
@@ -175,8 +177,7 @@
 		L.forceMove(holder)
 		L.ExtinguishMob()
 		handle_consumption(L, L.pulling, B, holder)
-		L.ExtinguishMob()
-		L.notransform = FALSE
+		post_phase_in(L, holder)
 	return TRUE
 
 /obj/item/bloodcrawl
@@ -254,9 +255,6 @@
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/valid_target(turf/target, user)
 	return target.get_lumcount() < 0.2
 
-/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/post_phase_out(atom/A, mob/living/L)
-	return
-
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/rise_message(atom/A)
 	return
 
@@ -268,4 +266,11 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/sink_animation(atom/A, mob/living/L)
 	A.visible_message("<span class='danger'>[L] sinks into the shadows...</span>")
+
+/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
+	..()
+	if(!istype(L, /mob/living/simple_animal/demon/shadow))
+		return
+	var/mob/living/simple_animal/demon/shadow/S = L
+	S.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 
