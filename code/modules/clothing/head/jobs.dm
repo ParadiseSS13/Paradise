@@ -63,6 +63,12 @@
 	desc = "A cap issued to Nanotrasen Representatives."
 	icon_state = "ntrep"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+	)
+
 
 //Chaplain
 /obj/item/clothing/head/hooded/chaplain_hood
