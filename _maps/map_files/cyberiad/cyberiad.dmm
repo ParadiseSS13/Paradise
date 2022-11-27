@@ -19162,12 +19162,14 @@
 "aWD" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
+/obj/item/dumbell,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/dorms)
 "aWE" = (
 /obj/structure/table/wood,
 /obj/item/lighter/random,
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
+/obj/item/dumbell,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/dorms)
 "aWF" = (
@@ -69041,6 +69043,10 @@
 	icon_state = "red"
 	},
 /area/security/prisonlockers)
+"egv" = (
+/obj/item/dumbell,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "egI" = (
 /obj/structure/table,
 /obj/item/storage/box/monkeycubes{
@@ -132757,7 +132763,7 @@ sHt
 sHt
 sHt
 aFK
-aPm
+egv
 aPm
 aSM
 aVv
@@ -133271,7 +133277,7 @@ sHt
 sHt
 sHt
 aOI
-aPm
+egv
 aPm
 aSM
 aVv
