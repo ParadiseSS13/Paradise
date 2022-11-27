@@ -177,6 +177,7 @@
 	name = "Bunny Crate"
 	cost = 200
 	containertype = /obj/structure/closet/critter/bunny
+	contains = list(/obj/item/petcollar)
 	containername = "bunny crate"
 
 ////// hippy gear
@@ -267,18 +268,10 @@
 	containername = "beekeeping starter kit"
 
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
-	name = "2 Beekeeper suits"
+	name = "Beekeeper Suits"
 	contains = list(/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/beekeeper_suit,
 					/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/beekeeper_suit)
 	cost = 150
 	containername = "beekeeper suits"
-
-//Bottler
-/datum/supply_packs/organic/bottler
-	name = "Brewing Buddy Bottler Unit"
-	contains = list(/obj/machinery/bottler,
-					/obj/item/wrench)
-	cost = 200
-	containername = "bottler crate"

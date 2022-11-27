@@ -42574,17 +42574,11 @@
 /area/maintenance/apmaint)
 "cap" = (
 /obj/structure/table,
-/obj/item/phone{
-	attack_verb = list("bounced a check off","checked-out","tipped");
-	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
-	icon = 'icons/obj/machines/pos.dmi';
-	icon_state = "pos";
-	name = "point of sale"
-	},
 /obj/item/coin/iron{
 	pixel_y = 7;
 	pixel_x = -8
 	},
+/obj/item/phone/pos,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "caq" = (
@@ -42675,11 +42669,11 @@
 	},
 /area/assembly/robotics)
 "cay" = (
-/obj/machinery/economy/vending/coffee/free,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -69365,11 +69359,11 @@
 	},
 /area/quartermaster/miningdock)
 "eKA" = (
-/obj/machinery/economy/vending/cola/free,
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "eKC" = (
@@ -77023,7 +77017,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "kEe" = (
-/obj/machinery/economy/vending/coffee/free,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
@@ -77464,7 +77458,6 @@
 /area/medical/morgue)
 "laL" = (
 /obj/structure/table,
-/obj/item/storage/photo_album,
 /obj/item/camera,
 /obj/item/radio/intercom/locked/prison{
 	name = "Prison Intercom (General)";
@@ -77909,7 +77902,7 @@
 	},
 /area/engine/chiefs_office)
 "lvL" = (
-/obj/machinery/economy/vending/coffee/free,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -81852,7 +81845,7 @@
 /area/maintenance/apmaint)
 "oGf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/economy/vending/cola/free,
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -82249,7 +82242,8 @@
 	},
 /area/medical/virology)
 "oWe" = (
-/obj/machinery/economy/vending/coffee/free,
+/obj/structure/table,
+/obj/item/storage/photo_album,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "oWz" = (
@@ -86562,7 +86556,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
 "szF" = (
-/obj/machinery/economy/vending/cola/free,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -87439,11 +87433,11 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "tlI" = (
-/obj/machinery/economy/vending/snack/free,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "tlR" = (

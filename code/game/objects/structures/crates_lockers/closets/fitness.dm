@@ -51,6 +51,7 @@
 	open_door_sprite = "generic_door"
 
 /obj/structure/closet/lasertag/red/populate_contents()
+	new /obj/item/beach_ball/dodgeball(src)
 	new /obj/item/gun/energy/laser/tag/red(src)
 	new /obj/item/gun/energy/laser/tag/red(src)
 	new /obj/item/gun/energy/laser/tag/red(src)
@@ -67,6 +68,7 @@
 	open_door_sprite = "generic_door"
 
 /obj/structure/closet/lasertag/blue/populate_contents()
+	new /obj/item/beach_ball/dodgeball(src)
 	new /obj/item/gun/energy/laser/tag/blue(src)
 	new /obj/item/gun/energy/laser/tag/blue(src)
 	new /obj/item/gun/energy/laser/tag/blue(src)

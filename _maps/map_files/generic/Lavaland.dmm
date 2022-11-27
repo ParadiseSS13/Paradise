@@ -4547,10 +4547,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "Ca" = (
-/obj/machinery/economy/vending/cola/free,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"

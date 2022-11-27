@@ -300,6 +300,26 @@ to destroy them and players will be able to make replacements.
 	format_board_name()
 	req_components = list(initial(typepath.refill_canister) = 1)
 
+/obj/item/circuitboard/slot_machine
+	board_name = "Slot Machine"
+	build_path = /obj/machinery/economy/slot_machine
+	board_type = "machine"
+	origin_tech = "programming=2"
+	req_components = list(
+							/obj/item/stack/cable_coil = 3,
+							/obj/item/stock_parts/cell = 1,
+							/obj/item/stock_parts/capacitor = 1)
+
+/obj/item/circuitboard/bottler
+	board_name = "Bottler"
+	build_path = /obj/machinery/bottler
+	board_type = "machine"
+	origin_tech = "programming=2"
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stack/sheet/glass = 1)
+
 /obj/item/circuitboard/smes
 	board_name = "SMES"
 	build_path = /obj/machinery/power/smes
