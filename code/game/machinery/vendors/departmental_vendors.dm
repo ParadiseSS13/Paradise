@@ -69,16 +69,26 @@
 
 /obj/machinery/economy/vending/hydronutrients
 	name = "\improper NutriMax"
-	desc = "A plant nutrients vendor"
+	desc = "A plant nutrients vendor."
 	slogan_list = list("Aren't you glad you don't have to fertilize the natural way?","Now with 50% less stink!","Plants are people too!")
 	ads_list = list("We like plants!","Don't you want some?","The greenest thumbs ever.","We like big plants.","Soft soil...")
 	icon_state = "nutri"
 	icon_deny = "nutri_deny"
 	icon_lightmask = "nutri"
 	icon_panel = "thin_vendor"
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20, /obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13, /obj/item/reagent_containers/glass/bottle/nutrient/rh = 6, /obj/item/reagent_containers/spray/pestspray = 20,
-					/obj/item/reagent_containers/syringe = 5, /obj/item/storage/bag/plants = 5, /obj/item/cultivator = 3, /obj/item/shovel/spade = 3, /obj/item/plant_analyzer = 4)
-	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10, /obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20,
+					/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution = 10,
+					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 10,
+					/obj/item/reagent_containers/glass/bottle/saltpetre = 5,
+					/obj/item/reagent_containers/glass/bottle/diethylamine = 5,
+					/obj/item/reagent_containers/spray/pestspray = 20,
+					/obj/item/reagent_containers/syringe = 5,
+					/obj/item/storage/bag/plants = 5,
+					/obj/item/cultivator = 3,
+					/obj/item/shovel/spade = 3,
+					/obj/item/plant_analyzer = 3)
+	contraband = list(/obj/item/clothing/mask/face/bee = 1,
+					/obj/item/clothing/suit/hooded/bee_costume = 1)
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
 /obj/machinery/economy/vending/hydroseeds

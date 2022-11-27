@@ -67,14 +67,6 @@
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	category = list("initial","Botany Chemicals")
 
-/datum/design/l4z_nut
-	name = "Left 4 Zed"
-	id = "l4z_nut"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 20)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/l4z
-	category = list("initial","Botany Chemicals")
-
 /datum/design/rh_nut
 	name = "Robust Harvest"
 	id = "rh_nut"

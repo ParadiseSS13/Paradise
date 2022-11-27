@@ -578,3 +578,11 @@
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/card/id/golem(src)
 	new /obj/item/flashlight/lantern(src)
+
+/obj/structure/closet/crate/secure/hydrosec/beestarter/populate_contents()
+	new /obj/structure/beebox/unwrenched(src)
+	new /obj/item/honey_frame(src)
+	new /obj/item/honey_frame(src)
+	new /obj/item/honey_frame(src)
+	new /obj/item/queen_bee/bought(src)
+	new /obj/item/melee/flyswatter(src)

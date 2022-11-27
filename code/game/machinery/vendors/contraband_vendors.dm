@@ -46,7 +46,7 @@
 
 /obj/machinery/economy/vending/hydronutrients/syndicate_druglab
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 12,
-					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 2,
+					/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution = 2,
 					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 3,
 					/obj/item/reagent_containers/spray/pestspray = 7,
 					/obj/item/reagent_containers/syringe = 11,

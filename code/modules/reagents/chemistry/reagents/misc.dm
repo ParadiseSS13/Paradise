@@ -623,14 +623,6 @@
 	tox_prob = 10
 	taste_description = "obscurity and toil"
 
-/datum/reagent/plantnutriment/left4zednutriment
-	name = "Left 4 Zed"
-	id = "left4zednutriment"
-	description = "Unstable nutriment that makes plants mutate more often than usual."
-	color = "#2A1680" // RBG: 42, 128, 22
-	tox_prob = 25
-	taste_description = "evolution"
-
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
 	id = "robustharvestnutriment"

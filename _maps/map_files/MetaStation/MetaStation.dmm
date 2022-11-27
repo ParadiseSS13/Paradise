@@ -639,7 +639,6 @@
 	},
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/glass/bottle/facid{
-	name = "fluorosulfuric acid bottle";
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -4691,7 +4690,6 @@
 /area/storage/emergency2)
 "axq" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -5067,9 +5065,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/table,
-/obj/item/paper/gravity_gen{
-	layer = 3
-	},
+/obj/item/paper/gravity_gen,
 /obj/item/pen/blue,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
@@ -5526,7 +5522,6 @@
 /area/crew_quarters/dorms)
 "aAc" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -16764,7 +16759,6 @@
 /area/hallway/primary/central)
 "beS" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -16999,7 +16993,6 @@
 "bfD" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -20170,7 +20163,6 @@
 "bmS" = (
 /obj/machinery/computer/secure_data,
 /obj/machinery/newscaster/security_unit{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -22483,7 +22475,6 @@
 /area/civilian/barber)
 "bss" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -22980,7 +22971,6 @@
 /area/bridge)
 "btS" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -26797,7 +26787,6 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -27315,7 +27304,6 @@
 "bDw" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -28987,7 +28975,6 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -29550,7 +29537,6 @@
 "bJz" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -36243,7 +36229,6 @@
 	pixel_y = 3
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -37580,7 +37565,6 @@
 /area/medical/surgery2)
 "cga" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -37924,6 +37908,16 @@
 	dir = 1
 	},
 /obj/structure/table/glass,
+/obj/item/reagent_containers/food/snacks/grown/pumpkin{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/grown/wheat,
+/obj/item/grown/corncob,
+/obj/item/reagent_containers/food/snacks/grown/carrot,
+/obj/item/seeds/apple,
+/obj/item/seeds/potato,
+/obj/item/seeds/sugarcane,
+/obj/item/seeds/wheat,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "cgW" = (
@@ -38047,21 +38041,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "chr" = (
-/obj/item/seeds/wheat,
-/obj/item/seeds/sugarcane,
-/obj/item/seeds/potato,
-/obj/item/seeds/apple,
-/obj/item/grown/corncob,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/pumpkin{
-	pixel_y = 5
-	},
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/table/glass,
+/obj/structure/closet/crate/secure/hydrosec/beestarter,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "chs" = (
@@ -42324,7 +42308,6 @@
 "cuE" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -42631,7 +42614,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -42926,7 +42908,6 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -44386,7 +44367,6 @@
 "cBc" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -44697,7 +44677,6 @@
 /area/medical/morgue)
 "cBZ" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -44827,7 +44806,6 @@
 	dir = 4
 	},
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -47150,7 +47128,6 @@
 /area/assembly/robotics)
 "cJs" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -48035,7 +48012,6 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -49264,7 +49240,6 @@
 "cQL" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -49635,7 +49610,6 @@
 /area/medical/virology)
 "cSc" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -50177,7 +50151,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -50356,7 +50329,6 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -51717,7 +51689,6 @@
 "cZy" = (
 /obj/structure/girder,
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -56225,7 +56196,6 @@
 /area/maintenance/aft2)
 "eJT" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -59340,7 +59310,6 @@
 /area/toxins/storage)
 "ghD" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -62642,7 +62611,6 @@
 /area/toxins/mixing)
 "hQX" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -66381,7 +66349,6 @@
 "jLY" = (
 /obj/structure/lattice,
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -68633,7 +68600,6 @@
 "kPI" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -71488,7 +71454,6 @@
 /area/engine/break_room)
 "meT" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -71616,7 +71581,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -76352,7 +76316,6 @@
 /area/toxins/mixing)
 "oFQ" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -82827,7 +82790,6 @@
 "rRh" = (
 /obj/structure/table/glass,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -82930,7 +82892,6 @@
 /area/space/nearstation)
 "rUv" = (
 /obj/effect/spawner/lootdrop{
-	color = null;
 	icon_state = "grille";
 	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
@@ -85573,7 +85534,6 @@
 "tiH" = (
 /obj/structure/chair,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},

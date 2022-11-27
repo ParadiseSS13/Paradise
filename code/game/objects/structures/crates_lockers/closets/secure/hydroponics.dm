@@ -19,3 +19,5 @@
 	new /obj/item/hatchet(src)
 	new /obj/item/storage/box/disks_plantgene(src)
 	new /obj/item/clothing/glasses/hud/hydroponic(src)
+	new /obj/item/clothing/head/beekeeper_head(src)
+	new /obj/item/clothing/suit/beekeeper_suit(src)

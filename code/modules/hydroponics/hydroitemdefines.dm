@@ -289,12 +289,12 @@
 	icon_state = "plastic_jug_ez"
 	list_reagents = list("eznutriment" = 80)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/l4z
-	name = "jug of Left 4 Zed"
-	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution
+	name = "jug of Mutation Solution"
+	desc = "Contains a fertilizer that rapidly mutates the plant it is poured on. Use it in small amounts!"
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "plastic_jug_l4z"
-	list_reagents = list("left4zednutriment" = 80)
+	icon_state = "plastic_jug_mutationsolution"
+	list_reagents = list("mutagen" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"

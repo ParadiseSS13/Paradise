@@ -156,6 +156,12 @@
 	icon_state = "round_bottle"
 	list_reagents = list("sulfonal" = 30)
 
+/obj/item/reagent_containers/glass/bottle/saltpetre
+	name = "saltpetre bottle"
+	desc = "A small bottle of saltpetre."
+	icon_state = "round_bottle"
+	list_reagents = list("saltpetre" = 30)
+
 //Reagent bottles
 
 /obj/item/reagent_containers/glass/bottle/reagent
