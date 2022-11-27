@@ -511,58 +511,6 @@
 	add_fingerprint(user)
 	return
 
-//BASKETBALL OBJECTS
-/obj/item/beach_ball/holoball
-	icon = 'icons/obj/basketball.dmi'
-	icon_state = "basketball"
-	name = "basketball"
-	item_state = "basketball"
-	desc = "Here's your chance, do your dance at the Space Jam."
-	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
-
-/obj/item/beach_ball/holoball/baseball
-	icon_state = "baseball"
-	name = "baseball"
-	item_state = "baseball"
-	desc = "Take me out to the ball game."
-
-/obj/structure/holohoop
-	name = "basketball hoop"
-	desc = "Boom, Shakalaka!"
-	icon = 'icons/obj/basketball.dmi'
-	icon_state = "hoop"
-	anchored = TRUE
-	density = TRUE
-	pass_flags = LETPASSTHROW
-
-/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
-		var/obj/item/grab/G = W
-		if(G.state<2)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return
-		G.affecting.loc = src.loc
-		G.affecting.Weaken(10 SECONDS)
-		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
-		qdel(W)
-		return
-	else if(isitem(W) && get_dist(src,user)<2)
-		user.drop_item(src)
-		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
-		return
-
-
-/obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && !istype(AM,/obj/item/projectile))
-		if(prob(50))
-			AM.forceMove(get_turf(src))
-			visible_message("<span class='notice'>Swish! [AM] lands in [src].</span>")
-		else
-			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
-			return ..()
-	else
-		return ..()
-
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"
 	desc = "This device is used to declare ready. If all devices in an area are ready, the event will begin!"

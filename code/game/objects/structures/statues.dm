@@ -203,6 +203,14 @@
 	name = "statue of a medical cyborg"
 	icon_state = "medborg"
 
+/obj/structure/statue/silver/corgi
+	name = "statue of a corgi"
+	icon_state = "corgi"
+
+/obj/structure/statue/silver/monkey
+	name = "statue of a monkey"
+	icon_state = "monkey"
+
 /obj/structure/statue/diamond
 	max_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
@@ -263,6 +271,7 @@
 	desc = "An ancient marble statue. The subject is depicted with a floor-length braid and is wielding a toolbox. By Jove, it's easily the most gorgeous depiction of a woman you've ever seen. The artist must truly be a master of his craft. Shame about the broken arm, though."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "venus"
+	oreAmount = 20
 
 /obj/structure/statue/tranquillite
 	max_integrity = 300
@@ -284,25 +293,27 @@
 		return
 	setDir(turn(dir, 90))
 
-/obj/structure/statue/kidanstatue
-	name = "Obsidian Kidan warrior statue"
-	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of obsidian. It looks very heavy."
+/obj/structure/statue/plastitanium
+	max_integrity = 600
+	material_drop_type = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/statue/plastitanium/kidanstatue
+	name = "kidan warrior statue"
+	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of plastitanium. It looks very heavy."
 	icon_state = "kidan"
-	anchored = TRUE
-	oreAmount = 0
 
 /obj/structure/statue/chickenstatue
-	name = "Bronze Chickenman Statue"
+	name = "bronze chickenman statue"
 	desc = "An antique and oriental-looking statue of a Chickenman made of bronze."
 	icon_state = "chicken"
 	anchored = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/russian_mulebot
+	name = "OXENbot"
 	desc = "Like a MULEbot, but more Russian and less functional.";
 	icon = 'icons/obj/aibots.dmi';
 	icon_state = "mulebot0";
-	name = "OXENbot"
 	anchored = TRUE
 	oreAmount = 10
 

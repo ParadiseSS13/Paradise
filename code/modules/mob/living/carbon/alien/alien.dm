@@ -17,6 +17,7 @@
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
 	var/large = FALSE
+	var/loudspeaker = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
 	ventcrawler = 2

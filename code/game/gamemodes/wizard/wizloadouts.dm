@@ -14,12 +14,12 @@
 /datum/spellbook_entry/loadout/lich
 	name = "Defense Focus : Lich"
 	desc = "This spellset uses the Bind Soul spell to safeguard your life as a lich and allow for more dangerous offensive spells to be used. <br> \
-		Ethereal Jaunt provides escape, Fireball and Rod Form are your offensive spells, and Disable Tech and Greater Forcewall provides utility in disabling sec equipment or blocking their path. <br> \
+		Ethereal Jaunt provides escape, Fireball and Rod Form are your offensive spells, and Disable Tech and Forcewall provides utility in disabling sec equipment or blocking their path. <br> \
 		Care should be taken in hiding the item you choose as your phylactery after using Bind Soul, as you cannot revive if it destroyed or too far from your body! <br><br> \
 		</i>Provides Bind Soul, Ethereal Jaunt,  Fireball, Rod Form, Disable Tech, and Greater Forcewall.<i>"
 	log_name = "DL"
 	spells_path = list(/obj/effect/proc_holder/spell/lichdom, /obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/fireball, \
-		/obj/effect/proc_holder/spell/rod_form, /obj/effect/proc_holder/spell/emplosion/disable_tech, /obj/effect/proc_holder/spell/forcewall/greater)
+		/obj/effect/proc_holder/spell/rod_form, /obj/effect/proc_holder/spell/emplosion/disable_tech, /obj/effect/proc_holder/spell/forcewall)
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/loadout/wands

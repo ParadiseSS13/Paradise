@@ -76,7 +76,6 @@
 
 	action_icon_state = "mime_bigwall"
 	action_background_icon_state = "bg_mime"
-	large = TRUE
 
 /obj/effect/proc_holder/spell/forcewall/mime/Click()
 	if(usr && usr.mind)

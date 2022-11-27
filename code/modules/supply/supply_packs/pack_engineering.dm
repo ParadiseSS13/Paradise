@@ -194,7 +194,7 @@
 	access = ACCESS_EVA
 
 /datum/supply_packs/engineering/inflatable
-	name = "Inflatable barriers Crate"
+	name = "Inflatable Barriers Crate"
 	contains = list(/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable,
 					/obj/item/storage/briefcase/inflatable)
@@ -220,17 +220,3 @@
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
-
-/datum/supply_packs/engineering/conveyor
-	name = "Conveyor Assembly Crate"
-	contains = list(/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_construct,
-					/obj/item/conveyor_switch_construct,
-					/obj/item/paper/conveyor)
-	cost = 100
-	containername = "conveyor assembly crate"
-	department_restrictions = list() //anyone should be able to order conveyors (especially since they can just be made at an autolathe)
