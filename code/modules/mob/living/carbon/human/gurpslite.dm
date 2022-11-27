@@ -161,7 +161,6 @@
 	set name = "Project knowledge"
 	set category = "Object"
 	set src in usr
-	add_fingerprint(usr)
 	var/mob/living/carbon/human/H = usr
 	var/obj/item/P = H.get_active_hand()
 	if(is_pen(P))
@@ -200,11 +199,11 @@
 	attack_verb = list("bapped")
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	can_be_hit = TRUE
 	var/wisdom
 	var/intelligence
 
 /obj/item/research/attacked_by(obj/item/I, mob/living/user)
-	add_fingerprint(user)
 	var/mob/living/carbon/human/H = user
 	if(istype(I, /obj/item/research))
 		var/obj/item/research/P = I
@@ -214,23 +213,19 @@
 				visible_message("[user] combines the [src]")
 				qdel(src)
 				qdel(P)
-				var/obj/item/paper_bundle/B = new(src.loc, default_papers = FALSE)
+				var/obj/item/doubleresearch/R = new /obj/item/doubleresearch
 				if(wisdom < 20)
 					R.wisdom = wisdom + 1
 				if(intelligence < 20)
 					R.intelligence = intelligence + 1
 				if(H.hand)
-					H.equip_to_slot_or_del(R, slot_r_hand)
-				else
 					H.equip_to_slot_or_del(R, slot_l_hand)
+				else
+					H.equip_to_slot_or_del(R, slot_r_hand)
 				R.add_fingerprint(user)
 				to_chat(H, "you put the [src] together into a combined report")
-			else
-				to_chat(H, "none of it seems to make sense together...")
 		else
 			to_chat(H, "none of it seems to make sense together...")
-	else
-		to_chat(H, "none of it seems to make sense together...")
 
 /obj/item/research/attack_self(mob/living/carbon/human/user)
 	. = ..()
