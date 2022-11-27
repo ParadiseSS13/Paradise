@@ -10,7 +10,8 @@
 		"Human" = 'icons/mob/clothing/under/centcom.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/centcom.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/centcom.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/centcom.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/centcom.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/centcom.dmi'
 		)
 
 /obj/item/clothing/under/rank/centcom/sensor
@@ -117,7 +118,7 @@
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	name = "blueshield's uniform"
-	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants, all made out of a sturdy material. Blueshield standard issue."
+	desc = "A short-sleeved black uniform, paired with grey armored cargo pants, all made out of a sturdy material. Blueshield standard issue."
 	icon_state = "blueshield"
 	item_state = "blueshield"
 	item_color = "blueshield"
