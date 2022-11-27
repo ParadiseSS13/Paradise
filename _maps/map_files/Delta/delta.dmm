@@ -10185,9 +10185,6 @@
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
-/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
-/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
 /turf/simulated/floor/plasteel,
 /area/hydroponics/abandoned_garden)
 "aHr" = (
@@ -10576,9 +10573,6 @@
 "aIl" = (
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
-/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
-/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
