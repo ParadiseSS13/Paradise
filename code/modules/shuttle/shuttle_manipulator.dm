@@ -1,3 +1,4 @@
+#define PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN 2 SECONDS /// We really would rather not have admins altering this
 
 /obj/machinery/shuttle_manipulator
 	name = "shuttle manipulator"
@@ -9,9 +10,11 @@
 
 	icon = 'icons/obj/machines/shuttle_manipulator.dmi'
 	icon_state = "holograph_on"
-
+	/// Is this var used? Anywhere?
 	var/busy
-	// UI state variables
+	/// Used for cooldown, very obvious name, required due to shuttles spawning in the same location and causing the server to implode
+	var/cooldown_do_not_edit = 0
+	/// UI state variables
 	var/datum/map_template/shuttle/selected
 
 	var/obj/docking_port/mobile/existing_shuttle
@@ -160,6 +163,10 @@
 					break
 
 		if("preview")
+			if(cooldown_do_not_edit + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN > world.time) 
+				atom_say("Please wait while the shuttle manipulator recalibrates...")
+				return
+			cooldown_do_not_edit = world.time
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
 			if(S)
 				unload_preview()
@@ -169,6 +176,10 @@
 					usr.forceMove(get_turf(preview_shuttle))
 
 		if("load")
+			if(cooldown_do_not_edit + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN > world.time) 
+				atom_say("Please wait while the shuttle manipulator recalibrates...")
+				return
+			cooldown_do_not_edit = world.time
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
 			if(existing_shuttle == SSshuttle.backup_shuttle)
 				// TODO make the load button disabled
@@ -293,3 +304,5 @@
 	if(preview_shuttle)
 		preview_shuttle.jumpToNullSpace()
 	preview_shuttle = null
+
+#undef PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN
