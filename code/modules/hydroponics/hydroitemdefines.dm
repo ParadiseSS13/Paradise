@@ -294,7 +294,7 @@
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
-	list_reagents = list("mutagen" = 80)
+	list_reagents = list("left4zednutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution
 	name = "jug of Mutation Solution"
