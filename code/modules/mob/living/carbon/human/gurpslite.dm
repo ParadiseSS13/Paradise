@@ -175,7 +175,7 @@
 				H.equip_to_slot_or_del(R, slot_r_hand)
 			else
 				H.equip_to_slot_or_del(R, slot_l_hand)
-			R.add_fingerprint(user)
+			R.add_fingerprint(usr)
 			to_chat(H, "you write down all of your knowledge onto this [src]")
 	else
 		to_chat(H, "you need to use a pen for this")
