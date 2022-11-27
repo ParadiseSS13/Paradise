@@ -534,6 +534,11 @@
 		mutmod = 1
 		adjustNutri(round(S.get_reagent_amount("eznutriment") * 1))
 
+	if(S.has_reagent("left4zednutriment", 1))
+		yieldmod = 0
+		mutmod = 2
+		adjustNutri(round(S.get_reagent_amount("left4zednutriment") * 1))
+
 	if(S.has_reagent("robustharvestnutriment", 1))
 		yieldmod = 1.3
 		mutmod = 0
