@@ -294,7 +294,7 @@
 	desc = "Contains a fertilizer that rapidly mutates the plant it is poured on. Use it in small amounts!"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_mutationsolution"
-	list_reagents = list("mutagen" = 80)
+	list_reagents = list("mutagen" = 60)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
