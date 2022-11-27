@@ -339,27 +339,32 @@
 	skillsui1 = new /obj/screen/skill
 	skillsui1.name = "Strength"
 	skillsui1.screen_loc = "EAST-2:28,CENTER+6:27"
-	skillsui1.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.strength]</font></div>"
+	skillsui1.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ffffff'>[skills.strength]</font></div>"
+	skillsui1.icon_state = "strength_icon"
 	infodisplay += skillsui1
 	skillsui2 = new /obj/screen/skill
 	skillsui2.name = "Intelligence"
 	skillsui2.screen_loc = "EAST-3:28,CENTER+6:27"
-	skillsui2.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.intelligence]</font></div>"
+	skillsui2.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ffffff'>[skills.intelligence]</font></div>"
+	skillsui2.icon_state = "intelligence_icon"
 	infodisplay += skillsui2
 	skillsui3 = new /obj/screen/skill
 	skillsui3.name = "Wisdom"
 	skillsui3.screen_loc = "EAST-4:28,CENTER+6:27"
-	skillsui3.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.wisdom]</font></div>"
+	skillsui3.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ffffff'>[skills.wisdom]</font></div>"
+	skillsui3.icon_state = "wisdom_icon"
 	infodisplay += skillsui3
 	skillsui4 = new /obj/screen/skill
 	skillsui4.name = "Dexterity"
 	skillsui4.screen_loc = "EAST-5:28,CENTER+6:27"
-	skillsui4.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.dexterity]</font></div>"
+	skillsui4.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ffffff'>[skills.dexterity]</font></div>"
+	skillsui4.icon_state = "dexterity_icon"
 	infodisplay += skillsui4
 	skillsui5 = new /obj/screen/skill
 	skillsui5.name = "Perception"
 	skillsui5.screen_loc = "EAST-6:28,CENTER+6:27"
-	skillsui5.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#2200bb'>[skills.perception]</font></div>"
+	skillsui5.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ffffff'>[skills.perception]</font></div>"
+	skillsui5.icon_state = "perception_icon"
 	infodisplay += skillsui5
 
 	mymob.overlay_fullscreen("noise", /obj/screen/fullscreen/noise)

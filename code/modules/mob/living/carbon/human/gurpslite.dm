@@ -155,6 +155,8 @@
 	set desc = "Teach someone your skills."
 	set src in view(1)
 
+// objects //
+
 /obj/item/paper/verb/teachpaper()
 	set name = "Project knowledge"
 	set category = "Object"
@@ -181,6 +183,7 @@
 
 /obj/item/research
 	name = "Research Paper"
+	desc = "A fragment of knowledge"
 	gender = PLURAL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_words"
@@ -223,3 +226,40 @@
 	. = ..()
 	wisdom = roll_dice(10,FALSE, FALSE, 2)
 	intelligence = roll_dice(10,FALSE, FALSE, 2)
+
+/obj/item/dumbell
+	name = "Dumbell"
+	desc = "A dumbell for working out"
+	force = 12
+	gender = PLURAL
+	icon = 'icons/obj/stat_obj.dmi'
+	icon_state = "stat_dumbell"
+	item_state = "stat_dumbell"
+	throwforce = 10
+	w_class = WEIGHT_CLASS_BULKY
+	throw_range = 3
+	throw_speed = 2
+	pressure_resistance = 1
+	max_integrity = 50
+	blocks_emissive = null
+	attack_verb = list("smashed")
+	drop_sound = 'sound/items/handling/wrench_drop.ogg'
+	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
+	var/cooldown = 0
+	var/strength = 1
+	var/dexterityloss = 1
+
+/obj/item/dumbell/attack_self(mob/living/carbon/human/user)
+	. = ..()
+	visible_message("[user] starts pumping iron")
+	if(do_after_once(user, 20 * 10 - user.skills.dexterity * 10, 1, src, 1, "you need to hold the [src]"))
+		if(cooldown < world.time)
+			visible_message("[user] stops and looks exhausted")
+			if(user.skills.strength < 20)
+				adjustskill(user,"strength", strength)
+				cooldown = 3 MINUTES + world.time
+		else
+			visible_message("[user] drops the [src] in a sweaty shaken panic")
+			if(user.skills.dexterity > 1)
+				adjustskill(user,"dexterity", -dexterityloss)
+				cooldown = 3 MINUTES + world.time
