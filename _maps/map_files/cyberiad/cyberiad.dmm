@@ -22060,6 +22060,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -86826,6 +86829,9 @@
 /obj/item/shovel/spade,
 /obj/item/shovel/spade,
 /obj/item/plant_analyzer,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
 "sGl" = (

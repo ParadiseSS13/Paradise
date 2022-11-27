@@ -13732,6 +13732,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"
@@ -41767,6 +41770,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "csX" = (
@@ -88046,6 +88052,9 @@
 	name = "north bump";
 	pixel_y = 24
 	},
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
+/obj/item/reagent_containers/glass/bottle/nutrient/mutation_solution,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
