@@ -10,26 +10,41 @@
 	var/light_broken = FALSE
 	/// Can we modify a colour
 	var/can_modify_colour = TRUE
+	/// Are we draining power, prevents updating the icon drain / generate power
+	var/using_power = FALSE
 
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
 	update_icon()
-	START_PROCESSING(SSobj, src)
+	var/area/current_area = get_area(src)
+	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
+	if(current_apc)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_update), override = TRUE)
 
 /turf/simulated/floor/light/update_icon_state()
+	var/area/A = get_area(src)
+	if(!A)
+		return
 	if(on)
 		icon_state = "light_on"
 		set_light(5, null, color)
+		if(!using_power)
+			A.addStaticPower(100, STATIC_LIGHT)
+			using_power = TRUE
 	else
 		icon_state = "light_off"
 		set_light(0)
+		if(using_power)
+			A.addStaticPower(-100, STATIC_LIGHT)
+			using_power = FALSE
+
 
 /turf/simulated/floor/light/BeforeChange()
-	set_light(0)
-	STOP_PROCESSING(SSobj, src)
+	toggle_light(FALSE)
 	..()
 
-/turf/simulated/floor/light/process()
+/turf/simulated/floor/light/proc/power_update()
+	SIGNAL_HANDLER
 	if(power_check() || !on)
 		return
 	extinguish_light()
