@@ -1,5 +1,6 @@
 /obj/item/robot_module
-	name = "robot module"
+	name = "Placeholder name"
+	var/name_disguise //used by examine
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_module"
 	w_class = 100
@@ -162,7 +163,7 @@
 	// if medical crisis, assist by providing basic healthcare, retrieving corpses, and monitoring crew lifesigns
 	// if eng crisis, assist by helping repair hull breaches
 	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
-	name = "generalist robot module"
+	name = "Generalist"
 	module_type = "Standard"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
 	channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
@@ -219,7 +220,7 @@
 	..()
 
 /obj/item/robot_module/medical
-	name = "medical robot module"
+	name = "Medical"
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	channels = list("Medical" = 1)
@@ -278,7 +279,7 @@
 	..()
 
 /obj/item/robot_module/engineering
-	name = "engineering robot module"
+	name = "Engineering"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 	module_actions = list(
@@ -332,7 +333,7 @@
 		G.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/security
-	name = "security robot module"
+	name = "Security"
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	channels = list("Security" = 1)
@@ -362,7 +363,7 @@
 	fix_modules()
 
 /obj/item/robot_module/janitor
-	name = "janitorial robot module"
+	name = "Janitor"
 	module_type = "Janitor"
 	channels = list("Service" = 1)
 	default_skin = "Robot-JAN"
@@ -393,7 +394,7 @@
 	fix_modules()
 
 /obj/item/robot_module/butler
-	name = "service robot module"
+	name = "Service"
 	module_type = "Service"
 	channels = list("Service" = 1)
 	default_skin = "Robot-MAN"
@@ -473,7 +474,7 @@
 
 
 /obj/item/robot_module/miner
-	name = "miner robot module"
+	name = "Miner"
 	module_type = "Miner"
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
@@ -515,7 +516,8 @@
     return ..()
 
 /obj/item/robot_module/deathsquad
-	name = "NT advanced combat module"
+	name = "Deathsquad"
+	name_disguise = "NT advanced combat"
 	module_type = "Malf"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
@@ -532,7 +534,7 @@
 	fix_modules()
 
 /obj/item/robot_module/syndicate
-	name = "syndicate assault robot module"
+	name = "Syndicate Bloodhound"
 	module_type = "Malf" // cuz it looks cool
 
 /obj/item/robot_module/syndicate/New()
@@ -550,7 +552,7 @@
 	fix_modules()
 
 /obj/item/robot_module/syndicate_medical
-	name = "syndicate medical robot module"
+	name = "Syndicate Medical"
 	module_type = "Malf"
 
 /obj/item/robot_module/syndicate_medical/New()
@@ -587,7 +589,8 @@
 	handle_storages()
 
 /obj/item/robot_module/syndicate_saboteur
-	name = "engineering robot module" //to disguise in examine
+	name = "Syndicate Saboteur"
+	name_disguise = "Engineering"
 	module_type = "Malf"
 
 /obj/item/robot_module/syndicate_saboteur/New()
@@ -621,7 +624,7 @@
 	handle_storages()
 
 /obj/item/robot_module/destroyer
-	name = "destroyer robot module"
+	name = "Destroyer"
 	module_type = "Malf"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
@@ -645,7 +648,7 @@
 
 
 /obj/item/robot_module/combat
-	name = "combat robot module"
+	name = "Combat"
 	module_type = "Malf"
 	module_actions = list()
 	default_skin = "ertgamma"
@@ -668,8 +671,8 @@
 	fix_modules()
 
 
-/obj/item/robot_module/alien/hunter
-	name = "alien hunter module"
+/obj/item/robot_module/hunter
+	name = "Hunter"
 	module_type = "Standard"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal/alien,
@@ -677,10 +680,10 @@
 	default_skin = "xenoborg"
 	borg_skins = list("Xenoborg" = "xenoborg")
 
-/obj/item/robot_module/alien/hunter/add_default_robot_items()
+/obj/item/robot_module/hunter/add_default_robot_items()
 	return
 
-/obj/item/robot_module/alien/hunter/New()
+/obj/item/robot_module/hunter/New()
 	..()
 	modules += new /obj/item/melee/energy/alien/claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
@@ -696,12 +699,12 @@
 
 	fix_modules()
 
-/obj/item/robot_module/alien/hunter/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/hunter/add_languages(var/mob/living/silicon/robot/R)
 	..()
 	R.add_language("xenocommon", 1)
 
 /obj/item/robot_module/drone
-	name = "drone module"
+	name = "Drone"
 	module_type = "Engineer"
 
 /obj/item/robot_module/drone/New()
@@ -747,7 +750,7 @@
 		G.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/cogscarab
-	name = "cogscarab module"
+	name = "Cogscarab"
 	module_type = "Cogscarab"
 
 /obj/item/robot_module/cogscarab/Initialize()
@@ -778,8 +781,10 @@
 	G?.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/clockwork
-	name = "Ratvar module"
+	name = "Clockwork"
 	module_type = "Cogscarab" //icon_state
+	default_skin = "cyborg"
+	borg_skins = list("cyborg" = "cyborg")
 
 /obj/item/robot_module/clockwork/Initialize()
 	. = ..()
@@ -812,7 +817,8 @@
 	G?.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/ninja
-	name = "service robot module"  //to disguise in examine
+	name = "Ninja"
+	name_disguise = "Service"
 	module_type = "ninja"
 
 /obj/item/robot_module/ninja/New()

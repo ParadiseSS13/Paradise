@@ -3,7 +3,10 @@
 
 	var/msg = "<span class='notice'>"
 	if(module)
-		msg += "It has loaded a [module.name].\n"
+		if(module.name_disguise)
+			msg += "It has loaded a [module.name_disguise].\n"
+		else
+			msg += "It has loaded a [module.name].\n"
 	var/obj/act_module = get_active_hand()
 	if(act_module)
 		msg += "It is holding [bicon(act_module)] \a [act_module].\n"

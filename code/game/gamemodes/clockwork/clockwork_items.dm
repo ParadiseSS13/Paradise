@@ -1052,14 +1052,14 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_mod"
 	require_module = TRUE
+	instant_use = TRUE
 
 /obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
 	if(..())
-		return
-	R.ratvar_act() // weak false
-	R.opened = FALSE
-	R.locked = TRUE
-	return TRUE
+		R.ratvar_act() // weak false
+		R.opened = FALSE
+		R.locked = TRUE
+		return TRUE
 
 // A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab

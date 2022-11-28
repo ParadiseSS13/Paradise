@@ -635,6 +635,28 @@
 /datum/action/innate/proc/Deactivate()
 	return
 
+/datum/action/innate/research_scanner
+	name = "Toggle Research Scanner"
+	button_icon_state = "scan_mode"
+
+/datum/action/innate/research_scanner/Trigger()
+	if(IsAvailable())
+		owner.research_scanner = !owner.research_scanner
+		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
+		return TRUE
+
+/datum/action/innate/research_scanner/Remove(mob/living/L)
+	if(owner)
+		owner.research_scanner = 0
+	..()
+
+/datum/action/innate/research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
+	current_button.cut_overlays()
+	if(button_icon && button_icon_state)
+		var/image/img = image(button_icon, current_button, "scan_mode")
+		img.appearance_flags = RESET_COLOR | RESET_ALPHA
+		current_button.overlays += img
+
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic
 	check_flags = 0

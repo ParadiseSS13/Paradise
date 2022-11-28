@@ -256,6 +256,7 @@
 	icon_state = "modkit"
 	origin_tech = "programming=2;materials=2;magnets=4"
 	require_module = TRUE
+	multiple_use = TRUE
 	module_type = /obj/item/robot_module/miner
 	usesound = 'sound/items/screwdriver.ogg'
 	var/denied_type = null

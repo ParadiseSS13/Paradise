@@ -40,17 +40,17 @@
 	.["borg"] = list(
 		"name" = "[borg]",
 		"emagged" = borg.emagged,
-		"active_module" = "[borg.module.type]",
+		"active_module" = "[borg.module ? borg.module.name : "No module"]",
 		"lawupdate" = borg.lawupdate,
 		"lockdown" = borg.lockcharge,
 		"scrambledcodes" = borg.scrambledcodes
 	)
 	.["upgrades"] = list()
-	for (var/upgradetype in subtypesof(/obj/item/borg/upgrade)-/obj/item/borg/upgrade/rename)
+	for (var/upgradetype in subtypesof(/obj/item/borg/upgrade)-list(/obj/item/borg/upgrade/rename, /obj/item/borg/upgrade/restart, /obj/item/borg/upgrade/reset))
 		var/obj/item/borg/upgrade/upgrade = upgradetype
 		if(!borg.module && initial(upgrade.require_module)) //Borg needs to select a module first
 			continue
-		if (initial(upgrade.module_type) && !is_type_in_list(borg.module, initial(upgrade.module_type))) // Upgrade requires a different module
+		if (initial(upgrade.module_type) && (borg.module != initial(upgrade.module_type))) // Upgrade requires a different module
 			continue
 		var/installed = FALSE
 		if (locate(upgradetype) in borg)
@@ -66,9 +66,10 @@
 		.["channels"] += list(list("name" = k, "installed" = (k in borg.radio.channels)))
 	.["cell"] = borg.cell ? list("missing" = FALSE, "maxcharge" = borg.cell.maxcharge, "charge" = borg.cell.charge) : list("missing" = TRUE, "maxcharge" = 1, "charge" = 0)
 	.["modules"] = list()
-	for(var/module_type in typesof(/obj/item/robot_module))
+	for(var/module_type in typesof(/obj/item/robot_module)-/obj/item/robot_module)
 		var/obj/item/robot_module/module = module_type
-		.["modules"] += list(list("name" = initial(module.name), "type" = "[module]"))
+		var/name = initial(module.name)
+		.["modules"] += list(list("name" = "[name]", "type" = module_type))
 	.["ais"] = list(list("name" = "None", "connected" = isnull(borg.connected_ai)))
 	for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
 		.["ais"] += list(list("name" = ai.name, "connected" = (borg.connected_ai == ai)))
@@ -87,17 +88,31 @@
 			borg.cell.charge = newcharge
 			log_and_message_admins("set the charge of [key_name(borg)] to [borg.cell.charge].")
 		if("remove_cell")
-			QDEL_NULL(borg.cell)
-			log_and_message_admins("deleted the cell of [key_name(borg)].")
+			var/datum/robot_component/cell/C = borg.components["power cell"]
+			if(!borg.cell)
+				to_chat(usr, "There is no power cell installed!")
+				return
+			borg.cell = null
+			C.wrapped = null
+			C.installed = FALSE
+			C.uninstall()
+			log_and_message_admins("removed the cell of [key_name(borg)].")
 		if("change_cell")
+			var/datum/robot_component/cell/C = borg.components["power cell"]
 			var/chosen = pick_closest_path(null, make_types_fancy(typesof(/obj/item/stock_parts/cell)))
 			if(!ispath(chosen))
 				chosen = text2path(chosen)
 			if(chosen)
 				if(borg.cell)
-					QDEL_NULL(borg.cell)
-				var/new_cell = new chosen(borg)
+					borg.cell = null
+					C.wrapped = null
+					C.installed = FALSE
+					C.uninstall()
+				var/obj/item/stock_parts/cell/new_cell = new chosen(borg)
 				borg.cell = new_cell
+				C.wrapped = new_cell
+				C.installed = TRUE
+				C.install()
 				borg.cell.charge = borg.cell.maxcharge
 				borg.diag_hud_set_borgcell()
 				log_and_message_admins("changed the cell of [key_name(borg)] to [new_cell].")
@@ -166,8 +181,15 @@
 			borg.radio.recalculateChannels()
 		if("setmodule")
 			var/new_module = params["module"]
+			if(borg.module)
+				borg.reset_module()
 			borg.pick_module(new_module)
 			log_and_message_admins("changed the module of [key_name(borg)] to [new_module].")
+		if("reset_module")
+			var/obj/item/borg/upgrade/reset/reset = new(borg)
+			if(reset.action(borg))
+				borg.install_upgrade(reset)
+				log_and_message_admins("resets [key_name(borg)] module.")
 		if("slavetoai")
 			var/mob/living/silicon/ai/newai = locate(params["slavetoai"]) in GLOB.ai_list
 			if(newai && newai != borg.connected_ai)

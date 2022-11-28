@@ -45,6 +45,10 @@ export const BorgPanel = (props, context) => {
                 selected={borg.scrambledcodes}
                 onClick={() => act('toggle_scrambledcodes')}
               />
+              <Button
+                content="Reset Module"
+                onClick={() => act('reset_module')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Charge">
               {!cell.missing ? (
@@ -91,15 +95,15 @@ export const BorgPanel = (props, context) => {
                 <Button
                   key={module.type}
                   icon={
-                    borg.active_module === module.type
+                    borg.active_module === module.name
                       ? 'check-square-o'
                       : 'square-o'
                   }
-                  content={module.name}
-                  selected={borg.active_module === module.type}
+                  content={module.name+' module'}
+                  selected={borg.active_module === module.name}
                   onClick={() =>
                     act('setmodule', {
-                      module: module.type,
+                      module: module.name,
                     })}
                 />
               ))}

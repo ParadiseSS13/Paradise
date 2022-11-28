@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
 
-	var/datum/action/item_action/toggle_research_scanner/scanner = null
+	var/datum/action/innate/research_scanner/scanner = null
 	var/list/module_actions = list()
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
@@ -178,7 +178,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell_component.install()
 
 	diag_hud_set_borgcell()
-	scanner = new(src)
+	scanner = new()
+	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
 
 /mob/living/silicon/robot/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
@@ -391,7 +392,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			status_flags &= ~CANPUSH
 
 		if("Hunter")
-			module = new /obj/item/robot_module/alien/hunter(src)
+			module = new /obj/item/robot_module/hunter(src)
 			modtype = "Xeno-Hu"
 
 		if("Syndicate Saboteur")
@@ -416,6 +417,33 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			status_flags &= ~CANPUSH
 			QDEL_NULL(mmi)
 			mmi = new /obj/item/mmi/robotic_brain/clockwork(src)
+
+		if("Drone")
+			var/mob/living/silicon/robot/drone/drone = new(get_turf(src))
+			mind.transfer_to(drone)
+			qdel(src)
+			return
+
+		if("Cogscarab")
+			var/mob/living/silicon/robot/cogscarab/cogscarab = new(get_turf(src))
+			mind.transfer_to(cogscarab)
+			qdel(src)
+			return
+
+		if("Ninja")
+			var/mob/living/silicon/robot/syndicate/saboteur/ninja/ninja = new(get_turf(src))
+			mind.transfer_to(ninja)
+			qdel(src)
+			return
+
+		if("Deathsquad")
+			var/mob/living/silicon/robot/deathsquad/death = new(get_turf(src))
+			mind.transfer_to(death)
+			qdel(src)
+			return
+
+	if(!module)
+		CRASH("[key_name_log(src)] tried to choose non-existent '[modtype]' module!")
 
 	//languages
 	module.add_languages(src)
@@ -500,6 +528,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_sight()
 	hands.icon_state = "nomod"
 	icon_state = "robot"
+	custom_panel = null
 	module.remove_subsystems_and_actions(src)
 	QDEL_NULL(module)
 
@@ -1377,8 +1406,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		icon_state =  "[src.ckey]-[modtype]"
-		var/list/names = splittext(src.ckey, "-")
-		custom_panel = trim(names[1])
 		return
 
 	icon_state = module.default_skin
@@ -1393,10 +1420,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/choice = show_radial_menu(src, src, choices, require_near = TRUE)
 	if(choice)
 		icon_state = module.borg_skins[choice]
-		update_icons()
 		to_chat(src, "<span class='notice'>Your icon has been set. You now require a reset module to change it.</span>")
 	else
 		to_chat(src, "<span class='notice'>Your icon has been set by default. You now require a reset module to change it.</span>")
+	var/list/names = splittext(icon_state, "-")
+	custom_panel = trim(names[1])
+	update_icons()
 	lockcharge = FALSE
 	return
 
