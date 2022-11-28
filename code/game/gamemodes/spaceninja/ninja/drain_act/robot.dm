@@ -63,16 +63,17 @@
 		//Инициализируем батарейку
 		var/datum/robot_component/cell/cell_component = ninja_borg.components["power cell"]
 		var/obj/item/stock_parts/cell/borg_cell = get_cell(src)
-		QDEL_NULL(ninja_borg.cell)
-		borg_cell.forceMove(ninja_borg)
-		ninja_borg.cell = borg_cell
-		cell_component.installed = 1
-		cell_component.external_type = borg_cell.type
-		cell_component.wrapped = borg_cell
-		cell_component.install()
-		cell_component.brute_damage = 0
-		cell_component.electronics_damage = 0
-		diag_hud_set_borgcell()
+		if(borg_cell)
+			QDEL_NULL(ninja_borg.cell)
+			borg_cell.forceMove(ninja_borg)
+			ninja_borg.cell = borg_cell
+			cell_component.installed = 1
+			cell_component.external_type = borg_cell.type
+			cell_component.wrapped = borg_cell
+			cell_component.install()
+			cell_component.brute_damage = 0
+			cell_component.electronics_damage = 0
+			diag_hud_set_borgcell()
 		ninja_borg.set_zeroth_law("[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [genderize_ru(ninja.gender,"его","её","его","их")] приказы и указания.")
 		//Переносим разум в нового борга и удаляем старое тело
 		mind.transfer_to(ninja_borg)

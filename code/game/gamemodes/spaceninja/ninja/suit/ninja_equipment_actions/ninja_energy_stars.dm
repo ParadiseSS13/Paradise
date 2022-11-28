@@ -30,12 +30,18 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 	slot_flags = 0
-	flags = NODROP | DROPDEL | ABSTRACT
+	flags = DROPDEL | ABSTRACT
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken)
 	can_charge = 0
 	burst_size = 3
 	var/cost = 10
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
+
+
+/obj/item/gun/energy/shuriken_emitter/Destroy()
+	. = ..()
+	my_suit.shuriken_emitter = null
+	my_suit = null
 
 /obj/item/gun/energy/shuriken_emitter/equip_to_best_slot(mob/M)
 	qdel(src)

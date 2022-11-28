@@ -1,9 +1,6 @@
 /obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/ninja, params)
-	if(ninja!=affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
-		return ..()
-
 	// Копипаст кода джетпаков в хардсьютах
-	if(istype(I, /obj/item/tank/jetpack/suit))
+	if(istype(I, /obj/item/tank/jetpack/suit/ninja))
 		if(jetpack)
 			to_chat(ninja, "<span class='warning'>[src] already has a jetpack installed.</span>")
 			return
@@ -16,6 +13,10 @@
 			jetpack = I
 			to_chat(ninja, "<span class='notice'>You successfully install the jetpack into [src].</span>")
 			return
+
+	if(ninja!=affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
+		return ..()
+
 /*
  * Раньше адреналин регенился посредством наполнения костюма Радием.
  * Позже я решила, что это не лучший метод в наших реалиях и радий для ниндзя слишком легко достать

@@ -43,7 +43,7 @@
 					/datum/martial_combo/ninja_martial_art/wrench_wrist,
 					/datum/martial_combo/ninja_martial_art/neck_slice)
 	has_explaination_verb = TRUE
-
+	reflection_chance = 50
 	var/obj/item/clothing/suit/space/space_ninja/my_suit
 	var/obj/item/melee/energy_katana/my_energy_katana
 
@@ -89,6 +89,16 @@
 /datum/martial_art/ninja_martial_art/proc/regain_focus(user)
 	to_chat(user, span_green("You regained your focus!"))
 	has_focus = TRUE
+
+//Проверяет наличие, катаны привязанной к искусству хотя бы в одной руке
+/datum/martial_art/ninja_martial_art/proc/check_katana(mob/living/user)
+	if(!my_energy_katana)
+		return FALSE
+	if(user.get_inactive_hand() == my_energy_katana)
+		return TRUE
+	if(user.get_active_hand() == my_energy_katana)
+		return TRUE
+	return FALSE
 
 /datum/martial_art/ninja_martial_art/explaination_header(user)
 	to_chat(user, "<b><i>You honor your clan and remember your teachings...</i></b>")

@@ -384,7 +384,7 @@
 	hunt_changelings.owner = ninja_mind
 	hunt_changelings.find_target()
 	ninja_mind.objectives += hunt_changelings
-	if(!length(hunt_changelings.changelings))//Если нет генокрадов, просто не даём цель
+	if(!length(SSticker.mode.changelings))//Если нет генокрадов, просто не даём цель
 		GLOB.all_objectives -= hunt_changelings
 		ninja_mind.objectives -= hunt_changelings
 		log_debug("Ninja_Objectives_Log: Удаляем цель охоты на генок у ниндзя ибо нет генокрадов")
@@ -411,7 +411,7 @@
 	var/datum/objective/plant_explosive/bomb_objective = locate(/datum/objective/plant_explosive) in ninja_mind.objectives
 	//Выдача бомбы
 	if(bomb_objective) //Вместо спавна бомбы всегда, лучше пусть спавнится только если есть цель на бомбу
-		if(!locate(/obj/item/grenade/plastic/c4/ninja) in ninja_mob.get_contents()) //Если уже есть бомба, не надо делать вторую
+		if(!locate(/obj/item/grenade/plastic/c4/ninja) in ninja_mob.get_contents() && !bomb_objective.completed) //Если уже есть бомба, не надо делать вторую
 			ninja_mob.equip_or_collect(new /obj/item/grenade/plastic/c4/ninja(ninja_mob), slot_l_store)
 			var/obj/item/grenade/plastic/c4/ninja/charge = ninja_mob.l_store
 			charge.detonation_objective = bomb_objective

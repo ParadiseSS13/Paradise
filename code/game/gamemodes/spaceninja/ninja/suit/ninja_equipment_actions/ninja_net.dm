@@ -26,13 +26,14 @@
 	item_state = ""
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = 0
-	flags = NODROP | DROPDEL | ABSTRACT
+	flags = DROPDEL | ABSTRACT
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 
 /obj/item/ninja_net_emitter/Destroy()
 	. = ..()
 	my_suit.net_emitter = null
 	my_suit = null
+
 
 /obj/item/ninja_net_emitter/equip_to_best_slot(mob/M)
 	qdel(src)

@@ -108,6 +108,8 @@
 	creeping_widow.teach(ninja)
 	creeping_widow.my_suit = n_suit
 	creeping_widow.my_energy_katana = n_suit.energyKatana
+	//Проверка и перевыдача бомбы
+	SSticker.mode.basic_ninja_needs_check(ninja.mind)
 	//Пробуждение из клонёрки
 	addtimer(CALLBACK(src, .proc/force_ninja_out), 150)
 	suits_data.Remove(ninja_suit_data)

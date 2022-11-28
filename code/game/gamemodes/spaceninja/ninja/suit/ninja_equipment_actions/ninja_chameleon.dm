@@ -37,7 +37,7 @@
 	item_state = ""
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = 0
-	flags = NODROP | DROPDEL | ABSTRACT
+	flags =  DROPDEL | ABSTRACT
 	var/effect_color = "#ffaa00"
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 
