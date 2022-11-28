@@ -90,6 +90,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 
 /mob/dead/observer/Destroy()
+	toggle_all_huds_off()
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -338,6 +339,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	antagHUD = TRUE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		H.add_hud_to(src)
+
+/**
+ * Toggles off all HUDs for the ghost player.
+ */
+/mob/dead/observer/proc/toggle_all_huds_off()
+	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
+	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
+	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+	antagHUD = FALSE
+	for(var/datum/atom_hud/antag/H in GLOB.huds)
+		H.remove_hud_from(src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Set DNR"
