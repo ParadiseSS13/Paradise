@@ -939,10 +939,9 @@
 /area/mine/living_quarters)
 "cm" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 4
 	},
-/obj/structure/closet/crate,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "cn" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -2831,7 +2830,6 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
-/obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -2848,10 +2846,6 @@
 	icon_state = "darkblue"
 	},
 /area/mine/living_quarters)
-"gc" = (
-/obj/structure/table/survival_pod,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/mining)
 "gd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -19869,7 +19863,7 @@ cH
 aj
 aj
 ab
-xC
+ab
 xC
 tb
 xC
@@ -20127,7 +20121,7 @@ aj
 aj
 ab
 xC
-gc
+xC
 Cf
 JX
 Vu
@@ -20641,8 +20635,8 @@ aj
 ab
 ab
 xC
+xC
 cm
-Cf
 Cf
 Vu
 gH
@@ -20897,7 +20891,7 @@ cH
 aj
 aj
 ab
-xC
+ab
 xC
 tb
 fJ
