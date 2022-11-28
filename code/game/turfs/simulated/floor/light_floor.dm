@@ -1,16 +1,16 @@
 /turf/simulated/floor/light
 	name = "\improper light floor"
-	light_range = 5
-	icon_state = "light_on"
+	light_range = 0
+	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
 	broken_states = list("light_off")
 	/// Are we on
-	var/on = TRUE
+	var/on = FALSE
 	/// Are we broken
 	var/light_broken = FALSE
 	/// Can we modify a colour
 	var/can_modify_colour = TRUE
-	/// Are we draining power, prevents updating the icon drain / generate power
+	/// Are we draining power
 	var/using_power = FALSE
 
 /turf/simulated/floor/light/Initialize(mapload)
@@ -20,24 +20,15 @@
 	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
 	if(current_apc)
 		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_update), override = TRUE)
+	toggle_light(TRUE)
 
 /turf/simulated/floor/light/update_icon_state()
-	var/area/A = get_area(src)
-	if(!A)
-		return
 	if(on)
 		icon_state = "light_on"
 		set_light(5, null, color)
-		if(!using_power)
-			A.addStaticPower(100, STATIC_LIGHT)
-			using_power = TRUE
 	else
 		icon_state = "light_off"
 		set_light(0)
-		if(using_power)
-			A.addStaticPower(-100, STATIC_LIGHT)
-			using_power = FALSE
-
 
 /turf/simulated/floor/light/BeforeChange()
 	toggle_light(FALSE)
@@ -102,10 +93,20 @@
 	if(!on && !power_check())
 		visible_message("<span class='danger'>[src] doesn't react, it seems to be out of power.</span>")
 		return
+	var/area/A = get_area(src)
+	if(!A)
+		return
 	// 0 = OFF
 	// 1 = ON
 	on = light
+	if(!on && using_power)
+		A.addStaticPower(-100, STATIC_LIGHT)
+		using_power = FALSE
+	if(on && !using_power)
+		using_power = TRUE
+		A.addStaticPower(100, STATIC_LIGHT)
 	update_icon()
+
 
 /turf/simulated/floor/light/extinguish_light()
 	toggle_light(FALSE)
