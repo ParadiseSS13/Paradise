@@ -668,11 +668,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "green"
 
 /area/maintenance/fore
-	name = "Fore Maintenance"
+	name = "North Maintenance"
 	icon_state = "fmaint"
 
 /area/maintenance/fpmaint
-	name = "Fore-Port Maintenance"
+	name = "North-West Maintenance"
 	icon_state = "fpmaint"
 
 /area/maintenance/fsmaint
@@ -708,7 +708,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "central"
 
 /area/maintenance/starboard
-	name = "Starboard Maintenance"
+	name = "East Maintenance"
 	icon_state = "smaint"
 
 /area/maintenance/port
@@ -815,23 +815,23 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/hallway/primary/fore
-	name = "\improper Fore Primary Hallway"
+	name = "\improper North Primary Hallway"
 	icon_state = "hallF"
 
 /area/hallway/primary/starboard
-	name = "\improper Starboard Primary Hallway"
+	name = "\improper East Primary Hallway"
 	icon_state = "hallS"
 
 /area/hallway/primary/starboard/west
 /area/hallway/primary/starboard/east
 
 /area/hallway/primary/aft
-	name = "\improper Aft Primary Hallway"
+	name = "\improper South Primary Hallway"
 	icon_state = "hallA"
 
 
 /area/hallway/primary/port
-	name = "\improper Port Primary Hallway"
+	name = "\improper West Primary Hallway"
 	icon_state = "hallP"
 
 /area/hallway/primary/port/west
@@ -880,10 +880,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Arrival Shuttle West Hallway"
 
 /area/hallway/secondary/entry/additional
-	name = "\improper Arrival Additional Port Hallway"
+	name = "\improper Arrival Additional West Hallway"
 
 /area/hallway/secondary/entry/commercial
-	name = "\improper Arrival Commercial Port Hallway"
+	name = "\improper Arrival Commercial West Hallway"
 
 /area/hallway/secondary/entry/north
 
@@ -1327,44 +1327,44 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_SPACE
 
 /area/solar/auxport
-	name = "\improper Fore Port Solar Array"
+	name = "\improper North-West Solar Array"
 	icon_state = "panelsA"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/solar/auxstarboard
-	name = "\improper Fore Starboard Solar Array"
+	name = "\improper North-East Solar Array"
 	icon_state = "panelsA"
 
 /area/solar/fore
-	name = "\improper Fore Solar Array"
+	name = "\improper North Solar Array"
 	icon_state = "yellow"
 
 /area/solar/aft
-	name = "\improper Aft Solar Array"
+	name = "\improper South Solar Array"
 	icon_state = "aft"
 
 /area/solar/starboard
-	name = "\improper Aft Starboard Solar Array"
+	name = "\improper South-East Solar Array"
 	icon_state = "panelsS"
 
 /area/solar/port
-	name = "\improper Aft Port Solar Array"
+	name = "\improper South-West Solar Array"
 	icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
-	name = "\improper Fore Port Solar Maintenance"
+	name = "\improper North-West Solar Maintenance"
 	icon_state = "SolarcontrolA"
 
 /area/maintenance/starboardsolar
-	name = "\improper Aft Starboard Solar Maintenance"
+	name = "\improper South-East Solar Maintenance"
 	icon_state = "SolarcontrolS"
 
 /area/maintenance/portsolar
-	name = "\improper Aft Port Solar Maintenance"
+	name = "\improper South-West Solar Maintenance"
 	icon_state = "SolarcontrolP"
 
 /area/maintenance/auxsolarstarboard
-	name = "\improper Fore Starboard Solar Maintenance"
+	name = "\improper North-East Solar Maintenance"
 	icon_state = "SolarcontrolA"
 
 
@@ -1954,11 +1954,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "storage"
 
 /area/storage/emergency
-	name = "Starboard Emergency Storage"
+	name = "East Emergency Storage"
 	icon_state = "emergencystorage"
 
 /area/storage/emergency2
-	name = "Port Emergency Storage"
+	name = "West Emergency Storage"
 	icon_state = "emergencystorage"
 
 /area/storage/tech
@@ -2086,11 +2086,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
-	name = "\improper Derelict Starboard Solar Array"
+	name = "\improper Derelict East Solar Array"
 	icon_state = "panelsS"
 
 /area/solar/derelict_aft
-	name = "\improper Derelict Aft Solar Array"
+	name = "\improper Derelict South Solar Array"
 	icon_state = "aft"
 
 /area/derelict/singularity_engine

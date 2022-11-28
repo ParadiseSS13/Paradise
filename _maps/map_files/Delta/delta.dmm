@@ -4337,7 +4337,7 @@
 "avr" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
-	name = "Port Solar Array"
+	name = "West Solar Array"
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -4845,7 +4845,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals Center Fore";
+	c_tag = "Arrivals Center North";
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
@@ -5195,7 +5195,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals Fore Starboard";
+	c_tag = "Arrivals North-East";
 	dir = 4;
 	pixel_y = -22
 	},
@@ -5778,7 +5778,7 @@
 	pixel_x = -25
 	},
 /obj/machinery/camera{
-	c_tag = "Cargo Office NorthWest";
+	c_tag = "Cargo Office North-West";
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -6431,7 +6431,7 @@
 /area/quartermaster/delivery)
 "aGF" = (
 /obj/machinery/camera{
-	c_tag = "Arrivals Shuttle South West";
+	c_tag = "Arrivals Shuttle South-West";
 	dir = 4
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -6450,7 +6450,7 @@
 "aGJ" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
-	c_tag = "Arrivals Shuttle South East";
+	c_tag = "Arrivals Shuttle South-East";
 	dir = 8
 	},
 /obj/machinery/requests_console{
@@ -7722,7 +7722,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals Port Fore";
+	c_tag = "Arrivals West-North";
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -8292,7 +8292,7 @@
 "aPu" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
-	name = "Port Solar Array"
+	name = "West Solar Array"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -8414,7 +8414,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/camera{
-	c_tag = "Cargo Office SouthWest";
+	c_tag = "Cargo Office South-West";
 	dir = 4
 	},
 /obj/machinery/power/apc{
@@ -11694,7 +11694,7 @@
 /area/shuttle/mining)
 "bia" = (
 /obj/machinery/camera{
-	c_tag = "Mining Port";
+	c_tag = "Mining West";
 	dir = 1
 	},
 /obj/structure/closet/wardrobe/miner,
@@ -12298,7 +12298,7 @@
 /area/hallway/secondary/entry/lounge)
 "bkM" = (
 /obj/machinery/camera{
-	c_tag = "Hangar West South";
+	c_tag = "Hangar West-South";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -12984,7 +12984,7 @@
 /area/engine/controlroom)
 "boK" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -13854,7 +13854,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals Center Aft";
+	c_tag = "Arrivals Center South";
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -14094,7 +14094,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
 	icon_state = "door_closed";
-	name = "Fore Port Solar Access";
+	name = "North-West Solar Access";
 	req_access_txt = "32"
 	},
 /obj/structure/cable{
@@ -14290,7 +14290,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals Center Aft";
+	c_tag = "Arrivals Center South";
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -14343,7 +14343,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals Aft Starboard";
+	c_tag = "Arrivals South-East";
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -14458,7 +14458,7 @@
 /area/engine/break_room)
 "bvF" = (
 /obj/machinery/camera{
-	c_tag = "Medbay South East Hallway";
+	c_tag = "Medbay South-East Hallway";
 	dir = 8;
 	network = list("SS13","Medical")
 	},
@@ -14518,7 +14518,7 @@
 /area/solar/auxport)
 "bvQ" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
@@ -16385,7 +16385,7 @@
 /area/medical/morgue)
 "bCl" = (
 /obj/machinery/camera{
-	c_tag = "Bridge Port";
+	c_tag = "Bridge West";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -17956,7 +17956,7 @@
 "bJf" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
-	name = "Port Solar Array"
+	name = "West Solar Array"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -21163,7 +21163,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/camera{
-	c_tag = "Arrivals Port Bay 4"
+	c_tag = "Arrivals West Bay 4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21569,7 +21569,7 @@
 /area/quartermaster/miningdock)
 "bYA" = (
 /obj/machinery/camera{
-	c_tag = "Arrivals Second Port"
+	c_tag = "Arrivals Second West"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23454,7 +23454,7 @@
 "cfL" = (
 /obj/structure/lattice,
 /obj/machinery/camera/emp_proof{
-	c_tag = "Singularity SouthWest";
+	c_tag = "Singularity South-West";
 	dir = 4;
 	network = list("SS13","Singularity","Engineering")
 	},
@@ -29052,7 +29052,7 @@
 /area/crew_quarters/cabin1)
 "cDp" = (
 /obj/machinery/camera{
-	c_tag = "Fore Hallway North 1";
+	c_tag = "North Hallway North 1";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -29194,7 +29194,7 @@
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
 	id = "portsolar";
-	name = "Aft Port Solar Control"
+	name = "South-West Solar Control"
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
@@ -29651,7 +29651,7 @@
 /area/crew_quarters/sleep)
 "cFs" = (
 /obj/machinery/camera{
-	c_tag = "Dorm Hallway Port";
+	c_tag = "Dorm Hallway West";
 	dir = 1
 	},
 /obj/machinery/light,
@@ -36941,7 +36941,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/camera{
-	c_tag = "Port Fore Solars";
+	c_tag = "West-North Solars";
 	network = list("SS13","Engineering")
 	},
 /obj/item/radio/intercom{
@@ -37444,7 +37444,7 @@
 /area/maintenance/fpmaint)
 "diR" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
@@ -40981,7 +40981,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/camera{
-	c_tag = "Arrivals Hall Starboard";
+	c_tag = "Arrivals Hall East";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -43413,7 +43413,7 @@
 /area/library)
 "dGw" = (
 /obj/machinery/camera{
-	c_tag = "Fore Starboard Solars";
+	c_tag = "North-East Solars";
 	network = list("SS13","Engineering")
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -47883,7 +47883,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering{
-	name = "Fore Starboard Solar Access";
+	name = "North-East Solar Access";
 	req_access_txt = "10"
 	},
 /turf/simulated/floor/plating,
@@ -48249,7 +48249,7 @@
 "dXp" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
-	name = "Port Solar Array"
+	name = "West Solar Array"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
@@ -50375,7 +50375,7 @@
 "elI" = (
 /obj/structure/lattice,
 /obj/machinery/camera/emp_proof{
-	c_tag = "Singularity NorthWest";
+	c_tag = "Singularity North-West";
 	dir = 4;
 	network = list("SS13","Singularity","Engineering")
 	},
@@ -51816,7 +51816,7 @@
 /area/crew_quarters/locker)
 "eCY" = (
 /obj/machinery/camera{
-	c_tag = "Holodeck Aft";
+	c_tag = "Holodeck South";
 	dir = 1
 	},
 /turf/simulated/floor/engine{
@@ -55261,7 +55261,7 @@
 /area/crew_quarters/fitness)
 "foh" = (
 /obj/machinery/camera{
-	c_tag = "Holodeck Fore"
+	c_tag = "Holodeck North"
 	},
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
@@ -56317,7 +56317,7 @@
 /area/crew_quarters/theatre)
 "fCi" = (
 /obj/machinery/camera{
-	c_tag = "Fore Hallway South 1";
+	c_tag = "North Hallway South 1";
 	dir = 8
 	},
 /obj/machinery/firealarm{
@@ -58159,7 +58159,7 @@
 /obj/machinery/power/solar_control{
 	dir = 4;
 	id = "starboardsolar";
-	name = "Aft Starboard Solar Control"
+	name = "South-East Solar Control"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
@@ -58653,7 +58653,7 @@
 /area/hallway/secondary/exit)
 "gat" = (
 /obj/machinery/camera{
-	c_tag = "Fore Hallway South 2";
+	c_tag = "North Hallway South 2";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -58881,7 +58881,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Cryodorms Fore"
+	c_tag = "Cryodorms North"
 	},
 /obj/effect/landmark{
 	name = "JoinLateCryo"
@@ -59064,7 +59064,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -63307,7 +63307,7 @@
 /obj/machinery/power/solar_control{
 	dir = 8;
 	id = "auxsolareast";
-	name = "Fore Starboard Solar Control"
+	name = "North-East Solar Control"
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
@@ -67654,7 +67654,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Aft Starboard Solars"
+	c_tag = "South-East Solars"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
@@ -73267,7 +73267,7 @@
 /area/crew_quarters/hor)
 "jmx" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -74659,7 +74659,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera{
-	c_tag = "Cryodorms Aft";
+	c_tag = "Cryodorms South";
 	dir = 1
 	},
 /obj/effect/landmark{
@@ -74840,7 +74840,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -77846,7 +77846,7 @@
 	frequency = 1379;
 	layer = 4;
 	master_tag = "solar_xeno_airlock";
-	name = "Aft Starboard Solar Panels";
+	name = "South-East Solar Panels";
 	pixel_x = -23;
 	pixel_y = -21;
 	req_access_txt = "13"
@@ -78833,7 +78833,7 @@
 "kAV" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/camera/emp_proof{
-	c_tag = "Singularity NorthEast";
+	c_tag = "Singularity North-East";
 	dir = 8;
 	network = list("SS13","Singularity","Engineering")
 	},
@@ -91416,7 +91416,7 @@
 /area/assembly/chargebay)
 "nop" = (
 /obj/machinery/camera{
-	c_tag = "Rec Room Aft";
+	c_tag = "Rec Room South";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -93808,7 +93808,7 @@
 /area/maintenance/asmaint3)
 "nOK" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -94925,7 +94925,7 @@
 /area/hallway/primary/central/north)
 "obW" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -97933,7 +97933,7 @@
 /area/crew_quarters/bar/atrium)
 "oID" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -98594,7 +98594,7 @@
 /area/medical/virology/lab)
 "oPP" = (
 /obj/machinery/camera{
-	c_tag = "Dorm Hallway Starboard"
+	c_tag = "Dorm Hallway East"
 	},
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -103912,7 +103912,7 @@
 	in_use = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Rec Room Fore"
+	c_tag = "Rec Room North"
 	},
 /obj/item/clipboard,
 /obj/item/folder,
@@ -105873,7 +105873,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Port Hallway North";
+	c_tag = "West Hallway North";
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
@@ -106966,7 +106966,7 @@
 /area/toxins/xenobiology)
 "qxE" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -108858,7 +108858,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering{
-	name = "Aft Port Solar Access";
+	name = "South-West Solar Access";
 	req_access_txt = "10"
 	},
 /obj/structure/sign/electricshock{
@@ -116772,7 +116772,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
-	name = "Aft Starboard Solar Access";
+	name = "South-East Solar Access";
 	req_access_txt = "10"
 	},
 /obj/structure/cable{
@@ -118869,7 +118869,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/camera{
-	c_tag = "Port Aft Solars"
+	c_tag = "West-South Solars"
 	},
 /obj/item/radio/intercom{
 	pixel_y = 28
@@ -118925,7 +118925,7 @@
 /obj/structure/cable,
 /obj/machinery/power/solar_control{
 	id = "portsolar";
-	name = "Aft Port Solar Control"
+	name = "South-West Solar Control"
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
@@ -119334,7 +119334,7 @@
 "tgf" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/camera/emp_proof{
-	c_tag = "Singularity SouthEast";
+	c_tag = "Singularity South-East";
 	dir = 8;
 	network = list("SS13","Singularity","Engineering")
 	},
@@ -120623,7 +120623,7 @@
 /area/aisat)
 "tvi" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
@@ -122581,7 +122581,7 @@
 /area/maintenance/casino)
 "tOA" = (
 /obj/machinery/camera{
-	c_tag = "Bridge Starboard";
+	c_tag = "Bridge East";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -137635,7 +137635,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Library Starboard"
+	c_tag = "Library East"
 	},
 /obj/structure/bookcase,
 /turf/simulated/floor/wood,
@@ -140785,7 +140785,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Port Hallway Middle";
+	c_tag = "West Hallway Middle";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -141976,7 +141976,7 @@
 /area/crew_quarters/chief)
 "xPq" = (
 /obj/machinery/camera{
-	c_tag = "Port Hallway South";
+	c_tag = "West Hallway South";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -144198,7 +144198,7 @@
 /area/security/execution)
 "yjS" = (
 /obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
+	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
 	d2 = 8;
