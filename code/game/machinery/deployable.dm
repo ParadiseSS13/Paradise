@@ -375,7 +375,7 @@
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead"
 	item_state = "grenade"
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 2500) //plasma burned up for power or something, plus not that much to reclaim
+	materials = list(MAT_METAL = 500, MAT_GLASS = 300) //plasma burned up for power or something, plus not that much to reclaim
 
 
 /obj/item/storage/box/syndie_kit/dropwall

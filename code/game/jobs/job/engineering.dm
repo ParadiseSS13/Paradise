@@ -4,11 +4,12 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_engineering = 1
+	is_engineering = TRUE
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
+	department_account_access = TRUE
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
 			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,

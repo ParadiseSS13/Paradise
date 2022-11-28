@@ -1041,6 +1041,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	ailock = TRUE
 	var/area/syndicate_depot/core/depotarea
 
+/obj/machinery/porta_turret/syndicate/CanPass(atom/A)
+    return ((stat & BROKEN) || !isliving(A))
+
+/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((stat & BROKEN) || !isliving(caller))
+
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
 	if(istype(depotarea))

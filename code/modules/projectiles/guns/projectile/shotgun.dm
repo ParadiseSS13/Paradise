@@ -204,7 +204,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction
 	name = "\improper Mosin Nagant"
-	desc = "This piece of junk looks like something that could have been used 700 years ago."
+	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -213,7 +213,7 @@
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
-	var/bolt_open = 0
+	var/bolt_open = FALSE
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
@@ -225,7 +225,11 @@
 	else
 		pump_unload(M)
 	bolt_open = !bolt_open
+	update_icon(UPDATE_ICON_STATE)
 	return 1
+
+/obj/item/gun/projectile/shotgun/boltaction/update_icon_state()
+	icon_state = "[initial(icon_state)][bolt_open ? "-open" : ""]"
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0
