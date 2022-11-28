@@ -287,7 +287,7 @@ const GetRequestNotice = (_properties, context) => {
       head_color = 'purple';
       break;
     case "Supply":
-      head_name = 'QM';
+      head_name = 'CT'; // cargo tech
       head_color = 'brown';
       break;
     case "Service":

@@ -39,7 +39,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/supplycomp/proc/has_qm_access(list/access)
-	return (ACCESS_QM in access) ? TRUE : FALSE
+	return (ACCESS_CARGO in access) ? TRUE : FALSE
 
 /obj/machinery/computer/supplycomp/proc/is_authorized(mob/user)
 	if(allowed(user))
@@ -397,7 +397,7 @@
 			SSeconomy.request_list -= order
 			return
 		// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
-		if(order.requires_qm_approval && (ACCESS_QM in C.access))
+		if(order.requires_qm_approval && (ACCESS_CARGO in C.access))
 			SSeconomy.request_list -= order
 		else if(order.requires_head_approval && (order.ordered_by_department.has_account_access(C.access)))
 			SSeconomy.request_list -= order
