@@ -532,6 +532,14 @@
 	loc = S1.loc
 	dir = S1.dir
 
+	// Update mining and labor shuttle ash storm audio
+	if(id in list("mining", "laborcamp"))
+		var/mining_zlevel = level_name_to_num(MINING)
+		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
+		if(W)
+			W.update_eligible_areas()
+			W.update_audio()
+
 	unlockPortDoors(S1)
 
 
