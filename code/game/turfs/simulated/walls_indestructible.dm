@@ -42,6 +42,18 @@
 /turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
+/turf/simulated/wall/indestructible/rpd_act()
+	return
+
+/turf/simulated/wall/indestructible/acid_act(acidpwr, acid_volume, acid_id)
+	return
+
+/turf/simulated/wall/indestructible/try_decon(obj/item/I, mob/user, params)
+	return
+
+/turf/simulated/wall/indestructible/thermitemelt(mob/user as mob, speed)
+	return
+
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
 	desc = "A seemingly impenetrable wall."

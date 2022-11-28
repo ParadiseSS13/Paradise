@@ -392,6 +392,8 @@
 		return FALSE
 
 	if(isfloorturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -426,6 +428,8 @@
  */
 /obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
 	if(isfloorturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -468,9 +472,13 @@
  */
 /obj/item/rcd/proc/mode_decon(atom/A, mob/user)
 	if(iswallturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
 			return FALSE
 		if(istype(A, /turf/simulated/wall/mineral/titanium/nodecon))
+			return FALSE
+		if(istype(A, /turf/simulated/wall/indestructible))
 			return FALSE
 		if(checkResource(5, user))
 			to_chat(user, "Deconstructing Wall...")
@@ -489,6 +497,8 @@
 		return FALSE
 
 	if(isfloorturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(checkResource(5, user))
 			to_chat(user, "Deconstructing Floor...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
@@ -567,6 +577,8 @@
  */
 /obj/item/rcd/proc/mode_window(atom/A, mob/user)
 	if(isfloorturf(A))
+		if(istype(get_area(src), /area/lavaland/surface/outdoors/necropolis))
+			return FALSE
 		if(locate(/obj/machinery/field) in A )
 			to_chat(user, "<span class='warning'>ERROR! Due to safety protocols building is prohibited in high-energy field areas!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)

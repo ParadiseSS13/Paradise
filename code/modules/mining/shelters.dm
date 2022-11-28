@@ -9,7 +9,7 @@
 	. = ..()
 	blacklisted_turfs = typecacheof(list(/turf/simulated/wall, /turf/simulated/mineral, /turf/simulated/shuttle/wall, /turf/unsimulated/wall))
 	whitelisted_turfs = list()
-	banned_areas = typecacheof(/area/shuttle)
+	banned_areas = typecacheof(list(/area/shuttle, /area/lavaland/surface/outdoors/necropolis))
 
 /datum/map_template/shelter/proc/check_deploy(turf/deploy_location)
 	var/affected = get_affected_turfs(deploy_location, centered=TRUE)
