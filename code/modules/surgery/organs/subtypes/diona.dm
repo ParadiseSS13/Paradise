@@ -86,6 +86,10 @@
 	name = "neural strata"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
+	dead_icon = null
+
+/obj/item/organ/internal/heart/diona/update_icon()
+	return
 
 /obj/item/organ/internal/lungs/diona
 	species_type = /datum/species/diona
