@@ -391,6 +391,7 @@
 
 		if(!zipped && zip_time) // Handle slowdown and stuff now that we just zipped it
 			slowdown = 1
+			show_to(usr)
 			return
 
 		slowdown = 0
