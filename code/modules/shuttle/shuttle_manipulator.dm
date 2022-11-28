@@ -63,7 +63,7 @@
 	switch(var_name)
 		if("shuttle_and_preview_cooldown")
 			log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
-			return FALSE /// Extremely important that this doesn't get varedited by mistake, otherwise horrible, horrible things can happen to the server.
+			return FALSE // Extremely important that this doesn't get varedited by mistake, otherwise horrible, horrible things can happen to the server.
 
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -134,7 +134,9 @@
 /obj/machinery/shuttle_manipulator/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
-
+	if(shuttle_and_preview_cooldown > world.time)
+		to_chat(usr, "<span class='warning'>Please wait until the desired shuttle has finished being loaded.</span>")
+		return		
 	. = TRUE
 
 	switch(action)
@@ -167,10 +169,7 @@
 					break
 
 		if("preview")
-			if(shuttle_and_preview_cooldown + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN > world.time) 
-				to_chat(usr, "<span class='warning'>Please wait while the shuttle manipulator recalibrates...</span>")
-				return
-			shuttle_and_preview_cooldown = world.time
+			shuttle_and_preview_cooldown = world.time + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
 			if(S)
 				unload_preview()
@@ -180,10 +179,7 @@
 					usr.forceMove(get_turf(preview_shuttle))
 
 		if("load")
-			if(shuttle_and_preview_cooldown + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN > world.time) 
-				to_chat(usr, "<span class='warning'>Please wait while the shuttle manipulator recalibrates...</span>")
-				return
-			shuttle_and_preview_cooldown = world.time
+			shuttle_and_preview_cooldown = world.time + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
 			if(existing_shuttle == SSshuttle.backup_shuttle)
 				// TODO make the load button disabled
