@@ -175,8 +175,9 @@
 	return ..()
 
 /mob/living/simple_animal/mouse/blobinfected/death(gibbed)
-	burst(gibbed)
-	return ..(gibbed)
+	. = ..(gibbed)
+	if(.) // Avoids a double burst due to the gib call in burst
+		burst(gibbed)
 
 /mob/living/simple_animal/mouse/blobinfected/proc/burst(gibbed)
 	var/turf/T = get_turf(src)
