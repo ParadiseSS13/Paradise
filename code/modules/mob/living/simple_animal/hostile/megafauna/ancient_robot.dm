@@ -614,7 +614,7 @@ Difficulty: Hard
 	if(regen)
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
 	transfer_rate = 0.75 * (fake_hp/fake_max_hp)
-	if(fake_hp >= 25 && !ranged)
+	if(fake_hp >= 250 && !ranged)
 		ranged = TRUE
 		visible_message("<span class='danger'>[src]'s turret pops out of it!</span>")
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
