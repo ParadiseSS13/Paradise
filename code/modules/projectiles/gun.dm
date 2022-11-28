@@ -161,7 +161,7 @@
 		if(!can_trigger_gun(L))
 			return
 
-	if(!can_shoot()) //Just because you can pull the trigger doesn't mean it can't shoot.
+	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
 		shoot_with_empty_chamber(user)
 		return
 

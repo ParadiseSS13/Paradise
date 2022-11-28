@@ -18,6 +18,107 @@
 	var/charge_tick = 0
 	var/charge_delay = 4
 
+	var/can_add_sibyl_system = TRUE //if a sibyl system's mod can be added or removed if it already has one
+	var/obj/item/sibyl_system_mod/sibyl_mod = null
+
+/obj/item/gun/energy/examine(mob/user)
+	. = ..()
+	if(sibyl_mod)
+		. += "<span class='notice'>Вы видите индикаторы модуля Sibyl System.</span>"
+
+/obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
+	..()
+	if(can_add_sibyl_system)
+		if(istype(I, /obj/item/sibyl_system_mod))
+			if(!sibyl_mod)
+				var/obj/item/sibyl_system_mod/M = I
+				M.install(src, user)
+				return
+		if(istype(I, /obj/item/card/id/))
+			if(sibyl_mod)
+				sibyl_mod.toggleAuthorization(I, user)
+				return
+
+/obj/item/gun/energy/proc/toggle_voice()
+	set name = "Переключить голос Sibyl System"
+	set category = "Object"
+	set desc = "Кликните для переключения голосовой подсистемы."
+
+	if(sibyl_mod)
+		sibyl_mod.toggle_voice(usr)
+
+/obj/item/gun/energy/screwdriver_act(mob/living/user, obj/item/I)
+	..()
+	if(sibyl_mod && user.a_intent != INTENT_HARM)
+		if(sibyl_mod.state == SIBSYS_STATE_SCREWDRIVER_ACT)
+			sibyl_mod.state = SIBSYS_STATE_INSTALLED
+			to_chat(user, "<span class='notice'>Вы закрутили шурупы мода Sibyl System в [src].</span>")
+			return
+		else
+			if(prob(90))
+				sibyl_mod.state = SIBSYS_STATE_SCREWDRIVER_ACT
+				to_chat(user, "<span class='notice'>Вы успешно открутили шурупы мода Sibyl System от [src].</span>")
+			else
+				var/mob/living/carbon/human/H = user
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
+				user.apply_damage(5, BRUTE , affecting)
+				user.emote("scream")
+				to_chat(user, "<span class='warning'>Проклятье! [I] сорвалась и повредила [affecting.name]!</span>")
+			return
+
+/obj/item/gun/energy/welder_act(mob/living/user, obj/item/I)
+	..()
+	if(sibyl_mod && user.a_intent != INTENT_HARM)
+		if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)
+			to_chat(user, "<span class='notice'>Вы начинаете заваривать болты мода Sibyl System от [src]...</span>")
+			if(I.use_tool(src, user, 16 SECONDS, volume = I.tool_volume))
+				sibyl_mod.state = SIBSYS_STATE_SCREWDRIVER_ACT
+				to_chat(user, "<span class='notice'>Вы заварили болты мода Sibyl System в [src].</span>")
+			return
+		if(sibyl_mod.state == SIBSYS_STATE_SCREWDRIVER_ACT)
+			to_chat(user, "<span class='notice'>Вы начинаете разваривать болты мода Sibyl System от [src]...</span>")
+			if(I.use_tool(src, user, 16 SECONDS, volume = I.tool_volume))
+				if(prob(70))
+					sibyl_mod.state = SIBSYS_STATE_WELDER_ACT
+					to_chat(user, "<span class='notice'>Вы успешно разварили болты мода Sibyl System от [src].</span>")
+				else
+					var/mob/living/carbon/human/H = user
+					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
+					user.apply_damage(10, BURN , affecting)
+					user.emote("scream")
+					to_chat(user, "<span class='warning'>Проклятье! [I] дёрнулась и прожгла [affecting.name]!</span>")
+			return
+
+/obj/item/gun/energy/crowbar_act(mob/living/user, obj/item/I)
+	..()
+	if(sibyl_mod && user.a_intent != INTENT_HARM)
+		if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)
+			to_chat(user, "<span class='notice'>Вы начинаете отковыривать болты мода Sibyl System от [src]...</span>")
+			if(!I.use_tool(src, user, 16 SECONDS, volume = I.tool_volume))
+				return
+			if(prob(95))
+				if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)
+					sibyl_mod.uninstall(src)
+					to_chat(user, "<span class='notice'>Вы успешно отковыряли болты мода Sibyl System от [src].</span>")
+			else
+				var/mob/living/carbon/human/H = user
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
+				user.apply_damage(5, BRUTE , affecting)
+				user.emote("scream")
+				to_chat(user, "<span class='warning'>Проклятье! [I] соскальзнула и повредила [affecting.name]!</span>")
+			return
+
+/obj/item/gun/energy/emag_act(mob/user)
+	if(!sibyl_mod?.emagged)
+		add_attack_logs(user, sibyl_mod, "emagged")
+		sibyl_mod.emagged = TRUE
+		sibyl_mod.unlock()
+		if(user)
+			user.visible_message("<span class='warning'>От [src] летят искры!</span>", "<span class='notice'>Вы взломали [src], что привело к выключению болтов предохранителя.</span>")
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 30, 1)
+		do_sparks(5, 1, src)
+		return
+
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
 	if(chambered)//phil235
@@ -83,11 +184,12 @@
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
 
-/obj/item/gun/energy/can_shoot()
+/obj/item/gun/energy/can_shoot(mob/living/user)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	if(cell.charge >= shot.e_cost)
-		return TRUE
-	return FALSE
+	var/check_charge = cell.charge >= shot.e_cost
+	if(sibyl_mod && !sibyl_mod.check_auth(check_charge, user))
+		return FALSE
+	return check_charge
 
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
@@ -108,14 +210,16 @@
 	newshot()
 
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
-	if(!chambered && can_shoot())
+	if(!chambered && can_shoot(user))
 		process_chamber()
 	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
-	select++
-	if(select > ammo_type.len)
+	if(++select > ammo_type.len)
 		select = 1
+	else
+		if(sibyl_mod && !sibyl_mod.check_select(select))
+			select = 1
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay

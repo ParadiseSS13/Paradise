@@ -1,3 +1,7 @@
+/obj/item/gun/energy/proc/install_sibyl()
+	var/obj/item/sibyl_system_mod/M = new /obj/item/sibyl_system_mod
+	M.install(src)
+
 /obj/item/gun/energy/dominator/sibyl/New()
 	. = ..()
 	install_sibyl()

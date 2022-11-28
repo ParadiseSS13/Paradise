@@ -534,6 +534,7 @@
 
 	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator, /obj/item/ammo_casing/energy/dominator/slaughter)
 	var/sound_voice = list(null, 'sound/voice/dominator/nonlethal-paralyzer.ogg','sound/voice/dominator/lethal-eliminator.ogg','sound/voice/dominator/execution-slaughter.ogg')
+	var/sound_cd = null
 	cell_type = /obj/item/stock_parts/cell/dominator
 	can_charge = TRUE
 	charge_sections = 3
@@ -546,12 +547,15 @@
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
 	..()
-	if(sibyl_mod)
+	if(sibyl_mod && sibyl_mod.voice_is_enabled && !sound_cd)
 		var/temp_select = select
-		spawn(20)
-			if(!isnull(sound_voice[select]) && select == temp_select && sibyl_mod.voice_is_enabled)
-				user << sound(sound_voice[select], volume=50, wait=TRUE, channel=CHANNEL_SIBYL_SYSTEM)
+		if(sound_voice[select] && select == temp_select)
+			sound_cd = addtimer(CALLBACK(src, .proc/select_voice, user, temp_select), 2 SECONDS)
 	return
+
+/obj/item/gun/energy/dominator/proc/select_voice(mob/living/user, temp_select)
+	user.playsound_local(get_turf(src), sound_voice[select], 50, FALSE)
+	sound_cd = null
 
 /obj/item/gun/energy/dominator/update_icon()
 	if(isnull(cell))
@@ -610,8 +614,9 @@
 
 /obj/item/gun/energy/dominator/proc/set_drop_icon()
 	icon_state = initial(icon_state)
-	if(sibyl_mod)
-		if(sibyl_mod.lock)
-			icon_state += "_lock"
-		else
-			icon_state += "_unlock"
+	if(!sibyl_mod)
+		return
+	if(sibyl_mod.auth_id)
+		icon_state += "_unlock"
+	else
+		icon_state += "_lock"

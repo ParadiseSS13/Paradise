@@ -109,9 +109,9 @@
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 	if (istype(A, /mob/living/simple_animal/hulk/clown_hulk))
 		if(!Hulk.lying)
-			playsound(src, pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), CHANNEL_BUZZ)
+			playsound(src, "clownstep", CHANNEL_BUZZ)
 	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
-		playsound(src, pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), CHANNEL_BUZZ)
+		playsound(src, "clownstep", CHANNEL_BUZZ)
 
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
