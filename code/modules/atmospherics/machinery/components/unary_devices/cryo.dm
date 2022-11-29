@@ -427,9 +427,12 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
-	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-		occupant.bodytemperature = 261
+
+	occupant.forceMove(get_step(loc, SOUTH)) // Doesn't account for walls
+
+	if(occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected
+		occupant.bodytemperature = occupant.dna.species.cold_level_1
+
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
 	// eject trash the occupant dropped
