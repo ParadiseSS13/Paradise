@@ -3,9 +3,13 @@ on:
   push:
     branches:
     - master220
+    - whitelist220
+    - testmerge
+    - dev
   pull_request:
     branches:
     - master220
+    - whitelist220
 
 jobs:
   run_linters:
