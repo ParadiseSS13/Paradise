@@ -435,9 +435,6 @@
 
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
-	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts - list(beaker))
-		A.forceMove(get_step(loc, SOUTH))
 
 /obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
