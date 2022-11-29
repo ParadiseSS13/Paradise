@@ -1,9 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
+/turf/template_noop,
+/area/template_noop)
+"j" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"n" = (
+/obj/bfl_crack,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "R" = (
-/obj/bfl_crack,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 
@@ -13,29 +21,57 @@ a
 a
 a
 a
+a
+a
 "}
 (2,1,1) = {"
 a
-a
-a
-a
+j
+j
+R
+R
+j
 a
 "}
 (3,1,1) = {"
 a
-a
+j
 R
-a
+R
+R
+R
 a
 "}
 (4,1,1) = {"
 a
-a
-a
-a
+j
+R
+n
+R
+j
 a
 "}
 (5,1,1) = {"
+a
+R
+R
+R
+R
+j
+a
+"}
+(6,1,1) = {"
+a
+j
+R
+R
+R
+R
+a
+"}
+(7,1,1) = {"
+a
+a
 a
 a
 a
