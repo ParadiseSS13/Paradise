@@ -785,14 +785,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 
 	var/deathtime = world.time - src.timeofdeath
-	var/joinedasobserver = 0
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
-		if(G.started_as_observer == 1)
-			joinedasobserver = 1
 
 	var/deathtimeminutes = round(deathtime / 600)
 	var/pluralcheck = "minute"
@@ -804,7 +801,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if(deathtimeminutes < config.respawn_delay && joinedasobserver == 0)
+	if(deathtimeminutes < config.respawn_delay)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
 		to_chat(usr, "<span class='warning'>You must wait [config.respawn_delay] minutes to respawn!</span>")
 		return
