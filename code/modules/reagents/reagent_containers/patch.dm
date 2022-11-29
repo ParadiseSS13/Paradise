@@ -6,6 +6,7 @@
 	item_state = "bandaid"
 	possible_transfer_amounts = null
 	volume = 20
+	container_type = 0 //nooo my insta-kill patch!!!
 	apply_type = REAGENT_TOUCH
 	apply_method = "apply"
 	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
