@@ -160,7 +160,6 @@
 					if(!foundghost)
 						msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
-
 	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
 

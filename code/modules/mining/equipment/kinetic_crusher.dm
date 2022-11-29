@@ -482,7 +482,7 @@
 	duration = 75
 
 /obj/item/crusher_trophy/adaptive_intelligence_core
-	name = "adaptive inteligence core"
+	name = "adaptive intelligence core"
 	desc = "Seems to be one of the cores from a massive robot. Suitable as a trophy for a kinetic crusher."
 	icon_state = "adaptive_core"
 	denied_type = /obj/item/crusher_trophy/adaptive_intelligence_core

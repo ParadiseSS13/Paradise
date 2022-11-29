@@ -696,6 +696,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_light = 0
 	power_environ = 0
 
+/area/maintenance/library
+	name = "Abandoned Library"
+	icon_state = "library"
+
 /area/maintenance/spacehut
 	name = "Space Hut"
 	icon_state = "spacehut"
@@ -960,10 +964,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Library"
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
-
-/area/library/abandoned
-	name = "\improper Abandoned Library"
-	icon_state = "library"
 
 /area/chapel
 	icon_state = "chapel"

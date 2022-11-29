@@ -327,6 +327,10 @@
 	item_state = "chickensuit"
 	flags = BLOCKHAIR
 
+/obj/item/clothing/head/corgi/en
+	name = "E-N suit head"
+	icon_state = "enhead"
+
 /obj/item/clothing/head/corgi/super_hero
 	name = "super-hero corgi suit head"
 	desc = "Woof! This one seems to pulse with a strange power"

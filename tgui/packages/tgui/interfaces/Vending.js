@@ -9,7 +9,8 @@ const VendingRow = (props, context) => {
   const {
     chargesMoney,
     user,
-    userMoney,
+    usermoney,
+    inserted_cash,
     vend_ready,
     coin_name,
     inserted_item_name,
@@ -31,7 +32,7 @@ const VendingRow = (props, context) => {
     !vend_ready ||
     (!coin_name && product.req_coin) ||
     productStock === 0 ||
-    (!free && product.price > userMoney);
+    (!free && (product.price > usermoney && product.price > inserted_cash));
   return (
     <Table.Row>
       <Table.Cell collapsing>
@@ -79,8 +80,8 @@ export const Vending = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     user,
-    guestNotice,
-    userMoney,
+    usermoney,
+    inserted_cash,
     chargesMoney,
     product_records = [],
     coin_records = [],
@@ -110,9 +111,19 @@ export const Vending = (props, context) => {
               <Box>
                 Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>!
                 <br />
-                Your balance is <b>{userMoney} credits</b>.
+                Your balance is <b>{usermoney} credits</b>.
+                <br />
+                There is <b>{inserted_cash} credits </b> of space cash inserted.
+                <br />
+                <Button
+                  disabled={!inserted_cash}
+                  icon="money-bill-wave-alt"
+                  content="Dispense Change"
+                  textAlign="left"
+                  onClick={() => act('change')}
+                />
               </Box>
-            )) || <Box color="light-grey">{guestNotice}</Box>}
+            ))}
           </Section>
         )}
         {!!coin_name && (
