@@ -137348,7 +137348,7 @@
 /area/space/nearstation)
 "wVP" = (
 /obj/structure/falsewall,
-/turf/space,
+/turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "wVQ" = (
 /obj/machinery/door/airlock/research/glass{
