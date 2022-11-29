@@ -606,7 +606,7 @@ SUBSYSTEM_DEF(jobs)
 		department.members += member
 
 	// If they're head, give them the account info for their department
-	if(!job?.department_account_access)
+	if(!job.department_account_access)
 		return
 
 	announce_department_accounts(users_departments, H, job)
