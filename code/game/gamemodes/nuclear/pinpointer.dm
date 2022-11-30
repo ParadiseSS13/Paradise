@@ -149,7 +149,8 @@
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
-	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
+	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal. \n \
+			<span class='notice'>Alt-click to toggle mode.</span>"
 	modes = list(MODE_ADV)
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
@@ -168,6 +169,11 @@
 /obj/item/pinpointer/advpinpointer/workdisk() //since mode works diffrently for advpinpointer
 	scandisk()
 	point_at_target(the_disk)
+
+/obj/item/pinpointer/advpinpointer/AltClick(mob/user)
+	if(!isliving(user) || !Adjacent(user))
+		return ..()
+	toggle_mode()
 
 /obj/item/pinpointer/advpinpointer/verb/toggle_mode()
 	set category = "Object"
@@ -390,7 +396,7 @@
 	target_set = TRUE
 	mode = MODE_DET
 	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
-	addtimer(CALLBACK(src, .proc/stop_tracking), 1 MINUTES, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(stop_tracking)), 1 MINUTES, TIMER_UNIQUE)
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/stop_tracking()

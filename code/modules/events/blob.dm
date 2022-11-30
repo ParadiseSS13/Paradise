@@ -10,7 +10,7 @@
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
 /datum/event/blob/start()
-	INVOKE_ASYNC(src, .proc/make_blob)
+	INVOKE_ASYNC(src, PROC_REF(make_blob))
 
 /datum/event/blob/proc/make_blob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)

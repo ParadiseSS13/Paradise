@@ -6,7 +6,15 @@
 #
 # Returns 0 if all existing files are considered ticked, 1 otherwise.
 
-from pathlib import Path
+# When running in POSIX environments, the include paths in the codebase need to
+# be munged into PureWindowsPaths before being spit back out. Otherwise, the
+# checker will attempt to find files named e.g. /workspace/code\\foo.dm, which
+# translates to the (completely legitimate) filename "code\foo.dm" in the
+# /workspace directory.
+#
+# For more information, see the discussion of pure paths in the pathlib
+# documentation.
+from pathlib import Path, PureWindowsPath
 import argparse
 import sys
 
@@ -28,7 +36,7 @@ def get_unticked_files(root:Path):
             lines = [line for line in f.readlines() if line.startswith('#include')]
             included = [line.replace('#include ', '').rstrip('\r\n').strip('"') for line in lines]
             print(f'Found {len(included)} includes in {root / includer}')
-            ticked_files.update([root / Path(includer).parent / i for i in included])
+            ticked_files.update([root / Path(includer).parent / Path(PureWindowsPath(i)) for i in included])
 
     all_dm_files = {f for f in root.glob('**/*.dm')}
     return all_dm_files - ticked_files - {root / f for f in IGNORE_FILES}

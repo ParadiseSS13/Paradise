@@ -77,7 +77,7 @@
 /obj/machinery/door_control/ticket_machine_button/attack_hand(mob/user)
 	if(allowed(usr) || user.can_advanced_admin_interact())
 		icon_state = "doorctrl1"
-		addtimer(CALLBACK(src, /atom/.proc/update_icon), 15)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
 		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
 			if(M.id == id)
 				if(cooldown)
@@ -179,7 +179,7 @@
 	tickets += theirticket
 	if(emagged) //Emag the machine to destroy the HOP's life.
 		ready = FALSE
-		addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown)//Small cooldown to prevent piles of flaming tickets
+		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)//Small cooldown to prevent piles of flaming tickets
 		theirticket.fire_act()
 		user.drop_item()
 		user.adjust_fire_stacks(1)

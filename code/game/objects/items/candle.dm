@@ -82,7 +82,7 @@
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	addtimer(CALLBACK(src, .proc/stop_flickering), 4 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(stop_flickering)), 4 SECONDS, TIMER_UNIQUE)
 
 /obj/item/candle/proc/stop_flickering()
 	flickering = FALSE
@@ -125,6 +125,21 @@
 		return TRUE
 
 	return FALSE
+
+/obj/item/candle/eternal/wizard
+	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
+	start_lit = TRUE
+
+/obj/item/candle/eternal/wizard/attack_self(mob/user)
+	return
+
+/obj/item/candle/eternal/wizard/process()
+	return
+
+/obj/item/candle/eternal/wizard/light(show_message)
+	. = ..()
+	if(lit)
+		set_light(CANDLE_LUM * 2)
 
 #undef TALL_CANDLE
 #undef MID_CANDLE
