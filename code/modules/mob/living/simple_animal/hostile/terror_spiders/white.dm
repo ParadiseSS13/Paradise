@@ -62,6 +62,10 @@
 	GLOB.ts_infected_list -= src
 	return ..()
 
+/obj/item/organ/internal/body_egg/terror_eggs/on_owner_death()
+	GLOB.ts_infected_list -= src
+	return ..()
+
 /obj/structure/spider/terrorweb/white
 	name = "infested web"
 	desc = "This web is covered in hundreds of tiny, biting spiders - and their eggs."
