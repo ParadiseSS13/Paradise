@@ -609,6 +609,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "matchbox"
+	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -626,6 +627,18 @@
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 	return
+
+/obj/item/storage/box/matches/update_icon_state()
+	. = ..()
+	switch(length(contents))
+		if(10)
+			icon_state = base_icon_state
+		if(5 to 9)
+			icon_state = "[base_icon_state]_almostfull"
+		if(1 to 4)
+			icon_state = "[base_icon_state]_almostempty"
+		if(0)
+			icon_state = "[base_icon_state]_e"
 
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
