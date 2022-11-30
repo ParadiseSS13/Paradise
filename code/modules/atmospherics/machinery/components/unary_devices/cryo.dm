@@ -47,7 +47,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(stat & (BROKEN | NOPOWER)))
 		set_light(2)
 	else
 		set_light(0)
@@ -165,10 +165,10 @@
 	if(!on || !occupant)
 		return
 
-	if(auto_eject_prefs & AUTO_EJECT_DEAD && occupant.stat == DEAD)
+	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
 		auto_eject(AUTO_EJECT_DEAD)
 		return
-	if(auto_eject_prefs & AUTO_EJECT_HEALTHY && !(occupant.has_organic_damage() || occupant.has_mutated_organs()))
+	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !(occupant.has_organic_damage() || occupant.has_mutated_organs()))
 		auto_eject(AUTO_EJECT_HEALTHY)
 		return
 
@@ -261,7 +261,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/ui_act(action, params)
 	if(..() || usr == occupant)
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (NOPOWER | BROKEN))
 		return
 
 	. = TRUE
@@ -512,7 +512,7 @@
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
 		return
 
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (NOPOWER | BROKEN))
 		return
 
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
