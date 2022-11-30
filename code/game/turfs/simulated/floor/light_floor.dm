@@ -38,7 +38,7 @@
 	SIGNAL_HANDLER
 	if(power_check() || !on)
 		return
-	extinguish_light()
+	toggle_light(FALSE)
 
 /turf/simulated/floor/light/proc/power_check()
 	var/area/A = get_area(src)
@@ -94,8 +94,6 @@
 		visible_message("<span class='danger'>[src] doesn't react, it seems to be out of power.</span>")
 		return
 	var/area/A = get_area(src)
-	if(!A)
-		return
 	// 0 = OFF
 	// 1 = ON
 	on = light
