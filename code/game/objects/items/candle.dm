@@ -141,6 +141,13 @@
 	if(lit)
 		set_light(CANDLE_LUM * 2)
 
+
+/obj/item/candle/extinguish_light(force)
+	if(!force)
+		return
+	infinite = FALSE
+	wax = 1 // next process will burn it out
+
 #undef TALL_CANDLE
 #undef MID_CANDLE
 #undef SHORT_CANDLE
