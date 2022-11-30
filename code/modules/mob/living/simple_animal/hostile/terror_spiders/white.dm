@@ -50,6 +50,14 @@
 		return 1
 	return 0
 
+/obj/item/organ/internal/body_egg/terror_eggs/Initialize(mapload)
+	. = ..()
+	GLOB.ts_infected_list += src
+
+
+/obj/item/organ/internal/body_egg/terror_eggs/Destroy()
+	GLOB.ts_infected_list -= src
+	return ..()
 
 /obj/structure/spider/terrorweb/white
 	name = "infested web"

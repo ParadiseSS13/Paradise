@@ -510,13 +510,16 @@
 
 				var/count_eggs = 0
 				var/count_spiderlings = 0
+				var/count_infected = 0
 				for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in GLOB.ts_egg_list)
 					if(is_station_level(E.z))
 						count_eggs += E.spiderling_number
 				for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
 					if(!L.stillborn && is_station_level(L.z))
 						count_spiderlings += 1
-				dat += "<table cellspacing=5><TR><TD>Growing TS on-station: [count_eggs] egg[count_eggs != 1 ? "s" : ""], [count_spiderlings] spiderling[count_spiderlings != 1 ? "s" : ""]. </TD></TR></TABLE>"
+				for(var/obj/item/organ/internal/body_egg/terror_eggs/I in GLOB.ts_infected_list)
+					count_infected += 1
+				dat += "<table cellspacing=5><TR><TD>Growing TS on-station: [count_eggs] egg[count_eggs != 1 ? "s" : ""], [count_spiderlings] spiderling[count_spiderlings != 1 ? "s" : ""], [count_infected] infected[count_infected != 1 ? "s" : ""] </TD></TR></TABLE>"
 
 		if(SSticker.mode.ert.len)
 			dat += check_role_table("ERT", SSticker.mode.ert)
