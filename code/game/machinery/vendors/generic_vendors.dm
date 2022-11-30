@@ -640,8 +640,8 @@
 	icon_state = "sovietsoda"
 	icon_lightmask = "sovietsoda"
 	ads_list = list("For Tsar and Country.","Have you fulfilled your nutrition quota today?","Very nice!","We are simple people, for this is all we eat.","If there is a person, there is a problem. If there is no person, then there is no problem.")
-	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30)
-	contraband = list(/obj/item/reagent_containers/food/drinks/drinkingglass/cola = 20)
+	products = list(/obj/item/reagent_containers/food/drinks/cans/sodawater = 10)
+	contraband = list(/obj/item/reagent_containers/food/drinks/cans/cola = 7)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/sovietsoda
 

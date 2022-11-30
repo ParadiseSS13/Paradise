@@ -356,6 +356,7 @@
 /obj/docking_port/mobile/emergency{
 	dwidth = 11;
 	height = 18;
+	timid = 1;
 	width = 29
 	},
 /turf/simulated/floor/grass,
