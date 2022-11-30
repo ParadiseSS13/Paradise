@@ -42,8 +42,6 @@
 
 /turf/simulated/floor/light/proc/power_check()
 	var/area/A = get_area(src)
-	if(!A)
-		return FALSE
 	return A.powered(LIGHT)
 
 /turf/simulated/floor/light/attack_hand(mob/user)
