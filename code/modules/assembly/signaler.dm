@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	var/invoking_ckey = "unknown"
 	if(usr) // sometimes (like when a prox sensor sends a signal) there is no usr
 		invoking_ckey = usr.key
-	GLOB.lastsignalers.Add("[SQLtime()] <B>:</B> [invoking_ckey] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+	GLOB.lastsignalers.Add("[SQLtime()] <b>:</b> [invoking_ckey] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
 
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)
