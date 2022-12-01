@@ -416,6 +416,8 @@
 	name = "vortex feedback arm implant"
 	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles with feedback from the vortex anomaly core."
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4" //update this
+	icon = 'icons/obj/items.dmi'
+	icon_state = "v1_arm" //TEMP
 
 	contents = newlist(/obj/item/shield/v1_arm)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
@@ -442,11 +444,11 @@
 
 /obj/item/shield/v1_arm
 	name = "vortex feedback arm" //format is they are holding x
-	desc = "desc here."
+	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attack. Rumors that it runs on the users blood are unconfirmed"
 	icon_state = "v1_arm" //TEMP
-	item_state = "v1_arm" //maybe temp?
+	item_state = "v1_arm" //Temp, need vox / drask / grey icons
 	force = 20 //bonk, not sharp
-	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted")
+	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted", "gored")
 	hitsound = 'sound/effects/bang.ogg'
 	light_power = 3
 	light_range = 0
@@ -473,7 +475,7 @@
 	force = initial(force)
 
 /obj/item/shield/v1_arm/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35	, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
 
 /obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(disabled)
@@ -484,7 +486,7 @@
 		// Hit by a projectile
 		if(. > 1) // a perfect parry
 			set_light(3)
-			addtimer(VARSET_CALLBACK(src, light_range, 0), 0.5 SECONDS)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.5 SECONDS)
 
 			if(istype(hitby, /obj/item/projectile))
 				var/obj/item/projectile/P = hitby
@@ -492,18 +494,37 @@
 					return FALSE
 				if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 					owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+					playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 					return TRUE
 
 				P.damage = max(min(reflect_damage_cap, P.damage += 10), P.damage)
+				var/sound = pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg', 'sound/effects/meteorimpact.ogg')
+				P.hitsound = sound
+				P.hitsound_wall = sound
 				P.add_overlay("parry")
-				playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
+				playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
 				owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 				return -1
 
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 			melee_attack_chain(owner, hitby)
-			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
+			playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
 			return TRUE
 		else
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 			return TRUE
+
+/obj/item/v1_arm_shell
+	name = "vortex feedback arm implant frame" //format is they are holding x
+	desc = "An implant awaiting installation of a vortex anomaly core"
+	icon_state = "v1_arm"
+
+/obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
+		var/obj/item/assembly/signaler/anomaly/vortex/V = I
+		to_chat(user, "<span class='notice'>You insert [V] into the back of the hand, and the implant begins to boot up.</span>")
+		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
+		qdel(src)
+		qdel(V)
+	return ..()
