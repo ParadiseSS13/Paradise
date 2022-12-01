@@ -361,37 +361,31 @@
 
 /obj/item/storage/backpack/duffel
 	name = "duffelbag"
-	desc = "A large grey duffelbag designed to hold more items than a regular bag. It slows you down when you carry it unzipped."
+	desc = "A large grey duffelbag designed to hold more items than a regular bag. It slows you down when unzipped."
 	icon_state = "duffel"
 	item_state = "duffel"
 	max_combined_w_class = 30
 	/// Is the bag zipped up?
 	var/zipped = TRUE
-	/// How long it takes to pull things out of this bag
+	/// How long it takes to toggle the zip state of this bag
 	var/zip_time = 0.7 SECONDS
 
 /obj/item/storage/backpack/duffel/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is currently [zipped ? "zipped" : "unzipped"].</span>"
-	if(zipped)
-		. += "<span class='notice'>Ctrl+click or use the verb to un-zip it!</span>"
+	. += "<span class='notice'>It is currently [zipped ? "zipped" : "unzipped"]. Ctrl+click to [zipped ? "un-" : ""]zip it!</span>"
 
 /obj/item/storage/backpack/duffel/CtrlClick(mob/user)
 	. = ..()
-	handle_zipping()
+	handle_zipping(user)
 
-/obj/item/storage/backpack/duffel/verb/handle_zipping()
-	set name = "Toggle Duffelbag Zip"
-	set category = "Object"
-	set src in usr
-
-	if(!zip_time || do_after(usr, zip_time, target = src))
+/obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
+	if(!zip_time || do_after(user, zip_time, target = src))
 		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
 		zipped = !zipped
 
 		if(!zipped && zip_time) // Handle slowdown and stuff now that we just zipped it
 			slowdown = 1
-			show_to(usr)
+			show_to(user)
 			return
 
 		slowdown = 0
