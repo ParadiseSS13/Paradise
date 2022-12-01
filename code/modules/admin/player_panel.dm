@@ -518,7 +518,7 @@
 					if(!L.stillborn && is_station_level(L.z))
 						count_spiderlings += 1
 				count_infected = length(GLOB.ts_infected_list)
-				dat += "<table cellspacing=5><tr><td>Growing TS on-station: [count_eggs] egg[count_eggs != 1 ? "s" : ""], [count_spiderlings] spiderling[count_spiderlings != 1 ? "s" : ""], [count_infected] infected</td></tr></table>"
+				dat += "<table cellspacing=5><tr><td>Growing TS on-station: [count_eggs] egg\s, [count_spiderlings] spiderling\s, [count_infected] infected</td></tr></table>"
 
 		if(SSticker.mode.ert.len)
 			dat += check_role_table("ERT", SSticker.mode.ert)
