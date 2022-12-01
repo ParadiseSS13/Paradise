@@ -411,3 +411,47 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm
+	name = "integrated vortex inversion implant"
+	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4" //update this
+
+	contents = newlist(/obj/item/shield/v1_arm)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi') //new icon
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton") //new icon
+
+/obj/item/shield/v1_arm
+	name = "vortex inversion something" //format is they are holding x
+	desc = "desc here."
+	icon = 'icons/obj/cult.dmi' //ofc change this
+	icon_state = "mirror_shield"
+	item_state = "mirror_shield"
+	force = 18 //bonk, not sharp
+	attack_verb = list("slams", "punches", "parries", "judges", "styles on")
+	hitsound = 'sound/weapons/smash.ogg'
+	/// probably want a cooldown var here
+
+/**
+  * Reflect/Block/Shatter proc.
+  */
+
+/obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+
+	// Hit by a projectile
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
+			return FALSE
+
+		P.reflect_back(src)
+		P.forcedodge = TRUE //needed otherwise projectile deletes itself on block
+		addtimer(VARSET_CALLBACK(P, forcedodge, FALSE), 0.1 SECONDS)
+
+
+	// Hit by a melee weapon or blocked a projectile
+	. = ..()
+	if(.) // they did parry the attack
+		playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
+		melee_attack_chain(owner, hitby)
+		return TRUE
