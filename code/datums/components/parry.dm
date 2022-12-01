@@ -61,6 +61,7 @@
 
 /datum/component/parry/proc/attempt_parry(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_type = MELEE_ATTACK)
 	SIGNAL_HANDLER
+	var/was_perfect = FALSE
 	if(!(attack_type in parryable_attack_types))
 		return
 	var/time_since_parry = world.time - time_parried
@@ -87,10 +88,14 @@
 		sound_to_play = 'sound/weapons/parry.ogg'
 
 	playsound(owner, sound_to_play, clamp(stamina_damage, 40, 120))
+	if(time_since_parry <= parry_time_out_time / 3) // a perfect parry
+		was_perfect = TRUE
 
 	owner.adjustStaminaLoss(stamina_damage)
 	if(owner.getStaminaLoss() < 100)
-		return COMPONENT_BLOCK_SUCCESSFUL
+		if(!was_perfect)
+			return COMPONENT_BLOCK_SUCCESSFUL
+		return (COMPONENT_BLOCK_SUCCESSFUL | COMPONENT_BLOCK_PERFECT)
 
 
 

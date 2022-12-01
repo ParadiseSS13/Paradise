@@ -413,8 +413,8 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm
-	name = "integrated vortex inversion implant"
-	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles."
+	name = "vortex feedback arm implant"
+	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles with feedback from the vortex anomaly core."
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4" //update this
 
 	contents = newlist(/obj/item/shield/v1_arm)
@@ -422,43 +422,59 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton") //new icon
 
 /obj/item/shield/v1_arm
-	name = "vortex inversion something" //format is they are holding x
+	name = "vortex feedback arm" //format is they are holding x
 	desc = "desc here."
 	icon = 'icons/obj/cult.dmi' //ofc change this
 	icon_state = "mirror_shield"
 	item_state = "mirror_shield"
-	force = 18 //bonk, not sharp
+	force = 20 //bonk, not sharp
 	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted")
 	hitsound = 'sound/weapons/smash.ogg'
+	light_power = 3
+	light_range = 0
+	light_color = "#9933ff"
 	hit_reaction_chance = -1
 	/// probably want a cooldown var here
 
 	/// The damage the reflected projectile will be increased by
 	var/reflect_damage_boost = 10
-	/// The cap of the reflected damage
+	/// The cap of the reflected damage. Damage will not be increased above 50, however it will not be reduced to 50 either.
 	var/reflect_damage_cap = 50
 
 /**
   * Reflect/Block/Shatter proc.
   */
 
+/obj/item/shield/v1_arm/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35	, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
+
 /obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-
-
 	// Hit by a melee weapon or blocked a projectile
 	. = ..()
 	if(.) // they did parry the attack
 		// Hit by a projectile
-		if(istype(hitby, /obj/item/projectile))
-			var/obj/item/projectile/P = hitby
-			if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
-				return FALSE
+		if(. > 1) // a perfect parry
+			light_range = 3
+			addtimer(VARSET_CALLBACK(src, light_range, 0), 1 SECONDS)
 
-			P.damage = max(min(reflect_damage_cap, P.damage += 10), P.damage)
+			if(istype(hitby, /obj/item/projectile))
+				var/obj/item/projectile/P = hitby
+				if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
+					return FALSE
+				if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
+					owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+					return TRUE
+
+				P.damage = max(min(reflect_damage_cap, P.damage += 10), P.damage)
+				P.add_overlay("parry")
+				playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
+				owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+				return -1
+
+			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+			melee_attack_chain(owner, hitby)
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
-			return -1
-
-		melee_attack_chain(owner, hitby)
-		playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
-
-		return TRUE
+			return TRUE
+		else
+			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			return TRUE
