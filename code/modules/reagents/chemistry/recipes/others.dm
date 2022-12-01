@@ -240,10 +240,7 @@
 /datum/chemical_reaction/soapification/gib
 	name = "Gib Soapification"
 	id = "gib_soapification"
-	result = null
 	required_reagents = list("liquidgibs" = 10, "lye"  = 10) // requires two scooped gib tiles
-	min_temp = T0C + 100
-	result_amount = 1
 
 /datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
