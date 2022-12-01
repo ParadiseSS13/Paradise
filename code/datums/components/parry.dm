@@ -88,7 +88,7 @@
 		sound_to_play = 'sound/weapons/parry.ogg'
 
 	playsound(owner, sound_to_play, clamp(stamina_damage, 40, 120))
-	if(time_since_parry <= parry_time_out_time / 3) // a perfect parry
+	if(time_since_parry <= parry_time_out_time * 0.4) // a perfect parry
 		was_perfect = TRUE
 
 	owner.adjustStaminaLoss(stamina_damage)

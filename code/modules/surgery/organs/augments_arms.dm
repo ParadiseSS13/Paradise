@@ -418,44 +418,73 @@
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4" //update this
 
 	contents = newlist(/obj/item/shield/v1_arm)
-	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi') //new icon
-	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton") //new icon
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "v1_arm")
+	var/disabled = FALSE
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/emp_act(severity)
+	if(emp_proof && !disabled)
+		return
+	disabled = TRUE
+	addtimer(VARSET_CALLBACK(src, disabled, FALSE), 10 SECONDS)
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/Extend(obj/item/item)
+	if(disabled)
+		to_chat(owner, "<span class='warning'>Your arm fails to extend!</span>")
+		return FALSE
+	..()
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/Retract()
+	if(disabled)
+		to_chat(owner, "<span class='warning'>Your arm fails to retract!</span>")
+		return FALSE
+	..()
 
 /obj/item/shield/v1_arm
 	name = "vortex feedback arm" //format is they are holding x
 	desc = "desc here."
-	icon = 'icons/obj/cult.dmi' //ofc change this
-	icon_state = "mirror_shield"
-	item_state = "mirror_shield"
+	icon_state = "v1_arm" //TEMP
+	item_state = "v1_arm" //maybe temp?
 	force = 20 //bonk, not sharp
 	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted")
-	hitsound = 'sound/weapons/smash.ogg'
+	hitsound = 'sound/effects/bang.ogg'
 	light_power = 3
 	light_range = 0
 	light_color = "#9933ff"
 	hit_reaction_chance = -1
-	/// probably want a cooldown var here
-
 	/// The damage the reflected projectile will be increased by
 	var/reflect_damage_boost = 10
 	/// The cap of the reflected damage. Damage will not be increased above 50, however it will not be reduced to 50 either.
 	var/reflect_damage_cap = 50
+	var/disabled = FALSE
+	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
 
-/**
-  * Reflect/Block/Shatter proc.
-  */
+
+/obj/item/shield/v1_arm/emp_act(severity)
+	if(disabled)
+		return
+	to_chat(loc, "<span class='warning'>Your arm seises up!</span>")
+	disabled = TRUE
+	force = force_when_disabled
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 10 SECONDS)
+
+/obj/item/shield/v1_arm/proc/reboot()
+	disabled = FALSE
+	force = initial(force)
 
 /obj/item/shield/v1_arm/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35	, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
 
 /obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(disabled)
+		return FALSE
 	// Hit by a melee weapon or blocked a projectile
 	. = ..()
 	if(.) // they did parry the attack
 		// Hit by a projectile
 		if(. > 1) // a perfect parry
-			light_range = 3
-			addtimer(VARSET_CALLBACK(src, light_range, 0), 1 SECONDS)
+			set_light(3)
+			addtimer(VARSET_CALLBACK(src, light_range, 0), 0.5 SECONDS)
 
 			if(istype(hitby, /obj/item/projectile))
 				var/obj/item/projectile/P = hitby
