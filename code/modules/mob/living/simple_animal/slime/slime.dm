@@ -390,7 +390,7 @@
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
-	var/water_damage = rand(10, 15) * volume - age_state.attacked
+	var/water_damage = (rand(10, 15) - age_state.attacked) * volume
 
 	adjustBruteLoss(water_damage)
 	if(!client && Target && volume >= 3) // Like cats

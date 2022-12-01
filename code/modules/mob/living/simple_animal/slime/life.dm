@@ -186,8 +186,13 @@
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustCloneLoss(rand(2, 4) + round(age_state.feed/3))
-		C.adjustToxLoss(rand(1, 2) + round(age_state.feed/3))
+
+		var/feed_mod = round(age_state.feed/3)
+		if(C.dna.species.clone_mod > 0)
+			C.adjustCloneLoss(rand(2, 4) + feed_mod)
+			C.adjustToxLoss(rand(1, 2) + feed_mod)
+		else
+			C.adjustFireLoss(rand(2, 5) + feed_mod)
 
 		if(prob(10) && C.client)
 			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
