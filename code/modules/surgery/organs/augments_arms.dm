@@ -428,9 +428,15 @@
 	icon_state = "mirror_shield"
 	item_state = "mirror_shield"
 	force = 18 //bonk, not sharp
-	attack_verb = list("slams", "punches", "parries", "judges", "styles on")
+	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted")
 	hitsound = 'sound/weapons/smash.ogg'
+	hit_reaction_chance = -1
 	/// probably want a cooldown var here
+
+	/// The damage the reflected projectile will be increased by
+	var/reflect_damage_boost = 10
+	/// The cap of the reflected damage
+	var/reflect_damage_cap = 50
 
 /**
   * Reflect/Block/Shatter proc.
@@ -438,20 +444,21 @@
 
 /obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 
-	// Hit by a projectile
-	if(istype(hitby, /obj/item/projectile))
-		var/obj/item/projectile/P = hitby
-		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
-			return FALSE
-
-		P.reflect_back(src)
-		P.forcedodge = TRUE //needed otherwise projectile deletes itself on block
-		addtimer(VARSET_CALLBACK(P, forcedodge, FALSE), 0.1 SECONDS)
-
 
 	// Hit by a melee weapon or blocked a projectile
 	. = ..()
 	if(.) // they did parry the attack
-		playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
+		// Hit by a projectile
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
+				return FALSE
+
+			P.damage = max(min(reflect_damage_cap, P.damage += 10), P.damage)
+			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
+			return -1
+
 		melee_attack_chain(owner, hitby)
+		playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
+
 		return TRUE
