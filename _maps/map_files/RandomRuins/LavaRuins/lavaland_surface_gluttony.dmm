@@ -34,6 +34,10 @@
 /obj/item/trash/plate,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
+"k" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "l" = (
 /obj/item/trash/candy,
 /turf/simulated/floor/plasteel/freezer,
@@ -109,13 +113,13 @@ b
 b
 a
 a
-b
+k
 a
-b
-b
-b
-b
-b
+k
+k
+k
+k
+k
 b
 b
 a
@@ -131,13 +135,13 @@ b
 b
 b
 b
-b
-b
-b
-b
-b
-b
-b
+k
+k
+k
+k
+k
+k
+k
 b
 b
 a
@@ -156,7 +160,7 @@ b
 c
 c
 c
-b
+k
 c
 c
 c
@@ -275,7 +279,7 @@ c
 c
 c
 c
-b
+k
 "}
 (9,1,1) = {"
 b
@@ -297,7 +301,7 @@ R
 R
 R
 c
-b
+k
 "}
 (10,1,1) = {"
 a
@@ -319,7 +323,7 @@ l
 i
 R
 c
-b
+k
 "}
 (11,1,1) = {"
 a
@@ -340,8 +344,8 @@ i
 i
 i
 S
-b
-b
+k
+k
 "}
 (12,1,1) = {"
 a
@@ -363,7 +367,7 @@ i
 q
 R
 c
-b
+k
 "}
 (13,1,1) = {"
 a
@@ -385,7 +389,7 @@ R
 R
 R
 c
-b
+k
 "}
 (14,1,1) = {"
 a
@@ -407,7 +411,7 @@ c
 c
 c
 c
-b
+k
 "}
 (15,1,1) = {"
 a
@@ -508,7 +512,7 @@ a
 c
 c
 c
-b
+k
 c
 c
 c
@@ -527,13 +531,13 @@ a
 a
 a
 a
-b
-b
-b
-b
-b
-b
-b
+k
+k
+k
+k
+k
+k
+k
 a
 a
 b

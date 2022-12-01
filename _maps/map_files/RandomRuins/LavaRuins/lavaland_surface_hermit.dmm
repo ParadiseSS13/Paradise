@@ -88,6 +88,7 @@
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "s" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "t" = (

@@ -173,6 +173,7 @@
 "v" = (
 /obj/structure/lattice,
 /obj/item/chair/wood/wings,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "w" = (
@@ -336,6 +337,7 @@
 "N" = (
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "O" = (
@@ -365,6 +367,15 @@
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
+"T" = (
+/obj/structure/lattice,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"V" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
@@ -375,12 +386,12 @@ a
 a
 b
 b
-b
-b
-b
-b
-b
-b
+V
+V
+V
+V
+V
+V
 a
 a
 a
@@ -389,52 +400,52 @@ a
 (2,1,1) = {"
 b
 b
-b
-b
-b
-b
-b
-b
-b
-b
-c
-c
-b
-b
-b
-b
+V
+V
+V
+V
+V
+V
+V
+V
+T
+T
+V
+V
+V
+V
 a
 a
 "}
 (3,1,1) = {"
 b
 b
-b
-b
-b
-b
-b
-b
-c
-c
+V
+V
+V
+V
+V
+V
+T
+T
 e
 e
-c
-c
-b
-b
-b
+T
+T
+V
+V
+V
 a
 "}
 (4,1,1) = {"
 b
 b
-b
-b
+V
+V
 d
-b
-c
-c
+V
+T
+T
 e
 h
 h
@@ -442,17 +453,17 @@ e
 Q
 e
 d
-b
-b
+V
+V
 a
 "}
 (5,1,1) = {"
 a
 b
-b
-b
+V
+V
 d
-b
+V
 m
 e
 w
@@ -462,15 +473,15 @@ h
 h
 e
 d
-b
-b
+V
+V
 b
 "}
 (6,1,1) = {"
 a
 b
-b
-b
+V
+V
 d
 f
 n
@@ -480,17 +491,17 @@ c
 e
 M
 e
-c
-b
-b
-b
+T
+V
+V
+V
 b
 "}
 (7,1,1) = {"
 b
 b
-b
-b
+V
+V
 d
 g
 o
@@ -500,17 +511,17 @@ C
 J
 h
 d
-b
-b
-b
-b
+V
+V
+V
+V
 b
 "}
 (8,1,1) = {"
 b
 b
-b
-b
+V
+V
 e
 h
 p
@@ -520,8 +531,8 @@ D
 K
 M
 d
-b
-b
+V
+V
 b
 b
 b
@@ -529,8 +540,8 @@ b
 (9,1,1) = {"
 b
 b
-b
-c
+V
+T
 e
 i
 h
@@ -539,9 +550,9 @@ y
 E
 h
 h
-c
-b
-b
+T
+V
+V
 b
 b
 b
@@ -549,8 +560,8 @@ b
 (10,1,1) = {"
 b
 b
-b
-c
+V
+T
 e
 j
 h
@@ -559,9 +570,9 @@ z
 F
 q
 N
-c
-b
-b
+T
+V
+V
 b
 b
 b
@@ -569,8 +580,8 @@ b
 (11,1,1) = {"
 b
 b
-b
-b
+V
+V
 e
 e
 h
@@ -579,9 +590,9 @@ A
 G
 q
 h
-c
-b
-b
+T
+V
+V
 b
 b
 b
@@ -589,8 +600,8 @@ b
 (12,1,1) = {"
 b
 b
-b
-b
+V
+V
 d
 k
 h
@@ -600,8 +611,8 @@ H
 h
 O
 d
-b
-b
+V
+V
 b
 b
 b
@@ -609,8 +620,8 @@ b
 (13,1,1) = {"
 b
 b
-b
-b
+V
+V
 d
 k
 h
@@ -620,8 +631,8 @@ s
 o
 n
 d
-b
-b
+V
+V
 b
 b
 a
@@ -629,8 +640,8 @@ a
 (14,1,1) = {"
 b
 b
-b
-b
+V
+V
 d
 l
 i
@@ -640,8 +651,8 @@ I
 L
 P
 d
-b
-b
+V
+V
 b
 b
 a
@@ -649,8 +660,8 @@ a
 (15,1,1) = {"
 b
 b
-b
-b
+V
+V
 d
 d
 e
@@ -660,8 +671,8 @@ e
 e
 d
 d
-b
-b
+V
+V
 b
 b
 a
@@ -669,19 +680,19 @@ a
 (16,1,1) = {"
 a
 b
-b
-b
-b
-b
-c
+V
+V
+V
+V
+T
 v
-b
-c
-b
-b
-b
-b
-b
+V
+T
+V
+V
+V
+V
+V
 b
 b
 a
@@ -689,19 +700,19 @@ a
 (17,1,1) = {"
 a
 b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
+V
+V
+V
+V
+V
+V
+V
+V
+V
+V
+V
+V
+V
 a
 a
 a

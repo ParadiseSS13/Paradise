@@ -27,15 +27,9 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/freegolem)
 "ah" = (
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/freegolem)
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ai" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -86,9 +80,22 @@
 	},
 /area/shuttle/freegolem)
 "aq" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc2";
-	dir = 2
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/bedsheet/rd/royal_cape{
+	layer = 3;
+	pixel_x = 5;
+	pixel_y = 9
+	},
+/obj/item/book/manual/research_and_development{
+	name = "Sacred Text of the Liberator";
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "ar" = (
@@ -117,10 +124,13 @@
 	},
 /area/shuttle/freegolem)
 "av" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
+/obj/structure/shuttle/engine/heater{
+	dir = 4
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/shuttle/plating,
 /area/shuttle/freegolem)
 "aw" = (
 /obj/machinery/door/airlock/shuttle,
@@ -144,11 +154,11 @@
 /area/shuttle/freegolem)
 "az" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swallc1";
-	dir = 2
+	icon_state = "swallc2"
 	},
 /area/shuttle/freegolem)
 "aA" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/golem_ship)
 "aB" = (
@@ -159,15 +169,8 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/freegolem)
 "aC" = (
-/obj/structure/statue/gold/rd{
-	name = "statue of the Liberator"
-	},
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12"
 	},
 /area/shuttle/freegolem)
 "aD" = (
@@ -178,8 +181,7 @@
 /area/shuttle/freegolem)
 "aE" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
+	icon_state = "swallc3"
 	},
 /area/shuttle/freegolem)
 "aF" = (
@@ -223,40 +225,20 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/freegolem)
 "aI" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
-	},
-/obj/structure/table/wood,
-/obj/item/bedsheet/rd/royal_cape{
-	layer = 3;
-	pixel_x = 5;
-	pixel_y = 9
-	},
-/obj/item/book/manual/research_and_development{
-	name = "Sacred Text of the Liberator";
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
+/obj/machinery/computer/shuttle/golem_ship/recall,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/powered/golem_ship)
 "aJ" = (
-/obj/machinery/light,
-/obj/structure/chair/comfy/purp{
-	icon_state = "comfychair";
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall14";
+	icon_state = "swall14"
 	},
 /area/shuttle/freegolem)
 "aK" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
-	icon_state = "swall13";
-	dir = 2
+	tag = "icon-swall11";
+	icon_state = "swall11"
 	},
 /area/shuttle/freegolem)
 "aL" = (
@@ -268,9 +250,7 @@
 /area/shuttle/freegolem)
 "aM" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11";
-	dir = 2
+	icon_state = "swallc1"
 	},
 /area/shuttle/freegolem)
 "aN" = (
@@ -286,9 +266,10 @@
 	},
 /area/shuttle/freegolem)
 "aP" = (
-/obj/machinery/computer/shuttle/golem_ship/recall,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/powered/golem_ship)
+/turf/simulated/shuttle/wall{
+	icon_state = "swall4"
+	},
+/area/shuttle/freegolem)
 "aQ" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder,
@@ -303,8 +284,8 @@
 /area/shuttle/freegolem)
 "aS" = (
 /turf/simulated/shuttle/wall{
-	icon_state = "swall4";
-	dir = 2
+	tag = "icon-swall13";
+	icon_state = "swall13"
 	},
 /area/shuttle/freegolem)
 "aT" = (
@@ -377,16 +358,28 @@
 	},
 /area/shuttle/freegolem)
 "bf" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc3";
-	dir = 2
+/obj/structure/statue/gold/rd{
+	name = "statue of the Liberator"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "bh" = (
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14";
-	dir = 2
+	icon_state = "swall3"
+	},
+/area/shuttle/freegolem)
+"JQ" = (
+/obj/machinery/light,
+/obj/structure/chair/comfy/purp{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 
@@ -397,10 +390,14 @@ aa
 aa
 aa
 aa
-aq
+aa
+aa
+az
 aB
 aH
-bf
+aE
+aa
+aa
 aa
 aa
 aa
@@ -415,10 +412,14 @@ aa
 aa
 aa
 aa
-av
+aa
+aa
 aC
-aI
-av
+bf
+aq
+aC
+aa
+aa
 aa
 aa
 aa
@@ -430,16 +431,20 @@ aa
 aa
 aa
 aa
-aq
-aE
+aa
+aa
+az
+bh
 au
 aR
 aD
-aJ
+JQ
 ab
 au
+bh
 aE
-bf
+aa
+aa
 aa
 aa
 aa
@@ -448,7 +453,9 @@ aa
 aa
 aa
 aa
-av
+aa
+aa
+aC
 am
 ap
 ax
@@ -457,7 +464,9 @@ ap
 ax
 ap
 as
-av
+aC
+aa
+aa
 aa
 aa
 aa
@@ -466,7 +475,9 @@ aa
 aa
 aa
 aa
-av
+aa
+aa
+aC
 an
 ap
 ap
@@ -475,16 +486,20 @@ ap
 ap
 ap
 aV
-av
+aC
+aa
+aa
 aa
 aa
 aa
 "}
 (6,1,1) = {"
-aq
-aE
-aE
-aK
+aa
+aa
+az
+bh
+bh
+aS
 ao
 ap
 ap
@@ -493,13 +508,17 @@ ap
 ap
 ap
 aT
+aJ
+bh
 bh
 aE
-aE
-bf
+aa
+aa
 "}
 (7,1,1) = {"
-av
+aa
+aa
+aC
 ad
 af
 aw
@@ -514,10 +533,14 @@ ap
 aw
 af
 bc
-av
+aC
+aa
+aa
 "}
 (8,1,1) = {"
-av
+aa
+aa
+aC
 ad
 af
 aw
@@ -532,13 +555,17 @@ ap
 aw
 af
 bc
-av
+aC
+aa
+aa
 "}
 (9,1,1) = {"
-av
+aa
+aa
+aC
 ad
 aj
-av
+aC
 ao
 ap
 ap
@@ -547,16 +574,20 @@ ap
 ap
 ap
 aT
-av
+aC
 ba
 bc
-av
+aC
+aa
+aa
 "}
 (10,1,1) = {"
-av
+aa
+aa
+aC
 ad
 af
-av
+aC
 ap
 ap
 ar
@@ -565,16 +596,20 @@ aU
 ar
 ap
 ap
-av
+aC
 af
 bc
-av
+aC
+aa
+aa
 "}
 (11,1,1) = {"
-av
+aa
+aa
+aC
 ad
 af
-av
+aC
 ap
 ap
 ar
@@ -583,16 +618,20 @@ aU
 ar
 ap
 ap
-av
+aC
 af
 bc
-av
+aC
+aa
+aa
 "}
 (12,1,1) = {"
-av
+aa
+aa
+aC
 ad
 aj
-av
+aC
 ao
 ap
 ap
@@ -601,13 +640,17 @@ ap
 ap
 ap
 aT
-av
+aC
 ba
 bc
-av
+aC
+aa
+aa
 "}
 (13,1,1) = {"
-av
+aa
+aa
+aC
 ad
 af
 aw
@@ -622,10 +665,14 @@ ap
 aw
 af
 bc
-av
+aC
+aa
+aa
 "}
 (14,1,1) = {"
-av
+aa
+ah
+aC
 ad
 af
 aw
@@ -640,13 +687,17 @@ ap
 aw
 af
 bc
-av
+aC
+ah
+aa
 "}
 (15,1,1) = {"
-av
+aa
+ah
+aC
 ae
 af
-av
+aC
 ap
 ap
 ap
@@ -655,16 +706,20 @@ ap
 ap
 ap
 aW
-av
+aC
 af
 ae
-av
+aC
+ah
+aa
 "}
 (16,1,1) = {"
+ah
+ah
 ac
 af
 aj
-av
+aC
 ao
 ap
 ap
@@ -673,16 +728,20 @@ ap
 ap
 ap
 aX
-av
+aC
 ba
 af
 ac
+ah
+ah
 "}
 (17,1,1) = {"
+ah
+ah
 ac
 af
 af
-av
+aC
 ap
 ap
 ap
@@ -691,16 +750,20 @@ ap
 aN
 ap
 aY
-av
+aC
 af
 af
 ac
+ah
+ah
 "}
 (18,1,1) = {"
-av
+aa
+ah
+aC
 ag
 ak
-av
+aC
 at
 ap
 ay
@@ -709,46 +772,56 @@ ap
 aO
 aQ
 al
-av
+aC
 bb
 bb
-av
+aC
+ah
+ah
 "}
 (19,1,1) = {"
+aa
+aa
+aC
 av
-ah
-ah
 av
-ah
-ah
-aS
+aC
+av
+av
+aP
 aF
 be
-aS
-ah
-ah
+aP
 av
-ah
-ah
 av
+aC
+av
+av
+aC
+ah
+ah
 "}
 (20,1,1) = {"
-az
-ai
-ai
+aa
+aa
 aM
 ai
 ai
-aM
+aK
+ai
+ai
+aK
 aG
 aL
-aM
+aK
 ai
 ai
-aM
+aK
 ai
 ai
 aR
+aa
+ah
 "}
 (21,1,1) = {"
 aa
@@ -757,10 +830,36 @@ aa
 aa
 aa
 aa
+aa
+aa
 aA
 aA
 aA
-aP
+aI
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(22,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ah
+ah
+ah
+ah
+aa
+aa
 aa
 aa
 aa

@@ -32,6 +32,13 @@
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered/misc_lavaruin)
+"o" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Y" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
@@ -50,6 +57,8 @@ b
 b
 b
 b
+o
+Y
 "}
 (2,1,1) = {"
 a
@@ -68,6 +77,8 @@ f
 f
 d
 b
+o
+Y
 "}
 (3,1,1) = {"
 b
@@ -86,6 +97,8 @@ f
 g
 f
 b
+Y
+Y
 "}
 (4,1,1) = {"
 b
@@ -104,6 +117,8 @@ f
 f
 f
 h
+Y
+Y
 "}
 (5,1,1) = {"
 b
@@ -122,6 +137,8 @@ f
 f
 f
 b
+Y
+Y
 "}
 (6,1,1) = {"
 a
@@ -140,6 +157,8 @@ f
 g
 d
 b
+Y
+Y
 "}
 (7,1,1) = {"
 a
@@ -158,4 +177,6 @@ b
 b
 b
 b
+o
+Y
 "}

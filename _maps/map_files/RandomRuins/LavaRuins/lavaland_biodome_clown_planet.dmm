@@ -1104,6 +1104,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
 "ye" = (

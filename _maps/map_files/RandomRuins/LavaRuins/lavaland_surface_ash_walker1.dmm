@@ -270,7 +270,6 @@
 /area/ruin/unpowered/ash_walkers)
 "aO" = (
 /obj/structure/stone_tile/surrounding/cracked{
-	icon_state = "cracked_surrounding1";
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -874,6 +873,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ck" = (
@@ -1000,7 +1000,6 @@
 /area/ruin/unpowered/ash_walkers)
 "cA" = (
 /obj/structure/stone_tile/slab/cracked{
-	icon_state = "cracked_slab1";
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1399,6 +1398,20 @@
 	},
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"zz" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"EV" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 aa
@@ -1529,7 +1542,7 @@ cs
 cy
 bY
 cq
-ah
+bM
 ah
 "}
 (7,1,1) = {"
@@ -1551,8 +1564,8 @@ ct
 bN
 bL
 cI
-ah
-ah
+bM
+EV
 "}
 (8,1,1) = {"
 aa
@@ -1573,8 +1586,8 @@ bO
 dq
 bZ
 cJ
-ah
-ah
+zz
+bM
 "}
 (9,1,1) = {"
 aa

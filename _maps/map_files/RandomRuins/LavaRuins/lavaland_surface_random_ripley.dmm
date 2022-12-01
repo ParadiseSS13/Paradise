@@ -1,23 +1,26 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/template_noop)
 "b" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "c" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "d" = (
 /obj/mecha/working/ripley/mining{
 	ruin_mecha = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "e" = (
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/under/rank/miner/lavaland,
 /obj/effect/decal/remains/human,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 

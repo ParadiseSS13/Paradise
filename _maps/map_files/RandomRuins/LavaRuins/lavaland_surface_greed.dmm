@@ -131,6 +131,10 @@
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
+"O" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "W" = (
 /turf/simulated/wall/cult,
 /area/ruin/powered/greed)
@@ -238,12 +242,12 @@ c
 c
 c
 c
-a
-a
-a
-a
+O
+O
+O
+O
 b
-a
+O
 "}
 (6,1,1) = {"
 b
@@ -260,12 +264,12 @@ W
 W
 W
 c
-a
-a
-a
-a
+O
+O
+O
+O
 b
-a
+O
 "}
 (7,1,1) = {"
 b
@@ -285,9 +289,9 @@ c
 c
 c
 c
-a
-a
-a
+O
+O
+O
 "}
 (8,1,1) = {"
 a
@@ -307,9 +311,9 @@ W
 W
 W
 c
-a
-a
-a
+O
+O
+O
 "}
 (9,1,1) = {"
 a
@@ -329,9 +333,9 @@ m
 v
 W
 W
-a
-a
-a
+O
+O
+O
 "}
 (10,1,1) = {"
 b
@@ -351,9 +355,9 @@ m
 m
 m
 J
-a
-a
-a
+O
+O
+O
 "}
 (11,1,1) = {"
 a
@@ -373,9 +377,9 @@ l
 w
 W
 W
-a
-a
-a
+O
+O
+O
 "}
 (12,1,1) = {"
 a
@@ -395,9 +399,9 @@ W
 W
 W
 c
-a
-a
-a
+O
+O
+O
 "}
 (13,1,1) = {"
 a
@@ -417,9 +421,9 @@ c
 c
 c
 c
-a
-a
-a
+O
+O
+O
 "}
 (14,1,1) = {"
 b
@@ -436,12 +440,12 @@ W
 W
 W
 c
-a
-a
-a
-a
-a
-a
+O
+O
+O
+O
+O
+O
 "}
 (15,1,1) = {"
 b
@@ -458,12 +462,12 @@ c
 c
 c
 c
-a
-a
-a
-a
-a
-a
+O
+O
+O
+O
+O
+O
 "}
 (16,1,1) = {"
 b

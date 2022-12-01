@@ -8,7 +8,7 @@
 "c" = (
 /obj/machinery/abductor/experiment{
 	stat = 1
-},
+	},
 /turf/unsimulated/floor/abductor,
 /area/ruin/unpowered/misc_lavaruin)
 "d" = (
@@ -70,6 +70,10 @@
 /obj/structure/bed/abductor,
 /turf/unsimulated/floor/abductor,
 /area/ruin/unpowered/misc_lavaruin)
+"s" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
@@ -170,133 +174,133 @@ a
 (9,1,1) = {"
 a
 a
-b
+s
 d
 d
 d
 d
 d
-b
+s
 a
 "}
 (10,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (11,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (12,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (13,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (14,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (15,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (16,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (17,1,1) = {"
 a
-b
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (18,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
 a
 a
 "}
 (19,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
-b
-b
+s
+s
+s
+s
+s
+s
+s
 a
 "}
 (20,1,1) = {"

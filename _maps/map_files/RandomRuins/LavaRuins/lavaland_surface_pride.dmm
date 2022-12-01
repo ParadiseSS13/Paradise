@@ -82,6 +82,10 @@
 	blocks_air = 1
 	},
 /area/ruin/powered/pride)
+"Z" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 a
@@ -125,7 +129,7 @@ c
 c
 c
 c
-a
+Z
 "}
 (3,1,1) = {"
 b
@@ -147,7 +151,7 @@ G
 G
 G
 c
-a
+Z
 "}
 (4,1,1) = {"
 c
@@ -169,7 +173,7 @@ e
 e
 G
 c
-a
+Z
 "}
 (5,1,1) = {"
 c
@@ -190,8 +194,8 @@ g
 g
 r
 G
-a
-a
+Z
+Z
 "}
 (6,1,1) = {"
 c
@@ -212,8 +216,8 @@ g
 g
 g
 Y
-a
-a
+Z
+Z
 "}
 (7,1,1) = {"
 c
@@ -235,7 +239,7 @@ g
 r
 G
 c
-a
+Z
 "}
 (8,1,1) = {"
 c
@@ -257,7 +261,7 @@ f
 f
 G
 c
-a
+Z
 "}
 (9,1,1) = {"
 b
@@ -279,7 +283,7 @@ G
 G
 G
 c
-a
+Z
 "}
 (10,1,1) = {"
 b
@@ -301,5 +305,5 @@ c
 c
 c
 c
-a
+Z
 "}
