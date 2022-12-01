@@ -105,8 +105,10 @@
 	. = ..()
 	if(natural_spawn) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
 		for(var/I in 1 to 3)
-			if(prob(75)) new /obj/item/stack/rods(loc)
-			if(prob(75)) new /obj/item/shard(loc)
+			if(prob(75)) 
+				new /obj/item/stack/rods(loc)
+			if(prob(75))
+				new /obj/item/shard(loc)
 
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
