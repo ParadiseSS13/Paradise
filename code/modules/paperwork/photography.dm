@@ -571,6 +571,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.c_tag = null
 		QDEL_NULL(camera)
 	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+		if(on)
+			TV.feeds_on += 1
+		else
+			TV.feeds_on -= 1
+		TV.now_live()
 
 /obj/item/videocam/attack_self(mob/user)
 	camera_state(user)
