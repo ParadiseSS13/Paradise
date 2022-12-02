@@ -675,7 +675,7 @@
 		/datum/surgery_step/robotics/edit_serial,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
+	possible_locs = list(BODY_ZONE_HEAD)
 
 /datum/surgery_step/robotics/edit_serial
 	name = "edit serial number"
@@ -698,13 +698,15 @@
 	else if(!target.Adjacent(user))
 		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.")
 		return SURGERY_STEP_INCOMPLETE
-	var/new_gender = input(user, "Choose a gender for this machine.", "Select Gender", target.gender) as null|anything in list(MALE, FEMALE)
-	if(!new_gender)
+	var/gender_list = list("Male" = MALE, "Female" = FEMALE, "Genderless" = PLURAL, "Object" = NEUTER)
+	var/gender_key = input(user, "Choose a gender for this machine.", "Select Gender", target.gender) as null|anything in gender_list
+	if(!gender_key)
 		to_chat(user, "<span class='warning'>You must choose a gender! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	else if(!target.Adjacent(user))
 		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.")
 		return SURGERY_STEP_INCOMPLETE
+	var/new_gender = gender_list[gender_key]
 	target.real_name = new_name
 	target.gender = new_gender
 	user.visible_message(
