@@ -366,7 +366,8 @@
 
 /obj/machinery/teleport/hub/Bumped(M as mob|obj)
 	if(!is_teleport_allowed(z) && !admin_usage)
-		to_chat(M, "You can't use this here.")
+		if(ismob(M))
+			to_chat(M, "You can't use this here.")
 		return
 	if(power_station && power_station.engaged && !panel_open && !blockAI(M) && !istype(M, /obj/spacepod))
 		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub

@@ -482,6 +482,8 @@
 			return
 		go_out()//and release him from the eternal prison.
 	else
+		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+			return
 		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")

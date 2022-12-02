@@ -147,6 +147,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return FALSE
 	if(A.tele_proof)
 		return TRUE
+	if(!is_teleport_allowed(O.z))
+		return TRUE
 	else
 		return FALSE
 

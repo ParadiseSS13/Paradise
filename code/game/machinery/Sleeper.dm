@@ -454,6 +454,8 @@
 	set category = "Object"
 	set src in oview(1)
 
+	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+		return
 	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 

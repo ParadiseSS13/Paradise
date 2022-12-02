@@ -24,6 +24,7 @@
 	var/blast_range = 13 //how long the cardinal blast's walls are
 	var/obj/effect/hierophant/beacon //the associated beacon we teleport to
 	var/teleporting = FALSE //if we ARE teleporting
+	var/tele_proof_bypass = FALSE //for admins to bypass tele_proof with VV
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
 /obj/item/hierophant_club/examine(mob/user)
@@ -132,7 +133,7 @@
 	if(user.is_in_active_hand(src) && user.is_in_inactive_hand(src)) //you need to hold the staff to teleport
 		to_chat(user, "<span class='warning'>You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!</span>")
 		return
-	if(is_in_teleport_proof_area(user))
+	if(is_in_teleport_proof_area(user) && !tele_proof_bypass)
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
 	if(!beacon || QDELETED(beacon))
@@ -158,6 +159,9 @@
 		return
 	if(get_dist(user, beacon) <= 2) //beacon too close abort
 		to_chat(user, "<span class='warning'>You are too close to the beacon to teleport to it!</span>")
+		return
+	if(is_in_teleport_proof_area(beacon) && !tele_proof_bypass)
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
 	if(is_blocked_turf(get_turf(beacon), TRUE))
 		to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
