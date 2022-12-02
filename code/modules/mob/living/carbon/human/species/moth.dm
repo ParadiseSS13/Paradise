@@ -173,7 +173,7 @@
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
 			return
 		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
-		message_admins("[key_name_admin(H)] weaved [src] at [AREACOORD(H)].")
+		add_game_logs("weaved [src] at [AREACOORD(H)].", H)
 		var/obj/structure/moth/cocoon/C = new(get_turf(H))
 		H.forceMove(C)
 		C.preparing_to_emerge = TRUE
