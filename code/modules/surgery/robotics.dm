@@ -691,13 +691,19 @@
 
 /datum/surgery_step/robotics/edit_serial/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/old_name = target.real_name
-	var/new_name = copytext(reject_bad_text(input(user,"Choose a name for this machine.","Set Name","[old_name]") as null|text),1,MAX_NAME_LEN)
+	var/new_name = copytext(reject_bad_text(input(user, "Choose a name for this machine.", "Set Name", "[old_name]") as null|text), 1, MAX_NAME_LEN)
 	if(!new_name)
 		to_chat(user, "<span class='warning'>Invalid name! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
-	var/new_gender = input(user,"Choose a gender for this machine.","Select Gender",target.gender) as null|anything in list(MALE, FEMALE)
+	else if(!target.Adjacent(user))
+		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.")
+		return SURGERY_STEP_INCOMPLETE
+	var/new_gender = input(user, "Choose a gender for this machine.", "Select Gender", target.gender) as null|anything in list(MALE, FEMALE)
 	if(!new_gender)
 		to_chat(user, "<span class='warning'>You must choose a gender! Please try again.</span>")
+		return SURGERY_STEP_INCOMPLETE
+	else if(!target.Adjacent(user))
+		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.")
 		return SURGERY_STEP_INCOMPLETE
 	target.real_name = new_name
 	target.gender = new_gender
