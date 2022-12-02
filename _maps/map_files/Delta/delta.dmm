@@ -1409,7 +1409,6 @@
 "alS" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -2275,7 +2274,6 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -2293,7 +2291,6 @@
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -6411,7 +6408,6 @@
 /obj/item/hand_labeler,
 /obj/item/crowbar,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -13840,7 +13836,6 @@
 	pixel_x = -32
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -15130,10 +15125,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/atmos)
-"aSN" = (
-/obj/structure/grille,
-/turf/simulated/wall/r_wall,
-/area/atmos)
 "aSO" = (
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/window/reinforced,
@@ -15846,7 +15837,6 @@
 	},
 /area/crew_quarters/bar)
 "aUk" = (
-/obj/structure/grille,
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -17379,7 +17369,6 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "aXd" = (
-/obj/structure/grille,
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -18863,7 +18852,6 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "bah" = (
-/obj/structure/grille,
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -22089,7 +22077,6 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/botanist,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -25408,7 +25395,6 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -25777,7 +25763,6 @@
 	pixel_x = -24
 	},
 /obj/machinery/newscaster/security_unit{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -31148,7 +31133,6 @@
 	pixel_x = 24
 	},
 /obj/machinery/newscaster/security_unit{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -31615,7 +31599,6 @@
 /obj/item/weldingtool,
 /obj/item/clothing/head/welding,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -35062,7 +35045,6 @@
 /obj/item/clipboard,
 /obj/item/gps/engineering,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -38602,7 +38584,6 @@
 "bQj" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -43092,7 +43073,6 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -43180,7 +43160,6 @@
 "cac" = (
 /obj/machinery/computer/secure_data,
 /obj/machinery/newscaster/security_unit{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -43244,7 +43223,6 @@
 "cak" = (
 /obj/machinery/computer/crew,
 /obj/machinery/newscaster/security_unit{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -43392,7 +43370,6 @@
 "caB" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -46012,7 +45989,6 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -58685,7 +58661,6 @@
 "cJs" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -58928,7 +58903,6 @@
 "cKa" = (
 /obj/structure/table/reinforced,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -61516,7 +61490,6 @@
 	dir = 1
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -63411,7 +63384,6 @@
 	pixel_y = 5
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -63992,7 +63964,6 @@
 /obj/item/wrench,
 /obj/item/clothing/glasses/welding,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -64042,7 +64013,6 @@
 	pixel_y = -3
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -76275,7 +76245,6 @@
 /area/crew_quarters/theatre)
 "dwT" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -76382,7 +76351,6 @@
 	pixel_x = 24
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -80715,7 +80683,6 @@
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -81665,7 +81632,6 @@
 /area/hallway/secondary/exit)
 "dJC" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -85204,7 +85170,6 @@
 	dir = 8
 	},
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -87309,7 +87274,6 @@
 	},
 /obj/item/storage/box/masks,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -89080,7 +89044,6 @@
 /area/assembly/showroom)
 "gzU" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -90233,7 +90196,6 @@
 /area/medical/surgery2)
 "iIw" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -92635,7 +92597,6 @@
 /area/medical/reception)
 "nqC" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -95102,7 +95063,6 @@
 "rHU" = (
 /obj/structure/chair,
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -119832,23 +119792,23 @@ aPo
 aQN
 aGZ
 aZY
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
 abj
 abj
 bwN
@@ -120089,23 +120049,23 @@ aPp
 aQO
 aGZ
 aTU
-aSN
+aOg
 aXa
 aYu
 aXa
-aSN
+aOg
 bdk
 beE
 bdk
-aSN
+aOg
 biK
 bkv
 biK
-aSN
+aOg
 bpv
 brx
 bpv
-aSN
+aOg
 abj
 abj
 bwN
@@ -120346,23 +120306,23 @@ aPq
 aQN
 aGZ
 aZY
-aSN
+aOg
 aXb
 aYv
 aXa
-aSN
+aOg
 bdl
 beF
 bdk
-aSN
+aOg
 biL
 bkw
 biK
-aSN
+aOg
 bpw
 bpv
 bpv
-aSN
+aOg
 abj
 bzL
 bwN
@@ -120603,23 +120563,23 @@ aPr
 aQP
 aGZ
 aTU
-aSN
+aOg
 aXc
 aYw
 bag
-aSN
+aOg
 bdm
 beG
 bga
-aSN
+aOg
 biM
 bkx
 bmt
-aSN
+aOg
 bpx
 bry
 btf
-aSN
+aOg
 acF
 bzL
 byi
@@ -120860,23 +120820,23 @@ aPt
 aQQ
 aSz
 baa
-aSN
+aOg
 aXd
 aVR
 bah
-aSN
+aOg
 aXd
 aVR
 bah
-aSN
+aOg
 aXd
 aVR
 bah
-aSN
+aOg
 bah
 aVR
 aXd
-aSN
+aOg
 bUb
 byj
 bzM
@@ -127283,19 +127243,19 @@ aaa
 abj
 aaa
 abj
-aSN
+aOg
 aUk
 aVR
 aUk
-aSN
+aOg
 aXd
 aVR
 bah
-aSN
+aOg
 aXd
 aVR
 bah
-aSN
+aOg
 aOW
 bcP
 bpU
@@ -127540,19 +127500,19 @@ aJz
 aOU
 abj
 abj
-aSN
+aOg
 aUl
 aVS
 aXx
-aSN
+aOg
 baz
 bbY
 bdv
-aSN
+aOg
 bgk
 bhs
 bjb
-aSN
+aOg
 aOo
 bcP
 bpV
@@ -127797,19 +127757,19 @@ awX
 aOW
 aaa
 abj
-aSN
+aOg
 aUm
 aVT
 aUn
-aSN
+aOg
 baA
 bbZ
 baB
-aSN
+aOg
 bgl
 bht
 bgm
-aSN
+aOg
 aOW
 bcP
 bpW
@@ -128054,19 +128014,19 @@ awX
 aOo
 abj
 abj
-aSN
+aOg
 aUn
 aVU
 aUn
-aSN
+aOg
 baB
 bca
 baB
-aSN
+aOg
 bgm
 bhu
 bgm
-aSN
+aOg
 aOo
 awX
 btF
@@ -128311,19 +128271,19 @@ awX
 aOW
 aaa
 abj
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
-aSN
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
+aOg
 aOW
 awX
 bpY

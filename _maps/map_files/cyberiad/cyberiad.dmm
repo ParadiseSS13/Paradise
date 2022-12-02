@@ -58014,10 +58014,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
-"cQZ" = (
-/obj/structure/grille,
-/turf/simulated/wall/r_wall,
-/area/atmos)
 "cRa" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
@@ -58555,7 +58551,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
@@ -64465,7 +64460,6 @@
 /area/hydroponics)
 "djB" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/grille,
 /obj/machinery/atmospherics/meter{
 	layer = 2.9
 	},
@@ -64623,7 +64617,6 @@
 /area/turret_protected/aisat_interior)
 "djS" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/grille,
 /obj/machinery/atmospherics/meter{
 	id_tag = "mair_in_meter";
 	layer = 2.9;
@@ -64633,7 +64626,6 @@
 /area/atmos)
 "djU" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/grille,
 /obj/machinery/atmospherics/meter{
 	id_tag = "mair_out_meter";
 	layer = 2.9;
@@ -126356,11 +126348,11 @@ dgM
 dcF
 dhI
 aab
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
+cZS
+cZS
+cZS
+cZS
+cZS
 dcq
 dok
 dcq
@@ -126617,7 +126609,7 @@ djB
 dki
 dkO
 dkO
-cQZ
+cZS
 dcq
 ddr
 dcq
@@ -126874,7 +126866,7 @@ cTo
 dkh
 bbM
 dlv
-cQZ
+cZS
 dcq
 dfm
 dcq
@@ -127131,7 +127123,7 @@ djB
 dkk
 dkO
 dkO
-cQZ
+cZS
 cYz
 aaa
 dcq
@@ -127384,11 +127376,11 @@ dgQ
 dhx
 dhI
 cQp
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
+cZS
+cZS
+cZS
+cZS
+cZS
 aab
 aaa
 dcq
@@ -127645,7 +127637,7 @@ djB
 dkq
 dkT
 dkT
-cQZ
+cZS
 aab
 aaa
 aaa
@@ -127902,7 +127894,7 @@ cTo
 dkp
 bbO
 dlw
-cQZ
+cZS
 aab
 aaa
 aaa
@@ -128159,7 +128151,7 @@ djB
 dks
 dkT
 dkT
-cQZ
+cZS
 aab
 aab
 aab
@@ -128412,11 +128404,11 @@ dgQ
 cSd
 dhI
 cQp
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
+cZS
+cZS
+cZS
+cZS
+cZS
 aaa
 aab
 aaa
@@ -128673,7 +128665,7 @@ djS
 dkw
 dkV
 dkV
-cQZ
+cZS
 aaa
 aab
 aaa
@@ -128930,7 +128922,7 @@ cTo
 dku
 bdG
 dlx
-cQZ
+cZS
 aaa
 aab
 aaa
@@ -129187,7 +129179,7 @@ djU
 dkx
 dkV
 dkV
-cQZ
+cZS
 aaa
 aab
 aab
@@ -129440,11 +129432,11 @@ dgW
 dhI
 dhI
 cQp
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
+cZS
+cZS
+cZS
+cZS
+cZS
 aaa
 aab
 aaa
@@ -129933,23 +129925,23 @@ cKj
 cLO
 cxO
 cQp
-cQZ
+cZS
 cSn
 cTo
 cSn
-cQZ
+cZS
 cSn
 cTo
 cSn
-cQZ
+cZS
 cSn
 cTo
 cSn
-cQZ
+cZS
 cSn
 cTo
 cSn
-cQZ
+cZS
 aaa
 aaa
 aaa
@@ -130190,23 +130182,23 @@ fEv
 uOG
 cxO
 cQp
-cQZ
+cZS
 cSu
 cTv
 cUW
-cQZ
+cZS
 cXe
 cYf
 cZi
-cQZ
+cZS
 dbc
 dbS
 dcT
-cQZ
+cZS
 den
 deX
 dfO
-cQZ
+cZS
 aaa
 aaa
 aaa
@@ -130447,23 +130439,23 @@ fEv
 cLP
 cxO
 cQp
-cQZ
+cZS
 cSs
 cSw
 cSw
-cQZ
+cZS
 cWZ
 cIf
 cWZ
-cQZ
+cZS
 dbb
 cLV
 dbb
-cQZ
+cZS
 dem
 cRi
 dem
-cQZ
+cZS
 aaa
 hSD
 hSD
@@ -130704,23 +130696,23 @@ sWc
 cts
 cxO
 cQp
-cQZ
+cZS
 cSw
 cTw
 cSw
-cQZ
+cZS
 cWZ
 cXZ
 cWZ
-cQZ
+cZS
 dbb
 dbW
 dbb
-cQZ
+cZS
 dem
 deY
 dem
-cQZ
+cZS
 aaa
 aab
 aaa
@@ -130961,23 +130953,23 @@ vzf
 xYd
 cxO
 cQp
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
-cQZ
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
+cZS
 diu
 djd
 xzG
