@@ -423,9 +423,7 @@ const MedicalRecordsViruses = (_properties, context) => {
                 <Icon name="virus" /> {vir.name}
               </Table.Cell>
               <Table.Cell>{vir.max_stages}</Table.Cell>
-              <Table.Cell
-                color = {severities[vir.severity]}
-              >
+              <Table.Cell color = {severities[vir.severity]}>
                 {vir.severity}
               </Table.Cell>
             </Table.Row>
@@ -433,27 +431,14 @@ const MedicalRecordsViruses = (_properties, context) => {
       </Table>
     </Section>
   </Flex>
-)
-  // virus.sort((a, b) => (a.name > b.name ? 1 : -1));
-  // // here
-  // return virus.map((vir, i) => (
-  //   <Fragment key={i}>
-  //     <Button
-  //       icon="flask"
-  //       content={vir.name}
-  //       mb="0.5rem"
-  //       onClick={() => act('vir', { vir: vir.D })}
-  //     />
-  //     <br />
-  //   </Fragment>
-  // ));
+  )
 };
 
 const MedicalRecordsMedbots = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medbots } = data;
   if (medbots.length === 0) {
-    return <Box color="label">There are no Medbots.</Box>;
+    return <Box color="label">There are no Medibots.</Box>;
   }
   return(
     <Flex direction="column" height="100%">
@@ -477,11 +462,9 @@ const MedicalRecordsMedbots = (_properties, context) => {
                   <Icon name="medical" /> {medbot.name}
                 </Table.Cell>
                 <Table.Cell>{medbot.area || 'Unknown'} ({medbot.x}, {medbot.y})</Table.Cell>
-                <Table.Cell>{medbot.on ? (
-                    <Box color="good">Online</Box>
-                    ) : (
-                    <Box color="average">Offline</Box>
-                  )}
+                <Table.Cell>{medbot.on
+                    ? (<Box color="good">Online</Box>)
+                    : (<Box color="average">Offline</Box>)}
                 </Table.Cell>
                 <Table.Cell>
                   {medbot.use_beaker
@@ -502,41 +485,49 @@ const MedicalRecordsMedbots = (_properties, context) => {
 const MedicalRecordsNavigation = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { screen, general } = data;
+  const [_sortId, setSortId] = useLocalState(context, 'sortId', 'name');
+  const [_sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
     <Tabs>
       <Tabs.Tab
         selected={screen === 2}
-        onClick={() => act('screen', { screen: 2 })}
-      >
-        <Icon name="list" />
+        onClick={
+          () => {
+            setSortId('name') // prevents trying to sort on null IDs
+            setSortOrder(true)
+            act('screen', { screen: 2 })
+            }
+          }>
+        <Icon name="list"/>
         List Records
       </Tabs.Tab>
       <Tabs.Tab
         selected={screen === 5}
-        onClick={() => act('screen', { screen: 5 })}
-      >
-        <Icon name="database" />
+        onClick={() => {
+          setSortId('name') // prevents trying to sort on null IDs
+          setSortOrder(true)
+          act('screen', { screen: 5 })
+          }
+        }>
+        <Icon name="database"/>
         Virus Database
       </Tabs.Tab>
       <Tabs.Tab
         selected={screen === 6}
         onClick={() => act('screen', { screen: 6 })}
       >
-        <Icon name="plus-square" />
-        Medbot Tracking
+        <Icon name="plus-square"/>
+        Medibot Tracking
       </Tabs.Tab>
       {screen === 3 && (
-        <Tabs.Tab
-          selected={screen === 3}
-        >
-          <Icon name="wrench" />
+        <Tabs.Tab selected={screen === 3}>
+          <Icon name="wrench"/>
           Record Maintenance
         </Tabs.Tab>
       )}
       {screen === 4 && general && !general.empty && (
-        <Tabs.Tab
-          selected={screen === 4}>
-          <Icon name="file" />
+        <Tabs.Tab selected={screen === 4}>
+          <Icon name="file"/>
           Record: {general.fields[0].value}
         </Tabs.Tab>
       )}
