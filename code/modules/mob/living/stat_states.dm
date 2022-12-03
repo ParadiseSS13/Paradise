@@ -12,6 +12,7 @@
 	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
 	log_game("[key_name(src)] fell unconscious at [atom_loc_line(get_turf(src))]")
 	set_stat(UNCONSCIOUS)
+	ADD_TRAIT(src, TRAIT_DEAF, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_FLOORED, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, STAT_TRAIT)
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, STAT_TRAIT)
