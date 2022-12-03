@@ -1,5 +1,6 @@
 /datum/disease/cold9
 	name = "The Cold"
+	medical_name = "ICE9 Cold"
 	max_stages = 3
 	spread_text = "On contact"
 	spread_flags = CONTACT_GENERAL

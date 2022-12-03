@@ -39,6 +39,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/spread_flags = AIRBORNE
 
 	//Fluff
+	var/medical_name // Used for identification of viruses in the Medical Records Virus Database
 	var/form = "Virus"
 	var/name = "No disease"
 	var/desc = ""

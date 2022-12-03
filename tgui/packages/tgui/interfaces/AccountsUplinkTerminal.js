@@ -16,6 +16,7 @@ import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
+import { SortButton } from './common/SortButton';
 
 export const AccountsUplinkTerminal = (properties, context) => {
   const { act, data } = useBackend(context);
@@ -170,33 +171,6 @@ const DepartmentAccountsList = (properties, context) => {
         </Section>
       </Flex.Item>
     </Flex>
-  );
-};
-
-const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
-  const { id, children } = properties;
-  return (
-    <Table.Cell>
-      <Button
-        color={sortId !== id && 'transparent'}
-        width="100%"
-        onClick={() => {
-          if (sortId === id) {
-            setSortOrder(!sortOrder);
-          } else {
-            setSortId(id);
-            setSortOrder(true);
-          }
-        }}
-      >
-        {children}
-        {sortId === id && (
-          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-        )}
-      </Button>
-    </Table.Cell>
   );
 };
 

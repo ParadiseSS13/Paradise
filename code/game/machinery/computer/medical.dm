@@ -78,7 +78,7 @@
 /obj/machinery/computer/med_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "MedicalRecords", "Medical Records", 800, 380, master_ui, state)
+		ui = new(user, src, ui_key, "MedicalRecords", "Medical Records", 800, 800, master_ui, state)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -96,7 +96,13 @@
 					var/list/records = list()
 					data["records"] = records
 					for(var/datum/data/record/R in sortRecord(GLOB.data_core.general))
-						records[++records.len] = list("ref" = "\ref[R]", "id" = R.fields["id"], "name" = R.fields["name"])
+						records[++records.len] = list(
+							"ref" = "\ref[R]",
+							"name" = R.fields["name"],
+							"id" = R.fields["id"],
+							"rank" = R.fields["rank"],
+							"p_stat" = R.fields["p_stat"],
+							"m_stat" = R.fields["m_stat"])
 			if(MED_DATA_RECORD)
 				var/list/general = list()
 				data["general"] = general
@@ -127,14 +133,14 @@
 					fields[++fields.len] = MED_FIELD("Blood Type", active2.fields["blood_type"], "blood_type", FALSE)
 					fields[++fields.len] = MED_FIELD("DNA", active2.fields["b_dna"], "b_dna", TRUE)
 					fields[++fields.len] = MED_FIELD("Minor Disabilities", active2.fields["mi_dis"], "mi_dis", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["mi_dis_d"], "mi_dis_d", TRUE)
+					fields[++fields.len] = MED_FIELD("Details", active2.fields["mi_dis_d"], "mi_dis_d", FALSE)
 					fields[++fields.len] = MED_FIELD("Major Disabilities", active2.fields["ma_dis"], "ma_dis", FALSE)
 					fields[++fields.len] = MED_FIELD("Details", active2.fields["ma_dis_d"], "ma_dis_d", TRUE)
 					fields[++fields.len] = MED_FIELD("Allergies", active2.fields["alg"], "alg", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["alg_d"], "alg_d", TRUE)
+					fields[++fields.len] = MED_FIELD("Details", active2.fields["alg_d"], "alg_d", FALSE)
 					fields[++fields.len] = MED_FIELD("Current Diseases", active2.fields["cdi"], "cdi", FALSE)
 					fields[++fields.len] = MED_FIELD("Details", active2.fields["cdi_d"], "cdi_d", TRUE)
-					fields[++fields.len] = MED_FIELD("Important Notes", active2.fields["notes"], "notes", TRUE)
+					fields[++fields.len] = MED_FIELD("Important Notes", active2.fields["notes"], "notes", FALSE)
 					if(!active2.fields["comments"] || !islist(active2.fields["comments"]))
 						active2.fields["comments"] = list()
 					medical["comments"] = active2.fields["comments"]
@@ -149,7 +155,15 @@
 						continue
 					if(!DS.desc)
 						continue
-					data["virus"] += list(list("name" = DS.name, "D" = D))
+					if(DS.medical_name)
+						DS.name = "[DS.medical_name] ([DS.name])"
+					var/list/payload = list(
+						"name" = DS.name,
+						"max_stages" = "[DS.max_stages]", // This needs to be a string for sorting
+						"severity" = DS.severity,
+						"D" = D)
+					data["virus"] += list(payload)
+					qdel(DS)
 			if(MED_DATA_MEDBOT)
 				data["medbots"] = list()
 				for(var/mob/living/simple_animal/bot/medbot/M in GLOB.bots_list)
@@ -214,6 +228,8 @@
 					return
 
 				var/datum/disease/D = new type(0)
+				if(D.medical_name)
+					D.name = "[D.medical_name] ([D.name])"
 				var/list/payload = list(
 					name = D.name,
 					max_stages = D.max_stages,
