@@ -55,9 +55,11 @@
 			light = new/datum/light_source(src, .)
 
 /atom/proc/extinguish_light(force = FALSE)
-	if(!light_power && !light_range)
+	if(!light)
 		return // TEMPORARY RUNTIME REMOVE LATER
-	stack_trace("extinguish_light called on a light producing atom, without a proper overide. TYPE: [type]")
+	if(light_power <= 0.1)
+		return // filters out emissives
+	CRASH("extinguish_light called on a light producing atom, without a proper overide. TYPE: [type], Range : [light_range], Power : [light_power]")
 
 // If we have opacity, make sure to tell (potentially) affected light sources.
 /atom/movable/Destroy()
