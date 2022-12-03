@@ -389,16 +389,18 @@
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
-	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/after_jump, user)))
-		user.flying = TRUE
+	var/isflying = user.flying
+	user.flying = TRUE
+	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/after_jump, user, isflying)))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		after_jump(user, isflying)
 
-/obj/item/clothing/shoes/bhop/proc/after_jump(mob/user)
-	user.flying = initial(user.flying)
+/obj/item/clothing/shoes/bhop/proc/after_jump(mob/user, isflying)
+	user.flying = isflying
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"
