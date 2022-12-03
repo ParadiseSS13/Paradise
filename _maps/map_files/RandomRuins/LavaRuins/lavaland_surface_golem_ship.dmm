@@ -2,29 +2,26 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/freegolem)
 "ac" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "ad" = (
 /obj/structure/closet/crate/golemgear,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "ae" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/item/reagent_containers/spray/cleaner,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "af" = (
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "ag" = (
 /obj/structure/reagent_dispensers/watertank/high,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "ah" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -35,33 +32,33 @@
 	dir = 4;
 	icon_state = "burst_l"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "aj" = (
 /obj/machinery/light/small,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "ak" = (
 /obj/structure/reagent_dispensers/watertank,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "al" = (
 /obj/structure/table/wood,
 /obj/item/disk/design_disk/golem_shell,
 /obj/item/areaeditor/golem,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "am" = (
 /obj/machinery/vending/hydronutrients,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "an" = (
 /obj/machinery/vending/hydroseeds,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -70,12 +67,12 @@
 	dir = 1;
 	on = 1
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "ap" = (
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -94,32 +91,32 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "ar" = (
 /obj/effect/mob_spawn/human/golem/adamantine,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "as" = (
 /obj/machinery/vending/coffee/free,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "at" = (
 /obj/machinery/mineral/equipment_vendor/golem,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "au" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/structure/fans/tiny,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -130,11 +127,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "aw" = (
 /obj/machinery/door/airlock/shuttle,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -142,53 +139,43 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "ay" = (
 /obj/machinery/mineral/ore_redemption/golem,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "az" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc2"
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon_state = "white_walls_corners"
 	},
 /area/shuttle/freegolem)
 "aA" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/golem_ship)
-"aB" = (
-/obj/structure/window/full/shuttle{
-	icon_state = "16"
-	},
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/freegolem)
-"aC" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12"
-	},
-/area/shuttle/freegolem)
 "aD" = (
 /obj/structure/computerframe,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "aE" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc3"
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon_state = "white_walls_corners"
 	},
 /area/shuttle/freegolem)
 "aF" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -213,97 +200,74 @@
 	name = "Free Golem Ship";
 	width = 16
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "aH" = (
-/obj/structure/window/full/shuttle{
-	icon_state = "15"
-	},
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "aI" = (
 /obj/machinery/computer/shuttle/golem_ship/recall,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/golem_ship)
-"aJ" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14"
-	},
-/area/shuttle/freegolem)
 "aK" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11"
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/freegolem)
 "aL" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "aM" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc1"
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon_state = "white_walls_corners"
 	},
 /area/shuttle/freegolem)
 "aN" = (
 /obj/item/resonator/upgraded,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "aO" = (
 /obj/machinery/autolathe,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
-	},
-/area/shuttle/freegolem)
-"aP" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall4"
 	},
 /area/shuttle/freegolem)
 "aQ" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
-"aR" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc4"
-	},
-/area/shuttle/freegolem)
 "aS" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
-	icon_state = "swall13"
-	},
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/freegolem)
 "aT" = (
 /obj/machinery/light,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "aU" = (
 /obj/structure/table/wood,
 /obj/item/resonator,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "aV" = (
 /obj/machinery/vending/snack/free,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -312,7 +276,7 @@
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/brute,
 /obj/item/storage/firstaid/brute,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -322,7 +286,7 @@
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/fire,
 /obj/machinery/light,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -330,7 +294,7 @@
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/adv,
 /obj/item/storage/firstaid/adv,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -338,22 +302,22 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "bb" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "bc" = (
 /obj/structure/ore_box,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/freegolem)
 "be" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
 /obj/machinery/light,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -364,13 +328,27 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
 "bh" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3"
+/turf/simulated/wall/shuttle{
+	dir = 1
+	},
+/area/shuttle/freegolem)
+"ik" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/freegolem)
+"is" = (
+/turf/simulated/wall/shuttle{
+	dir = 4
+	},
+/area/shuttle/freegolem)
+"qo" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon_state = "white_walls_corners"
 	},
 /area/shuttle/freegolem)
 "JQ" = (
@@ -378,7 +356,7 @@
 /obj/structure/chair/comfy/purp{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor5"
 	},
 /area/shuttle/freegolem)
@@ -393,7 +371,7 @@ aa
 aa
 aa
 az
-aB
+aH
 aH
 aE
 aa
@@ -414,10 +392,10 @@ aa
 aa
 aa
 aa
-aC
+aK
 bf
 aq
-aC
+aK
 aa
 aa
 aa
@@ -434,14 +412,14 @@ aa
 aa
 aa
 az
-bh
+ik
 au
-aR
+aS
 aD
 JQ
-ab
+aS
 au
-bh
+ik
 aE
 aa
 aa
@@ -455,7 +433,7 @@ aa
 aa
 aa
 aa
-aC
+is
 am
 ap
 ax
@@ -464,7 +442,7 @@ ap
 ax
 ap
 as
-aC
+aK
 aa
 aa
 aa
@@ -477,7 +455,7 @@ aa
 aa
 aa
 aa
-aC
+is
 an
 ap
 ap
@@ -486,7 +464,7 @@ ap
 ap
 ap
 aV
-aC
+aK
 aa
 aa
 aa
@@ -508,7 +486,7 @@ ap
 ap
 ap
 aT
-aJ
+aS
 bh
 bh
 aE
@@ -518,7 +496,7 @@ aa
 (7,1,1) = {"
 aa
 aa
-aC
+aK
 ad
 af
 aw
@@ -533,14 +511,14 @@ ap
 aw
 af
 bc
-aC
+aK
 aa
 aa
 "}
 (8,1,1) = {"
 aa
 aa
-aC
+aK
 ad
 af
 aw
@@ -555,17 +533,17 @@ ap
 aw
 af
 bc
-aC
+aK
 aa
 aa
 "}
 (9,1,1) = {"
 aa
 aa
-aC
+aK
 ad
 aj
-aC
+ik
 ao
 ap
 ap
@@ -574,20 +552,20 @@ ap
 ap
 ap
 aT
-aC
+ik
 ba
 bc
-aC
+aK
 aa
 aa
 "}
 (10,1,1) = {"
 aa
 aa
-aC
+aK
 ad
 af
-aC
+aK
 ap
 ap
 ar
@@ -596,20 +574,20 @@ aU
 ar
 ap
 ap
-aC
+aK
 af
 bc
-aC
+aK
 aa
 aa
 "}
 (11,1,1) = {"
 aa
 aa
-aC
+aK
 ad
 af
-aC
+aK
 ap
 ap
 ar
@@ -618,20 +596,20 @@ aU
 ar
 ap
 ap
-aC
+aK
 af
 bc
-aC
+aK
 aa
 aa
 "}
 (12,1,1) = {"
 aa
 aa
-aC
+aK
 ad
 aj
-aC
+ik
 ao
 ap
 ap
@@ -640,17 +618,17 @@ ap
 ap
 ap
 aT
-aC
+ik
 ba
 bc
-aC
+aK
 aa
 aa
 "}
 (13,1,1) = {"
 aa
 aa
-aC
+aK
 ad
 af
 aw
@@ -665,14 +643,14 @@ ap
 aw
 af
 bc
-aC
+aK
 aa
 aa
 "}
 (14,1,1) = {"
 aa
 ah
-aC
+aK
 ad
 af
 aw
@@ -687,17 +665,17 @@ ap
 aw
 af
 bc
-aC
+aK
 ah
 aa
 "}
 (15,1,1) = {"
 aa
 ah
-aC
+ik
 ae
 af
-aC
+ik
 ap
 ap
 ap
@@ -706,10 +684,10 @@ ap
 ap
 ap
 aW
-aC
+ik
 af
 ae
-aC
+ik
 ah
 aa
 "}
@@ -719,7 +697,7 @@ ah
 ac
 af
 aj
-aC
+aK
 ao
 ap
 ap
@@ -728,7 +706,7 @@ ap
 ap
 ap
 aX
-aC
+aK
 ba
 af
 ac
@@ -741,7 +719,7 @@ ah
 ac
 af
 af
-aC
+aK
 ap
 ap
 ap
@@ -750,7 +728,7 @@ ap
 aN
 ap
 aY
-aC
+aK
 af
 af
 ac
@@ -760,10 +738,10 @@ ah
 (18,1,1) = {"
 aa
 ah
-aC
+ik
 ag
 ak
-aC
+aK
 at
 ap
 ay
@@ -772,32 +750,32 @@ ap
 aO
 aQ
 al
-aC
+aK
 bb
 bb
-aC
+ik
 ah
 ah
 "}
 (19,1,1) = {"
 aa
 aa
-aC
+ik
 av
 av
-aC
+aK
 av
 av
-aP
+aS
 aF
 be
-aP
+aS
 av
 av
-aC
+aK
 av
 av
-aC
+ik
 ah
 ah
 "}
@@ -810,16 +788,16 @@ ai
 aK
 ai
 ai
-aK
+ik
 aG
 aL
-aK
+ik
 ai
 ai
 aK
 ai
 ai
-aR
+qo
 aa
 ah
 "}

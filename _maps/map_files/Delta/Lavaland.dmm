@@ -8231,7 +8231,6 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced/brass,
-/obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "YJ" = (

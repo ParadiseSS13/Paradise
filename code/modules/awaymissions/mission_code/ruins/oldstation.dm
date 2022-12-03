@@ -341,52 +341,6 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list("bromine" = 30)
-
-// Engines
-/obj/structure/shuttle/engine/large
-	name = "engine"
-	opacity = 1
-	icon = 'icons/obj/2x2.dmi'
-	icon_state = "large_engine"
-	desc = "A very large bluespace engine used to propel very large ships."
-//	bound_width = 64
-//	bound_height = 64
-	appearance_flags = 0
-
-/obj/structure/shuttle/engine/large/Initialize()
-	..()
-	var/list/occupied = list()
-	for(var/direct in list(EAST,NORTH,NORTHEAST))
-		occupied += get_step(src,direct)
-
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
-
-/obj/structure/shuttle/engine/huge
-	name = "engine"
-	opacity = 1
-	icon = 'icons/obj/3x3.dmi'
-	icon_state = "huge_engine"
-	desc = "Almost gigantic bluespace engine used to propel very large ships at very high speed."
-	pixel_x = -32
-	pixel_y = -32
-//	bound_width = 96
-//	bound_height = 96
-	appearance_flags = 0
-
-/obj/structure/shuttle/engine/huge/Initialize()
-	..()
-	var/list/occupied = list()
-	for(var/direct in list(EAST,WEST,NORTH,SOUTH,SOUTHEAST,SOUTHWEST,NORTHEAST,NORTHWEST))
-		occupied += get_step(src,direct)
-
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
-
 // areas
 //Ruin of ancient Space Station
 

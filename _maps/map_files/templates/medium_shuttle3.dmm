@@ -4,272 +4,132 @@
 /area/space)
 "b" = (
 /obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)";
-	icon_state = "propulsion";
-	dir = 1
+	dir = 1;
+	tag = "icon-propulsion (NORTH)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"c" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-wall3";
-	icon_state = "wall3"
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "d" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (NORTH)";
-	icon_state = "heater";
-	dir = 1
+	dir = 1;
+	tag = "icon-heater (NORTH)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"e" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHWEST)";
-	icon_state = "wall3";
-	dir = 9
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"f" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHEAST)";
-	icon_state = "wall3";
-	dir = 5
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"g" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHEAST)";
-	icon_state = "wall3";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "h" = (
-/turf/simulated/shuttle/wall,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"i" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHWEST)";
-	icon_state = "wall3";
-	dir = 10
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/wall/shuttle,
+/area/ruin/powered/shuttle)
 "j" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "k" = (
 /obj/machinery/power/smes/magical,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "l" = (
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "m" = (
 /turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "n" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "o" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
-	icon_state = "heater";
-	dir = 8
+	dir = 8;
+	tag = "icon-heater (WEST)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "p" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "q" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (EAST)";
-	icon_state = "heater";
-	dir = 4
+	dir = 4;
+	tag = "icon-heater (EAST)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "r" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"s" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHEAST)";
-	icon_state = "wall3";
-	dir = 5
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "t" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"u" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHWEST)";
-	icon_state = "wall3";
-	dir = 9
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "v" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "w" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "x" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"y" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHWEST)";
-	icon_state = "wall3";
-	dir = 10
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "z" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "A" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"B" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHEAST)";
-	icon_state = "wall3";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "C" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "D" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "E" = (
 /obj/structure/table,
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "F" = (
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "G" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 
 (1,1,1) = {"
 a
@@ -303,14 +163,14 @@ a
 a
 a
 n
-c
+h
 o
 a
 a
 a
 a
 o
-c
+h
 n
 a
 a
@@ -325,18 +185,18 @@ a
 a
 a
 a
-e
+h
 o
-c
-c
-y
+h
+h
+h
 a
 a
-e
-c
-c
+h
+h
+h
 o
-y
+h
 a
 a
 a
@@ -348,20 +208,20 @@ a
 a
 a
 a
-e
-c
-c
-c
-c
-c
+h
+h
+h
+h
+h
+h
 a
 a
-c
-c
-c
-c
-c
-y
+h
+h
+h
+h
+h
+h
 a
 a
 a
@@ -371,22 +231,22 @@ a
 a
 a
 a
-e
-g
 h
 h
-s
-c
-g
+h
+h
+h
+h
+h
 j
 j
-s
-c
-g
 h
 h
-s
-y
+h
+h
+h
+h
+h
 a
 a
 a
@@ -394,8 +254,8 @@ a
 (6,1,1) = {"
 a
 a
-e
-c
+h
+h
 h
 k
 l
@@ -410,8 +270,8 @@ h
 l
 k
 h
-c
-y
+h
+h
 a
 a
 "}
@@ -419,7 +279,7 @@ a
 a
 b
 d
-c
+h
 h
 l
 l
@@ -434,17 +294,17 @@ l
 l
 l
 h
-c
+h
 F
 G
 a
 "}
 (8,1,1) = {"
 a
-c
-c
-c
-i
+h
+h
+h
+h
 h
 l
 l
@@ -457,18 +317,18 @@ l
 l
 l
 h
-u
-c
-c
-c
+h
+h
+h
+h
 a
 "}
 (9,1,1) = {"
 b
 d
-c
-c
-c
+h
+h
+h
 h
 l
 l
@@ -481,18 +341,18 @@ h
 l
 l
 h
-c
-c
-c
+h
+h
+h
 F
 G
 "}
 (10,1,1) = {"
 a
 a
-f
-c
-g
+h
+h
+h
 h
 p
 h
@@ -505,9 +365,9 @@ A
 h
 p
 h
-s
-c
-B
+h
+h
+h
 a
 a
 "}
@@ -562,9 +422,9 @@ a
 (13,1,1) = {"
 a
 a
-e
-c
-i
+h
+h
+h
 h
 p
 h
@@ -577,18 +437,18 @@ A
 h
 p
 h
-u
-c
-y
+h
+h
+h
 a
 a
 "}
 (14,1,1) = {"
 b
 d
-c
-c
-c
+h
+h
+h
 h
 l
 l
@@ -601,18 +461,18 @@ h
 l
 l
 h
-c
-c
-c
+h
+h
+h
 F
 G
 "}
 (15,1,1) = {"
 a
-c
-c
-c
-g
+h
+h
+h
+h
 h
 l
 l
@@ -625,17 +485,17 @@ l
 l
 l
 h
-s
-c
-c
-c
+h
+h
+h
+h
 a
 "}
 (16,1,1) = {"
 a
 b
 d
-c
+h
 h
 l
 l
@@ -650,7 +510,7 @@ l
 l
 l
 h
-c
+h
 F
 G
 a
@@ -658,8 +518,8 @@ a
 (17,1,1) = {"
 a
 a
-f
-c
+h
+h
 h
 k
 l
@@ -674,8 +534,8 @@ h
 l
 k
 h
-c
-B
+h
+h
 a
 a
 "}
@@ -683,22 +543,22 @@ a
 a
 a
 a
-f
-i
 h
 h
-u
-c
-i
+h
+h
+h
+h
+h
 j
 j
-u
-c
-i
 h
 h
-u
-B
+h
+h
+h
+h
+h
 a
 a
 a
@@ -708,20 +568,20 @@ a
 a
 a
 a
-f
-c
-c
-c
-c
-c
+h
+h
+h
+h
+h
+h
 a
 a
-c
-c
-c
-c
-c
-B
+h
+h
+h
+h
+h
+h
 a
 a
 a
@@ -733,18 +593,18 @@ a
 a
 a
 a
-f
+h
 q
-c
-c
-B
+h
+h
+h
 a
 a
-f
-c
-c
+h
+h
+h
 q
-B
+h
 a
 a
 a
@@ -759,14 +619,14 @@ a
 a
 a
 r
-c
+h
 q
 a
 a
 a
 a
 q
-c
+h
 r
 a
 a

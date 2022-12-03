@@ -3118,12 +3118,21 @@
 				template.copy_contents_to(ertarmory)
 				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs].</span>")
+			*/
 			if("tdomereset")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")
 					return
 				var/area/thunderdome = locate(/area/tdome/arena)
+				var/area/team1 = locate(/area/tdome/tdome1)
+				var/area/team2 = locate(/area/tdome/tdome2)
 				if(delete_mobs == "Yes")
+					var/clear_team_spawns = alert("Clear mobs on thunderdome spawns too?","Confirm","Yes","No")
+					if(clear_team_spawns == "Yes")
+						for(var/mob/living/mob in team1)
+							qdel(mob) //Clear mobs
+						for(var/mob/living/mob in team2)
+							qdel(mob) //Clear mobs
 					for(var/mob/living/mob in thunderdome)
 						qdel(mob) //Clear mobs
 				for(var/obj/obj in thunderdome)
@@ -3132,7 +3141,7 @@
 				var/area/template = locate(/area/tdome/arena_source)
 				template.copy_contents_to(thunderdome)
 				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>") */
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
 
 			if("tdomestart")
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")

@@ -2,39 +2,12 @@
 "aa" = (
 /turf/space,
 /area/space)
-"ab" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/escape)
 "ac" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"ad" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10";
-	dir = 2
-	},
-/area/shuttle/escape)
-"ae" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc4"
-	},
+/turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/escape)
 "af" = (
 /obj/machinery/computer/emergency_shuttle,
 /turf/simulated/floor/noslip,
-/area/shuttle/escape)
-"ag" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc3"
-	},
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/security{
@@ -95,12 +68,6 @@
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
-"ar" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/shuttle/escape)
 "as" = (
 /obj/machinery/computer/robotics,
 /turf/simulated/floor/noslip,
@@ -131,28 +98,10 @@
 "aw" = (
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
-"ax" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/escape)
-"ay" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall13";
-	dir = 2
-	},
-/area/shuttle/escape)
 "az" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
-	},
-/area/shuttle/escape)
-"aA" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall14";
-	dir = 2
 	},
 /area/shuttle/escape)
 "aB" = (
@@ -163,9 +112,8 @@
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/floor/chasm,
 /area/shuttle/escape)
@@ -174,21 +122,13 @@
 /obj/item/bedsheet/rainbow,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
-"aE" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "16"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "aF" = (
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/item/toy/snappop/phoenix,
 /turf/simulated/floor/plasteel{
@@ -208,7 +148,7 @@
 	name = "greentext"
 	},
 /obj/item/reagent_containers/food/condiment/saltshaker,
-/turf/simulated/shuttle/floor4,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aI" = (
 /obj/machinery/door/airlock/security/glass{
@@ -216,13 +156,6 @@
 	req_access_txt = "2"
 	},
 /turf/simulated/floor/noslip,
-/area/shuttle/escape)
-"aJ" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "8"
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/closet/walllocker/emerglocker{
@@ -235,35 +168,15 @@
 "aL" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	name = "station intercom (General)";
 	pixel_x = 28
 	},
 /turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aM" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "16"
-	},
-/turf/simulated/floor/noslip,
-/area/shuttle/escape)
-"aN" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall7";
-	icon_state = "swall7";
-	dir = 2
-	},
-/area/shuttle/escape)
-"aO" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "15"
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
 "aP" = (
 /obj/docking_port/mobile/emergency{
-	dir = 4;
 	dwidth = 11;
 	height = 13;
 	name = "Snappop(tm)!";
@@ -276,18 +189,16 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "aQ" = (
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "station intercom (General)";
 	pixel_x = -28
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
@@ -309,9 +220,8 @@
 /obj/item/extinguisher,
 /obj/item/crowbar,
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /obj/item/multitool/ai_detect,
 /turf/simulated/floor/noslip,
@@ -323,7 +233,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "aU" = (
 /obj/machinery/status_display{
@@ -337,10 +247,7 @@
 /area/shuttle/escape)
 "aV" = (
 /obj/structure/noticeboard,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
+/turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
 "aW" = (
 /obj/machinery/door/airlock/shuttle{
@@ -349,15 +256,8 @@
 	id_tag = null;
 	name = "Shuttle Cargo Hatch"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
-	},
-/area/shuttle/escape)
-"aX" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14";
-	dir = 2
 	},
 /area/shuttle/escape)
 "aY" = (
@@ -369,25 +269,13 @@
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
-"aZ" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "14"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
 "ba" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "17"
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
-	name = "Escape Shuttle Infirmary";
-	req_access_txt = "0"
+	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -421,9 +309,7 @@
 /obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
-	pixel_x = 28;
-	pixel_y = 0;
-	req_access_txt = "0"
+	pixel_x = 28
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/noslip,
@@ -434,28 +320,24 @@
 /area/shuttle/escape)
 "bg" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
-	dir = 4
+	dir = 4;
+	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bh" = (
 /obj/machinery/status_display{
-	pixel_x = -30;
-	pixel_y = 0
+	pixel_x = -30
 	},
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bi" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	name = "station intercom (General)";
 	pixel_x = 28
 	},
 /obj/structure/bed/roller,
@@ -476,18 +358,11 @@
 /area/shuttle/escape)
 "bm" = (
 /obj/machinery/sleeper{
-	tag = "icon-sleeper (NORTH)";
+	dir = 1;
 	icon_state = "sleeper";
-	dir = 1
+	tag = "icon-sleeper (NORTH)"
 	},
 /turf/simulated/floor/noslip,
-/area/shuttle/escape)
-"bn" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
 /area/shuttle/escape)
 "bo" = (
 /obj/structure/window/reinforced{
@@ -497,19 +372,10 @@
 /obj/structure/window/reinforced,
 /obj/item/stack/sheet/mineral/bananium,
 /obj/item/bikehorn/rubberducky,
-/turf/simulated/shuttle/plating,
-/area/shuttle/escape)
-"bp" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall11";
-	dir = 2
-	},
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/escape)
 "bq" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall7";
-	dir = 2
-	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/escape)
 "br" = (
 /obj/structure/shuttle/engine/heater,
@@ -519,18 +385,20 @@
 /obj/structure/window/reinforced,
 /obj/item/stack/sheet/mineral/bananium,
 /obj/item/bikehorn/rubberducky,
-/turf/simulated/shuttle/plating,
-/area/shuttle/escape)
-"bs" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
-	},
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/escape)
 "bt" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/escape)
+"HT" = (
+/obj/item/clothing/mask/cursedclown,
+/turf/simulated/floor/noslip,
+/area/shuttle/escape)
+"XG" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -540,23 +408,23 @@ aa
 aa
 aa
 aa
-ab
-ar
-ar
-ar
-aN
+bq
+bq
+bq
+bq
+ba
 aP
-ar
-aE
-aJ
-aO
-ar
+aM
+XG
+XG
+XG
+aM
 aT
-aN
+aM
 aY
-ac
-ar
-bn
+XG
+aM
+bq
 aa
 "}
 (2,1,1) = {"
@@ -566,11 +434,11 @@ aa
 aa
 aa
 aa
-ax
+bq
 aB
 aG
 aB
-ax
+bq
 am
 aQ
 aR
@@ -578,25 +446,25 @@ aD
 aD
 aS
 am
-ax
+bq
 aw
 bf
 bj
-aA
-bn
+bq
+bq
 "}
 (3,1,1) = {"
 aa
 aa
 aa
 aa
-ab
-ar
-ay
+bq
+bq
+bq
 aC
 aH
 aB
-ax
+bq
 am
 am
 am
@@ -614,15 +482,15 @@ bt
 (4,1,1) = {"
 aa
 aa
-ab
+bq
+XG
 ac
-ae
 as
-ax
+bq
 aB
 aB
 aL
-ax
+aM
 am
 aD
 aD
@@ -639,24 +507,24 @@ bt
 "}
 (5,1,1) = {"
 aa
-ab
-ae
+bq
+ac
 ak
 ao
 at
-ax
-ac
-aI
 aM
-aO
+XG
+aI
+XG
+XG
 am
-aE
-aJ
-aJ
-aO
+XG
+XG
+XG
+XG
 am
 am
-ax
+aM
 bc
 bg
 bl
@@ -664,13 +532,13 @@ bo
 bt
 "}
 (6,1,1) = {"
-ab
-ae
+bq
+bq
 ah
 ai
 am
 au
-ax
+aM
 aD
 aw
 aD
@@ -682,15 +550,15 @@ aD
 aD
 am
 aU
-aX
-ar
-ar
-ar
-bp
-bs
+ba
+bq
+bq
+bq
+bq
+bq
 "}
 (7,1,1) = {"
-ac
+XG
 af
 ai
 am
@@ -708,7 +576,7 @@ ap
 ap
 am
 am
-ac
+XG
 aa
 aa
 aa
@@ -716,13 +584,13 @@ aa
 aa
 "}
 (8,1,1) = {"
-ad
-ag
+bq
+bq
 aj
 ai
 ap
 au
-ax
+aM
 aD
 aD
 aD
@@ -734,33 +602,33 @@ aD
 aD
 am
 aU
-aX
-ar
-ar
-ar
+aM
 bq
-bn
+bq
+bq
+bq
+bq
 "}
 (9,1,1) = {"
 aa
-ad
-ag
+bq
+ac
 an
 aq
 av
-aA
-aE
-aJ
-aJ
-aO
+aM
+XG
+XG
+XG
+XG
 am
-aE
-aJ
-aJ
-aO
+XG
+XG
+XG
+XG
 am
 am
-ac
+XG
 bd
 bh
 bm
@@ -770,11 +638,11 @@ bt
 (10,1,1) = {"
 aa
 aa
-ad
+bq
+XG
 ac
-ag
-aw
-ax
+HT
+bq
 aD
 aD
 aD
@@ -798,9 +666,9 @@ aa
 aa
 aa
 aa
-ad
-ar
-ay
+bq
+bq
+bq
 aF
 am
 am
@@ -812,7 +680,7 @@ am
 am
 am
 am
-aZ
+XG
 aw
 aw
 bm
@@ -826,7 +694,7 @@ aa
 aa
 aa
 aa
-ax
+bq
 aD
 aK
 aD
@@ -838,12 +706,12 @@ aD
 aD
 am
 am
-ba
+XG
 be
 bi
 aw
-aA
-bs
+bq
+bq
 "}
 (13,1,1) = {"
 aa
@@ -852,22 +720,22 @@ aa
 aa
 aa
 aa
-ad
-ar
-ar
-ac
-ar
-ar
-ar
-aE
-aJ
-aO
-ar
-ac
-ar
-ar
-ar
-ar
-bs
+bq
+bq
+aM
+XG
+aM
+bq
+aM
+XG
+XG
+XG
+aM
+XG
+aM
+bq
+bq
+bq
+bq
 aa
 "}

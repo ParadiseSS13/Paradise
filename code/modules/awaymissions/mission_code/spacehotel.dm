@@ -13,6 +13,19 @@
 	name = "Hotel Reception"
 	icon_state = "entry"
 
+/area/awaymission/spacehotel/amazing_place
+	name = "Amazing Place"
+	requires_power = 0
+
+/area/awaymission/spacehotel/snowland
+	name = "Snowland"
+	requires_power = 0
+
+/area/awaymission/spacehotel/undersea
+	name = "Undersea"
+	icon_state = "undersea"
+	requires_power = 0
+
 // "Directional" map template loader for N or S hotel room
 /obj/effect/landmark/map_loader/hotel_room
 	icon = 'icons/testing/turf_analysis.dmi'

@@ -2,7 +2,8 @@
 	name = "remote door-control"
 	desc = "A remote control-switch for a door."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "doorctrl0"
+	icon_state = "doorctrl"
+	var/icon_button = "doorctrl" //Для хранения начального icon_state и перезаписи при разных взаимодействиях на нужный
 	power_channel = ENVIRON
 	var/id = null
 	var/safety_z_check = 1
@@ -59,11 +60,11 @@
 
 	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
-		flick("doorctrl-denied",src)
+		flick("[icon_button]-denied",src)
 		return
 
 	use_power(5)
-	icon_state = "doorctrl1"
+	icon_state = "[icon_button]-inuse"
 	add_fingerprint(user)
 
 	if(normaldoorcontrol)
@@ -116,11 +117,11 @@
 	desiredstate = !desiredstate
 	spawn(15)
 		if(!(stat & NOPOWER))
-			icon_state = "doorctrl0"
+			icon_state = "[icon_button]"
 
 /obj/machinery/door_control/power_change()
 	..()
 	if(stat & NOPOWER)
-		icon_state = "doorctrl-p"
+		icon_state = "[icon_button]-p"
 	else
-		icon_state = "doorctrl0"
+		icon_state = "[icon_button]"

@@ -29,6 +29,12 @@
 /area/ruin/powered/golem_ship
 	name = "Free Golem Ship"
 
+/area/ruin/powered/space_bar
+	name = "Space Bar"
+
+/area/ruin/powered/shuttle
+	name = "Shuttle"
+
 // Ruins of "onehalf" ship
 /area/ruin/onehalf/hallway
 	name = "Hallway"

@@ -567,7 +567,7 @@
 	icon_state = "vault";
 	dir = 5
 	},
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f6";
 	dir = 2
 	},
@@ -605,7 +605,7 @@
 	icon_state = "vault";
 	dir = 5
 	},
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f10";
 	dir = 2
 	},
@@ -665,31 +665,31 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
 "bL" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall3";
 	dir = 2
 	},
 /area/awaymission/centcomAway/hangar)
 "bM" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall8";
 	dir = 2
 	},
 /area/awaymission/centcomAway/hangar)
 "bN" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall7";
 	dir = 2
 	},
 /area/awaymission/centcomAway/hangar)
 "bO" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall4";
 	dir = 2
 	},
 /area/awaymission/centcomAway/hangar)
 "bP" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall12";
 	dir = 2
 	},
@@ -700,7 +700,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/cafe)
 "bR" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall11";
 	dir = 2
 	},
@@ -721,7 +721,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "bU" = (
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "bV" = (
 /obj/structure/table,
@@ -740,10 +740,10 @@
 /area/awaymission/centcomAway/cafe)
 "bX" = (
 /obj/structure/closet/emcloset,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "bY" = (
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -780,15 +780,15 @@
 	},
 /area/awaymission/centcomAway/maint)
 "cd" = (
-/turf/simulated/shuttle/plating,
-/turf/simulated/shuttle/wall{
+/turf/simulated/floor/shuttle/plating,
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f6";
 	dir = 2
 	},
 /area/awaymission/centcomAway/hangar)
 "ce" = (
-/turf/simulated/shuttle/floor,
-/turf/simulated/shuttle/wall{
+/turf/simulated/floor/shuttle,
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f9";
 	dir = 2
 	},
@@ -800,7 +800,7 @@
 	pixel_y = 4
 	},
 /obj/item/storage/firstaid/toxin,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "cg" = (
 /obj/structure/table,
@@ -812,7 +812,7 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "ch" = (
 /obj/structure/grille,
@@ -840,15 +840,15 @@
 	dir = 1;
 	in_use = 1
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "cj" = (
 /obj/structure/sign/botany,
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/cafe)
 "ck" = (
-/turf/simulated/shuttle/plating,
-/turf/simulated/shuttle/wall{
+/turf/simulated/floor/shuttle/plating,
+/turf/simulated/wall/shuttle{
 	dir = 2;
 	icon_state = "swall_f10";
 	layer = 2
@@ -872,8 +872,8 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "cn" = (
-/turf/simulated/shuttle/floor,
-/turf/simulated/shuttle/wall{
+/turf/simulated/floor/shuttle,
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f5";
 	dir = 2
 	},
@@ -895,7 +895,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "cq" = (
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "cr" = (
 /obj/structure/disposalpipe/segment,
@@ -969,7 +969,7 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	req_access_txt = "101"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "cB" = (
 /obj/structure/cable{
@@ -1087,7 +1087,7 @@
 /area/awaymission/centcomAway/maint)
 "cP" = (
 /obj/structure/table/reinforced,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1096,10 +1096,10 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "cR" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall1";
 	dir = 2
 	},
@@ -1108,14 +1108,14 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "cT" = (
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "cU" = (
 /turf/simulated/floor/plating,
@@ -1151,7 +1151,7 @@
 /area/awaymission/centcomAway/cafe)
 "cY" = (
 /obj/machinery/computer/secure_data,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1169,7 +1169,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1205,12 +1205,12 @@
 "de" = (
 /obj/structure/table,
 /obj/item/flash,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
 "df" = (
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1218,14 +1218,14 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "dh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
 	},
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f5";
 	dir = 2
 	},
@@ -1235,7 +1235,7 @@
 	icon_state = "vault";
 	dir = 5
 	},
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f9";
 	dir = 2
 	},
@@ -1266,7 +1266,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "dl" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swallc1";
 	dir = 2
 	},
@@ -1274,7 +1274,7 @@
 "dm" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1285,14 +1285,14 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
 "do" = (
 /obj/structure/table/reinforced,
 /obj/item/pen,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1301,10 +1301,10 @@
 	icon_state = "sleeper-open";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "dq" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swallc2";
 	dir = 2
 	},
@@ -1317,7 +1317,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "ds" = (
 /obj/machinery/light{
@@ -1384,7 +1384,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/stamp/granted,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1409,7 +1409,7 @@
 /area/awaymission/centcomAway/maint)
 "dE" = (
 /obj/structure/bed,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "dF" = (
 /obj/structure/grille,
@@ -1423,7 +1423,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "dG" = (
 /turf/simulated/floor/plasteel{
@@ -1521,7 +1521,7 @@
 "dS" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1533,7 +1533,7 @@
 	name = "Security Desk";
 	req_access_txt = "103"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1633,7 +1633,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
 "eg" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall0";
 	dir = 2
 	},
@@ -1652,7 +1652,7 @@
 "ei" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "ej" = (
 /obj/structure/disposalpipe/segment,
@@ -1770,7 +1770,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1779,7 +1779,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1833,7 +1833,7 @@
 	name = "Rest Room";
 	req_access_txt = "0"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -1867,7 +1867,7 @@
 "eK" = (
 /obj/structure/table,
 /obj/item/radio/off,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "eL" = (
 /obj/structure/closet/crate,
@@ -1876,7 +1876,7 @@
 /area/awaymission/centcomAway/hangar)
 "eM" = (
 /obj/structure/filingcabinet,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "eN" = (
 /obj/effect/decal/warning_stripes/southeast,
@@ -1888,7 +1888,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "eQ" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall2";
 	dir = 2
 	},
@@ -1964,16 +1964,16 @@
 "fa" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "fb" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "fc" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "fd" = (
 /obj/machinery/portable_atmospherics/pump,
@@ -2039,11 +2039,11 @@
 /area/awaymission/centcomAway/cafe)
 "fl" = (
 /obj/structure/table,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "fm" = (
 /obj/structure/computerframe,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "fn" = (
 /obj/structure/flora/ausbushes,
@@ -2088,7 +2088,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "fs" = (
 /obj/structure/closet/chefcloset,
@@ -2149,7 +2149,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "fA" = (
 /obj/structure/grille,
@@ -2157,7 +2157,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "fB" = (
 /obj/structure/grille,
@@ -2168,7 +2168,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "fC" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
@@ -2249,7 +2249,7 @@
 /area/awaymission/centcomAway/cafe)
 "fM" = (
 /turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f5";
 	dir = 2
 	},
@@ -2266,13 +2266,13 @@
 	},
 /area/awaymission/centcomAway/general)
 "fO" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall14";
 	dir = 2
 	},
 /area/awaymission/centcomAway/hangar)
 "fP" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swallc4";
 	dir = 2
 	},
@@ -2285,7 +2285,7 @@
 	name = "Cockpit";
 	req_access_txt = "109"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -2733,7 +2733,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hb" = (
 /obj/structure/table/reinforced,
@@ -2906,7 +2906,7 @@
 "hx" = (
 /obj/structure/table,
 /obj/item/storage/lockbox,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hy" = (
 /obj/structure/grille,
@@ -2943,8 +2943,8 @@
 	},
 /area/awaymission/centcomAway/courtroom)
 "hD" = (
-/obj/machinery/door/unpowered/shuttle,
-/turf/simulated/shuttle/floor,
+/obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hE" = (
 /obj/structure/chair{
@@ -2956,7 +2956,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hF" = (
 /obj/structure/grille,
@@ -2970,7 +2970,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/hangar)
 "hG" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -2980,7 +2980,7 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/pen,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hI" = (
 /obj/structure/morgue,
@@ -3001,7 +3001,7 @@
 "hL" = (
 /obj/structure/table,
 /obj/item/paper_bin,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hM" = (
 /obj/structure/cable{
@@ -4052,7 +4052,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f10";
 	dir = 2
 	},
@@ -4071,7 +4071,7 @@
 /mob/living/simple_animal/hostile/russian/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged)
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
 /area/awaymission/centcomAway/hangar)
@@ -4154,7 +4154,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f9";
 	dir = 2
 	},
@@ -4652,7 +4652,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f6";
 	dir = 2
 	},
@@ -4662,7 +4662,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f5";
 	dir = 2
 	},
@@ -5774,7 +5774,7 @@
 	icon_state = "propulsion_r";
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/thunderdome)
 "nV" = (
 /obj/machinery/light,
@@ -5787,14 +5787,14 @@
 	icon_state = "propulsion_l";
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/thunderdome)
 "nX" = (
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "propulsion";
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/centcomAway/thunderdome)
 "nY" = (
 /obj/structure/computerframe,
@@ -6810,7 +6810,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "JB" = (
 /obj/effect/decal/warning_stripes/yellow,

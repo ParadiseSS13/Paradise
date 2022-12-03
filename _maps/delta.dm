@@ -13,7 +13,8 @@ Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidz
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\Delta\delta.dmm"
-	#include "map_files\cyberiad\z2.dmm"
+	#include "map_files\generic\CentComm.dmm"
+	#include "map_files\generic\Admin_Zone.dmm"
 	#include "map_files\Delta\Lavaland.dmm"
 	#include "map_files\generic\syndicatebase.dmm"
 
@@ -22,6 +23,7 @@ Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidz
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
+DECLARE_LEVEL(ADMIN_ZONE, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(MINING, SELFLOOPING, list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK)),\
 DECLARE_LEVEL(RAMSS_TAIPAN, CROSSLINKED, list(REACHABLE, TAIPAN)))
 

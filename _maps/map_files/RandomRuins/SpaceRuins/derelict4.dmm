@@ -12,7 +12,9 @@
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
 "e" = (
-/turf/simulated/shuttle/wall,
+/turf/simulated/wall/shuttle{
+	dir = 4
+	},
 /area/ruin/unpowered)
 "f" = (
 /obj/machinery/door/airlock/shuttle,
@@ -26,9 +28,8 @@
 /area/ruin/unpowered)
 "i" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (WEST)";
-	icon_state = "rwindow";
-	dir = 8
+	dir = 8;
+	tag = "icon-rwindow (WEST)"
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -44,10 +45,9 @@
 "l" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
-	icon_state = "propulsion";
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/ruin/unpowered)
 "m" = (
 /obj/item/shard,
@@ -76,9 +76,8 @@
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (WEST)";
-	icon_state = "rwindow";
-	dir = 8
+	dir = 8;
+	tag = "icon-rwindow (WEST)"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -94,6 +93,34 @@
 "t" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"u" = (
+/turf/simulated/wall/shuttle{
+	icon_state = "white_walls"
+	},
+/area/ruin/unpowered)
+"A" = (
+/turf/simulated/wall/shuttle{
+	dir = 1;
+	icon_state = "white_walls"
+	},
+/area/ruin/unpowered)
+"G" = (
+/turf/simulated/wall/shuttle{
+	dir = 8;
+	icon_state = "white_walls_directions"
+	},
+/area/ruin/unpowered)
+"S" = (
+/turf/simulated/wall/shuttle{
+	dir = 1
+	},
+/area/ruin/unpowered)
+"V" = (
+/turf/simulated/wall/shuttle{
+	dir = 4;
+	icon_state = "white_walls_directions"
+	},
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -997,12 +1024,12 @@ b
 b
 c
 c
-e
+V
 h
 h
 h
 h
-e
+V
 c
 c
 c
@@ -1081,12 +1108,12 @@ b
 b
 b
 c
-e
+G
 i
 h
 h
 r
-e
+G
 c
 c
 c
@@ -1207,12 +1234,12 @@ b
 b
 d
 c
-e
-e
-e
-e
-e
-e
+u
+S
+S
+S
+S
+A
 c
 c
 a
@@ -1249,12 +1276,12 @@ b
 b
 d
 c
-e
+V
 l
 l
 l
 l
-e
+V
 c
 c
 a

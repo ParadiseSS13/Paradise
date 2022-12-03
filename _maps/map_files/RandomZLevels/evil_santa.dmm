@@ -1,8 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/shuttle,
 /area/space)
 "ab" = (
 /turf/simulated/mineral,
@@ -102,8 +100,7 @@
 /area/awaymission/challenge/main)
 "aq" = (
 /obj/structure/mineral_door/wood{
-	tag = "icon-wood";
-	icon_state = "wood"
+	tag = "icon-wood"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -252,9 +249,8 @@
 "aN" = (
 /obj/structure/inflatable/door,
 /obj/effect/decal/snow/clean/edge{
-	tag = "icon-snow_corner (NORTH)";
-	icon_state = "snow_corner";
-	dir = 1
+	dir = 1;
+	tag = "icon-snow_corner (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
 	icon_plating = "asteroid";
@@ -270,54 +266,12 @@
 	name = "Asteroid"
 	},
 /area/awaymission/challenge/main)
-"aP" = (
-/turf/simulated/floor/snow{
-	carbon_dioxide = 21.8366;
-	nitrogen = 0;
-	oxygen = 82.1472;
-	temperature = 73
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/awaymission/challenge/main)
-"aQ" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/awaymission/challenge/main)
-"aR" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall8";
-	dir = 2
-	},
-/area/awaymission/challenge/main)
 "aS" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
-	},
-/area/awaymission/challenge/main)
-"aT" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall4";
-	dir = 2
-	},
-/area/awaymission/challenge/main)
-"aU" = (
-/turf/simulated/floor/snow{
-	carbon_dioxide = 21.8366;
-	nitrogen = 0;
-	oxygen = 82.1472;
-	temperature = 73
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f10";
-	dir = 2
 	},
 /area/awaymission/challenge/main)
 "aV" = (
@@ -335,16 +289,9 @@
 	name = "Asteroid"
 	},
 /area/awaymission/challenge/main)
-"aX" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/awaymission/challenge/main)
 "aY" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	icon_state = "cafeteria"
 	},
 /area/awaymission/challenge/main)
 "aZ" = (
@@ -358,12 +305,6 @@
 	icon_plating = "asteroid";
 	icon_state = "asteroid";
 	name = "Asteroid"
-	},
-/area/awaymission/challenge/main)
-"bb" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall1";
-	dir = 2
 	},
 /area/awaymission/challenge/main)
 "bc" = (
@@ -394,38 +335,7 @@
 "bf" = (
 /mob/living/simple_animal/hostile/winter/santa/stage_1,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
-	},
-/area/awaymission/challenge/main)
-"bg" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall2";
-	dir = 2
-	},
-/area/awaymission/challenge/main)
-"bh" = (
-/turf/simulated/floor/snow{
-	carbon_dioxide = 21.8366;
-	nitrogen = 0;
-	oxygen = 82.1472;
-	temperature = 73
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/awaymission/challenge/main)
-"bi" = (
-/turf/simulated/floor/snow{
-	carbon_dioxide = 21.8366;
-	nitrogen = 0;
-	oxygen = 82.1472;
-	temperature = 73
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
+	icon_state = "cafeteria"
 	},
 /area/awaymission/challenge/main)
 "bj" = (
@@ -469,8 +379,7 @@
 /area/awaymission/challenge/main)
 "bq" = (
 /obj/structure/mineral_door/wood{
-	tag = "icon-wood";
-	icon_state = "wood"
+	tag = "icon-wood"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/wood,
@@ -504,7 +413,6 @@
 /area/awaymission/challenge/main)
 "bx" = (
 /obj/machinery/porta_turret/syndicate/interior{
-	density = 0;
 	desc = "Winterized interior defense turret chambered for .45 rounds and mounted on a wall. Designed to down intruders without damaging the hull.";
 	faction = "winter";
 	name = "wall mounted machine gun turret (.45)";
@@ -547,17 +455,14 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
 "bD" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/shuttle,
 /area/awaymission/challenge/start)
 "bE" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	icon_state = "cafeteria"
 	},
 /area/awaymission/challenge/main)
 "bF" = (
@@ -570,7 +475,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
 "bG" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
@@ -590,8 +495,7 @@
 	id = "challenge";
 	name = "Gateway Lockdown";
 	pixel_x = -4;
-	pixel_y = 26;
-	req_access_txt = "0"
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
@@ -638,9 +542,7 @@
 /turf/simulated/floor/bluegrid,
 /area/awaymission/challenge/start)
 "bR" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/shuttle,
 /area/awaymission/challenge/main)
 "bS" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -674,8 +576,8 @@
 "bX" = (
 /obj/machinery/power/smes/magical,
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
@@ -693,8 +595,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "Worn-out APC";
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
@@ -711,8 +612,7 @@
 "cb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
@@ -743,12 +643,11 @@
 /area/awaymission/challenge/main)
 "ch" = (
 /obj/machinery/power/terminal{
-	icon_state = "term";
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
@@ -766,8 +665,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "Worn-out APC";
-	pixel_x = 24;
-	pixel_y = 0
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/start)
@@ -777,8 +675,7 @@
 /area/awaymission/challenge/start)
 "ck" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
@@ -824,40 +721,30 @@
 /area/awaymission/challenge/start)
 "cq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/shuttle,
 /area/awaymission/challenge/start)
 "cr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/shuttle,
 /area/awaymission/challenge/start)
 "cs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/shuttle,
 /area/awaymission/challenge/start)
 "ct" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/shuttle,
 /area/awaymission/challenge/start)
 "cu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
 	initialize_directions = 10
 	},
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
+/turf/simulated/wall/shuttle,
 /area/awaymission/challenge/start)
 "cv" = (
 /obj/machinery/atmospherics/unary/tank/air{
@@ -886,8 +773,7 @@
 	id = "challenge";
 	name = "Gateway Lockdown";
 	pixel_x = -4;
-	pixel_y = 26;
-	req_access_txt = "0"
+	pixel_y = 26
 	},
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
@@ -2704,15 +2590,15 @@ ac
 ac
 ac
 ac
-aP
-aX
-bb
+bR
+bR
+bR
 aS
 bE
 aS
-bg
-aX
-bh
+bR
+bR
+bR
 ac
 ac
 ac
@@ -2770,7 +2656,7 @@ ac
 ac
 ac
 ac
-aQ
+bR
 aY
 aZ
 aY
@@ -2778,7 +2664,7 @@ aZ
 aY
 aZ
 aY
-aQ
+bR
 ac
 ac
 ac
@@ -2836,7 +2722,7 @@ ac
 ac
 ac
 aG
-aR
+bR
 aZ
 aY
 aZ
@@ -2844,7 +2730,7 @@ aY
 aZ
 aY
 aZ
-aR
+bR
 aG
 ac
 ac
@@ -3100,7 +2986,7 @@ ac
 ac
 ac
 aG
-aT
+bR
 aZ
 aY
 aZ
@@ -3108,7 +2994,7 @@ aY
 aZ
 aY
 aZ
-aT
+bR
 aG
 ac
 ac
@@ -3166,7 +3052,7 @@ ac
 ac
 ac
 ac
-aQ
+bR
 aY
 aZ
 aY
@@ -3174,7 +3060,7 @@ aZ
 aY
 aZ
 aY
-aQ
+bR
 ac
 ac
 ac
@@ -3232,15 +3118,15 @@ ac
 aK
 aK
 ac
-aU
-aX
-bb
+bR
+bR
+bR
 aS
 bE
 aS
-bg
-aX
-bi
+bR
+bR
+bR
 ac
 ac
 ac

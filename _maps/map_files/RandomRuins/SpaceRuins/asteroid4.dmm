@@ -31,36 +31,30 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "i" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
+/turf/simulated/wall/shuttle{
+	dir = 1
 	},
 /area/ruin/unpowered)
 "j" = (
 /obj/item/shard,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/ruin/unpowered)
 "k" = (
-/turf/simulated/shuttle/floor,
-/area/ruin/unpowered)
-"l" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_s5";
-	dir = 2
-	},
+/turf/simulated/floor/shuttle,
 /area/ruin/unpowered)
 "m" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Escape Pod Airlock"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_s9";
-	dir = 2
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/unpowered)
+"G" = (
+/turf/simulated/wall/shuttle{
+	icon_state = "white_walls_directions"
 	},
 /area/ruin/unpowered)
 
@@ -324,8 +318,8 @@ b
 e
 g
 i
-i
-l
+G
+n
 a
 "}
 (13,1,1) = {"
@@ -368,7 +362,7 @@ b
 f
 f
 i
-i
+G
 n
 a
 "}

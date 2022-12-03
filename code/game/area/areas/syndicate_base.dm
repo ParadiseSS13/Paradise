@@ -18,10 +18,10 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1
-	name = "Syndicate Space Surgery1"
+	name = "Syndicate Space Surgery 1"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2
-	name = "Syndicate Space Surgery1"
+	name = "Syndicate Space Surgery 2"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/syndicate/unpowered/syndicate_space_base/arrivals
@@ -73,7 +73,7 @@
 	name = "Syndicate Space Restroom"
 
 /area/syndicate/unpowered/syndicate_space_base/rnd/server
-	name = "Syndicate Space Server Room"
+	name = "ERR#UNKWN Server Room"
 
 /area/syndicate/unpowered/syndicate_space_base/virology
 	name = "Syndicate Space Virology"

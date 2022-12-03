@@ -8,7 +8,7 @@
 	name = "pod 3 in transit";
 	width = 3
 	},
-/turf/space/transit/east{
+/turf/space/transit/horizontal{
 	dir = 8
 	},
 /area/space)
@@ -102,7 +102,7 @@
 	name = "pod 4 in transit";
 	width = 3
 	},
-/turf/space/transit/east{
+/turf/space/transit/horizontal{
 	dir = 8
 	},
 /area/space)
@@ -118,7 +118,7 @@
 "aeh" = (
 /turf/unsimulated/wall{
 	dir = 1;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "swall0";
 	layer = 5;
 	tag = "icon-wall3 (NORTH)"
@@ -161,7 +161,7 @@
 "ahL" = (
 /turf/unsimulated/wall{
 	dir = 1;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "diagonalWall3"
 	},
 /area/space)
@@ -188,7 +188,6 @@
 	},
 /area/centcom/zone1)
 "ajR" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 4;
 	icon_state = "darkgreynavybluecorner"
@@ -597,7 +596,7 @@
 	},
 /area/trader_station/sol)
 "aBX" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 4;
 	icon_state = "ninja_walls_corners_alt"
 	},
@@ -823,7 +822,7 @@
 	pixel_x = 23;
 	pixel_y = 25
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -1244,7 +1243,6 @@
 /turf/space,
 /area/space)
 "aYS" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 4;
 	icon_state = "rampbottom"
@@ -1595,7 +1593,7 @@
 /area/centcom/evac)
 "bnM" = (
 /turf/unsimulated/wall{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "diagonalWall3"
 	},
 /area/space)
@@ -1655,7 +1653,6 @@
 	},
 /area/centcom/zone1)
 "bqf" = (
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
 	icon_state = "fakewindows2";
@@ -1957,7 +1954,7 @@
 	icon_state = "heater3x3";
 	tag = "icon-heater (NORTH)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "bBX" = (
 /obj/structure/table/wood,
@@ -2681,9 +2678,6 @@
 /turf/unsimulated/floor{
 	icon_state = "sepia"
 	},
-/turf/unsimulated/floor{
-	icon_state = "sepia"
-	},
 /area/ussp_ship)
 "cjs" = (
 /obj/structure/window/plasmareinforced{
@@ -3066,7 +3060,7 @@
 	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle/dark,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -3415,8 +3409,7 @@
 	},
 /area/centcom/evac)
 "cKm" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 9;
 	icon_state = "ninja_walls"
 	},
@@ -3632,14 +3625,12 @@
 	dir = 1;
 	switchcount = 50
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
 	},
 /area/centcom/evac)
 "cPV" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
@@ -3918,8 +3909,7 @@
 	},
 /area/centcom/bridge)
 "des" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall3";
 	tag = "icon-swall3"
 	},
@@ -3991,7 +3981,7 @@
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "dil" = (
 /obj/machinery/light{
@@ -4295,7 +4285,7 @@
 /area/ninja/outside)
 "dnH" = (
 /obj/machinery/computer/shuttle/ninja,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -4554,7 +4544,7 @@
 /area/syndicate_mothership)
 "dzC" = (
 /turf/unsimulated/wall{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "window5_end";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -4599,7 +4589,6 @@
 	desc = "Что делает такая прекрасная лиса в таком ужасном месте? Возможно она кого то символизирует, но скорее всего это лишь ваши фантазии. \n Вы замечаете небольшую заметку на бирке игрушки, однако все что удается вам разглядеть это Sl-end-er.";
 	name = "Лиса?"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
@@ -4910,7 +4899,6 @@
 	},
 /area/centcom/jail)
 "dJo" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -5305,7 +5293,7 @@
 /area/centcom/specops)
 "dZk" = (
 /obj/machinery/porta_turret/syndicate/pod,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "diagonalWall3";
 	tag = "icon-diagonalWall3"
 	},
@@ -5431,7 +5419,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -5491,7 +5479,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -5638,7 +5626,6 @@
 	},
 /area/syndicate_mothership)
 "ehx" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
@@ -5718,7 +5705,6 @@
 	icon_state = "boxinggreen";
 	item_state = "boxinggreen"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -5816,7 +5802,7 @@
 "ene" = (
 /turf/unsimulated/wall{
 	dir = 1;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "window5_end";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -6106,7 +6092,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "floor4"
 	},
@@ -6198,7 +6183,7 @@
 "eEL" = (
 /turf/unsimulated/wall{
 	dir = 1;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "window5_mid";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -6467,7 +6452,7 @@
 	id_tag = "ninja_outer";
 	name = "Ship External Access"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -6475,10 +6460,10 @@
 /obj/machinery/atmospherics/unary/tank/air/ninja{
 	dir = 1
 	},
-/turf/simulated/shuttle/wall/interior{
+/turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 10;
 	icon_state = "ninja_walls";
-	underlay_floor_icon = 'icons/turf/shuttle.dmi';
+	underlay_floor_icon = 'icons/turf/shuttle/shuttle.dmi';
 	underlay_floor_icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -6859,7 +6844,6 @@
 	},
 /area/centcom/specops)
 "eZu" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkred"
@@ -6913,7 +6897,6 @@
 	},
 /area/vox_station)
 "fbq" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkred"
@@ -7184,7 +7167,7 @@
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "fhS" = (
 /obj/structure/table/wood/fancy/black,
@@ -7523,13 +7506,9 @@
 	dir = 8;
 	icon_state = "grimy"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "grimy"
-	},
 /area/centcom/evac)
 "frL" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 6;
 	icon_state = "ninja_walls"
 	},
@@ -7802,7 +7781,7 @@
 "fxK" = (
 /turf/unsimulated/wall{
 	dir = 1;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "wall3";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -7879,7 +7858,7 @@
 /turf/unsimulated/floor/snow,
 /area/syndicate_mothership)
 "fAu" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_s6"
 	},
 /area/shuttle/escape)
@@ -7894,15 +7873,11 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "fBc" = (
 /turf/unsimulated/wall{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "swall_f6"
 	},
 /area/ussp_ship)
@@ -8397,7 +8372,7 @@
 /area/centcom/jail)
 "fUw" = (
 /obj/machinery/porta_turret/syndicate/pod,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 1;
 	icon_state = "diagonalWall3"
 	},
@@ -8475,7 +8450,7 @@
 	},
 /area/centcom/zone1)
 "fXo" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 8;
 	icon_state = "ninja_walls_direction"
 	},
@@ -8813,7 +8788,7 @@
 "gkl" = (
 /turf/unsimulated/wall{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "swall_f5"
 	},
 /area/ussp_ship)
@@ -9065,10 +9040,6 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "gva" = (
 /obj/structure/dresser,
@@ -9095,10 +9066,9 @@
 	},
 /area/centcom/evac)
 "gvF" = (
-/turf/space,
 /turf/unsimulated/wall{
 	dir = 1;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "swall0";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -9176,7 +9146,7 @@
 /area/syndicate_mothership)
 "gyl" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/ninja,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -9894,7 +9864,7 @@
 /area/trader_station/sol)
 "gXT" = (
 /obj/structure/chair/comfy/shuttle/dark,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -9918,9 +9888,6 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
-	},
-/turf/unsimulated/floor{
-	icon_state = "sepia"
 	},
 /turf/unsimulated/floor{
 	icon_state = "sepia"
@@ -10445,7 +10412,7 @@
 	name = "interior access button";
 	pixel_x = 10
 	},
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 4;
 	icon_state = "ninja_walls_direction"
 	},
@@ -10985,9 +10952,6 @@
 	tag = "icon-shower (WEST)"
 	},
 /obj/structure/fans/tiny,
-/turf/unsimulated/floor{
-	icon_state = "darkgrey"
-	},
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -11858,10 +11822,6 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "ipv" = (
 /turf/simulated/floor/holofloor{
@@ -11914,7 +11874,6 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkredfull"
@@ -12063,7 +12022,7 @@
 "iuU" = (
 /turf/unsimulated/wall{
 	dir = 1;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "swall0";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -12262,8 +12221,7 @@
 	},
 /area/centcom/specops)
 "iBB" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall12";
 	tag = "icon-swall12"
 	},
@@ -12414,7 +12372,7 @@
 	},
 /area/centcom/zone2)
 "iFB" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "ninja_walls_direction"
 	},
 /area/shuttle/ninja)
@@ -12618,7 +12576,7 @@
 	},
 /area/trader_station/sol)
 "iMD" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall12";
 	tag = "icon-swall12"
 	},
@@ -12684,7 +12642,6 @@
 /area/centcom/evac)
 "iPw" = (
 /obj/machinery/computer/station_alert,
-/turf/space,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -12724,7 +12681,7 @@
 /area/centcom/zone1)
 "iRl" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -12910,13 +12867,13 @@
 	},
 /area/vox_station)
 "iYd" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 5;
 	icon_state = "ninja_walls"
 	},
 /area/shuttle/ninja)
 "iYj" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 6;
 	icon_state = "ninja_walls_full"
 	},
@@ -13331,7 +13288,7 @@
 	},
 /area/centcom/specops)
 "jlI" = (
-/turf/simulated/shuttle/floor/transparent_floor,
+/turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/ninja)
 "jmq" = (
 /turf/unsimulated/floor{
@@ -13714,7 +13671,6 @@
 	scan_range = 12;
 	shot_delay = 8
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -13762,7 +13718,7 @@
 "jzu" = (
 /turf/unsimulated/wall{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "swall_f10"
 	},
 /area/ussp_ship)
@@ -13814,7 +13770,7 @@
 	dir = 1;
 	opacity = 0
 	},
-/turf/simulated/shuttle/floor/transparent_floor,
+/turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/ninja)
 "jDc" = (
 /obj/effect/turf_decal/siding/wood{
@@ -14253,7 +14209,7 @@
 	dir = 4;
 	tag = "icon-bulb1 (EAST)"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -14333,13 +14289,13 @@
 /area/ninja/outside)
 "jTK" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window{
+/obj/structure/window/full/shuttle{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "ninja_window";
 	tag = "icon-window5_end"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "jUg" = (
 /obj/item/radio/intercom/specops{
@@ -14430,7 +14386,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "sepia"
 	},
@@ -14572,7 +14527,7 @@
 "kdb" = (
 /turf/unsimulated/wall{
 	dir = 8;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "window5_end";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -14581,7 +14536,7 @@
 /turf/unsimulated/wall/fakeglass,
 /area/wizard_station)
 "kdD" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_s10"
 	},
 /area/shuttle/escape)
@@ -15027,10 +14982,9 @@
 /obj/structure/shuttle/engine/platform{
 	layer = 2.9
 	},
-/turf/simulated/shuttle/floor/transparent_floor,
+/turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/ninja)
 "kty" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -15283,10 +15237,6 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "kBB" = (
 /obj/structure/flora/grass/green,
@@ -15303,7 +15253,6 @@
 	locked = 1;
 	name = "ERT Director office"
 	},
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 6;
 	tag = "icon-fakewindows (NORTHEAST)"
@@ -15338,7 +15287,7 @@
 	},
 /area/centcom/supply)
 "kCN" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 4;
 	icon_state = "ninja_walls_direction"
 	},
@@ -15472,7 +15421,7 @@
 	pixel_y = 25;
 	req_access_txt = "150"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -16627,7 +16576,7 @@
 /turf/unsimulated/beach/water/deep/dense,
 /area/ninja/outside)
 "lth" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall3";
 	tag = "icon-swall3"
 	},
@@ -17130,10 +17079,10 @@
 /obj/machinery/atmospherics/unary/tank/air/ninja{
 	dir = 1
 	},
-/turf/simulated/shuttle/wall/interior{
+/turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 6;
 	icon_state = "ninja_walls";
-	underlay_floor_icon = 'icons/turf/shuttle.dmi';
+	underlay_floor_icon = 'icons/turf/shuttle/shuttle.dmi';
 	underlay_floor_icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -17154,7 +17103,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -17187,7 +17136,7 @@
 "lHq" = (
 /turf/unsimulated/wall{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "window5_mid";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -17209,7 +17158,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -17373,7 +17322,7 @@
 	roundstart_move = "ombra_home";
 	width = 21
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -17407,7 +17356,7 @@
 	},
 /area/ninja/holding)
 "lTl" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 10;
 	icon_state = "ninja_walls"
 	},
@@ -17767,7 +17716,7 @@
 /area/centcom/evac)
 "mew" = (
 /obj/machinery/porta_turret/syndicate/pod,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 8;
 	icon_state = "diagonalWall3"
 	},
@@ -17985,7 +17934,7 @@
 	icon_state = "heater3x3_side_inv";
 	tag = "icon-heater (NORTH)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "miX" = (
 /obj/structure/chair/comfy/brown{
@@ -18243,7 +18192,6 @@
 	nightshift_light_range = 10;
 	throw_range = 6
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon = 'icons/turf/floors/carpet_black.dmi';
@@ -19495,7 +19443,7 @@
 	},
 /area/syndicate_mothership)
 "njW" = (
-/turf/space/transit/east{
+/turf/space/transit/horizontal{
 	dir = 8
 	},
 /area/space)
@@ -19524,7 +19472,7 @@
 	dir = 8;
 	tag = "icon-bulb1 (WEST)"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -19539,7 +19487,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -19865,7 +19813,7 @@
 /area/syndicate_mothership)
 "nuM" = (
 /obj/machinery/light/small,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -20583,10 +20531,10 @@
 /turf/unsimulated/beach/water/deep/dense,
 /area/ninja/outside)
 "nRn" = (
-/turf/simulated/shuttle/wall/interior{
+/turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 6;
 	icon_state = "ninja_walls";
-	underlay_floor_icon = 'icons/turf/shuttle.dmi';
+	underlay_floor_icon = 'icons/turf/shuttle/shuttle.dmi';
 	underlay_floor_icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -20981,7 +20929,7 @@
 	},
 /area/wizard_station)
 "oil" = (
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -21118,7 +21066,6 @@
 	},
 /area/centcom/bridge)
 "osu" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 4;
 	icon_state = "darkred"
@@ -21584,7 +21531,7 @@
 	dir = 1;
 	opacity = 0
 	},
-/turf/simulated/shuttle/floor/transparent_floor,
+/turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/ninja)
 "oKr" = (
 /turf/unsimulated/wall/fakeglass{
@@ -21873,7 +21820,6 @@
 	opacity = 1;
 	req_access_txt = "114"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "navyblue"
@@ -21986,7 +21932,7 @@
 	icon_state = "heater3x3_side";
 	tag = "icon-heater (NORTH)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "paY" = (
 /obj/structure/lattice,
@@ -22540,19 +22486,19 @@
 	tag_exterior_door = "ninja_outer";
 	tag_interior_door = "ninja_inner"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
 "pmd" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window{
+/obj/structure/window/full/shuttle{
 	dir = 8;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "ninja_window";
 	tag = "icon-window5_end"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "pml" = (
 /turf/simulated/floor/holofloor{
@@ -22884,7 +22830,7 @@
 	},
 /area/syndicate_mothership)
 "puu" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_s5"
 	},
 /area/shuttle/gamma/space)
@@ -23087,7 +23033,7 @@
 	},
 /area/centcom/specops)
 "pAX" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_s5"
 	},
 /area/shuttle/escape)
@@ -23101,9 +23047,6 @@
 /area/syndicate_mothership)
 "pBx" = (
 /obj/machinery/vending/security,
-/turf/unsimulated/floor{
-	icon_state = "dark"
-	},
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -23391,7 +23334,7 @@
 	},
 /area/centcom)
 "pJc" = (
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -23466,7 +23409,6 @@
 	},
 /area/centcom/zone2)
 "pLD" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "vault";
@@ -24008,7 +23950,6 @@
 	max_integrity = 1500;
 	volume = 1500
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "darkpurple"
 	},
@@ -24318,7 +24259,7 @@
 	name = "interior access button";
 	pixel_x = -12
 	},
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 8;
 	icon_state = "ninja_walls_direction"
 	},
@@ -24336,13 +24277,12 @@
 /area/admin)
 "qkE" = (
 /obj/machinery/computer/shuttle/syndicate/drop_pod,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "wall3"
 	},
 /area/shuttle/assault_pod)
 "qlj" = (
 /obj/structure/table/wood/poker,
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
@@ -25096,7 +25036,7 @@
 "qKJ" = (
 /turf/unsimulated/wall{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "window5_end";
 	tag = "icon-wall3 (NORTH)"
 	},
@@ -25117,7 +25057,6 @@
 	},
 /area/centcom/zone3)
 "qLD" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
@@ -25453,10 +25392,6 @@
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
-	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
 	},
 /turf/unsimulated/floor{
 	dir = 8;
@@ -26162,9 +26097,6 @@
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
-/turf/unsimulated/floor{
-	icon_state = "dark"
-	},
 /area/centcom/specops)
 "rtp" = (
 /obj/item/gun/rocketlauncher,
@@ -26365,7 +26297,6 @@
 	},
 /area/holodeck/source_knightarena)
 "ryw" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -26474,7 +26405,7 @@
 	layer = 2.9
 	},
 /obj/structure/chair/comfy/shuttle/dark,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -26546,7 +26477,7 @@
 "rEX" = (
 /turf/unsimulated/wall{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "diagonalWall3"
 	},
 /area/space)
@@ -27354,7 +27285,6 @@
 	locked = 1;
 	name = "Central Command Special Operations Forces"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -27566,7 +27496,6 @@
 /area/syndicate_mothership)
 "skq" = (
 /obj/effect/decal/warning_stripes/north,
-/turf/space,
 /turf/unsimulated/floor{
 	name = "plating"
 	},
@@ -27584,7 +27513,7 @@
 	icon_state = "heater2x2";
 	tag = "icon-heater (NORTH)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "slB" = (
 /obj/effect/decal/warning_stripes/northeast,
@@ -27642,7 +27571,7 @@
 	pixel_y = 25;
 	req_access_txt = "150"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -27931,7 +27860,6 @@
 	},
 /area/centcom/bridge)
 "sum" = (
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
 	icon_state = "fakewindows3";
@@ -28082,7 +28010,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
 "sBj" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 8;
 	icon_state = "ninja_walls_corners_alt"
 	},
@@ -28454,7 +28382,6 @@
 /area/centcom/specops)
 "sMn" = (
 /obj/effect/decal/warning_stripes/south,
-/turf/space,
 /turf/unsimulated/floor{
 	name = "plating"
 	},
@@ -28923,7 +28850,6 @@
 	name = "Port Solar Array"
 	},
 /obj/structure/cable,
-/turf/space,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -28966,7 +28892,6 @@
 	},
 /area/ussp_ship)
 "tfq" = (
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 8;
 	icon_state = "fakewindows2";
@@ -29076,7 +29001,7 @@
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "tjR" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 10;
 	icon_state = "ninja_walls_corners_alt"
 	},
@@ -29332,7 +29257,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -29499,7 +29424,7 @@
 	},
 /area/event_zone)
 "txu" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "wall3"
 	},
 /area/shuttle/assault_pod)
@@ -29515,7 +29440,6 @@
 /area/centcom/zone3)
 "tyk" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "woodalt"
@@ -29760,7 +29684,6 @@
 	},
 /area/centcom/specops)
 "tKt" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "darkgrey"
 	},
@@ -30219,10 +30142,6 @@
 	req_access_txt = "102"
 	},
 /turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
-/turf/unsimulated/floor{
 	icon_state = "tranquillite"
 	},
 /area/centcom/specops)
@@ -30311,7 +30230,7 @@
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
 "ufc" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 1;
 	icon_state = "ninja_walls_direction"
 	},
@@ -30539,7 +30458,6 @@
 /area/centcom/specops)
 "uku" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -30554,7 +30472,6 @@
 	},
 /area/syndicate_mothership)
 "ukz" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -30727,7 +30644,7 @@
 /obj/machinery/suit_storage_unit/standard_unit{
 	req_access = null
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -30812,7 +30729,6 @@
 	},
 /area/ninja/outpost)
 "uui" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 4;
 	icon_state = "darkgreynavyblue"
@@ -30872,7 +30788,7 @@
 /area/centcom)
 "uwY" = (
 /obj/machinery/porta_turret/syndicate/pod,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 4;
 	icon_state = "diagonalWall3"
 	},
@@ -30953,7 +30869,7 @@
 	},
 /area/centcom/jail)
 "uDB" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 9;
 	icon_state = "ninja_walls"
 	},
@@ -30971,7 +30887,6 @@
 /obj/effect/landmark{
 	name = "Commando"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -31028,7 +30943,6 @@
 	pixel_x = -24;
 	pixel_y = 8
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "floor4"
 	},
@@ -31207,7 +31121,7 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -31826,7 +31740,7 @@
 	req_one_access_txt = "150"
 	},
 /obj/docking_port/mobile/assault_pod,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -32087,7 +32001,6 @@
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "vpr" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkgreynavyblue"
@@ -32166,7 +32079,7 @@
 "vrt" = (
 /turf/unsimulated/wall{
 	dir = 8;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "diagonalWall3"
 	},
 /area/space)
@@ -32224,7 +32137,6 @@
 	},
 /area/wizard_station)
 "vvn" = (
-/turf/space,
 /turf/unsimulated/wall/fakeglass{
 	dir = 5;
 	tag = "icon-fakewindows (NORTHEAST)"
@@ -32428,7 +32340,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -32605,7 +32517,7 @@
 /turf/space,
 /area/ussp_ship)
 "vGb" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 10;
 	icon_state = "ninja_walls_full"
 	},
@@ -32811,11 +32723,6 @@
 	icon_state = "catwalk";
 	name = "plating"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk";
-	name = "plating"
-	},
 /area/centcom/specops)
 "vKq" = (
 /obj/structure/bush,
@@ -32909,9 +32816,6 @@
 "vLT" = (
 /obj/effect/landmark{
 	name = "Marauder Exit"
-	},
-/turf/unsimulated/floor{
-	name = "plating"
 	},
 /turf/unsimulated/floor{
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
@@ -33055,7 +32959,6 @@
 	locked = 1;
 	name = "Armory level 3"
 	},
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -33139,7 +33042,6 @@
 /area/tdome/arena)
 "vUG" = (
 /obj/structure/table/reinforced,
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -33232,7 +33134,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/space,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -33666,7 +33567,7 @@
 "wps" = (
 /turf/unsimulated/wall{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "swall_f9"
 	},
 /area/ussp_ship)
@@ -33716,9 +33617,6 @@
 	pixel_y = 20
 	},
 /obj/structure/fans/tiny,
-/turf/unsimulated/floor{
-	icon_state = "darkgrey"
-	},
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -33913,10 +33811,6 @@
 	dir = 8;
 	icon_state = "woodalt"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /area/centcom/specops)
 "wuP" = (
 /obj/effect/turf_decal/weather/snow/corner,
@@ -33926,7 +33820,7 @@
 	},
 /area/ninja/outside)
 "wvl" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_s9"
 	},
 /area/shuttle/gamma/space)
@@ -34003,9 +33897,6 @@
 	dir = 4;
 	id_tag = "ASSAULT2";
 	name = "gravpult"
-	},
-/turf/unsimulated/floor{
-	icon_state = "dark"
 	},
 /turf/unsimulated/floor{
 	icon_state = "dark"
@@ -34380,7 +34271,7 @@
 	icon_state = "heater2x2_side";
 	tag = "icon-heater (NORTH)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "wHU" = (
 /obj/structure/reagent_dispensers/watertank/high,
@@ -34591,7 +34482,7 @@
 	opacity = 1;
 	req_one_access_txt = "150"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
 /area/shuttle/assault_pod)
@@ -34637,7 +34528,7 @@
 	dir = 4;
 	tag = "icon-tube1 (EAST)"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -34747,7 +34638,7 @@
 	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen/double/ninja,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -35166,7 +35057,7 @@
 	},
 /area/ninja/outpost)
 "xjq" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_s6"
 	},
 /area/shuttle/gamma/space)
@@ -35188,13 +35079,13 @@
 /turf/unsimulated/beach/water/deep/dense,
 /area/ninja/outside)
 "xkE" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall12";
 	tag = "icon-swall12"
 	},
 /area/shuttle/gamma/space)
 "xkI" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_s10"
 	},
 /area/shuttle/gamma/space)
@@ -35500,7 +35391,7 @@
 	},
 /area/centcom/jail)
 "xtI" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_s9"
 	},
 /area/shuttle/escape)
@@ -35632,7 +35523,7 @@
 	pixel_x = -25;
 	pixel_y = 25
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -35863,10 +35754,10 @@
 /turf/unsimulated/floor/snow,
 /area/ninja/outside)
 "xFR" = (
-/turf/simulated/shuttle/wall/interior{
+/turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 10;
 	icon_state = "ninja_walls";
-	underlay_floor_icon = 'icons/turf/shuttle.dmi';
+	underlay_floor_icon = 'icons/turf/shuttle/shuttle.dmi';
 	underlay_floor_icon_state = "floor13"
 	},
 /area/shuttle/ninja)
@@ -35881,7 +35772,7 @@
 	},
 /area/centcom/gamma)
 "xGX" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "swall3";
 	tag = "icon-swall3"
 	},
@@ -36029,7 +35920,7 @@
 	},
 /area/shuttle/gamma/space)
 "xLx" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 6;
 	icon_state = "ninja_walls_corners_alt"
 	},
@@ -36059,10 +35950,9 @@
 	},
 /area/shuttle/gamma/space)
 "xLW" = (
-/turf/space,
 /turf/unsimulated/wall{
 	dir = 4;
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "swall_f6"
 	},
 /area/ussp_ship)
@@ -36076,10 +35966,6 @@
 /obj/item/kitchen/utensil/spork,
 /obj/item/kitchen/utensil/spork,
 /obj/item/kitchen/utensil/spork,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "woodalt"
-	},
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "grimy"
@@ -36312,7 +36198,6 @@
 	},
 /area/admin)
 "xXr" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -36372,7 +36257,7 @@
 	},
 /area/admin)
 "xYG" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 1;
 	icon_state = "ninja_walls_corners_alt"
 	},
@@ -36397,7 +36282,6 @@
 /obj/item/storage/briefcase/inflatable,
 /obj/item/storage/briefcase/inflatable,
 /obj/item/storage/briefcase/inflatable,
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -36465,7 +36349,6 @@
 	},
 /area/syndicate_mothership)
 "yaG" = (
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 8;
 	icon_state = "darkgreynavyblue"
@@ -36512,7 +36395,6 @@
 /obj/item/grenade/clusterbuster/cleaner,
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
-/turf/space,
 /turf/unsimulated/floor{
 	dir = 5;
 	icon_state = "darkpurple"
@@ -36591,7 +36473,6 @@
 	},
 /area/centcom/zone3)
 "yeD" = (
-/turf/space,
 /turf/unsimulated/floor{
 	icon_state = "floor4"
 	},

@@ -121,6 +121,9 @@
 /obj/effect/turf_decal/caution/stand_clear/red
 	icon_state = "stand_clear_red"
 
+/obj/effect/turf_decal/arrow
+	icon_state = "arrow_white"
+
 /obj/effect/turf_decal/arrows
 	icon_state = "arrows"
 
@@ -129,6 +132,36 @@
 
 /obj/effect/turf_decal/arrows/red
 	icon_state = "arrows_red"
+
+/obj/effect/turf_decal/number
+	icon_state = "number_0"
+
+/obj/effect/turf_decal/number/number_1
+	icon_state = "number_1"
+
+/obj/effect/turf_decal/number/number_2
+	icon_state = "number_2"
+
+/obj/effect/turf_decal/number/number_3
+	icon_state = "number_3"
+
+/obj/effect/turf_decal/number/number_4
+	icon_state = "number_4"
+
+/obj/effect/turf_decal/number/number_5
+	icon_state = "number_5"
+
+/obj/effect/turf_decal/number/number_6
+	icon_state = "number_6"
+
+/obj/effect/turf_decal/number/number_7
+	icon_state = "number_7"
+
+/obj/effect/turf_decal/number/number_8
+	icon_state = "number_8"
+
+/obj/effect/turf_decal/number/number_9
+	icon_state = "number_9"
 
 /obj/effect/turf_decal/box
 	icon_state = "box"
@@ -288,3 +321,10 @@
 
 /obj/effect/turf_decal/siding/wideplating/dark/end
 	icon_state = "siding_wideplating_end"
+// Black
+/obj/effect/turf_decal/stripes/black
+	icon_state = "bs_line"
+
+// Gold
+/obj/effect/turf_decal/stripes/gold
+	icon_state = "gs_line"

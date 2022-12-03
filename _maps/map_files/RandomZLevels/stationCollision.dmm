@@ -142,13 +142,13 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/northblock)
 "aC" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "wall3"
 	},
 /area/awaymission/syndishuttle)
 "aD" = (
 /turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 1;
 	icon_state = "diagonalWall3"
 	},
@@ -177,7 +177,7 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "aJ" = (
 /turf/simulated/floor/plating/airless,
@@ -207,7 +207,7 @@
 /area/awaymission/syndishuttle)
 "aQ" = (
 /turf/simulated/floor/plating/airless,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "diagonalWall3"
 	},
 /area/awaymission/syndishuttle)
@@ -244,16 +244,16 @@
 /obj/machinery/portable_atmospherics/canister/toxins{
 	destroyed = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "aY" = (
-/turf/simulated/shuttle/plating,
-/turf/simulated/shuttle/wall{
+/turf/simulated/floor/shuttle/plating,
+/turf/simulated/wall/shuttle{
 	icon_state = "diagonalWall3"
 	},
 /area/awaymission/syndishuttle)
 "aZ" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	icon_state = "wall3"
 	},
 /area/space/nearstation)
@@ -272,10 +272,10 @@
 /area/awaymission/northblock)
 "be" = (
 /obj/structure/shuttle/engine/heater,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "bf" = (
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "bg" = (
 /turf/simulated/floor/plasteel/airless{
@@ -333,7 +333,7 @@
 /area/awaymission/northblock)
 "bp" = (
 /obj/structure/shuttle/engine/router,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "bq" = (
 /obj/structure/shuttle/engine/heater{
@@ -341,11 +341,11 @@
 	icon_state = "heater";
 	dir = 8
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "br" = (
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "bs" = (
 /obj/structure/lattice,
@@ -353,7 +353,7 @@
 /area/awaymission/syndishuttle)
 "bt" = (
 /obj/machinery/door/airlock/centcom,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "bu" = (
 /turf/simulated/floor/plasteel/airless{
@@ -376,7 +376,7 @@
 /area/awaymission/research)
 "by" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "bz" = (
 /obj/structure/table,
@@ -417,7 +417,7 @@
 /area/awaymission/northblock)
 "bE" = (
 /turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 4;
 	icon_state = "diagonalWall3"
 	},
@@ -532,11 +532,11 @@
 	icon_state = "heater";
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "bW" = (
-/turf/simulated/shuttle/plating,
-/turf/simulated/shuttle/wall{
+/turf/simulated/floor/shuttle/plating,
+/turf/simulated/wall/shuttle{
 	dir = 8;
 	icon_state = "diagonalWall3"
 	},
@@ -741,7 +741,7 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/research)
 "cz" = (
 /obj/structure/shuttle/engine/heater{
@@ -756,7 +756,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/research)
 "cA" = (
 /turf/simulated/floor/plasteel{
@@ -771,7 +771,7 @@
 /area/awaymission/research)
 "cD" = (
 /turf/simulated/floor/plating/airless,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 8;
 	icon_state = "diagonalWall3"
 	},
@@ -839,7 +839,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/research)
 "cL" = (
 /obj/effect/decal/remains/human{
@@ -1488,7 +1488,7 @@
 /area/awaymission/northblock)
 "eh" = (
 /obj/machinery/sleeper,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1497,7 +1497,7 @@
 /area/awaymission/syndishuttle)
 "ei" = (
 /obj/machinery/vending/snack,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1555,7 +1555,7 @@
 /area/awaymission/northblock)
 "ep" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1571,7 +1571,7 @@
 /area/awaymission/northblock)
 "er" = (
 /obj/machinery/vending/cola,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1638,7 +1638,7 @@
 /area/awaymission/northblock)
 "ex" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1717,7 +1717,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/research)
 "eI" = (
 /obj/structure/window/reinforced{
@@ -1731,7 +1731,7 @@
 /area/awaymission/northblock)
 "eJ" = (
 /obj/structure/closet/syndicate,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1739,7 +1739,7 @@
 	},
 /area/awaymission/syndishuttle)
 "eK" = (
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1748,7 +1748,7 @@
 /area/awaymission/syndishuttle)
 "eL" = (
 /obj/machinery/door/airlock/centcom,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1859,7 +1859,7 @@
 	desc = "A dark little medical robot. She looks somewhat underwhelmed.";
 	name = "Nightingale"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1868,7 +1868,7 @@
 /area/awaymission/syndishuttle)
 "eX" = (
 /obj/structure/table,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1944,7 +1944,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1955,7 +1955,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1965,7 +1965,7 @@
 "fh" = (
 /obj/structure/table,
 /obj/item/paper/sc_safehint_paper_shuttle,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -1976,7 +1976,7 @@
 /obj/machinery/sleeper{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor4";
 	nitrogen = 0.01;
 	oxygen = 0.01;
@@ -2248,14 +2248,14 @@
 /area/awaymission/midblock)
 "fL" = (
 /turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	tag = "icon-swall_f6";
 	icon_state = "swall_f6";
 	dir = 2
 	},
 /area/awaymission/arrivalblock)
 "fM" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	tag = "icon-swall14";
 	icon_state = "swall14";
 	dir = 2
@@ -2270,7 +2270,7 @@
 	dir = 1
 	},
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "fO" = (
 /obj/structure/window/reinforced,
@@ -2278,7 +2278,7 @@
 	dir = 1
 	},
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "fP" = (
 /obj/structure/window/reinforced,
@@ -2289,11 +2289,11 @@
 	dir = 1
 	},
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "fQ" = (
 /turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	dir = 3;
 	icon_state = "swall_f10";
 	layer = 2;
@@ -2362,21 +2362,21 @@
 /turf/simulated/floor/plating,
 /area/awaymission/midblock)
 "fZ" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	tag = "icon-swall3";
 	icon_state = "swall3";
 	dir = 2
 	},
 /area/awaymission/arrivalblock)
 "ga" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	tag = "icon-swall1";
 	icon_state = "swall1";
 	dir = 2
 	},
 /area/awaymission/arrivalblock)
 "gb" = (
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/arrivalblock)
@@ -2384,7 +2384,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/arrivalblock)
@@ -2528,13 +2528,13 @@
 	dir = 1
 	},
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "gx" = (
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/arrivalblock)
@@ -2550,7 +2550,7 @@
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "gz" = (
 /turf/simulated/wall,
@@ -2671,13 +2671,13 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "gR" = (
-/obj/machinery/door/unpowered/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Shuttle Airlock"
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/arrivalblock)
@@ -2855,7 +2855,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "ho" = (
 /obj/structure/window/reinforced,
@@ -2869,7 +2869,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "hp" = (
 /obj/structure/window/reinforced{
@@ -2911,7 +2911,7 @@
 /area/awaymission/arrivalblock)
 "hv" = (
 /turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	tag = "icon-swall_f5";
 	icon_state = "swall_f5";
 	dir = 2
@@ -2993,7 +2993,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "hF" = (
 /turf/simulated/floor/plasteel{
@@ -3068,7 +3068,7 @@
 /area/awaymission/midblock)
 "hR" = (
 /turf/space,
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	tag = "icon-swall_f9";
 	icon_state = "swall_f9";
 	dir = 2
@@ -3410,7 +3410,7 @@
 	},
 /obj/structure/grille,
 /obj/item/shard,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "iL" = (
 /obj/item/shard{
@@ -3535,14 +3535,14 @@
 	icon_state = "propulsion_r"
 	},
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "je" = (
 /turf/space,
 /area/awaymission/arrivalblock)
 "jf" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "jg" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -3558,7 +3558,7 @@
 	icon_state = "propulsion_l"
 	},
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "jh" = (
 /obj/structure/cable{
@@ -3992,7 +3992,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "km" = (
 /obj/structure/window/reinforced,
@@ -4092,7 +4092,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "kB" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -4101,7 +4101,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "kC" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -4199,13 +4199,13 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/arrivalblock)
 "kP" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/arrivalblock)
@@ -4213,7 +4213,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
+/turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/awaymission/arrivalblock)
@@ -4369,7 +4369,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/southblock)
 "lq" = (
-/turf/simulated/shuttle/wall{
+/turf/simulated/wall/shuttle{
 	tag = "icon-swall12";
 	icon_state = "swall12";
 	dir = 2
@@ -4387,7 +4387,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "lt" = (
 /obj/structure/closet/crate/hydroponics,

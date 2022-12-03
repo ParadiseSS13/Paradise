@@ -140,34 +140,35 @@
 
 /area/awaymission/spacebattle/turret1
 	name = "\improper Turret Room"
+	requires_power = FALSE
 
 /area/awaymission/spacebattle/turret2
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret3
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret4
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret5
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret6
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret7
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret8
 	name = "\improper Turret Room"
-
-/area/awaymission/spacebattle/turret10
-	name = "\improper Turret Room"
-
+	requires_power = FALSE
 /area/awaymission/spacebattle/turret9
 	name = "\improper Turret Room"
-
+	requires_power = FALSE
+/area/awaymission/spacebattle/turret10
+	name = "\improper Turret Room"
+	requires_power = FALSE
 /area/awaymission/spacebattle/bsa
 	name = "\improper BSA Chamber"
 

@@ -19,6 +19,20 @@
 	. = ..()
 	icon_state = "grass[rand(1,4)]"
 
+/turf/unsimulated/floor/asteroid
+	name = "sand"
+	icon = 'icons/turf/floors/plating.dmi'
+	icon_state = "asteroid"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/unsimulated/floor/asteroid/Initialize(mapload)
+	. = ..()
+	if(prob(20))
+		icon_state = "asteroid[rand(0,12)]"
+
 /turf/unsimulated/floor/snow
 	name = "snow"
 	icon = 'icons/turf/snow.dmi'

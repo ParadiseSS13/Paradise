@@ -288,7 +288,7 @@
 /turf/space,
 /area/syndicate/unpowered/syndicate_space_base/turrets)
 "avx" = (
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/space)
@@ -621,9 +621,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -661,7 +659,8 @@
 	frequency = 1443;
 	icon_state = "on";
 	id = "air_in";
-	on = 1
+	on = 1;
+	req_one_access_txt = "159,156"
 	},
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
@@ -1145,9 +1144,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "aWd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1337,9 +1334,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "bbV" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -2046,9 +2041,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "bLX" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel{
@@ -2614,11 +2607,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
-"cgM" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "chb" = (
 /obj/structure/bed,
 /obj/machinery/light/small{
@@ -2686,9 +2674,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "civ" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
@@ -3727,14 +3713,12 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dfx" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_air_sensor"
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dfV" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "syndie_base_air_in"
 	},
 /turf/simulated/floor/engine/air,
@@ -3806,14 +3790,12 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "diC" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "djW" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "syndie_base_o2_in"
 	},
 /turf/simulated/floor/engine/o2,
@@ -3837,7 +3819,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dlO" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
@@ -3874,7 +3855,6 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "dnE" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "syndie_base_n2_in"
 	},
 /turf/simulated/floor/engine/n2,
@@ -4757,10 +4737,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "edm" = (
 /obj/structure/chair/sofa/right,
@@ -4779,16 +4756,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "eeY" = (
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "efs" = (
 /obj/machinery/light/small,
@@ -4810,10 +4781,7 @@
 	color = "#d70000";
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "ehR" = (
 /obj/effect/spawner/lootdrop/maintenance{
@@ -4930,8 +4898,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "epc" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window,
-/turf/simulated/shuttle/plating,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "epK" = (
 /obj/machinery/porta_turret/syndicate{
@@ -5010,7 +4978,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "euH" = (
 /obj/effect/turf_decal/tile/purple,
@@ -5474,7 +5444,6 @@
 "eMV" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	frequency = 1441;
 	id = "syndie_base_mix_in"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
@@ -6025,10 +5994,7 @@
 	name = "Arrivals Post";
 	req_access_txt = "154"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "flY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6194,9 +6160,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "fvk" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	color = "cyan";
@@ -6350,10 +6314,7 @@
 	syndicate = 1
 	},
 /obj/structure/filingcabinet/chestdrawer,
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "fFk" = (
 /obj/machinery/light{
@@ -6396,7 +6357,9 @@
 	color = "#2580f0";
 	icon_state = "x_white"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "fGx" = (
 /obj/structure/table/wood/fancy/black,
@@ -6455,9 +6418,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -6507,17 +6468,16 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "fLc" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_mix_sensor"
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fLO" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_mix_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_mix_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6562,9 +6522,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/conveyor/east{
 	id = "bruh"
 	},
@@ -6685,11 +6643,11 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fTp" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_air_in";
 	name = "Mixed Air Supply Control";
 	output_tag = "syndie_base_air_out";
 	pressure_setting = 2000;
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_air_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6734,10 +6692,10 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fTB" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "syndie_base_o2_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_o2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6764,10 +6722,10 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "fTR" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "syndie_base_n2_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -7406,7 +7364,9 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "gzR" = (
 /obj/effect/turf_decal/loading_area{
@@ -7772,10 +7732,7 @@
 /area/space)
 "gJf" = (
 /obj/machinery/vending/cigarette/free,
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "gJt" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -7797,7 +7754,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "gKb" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "gLi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -7877,7 +7834,6 @@
 /obj/machinery/atmospherics/trinary/mixer{
 	desc = null;
 	dir = 8;
-	name = "gas mixer";
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
 	on = 1;
@@ -8015,9 +7971,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -8035,9 +7989,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -8077,11 +8029,13 @@
 	dir = 4;
 	dwidth = 7;
 	height = 5;
-	id = "sst_taipan";
+	id = "sit_taipan";
 	name = "Taipan";
 	width = 11
 	},
-/turf/space,
+/turf/space{
+	icon_state = "black"
+	},
 /area/space)
 "hcJ" = (
 /obj/effect/turf_decal/tile/red{
@@ -8385,10 +8339,7 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -25
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/arrivals)
 "hqe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8779,9 +8730,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "hCO" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
@@ -8810,10 +8759,10 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "hDF" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "syndie_base_n2o_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_n2o_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -8860,9 +8809,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "hHP" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -8874,7 +8821,6 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "hLa" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
@@ -8942,9 +8888,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "hQB" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
@@ -9223,9 +9167,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "icS" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -9263,7 +9205,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "idD" = (
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "ieq" = (
 /obj/effect/turf_decal/tile/green{
@@ -9598,7 +9540,6 @@
 "ipX" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	frequency = 1441;
 	id = "tox_in"
 	},
 /obj/structure/lattice/catwalk,
@@ -9920,9 +9861,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "iFe" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -9934,7 +9873,6 @@
 "iFE" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "syndie_base_n2o_in"
 	},
 /turf/simulated/floor/engine/n20,
@@ -11490,15 +11428,13 @@
 "jXe" = (
 /obj/item/id_decal/centcom,
 /turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "jZn" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light_construct,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "jZB" = (
 /obj/machinery/power/terminal{
@@ -11839,9 +11775,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "kxP" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
@@ -11942,9 +11876,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "kCO" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -12116,7 +12048,7 @@
 /obj/item/stack/spacecash/c1000{
 	amount = 5000
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "kIh" = (
 /obj/effect/turf_decal/tile/red,
@@ -12600,9 +12532,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -12674,9 +12604,7 @@
 "led" = (
 /obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "leR" = (
 /obj/machinery/atmospherics/binary/circulator{
 	icon_state = "circ8-off"
@@ -12807,10 +12735,10 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lku" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "syndie_base_tox_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_tox_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -12821,7 +12749,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lkI" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -12960,9 +12887,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "loW" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -13819,7 +13744,6 @@
 "mag" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "syndie_base_tox_in"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -13850,7 +13774,6 @@
 "maC" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	frequency = 1441;
 	id = "syndie_base_mix_in"
 	},
 /obj/effect/decal/warning_stripes,
@@ -14069,9 +13992,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "mfi" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
@@ -14342,9 +14263,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "moU" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -15488,9 +15407,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "noY" = (
 /obj/machinery/door/airlock/syndicate/public/glass{
 	name = "Public airlock"
@@ -16207,8 +16124,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_e)
 "nFN" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12"
+/turf/simulated/wall/shuttle{
+	dir = 4;
+	icon_state = "white_walls_directions"
 	},
 /area/space)
 "nGe" = (
@@ -16511,10 +16429,10 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "nSA" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "syndie_base_co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "syndie_base_co2_out";
+	req_one_access_txt = "159";
 	sensors = list("syndie_base_co2_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -16525,7 +16443,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "nSR" = (
 /obj/machinery/air_sensor{
-	frequency = 1441;
 	id_tag = "syndie_base_co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
@@ -16708,6 +16625,11 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
+"obt" = (
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "obu" = (
 /obj/structure/window/plastitanium,
 /obj/structure/grille,
@@ -16729,9 +16651,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/structure/disposaloutlet{
 	dir = 4
 	},
@@ -16772,7 +16692,9 @@
 	color = "#2580f0";
 	icon_state = "x_white"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "odN" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -17018,9 +16940,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "opD" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -17200,7 +17120,6 @@
 "owu" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "syndie_base_co2_in"
 	},
 /turf/simulated/floor/engine/co2,
@@ -17408,8 +17327,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "oDx" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9"
+/turf/simulated/wall/shuttle{
+	dir = 8;
+	icon_state = "white_walls_directions"
 	},
 /area/space)
 "oEd" = (
@@ -18694,9 +18614,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "pxG" = (
-/obj/effect/decal/syndie_logo{
-	icon_state = "logo1"
-	},
+/obj/effect/decal/syndie_logo,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "pym" = (
@@ -19043,9 +18961,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "pLA" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	color = "cyan";
@@ -19629,7 +19545,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qgk" = (
 /obj/structure/rack,
@@ -19654,7 +19572,9 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qgT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -20172,9 +20092,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "qBs" = (
 /obj/structure/window/plastitanium,
 /obj/structure/grille,
@@ -20374,9 +20292,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "qEo" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -20569,7 +20485,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qIg" = (
 /obj/structure/table,
@@ -20649,7 +20567,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "qKt" = (
 /obj/item/wirecutters,
@@ -20957,9 +20877,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "qZH" = (
 /obj/effect/turf_decal/tile/purple,
 /turf/simulated/floor/plasteel{
@@ -21257,7 +21175,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "rqa" = (
 /obj/structure/computerframe,
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "rqL" = (
 /turf/simulated/floor/carpet/black,
@@ -21498,11 +21416,13 @@
 	dir = 8;
 	dwidth = 3;
 	height = 5;
-	id = "sit_taipan";
+	id = "sst_taipan";
 	name = "Taipan";
 	width = 11
 	},
-/turf/space,
+/turf/space{
+	icon_state = "black"
+	},
 /area/space)
 "rDd" = (
 /obj/structure/chair/wheelchair,
@@ -22005,7 +21925,7 @@
 	dir = 8;
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "rVv" = (
 /obj/structure/table/wood,
@@ -22096,9 +22016,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "rZX" = (
 /obj/machinery/door/airlock/syndicate/public{
 	id_tag = "syndie_cabin2";
@@ -22405,9 +22323,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/power/apc/syndicate{
 	pixel_y = -24
 	},
@@ -22606,7 +22522,9 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "sxX" = (
 /obj/effect/turf_decal/tile/purple{
@@ -22632,7 +22550,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "syl" = (
 /obj/effect/turf_decal/stripes/line{
@@ -22650,7 +22570,9 @@
 	icon_state = "fan_tiny";
 	name = "tiny fan"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "syt" = (
 /obj/structure/rack{
@@ -22685,7 +22607,9 @@
 	icon_state = "fan_tiny";
 	name = "tiny fan"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "sAB" = (
 /obj/structure/rack{
@@ -22810,9 +22734,7 @@
 	oxygen = 0;
 	temperature = 80
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "sGp" = (
 /obj/structure/table/wood,
 /obj/item/paicard/syndicate,
@@ -23356,7 +23278,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tbT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -23371,7 +23295,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tcc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -23380,7 +23306,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tcm" = (
 /obj/machinery/light,
@@ -23393,7 +23321,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tdY" = (
 /obj/machinery/porta_turret/syndicate{
@@ -23530,9 +23460,9 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/virology)
 "tiS" = (
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "tjA" = (
 /obj/machinery/optable,
@@ -23908,9 +23838,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "txZ" = (
@@ -23923,9 +23852,8 @@
 	req_access_txt = "150"
 	},
 /obj/machinery/door/firedoor,
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "tyn" = (
@@ -24160,9 +24088,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "tFr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -24362,12 +24288,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
-"tJC" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "tJL" = (
 /obj/structure/window/plasmareinforced{
 	color = "#d70000";
@@ -24703,9 +24623,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "tTd" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -24875,7 +24793,7 @@
 	density = 0;
 	icon_state = "brokengrille"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space)
 "tVJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -25536,7 +25454,9 @@
 	icon_state = "fan_tiny";
 	name = "tiny fan"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "uwh" = (
 /obj/machinery/door/airlock/syndicate/security/glass{
@@ -25642,7 +25562,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/full,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "uxY" = (
 /obj/machinery/door/firedoor,
@@ -25757,9 +25679,7 @@
 	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
 	},
 /turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "uzQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -25839,7 +25759,6 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "uBn" = (
 /mob/living/simple_animal/mouse/brown{
-	desc = "It's a small, disease-ridden rodent.";
 	faction = list("neutral", "syndicate");
 	name = "Борис"
 	},
@@ -26097,9 +26016,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
 "uIk" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "uIT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -26166,9 +26083,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "uKt" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -26650,9 +26565,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26663,9 +26576,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "uXK" = (
 /obj/machinery/door/airlock/syndicate/maintenance{
 	name = "Maintenance Airlock";
@@ -26991,9 +26902,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "vgQ" = (
 /obj/structure/chair{
 	dir = 4
@@ -27326,9 +27235,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/alarm/syndicate{
 	pixel_y = -32
 	},
@@ -27393,9 +27300,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "vxu" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -28210,9 +28115,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28531,9 +28434,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "woo" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/computer/syndie_supplycomp/public,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29550,9 +29451,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "wSo" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -29574,9 +29473,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "wSs" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -29598,11 +29495,14 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
+"wSK" = (
+/turf/simulated/wall/shuttle{
+	dir = 4
+	},
+/area/space)
 "wSM" = (
 /obj/machinery/disposal,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -29671,9 +29571,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -29732,9 +29630,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
@@ -29798,9 +29694,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/syndicate/taipan{
 	dir = 1;
@@ -29813,9 +29707,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "wYz" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -29902,18 +29794,14 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "xaP" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -29938,9 +29826,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -29982,7 +29868,9 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xeV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -29996,7 +29884,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xfh" = (
 /obj/effect/decal/warning_stripes/west,
@@ -30031,7 +29921,9 @@
 	icon_state = "fan_tiny";
 	name = "tiny fan"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xgz" = (
 /obj/effect/decal/cleanable/dirt,
@@ -30120,9 +30012,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
@@ -30195,9 +30085,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "xnO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -30250,7 +30138,9 @@
 "xrd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xrv" = (
 /obj/structure/window/plasmareinforced{
@@ -30269,7 +30159,9 @@
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xrI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xrT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -30396,9 +30288,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -30483,9 +30373,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 4
@@ -30807,9 +30695,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /obj/structure/closet/secure_closet/syndicate/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -30861,7 +30747,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/space)
 "xIq" = (
 /obj/structure/lattice,
@@ -30892,7 +30778,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xKl" = (
 /turf/simulated/mineral/titanium,
@@ -31206,9 +31094,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -31239,9 +31125,8 @@
 /obj/item/toy/russian_revolver/trick_revolver,
 /obj/effect/turf_decal/stripes/red/full,
 /obj/item/clothing/head/crown/fancy,
-/turf/unsimulated/floor{
-	icon_state = "darkfull";
-	tag = "icon-dark"
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
 	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xVp" = (
@@ -31251,9 +31136,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "xVM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/safe/floor,
@@ -31412,9 +31295,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/rnd/server{
-	name = "ERR#UNKWN Server Room"
-	})
+/area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "yaU" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -31620,9 +31501,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/brown,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -56800,7 +56679,7 @@ xQZ
 xQZ
 xYq
 xYq
-tJC
+uaS
 mEC
 mEC
 mEC
@@ -57058,7 +56937,7 @@ xtE
 xtE
 xYq
 xYq
-tJC
+uaS
 mEC
 mEC
 mEC
@@ -57119,7 +56998,7 @@ bbZ
 tKc
 idD
 fjv
-nFN
+oDx
 mEC
 mEC
 mEC
@@ -57313,7 +57192,7 @@ eiK
 xpH
 fis
 xtE
-tJC
+uaS
 xYq
 xYq
 xYq
@@ -57376,7 +57255,7 @@ dTx
 rqa
 idD
 jZn
-nFN
+wSK
 mEC
 mEC
 mEC
@@ -57573,7 +57452,7 @@ xtE
 xtE
 xtE
 yhG
-tJC
+uaS
 mEC
 mEC
 mEC
@@ -58087,7 +57966,7 @@ tJL
 gHs
 xtE
 xYq
-tJC
+uaS
 mEC
 mEC
 mEC
@@ -58304,7 +58183,7 @@ mEC
 xYq
 qjx
 qjx
-cgM
+xYq
 oeA
 dpK
 enz
@@ -58858,7 +58737,7 @@ xJY
 uxE
 xtE
 uaS
-tJC
+uaS
 mEC
 mEC
 uaS
@@ -59171,7 +59050,7 @@ mEC
 mEC
 mEC
 mEC
-nFN
+oDx
 idD
 idD
 idD
@@ -59689,7 +59568,7 @@ oYE
 avx
 idD
 tiS
-oDx
+xPv
 mEC
 mEC
 mEC
@@ -63249,7 +63128,7 @@ chb
 esH
 xtm
 mEC
-tJC
+uaS
 mEC
 mEC
 mEC
@@ -69673,7 +69552,7 @@ uIk
 xYq
 xYq
 xYq
-tJC
+uaS
 pdd
 pdd
 jbN
@@ -70187,7 +70066,7 @@ uIk
 jFr
 qjx
 mEC
-tJC
+uaS
 mEC
 pdd
 pdd
@@ -70701,7 +70580,7 @@ uIk
 mEC
 xYq
 xYq
-tJC
+uaS
 pdd
 pdd
 jbN
@@ -71215,7 +71094,7 @@ uIk
 mEC
 xYq
 mEC
-tJC
+uaS
 iOd
 yhG
 jbN
@@ -71472,7 +71351,7 @@ uIk
 xYq
 uaS
 uaS
-tJC
+uaS
 mEC
 mEC
 mEC
@@ -72423,17 +72302,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 haz
-mEC
-mEC
-mEC
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -72680,17 +72559,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 avh
 aJC
@@ -72937,17 +72816,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 grh
@@ -73194,17 +73073,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 avh
 aJC
@@ -73451,17 +73330,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -73708,17 +73587,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -73752,7 +73631,7 @@ tSi
 umP
 uIT
 sXX
-cgM
+xYq
 mEC
 mEC
 mEC
@@ -73965,17 +73844,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -74222,17 +74101,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -74479,17 +74358,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 mEC
 mEC
 mEC
@@ -74736,17 +74615,17 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
-mEC
+obt
+obt
+obt
+obt
+obt
+obt
+obt
 rCY
-mEC
-mEC
-mEC
+obt
+obt
+obt
 mEC
 mEC
 mEC

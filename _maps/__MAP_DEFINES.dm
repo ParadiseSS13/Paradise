@@ -33,6 +33,7 @@
 // Level names
 	#define MAIN_STATION "Main Station"
 	#define CENTCOMM "CentComm"
+	#define ADMIN_ZONE "Admin Zone"
 	#define TELECOMMS "Telecomms Satellite"
 	#define DERELICT "Derelicted Station"
 	#define MINING "Lavaland"

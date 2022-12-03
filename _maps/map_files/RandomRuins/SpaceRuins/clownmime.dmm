@@ -2,33 +2,23 @@
 "a" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
-/turf/template_noop,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall_f6";
-	tag = "icon-swall_f6"
-	},
-/area/space/nearstation)
 "c" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (NORTH)";
-	icon_state = "heater";
-	dir = 1
+	dir = 1;
+	tag = "icon-heater (NORTH)"
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "d" = (
-/turf/template_noop,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10";
-	dir = 2
+/turf/space,
+/turf/simulated/wall/shuttle{
+	dir = 1;
+	icon_state = "white_walls_directions"
 	},
 /area/space/nearstation)
 "e" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "f" = (
@@ -48,13 +38,6 @@
 /obj/effect/mob_spawn/human/mime/corpse,
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
-"i" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11";
-	dir = 2
-	},
-/area/space/nearstation)
 "j" = (
 /obj/structure/closet/crate,
 /obj/item/stack/ore/tranquillite,
@@ -70,12 +53,6 @@
 "k" = (
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
-"l" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall7";
-	dir = 2
-	},
-/area/space/nearstation)
 "m" = (
 /turf/simulated/mineral,
 /area/space/nearstation)
@@ -84,10 +61,6 @@
 /area/space/nearstation)
 "o" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
 /area/space/nearstation)
 "p" = (
 /obj/item/shard{
@@ -108,12 +81,7 @@
 /area/space/nearstation)
 "r" = (
 /turf/template_noop,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9";
-	dir = 2
-	},
-/area/space/nearstation)
+/area/template_noop)
 "s" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -125,24 +93,20 @@
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "u" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
+/turf/simulated/wall/shuttle{
+	dir = 1
 	},
 /area/space/nearstation)
 "v" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12";
-	dir = 2
+/turf/simulated/wall/shuttle{
+	dir = 4
 	},
 /area/space/nearstation)
 "w" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9";
-	dir = 2
+/turf/space,
+/turf/simulated/wall/shuttle{
+	dir = 6;
+	icon_state = "white_walls_directions"
 	},
 /area/space/nearstation)
 "x" = (
@@ -169,14 +133,13 @@
 /area/space/nearstation)
 "A" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (EAST)";
-	icon_state = "heater";
-	dir = 4
+	dir = 4;
+	tag = "icon-heater (EAST)"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "B" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -189,7 +152,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "C" = (
 /obj/effect/mob_spawn/human/corpse/clownmili,
@@ -205,7 +168,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "F" = (
 /obj/structure/computerframe/HONKputer,
@@ -255,19 +218,17 @@
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "M" = (
-/turf/simulated/mineral/random/labormineral,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
+/turf/simulated/wall/shuttle{
 	icon_state = "swall_f5";
-	dir = 2
+	tag = "icon-swall_f5"
 	},
+/turf/simulated/mineral/random/labormineral,
 /area/space/nearstation)
 "N" = (
-/turf/simulated/floor/plasteel/airless,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10";
-	dir = 2
+/turf/space,
+/turf/simulated/wall/shuttle{
+	dir = 5;
+	icon_state = "white_walls_directions"
 	},
 /area/space/nearstation)
 "O" = (
@@ -297,7 +258,39 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
+/area/space/nearstation)
+"S" = (
+/turf/space,
+/turf/simulated/wall/shuttle{
+	dir = 4
+	},
+/area/space/nearstation)
+"U" = (
+/turf/space,
+/turf/simulated/wall/shuttle{
+	dir = 9;
+	icon_state = "white_walls_directions"
+	},
+/area/space/nearstation)
+"V" = (
+/turf/simulated/wall/shuttle{
+	dir = 4;
+	icon_state = "white_walls_directions"
+	},
+/area/space/nearstation)
+"W" = (
+/turf/space,
+/turf/simulated/wall/shuttle{
+	dir = 4;
+	icon_state = "white_walls_directions"
+	},
+/area/space/nearstation)
+"X" = (
+/turf/simulated/wall/shuttle{
+	dir = 8;
+	icon_state = "white_walls_directions"
+	},
 /area/space/nearstation)
 
 (1,1,1) = {"
@@ -479,7 +472,7 @@ a
 (9,1,1) = {"
 a
 a
-b
+r
 o
 m
 m
@@ -499,10 +492,10 @@ a
 a
 "}
 (10,1,1) = {"
-b
+d
 e
-i
-i
+u
+u
 m
 m
 m
@@ -589,8 +582,8 @@ a
 (14,1,1) = {"
 d
 e
-l
-l
+u
+u
 u
 m
 m
@@ -611,7 +604,7 @@ a
 (15,1,1) = {"
 a
 a
-d
+r
 r
 m
 m
@@ -639,7 +632,7 @@ m
 a
 a
 a
-b
+S
 m
 m
 J
@@ -682,7 +675,7 @@ a
 a
 a
 a
-b
+U
 w
 m
 G
@@ -726,13 +719,13 @@ a
 a
 a
 a
-v
+V
 x
 C
 k
 L
 P
-v
+V
 m
 m
 m
@@ -792,13 +785,13 @@ a
 a
 a
 a
-v
+X
 y
 k
 k
 k
 Q
-v
+X
 m
 a
 a
@@ -880,13 +873,13 @@ a
 a
 a
 a
-d
+W
 A
 A
 A
 A
 A
-r
+W
 a
 a
 a

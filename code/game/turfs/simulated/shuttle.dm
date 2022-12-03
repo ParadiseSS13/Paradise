@@ -1,18 +1,51 @@
-/turf/simulated/shuttle
-	name = "shuttle"
-	icon = 'icons/turf/shuttle.dmi'
+/turf/simulated/wall/shuttle
+	name = "wall"
+	desc = "A light-weight titanium wall used in shuttles."
+	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
+	icon_state = "shuttle"
+	explosion_block = 3
+	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
+	canSmoothWith = list(
+		/turf/simulated/wall/shuttle, /obj/machinery/door/airlock/shuttle,
+		/obj/structure/window/full/shuttle, /obj/machinery/door/airlock,
+		/obj/structure/shuttle/engine, /obj/structure/filler,
+		/obj/structure/lattice/catwalk)
 	thermal_conductivity = 0.05
 	heat_capacity = 0
-	layer = 2
 
-/turf/simulated/shuttle/wall
-	name = "wall"
-	icon_state = "wall1"
-	opacity = 1
-	density = 1
-	blocks_air = 1
+/turf/simulated/wall/shuttle/try_decon(obj/item/I, mob/user, params)
+	return
 
-/turf/simulated/shuttle/wall/Initialize()
+/turf/simulated/wall/shuttle/thermitemelt(mob/user as mob, speed)
+	return
+
+/turf/simulated/wall/shuttle/burn_down()
+	return
+
+/turf/simulated/wall/shuttle/welder_act()
+	return
+
+/turf/simulated/wall/shuttle/nodiagonal
+	smooth = SMOOTH_MORE
+	icon_state = "shuttle_nd"
+
+/turf/simulated/wall/shuttle/nosmooth
+	icon_state = "shuttle_ns"
+	smooth = SMOOTH_FALSE
+
+/turf/simulated/wall/shuttle/onlyselfsmooth
+	icon_state = "shuttle_ss"
+	canSmoothWith = list(/turf/simulated/wall/shuttle)
+
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal
+	smooth = SMOOTH_MORE
+	icon_state = "shuttle_ndss"
+
+/turf/simulated/wall/shuttle/overspace
+	icon_state = "overspace"
+	fixed_underlay = list("space"=1)
+
+/turf/simulated/wall/shuttle/Initialize()
 	..()
 	var/obj/O
 	O = new()
@@ -20,32 +53,35 @@
 	underlays = O.underlays
 	qdel(O)
 
-/turf/simulated/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd)
+/turf/simulated/wall/shuttle/copyTurf(turf/T)
+	. = ..()
+	T.transform = transform
+
+/turf/simulated/wall/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	if(our_rpd.mode == RPD_DELETE_MODE)//No pipes on shuttles
 		our_rpd.delete_all_pipes(user, src)
 
-/turf/simulated/shuttle/narsie_act()
+/turf/simulated/wall/shuttle/narsie_act()
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
 
-/turf/simulated/shuttle/ratvar_act()
-	if(prob(20))
-		ChangeTurf(/turf/simulated/floor/clockwork)
 
-//sub-type to be used for interior shuttle walls
-//won't get an underlay of the destination turf on shuttle move
-/turf/simulated/shuttle/wall/interior
+// sub-type to be used for interior shuttle walls
+// won't get an underlay of the destination turf on shuttle move
+// it's underlay must be preadded by using underlay_floor variables
+/turf/simulated/wall/shuttle/nosmooth/interior
 	var/underlay_floor_icon = null
 	var/underlay_floor_icon_state = null
+	var/underlay_floor_dir = 2
 
-/turf/simulated/shuttle/wall/interior/Initialize()
+/turf/simulated/wall/shuttle/nosmooth/interior/Initialize()
 	..()
 	if(underlay_floor_icon && underlay_floor_icon_state)
-		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state)
+		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state,,underlay_floor_dir)
 		underlays.Cut()
 		underlays.Add(floor_underlay)
 
-/turf/simulated/shuttle/wall/interior/copyTurf(turf/T)
+/turf/simulated/wall/shuttle/nosmooth/interior/copyTurf(turf/T)
 	if(T.type != type)
 		T.ChangeTurf(type)
 		if(underlays.len)
@@ -57,30 +93,34 @@
 	if(T.color != color)
 		T.color = color
 	if(T.dir != dir)
-		T.dir = dir
+		T.setDir(dir)
 	T.transform = transform
 	return T
 
-/turf/simulated/shuttle/wall/copyTurf(turf/T)
-	. = ..()
-	T.transform = transform
+//ПОЛЫ//
 
-//why don't shuttle walls habe smoothwall? now i gotta do rotation the dirty way
-/turf/simulated/shuttle/shuttleRotate(rotation)
-	..()
-	var/matrix/M = transform
-	M.Turn(rotation)
-	transform = M
-
-/turf/simulated/shuttle/floor
+/turf/simulated/floor/shuttle
 	name = "floor"
+	icon = 'icons/turf/shuttle/floors.dmi'
 	icon_state = "floor"
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/shuttle/plating
+/turf/simulated/floor/shuttle/attackby(obj/item/W as obj, mob/user as mob, params)
+	return
+
+/turf/simulated/floor/shuttle/tool_act()
+	return
+
+/turf/simulated/floor/shuttle/ratvar_act()
+	if(prob(20))
+		ChangeTurf(/turf/simulated/floor/clockwork)
+/turf/simulated/floor/shuttle/syndicate //Used only by buildmode generators
+	icon_state = "floor4"
+
+/turf/simulated/floor/shuttle/plating
 	name = "plating"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "plating"
@@ -89,15 +129,14 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/shuttle/plating/vox	//Vox skipjack plating
+/turf/simulated/floor/shuttle/plating/vox	//Vox skipjack plating
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
 
-/turf/simulated/shuttle/floor/transparent_floor
-	icon = 'icons/turf/shuttle.dmi'
+/turf/simulated/floor/shuttle/transparent_floor
 	icon_state = "transparent"
 
-/turf/simulated/shuttle/floor/transparent_floor/Initialize()
+/turf/simulated/floor/shuttle/transparent_floor/Initialize()
 	..()
 	var/obj/O
 	O = new()
@@ -105,19 +144,20 @@
 	underlays = O.underlays
 	qdel(O)
 
-/turf/simulated/shuttle/floor/transparent_floor/copyTurf(turf/T)
+/turf/simulated/floor/shuttle/transparent_floor/copyTurf(turf/T)
 	. = ..()
 	T.transform = transform
 
-/turf/simulated/shuttle/floor4 // Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
-	name = "brig floor"        // Also added it into the 2x3 brig area of the shuttle.
+//Оно даже не наследовалось от стандартного пола... Какой ужас...
+/turf/simulated/floor/shuttle/objective_check		// Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
+	name = "brig floor"        						// Also added it into the 2x3 brig area of the shuttle.
 	icon_state = "floor4"
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/shuttle/floor4/vox	//Vox skipjack floors
+/turf/simulated/floor/shuttle/objective_check/vox	//Vox skipjack floors
 	name = "skipjack floor"
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD

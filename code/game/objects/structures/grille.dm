@@ -21,7 +21,7 @@
 	var/my_shockcooldown = 1 SECONDS
 
 /obj/structure/grille/fence
-	var/width = 3
+	var/width = 2
 
 /obj/structure/grille/fence/Initialize(mapload)
 	. = ..()

@@ -1,56 +1,38 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/space,
-/area/space)
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon_state = "white_walls_corners"
+	},
+/area/shuttle/transport)
 "b" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (EAST)"
-	},
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
-	dir = 2
-	},
+/turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/transport)
 "c" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/transport)
-"d" = (
-/obj/structure/shuttle/window,
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
+/turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "e" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window,
-/turf/simulated/shuttle/plating,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
 /area/shuttle/transport)
 "f" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f10";
-	dir = 2
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon_state = "white_walls_corners"
 	},
 /area/shuttle/transport)
 "g" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_l"
 	},
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9"
-	},
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "h" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -87,9 +69,8 @@
 /area/shuttle/transport)
 "l" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/machinery/gibber,
 /turf/simulated/floor/plasteel{
@@ -110,9 +91,8 @@
 /area/shuttle/transport)
 "o" = (
 /obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
 	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
@@ -120,10 +100,10 @@
 	},
 /area/shuttle/transport)
 "p" = (
-/obj/machinery/door/airlock/shuttle{
-	id_tag = "s_docking_airlock"
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "q" = (
 /obj/item/stack/sheet/animalhide/cat,
@@ -150,28 +130,23 @@
 	timid = 1;
 	width = 5
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/floor/shuttle,
 /area/shuttle/transport)
 "s" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (EAST)"
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
+/obj/structure/shuttle/engine/heater{
+	dir = 8
 	},
+/turf/unsimulated/floor,
 /area/shuttle/transport)
 "t" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "burst_r"
 	},
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10"
-	},
+/turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "u" = (
 /obj/machinery/light/spot,
@@ -202,26 +177,43 @@
 	},
 /area/shuttle/transport)
 "y" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
-	dir = 2
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon_state = "white_walls_corners"
 	},
+/area/shuttle/transport)
+"G" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/transport)
+"J" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon_state = "white_walls_corners"
+	},
+/area/shuttle/transport)
+"Z" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/unsimulated/floor,
 /area/shuttle/transport)
 
 (1,1,1) = {"
 a
-b
+g
 p
-s
-a
+t
+J
 "}
 (2,1,1) = {"
 b
-g
-k
-t
 s
+Z
+s
+b
 "}
 (3,1,1) = {"
 c
@@ -231,25 +223,25 @@ u
 c
 "}
 (4,1,1) = {"
-c
+G
 i
 k
 v
-c
+G
 "}
 (5,1,1) = {"
-d
+e
 j
 q
 v
-d
+e
 "}
 (6,1,1) = {"
-c
+G
 k
 k
 v
-c
+G
 "}
 (7,1,1) = {"
 c
@@ -259,11 +251,11 @@ w
 c
 "}
 (8,1,1) = {"
-c
+G
 m
 m
 x
-c
+G
 "}
 (9,1,1) = {"
 e
@@ -273,11 +265,11 @@ k
 e
 "}
 (10,1,1) = {"
-c
+G
 n
 k
 k
-c
+G
 "}
 (11,1,1) = {"
 c
@@ -288,8 +280,8 @@ c
 "}
 (12,1,1) = {"
 f
-d
+e
 r
-d
+e
 y
 "}

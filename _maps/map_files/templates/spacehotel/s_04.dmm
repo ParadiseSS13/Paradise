@@ -20,7 +20,7 @@
 /area/template_noop)
 "d" = (
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)
@@ -29,7 +29,7 @@
 /obj/item/clothing/suit/syndicatefake,
 /obj/item/clothing/under/syndicate,
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)
@@ -37,7 +37,7 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/syndicate,
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)
@@ -52,7 +52,7 @@
 	pixel_x = -4
 	},
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)
@@ -63,7 +63,7 @@
 	pixel_y = 32
 	},
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)
@@ -82,7 +82,7 @@
 	pixel_x = 32
 	},
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)
@@ -104,7 +104,7 @@
 	pixel_x = 32
 	},
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)
@@ -173,7 +173,7 @@
 	pixel_y = -32
 	},
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)
@@ -186,7 +186,7 @@
 	pixel_y = -32
 	},
 /turf/unsimulated/floor{
-	icon = 'icons/turf/shuttle.dmi';
+	icon = 'icons/turf/shuttle/shuttle.dmi';
 	icon_state = "floor4"
 	},
 /area/template_noop)

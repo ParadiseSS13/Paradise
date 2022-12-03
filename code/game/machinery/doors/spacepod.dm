@@ -23,3 +23,6 @@
 	if(istype(A, /obj/spacepod))
 		return ..()
 	else return 0
+
+/obj/structure/spacepoddoor/invincible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

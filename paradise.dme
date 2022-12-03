@@ -1451,6 +1451,7 @@
 #include "code\modules\awaymissions\mission_code\spacebattle.dm"
 #include "code\modules\awaymissions\mission_code\spacehotel.dm"
 #include "code\modules\awaymissions\mission_code\stationCollision.dm"
+#include "code\modules\awaymissions\mission_code\UO45.dm"
 #include "code\modules\awaymissions\mission_code\UO71-terrorspiders.dm"
 #include "code\modules\awaymissions\mission_code\wildwest.dm"
 #include "code\modules\awaymissions\mission_code\ghost_role_spawners\golems.dm"

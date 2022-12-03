@@ -87,10 +87,11 @@
 	admin_notes = "Due to origin as a solo piloted secure vessel, has an \
 		active GPS onboard labeled STV5."
 
+/* В текущих реалиях шаттл не работает, да и делать его рабочим смысла особо нет ибо это будет уже другой шаттл
 /datum/map_template/shuttle/emergency/meta
 	suffix = "meta"
 	name = "emergency shuttle (Metastation)"
-
+*/
 /datum/map_template/shuttle/emergency/narnar
 	suffix = "narnar"
 	name = "Shuttle 667"

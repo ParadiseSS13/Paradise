@@ -11,11 +11,6 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/shuttle/abandoned)
-"ae" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f9"
-	},
-/area/shuttle/abandoned)
 "aN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
@@ -58,8 +53,8 @@
 	specialfunctions = 4
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 85;
 	bruteloss = 15;
+	health = 85
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -193,12 +188,6 @@
 	dir = 9;
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue (NORTHWEST)"
-	},
-/area/shuttle/abandoned)
-"dn" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall15";
-	tag = "icon-swall15"
 	},
 /area/shuttle/abandoned)
 "dA" = (
@@ -349,9 +338,6 @@
 	},
 /area/shuttle/abandoned)
 "gt" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
@@ -359,10 +345,8 @@
 	tag = "icon-whitebluefull"
 	},
 /area/shuttle/abandoned)
-"gF" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc2"
-	},
+"gD" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/abandoned)
 "gP" = (
 /obj/machinery/door/airlock/medical/glass,
@@ -447,16 +431,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/abandoned)
-"hJ" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12"
-	},
-/area/shuttle/abandoned)
 "ij" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -528,22 +502,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
-	},
-/area/shuttle/abandoned)
-"kc" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12"
-	},
-/area/shuttle/abandoned)
-"kg" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
-/turf/simulated/shuttle/wall{
-	dir = 3;
-	icon_state = "swall1"
 	},
 /area/shuttle/abandoned)
 "kM" = (
@@ -619,14 +577,12 @@
 	tag = "icon-whiteblue"
 	},
 /area/shuttle/abandoned)
-"lK" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall14"
-	},
-/area/shuttle/abandoned)
 "lZ" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -662,9 +618,7 @@
 	dir = 1;
 	tag = "icon-propulsion (NORTH)"
 	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6"
-	},
+/turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "mM" = (
 /obj/structure/table,
@@ -676,11 +630,6 @@
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
-	},
-/area/shuttle/abandoned)
-"mS" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc3"
 	},
 /area/shuttle/abandoned)
 "mU" = (
@@ -755,6 +704,11 @@
 	icon_state = "darkbluefull"
 	},
 /area/shuttle/abandoned)
+"oL" = (
+/turf/simulated/wall/shuttle{
+	dir = 4
+	},
+/area/shuttle/abandoned)
 "oY" = (
 /obj/item/clothing/glasses/welding,
 /obj/machinery/light/small/built{
@@ -795,6 +749,9 @@
 /area/shuttle/abandoned)
 "pJ" = (
 /obj/structure/coatrack,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -904,6 +861,9 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
 /area/template_noop)
+"sn" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/shuttle/abandoned)
 "st" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
@@ -1038,11 +998,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"uk" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f10"
-	},
-/area/shuttle/abandoned)
 "ut" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -1105,8 +1060,8 @@
 	pixel_x = 32
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 65;
 	bruteloss = 35;
+	health = 65
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -1133,8 +1088,8 @@
 	},
 /obj/effect/decal/cleanable/vomit,
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	health = 60;
 	bruteloss = 15;
+	health = 60
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -1176,8 +1131,8 @@
 	pixel_y = -2
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	health = 45;
 	bruteloss = 30;
+	health = 45
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1211,12 +1166,6 @@
 	name = "Room 1 Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"xn" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall14";
-	tag = "icon-swall14"
-	},
 /area/shuttle/abandoned)
 "xC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1265,17 +1214,6 @@
 	icon_state = "barber"
 	},
 /area/shuttle/abandoned)
-"yh" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall11";
-	tag = "icon-swall11"
-	},
-/area/shuttle/abandoned)
 "ys" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1300,12 +1238,17 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/hologram/holopad,
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	health = 20;
 	bruteloss = 50;
+	health = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
+	},
+/area/shuttle/abandoned)
+"yI" = (
+/turf/simulated/wall/shuttle{
+	dir = 1
 	},
 /area/shuttle/abandoned)
 "yK" = (
@@ -1333,8 +1276,8 @@
 	dir = 9
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	health = 60;
 	bruteloss = 15;
+	health = 60
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1348,11 +1291,6 @@
 	},
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel,
-/area/shuttle/abandoned)
-"zB" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall4"
-	},
 /area/shuttle/abandoned)
 "zF" = (
 /obj/structure/grille,
@@ -1429,11 +1367,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"Aa" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f6"
-	},
-/area/shuttle/abandoned)
 "Aq" = (
 /obj/machinery/door/airlock/medical,
 /obj/effect/decal/cleanable/dirt,
@@ -1441,17 +1374,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/shuttle/abandoned)
-"AC" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
-/turf/simulated/shuttle/wall{
-	dir = 3;
-	icon_state = "swall2"
-	},
 /area/shuttle/abandoned)
 "Bb" = (
 /obj/structure/sign/nosmoking_2{
@@ -1495,11 +1417,6 @@
 	icon_state = "barber"
 	},
 /area/shuttle/abandoned)
-"Bu" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5"
-	},
-/area/shuttle/abandoned)
 "BG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/splatter,
@@ -1512,12 +1429,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	tag = "icon-whitebluefull"
-	},
-/area/shuttle/abandoned)
-"Cf" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall8";
-	tag = "icon-swall12"
 	},
 /area/shuttle/abandoned)
 "CD" = (
@@ -1536,14 +1447,8 @@
 	},
 /area/shuttle/abandoned)
 "CI" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall11";
-	tag = "icon-swall11"
-	},
-/area/shuttle/abandoned)
-"CW" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall7"
+/turf/simulated/wall/shuttle{
+	dir = 8
 	},
 /area/shuttle/abandoned)
 "Dc" = (
@@ -1648,21 +1553,6 @@
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
-	},
-/area/shuttle/abandoned)
-"Fq" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall13"
-	},
-/area/shuttle/abandoned)
-"Fw" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall14"
 	},
 /area/shuttle/abandoned)
 "Fz" = (
@@ -1773,18 +1663,6 @@
 	tag = "icon-whitebluefull"
 	},
 /area/shuttle/abandoned)
-"Im" = (
-/turf/simulated/shuttle/wall{
-	dir = 3;
-	icon_state = "swall1"
-	},
-/area/shuttle/abandoned)
-"Is" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall7";
-	tag = "icon-swall7"
-	},
-/area/shuttle/abandoned)
 "IA" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "whiteshipouterairlock2";
@@ -1871,8 +1749,8 @@
 /area/shuttle/abandoned)
 "JT" = (
 /obj/structure/sign/poster/official/nanotrasen_logo,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12"
+/turf/simulated/wall/shuttle{
+	dir = 4
 	},
 /area/shuttle/abandoned)
 "JX" = (
@@ -1883,8 +1761,8 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 65;
 	bruteloss = 35;
+	health = 65
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1928,8 +1806,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	health = 20;
 	bruteloss = 55;
+	health = 20
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1950,6 +1828,24 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
+/area/shuttle/abandoned)
+"LY" = (
+/obj/structure/sign/redcross{
+	desc = "The Star of Life, a symbol of Medical Aid.";
+	icon_state = "lifestar";
+	name = "Medbay"
+	},
+/turf/simulated/wall/shuttle{
+	dir = 4
+	},
+/area/shuttle/abandoned)
+"Mx" = (
+/obj/structure/sign/redcross{
+	desc = "The Star of Life, a symbol of Medical Aid.";
+	icon_state = "lifestar";
+	name = "Medbay"
+	},
+/turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/abandoned)
 "MB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2035,8 +1931,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 85;
 	bruteloss = 15;
+	health = 85
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2099,9 +1995,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	tag = "icon-propulsion (NORTH)"
 	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5"
-	},
+/turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "Oq" = (
 /obj/structure/rack,
@@ -2159,20 +2053,14 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/abandoned)
-"Pv" = (
-/turf/simulated/shuttle/wall{
-	dir = 3;
-	icon_state = "swall2"
-	},
-/area/shuttle/abandoned)
 "PB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/under/retro/medical{
 	name = "old medical officer's uniform"
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	health = 45;
 	bruteloss = 30;
+	health = 45
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2271,11 +2159,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
-"SP" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc4"
-	},
-/area/shuttle/abandoned)
 "Ta" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
@@ -2313,30 +2196,16 @@
 "Td" = (
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"To" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3"
-	},
-/area/shuttle/abandoned)
-"Ty" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall11"
-	},
-/area/shuttle/abandoned)
 "TU" = (
 /obj/structure/sign/redcross{
 	desc = "The Star of Life, a symbol of Medical Aid.";
 	icon_state = "lifestar";
 	name = "Medbay"
 	},
-/turf/simulated/shuttle/wall{
-	icon_state = "swall13"
-	},
+/turf/simulated/wall/shuttle,
+/area/shuttle/abandoned)
+"TW" = (
+/turf/simulated/wall/shuttle,
 /area/shuttle/abandoned)
 "Uq" = (
 /obj/structure/bed/roller,
@@ -2384,11 +2253,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
-	},
-/area/shuttle/abandoned)
-"VJ" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc1"
 	},
 /area/shuttle/abandoned)
 "We" = (
@@ -2457,14 +2321,11 @@
 	},
 /area/shuttle/abandoned)
 "XB" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	health = 45;
 	bruteloss = 30;
+	health = 45
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
@@ -2481,8 +2342,8 @@
 "XK" = (
 /obj/structure/chair/comfy/shuttle,
 /mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	health = 65;
 	bruteloss = 35;
+	health = 65
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2493,6 +2354,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
+/area/shuttle/abandoned)
+"XX" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/abandoned)
 "Ym" = (
 /obj/structure/rack,
@@ -2519,8 +2383,8 @@
 	dir = 9
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 35;
 	bruteloss = 65;
+	health = 35
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -2637,13 +2501,13 @@ GK
 GK
 GK
 GK
-Aa
-CI
-Fq
+TW
+yI
+TW
 GK
-lK
-CI
-Bu
+TW
+yI
+TW
 GK
 GK
 GK
@@ -2656,13 +2520,13 @@ GK
 GK
 GK
 GK
-Cf
+XX
 fT
-kc
+oL
 GK
-kc
+oL
 il
-Cf
+XX
 GK
 GK
 GK
@@ -2677,9 +2541,9 @@ GK
 GK
 tQ
 DP
-kc
+oL
 GK
-kc
+oL
 jQ
 Ep
 GK
@@ -2694,13 +2558,13 @@ GK
 GK
 GK
 GK
-zB
+XX
 uR
-kc
+oL
 GK
-kc
+oL
 su
-zB
+XX
 GK
 GK
 GK
@@ -2713,13 +2577,13 @@ GK
 GK
 GK
 GK
-hJ
+TU
 Td
-kc
+oL
 GK
-kc
+oL
 ux
-hJ
+LY
 GK
 GK
 GK
@@ -2732,13 +2596,13 @@ GK
 rA
 GK
 GK
-kc
+TW
 nv
-kc
+oL
 GK
-kc
+oL
 yA
-kc
+oL
 GK
 GK
 GK
@@ -2751,13 +2615,13 @@ GK
 GK
 GK
 JI
-kc
+TW
 XL
-kc
+oL
 GK
-kc
+oL
 Td
-kc
+oL
 JI
 GK
 GK
@@ -2769,15 +2633,15 @@ GK
 GK
 GK
 GK
-lK
-SP
+TW
+TW
 Sh
-kc
+oL
 GK
-kc
+oL
 Il
-VJ
-Fq
+TW
+TW
 GK
 GK
 GK
@@ -2788,15 +2652,15 @@ GK
 GK
 GK
 JI
-Fq
+oL
 Tb
 Hf
-kc
+oL
 GK
-kc
+oL
 MM
 oY
-lK
+oL
 JI
 GK
 GK
@@ -2806,17 +2670,17 @@ GK
 GK
 GK
 GK
-lK
-SP
+TW
+TW
 ys
 bE
-kc
+oL
 GK
-kc
+oL
 sT
 fJ
-VJ
-Fq
+TW
+TW
 GK
 GK
 GK
@@ -2824,19 +2688,19 @@ GK
 (12,1,1) = {"
 GK
 GK
-Aa
-SP
+TW
+TW
 WM
 zf
 xi
-kc
+oL
 Jw
-kc
+oL
 JB
 dT
 Ou
-VJ
-Bu
+TW
+TW
 GK
 GK
 "}
@@ -2848,9 +2712,9 @@ Ju
 xJ
 lm
 Bb
-kc
+XX
 Hu
-kc
+XX
 st
 PS
 WZ
@@ -2862,27 +2726,27 @@ GK
 (14,1,1) = {"
 GK
 mA
-lK
-CW
-kg
+TW
+TW
+Mx
 ZB
-Pv
-SP
+XX
+TW
 mi
-VJ
-Im
+TW
+XX
 Aq
-AC
-CW
-Fq
+Mx
+TW
+TW
 Op
 GK
 "}
 (15,1,1) = {"
 GK
-Fw
-dn
-SP
+TU
+TW
+TW
 EF
 YJ
 Dv
@@ -2892,28 +2756,28 @@ gt
 XH
 zJ
 xC
-VJ
-dn
+TW
+TW
 TU
 GK
 "}
 (16,1,1) = {"
 GK
-VJ
-SP
+gD
+sn
 eC
 rk
 jD
-zB
+XX
 lZ
 aW
 pJ
-zB
+XX
 Uq
 En
 aT
-VJ
-SP
+sn
+gD
 GK
 "}
 (17,1,1) = {"
@@ -2923,11 +2787,11 @@ qH
 Bp
 qp
 uZ
-lK
-kg
+TW
+Mx
 or
-Pv
-Fq
+XX
+TW
 sU
 jT
 Zn
@@ -2936,23 +2800,23 @@ Zd
 GK
 "}
 (18,1,1) = {"
-Aa
-To
-Im
+XX
+XX
+XX
 uB
-Pv
-CW
-SP
+XX
+TW
+sn
 aa
 Sc
 tv
-kc
+TW
 UT
 vv
 Fz
 nP
-VJ
-Bu
+XX
+TW
 "}
 (19,1,1) = {"
 xm
@@ -2960,37 +2824,37 @@ xd
 gP
 xG
 Dt
-kc
+oL
 hl
 Sm
 Jr
 lJ
-lK
-To
-mS
+TW
+TW
+sn
 tu
 vM
 YK
-kc
+TW
 "}
 (20,1,1) = {"
-Pv
-To
-Im
+XX
+yI
+XX
 xS
 Oq
-kc
+oL
 ZO
 Lh
 re
 ZU
-kc
+oL
 hb
-Cf
+XX
 LP
 QN
 vI
-kc
+TW
 "}
 (21,1,1) = {"
 zF
@@ -2998,37 +2862,37 @@ FI
 Nw
 Ha
 Nx
-kc
+oL
 zQ
 UZ
 aN
 ci
-kc
+oL
 aO
 mU
 Od
 wG
 mM
-kc
+TW
 "}
 (22,1,1) = {"
-Pv
-To
-Im
+XX
+yI
+XX
 ms
-Pv
-Fq
+XX
+TW
 nd
 yU
 bQ
 Gc
-kc
+oL
 zO
-zB
+XX
 sQ
-Pv
-To
-SP
+XX
+yI
+gD
 "}
 (23,1,1) = {"
 IA
@@ -3036,37 +2900,37 @@ MY
 es
 Og
 yK
-VJ
-Is
-Im
+sn
+TW
+XX
 ut
-Pv
-dn
-To
-SP
+XX
+CI
+yI
+sn
 zS
 PO
 sE
 fM
 "}
 (24,1,1) = {"
-uk
-To
-Im
+XX
+yI
+gD
 rt
 Sz
 gT
-Cf
+XX
 Kv
 JX
 dA
-Cf
+XX
 CD
 kM
 DO
-Pv
-To
-ae
+XX
+TW
+XX
 "}
 (25,1,1) = {"
 GK
@@ -3089,39 +2953,39 @@ vF
 "}
 (26,1,1) = {"
 GK
-uk
-mS
+TW
+sn
 xk
 VD
 vG
-gF
-Im
+gD
+XX
 Oh
-Pv
-mS
+XX
+gD
 Ji
 WD
 eg
-gF
-ae
+sn
+TW
 GK
 "}
 (27,1,1) = {"
 GK
 GK
-xn
-mS
+TW
+sn
 oy
-gF
-SP
+sn
+sn
 lv
 IV
 hn
-VJ
-mS
+sn
+sn
 Oy
-gF
-Fq
+sn
+TW
 GK
 GK
 "}
@@ -3129,17 +2993,17 @@ GK
 GK
 GK
 RU
-yh
-Is
-SP
+TU
+TW
+sn
 OP
 dS
 yE
 iz
 hj
-VJ
-Is
-Ty
+sn
+TW
+TU
 RU
 GK
 GK
@@ -3149,7 +3013,7 @@ GK
 GK
 GK
 GK
-Cf
+XX
 wo
 XK
 Zr
@@ -3157,7 +3021,7 @@ bS
 PB
 sO
 Ne
-Cf
+XX
 GK
 GK
 GK

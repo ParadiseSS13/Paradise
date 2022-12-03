@@ -5,467 +5,278 @@
 "b" = (
 /obj/structure/shuttle/engine/propulsion/burst/left{
 	dir = 8;
-	icon_state = "burst_l";
 	tag = "icon-burst_l (EAST)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "c" = (
 /obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (WEST)";
-	icon_state = "heater";
-	dir = 8
+	dir = 8;
+	tag = "icon-heater (WEST)"
 	},
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (EAST)";
-	icon_state = "rwindow";
-	dir = 4
+	dir = 4;
+	tag = "icon-rwindow (EAST)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"d" = (
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (EAST)";
-	icon_state = "wall3";
-	dir = 4
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"e" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHEAST)";
-	icon_state = "wall3";
-	dir = 5
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "f" = (
 /obj/structure/shuttle/engine/propulsion/burst/right{
 	dir = 8;
-	icon_state = "burst_r";
 	tag = "icon-burst_r (EAST)"
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"g" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHEAST)";
-	icon_state = "wall3";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/powered/shuttle)
 "h" = (
-/turf/simulated/shuttle/wall,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/turf/simulated/wall/shuttle,
+/area/ruin/powered/shuttle)
 "i" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"j" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHWEST)";
-	icon_state = "wall3";
-	dir = 9
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "k" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "l" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "m" = (
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "n" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "o" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "p" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "q" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "r" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"s" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHWEST)";
-	icon_state = "wall3";
-	dir = 10
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "t" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "u" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "v" = (
 /obj/machinery/sleeper{
-	tag = "icon-sleeper (NORTH)";
+	dir = 1;
 	icon_state = "sleeper";
-	dir = 1
+	tag = "icon-sleeper (NORTH)"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "w" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "x" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "y" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "z" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "A" = (
 /obj/structure/grille,
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "B" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"C" = (
-/turf/simulated/shuttle/wall,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (NORTHEAST)";
-	icon_state = "wall3";
-	dir = 5
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "D" = (
 /obj/structure/computerframe,
 /obj/item/circuitboard/teleporter,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "E" = (
 /obj/machinery/teleport/hub,
 /obj/item/hand_tele,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"F" = (
-/turf/space,
-/turf/simulated/shuttle{
-	tag = "icon-wall3 (SOUTHEAST)";
-	icon_state = "wall3";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "G" = (
 /obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "H" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"I" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (SOUTHEAST)";
-	icon_state = "diagonalWall";
-	dir = 6
-	},
-/area/space)
+/area/ruin/powered/shuttle)
 "J" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "K" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"L" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (NORTHWEST)";
-	icon_state = "diagonalWall";
-	dir = 9
-	},
-/area/space)
+/area/ruin/powered/shuttle)
 "M" = (
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "N" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "O" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility/full/multitool,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "P" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"Q" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (SOUTHEAST)";
-	icon_state = "diagonalWall";
-	dir = 6
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
-"R" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-diagonalWall (NORTHWEST)";
-	icon_state = "diagonalWall";
-	dir = 9
-	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "S" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /obj/item/gun/energy/laser/retro,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "T" = (
 /obj/structure/table,
 /obj/item/clothing/head/helmet/space/eva,
 /obj/item/clothing/suit/space/eva,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "U" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plasteel{
-	tag = "icon-dark";
-	icon_state = "dark"
+	icon_state = "dark";
+	tag = "icon-dark"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "V" = (
 /obj/machinery/power/smes/magical{
 	name = "super smes"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "W" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-bluefull";
-	icon_state = "bluefull"
+	icon_state = "bluefull";
+	tag = "icon-bluefull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "X" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "Y" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 "Z" = (
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteyellowfull";
-	icon_state = "whiteyellowfull"
+	icon_state = "whiteyellowfull";
+	tag = "icon-whiteyellowfull"
 	},
-/area/ruin/powered{
-	name = "Shuttle"
-	})
+/area/ruin/powered/shuttle)
 
 (1,1,1) = {"
 a
@@ -501,13 +312,13 @@ a
 a
 a
 a
-d
-d
+h
+h
 a
 a
 a
-d
-d
+h
+h
 a
 a
 a
@@ -515,37 +326,37 @@ a
 (4,1,1) = {"
 b
 f
-j
-d
-d
-s
+h
+h
+h
+h
 a
-j
-d
-d
-s
+h
+h
+h
+h
 b
 f
 "}
 (5,1,1) = {"
 c
 c
-d
-d
-g
+h
+h
+h
 h
 y
 h
-C
-d
-d
+h
+h
+h
 c
 c
 "}
 (6,1,1) = {"
-d
-d
-g
+h
+h
+h
 h
 h
 z
@@ -553,13 +364,13 @@ m
 t
 h
 h
-C
-d
-d
+h
+h
+h
 "}
 (7,1,1) = {"
-d
-d
+h
+h
 h
 i
 m
@@ -569,26 +380,26 @@ m
 m
 o
 h
-d
-d
+h
+h
 "}
 (8,1,1) = {"
-d
-g
-h
-n
-h
-h
 h
 h
 h
 n
 h
-C
-d
+h
+h
+h
+h
+n
+h
+h
+h
 "}
 (9,1,1) = {"
-d
+h
 h
 T
 k
@@ -600,10 +411,10 @@ k
 k
 N
 h
-d
+h
 "}
 (10,1,1) = {"
-e
+h
 h
 T
 k
@@ -615,7 +426,7 @@ k
 k
 N
 h
-F
+h
 "}
 (11,1,1) = {"
 a
@@ -634,7 +445,7 @@ a
 "}
 (12,1,1) = {"
 a
-I
+h
 h
 J
 k
@@ -644,7 +455,7 @@ h
 k
 K
 h
-L
+h
 a
 "}
 (13,1,1) = {"
@@ -710,7 +521,7 @@ a
 (17,1,1) = {"
 a
 a
-I
+h
 h
 k
 k
@@ -718,7 +529,7 @@ k
 k
 k
 h
-L
+h
 a
 a
 "}
@@ -861,13 +672,13 @@ a
 a
 a
 a
-Q
+h
 h
 x
 x
 x
 h
-R
+h
 a
 a
 a

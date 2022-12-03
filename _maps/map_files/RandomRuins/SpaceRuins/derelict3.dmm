@@ -14,7 +14,6 @@
 /area/space/nearstation)
 "e" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
 

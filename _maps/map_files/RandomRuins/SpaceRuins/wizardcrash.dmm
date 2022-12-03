@@ -65,7 +65,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "al" = (
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
@@ -493,7 +493,7 @@
 /area/ruin/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
+/turf/simulated/floor/shuttle/plating,
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
@@ -535,7 +535,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bO" = (
-/obj/structure/shuttle/window,
+/obj/structure/window/full/shuttle,
 /obj/structure/grille,
 /turf/space,
 /area/ruin/unpowered)

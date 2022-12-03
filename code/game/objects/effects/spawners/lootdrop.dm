@@ -175,9 +175,9 @@
 	lootdoubles = 1
 	color = "#00FFFF"
 
-
+//У нас не используется
 /obj/effect/spawner/lootdrop/trade_sol/civ
-	name = "1. civilian gear"
+	name = "1. Civilian gear"
 	loot = list(
 				// General utility gear
 				/obj/item/storage/belt/utility/full/multitool = 150,
@@ -195,8 +195,36 @@
 				/obj/item/grenade/clusterbuster/smoke = 50
 				)
 
+
+/obj/effect/spawner/lootdrop/trade_sol/serv
+	name = "1. Service gear"
+	lootdoubles = 2
+	lootcount = 8
+	loot = list(
+		/obj/item/storage/box/beakers/bluespace = 50,
+		/obj/item/storage/box/monkeycubes = 100,
+		/obj/item/storage/box/stockparts/deluxe = 50,
+		/obj/item/storage/box/rndboards = 50,
+		/obj/item/reagent_containers/spray/cleaner = 50,
+		/obj/item/soap = 50,
+		/obj/item/clothing/under/syndicate/combat = 50,
+		/obj/item/soap/syndie = 50,
+		/obj/item/lighter/zippo/gonzofist = 50,
+		/obj/item/clothing/under/psyjump = 50,
+		/obj/item/immortality_talisman = 50,
+		/obj/item/t_scanner/adv_mining_scanner = 50,
+		/obj/item/storage/box/bartender_rare_ingredients_kit = 50,
+		/obj/item/storage/box/chef_rare_ingredients_kit = 50,
+		/obj/item/grenade/clusterbuster/cleaner = 50,
+		/obj/item/mining_voucher = 50,
+		/obj/item/gun/energy/kinetic_accelerator/experimental = 50,
+		/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs = 50,
+		/obj/item/seeds/random/labelled = 150,
+		/obj/item/grenade/clusterbuster/honk = 50,
+		/obj/item/bikehorn/golden = 50)
+
 /obj/effect/spawner/lootdrop/trade_sol/minerals
-	name = "2. minerals"
+	name = "2. Minerals"
 	lootdoubles = 1
 	loot = list(
 				// Common stuff you get from mining which isn't already present on the station
@@ -235,115 +263,147 @@
 
 
 /obj/effect/spawner/lootdrop/trade_sol/donksoft
-	name = "3. donksoft gear"
+	name = "3. Donksoft gear"
+	lootdoubles = 2
+	lootcount = 8
 	loot = list(
-				// Donksoft guns
-				/obj/item/gun/projectile/automatic/c20r/toy = 50,
-				/obj/item/gun/projectile/automatic/l6_saw/toy = 50,
-				/obj/item/gun/projectile/automatic/toy/pistol = 100,
-				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
-				/obj/item/gun/projectile/shotgun/toy = 50,
-				/obj/item/gun/projectile/shotgun/toy/crossbow = 50,
-				/obj/item/gun/projectile/shotgun/toy/tommygun = 50,
-				/obj/item/gun/projectile/automatic/sniper_rifle/toy = 50
-				)
+		/obj/item/gun/projectile/automatic/c20r/toy = 150,
+		/obj/item/gun/projectile/automatic/l6_saw/toy = 100,
+		/obj/item/gun/projectile/automatic/toy/pistol = 200,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 100,
+		/obj/item/gun/projectile/shotgun/toy = 100,
+		/obj/item/gun/projectile/shotgun/toy/crossbow = 100,
+		/obj/item/gun/projectile/shotgun/toy/tommygun = 100,
+		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 100,
+		/obj/item/ammo_box/foambox/sniper = 50,
+		/obj/item/ammo_box/foambox = 150,
+		/obj/item/ammo_box/foambox/riot = 100,
+		/obj/item/ammo_box/foambox/sniper/riot = 50,
+		/obj/item/twohanded/toy/chainsaw = 50,
+		/obj/item/twohanded/dualsaber/toy = 50)
 
 
 /obj/effect/spawner/lootdrop/trade_sol/sci
-	name = "4. science gear"
+	name = "4. Science gear"
+	lootdoubles = 2
+	lootcount = 8
 	loot = list(
-				// Robotics
-				/obj/item/mmi/robotic_brain = 50, // Low-value, but we want to encourage getting more players back in the round.
-				/obj/item/assembly/signaler/anomaly = 50, // anomaly core
-				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
-				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
-				/obj/item/autoimplanter/old = 50,
-
-				// Research / Experimentor
-				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
-
-				// Xenobio
-				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
-				/obj/item/slimepotion/transference = 50
-				)
+		/obj/item/mmi/robotic_brain = 50,
+		/obj/item/assembly/signaler/anomaly = 50,
+		/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 50,
+		/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 50,
+		/obj/item/autoimplanter = 50,
+		/obj/item/paper/researchnotes = 100,
+		/obj/item/slimepotion/fireproof = 50,
+		/obj/item/slimepotion/speed = 50,
+		/obj/item/slimepotion/enhancer = 50,
+		/obj/item/slimepotion/slime/mutator = 50,
+		/obj/item/slimepotion/transference = 50,
+		/obj/item/slimepotion/slime/steroid = 50,
+		/obj/item/slimepotion/slime/stabilizer = 50,
+		/obj/item/slimepotion/slime/docility = 50,
+		/obj/item/slime_extract/bluespace = 50,
+		/obj/item/slime_extract/adamantine = 50,
+		/obj/item/slime_extract/rainbow = 50,
+		/obj/item/slime_extract/sepia = 50,
+		/obj/item/assembly/signaler/anomaly/vortex = 50,
+		/obj/item/assembly/signaler/anomaly/bluespace = 50,
+		/obj/item/assembly/signaler/anomaly/flux = 50,
+		/obj/item/assembly/signaler/anomaly/grav = 50,
+		/obj/item/assembly/signaler/anomaly/pyro = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/med
-	name = "5. medical gear"
+	name = "5. Medical gear"
+	lootdoubles = 2
+	lootcount = 8
 	loot = list(
-				// Medchem
-				/obj/item/storage/pill_bottle/random_meds/labelled = 100, // random medical and other chems
-				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
-				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
-
-				// Surgery
-				/obj/item/scalpel/laser/manager = 100,
-				/obj/item/organ/internal/heart/gland/ventcrawling = 50,
-				/obj/item/organ/internal/heart/gland/heals = 50,
-
-				// Genetics Research (should really be under science, but I was stuck for items to put in medical)
-				/obj/item/dnainjector/regenerate = 50, // regeneration
-				/obj/item/dnainjector/nobreath = 50,
-				/obj/item/dnainjector/telemut = 50,
-
-				// Virology
-				/obj/item/reagent_containers/glass/bottle/regeneration = 50,
-				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50
-				)
+		/obj/item/storage/fancy/cigarettes/cigpack_med = 50,
+		/obj/item/stack/nanopaste = 50,
+		/obj/item/storage/pill_bottle/random_meds/labelled = 50,
+		/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
+		/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+		/obj/item/scalpel/laser/manager = 50,
+		/obj/item/organ/internal/heart/gland/ventcrawling = 50,
+		/obj/item/organ/internal/heart/gland/heals = 50,
+		/obj/item/dnainjector/regenerate = 50,
+		/obj/item/dnainjector/nobreath = 50,
+		/obj/item/dnainjector/telemut = 50,
+		/obj/item/reagent_containers/glass/bottle/regeneration = 50,
+		/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50,
+		/obj/item/autopsy_scanner = 50,
+		/obj/item/organ/internal/cyberimp/eyes/hud/medical = 50,
+		/obj/item/gun/medbeam = 50,
+		/obj/item/reagent_containers/applicator/dual/syndi = 50,
+		/obj/item/reagent_containers/glass/bottle/retrovirus = 50,
+		/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+		/obj/item/reagent_containers/glass/bottle/tuberculosiscure = 50,
+		/obj/item/reagent_containers/glass/bottle/gbs = 50,
+		/obj/item/bodyanalyzer/advanced = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/sec
-	name = "6. security gear"
+	name = "6. Security gear"
+	lootdoubles = 2
+	lootcount = 10
 	loot = list(
-				// Melee
-				/obj/item/kitchen/knife/combat = 50,
-				/obj/item/fluff/desolate_baton_kit = 50, // permission granted by Desolate to use their fluff kit in this loot table
-
-				// Utility
-				/obj/item/storage/belt/military/assault = 50,
-				/obj/item/clothing/mask/gas/sechailer/swat = 50,
-				/obj/item/clothing/glasses/thermal = 50, // see heat-source mobs through walls. Less powerful than already-available xray.
-
-				// Ranged weapons
-				/obj/item/storage/box/enforcer_rubber = 50,
-				/obj/item/storage/box/enforcer_lethal = 50,
-				/obj/item/gun/projectile/shotgun/automatic/combat = 50, // combat shotgun, between riot and bulldog in robustness. Not illegal, can be obtained from cargo.
-				/obj/item/gun/projectile/shotgun/automatic/dual_tube = 50, // cycler shotgun, not normally available to crew
-
-				// Cluster grenades
-				/obj/item/grenade/clusterbuster = 50, // cluster flashbang
-				/obj/item/grenade/clusterbuster/teargas = 50
-				)
+		/obj/item/clothing/gloves/combat = 50,
+		/obj/item/grenade/clusterbuster/smoke = 50,
+		/obj/item/clothing/suit/armor/laserproof = 50,
+		/obj/item/clothing/suit/armor/vest/combat = 150,
+		/obj/item/kitchen/knife/combat = 150,
+		/obj/item/fluff/desolate_baton_kit = 50,
+		/obj/item/storage/belt/military/assault = 150,
+		/obj/item/clothing/mask/gas/sechailer/swat = 100,
+		/obj/item/clothing/suit/space/swat = 100,
+		/obj/item/clothing/glasses/thermal = 50,
+		/obj/item/storage/box/enforcer_rubber = 100,
+		/obj/item/storage/box/enforcer_lethal = 50,
+		/obj/item/melee/classic_baton/telescopic = 100,
+		/obj/item/gun/projectile/shotgun/automatic/combat = 150,
+		/obj/item/gun/projectile/shotgun/automatic/dual_tube = 100,
+		/obj/item/storage/box/buck = 150,
+		/obj/item/ammo_box/shotgun/buck = 100,
+		/obj/item/grenade/clusterbuster = 100,
+		/obj/item/grenade/clusterbuster/teargas = 50,
+		/obj/item/grenade/clusterbuster/n2o = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
-	name = "7. eng gear"
+	name = "7. Eng gear"
+	lootdoubles = 2
+	lootcount = 8
 	loot = list(
-				/obj/item/storage/belt/utility/chief/full = 25,
-				/obj/item/rcd/combat = 25,
-				/obj/item/rpd/bluespace = 25,
-				/obj/item/tank/internals/emergency_oxygen/double = 25,
-				/obj/item/slimepotion/speed = 25,
-				/obj/item/storage/backpack/holding = 25,
-				/obj/item/clothing/glasses/meson/night = 25, // NV mesons
-				/obj/item/clothing/glasses/material = 25, // shows objects, but not mobs, through walls
-				/obj/item/grenade/clusterbuster/metalfoam = 25 // cluster metal foam grenade
-				)
+	/obj/item/pickaxe/drill/jackhammer = 50,
+	/obj/item/storage/belt/utility/chief/full = 50,
+	/obj/item/clothing/glasses/welding = 50,
+	/obj/item/storage/belt/utility/full/multitool = 50,
+	/obj/item/clothing/shoes/magboots = 50,
+	/obj/item/rcd/combat = 50,
+	/obj/item/rpd/bluespace = 50,
+	/obj/item/storage/backpack/holding = 50,
+	/obj/item/clothing/glasses/meson/night = 50,
+	/obj/item/clothing/glasses/material = 50,
+	/obj/item/grenade/clusterbuster/metalfoam = 50,
+	/obj/item/crowbar/power = 50,
+	/obj/item/screwdriver/power = 50,
+	/obj/item/t_scanner/extended_range = 50,
+	/obj/item/borg/upgrade/abductor_engi = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem
-	name = "8. largeitem"
+	name = "8. Largeitem"
 	lootcount = 1
 	loot = list(
-				/obj/machinery/disco = 20,
-				/obj/mecha/combat/durand/old = 20
-				)
+	/obj/machinery/floodlight = 50,
+	/obj/machinery/disco = 50,
+	/obj/mecha/combat/durand/old = 50,
+	/obj/machinery/snow_machine = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle
-	name = "9. vehicle"
+	name = "9. Vehicle"
 	loot = list(
-				/obj/vehicle/motorcycle = 50,
-				/obj/vehicle/snowmobile = 50,
-				/obj/vehicle/snowmobile/blue = 50,
-				/obj/vehicle/space/speedbike/red = 50,
-				/obj/vehicle/space/speedbike = 50
-				)
+		/obj/vehicle/motorcycle = 50,
+		/obj/vehicle/snowmobile/key = 50,
+		/obj/vehicle/snowmobile/blue/key = 50,
+		/obj/vehicle/space/speedbike/red = 50,
+		/obj/vehicle/space/speedbike = 50)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
 	. = ..()
@@ -354,32 +414,6 @@
 	if(V.key_type)
 		new V.key_type(get_turf(src))
 	qdel(src)
-
-
-/obj/effect/spawner/lootdrop/trade_sol/serv
-	name = "10. service gear"
-	loot = list(
-				// Mining
-				/obj/item/mining_voucher = 100,
-				/obj/item/pickaxe/drill/jackhammer = 100,
-				/obj/item/gun/energy/kinetic_accelerator/experimental = 100,
-				/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs = 100,
-
-				// Botanist
-				/obj/item/seeds/random/labelled = 100,
-
-				// Clown
-				/obj/item/grenade/clusterbuster/honk = 100,
-				/obj/item/bikehorn/golden = 100,
-
-				// Bartender
-				/obj/item/storage/box/bartender_rare_ingredients_kit = 100,
-
-				// Chef
-				/obj/item/storage/box/chef_rare_ingredients_kit = 100
-				// It would be nice to also have items for other service jobs: Mime, Librarian, Chaplain, etc
-				)
-
 
 
 /obj/effect/spawner/lootdrop/three_course_meal

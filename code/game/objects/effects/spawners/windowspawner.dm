@@ -30,7 +30,7 @@
 	if(useGrille)
 		new /obj/structure/grille(get_turf(src))
 
-	src.air_update_turf(1) //atmos can pass otherwise
+	air_update_turf(1) //atmos can pass otherwise
 	// Give some time for nearby window spawners to initialize
 	spawn(10)
 		qdel(src)
@@ -48,7 +48,22 @@
 	icon_state = "pwindow_spawner"
 	windowtospawn = /obj/structure/window/plasmareinforced
 
+// Хоть я и сделала ниже рабочие спавнеры окон шаттлов, но по неясной мне причине,
+// атмос пропускает воздух через заспавненные им окна...
+// Поэтому воздержитесь от их использования, либо найдите и почините баг это вызывающий :)
 /obj/effect/spawner/window/shuttle
 	name = "shuttle window spawner"
-	icon_state = "swindow_spawner"
-	windowtospawn = /obj/structure/window/shuttle
+	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
+	icon_state = "shuttle_window"
+	useFull = TRUE
+	windowtospawn = /obj/structure/window/full/shuttle
+
+/obj/effect/spawner/window/shuttle/gray
+	icon = 'icons/obj/smooth_structures/shuttle_window_gray.dmi'
+	icon_state = "shuttle_window_gray"
+	windowtospawn = /obj/structure/window/full/shuttle/gray
+
+/obj/effect/spawner/window/shuttle/ninja
+	icon = 'icons/obj/smooth_structures/shuttle_window_ninja.dmi'
+	icon_state = "shuttle_window_ninja"
+	windowtospawn = /obj/structure/window/full/shuttle/ninja
