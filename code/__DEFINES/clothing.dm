@@ -99,3 +99,9 @@
 #define MUZZLE_MUTE_NONE 0 // Does not mute you.
 #define MUZZLE_MUTE_MUFFLE 1 // Muffles everything you say "MHHPHHMMM!!!
 #define MUZZLE_MUTE_ALL 2 // Completely mutes you.
+
+//MATERIAL CLASS FOR RACE EAT
+#define MATERIAL_CLASS_NONE     0
+#define MATERIAL_CLASS_CLOTH    1
+#define MATERIAL_CLASS_TECH		2
+#define MATERIAL_CLASS_SOAP		3

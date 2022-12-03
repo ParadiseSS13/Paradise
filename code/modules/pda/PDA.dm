@@ -307,6 +307,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		scanmode.scan_mob(C, user)
 
 /obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
+	if(try_item_eat(A, user))
+		return FALSE
+
 	if(proximity && scanmode)
 		scanmode.scan_atom(A, user)
 

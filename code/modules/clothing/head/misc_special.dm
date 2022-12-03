@@ -194,7 +194,6 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',

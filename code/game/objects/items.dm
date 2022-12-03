@@ -119,6 +119,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
 	var/list/enchants = null // List(datum)
 
+	//eat_items.dm
+	var/material_type = MATERIAL_CLASS_NONE
+	var/max_bites = 1 			//The maximum amount of bites before item is depleted
+	var/current_bites = 0	//How many bites did
+	var/integrity_bite = 10		// Integrity used
+	var/nutritional_value = 20 	// How much nutrition add
+	var/is_only_grab_intent = FALSE	//Grab if help_intent was used
+
 
 /obj/item/New()
 	..()
@@ -203,7 +211,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "gigantic"
 
-	. = ..(user, "", "It is a [size] item.")
+	var/material_string = item_string_material(user)
+
+	. = ..(user, "", "It is a [size] item. [material_string]")
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
@@ -253,6 +263,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 /obj/item/afterattack(atom/target, mob/user, proximity, params)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
 	..()
+
+	if(!proximity)
+		return
+	try_item_eat(target, user)
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0

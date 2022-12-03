@@ -36,6 +36,7 @@
 	var/dyeable = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
+
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
 		return FALSE
@@ -564,6 +565,8 @@ BLIND     // can't see anything
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
+	max_integrity = 400
+	integrity_failure = 160
 
 	sprite_sheets = list(
 		"Monkey" = 'icons/mob/species/monkey/suit.dmi',

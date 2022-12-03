@@ -71,7 +71,7 @@
 		"отрывает себе крылья!",
 		"заддерживает своё дыхание!"
 	)
-	toxic_food = MEAT
+	toxic_food = MEAT | JUNKFOOD
 	disliked_food = FRIED | RAW | EGG
 	liked_food = SUGAR | GROSS | FRUIT | VEGETABLES
 
