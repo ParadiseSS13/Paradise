@@ -10,7 +10,8 @@
 							"<span class='userdanger'>[user] kicks you back!</span>")
 		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
-		target.throw_at(throw_target, 1, 14, user)
+		RegisterSignal(target, COMSIG_MOVABLE_IMPACT, .proc/bump_impact)
+		target.throw_at(throw_target, 1, 14, user, callback = CALLBACK(src, .proc/unregister_bump_impact, target))
 		target.apply_damage(10, BRUTE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
@@ -22,3 +23,11 @@
 		target.adjustBrainLoss(5)
 		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
+
+/datum/martial_combo/cqc/kick/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
+	if(target && !iscarbon(hit_atom) && hit_atom.density)
+		target.Weaken(1)
+		target.take_organ_damage(10)
+
+/datum/martial_combo/cqc/kick/proc/unregister_bump_impact(mob/living/target)
+	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
