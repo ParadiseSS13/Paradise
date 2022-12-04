@@ -246,7 +246,7 @@
 	desc = "A bundle of severely yellowed and highly pretentious looking documents. Unfortunately they appear to be written in cyrillic and encrypted with a cypher.";
 	icon = 'icons/obj/bureaucracy.dmi';
 	icon_state = "docs_generic";
-	name = "USSP//NOFORN//TOP SECRET"
+	name = "USSP / NOFORN / TOP SECRET"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/bridge)
