@@ -200,7 +200,17 @@ if $grep '^\t+ [^ *]' $code_files; then
 	echo -e "${RED}ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation.${NC}"
 	st=1
 fi;
-
+part "trailing newlines"
+nl='
+'
+nl=$'\n'
+while read f; do
+	t=$(tail -c2 "$f"; printf x); r1="${nl}$"; r2="${nl}${r1}"
+	if [[ ! ${t%x} =~ $r1 ]]; then
+		echo "${RED}ERROR: File $f is missing a trailing newline"
+		st=1
+	fi;
+done < <(find . -type f -name '*.dm')
 
 
 section "common mistakes"
@@ -218,16 +228,5 @@ if $grep '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' $code_files; then
 fi;
 
 
-
-nl='
-'
-nl=$'\n'
-while read f; do
-	t=$(tail -c2 "$f"; printf x); r1="${nl}$"; r2="${nl}${r1}"
-	if [[ ! ${t%x} =~ $r1 ]]; then
-		echo "file $f is missing a trailing newline"
-		st=1
-	fi;
-done < <(find . -type f -name '*.dm')
 
 exit $st
