@@ -1841,6 +1841,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dV" = (
@@ -2271,7 +2272,7 @@
 	},
 /area/mine/production)
 "eI" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "eJ" = (
@@ -2574,10 +2575,6 @@
 	dir = 1;
 	icon_state = "darkfull"
 	},
-/area/mine/living_quarters)
-"fi" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
-/turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "fj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5310,6 +5307,10 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
+"DA" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating,
+/area/mine/production)
 "DT" = (
 /obj/machinery/computer/shuttle/labor/one_way,
 /obj/effect/decal/cleanable/cobweb,
@@ -5440,7 +5441,7 @@
 /area/lavaland/surface/outdoors/explored)
 "GO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
 "Hc" = (
@@ -5552,7 +5553,7 @@
 	},
 /area/mine/production)
 "JC" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "JD" = (
@@ -20416,7 +20417,7 @@ gd
 gp
 eU
 EG
-fi
+JC
 cV
 mp
 AE
@@ -23489,7 +23490,7 @@ aN
 eO
 fl
 Qq
-eI
+DA
 bq
 bq
 AE
