@@ -67,7 +67,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair()
-	
+
 	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
