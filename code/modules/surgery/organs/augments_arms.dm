@@ -486,7 +486,7 @@
 		// Hit by a projectile
 		if(. > 1) // a perfect parry
 			set_light(3)
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.5 SECONDS)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
 
 			if(istype(hitby, /obj/item/projectile))
 				var/obj/item/projectile/P = hitby
@@ -516,7 +516,7 @@
 			return TRUE
 
 /obj/item/v1_arm_shell
-	name = "vortex feedback arm implant frame" //format is they are holding x
+	name = "vortex feedback arm implant frame"
 	desc = "An implant awaiting installation of a vortex anomaly core"
 	icon_state = "v1_arm"
 

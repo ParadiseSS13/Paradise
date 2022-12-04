@@ -31,10 +31,10 @@ emp_act
 			return -1
 
 	//Shields
-	var/bullshit_I_have_to_do = check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage)
-	if(bullshit_I_have_to_do == 1)
+	var/shield_check_result = check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage)
+	if(shield_check_result == 1)
 		return 2
-	else if(bullshit_I_have_to_do == -1)
+	else if(shield_check_result == -1)
 		P.reflect_back(src)
 		return -1
 
