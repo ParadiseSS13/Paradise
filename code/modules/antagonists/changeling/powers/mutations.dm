@@ -118,7 +118,8 @@
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
-	force = 25
+	force = 50
+	armour_penetration_flat = -60
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
