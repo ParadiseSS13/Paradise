@@ -79202,7 +79202,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/economy/vending/cola/free,
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

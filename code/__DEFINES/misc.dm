@@ -378,7 +378,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 44
+#define SQL_VERSION 45
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -446,6 +446,7 @@
 
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
 #define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
+#define MAPTEXT_CENTER(text) {"<span class='maptext' style='text-align: center'>[##text]</span>"}
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15

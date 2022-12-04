@@ -1,19 +1,26 @@
 /turf/simulated/floor/light
 	name = "\improper light floor"
-	light_range = 5
-	icon_state = "light_on"
+	light_range = 0
+	icon_state = "light_off"
 	floor_tile = /obj/item/stack/tile/light
 	broken_states = list("light_off")
 	/// Are we on
-	var/on = TRUE
+	var/on = FALSE
 	/// Are we broken
 	var/light_broken = FALSE
 	/// Can we modify a colour
 	var/can_modify_colour = TRUE
+	/// Are we draining power
+	var/using_power = FALSE
 
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
 	update_icon()
+	var/area/current_area = get_area(src)
+	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
+	if(current_apc)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_update), override = TRUE)
+	toggle_light(TRUE)
 
 /turf/simulated/floor/light/update_icon_state()
 	if(on)
@@ -24,8 +31,18 @@
 		set_light(0)
 
 /turf/simulated/floor/light/BeforeChange()
-	set_light(0)
+	toggle_light(FALSE)
 	..()
+
+/turf/simulated/floor/light/proc/power_update()
+	SIGNAL_HANDLER
+	if(power_check() || !on)
+		return
+	toggle_light(FALSE)
+
+/turf/simulated/floor/light/proc/power_check()
+	var/area/A = get_area(src)
+	return A.powered(LIGHT)
 
 /turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)
@@ -71,10 +88,21 @@
 		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
 
 /turf/simulated/floor/light/proc/toggle_light(light)
+	if(!on && !power_check())
+		visible_message("<span class='danger'>[src] doesn't react, it seems to be out of power.</span>")
+		return
+	var/area/A = get_area(src)
 	// 0 = OFF
 	// 1 = ON
 	on = light
+	if(!on && using_power)
+		A.addStaticPower(-100, STATIC_LIGHT)
+		using_power = FALSE
+	if(on && !using_power)
+		using_power = TRUE
+		A.addStaticPower(100, STATIC_LIGHT)
 	update_icon()
+
 
 /turf/simulated/floor/light/extinguish_light()
 	toggle_light(FALSE)

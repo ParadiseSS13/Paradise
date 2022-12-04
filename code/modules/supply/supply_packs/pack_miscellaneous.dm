@@ -26,7 +26,9 @@
 
 /datum/supply_packs/misc/lasertag
 	name = "Laser Tag Crate"
-	contains = list(/obj/item/gun/energy/laser/tag/red,
+	contains = list(/obj/item/beach_ball/dodgeball,
+					/obj/item/beach_ball/dodgeball,
+					/obj/item/gun/energy/laser/tag/red,
 					/obj/item/gun/energy/laser/tag/red,
 					/obj/item/gun/energy/laser/tag/red,
 					/obj/item/gun/energy/laser/tag/blue,
@@ -404,7 +406,7 @@
 
 /datum/supply_packs/misc/teamcolors		//For team sports like space polo
 	name = "Team Jerseys Crate"
-	// 4 red jerseys, 4 blue jerseys, and 1 beach ball
+	// 4 red jerseys, 4 blue jerseys, and 1 baseball
 	contains = list(/obj/item/clothing/under/color/red/jersey,
 					/obj/item/clothing/under/color/red/jersey,
 					/obj/item/clothing/under/color/red/jersey,
@@ -413,7 +415,7 @@
 					/obj/item/clothing/under/color/blue/jersey,
 					/obj/item/clothing/under/color/blue/jersey,
 					/obj/item/clothing/under/color/blue/jersey,
-					/obj/item/beach_ball)
+					/obj/item/beach_ball/baseball)
 	cost = 300
 	containername = "team jerseys crate"
 

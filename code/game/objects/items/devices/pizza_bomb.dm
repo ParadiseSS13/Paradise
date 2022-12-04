@@ -43,6 +43,9 @@
 		icon_state = "pizzabox_bomb_active"
 		audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
 		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			atom_say("Pizza time!")
+			playsound(src, 'sound/voice/pizza_time.ogg', 50, FALSE) ///Sound effect made by BlackDog 
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [key_name_admin(armer)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has triggered a pizza bomb armed by [key_name(armer)] ([loc.x],[loc.y],[loc.z]).")
 		opener = user
@@ -62,6 +65,11 @@
 	armer = null
 	opener = null
 	qdel(src)
+
+/obj/item/pizza_bomb/cmag_act(mob/user)
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(user, "<span class='notice'>You smear the bananium ooze all over the pizza bomb's internals! You think you smell a bit of tomato sauce.</span>")
+		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 /obj/item/pizza_bomb/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
