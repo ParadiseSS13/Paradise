@@ -194,6 +194,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCE_DOORS 		"force_doors"
 #define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
 #define TRAIT_REPEATSURGERY		"master_surgeon"  // Lets you automatically repeat surgeries regardless of tool
+#define TRAIT_EDIBLE_BUG		"edible_bug" // Lets lizards and other animals that can eat bugs eat ya
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
 
 //***** ITEM TRAITS *****//
@@ -243,6 +244,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRANSFORMING_TRAIT "transforming"
 #define BUCKLING_TRAIT "buckled"
 #define TRAIT_WAS_BATONNED "batonged"
+#define CLOWN_EMAG "clown_emag"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

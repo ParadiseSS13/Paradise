@@ -44,6 +44,8 @@
 
 	var/datum/job/assigned_job
 	var/list/datum/objective/objectives = list()
+	///a list of objectives that a player with this job could complete for space credit rewards
+	var/list/job_objectives = list()
 	var/list/datum/objective/special_verbs = list()
 	var/list/targets = list()
 
@@ -76,7 +78,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	QDEL_LIST(antag_datums)
+	remove_all_antag_datums()
 	current = null
 	return ..()
 
@@ -173,7 +175,7 @@
 
 		var/obj_count = 1
 		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
+			output += "<LI><B>Task #[obj_count]</B>: [objective.description]</LI>"
 			obj_count++
 		output += "</UL>"
 	if(window)
@@ -704,12 +706,6 @@
 					return
 
 				switch(new_obj_type)
-					if("download")
-						new_objective = new /datum/objective/download
-						new_objective.explanation_text = "Download [target_number] research levels."
-					if("capture")
-						new_objective = new /datum/objective/capture
-						new_objective.explanation_text = "Accumulate [target_number] capture points."
 					if("absorb")
 						new_objective = new /datum/objective/absorb
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
@@ -1541,14 +1537,20 @@
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
 	var/datum/antagonist/A = has_antag_datum(datum_type)
-	LAZYREMOVE(antag_datums, A)
 	qdel(A)
 
 /**
  * Removes all antag datums from the src mind.
+ *
+ * Use this over doing `QDEL_LIST(antag_datums)`.
  */
-/datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
-	QDEL_LIST(antag_datums)
+/datum/mind/proc/remove_all_antag_datums()
+	// This is not `QDEL_LIST(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
+	// Then `QDEL_LIST` would runtime because it would be doing `null.Cut()`.
+	for(var/datum/antagonist/A as anything in antag_datums)
+		qdel(A)
+	antag_datums?.Cut()
+	antag_datums = null
 
 /// This proc sets the hijack speed for a mob. If greater than zero, they can hijack. Outputs in seconds.
 /datum/mind/proc/get_hijack_speed()

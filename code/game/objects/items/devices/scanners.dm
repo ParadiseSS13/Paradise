@@ -431,7 +431,7 @@ REAGENT SCANNER
 			else
 				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
 		cooldown = TRUE
-		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
+		addtimer(CALLBACK(src, PROC_REF(ping)), cooldown_time)
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
@@ -463,7 +463,7 @@ REAGENT SCANNER
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	materials = list(MAT_METAL=300, MAT_GLASS=200)
 	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = FALSE
 	var/datatoprint = ""
