@@ -25,9 +25,9 @@
 	/// Number of victims the changeling has absorbed.
 	var/absorbed_count = 1
 	/// The current amount of chemicals the changeling has stored.
-	var/chem_charges = 20
+	var/chem_charges = 75
 	/// The amount of chemicals that recharges per `Life()` call.
-	var/chem_recharge_rate = 1
+	var/chem_recharge_rate = 3
 	/// Amount of chemical recharge slowdown, calculated as `chem_recharge_rate - chem_recharge_slowdown`
 	var/chem_recharge_slowdown = 0
 	/// The total amount of chemicals able to be stored.
