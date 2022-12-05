@@ -886,7 +886,7 @@
 				var/obj/effect/anomaly/flux/A = new(L, 300, FALSE)
 				A.explosive = FALSE
 			if(GRAVITATIONAL_ANOMALY)
-				new /obj/effect/anomaly/grav(L, 250, FALSE)
+				new /obj/effect/anomaly/grav(L, 250, FALSE, FALSE)
 			if(PYRO_ANOMALY)
 				new /obj/effect/anomaly/pyro(L, 200, FALSE)
 

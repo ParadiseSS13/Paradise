@@ -363,13 +363,15 @@ Difficulty: Hard
 				var/obj/effect/anomaly/bluespace/A = new(spot, 150, FALSE)
 				A.mass_teleporting = FALSE
 			if(GRAV)
-				new /obj/effect/anomaly/grav(spot, 150, FALSE)
+				var/obj/effect/anomaly/grav/A = new(spot, 150, FALSE, FALSE)
+				A.knockdown = TRUE
 			if(PYRO)
 				var/obj/effect/anomaly/pyro/A = new(spot, 150, FALSE)
 				A.produces_slime = FALSE
 			if(FLUX)
 				var/obj/effect/anomaly/flux/A = new(spot, 150, FALSE)
 				A.explosive = FALSE
+				A.knockdown = TRUE
 			if(VORTEX)
 				new /obj/effect/anomaly/bhole(spot, 150, FALSE)
 		anomalies++
@@ -516,6 +518,9 @@ Difficulty: Hard
 	beam.forceMove(get_turf(src))
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/mob_negates_gravity() //No more being thrown around like a spastic child by grav anomalies
+	return TRUE
+
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
 	desc = "Legs with a mounted turret, for shooting and crushing small miners like you."
@@ -526,6 +531,7 @@ Difficulty: Hard
 	faction = list("mining", "boss") // No attacking your leg
 	weather_immunities = list("lava","ash")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
 	flying = TRUE
 	check_friendly_fire = 1
 	ranged = TRUE
@@ -548,9 +554,9 @@ Difficulty: Hard
 	stat_attack = DEAD
 	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
-	var/fake_max_hp = 400
-	var/fake_hp = 400
-	var/fake_hp_regen = 10
+	var/fake_max_hp = 300
+	var/fake_hp = 300
+	var/fake_hp_regen = 2
 	var/transfer_rate = 0.75
 	var/who_am_i = null
 	var/datum/beam/leg_part
@@ -608,7 +614,7 @@ Difficulty: Hard
 	if(regen)
 		fake_hp = min(fake_hp + fake_hp_regen, fake_max_hp)
 	transfer_rate = 0.75 * (fake_hp/fake_max_hp)
-	if(fake_hp >= 300 && !ranged)
+	if(fake_hp >= 250 && !ranged)
 		ranged = TRUE
 		visible_message("<span class='danger'>[src]'s turret pops out of it!</span>")
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
@@ -664,6 +670,9 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
+	return TRUE
 
 /obj/item/projectile/ancient_robot_bullet
 	damage = 8
