@@ -13365,7 +13365,7 @@
 	dwidth = 7;
 	height = 5;
 	id = "sit_arrivals";
-	name = "South-East Solars";
+	name = "North-West Solars";
 	width = 11
 	},
 /turf/space{
@@ -23556,7 +23556,7 @@
 	dwidth = 3;
 	height = 5;
 	id = "sst_home";
-	name = "Near Kerberos Arrivals";
+	name = "Near Cyberiad Arrivals";
 	width = 11
 	},
 /turf/space{
@@ -38831,10 +38831,15 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bHh" = (
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "south station intercom (General)";
+	pixel_y = -28
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/conveyor/west{
+	id = "QMLoad"
+	},
+/turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "bHi" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -42377,10 +42382,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bNT" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
+/obj/machinery/status_display/supply_display{
+	pixel_y = -32
 	},
+/obj/machinery/conveyor/west{
+	id = "QMLoad"
+	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "bNU" = (
@@ -43412,7 +43420,7 @@
 	dwidth = 7;
 	height = 18;
 	id = "trade_dock";
-	name = "port bay 5 at Kerberos";
+	name = "port bay 5 at Cyberiad";
 	width = 15
 	},
 /turf/space{
@@ -44367,7 +44375,7 @@
 /area/quartermaster/storage)
 "bRK" = (
 /obj/effect/turf_decal/loading_area{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -44428,7 +44436,7 @@
 /area/medical/research)
 "bRR" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -45247,19 +45255,19 @@
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop)
 "bTq" = (
+/obj/machinery/conveyor/west{
+	id = "QMLoad"
+	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
-	},
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "bTr" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
+/obj/machinery/conveyor/west{
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -48028,8 +48036,8 @@
 /area/quartermaster/office)
 "bYE" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -49832,12 +49840,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "cbG" = (
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
+	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor";
 	name = "supply dock loading door"
-	},
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -52445,12 +52453,9 @@
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
 "cgA" = (
-/obj/machinery/status_display/supply_display{
-	pixel_y = -32
-	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -54271,18 +54276,6 @@
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/toxins/mixing)
-"ckh" = (
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	name = "south station intercom (General)";
-	pixel_y = -28
-	},
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "ckk" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -70626,11 +70619,11 @@
 /turf/simulated/wall/r_wall,
 /area/atmos/distribution)
 "cOX" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
 	},
-/turf/simulated/floor/plating,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "cOY" = (
 /obj/machinery/alarm{
@@ -77519,7 +77512,7 @@
 /area/maintenance/asmaint2)
 "dcY" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -83921,7 +83914,7 @@
 "dOy" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/loading_area{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -86799,6 +86792,16 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/storage/secure)
+"kCL" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	icon_state = "door_locked";
+	id_tag = "sol_outer";
+	locked = 1;
+	name = "Arrivals External Access"
+	},
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "kDZ" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -92593,6 +92596,12 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
+"ybE" = (
+/obj/machinery/conveyor/west{
+	id = "QMLoad"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "ydr" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/utensil/pfork,
@@ -101065,8 +101074,8 @@ uTI
 uTI
 uTI
 uTI
-uTI
 aSd
+kCL
 aQX
 aqo
 uTI
@@ -101322,8 +101331,8 @@ uTI
 uTI
 uTI
 uTI
-uTI
 aSd
+aOQ
 aOQ
 aSd
 djT
@@ -101579,8 +101588,8 @@ uTI
 uTI
 uTI
 uTI
-uTI
 aSd
+aOQ
 aPI
 aSd
 djT
@@ -111386,7 +111395,7 @@ bHh
 bKz
 bTu
 dcY
-ckh
+cOX
 bxb
 uTI
 uTI
@@ -111639,7 +111648,7 @@ bQc
 bSg
 bKz
 bKz
-bHh
+ybE
 bKz
 bWL
 bKz
@@ -111896,7 +111905,7 @@ bMq
 bOh
 bKz
 bXe
-bHh
+ybE
 bXe
 bWL
 bKz
@@ -112153,7 +112162,7 @@ bQg
 bOh
 bKz
 bXe
-bHh
+ybE
 bXe
 bWL
 bKz
@@ -112410,7 +112419,7 @@ bQg
 bSj
 bKz
 bXe
-bHh
+ybE
 bXe
 bWV
 bKz
@@ -112667,7 +112676,7 @@ bQg
 bOh
 bKz
 bRR
-bHh
+ybE
 bKz
 bWL
 dcY

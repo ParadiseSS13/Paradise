@@ -1480,6 +1480,9 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Central Command"
+	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "aIb" = (
@@ -4006,6 +4009,7 @@
 /area/centcom/jail)
 "bVt" = (
 /obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
 	hackProof = 1;
 	name = "Emergency Response Team";
 	opacity = 1;
@@ -7929,6 +7933,19 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"dVa" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Black Ops";
+	opacity = 1;
+	req_access_txt = "111"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "dVd" = (
 /obj/machinery/clonepod/upgraded,
 /turf/simulated/floor/shuttle{
@@ -8738,6 +8755,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"esq" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/unsimulated/floor{
+	dir = 8;
+	icon_state = "grimy"
+	},
+/area/trader_station/sol)
 "esx" = (
 /obj/machinery/light{
 	dir = 1;
@@ -18388,14 +18414,6 @@
 /area/syndicate_mothership)
 "jEF" = (
 /obj/machinery/door_control{
-	id = "adminshuttleblast";
-	name = "Blast door control";
-	pixel_x = -5;
-	pixel_y = -23;
-	req_access = list(101);
-	wires = 1
-	},
-/obj/machinery/door_control{
 	id = "adminshuttleshutters";
 	name = "Shutter control";
 	pixel_x = 5;
@@ -20122,7 +20140,7 @@
 /area/syndicate_mothership)
 "kzy" = (
 /obj/effect/landmark{
-	name = "prisonwarp"
+	name = "syndieprisonwarp"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -23244,7 +23262,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
-/area/space)
+/area/centcom/specops)
 "lSb" = (
 /obj/structure/table/wood,
 /obj/item/tank/internals/nitrogen,
@@ -26057,7 +26075,7 @@
 /obj/machinery/bsa/full/admin/east,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
-/area/space)
+/area/centcom/specops)
 "mXv" = (
 /obj/structure/rack/holorack,
 /obj/item/storage/firstaid/tactical,
@@ -26157,7 +26175,7 @@
 "mZo" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
-/area/space)
+/area/centcom/specops)
 "mZC" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom,
@@ -30198,6 +30216,8 @@
 /area/syndicate_mothership/control)
 "oOK" = (
 /obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
+	hackProof = 1;
 	name = "Black Ops";
 	opacity = 1;
 	req_access_txt = "111"
@@ -31370,6 +31390,7 @@
 "ptV" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
 	hackProof = 1;
 	name = "Emergency Response Team";
 	opacity = 1;
@@ -35242,6 +35263,17 @@
 /area/syndicate_mothership/control)
 "rjE" = (
 /obj/structure/table/glass,
+/turf/simulated/floor/carpet/black,
+/area/centcom/specops)
+"rjF" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/requests_console{
+	department = "Central Command";
+	departmentType = 1;
+	name = "CC Requests Console";
+	pixel_x = 32;
+	pixel_y = 32
+	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "rjH" = (
@@ -84404,15 +84436,15 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+afa
+afa
+afa
+afa
+afa
+afa
+afa
+afa
+afa
 mVX
 mVX
 mVX
@@ -84661,7 +84693,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+lwf
 mVX
 mVX
 mVX
@@ -84669,7 +84701,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+lwf
 mVX
 mVX
 mVX
@@ -84918,7 +84950,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+lwf
 mVX
 mVX
 mVX
@@ -84926,7 +84958,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+lwf
 mVX
 mVX
 mVX
@@ -85175,7 +85207,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+lwf
 mVX
 mVX
 mVX
@@ -85183,7 +85215,7 @@ jMD
 mVX
 mVX
 mVX
-jMD
+lwf
 mVX
 onc
 onc
@@ -97817,7 +97849,7 @@ hmX
 rgs
 xws
 mcX
-lUK
+rjF
 lUK
 ulJ
 kXz
@@ -104034,7 +104066,7 @@ aIv
 auj
 fCq
 eAN
-bDH
+esq
 bDH
 eAN
 czh
@@ -105026,7 +105058,7 @@ xeR
 mTv
 fAg
 moU
-oOK
+dVa
 tSk
 tSk
 tSk
@@ -106054,7 +106086,7 @@ bVt
 mTv
 fAg
 moU
-oOK
+dVa
 iUt
 iUt
 iUt
@@ -106311,7 +106343,7 @@ ptV
 wRu
 hHu
 cnO
-oOK
+dVa
 eeU
 eeU
 iUt

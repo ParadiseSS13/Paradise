@@ -3084,9 +3084,11 @@
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
 "GQ" = (
+/obj/item/toy/prize/honk,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "bot"
+	icon_state = "bot";
+	name = "Да арена разрушаема. Да это нормально."
 	},
 /area/adminconstruction)
 "GT" = (
