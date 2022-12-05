@@ -504,6 +504,7 @@
 				P.add_overlay("parry")
 				playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
 				owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+				add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
 				return -1
 
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
