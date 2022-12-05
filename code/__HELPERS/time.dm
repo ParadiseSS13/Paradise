@@ -1,3 +1,7 @@
+#define MILLISECONDS *0.01
+
+#define DECISECONDS *1 //the base unit all of these defines are scaled by, because byond uses that as a unit of measurement for some fucking reason
+
 // So you can be all 10 SECONDS
 #define SECONDS *10
 

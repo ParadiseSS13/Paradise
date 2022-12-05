@@ -597,6 +597,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set name = "Examine"
 	set category = "IC"
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, .proc/run_examinate, A))
+
+/mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
@@ -649,6 +652,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = null
 	set src = usr
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, .proc/execute_mode))
+
+///proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called
+/mob/proc/execute_mode()
 	if(ismecha(loc)) return
 
 	if(hand)
