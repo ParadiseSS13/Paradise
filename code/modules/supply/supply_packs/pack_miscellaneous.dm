@@ -26,7 +26,9 @@
 
 /datum/supply_packs/misc/lasertag
 	name = "Laser Tag Crate"
-	contains = list(/obj/item/gun/energy/laser/tag/red,
+	contains = list(/obj/item/beach_ball/dodgeball,
+					/obj/item/beach_ball/dodgeball,
+					/obj/item/gun/energy/laser/tag/red,
 					/obj/item/gun/energy/laser/tag/red,
 					/obj/item/gun/energy/laser/tag/red,
 					/obj/item/gun/energy/laser/tag/blue,
@@ -144,6 +146,9 @@
 					/obj/item/poster/random_official,
 					/obj/item/poster/random_official,
 					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
+					/obj/item/poster/random_official,
 					/obj/item/poster/random_official)
 	cost = 50
 	containername = "corporate posters crate"
@@ -229,7 +234,11 @@
 
 /datum/supply_packs/misc/costume
 	name = "Costume Crate"
-	contains = list(/obj/item/clothing/head/foragecap,
+	contains = list(/obj/item/twohanded/staff,
+					/obj/item/clothing/suit/wizrobe/fake,
+					/obj/item/clothing/shoes/sandal,
+					/obj/item/clothing/head/wizard/fake,
+					/obj/item/clothing/head/foragecap,
 					/obj/item/clothing/suit/officercoat,
 					/obj/item/clothing/under/costume/officeruniform,
 					/obj/item/clothing/suit/lordadmiral,
@@ -244,15 +253,6 @@
 					/obj/item/clothing/head/corgi/en)
 	cost = 400
 	containername = "costume crate"
-
-/datum/supply_packs/misc/wizard
-	name = "Wizard Costume Crate"
-	contains = list(/obj/item/twohanded/staff,
-					/obj/item/clothing/suit/wizrobe/fake,
-					/obj/item/clothing/shoes/sandal,
-					/obj/item/clothing/head/wizard/fake)
-	cost = 400
-	containername = "wizard costume crate"
 
 /datum/supply_packs/misc/mafia
 	name = "Mafia Supply Crate"
@@ -334,7 +334,7 @@
 	contraband = 1
 
 /datum/supply_packs/misc/bigband
-	name = "Big band instrument collection"
+	name = "Big Band Instrument Collection"
 	contains = list(/obj/item/instrument/violin,
 					/obj/item/instrument/guitar,
 					/obj/item/instrument/eguitar,
@@ -347,7 +347,7 @@
 					/obj/item/instrument/xylophone,
 					/obj/structure/piano)
 	cost = 500
-	containername = "Big band musical instruments collection"
+	containername = "big band musical instruments collection"
 
 /datum/supply_packs/misc/randomised/contraband
 	num_contained = 5
@@ -406,7 +406,7 @@
 
 /datum/supply_packs/misc/teamcolors		//For team sports like space polo
 	name = "Team Jerseys Crate"
-	// 4 red jerseys, 4 blue jerseys, and 1 beach ball
+	// 4 red jerseys, 4 blue jerseys, and 1 baseball
 	contains = list(/obj/item/clothing/under/color/red/jersey,
 					/obj/item/clothing/under/color/red/jersey,
 					/obj/item/clothing/under/color/red/jersey,
@@ -415,7 +415,7 @@
 					/obj/item/clothing/under/color/blue/jersey,
 					/obj/item/clothing/under/color/blue/jersey,
 					/obj/item/clothing/under/color/blue/jersey,
-					/obj/item/beach_ball)
+					/obj/item/beach_ball/baseball)
 	cost = 300
 	containername = "team jerseys crate"
 
@@ -533,18 +533,11 @@
 	cost = 100
 	contains = list(
 					/obj/item/bathroom_parts,
-					/obj/item/bathroom_parts/urinal
-					)
-	containername = "lavatory crate"
-
-/datum/supply_packs/misc/hygiene
-	name = "Hygiene Station Crate"
-	cost = 100
-	contains = list(
+					/obj/item/bathroom_parts/urinal,
 					/obj/item/bathroom_parts/sink,
 					/obj/item/mounted/shower
 					)
-	containername = "hygiene station crate"
+	containername = "lavatory crate"
 
 /datum/supply_packs/misc/snow_machine
 	name = "Snow Machine Crate"

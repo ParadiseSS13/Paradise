@@ -88915,10 +88915,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ggp" = (
-/obj/machinery/economy/vending/coffee/free,
 /obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"

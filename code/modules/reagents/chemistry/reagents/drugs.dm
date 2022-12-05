@@ -263,7 +263,7 @@
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE)
-				M.Weaken(1 SECONDS) // change to knockdown after crawling
+				M.KnockDown(1 SECONDS)
 			else
 				update_flags |= M.adjustStaminaLoss(10, FALSE)
 		if(2)
