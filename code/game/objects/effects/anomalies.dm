@@ -101,7 +101,7 @@
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
 
-/obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE, natural_spawn = TRUE)
+/obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE, event_spawned = TRUE)
 	. = ..()
 	if(natural_spawn) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
 		for(var/I in 1 to 3)
