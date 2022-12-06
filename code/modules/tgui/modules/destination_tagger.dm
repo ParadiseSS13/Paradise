@@ -38,7 +38,7 @@
 			if(istype(host, /obj/item/destTagger))
 				var/obj/item/destTagger/O = host
 				O.currTag = myTag
-			else if (isrobot(host))
+			else if(isrobot(host))
 				var/mob/living/silicon/robot/R = host
 				R.mail_destination = myTag
 
