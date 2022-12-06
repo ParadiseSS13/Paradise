@@ -392,7 +392,8 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
         {security.fields.map((field, i) => (
           <LabeledList.Item
             key={i}
-            label={field.field}>
+            label={field.field}
+            prewrap>
             {decodeHtmlEntities(field.value)}
             {!!field.edit && (
               <Button
@@ -420,7 +421,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
             No comments found.
           </Box>
         ) : security.comments.map((comment, i) => (
-          <Box key={i}>
+          <Box key={i} prewrap>
             <Box color="label" display="inline">
               {comment.header || "Auto-generated"}
             </Box><br />

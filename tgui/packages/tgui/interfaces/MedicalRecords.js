@@ -273,7 +273,8 @@ const MedicalRecordsViewMedical = (_properties, context) => {
         {medical.fields.map((field, i) => (
           <LabeledList.Item
             key={i}
-            label={field.field}>
+            label={field.field}
+            prewrap>
             {field.value}
             <Button
               icon="pen"
@@ -291,7 +292,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           </Box>
         )
           : medical.comments.map((comment, i) => (
-            <Box key={i}>
+            <Box key={i} prewrap>
               <Box color="label" display="inline">
                 {comment.header}
               </Box><br />
