@@ -3,6 +3,8 @@
 	check_module_damage()
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
@@ -11,6 +13,8 @@
 	return amount
 
 /mob/living/silicon/robot/getFireLoss(repairable_only = FALSE)
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
@@ -72,6 +76,8 @@
 	picked.heal_damage(brute, burn, updating_health)
 
 /mob/living/silicon/robot/take_organ_damage(brute = 0, burn = 0, updating_health = TRUE, sharp = 0, edge = 0)
+	if(status_flags & GODMODE)
+		return ..()
 	var/list/components = get_damageable_components()
 	if(!LAZYLEN(components))
 		return
@@ -105,7 +111,7 @@
 
 /mob/living/silicon/robot/take_overall_damage(brute = 0, burn = 0, updating_health = TRUE, used_weapon = null, sharp = 0)
 	if(status_flags & GODMODE)
-		return
+		return ..()
 
 	brute = max((brute - damage_protection) * brute_mod, 0)
 	burn = max((burn - damage_protection) * burn_mod, 0)

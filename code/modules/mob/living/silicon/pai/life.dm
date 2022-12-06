@@ -16,8 +16,6 @@
 
 /mob/living/silicon/pai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
-		health = 100
-		stat = CONSCIOUS
-	else
-		health = 100 - getBruteLoss() - getFireLoss()
-		update_stat("updatehealth([reason])")
+		return ..(reason)
+	health = maxHealth - getBruteLoss() - getFireLoss()
+	update_stat("updatehealth([reason])")

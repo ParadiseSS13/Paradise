@@ -175,7 +175,7 @@
 
 /mob/living/simple_animal/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
-		return
+		return ..(reason)
 	if(stat != DEAD)
 		if(health <= 0)
 			death()

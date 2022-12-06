@@ -144,6 +144,8 @@
 ****************************************************/
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
+	if(owner?.status_flags & GODMODE)
+		return
 	if(tough && !ignore_resists)
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
@@ -431,6 +433,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
+	if(owner.status_flags & GODMODE)
+		return
 	var/min_internal_bleeding_damage = 30
 	if(damage > 15 && brute_dam + burn_dam + damage > min_internal_bleeding_damage && !is_robotic())
 		if(prob(damage))
@@ -483,6 +487,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/droplimb(clean, disintegrate, ignore_children, nodamage)
 
 	if(cannot_amputate || !owner)
+		return
+	if(owner.status_flags & GODMODE)
 		return
 
 	if(!disintegrate)
@@ -632,10 +638,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/fracture()
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
-
 	if((status & ORGAN_BROKEN) || cannot_break)
 		return
 	if(owner)
+		if(owner.status_flags & GODMODE)
+			return
 		owner.visible_message(\
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
@@ -773,6 +780,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(disfigured)
 		return
 	if(owner)
+		if(owner.status_flags & GODMODE)
+			return
 		owner.visible_message("<span class='warning'>You hear a sickening sound coming from \the [owner]'s [name] as it turns into a mangled mess!</span>",	\
 							  "<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
 							  "<span class='warning'>You hear a sickening sound.</span>")
@@ -786,6 +795,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return src == O.bodyparts_by_name[limb_name]
 
 /obj/item/organ/external/proc/infection_check()
+	if(owner?.status_flags & GODMODE)
+		return FALSE
 	var/total_damage = brute_dam + burn_dam
 	if(total_damage)
 		if(total_damage < 10) //small amounts of damage aren't infectable

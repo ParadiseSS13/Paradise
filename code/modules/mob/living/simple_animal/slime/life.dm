@@ -26,6 +26,8 @@
 
 // Unlike most of the simple animals, slimes support UNCONSCIOUS
 /mob/living/simple_animal/slime/update_stat()
+	if(status_flags & GODMODE)
+		return ..()
 	if(stat == UNCONSCIOUS && health > 0)
 		return
 	..()

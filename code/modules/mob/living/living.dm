@@ -296,18 +296,22 @@
 		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
 		add_attack_logs(user, src, "set on fire with [I]")
 
-/mob/living/proc/updatehealth(reason = "none given")
+/mob/living/update_stat()
 	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
-
-	update_stat("updatehealth([reason])")
+		if(stat != CONSCIOUS && stat != DEAD)
+			WakeUp()
 	med_hud_set_health()
 	med_hud_set_status()
 	update_health_hud()
+	update_damage_hud()
 
+/mob/living/proc/updatehealth(reason = "none given")
+	if(status_flags & GODMODE)
+		health = maxHealth
+		update_stat("updatehealth([reason]), GODMODE")
+		return
+	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	update_stat("updatehealth([reason])")
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage

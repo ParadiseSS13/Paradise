@@ -160,15 +160,13 @@
 
 /mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
+		return ..(reason)
 	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
 	update_stat("updatehealth([reason])")
 
 /mob/living/silicon/robot/cogscarab/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
-		return
+		return ..(reason)
 	if(health <= -maxHealth && stat != DEAD)
 		ghostize(TRUE)
 		gib()

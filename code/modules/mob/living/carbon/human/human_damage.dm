@@ -1,9 +1,7 @@
 //Updates the mob's health from organs and mob damage variables
 /mob/living/carbon/human/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
+		return ..(reason)
 
 	var/total_burn  = 0
 	var/total_brute = 0
@@ -18,7 +16,6 @@
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
 	update_stat("updatehealth([reason])")
-	med_hud_set_health()
 
 /mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
@@ -71,12 +68,16 @@
 
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/obj/item/organ/external/O in bodyparts)
 		amount += O.brute_dam
 	return amount
 
 /mob/living/carbon/human/getFireLoss()
+	if(status_flags & GODMODE)
+		return 0
 	var/amount = 0
 	for(var/obj/item/organ/external/O in bodyparts)
 		amount += O.burn_dam
@@ -247,6 +248,8 @@
 //It automatically updates damage overlays if necesary
 //It automatically updates health status
 /mob/living/carbon/human/take_organ_damage(brute, burn, updating_health = TRUE, sharp = 0, edge = 0)
+	if(status_flags & GODMODE)
+		return ..()
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 	if(!parts.len)
 		return
@@ -281,7 +284,7 @@
 // damage MANY external organs, in random order
 /mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0)
 	if(status_flags & GODMODE)
-		return	//godmode
+		return ..()	//godmode
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 
 	var/update = 0

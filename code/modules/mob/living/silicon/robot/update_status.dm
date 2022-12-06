@@ -8,6 +8,8 @@
 
 /mob/living/silicon/robot/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
+		..()
+		update_headlamp()
 		return
 	if(stat != DEAD)
 		if(health <= -maxHealth) //die only once

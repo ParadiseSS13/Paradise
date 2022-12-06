@@ -21,6 +21,9 @@
 	if(NO_BLOOD in dna.species.species_traits)
 		bleed_rate = 0
 		return
+	if(status_flags & GODMODE)
+		bleed_rate = 0
+		return
 
 	if(bodytemperature >= TCRYO && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)

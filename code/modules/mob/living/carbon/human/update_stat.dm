@@ -1,6 +1,6 @@
 /mob/living/carbon/human/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
-		return
+		return ..(reason)
 	..(reason)
 	if(stat == DEAD)
 		if(dna.species && dna.species.can_revive_by_healing)

@@ -52,10 +52,10 @@
 	diag_hud_set_health()
 
 /mob/living/silicon/med_hud_set_health()
-	return //we use a different hud
+	return diag_hud_set_health() //we use a different hud
 
 /mob/living/silicon/med_hud_set_status()
-	return //we use a different hud
+	return diag_hud_set_status() //we use a different hud
 
 /mob/living/silicon/Destroy()
 	GLOB.silicon_mob_list -= src

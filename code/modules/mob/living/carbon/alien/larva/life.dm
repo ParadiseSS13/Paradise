@@ -10,7 +10,7 @@
 
 /mob/living/carbon/alien/larva/update_stat(reason = "None given")
 	if(status_flags & GODMODE)
-		return
+		return ..(reason)
 	if(stat != DEAD)
 		if(health <= -maxHealth || !get_int_organ(/obj/item/organ/internal/brain))
 			death()

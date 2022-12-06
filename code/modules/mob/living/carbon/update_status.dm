@@ -1,6 +1,6 @@
 /mob/living/carbon/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
-		return
+		return ..(reason)
 	if(stat != DEAD)
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()

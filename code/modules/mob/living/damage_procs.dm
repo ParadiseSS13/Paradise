@@ -74,9 +74,11 @@
 
 
 /mob/living/proc/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
+	if(status_flags & GODMODE)
+		return FALSE
 	blocked = (100-blocked)/100
 	if(!effect || (blocked <= 0))
-		return 0
+		return FALSE
 	switch(effecttype)
 		if(STUN)
 			Stun(effect * blocked)
@@ -101,7 +103,7 @@
 			if(status_flags & CANSTUN)
 				Jitter(effect * blocked)
 	updatehealth("apply effect")
-	return 1
+	return TRUE
 
 /mob/living/proc/apply_effects(var/stun = 0, var/weaken = 0, var/paralyze = 0, var/irradiate = 0, var/slur = 0, var/stutter = 0, var/eyeblur = 0, var/drowsy = 0, var/blocked = 0, var/stamina = 0, var/jitter = 0)
 	if(blocked >= 100)	return 0
@@ -123,6 +125,8 @@
 
 /mob/living/proc/adjustBruteLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		bruteloss = 0
+		updatehealth("adjustBruteLoss, GODMODE")
 		return FALSE	//godmode
 	var/old_bruteloss = bruteloss
 	bruteloss = max(bruteloss + amount, 0)
@@ -140,6 +144,7 @@
 /mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		oxyloss = 0
+		updatehealth("adjustOxyLoss, GODMODE")
 		return FALSE	//godmode
 	if(BREATHLESS in mutations)
 		oxyloss = 0
@@ -157,6 +162,7 @@
 /mob/living/proc/setOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		oxyloss = 0
+		updatehealth("setOxyLoss, GODMODE")
 		return FALSE	//godmode
 	if(BREATHLESS in mutations)
 		oxyloss = 0
@@ -176,6 +182,8 @@
 
 /mob/living/proc/adjustToxLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		toxloss = 0
+		updatehealth("adjustToxLoss, GODMODE")
 		return FALSE	//godmode
 	var/old_toxloss = toxloss
 	toxloss = max(toxloss + amount, 0)
@@ -189,6 +197,8 @@
 
 /mob/living/proc/setToxLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		toxloss = 0
+		updatehealth("setToxLoss, GODMODE")
 		return FALSE	//godmode
 	var/old_toxloss = toxloss
 	toxloss = amount
@@ -205,6 +215,8 @@
 
 /mob/living/proc/adjustFireLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		fireloss = 0
+		updatehealth("adjustFireLoss, GODMODE")
 		return FALSE	//godmode
 	var/old_fireloss = fireloss
 	fireloss = max(fireloss + amount, 0)
@@ -221,6 +233,8 @@
 
 /mob/living/proc/adjustCloneLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		cloneloss = 0
+		updatehealth("adjustCloneLoss, GODMODE")
 		return FALSE	//godmode
 	var/old_cloneloss = cloneloss
 	cloneloss = max(cloneloss + amount, 0)
@@ -234,6 +248,8 @@
 
 /mob/living/proc/setCloneLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		cloneloss = 0
+		updatehealth("setCloneLoss, GODMODE")
 		return FALSE	//godmode
 	var/old_cloneloss = cloneloss
 	cloneloss = amount
@@ -259,6 +275,9 @@
 
 /mob/living/proc/adjustStaminaLoss(amount, updating = TRUE)
 	if(status_flags & GODMODE)
+		staminaloss = 0
+		update_health_hud()
+		update_stamina()
 		return FALSE
 	var/old_stamloss = staminaloss
 	staminaloss = min(max(staminaloss + amount, 0), 120)
@@ -275,6 +294,9 @@
 
 /mob/living/proc/setStaminaLoss(amount, updating = TRUE)
 	if(status_flags & GODMODE)
+		staminaloss = 0
+		update_health_hud()
+		update_stamina()
 		return FALSE
 	var/old_stamloss = staminaloss
 	staminaloss = min(max(amount, 0), 120)
@@ -307,6 +329,9 @@
 // damage ONE external organ, organ gets randomly selected from damaged ones.
 /mob/living/proc/take_organ_damage(brute, burn, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		bruteloss = 0
+		fireloss = 0
+		updatehealth("take organ damage, GODMODE")
 		return FALSE	//godmode
 	adjustBruteLoss(brute, FALSE)
 	adjustFireLoss(burn, FALSE)
@@ -323,6 +348,9 @@
 // damage MANY external organs, in random order
 /mob/living/proc/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null)
 	if(status_flags & GODMODE)
+		bruteloss = 0
+		fireloss = 0
+		updatehealth("take overall damage, GODMODE")
 		return FALSE	//godmode
 	adjustBruteLoss(brute, FALSE)
 	adjustFireLoss(burn, FALSE)

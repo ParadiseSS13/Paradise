@@ -3,7 +3,7 @@
 //Drones killed by damage will gib.
 /mob/living/silicon/robot/drone/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
-		return
+		return ..(reason)
 	if(health <= -maxHealth && stat != DEAD)
 		gib()
 		return

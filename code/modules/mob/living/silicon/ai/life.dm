@@ -133,13 +133,9 @@
 
 /mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
-		health = 100
-		stat = CONSCIOUS
-	else
-		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
-		update_stat("updatehealth([reason])")
-		diag_hud_set_health()
-
+		return ..(reason)
+	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+	update_stat("updatehealth([reason])")
 
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
