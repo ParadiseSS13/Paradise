@@ -9,16 +9,8 @@
 	light_color = LIGHT_COLOR_CYAN
 	var/list/priority_alarms = list()
 	var/list/minor_alarms = list()
-	var/receive_frequency = ATMOS_FIRE_FREQ
 
-/obj/machinery/computer/atmos_alert/Initialize(mapload)
-	. = ..()
-	set_frequency(receive_frequency)
-
-/obj/machinery/computer/atmos_alert/Destroy()
-	SSradio.remove_object(src, receive_frequency)
-	return ..()
-
+#warn AA todo, this needs to lookup in the air alarm repository
 /obj/machinery/computer/atmos_alert/attack_hand(mob/user)
 	ui_interact(user)
 
@@ -56,14 +48,11 @@
 				. = TRUE
 	update_icon()
 
-/obj/machinery/computer/atmos_alert/set_frequency(new_frequency)
-	SSradio.remove_object(src, receive_frequency)
-	receive_frequency = new_frequency
-	radio_connection = SSradio.add_object(src, receive_frequency, RADIO_ATMOSIA)
 
-/obj/machinery/computer/atmos_alert/receive_signal(datum/signal/signal)
+/obj/machinery/computer/atmos_alert/proc/old_signal_bollocks(datum/signal/signal)
 	if(!signal)
 		return
+
 
 	var/zone = signal.data["zone"]
 	var/severity = signal.data["alert"]

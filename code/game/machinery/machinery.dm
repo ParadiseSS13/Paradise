@@ -6,6 +6,8 @@
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	atom_say_verb = "beeps"
 	var/stat = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
@@ -15,22 +17,11 @@
 	var/active_power_usage = 0
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
-	var/uid
-	var/global/gl_uid = 1
 	var/panel_open = FALSE
-	var/area/myArea
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
-	// THIS NEEDS TO DIE - But it will at the end of this PR
-	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
-	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
-	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
-	var/frequency = NONE // AA TODO - KILL THIS WRETCHED HAG
-	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
-	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
-	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -49,9 +40,6 @@
 	. = ..()
 
 	GLOB.machines += src
-
-	if(use_power)
-		myArea = get_area(src)
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
@@ -77,8 +65,6 @@
 	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/Destroy()
-	if(myArea)
-		myArea = null
 	GLOB.machines.Remove(src)
 	if(!speed_process)
 		STOP_PROCESSING(SSmachines, src)

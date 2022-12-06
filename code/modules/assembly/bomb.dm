@@ -70,16 +70,6 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	sleep(10)
-	if(!src)
-		return
-	if(status)
-		bombtank.detonate()	//if its not a dud, boom (or not boom if you made shitty mix) the ignite proc is below, in this file
-	else
-		bombtank.release()
-
 /obj/item/onetankbomb/HasProximity(atom/movable/AM)
 	if(bombassembly)
 		bombassembly.HasProximity(AM)

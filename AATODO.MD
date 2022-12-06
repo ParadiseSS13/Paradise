@@ -7,3 +7,4 @@
 - Everything needs to use UIDs. No hard refs.
 - Air alarms are pain
 - Connect devices with an `id_tag` var and use initialize and lateinitialize to match
+- Air controller computers can have devices re-added with a multitool now

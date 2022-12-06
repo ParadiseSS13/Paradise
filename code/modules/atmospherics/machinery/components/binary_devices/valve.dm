@@ -77,12 +77,6 @@
 	desc = "A digitally controlled valve."
 	icon = 'icons/atmos/digital_valve.dmi'
 
-/obj/machinery/atmospherics/binary/valve/digital/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
 /obj/machinery/atmospherics/binary/valve/digital/attack_ai(mob/user)
 	return attack_hand(user)
 

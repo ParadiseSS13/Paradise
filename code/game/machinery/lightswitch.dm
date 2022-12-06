@@ -81,14 +81,6 @@
 	power_change()
 	..(severity)
 
-/obj/machinery/light_switch/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-
-	update_multitool_menu(user)
-
 /obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 

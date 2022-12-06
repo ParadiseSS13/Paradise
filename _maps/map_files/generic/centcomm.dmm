@@ -2464,11 +2464,8 @@
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership)
 "jj" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1331;
-	master_tag = "synd_airlock";
-	name = "interior access button";
+/obj/machinery/access_button/airlock_interior{
+	autolink_id = "synd_airlock_interior";
 	pixel_x = 25;
 	pixel_y = 25
 	},
@@ -2530,8 +2527,7 @@
 /area/shuttle/syndicate)
 "jw" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1331;
-	id_tag = "synd_inner";
+	id_tag = "synd_airlock_inner";
 	locked = 1;
 	name = "Ship External Access";
 	req_access_txt = "150"
@@ -3053,10 +3049,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "lc" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1441;
-	master_tag = "syndicate_jail_airlock_control";
+/obj/machinery/access_button/airlock_interior{
+	autolink_id = "syndicate_jail_airlock_control_interior";
 	name = "Syndicate Jail Access Button";
 	pixel_x = -24;
 	pixel_y = -8;
@@ -3086,10 +3080,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "li" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1441;
-	master_tag = "syndicate_jail_airlock_control";
+/obj/machinery/access_button/airlock_exterior{
+	autolink_id = "syndicate_jail_airlock_control_exterior";
 	name = "Syndicate Jail Access Button";
 	pixel_y = 24;
 	req_access_txt = "150"
@@ -3099,7 +3091,6 @@
 "lj" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	autoclose = 0;
-	frequency = 1441;
 	id_tag = "syndicate_jail_airlock_external";
 	locked = 1;
 	name = "Syndicate Jail External Airlock"
@@ -3107,21 +3098,21 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "lk" = (
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	frequency = 1441;
-	id_tag = "syndicate_jail_airlock_control";
+/obj/machinery/airlock_controller/access_controller{
 	name = "Syndicate Jail Access Controller";
 	pixel_y = 24;
 	req_access_txt = "150";
 	tag_exterior_door = "syndicate_jail_airlock_external";
-	tag_interior_door = "syndicate_jail_airlock_internal"
+	tag_interior_door = "syndicate_jail_airlock_internal";
+	tag_exterior_sensor = "syndicate_jail_airlock_control_exterior";
+	tag_interior_sensor = "syndicate_jail_airlock_control_interior";
+	
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "ll" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	autoclose = 0;
-	frequency = 1441;
 	id_tag = "syndicate_jail_airlock_internal";
 	locked = 1;
 	name = "Syndicate Jail Internal Airlock"
@@ -4797,8 +4788,7 @@
 /area/shuttle/assault_pod)
 "qR" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1331;
-	id_tag = "synd_outer";
+	id_tag = "synd_airlock_exterior";
 	name = "Ship External Access";
 	req_access_txt = "150"
 	},
@@ -5169,7 +5159,9 @@
 /turf/simulated/floor/transparent/glass,
 /area/tdome/tdomeobserve)
 "rU" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	autolink_id = "synd_pump"
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "rV" = (
@@ -5310,19 +5302,16 @@
 	},
 /area/centcom/specops)
 "sx" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1331;
-	id_tag = "synd_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "150";
 	tag_airpump = "synd_pump";
 	tag_chamber_sensor = "synd_sensor";
-	tag_exterior_door = "synd_outer";
-	tag_interior_door = "synd_inner"
+	tag_exterior_door = "synd_airlock_interior";
+	tag_interior_door = "synd_airlock_exterior"
 	},
 /obj/machinery/airlock_sensor{
-	frequency = 1331;
-	id_tag = "synd_sensor";
+	autolink_id = "synd_sensor";
 	pixel_x = 25;
 	pixel_y = 12;
 	req_access_txt = "150"
@@ -5389,7 +5378,8 @@
 /area/shuttle/syndicate)
 "sH" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1
+	dir = 1;
+	autolink_id = "synd_pump"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -5398,7 +5388,8 @@
 /obj/item/clothing/suit/space/syndicate/black/red,
 /obj/item/clothing/head/helmet/space/syndicate/black/red,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1
+	dir = 1;
+	autolink_id = "synd_pump"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)

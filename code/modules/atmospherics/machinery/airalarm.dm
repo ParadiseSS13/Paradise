@@ -83,7 +83,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
-	frequency = ATMOS_VENTSCRUB
 	var/custom_name
 	var/alarm_id = null
 	//var/skipprocess = 0 //Experimenting
@@ -229,9 +228,6 @@
 /obj/machinery/alarm/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
 	GLOB.air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
 	if(alarm_area && alarm_area.master_air_alarm == src)
@@ -249,7 +245,6 @@
 
 /obj/machinery/alarm/Initialize(mapload)
 	. = ..()
-	set_frequency(frequency)
 	if(!master_is_operating())
 		elect_master()
 

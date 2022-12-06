@@ -23,7 +23,7 @@
 	var/state = STATE_IDLE
 	var/target_state = TARGET_NONE
 
-/datum/computer/file/embedded_program/airlock/New(obj/machinery/embedded_controller/M)
+/datum/computer/file/embedded_program/airlock/New(obj/machinery/airlock_controller/M)
 	..(M)
 
 	memory["chamber_sensor_pressure"] = ONE_ATMOSPHERE
@@ -36,23 +36,23 @@
 	memory["purge"] = 0
 	memory["secure"] = 0
 
-	if(istype(M, /obj/machinery/embedded_controller/radio/airlock))	//if our controller is an airlock controller than we can auto-init our tags
-		var/obj/machinery/embedded_controller/radio/airlock/controller = M
-		tag_exterior_door = controller.tag_exterior_door? controller.tag_exterior_door : "[id_tag]_outer"
-		tag_interior_door = controller.tag_interior_door? controller.tag_interior_door : "[id_tag]_inner"
-		tag_airpump = controller.tag_airpump? controller.tag_airpump : "[id_tag]_pump"
-		tag_chamber_sensor = controller.tag_chamber_sensor? controller.tag_chamber_sensor : "[id_tag]_sensor"
+	if(istype(M, /obj/machinery/airlock_controller))	//if our controller is an airlock controller than we can auto-init our tags
+		var/obj/machinery/airlock_controller/controller = M
+		tag_exterior_door = controller.tag_exterior_door
+		tag_interior_door = controller.tag_interior_door
+		tag_airpump = controller.tag_airpump
+		tag_chamber_sensor = controller.tag_chamber_sensor
 		tag_exterior_sensor = controller.tag_exterior_sensor
 		tag_interior_sensor = controller.tag_interior_sensor
-		tag_airlock_mech_sensor = controller.tag_airlock_mech_sensor? controller.tag_airlock_mech_sensor : "[id_tag]_airlock_mech"
-		tag_shuttle_mech_sensor = controller.tag_shuttle_mech_sensor? controller.tag_shuttle_mech_sensor : "[id_tag]_shuttle_mech"
-		memory["secure"] = controller.tag_secure
+		tag_airlock_mech_sensor = controller.tag_airlock_mech_sensor
+		tag_shuttle_mech_sensor = controller.tag_shuttle_mech_sensor
 
 		spawn(10)
 			signalDoor(tag_exterior_door, "update")		//signals connected doors to update their status
 			signalDoor(tag_interior_door, "update")
 
-/datum/computer/file/embedded_program/airlock/receive_signal(datum/signal/signal, receive_method, receive_param)
+#warn KILL THIS
+/datum/computer/file/embedded_program/airlock/proc/offme(datum/signal/signal, receive_method, receive_param)
 	var/receive_tag = signal.data["tag"]
 	if(!receive_tag) return
 
@@ -80,8 +80,8 @@
 		else
 			memory["pump_status"] = "off"
 
-	else if(receive_tag==id_tag)
-		if(istype(master, /obj/machinery/embedded_controller/radio/airlock/access_controller))
+	else if(receive_tag)
+		if(istype(master, /obj/machinery/airlock_controller/access_controller))
 			switch(signal.data["command"])
 				if("cycle_exterior")
 					receive_user_command("cycle_ext_door")
@@ -275,7 +275,7 @@
 	var/datum/signal/signal = new
 	signal.data["tag"] = tag
 	signal.data["command"] = command
-	post_signal(signal, RADIO_AIRLOCK)
+	//post_signal(signal, RADIO_AIRLOCK)
 
 /datum/computer/file/embedded_program/airlock/proc/signalPump(tag, power, direction, pressure)
 	var/datum/signal/signal = new
@@ -286,7 +286,7 @@
 		"direction" = direction,
 		"set_external_pressure" = pressure
 	)
-	post_signal(signal)
+	//post_signal(signal)
 
 //this is called to set the appropriate door state at the end of a cycling process, or for the exterior buttons
 /datum/computer/file/embedded_program/airlock/proc/cycleDoors(target)
@@ -309,7 +309,7 @@
 	var/datum/signal/signal = new
 	signal.data["tag"] = sensor
 	signal.data["command"] = command
-	post_signal(signal)
+	//post_signal(signal)
 
 /datum/computer/file/embedded_program/airlock/proc/enable_mech_regulation()
 	signal_mech_sensor("enable", tag_shuttle_mech_sensor)

@@ -168,9 +168,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(electrified_timer)
 		deltimer(electrified_timer)
 		electrified_timer = null
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.remove_from_hud(src)
 	return ..()

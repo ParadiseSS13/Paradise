@@ -22,12 +22,6 @@
 	return "Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
 			A green light on it means it is on."
 
-/obj/machinery/atmospherics/unary/outlet_injector/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
 	if(!powered())
 		icon_state = "off"

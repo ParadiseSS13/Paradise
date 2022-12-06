@@ -59268,8 +59268,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
-	frequency = 1379;
-	id_tag = "robotics_solar_pump"
+	autolink_id = "robotics_solar_pump"
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "robotics_solar_airlock";

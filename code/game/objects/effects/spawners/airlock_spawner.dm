@@ -101,7 +101,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 
 /obj/effect/spawner/airlock/proc/spawn_button(turf/T, some_direction)
 	var/obj/machinery/access_button/the_button = new(T)
-	the_button.master_tag = id_to_link
+	//the_button.master_tag = id_to_link
 	the_button.set_frequency(radio_frequency)
 	switch(some_direction)
 		if(NORTH)
@@ -122,9 +122,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/proc/handle_control_placement() //Stick the sensor and controller on the same bit of wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs
 	var/turf/T = get_turf(src)
 	var/obj/machinery/airlock_sensor/AS = new(T)
-	var/obj/machinery/embedded_controller/radio/airlock/airlock_controller/AC = new(T, id_to_link, radio_frequency, OUTER_DOOR_TAG, INNER_DOOR_TAG, AIRPUMP_TAG, SENSOR_TAG)
+	var/obj/machinery/airlock_controller/air_cycler/AC = new(T)
 	set_access_helper(AC)
-	AS.id_tag = SENSOR_TAG
+	//AS.id_tag = SENSOR_TAG
 	AS.set_frequency(radio_frequency)
 	if(interior_direction != WEST && exterior_direction != WEST) //If west wall is free, place stuff there
 		AC.pixel_x -= 25

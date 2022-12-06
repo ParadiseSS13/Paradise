@@ -54,14 +54,13 @@
 	icon_state = "floor_magnet[on ? "" : "0"][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
 											// in case of being revealed by T-scanner
 
+// This is the LAST thing allowed to use this
 /obj/machinery/magnetic_module/receive_signal(datum/signal/signal)
 	var/command = signal.data["command"]
 	var/modifier = signal.data["modifier"]
 	var/signal_code = signal.data["code"]
 	if(command && (signal_code == code))
 		Cmd(command, modifier)
-
-
 
 /obj/machinery/magnetic_module/proc/Cmd(command, modifier)
 	if(command)
@@ -175,7 +174,9 @@
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 45
-	frequency = AIRLOCK_FREQ
+	// this is a temp measure
+	var/frequency = AIRLOCK_FREQ
+	var/datum/radio_frequency/radio_connection
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"

@@ -62,8 +62,8 @@
 	name = "large air vent"
 	power_channel = EQUIP
 
-/obj/machinery/atmospherics/unary/vent_pump/high_volume/New()
-	..()
+/obj/machinery/atmospherics/unary/vent_pump/high_volume/Initialize(mapload)
+	. = ..()
 	air_contents.volume = 1000
 
 /obj/machinery/atmospherics/unary/vent_pump/update_overlays()
@@ -175,6 +175,7 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
+#warn multitool act
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/paper))
 		if(!welded)
@@ -186,9 +187,7 @@
 		else
 			to_chat(user, "The vent is welded.")
 		return 1
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
+	#warn wrench_act
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")

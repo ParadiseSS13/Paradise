@@ -199,6 +199,5 @@
 			a_right.pulsed(0)
 		if(a_left && a_left != D)  // the right pools might have sent us boom, so `a_left` can be null here
 			a_left.pulsed(0)
-	if(master)
-		master.receive_signal()
+
 	return TRUE

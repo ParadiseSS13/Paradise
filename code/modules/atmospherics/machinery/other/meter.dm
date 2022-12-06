@@ -11,7 +11,6 @@
 	max_integrity = 150
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
 	power_channel = ENVIRON
-	frequency = ATMOS_DISTRO_FREQ
 	var/id_tag
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
@@ -39,23 +38,6 @@
 		return
 
 	update_icon(UPDATE_ICON_STATE)
-	var/env_pressure = environment.return_pressure()
-	if(frequency)
-		var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
-
-		if(!radio_connection) return
-
-		var/datum/signal/signal = new
-		signal.source = src
-		signal.transmission_method = 1
-		signal.data = list(
-			"tag" = id_tag,
-			"device" = "AM",
-			"pressure" = round(env_pressure),
-			"sigtype" = "status"
-		)
-		radio_connection.post_signal(src, signal)
-
 
 /obj/machinery/atmospherics/meter/update_icon_state()
 	if(!target)
@@ -125,9 +107,9 @@
 
 	return ..()
 
+#warn multitool_act()
 /obj/machinery/atmospherics/meter/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
 		return 1
 
 	if(!istype(W, /obj/item/wrench))
@@ -150,11 +132,3 @@
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
-/obj/machinery/atmospherics/meter/multitool_menu(mob/user, obj/item/multitool/P)
-	return {"
-	<b>Main</b>
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag")]</li>
-	</ul>"}
