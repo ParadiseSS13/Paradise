@@ -26,7 +26,7 @@ jobs:
         run: |
           tools/ci/check_json.sh
           tools/ci/build_tgui.sh
-          tools/ci/check_grep.sh
+          python3 tools/ci/check_grep2.py
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/check_file_names.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
