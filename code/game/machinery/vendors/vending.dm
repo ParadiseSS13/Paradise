@@ -649,6 +649,12 @@
 
 	vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied. Unable to process transaction.</span>")
+		flick(icon_deny, src)
+		vend_ready = TRUE
+		return
+
 	if(!ishuman(user) || R.price <= 0)
 		// Either the purchaser is not human, or the item is free.
 		// Skip all payment logic.
