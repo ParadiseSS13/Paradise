@@ -18,6 +18,9 @@
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"
 
+	/// If it's a fake brain without a mob assigned that should still be treated like a real brain.
+	var/decoy_brain = FALSE
+
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
@@ -61,7 +64,7 @@
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
-		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
+		if(owner.mind && !non_primary && !decoy_brain)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
 	if(ishuman(owner))
@@ -74,13 +77,19 @@
 /obj/item/organ/internal/brain/insert(mob/living/target,special = 0)
 
 	name = "[initial(name)]"
-	var/brain_already_exists = 0
+	var/brain_already_exists = FALSE
 	if(ishuman(target)) // No more IPC multibrain shenanigans
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
-			brain_already_exists = 1
+			brain_already_exists = TRUE
 
 		var/mob/living/carbon/human/H = target
 		H.update_hair()
+
+	if(ischangeling(target))
+		vital = FALSE
+		decoy_brain = TRUE
+
+
 
 	if(!brain_already_exists)
 		if(brainmob)
@@ -135,3 +144,31 @@
 	if(ishuman(target) && make_cluwne)
 		var/mob/living/carbon/human/H = target
 		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape
+
+/// A dummy brain, belonging to a cling. Should look just about identical to an actual brain.
+/obj/item/organ/internal/brain/dummy
+	vital = FALSE
+	non_primary = TRUE
+	decoy_brain = TRUE
+
+/// An actual, secret brain that hides within any body a cling takes on.
+/obj/item/organ/internal/brain/cling
+
+
+/// TODO DEBUG REMOVE THIS
+/obj/item/melee/energy/sword/saber/decap
+	name = "debug delimbing sword"
+	desc = "It says \"property of Issac Clarke\". Wonder who that is."
+
+
+/obj/item/melee/energy/sword/saber/decap/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	var/mob/living/carbon/human/H = target
+	if(!istype(H))
+		return
+	var/obj/item/organ/external/organ = H.get_organ(user.zone_selected)
+	if(!organ)
+		return
+
+	organ.droplimb()
+	H.regenerate_icons()
