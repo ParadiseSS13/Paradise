@@ -1,7 +1,7 @@
 //Updates the mob's health from organs and mob damage variables
-/mob/living/carbon/human/updatehealth(reason = "none given")
+/mob/living/carbon/human/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 
 	var/total_burn  = 0
 	var/total_brute = 0
@@ -15,7 +15,7 @@
 	//TODO: fix husking
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
-	update_stat("updatehealth([reason])")
+	update_stat("updatehealth([reason])", should_log)
 
 /mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)

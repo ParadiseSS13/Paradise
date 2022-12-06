@@ -158,21 +158,21 @@
 /mob/living/silicon/robot/cogscarab/allowed(obj/item/I) //No opening cover
 	return FALSE
 
-/mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given")
+/mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
-	update_stat("updatehealth([reason])")
+	update_stat("updatehealth([reason])", should_log)
 
-/mob/living/silicon/robot/cogscarab/update_stat(reason = "none given")
+/mob/living/silicon/robot/cogscarab/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 	if(health <= -maxHealth && stat != DEAD)
 		ghostize(TRUE)
 		gib()
 		log_debug("died of damage, trigger reason: [reason]")
 		return
-	return ..(reason)
+	return ..()
 
 
 /mob/living/silicon/robot/cogscarab/death(gibbed)

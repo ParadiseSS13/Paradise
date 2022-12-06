@@ -251,11 +251,11 @@
 //DRONE LIFE/DEATH
 
 //For some goddamn reason robots have this hardcoded. Redefining it for our fragile friends here.
-/mob/living/silicon/robot/drone/updatehealth(reason = "none given")
+/mob/living/silicon/robot/drone/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
-	update_stat("updatehealth([reason])")
+	update_stat("updatehealth([reason])", should_log)
 
 /mob/living/silicon/robot/drone/death(gibbed)
 	. = ..(gibbed)

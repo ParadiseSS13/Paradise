@@ -8,9 +8,9 @@
 			amount_grown++
 			update_icons()
 
-/mob/living/carbon/alien/larva/update_stat(reason = "None given")
+/mob/living/carbon/alien/larva/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 	if(stat != DEAD)
 		if(health <= -maxHealth || !get_int_organ(/obj/item/organ/internal/brain))
 			death()
@@ -22,5 +22,4 @@
 		else
 			if(stat == UNCONSCIOUS)
 				WakeUp()
-	update_damage_hud()
-	update_health_hud()
+	..()

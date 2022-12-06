@@ -126,7 +126,7 @@
 /mob/living/proc/adjustBruteLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		bruteloss = 0
-		updatehealth("adjustBruteLoss, GODMODE")
+		updatehealth("adjustBruteLoss")
 		return FALSE	//godmode
 	var/old_bruteloss = bruteloss
 	bruteloss = max(bruteloss + amount, 0)
@@ -144,7 +144,7 @@
 /mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		oxyloss = 0
-		updatehealth("adjustOxyLoss, GODMODE")
+		updatehealth("adjustOxyLoss")
 		return FALSE	//godmode
 	if(BREATHLESS in mutations)
 		oxyloss = 0
@@ -162,7 +162,7 @@
 /mob/living/proc/setOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		oxyloss = 0
-		updatehealth("setOxyLoss, GODMODE")
+		updatehealth("setOxyLoss")
 		return FALSE	//godmode
 	if(BREATHLESS in mutations)
 		oxyloss = 0
@@ -183,7 +183,7 @@
 /mob/living/proc/adjustToxLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		toxloss = 0
-		updatehealth("adjustToxLoss, GODMODE")
+		updatehealth("adjustToxLoss")
 		return FALSE	//godmode
 	var/old_toxloss = toxloss
 	toxloss = max(toxloss + amount, 0)
@@ -198,7 +198,7 @@
 /mob/living/proc/setToxLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		toxloss = 0
-		updatehealth("setToxLoss, GODMODE")
+		updatehealth("setToxLoss")
 		return FALSE	//godmode
 	var/old_toxloss = toxloss
 	toxloss = amount
@@ -216,7 +216,7 @@
 /mob/living/proc/adjustFireLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		fireloss = 0
-		updatehealth("adjustFireLoss, GODMODE")
+		updatehealth("adjustFireLoss")
 		return FALSE	//godmode
 	var/old_fireloss = fireloss
 	fireloss = max(fireloss + amount, 0)
@@ -234,7 +234,7 @@
 /mob/living/proc/adjustCloneLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		cloneloss = 0
-		updatehealth("adjustCloneLoss, GODMODE")
+		updatehealth("adjustCloneLoss")
 		return FALSE	//godmode
 	var/old_cloneloss = cloneloss
 	cloneloss = max(cloneloss + amount, 0)
@@ -249,7 +249,7 @@
 /mob/living/proc/setCloneLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		cloneloss = 0
-		updatehealth("setCloneLoss, GODMODE")
+		updatehealth("setCloneLoss")
 		return FALSE	//godmode
 	var/old_cloneloss = cloneloss
 	cloneloss = amount
@@ -331,7 +331,7 @@
 	if(status_flags & GODMODE)
 		bruteloss = 0
 		fireloss = 0
-		updatehealth("take organ damage, GODMODE")
+		updatehealth("take organ damage")
 		return FALSE	//godmode
 	adjustBruteLoss(brute, FALSE)
 	adjustFireLoss(burn, FALSE)
@@ -350,7 +350,7 @@
 	if(status_flags & GODMODE)
 		bruteloss = 0
 		fireloss = 0
-		updatehealth("take overall damage, GODMODE")
+		updatehealth("take overall damage")
 		return FALSE	//godmode
 	adjustBruteLoss(brute, FALSE)
 	adjustFireLoss(burn, FALSE)

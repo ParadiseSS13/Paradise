@@ -1,6 +1,6 @@
-/mob/living/carbon/brain/update_stat(reason = "none given")
+/mob/living/carbon/brain/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 		// if(health <= min_health)
 	if(stat == DEAD)
 		if(container && health > HEALTH_THRESHOLD_DEAD)
@@ -12,3 +12,4 @@
 			death()
 			return
 			// Put brain(organ) damaging code here
+	..()

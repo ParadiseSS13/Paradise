@@ -1,5 +1,5 @@
-/mob/living/silicon/robot/updatehealth(reason = "none given")
-	..(reason)
+/mob/living/silicon/robot/updatehealth(reason = "none given", should_log = FALSE)
+	..()
 	check_module_damage()
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)

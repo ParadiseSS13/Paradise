@@ -1,6 +1,6 @@
-/mob/living/carbon/update_stat(reason = "none given")
+/mob/living/carbon/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 	if(stat != DEAD)
 		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
 			death()
@@ -11,9 +11,7 @@
 		else
 			if(stat == UNCONSCIOUS)
 				WakeUp()
-	update_damage_hud()
-	update_health_hud()
-	med_hud_set_status()
+	..()
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()

@@ -1,5 +1,6 @@
-/mob/living/silicon/pai/update_stat(reason = "none given")
+/mob/living/silicon/pai/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 	if(health <= 0)
 		death(gibbed = 0)
+	..()

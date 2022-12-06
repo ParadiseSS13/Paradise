@@ -6,7 +6,7 @@
 /mob/living/silicon/robot/has_vision(information_only = FALSE)
 	return ..(information_only) && ((stat == DEAD && information_only) || is_component_functioning("camera"))
 
-/mob/living/silicon/robot/update_stat(reason = "none given")
+/mob/living/silicon/robot/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
 		..()
 		update_headlamp()
@@ -31,10 +31,7 @@
 				to_chat(ghost, "<span class='ghostalert'>Your cyborg shell has been repaired, re-enter if you want to continue!</span> (Verbs -> Ghost -> Re-enter corpse)")
 				ghost << sound('sound/effects/genetics.ogg')
 			add_misc_logs(src, "revived, trigger reason: [reason]")
-
-	diag_hud_set_status()
-	diag_hud_set_health()
-	update_health_hud()
+	..()
 
 /mob/living/silicon/robot/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
 	. = STATUS_UPDATE_CANMOVE

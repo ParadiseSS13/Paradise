@@ -14,8 +14,8 @@
 				visible_message("<span class='warning'>The data cable connected to [src] rapidly retracts back into its spool!</span>")
 				QDEL_NULL(DJ.cable)
 
-/mob/living/silicon/pai/updatehealth(reason = "none given")
+/mob/living/silicon/pai/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		return ..(reason)
+		return ..()
 	health = maxHealth - getBruteLoss() - getFireLoss()
-	update_stat("updatehealth([reason])")
+	update_stat("updatehealth([reason])", should_log)

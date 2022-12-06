@@ -25,7 +25,7 @@
 				handle_speech()
 
 // Unlike most of the simple animals, slimes support UNCONSCIOUS
-/mob/living/simple_animal/slime/update_stat()
+/mob/living/simple_animal/slime/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
 		return ..()
 	if(stat == UNCONSCIOUS && health > 0)
