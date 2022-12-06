@@ -40,6 +40,7 @@
 	var/datum/object = GLOBAL_PROC
 	var/delegate
 	var/list/arguments
+	var/uid
 
 /datum/callback/New(thingtocall, proctocall, ...)
 	if(thingtocall)
