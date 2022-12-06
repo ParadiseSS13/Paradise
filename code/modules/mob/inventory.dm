@@ -11,7 +11,7 @@
 	set hidden = 1
 
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, .proc/execute_quick_equip))
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(execute_quick_equip)))
 
 ///proc extender of [/mob/verb/quick_equip] used to make the verb queuable if the server is overloaded
 /mob/proc/execute_quick_equip()

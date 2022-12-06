@@ -104,7 +104,7 @@
 	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
 		return FALSE
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, .proc/_pointed, A))
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(_pointed), A))
 
 /// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
 /// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
