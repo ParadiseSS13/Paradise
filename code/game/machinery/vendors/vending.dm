@@ -100,7 +100,7 @@
 	var/shoot_chance = 2
 
 	/// If true, enforce access checks on customers. Disabled by messing with wires.
-	var/scan_id
+	var/scan_id = TRUE
 	/// Holder for a coin inserted into the vendor
 	var/obj/item/coin/coin
 	var/datum/wires/vending/wires
@@ -648,12 +648,6 @@
 		return
 
 	vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
-
-	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied. Unable to process transaction.</span>")
-		flick(icon_deny, src)
-		vend_ready = TRUE
-		return
 
 	if(!ishuman(user) || R.price <= 0)
 		// Either the purchaser is not human, or the item is free.
