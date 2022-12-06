@@ -800,3 +800,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(enchant_action)
 		qdel(enchant_action)
 	update_icon()
+
+/obj/item/update_atom_colour()
+	. = ..()
+	if(!is_equipped())
+		return
+	update_slot_icon()
+	for(var/action in actions)
+		var/datum/action/myaction = action
+		myaction.UpdateButtonIcon()

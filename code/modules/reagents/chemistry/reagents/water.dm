@@ -63,7 +63,7 @@
 			qdel(O)
 	else
 		if(O.simulated)
-			O.color = initial(O.color)
+			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
@@ -75,7 +75,7 @@
 				floor_only = FALSE
 			else
 				qdel(C)
-		T.color = initial(T.color)
+		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		if(floor_only)
 			T.clean_blood()
 

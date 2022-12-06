@@ -166,11 +166,16 @@
 			I.layer = FLOAT_LAYER //AAAH
 			I.plane = FLOAT_PLANE //^ what that guy said
 			I.appearance_flags |= RESET_COLOR | RESET_ALPHA
+			if(I.outline_filter)
+				I.filters -= I.outline_filter
 			current_button.cut_overlays()
 			current_button.add_overlay(I)
 			I.layer = old_layer
 			I.plane = old_plane
 			I.appearance_flags = old_appearance_flags
+			if(I.outline_filter)
+				I.filters -= I.outline_filter
+				I.filters += I.outline_filter
 	else
 		..()
 

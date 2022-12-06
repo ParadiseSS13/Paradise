@@ -484,8 +484,7 @@
 		V.vehicle_move_delay = vehicle_speed_mod
 
 	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
-	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-	O.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
+	O.add_atom_colour("#FF0000", WASHABLE_COLOUR_PRIORITY)
 	qdel(src)
 
 /obj/item/slimepotion/speed/MouseDrop(obj/over_object)
@@ -518,7 +517,7 @@
 		return ..()
 	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
 	C.name = "fireproofed [C.name]"
-	C.color = "#000080"
+	C.add_atom_colour("#000080", WASHABLE_COLOUR_PRIORITY)
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
 	C.resistance_flags |= FIRE_PROOF

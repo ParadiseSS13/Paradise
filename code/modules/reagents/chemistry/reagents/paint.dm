@@ -8,11 +8,11 @@
 
 /datum/reagent/paint/reaction_turf(turf/T, volume)
 	if(!isspaceturf(T))
-		T.color = color
+		T.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 
 /datum/reagent/paint/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/light))
-		O.color = color
+		O.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 
 /datum/reagent/paint/red
 	name = "Red Paint"
@@ -59,4 +59,4 @@
 
 /datum/reagent/paint_remover/reaction_turf(turf/T, volume)
 	if(!isspaceturf(T))
-		T.color = initial(T.color)
+		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
