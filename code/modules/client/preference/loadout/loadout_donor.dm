@@ -21,7 +21,7 @@
 
 /datum/gear/donor/furcape
 	display_name = "Fur Cape"
-	path = /obj/item/clothing/suit/furcape
+	path = /obj/item/clothing/neck/cloak/furcape
 
 /datum/gear/donor/furcoat
 	display_name = "Fur Coat"

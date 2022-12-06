@@ -34261,7 +34261,7 @@
 /turf/unsimulated/floor/asteroid,
 /area/syndicate_mothership/outside)
 "qLC" = (
-/obj/item/clothing/suit/furcape,
+/obj/item/clothing/neck/cloak/furcape,
 /turf/simulated/floor/plating,
 /area/centcom/specops)
 "qLW" = (
