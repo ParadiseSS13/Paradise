@@ -38831,14 +38831,11 @@
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bHh" = (
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	name = "south station intercom (General)";
-	pixel_y = -28
-	},
 /obj/machinery/conveyor/west{
 	id = "QMLoad"
 	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "bHi" = (
@@ -42382,13 +42379,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bNT" = (
-/obj/machinery/status_display/supply_display{
-	pixel_y = -32
-	},
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
+/obj/machinery/conveyor/east{
+	id = "QMLoad2"
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "bNU" = (
@@ -42492,7 +42487,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bOg" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/item/radio/intercom{
+	name = "south station intercom (General)";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bOh" = (
@@ -52456,6 +52455,9 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/conveyor/east{
 	id = "QMLoad2"
+	},
+/obj/machinery/status_display/supply_display{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -70623,7 +70625,7 @@
 	id = "QMLoad2"
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "cOY" = (
 /obj/machinery/alarm{
@@ -92596,12 +92598,6 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
-"ybE" = (
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "ydr" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/utensil/pfork,
@@ -111134,8 +111130,8 @@ bPY
 bNQ
 bYy
 bYy
-bNT
-bOg
+bHh
+bYy
 bNR
 bYy
 cgA
@@ -111395,7 +111391,7 @@ bHh
 bKz
 bTu
 dcY
-cOX
+bNT
 bxb
 uTI
 uTI
@@ -111648,7 +111644,7 @@ bQc
 bSg
 bKz
 bKz
-ybE
+bHh
 bKz
 bWL
 bKz
@@ -111905,7 +111901,7 @@ bMq
 bOh
 bKz
 bXe
-ybE
+bHh
 bXe
 bWL
 bKz
@@ -112162,7 +112158,7 @@ bQg
 bOh
 bKz
 bXe
-ybE
+bHh
 bXe
 bWL
 bKz
@@ -112419,7 +112415,7 @@ bQg
 bSj
 bKz
 bXe
-ybE
+bHh
 bXe
 bWV
 bKz
@@ -112676,7 +112672,7 @@ bQg
 bOh
 bKz
 bRR
-ybE
+bHh
 bKz
 bWL
 dcY
@@ -113707,7 +113703,7 @@ bRL
 bQf
 bQf
 bQf
-bQf
+bOg
 bxb
 bxb
 uTI
