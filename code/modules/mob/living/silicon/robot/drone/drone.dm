@@ -34,8 +34,6 @@
 	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/deliveryChute,
 													/obj/machinery/teleport/hub, /obj/effect/portal, /obj/structure/transit_tube/station)
 
-	//Used for self-mailing.
-	var/mail_destination = 0
 	var/reboot_cooldown = 1 MINUTES
 	var/last_reboot
 	var/list/pullable_drone_items = list(
