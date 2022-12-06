@@ -198,7 +198,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	A.on_construction(A.dir, initialization_directions ? initialization_directions : A.dir)
 	if(istype(A, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
 		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
-		created_pump.id_tag = AIRPUMP_TAG
+		//created_pump.id_tag = AIRPUMP_TAG
+		#warn AA TODO
 		created_pump.set_frequency(radio_frequency)
 
 /obj/effect/spawner/airlock/proc/set_access_helper(obj/I)

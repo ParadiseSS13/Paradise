@@ -11,23 +11,12 @@
 	name = "air injector"
 	desc = "Has a valve and pump attached to it"
 
-	req_one_access_txt = "24;10"
-
 	var/injecting = FALSE
 
 	var/volume_rate = 50
 
-	var/id
-	Mtoollink = TRUE
-	settagwhitelist = list("id_tag")
-
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = TRUE
-
-/obj/machinery/atmospherics/unary/outlet_injector/New()
-	..()
-	if(id && !id_tag)//I'm not dealing with any more merge conflicts
-		id_tag = id
 
 /obj/machinery/atmospherics/unary/outlet_injector/detailed_examine()
 	return "Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
@@ -96,88 +85,12 @@
 
 	flick("inject", src)
 
-/obj/machinery/atmospherics/unary/outlet_injector/proc/broadcast_status()
-	if(!radio_connection)
-		return 0
-
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.source = src
-
-	signal.data = list(
-		"tag" = id_tag,
-		"device" = "AO",
-		"power" = on,
-		"volume_rate" = volume_rate,
-		"sigtype" = "status"
-	 )
-
-	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
-
-	return 1
-
-/obj/machinery/atmospherics/unary/outlet_injector/atmos_init()
-	..()
-	set_frequency(frequency)
-
-/obj/machinery/atmospherics/unary/outlet_injector/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"] != "command"))
-		return 0
-
-	if(signal.data["power"] != null)
-		on = text2num(signal.data["power"])
-
-	if(signal.data["power_toggle"] != null)
-		on = !on
-
-	if(signal.data["inject"] != null)
-		spawn inject()
-		return
-
-	if(signal.data["set_volume_rate"] != null)
-		var/number = text2num(signal.data["set_volume_rate"])
-		volume_rate = clamp(number, 0, air_contents.volume)
-
-	if(signal.data["status"])
-		broadcast_status()
-		return //do not update_icon
-
-		//log_admin("DEBUG \[[world.timeofday]\]: outlet_injector/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
-		//return
-	broadcast_status()
-	update_icon()
-
-	/*hide(var/i) //to make the little pipe section invisible, the icon changes.
-		if(node)
-			if(on)
-				icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]on"
-			else
-				icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]off"
-		else
-			icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]exposed"
-			on = FALSE
-		return*/
-
-/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(mob/user, obj/item/multitool/P)
-	return {"
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
-	</ul>
-"}
-
 /obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/multitool))
-		interact(user)
+		#warn AA put multitool buffer here or use multitool_act
 		return 1
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
 			return 1
 	return ..()
-
-/obj/machinery/atmospherics/unary/outlet_injector/interact(mob/user as mob)
-	update_multitool_menu(user)
-
-/obj/machinery/atmospherics/unary/outlet_injector/hide(i)
-	update_underlays()

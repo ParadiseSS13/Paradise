@@ -3,16 +3,10 @@
 	icon_state = "gsensor1"
 	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
-	req_one_access_txt = "24;10"
 
 	anchored = TRUE
 	var/state = 0
 	var/bolts = TRUE
-
-	var/id_tag
-	frequency = ATMOS_VENTSCRUB
-	Mtoollink = TRUE
-	settagwhitelist = list("id_tag")
 
 	on = TRUE
 	var/output = 3
@@ -27,41 +21,6 @@
 
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
-
-/obj/machinery/atmospherics/air_sensor/multitool_menu(mob/user, obj/item/multitool/P)
-	return {"
-	<b>Main</b>
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag","set_id")]</li>
-		<li>Floor Bolts: <a href="?src=[UID()];toggle_bolts=1">[bolts ? "Enabled" : "Disabled"]</a>
-		<li>Monitor Pressure: <a href="?src=[UID()];toggle_out_flag=1">[output&1 ? "Yes" : "No"]</a>
-		<li>Monitor Temperature: <a href="?src=[UID()];toggle_out_flag=2">[output&2 ? "Yes" : "No"]</a>
-		<li>Monitor Oxygen Concentration: <a href="?src=[UID()];toggle_out_flag=4">[output&4 ? "Yes" : "No"]</a>
-		<li>Monitor Plasma Concentration: <a href="?src=[UID()];toggle_out_flag=8">[output&8 ? "Yes" : "No"]</a>
-		<li>Monitor Nitrogen Concentration: <a href="?src=[UID()];toggle_out_flag=16">[output&16 ? "Yes" : "No"]</a>
-		<li>Monitor Carbon Dioxide Concentration: <a href="?src=[UID()];toggle_out_flag=32">[output&32 ? "Yes" : "No"]</a>
-	</ul>"}
-
-/obj/machinery/atmospherics/air_sensor/multitool_topic(mob/user, list/href_list, obj/O)
-	. = ..()
-	if(.)
-		return .
-
-	if("toggle_out_flag" in href_list)
-		var/bitflag_value = text2num(href_list["toggle_out_flag"])//this is a string normally
-		if(!(bitflag_value in list(1, 2, 4, 8, 16, 32))) //Here to prevent breaking the sensors with HREF exploits
-			return 0
-		if(output&bitflag_value)//the bitflag is on ATM
-			output &= ~bitflag_value
-		else//can't not be off
-			output |= bitflag_value
-		return TRUE
-
-	if("toggle_bolts" in href_list)
-		bolts = !bolts
-		visible_message("<span class='notice'>You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"].</span>", "<span class='notice>You hear a quiet click.</span>")
-		return TRUE
 
 /obj/machinery/atmospherics/air_sensor/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/multitool))
@@ -91,9 +50,9 @@
 		if(!radio_connection)
 			return
 
+		// DIEEEEEEEE
 		var/datum/signal/signal = new
 		signal.transmission_method = 1 //radio signal
-		signal.data["tag"] = id_tag
 		signal.data["timestamp"] = world.time
 
 		var/datum/gas_mixture/air_sample = return_air()
@@ -278,113 +237,8 @@
 
 	return output
 
-/obj/machinery/computer/general_air_control/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
-/obj/machinery/computer/general_air_control/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
-
-/obj/machinery/computer/general_air_control/multitool_menu(mob/user, obj/item/multitool/P)
-	var/dat= {"
-	<b>Main</b>
-	<ul>
-	<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-	</ul>
-	<b>Sensors:</b>
-	<ul>"}
-	for(var/id_tag in sensors)
-		dat += {"<li><a href="?src=[UID()];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
-	dat += {"<li><a href="?src=[UID()];add_sensor=1">\[+\]</a></li></ul>"}
-	return dat
-
-/obj/machinery/computer/general_air_control/multitool_topic(mob/user,list/href_list,obj/O)
-	. = ..()
-	if(.)
-		return
-
-	if("add_sensor" in href_list)
-		// Make a list of all available sensors on the same frequency
-		var/list/sensor_list = list()
-
-		for(var/obj/machinery/atmospherics/air_sensor/G in GLOB.machines)
-			if(!isnull(G.id_tag) && G.frequency == frequency)
-				sensor_list |= G.id_tag
-
-		if(!length(sensor_list))
-			to_chat(user, "<span class=\"warning\">No sensors on this frequency.</span>")
-			return FALSE
-
-		// Have the user pick one of them and name its label
-		var/sensor = input(user, "Select a sensor:", "Sensor Data") as null|anything in sensor_list
-		if(!sensor)
-			return FALSE
-
-		var/label = reject_bad_name( input(user, "Choose a sensor label:", "Sensor Label")  as text|null, allow_numbers=1)
-		if(!label)
-			return FALSE
-
-		// Add the sensor's information to general_air_controler
-		sensors[sensor] = label
-		return TRUE
-
-	if("edit_sensor" in href_list)
-		var/list/sensor_list = list()
-
-		for(var/obj/machinery/atmospherics/air_sensor/G in GLOB.machines)
-			if(!isnull(G.id_tag) && G.frequency == frequency)
-				sensor_list |= G.id_tag
-
-		if(!length(sensor_list))
-			to_chat(user, "<span class=\"warning\">No sensors on this frequency.</span>")
-			return FALSE
-
-		var/label = sensors[href_list["edit_sensor"]]
-		var/sensor = input(user, "Select a sensor:", "Sensor Data", href_list["edit_sensor"]) as null|anything in sensor_list
-		if(!sensor)
-			return FALSE
-
-		sensors.Remove(href_list["edit_sensor"])
-		sensors[sensor] = label
-		return TRUE
-
-/obj/machinery/computer/general_air_control/unlinkFrom(mob/user, obj/O)
-	..()
-
-	if("id_tag" in O.vars && (istype(O,/obj/machinery/atmospherics/air_sensor) || istype(O, /obj/machinery/atmospherics/meter)))
-		sensors.Remove(O:id_tag)
-		return TRUE
-
-	return FALSE
-
-/obj/machinery/computer/general_air_control/linkMenu(obj/O)
-	if(isLinkedWith(O))
-		return
-
-	var/dat = ""
-
-	if(istype(O, /obj/machinery/atmospherics/air_sensor) || istype(O, /obj/machinery/atmospherics/meter))
-		dat += " <a href='?src=[UID()];link=1'>\[New Sensor\]</a> "
-	return dat
-
-/obj/machinery/computer/general_air_control/canLink(obj/O, list/context)
-	if(istype(O, /obj/machinery/atmospherics/air_sensor) || istype(O, /obj/machinery/atmospherics/meter))
-		return O:id_tag
-
-/obj/machinery/computer/general_air_control/isLinkedWith(obj/O)
-	if(istype(O, /obj/machinery/atmospherics/air_sensor) || istype(O, /obj/machinery/atmospherics/meter))
-		return O:id_tag in sensors
-
-/obj/machinery/computer/general_air_control/linkWith(mob/user, obj/O, context)
-	sensors[O:id_tag] = reject_bad_name(clean_input(user, "Choose a sensor label:", "Sensor Label"), allow_numbers=1)
-	return TRUE
-
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
-	req_one_access_txt = "24;10"
-	settagwhitelist = list("input_tag", "output_tag")
 
 	var/input_tag
 	var/output_tag
@@ -410,91 +264,7 @@
 
 	return ..()
 
-
-/obj/machinery/computer/general_air_control/large_tank_control/multitool_menu(mob/user, obj/item/multitool/P)
-	var/dat= {"
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-		<li>[format_tag("Input","input_tag")]</li>
-		<li>[format_tag("Output","output_tag")]</li>
-	</ul>
-	<b>Sensors:</b>
-	<ul>"}
-
-	for(var/id_tag in sensors)
-		dat += {"<li><a href="?src=[UID()];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
-
-	dat += {"<li><a href="?src=[UID()];add_sensor=1">\[+\]</a></li></ul>"}
-	return dat
-
-
-/obj/machinery/computer/general_air_control/large_tank_control/linkWith(mob/user, obj/machinery/atmospherics/unary/O, list/context)
-	if(!is_type_in_list(O, input_linkable))
-		return FALSE
-
-	if(context["slot"] == "input")
-		input_tag = O.id_tag
-		input_info = null
-		if(istype(O, /obj/machinery/atmospherics/unary/vent_pump))
-			send_signal(list("tag" = input_tag,
-				"direction" = 1, // Release
-				"checks"    = 0  // No pressure checks.
-				))
-		return TRUE
-
-	if(context["slot"] == "output")
-		output_tag = O.id_tag
-		output_info = null
-		if(istype(O, /obj/machinery/atmospherics/unary/vent_pump))
-			send_signal(list("tag" = output_tag,
-				"direction" = 0, // Siphon
-				"checks"    = 2  // Internal pressure checks.
-				))
-		return TRUE
-
-/obj/machinery/computer/general_air_control/large_tank_control/unlinkFrom(mob/user, obj/O)
-	if("id_tag" in O.vars)
-		if(O:id_tag == input_tag)
-			input_tag = null
-			input_info = null
-			return TRUE
-
-		if(O:id_tag == output_tag)
-			output_tag = null
-			output_info = null
-			return TRUE
-
-	return FALSE
-
-/obj/machinery/computer/general_air_control/large_tank_control/linkMenu(obj/O)
-	var/dat = ""
-	if(canLink(O, list("slot"="input")))
-		dat += " <a href='?src=[UID()];link=1;slot=input'>\[Link @ Input\]</a> "
-
-	if(canLink(O, list("slot"="output")))
-		dat += " <a href='?src=[UID()];link=1;slot=output'>\[Link @ Output\]</a> "
-
-	return dat
-
-/obj/machinery/computer/general_air_control/large_tank_control/canLink(obj/O, list/context)
-	return (context["slot"] == "input" && is_type_in_list(O,input_linkable)) || (context["slot"] == "output" && is_type_in_list(O,output_linkable))
-
-/obj/machinery/computer/general_air_control/large_tank_control/isLinkedWith(obj/O)
-	if(O:id_tag == input_tag)
-		return TRUE
-	if(O:id_tag == output_tag)
-		return TRUE
-
-	return FALSE
-
-/obj/machinery/computer/general_air_control/large_tank_control/process()
-	..()
-
-	if(!input_info && input_tag)
-		request_device_refresh(input_tag)
-	if(!output_info && output_tag)
-		request_device_refresh(output_tag)
-
+#warn needs TGUIing
 /obj/machinery/computer/general_air_control/large_tank_control/return_text()
 	var/output = ..()
 	//if(signal.data)

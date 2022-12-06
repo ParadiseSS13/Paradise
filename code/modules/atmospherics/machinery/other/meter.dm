@@ -16,9 +16,6 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 5
-	req_one_access_txt = "24;10"
-	Mtoollink = TRUE
-	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/meter/Initialize(mapload)
 	. = ..()
