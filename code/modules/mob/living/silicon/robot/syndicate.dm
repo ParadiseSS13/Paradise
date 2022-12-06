@@ -108,10 +108,6 @@
 			return
 	cham_proj.attack_self(src)
 
-/mob/living/silicon/robot/syndicate/saboteur/set_mail_tag()
-	set category = "Saboteur"
-	. = ..()
-
 /mob/living/silicon/robot/syndicate/saboteur/attackby()
 	if(cham_proj)
 		cham_proj.disrupt(src)
