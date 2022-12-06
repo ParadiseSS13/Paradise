@@ -15,7 +15,7 @@
 
 /obj/item/holder/process()
 
-	if(istype(loc,/turf) || !(contents.len))
+	if(isturf(loc) || !(contents.len))
 
 		for(var/mob/M in contents)
 
@@ -41,6 +41,10 @@
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
+/obj/item/holder/examine(mob/user)
+	for(var/mob/living/M in contents)
+		. += M.examine(user)
+
 /obj/item/holder/container_resist(mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
@@ -48,7 +52,7 @@
 		M.unEquip(src)
 		to_chat(M, "[src] wriggles out of your grip!")
 		to_chat(L, "You wriggle out of [M]'s grip!")
-	else if(istype(loc,/obj/item))
+	else if(isitem(loc))
 		to_chat(L, "You struggle free of [loc].")
 		forceMove(get_turf(src))
 
@@ -59,9 +63,6 @@
 		M.status_flags &= ~PASSEMOTES
 
 	return
-
-//Mob procs and vars for scooping up
-/mob/living/var/holder_type
 
 /mob/living/proc/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)
 	if(!holder_type)

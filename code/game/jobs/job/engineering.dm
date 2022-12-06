@@ -4,11 +4,12 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_engineering = 1
+	is_engineering = TRUE
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
+	department_account_access = TRUE
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
 			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
@@ -26,7 +27,7 @@
 	name = "Chief Engineer"
 	jobtype = /datum/job/chief_engineer
 
-	uniform = /obj/item/clothing/under/rank/chief_engineer
+	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
 	gloves = /obj/item/clothing/gloves/color/black/ce
 	shoes = /obj/item/clothing/shoes/brown
@@ -66,7 +67,7 @@
 	name = "Station Engineer"
 	jobtype = /datum/job/engineer
 
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat
@@ -103,7 +104,7 @@
 	name = "Life Support Specialist"
 	jobtype = /datum/job/atmos
 
-	uniform = /obj/item/clothing/under/rank/atmospheric_technician
+	uniform = /obj/item/clothing/under/rank/engineering/atmospheric_technician
 	belt = /obj/item/storage/belt/utility/atmostech
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_eng

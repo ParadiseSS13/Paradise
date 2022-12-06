@@ -405,7 +405,7 @@
 			if(!H.bodyparts_by_name[name])
 				continue
 			affecting = H.bodyparts_by_name[name]
-			if(!istype(affecting, /obj/item/organ/external))
+			if(!isorgan(affecting))
 				continue
 			affecting.heal_damage(4, 0, updating_health = FALSE)
 		H.UpdateDamageIcon()
@@ -491,11 +491,11 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(istype(user.loc,/mob/) || IS_HORIZONTAL(user) || user.IsStunned() || user.buckled || user.stat)
+	if(ismob(user.loc) || IS_HORIZONTAL(user) || user.IsStunned() || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 
-	if(istype(user.loc,/turf/))
+	if(isturf(user.loc))
 		if(user.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/living/M in range(user, 1))
 				if(M.pulling == user)
@@ -532,7 +532,7 @@
 
 		user.layer = prevLayer
 
-	if(istype(user.loc,/obj/))
+	if(isobj(user.loc))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
 		user.AdjustParalysis(6 SECONDS)
@@ -699,12 +699,12 @@
 			else
 				to_chat(user, "<span class='notice'><b>Mood</b>: You sense strange thoughts from [M.name].</span>")
 
-		if(istype(M,/mob/living/carbon/human))
+		if(ishuman(M))
 			var/numbers[0]
 			var/mob/living/carbon/human/H = M
 			if(H.mind && H.mind.initial_account)
 				numbers += H.mind.initial_account.account_number
-				numbers += H.mind.initial_account.remote_access_pin
+				numbers += H.mind.initial_account.account_pin
 			if(numbers.len>0)
 				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
@@ -720,7 +720,7 @@
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
 	spelltype =/obj/effect/proc_holder/spell/morph
-	activation_messages = list("Your body feels if can alter its appearance.")
+	activation_messages = list("Your body feels like it can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
 
@@ -747,7 +747,7 @@
 	if(!ishuman(user))
 		return
 
-	if(istype(user.loc,/mob/))
+	if(ismob(user.loc))
 		to_chat(user, "<span class='warning'>You can't change your appearance right now!</span>")
 		return
 	var/mob/living/carbon/human/M = user
@@ -970,7 +970,7 @@
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
-		addtimer(CALLBACK(src, .proc/removeAvailability, target), 100)
+		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 100)
 
 /obj/effect/proc_holder/spell/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)

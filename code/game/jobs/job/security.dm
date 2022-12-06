@@ -9,6 +9,7 @@
 	department_head = list("Captain")
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
+	department_account_access = TRUE
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
@@ -27,7 +28,7 @@
 	name = "Head of Security"
 	jobtype = /datum/job/hos
 
-	uniform = /obj/item/clothing/under/rank/head_of_security
+	uniform = /obj/item/clothing/under/rank/security/head_of_security
 	suit = /obj/item/clothing/suit/armor/hos
 	gloves = /obj/item/clothing/gloves/color/black/hos
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -70,8 +71,8 @@
 	name = "Warden"
 	jobtype = /datum/job/warden
 
-	uniform = /obj/item/clothing/under/rank/warden
-	suit = /obj/item/clothing/suit/armor/vest/warden
+	uniform = /obj/item/clothing/under/rank/security/warden
+	suit = /obj/item/clothing/suit/armor/vest/warden/alt
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/warden
@@ -104,25 +105,25 @@
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	exp_map = list(EXP_TYPE_CREW = 600)
 	outfit = /datum/outfit/job/detective
-	important_information = "You are not a Security Officer. Your revolver is for self defence only."
+	important_information = "Track, investigate, and look cool while doing it."
 
 /datum/outfit/job/detective
 	name = "Detective"
 	jobtype = /datum/job/detective
 
-	uniform = /obj/item/clothing/under/det
+	uniform = /obj/item/clothing/under/rank/security/detective
 	suit = /obj/item/clothing/suit/storage/det_suit
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/det_hat
 	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/sunglasses/noir
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/toy/crayon/white
 	r_pocket = /obj/item/lighter/zippo
@@ -171,7 +172,7 @@
 /datum/outfit/job/officer
 	name = "Security Officer"
 	jobtype = /datum/job/officer
-	uniform = /obj/item/clothing/under/rank/security
+	uniform = /obj/item/clothing/under/rank/security/officer
 	suit = /obj/item/clothing/suit/armor/vest/security
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots

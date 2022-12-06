@@ -64,16 +64,18 @@
 		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
-	if(istype(owner,/mob/living/carbon/human))
+	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair()
+	
+	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
 /obj/item/organ/internal/brain/insert(mob/living/target,special = 0)
 
 	name = "[initial(name)]"
 	var/brain_already_exists = 0
-	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
+	if(ishuman(target)) // No more IPC multibrain shenanigans
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
 			brain_already_exists = 1
 

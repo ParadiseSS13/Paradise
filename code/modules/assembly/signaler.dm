@@ -38,7 +38,10 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 			S.signal_callback()
 
 	var/turf/T = get_turf(src)
-	GLOB.lastsignalers.Add("[SQLtime()] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+	var/invoking_ckey = "unknown"
+	if(usr) // sometimes (like when a prox sensor sends a signal) there is no usr
+		invoking_ckey = usr.key
+	GLOB.lastsignalers.Add("[SQLtime()] <b>:</b> [invoking_ckey] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
 
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)
@@ -50,7 +53,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 		return
 
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
 
 	signal()
 

@@ -91,7 +91,7 @@
 /obj/effect/hallucination/fake_item/attack_hand(mob/living/user)
 	if(user != target)
 		return
-	if(hasorgans(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
 		if(user.hand)
@@ -267,7 +267,7 @@
 	create_plasma(T)
 	expand_queue += T
 	processed[T] = TRUE
-	expand_timer = addtimer(CALLBACK(src, .proc/expand), expand_delay, TIMER_LOOP | TIMER_STOPPABLE)
+	expand_timer = addtimer(CALLBACK(src, PROC_REF(expand)), expand_delay, TIMER_LOOP | TIMER_STOPPABLE)
 
 /obj/effect/hallucination/plasma_flood/Destroy()
 	deltimer(expand_timer)

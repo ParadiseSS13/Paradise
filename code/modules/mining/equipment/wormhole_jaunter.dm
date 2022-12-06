@@ -88,7 +88,7 @@
 			L.Weaken(12 SECONDS)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
-				addtimer(CALLBACK(L, /mob/living/carbon.proc/vomit), 20)
+				addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, vomit)), 20)
 
 /obj/item/wormhole_jaunter/contractor
 	name = "emergency extraction flare"
@@ -140,7 +140,7 @@
 						  "<span class='notice'>You light an emergency extraction flare, initiating the extraction process.</span>")
 	user.drop_item()
 	forceMove(F)
-	addtimer(CALLBACK(src, .proc/create_portal, destination), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(create_portal), destination), 5 SECONDS)
 
 /obj/item/wormhole_jaunter/contractor/proc/create_portal(turf/destination)
 	new /obj/effect/decal/cleanable/ash(get_turf(src))

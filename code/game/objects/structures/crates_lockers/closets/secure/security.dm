@@ -37,14 +37,6 @@
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
-
-/obj/structure/closet/secure_closet/hop2
-	name = "head of personnel's attire"
-	req_access = list(ACCESS_HOP)
-	icon_state = "hop"
-	open_door_sprite = "hop_door"
-
-/obj/structure/closet/secure_closet/hop2/populate_contents()
 	new /obj/item/storage/bag/garment/head_of_personnel(src)
 
 /obj/structure/closet/secure_closet/hos
@@ -91,11 +83,11 @@
 	new /obj/item/clothing/head/warden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
 	new /obj/item/clothing/head/beret/sec/warden(src)
-	new /obj/item/clothing/under/rank/warden(src)
-	new /obj/item/clothing/under/rank/warden/formal(src)
-	new /obj/item/clothing/under/rank/warden/corp(src)
-	new /obj/item/clothing/under/rank/warden/skirt(src)
-	new /obj/item/clothing/under/rank/warden/skirt/corp(src)
+	new /obj/item/clothing/under/rank/security/warden(src)
+	new /obj/item/clothing/under/rank/security/formal/warden(src)
+	new /obj/item/clothing/under/rank/security/warden/corporate(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/mask/gas/sechailer/warden(src)
@@ -142,20 +134,8 @@
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/belt/security/full(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
-	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/head/beret/centcom/officer(src)
-	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
-	new /obj/item/clothing/suit/armor/vest/blueshield(src)
-	new /obj/item/clothing/suit/storage/blueshield(src)
-	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/clothing/accessory/blue(src)
-	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
-	new /obj/item/clothing/under/rank/centcom/blueshield(src)
-
+	new /obj/item/storage/bag/garment/blueshield(src)
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
@@ -169,19 +149,9 @@
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/paicard(src)
 	new /obj/item/flash(src)
-	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/gloves/color/white(src)
-	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/clothing/under/lawyer/oldman(src)
-	new /obj/item/clothing/under/lawyer/black(src)
-	new /obj/item/clothing/under/lawyer/female(src)
-	new /obj/item/clothing/under/rank/centcom/representative(src)
-	new /obj/item/clothing/head/ntrep(src)
-	new /obj/item/clothing/shoes/sandal/fancy(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
-
+	new /obj/item/storage/bag/garment/nanotrasen_representative(src)
 
 /obj/structure/closet/secure_closet/security/cargo
 
@@ -222,11 +192,12 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
-	new /obj/item/clothing/under/det(src)
+	new /obj/item/clothing/under/rank/security/detective(src)
 	new /obj/item/clothing/suit/storage/det_suit(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
 	new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
 	new /obj/item/clothing/gloves/color/black/forensics(src)
+	new /obj/item/storage/belt/security(src)
 	new /obj/item/clothing/head/det_hat(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/storage/box/evidence(src)
@@ -300,20 +271,6 @@
 		var/obj/item/card/id/prisoner/prisoner_id = locateUID(registered_ID_UID)
 		. += "\nOwned by [prisoner_id.registered_name]."
 
-/obj/structure/closet/secure_closet/courtroom
-	name = "courtroom locker"
-	req_access = list(ACCESS_COURT)
-
-/obj/structure/closet/secure_closet/courtroom/populate_contents()
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/pen (src)
-	new /obj/item/clothing/suit/judgerobe (src)
-	new /obj/item/clothing/head/powdered_wig (src)
-	new /obj/item/storage/briefcase(src)
-
 /obj/structure/closet/secure_closet/magistrate
 	name = "\improper Magistrate's locker"
 	req_access = list(ACCESS_MAGISTRATE)
@@ -324,19 +281,12 @@
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/flash(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/gloves/color/white(src)
-	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/clothing/under/suit_jacket/really_black(src)
-	new /obj/item/clothing/under/rank/centcom/magistrate(src)
-	new /obj/item/clothing/suit/judgerobe(src)
-	new /obj/item/clothing/head/powdered_wig(src)
-	new /obj/item/clothing/head/justice_wig(src)
 	new /obj/item/radio/headset/heads/magistrate(src)
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/storage/bag/garment/magistrate(src)
 
 /obj/structure/closet/secure_closet/iaa
 	name = "internal affairs locker"
@@ -352,7 +302,7 @@
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_iaa(src)
-	new /obj/item/clothing/under/rank/internalaffairs(src)
+	new /obj/item/clothing/under/rank/civilian/internalaffairs(src)
 	new /obj/item/clothing/suit/storage/internalaffairs(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)

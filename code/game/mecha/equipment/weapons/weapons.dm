@@ -171,7 +171,7 @@
 	life -= 10
 	if(ismob(A))
 		var/mob/M = A
-		if(istype(firer, /mob))
+		if(ismob(firer))
 			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
 		else
 			add_attack_logs(src, M, "Mecha-shot with <b>[src]</b> (no firer)")
@@ -213,7 +213,7 @@
 	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
@@ -224,7 +224,7 @@
 		M.KnockDown(6 SECONDS)
 		M.Jitter(40 SECONDS)
 		///else the mousetraps are useless
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
@@ -289,7 +289,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
-	projectile = /obj/item/projectile/bullet/mime
+	projectile = /obj/item/projectile/bullet/mime/nonlethal
 	projectiles = 20
 	projectile_energy_cost = 50
 

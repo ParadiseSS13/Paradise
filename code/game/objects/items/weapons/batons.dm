@@ -77,8 +77,6 @@
 			var/mob/living/carbon/human/H = target
 			if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 				return FALSE
-			if(check_martial_counter(H, user))
-				return FALSE
 		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
 							 "<span class='danger'>You knock down [target] with [src]!</span>")
 		on_non_silicon_stun(target, user)
@@ -139,6 +137,7 @@
 /obj/item/melee/classic_baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
+	icon_state = "telebaton_0" // For telling what it is when mapping
 	item_state = null
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL

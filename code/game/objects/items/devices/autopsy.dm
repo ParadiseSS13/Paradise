@@ -66,7 +66,7 @@
 				chemtraces += V
 
 /obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
-	if(istype(P, /obj/item/pen))
+	if(is_pen(P))
 		var/dead_name = input("Insert name of deceased individual")
 		var/dead_rank = input("Insert rank of deceased individual")
 		var/dead_tod = input("Insert time of death")
@@ -154,7 +154,7 @@
 	if(!istype(M))
 		return
 
-	if(!can_operate(M))
+	if(!on_operable_surface(M))
 		return
 
 	if(target_UID != M.UID())

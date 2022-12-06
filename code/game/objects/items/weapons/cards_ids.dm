@@ -20,6 +20,9 @@
 
 	var/list/files = list(  )
 
+/obj/item/card/proc/get_card_account()
+	return GLOB.station_money_database.find_user_account(associated_account_number)
+
 /obj/item/card/data
 	name = "data card"
 	desc = "A disk containing data."
@@ -249,6 +252,9 @@
 
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
+/obj/item/card/id/proc/get_departments()
+	return get_departments_from_job(assignment)
+
 /obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
@@ -382,7 +388,7 @@
 		return
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
-		if(istype(user, /mob/living) && user.mind)
+		if(isliving(user) && user.mind)
 			if(user.mind.special_role)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
@@ -414,7 +420,7 @@
 			if("Edit")
 				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information"))
 					if("Name")
-						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name))
+						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user))
 							return
 						src.registered_name = new_name

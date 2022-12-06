@@ -44,7 +44,7 @@
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if(!speaking)
-		if(istype(other, /mob/living/simple_animal/diona))
+		if(isnymph(other))
 			if(other.languages.len >= 2) //They've sucked down some blood and can speak common now.
 				return 1
 		if(issilicon(other))

@@ -5,10 +5,16 @@
 	health = 250
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
+	loudspeaker = TRUE
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
+	move_resist = MOVE_FORCE_STRONG //Yes, queenos is huge and heavy
+	alien_disarm_damage = 60 //Queens do higher disarm stamina damage than normal aliens
+	alien_slash_damage = 30 //Queens do higher slashing damage to people
+	alien_movement_delay = 1 //This represents a movement delay of 1, or roughly 80% the movement speed of a normal carbon mob
+
 
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	. = ..()
@@ -34,9 +40,6 @@
 		/obj/item/organ/internal/xenos/neurotoxin,
 	)
 
-/mob/living/carbon/alien/humanoid/queen/movement_delay()
-	. = ..()
-	. += 3
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE

@@ -85,7 +85,7 @@ Difficulty: Medium
 			var/beam_time = 0.25 SECONDS + ((health / maxHealth) SECONDS)
 			playsound(loc, 'sound/effects/basscannon.ogg', 200, TRUE)
 			Beam(target_location, icon_state = "death_laser", time = beam_time, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration_telegraph)
-			addtimer(CALLBACK(src, .proc/fire_disintegration_laser, target_location), beam_time)
+			addtimer(CALLBACK(src, PROC_REF(fire_disintegration_laser), target_location), beam_time)
 			ranged_cooldown = world.time + beam_time + 2 SECONDS
 			SLEEP_CHECK_DEATH(beam_time + 2 SECONDS)
 			firing_laser = FALSE

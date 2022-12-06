@@ -114,6 +114,13 @@
 		else
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
 
+	//legcuffed?
+	if(legcuffed)
+		if(istype(legcuffed, /obj/item/restraints/legcuffs/beartrap))
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>\n"
+		else
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
+
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
@@ -153,7 +160,6 @@
 					if(!foundghost)
 						msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
-
 	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
 
@@ -177,6 +183,9 @@
 
 				else if(E.status & ORGAN_SPLINTED)
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
+
+				else if(!E.properly_attached)
+					wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is barely attached!\n"
 
 			if(E.open)
 				if(E.is_robotic())
@@ -369,7 +378,7 @@
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/have_hudtypes = list()
 		var/mob/living/carbon/human/H = M
 

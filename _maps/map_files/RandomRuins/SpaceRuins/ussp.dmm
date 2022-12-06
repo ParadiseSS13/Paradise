@@ -328,7 +328,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "aS" = (
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
@@ -337,7 +337,7 @@
 	},
 /area/ruin/space/derelict/bridge)
 "aT" = (
-/obj/machinery/vending/sovietsoda,
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1532,13 +1532,13 @@
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/costume/soviet,
+/obj/item/clothing/under/costume/soviet,
+/obj/item/clothing/under/costume/soviet,
+/obj/item/clothing/under/costume/soviet,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/costume/soviet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dO" = (
@@ -2598,7 +2598,7 @@
 	layer = 2.1;
 	name = "suspicious button"
 	},
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/wood{
@@ -3443,7 +3443,7 @@
 /area/ruin/space/derelict/arrival)
 "hM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
@@ -3812,7 +3812,7 @@
 	name = "Derelict Annex"
 	})
 "iH" = (
-/obj/machinery/vending/assist,
+/obj/machinery/economy/vending/assist,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -4143,10 +4143,7 @@
 	name = "Derelict Annex"
 	})
 "jw" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
@@ -4188,10 +4185,7 @@
 	})
 "jC" = (
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
 /obj/machinery/light/small{
@@ -4973,10 +4967,7 @@
 	})
 "kZ" = (
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5024,10 +5015,7 @@
 	name = "Derelict Annex"
 	})
 "le" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
 /obj/structure/rack,
@@ -5236,7 +5224,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/arrival)
 "ly" = (
-/obj/machinery/vending/sovietsoda,
+/obj/machinery/economy/vending/sovietsoda,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -5623,7 +5611,7 @@
 	name = "Derelict Annex"
 	})
 "mq" = (
-/obj/machinery/vending/sovietsoda,
+/obj/machinery/economy/vending/sovietsoda,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -5672,7 +5660,7 @@
 /area/ruin/space/derelict/arrival)
 "mx" = (
 /obj/structure/closet/crate/can,
-/obj/item/clothing/under/stripper/mankini{
+/obj/item/clothing/under/costume/mankini{
 	desc = "No honest Russian would wear this abomination";
 	name = "lucky underwear"
 	},
@@ -5874,7 +5862,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "mY" = (
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
@@ -7242,7 +7230,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "ql" = (
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
@@ -7250,7 +7238,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qm" = (
-/obj/machinery/vending/sovietsoda,
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},

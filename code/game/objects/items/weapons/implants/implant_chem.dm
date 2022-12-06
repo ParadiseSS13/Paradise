@@ -1,10 +1,10 @@
 /obj/item/implant/chem
-	name = "chem implant"
+	name = "chem bio-chip"
 	desc = "Injects things."
 	icon_state = "reagents"
 	origin_tech = "materials=3;biotech=4"
 	container_type = OPENCONTAINER
-	trigger_causes = IMPLANT_TRIGGER_DEATH_ANY
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/chem
 	implant_state = "implant-nanotrasen"
 
@@ -36,10 +36,10 @@
 		qdel(src)
 
 /obj/item/implanter/chem
-	name = "implanter (chem)"
+	name = "bio-chip implanter (chem)"
 	implant_type = /obj/item/implant/chem
 
 /obj/item/implantcase/chem
-	name = "implant case - 'Remote Chemical'"
-	desc = "A glass case containing a remote chemical implant."
+	name = "bio-chip case - 'Remote Chemical'"
+	desc = "A glass case containing a remote chemical bio-chip."
 	implant_type = /obj/item/implant/chem

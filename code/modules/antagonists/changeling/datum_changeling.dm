@@ -151,18 +151,15 @@
 		var/mob/living/carbon/human/H = kill_objective.target?.current
 
 		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && H && !HAS_TRAIT(H, TRAIT_GENELESS))
-			var/datum/objective/escape/escape_with_identity/identity_theft = new
+			var/datum/objective/escape/escape_with_identity/identity_theft = new(assassinate = kill_objective)
 			identity_theft.owner = owner
-			identity_theft.target = kill_objective.target
-			identity_theft.target_real_name = kill_objective.target.current.real_name
-			identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing [identity_theft.target.p_their()] identification card."
 			objectives += identity_theft
 
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
 		if(prob(70))
 			add_objective(/datum/objective/escape)
 		else
-			add_objective(/datum/objective/escape/escape_with_identity)
+			add_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of
 
 /datum/antagonist/changeling/process()
 	if(!owner || !owner.current)

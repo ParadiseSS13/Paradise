@@ -55,7 +55,7 @@
 	cooldown--
 	if(cooldown <= 0)
 		return FALSE
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	return TRUE
 
 /obj/item/assembly/Destroy()
@@ -93,7 +93,7 @@
 	if(!secured || cooldown > 0)
 		return FALSE
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	return TRUE
 
 /obj/item/assembly/toggle_secure()
@@ -105,6 +105,7 @@
 	holder = new /obj/item/assembly_holder(get_turf(src))
 	if(holder.attach(A, src, user))
 		to_chat(user, "<span class='notice'>You attach [A] to [src]!</span>")
+		user.put_in_active_hand(holder)
 		return TRUE
 	return FALSE
 

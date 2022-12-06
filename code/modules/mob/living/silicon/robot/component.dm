@@ -202,11 +202,13 @@
 
 /obj/item/broken_device
 	name = "broken component"
+	desc = "A component of a robot, broken to the point of being unidentifiable."
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "broken"
 
 /obj/item/robot_parts/robot_component
 	icon = 'icons/obj/robot_component.dmi'
+	desc = "One of the numerous parts required to make a robot work."
 	icon_state = "working"
 	var/brute = 0
 	var/burn = 0
@@ -214,28 +216,32 @@
 
 /obj/item/robot_parts/robot_component/binary_communication_device
 	name = "binary communication device"
+	desc = "A module used for binary communications over encrypted frequencies, commonly used by synthetic robots."
 	icon_state = "binary_translator"
 
 /obj/item/robot_parts/robot_component/actuator
 	name = "actuator"
+	desc = "A modular, hydraulic actuator used by robots for movement and manipulation."
 	icon_state = "actuator"
 
 /obj/item/robot_parts/robot_component/armour
 	name = "armour plating"
+	desc = "A pair of flexible, adaptable armor plates, used to protect the internals of robots."
 	icon_state = "armor_plating"
 
 /obj/item/robot_parts/robot_component/camera
 	name = "camera"
+	desc = "A modified camera module used as a visual receptor for robots and exosuits, also serving as a relay for wireless video feed."
 	icon_state = "camera"
-
-
 
 /obj/item/robot_parts/robot_component/diagnosis_unit
 	name = "diagnosis unit"
+	desc = "An internal computer and sensors used by robots and exosuits to accurately diagnose any system discrepancies on their components."
 	icon_state = "diagnosis_unit"
 
 /obj/item/robot_parts/robot_component/radio
 	name = "radio"
+	desc = "A modular, multi-frequency radio used by robots and exosuits to enable communication systems. Comes with built-in subspace receivers."
 	icon_state = "radio"
 
 //
@@ -272,9 +278,9 @@
 
 /proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
-	if(istype(M, /mob/living/silicon/robot))
+	if(isrobot(M))
 		scan_type = "robot"
-	else if(istype(M, /mob/living/carbon/human))
+	else if(ishuman(M))
 		scan_type = "prosthetics"
 	else
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
@@ -333,9 +339,18 @@
 			organ_found = null
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!O.is_robotic())
+					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp))
 						continue
 					organ_found = TRUE
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
+			to_chat(user, "<hr>")
+			to_chat(user, "<span class='notice'>Cybernetic implants:</span>")
+			organ_found = null
+			if(LAZYLEN(H.internal_organs))
+				for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+					organ_found = TRUE
+					to_chat(user, "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>")
+			if(!organ_found)
+				to_chat(user, "<span class='warning'>No implants located.</span>")

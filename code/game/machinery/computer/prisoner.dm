@@ -95,7 +95,7 @@
 		else if(total_loss)
 			health_display = "HURT ([total_loss])"
 		var/turf/implant_location = get_turf(T)
-		if(!istype(implant_location, /turf/space))
+		if(!isspaceturf(implant_location))
 			loc_display = "[get_area(implant_location)]"
 
 		var/list/implant_info = list(
@@ -171,7 +171,7 @@
 					if(!implant)
 						return
 					if(implant.warn_cooldown >= world.time)
-						to_chat(user, "<span class='warning'>The warning system for that implant is still cooling down.</span>")
+						to_chat(user, "<span class='warning'>The warning system for that bio-chip is still cooling down.</span>")
 						return
 					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
 					if(implant.imp_in)

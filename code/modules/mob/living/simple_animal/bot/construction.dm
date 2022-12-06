@@ -28,7 +28,7 @@
 		user.unEquip(src, 1)
 		qdel(src)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -50,7 +50,7 @@
 /obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)
 	..()
 
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -157,13 +157,8 @@
 			qdel(W)
 
 		if(8)
-			if(istype(W, /obj/item/screwdriver))
-				playsound(loc, W.usesound, 100, 1)
-				to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
-					build_step++
-					update_appearance(UPDATE_NAME)
-					to_chat(user, "<span class='notice'>Taser gun attached.</span>")
+			return
+			// Handled by screwdriver act, return here to prevent errors being thrown for no switch(build_step) = 8 (might not be needed?)
 
 		if(9)
 			if(istype(W, /obj/item/stock_parts/cell))
@@ -176,6 +171,17 @@
 				qdel(W)
 				user.unEquip(src, 1)
 				qdel(src)
+
+/obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/I)
+	if(build_step != 8)
+		return
+	I.play_tool_sound(src)
+	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
+	if(do_after(user, 40 * I.toolspeed, target = src))
+		build_step++
+		update_appearance(UPDATE_NAME)
+		to_chat(user, "<span class='notice'>You attach the gun to the frame.</span>")
+	return TRUE
 
 /obj/item/ed209_assembly/update_name()
 	. = ..()
@@ -292,7 +298,7 @@
 		user.unEquip(src, 1)
 		qdel(src)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -311,7 +317,7 @@
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -378,7 +384,7 @@
 
 /obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -405,7 +411,7 @@
 					if(!syndicate_aligned)
 						var/mob/living/simple_animal/bot/medbot/S = new /mob/living/simple_animal/bot/medbot(T, skin)
 						S.name = created_name
-						S.bot_core.req_one_access = req_one_access
+						S.req_access = req_one_access
 						S.treatment_oxy = treatment_oxy
 						S.treatment_brute = treatment_brute
 						S.treatment_fire = treatment_fire
@@ -439,15 +445,16 @@
 		..()
 		return
 
-	if(!S.secured)
-		qdel(S)
-		var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
-		user.put_in_hands(A)
-		to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
-		user.unEquip(src, 1)
-		qdel(src)
-	else
+	if(S.secured)
+		to_chat(user, "<span class='notice'>[S] is secured.</span>")
 		return
+	qdel(S)
+	var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
+	user.put_in_hands(A)
+	to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
+	user.unEquip(src, 1)
+	qdel(src)
+
 
 /obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	..()
@@ -485,39 +492,45 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/pen))
+	else if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
 			log_game("[key_name(user)] has renamed a robot to [t]")
 
-	else if(istype(I, /obj/item/screwdriver))
-		if(!build_step)
-			new /obj/item/assembly/signaler(get_turf(src))
-			new /obj/item/clothing/head/helmet(get_turf(src))
-			to_chat(user, "<span class='notice'>You disconnect the signaler from the helmet.</span>")
-			qdel(src)
-
-		else if(build_step == 2)
-			new /obj/item/assembly/prox_sensor(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
-			build_step--
-
-		else if(build_step == 3)
-			new /obj/item/robot_parts/l_arm(get_turf(src))
-			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
-			build_step--
-
 //General Griefsky
 
-	else if((istype(I, /obj/item/wrench)) && (build_step == 3))
+	else if(istype(I, /obj/item/wrench) && build_step == 3)
 		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(get_turf(src))
 		user.put_in_hands(A)
-		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
+		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
 
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+
+/obj/item/secbot_assembly/screwdriver_act(mob/living/user, obj/item/I)
+	if(build_step != 0 && build_step != 2 && build_step != 3)
+		return
+
+	switch(build_step)
+		if(0)
+			new /obj/item/assembly/signaler(get_turf(src))
+			new /obj/item/clothing/head/helmet(get_turf(src))
+			to_chat(user, "<span class='notice'>You disconnect the signaler from the helmet.</span>")
+			qdel(src)
+		if(2)
+			new /obj/item/assembly/prox_sensor(get_turf(src))
+			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
+			build_step--
+		if(3)
+			new /obj/item/robot_parts/l_arm(get_turf(src))
+			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
+			build_step--
+
+	I.play_tool_sound(src)
+	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/secbot_assembly/update_name()
 	. = ..()
@@ -578,15 +591,20 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/screwdriver))
-		if((build_step == 1) || (build_step == 2) || (build_step == 3) || (build_step == 4))
-			new /obj/item/melee/energy/sword(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")
-			build_step--
-		else if((toy_step == 1) || (toy_step == 2) || (toy_step == 3) || (toy_step == 4))
-			new /obj/item/toy/sword(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
-			toy_step--
+/obj/item/griefsky_assembly/screwdriver_act(mob/living/user, obj/item/I)
+	if(!build_step && !toy_step)
+		return
+
+	if(build_step)
+		new /obj/item/melee/energy/sword(get_turf(src))
+		to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")
+		build_step--
+	else if(toy_step)
+		new /obj/item/toy/sword(get_turf(src))
+		to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
+		toy_step--
+	I.play_tool_sound(src)
+	return TRUE
 
 //Honkbot Assembly
 /obj/item/storage/box/clown/attackby(obj/item/W, mob/user, params)

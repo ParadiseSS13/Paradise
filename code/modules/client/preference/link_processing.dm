@@ -137,18 +137,18 @@
 				if("age")
 					active_character.age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & BALD))
 						active_character.h_colour = rand_hex_color()
 				if("secondary_hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & BALD))
 						active_character.h_sec_colour = rand_hex_color()
 				if("h_style")
 					active_character.h_style = random_hair_style(active_character.gender, active_character.species, robohead)
 				if("facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & SHAVED))
 						active_character.f_colour = rand_hex_color()
 				if("secondary_facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & SHAVED))
 						active_character.f_sec_colour = rand_hex_color()
 				if("f_style")
 					active_character.f_style = random_facial_hair_style(active_character.gender, active_character.species, robohead)
@@ -328,14 +328,14 @@
 						active_character.b_type = new_b_type
 
 				if("hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have hair. (No HAS_HAIR flag)
+					if(!(S.bodyflags & BALD))
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", active_character.h_colour) as color|null
 						if(new_hair)
 							active_character.h_colour = new_hair
 
 				if("secondary_hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & BALD))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", active_character.h_sec_colour) as color|null
@@ -558,13 +558,13 @@
 						active_character.body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 				if("facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
+					if(!(S.bodyflags & SHAVED))
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", active_character.f_colour) as color|null
 						if(new_facial)
 							active_character.f_colour = new_facial
 
 				if("secondary_facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & SHAVED))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", active_character.f_sec_colour) as color|null
@@ -963,6 +963,12 @@
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
 
+				if("thought_bubble")
+					toggles2 ^= PREFTOGGLE_2_THOUGHT_BUBBLE
+					if(length(parent?.screen))
+						var/obj/screen/plane_master/point/PM = locate(/obj/screen/plane_master/point) in parent.screen
+						PM.backdrop(parent.mob)
+
 				if("be_special")
 					var/r = href_list["role"]
 					if(r in GLOB.special_roles)
@@ -1067,7 +1073,7 @@
 
 				if("edit_2fa")
 					// Do this async so we arent holding up a topic() call
-					INVOKE_ASYNC(user.client, /client.proc/edit_2fa)
+					INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, edit_2fa))
 					return // We return here to avoid focus being lost
 
 				if("keybindings")

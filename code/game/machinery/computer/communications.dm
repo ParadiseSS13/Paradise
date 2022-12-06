@@ -36,7 +36,7 @@
 	var/display_type = STATUS_DISPLAY_TIME
 	var/display_icon
 
-	var/datum/announcement/priority/crew_announcement = new
+	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/comms_console)
 
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
@@ -46,7 +46,6 @@
 
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
-	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
 	if(user.can_admin_interact())
@@ -88,7 +87,7 @@
 		// Logout function.
 		if(authenticated != COMM_AUTHENTICATION_NONE)
 			authenticated = COMM_AUTHENTICATION_NONE
-			crew_announcement.announcer = null
+			announcer.author = null
 			setMenuState(usr, COMM_SCREEN_MAIN)
 			return
 		// Login function.
@@ -100,7 +99,7 @@
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id = H.get_idcard(TRUE)
 			if(istype(id))
-				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
+				announcer.author = GetNameAndAssignmentFromId(id)
 		if(authenticated == COMM_AUTHENTICATION_NONE)
 			to_chat(usr, "<span class='warning'>You need to wear a command or Captain-level ID.</span>")
 		return
@@ -146,7 +145,7 @@
 				if(length(input) < COMM_MSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum.</span>")
 					return
-				crew_announcement.Announce(input)
+				announcer.Announce(input)
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
@@ -233,7 +232,7 @@
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
-				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
 

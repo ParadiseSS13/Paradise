@@ -205,6 +205,8 @@
 	color = "#3C3C3C"
 	taste_description = "motor oil"
 	process_flags = ORGANIC | SYNTHETIC
+	/// What this becomes after burning.
+	var/reagent_after_burning = "ash"
 
 /datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 600)
@@ -217,14 +219,36 @@
 
 		fireflash(T, min(max(0, volume / 40), 8))
 		var/datum/effect_system/smoke_spread/bad/BS = new
-		BS.set_up(1, 0, T)
+		BS.set_up(1, FALSE, T)
 		BS.start()
-		if(!QDELETED(old_holder))
-			old_holder.add_reagent("ash", round(volume * 0.5))
+		if(!QDELETED(old_holder) && reagent_after_burning)
+			old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
-	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
+	if(volume >= 3 && !isspaceturf(T) && !(locate(/obj/effect/decal/cleanable/blood/oil) in T))
 		new /obj/effect/decal/cleanable/blood/oil(T)
+
+/datum/reagent/oil/cooking
+	name = "Cooking Oil"
+	id = "cooking_oil"
+	description = "You should probably pour this down the sink, where it belongs."
+	color = "#fbba16"
+	taste_description = "old french fries"
+	reagent_after_burning = "cooking_oil_inert"
+
+/datum/reagent/oil/cooking/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !isspaceturf(T) && !(locate(/obj/effect/decal/cleanable/blood/oil/cooking) in T))
+		new /obj/effect/decal/cleanable/blood/oil/cooking(T)
+
+/datum/reagent/oil/cooking/inert
+	name = "Burned Cooking Oil"
+	description = "It's full of char and mixed with so much crud it's probably useless."
+	id = "cooking_oil_inert"
+	reagent_after_burning = null
+
+/datum/reagent/oil/cooking/inert/reaction_temperature(exposed_temperature, exposed_volume)
+	// don't do anything
+	return
 
 /datum/reagent/iodine
 	name = "Iodine"
@@ -305,7 +329,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
-			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
 	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)

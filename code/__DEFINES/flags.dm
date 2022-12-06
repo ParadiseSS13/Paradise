@@ -104,6 +104,7 @@
 #define HAS_BODYACC_COLOR	8192
 #define BALD				16384
 #define ALL_RPARTS			32768
+#define SHAVED				65536
 
 //Pre-baked combinations of the above body flags
 #define HAS_BODY_ACCESSORY 	HAS_TAIL|HAS_WING
@@ -130,6 +131,7 @@
 #define PASSMOB			16
 #define LETPASSTHROW	32
 #define PASSFENCE		64
+#define PASSDOOR		128
 
 //turf-only flags
 #define NOJAUNT		1

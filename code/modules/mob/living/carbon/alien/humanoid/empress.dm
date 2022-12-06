@@ -5,10 +5,14 @@
 	health = 700
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
+	loudspeaker = TRUE
 	mob_size = MOB_SIZE_LARGE
 	bubble_icon = "alienroyal"
 	large = 1
 	ventcrawler = 0
+	move_resist = MOVE_FORCE_STRONG //Yes, big benos is huge and heavy
+	alien_disarm_damage = 60 //Empress do higher disarm stamina damage than normal aliens
+	alien_slash_damage = 30 //Empress do higher slashing damage to people
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
