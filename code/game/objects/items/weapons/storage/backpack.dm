@@ -372,9 +372,9 @@
 
 /obj/item/storage/backpack/duffel/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is currently [zipped ? "zipped" : "unzipped"]. Ctrl+click to [zipped ? "un-" : ""]zip it!</span>"
+	. += "<span class='notice'>It is currently [zipped ? "zipped" : "unzipped"]. Alt+Shift+Click to [zipped ? "un-" : ""]zip it!</span>"
 
-/obj/item/storage/backpack/duffel/CtrlClick(mob/user)
+/obj/item/storage/backpack/duffel/AltShiftClick(mob/user)
 	. = ..()
 	handle_zipping(user)
 
