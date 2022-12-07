@@ -381,3 +381,7 @@
 /obj/effect/temp_visual/rcd_effect/reverse
 	icon_state = "rcd_reverse"
 	duration = 61
+
+/obj/effect/temp_visual/rcd_effect/reverse_short
+	icon_state = "rcd_short_reverse"
+	duration = 31

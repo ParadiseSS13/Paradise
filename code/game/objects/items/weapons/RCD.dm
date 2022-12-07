@@ -517,7 +517,7 @@
 			return FALSE
 		to_chat(user, "Deconstructing window...")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
+		var/obj/effect/temp_visual/rcd_effect/reverse_short/E = new(get_turf(A))
 		if(!do_after(user, 20 * toolspeed, target = A))
 			qdel(E)
 			return FALSE
