@@ -5084,6 +5084,13 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
+"rG" = (
+/obj/effect/landmark/spawner/nuclear_bomb/death_squad,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "rH" = (
 /obj/structure/table,
 /obj/item/assembly/signaler,
@@ -5959,7 +5966,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "uI" = (
-/obj/effect/landmark/spawner/nuclear_bomb,
+/obj/effect/landmark/spawner/nuclear_bomb/syndicate,
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -33021,7 +33028,7 @@ Ji
 Ra
 Xz
 Zr
-Ji
+rG
 MG
 Ev
 Xu

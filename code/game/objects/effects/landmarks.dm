@@ -214,14 +214,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	name = "Holocarp Spawn"
 
 /obj/effect/landmark/spawner/nuclear_bomb
-	name = "Nuclear-Bomb"
+	icon_state = "Nuke_bomb"
+
+/obj/effect/landmark/spawner/nuclear_bomb/syndicate
+	name = "Syndicate Nuclear Bomb"
+
+/obj/effect/landmark/spawner/nuclear_bomb/death_squad
+	name = "Death Squad Nuclear Bomb"
 
 /obj/effect/landmark/spawner/teleport_scroll
 	name = "Teleport-Scroll"
 
 /obj/effect/landmark/spawner/nuke_code
 	name = "nukecode"
-
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
@@ -230,7 +235,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/proc/set_tag()
 	tag = text("landmark*[]", name)
-
 
 /obj/effect/landmark/singularity_act()
 	return
@@ -597,7 +601,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	icon = 'icons/effects/spawner_icons.dmi'
 
 /obj/effect/landmark/mob_spawner/Initialize(mapload)
-	. = ..() 
+	. = ..()
 	new mobtype(loc)
 	return INITIALIZE_HINT_QDEL
 

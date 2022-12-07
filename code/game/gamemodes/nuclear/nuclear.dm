@@ -99,17 +99,19 @@
 		qdel(S)
 		continue
 
-	var/obj/effect/landmark/nuke_spawn = locate(/obj/effect/landmark/spawner/nuclear_bomb)
-
+	var/obj/machinery/nuclearbomb/syndicate/the_bomb
 	var/nuke_code = rand(10000, 99999)
 	var/leader_selected = 0
 	var/agent_number = 1
 	var/spawnpos = 1
 
-	var/obj/machinery/nuclearbomb/syndicate/the_bomb
-	if(nuke_spawn && length(synd_spawn))
+	for(var/obj/effect/landmark/spawner/nuclear_bomb/syndicate/nuke_spawn in GLOB.landmarks_list)
+		if(!length(synd_spawn))
+			break
+
 		the_bomb = new /obj/machinery/nuclearbomb/syndicate(get_turf(nuke_spawn))
 		the_bomb.r_code = nuke_code
+		break
 
 	for(var/datum/mind/synd_mind in syndicates)
 		if(spawnpos > synd_spawn.len)
