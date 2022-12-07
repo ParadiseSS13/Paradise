@@ -356,16 +356,65 @@
 	new /obj/item/crowbar(src)
 
 /*
- * Duffelbags - My thanks to MrSnapWalk for the original icon and Neinhaus for the job variants - Dave.
+ * Duffelbags
  */
 
 /obj/item/storage/backpack/duffel
 	name = "duffelbag"
-	desc = "A large grey duffelbag designed to hold more items than a regular bag."
+	desc = "A large grey duffelbag designed to hold more items than a regular bag. It slows you down when unzipped."
 	icon_state = "duffel"
 	item_state = "duffel"
 	max_combined_w_class = 30
-	slowdown = 1
+	/// Is the bag zipped up?
+	var/zipped = TRUE
+	/// How long it takes to toggle the zip state of this bag
+	var/zip_time = 0.7 SECONDS
+
+/obj/item/storage/backpack/duffel/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is currently [zipped ? "zipped" : "unzipped"]. Alt+Shift+Click to [zipped ? "un-" : ""]zip it!</span>"
+
+/obj/item/storage/backpack/duffel/AltShiftClick(mob/user)
+	. = ..()
+	handle_zipping(user)
+
+/obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
+	if(!zip_time || do_after(user, zip_time, target = src))
+		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
+		zipped = !zipped
+
+		if(!zipped && zip_time) // Handle slowdown and stuff now that we just zipped it
+			slowdown = 1
+			show_to(user)
+			return
+
+		slowdown = 0
+		hide_from_all()
+		for(var/obj/item/storage/container in src)
+			container.hide_from_all() // Hide everything inside the bag too
+
+// The following three procs handle refusing access to contents if the duffel is zipped
+
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning)
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return ..()
+
+/obj/item/storage/backpack/duffel/remove_from_storage(obj/item/I, atom/new_location)
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return ..()
+
+/obj/item/storage/backpack/duffel/show_to(mob/user)
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return ..()
 
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
@@ -374,7 +423,7 @@
 	item_state = "duffel-syndiammo"
 	origin_tech = "syndicate=1"
 	silent = TRUE
-	slowdown = 0
+	zip_time = 0
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/syndie/med
