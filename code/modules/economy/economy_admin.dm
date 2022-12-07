@@ -74,7 +74,7 @@
 					log_and_message_admins("has modified the payroll of [account.account_number] by [num_input].")
 			if(!length(accounts_to_modify))
 				return
-			var/sanitized = copytext(trim(sanitize(rmessage_input)), 1, MAX_MESSAGE_LEN)
+			var/sanitized = copytext(trim(sanitize(message_input)), 1, MAX_MESSAGE_LEN)
 			for(var/datum/money_account/account as anything in accounts_to_modify)
 				account.modify_payroll(num_input, TRUE, sanitized)
 		if("delay_payroll")
