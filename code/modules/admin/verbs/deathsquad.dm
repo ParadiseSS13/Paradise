@@ -56,12 +56,10 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	if(!nuke_code)
 		message_admins("No functional nuclear warheads have been detected, the Deathsquad will be issued a new warhead.")
 		new_nuke = TRUE
+		nuke_code = rand(10000, 99999)
 
-	if(new_nuke || alert("Do you want a new nuclear warhead to be spawned with this team?",, "Yes", "No") == "Yes")
+	if(alert("Do you want a new nuclear warhead to be spawned with this team?",, "Yes", "No") == "Yes")
 		new_nuke = TRUE
-		for(var/obj/effect/landmark/spawner/nuclear_bomb/death_squad/nuke_spawn in GLOB.landmarks_list)
-			var/obj/machinery/nuclearbomb/undeployed/the_bomb = new (get_turf(nuke_spawn))
-			nuke_code = the_bomb.r_code
 
 	// Find ghosts willing to be Deathsquad
 	var/list/commando_ghosts = list()
@@ -78,6 +76,12 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		log_admin("[key_name(proccaller)]'s Deathsquad had no volunteers and was cancelled.")
 		to_chat(src, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
+
+	// Spawns a nuclear warhead for the team
+	if(new_nuke)
+		for(var/obj/effect/landmark/spawner/nuclear_bomb/death_squad/nuke_spawn in GLOB.landmarks_list)
+			var/obj/machinery/nuclearbomb/undeployed/the_bomb = new (get_turf(nuke_spawn))
+			the_bomb.r_code = nuke_code
 
 	// Spawns commandos and equips them.
 	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list) //Despite obj/effect/landmark/spawner/ds being in the exact same location and doing the exact same thing as obj/effect/landmark/spawner/ert, switching them breaks it?
