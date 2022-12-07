@@ -213,6 +213,13 @@
 		user.s_active = null
 
 /**
+  * Hides the current container interface from all viewers.
+  */
+/obj/item/storage/proc/hide_from_all()
+	for(var/mob/M in mobs_viewing)
+		hide_from(M)
+
+/**
   * Checks all mobs currently viewing the storage inventory, and hides it if they shouldn't be able to see it.
   */
 /obj/item/storage/proc/update_viewers()
