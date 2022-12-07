@@ -513,12 +513,13 @@
 		A = locate(/obj/structure/grille) in A.loc
 	if(istype(A, /obj/structure/grille))
 		if(!checkResource(2, user))
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this window!</span>")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
 		to_chat(user, "Deconstructing window...")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
 		if(!do_after(user, 20 * toolspeed, target = A))
+			qdel(E)
 			return FALSE
 		if(!useResource(2, user))
 			return FALSE
@@ -548,13 +549,16 @@
 			return FALSE
 		to_chat(user, "Constructing window...")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		var/obj/effect/temp_visual/rcd_effect/short/E = new(get_turf(A))
 		if(!do_after(user, 20 * toolspeed, target = A))
+			qdel(E)
 			return FALSE
 		if(locate(/obj/structure/grille) in A)
 			return FALSE // We already have window
 		if(!useResource(2, user))
 			return FALSE
 		playsound(loc, usesound, 50, 1)
+		new/obj/effect/temp_visual/rcd_effect/end(get_turf(A))
 		new /obj/structure/grille(A)
 		for(var/obj/structure/window/W in A)
 			qdel(W)
