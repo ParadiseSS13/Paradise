@@ -696,7 +696,7 @@
 		to_chat(user, "<span class='warning'>Invalid name! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	else if(!target.Adjacent(user))
-		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.")
+		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	var/gender_list = list("Male" = MALE, "Female" = FEMALE, "Genderless" = PLURAL, "Object" = NEUTER)
 	var/gender_key = input(user, "Choose a gender for this machine.", "Select Gender", target.gender) as null|anything in gender_list
@@ -704,7 +704,7 @@
 		to_chat(user, "<span class='warning'>You must choose a gender! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	else if(!target.Adjacent(user))
-		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.")
+		to_chat(user, "<span class='warning'>The multitool is out of range! Please try again.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	var/new_gender = gender_list[gender_key]
 	target.real_name = new_name
