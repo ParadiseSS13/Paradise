@@ -10272,8 +10272,7 @@
 	pixel_x = 25;
 	pixel_y = 12
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "solar_tool_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
 	tag_airpump = "solar_tool_pump";
@@ -10660,9 +10659,7 @@
 	pixel_x = 25;
 	pixel_y = 12
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1450;
-	id_tag = "bar_maint";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
 	tag_airpump = "bar_pump";
@@ -11669,8 +11666,7 @@
 	frequency = 1379;
 	id_tag = "solar_chapel_pump"
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "solar_chapel_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
 	tag_airpump = "solar_chapel_pump";
@@ -11893,8 +11889,7 @@
 	},
 /area/civilian/barber)
 "aFv" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "eva_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	name = "EVA Airlock Console";
 	pixel_x = 25;
 	req_one_access_txt = "1;5;11;18;24";
@@ -13397,8 +13392,7 @@
 	pixel_x = 25;
 	pixel_y = 12
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "arrivals_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
 	tag_airpump = "arrivals_pump";
@@ -16089,8 +16083,7 @@
 	pixel_x = 11;
 	pixel_y = -25
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "sol_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -25;
 	tag_airpump = "sol_pump";
 	tag_chamber_sensor = "sol_sensor";
@@ -24840,8 +24833,7 @@
 	pixel_x = 12;
 	pixel_y = 25
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "ai_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_y = 25;
 	tag_airpump = "ai_pump";
 	tag_chamber_sensor = "ai_sensor";
@@ -52379,9 +52371,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cBm" = (
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	frequency = 1449;
-	id_tag = "incinerator_access_control";
+/obj/machinery/airlock_controller/access_controller{
 	name = "Incinerator Access Console";
 	pixel_x = -26;
 	pixel_y = 6;
@@ -59270,8 +59260,7 @@
 	dir = 4;
 	autolink_id = "robotics_solar_pump"
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "robotics_solar_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -25;
 	req_access_txt = "13";
 	tag_airpump = "robotics_solar_pump";
@@ -62277,9 +62266,7 @@
 /area/maintenance/turbine)
 "ddz" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	frequency = 1449;
-	id_tag = "turbine_control";
+/obj/machinery/airlock_controller/access_controller{
 	name = "Turbine Access Console";
 	pixel_x = 6;
 	pixel_y = -26;
@@ -63089,8 +63076,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "solar_xeno_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
 	tag_airpump = "solar_xeno_pump";
@@ -63329,9 +63315,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dgk" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1450;
-	id_tag = "dorms_maint";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -25;
 	req_access_txt = "13";
 	tag_airpump = "dorms_pump";
@@ -66429,10 +66413,8 @@
 	pixel_x = -8;
 	pixel_y = -30
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "atmospherics_south";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -25;
-	req_access_txt = null;
 	tag_airpump = "atmospherics_south_pump";
 	tag_chamber_sensor = "atmospherics_south_sensor";
 	tag_exterior_door = "atmospherics_south_outer";
@@ -70502,8 +70484,7 @@
 	frequency = 1379;
 	id_tag = "sci_bombrange_pump"
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "sci_bombrange_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_y = 27;
 	req_access_txt = "13";
 	tag_airpump = "sci_bombrange_pump";
@@ -75174,8 +75155,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "sm_airlock_control";
+/obj/machinery/airlock_controller/access_controller{
 	name = "Supermatter Access Console";
 	pixel_y = 22;
 	tag_exterior_door = "sm_airlock_exterior";
@@ -75568,8 +75548,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "prison_airlock_control";
+/obj/machinery/airlock_controller/access_controller{
 	name = "Prison Access Console";
 	pixel_y = 22;
 	tag_exterior_door = "prison_airlock_exterior";
@@ -75646,19 +75625,15 @@
 /area/shuttle/arrival/station)
 "jyP" = (
 /obj/machinery/airlock_sensor{
-	frequency = 1450;
 	id_tag = "sci_sensor";
 	pixel_x = -25;
 	pixel_y = 12
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
-	frequency = 1450;
 	id_tag = "sci_pump"
 	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1450;
-	id_tag = "sci_maint";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_x = -25;
 	pixel_y = -6;
 	req_access_txt = "13";
@@ -81544,8 +81519,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "xeno_airlock_control";
+/obj/machinery/airlock_controller/access_controller{
 	name = "Xenobiology Access Console";
 	pixel_x = 22;
 	pixel_y = -8;
@@ -84826,9 +84800,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/aft)
 "qVZ" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1450;
-	id_tag = "port_maint";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_y = 6;
 	req_access_txt = "13";
 	tag_airpump = "port_pump";
@@ -84838,14 +84810,12 @@
 	pixel_x = 24
 	},
 /obj/machinery/airlock_sensor{
-	frequency = 1450;
 	id_tag = "port_sensor";
 	pixel_y = -8;
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
-	frequency = 1450;
 	id_tag = "port_pump"
 	},
 /turf/simulated/floor/plating,
@@ -87149,8 +87119,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "sYo" = (
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "viro_lab_airlock_control";
+/obj/machinery/airlock_controller/access_controller{
 	name = "Virology Lab Access Console";
 	pixel_y = 24;
 	req_one_access_txt = "39";
@@ -88026,8 +87995,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "tPd" = (
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "engineering_east_airlock";
+/obj/machinery/airlock_controller/air_cycler{
 	pixel_x = -25;
 	req_access_txt = "10;13";
 	tag_airpump = "engineering_east_pump";
@@ -92892,8 +92860,7 @@
 "xLA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "atmos_airlock_control";
+/obj/machinery/airlock_controller/access_controller{
 	name = "Atmos Supermatter Access Console";
 	pixel_x = 24;
 	tag_exterior_door = "atmos_airlock_exterior";
