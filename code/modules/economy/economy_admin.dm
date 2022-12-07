@@ -36,6 +36,10 @@
 			var/num_input = input(ui.user, "Amount (If for more than 4-5 people, Keep this between +/-$100 for the love of god)", "How much to modify by?") as null|num
 			if(!num_input)
 				return
+
+			var/message_input = ""
+			if(params["mod_type"] != "global")
+				message_input = input(ui.user, "Add message (Max 50 Characters):", "If you wish the owner(s) of the account(s) to recieve a message, please specify") as null|message
 			switch(params["mod_type"])
 				if("global")
 					if(num_input > 0)
@@ -67,10 +71,10 @@
 					if(!account)
 						return
 					accounts_to_modify += account
+					log_and_message_admins("has modified the payroll of [account.account_number] by [num_input].")
 			if(!length(accounts_to_modify))
 				return
-			var/raw_input = input(ui.user, "Add message (Max 50 Characters):", "If you wish the owner(s) of the account(s) to recieve a message, please specify") as null|message
-			var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
+			var/sanitized = copytext(trim(sanitize(rmessage_input)), 1, MAX_MESSAGE_LEN)
 			for(var/datum/money_account/account as anything in accounts_to_modify)
 				account.modify_payroll(num_input, TRUE, sanitized)
 		if("delay_payroll")
@@ -87,5 +91,5 @@
 			var/num_input = input(ui.user, "Amount", "Set payroll delay to how many minutes?") as null|num
 			if(isnull(num_input))
 				return
-			SSeconomy.next_paycheck_delay = world.time + (num_input * (60 SECONDS))
+			SSeconomy.next_paycheck_delay = world.time + (num_input * 60 SECONDS)
 
