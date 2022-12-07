@@ -669,8 +669,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "mining";
+/obj/machinery/airlock_controller/access_controller{
 	pixel_y = 25;
 	tag_exterior_door = "mining_outer";
 	tag_interior_door = "mining_inner"
@@ -810,14 +809,10 @@
 	},
 /area/mine/eva)
 "bX" = (
-/obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "mining";
-	name = "interior access button";
+/obj/machinery/access_button/airlock_interior{
+	autolink_id = "lavaland_control";
 	pixel_x = 25;
-	pixel_y = 25;
-	req_access_txt = null
+	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -915,9 +910,8 @@
 /area/mine/laborcamp)
 "cj" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1379;
 	glass = 1;
-	id_tag = "mining_inner";
+	id_tag = "lavaland_inner";
 	locked = 1;
 	name = "Mining External Airlock";
 	opacity = 0;
@@ -1687,9 +1681,8 @@
 /area/mine/living_quarters)
 "dY" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1379;
 	glass = 1;
-	id_tag = "mining_outer";
+	id_tag = "lavaland_ext";
 	locked = 1;
 	name = "Mining External Airlock";
 	opacity = 0;
@@ -2892,11 +2885,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gH" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "mining";
-	name = "exterior access button";
+/obj/machinery/access_button/airlock_exterior{
+	autolink_id = "lavaland_ext";
 	pixel_x = -25;
 	pixel_y = -25;
 	req_access_txt = null

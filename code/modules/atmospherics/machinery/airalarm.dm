@@ -375,7 +375,10 @@
 		icon_state = "alarmp"
 		return
 
-	switch(max(danger_level, alarm_area.atmosalm-1))
+	if(!alarm_area) // We wont have our alarm_area if we aint initialised
+		return
+
+	switch(max(danger_level, alarm_area.atmosalm - 1))
 		if(ATMOS_ALARM_NONE)
 			icon_state = "alarm0"
 		if(ATMOS_ALARM_WARNING)
