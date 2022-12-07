@@ -363,3 +363,21 @@
 	pixel_x = -32
 	pixel_y = -32
 	duration = 42
+
+/obj/effect/temp_visual/rcd_effect
+	icon = 'icons/effects/effects_rcd.dmi'
+	icon_state = "rcd"
+	duration = 50
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/effect/temp_visual/rcd_effect/short
+	icon_state = "rcd_short"
+	duration = 20
+
+/obj/effect/temp_visual/rcd_effect/end
+	icon_state = "rcd_end"
+	duration = 11
+
+/obj/effect/temp_visual/rcd_effect/reverse
+	icon_state = "rcd_reverse"
+	duration = 61
