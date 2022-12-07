@@ -1524,7 +1524,7 @@
 	A.create_team(team)
 	var/datum/team/antag_team = A.get_team()
 	if(antag_team)
-		antag_team.add_member(src)
+		antag_team.add_member(src, A)
 	ASSERT(A.owner && A.owner.current)
 	A.on_gain()
 	return A

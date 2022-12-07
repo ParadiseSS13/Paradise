@@ -50,7 +50,7 @@
 	team_names[team_number] = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
 	//Team Objective
 	var/datum/objective/experiment/team_objective = new
-	team_objective.abductor_team = team_number
+	team_objective.abductor_team_number = team_number
 	team_objectives[team_number] = team_objective
 	//Team Members
 
@@ -238,7 +238,8 @@
 // OBJECTIVES
 /datum/objective/experiment
 	target_amount = 6
-	var/abductor_team
+	/// Which abductor team number does this belong to.
+	var/abductor_team_number
 
 /datum/objective/stay_hidden
 
@@ -251,7 +252,7 @@
 	explanation_text = "Experiment on [target_amount] humans."
 
 /datum/objective/experiment/check_completion()
-	var/ab_team = abductor_team
+	var/ab_team = abductor_team_number
 	var/list/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(!M.current || !ishuman(M.current) || !isabductor(M.current))
