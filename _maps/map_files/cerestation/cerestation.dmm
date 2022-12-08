@@ -53186,16 +53186,15 @@
 	},
 /area/maintenance/port)
 "inR" = (
-/obj/machinery/alarm{
-	pixel_y = 24;
-	name = "north bump"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
 	initialize_directions = 10
+	},
+/obj/machinery/alarm/server{
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server)
