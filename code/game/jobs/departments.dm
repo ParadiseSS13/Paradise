@@ -32,6 +32,15 @@
 	///This department members money account
 	var/datum/money_account/member_account
 
+
+/datum/department_member/proc/set_member_account(datum/money_account/account)
+	member_account = account
+	RegisterSignal(account, COMSIG_PARENT_QDELETING, PROC_REF(clear_member_account))
+
+/datum/department_member/proc/clear_member_account(datum/money_account/account)
+	UnregisterSignal(account, COMSIG_PARENT_QDELETING)
+	member_account = null
+
 /datum/station_department/can_vv_delete()
 	message_admins("An admin attempted to VV delete a station_department datum, please stop doing this it will break cargo")
 	return FALSE

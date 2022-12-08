@@ -13,7 +13,7 @@
 	if(can_opened)
 		. += "<span class='notice'>It has been opened.</span>"
 	else
-		. += "<span class='info'>Alt-click to shake it up!</span>"
+		. += "<span class='info'>Ctrl-click to shake it up!</span>"
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(can_opened)
@@ -41,14 +41,14 @@
 	qdel(src)
 	return crushed_can
 
-/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/user)
+/obj/item/reagent_containers/food/drinks/cans/CtrlClick(mob/user)
 	var/mob/living/carbon/human/H
 	if(!can_shake || !ishuman(user))
 		return ..()
 	H = user
 	if(can_opened)
 		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
-		return ..()
+		return
 	if(src == H.l_hand || src == H.r_hand)
 		can_shake = FALSE
 		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
@@ -65,8 +65,7 @@
 				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 				handle_bursting(user)
 	else
-		to_chat(H, "<span class='warning'>You need to hold [src] in order to shake it.</span>")
-	return ..()
+		return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
 	if(!can_opened)
