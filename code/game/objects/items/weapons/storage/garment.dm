@@ -179,3 +179,18 @@
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/accessory/blue(src)
+
+/obj/item/storage/bag/garment/quartermaster
+	name = "quatermaster's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the quartermaster."
+
+/obj/item/storage/bag/garment/quartermaster/populate_contents()
+	new /obj/item/clothing/under/rank/cargo/quartermaster(src)
+	new /obj/item/clothing/under/rank/cargo/quartermaster/skirt(src)
+	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/clothing/head/soft(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/suit/fire/firefighter(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
