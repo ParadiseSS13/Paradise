@@ -10307,16 +10307,17 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/cable/orange{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/medical/cmo)
@@ -12518,16 +12519,17 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable/orange{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/medical/cmo)
@@ -13491,6 +13493,9 @@
 "bnk" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -31435,15 +31440,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/quartermaster/qm)
-"cBt" = (
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
 "cBv" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -42803,15 +42799,16 @@
 "dEj" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/orange{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/structure/cable/orange{
 	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "dEm" = (
@@ -45657,11 +45654,11 @@
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "eSE" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -49346,12 +49343,13 @@
 "gDL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/orange{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable/orange{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology)
@@ -51079,6 +51077,14 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/gambling_den)
+"hoX" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/cmostore)
 "hoZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -76948,11 +76954,11 @@
 	},
 /area/medical/surgery)
 "syI" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -81555,30 +81561,12 @@
 "uyM" = (
 /turf/simulated/wall,
 /area/crew_quarters/arcade)
-"uzE" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/medbay)
 "uzS" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "uzW" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
@@ -82690,6 +82678,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -82770,7 +82761,9 @@
 	},
 /area/hallway/primary/aft/east)
 "vaY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -93522,13 +93515,13 @@ rNK
 rNK
 rNK
 rNK
-uTb
-uTb
-uTb
-uTb
-uTb
-uTb
-uTb
+lzH
+lzH
+lzH
+lzH
+lzH
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -93778,15 +93771,15 @@ rNK
 rNK
 rNK
 rNK
-uTb
-uTb
+lzH
+lzH
 aad
 aad
 xko
 aad
 aad
-uTb
-uTb
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -94034,8 +94027,8 @@ lRR
 rNK
 rNK
 rNK
-uTb
-uTb
+lzH
+lzH
 aad
 aad
 sWf
@@ -94043,8 +94036,8 @@ pxX
 sWf
 aad
 aad
-uTb
-uTb
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -94290,8 +94283,8 @@ jft
 lRR
 rNK
 rNK
-uTb
-uTb
+lzH
+lzH
 aad
 aad
 sWf
@@ -94301,8 +94294,8 @@ sWf
 sWf
 aad
 aad
-uTb
-uTb
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -94546,8 +94539,8 @@ jft
 lRR
 lRR
 lRR
-uTb
-uTb
+lzH
+lzH
 aad
 aad
 sWf
@@ -94559,8 +94552,8 @@ sWf
 sWf
 aad
 aad
-uTb
-uTb
+lzH
+lzH
 rNK
 rNK
 rNK
@@ -94803,7 +94796,7 @@ jft
 lRR
 ayb
 ayb
-uTb
+lzH
 aad
 aad
 sWf
@@ -94817,7 +94810,7 @@ sWf
 sWf
 aad
 aad
-uTb
+lzH
 rNK
 rNK
 rNK
@@ -137608,7 +137601,7 @@ hqL
 aYT
 vpe
 alc
-cBt
+alc
 alc
 cHq
 cMV
@@ -140229,7 +140222,7 @@ sSL
 buf
 cGt
 cPB
-dBO
+uwA
 bJf
 tXL
 bIQ
@@ -140486,7 +140479,7 @@ sSR
 dtH
 dAS
 dAF
-dBO
+uxF
 uYf
 cKk
 cKk
@@ -140743,7 +140736,7 @@ bij
 bpB
 dAS
 bwU
-uwA
+uxF
 goU
 bIQ
 iOb
@@ -140765,7 +140758,7 @@ vvf
 yfZ
 vRA
 gtC
-wvp
+hoX
 wvp
 moY
 yfZ
@@ -141514,7 +141507,7 @@ sTy
 btU
 tJX
 kpn
-uzE
+ucz
 uYZ
 dBn
 nNN
