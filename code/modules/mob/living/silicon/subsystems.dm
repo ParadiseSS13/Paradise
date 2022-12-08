@@ -53,7 +53,7 @@
 /mob/living/silicon/robot/init_subsystems()
 	. = ..()
 	self_diagnosis  = new(src)
-	mail_setter		= new(src)
+	mail_setter	= new(src)
 
 /********************
 *	Atmos Control	*
