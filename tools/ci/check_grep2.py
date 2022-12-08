@@ -191,7 +191,7 @@ def check_515_proc_syntax(filename, lines):
 
 def check_space_indentation(filename, lines):
     for line in lines:
-        if re.match(r"^ {2,}\S", line):
+        if re.match(r"^ {2,}[^\*]", line):
             return "ERROR: Space indentation detected, please use tab indentation."
 
 
