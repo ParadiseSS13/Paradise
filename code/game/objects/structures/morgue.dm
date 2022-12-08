@@ -284,12 +284,12 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon_state = "crema"
 	density = TRUE
 	max_integrity = 1000
-	integrity_failure = 700
+	integrity_failure = 700 // Actual integrity is thus only 300, the max_integrity is so high to prevent it from being destroyed before it's made invincibile once broken
 	var/obj/structure/c_tray/connected = null
 	anchored = TRUE
 	var/cremating = FALSE
 	var/id = 1
-	var/repairstate = 2
+	var/repairstate = 2 // Repairstate 0 is broken, 1 has the igniter applied but needs welding, 2 is functional
 	var/locked = FALSE
 	var/open_sound = 'sound/items/deconstruct.ogg'
 
@@ -335,8 +335,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/structure/crematorium/obj_break(damage_flag)
 	if(!broken)
 		visible_message("<span class='warning'>[src] dims as its paneling collapses and it becomes non-functional.</span>")
-		icon_state = "crema_broke"
-		resistance_flags = INDESTRUCTIBLE
+		icon_state = "crema_broke" // this will need a proper sprite when possible, as it's just a copy of crema
+		resistance_flags = INDESTRUCTIBLE // prevents it from being destroyed instead of just broken
 		name = "broken crematorium"
 		desc = "A broken human incinerator. No longer works well on barbeque nights. It requires a new igniter to be repaired."
 		repairstate = 0
@@ -344,7 +344,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		GLOB.crematoriums -= src
 
 /obj/structure/crematorium/welder_act(mob/user, obj/item/I)
-	if(user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM) // if you want to damage it with a welder you should be able to
 		return
 	if(broken)
 		if(!I.tool_use_check(user, 0))
@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 			return TRUE
 		WELDER_REPAIR_SUCCESS_MESSAGE
-		icon_state = "crema"
+		icon_state = "crema" // there's probably a better way to handle this than setting icon_state, name, and desc to their original values, but I am not a smart man
 		resistance_flags = NONE
 		name = "crematorium"
 		desc = "A human incinerator. Works well on barbeque nights."
@@ -535,7 +535,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
-	resistance_flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE // could use a more elegant solution like being able to be rebuilt, broken and repaired, or by directly attaching the switch to the crematorium
 	power_channel = EQUIP
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 100
