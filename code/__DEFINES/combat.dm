@@ -24,6 +24,7 @@
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
+#define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
 #define IRRADIATE	"irradiate"
 #define STUTTER		"stutter"
@@ -48,7 +49,7 @@
 #define CANWEAKEN		2
 #define CANPARALYSE		4
 #define CANPUSH			8
-#define PASSEMOTES		16 //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define PASSEMOTES		16 //Mob has holders inside of it that need to see emotes.
 #define GODMODE			32
 
 //Health Defines
@@ -69,6 +70,11 @@
 #define PROJECTILE_ATTACK 3
 #define THROWN_PROJECTILE_ATTACK 4
 #define LEAP_ATTACK 5
+#define ALL_ATTACK_TYPES list(MELEE_ATTACK, UNARMED_ATTACK, PROJECTILE_ATTACK, THROWN_PROJECTILE_ATTACK, LEAP_ATTACK)
+#define NON_PROJECTILE_ATTACKS list(MELEE_ATTACK, UNARMED_ATTACK, LEAP_ATTACK)
+
+// the standard parry time out time
+#define PARRY_DEFAULT_TIMEOUT 1 SECONDS
 
 //attack visual effects
 #define ATTACK_EFFECT_PUNCH		"punch"
@@ -142,3 +148,11 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+
+/*
+* converts life cycle values into deciseconds. try and avoid usage of this.
+* this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.
+*/
+#define STATUS_EFFECT_CONSTANT * 20
+
+#define IS_HORIZONTAL(x) x.body_position

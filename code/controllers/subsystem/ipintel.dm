@@ -139,13 +139,13 @@ SUBSYSTEM_DEF(ipintel)
 		return
 
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
-	var/list/http[] = world.Export("http://[GLOB.configuration.ipintel.ipintel_domain]/check.php?ip=[ip]&contact=[GLOB.configuration.ipintel.contact_email]&format=json&flags=b")
+	var/list/http[] = HTTPGet("http://[GLOB.configuration.ipintel.ipintel_domain]/check.php?ip=[ip]&contact=[GLOB.configuration.ipintel.contact_email]&format=json&flags=b")
 
 	if(http)
 		var/status = text2num(http["STATUS"])
 
 		if(status == 200)
-			var/response = json_decode(file2text(http["CONTENT"]))
+			var/response = json_decode(http["CONTENT"])
 			if(response)
 				if(response["status"] == "success")
 					var/intelnum = text2num(response["result"])

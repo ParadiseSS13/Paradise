@@ -12,6 +12,14 @@
 	log_adminsay(msg, src)
 
 	if(check_rights(R_ADMIN,0))
+		// Do this up here before it gets sent to everyone & emoji'd
+		if(SSredis.connected)
+			var/list/data = list()
+			data["author"] = usr.ckey
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay", json_encode(data))
+
 		for(var/client/C in GLOB.admins)
 			if(R_ADMIN & C.holder.rights)
 				// Lets see if this admin was pinged in the asay message
@@ -29,7 +37,9 @@
 	if(check_rights(R_ADMIN, FALSE))
 		var/msg = input(src, null, "asay \"text\"") as text|null
 		cmd_admin_say(msg)
-	else if(check_rights(R_MENTOR))
+
+/client/proc/get_mentor_say()
+	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
 		var/msg = input(src, null, "msay \"text\"") as text|null
 		cmd_mentor_say(msg)
 
@@ -47,6 +57,14 @@
 
 	if(!msg)
 		return
+
+	// Do this up here before it gets sent to everyone & emoji'd
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = GLOB.configuration.system.instance_id
+		data["message"] = msg
+		SSredis.publish("byond.msay", json_encode(data))
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))

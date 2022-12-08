@@ -4,7 +4,7 @@
 	icon_state = "holster"
 	item_color = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
-	var/holster_allow = /obj/item/gun
+	var/list/holster_allow = list(/obj/item/gun)
 	var/obj/item/gun/holstered = null
 	actions_types = list(/datum/action/item_action/accessory/holster)
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
@@ -18,11 +18,11 @@
 //subtypes can override this to specify what can be holstered
 /obj/item/clothing/accessory/holster/proc/can_holster(obj/item/gun/W)
 	if(!W.can_holster)
-		return 0
-	else if(!istype(W,holster_allow))
-		return 0
+		return FALSE
+	else if(!is_type_in_list(W, holster_allow))
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/clothing/accessory/holster/attack_self()
 	var/holsteritem = usr.get_active_hand()
@@ -59,7 +59,7 @@
 	if(!holstered)
 		return
 
-	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
+	if(isobj(user.get_active_hand()) && isobj(user.get_inactive_hand()))
 		to_chat(user, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
 	else
 		if(user.a_intent == INTENT_HARM)
@@ -108,7 +108,7 @@
 	set name = "Holster"
 	set category = "Object"
 	set src in usr
-	if(!istype(usr, /mob/living)) return
+	if(!isliving(usr)) return
 	if(usr.stat) return
 
 	var/obj/item/clothing/accessory/holster/H = null
@@ -136,7 +136,7 @@
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	icon_state = "holster"
 	item_color = "holster"
-	holster_allow = /obj/item/gun/projectile
+	holster_allow = list(/obj/item/gun/projectile, /obj/item/gun/energy/detective)
 
 /obj/item/clothing/accessory/holster/waist
 	name = "shoulder holster"

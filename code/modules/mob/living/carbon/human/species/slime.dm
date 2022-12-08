@@ -26,7 +26,7 @@
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
 	species_traits = list(LIPS, IS_WHITELISTED, NO_CLONESCAN, EXOTIC_COLOR)
-	inherent_traits = list(TRAIT_WATERBREATH)
+	inherent_traits = list(TRAIT_WATERBREATH, TRAIT_NO_BONES)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
@@ -46,44 +46,30 @@
 		"lungs" = /obj/item/organ/internal/lungs/slime
 		)
 	mutantears = null
-	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable),
-		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable),
-		"head" =   list("path" = /obj/item/organ/external/head/unbreakable),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable)
-		)
 	suicide_messages = list(
 		"is melting into a puddle!",
 		"is ripping out their own core!",
 		"is turning a dull, brown color and melting into a puddle!")
 
 	var/reagent_skin_coloring = FALSE
-	var/datum/action/innate/regrow/grow
-	var/datum/action/innate/slimecolor/recolor
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
-	grow = new()
+	var/datum/action/innate/regrow/grow = new()
 	grow.Grant(H)
-	recolor = new()
+	var/datum/action/innate/slimecolor/recolor = new()
 	recolor.Grant(H)
-	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
+	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
 
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
-	if(grow)
-		grow.Remove(H)
-	if(recolor)
-		recolor.Remove(H)
+	for(var/datum/action/innate/i in H.actions)
+		if(istype(i, /datum/action/innate/slimecolor))
+			i.Remove(H)
+		if(istype(i, /datum/action/innate/regrow))
+			i.Remove(H)
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
@@ -165,8 +151,8 @@
 	var/chosen_limb = missing_limbs[limb_select]
 
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
-	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+		if(H.incapacitated(extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
 			return
 
@@ -195,7 +181,7 @@
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
 		var/obj/item/organ/external/new_limb = new limb_path(H)
-		new_limb.open = 0 // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
+		new_limb.open = ORGAN_CLOSED // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
 		H.adjustBruteLoss(stored_brute)
 		H.adjustFireLoss(stored_burn)
 		H.update_body()
@@ -203,6 +189,7 @@
 		H.UpdateDamageIcon()
 		H.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
 		H.visible_message("<span class='notice'>[H] finishes regrowing [H.p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
+		new_limb.add_limb_flags()
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
 

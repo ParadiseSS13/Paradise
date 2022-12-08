@@ -77,6 +77,15 @@
 
 	blob_talk(message)
 
+/mob/camera/blob/proc/add_mob_to_overmind(mob/living/simple_animal/hostile/blob/B)
+	B.color = blob_reagent_datum?.complementary_color
+	B.overmind = src
+	blob_mobs += B
+	RegisterSignal(B, COMSIG_PARENT_QDELETING, PROC_REF(on_blob_mob_death))
+
+/mob/camera/blob/proc/on_blob_mob_death(mob/living/simple_animal/hostile/blob/B)
+	blob_mobs -= B
+
 /mob/camera/blob/proc/blob_talk(message)
 	log_say("(BLOB) [message]", src)
 
@@ -85,15 +94,13 @@
 	if(!message)
 		return
 
-	var/verb = "states,"
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
-
+	var/rendered
+	var/follow_text
 	for(var/mob/M in GLOB.mob_list)
-		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
-			M.show_message(rendered, 2)
-
-/mob/camera/blob/emote(act, m_type = 1, message = null, force)
-	return
+		follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost=M)])" : ""
+		rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span></i></font>"
+		if(isovermind(M) || isobserver(M) || istype(M, /mob/living/simple_animal/hostile/blob/blobbernaut))
+			M.show_message(rendered, EMOTE_AUDIBLE)
 
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return

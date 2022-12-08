@@ -106,10 +106,13 @@ research holder datum.
 	return TRUE
 
 /datum/research/proc/AddDesign2Known(datum/design/D)
+	if(!D)
+		return FALSE
 	if(!CanAddDesign2Known(D))
-		return
+		return TRUE
 	// Global datums make me nervous
 	known_designs[D.id] = D
+	return TRUE
 
 //Refreshes known_tech and known_designs list.
 //Input/Output: n/a
@@ -119,7 +122,8 @@ research holder datum.
 			AddTech2Known(PT)
 	for(var/datum/design/PD in possible_designs)
 		if(DesignHasReqs(PD))
-			AddDesign2Known(PD)
+			if(!AddDesign2Known(PD))
+				stack_trace("Game attempted to add a null design to list of known designs! Design: [PD] with ID: [PD.id]")
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
 		T.level = clamp(T.level, 0, 20)
@@ -178,6 +182,17 @@ research holder datum.
 		if(mat != MAT_METAL && mat != MAT_GLASS)
 			return FALSE
 
+	return ..()
+
+///Gamma Armoury autolathe files
+/datum/research/autolathe/gamma
+
+/datum/research/autolathe/gamma/DesignHasReqs(datum/design/D)
+	return D && ((D.build_type & GAMMALATHE) || (D.build_type & (AUTOLATHE) && ("initial" in D.category)))
+
+/datum/research/autolathe/gamma/CanAddDesign2Known(datum/design/design)
+	if(design.build_type & GAMMALATHE)
+		return TRUE
 	return ..()
 
 //Biogenerator files
@@ -340,7 +355,7 @@ datum/tech/robotics
 		return 0
 
 	var/cost = 0
-	for(var/i=current_level+1, i<=level, i++)
+	for(var/i = current_level + 1, i <= level, i++)
 		if(i == initial(level))
 			continue
 		cost += i*5*rare

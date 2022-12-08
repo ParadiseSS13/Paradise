@@ -1,12 +1,12 @@
 /obj/structure/AIcore
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	name = "AI core"
 	icon = 'icons/mob/AI.dmi'
 	icon_state = "0"
 	max_integrity = 500
 	var/state = 0
-	var/datum/ai_laws/laws = null
+	var/datum/ai_laws/laws = new /datum/ai_laws/crewsimov()
 	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
@@ -24,7 +24,7 @@
 					return
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				state = CIRCUIT_CORE
 				P.forceMove(src)
 				circuit = P
@@ -38,7 +38,7 @@
 					if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
 						to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 						state = CABLED_CORE
-						update_icon()
+						update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the AI core!</span>")
 				return
@@ -51,7 +51,7 @@
 					if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
 						to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 						state = GLASS_CORE
-						update_icon()
+						update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
 				return
@@ -63,8 +63,20 @@
 
 			if(istype(P, /obj/item/aiModule/freeform))
 				var/obj/item/aiModule/freeform/M = P
-				laws.add_inherent_law(M.newFreeFormLaw)
+				if(!M.newFreeFormLaw)
+					to_chat(usr, "No law detected on module, please create one.")
+					return
+				laws.add_supplied_law(M.lawpos, M.newFreeFormLaw)
 				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
+				return
+
+			if(istype(P, /obj/item/aiModule/syndicate))
+				var/obj/item/aiModule/syndicate/M = P
+				if(!M.newFreeFormLaw)
+					to_chat(usr, "No law detected on module, please create one.")
+					return
+				laws.add_ion_law(M.newFreeFormLaw)
+				to_chat(usr, "<span class='notice'>Added a hacked law.</span>")
 				return
 
 			if(istype(P, /obj/item/aiModule))
@@ -73,6 +85,8 @@
 					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
 					return
 				laws = M.laws
+				to_chat(usr, "<span class='notice'>Added [M.laws.name] laws.</span>")
+				return
 
 			if(istype(P, /obj/item/mmi) && !brain)
 				var/obj/item/mmi/M = P
@@ -105,7 +119,7 @@
 				M.forceMove(src)
 				brain = M
 				to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				return
 
 	return ..()
@@ -133,7 +147,7 @@
 				to_chat(user, "<span class='notice'>You remove the brain.</span>")
 				brain.forceMove(loc)
 				brain = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/AIcore/screwdriver_act(mob/living/user, obj/item/I)
 	if(!(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE)))
@@ -171,7 +185,7 @@
 		if(AI_READY_CORE)
 			to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 			state = GLASS_CORE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/structure/AIcore/wirecutter_act(mob/living/user, obj/item/I)
@@ -185,7 +199,7 @@
 	else
 		to_chat(user, "<span class='notice'>You remove the cables.</span>")
 		state = SCREWED_CORE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
 		A.amount = 5
 
@@ -195,7 +209,7 @@
 		return
 	default_unfasten_wrench(user, I, 20)
 
-/obj/structure/AIcore/update_icon()
+/obj/structure/AIcore/update_icon_state()
 	switch(state)
 		if(EMPTY_CORE)
 			icon_state = "0"
@@ -297,8 +311,8 @@ That prevents a few funky behaviors.
 		return
  //Transferring a carded AI to a core.
 	if(interaction == AI_TRANS_FROM_CARD)
-		AI.control_disabled = 0
-		AI.aiRadio.disabledAi = 0
+		AI.control_disabled = FALSE
+		AI.aiRadio.disabledAi = FALSE
 		AI.forceMove(loc)//To replace the terminal.
 		to_chat(AI, "You have been uploaded to a stationary terminal. Remote device connection restored.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.</span>")

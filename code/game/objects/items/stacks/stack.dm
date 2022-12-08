@@ -27,6 +27,8 @@
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 	var/recipe_width = 400 //Width of the recipe popup
 	var/recipe_height = 400 //Height of the recipe popup
+	/// What sort of table is made when applying this stack to a frame?
+	var/table_type
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
@@ -187,7 +189,9 @@
 
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		if(!multiplier || multiplier <= 0 || multiplier > 50) // Href exploit checks
+		if(!multiplier || multiplier <= 0 || multiplier > 50 || !IS_INT(multiplier)) // Href exploit checks
+			if(multiplier) // It existed but they tried to fuck with it
+				message_admins("[key_name_admin(usr)] just attempted to href exploit sheet crafting with an invalid multiplier. Ban highly advised.")
 			multiplier = 1
 
 		if(get_amount() < R.req_amount * multiplier)
@@ -205,11 +209,14 @@
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return FALSE
 
-		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
+		if(R.on_floor && !issimulatedturf(get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
+		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src)) || locate(/obj/structure/lattice) in get_turf(src)))
+			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
+			return FALSE
 
-		if(R.no_cult_structure)
+		if(R.cult_structure)
 			if(usr.holy_check())
 				return
 			if(!is_level_reachable(usr.z))
@@ -222,7 +229,11 @@
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
 			if(!do_after(usr, R.time, target = loc))
-				return 0
+				return FALSE
+
+		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
+			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
+			return FALSE
 
 		if(get_amount() < R.req_amount * multiplier)
 			return
@@ -243,12 +254,12 @@
 			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
-			if(istype(O, /obj/item))
+			if(isitem(O))
 				usr.put_in_hands(O)
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
+		if(isstorage(O))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END

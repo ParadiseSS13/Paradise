@@ -8,8 +8,8 @@
 	var/obj/item/tank/tank_two = null
 	var/obj/item/assembly/attached_device = null
 	var/mob/living/attacher = null
-	var/valve_open = 0
-	var/toggle = 1
+	var/valve_open = FALSE
+	var/toggle = TRUE
 	origin_tech = "materials=1;engineering=1"
 
 /obj/item/transfer_valve/Destroy()
@@ -62,8 +62,6 @@
 		to_chat(user, "<span class='notice'>You attach [A] to the valve controls and secure it.</span>")
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
-		if(istype(attached_device, /obj/item/assembly/prox_sensor))
-			AddComponent(/datum/component/proximity_monitor)
 
 		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
@@ -139,7 +137,6 @@
 				attached_device.forceMove(get_turf(src))
 				attached_device.holder = null
 				attached_device = null
-				qdel(GetComponent(/datum/component/proximity_monitor))
 				update_icon()
 		else
 			. = FALSE
@@ -150,28 +147,30 @@
 
 /obj/item/transfer_valve/proc/process_activation(obj/item/D)
 	if(toggle)
-		toggle = 0
+		toggle = FALSE
 		toggle_valve()
 		spawn(50) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
-			toggle = 1
+			toggle = TRUE
 
-/obj/item/transfer_valve/update_icon()
-	overlays.Cut()
-	underlays = null
-
+/obj/item/transfer_valve/update_icon_state()
 	if(!tank_one && !tank_two && !attached_device)
 		icon_state = "valve_1"
+	else
+		icon_state = "valve"
+	
+/obj/item/transfer_valve/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(!tank_one && !tank_two && !attached_device)
 		return
-	icon_state = "valve"
-
 	if(tank_one)
-		overlays += "[tank_one.icon_state]"
+		. += "[tank_one.icon_state]"
 	if(tank_two)
 		var/icon/J = new(icon, icon_state = "[tank_two.icon_state]")
 		J.Shift(WEST, 13)
 		underlays += J
 	if(attached_device)
-		overlays += "device"
+		. += "device"
 
 /obj/item/transfer_valve/proc/merge_gases()
 	tank_two.air_contents.volume += tank_one.air_contents.volume
@@ -195,7 +194,7 @@
 
 /obj/item/transfer_valve/proc/toggle_valve(mob/user)
 	if(!valve_open && tank_one && tank_two)
-		valve_open = 1
+		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 
@@ -221,5 +220,5 @@
 
 	else if(valve_open && tank_one && tank_two)
 		split_gases()
-		valve_open = 0
+		valve_open = FALSE
 		update_icon()

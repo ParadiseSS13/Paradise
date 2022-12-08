@@ -2,9 +2,10 @@
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
-	icon_state = "cult"
+	icon_state = "cult_wall-0"
+	base_icon_state = "cult_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
-	smooth = SMOOTH_FALSE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
@@ -32,22 +33,13 @@
 /turf/simulated/wall/cult/devastate_wall()
 	new sheet_type(get_turf(src), sheet_amount)
 
-/turf/simulated/wall/rust
-	name = "rusted wall"
-	desc = "A rusted metal wall."
-	icon = 'icons/turf/walls/rusty_wall.dmi'
-	icon_state = "arust"
-
-/turf/simulated/wall/r_wall/rust
-	name = "rusted reinforced wall"
-	desc = "A huge chunk of rusted reinforced metal."
-	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
-	icon_state = "rrust"
-
 //Clockwork walls
 /turf/simulated/wall/clockwork
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
+	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
 	explosion_block = 2
 	hardness = 10
 	slicing_duration = 80
@@ -56,6 +48,8 @@
 	girder_type = /obj/structure/clockwork/wall_gear
 	var/heated
 	var/obj/effect/clockwork/overlay/wall/realappearance
+	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALL)
 
 /turf/simulated/wall/clockwork/Initialize()
 	. = ..()
@@ -74,7 +68,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)

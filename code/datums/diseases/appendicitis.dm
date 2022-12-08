@@ -2,6 +2,8 @@
 	form = "Condition"
 	name = "Appendicitis"
 	max_stages = 3
+	spread_text = "Non-contagious"
+	spread_flags = NON_CONTAGIOUS
 	cure_text = "Surgery"
 	agent = "Shitty Appendix"
 	viable_mobtypes = list(/mob/living/carbon/human)
@@ -9,7 +11,6 @@
 	desc = "If left untreated the subject will become very weak, and may vomit often."
 	severity = "Dangerous!"
 	disease_flags = CAN_CARRY|CAN_RESIST
-	spread_flags = NON_CONTAGIOUS
 	visibility_flags = HIDDEN_PANDEMIC
 	required_organs = list(/obj/item/organ/internal/appendix)
 	bypasses_immunity = TRUE
@@ -28,7 +29,7 @@
 				A.update_icon()
 			if(prob(3))
 				to_chat(affected_mob, "<span class='warning'>You feel a stabbing pain in your abdomen!</span>")
-				affected_mob.Stun(rand(2,3))
+				affected_mob.Stun(rand(4 SECONDS, 6 SECONDS))
 				affected_mob.adjustToxLoss(1)
 		if(3)
 			if(prob(1))

@@ -1,18 +1,18 @@
 /mob
-	density = 1
+	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = 2
 	pressure_resistance = 8
 	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = null
 
-	var/obj/screen/hands = null
 	var/obj/screen/pullin = null
 	var/obj/screen/i_select = null
 	var/obj/screen/m_select = null
@@ -28,7 +28,7 @@
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
 
-	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
+	var/use_me = TRUE //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
 	var/lastattacker = null // real name of the person  doing the attacking
@@ -40,30 +40,29 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/other_mobs = null
+	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
-	var/notransform = null	//Carbon
+	var/notransform = FALSE	//Carbon
 	var/hand = null
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
-	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
-	var/can_strip = 1
+	var/can_strip = TRUE
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
-	var/emote_type = 1		// Define emote default type, 1 for seen emotes, 2 for heard emotes
+	var/emote_type = EMOTE_VISIBLE		// Define emote default type, 1 for seen emotes, 2 for heard emotes
 	var/name_archive //For admin things like possession
 
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
-	var/flying = 0
+	var/flying = FALSE
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
@@ -90,15 +89,27 @@
 
 	hud_possible = list(SPECIALROLE_HUD)
 
-	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
+	var/research_scanner = FALSE //For research scanner equipped mobs. Enable to show research data when examining.
 
 	var/list/grabbed_by = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
-	var/in_throw_mode = 0
+	var/in_throw_mode = FALSE
 
-	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
+	// See /datum/emote
+
+	/// Cooldown on audio effects from emotes.
+	var/audio_emote_cd_status = EMOTE_READY
+
+	/// Cooldown on audio effects from unintentional emotes.
+	var/audio_emote_unintentional_cd_status = EMOTE_READY
+
+	/// Override for cooldowns on non-audio emotes. Should be a number in deciseconds.
+	var/emote_cooldown_override = null
+
+	/// Tracks last uses of emotes for cooldown purposes
+	var/list/emotes_used
 
 	var/job = null //Living
 
@@ -109,12 +120,12 @@
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
-	var/move_on_shuttle = 1 // Can move on the shuttle.
+	var/move_on_shuttle = TRUE // Can move on the shuttle.
 
 	/// Whether antagHUD has been enabled previously.
 	var/has_enabled_antagHUD = FALSE
 	var/antagHUD = FALSE  // Whether AntagHUD is active right now
-	var/can_change_intents = 1 //all mobs can change intents by default.
+	var/can_change_intents = TRUE //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
@@ -147,19 +158,15 @@
 
 	var/area/lastarea = null
 
-	var/digitalcamo = 0 // Can they be tracked by the AI?
-
-	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
+	var/has_unlimited_silicon_privilege = FALSE // Can they interact with station electronics
 
 	var/atom/movable/remote_control //Calls relaymove() to whatever it is
 
 	var/obj/control_object //Used by admins to possess objects. All mobs should have this var
 
 	//Whether or not mobs can understand other mobtypes. These stay in /mob so that ghosts can hear everything.
-	var/universal_speak = 0 // Set to 1 to enable the mob to speak to everyone -- TLE
-	var/universal_understand = 0 // Set to 1 to enable the mob to understand everyone, not necessarily speak
-	var/robot_talk_understand = 0
-	var/alien_talk_understand = 0
+	var/universal_speak = FALSE // Set to TRUE to enable the mob to speak to everyone -- TLE
+	var/universal_understand = FALSE // Set to TRUE to enable the mob to understand everyone, not necessarily speak
 
 	var/has_limbs = 1 //Whether this mob have any limbs he can move with
 
@@ -203,3 +210,5 @@
 	var/health_hud_override = HEALTH_HUD_OVERRIDE_NONE
 	/// A soft reference to the location where this mob's runechat message will appear. Uses `UID()`.
 	var/runechat_msg_location
+	/// The datum receiving keyboard input. parent mob by default.
+	var/datum/input_focus = null

@@ -70,7 +70,7 @@
 			italics = TRUE
 			sound_vol *= 0.5
 
-	if(sleeping || stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS)
 		hear_sleep(multilingual_to_message(message_pieces))
 		return 0
 
@@ -95,6 +95,13 @@
 		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
+	// Ensure only the speaker is forced to emote, and that the spoken language is inname
+	if(speaker == src)
+		for(var/datum/multilingual_say_piece/SP in message_pieces)
+			if(SP.speaking && SP.speaking.flags & INNATE)
+				custom_emote(EMOTE_AUDIBLE, message_clean, TRUE)
+				return
+
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 		// if(!language || !(language.flags & INNATE))
@@ -118,7 +125,7 @@
 	if(!client)
 		return
 
-	if(sleeping || stat == UNCONSCIOUS) //If unconscious or sleeping
+	if(stat == UNCONSCIOUS) //If unconscious or sleeping
 		hear_sleep(multilingual_to_message(message_pieces))
 		return
 
@@ -179,7 +186,7 @@
 	to_chat(src, heard)
 
 /mob/proc/hear_holopad_talk(list/message_pieces, verb = "says", mob/speaker = null, obj/effect/overlay/holo_pad_hologram/H)
-	if(sleeping || stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS)
 		hear_sleep(multilingual_to_message(message_pieces))
 		return
 

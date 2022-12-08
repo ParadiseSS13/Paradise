@@ -8,9 +8,9 @@ RSF
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
-	opacity = 0
-	density = 0
-	anchored = 0.0
+	opacity = FALSE
+	density = FALSE
+	anchored = FALSE
 	var/matter = 0
 	var/mode = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
@@ -35,7 +35,7 @@ RSF
 	..()
 	if(istype(W, /obj/item/rcd_ammo))
 		if((matter + 10) > 30)
-			to_chat(user, "The RSF cant hold any more matter.")
+			to_chat(user, "The RSF can't hold any more matter.")
 			return
 		qdel(W)
 		matter += 10
@@ -55,7 +55,7 @@ RSF
 
 /obj/item/rsf/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity) return
-	if(!(istype(A, /obj/structure/table) || istype(A, /turf/simulated/floor)))
+	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
 		return
 	var/spawn_location
 	var/turf/T = get_turf(A)

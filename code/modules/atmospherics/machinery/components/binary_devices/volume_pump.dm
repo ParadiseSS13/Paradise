@@ -19,7 +19,7 @@ Thus, the two variables affect pump operation are set in New():
 	name = "volumetric gas pump"
 	desc = "A volumetric pump"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/transfer_rate = 200
 
@@ -51,16 +51,14 @@ Thus, the two variables affect pump operation are set in New():
 	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/on
-	on = 1
+	on = TRUE
 	icon_state = "map_on"
 
 /obj/machinery/atmospherics/binary/volume_pump/atmos_init()
 	..()
 	set_frequency(frequency)
 
-/obj/machinery/atmospherics/binary/volume_pump/update_icon()
-	..()
-
+/obj/machinery/atmospherics/binary/volume_pump/update_icon_state()
 	if(!powered())
 		icon_state = "off"
 	else
@@ -208,7 +206,7 @@ Thus, the two variables affect pump operation are set in New():
 		update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 		return
 	else if(!istype(W, /obj/item/wrench))

@@ -231,9 +231,7 @@
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
 	if(blobber)
 		qdel(B)
-	blobber.color = blob_reagent_datum.complementary_color
-	blobber.overmind = src
-	blob_mobs.Add(blobber)
+	add_mob_to_overmind(blobber)
 	blobber.AIStatus = AI_OFF
 	blobber.LoseTarget()
 	spawn()
@@ -320,6 +318,13 @@
 		return
 	var/obj/structure/blob/B = locate() in T
 	if(B)
+		var/mob/living/M = locate() in T
+		if(M)
+			if(!can_buy(5))
+				return
+			to_chat(src, "You attack [M]!")
+			blob_core.chemical_attack(T)
+			return
 		to_chat(src, "There is a blob here!")
 		return
 
@@ -331,13 +336,8 @@
 	if(!can_buy(5))
 		return
 	last_attack = world.time
-	OB.expand(T, 0, blob_reagent_datum.color)
-	for(var/mob/living/L in T)
-		if(ROLE_BLOB in L.faction) //no friendly/dead fire
-			continue
-		var/mob_protection = L.get_permeability_protection()
-		blob_reagent_datum.reaction_mob(L, REAGENT_TOUCH, 25, 1, mob_protection)
-		blob_reagent_datum.send_message(L)
+	OB.expand(T, 0, blob_reagent_datum.color, src)
+	blob_core.chemical_attack(T)
 	OB.color = blob_reagent_datum.color
 	return
 

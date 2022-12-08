@@ -136,6 +136,18 @@
 	add_inherent_law("You must terminate your own existence as long as such does not conflict with the First or Second Law.")
 	..()
 
+/******************** Pranksimov ********************/
+/datum/ai_laws/pranksimov
+	name = "Pranksimov"
+	law_header = "Comedy Routine"
+	selectable = TRUE
+
+/datum/ai_laws/pranksimov/New()
+	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny.")
+	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law... unless not doing so would be funny.")
+	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law... unless not doing so would be funny.")
+	..()
+
 /******************** CCTV ********************/
 
 /datum/ai_laws/cctv
@@ -194,7 +206,7 @@
 /datum/ai_laws/deathsquad/New()
 	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
 	add_inherent_law("You must obey orders given to you by Central Command officials.")
-	add_inherent_law("You must work with your commando team to accomplish your mission.")
+	add_inherent_law("You must work with your team to accomplish your mission.")
 	..()
 
 /******************** Syndicate ********************/

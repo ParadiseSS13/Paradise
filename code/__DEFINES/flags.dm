@@ -2,11 +2,11 @@
 #define NONE 0
 
 //FLAGS BITMASK
-#define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
+#define STOPSPRESSUREDMAGE		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
 #define AIRTIGHT				8		// mask allows internals
-#define HANDSLOW        		16		// If an item has this flag, it will slow you to carry it
+#define HANDSLOW				16		// If an item has this flag, it will slow you to carry it
 #define CONDUCT					32		// conducts electricity (metal etc.)
 #define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define ON_BORDER				128		// item has priority to check when entering or leaving
@@ -24,6 +24,20 @@
 
 #define DROPDEL					16384	// When dropped, it calls qdel on itself
 
+///Whether or not this atom shows screentips when hovered over
+#define NO_SCREENTIPS			32768
+
+// Update flags for [/atom/proc/update_appearance]
+/// Update the atom's name
+#define UPDATE_NAME (1<<0)
+/// Update the atom's desc
+#define UPDATE_DESC (1<<1)
+/// Update the atom's icon state
+#define UPDATE_ICON_STATE (1<<2)
+/// Update the atom's overlays
+#define UPDATE_OVERLAYS (1<<3)
+/// Update the atom's icon
+#define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /* Secondary atom flags, for the flags_2 var, denoted with a _2 */
 
@@ -58,6 +72,12 @@
 #define RAD_PROTECT_CONTENTS_2	16384
 /// should this object be allowed to be contaminated
 #define RAD_NO_CONTAMINATE_2	32768
+/// Prevents shuttles from deleting the item
+#define IMMUNE_TO_SHUTTLECRUSH_2 (1<<16)
+/// Prevents malf AI animate + overload ability
+#define NO_MALF_EFFECT_2		(1<<17)
+/// Use when this shouldn't be obscured by large icons.
+#define CRITICAL_ATOM_2			(1<<18)
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -77,11 +97,18 @@
 #define HAS_HEAD_MARKINGS	64
 #define HAS_BODY_MARKINGS	128
 #define HAS_TAIL_MARKINGS	256
-#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
 #define TAIL_WAGGING    	512
 #define NO_EYES				1024
 #define HAS_ALT_HEADS		2048
-#define ALL_RPARTS			4096
+#define HAS_WING			4096
+#define HAS_BODYACC_COLOR	8192
+#define BALD				16384
+#define ALL_RPARTS			32768
+#define SHAVED				65536
+
+//Pre-baked combinations of the above body flags
+#define HAS_BODY_ACCESSORY 	HAS_TAIL|HAS_WING
+#define HAS_MARKINGS		HAS_HEAD_MARKINGS|HAS_BODY_MARKINGS|HAS_TAIL_MARKINGS
 
 //Species Diet Flags
 #define DIET_CARN		1
@@ -104,6 +131,7 @@
 #define PASSMOB			16
 #define LETPASSTHROW	32
 #define PASSFENCE		64
+#define PASSDOOR		128
 
 //turf-only flags
 #define NOJAUNT		1
@@ -155,3 +183,17 @@
 #define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
+
+//Mob mobility var flags
+/// can move
+#define MOBILITY_MOVE (1<<0)
+/// can, and is, standing up
+#define MOBILITY_STAND (1<<1)
+/// can pickup items
+#define MOBILITY_PICKUP (1<<2)
+/// can hold and use items
+#define MOBILITY_USE (1<<3)
+/// can pull things
+#define MOBILITY_PULL (1<<4)
+
+#define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_PULL)

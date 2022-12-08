@@ -68,10 +68,14 @@
 			} \
 \
 			for(var/TRAIT in target.status_traits) { \
+				if(!target.status_traits[TRAIT]) \
+					continue; \
 				target.status_traits[TRAIT] &= SOURCES; \
 				if(!length(target.status_traits[TRAIT])) { \
 					target.status_traits -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT), TRAIT); \
+					if(!target.status_traits) \
+						break; \
 				} \
 			} \
 			if(!length(target.status_traits)) { \
@@ -96,10 +100,14 @@
 			} \
 \
 			for(var/TRAIT in target.status_traits) { \
+				if(!target.status_traits[TRAIT]) \
+					continue; \
 				target.status_traits[TRAIT] -= SOURCES; \
 				if(!length(target.status_traits[TRAIT])) { \
 					target.status_traits -= TRAIT; \
 					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(TRAIT)); \
+					if(!target.status_traits) \
+						break; \
 				} \
 			} \
 			if(!length(target.status_traits)) { \
@@ -167,6 +175,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MESON_VISION		"meson_vision"
 #define TRAIT_FLASH_PROTECTION	"flash_protection"
 #define TRAIT_NIGHT_VISION		"night_vision"
+#define TRAIT_EMOTE_MUTE		"emote_mute"
+
+#define TRAIT_NO_BONES 			"no_bones"
+#define TRAIT_STURDY_LIMBS		"sturdy_limbs"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_NOFINGERPRINTS	"no_fingerprints"
@@ -179,10 +191,24 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NODECAY			"no_decay"
 #define TRAIT_NOEXAMINE			"no_examine"
 #define TRAIT_NOPAIN			"no_pain"
+#define TRAIT_FORCE_DOORS 		"force_doors"
+#define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
+#define TRAIT_REPEATSURGERY		"master_surgeon"  // Lets you automatically repeat surgeries regardless of tool
+#define TRAIT_EDIBLE_BUG		"edible_bug" // Lets lizards and other animals that can eat bugs eat ya
+#define TRAIT_ELITE_CHALLENGER "elite_challenger"
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+#define TRAIT_BUTCHERS_HUMANS "butchers_humans"
+#define TRAIT_CMAGGED "cmagged"
+
+/// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
+#define TRAIT_SURGICAL			"surgical_tool"
+
+/// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
+#define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
+
 
 //
 // common trait sources
@@ -197,19 +223,48 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CLOTHING_TRAIT "clothing"
 #define CULT_TRAIT "cult"
 #define INNATE_TRAIT "innate"
+#define VAMPIRE_TRAIT "vampire"
+#define CHANGELING_TRAIT "changeling"
+#define LYING_DOWN_TRAIT "lying_down"
+#define SLIME_TRAIT "slime"
+#define BERSERK_TRAIT "berserk"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
 #define TRAIT_HULK "hulk"
 #define STASIS_MUTE "stasis"
+#define SCRYING "scrying" // for mobs that have ghosted, but their ghosts are allowed to return to their body outside of aghosting (spirit rune, scrying orb, etc)
 #define SCRYING_ORB "scrying-orb"
 #define CULT_EYES "cult_eyes"
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
+#define LOCKDOWN_TRAIT "lockdown"
+#define STAT_TRAIT "stat_trait"
+#define TRANSFORMING_TRAIT "transforming"
+#define BUCKLING_TRAIT "buckled"
+#define TRAIT_WAS_BATONNED "batonged"
+#define CLOWN_EMAG "clown_emag"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 
 //traits that should be properly converted to genetic mutations one day
 #define TRAIT_LASEREYES "laser_eyes"
+
+//status effec traits
+/// Forces the user to stay unconscious.
+#define TRAIT_KNOCKEDOUT "knockedout"
+/// Prevents voluntary movement.
+#define TRAIT_IMMOBILIZED "immobilized"
+/// Prevents voluntary standing or staying up on its own.
+#define TRAIT_FLOORED "floored"
+/// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
+#define TRAIT_HANDS_BLOCKED "handsblocked"
+/// Inability to access UI hud elements.
+#define TRAIT_UI_BLOCKED "uiblocked"
+/// Inability to pull things.
+#define TRAIT_CANNOT_PULL "pullblocked"
+/// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
+#define TRAIT_RESTRAINED "restrained"
+

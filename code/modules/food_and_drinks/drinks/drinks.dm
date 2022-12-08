@@ -9,13 +9,14 @@
 	container_type = OPENCONTAINER
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
+	visible_transfer_rate = TRUE
 	volume = 50
 	resistance_flags = NONE
 	antable = FALSE
 	var/chugging = FALSE
 
-/obj/item/reagent_containers/food/drinks/New()
-	..()
+/obj/item/reagent_containers/food/drinks/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 	bitesize = amount_per_transfer_from_this
@@ -34,7 +35,7 @@
 		to_chat(user, "<span class='warning'> You need to open [src] first!</span>")
 		return FALSE
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
 			return TRUE
@@ -125,7 +126,7 @@
 	throwforce = 1
 	amount_per_transfer_from_this = 5
 	materials = list(MAT_METAL=100)
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 5
 	flags = CONDUCT
 	container_type = OPENCONTAINER
@@ -191,8 +192,8 @@
 	item_state = "coffee"
 	list_reagents = list("tea" = 30)
 
-/obj/item/reagent_containers/food/drinks/tea/New()
-	..()
+/obj/item/reagent_containers/food/drinks/tea/Initialize(mapload)
+	. = ..()
 	if(prob(20))
 		reagents.add_reagent("mugwort", 3)
 
@@ -232,8 +233,8 @@
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
 
-/obj/item/reagent_containers/food/drinks/dry_ramen/New()
-	..()
+/obj/item/reagent_containers/food/drinks/dry_ramen/Initialize(mapload)
+	. = ..()
 	if(prob(20))
 		reagents.add_reagent("enzyme", 3)
 
@@ -249,7 +250,7 @@
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
 	item_state = "coffee"
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 10
 
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()
@@ -270,6 +271,44 @@
 	materials = list(MAT_METAL=1500)
 	amount_per_transfer_from_this = 10
 	volume = 100
+	var/shaking = FALSE
+
+/obj/item/reagent_containers/food/drinks/shaker/Initialize(mapload)
+	. = ..()
+	reagents.set_reacting(FALSE)
+
+/obj/item/reagent_containers/food/drinks/shaker/attack_self(mob/user)
+	if(!reagents.total_volume)
+		to_chat(user, "<span class='warning'>You won't shake an empty shaker now, will you?</span>")
+		return
+
+	if(shaking)
+		return
+
+	shaking = TRUE
+	var/adjective = pick("furiously", "passionately", "with vigor", "with determination", "like a devil", "with care and love", "like there is no tomorrow")
+	user.visible_message("<span class='notice'>\The [user] shakes \the [src] [adjective]!</span>", "<span class='notice'>You shake \the [src] [adjective]!</span>")
+	icon_state = "shaker-shake"
+	if(iscarbon(loc))
+		var/mob/living/carbon/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+	playsound(user, 'sound/items/boston_shaker.ogg', 80, 1)
+	if(do_after(user, 3 SECONDS, target = src))
+		reagents.set_reacting(TRUE)
+		reagents.handle_reactions()
+	icon_state = "shaker"
+	if(iscarbon(loc))
+		var/mob/living/carbon/M = loc
+		M.update_inv_r_hand()
+		M.update_inv_l_hand()
+
+	shaking = FALSE
+	reagents.set_reacting(FALSE)
+
+/obj/item/reagent_containers/food/drinks/shaker/dropped(mob/user)
+	. = ..()
+	icon_state = "shaker"
 
 /obj/item/reagent_containers/food/drinks/flask
 	name = "flask"

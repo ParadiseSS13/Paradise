@@ -8,17 +8,16 @@
 	/// Chance to trip when crossing.
 	var/trip_chance = 100
 	/// Stun to add when crossed.
-	var/stun = 4 SECONDS_TO_LIFE_CYCLES
+	var/stun = 4 SECONDS
 	/// Weaken to add when crossed.
-	var/weaken = 4 SECONDS_TO_LIFE_CYCLES
+	var/weaken = 4 SECONDS
 
 /obj/effect/hallucination/tripper/CanPass(atom/movable/mover, turf/T)
 	. = TRUE
 	if(isliving(mover) && mover == target)
 		var/mob/living/M = mover
-		if(M.lying || !prob(trip_chance))
+		if(!(M.mobility_flags & MOBILITY_MOVE) || !prob(trip_chance))
 			return
-		M.Stun(stun)
 		M.Weaken(weaken)
 		on_crossed()
 
@@ -49,7 +48,7 @@
 /obj/effect/hallucination/chaser/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	name = "\proper monkey ([rand(100, 999)])"
-	think_timer = addtimer(CALLBACK(src, .proc/think), think_interval, TIMER_LOOP | TIMER_STOPPABLE)
+	think_timer = addtimer(CALLBACK(src, PROC_REF(think)), think_interval, TIMER_LOOP | TIMER_STOPPABLE)
 
 /obj/effect/hallucination/chaser/Destroy()
 	deltimer(think_timer)

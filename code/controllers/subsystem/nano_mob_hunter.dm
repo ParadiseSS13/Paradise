@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(mob_hunt)
 		recover_time = 3000
 	if(recover_time > 0)	//when provided with a negative or zero valued recover_time argument, the server won't auto-restart but can be manually rebooted still
 		//set a timer to automatically recover after recover_time has passed (can be manually restarted if you get impatient too)
-		addtimer(CALLBACK(src, .proc/auto_recover), recover_time, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(auto_recover)), recover_time, TIMER_UNIQUE)
 
 /datum/controller/subsystem/mob_hunt/proc/client_mob_update()
 	var/list/ex_players = list()
@@ -133,8 +133,8 @@ SUBSYSTEM_DEF(mob_hunt)
 		loser_terminal = blue_terminal
 		winner_terminal = red_terminal
 	battle_turn = null
-	winner_terminal.ready = 0
-	loser_terminal.ready = 0
+	winner_terminal.ready = FALSE
+	loser_terminal.ready = FALSE
 	if(surrender)	//surrender doesn't give exp, to avoid people just farming exp without actually doing a battle
 		winner_terminal.atom_say("Your rival surrendered!")
 	else

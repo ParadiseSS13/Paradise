@@ -4,7 +4,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,
 	ROLE_CHANGELING = 14,
-	ROLE_SHADOWLING = 14,
 	ROLE_WIZARD = 14,
 	ROLE_REV = 14,
 	ROLE_VAMPIRE = 14,
@@ -12,12 +11,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_REVENANT = 14,
 	ROLE_OPERATIVE = 21,
 	ROLE_CULTIST = 21,
-	ROLE_RAIDER = 21,
 	ROLE_ALIEN = 21,
 	ROLE_DEMON = 21,
 	ROLE_SENTIENT = 21,
+	ROLE_ELITE = 21,
 // 	ROLE_GANG = 21,
-	ROLE_BORER = 21,
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30
@@ -64,6 +62,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	//game-preferences
 	var/lastchangelog = "1"				//Saved changlog timestamp (unix epoch) to detect if there was a change. Dont set this to 0 unless you want the last changelog date to be 4x longer than the expected lifespan of the universe.
+	var/lastchangelog_2 = "1" // Clone of the above var for viewing changes since last connection. This is never overriden. Yes it needs to exist.
 	var/exp
 	var/ooccolor = "#b82e00"
 	var/list/be_special = list()				//Special role selection
@@ -73,7 +72,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/sound = SOUND_DEFAULT
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
-	var/clientfps = 0
+	var/clientfps = 63
 	var/atklog = ATKLOG_ALL
 	var/fuid							// forum userid
 
@@ -87,6 +86,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1019" = 100, // CHANNEL_BUZZ
 		"1018" = 100, // CHANNEL_AMBIENCE
 		"1017" = 100, // CHANNEL_ENGINE
+		"1016" = 100, // CHANNEL_FIREALARM
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -99,6 +99,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/parallax = PARALLAX_HIGH
 	/// 2FA status
 	var/_2fa_status = _2FA_DISABLED
+	///Screentip Mode, in pixels. 8 is small, 15 is mega big, 0 is off.
+	var/screentip_mode = 8
+	///Color of screentips at top of screen
+	var/screentip_color = "#ffd391"
 	/// Did we load successfully?
 	var/successful_load = FALSE
 	/// Have we loaded characters already?
@@ -111,13 +115,26 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/datum/character_save/character_saves = list()
 	/// The current active character
 	var/datum/character_save/active_character
+	/// How dark things are if client is a ghost, 0-255
+	var/ghost_darkness_level = LIGHTING_PLANE_ALPHA_VISIBLE
+	/// Colourblind mode
+	var/colourblind_mode = COLOURBLIND_MODE_NONE
+	/// Active keybinds (currently useable by the mob/client)
+	var/list/datum/keybindings = list()
+	/// Keybinding overrides ("name" => ["key"...])
+	var/list/keybindings_overrides = null
+	/// Player's region override for routing optimisation
+	var/server_region = null
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
 
 	max_gear_slots = GLOB.configuration.general.base_loadout_points
 
+	parent?.set_macros()
+
 	if(!SSdbcore.IsConnected())
+		init_keybindings() //we want default keybinds, even if DB is not connected
 		return // Bail
 
 	if(istype(C))
@@ -146,6 +163,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -174,10 +192,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Identity</h2>"
-			if(appearance_isbanned(user))
-				dat += "<b>You are banned from using custom names and appearances. \
-				You can continue to adjust your characters, but you will be randomised once you join the game.\
-				</b><br>"
 			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a>"
 			dat += "<br>"
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
@@ -185,13 +199,23 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
 			if(active_character.species == "Vox") // Purge these bastards
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+			if(active_character.species == "Plasmaman")
+				dat += "<b>Plasma Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large Plasma Tank" : "Specialized Plasma Tank"]</a><br>"
 			if(active_character.species == "Grey")
 				dat += "<b>Wingdings:</b> Set in disabilities<br>"
 				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Yes" : "No"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[active_character.language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[active_character.autohiss_mode == AUTOHISS_FULL ? "Full" : (active_character.autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
-			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[active_character.b_type]</a><br>"
+			if(NO_BLOOD in S.species_traits) // unique blood type for species with no_blood/unique_blood
+				active_character.b_type = "None"
+			else
+				if(active_character.species == "Slime People")
+					active_character.b_type = "Slime Jelly"
+				else
+					if(active_character.b_type == "None" || active_character.b_type == "Slime Jelly")
+						active_character.b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
+					dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[active_character.b_type]</a><br>"
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[active_character.s_tone]" : "[-active_character.s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
@@ -226,29 +250,41 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Tail Markings:</b> "
 				dat += "<a href='?_src_=prefs;preference=m_style_tail;task=input'>[active_character.m_styles["tail"]]</a>"
 				dat += "<a href='?_src_=prefs;preference=m_tail_colour;task=input'>Color</a> [color_square(active_character.m_colours["tail"])]<br>"
-
-			dat += "<b>Hair:</b> "
-			dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[active_character.h_style]</a>"
-			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(active_character.h_colour)]"
-			var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[active_character.h_style]
-			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
-				dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(active_character.h_sec_colour)]"
-			dat += "<br>"
-
-			dat += "<b>Facial Hair:</b> "
-			dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[active_character.f_style ? "[active_character.f_style]" : "Shaved"]</a>"
-			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(active_character.f_colour)]"
-			var/datum/sprite_accessory/temp_facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
-			if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
-				dat += " <a href='?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(active_character.f_sec_colour)]"
-			dat += "<br>"
+			if(!(S.bodyflags & BALD))
+				dat += "<b>Hair:</b> "
+				dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[active_character.h_style]</a>"
+				dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(active_character.h_colour)]"
+				var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[active_character.h_style]
+				if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
+					dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(active_character.h_sec_colour)]"
+				// Hair gradient
+				dat += "<br>"
+				dat += "- <b>Gradient:</b>"
+				dat += " <a href='?_src_=prefs;preference=h_grad_style;task=input'>[active_character.h_grad_style]</a>"
+				dat += " <a href='?_src_=prefs;preference=h_grad_colour;task=input'>Color</a> [color_square(active_character.h_grad_colour)]"
+				dat += " <a href='?_src_=prefs;preference=h_grad_alpha;task=input'>[active_character.h_grad_alpha]</a>"
+				dat += "<br>"
+				dat += "- <b>Gradient Offset:</b> <a href='?_src_=prefs;preference=h_grad_offset;task=input'>[active_character.h_grad_offset_x],[active_character.h_grad_offset_y]</a>"
+				dat += "<br>"
+			else
+				active_character.h_style = "Bald"
+			if(!(S.bodyflags & SHAVED))
+				dat += "<b>Facial Hair:</b> "
+				dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[active_character.f_style ? "[active_character.f_style]" : "Shaved"]</a>"
+				dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(active_character.f_colour)]"
+				var/datum/sprite_accessory/temp_facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
+				if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
+					dat += " <a href='?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(active_character.f_sec_colour)]"
+				dat += "<br>"
+			else
+				active_character.f_style = "Shaved"
 
 
 			if(!(S.bodyflags & ALL_RPARTS))
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(active_character.e_colour)]<br>"
 
-			if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[active_character.species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
+			if((S.bodyflags & HAS_SKIN_COLOR) || ((S.bodyflags & HAS_BODYACC_COLOR) && GLOB.body_accessory_by_species[active_character.species]) || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
 				dat += "<b>Body Color:</b> "
 				dat += "<a href='?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(active_character.s_colour)]<br>"
 
@@ -355,11 +391,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(toggles2 & PREFTOGGLE_2_ITEMATTACK) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
 				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
+			dat += "<b>CKEY Anonymity:</b> <a href='?_src_=prefs;preference=anonmode'><b>[toggles2 & PREFTOGGLE_2_ANON ? "Anonymous" : "Not Anonymous"]</b></a><br>"
+			dat += "<b>Colourblind Mode:</b> <a href='?_src_=prefs;preference=cbmode'>[colourblind_mode]</a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += " - <b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
-			dat += "<b>Deadchat Anonymity:</b> <a href='?_src_=prefs;preference=ghost_anonsay'><b>[toggles2 & PREFTOGGLE_2_ANONDCHAT ? "Anonymous" : "Not Anonymous"]</b></a><br>"
 			if(user.client.donator_level > 0)
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Fancy TGUI:</b> <a href='?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
@@ -385,9 +422,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
+			dat += "<b>Set screentip mode:</b> <a href='?_src_=prefs;preference=screentip_mode'>[(screentip_mode == 0) ? "Disabled" : "[screentip_mode]px"]</a><br>"
+			dat += "<b>Screentip color:</b> <span style='border: 1px solid #161616; background-color: [screentip_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=screentip_color'><b>Change</b></a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Thought Bubble:</b> <a href='?_src_=prefs;preference=thought_bubble'>[(toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
@@ -459,6 +499,68 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					. += "</td></tr>"
 			dat += "</table>"
 
+		if(TAB_KEYS)
+			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overriden by other categories.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Ensure you bind all of them, or the specific one you want.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Users of legacy mode can only rebind and use the following keys:</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Arrow Keys, Function Keys, Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
+
+			dat += "<table align='center' width='100%'>"
+
+			// Lookup lists to make our life easier
+			var/static/list/keybindings_by_cat
+			if(!keybindings_by_cat)
+				keybindings_by_cat = list()
+				for(var/kb in GLOB.keybindings)
+					var/datum/keybinding/KB = kb
+					keybindings_by_cat["[KB.category]"] += list(KB)
+
+			for(var/cat in GLOB.keybindings_groups)
+				dat += "<tr><td colspan=4><hr></td></tr>"
+				dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
+				for(var/kb in keybindings_by_cat["[GLOB.keybindings_groups[cat]]"])
+					var/datum/keybinding/KB = kb
+					var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
+					var/list/keys = override_keys || KB.keys
+					var/keys_buttons = ""
+					for(var/key in keys)
+						var/disp_key = key
+						if(override_keys)
+							disp_key = "<b>[disp_key]</b>"
+						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
+					dat += "<tr>"
+					dat += "<td style='width: 25%'>[KB.name]</td>"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[KB.UID()];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[KB.UID()]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[KB.UID()]'>Clear</a></td>"
+					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
+						var/datum/keybinding/custom/custom_emote_keybind = kb
+						if(custom_emote_keybind.donor_exclusive && !(user.client.donator_level || user.client.holder || unlock_content))
+							dat += "</tr>"
+							dat += "<tr>"
+							dat += "<td><b>The use of this emote is restricted to patrons and byond members.</b></td>"
+							dat += "</tr>"
+							continue
+						dat += "</tr>"
+						dat += "<tr>"
+						var/emote_text = active_character.custom_emotes[custom_emote_keybind.name] //check if this emote keybind has an associated value on the character save
+						if(!emote_text)
+							dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
+						else
+							dat += "<td style='width: 25%'><i>\"[active_character.real_name] [emote_text]\"</i></td>"
+						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[custom_emote_keybind.UID()];'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[custom_emote_keybind.UID()];'>Reset to Default</a></td>"
+						dat += "<tr><td colspan=4><br></td></tr>"
+					dat += "</tr>"
+				dat += "<tr><td colspan=4><br></td></tr>"
+
+			dat += "</table>"
+
+
 	dat += "<hr><center>"
 	if(!IsGuestKey(user.key))
 		dat += "<a href='?_src_=prefs;preference=load'>Undo</a> - "
@@ -467,7 +569,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 660)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 720)
 	popup.set_content(dat)
 	popup.open(0)
 
@@ -512,7 +614,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Assistant")
 		if(active_character.job_support_low & job.flag)
 			active_character.job_support_low &= ~job.flag
 		else
@@ -533,7 +635,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Assistant")
 		if(active_character.job_support_low & job.flag)
 			active_character.job_support_low &= ~job.flag
 		else
@@ -582,9 +684,51 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				added_cost = 0
 			else
 				type_blacklist += G.main_typepath
-
 		if((total_cost + added_cost) > max_gear_slots)
 			continue // If the final cost is too high, don't add the item.
 		active_character.loadout_gear += G.type
 		total_cost += added_cost
 	return total_cost
+
+
+/datum/preferences/proc/init_keybindings(overrides, raw)
+	if(raw)
+		try
+			overrides = json_decode(raw)
+		catch
+			overrides = list()
+	keybindings = list()
+	keybindings_overrides = overrides
+	for(var/kb in GLOB.keybindings)
+		var/datum/keybinding/KB = kb
+		var/list/keys = (overrides && overrides[KB.name]) || KB.keys
+		for(var/key in keys)
+			LAZYADD(keybindings[key], kb)
+
+	parent?.update_active_keybindings()
+	return keybindings
+
+/datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)
+	var/HTML = {"
+	<div id='focus' style="outline: 0;" tabindex=0>Keybinding: [KB.name]<br><br><b>Press any key to change<br>Press ESC to clear</b></div>
+	<script>
+	var deedDone = false;
+	document.onkeyup = function(e) {
+		if(deedDone){ return; }
+		var alt = e.altKey ? 1 : 0;
+		var ctrl = e.ctrlKey ? 1 : 0;
+		var shift = e.shiftKey ? 1 : 0;
+		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
+		var escPressed = e.keyCode == 27 ? 1 : 0;
+		var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		window.location=url;
+		deedDone = true;
+	}
+	document.getElementById('focus').focus();
+	</script>
+	"}
+	winshow(user, "capturekeypress", TRUE)
+	var/datum/browser/popup = new(user, "capturekeypress", "<div align='center'>Keybindings</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	onclose(user, "capturekeypress", src)

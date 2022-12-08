@@ -13,7 +13,7 @@
 	force_wielded = 20
 	throwforce = 5
 	throw_speed = 4
-	armour_penetration = 10
+	armour_penetration_flat = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
@@ -26,6 +26,7 @@
 	var/backstab_bonus = 30
 	var/light_on = FALSE
 	var/brightness_on = 5
+	var/adaptive_damage_bonus = 0
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -68,7 +69,16 @@
 	if(!C)
 		C = target.apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	var/target_health = target.health
+	var/temp_force_bonus = 0
+	var/datum/status_effect/adaptive_learning/A = target.has_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
+	if(!A && adaptive_damage_bonus)
+		A = target.apply_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
+	if(A)
+		temp_force_bonus = A.bonus_damage
+		A.bonus_damage = min((A.bonus_damage + adaptive_damage_bonus), 20)
+	force += temp_force_bonus
 	..()
+	force -= temp_force_bonus
 	for(var/t in trophies)
 		if(!QDELETED(target))
 			var/obj/item/crusher_trophy/T = t
@@ -80,6 +90,14 @@
 	. = ..()
 	if(!wielded)
 		return
+	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
+		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
+			playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+			user.visible_message("<span class='warning'>[user] dashes!</span>")
+		else
+			to_chat(user, "<span class='warning'>Something prevents you from dashing!</span>")
+		user.remove_status_effect(STATUS_EFFECT_DASH)
+		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = user.loc
 		if(!isturf(proj_turf))
@@ -90,12 +108,13 @@
 			T.on_projectile_fire(D, user)
 		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
 		D.firer = user
+		D.firer_source_atom = src
 		D.hammer_synced = src
 		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
 		D.fire()
 		charged = FALSE
 		update_icon()
-		addtimer(CALLBACK(src, .proc/Recharge), charge_time)
+		addtimer(CALLBACK(src, PROC_REF(Recharge)), charge_time)
 		return
 	if(proximity_flag && isliving(target))
 		var/mob/living/L = target
@@ -143,18 +162,19 @@
 	else
 		set_light(0)
 
-/obj/item/twohanded/kinetic_crusher/update_icon()
-	..()
-	cut_overlays()
+/obj/item/twohanded/kinetic_crusher/update_icon_state()
+	item_state = "crusher[wielded]"
+
+/obj/item/twohanded/kinetic_crusher/update_overlays()
+	. = ..()
 	if(!charged)
-		add_overlay("[icon_state]_uncharged")
+		. += "[icon_state]_uncharged"
 	if(light_on)
-		add_overlay("[icon_state]_lit")
+		. += "[icon_state]_lit"
 	spawn(1)
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.UpdateButtonIcon()
-	item_state = "crusher[wielded]"
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -259,6 +279,13 @@
 	if(missing_health > 0)
 		target.adjustBruteLoss(missing_health) //and do that much damage
 
+
+/obj/item/crusher_trophy/goliath_tentacle/ancient
+	name = "ancient goliath tentacle"
+	desc = "A HUGE sliced-off goliath tentacle. Suitable as a trophy for a kinetic crusher."
+	icon_state = "ancient_goliath_tentacle"
+	bonus_value = 4
+
 //watcher
 /obj/item/crusher_trophy/watcher_wing
 	name = "watcher wing"
@@ -339,6 +366,20 @@
 /obj/item/crusher_trophy/miner_eye/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_BLOODDRUNK)
 
+//legion
+
+/obj/item/crusher_trophy/empowered_legion_skull
+	name = "empowered legion skull"
+	desc = "A powerful looking skull with glowing red eyes."
+	icon_state = "ashen_skull"
+	denied_type = /obj/item/crusher_trophy/empowered_legion_skull
+
+/obj/item/crusher_trophy/empowered_legion_skull/effect_desc()
+	return "mark detonation grants the ability to dash a short distance on help intent"
+
+/obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
+	user.apply_status_effect(STATUS_EFFECT_DASH)
+
 //ash drake
 /obj/item/crusher_trophy/tail_spike
 	desc = "A spike taken from an ash drake's tail. Suitable as a trophy for a kinetic crusher."
@@ -354,7 +395,7 @@
 			continue
 		playsound(L, 'sound/magic/fireball.ogg', 20, 1)
 		new /obj/effect/temp_visual/fire(L.loc)
-		addtimer(CALLBACK(src, .proc/pushback, L, user), 1) //no free backstabs, we push AFTER module stuff is done
+		addtimer(CALLBACK(src, PROC_REF(pushback), L, user), 1) //no free backstabs, we push AFTER module stuff is done
 		L.adjustFireLoss(bonus_value)
 
 /obj/item/crusher_trophy/tail_spike/proc/pushback(mob/living/target, mob/living/user)
@@ -420,7 +461,7 @@
 
 /obj/item/crusher_trophy/blaster_tubes/on_mark_detonation(mob/living/target, mob/living/user)
 	deadly_shot = TRUE
-	addtimer(CALLBACK(src, .proc/reset_deadly_shot), 300, TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(reset_deadly_shot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/item/crusher_trophy/blaster_tubes/proc/reset_deadly_shot()
 	deadly_shot = FALSE
@@ -433,17 +474,32 @@
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
 
 /obj/item/crusher_trophy/vortex_talisman/effect_desc()
-	return "mark detonation to create a barrier you can pass"
+	return "mark detonation to create a homing hierophant chaser"
 
 /obj/item/crusher_trophy/vortex_talisman/on_mark_detonation(mob/living/target, mob/living/user)
-	var/turf/T = get_turf(user)
-	new /obj/effect/temp_visual/hierophant/wall/crusher(T, user) //a wall only you can pass!
-	var/turf/otherT = get_step(T, turn(user.dir, 90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
-	otherT = get_step(T, turn(user.dir, -90))
-	if(otherT)
-		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
+	var/obj/effect/temp_visual/hierophant/chaser/chaser = new(get_turf(user), user, target, 3, TRUE)
+	chaser.monster_damage_boost = FALSE // Weaker due to no cooldown
+	chaser.damage = 20 //But also stronger due to AI / mining mob resistance
 
 /obj/effect/temp_visual/hierophant/wall/crusher
 	duration = 75
+
+/obj/item/crusher_trophy/adaptive_intelligence_core
+	name = "adaptive intelligence core"
+	desc = "Seems to be one of the cores from a massive robot. Suitable as a trophy for a kinetic crusher."
+	icon_state = "adaptive_core"
+	denied_type = /obj/item/crusher_trophy/adaptive_intelligence_core
+	bonus_value = 2
+
+/obj/item/crusher_trophy/adaptive_intelligence_core/effect_desc()
+	return "melee hits deal <b>[bonus_value]</b> more damage per hit after hitting a target, up to <b>[bonus_value * 10]</b> extra damage to that target"
+
+/obj/item/crusher_trophy/adaptive_intelligence_core/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
+	. = ..()
+	if(.)
+		H.adaptive_damage_bonus += bonus_value
+
+/obj/item/crusher_trophy/adaptive_intelligence_core/remove_from(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
+	. = ..()
+	if(.)
+		H.adaptive_damage_bonus -= bonus_value

@@ -24,16 +24,14 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		return
 
 	var/list/spawnlocs = list()
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/landmark = thing
-		if(landmark.name == "traderstart_[station]")
-			spawnlocs += get_turf(landmark)
+	for(var/obj/effect/landmark/spawner/soltrader/S in GLOB.landmarks_list)
+		spawnlocs += get_turf(S)
 	if(!spawnlocs.len)
 		return
 
 	trader_objectives = forge_trader_objectives()
 
-	INVOKE_ASYNC(src, .proc/spawn_traders, spawnlocs)
+	INVOKE_ASYNC(src, PROC_REF(spawn_traders), spawnlocs)
 
 /datum/event/traders/proc/spawn_traders(list/spawnlocs)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Sol Trader?", ROLE_TRADER, TRUE)
@@ -47,7 +45,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		var/mob/C = pick_n_take(candidates)
 		spawn_count--
 		if(C)
-			GLOB.respawnable_list -= C.client
+			C.remove_from_respawnable_list()
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
 			M.equipOutfit(/datum/outfit/admin/sol_trader)
@@ -65,7 +63,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
 	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
 	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/show_objectives, M.mind), 25)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(show_objectives), M.mind), 25)
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()

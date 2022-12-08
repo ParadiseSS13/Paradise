@@ -24,8 +24,8 @@ field_generator power level display
 	desc = "A large thermal battery that projects a high amount of energy when powered."
 	icon = 'icons/obj/machines/field_generator.dmi'
 	icon_state = "Field_Gen"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
@@ -38,17 +38,16 @@ field_generator power level display
 	var/warming_up = 0
 	var/list/obj/machinery/field/containment/fields
 	var/list/obj/machinery/field/generator/connected_gens
-	var/clean_up = 0
+	var/clean_up = FALSE
 
-/obj/machinery/field/generator/update_icon()
-	overlays.Cut()
+/obj/machinery/field/generator/update_overlays()
+	. = ..()
 	if(warming_up)
-		overlays += "+a[warming_up]"
+		. += "+a[warming_up]"
 	if(fields.len)
-		overlays += "+on"
+		. += "+on"
 	if(power_level)
-		overlays += "+p[power_level]"
-
+		. += "+p[power_level]"
 
 /obj/machinery/field/generator/Initialize(mapload)
 	. = ..()
@@ -91,14 +90,14 @@ field_generator power level display
 				user.visible_message("[user.name] secures [name] to the floor.", \
 					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = 1
+				anchored = TRUE
 			if(FG_SECURED)
 				state = FG_UNSECURED
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = 0
+				anchored = FALSE
 			if(FG_WELDED)
 				to_chat(user, "<span class='warning'>[src] needs to be unwelded from the floor!</span>")
 	else
@@ -294,7 +293,7 @@ field_generator power level display
 
 
 /obj/machinery/field/generator/proc/cleanup()
-	clean_up = 1
+	clean_up = TRUE
 	for(var/F in fields)
 		qdel(F)
 
@@ -304,13 +303,13 @@ field_generator power level display
 		if(!FG.clean_up)//Makes the other gens clean up as well
 			FG.cleanup()
 		connected_gens -= FG
-	clean_up = 0
+	clean_up = FALSE
 	update_icon()
 
 	//This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
 	//singulo eats the evidence". It's not fool-proof but better than nothing.
 	//I want to avoid using global variables.
-	INVOKE_ASYNC(src, .proc/admin_alert)
+	INVOKE_ASYNC(src, PROC_REF(admin_alert))
 
 /obj/machinery/field/generator/proc/admin_alert()
 	var/temp = TRUE //stops spam

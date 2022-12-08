@@ -14,13 +14,13 @@ export const createStore = (reducer, enhancer) => {
 
   const getState = () => currentState;
 
-  const subscribe = listener => {
+  const subscribe = (listener) => {
     listeners.push(listener);
   };
 
-  const dispatch = action => {
+  const dispatch = (action) => {
     currentState = reducer(currentState, action);
-    listeners.forEach(fn => fn());
+    listeners.forEach((fn) => fn());
   };
 
   // This creates the initial store by causing each reducer to be called
@@ -41,25 +41,27 @@ export const createStore = (reducer, enhancer) => {
  * actions.
  */
 export const applyMiddleware = (...middlewares) => {
-  return createStore => (reducer, ...args) => {
-    const store = createStore(reducer, ...args);
+  return (createStore) =>
+    (reducer, ...args) => {
+      const store = createStore(reducer, ...args);
 
-    let dispatch = () => {
-      throw new Error(
-        'Dispatching while constructing your middleware is not allowed.');
+      let dispatch = () => {
+        throw new Error(
+          'Dispatching while constructing your middleware is not allowed.'
+        );
+      };
+
+      const storeApi = {
+        getState: store.getState,
+        dispatch: (action, ...args) => dispatch(action, ...args),
+      };
+
+      const chain = middlewares.map((middleware) => middleware(storeApi));
+      dispatch = compose(...chain)(store.dispatch);
+
+      return {
+        ...store,
+        dispatch,
+      };
     };
-
-    const storeApi = {
-      getState: store.getState,
-      dispatch: (action, ...args) => dispatch(action, ...args),
-    };
-
-    const chain = middlewares.map(middleware => middleware(storeApi));
-    dispatch = compose(...chain)(store.dispatch);
-
-    return {
-      ...store,
-      dispatch,
-    };
-  };
 };

@@ -4,6 +4,7 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"
+	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
@@ -18,7 +19,7 @@
 	possible_transfer_amounts = null
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
-	if(istype(A, /obj/item/storage) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
+	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
 		return
 
@@ -43,7 +44,7 @@
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
-	INVOKE_ASYNC(src, .proc/spray, A)
+	INVOKE_ASYNC(src, PROC_REF(spray), A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
@@ -99,7 +100,7 @@
 	set name = "Empty Spray Bottle"
 	set category = "Object"
 	set src in usr
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
@@ -150,6 +151,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
+	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
 	amount_per_transfer_from_this = 5
@@ -162,6 +164,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
 	item_state = "sunflower"
+	belt_icon = null
 	amount_per_transfer_from_this = 1
 	volume = 10
 	list_reagents = list("water" = 10)
@@ -235,5 +238,6 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
+	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)

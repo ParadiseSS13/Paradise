@@ -13,8 +13,8 @@
 /obj/machinery/computer/station_alert/Initialize(mapload)
 	. = ..()
 	GLOB.alert_consoles += src
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /obj/machinery/computer/station_alert/Destroy()
 	GLOB.alert_consoles -= src
@@ -72,7 +72,7 @@
 		return
 	update_icon()
 
-/obj/machinery/computer/station_alert/update_icon()
+/obj/machinery/computer/station_alert/update_icon_state()
 	var/active_alarms = FALSE
 	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)
@@ -92,5 +92,3 @@
 		icon_screen = "alert:2"
 	else
 		icon_screen = "alert:0"
-
-	..()

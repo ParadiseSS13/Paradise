@@ -17,7 +17,7 @@
 	obj_damage = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 1
-	attack_same = 2
+	attack_same = 2 // this is usually a bool, but mushrooms are a special case
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("mushroom")
@@ -26,7 +26,7 @@
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
 	ventcrawler = 2
-	robust_searching = 1
+	robust_searching = TRUE
 	speak_emote = list("squeaks")
 	deathmessage = "fainted"
 	var/powerlevel = 0 //Tracks our general strength level gained from eating other shrooms
@@ -48,7 +48,8 @@
 	if(!stat)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
 		adjustBruteLoss(-2)
 
-/mob/living/simple_animal/hostile/mushroom/New()//Makes every shroom a little unique
+/mob/living/simple_animal/hostile/mushroom/Initialize(mapload)  //Makes every shroom a little unique
+	. = ..()
 	melee_damage_lower += rand(3, 5)
 	melee_damage_upper += rand(10,20)
 	maxHealth += rand(40,60)
@@ -60,7 +61,6 @@
 	cap_dead.color = cap_color
 	UpdateMushroomCap()
 	health = maxHealth
-	..()
 
 /mob/living/simple_animal/hostile/mushroom/CanAttack(atom/the_target) // Mushroom-specific version of CanAttack to handle stupid attack_same = 2 crap so we don't have to do it for literally every single simple_animal/hostile because this shit never gets spawned
 	if(!the_target || isturf(the_target) || istype(the_target, /atom/movable/lighting_object))
@@ -84,7 +84,7 @@
 /mob/living/simple_animal/hostile/mushroom/adjustHealth(amount, updating_health = TRUE)//Possibility to flee from a fight just to make it more visually interesting
 	if(!retreat_distance && prob(33))
 		retreat_distance = 5
-		addtimer(CALLBACK(src, .proc/stop_retreat), 30)
+		addtimer(CALLBACK(src, PROC_REF(stop_retreat)), 30)
 	. = ..()
 
 /mob/living/simple_animal/hostile/mushroom/proc/stop_retreat()
@@ -170,7 +170,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	..()
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		var/obj/item/T = AM
 		if(T.throwforce)
 			Bruise()

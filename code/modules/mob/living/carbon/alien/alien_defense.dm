@@ -6,17 +6,18 @@ As such, they can either help or harm other aliens. Help works like the human he
 In all, this is a lot like the monkey code. /N
 */
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(isturf(loc) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			AdjustSleeping(-5)
-			StopResting()
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
+			AdjustSleeping(-10 SECONDS)
+			AdjustParalysis(-6 SECONDS)
+			AdjustStunned(-6 SECONDS)
+			AdjustWeakened(-6 SECONDS)
+			AdjustKnockDown(-6 SECONDS)
+			stand_up()
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		if(INTENT_GRAB)

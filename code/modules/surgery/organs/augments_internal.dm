@@ -4,6 +4,7 @@
 	status = ORGAN_ROBOT
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
+	var/crit_fail = FALSE //Used by certain implants to disable them.
 	tough = TRUE // Immune to damage
 
 /obj/item/organ/internal/cyberimp/New(mob/M = null)
@@ -28,10 +29,10 @@
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
 		return
-	var/stun_amount = 5 + (severity-1 ? 0 : 5)
-	owner.Stun(stun_amount)
+	var/weaken_time = (5 + (severity - 1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
+	owner.Weaken(weaken_time)
 	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
-	return stun_amount
+	return weaken_time
 
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop
@@ -68,7 +69,7 @@
 
 		if(!l_hand_obj && !r_hand_obj)
 			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
-			active = 0
+			active = FALSE
 		else
 			var/msg = 0
 			msg += !l_hand_ignore && l_hand_obj ? 1 : 0
@@ -119,42 +120,41 @@
 		ui_action_click()
 	return ..()
 
-/obj/item/organ/internal/cyberimp/brain/anti_stun
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened
+	name = "Hardened Anti-drop implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces."
+	origin_tech = "materials=6;programming=5;biotech=5"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stam
 	name = "CNS Rebooter implant"
-	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the Neural Jumpstarter."
+	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when fatigued. Incompatible with the Neural Jumpstarter."
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
 	origin_tech = "materials=5;programming=4;biotech=5"
-	var/stun_max_amount = 2
+	var/last_stamina_damage = 0
+	var/max_stamina_increment = 40
 
-/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
-	name = "Hardened CNS Rebooter implant"
-	emp_proof = TRUE
-
-/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened/Initialize(mapload)
-	. = ..()
-	desc += " The implant has been hardened. It is invulnerable to EMPs."
-
-/obj/item/organ/internal/cyberimp/brain/anti_stun/on_life()
+/obj/item/organ/internal/cyberimp/brain/anti_stam/on_life()
 	..()
 	if(crit_fail)
 		return
-	if(owner.stunned > stun_max_amount)
-		owner.SetStunned(stun_max_amount)
-	if(owner.weakened > stun_max_amount)
-		owner.SetWeakened(stun_max_amount)
+	if(last_stamina_damage + max_stamina_increment < owner.getStaminaLoss())
+		owner.setStaminaLoss(last_stamina_damage + max_stamina_increment)
+	last_stamina_damage = owner.getStaminaLoss()
 
-/obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
+
+/obj/item/organ/internal/cyberimp/brain/anti_stam/emp_act(severity)
 	..()
 	if(crit_fail || emp_proof)
 		return
 	crit_fail = TRUE
-	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
 
-/obj/item/organ/internal/cyberimp/brain/anti_stun/proc/reboot()
+/obj/item/organ/internal/cyberimp/brain/anti_stam/proc/reboot()
 	crit_fail = FALSE
 
-/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	name = "Hardened CNS Rebooter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
 	origin_tech = "materials=6;programming=5;biotech=5"
@@ -173,11 +173,11 @@
 	if(crit_fail)
 		return
 	if(owner.stat == UNCONSCIOUS && cooldown == FALSE)
-		owner.AdjustSleeping(-100, FALSE)
-		owner.AdjustParalysis(-100, FALSE)
+		owner.AdjustSleeping(-200 SECONDS)
+		owner.AdjustParalysis(-200 SECONDS)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
 		cooldown = TRUE
-		addtimer(CALLBACK(src, .proc/sleepy_timer_end), 50)
+		addtimer(CALLBACK(src, PROC_REF(sleepy_timer_end)), 50)
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepy_timer_end()
 		cooldown = FALSE
@@ -188,9 +188,9 @@
 	if(crit_fail || emp_proof)
 		return
 	crit_fail = TRUE
-	owner.AdjustSleeping(200)
+	owner.AdjustSleeping(400 SECONDS)
 	cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/reboot()
 	crit_fail = FALSE
@@ -245,7 +245,7 @@
 		return
 	if(owner && active && !crit_fail)
 		to_chat(owner, "<span class='danger'>Your translator implant shuts down with a harsh buzz.</span>")
-		addtimer(CALLBACK(src, .proc/reboot), 60 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(reboot)), 60 SECONDS)
 		crit_fail = TRUE
 		active = FALSE
 
@@ -282,7 +282,7 @@
 		return
 	if(prob(60/severity) && owner)
 		to_chat(owner, "<span class='warning'>Your breathing tube suddenly closes!</span>")
-		owner.AdjustLoseBreath(2)
+		owner.AdjustLoseBreath(4 SECONDS)
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
@@ -300,13 +300,21 @@
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
 	var/poison_amount = 5
+	var/disabled_by_emp = FALSE
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/examine(mob/user)
+	. = ..()
+	if(emp_proof)
+		. += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/on_life()
 	if(!owner)
 		return
 	if(synthesizing)
+		return
+	if(disabled_by_emp)
 		return
 	if(owner.stat == DEAD)
 		return
@@ -314,16 +322,25 @@
 		synthesizing = TRUE
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
 		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, .proc/synth_cool), 50)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
 
+/obj/item/organ/internal/cyberimp/chest/nutriment/proc/emp_cool()
+	disabled_by_emp = FALSE
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
 		return
+	owner.vomit(100, FALSE, TRUE, 3, FALSE)	// because when else do we ever use projectile vomiting
+	owner.visible_message("<span class='warning'>The contents of [owner]'s stomach erupt violently from [owner.p_their()] mouth!</span>",
+		"<span class='warning'>You feel like your insides are burning as you vomit profusely!</span>",
+		"<span class='warning'>You hear vomiting and a sickening splattering against the floor!</span>")
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
-	to_chat(owner, "<span class='warning'>You feel like your insides are burning.</span>")
+	disabled_by_emp = TRUE		// Disable the implant for a little bit so this effect actually matters
+	synthesizing = FALSE
+	addtimer(CALLBACK(src, PROC_REF(emp_cool)), 60 SECONDS)
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
@@ -333,6 +350,13 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	name = "hardened nutrient pump implant"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened
+	name = "hardened nutrient pump implant PLUS"
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
@@ -358,7 +382,7 @@
 		return
 	if(reviving)
 		if(owner.health <= HEALTH_THRESHOLD_CRIT)
-			addtimer(CALLBACK(src, .proc/heal), 30)
+			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
 		else
 			reviving = FALSE
 			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //If they are no longer in crit, but have shock, and pass a 15% chance:
@@ -372,6 +396,8 @@
 	reviving = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
+	if(QDELETED(owner))
+		return
 	if(prob(90) && owner.getOxyLoss())
 		owner.adjustOxyLoss(-3)
 		revive_cost += 5
@@ -397,7 +423,7 @@
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity))
 			H.set_heartattack(TRUE)
-			addtimer(CALLBACK(src, .proc/undo_heart_attack), 600 / severity)
+			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/undo_heart_attack()
 	var/mob/living/carbon/human/H = owner
@@ -416,7 +442,7 @@
 	var/list/boxed = list(
 		/obj/item/autosurgeon/organ/syndicate/thermal_eyes,
 		/obj/item/autosurgeon/organ/syndicate/xray_eyes,
-		/obj/item/autosurgeon/organ/syndicate/anti_stun,
+		/obj/item/autosurgeon/organ/syndicate/anti_stam,
 		/obj/item/autosurgeon/organ/syndicate/reviver)
 	var/amount = 5
 

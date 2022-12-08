@@ -145,7 +145,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == FALSE)
+		if(affecting.open == ORGAN_CLOSED)
 			affecting.germ_level = 0
 
 			if(stop_bleeding)
@@ -163,6 +163,7 @@
 	name = "improvised gauze"
 	singular_name = "improvised gauze"
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
+	heal_brute = 0
 	stop_bleeding = 900
 
 /obj/item/stack/medical/bruise_pack/advanced
@@ -170,6 +171,7 @@
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
+	belt_icon = "traumakit"
 	max_amount = 6
 	heal_brute = 25
 	stop_bleeding = 0
@@ -202,7 +204,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == FALSE)
+		if(affecting.open == ORGAN_CLOSED)
 			affecting.germ_level = 0
 
 			heal(H, user)
@@ -218,6 +220,7 @@
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
 	icon_state = "burnkit"
+	belt_icon = "burnkit"
 	heal_burn = 25
 
 /obj/item/stack/medical/ointment/advanced/cyborg

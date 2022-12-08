@@ -11,7 +11,7 @@
 "c" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "d" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -26,30 +26,30 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "f" = (
 /turf/simulated/wall,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "g" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "h" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "i" = (
 /turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "j" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "k" = (
 /obj/structure/window/reinforced,
 /turf/template_noop,
@@ -60,14 +60,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "m" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "n" = (
 /obj/structure/table,
 /obj/item/candle{
@@ -80,14 +80,14 @@
 	pixel_x = -10
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "o" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "p" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -99,11 +99,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/area/ruin/space/powered)
 "r" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered)
+/area/ruin/space/powered)
 
 (1,1,1) = {"
 a

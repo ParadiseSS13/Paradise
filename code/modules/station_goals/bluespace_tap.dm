@@ -15,7 +15,7 @@
 	Nanotrasen Science Directorate"}
 
 /datum/station_goal/bluespace_tap/on_report()
-	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
+	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_tap/check_completion()
@@ -232,8 +232,8 @@
 	var/safe_levels = 10
 
 
-/obj/machinery/power/bluespace_tap/New()
-	..()
+/obj/machinery/power/bluespace_tap/Initialize(mapload)
+	. = ..()
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()

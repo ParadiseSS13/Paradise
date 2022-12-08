@@ -31,7 +31,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
 		/datum/job/ntspecops/solgovspecops,
-		/datum/job/civilian,
+		/datum/job/assistant,
 		/datum/job/syndicateofficer,
 		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
@@ -48,7 +48,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/judge,
 		/datum/job/blueshield,
 		/datum/job/nanotrasenrep,
-		/datum/job/brigdoc,
 		/datum/job/barber,
 		/datum/job/chaplain
 	)
@@ -63,7 +62,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/Initialize()
 	..()
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.listening = FALSE
 	Radio.config(list("Command" = 0))
 	Radio.follow_target = src
 
@@ -230,7 +229,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/has_idchange_access()
 	return scan && scan.access && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
 
-/obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = TRUE)
+/obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, include_assistants = TRUE)
 	if(!scan || !scan.access)
 		return FALSE
 	if(!target_dept)
@@ -241,19 +240,19 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	if(!targetjob || !targetjob.title)
 		return FALSE
-	if(targetjob.title in get_subordinates(scan.assignment, includecivs))
+	if(targetjob.title in get_subordinates(scan.assignment, include_assistants))
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/card/proc/get_subordinates(rank, addcivs)
+/obj/machinery/computer/card/proc/get_subordinates(rank, add_assistants)
 	var/list/jobs_returned = list()
 	for(var/datum/job/thisjob in SSjobs.occupations)
 		if(thisjob.title in GLOB.nonhuman_positions) // hides AI from list when Captain ID is inserted into dept console
 			continue
 		if(rank in thisjob.department_head)
 			jobs_returned += thisjob.title
-	if(addcivs)
-		jobs_returned += "Civilian"
+	if(add_assistants)
+		jobs_returned += "Assistant"
 	return jobs_returned
 
 /obj/machinery/computer/card/proc/get_employees(list/selectedranks)
@@ -341,8 +340,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["jobs_security"] = GLOB.security_positions
 					data["jobs_service"] = GLOB.service_positions
 					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
-					data["jobs_civilian"] = GLOB.civilian_positions
-					data["jobs_karma"] = GLOB.whitelisted_positions
+					data["jobs_assistant"] = GLOB.assistant_positions
 					data["jobs_centcom"] = get_all_centcom_jobs()
 					data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
 					data["current_skin"] = modify.icon_state
@@ -391,7 +389,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(scan)
 				if(ishuman(usr))
 					scan.forceMove(get_turf(src))
-					if(!usr.get_active_hand() && Adjacent(usr))
+					if(Adjacent(usr))
 						usr.put_in_hands(scan)
 					scan = null
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
@@ -417,7 +415,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				regenerate_id_name()
 				if(ishuman(usr))
 					modify.forceMove(get_turf(src))
-					if(!usr.get_active_hand() && Adjacent(usr))
+					if(Adjacent(usr))
 						usr.put_in_hands(modify)
 					modify = null
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
@@ -489,7 +487,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				log_game("[key_name(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
-				if(t1 == "Civilian")
+				if(t1 == "Assistant")
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name, null)
@@ -523,7 +521,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!reason || !is_authenticated(usr) || !modify)
 				return FALSE
 			var/list/access = list()
-			var/datum/job/jobdatum = new /datum/job/civilian
+			var/datum/job/jobdatum = new /datum/job/assistant
 			access = jobdatum.get_access()
 			var/jobnamedata = modify.getRankAndAssignment()
 			var/m_ckey = modify.getPlayerCkey()
@@ -535,7 +533,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
 			modify.access = access
-			modify.rank = "Civilian"
+			modify.rank = "Assistant"
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
 			regenerate_id_name()
@@ -646,7 +644,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
 			if(!scan || !modify)
 				return FALSE
-			modify.associated_account_number = clamp(round(account_num), 0, 999999)
+			modify.associated_account_number = clamp(round(account_num), 1000000, 9999999) //force a 7 digit number
+			//for future reference, you should never be able to modify the money account datum through the card computer
 			return
 		if("skin")
 			if(!modify)

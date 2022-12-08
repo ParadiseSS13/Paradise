@@ -5,17 +5,15 @@
 	icon = 'icons/obj/atmospherics/cold_sink.dmi'
 	icon_state = "off"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	name = "thermal tansfer plate"
 	desc = "Transfers heat to and from an area"
 
-/obj/machinery/atmospherics/unary/thermal_plate/update_icon()
-	..()
-
+/obj/machinery/atmospherics/unary/thermal_plate/update_icon_state()
 	var/prefix = ""
 	//var/suffix="_idle" // Also available: _heat, _cool
-	if(level == 1 && istype(loc, /turf/simulated))
+	if(level == 1 && issimulatedturf(loc))
 		prefix = "h"
 	icon_state = "[prefix]off"
 

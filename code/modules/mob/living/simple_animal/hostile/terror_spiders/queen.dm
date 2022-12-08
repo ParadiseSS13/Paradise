@@ -12,6 +12,11 @@
 	name = "Queen of Terror spider"
 	desc = "An enormous, terrifying spider. Its egg sac is almost as big as its body, and teeming with spider eggs!"
 	spider_role_summary = "Commander of the spider forces. Lays eggs, directs the brood."
+	spider_intro_text = "As a Queen of Terror Spider, your role is build and maintain a large nest. \
+	You start off being able to ventcrawl like smaller spiders, but once you enter nest mode you will lose this in return for being able to constantly generate spider eggs to lay down as well as being able to smash down walls. \
+	Specialized egg types have a limit on how many can be laid, and you need to remain alive for some time before you can lay the strongest eggs. \
+	You have high health and are armored, with weaker attacks being unable to harm you. While your melee attacks only deal moderate damage, you additionally have access to a powerful ranged acid attack. \
+	You can also open both powered doors and welded vents, and your webs are airtight - being capable of blocking off exposure to space."
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
@@ -27,7 +32,7 @@
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/pierce.ogg'
@@ -50,21 +55,16 @@
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
-	..()
-	ventsmash_action = new()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action = new
 	ventsmash_action.Grant(src)
-	remoteview_action = new()
+	var/datum/action/innate/terrorspider/remoteview/remoteview_action = new
 	remoteview_action.Grant(src)
 	grant_queen_subtype_abilities()
-	spider_myqueen = src
-	if(spider_awaymission)
-		spider_growinstantly = TRUE
-		spider_spawnfrequency = 150
+	spider_myqueen = src // ???
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/grant_queen_subtype_abilities()
@@ -98,8 +98,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if(can_die() && !hasdied)
-		if(spider_uo71)
-			UnlockBlastDoors("UO71_Caves")
 		// When a queen (or subtype!) dies, so do all of her spiderlings, and half of all her fully grown offspring
 		// This feature is intended to provide a way for crew to still win even if the queen has overwhelming numbers - by sniping the queen.
 		for(var/thing in GLOB.ts_spiderlist)
@@ -150,7 +148,7 @@
 						// nesting in a hallway would be very stupid - crew would find and kill you almost instantly
 				var/numhostiles = 0
 				for(var/mob/living/H in oview(10, src))
-					if(!istype(H, /mob/living/simple_animal/hostile/poison/terror_spider))
+					if(!isterrorspider(H))
 						if(H.stat != DEAD)
 							numhostiles += 1
 							// nesting RIGHT NEXT TO SOMEONE is even worse
@@ -172,7 +170,7 @@
 				else if(entry_vent)
 					if(!path_to_vent)
 						visible_message("<span class='danger'>\The [src] looks around warily - then seeks a better nesting ground.</span>")
-						path_to_vent = 1
+						path_to_vent = TRUE
 				else
 					neststep = -1
 					message_admins("Warning: [key_name_admin(src)] was spawned in an area without a vent! This is likely a mapping/spawn mistake. This mob's AI has been permanently deactivated.")
@@ -196,8 +194,6 @@
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
 						if(ai_nest_is_full())
-							if(spider_awaymission)
-								spider_spawnfrequency = spider_spawnfrequency_stable
 							neststep = 4
 						else
 							spider_lastspawn = world.time

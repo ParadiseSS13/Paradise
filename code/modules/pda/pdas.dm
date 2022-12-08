@@ -38,8 +38,9 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
 	ttone = "honk"
 
-/obj/item/pda/clown/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 8, 5, 100)
+/obj/item/pda/clown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
 
 /obj/item/pda/mime
 	default_cartridge = /obj/item/cartridge/mime
@@ -74,7 +75,7 @@
 /obj/item/pda/captain
 	default_cartridge = /obj/item/cartridge/captain
 	icon_state = "pda-captain"
-	detonate = 0
+	detonate = FALSE
 	//toff = 1
 
 /obj/item/pda/heads/ntrep
@@ -90,6 +91,8 @@
 	icon_state = "pda-h"
 
 /obj/item/pda/heads/ert
+	default_cartridge = /obj/item/cartridge/centcom
+	detonate = FALSE
 
 /obj/item/pda/heads/ert/engineering
 	icon_state = "pda-engineer"
@@ -113,7 +116,7 @@
 	icon_state = "pda-miner"
 
 /obj/item/pda/syndicate
-	default_cartridge = /obj/item/cartridge/syndicate
+	default_cartridge = /obj/item/cartridge/syndicate/nuclear
 	icon_state = "pda-syndi"
 	name = "Military PDA"
 	owner = "John Doe"
@@ -186,8 +189,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdabox"
 
-/obj/item/storage/box/PDAs/New()
-	..()
+/obj/item/storage/box/PDAs/populate_contents()
 	new /obj/item/pda(src)
 	new /obj/item/pda(src)
 	new /obj/item/pda(src)

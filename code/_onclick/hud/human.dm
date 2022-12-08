@@ -20,7 +20,7 @@
 	icon_state = "act_equip"
 
 /obj/screen/human/equip/Click()
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return 1
 	var/mob/living/carbon/human/H = usr
 	H.quick_equip()
@@ -33,8 +33,8 @@
 	screen_loc = ui_lingstingdisplay
 
 /obj/screen/ling/sting/Click()
-	var/mob/living/carbon/U = usr
-	U.unset_sting()
+	var/datum/antagonist/changeling/cling = usr.mind.has_antag_datum(/datum/antagonist/changeling)
+	cling?.chosen_sting?.unset_sting()
 
 /obj/screen/ling/chems
 	name = "chemical storage"
@@ -333,7 +333,8 @@
 
 	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.hud = src
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
@@ -347,7 +348,8 @@
 	zone_select.color = ui_color
 	zone_select.icon = ui_style
 	zone_select.alpha = ui_alpha
-	zone_select.update_icon(mymob)
+	zone_select.hud = src
+	zone_select.update_icon(UPDATE_OVERLAYS)
 	static_inventory += zone_select
 
 	inventory_shown = FALSE

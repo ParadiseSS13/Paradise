@@ -122,16 +122,8 @@
 	else
 		overlays -= "eyes"
 
-/mob/living/silicon/robot/drone/choose_icon()
-	return
-
 /mob/living/silicon/robot/drone/pick_module()
 	return
-
-/mob/living/silicon/robot/drone/can_be_revived()
-	. = ..()
-	if(emagged)
-		return FALSE
 
 /mob/living/silicon/robot/drone/detailed_examine()
 	return "Drones are player-controlled synthetics which are lawed to maintain the station and not \
@@ -223,7 +215,7 @@
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-	addtimer(CALLBACK(src, .proc/shut_down, TRUE), EMAG_TIMER)
+	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
 
 	emagged = TRUE
 	density = TRUE
@@ -247,7 +239,7 @@
 /mob/living/silicon/robot/drone/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 35
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 		return
 	health = 35 - (getBruteLoss() + getFireLoss() + getOxyLoss())
 	update_stat("updatehealth([reason])")
@@ -328,7 +320,6 @@
 	var/icontype
 	icontype = input(player,"Pick an icon") in sprite
 	icon_state = sprite[icontype]
-	updateicon()
 
 	choose_icon(6,sprite)
 */
@@ -346,7 +337,7 @@
 	if(is_type_in_list(AM, pullable_drone_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
 
-	else if(istype(AM,/obj/item))
+	else if(isitem(AM))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)
@@ -363,10 +354,6 @@
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	verbs -= silicon_subsystems
-
-/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = FALSE)
-	. = ..()
-	density = emagged //this is reset every canmove update otherwise
 
 /mob/living/silicon/robot/drone/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	..()

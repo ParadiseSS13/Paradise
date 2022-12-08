@@ -3,8 +3,7 @@
 		return FALSE
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 
@@ -14,6 +13,13 @@
 	animation.master = src
 
 	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+
+	for(var/mob/M in stomach_contents) //Release eaten mobs when Beno is gibbed
+		LAZYREMOVE(stomach_contents, M)
+		M.forceMove(drop_location())
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.KnockDown(5 SECONDS)
 
 	flick("gibbed-a", animation)
 	xgibs(loc)
@@ -26,8 +32,7 @@
 /mob/living/carbon/alien/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
+	notransform = TRUE
 	icon = null
 	invisibility = 101
 	dust_animation()

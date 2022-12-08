@@ -74,7 +74,7 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/owl(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), slot_belt)
@@ -83,7 +83,7 @@
 
 /datum/superheroes/griffin
 	name = "The Griffin"
-	default_spells = list(/obj/effect/proc_holder/spell/targeted/click/recruit)
+	default_spells = list(/obj/effect/proc_holder/spell/recruit)
 	class = "Supervillain"
 	desc = "You are The Griffin, the ultimate supervillain. You thrive on chaos and have no respect for the supposed authority \
 	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
@@ -93,7 +93,7 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/griffin(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), slot_head)
 
@@ -107,7 +107,7 @@
 	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
 	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
 	station's hero roster, you intend to leave your mark."
-	default_spells = list(/obj/effect/proc_holder/spell/targeted/lightning/lightnian)
+	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian)
 
 /datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()
@@ -126,7 +126,7 @@
 	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
 	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
-	default_spells = list(/obj/effect/proc_holder/spell/targeted/magnet)
+	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/magnet)
 
 /datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
@@ -144,21 +144,24 @@
 
 
 //The Griffin's special recruit abilitiy
-/obj/effect/proc_holder/spell/targeted/click/recruit
+/obj/effect/proc_holder/spell/recruit
 	name = "Recruit Greyshirt"
-	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
-	charge_max = 450
+	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Assistants only and you can recruit a maximum of 3!."
+	base_cooldown = 450
 	clothes_req = FALSE
-	range = 1 //Adjacent to user
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	click_radius = -1
 	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
-	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/obj/effect/proc_holder/spell/recruit/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.click_radius = -1
+	T.range = 1
+	return T
+
+/obj/effect/proc_holder/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(SSticker.mode.greyshirts.len >= 3)
 		if(show_message)
 			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
@@ -169,16 +172,13 @@
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/valid_target(mob/living/carbon/human/target, user)
-	if(!..())
-		return FALSE
-
+/obj/effect/proc_holder/spell/recruit/valid_target(mob/living/carbon/human/target, user)
 	return target.ckey && !target.stat
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/cast(list/targets,mob/living/user = usr)
+/obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
-	if(target.mind.assigned_role != "Civilian")
-		to_chat(user, "<span class='warning'>You can only recruit Civilians.</span>")
+	if(target.mind.assigned_role != "Assistant")
+		to_chat(user, "<span class='warning'>You can only recruit Assistants.</span>")
 		revert_cast(user)
 		return
 	recruiting = TRUE
@@ -194,19 +194,19 @@
 				to_chat(user, "<span class='notice'>You begin the recruitment of [target].</span>")
 				user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech.</span>")
 				to_chat(target, "<span class='danger'>You feel yourself agreeing with [user], and a surge of loyalty begins building.</span>")
-				target.Weaken(12)
+				target.Weaken(24 SECONDS)
 				sleep(20)
 				if(ismindshielded(target))
 					to_chat(user, "<span class='notice'>[target.p_they(TRUE)] are enslaved by Nanotrasen. You feel [target.p_their()] interest in your cause wane and disappear.</span>")
 					user.visible_message("<span class='danger'>[user] stops talking for a moment, then moves back away from [target].</span>")
-					to_chat(target, "<span class='danger'>Your mindshield implant activates, protecting you from conversion.</span>")
+					to_chat(target, "<span class='danger'>Your mindshield bio-chip activates, protecting you from conversion.</span>")
 					return
 			if(3)
 				to_chat(user, "<span class='notice'>You begin filling out the application form with [target].</span>")
 				user.visible_message("<span class='danger'>[user] pulls out a pen and paper and begins filling an application form with [target].</span>")
 				to_chat(target, "<span class='danger'>You are being convinced by [user] to fill out an application form to become a henchman.</span>")//Ow the edge
 
-		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
+		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield bio-chip
 			to_chat(user, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
 			to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [user]. The application form is null and void.</span>")
 			recruiting = FALSE

@@ -11,6 +11,9 @@
 #define LIGHT_ON_DELAY_LOWER 1 SECONDS
 #define LIGHT_ON_DELAY_UPPER 3 SECONDS
 
+#define MAXIMUM_SAFE_BACKUP_CHARGE 600
+#define EMERGENCY_LIGHT_POWER_USE 0.5
+
 /**
   * # Light fixture frame
   *
@@ -36,8 +39,8 @@
 	/// Holder for the completed fixture
 	var/obj/machinery/light/newlight = null
 
-/obj/machinery/light_construct/New()
-	..()
+/obj/machinery/light_construct/Initialize(mapload, ndir, building)
+	. = ..()
 	if(fixture_type == "bulb")
 		icon_state = "bulb-construct-stage1"
 
@@ -46,11 +49,11 @@
 	if(get_dist(user, src) <= 2)
 		switch(stage)
 			if(1)
-				. += "It's an empty frame."
+				. += "<span class='notice'>It's an empty frame <b>bolted</b> to the wall. It needs to be <i>wired</i>.</span>"
 			if(2)
-				. += "It's wired."
+				. += "<span class='notice'>The frame is <b>wired</b>, but the casing's cover is <i>unscrewed</i>.</span>"
 			if(3)
-				. += "The casing is closed."
+				. += "<span class='notice'>The casing is <b>screwed</b> shut.</span>"
 
 /obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -102,14 +105,12 @@
 			newlight = new /obj/machinery/light/built(loc)
 		if("bulb")
 			newlight = new /obj/machinery/light/small/built(loc)
-
 	newlight.setDir(dir)
 	transfer_fingerprints_to(newlight)
 	qdel(src)
 
 /obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
-
 	if(istype(W, /obj/item/stack/cable_coil))
 		if(stage != 1)
 			return
@@ -167,7 +168,7 @@
 	var/base_state = "tube" // Base description and icon_state
 	icon_state = "tube1"
 	desc = "A lighting fixture."
-	anchored = 1
+	anchored = TRUE
 	layer = 5
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
@@ -192,6 +193,8 @@
 	var/status = LIGHT_OK
 	/// Is the light currently flickering?
 	var/flickering = FALSE
+	/// Was this light extinguished with an antag ability? Used to ovveride flicker events
+	var/extinguished = FALSE
 
 	/// Item type of the light bulb
 	var/light_type = /obj/item/light/tube
@@ -202,7 +205,7 @@
 	/// Is the light rigged to explode?
 	var/rigged = FALSE
 	/// Materials the light is made of
-	var/lightmaterials = list(MAT_GLASS=100)
+	var/lightmaterials = list(MAT_GLASS = 200)
 
 	/// Currently in night shift mode?
 	var/nightshift_enabled = FALSE
@@ -217,6 +220,9 @@
 	/// The colour of the light while it's in emergency mode
 	var/bulb_emergency_colour = "#FF3232"
 
+	var/emergency_mode = FALSE	// if true, the light is in emergency mode
+	var/fire_mode = FALSE // if true, the light swaps over to emergency colour
+	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
 
 /**
   * # Small light fixture
@@ -235,7 +241,6 @@
 
 /obj/machinery/light/spot
 	name = "spotlight"
-	fitting = "large tube"
 	light_type = /obj/item/light/tube/large
 	brightness_range = 12
 	brightness_power = 4
@@ -274,12 +279,10 @@
 //		A.update_lights()
 	return ..()
 
-/obj/machinery/light/update_icon()
-
+/obj/machinery/light/update_icon_state()
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
-			var/area/A = get_area(src)
-			if(A && A.fire)
+			if(emergency_mode || fire_mode)
 				icon_state = "[base_state]_emergency"
 			else
 				icon_state = "[base_state][on]"
@@ -292,7 +295,17 @@
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
 			on = FALSE
-	return
+
+/obj/machinery/light/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(status != LIGHT_OK || !on || !turning_on)
+		return
+	if(nightshift_enabled || emergency_mode || fire_mode || turning_on)
+		underlays += emissive_appearance(icon, "[base_state]_emergency_lightmask")
+	else
+		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
 /**
   * Updates the light's 'on' state and power consumption based on [/obj/machinery/light/var/on].
@@ -303,20 +316,27 @@
   * * play_sound - Will the lightbulb play a sound when it's turned on.
   */
 /obj/machinery/light/proc/update(trigger = TRUE, instant = FALSE, play_sound = TRUE)
+	var/area/current_area = get_area(src)
+	UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 	switch(status)
 		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
 			on = FALSE
+	emergency_mode = FALSE
+	if(fire_mode)
+		set_emergency_lights()
 	if(on) // Turning on
+		extinguished = FALSE
 		if(instant)
 			_turn_on(trigger, play_sound)
 		else if(!turning_on)
 			turning_on = TRUE
-			addtimer(CALLBACK(src, .proc/_turn_on, trigger, play_sound), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
+			addtimer(CALLBACK(src, PROC_REF(_turn_on), trigger, play_sound), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
+	else if(!turned_off())
+		set_emergency_lights()
 	else // Turning off
 		use_power = IDLE_POWER_USE
 		set_light(0)
-		update_icon()
-
+	update_icon()
 	active_power_usage = (brightness_range * 10)
 	if(on != power_state) // Light was turned on/off, so update the power usage
 		power_state = on
@@ -325,6 +345,7 @@
 			addStaticPower(static_power_used, STATIC_LIGHT)
 		else
 			removeStaticPower(static_power_used, STATIC_LIGHT)
+
 
 /**
   * The actual proc to turn on the lightbulb.
@@ -346,8 +367,7 @@
 	var/CO = brightness_color
 	if(color)
 		CO = color
-	var/area/A = get_area(src)
-	if(A?.fire)
+	if(emergency_mode)
 		CO = bulb_emergency_colour
 	else if(nightshift_enabled)
 		BR = nightshift_light_range
@@ -358,7 +378,6 @@
 		return // Nothing's changed here
 
 	switchcount++
-	update_icon()
 	if(trigger && (status == LIGHT_OK))
 		if(rigged)
 			log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast].")
@@ -372,19 +391,20 @@
 			return
 
 	use_power = ACTIVE_POWER_USE
+	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
 		playsound(src, 'sound/machines/light_on.ogg', 60, TRUE)
 
 /obj/machinery/light/proc/burnout()
 	status = LIGHT_BURNED
-	icon_state = "[base_state]-burned"
 
 	visible_message("<span class='boldwarning'>[src] burns out!</span>")
 	do_sparks(2, 1, src)
 
 	on = FALSE
 	set_light(0)
+	update_icon()
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
@@ -398,15 +418,14 @@
 	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
-				. += "It is turned [on? "on" : "off"]."
+				. += "<span class='notice'>It is turned [on ? "on" : "off"].</span>"
 			if(LIGHT_EMPTY)
-				. += "The [fitting] has been removed."
+				. += "<span class='notice'>The [fitting] has been removed.</span>"
+				. += "<span class='notice'>The casing can be <b>unscrewed</b>.</span>"
 			if(LIGHT_BURNED)
-				. += "The [fitting] is burnt out."
+				. += "<span class='notice'>The [fitting] is burnt out.</span>"
 			if(LIGHT_BROKEN)
-				. += "The [fitting] has been smashed."
-
-
+				. += "<span class='notice'>The [fitting] has been smashed.</span>"
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
@@ -416,9 +435,10 @@
 	if(istype(W, /obj/item/lightreplacer))
 		var/obj/item/lightreplacer/LR = W
 		LR.ReplaceLight(src, user)
+		return
 
 	// attempt to insert light
-	else if(istype(W, /obj/item/light))
+	if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
 			to_chat(user, "<span class='warning'>There is a [fitting] already inserted.</span>")
 		else
@@ -447,13 +467,12 @@
 					explode()
 			else
 				to_chat(user, "<span class='warning'>This type of light requires a [fitting].</span>")
-				return
+		return
 
 		// attempt to break the light
 		//If xenos decide they want to smash a light bulb with a toolbox, who am I to stop them? /N
 
-	else if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
-
+	if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 		user.do_attack_animation(src)
 		if(prob(1 + W.force * 5))
 
@@ -463,21 +482,14 @@
 				if(prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 			break_light_tube()
-
 		else
 			user.visible_message("<span class='danger'>[user] hits the light.</span>", "<span class='danger'>You hit the light.</span>", \
 			"<span class='danger'>You hear someone hitting a light.</span>")
 			playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
+		return
 
 	// attempt to stick weapon into light socket
-	else if(status == LIGHT_EMPTY)
-		if(istype(W, /obj/item/screwdriver)) //If it's a screwdriver open it.
-			playsound(loc, W.usesound, W.tool_volume, 1)
-			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
-				"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
-			deconstruct()
-			return
-
+	if(status == LIGHT_EMPTY)
 		if(has_power() && (W.flags & CONDUCT))
 			do_sparks(3, 1, src)
 			if(prob(75)) // If electrocuted
@@ -485,8 +497,19 @@
 				to_chat(user, "<span class='userdanger'>You are electrocuted by [src]!</span>")
 			else // If not electrocuted
 				to_chat(user, "<span class='danger'>You stick [W] into the light socket!</span>")
-	else
-		return ..()
+			return
+
+	return ..()
+
+/obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
+	if(status != LIGHT_EMPTY)
+		return
+
+	I.play_tool_sound(src)
+	user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
+		"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
+	deconstruct()
+	return TRUE
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -540,21 +563,51 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
+// returns if the light has power /but/ is manually turned off
+// if a light is turned off, it won't activate emergency power
+/obj/machinery/light/proc/turned_off()
+	var/area/A = get_area(src)
+	return !A.lightswitch && A.power_light
+
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
 	var/area/A = get_area(src)
 	return A.lightswitch && A.power_light
 
+// attempts to set emergency lights
+/obj/machinery/light/proc/set_emergency_lights()
+	var/area/current_area = get_area(src)
+	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
+	if(status != LIGHT_OK || !current_apc || flickering || no_emergency)
+		emergency_lights_off(current_area, current_apc)
+		return
+	if(current_apc.emergency_lights || !current_apc.emergency_power)
+		emergency_lights_off(current_area, current_apc)
+		return
+	if(fire_mode)
+		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
+		update_icon()
+		return
+	emergency_mode = TRUE
+	set_light(3, 1.7, bulb_emergency_colour)
+	update_icon()
+	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
+
+/obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
+	set_light(0, 0, 0) //you, sir, are off!
+	if(current_apc)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
+
 /obj/machinery/light/flicker(amount = rand(20, 30))
 	if(flickering)
 		return FALSE
 
-	if(!on || status != LIGHT_OK)
+	if(!on || status != LIGHT_OK || emergency_mode)
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/light/.proc/flicker_event, amount)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/light, flicker_event), amount)
 
 	return TRUE
 
@@ -565,7 +618,7 @@
 /obj/machinery/light/proc/flicker_event(amount)
 	if(on && status == LIGHT_OK)
 		for(var/i = 0; i < amount; i++)
-			if(status != LIGHT_OK)
+			if(status != LIGHT_OK || extinguished)
 				break
 			on = FALSE
 			update(FALSE, TRUE, FALSE)
@@ -573,14 +626,16 @@
 			on = (status == LIGHT_OK)
 			update(FALSE, TRUE, FALSE)
 			sleep(rand(1, 10))
-		on = (status == LIGHT_OK)
+		on = (status == LIGHT_OK && !extinguished)
 		update(FALSE, TRUE, FALSE)
 	flickering = FALSE
 
 
-// ai attack - make lights flicker, because why not
+// ai attack - toggle emergency lighting
 /obj/machinery/light/attack_ai(mob/user)
-	flicker(1)
+	no_emergency = !no_emergency
+	to_chat(user, "<span class='notice'>Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"].</span>")
+	update(FALSE)
 
 // attack with hand - remove tube/bulb
 // if hands aren't protected and the light is on, burn the player
@@ -590,7 +645,6 @@
 	add_fingerprint(user)
 
 	if(status == LIGHT_EMPTY)
-		to_chat(user, "<span class='warning'>There is no [fitting] in this light.</span>")
 		return
 
 	// make it burn hands if not wearing fire-insulated gloves
@@ -630,6 +684,9 @@
 // break the light and make sparks if was on
 
 /obj/machinery/light/proc/drop_light_tube(mob/user)
+	if(status == LIGHT_EMPTY)
+		return
+
 	var/obj/item/light/L = new light_type()
 	L.status = status
 	L.rigged = rigged
@@ -679,6 +736,7 @@
 	if(status == LIGHT_OK)
 		return
 	status = LIGHT_OK
+	extinguished = FALSE
 	on = TRUE
 	update(FALSE, TRUE, FALSE)
 
@@ -728,13 +786,14 @@
 	force = 2
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
+	blocks_emissive = FALSE
 	/// Light status (LIGHT_OK | LIGHT_BURNED | LIGHT_BROKEN)
 	var/status = LIGHT_OK
 	var/base_state
 	/// How many times has the light been switched on/off?
 	var/switchcount = 0
 	/// Materials the light is made of
-	materials = list(MAT_GLASS=100)
+	materials = list(MAT_GLASS = 200)
 	/// Is the light rigged to explode?
 	var/rigged = FALSE
 	/// Light range
@@ -744,7 +803,7 @@
 	/// Light colour
 	var/brightness_color = null
 
-/obj/item/light/ComponentInitialize()
+/obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 
@@ -884,9 +943,21 @@
 
 /obj/machinery/light/extinguish_light()
 	on = FALSE
+	extinguished = TRUE
+	emergency_mode = FALSE
+	no_emergency = TRUE
+	addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 	update(FALSE)
 
+/obj/machinery/light/proc/enable_emergency_lighting()
+	visible_message("<span class='notice'>[src]'s emergency lighting flickers back to life.</span>")
+	extinguished = FALSE
+	no_emergency = FALSE
+	update(FALSE)
+
+#undef MAXIMUM_SAFE_BACKUP_CHARGE
+#undef EMERGENCY_LIGHT_POWER_USE
 #undef LIGHT_OK
 #undef LIGHT_EMPTY
 #undef LIGHT_BROKEN

@@ -4,16 +4,17 @@
 	max_integrity = 300
 	face_while_pulling = TRUE
 	var/climbable
-	var/mob/climber
+	var/mob/living/climber
 	var/broken = FALSE
 
 /obj/structure/New()
 	..()
-	if(smooth)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
-			queue_smooth(src)
-			queue_smooth_neighbors(src)
-		icon_state = ""
+			QUEUE_SMOOTH(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
+		if(smoothing_flags & SMOOTH_CORNERS)
+			icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
@@ -27,10 +28,10 @@
 /obj/structure/Destroy()
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
-	if(smooth)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		var/turf/T = get_turf(src)
-		spawn(0)
-			queue_smooth_neighbors(T)
+		QUEUE_SMOOTH_NEIGHBORS(T)
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	return ..()
 
 /obj/structure/proc/climb_on()
@@ -78,7 +79,9 @@
 		climber = null
 		return FALSE
 
+	var/old_loc = usr.loc
 	usr.loc = get_turf(src)
+	usr.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
 	if(get_turf(user) == get_turf(src))
 		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
@@ -89,9 +92,10 @@
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying) return //No spamming this on people.
+		if(IS_HORIZONTAL(M))
+			return //No spamming this on people.
 
-		M.Weaken(5)
+		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
 
 		if(prob(25))
@@ -129,15 +133,15 @@
 			H.UpdateDamageIcon()
 	return
 
-/obj/structure/proc/can_touch(mob/user)
-	if(!user)
+/obj/structure/proc/can_touch(mob/living/user)
+	if(!istype(user))
 		return 0
 	if(!Adjacent(user))
 		return 0
 	if(user.restrained() || user.buckled)
 		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
 		return 0
-	if(user.stat || user.paralysis || user.sleeping || user.lying || user.IsWeakened())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return 0
 	if(issilicon(user))
 		to_chat(user, "<span class='notice'>You need hands for this.</span>")

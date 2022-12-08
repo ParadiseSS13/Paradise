@@ -14,11 +14,15 @@
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_NO_INTERACT)
+	var/signal_ret = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
+	if(signal_ret & COMPONENT_NO_INTERACT)
 		return
-	return
+	if(signal_ret & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 
 /obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
+	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 	if(is_hot(src) && A.reagents && !ismob(A))
 		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
 		A.reagents.temperature_reagents(is_hot(src))
@@ -40,29 +44,11 @@
 	return I.attack(src, user)
 
 /obj/item/proc/attack(mob/living/M, mob/living/user, def_zone)
-	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(flags & (NOBLUDGEON))
 		return FALSE
-	if(can_operate(M))  //Checks if mob is lying down on table for surgery
-		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
-			if(!attempt_initiate_surgery(src, M, user,1))
-				return FALSE
-			else
-				return TRUE
-		if(istype(src,/obj/item/organ/external))
-			var/obj/item/organ/external/E = src
-			if(E.is_robotic()) // Robot limbs are less messy to attach
-				if(!attempt_initiate_surgery(src, M, user,1))
-					return FALSE
-				else
-					return TRUE
-		var/obj/item/organ/external/O = M.get_organ(user.zone_selected)
-		if((is_sharp(src) || (isscrewdriver(src) && O?.is_robotic())) && user.a_intent == INTENT_HELP)
-			if(!attempt_initiate_surgery(src, M, user))
-				return FALSE
-			else
-				return TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
@@ -72,6 +58,7 @@
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
+		add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
@@ -80,8 +67,6 @@
 
 	user.do_attack_animation(M)
 	. = M.attacked_by(src, user, def_zone)
-
-	add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 
 	add_fingerprint(user)
 
@@ -100,14 +85,22 @@
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user)
+	var/damage = I.force
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
-	take_damage(I.force, I.damtype, MELEE, 1)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		damage += H.physiology.melee_bonus
+	take_damage(damage, I.damtype, MELEE, 1)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)
 	if(I.force)
-		apply_damage(I.force, I.damtype, def_zone)
+		var/bonus_damage = 0
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			bonus_damage = H.physiology.melee_bonus
+		apply_damage(I.force + bonus_damage, I.damtype, def_zone)
 		if(I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)
@@ -115,7 +108,6 @@
 				add_splatter_floor(location)
 				if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(src)
-		return TRUE //successful attack
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
 	if(!I.force)

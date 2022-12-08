@@ -14,9 +14,13 @@
 	icon_state = "camera"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/computer/camera_advanced/abductor/New()
+/obj/machinery/computer/camera_advanced/abductor/Initialize(mapload)
+	. = ..()
 	GLOB.abductor_equipment.Add(src)
-	..()
+
+/obj/machinery/computer/camera_advanced/abductor/Destroy()
+	GLOB.abductor_equipment.Remove(src)
+	return ..()
 
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
 	..()

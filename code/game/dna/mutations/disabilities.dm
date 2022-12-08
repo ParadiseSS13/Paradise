@@ -24,7 +24,7 @@
 
 /datum/mutation/disability/hallucinate/on_life(mob/living/carbon/human/H)
 	if(prob(1))
-		H.AdjustHallucinate(45)
+		H.AdjustHallucinate(45 SECONDS)
 
 /datum/mutation/disability/epilepsy
 	name = "Epilepsy"
@@ -37,10 +37,10 @@
 	block = GLOB.epilepsyblock
 
 /datum/mutation/disability/epilepsy/on_life(mob/living/carbon/human/H)
-	if((prob(1) && H.paralysis < 1))
+	if((prob(1) && !H.IsParalyzed()))
 		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
-		H.Paralyse(10)
-		H.Jitter(1000)
+		H.Paralyse(20 SECONDS)
+		H.Jitter(2000 SECONDS)
 
 /datum/mutation/disability/cough
 	name = "Coughing"
@@ -53,7 +53,7 @@
 	block = GLOB.coughblock
 
 /datum/mutation/disability/cough/on_life(mob/living/carbon/human/H)
-	if((prob(5) && H.paralysis <= 1))
+	if((prob(5) && H.AmountParalyzed() <= 1))
 		H.drop_item()
 		H.emote("cough")
 
@@ -72,15 +72,13 @@
 	name = "Tourettes"
 	activation_messages = list("You twitch.")
 	deactivation_messages = list("Your mouth tastes like soap.")
-	instability = -GENE_INSTABILITY_MODERATE
 
 /datum/mutation/disability/tourettes/New()
 	..()
 	block = GLOB.twitchblock
 
 /datum/mutation/disability/tourettes/on_life(mob/living/carbon/human/H)
-	if((prob(10) && H.paralysis <= 1))
-		H.Stun(10)
+	if(prob(10))
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
@@ -104,7 +102,7 @@
 
 /datum/mutation/disability/nervousness/on_life(mob/living/carbon/human/H)
 	if(prob(10))
-		H.Stuttering(10)
+		H.Stuttering(20 SECONDS)
 
 /datum/mutation/disability/blindness
 	name = "Blindness"
@@ -395,7 +393,7 @@
 	..()
 	block = GLOB.swedeblock
 
-/datum/mutation/disability/speech/swedish/on_say(mob/M, message)
+/datum/mutation/disability/speech/swedish/on_say(mob/living/M, message)
 	// svedish
 	message = replacetextEx(message,"W","V")
 	message = replacetextEx(message,"w","v")
@@ -408,7 +406,7 @@
 	message = replacetextEx(message,"bo","bjo")
 	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
 	message = replacetextEx(message,"o",pick("ö","ø","o"))
-	if(prob(30) && !M.is_muzzled())
+	if(prob(30) && !M.is_muzzled() && !M.is_facehugged())
 		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 
@@ -482,31 +480,30 @@
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	activation_messages = list("You suddenly feel rather hot.")
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
-	spelltype = /obj/effect/proc_holder/spell/targeted/immolate
+	spelltype = /obj/effect/proc_holder/spell/immolate
 
 /datum/mutation/grant_spell/immolate/New()
 	..()
 	block = GLOB.immolateblock
 
-/obj/effect/proc_holder/spell/targeted/immolate
+/obj/effect/proc_holder/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	panel = "Abilities"
 
-	charge_type = "recharge"
-	charge_max = 600
+	base_cooldown = 600
 
-	clothes_req = 0
-	stat_allowed = 0
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	invocation_type = "none"
-	range = -1
-	selection_type = "range"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
-	include_user = 1
 
 	action_icon_state = "genetic_incendiary"
 
-/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/immolate/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
 	L.visible_message("<span class='danger'>[L.name]</b> suddenly bursts into flames!</span>")
@@ -546,7 +543,7 @@
 /datum/mutation/disability/dizzy/on_life(mob/living/carbon/human/M)
 	if(!istype(M))
 		return
-	M.Dizzy(300)
+	M.Dizzy(600 SECONDS)
 
 /datum/mutation/disability/dizzy/deactivate(mob/living/M)
 	..()

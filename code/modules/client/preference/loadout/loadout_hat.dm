@@ -153,6 +153,16 @@
 	main_typepath = /datum/gear/hat/beret_job
 	subtype_selection_cost = FALSE
 
+/datum/gear/hat/beret_job/captain
+	display_name = "Beret, captain's"
+	path = /obj/item/clothing/head/caphat/beret
+	allowed_roles = list("Captain")
+
+/datum/gear/hat/beret_job/captain_white
+	display_name = "Beret, captain's white"
+	path = /obj/item/clothing/head/caphat/beret/white
+	allowed_roles = list("Captain")
+
 /datum/gear/hat/beret_job/sec
 	display_name = "Beret, security"
 	path = /obj/item/clothing/head/beret/sec
@@ -166,7 +176,7 @@
 /datum/gear/hat/beret_job/med
 	display_name = "Beret, medical"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Coroner")
 
 /datum/gear/hat/beret_job/eng
 	display_name = "Beret, engineering"

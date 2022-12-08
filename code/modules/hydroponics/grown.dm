@@ -18,8 +18,8 @@
 	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
-/obj/item/reagent_containers/food/snacks/grown/New(newloc, obj/item/seeds/new_seed = null)
-	..()
+/obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed = null)
+	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1)
 
@@ -38,7 +38,7 @@
 
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_new(src, newloc)
+			T.on_new(src)
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
@@ -119,7 +119,7 @@
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom)
 	if(!..()) //was it caught by a mob?
 		if(seed)
-			log_action(thrownby, hit_atom, "Thrown [src] at")
+			log_action(locateUID(thrownby), hit_atom, "Thrown [src] at")
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))

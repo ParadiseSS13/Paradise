@@ -40,8 +40,8 @@
 	return null
 
 //Puts the item into your l_hand if possible and calls all necessary triggers/updates. returns 1 on success.
-/mob/proc/put_in_l_hand(obj/item/W)
-	if(!put_in_hand_check(W))
+/mob/proc/put_in_l_hand(obj/item/W, skip_blocked_hands_check = FALSE)
+	if(!put_in_hand_check(W, skip_blocked_hands_check))
 		return 0
 	if(!l_hand && has_left_hand())
 		W.forceMove(src)		//TODO: move to equipped?
@@ -56,8 +56,8 @@
 	return 0
 
 //Puts the item into your r_hand if possible and calls all necessary triggers/updates. returns 1 on success.
-/mob/proc/put_in_r_hand(obj/item/W)
-	if(!put_in_hand_check(W))
+/mob/proc/put_in_r_hand(obj/item/W, skip_blocked_hands_check = FALSE)
+	if(!put_in_hand_check(W, skip_blocked_hands_check))
 		return 0
 	if(!r_hand && has_right_hand())
 		W.forceMove(src)
@@ -71,10 +71,15 @@
 		return 1
 	return 0
 
-/mob/proc/put_in_hand_check(obj/item/W)
-	if(lying && !(W.flags & ABSTRACT))	return 0
-	if(!istype(W))	return 0
-	return 1
+/mob/proc/put_in_hand_check(obj/item/W, skip_blocked_hands_check)
+	if(!istype(W))
+		return FALSE
+	return TRUE
+
+/mob/living/put_in_hand_check(obj/item/W, skip_blocked_hands_check)
+	. = ..()
+	if(!skip_blocked_hands_check && HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) && !(W.flags & ABSTRACT))
+		. = FALSE
 
 //Puts the item into our active hand if possible. returns 1 on success.
 /mob/proc/put_in_active_hand(obj/item/W)
@@ -102,12 +107,12 @@
 	return 0
 
 //Drops the item in our left hand
-/mob/proc/drop_l_hand()
-	return unEquip(l_hand) //All needed checks are in unEquip
+/mob/proc/drop_l_hand(force = FALSE)
+	return unEquip(l_hand, force) //All needed checks are in unEquip
 
 //Drops the item in our right hand
-/mob/proc/drop_r_hand()
-	return unEquip(r_hand) //Why was this not calling unEquip in the first place jesus fuck.
+/mob/proc/drop_r_hand(force = FALSE)
+	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
 /mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
@@ -271,12 +276,10 @@
 			return r_hand
 	return null
 
-//search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
+//search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it.
 /mob/proc/find_item(path)
-	for(var/obj/item/I in contents)
-		if(istype(I, /obj/item/storage))
-			for(var/obj/item/SI in I.contents)
-				if(istype(SI, path))
-					return SI
-		else if(istype(I, path))
-			return I
+	var/list/L = get_contents()
+
+	for(var/obj/B in L)
+		if(B.type == path)
+			return B

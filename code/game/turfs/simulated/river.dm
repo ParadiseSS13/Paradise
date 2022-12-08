@@ -22,7 +22,7 @@
 		var/obj/effect/landmark/river_waypoint/W = A
 		if (W.z != target_z || W.connected)
 			continue
-		W.connected = 1
+		W.connected = TRUE
 		var/turf/cur_turf = get_turf(W)
 		cur_turf.ChangeTurf(turf_type, ignore_air = TRUE)
 		var/turf/target_turf = get_turf(pick(river_nodes - W))
@@ -62,7 +62,7 @@
 
 /obj/effect/landmark/river_waypoint
 	name = "river waypoint"
-	var/connected = 0
+	var/connected = FALSE
 	invisibility = INVISIBILITY_ABSTRACT
 
 

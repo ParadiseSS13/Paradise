@@ -10,14 +10,17 @@
 						// And yes this does have to be in the constructor, BYOND ignores it if you set it as a normal var
 
 // Helper similar to image()
-/proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, plane = FLOAT_PLANE)
+/proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, plane = FLOAT_PLANE, alpha = 255, appearance_flags = NONE, color)
 	var/mutable_appearance/MA = new()
 	MA.icon = icon
 	MA.icon_state = icon_state
 	MA.layer = layer
 	MA.plane = plane
+	MA.alpha = alpha
+	MA.appearance_flags |= appearance_flags
+	if(color)
+		MA.color = color
 	return MA
-
 
 /mutable_appearance/clean/New()
 	. = ..()

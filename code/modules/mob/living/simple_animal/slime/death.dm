@@ -21,9 +21,9 @@
 	if(buckled)
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
-	stat = DEAD //Temporarily set to dead for icon updates
+	set_stat(DEAD) //Temporarily set to dead for icon updates
 	regenerate_icons()
-	stat = CONSCIOUS
+	set_stat(CONSCIOUS)
 
 	return ..(gibbed)
 

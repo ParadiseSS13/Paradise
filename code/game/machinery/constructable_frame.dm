@@ -2,8 +2,8 @@
 	name = "machine frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
 	var/obj/item/circuitboard/circuit = null
@@ -99,6 +99,9 @@
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "machine")
+					if(!B.build_path)
+						to_chat(user, "<span class='warning'>This is not a functional machine board!</span>")
+						return
 					playsound(src.loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
@@ -141,27 +144,6 @@
 				icon_state = "box_1"
 				return
 
-			if(istype(P, /obj/item/screwdriver))
-				var/component_check = 1
-				for(var/R in req_components)
-					if(req_components[R] > 0)
-						component_check = 0
-						break
-				if(component_check)
-					playsound(src.loc, P.usesound, 50, 1)
-					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
-					new_machine.on_construction()
-					for(var/obj/O in new_machine.component_parts)
-						qdel(O)
-					new_machine.component_parts = list()
-					for(var/obj/O in src)
-						O.loc = null
-						new_machine.component_parts += O
-					circuit.loc = null
-					new_machine.RefreshParts()
-					qdel(src)
-				return
-
 			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = P
 				var/list/added_components = list()
@@ -187,7 +169,7 @@
 				update_req_desc()
 				return
 
-			if(istype(P, /obj/item))
+			if(isitem(P))
 				var/success
 				for(var/I in req_components)
 					if(istype(P, I) && (req_components[I] > 0) && (!(P.flags & NODROP) || istype(P, /obj/item/stack)))
@@ -217,6 +199,31 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+/obj/machinery/constructable_frame/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
+	if(state != 3)
+		return
+
+	var/component_check = 1
+	for(var/R in req_components)
+		if(req_components[R] > 0)
+			component_check = 0
+			break
+	if(!component_check)
+		return TRUE
+	I.play_tool_sound(src)
+	var/obj/machinery/new_machine = new circuit.build_path(loc)
+	new_machine.on_construction()
+	for(var/obj/O in new_machine.component_parts)
+		qdel(O)
+	new_machine.component_parts = list()
+	for(var/obj/O in src)
+		O.loc = null
+		new_machine.component_parts += O
+	circuit.loc = null
+	new_machine.RefreshParts()
+	qdel(src)
+	return TRUE
+
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
@@ -228,66 +235,90 @@ to destroy them and players will be able to make replacements.
 	board_name = "Booze-O-Mat Vendor"
 	board_type = "machine"
 	origin_tech = "programming=1"
-	build_path = /obj/machinery/vending/boozeomat
+	build_path = /obj/machinery/economy/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
-	var/static/list/vending_names_paths = list(
-		"Booze-O-Mat" =							/obj/machinery/vending/boozeomat,
-		"Solar's Best Hot Drinks" =				/obj/machinery/vending/coffee,
-		"Getmore Chocolate Corp" =				/obj/machinery/vending/snack,
-		"Mr. Chang" =							/obj/machinery/vending/chinese,
-		"Robust Softdrinks" =					/obj/machinery/vending/cola,
-		"ShadyCigs Deluxe" =					/obj/machinery/vending/cigarette,
-		"Hatlord 9000" =						/obj/machinery/vending/hatdispenser,
-		"Suitlord 9000" =						/obj/machinery/vending/suitdispenser,
-		"Shoelord 9000" =						/obj/machinery/vending/shoedispenser,
-		"AutoDrobe" =							/obj/machinery/vending/autodrobe,
-		"ClothesMate" =							/obj/machinery/vending/clothing,
-		"NanoMed Plus" =						/obj/machinery/vending/medical,
-		"NanoMed" =								/obj/machinery/vending/wallmed,
-		"Vendomat" =							/obj/machinery/vending/assist,
-		"YouTool" =								/obj/machinery/vending/tool,
-		"Engi-Vend" =							/obj/machinery/vending/engivend,
-		"NutriMax" =							/obj/machinery/vending/hydronutrients,
-		"MegaSeed Servitor" =					/obj/machinery/vending/hydroseeds,
-		"Sustenance Vendor" =					/obj/machinery/vending/sustenance,
-		"Plasteel Chef's Dinnerware Vendor" =	/obj/machinery/vending/dinnerware,
-		"PTech" =								/obj/machinery/vending/cart,
-		"Robotech Deluxe" =						/obj/machinery/vending/robotics,
-		"Robco Tool Maker" =					/obj/machinery/vending/engineering,
-		"BODA" =								/obj/machinery/vending/sovietsoda,
-		"SecTech" =								/obj/machinery/vending/security,
-		"CritterCare" =							/obj/machinery/vending/crittercare,
-		"SecDrobe" =							/obj/machinery/vending/secdrobe,
-		"DetDrobe" =							/obj/machinery/vending/detdrobe,
-		"MediDrobe" =							/obj/machinery/vending/medidrobe,
-		"ViroDrobe" =							/obj/machinery/vending/virodrobe,
-		"ChemDrobe" =							/obj/machinery/vending/chemdrobe,
-		"GeneDrobe" =							/obj/machinery/vending/genedrobe,
-		"SciDrobe" =							/obj/machinery/vending/scidrobe,
-		"RoboDrobe" =							/obj/machinery/vending/robodrobe,
-		"EngiDrobe" =							/obj/machinery/vending/engidrobe,
-		"AtmosDrobe" =							/obj/machinery/vending/atmosdrobe,
-		"CargoDrobe" =							/obj/machinery/vending/cargodrobe,
-		"ChefDrobe" =							/obj/machinery/vending/chefdrobe,
-		"BarDrobe" =							/obj/machinery/vending/bardrobe,
-		"HydroDrobe" =							/obj/machinery/vending/hydrodrobe)
+	var/static/list/station_vendors = list(
+		"Booze-O-Mat" =							/obj/machinery/economy/vending/boozeomat,
+		"Solar's Best Hot Drinks" =				/obj/machinery/economy/vending/coffee,
+		"Getmore Chocolate Corp" =				/obj/machinery/economy/vending/snack,
+		"Mr. Chang" =							/obj/machinery/economy/vending/chinese,
+		"Robust Softdrinks" =					/obj/machinery/economy/vending/cola,
+		"ShadyCigs Deluxe" =					/obj/machinery/economy/vending/cigarette,
+		"Hatlord 9000" =						/obj/machinery/economy/vending/hatdispenser,
+		"Suitlord 9000" =						/obj/machinery/economy/vending/suitdispenser,
+		"Shoelord 9000" =						/obj/machinery/economy/vending/shoedispenser,
+		"AutoDrobe" =							/obj/machinery/economy/vending/autodrobe,
+		"ClothesMate" =							/obj/machinery/economy/vending/clothing,
+		"NanoMed Plus" =						/obj/machinery/economy/vending/medical,
+		"NanoMed" =								/obj/machinery/economy/vending/wallmed,
+		"Vendomat" =							/obj/machinery/economy/vending/assist,
+		"YouTool" =								/obj/machinery/economy/vending/tool,
+		"Engi-Vend" =							/obj/machinery/economy/vending/engivend,
+		"NutriMax" =							/obj/machinery/economy/vending/hydronutrients,
+		"MegaSeed Servitor" =					/obj/machinery/economy/vending/hydroseeds,
+		"Sustenance Vendor" =					/obj/machinery/economy/vending/sustenance,
+		"Plasteel Chef's Dinnerware Vendor" =	/obj/machinery/economy/vending/dinnerware,
+		"PTech" =								/obj/machinery/economy/vending/cart,
+		"Robotech Deluxe" =						/obj/machinery/economy/vending/robotics,
+		"Robco Tool Maker" =					/obj/machinery/economy/vending/engineering,
+		"BODA" =								/obj/machinery/economy/vending/sovietsoda,
+		"SecTech" =								/obj/machinery/economy/vending/security,
+		"CritterCare" =							/obj/machinery/economy/vending/crittercare,
+		"SecDrobe" =							/obj/machinery/economy/vending/secdrobe,
+		"DetDrobe" =							/obj/machinery/economy/vending/detdrobe,
+		"MediDrobe" =							/obj/machinery/economy/vending/medidrobe,
+		"ViroDrobe" =							/obj/machinery/economy/vending/virodrobe,
+		"ChemDrobe" =							/obj/machinery/economy/vending/chemdrobe,
+		"GeneDrobe" =							/obj/machinery/economy/vending/genedrobe,
+		"SciDrobe" =							/obj/machinery/economy/vending/scidrobe,
+		"RoboDrobe" =							/obj/machinery/economy/vending/robodrobe,
+		"EngiDrobe" =							/obj/machinery/economy/vending/engidrobe,
+		"AtmosDrobe" =							/obj/machinery/economy/vending/atmosdrobe,
+		"CargoDrobe" =							/obj/machinery/economy/vending/cargodrobe,
+		"ChefDrobe" =							/obj/machinery/economy/vending/chefdrobe,
+		"BarDrobe" =							/obj/machinery/economy/vending/bardrobe,
+		"HydroDrobe" =							/obj/machinery/economy/vending/hydrodrobe)
+	var/static/list/unique_vendors = list(
+		"ShadyCigs Ultra" =						/obj/machinery/economy/vending/cigarette/beach,
+		"SyndiMed Plus" =						/obj/machinery/economy/vending/wallmed/syndicate)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in vending_names_paths
+	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in station_vendors
 	if(!choice)
 		return
 	set_type(choice)
 
 /obj/item/circuitboard/vendor/proc/set_type(type)
-	var/obj/machinery/vending/typepath = vending_names_paths[type]
+	var/static/list/buildable_vendors = station_vendors + unique_vendors
+	var/obj/machinery/economy/vending/typepath = buildable_vendors[type]
 	build_path = typepath
 	board_name = "[type] Vendor"
 	format_board_name()
 	req_components = list(initial(typepath.refill_canister) = 1)
+
+/obj/item/circuitboard/slot_machine
+	board_name = "Slot Machine"
+	build_path = /obj/machinery/economy/slot_machine
+	board_type = "machine"
+	origin_tech = "programming=2"
+	req_components = list(
+							/obj/item/stack/cable_coil = 3,
+							/obj/item/stock_parts/cell = 1,
+							/obj/item/stock_parts/capacitor = 1)
+
+/obj/item/circuitboard/bottler
+	board_name = "Bottler"
+	build_path = /obj/machinery/bottler
+	board_type = "machine"
+	origin_tech = "programming=2"
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/smes
 	board_name = "SMES"
@@ -505,6 +536,7 @@ to destroy them and players will be able to make replacements.
 							"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
 							"Drink Showcase" = /obj/machinery/smartfridge/drinks,
 							"Disk Compartmentalizer" = /obj/machinery/smartfridge/disks,
+							"Identification Card Compartmentalizer" = /obj/machinery/smartfridge/id,
 							"Circuit Board Storage" = /obj/machinery/smartfridge/secure/circuits,
 							"AI Laws Storage" = /obj/machinery/smartfridge/secure/circuits/aiupload)
 
@@ -650,6 +682,33 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/reagent_containers/glass/beaker = 2)
+
+/obj/item/circuitboard/dish_drive
+	board_name = "Dish Drive"
+	build_path = /obj/machinery/dish_drive
+	board_type = "machine"
+	origin_tech = "programming=2"
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stack/sheet/glass = 1)
+	var/suction = TRUE
+	var/transmit = TRUE
+
+/obj/item/circuitboard/dish_drive/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>"
+	. += "<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
+
+/obj/item/circuitboard/dish_drive/attack_self(mob/living/user)
+	suction = !suction
+	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
+
+/obj/item/circuitboard/dish_drive/AltClick(mob/living/user)
+	if(!user.Adjacent(src))
+		return
+	transmit = !transmit
+	to_chat(user, "<span class='notice'>You [transmit ? "enable" : "disable"] the board's automatic disposal transmission.</span>")
 
 /obj/item/circuitboard/chem_dispenser/soda
 	board_name = "Soda Machine"
@@ -842,6 +901,13 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 4)
 
+/obj/item/circuitboard/cell_charger
+	board_name = "Cell Charger"
+	build_path = /obj/machinery/cell_charger
+	board_type = "machine"
+	origin_tech = "powerstorage=3;materials=2"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
+
 /obj/item/circuitboard/cyborgrecharger
 	board_name = "Cyborg Recharger"
 	build_path = /obj/machinery/recharge_station
@@ -907,7 +973,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/clawgame
 	board_name = "Claw Game"
-	build_path = /obj/machinery/arcade/claw
+	build_path = /obj/machinery/economy/arcade/claw
 	board_type = "machine"
 	origin_tech = "programming=1"
 	req_components = list(
@@ -936,3 +1002,8 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
 							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/circuitboard/merch
+	name = "Merchandise Computer Circuitboard"
+	build_path = /obj/machinery/economy/merch
+	board_type = "machine"

@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = OXY
 	nodamage = 1
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	flag = MAGIC
 
 /obj/item/projectile/magic/death
@@ -116,7 +116,7 @@
 			teleammount++
 			do_teleport(stuff, stuff, 10)
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(max(round(10 - teleammount),1), 0, stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
+			smoke.set_up(max(round(10 - teleammount), 1), FALSE, stuff) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()
 
 /obj/item/projectile/magic/door
@@ -144,7 +144,7 @@
 	var/door_type = pick(door_types)
 	var/obj/structure/mineral_door/D = new door_type(T)
 	T.ChangeTurf(/turf/simulated/floor/plasteel)
-	D.Open()
+	D.operate()
 
 /obj/item/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
@@ -170,7 +170,6 @@
 /proc/wabbajack(mob/living/M)
 	if(istype(M) && M.stat != DEAD && !M.notransform)
 		M.notransform = TRUE
-		M.canmove = FALSE
 		M.icon = null
 		M.overlays.Cut()
 		M.invisibility = 101
@@ -222,6 +221,7 @@
 				else
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
+				to_chat(M, "<span class='userdanger'>Your consciousness is subsumed by a distant hivemind... you feel murderous hostility towards non-xenomorph life!</span>")
 			if("animal")
 				if(prob(50))
 					var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")
@@ -297,7 +297,7 @@
 
 /obj/item/projectile/magic/animate/Bump(atom/change)
 	..()
-	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
+	if(isitem(change) || isstructure(change) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
 				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc, firer)
@@ -322,22 +322,12 @@
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
 
-/obj/item/projectile/magic/spellblade
-	name = "blade energy"
-	icon_state = "lavastaff"
-	damage = 15
-	damage_type = BURN
-	flag = "magic"
-	sharp = TRUE
-	dismemberment = 50
-	nodamage = 0
-
 /obj/item/projectile/magic/slipping
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 5
-	var/slip_weaken = 5
+	var/slip_stun = 10 SECONDS
+	var/slip_weaken = 10 SECONDS
 	hitsound = 'sound/items/bikehorn.ogg'
 
 /obj/item/projectile/magic/slipping/New()
@@ -347,18 +337,18 @@
 /obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
+		H.slip(src, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
 	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
 		if(!R.incapacitated())
 			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
 			R.Stun(slip_stun)
-	else if(ismob(target))
-		var/mob/M = target
-		if(!M.stunned)
+	else if(isliving(target))
+		var/mob/living/L = target
+		if(!L.IsStunned())
 			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
-			M.Weaken(slip_weaken)
-			M.Stun(slip_stun)
+			L.Weaken(slip_weaken)
+			L.Stun(slip_stun)
 	. = ..()
 
 /obj/item/projectile/magic/arcane_barrage
@@ -367,6 +357,6 @@
 	damage = 20
 	damage_type = BURN
 	nodamage = FALSE
-	armour_penetration = 0
+	armour_penetration_flat = 0
 	flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'

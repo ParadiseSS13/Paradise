@@ -4,8 +4,8 @@
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
 	var/list/ui_users = list()
@@ -22,6 +22,12 @@
 				pixel_x = -32
 			if(WEST)
 				pixel_x = 32
+	GLOB.mirrors += src
+
+/obj/structure/mirror/Destroy()
+	QDEL_LIST_ASSOC_VAL(ui_users)
+	GLOB.mirrors -= src
+	return ..()
 
 /obj/structure/mirror/attack_hand(mob/user)
 	if(broken)
@@ -44,6 +50,7 @@
 		if(desc == initial(desc))
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
+		GLOB.mirrors -= src
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -115,7 +122,7 @@
 		if("Body")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 			for(var/species in GLOB.whitelisted_species)
-				if(is_alien_whitelisted(H, species))
+				if(can_use_species(H, species))
 					race_list += species
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]

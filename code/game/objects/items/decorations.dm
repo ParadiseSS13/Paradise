@@ -218,8 +218,8 @@
 /obj/structure/decorative_structures
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	max_integrity = 100
 
 /obj/structure/decorative_structures/metal

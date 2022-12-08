@@ -25,7 +25,6 @@
 
 /obj/structure/necropolis_gate/Initialize()
 	. = ..()
-	setDir(SOUTH)
 	var/turf/sight_blocker_turf = get_turf(src)
 	if(sight_blocker_distance)
 		for(var/i in 1 to sight_blocker_distance)
@@ -36,35 +35,35 @@
 		sight_blocker = new (sight_blocker_turf) //we need to block sight in a different spot than most things do
 		sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
 	icon_state = "gate_bottom"
+
 	top_overlay = mutable_appearance('icons/effects/96x96.dmi', "gate_top")
 	top_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(top_overlay)
+
 	door_overlay = mutable_appearance('icons/effects/96x96.dmi', "door")
 	door_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(door_overlay)
+
 	dais_overlay = mutable_appearance('icons/effects/96x96.dmi', "gate_dais")
 	dais_overlay.layer = CLOSED_TURF_LAYER
 	add_overlay(dais_overlay)
 
-/obj/structure/necropolis_gate/Destroy(force)
-	if(force)
-		qdel(sight_blocker, TRUE)
-		. = ..()
-	else
-		return QDEL_HINT_LETMELIVE
+/obj/structure/necropolis_gate/Destroy()
+	qdel(sight_blocker, TRUE)
+	return ..()
 
 /obj/structure/necropolis_gate/singularity_pull()
-	return 0
+	return
 
 /obj/structure/necropolis_gate/CanPass(atom/movable/mover, turf/target)
 	if(get_dir(loc, target) == dir)
 		return !density
-	return 1
+	return TRUE
 
 /obj/structure/necropolis_gate/CheckExit(atom/movable/O, target)
 	if(get_dir(O.loc, target) == dir)
 		return !density
-	return 1
+	return TRUE
 
 /obj/structure/opacity_blocker
 	icon = 'icons/effects/96x96.dmi'
@@ -77,35 +76,33 @@
 	anchored = TRUE
 
 /obj/structure/opacity_blocker/singularity_pull()
-	return 0
-
-/obj/structure/opacity_blocker/Destroy(force)
-	if(force)
-		. = ..()
-	else
-		return QDEL_HINT_LETMELIVE
+	return
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/attack_hand(mob/user)
+	. = ..()
 	if(locked)
 		to_chat(user, "<span class='boldannounce'>It's [open ? "stuck open":"locked"].</span>")
 		return
-	toggle_the_gate(user)
-	return ..()
 
-/obj/structure/necropolis_gate/proc/toggle_the_gate(mob/user, legion_damaged)
+	if(GLOB.necropolis_gate == src) //funny override for knock knock gate
+		addtimer(CALLBACK(src, PROC_REF(toggle_the_gate), user), 5 SECONDS, TIMER_UNIQUE)
+		return
+
+	toggle_the_gate(user)
+
+/obj/structure/necropolis_gate/proc/toggle_the_gate(mob/user)
 	if(changing_openness)
 		return
+
 	changing_openness = TRUE
 	var/turf/T = get_turf(src)
+
 	if(open)
 		new /obj/effect/temp_visual/necropolis(T)
 		visible_message("<span class='boldwarning'>The door slams closed!</span>")
-		sleep(1)
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 80000)
-		sleep(1)
 		density = TRUE
-		sleep(1)
 		var/turf/sight_blocker_turf = get_turf(src)
 		if(sight_blocker_distance)
 			for(var/i in 1 to sight_blocker_distance)
@@ -115,24 +112,27 @@
 		if(sight_blocker_turf)
 			sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
 			sight_blocker.forceMove(sight_blocker_turf)
-		sleep(2.5)
-		playsound(T, 'sound/magic/clockwork/invoke_general.ogg', 30, TRUE, frequency = 15000)
-		add_overlay(door_overlay)
-		open = FALSE
-	else
-		cut_overlay(door_overlay)
-		new /obj/effect/temp_visual/necropolis/open(T)
-		sleep(2)
-		visible_message("<span class='warning'>The door starts to grind open...</span>")
-		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 20000)
-		sleep(22)
-		sight_blocker.forceMove(src)
-		sleep(5)
-		density = FALSE
-		sleep(5)
-		open = TRUE
-	changing_openness = FALSE
+		addtimer(CALLBACK(src, PROC_REF(toggle_open_delayed_step), T), 0.5 SECONDS, TIMER_UNIQUE)
+		return TRUE
+
+	cut_overlay(door_overlay)
+	new /obj/effect/temp_visual/necropolis/open(T)
+	visible_message("<span class='warning'>The door starts to grind open...</span>")
+	playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 20000)
+	addtimer(CALLBACK(src, PROC_REF(toggle_closed_delayed_step)), 2.2 SECONDS, TIMER_UNIQUE)
 	return TRUE
+
+/obj/structure/necropolis_gate/proc/toggle_open_delayed_step(turf/T)
+	playsound(T, 'sound/magic/clockwork/invoke_general.ogg', 30, TRUE, frequency = 15000)
+	add_overlay(door_overlay)
+	open = FALSE
+	changing_openness = FALSE
+
+/obj/structure/necropolis_gate/proc/toggle_closed_delayed_step()
+	sight_blocker.forceMove(src)
+	density = FALSE
+	open = TRUE
+	changing_openness = FALSE
 
 /obj/structure/necropolis_gate/locked
 	locked = TRUE
@@ -146,13 +146,10 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	. = ..()
 	GLOB.necropolis_gate = src
 
-/obj/structure/necropolis_gate/legion_gate/Destroy(force)
-	if(force)
-		if(GLOB.necropolis_gate == src)
-			GLOB.necropolis_gate = null
-		. = ..()
-	else
-		return QDEL_HINT_LETMELIVE
+/obj/structure/necropolis_gate/legion_gate/Destroy()
+	if(GLOB.necropolis_gate == src)
+		GLOB.necropolis_gate = null
+	return ..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/legion_gate/attack_hand(mob/user)
@@ -162,23 +159,17 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 			return
 		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", "<span class='boldannounce'>You tentatively knock on [src]...</span>")
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
-		sleep(50)
 	return ..()
 
-/obj/structure/necropolis_gate/legion_gate/toggle_the_gate(mob/user, legion_damaged)
+/obj/structure/necropolis_gate/legion_gate/toggle_the_gate(mob/user)
 	if(open)
 		return
-	. = ..()
-	if(.)
+	if(..())
 		locked = TRUE
 		var/turf/T = get_turf(src)
 		visible_message("<span class='userdanger'>Something horrible emerges from the Necropolis!</span>")
-		if(legion_damaged)
-			message_admins("Legion took damage while the necropolis gate was closed, and has released itself!")
-			log_game("Legion took damage while the necropolis gate was closed and released itself.")
-		else
-			message_admins("[user ? ADMIN_LOOKUPFLW(user):"Unknown"] has released Legion!")
-			log_game("[user ? key_name(user) : "Unknown"] released Legion.")
+		message_admins("[user ? ADMIN_LOOKUPFLW(user) : "Unknown"] has released Legion!")
+		log_game("[user ? key_name(user) : "Unknown"] released Legion.")
 
 		var/sound/legion_sound = sound('sound/creatures/legion_spawn.ogg')
 		for(var/mob/M in GLOB.player_list)
@@ -224,18 +215,8 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	add_overlay(top_overlay)
 
 /obj/structure/necropolis_arch/singularity_pull()
-	return 0
+	return
 
-/obj/structure/necropolis_arch/Destroy(force)
-	if(force)
-		. = ..()
-	else
-		return QDEL_HINT_LETMELIVE
-
-#define STABLE 0 //The tile is stable and won't collapse/sink when crossed.
-#define COLLAPSE_ON_CROSS 1 //The tile is unstable and will temporary become unusable when crossed.
-#define DESTROY_ON_CROSS 2 //The tile is nearly broken and will permanently become unusable when crossed.
-#define UNIQUE_EFFECT 3 //The tile has some sort of unique effect when crossed.
 //stone tiles for boss arenas
 /obj/structure/stone_tile
 	name = "stone tile"
@@ -246,68 +227,12 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/tile_key = "pristine_tile"
 	var/tile_random_sprite_max = 24
-	var/fall_on_cross = STABLE //If the tile has some sort of effect when crossed
-	var/fallen = FALSE //If the tile is unusable
-	var/falling = FALSE //If the tile is falling
 
 /obj/structure/stone_tile/Initialize(mapload)
 	. = ..()
 	icon_state = "[tile_key][rand(1, tile_random_sprite_max)]"
 
-/obj/structure/stone_tile/Destroy(force)
-	if(force || fallen)
-		. = ..()
-	else
-		return QDEL_HINT_LETMELIVE
-
 /obj/structure/stone_tile/singularity_pull()
-	return
-
-/obj/structure/stone_tile/Crossed(atom/movable/AM, oldloc)
-	if(falling || fallen)
-		return
-	var/turf/T = get_turf(src)
-	if(!islava(T) && !ischasm(T)) //nothing to sink or fall into
-		return
-	var/obj/item/I
-	if(istype(AM, /obj/item))
-		I = AM
-	var/mob/living/L
-	if(isliving(AM))
-		L = AM
-	switch(fall_on_cross)
-		if(COLLAPSE_ON_CROSS, DESTROY_ON_CROSS)
-			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.flying) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
-				collapse()
-		if(UNIQUE_EFFECT)
-			crossed_effect(AM)
-
-/obj/structure/stone_tile/proc/collapse()
-	falling = TRUE
-	var/break_that_sucker = fall_on_cross == DESTROY_ON_CROSS
-	playsound(src, 'sound/effects/pressureplate.ogg', 50, TRUE)
-	Shake(-1, -1, 25)
-	sleep(5)
-	if(break_that_sucker)
-		playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
-	else
-		playsound(src, 'sound/mecha/mechmove04.ogg', 50, TRUE)
-	animate(src, alpha = 0, pixel_y = pixel_y - 3, time = 5)
-	fallen = TRUE
-	if(break_that_sucker)
-		QDEL_IN(src, 10)
-	else
-		addtimer(CALLBACK(src, .proc/rebuild), 55)
-
-/obj/structure/stone_tile/proc/rebuild()
-	pixel_x = initial(pixel_x)
-	pixel_y = initial(pixel_y) - 5
-	animate(src, alpha = initial(alpha), pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 30)
-	sleep(30)
-	falling = FALSE
-	fallen = FALSE
-
-/obj/structure/stone_tile/proc/crossed_effect(atom/movable/AM, oldloc)
 	return
 
 /obj/structure/stone_tile/block
@@ -403,8 +328,3 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	name = "burnt stone surrounding tile"
 	icon_state = "burnt_surrounding_tile1"
 	tile_key = "burnt_surrounding_tile"
-
-#undef STABLE
-#undef COLLAPSE_ON_CROSS
-#undef DESTROY_ON_CROSS
-#undef UNIQUE_EFFECT

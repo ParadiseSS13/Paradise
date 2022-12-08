@@ -113,9 +113,6 @@
 /datum/objective/abductee/build
 	explanation_text = "Expand the station."
 
-/datum/objective/abductee/pragnant
-	explanation_text = "You are pregnant and soon due. Find a safe place to deliver your baby."
-
 /datum/objective/abductee/engine
 	explanation_text = "Go have a good conversation with the singularity/tesla/supermatter crystal. Bonus points if it responds."
 

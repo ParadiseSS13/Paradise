@@ -19,9 +19,9 @@
 /obj/structure/inflatable
 	name = "inflatable wall"
 	desc = "An inflated membrane. Do not puncture."
-	density = 1
-	anchored = 1
-	opacity = 0
+	density = TRUE
+	anchored = TRUE
+	opacity = FALSE
 	max_integrity = 50
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
@@ -41,7 +41,7 @@
 	T.air_update_turf(TRUE)
 
 /obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
-	return 0
+	return
 
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
@@ -72,7 +72,7 @@
 		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
-		addtimer(CALLBACK(src, .proc/deflate), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(deflate)), 5 SECONDS)
 
 /obj/structure/inflatable/proc/deflate()
 	var/obj/item/inflatable/R = new intact(loc)
@@ -105,17 +105,12 @@
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"
-	density = 1
-	anchored = 1
-	opacity = 0
-
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "door_closed"
 	torn = /obj/item/inflatable/door/torn
 	intact = /obj/item/inflatable/door
 
-	var/state = 0 //closed, 1 == open
-	var/isSwitchingStates = 0
+	var/state_open = FALSE
+	var/is_operating = FALSE
 
 /obj/structure/inflatable/door/detailed_examine()
 	return "Click the door to open or close it. It only stops air while closed.<br>\
@@ -126,10 +121,10 @@
 		return
 	else if(isrobot(user)) //but cyborgs can
 		if(get_dist(user,src) <= 1) //not remotely though
-			return TryToSwitchState(user)
+			return try_to_operate(user)
 
 /obj/structure/inflatable/door/attack_hand(mob/user as mob)
-	return TryToSwitchState(user)
+	return try_to_operate(user)
 
 /obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover, /obj/effect/beam))
@@ -139,8 +134,8 @@
 /obj/structure/inflatable/door/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates)
+/obj/structure/inflatable/door/proc/try_to_operate(atom/user)
+	if(is_operating)
 		return
 	if(ismob(user))
 		var/mob/M = user
@@ -150,43 +145,29 @@
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(!C.handcuffed)
-					SwitchState()
+					operate()
 			else
-				SwitchState()
-	else if(istype(user, /obj/mecha))
-		SwitchState()
+				operate()
+	else if(ismecha(user))
+		operate()
 
-/obj/structure/inflatable/door/proc/SwitchState()
-	if(state)
-		Close()
+/obj/structure/inflatable/door/proc/operate()
+	is_operating = TRUE
+	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
+	if(!state_open)
+		flick("door_opening",src)
 	else
-		Open()
+		flick("door_closing",src)
+	sleep(10)
+	density = !density
+	opacity = !opacity
+	state_open = !state_open
+	update_icon(UPDATE_ICON_STATE)
+	is_operating = FALSE
 	air_update_turf(1)
 
-/obj/structure/inflatable/door/proc/Open()
-	isSwitchingStates = 1
-	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-	flick("door_opening",src)
-	sleep(10)
-	density = 0
-	opacity = 0
-	state = 1
-	update_icon()
-	isSwitchingStates = 0
-
-/obj/structure/inflatable/door/proc/Close()
-	isSwitchingStates = 1
-	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
-	flick("door_closing",src)
-	sleep(10)
-	density = 1
-	opacity = 0
-	state = 0
-	update_icon()
-	isSwitchingStates = 0
-
-/obj/structure/inflatable/door/update_icon()
-	if(state)
+/obj/structure/inflatable/door/update_icon_state()
+	if(state_open)
 		icon_state = "door_open"
 	else
 		icon_state = "door_closed"
@@ -216,11 +197,10 @@
 	desc = "Contains inflatable walls and doors."
 	icon_state = "inf_box"
 	item_state = "syringe_kit"
-	max_combined_w_class = 21
 	w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(/obj/item/inflatable)
 
-/obj/item/storage/briefcase/inflatable/New()
-	..()
+/obj/item/storage/briefcase/inflatable/populate_contents()
 	new /obj/item/inflatable/door(src)
 	new /obj/item/inflatable/door(src)
 	new /obj/item/inflatable/door(src)

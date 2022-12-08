@@ -20,6 +20,9 @@
 
 	var/list/files = list(  )
 
+/obj/item/card/proc/get_card_account()
+	return GLOB.station_money_database.find_user_account(associated_account_number)
+
 /obj/item/card/data
 	name = "data card"
 	desc = "A disk containing data."
@@ -79,6 +82,27 @@
 	if(!proximity)
 		return
 	A.emag_act(user)
+
+/obj/item/card/cmag
+	desc = "It's a card coated in a slurry of electromagnetic bananium."
+	name = "jestographic sequencer"
+	icon_state = "cmag"
+	item_state = "card-id"
+	origin_tech = "magnets=2;syndicate=2"
+	flags = NOBLUDGEON
+	flags_2 = NO_MAT_REDEMPTION_2
+
+/obj/item/card/cmag/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
+
+/obj/item/card/cmag/attack()
+	return
+
+/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+	target.cmag_act(user)
 
 /obj/item/card/id
 	name = "identification card"
@@ -228,6 +252,9 @@
 
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
+/obj/item/card/id/proc/get_departments()
+	return get_departments_from_job(assignment)
+
 /obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
@@ -241,6 +268,11 @@
 		item_state = decal.decal_item_state
 		qdel(decal)
 		qdel(W)
+		return
+
+	else if(istype(W, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = W
+		B.scanID(src, user)
 		return
 
 	else if(istype (W,/obj/item/stamp))
@@ -274,7 +306,7 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_UI_BLOCKED) || usr.restrained())
 		return
 
 	if(guest_pass)
@@ -356,7 +388,7 @@
 		return
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
-		if(istype(user, /mob/living) && user.mind)
+		if(isliving(user) && user.mind)
 			if(user.mind.special_role)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
@@ -388,7 +420,7 @@
 			if("Edit")
 				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information"))
 					if("Name")
-						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name))
+						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user))
 							return
 						src.registered_name = new_name
@@ -483,7 +515,7 @@
 
 					if("Occupation")
 						var/list/departments =list(
-							"Civilian",
+							"Assistant",
 							"Engineering",
 							"Medical",
 							"Science",
@@ -494,11 +526,11 @@
 						)
 
 						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
-						var/new_job = "Civilian"
+						var/new_job = "Assistant"
 
 						if(department == "Custom")
-							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
-						else if(department != "Civilian")
+							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
+						else if(department != "Assistant")
 							switch(department)
 								if("Engineering")
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
@@ -652,10 +684,11 @@
 	assignment = "Prisoner"
 	registered_name = "Scum"
 	var/goal = 0 //How far from freedom?
-	var/points = 0
 
-/obj/item/card/id/prisoner/attack_self(mob/user as mob)
-	to_chat(usr, "You have accumulated [points] out of the [goal] points you need for freedom.")
+/obj/item/card/id/prisoner/examine(mob/user)
+	. = ..()
+	if(goal)
+		. += "\nYou have accumulated [mining_points] out of the [goal] points assigned to gain freedom."
 
 /obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
@@ -721,7 +754,7 @@
 	name = "Supply ID"
 	registered_name = "Cargonian"
 	icon_state = "cargo"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/engineering
 	name = "Engineering ID"
@@ -807,12 +840,18 @@
 
 /obj/item/card/id/ert/commander
 	icon_state = "ERT_leader"
+
 /obj/item/card/id/ert/security
 	icon_state = "ERT_security"
+
 /obj/item/card/id/ert/engineering
 	icon_state = "ERT_engineering"
+
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
+
+/obj/item/card/id/ert/deathsquad
+	icon_state = "deathsquad"
 
 /obj/item/card/id/golem
 	name = "Free Golem ID"
@@ -921,6 +960,8 @@
 			return "ERT Medical"
 		if("ERT_janitorial")
 			return "ERT Janitorial"
+		if("deathsquad")
+			return "Deathsquad"
 		if("syndie")
 			return "Syndicate"
 		if("TDred")

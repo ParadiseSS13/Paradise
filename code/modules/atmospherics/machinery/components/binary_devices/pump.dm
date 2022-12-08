@@ -19,7 +19,7 @@ Thus, the two variables affect pump operation are set in New():
 	name = "gas pump"
 	desc = "A pump"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	target_pressure = ONE_ATMOSPHERE
 
@@ -55,11 +55,9 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/pump/on
 	icon_state = "map_on"
-	on = 1
+	on = TRUE
 
-/obj/machinery/atmospherics/binary/pump/update_icon()
-	..()
-
+/obj/machinery/atmospherics/binary/pump/update_icon_state()
 	if(!powered())
 		icon_state = "off"
 	else
@@ -214,7 +212,7 @@ Thus, the two variables affect pump operation are set in New():
 		update_icon()
 
 /obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 		return
 	else if(!istype(W, /obj/item/wrench))

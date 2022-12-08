@@ -21,7 +21,6 @@
 	/// Face towards the atom while pulling it
 	var/face_while_pulling = FALSE
 	var/throwforce = 0
-	var/canmove = TRUE
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
@@ -32,6 +31,13 @@
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
 
+	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = FALSE
+	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
+	var/atom/movable/emissive_blocker/em_block
+	/// Icon state for thought bubbles. Normally set by mobs.
+	var/thought_bubble_image = "thought_bubble"
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
@@ -39,9 +45,29 @@
 		return
 	. = ..()
 
+/atom/movable/Initialize(mapload)
+	. = ..()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, plane = EMISSIVE_PLANE, alpha = src.alpha)
+			gen_emissive_blocker.color = EM_BLOCK_COLOR
+			gen_emissive_blocker.dir = dir
+			gen_emissive_blocker.appearance_flags |= appearance_flags
+			AddComponent(/datum/component/emissive_blocker, gen_emissive_blocker)
+		if(EMISSIVE_BLOCK_UNIQUE)
+			render_target = ref(src)
+			em_block = new(src, render_target)
+			add_overlay(list(em_block))
+
+/atom/movable/proc/update_emissive_block()
+	if(!em_block && !QDELETED(src))
+		render_target = ref(src)
+		em_block = new(src, render_target)
+	add_overlay(list(em_block))
+
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
-
+	QDEL_NULL(em_block)
 	. = ..()
 	if(loc)
 		loc.handle_atom_del(src)
@@ -51,8 +77,6 @@
 	loc = null
 	if(pulledby)
 		pulledby.stop_pulling()
-	if(orbiting)
-		stop_orbit()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
@@ -90,11 +114,8 @@
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		var/mob/living/ex_pulled = pulling
 		pulling.pulledby = null
 		pulling = null
-		if(!QDELETED(ex_pulled) && istype(ex_pulled))
-			ex_pulled.update_canmove()// mob gets up if it was lyng down in a chokehold
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -128,19 +149,24 @@
 		if(show_message)
 			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
 		return FALSE
+	if(user in buckled_mobs)
+		return FALSE
 	return TRUE
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
 /atom/movable/proc/setLoc(T, teleported=0)
+	var/old_loc = loc
 	loc = T
+	Moved(old_loc, get_dir(old_loc, loc))
 
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc) return 0
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
-		glide_for(movetime)
+		if(movetime > 0)
+			glide_for(movetime)
 		if(!(direct & (direct - 1))) //Cardinal move
 			. = ..(newloc, direct) // don't pass up movetime
 		else //Diagonal move, split it into cardinal moves
@@ -149,45 +175,45 @@
 			// The `&& moving_diagonally` checks are so that a forceMove taking
 			// place due to a Crossed, Bumped, etc. call will interrupt
 			// the second half of the diagonal movement, or the second attempt
-			// at a first half if step() fails because we hit something.
+			// at a first half if the cardinal Move() fails because we hit something.
 			if(direct & NORTH)
 				if(direct & EAST)
-					if(step(src, NORTH) && moving_diagonally)
+					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, EAST)
-					else if(moving_diagonally && step(src, EAST))
+						. = Move(get_step(src,  EAST),  EAST)
+					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, NORTH)
+						. = Move(get_step(src,  NORTH),  NORTH)
 				else if(direct & WEST)
-					if(step(src, NORTH) && moving_diagonally)
+					if(Move(get_step(src,  NORTH),  NORTH) && moving_diagonally)
 						first_step_dir = NORTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, WEST)
-					else if(moving_diagonally && step(src, WEST))
+						. = Move(get_step(src,  WEST),  WEST)
+					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, NORTH)
+						. = Move(get_step(src,  NORTH),  NORTH)
 			else if(direct & SOUTH)
 				if(direct & EAST)
-					if(step(src, SOUTH) && moving_diagonally)
+					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, EAST)
-					else if(moving_diagonally && step(src, EAST))
+						. = Move(get_step(src,  EAST),  EAST)
+					else if(moving_diagonally && Move(get_step(src,  EAST),  EAST))
 						first_step_dir = EAST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, SOUTH)
+						. = Move(get_step(src,  SOUTH),  SOUTH)
 				else if(direct & WEST)
-					if(step(src, SOUTH) && moving_diagonally)
+					if(Move(get_step(src,  SOUTH),  SOUTH) && moving_diagonally)
 						first_step_dir = SOUTH
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, WEST)
-					else if(moving_diagonally && step(src, WEST))
+						. = Move(get_step(src,  WEST),  WEST)
+					else if(moving_diagonally && Move(get_step(src,  WEST),  WEST))
 						first_step_dir = WEST
 						moving_diagonally = SECOND_DIAG_STEP
-						. = step(src, SOUTH)
+						. = Move(get_step(src,  SOUTH),  SOUTH)
 			if(moving_diagonally == SECOND_DIAG_STEP)
 				if(!.)
 					setDir(first_step_dir)
@@ -205,8 +231,8 @@
 		Moved(oldloc, direct)
 
 	last_move = direct
-	src.move_speed = world.time - src.l_move_time
-	src.l_move_time = world.time
+	move_speed = world.time - l_move_time
+	l_move_time = world.time
 
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
 		. = 0
@@ -289,17 +315,18 @@
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
-		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
-			addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
+			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(pulling)
-		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
-	update_canmove() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+		if(hud_used && length(client.parallax_layers))
+			hud_used.update_parallax()
 	update_runechat_msg_location()
 
 
@@ -343,12 +370,16 @@
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
+/// called after an items throw is ended.
+/atom/movable/proc/end_throw()
+	return
+
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
@@ -388,6 +419,7 @@
 	TT.thrower = thrower
 	TT.diagonals_first = diagonals_first
 	TT.callback = callback
+	TT.dodgeable = dodgeable
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -587,4 +619,8 @@
 	return
 
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
+	return FALSE
+
+/// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
+/atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE

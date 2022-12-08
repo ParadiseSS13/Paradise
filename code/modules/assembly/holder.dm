@@ -50,10 +50,8 @@
 	A2.holder = src
 	a_left = A1
 	a_right = A2
-	if(has_prox_sensors())
-		AddComponent(/datum/component/proximity_monitor)
 	name = "[A1.name]-[A2.name] assembly"
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
 /obj/item/assembly_holder/proc/has_prox_sensors()
@@ -61,16 +59,16 @@
 		return TRUE
 	return FALSE
 
-/obj/item/assembly_holder/update_icon()
-	overlays.Cut()
+/obj/item/assembly_holder/update_overlays()
+	. = ..()
 	if(a_left)
-		overlays += "[a_left.icon_state]_left"
+		. += "[a_left.icon_state]_left"
 		for(var/O in a_left.attached_overlays)
-			overlays += "[O]_l"
+			. += "[O]_l"
 	if(a_right)
-		overlays += "[a_right.icon_state]_right"
+		. += "[a_right.icon_state]_right"
 		for(var/O in a_right.attached_overlays)
-			overlays += "[O]_r"
+			. += "[O]_r"
 	if(master)
 		master.update_icon()
 
@@ -181,12 +179,15 @@
 		var/turf/T = get_turf(src)
 		if(!T)
 			return FALSE
+		user.unEquip(src, TRUE, TRUE)
 		if(a_left)
 			a_left.holder = null
-			a_left.loc = T
-		if(a_right)
+			a_left.forceMove(T)
+			user.put_in_active_hand(a_left)
+		if(a_right) // Right object is the secondary item, hence put in inactive hand
 			a_right.holder = null
-			a_right.loc = T
+			a_right.forceMove(T)
+			user.put_in_inactive_hand(a_right)
 		qdel(src)
 
 
@@ -196,7 +197,7 @@
 	if(normal && a_right && a_left)
 		if(a_right != D)
 			a_right.pulsed(0)
-		if(a_left != D)
+		if(a_left && a_left != D)  // the right pools might have sent us boom, so `a_left` can be null here
 			a_left.pulsed(0)
 	if(master)
 		master.receive_signal()

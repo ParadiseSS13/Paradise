@@ -101,7 +101,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
+	if(incapacitated(ignore_restraints = 1, ignore_grab = 1))
 		return
 
 	face_atom(A)
@@ -112,7 +112,7 @@
 	if(!modifiers["catcher"] && A.IsObscured())
 		return
 
-	if(istype(loc,/obj/mecha))
+	if(ismecha(loc))
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
@@ -223,7 +223,8 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(atom/A, params)
-	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
+	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
 /*
 	Restrained ClickOn
 
@@ -389,6 +390,7 @@
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
 
 	LE.firer = src
+	LE.firer_source_atom = src
 	LE.def_zone = ran_zone(zone_selected)
 	LE.original = A
 	LE.current = T
@@ -439,7 +441,7 @@
 
 /obj/screen/click_catcher/Click(location, control, params)
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"] && istype(usr, /mob/living/carbon))
+	if(modifiers["middle"] && iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else

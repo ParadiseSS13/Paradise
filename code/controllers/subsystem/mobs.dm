@@ -9,8 +9,8 @@ SUBSYSTEM_DEF(mobs)
 	var/static/list/clients_by_zlevel[][]
 	var/static/list/dead_players_by_zlevel[][] = list(list()) // Needs to support zlevel 1 here, MaxZChanged only happens when CC is created and new_players can login before that.
 	var/static/list/cubemonkeys = list()
-	/// The amount of giant spiders that exist in the world. Used for mob capping.
-	var/giant_spiders = 0
+	/// The amount of Xenobiology mobs (and their offspring) that exist in the world. Used for mob capping. Excludes Slimes
+	var/xenobiology_mobs = 0
 
 /datum/controller/subsystem/mobs/get_metrics()
 	. = ..()
@@ -18,8 +18,8 @@ SUBSYSTEM_DEF(mobs)
 	cust["processing"] = length(GLOB.mob_living_list)
 	.["custom"] = cust
 
-/datum/controller/subsystem/mobs/stat_entry()
-	..("P:[GLOB.mob_living_list.len]")
+/datum/controller/subsystem/mobs/get_stat_details()
+	return "P:[length(GLOB.mob_living_list)]"
 
 /datum/controller/subsystem/mobs/Initialize(start_timeofday)
 	clients_by_zlevel = new /list(world.maxz,0)

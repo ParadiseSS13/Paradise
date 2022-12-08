@@ -15,7 +15,7 @@
 /area/shuttle/escape)
 "i" = (
 /obj/structure/table,
-/obj/item/book/manual,
+/obj/item/book/manual/wiki/security_space_law/black,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "j" = (

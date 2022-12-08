@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
-	armour_penetration = 35
+	armour_penetration_flat = 35
 	sprite_sheets_inhand = null // Override parent
 	var/drawing_rune = FALSE
 	var/scribe_multiplier = 1 // Lower is faster
@@ -31,7 +31,7 @@
 	if(iscultist(user) || user.stat == DEAD)
 		. += "<span class='cult'>A dagger gifted by [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].</span>"
 		. += "<span class='cultitalic'>Striking another cultist with it will purge holy water from them.</span>"
-		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh.</span>"
+		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh, additionally, if you recently downed them with cult magic it will stun them completely.</span>"
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
 	if(iscultist(M))
@@ -46,6 +46,10 @@
 				M.reagents.add_reagent("unholywater", amount)
 				add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return FALSE
+	else
+		var/datum/status_effect/cult_stun_mark/S = M.has_status_effect(STATUS_EFFECT_CULT_STUN)
+		if(S)
+			S.trigger()
 	. = ..()
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)
@@ -139,6 +143,11 @@
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to summon a cultist, you must be on station!</span>")
 			return
 
+	if(ispath(rune, /obj/effect/rune/teleport))
+		if(!is_level_reachable(user.z))
+			to_chat(user, "<span class='cultitalic'>You are too far away from the station to teleport!</span>")
+			return
+
 	var/old_color = user.color // we'll temporarily redden the user for better feedback to fellow cultists. Store this to revert them back.
 	if(narsie_rune)
 		if(!narsie_rune_check(user, A))
@@ -147,7 +156,7 @@
 		if(!(A in summon_areas)) // Check again to make sure they didn't move
 			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
 			return
-		GLOB.command_announcement.Announce("Figments from an eldritch god are being summoned into the [A.map_name] from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+		GLOB.major_announcement.Announce("Figments from an eldritch god are being summoned into the [A.map_name] from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 		for(var/I in spiral_range_turfs(1, user, 1))
 			var/turf/T = I
 			var/obj/machinery/shield/cult/narsie/N = new(T)
@@ -183,7 +192,7 @@
 	if(narsie_rune)
 		for(var/obj/effect/rune/I in orange(1, R))
 			qdel(I)
-
+	SSblackbox.record_feedback("tally", "runes_scribed", 1, "[R.cultist_name]")
 	R.blood_DNA = list()
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
 	R.add_hiddenprint(H)

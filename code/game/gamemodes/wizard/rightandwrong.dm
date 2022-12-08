@@ -9,7 +9,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/gun/advtaser,
 	/obj/item/gun/energy/laser,
 	/obj/item/gun/projectile/revolver,
-	/obj/item/gun/projectile/revolver/detective,
+	/obj/item/gun/energy/detective,
 	/obj/item/gun/projectile/automatic/pistol/deagle/camo,
 	/obj/item/gun/projectile/automatic/gyropistol,
 	/obj/item/gun/energy/pulse,
@@ -65,7 +65,6 @@ GLOBAL_LIST_INIT(summoned_magic, list(
 	/obj/item/gun/magic/staff/healing,
 	/obj/item/gun/magic/staff/door,
 	/obj/item/scrying,
-	/obj/item/voodoo,
 	/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 	/obj/item/immortality_talisman,
 	/obj/item/melee/ghost_sword))
@@ -90,8 +89,7 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 	/obj/item/necromantic_stone,
 	/obj/item/scrying,
 	/obj/item/spellbook,
-	/obj/item/storage/belt/wands/full,
-	/obj/item/voodoo))
+	/obj/item/storage/belt/wands/full))
 
 // If true, it's the probability of triggering "survivor" antag.
 GLOBAL_VAR_INIT(summon_guns_triggered, FALSE)
@@ -126,7 +124,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		if(iswizard(H))
 			return
 
-	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors))
+	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors) && !jobban_isbanned(H, ROLE_SYNDICATE))
 		SSticker.mode.traitors += H.mind
 
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/magic)

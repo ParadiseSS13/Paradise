@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_announced = FALSE
 	/// Is the ticker currently processing? If FALSE, roundstart is delayed
 	var/ticker_going = TRUE
-	/// Gamemode result (For things like shadowlings or nukies which can end multiple ways)
+	/// Gamemode result (For things like cult or nukies which can end multiple ways)
 	var/mode_result = "undefined"
 	/// Server end state (Did we end properly or reboot or nuke or what)
 	var/end_state = "undefined"
@@ -65,6 +65,8 @@ SUBSYSTEM_DEF(ticker)
 	var/real_reboot_time = 0
 	/// Datum used to generate the end of round scoreboard.
 	var/datum/scoreboard/score = null
+	/// List of ckeys who had antag rolling issues flagged
+	var/list/flagged_antag_rollers = list()
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -87,7 +89,8 @@ SUBSYSTEM_DEF(ticker)
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
-				N.new_player_panel_proc() // to enable the observe option
+				if (N.client)
+					N.new_player_panel_proc() // to enable the observe option
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
 				return
@@ -112,10 +115,9 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
-			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
-				SSvote.autotransfer()
+				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + GLOB.configuration.vote.autotransfer_interval_time
 
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -130,9 +132,23 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
 			declare_completion()
-			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
-			if(GLOB.configuration.vote.enable_map_voting)
-				SSvote.initiate_vote("map", "the server", TRUE) // Start a map vote. Timing is a little tight here but we should be good.
+			addtimer(CALLBACK(src, PROC_REF(call_reboot)), 5 SECONDS)
+			// Start a map vote IF
+			// - Map rotate doesnt have a mode for today and map voting is enabled
+			// - Map rotate has a mode for the day and it ISNT full random
+			if(((!SSmaprotate.setup_done) && GLOB.configuration.vote.enable_map_voting) || (SSmaprotate.setup_done && (SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)))
+				SSvote.start_vote(new /datum/vote/map)
+			else
+				// Pick random map
+				var/list/pickable_types = list()
+				for(var/x in subtypesof(/datum/map))
+					var/datum/map/M = x
+					if(initial(M.voteable))
+						pickable_types += M
+
+				var/datum/map/target_map = pick(pickable_types)
+				SSmapping.next_map = new target_map
+				to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
@@ -180,13 +196,40 @@ SUBSYSTEM_DEF(ticker)
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
 
+	// Randomise characters now. This avoids rare cases where a human is set as a changeling then they randomise to an IPC
+	for(var/mob/new_player/player in GLOB.player_list)
+		if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
+			player.client.prefs.load_random_character_slot(player.client)
+
+	// Lets check if people who ready should or shouldnt be
+	for(var/mob/new_player/P in GLOB.player_list)
+		// Not logged in
+		if(!P.client)
+			continue
+		// Not ready
+		if(!P.ready)
+			continue
+		// Not set to return if nothing available
+		if(P.client.prefs.active_character.alternate_option != RETURN_TO_LOBBY)
+			continue
+
+		var/has_antags = (length(P.client.prefs.be_special) > 0)
+		if(!P.client.prefs.active_character.check_any_job())
+			to_chat(P, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			if(has_antags)
+				// We add these to a list so we can deal with them as a batch later
+				// A lot of DB tracking stuff needs doing, so we may as well async it
+				flagged_antag_rollers |= P.ckey
+
+			P.ready = FALSE
+
 	//Configure mode and assign player to special mode stuff
 	mode.pre_pre_setup()
-	var/can_continue
-	can_continue = mode.pre_setup() //Setup special modes
+	var/can_continue = FALSE
+	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
 	SSjobs.DivideOccupations() //Distribute jobs
 	if(!can_continue)
-		qdel(mode)
+		QDEL_NULL(mode)
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
 		current_state = GAME_STATE_PREGAME
 		force_start = FALSE
@@ -231,12 +274,10 @@ SUBSYSTEM_DEF(ticker)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
-	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
+		if(locate(/mob/living) in get_turf(A))
 			continue
-		if(locate(/mob/living) in S.loc)
-			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
+		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(A))
 
 
 	// Setup pregenerated newsfeeds
@@ -253,7 +294,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Delete starting landmarks (not AI ones because we need those for AI-ize)
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != "AI")
+		if(!istype(S, /obj/effect/landmark/start/ai))
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
@@ -290,8 +331,13 @@ SUBSYSTEM_DEF(ticker)
 	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
-	RunUnitTests()
+	// Run map tests first in case unit tests futz with map state
+	GLOB.test_runner.RunMap()
+	GLOB.test_runner.Run()
 	#endif
+
+	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
+	addtimer(CALLBACK(src, PROC_REF(handle_antagfishing_reporting)), 10 SECONDS)
 	return TRUE
 
 
@@ -316,7 +362,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
+				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
+					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
 					var/mob/ghost = M.ghostize()
 					M.dust() //no mercy
 					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
@@ -400,20 +447,11 @@ SUBSYSTEM_DEF(ticker)
 				qdel(player)
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
-	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == "Captain")
-				captainless = FALSE
-			if(player.mind.assigned_role != player.mind.special_role)
-				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
-				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
-				equip_cuis(player)
-
-	if(captainless)
-		for(var/mob/M in GLOB.player_list)
-			if(!isnewplayer(M))
-				to_chat(M, "Captainship not forced on anyone.")
+		if(player && player.mind && player.mind.assigned_role && player.mind.assigned_role != player.mind.special_role)
+			SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
+			SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
+			equip_cuis(player)
 
 /datum/controller/subsystem/ticker/proc/equip_cuis(mob/living/carbon/human/H)
 	if(!H.client)
@@ -442,7 +480,7 @@ SUBSYSTEM_DEF(ticker)
 		if(desc_override)
 			I.desc = desc_override
 
-		if(istype(H.back, /obj/item/storage)) // Try to place it in something on the mob's back
+		if(isstorage(H.back)) // Try to place it in something on the mob's back
 			var/obj/item/storage/S = H.back
 			if(length(S.contents) < S.storage_slots)
 				I.forceMove(H.back)
@@ -495,31 +533,36 @@ SUBSYSTEM_DEF(ticker)
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
+		var/ai_ckey = safe_get_ckey(aiPlayer)
+
 		if(aiPlayer.stat != 2)
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>")
+			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>")
 		else
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>")
+			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>")
 		aiPlayer.show_laws(TRUE)
 
 		if(aiPlayer.connected_robots.len)
 			var/robolist = "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
-				robolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.key]), ":" (Played by: [robo.key]), "]"
+				var/robo_ckey = safe_get_ckey(robo)
+				robolist += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
 			to_chat(world, "[robolist]")
 
 	var/dronecount = 0
 
 	for(var/mob/living/silicon/robot/robo in GLOB.mob_list)
 
-		if(istype(robo,/mob/living/silicon/robot/drone))
+		if(isdrone(robo))
 			dronecount++
 			continue
 
+		var/robo_ckey = safe_get_ckey(robo)
+
 		if(!robo.connected_ai)
 			if(robo.stat != 2)
-				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>")
+				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>")
 			else
-				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
+				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)
@@ -641,3 +684,53 @@ SUBSYSTEM_DEF(ticker)
 	sleep(sound_length)
 
 	world.Reboot()
+
+// Timers invoke this async
+/datum/controller/subsystem/ticker/proc/handle_antagfishing_reporting()
+	// This needs the DB
+	if(!SSdbcore.IsConnected())
+		return
+	// Dont need to do anything
+	if(!length(flagged_antag_rollers))
+		return
+
+	// Records themselves
+	var/list/datum/antag_record/records = list()
+	// Queries to load data (executed as async batch)
+	var/list/datum/db_query/load_queries = list()
+	// Queries to save data (executed as async batch)
+	var/list/datum/db_query/save_queries = list()
+
+
+	for(var/ckey in flagged_antag_rollers)
+		var/datum/antag_record/AR = new /datum/antag_record(ckey)
+		records[ckey] = AR
+		load_queries[ckey] = AR.get_load_query()
+
+	// Explanation for parameters:
+	// TRUE: We want warnings if these fail
+	// FALSE: Do NOT qdel() queries here, otherwise they wont be read. At all.
+	// TRUE: This is an assoc list, so it needs to prepare for that
+	SSdbcore.MassExecute(load_queries, TRUE, FALSE, TRUE)
+
+	// Report on things
+	var/list/log_text = list("The following players attempted to roll antag with no jobs (total infractions listed)")
+
+	for(var/ckey in flagged_antag_rollers)
+		var/datum/antag_record/AR = records[ckey]
+		AR.handle_data(load_queries[ckey])
+		save_queries[ckey] = AR.get_save_query()
+
+		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
+
+	log_text += "Investigation advised if there are a high number of infractions"
+
+	message_admins(log_text.Join("<br>"))
+
+	// Now do a ton of saves
+	SSdbcore.MassExecute(save_queries, TRUE, TRUE, TRUE)
+
+	// And cleanup
+	QDEL_LIST_ASSOC_VAL(load_queries)
+	records.Cut()
+	flagged_antag_rollers.Cut()

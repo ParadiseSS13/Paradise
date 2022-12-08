@@ -38,7 +38,7 @@
 				if(istajaran(affected_mob))
 					affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a hairball!</span>", \
 													"<span class='userdanger'>You cough up a hairball!</span>")
-					affected_mob.Stun(5)
+					affected_mob.Stun(10 SECONDS)
 				else
 					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
@@ -91,7 +91,7 @@
 														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
 						twisted.set_species(chosentype, retain_damage = TRUE)
 					else
-						twisted.visible_message("<span class='danger'>[twisted] scratches at thier skin!</span>", \
+						twisted.visible_message("<span class='danger'>[twisted] scratches at their skin!</span>", \
 														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
 						twisted.adjustBruteLoss(-5)
 						twisted.adjustStaminaLoss(5)

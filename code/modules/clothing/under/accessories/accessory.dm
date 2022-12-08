@@ -12,14 +12,18 @@
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
 	var/allow_duplicates = TRUE // Allow accessories of the same type.
 
-/obj/item/clothing/accessory/New()
-	..()
+/obj/item/clothing/accessory/Initialize(mapload)
+	. = ..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+
+/obj/item/clothing/accessory/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	if(has_suit)
+		has_suit.detach_accessory(src, null)
 
 /obj/item/clothing/accessory/Destroy()
 	if(has_suit)
-		has_suit.accessories -= src
-		on_removed(null)
+		has_suit.detach_accessory(src, null)
 	return ..()
 
 //when user attached an accessory to S
@@ -94,6 +98,12 @@
 	if(has_suit)
 		return	//we aren't an object on the ground so don't call parent
 	..()
+
+/obj/item/clothing/accessory/proc/attached_unequip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
+/obj/item/clothing/accessory/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
 
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
@@ -454,7 +464,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -463,7 +473,7 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, RAD = 5, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket
@@ -651,81 +661,6 @@
 	icon_state = "corset_blue"
 	item_state = "corset_blue"
 	item_color = "corset_blue"
-
-/obj/item/clothing/accessory/petcollar
-	name = "pet collar"
-	desc = "The latest fashion accessory for your favorite pets!"
-	icon_state = "petcollar"
-	item_color = "petcollar"
-	var/tagname = null
-	var/obj/item/card/id/access_id
-
-/obj/item/clothing/accessory/petcollar/Destroy()
-	QDEL_NULL(access_id)
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
-	var/option = "Change Name"
-	if(access_id)
-		option = input(user, "What do you want to do?", "[src]", option) as null|anything in list("Change Name", "Remove ID")
-
-	switch(option)
-		if("Change Name")
-			var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
-			if(t)
-				tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
-				name = "[initial(name)] - [tagname]"
-		if("Remove ID")
-			if(access_id)
-				user.visible_message("<span class='warning'>[user] starts unclipping \the [access_id] from \the [src].</span>")
-				if(do_after(user, 50, target = user) && access_id)
-					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
-					access_id.forceMove(get_turf(user))
-					user.put_in_hands(access_id)
-					access_id = null
-
-/obj/item/clothing/accessory/petcollar/attackby(obj/item/card/id/W, mob/user, params)
-	if(!istype(W))
-		return ..()
-	if(access_id)
-		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>")
-	user.drop_item()
-	W.forceMove(src)
-	access_id = W
-	to_chat(user, "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>")
-
-/obj/item/clothing/accessory/petcollar/GetAccess()
-	return access_id ? access_id.GetAccess() : ..()
-
-/obj/item/clothing/accessory/petcollar/examine(mob/user)
-	. = ..()
-	if(access_id)
-		. += "There is [bicon(access_id)] \a [access_id] clipped onto it."
-
-/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
-	if(istype(user))
-		START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
-	..()
-	STOP_PROCESSING(SSobj, src)
-
-/obj/item/clothing/accessory/petcollar/process()
-	var/mob/living/simple_animal/M = loc
-	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
-	if(istype(M) && src == M.pcollar && M.stat != DEAD)
-		return
-
-	var/area/t = get_area(M)
-	var/obj/item/radio/headset/a = new /obj/item/radio/headset(src)
-	if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite))
-		//give the syndicats a bit of stealth
-		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
-	else
-		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
-	qdel(a)
-	STOP_PROCESSING(SSobj, src)
 
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !U.accessories.len)

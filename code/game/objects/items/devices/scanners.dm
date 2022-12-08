@@ -16,7 +16,7 @@ REAGENT SCANNER
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
-	materials = list(MAT_METAL=150)
+	materials = list(MAT_METAL = 300)
 	origin_tech = "magnets=1;engineering=1"
 
 /obj/item/t_scanner/Destroy()
@@ -81,10 +81,11 @@ REAGENT SCANNER
 				to_chat(user, "<span class='notice'>Subject is not addicted to any reagents.</span>")
 
 /obj/item/healthanalyzer
-	name = "Health Analyzer"
+	name = "health analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
+	belt_icon = "health_analyzer"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT
@@ -193,8 +194,6 @@ REAGENT SCANNER
 		to_chat(user, "<span class='info'>Subject appears to be suffering from fatigue.</span>")
 	if(H.getCloneLoss())
 		to_chat(user, "<span class='warning'>Subject appears to have [H.getCloneLoss() > 30 ? "severe" : "minor"] cellular damage.</span>")
-	if(H.has_brain_worms())
-		to_chat(user, "<span class='warning'>Subject suffering from aberrant brain activity. Recommend further scanning.</span>")
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		if(H.getBrainLoss() >= 100)
@@ -225,7 +224,7 @@ REAGENT SCANNER
 			to_chat(user, "<span class='warning'>Bone fractures detected. Advanced scanner required for location.</span>")
 			break
 	for(var/obj/item/organ/external/e in H.bodyparts)
-		if(e.internal_bleeding)
+		if(e.status & ORGAN_INT_BLEEDING)
 			to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
 			break
 	var/blood_id = H.get_blood_id()
@@ -299,6 +298,7 @@ REAGENT SCANNER
 	return ..()
 
 /obj/item/healthanalyzer/advanced
+	name = "advanced health analyzer"
 	advanced = TRUE
 
 /obj/item/healthanalyzer/advanced/Initialize(mapload)
@@ -327,7 +327,7 @@ REAGENT SCANNER
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=1"
 	var/cooldown = FALSE
 	var/cooldown_time = 250
@@ -343,7 +343,7 @@ REAGENT SCANNER
 		return
 
 	var/turf/location = user.loc
-	if(!( istype(location, /turf) ))
+	if(!isturf(location))
 		return
 
 	var/datum/gas_mixture/environment = location.return_air()
@@ -431,7 +431,7 @@ REAGENT SCANNER
 			else
 				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
 		cooldown = TRUE
-		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
+		addtimer(CALLBACK(src, PROC_REF(ping)), cooldown_time)
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
@@ -463,7 +463,7 @@ REAGENT SCANNER
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
-	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	materials = list(MAT_METAL=300, MAT_GLASS=200)
 	origin_tech = "magnets=2;biotech=1;plasmatech=2"
 	var/details = FALSE
 	var/datatoprint = ""
@@ -542,7 +542,7 @@ REAGENT SCANNER
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
-	if(user.incapacitated() || user.eye_blind)
+	if(user.incapacitated() || user.AmountBlinded())
 		return
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
@@ -567,7 +567,7 @@ REAGENT SCANNER
 		if(T.slime_mutation[3] == T.slime_mutation[4])
 			if(T.slime_mutation[2] == T.slime_mutation[1])
 				to_chat(user, "Possible mutation: [T.slime_mutation[3]]")
-				to_chat(user, "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting")
+				to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
 			else
 				to_chat(user, "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)")
 				to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
@@ -597,6 +597,7 @@ REAGENT SCANNER
 	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell/upgraded
 	var/ready = TRUE // Ready to scan
+	var/printing = FALSE
 	var/time_to_use = 0 // How much time remaining before next scan is available.
 	var/usecharge = 750
 	var/scan_time = 10 SECONDS //how long does it take to scan
@@ -627,20 +628,22 @@ REAGENT SCANNER
 	playsound(src, 'sound/machines/defib_saftyon.ogg', 50, 0)
 	update_icon()
 
-/obj/item/bodyanalyzer/update_icon(printing = FALSE)
-	overlays.Cut()
-	var/percent = cell.percent()
+/obj/item/bodyanalyzer/update_icon_state()
+	if(!cell)
+		icon_state = "bodyanalyzer_0"
+		return
 	if(ready)
 		icon_state = "bodyanalyzer_1"
 	else
 		icon_state = "bodyanalyzer_2"
 
+/obj/item/bodyanalyzer/update_overlays()
+	. = ..()
+	var/percent = cell.percent()
 	var/overlayid = round(percent / 10)
-	overlayid = "bodyanalyzer_charge[overlayid]"
-	overlays += icon(icon, overlayid)
-
+	. += "bodyanalyzer_charge[overlayid]"
 	if(printing)
-		overlays += icon(icon, "bodyanalyzer_printing")
+		. += "bodyanalyzer_printing"
 
 /obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
 	if(user.incapacitated() || !user.Adjacent(M))
@@ -687,15 +690,17 @@ REAGENT SCANNER
 			else
 				cell.use(usecharge)
 			ready = FALSE
-			update_icon(TRUE)
-			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)
-			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
-
+			printing = TRUE
+			update_icon()
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
+			addtimer(VARSET_CALLBACK(src, printing, FALSE), 1.4 SECONDS)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_OVERLAYS), 1.5 SECONDS)
 	else if(iscorgi(M) && M.stat == DEAD)
 		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
-		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)
+		update_icon(UPDATE_ICON_STATE)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
 		time_to_use = world.time + scan_cd
 	else
 		to_chat(user, "<span class='notice'>Scanning error detected. Invalid specimen.</span>")
@@ -748,13 +753,10 @@ REAGENT SCANNER
 	extra_font = (target.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\tApprox. Brain Damage %: [target.getBrainLoss()]<br>"
 
-	dat += "Paralysis Summary %: [target.paralysis] ([round(target.paralysis / 4)] seconds left!)<br>"
+	dat += "Paralysis Summary %: [target.IsParalyzed()] ([round(target.AmountParalyzed() / 10)] seconds left!)<br>"
 	dat += "Body Temperature: [target.bodytemperature-T0C]&deg;C ([target.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 	dat += "<hr>"
-
-	if(target.has_brain_worms())
-		dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
 
 	var/blood_percent =  round((target.blood_volume / BLOOD_VOLUME_NORMAL))
 	blood_percent *= 100
@@ -794,7 +796,7 @@ REAGENT SCANNER
 		var/splint = ""
 		var/internal_bleeding = ""
 		var/lung_ruptured = ""
-		if(e.internal_bleeding)
+		if(e.status & ORGAN_INT_BLEEDING)
 			internal_bleeding = "<br>Internal bleeding"
 		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
 			lung_ruptured = "Lung ruptured:"

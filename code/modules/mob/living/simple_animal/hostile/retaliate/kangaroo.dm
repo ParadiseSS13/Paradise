@@ -25,10 +25,10 @@
 	var/attack_cycles_max = 3
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/retaliate/kangaroo/New()
+/mob/living/simple_animal/hostile/retaliate/kangaroo/Initialize(mapload)
 	. = ..()
 	// Leap spell, player-only usage
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/leap)
+	AddSpell(new /obj/effect/proc_holder/spell/leap)
 
 /mob/living/simple_animal/hostile/retaliate/kangaroo/AttackingTarget()
 	if(client && a_intent != INTENT_HARM)

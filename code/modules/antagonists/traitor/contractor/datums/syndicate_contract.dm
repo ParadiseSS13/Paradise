@@ -3,8 +3,7 @@
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
-#define RETURN_BRUISE_CHANCE 50
-#define RETURN_BRUISE_DAMAGE 20
+#define RETURN_INJURY_CHANCE 85
 #define RETURN_SOUVENIR_CHANCE 10
 
 /**
@@ -37,7 +36,7 @@
 		/obj/item/toy/syndicateballoon,
 	)
 	/// The base credits reward upon completion. Multiplied by the two lower bounds below.
-	var/credits_base = 100
+	var/credits_base = 10
 	// The lower bound of the credits reward multiplier.
 	var/credits_lower_mult = 25
 	// The upper bound of the credits reward multiplier.
@@ -198,7 +197,7 @@
 	status = CONTRACT_STATUS_COMPLETED
 	completed_time = station_time_timestamp()
 	dead_extraction = target_dead
-	addtimer(CALLBACK(src, .proc/notify_completion, final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(notify_completion), final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
 
 /**
   * Marks the contract as invalid and effectively cancels it for later use.
@@ -280,8 +279,8 @@
 		extraction_deadline = world.time + extraction_cooldown
 		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
 						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
-		addtimer(CALLBACK(src, .proc/open_extraction_portal, U, M, F), EXTRACTION_PHASE_PORTAL)
-		extraction_timer_handle = addtimer(CALLBACK(src, .proc/deadline_reached), portal_duration, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), U, M, F), EXTRACTION_PHASE_PORTAL)
+		extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
 
 /**
   * Opens the extraction portal.
@@ -304,7 +303,7 @@
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
-	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
+	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
 	P.contractor_mind = M.mind
 	P.target_mind = contract.target
@@ -319,7 +318,7 @@
   * * P - The extraction portal.
   */
 /datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
-	INVOKE_ASYNC(src, .proc/clean_up)
+	INVOKE_ASYNC(src, PROC_REF(clean_up))
 	add_attack_logs(owning_hub.owner.current, M, "extracted to Syndicate Jail")
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
@@ -351,7 +350,7 @@
 	var/mob/living/carbon/human/H = M
 
 	// Prepare their return
-	prisoner_timer_handle = addtimer(CALLBACK(src, .proc/handle_target_return, M, T), prison_time, TIMER_STOPPABLE)
+	prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), prison_time, TIMER_STOPPABLE)
 	LAZYSET(GLOB.prisoner_belongings.prisoners, M, src)
 
 	// Shove all of the victim's items in the secure locker.
@@ -370,6 +369,13 @@
 		I = I.remove(H)
 		if(I)
 			stuff_to_transfer += I
+
+	// Skrell headpocket. They already have a check in place to limit what's placed in them.
+	var/obj/item/organ/internal/headpocket/C = H.get_int_organ(/obj/item/organ/internal/headpocket)
+	if(C?.held_item)
+		GLOB.prisoner_belongings.give_item(C.held_item)
+		victim_belongings += C.held_item
+		C.held_item = null
 
 	// Regular items get removed in second
 	for(var/obj/item/I in M)
@@ -401,6 +407,13 @@
 
 		if(M.unEquip(I))
 			stuff_to_transfer += I
+
+	// Remove accessories from the suit if present
+	if(length(H.w_uniform?.accessories))
+		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
+			H.w_uniform.detach_accessory(A, null)
+			H.unEquip(A)
+			stuff_to_transfer += A
 
 	// Transfer it all (or drop it if not possible)
 	for(var/i in stuff_to_transfer)
@@ -447,13 +460,13 @@
 	// Narrate their kidnapping and torturing experience.
 	if(M.stat != DEAD)
 		// Heal them up - gets them out of crit/soft crit.
-		M.reagents.add_reagent("omnizine", 20)
+		M.reagents.add_reagent("omnizine", 10)
 
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
-		M.Paralyse(30 SECONDS_TO_LIFE_CYCLES)
-		M.EyeBlind(35 SECONDS_TO_LIFE_CYCLES)
-		M.EyeBlurry(35 SECONDS_TO_LIFE_CYCLES)
-		M.AdjustConfused(35 SECONDS_TO_LIFE_CYCLES)
+		M.Paralyse(30 SECONDS)
+		M.EyeBlind(35 SECONDS)
+		M.EyeBlurry(35 SECONDS)
+		M.AdjustConfused(35 SECONDS)
 
 		sleep(6 SECONDS)
 		to_chat(M, "<span class='warning'>That portal did something to you...</span>")
@@ -470,6 +483,61 @@
 					so it's only a matter of time before we send you back...\"</i></span>")
 
 		to_chat(M, "<span class='danger'><font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font></span>")
+
+/**
+  * Default damage if no injury is possible.
+  *
+  * Arguments:
+  * * M - The target mob.
+  */
+/datum/syndicate_contract/proc/default_damage(mob/living/M)
+	M.adjustBruteLoss(40)
+	M.adjustBrainLoss(25)
+/**
+  * Handles the target's injury/interrogation at the Syndicate Jail.
+  *
+  * Arguments:
+  * * M - The target mob.
+  */
+/datum/syndicate_contract/proc/injure_target(mob/living/M)
+	if(!prob(RETURN_INJURY_CHANCE) || M.health < 50)
+		return
+
+	var/obj/item/organ/external/injury_target
+	if(prob(20)) //remove a limb
+		if(prob(50))
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.droplimb()
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god something's missing!</span>")
+	else //fracture
+		if(ismachineperson(M))
+			M.emp_act(EMP_HEAVY)
+			M.adjustBrainLoss(30)
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
+
+		else if(isslimeperson(M))
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.cause_internal_bleeding()
+
+			injury_target = M.get_organ(BODY_ZONE_CHEST)
+			injury_target.cause_internal_bleeding()
+			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
+
+		if(prob(25))
+			injury_target = M.get_organ(BODY_ZONE_CHEST)
+			injury_target.fracture()
+		else
+			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
+			if(!injury_target)
+				default_damage(M)
+				return
+			injury_target.fracture()
 
 /**
   * Handles the target's return to station.
@@ -504,22 +572,20 @@
 
 	QDEL_LIST(temp_objs)
 
-	// Chance for souvenir or bruises
+	// Injuries due to questioning and souvenirs
+	injure_target(M)
 	if(prob(RETURN_SOUVENIR_CHANCE))
 		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
-	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
-		to_chat(M, "<span class='warning'>You were roughed up a little by your captors before being sent back!</span>")
-		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
 	M.forceMove(closet)
-	M.Paralyse(3 SECONDS_TO_LIFE_CYCLES)
-	M.EyeBlurry(5 SECONDS_TO_LIFE_CYCLES)
-	M.AdjustConfused(5 SECONDS_TO_LIFE_CYCLES)
-	M.Dizzy(35)
+	M.Paralyse(3 SECONDS)
+	M.EyeBlurry(5 SECONDS)
+	M.AdjustConfused(5 SECONDS)
+	M.Dizzy(70 SECONDS)
 	do_sparks(4, FALSE, destination)
 
 	// Newscaster story
@@ -576,6 +642,5 @@
 #undef EXTRACTION_PHASE_PREPARE
 #undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY
-#undef RETURN_BRUISE_CHANCE
-#undef RETURN_BRUISE_DAMAGE
+#undef RETURN_INJURY_CHANCE
 #undef RETURN_SOUVENIR_CHANCE

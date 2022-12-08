@@ -28,7 +28,7 @@
 		if(!isturf(ai.loc))
 			return
 		T = get_turf(T)
-		loc = T
+		..(T)
 		if(use_static)
 			ai.camera_visibility(src)
 		if(ai.client)
@@ -64,7 +64,7 @@
 	return ..()
 
 /atom/proc/move_camera_by_click()
-	if(istype(usr, /mob/living/silicon/ai))
+	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.eyeobj && (AI.client.eye == AI.eyeobj) && (AI.eyeobj.z == z))
 			AI.cameraFollow = null

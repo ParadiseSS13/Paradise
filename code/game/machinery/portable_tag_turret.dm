@@ -37,7 +37,7 @@
 	)
 	return data
 
-/obj/machinery/porta_turret/tag/update_icon()
+/obj/machinery/porta_turret/tag/update_icon_state()
 	if(!anchored)
 		icon_state = "turretCover"
 		return
@@ -75,7 +75,7 @@
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	if(L.lying)
+	if(IS_HORIZONTAL(L))
 		return TURRET_NOT_TARGET
 
 	var/target_suit
@@ -93,7 +93,7 @@
 		if((istype(L.r_hand, target_weapon)) || (istype(L.l_hand, target_weapon)))
 			return TURRET_PRIORITY_TARGET
 
-		if(istype(L, /mob/living/carbon/human))
+		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
 			if(istype(H.wear_suit, target_suit))
 				return TURRET_PRIORITY_TARGET

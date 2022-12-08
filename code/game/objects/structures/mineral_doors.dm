@@ -1,9 +1,9 @@
 //NOT using the existing /obj/machinery/door type, since that has some complications on its own, mainly based on its machineryness
 /obj/structure/mineral_door
 	name = "metal door"
-	density = 1
-	anchored = 1
-	opacity = 1
+	density = TRUE
+	anchored = TRUE
+	opacity = TRUE
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
@@ -12,8 +12,8 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
 	var/initial_state
-	var/state = 0 //closed, 1 == open
-	var/isSwitchingStates = 0
+	var/state_open = FALSE
+	var/is_operating = FALSE
 	var/close_delay = -1 //-1 if does not auto close.
 
 	var/hardness = 1
@@ -29,7 +29,7 @@
 	air_update_turf(1)
 
 /obj/structure/mineral_door/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	return ..()
 
@@ -40,21 +40,21 @@
 
 /obj/structure/mineral_door/Bumped(atom/user)
 	..()
-	if(!state)
-		return TryToSwitchState(user)
+	if(!state_open)
+		return try_to_operate(user)
 
 /obj/structure/mineral_door/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it
 		return
 	else if(isrobot(user) && Adjacent(user)) //but cyborgs can, but not remotely
-		return TryToSwitchState(user)
+		return try_to_operate(user)
 
 /obj/structure/mineral_door/attack_hand(mob/user)
-	return TryToSwitchState(user)
+	return try_to_operate(user)
 
 /obj/structure/mineral_door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		SwitchState()
+		operate()
 
 /obj/structure/mineral_door/CanPass(atom/movable/mover, turf/target, height = 0)
 	if(istype(mover, /obj/effect/beam))
@@ -64,8 +64,8 @@
 /obj/structure/mineral_door/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
-	if(isSwitchingStates)
+/obj/structure/mineral_door/proc/try_to_operate(atom/user)
+	if(is_operating)
 		return
 	if(isliving(user))
 		var/mob/living/M = user
@@ -75,53 +75,36 @@
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(!C.handcuffed)
-					SwitchState()
+					operate()
 			else
-				SwitchState()
-	else if(istype(user, /obj/mecha))
-		SwitchState()
+				operate()
+	else if(ismecha(user))
+		operate()
 
-/obj/structure/mineral_door/proc/SwitchState()
-	if(state)
-		Close()
+/obj/structure/mineral_door/proc/operate()
+	is_operating = TRUE
+	if(!state_open)
+		playsound(loc, openSound, 100, 1)
+		flick("[initial_state]opening",src)
 	else
-		Open()
-
-/obj/structure/mineral_door/proc/Open()
-	isSwitchingStates = 1
-	playsound(loc, openSound, 100, 1)
-	flick("[initial_state]opening",src)
+		var/turf/T = get_turf(src)
+		for(var/mob/living/L in T)
+			return
+		playsound(loc, closeSound, 100, 1)
+		flick("[initial_state]closing",src)
 	sleep(10)
-	density = 0
-	opacity = 0
-	state = 1
+	density = !density
+	opacity = !opacity
+	state_open = !state_open
 	air_update_turf(1)
-	update_icon()
-	isSwitchingStates = 0
+	update_icon(UPDATE_ICON_STATE)
+	is_operating = FALSE
 
-	if(close_delay != -1)
-		spawn(close_delay)
-			Close()
+	if(state_open && close_delay != -1)
+		addtimer(CALLBACK(src, PROC_REF(operate)), close_delay)
 
-/obj/structure/mineral_door/proc/Close()
-	if(isSwitchingStates || state != 1)
-		return
-	var/turf/T = get_turf(src)
-	for(var/mob/living/L in T)
-		return
-	isSwitchingStates = 1
-	playsound(loc, closeSound, 100, 1)
-	flick("[initial_state]closing",src)
-	sleep(10)
-	density = 1
-	opacity = 1
-	state = 0
-	air_update_turf(1)
-	update_icon()
-	isSwitchingStates = 0
-
-/obj/structure/mineral_door/update_icon()
-	if(state)
+/obj/structure/mineral_door/update_icon_state()
+	if(state_open)
 		icon_state = "[initial_state]open"
 	else
 		icon_state = initial_state
@@ -177,10 +160,10 @@
 	max_integrity = 100
 
 /obj/structure/mineral_door/transparent
-	opacity = 0
+	opacity = FALSE
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
-/obj/structure/mineral_door/transparent/Close()
+/obj/structure/mineral_door/transparent/operate()
 	..()
 	set_opacity(0)
 
@@ -235,6 +218,6 @@
 	damageSound = 'sound/effects/attackblob.ogg'
 	sheetType = null
 
-/obj/structure/mineral_door/resin/TryToSwitchState(atom/user)
+/obj/structure/mineral_door/resin/try_to_operate(atom/user)
 	if(isalien(user))
 		return ..()

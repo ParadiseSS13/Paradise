@@ -21,7 +21,7 @@
 	maxHealth = 50
 	health = 50
 
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	animate_movement = SYNC_STEPS
 
 	minbodytemp = 0
@@ -73,7 +73,7 @@
 	animate_movement = SLIDE_STEPS
 
 	AIStatus = AI_ON//The head is conscious
-	stop_automated_movement = 0 //Ditto ^
+	stop_automated_movement = FALSE //Ditto ^
 
 	faction = list("spaceworms") //head and body both have this faction JIC
 
@@ -102,7 +102,7 @@
 	for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
 		SW.update_icon()
 
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/update_icon()
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/update_icon_state()
 	if(stat == CONSCIOUS || stat == UNCONSCIOUS)
 		icon_state = "spacewormhead[previousWorm ? 1 : 0]"
 		if(previousWorm)
@@ -114,7 +114,6 @@
 		if(SW == src)//incase src ends up in here we don't want an infinite loop
 			continue
 		SW.update_icon()
-
 
 //Try to move onto target's turf and eat them
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/AttackingTarget()
@@ -150,11 +149,11 @@
 	if(noms in totalWormSegments)
 		return //Trying to eat part of self.
 
-	if(istype(noms, /turf))
-		if(istype(noms, /turf/simulated/wall))
+	if(isturf(noms))
+		if(iswallturf(noms))
 			W = noms
 			nomDelay *= 2
-			if(istype(W, /turf/simulated/wall/r_wall))
+			if(isreinforcedwallturf(W))
 				nomDelay *= 2
 		else
 			return
@@ -230,18 +229,15 @@
 
 
 //Update the appearence of this big weird chain-worm-thingy
-/mob/living/simple_animal/hostile/spaceWorm/proc/update_icon()
+/mob/living/simple_animal/hostile/spaceWorm/update_icon_state()
 	if(stat != DEAD)
 		if(previousWorm)
 			icon_state = "spaceworm[get_dir(src,previousWorm) | get_dir(src,nextWorm)]"
 		else
 			icon_state = "spacewormtail"//end of rine
 			dir = get_dir(src,nextWorm)
-
 	else
 		icon_state = "spacewormdead"
-
-
 
 //Add a new worm segment
 /mob/living/simple_animal/hostile/spaceWorm/proc/Attach(mob/living/simple_animal/hostile/spaceWorm/toAttach)

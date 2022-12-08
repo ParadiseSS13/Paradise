@@ -1,117 +1,3 @@
-//Food
-/datum/job/bartender
-	title = "Bartender"
-	flag = JOB_BARTENDER
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	outfit = /datum/outfit/job/bartender
-
-/datum/outfit/job/bartender
-	name = "Bartender"
-	jobtype = /datum/job/bartender
-
-	uniform = /obj/item/clothing/under/rank/bartender
-	suit = /obj/item/clothing/suit/armor/vest
-	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/radio/headset/headset_service
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
-	pda = /obj/item/pda/bar
-	backpack_contents = list(
-		/obj/item/toy/russian_revolver = 1
-	)
-
-/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	H.dna.SetSEState(GLOB.soberblock,1)
-	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(GLOB.soberblock)
-	H.check_mutations = 1
-
-
-
-/datum/job/chef
-	title = "Chef"
-	flag = JOB_CHEF
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 1
-	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
-	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Cook","Culinary Artist","Butcher")
-	outfit = /datum/outfit/job/chef
-
-/datum/outfit/job/chef
-	name = "Chef"
-	jobtype = /datum/job/chef
-
-	uniform = /obj/item/clothing/under/rank/chef
-	suit = /obj/item/clothing/suit/chef
-	belt = /obj/item/storage/belt/chef
-	shoes = /obj/item/clothing/shoes/black
-	head = /obj/item/clothing/head/chefhat
-	l_ear = /obj/item/radio/headset/headset_service
-	pda = /obj/item/pda/chef
-	backpack_contents = list(
-		/obj/item/eftpos=1,\
-		/obj/item/paper/chef=1,\
-		/obj/item/book/manual/chef_recipes=1)
-
-/datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	var/datum/martial_art/cqc/under_siege/justacook = new
-	justacook.teach(H)
-
-
-/datum/job/hydro
-	title = "Botanist"
-	flag = JOB_BOTANIST
-	department_flag = JOBCAT_SUPPORT
-	total_positions = 3
-	spawn_positions = 2
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
-	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
-	outfit = /datum/outfit/job/hydro
-
-/datum/outfit/job/hydro
-	name = "Botanist"
-	jobtype = /datum/job/hydro
-
-	uniform = /obj/item/clothing/under/rank/hydroponics
-	suit = /obj/item/clothing/suit/apron
-	gloves = /obj/item/clothing/gloves/botanic_leather
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/radio/headset/headset_service
-	suit_store = /obj/item/plant_analyzer
-	pda = /obj/item/pda/botanist
-
-	backpack = /obj/item/storage/backpack/botany
-	satchel = /obj/item/storage/backpack/satchel_hyd
-	dufflebag = /obj/item/storage/backpack/duffel/hydro
-
-
-
 //Cargo
 /datum/job/qm
 	title = "Quartermaster"
@@ -122,7 +8,8 @@
 	is_supply = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
+	department_account_access = TRUE
+	selection_color = "#e2c59d"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/qm
@@ -131,7 +18,7 @@
 	name = "Quartermaster"
 	jobtype = /datum/job/qm
 
-	uniform = /obj/item/clothing/under/rank/cargo
+	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -150,16 +37,16 @@
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	selection_color = "#eeddbe"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/cargo_tech
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
 	jobtype = /datum/job/cargo_tech
 
-	uniform = /obj/item/clothing/under/rank/cargotech
+	uniform = /obj/item/clothing/under/rank/cargo/tech
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
@@ -176,8 +63,8 @@
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
-	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	selection_color = "#eeddbe"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
@@ -189,7 +76,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
-	uniform = /obj/item/clothing/under/rank/miner/lavaland
+	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
 	r_pocket = /obj/item/storage/bag/ore
 	id = /obj/item/card/id/supply
@@ -235,6 +122,122 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	mask = /obj/item/clothing/mask/breath
 
+
+
+//Food
+/datum/job/bartender
+	title = "Bartender"
+	flag = JOB_BARTENDER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 1
+	spawn_positions = 1
+	is_service = 1
+	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
+	selection_color = "#dddddd"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	outfit = /datum/outfit/job/bartender
+
+/datum/outfit/job/bartender
+	name = "Bartender"
+	jobtype = /datum/job/bartender
+
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
+	suit = /obj/item/clothing/suit/armor/vest
+	belt = /obj/item/storage/belt/bandolier/full
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/radio/headset/headset_service
+	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	pda = /obj/item/pda/bar
+	backpack_contents = list(
+		/obj/item/toy/russian_revolver = 1
+	)
+
+/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	H.dna.SetSEState(GLOB.soberblock,1)
+	singlemutcheck(H, GLOB.soberblock, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.soberblock)
+	H.check_mutations = 1
+
+
+
+/datum/job/chef
+	title = "Chef"
+	flag = JOB_CHEF
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 1
+	spawn_positions = 1
+	is_service = 1
+	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
+	selection_color = "#dddddd"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
+	alt_titles = list("Cook","Culinary Artist","Butcher")
+	outfit = /datum/outfit/job/chef
+
+/datum/outfit/job/chef
+	name = "Chef"
+	jobtype = /datum/job/chef
+
+	uniform = /obj/item/clothing/under/rank/civilian/chef
+	suit = /obj/item/clothing/suit/chef
+	belt = /obj/item/storage/belt/chef
+	shoes = /obj/item/clothing/shoes/black
+	head = /obj/item/clothing/head/chefhat
+	l_ear = /obj/item/radio/headset/headset_service
+	pda = /obj/item/pda/chef
+	backpack_contents = list(
+		/obj/item/eftpos=1,\
+		/obj/item/paper/chef=1,\
+		/obj/item/book/manual/wiki/chef_recipes=1)
+
+/datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	var/datum/martial_art/cqc/under_siege/justacook = new
+	justacook.teach(H)
+
+
+/datum/job/hydro
+	title = "Botanist"
+	flag = JOB_BOTANIST
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 3
+	spawn_positions = 2
+	is_service = 1
+	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
+	selection_color = "#dddddd"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	outfit = /datum/outfit/job/hydro
+
+/datum/outfit/job/hydro
+	name = "Botanist"
+	jobtype = /datum/job/hydro
+
+	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
+	suit = /obj/item/clothing/suit/apron
+	gloves = /obj/item/clothing/gloves/botanic_leather
+	shoes = /obj/item/clothing/shoes/black
+	l_ear = /obj/item/radio/headset/headset_service
+	suit_store = /obj/item/plant_analyzer
+	pda = /obj/item/pda/botanist
+
+	backpack = /obj/item/storage/backpack/botany
+	satchel = /obj/item/storage/backpack/satchel_hyd
+	dufflebag = /obj/item/storage/backpack/duffel/hydro
+
+
+
 //Griff //BS12 EDIT
 
 /datum/job/clown
@@ -255,7 +258,7 @@
 	name = "Clown"
 	jobtype = /datum/job/clown
 
-	uniform = /obj/item/clothing/under/rank/clown
+	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
@@ -282,7 +285,7 @@
 	. = ..()
 	if(H.gender == FEMALE)
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
-		uniform = /obj/item/clothing/under/rank/clown/sexy
+		uniform = /obj/item/clothing/under/rank/civilian/clown/sexy
 
 /datum/outfit/job/clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -344,7 +347,7 @@
 	name = "Mime"
 	jobtype = /datum/job/mime
 
-	uniform = /obj/item/clothing/under/mime
+	uniform = /obj/item/clothing/under/rank/civilian/mime
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
@@ -363,7 +366,7 @@
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/sexymime
+		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
 		suit = /obj/item/clothing/mask/gas/sexymime
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -372,8 +375,8 @@
 		return
 
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = 1
 
 
@@ -397,7 +400,7 @@
 	name = "Janitor"
 	jobtype = /datum/job/janitor
 
-	uniform = /obj/item/clothing/under/rank/janitor
+	uniform = /obj/item/clothing/under/rank/civilian/janitor
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
@@ -423,7 +426,7 @@
 	name = "Librarian"
 	jobtype = /datum/job/librarian
 
-	uniform = /obj/item/clothing/under/suit_jacket/red
+	uniform = /obj/item/clothing/under/rank/civilian/librarian
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
@@ -431,15 +434,15 @@
 	l_hand = /obj/item/storage/bag/books
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam = 1)
+		/obj/item/videocam/advanced = 1)
 
 /datum/job/barber
 	title = "Barber"
 	flag = JOB_BARBER
-	department_flag = JOBCAT_KARMA
+	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	is_service = TRUE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -452,7 +455,7 @@
 	name = "Barber"
 	jobtype = /datum/job/barber
 
-	uniform = /obj/item/clothing/under/barber
+	uniform = /obj/item/clothing/under/rank/civilian/barber
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	backpack_contents = list(

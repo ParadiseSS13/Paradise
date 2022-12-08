@@ -8,9 +8,7 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
 
-	burn_mod = 1.25
-	heatmod = 1.5
-	brain_mod = 0
+	heatmod = 3
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
@@ -27,6 +25,7 @@
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
+	bodyflags = SHAVED
 	dietflags = DIET_HERB		//Diona regenerate nutrition in light and water, no diet necessary, but if they must, they eat other plants *scream
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	skinned_type = /obj/item/stack/sheet/wood
@@ -66,7 +65,7 @@
 		"is pulling themselves apart!")
 
 /datum/species/diona/can_understand(mob/other)
-	if(istype(other, /mob/living/simple_animal/diona))
+	if(isnymph(other))
 		return 1
 	return 0
 
@@ -78,6 +77,9 @@
 	. = ..()
 	H.clear_alert("nolight")
 
+	for(var/mob/living/simple_animal/diona/N in H.contents) // Let nymphs wiggle out
+		N.split()
+
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "glyphosate" || R.id == "atrazine")
 		H.adjustToxLoss(3) //Deal aditional damage
@@ -86,7 +88,7 @@
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
-	var/is_vamp = H.mind?.vampire != null
+	var/is_vamp = H.mind && H.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
 		light_amount = min(1, T.get_lumcount()) - 0.5
@@ -104,7 +106,6 @@
 			if(!pod && H.health <= 0)
 				return
 			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)
 
@@ -117,7 +118,7 @@
 		if(/obj/item/projectile/energy/floramut)
 			if(prob(15))
 				H.rad_act(rand(30, 80))
-				H.Weaken(5)
+				H.Weaken(10 SECONDS)
 				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
 					randmutb(H)

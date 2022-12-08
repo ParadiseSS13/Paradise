@@ -10,27 +10,25 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armour_penetration_percentage = 0)
 	var/armor = getarmor(def_zone, attack_flag)
 
-	//the if "armor" check is because this is used for everything on /living, including humans
-	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
-		armor = max(0, armor - armour_penetration)
-		if(penetrated_text)
-			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
-		else
-			to_chat(src, "<span class='userdanger'>Your armor was penetrated!</span>")
+	if(armor == INFINITY)
+		to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
+		return armor
+	if(armor <= 0)
+		return armor
+	if(!armour_penetration_flat && armour_penetration_percentage <= 0)
+		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
+		return armor
 
-	if(armor >= 100)
-		if(absorb_text)
-			to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
-		else
-			to_chat(src, "<span class='userdanger'>Your armor absorbs the blow!</span>")
-	else if(armor > 0)
-		if(soften_text)
-			to_chat(src, "<span class='userdanger'>[soften_text]</span>")
-		else
-			to_chat(src, "<span class='userdanger'>Your armor softens the blow!</span>")
+	var/armor_original = armor
+	armor = max(0, (armor * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat)
+	if(armor_original <= armor)
+		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
+	else
+		to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
+
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
@@ -45,7 +43,7 @@
 
 /mob/living/bullet_act(obj/item/projectile/P, def_zone)
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
+	var/armor = run_armor_check(def_zone, P.flag, armour_penetration_flat = P.armour_penetration_flat, armour_penetration_percentage = P.armour_penetration_percentage)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.dismemberment)
@@ -110,15 +108,15 @@
 
 		if(blocked)
 			return TRUE
-
-		if(thrown_item.thrownby)
-			add_attack_logs(thrown_item.thrownby, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
+		var/mob/thrower = locateUID(thrown_item.thrownby)
+		if(thrower)
+			add_attack_logs(thrower, src, "Hit with thrown [thrown_item]", !thrown_item.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
 		if(nosell_hit)
 			return ..()
 		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", "<span class='userdanger'>You're hit by [thrown_item]!</span>")
 		if(!thrown_item.throwforce)
 			return
-		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration)
+		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration_flat, armour_penetration_percentage = thrown_item.armour_penetration_percentage)
 		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, is_sharp(thrown_item), thrown_item)
 		if(QDELETED(src)) //Damage can delete the mob.
 			return
@@ -138,7 +136,7 @@
 			step_away(src,M,15)
 		switch(M.damtype)
 			if("brute")
-				Paralyse(1)
+				Paralyse(2 SECONDS)
 				take_overall_damage(rand(M.force/2, M.force))
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if("fire")
@@ -166,6 +164,7 @@
 		set_light(light_range + 3,l_color = "#ED9200")
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()
+		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED)
 		return TRUE
 	return FALSE
 
@@ -206,6 +205,7 @@
 		return FALSE
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 50, 1)
+	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 
 /mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -260,9 +260,11 @@
 
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
 	if(user == src || anchored)
-		return 0
+		return FALSE
 	if(!(status_flags & CANPUSH))
-		return 0
+		return FALSE
+	if(user.pull_force < move_force)
+		return FALSE
 
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)
@@ -313,7 +315,7 @@
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src].")
+		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
@@ -370,3 +372,12 @@
 
 /mob/living/proc/cult_self_harm(damage)
 	return FALSE
+
+/mob/living/shove_impact(mob/living/target, mob/living/attacker)
+	if(IS_HORIZONTAL(src))
+		return FALSE
+	add_attack_logs(attacker, target, "pushed into [src]", ATKLOG_ALL)
+	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	target.KnockDown(1 SECONDS) // knock them both down
+	KnockDown(1 SECONDS)
+	return TRUE

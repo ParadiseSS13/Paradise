@@ -17,7 +17,7 @@
 	var/datum/pipeline/parent2
 	var/datum/pipeline/parent3
 
-	var/flipped = 0
+	var/flipped = FALSE
 
 /obj/machinery/atmospherics/trinary/New()
 	..()
@@ -180,6 +180,9 @@
 		return parent2
 	else if(A == node3)
 		return parent3
+
+/obj/machinery/atmospherics/trinary/is_pipenet_split()
+	return FALSE
 
 /obj/machinery/atmospherics/trinary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)

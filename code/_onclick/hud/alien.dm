@@ -6,7 +6,7 @@
 	icon_state = "leap_off"
 
 /obj/screen/alien/leap/Click()
-	if(istype(usr, /mob/living/carbon/alien/humanoid))
+	if(isalienadult(usr))
 		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
 		AH.toggle_leap()
 
@@ -53,7 +53,7 @@
 	static_inventory += using
 	move_intent = using
 
-	if(istype(mymob, /mob/living/carbon/alien/humanoid/hunter))
+	if(isalienhunter(mymob))
 		mymob.leap_icon = new /obj/screen/alien/leap()
 		mymob.leap_icon.icon = 'icons/mob/screen_alien.dmi'
 		mymob.leap_icon.screen_loc = ui_alien_storage_r
@@ -119,7 +119,8 @@
 
 	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = 'icons/mob/screen_alien.dmi'
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.hud = src
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	hotkeybuttons += mymob.pullin
 
@@ -127,7 +128,8 @@
 	infodisplay += alien_plasma_display
 
 	zone_select = new /obj/screen/zone_sel/alien()
-	zone_select.update_icon(mymob)
+	zone_select.hud = src
+	zone_select.update_icon(UPDATE_OVERLAYS)
 	static_inventory += zone_select
 
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))

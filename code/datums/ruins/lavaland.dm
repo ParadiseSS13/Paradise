@@ -191,14 +191,6 @@
 	allow_duplicates = FALSE
 	cost = 10
 
-/datum/map_template/ruin/lavaland/swarmer_boss
-	name = "Crashed Shuttle"
-	id = "swarmerboss"
-	description = "A Syndicate shuttle had an unfortunate stowaway..."
-	suffix = "lavaland_surface_swarmer_crash.dmm"
-	allow_duplicates = FALSE
-	cost = 20
-
 /datum/map_template/ruin/lavaland/miningripley
 	name = "Ripley"
 	id = "ripley"
@@ -212,4 +204,20 @@
 	id = "puzzle"
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
+	cost = 5
+
+/datum/map_template/ruin/lavaland/tumor
+	name = "Elite Tumor"
+	id = "tumor"
+	description = "The victor freed, the loser the next fighter. The ghosts, the endless spectators. And thus the cycle loops..."
+	suffix = "lavaland_surface_elite_tumor.dmm"
+	cost = 5
+	always_place = TRUE
+
+/datum/map_template/ruin/lavaland/monster_nest
+	name = "Monster Nest"
+	id = "monsternest"
+	description = "A cave of several tunnels, housing the local fauna deep underground."
+	suffix = "lavaland_surface_monster_nest.dmm"
+	allow_duplicates = FALSE
 	cost = 5

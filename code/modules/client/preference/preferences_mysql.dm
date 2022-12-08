@@ -21,6 +21,14 @@
 		fuid = text2num(query.item[15])
 		parallax = text2num(query.item[16])
 		_2fa_status = query.item[17]
+		screentip_mode = query.item[18]
+		screentip_color = query.item[19]
+		ghost_darkness_level = query.item[20]
+		colourblind_mode = query.item[21]
+		keybindings = init_keybindings(raw = query.item[22])
+		server_region = query.item[23]
+
+	lastchangelog_2 = lastchangelog // Clone please
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -37,14 +45,22 @@
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
+	screentip_mode = sanitize_integer(screentip_mode, 0, 20, initial(screentip_mode))
+	screentip_color = sanitize_hexcolor(screentip_color, initial(screentip_color))
+	ghost_darkness_level = sanitize_integer(ghost_darkness_level, 0, 255, initial(ghost_darkness_level))
+	colourblind_mode = sanitize_inlist(colourblind_mode, list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT), COLOURBLIND_MODE_NONE)
+
+	// Sanitize the region
+	if(!(server_region in GLOB.configuration.system.region_map))
+		server_region = null // This region doesnt exist anymore
+
 	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)
-
 	// Might as well scrub out any malformed be_special list entries while we're here
 	for(var/role in be_special)
 		if(!(role in GLOB.special_roles))
-			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
+			stack_trace("[C.key] had a malformed role entry: '[role]'. Removing!")
 			be_special -= role
 
 	// We're saving volume_mixer here as well, so no point in keeping the timer running
@@ -52,52 +68,61 @@
 		deltimer(volume_mixer_saving)
 		volume_mixer_saving = null
 
-	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE player
-				SET
-					ooccolor=:ooccolour,
-					UI_style=:ui_style,
-					UI_style_color=:ui_colour,
-					UI_style_alpha=:ui_alpha,
-					be_role=:berole,
-					default_slot=:defaultslot,
-					toggles=:toggles,
-					toggles_2=:toggles2,
-					atklog=:atklog,
-					sound=:sound,
-					volume_mixer=:volume_mixer,
-					lastchangelog=:lastchangelog,
-					clientfps=:clientfps,
-					parallax=:parallax,
-					2fa_status=:_2fa_status
-					WHERE ckey=:ckey"}, list(
-						// OH GOD THE PARAMETERS
-						"ooccolour" = ooccolor,
-						"ui_style" = UI_style,
-						"ui_colour" = UI_style_color,
-						"ui_alpha" = UI_style_alpha,
-						"berole" = list2params(be_special),
-						"defaultslot" = default_slot,
-						// Even though its a number in the DB, you have to use num2text here, otherwise byond adds scientific notation to the number
-						"toggles" = num2text(toggles, CEILING(log(10, (TOGGLES_TOTAL)), 1)),
-						"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
-						"atklog" = atklog,
-						"sound" = sound,
-						"volume_mixer" = serialize_volume_mixer(volume_mixer),
-						"lastchangelog" = lastchangelog,
-						"clientfps" = clientfps,
-						"parallax" = parallax,
-						"_2fa_status" = _2fa_status,
-						"ckey" = C.ckey,
-					)
-					)
+	var/datum/db_query/query = SSdbcore.NewQuery({"UPDATE player SET
+		ooccolor=:ooccolour,
+		UI_style=:ui_style,
+		UI_style_color=:ui_colour,
+		UI_style_alpha=:ui_alpha,
+		be_role=:berole,
+		default_slot=:defaultslot,
+		toggles=:toggles,
+		toggles_2=:toggles2,
+		atklog=:atklog,
+		sound=:sound,
+		volume_mixer=:volume_mixer,
+		lastchangelog=:lastchangelog,
+		clientfps=:clientfps,
+		parallax=:parallax,
+		2fa_status=:_2fa_status,
+		screentip_mode=:screentip_mode,
+		screentip_color=:screentip_color,
+		ghost_darkness_level=:ghost_darkness_level,
+		colourblind_mode=:colourblind_mode,
+		keybindings=:keybindings,
+		server_region=:server_region
+		WHERE ckey=:ckey"}, list(
+			// OH GOD THE PARAMETERS
+			"ooccolour" = ooccolor,
+			"ui_style" = UI_style,
+			"ui_colour" = UI_style_color,
+			"ui_alpha" = UI_style_alpha,
+			"berole" = list2params(be_special),
+			"defaultslot" = default_slot,
+			// Even though its a number in the DB, you have to use num2text here, otherwise byond adds scientific notation to the number
+			"toggles" = num2text(toggles, CEILING(log(10, (TOGGLES_TOTAL)), 1)),
+			"toggles2" = num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1)),
+			"atklog" = atklog,
+			"sound" = sound,
+			"volume_mixer" = serialize_volume_mixer(volume_mixer),
+			"lastchangelog" = lastchangelog,
+			"clientfps" = clientfps,
+			"parallax" = parallax,
+			"_2fa_status" = _2fa_status,
+			"screentip_mode" = screentip_mode,
+			"screentip_color" = screentip_color,
+			"ghost_darkness_level" = ghost_darkness_level,
+			"colourblind_mode" = colourblind_mode,
+			"keybindings" = json_encode(keybindings_overrides),
+			"ckey" = C.ckey,
+			"server_region" = server_region,
+		))
 
 	if(!query.warn_execute())
 		qdel(query)
 		return
 
 	qdel(query)
-	return 1
-
+	return TRUE
 
 /datum/preferences/proc/load_random_character_slot(client/C)
 	var/list/datum/character_save/valid_slots = list()

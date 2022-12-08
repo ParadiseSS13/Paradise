@@ -6,9 +6,8 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-	alien_talk_understand = TRUE
 
-	var/nightvision = FALSE
+	var/nightvision = TRUE
 	see_in_dark = 4
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
@@ -17,25 +16,33 @@
 
 	status_flags = CANPARALYSE|CANPUSH
 	var/heal_rate = 5
-
 	var/large = FALSE
+	var/loudspeaker = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
 	ventcrawler = 2
-	var/list/alien_organs = list()
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
-/mob/living/carbon/alien/New()
-	..()
+/mob/living/carbon/alien/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
-	verbs += /mob/living/verb/lay_down
-	alien_organs += new /obj/item/organ/internal/brain/xeno
-	alien_organs += new /obj/item/organ/internal/xenos/hivenode
-	alien_organs += new /obj/item/organ/internal/ears
-	for(var/obj/item/organ/internal/I in alien_organs)
-		I.insert(src)
+	verbs += /mob/living/verb/rest
+
+	for(var/organ_path in get_caste_organs())
+		var/obj/item/organ/internal/organ = new organ_path()
+		organ.insert(src)
+
+/// returns the list of type paths of the organs that we need to insert into
+/// this particular xeno upon its creation
+/mob/living/carbon/alien/proc/get_caste_organs()
+	RETURN_TYPE(/list/obj/item/organ/internal)
+	return list(
+		/obj/item/organ/internal/brain/xeno,
+		/obj/item/organ/internal/xenos/hivenode,
+		/obj/item/organ/internal/ears
+	)
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
@@ -118,7 +125,7 @@
 	stat(null, "Move Mode: [m_intent]")
 	show_stat_emergency_shuttle_eta()
 
-/mob/living/carbon/alien/SetStunned(amount, updating = 1, force = 0)
+/mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()
 	if(!(status_flags & CANSTUN) && amount)
 		// add some movement delay
@@ -255,3 +262,7 @@ Des: Removes all infected images from the alien.
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/carbon/alien/on_lying_down(new_lying_angle)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //Xenos can't crawl

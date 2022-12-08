@@ -20,14 +20,14 @@
 /datum/atom_hud/data/human/medical/basic
 
 /datum/atom_hud/data/human/medical/basic/proc/check_sensors(mob/living/carbon/human/H)
-	if(!istype(H)) return 0
+	if(!istype(H)) return
 	var/obj/item/clothing/under/U = H.w_uniform
-	if(!istype(U)) return 0
-	if(U.sensor_mode <= 2) return 0
-	return 1
+	if(!istype(U)) return
+	if(U.sensor_mode <= SENSOR_VITALS) return
+	return TRUE
 
 /datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || istype(M,/mob/dead/observer) )
+	if(check_sensors(H) || isobserver(M) )
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
@@ -85,6 +85,8 @@
 	if(..())
 		return TRUE
 	if(undergoing_cardiac_arrest())
+		return TRUE
+	if(ismachineperson(src) && health < 0)
 		return TRUE
 	return FALSE
 
@@ -167,8 +169,9 @@
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	var/image/holder = hud_list[HEALTH_HUD]
+	if(ismachineperson(src))
+		holder = hud_list[DIAG_HUD]
 	holder.icon_state = "hud[RoundHealth(src)]"
-
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
@@ -181,12 +184,16 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	if(ismachineperson(src))
+		holder = hud_list[DIAG_STAT_HUD]
+
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable
 		if(!ghost_can_reenter()) // DNR or AntagHUD
 			revivable = FALSE
+		else if(ismachineperson(src))
+			revivable = TRUE
 		else if(timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT))
 			revivable = TRUE
 
@@ -197,8 +204,6 @@
 
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
-	else if(B && B.controlling)
-		holder.icon_state = "hudbrainworm"
 	else if(is_in_crit())
 		holder.icon_state = "huddefib"
 	else if(has_virus())

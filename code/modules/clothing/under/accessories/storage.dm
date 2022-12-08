@@ -9,8 +9,8 @@
 	actions_types = list(/datum/action/item_action/accessory/storage)
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
-/obj/item/clothing/accessory/storage/New()
-	..()
+/obj/item/clothing/accessory/storage/Initialize(mapload)
+	. = ..()
 	hold = new/obj/item/storage/internal(src)
 	hold.storage_slots = slots
 
@@ -58,7 +58,7 @@
 		L += S.return_inv()
 	for(var/obj/item/gift/G in src)
 		L += G.gift
-		if(istype(G.gift, /obj/item/storage))
+		if(isstorage(G.gift))
 			L += G.gift:return_inv()
 	return L
 
@@ -104,8 +104,8 @@
 	item_color = "unathiharness2"
 	slots = 2
 
-/obj/item/clothing/accessory/storage/knifeharness/New()
-	..()
+/obj/item/clothing/accessory/storage/knifeharness/Initialize(mapload)
+	. = ..()
 	hold.max_combined_w_class = 4
 	hold.can_hold = list(/obj/item/hatchet/unathiknife, /obj/item/kitchen/knife)
 

@@ -43,21 +43,21 @@
 		to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing their goals.")
 		switch(action)
 			if("destruction")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/projectile/magic_missile(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
 			if("bluespace")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/area_teleport/teleport(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
 				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.")
 			if("healing")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
 				M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), slot_r_hand)
 				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
 			if("robeless")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/mind_transfer(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
 
 		M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
@@ -134,8 +134,8 @@
 	desc = "You should run now."
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
@@ -213,6 +213,7 @@
 	force = 15
 	hitsound = 'sound/items/welder2.ogg'
 	var/mob/current_owner
+	var/mob/dead/observer/ghost // owners ghost when active
 
 /obj/item/scrying/Initialize(mapload)
 	. = ..()
@@ -245,9 +246,32 @@
 		current_owner.update_icons()
 
 /obj/item/scrying/attack_self(mob/user as mob)
-	to_chat(user, "<span class='notice'> You can see...everything!</span>")
-	visible_message("<span class='danger'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>")
-	user.ghostize(1)
+	if(in_use)
+		return
+	in_use = TRUE
+	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
+	user.add_atom_colour(COLOR_BLUE, ADMIN_COLOUR_PRIORITY) // stolen spirit rune code
+	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
+					"<span class='danger'> You stare into [src], you can see the entire universe!</span>")
+	ghost = user.ghostize(TRUE)
+	ghost.name = "Magic Spirit of [ghost.name]"
+	ghost.color = COLOR_BLUE
+	while(!QDELETED(user))
+		if(user.key || QDELETED(src))
+			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
+								"<span class='danger'>You look away from [src].</span>")
+			break
+		if(user.get_active_hand() != src)
+			user.grab_ghost()
+			user.visible_message("<span class='notice'>[user]'s focus is forced away from [src].</span>",
+								"<span class='userdanger'>Your vision is ripped away from [src].</span>")
+			break
+		sleep(5)
+	in_use = FALSE
+	if(QDELETED(user))
+		return
+	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY, COLOR_BLUE)
+	REMOVE_TRAIT(user, SCRYING, SCRYING_ORB)
 
 /////////////////////Multiverse Blade////////////////////
 GLOBAL_LIST_EMPTY(multiverse)
@@ -262,7 +286,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	slot_flags = SLOT_BELT
 	force = 20
 	throwforce = 10
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/faction = list("unassigned")
@@ -475,13 +499,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(M), slot_glasses)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket/really_black(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/suit/really_black(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("roman")
 				var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
 				M.equip_to_slot_or_del(new hat(M), slot_head)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/roman(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/shield/riot/roman(M), slot_l_hand)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
@@ -521,7 +545,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(M), slot_head)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("cultist")
@@ -531,14 +555,14 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("highlander")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/kilt(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/beret(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("clown")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(M), slot_wear_mask)
@@ -546,7 +570,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("killer")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/overalls(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/misc/overalls(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), slot_wear_mask)
@@ -561,7 +585,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 						carried_item.add_mob_blood(M)
 
 			if("pirate")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), slot_glasses)
@@ -574,7 +598,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hgpirate(M), slot_wear_suit)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/soviet(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("officer")
@@ -590,7 +614,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			if("gladiator")
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/gladiator(M), slot_head)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/gladiator(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/gladiator(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
@@ -694,7 +718,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(unlimited) //no point, the list isn't used.
 		return
 	for(var/X in spooky_scaries)
-		if(!istype(X, /mob/living/carbon/human))
+		if(!ishuman(X))
 			spooky_scaries.Remove(X)
 			continue
 		var/mob/living/carbon/human/H = X
@@ -715,13 +739,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if("roman")
 			var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
 			H.equip_to_slot_or_del(new hat(H), slot_head)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/roman(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/claymore(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
 		if("pirate")
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(H),  slot_wear_suit)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), slot_head)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
@@ -732,13 +756,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if("yand")//mine is an evil laugh
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 			H.equip_to_slot_or_del(new /obj/item/katana(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
 		if("clown")
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), slot_wear_mask)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(H), slot_head)
@@ -767,7 +791,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	H.revive()
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/katana(H), slot_r_hand)
 	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
@@ -789,133 +813,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heresy = 1
 	unlimited = 1
 
-/////////////////////////////////////////Voodoo///////////////////
-
-
-/obj/item/voodoo
-	name = "wicker doll"
-	desc = "Something creepy about it."
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "voodoo"
-	item_state = "electronic"
-	var/mob/living/carbon/human/target = null
-	var/list/mob/living/carbon/human/possible = list()
-	var/obj/item/link = null
-	var/cooldown_time = 30 //3s
-	var/cooldown = 0
-	max_integrity = 10
-	resistance_flags = FLAMMABLE
-
-/obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(target && cooldown < world.time)
-		if(is_hot(I))
-			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
-			target.bodytemperature += 50
-			GiveHint(target)
-		else if(is_pointed(I))
-			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_selected)]!</span>")
-			target.Weaken(2)
-			GiveHint(target)
-		else if(istype(I,/obj/item/bikehorn))
-			to_chat(target, "<span class='userdanger'>HONK</span>")
-			SEND_SOUND(target, sound('sound/items/airhorn.ogg'))
-			target.AdjustEarDamage(0, 3)
-			GiveHint(target)
-		cooldown = world.time +cooldown_time
-		return
-
-	if(!link)
-		if(I.loc == user && istype(I) && I.w_class <= WEIGHT_CLASS_SMALL)
-			user.drop_item()
-			I.loc = src
-			link = I
-			to_chat(user, "You attach [I] to the doll.")
-			update_targets()
-		return
-	return ..()
-
-/obj/item/voodoo/check_eye(mob/user)
-	if(loc != user)
-		user.reset_perspective(null)
-		user.unset_machine()
-
-/obj/item/voodoo/attack_self(mob/user as mob)
-	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in possible
-		return
-
-	if(user.zone_selected == "chest")
-		if(link)
-			target = null
-			link.loc = get_turf(src)
-			to_chat(user, "<span class='notice'>You remove [link] from the doll.</span>")
-			link = null
-			update_targets()
-			return
-
-	if(target && cooldown < world.time)
-		switch(user.zone_selected)
-			if("mouth")
-				var/wgw =  sanitize(input(user, "What would you like the victim to say", "Voodoo", null)  as text)
-				target.say(wgw)
-				log_game("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
-				log_say("Wicker doll say to [target][target.key]: [wgw]", user)
-				log_admin("[user][user.key] made [target][target.key] say [wgw] with a voodoo doll.")
-				user.create_log(SAY_LOG, "forced [target] to say [wgw] through [src].", target)
-				target.create_log(SAY_LOG, "was forced to say [wgw] through [src] by [user].", user)
-			if("eyes")
-				user.set_machine(src)
-				user.reset_perspective(target)
-				spawn(100)
-					user.reset_perspective(null)
-					user.unset_machine()
-			if("r_leg","l_leg")
-				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")
-				var/turf/T = get_step(target,pick(GLOB.cardinal))
-				target.Move(T)
-			if("r_arm","l_arm")
-				//use active hand on random nearby mob
-				var/list/nearby_mobs = list()
-				for(var/mob/living/L in range(1,target))
-					if(L!=target)
-						nearby_mobs |= L
-				if(nearby_mobs.len)
-					var/mob/living/T = pick(nearby_mobs)
-					log_game("[user][user.key] made [target][target.key] click on [T] with a voodoo doll.")
-					target.ClickOn(T)
-					GiveHint(target)
-			if("head")
-				to_chat(user, "<span class='notice'>You smack the doll's head with your hand.</span>")
-				target.Dizzy(10)
-				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")
-				GiveHint(target,user)
-		cooldown = world.time + cooldown_time
-
-/obj/item/voodoo/proc/update_targets()
-	possible = list()
-	if(!link)
-		return
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/H = thing
-		if(H.stat != DEAD && (md5(H.dna.uni_identity) in link.fingerprints))
-			possible |= H
-
-/obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
-	if(prob(50) || force)
-		var/way = dir2text(get_dir(victim,get_turf(src)))
-		to_chat(victim, "<span class='notice'>You feel a dark presence from [way]</span>")
-	if(prob(20) || force)
-		var/area/A = get_area(src)
-		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
-
-/obj/item/voodoo/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	if(target)
-		target.adjust_fire_stacks(20)
-		target.IgniteMob()
-		GiveHint(target,1)
-	return ..()
-
 /obj/item/organ/internal/heart/cursed/wizard
+	max_shocks_allowed = 3
 	pump_delay = 60
 	heal_brute = 25
 	heal_burn = 25

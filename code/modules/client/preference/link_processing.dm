@@ -137,18 +137,18 @@
 				if("age")
 					active_character.age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & BALD))
 						active_character.h_colour = rand_hex_color()
 				if("secondary_hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & BALD))
 						active_character.h_sec_colour = rand_hex_color()
 				if("h_style")
 					active_character.h_style = random_hair_style(active_character.gender, active_character.species, robohead)
 				if("facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & SHAVED))
 						active_character.f_colour = rand_hex_color()
 				if("secondary_facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Wryn", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & SHAVED))
 						active_character.f_sec_colour = rand_hex_color()
 				if("f_style")
 					active_character.f_style = random_facial_hair_style(active_character.gender, active_character.species, robohead)
@@ -216,11 +216,11 @@
 					if(new_age)
 						active_character.age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
 					var/prev_species = active_character.species
 
 					for(var/_species in GLOB.whitelisted_species)
-						if(is_alien_whitelisted(user, _species))
+						if(can_use_species(user, _species))
 							new_species += _species
 
 					active_character.species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
@@ -290,8 +290,7 @@
 
 						active_character.alt_head = "None" //No alt heads on species that don't have them.
 						active_character.speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
-
-						active_character.body_accessory = null //no vulptail on humans damnit
+						active_character.body_accessory = random_body_accessory(NS.name, NS.optional_body_accessory)
 
 						//Reset prosthetics.
 						active_character.organ_data = list()
@@ -329,14 +328,14 @@
 						active_character.b_type = new_b_type
 
 				if("hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have hair. (No HAS_HAIR flag)
+					if(!(S.bodyflags & BALD))
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", active_character.h_colour) as color|null
 						if(new_hair)
 							active_character.h_colour = new_hair
 
 				if("secondary_hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & BALD))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[active_character.h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = input(user, "Choose your character's secondary hair colour:", "Character Preference", active_character.h_sec_colour) as color|null
@@ -372,6 +371,29 @@
 					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 					if(new_h_style)
 						active_character.h_style = new_h_style
+
+				if("h_grad_style")
+					var/result = input(user, "Choose your character's hair gradient style:", "Character Preference") as null|anything in GLOB.hair_gradients_list
+					if(result)
+						active_character.h_grad_style = result
+
+				if("h_grad_offset")
+					var/result = input(user, "Enter your character's hair gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Character Preference") as null|text
+					if(result)
+						var/list/expl = splittext(result, ",")
+						if(length(expl) == 2)
+							active_character.h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+							active_character.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+
+				if("h_grad_colour")
+					var/result = input(user, "Choose your character's hair gradient colour:", "Character Preference", active_character.h_grad_colour) as color|null
+					if(result)
+						active_character.h_grad_colour = result
+
+				if("h_grad_alpha")
+					var/result = input(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", active_character.h_grad_alpha) as num|null
+					if(!isnull(result))
+						active_character.h_grad_alpha = clamp(result, 0, 255)
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
@@ -521,11 +543,14 @@
 					else
 						for(var/B in GLOB.body_accessory_by_name)
 							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
-							if(!istype(accessory))
-								possible_body_accessories += "None" //the only null entry should be the "None" option
+							if(isnull(accessory)) // None
 								continue
 							if(active_character.species in accessory.allowed_species)
 								possible_body_accessories += B
+					if(S.optional_body_accessory)
+						possible_body_accessories += "None" //the only null entry should be the "None" option
+					else
+						possible_body_accessories -= "None" // in case an admin is viewing it
 					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
@@ -533,13 +558,13 @@
 						active_character.body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 				if("facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
+					if(!(S.bodyflags & SHAVED))
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference", active_character.f_colour) as color|null
 						if(new_facial)
 							active_character.f_colour = new_facial
 
 				if("secondary_facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & SHAVED))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[active_character.f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = input(user, "Choose your character's secondary facial-hair colour:", "Character Preference", active_character.f_sec_colour) as color|null
@@ -850,6 +875,12 @@
 
 		else
 			switch(href_list["preference"])
+				if("cbmode")
+					var/cb_mode = input(user, "Select a colourblind mode\nNote this will disable special screen effects such as the cursed heart warnings!") as null|anything in list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT)
+					if(cb_mode)
+						colourblind_mode = cb_mode
+						user.update_client_colour(0)
+
 				if("publicity")
 					if(unlock_content)
 						toggles ^= PREFTOGGLE_MEMBER_PUBLIC
@@ -932,6 +963,12 @@
 						var/mob/living/carbon/human/H = usr
 						H.remake_hud()
 
+				if("thought_bubble")
+					toggles2 ^= PREFTOGGLE_2_THOUGHT_BUBBLE
+					if(length(parent?.screen))
+						var/obj/screen/plane_master/point/PM = locate(/obj/screen/plane_master/point) in parent.screen
+						PM.backdrop(parent.mob)
+
 				if("be_special")
 					var/r = href_list["role"]
 					if(r in GLOB.special_roles)
@@ -968,8 +1005,8 @@
 				if("ghost_pda")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
 
-				if("ghost_anonsay")
-					toggles2 ^= PREFTOGGLE_2_ANONDCHAT
+				if("anonmode")
+					toggles2 ^= PREFTOGGLE_2_ANON
 
 				if("save")
 					save_preferences(user)
@@ -1024,10 +1061,154 @@
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 
+				if("screentip_mode")
+					var/desired_screentip_mode = clamp(input(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size") as null|num, 0, 20)
+					if(!isnull(desired_screentip_mode))
+						screentip_mode = desired_screentip_mode
+
+				if("screentip_color")
+					var/screentip_color_new = input(user, "Choose your screentip color", screentip_color) as color|null
+					if(screentip_color_new)
+						screentip_color = screentip_color_new
+
 				if("edit_2fa")
 					// Do this async so we arent holding up a topic() call
-					INVOKE_ASYNC(user.client, /client.proc/edit_2fa)
+					INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, edit_2fa))
 					return // We return here to avoid focus being lost
+
+				if("keybindings")
+					if(!keybindings_overrides)
+						keybindings_overrides = list()
+
+					if(href_list["set"])
+						var/datum/keybinding/KB = locateUID(href_list["set"])
+						if(KB)
+							if(href_list["key"])
+								var/old_key = href_list["old"]
+								var/new_key = copytext(url_decode(href_list["key"]), 1, 16)
+								var/alt_mod = text2num(href_list["alt"]) ? "Alt" : ""
+								var/ctrl_mod = text2num(href_list["ctrl"]) ? "Ctrl" : ""
+								var/shift_mod = text2num(href_list["shift"]) ? "Shift" : ""
+								var/numpad = (text2num(href_list["numpad"]) && text2num(new_key)) ? "Numpad" : ""
+								var/clear = text2num(href_list["clear_key"])
+
+								if(new_key == "Unidentified") //There doesn't seem to be any any key!
+									capture_keybinding(user, KB, href_list["old"])
+									return
+
+								if(!(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80)) // Don't uppercase unicode stuff
+									new_key = uppertext(new_key)
+
+								// Map for JS keys
+								var/static/list/key_map = list(
+									"UP" = "North",
+									"RIGHT" = "East",
+									"DOWN" = "South",
+									"LEFT" = "West",
+									"INSERT" = "Insert",
+									"HOME" = "Northwest",
+									"PAGEUP" = "Northeast",
+									"DEL" = "Delete",
+									"END" = "Southwest",
+									"PAGEDOWN" = "Southeast",
+									"SPACEBAR" = "Space",
+									"ALT" = "Alt",
+									"SHIFT" = "Shift",
+									"CONTROL" = "Ctrl",
+									"DIVIDE" = "Divide",
+									"MULTIPLY" = "Multiply",
+									"ADD" = "Add",
+									"SUBTRACT" = "Subtract",
+									"DECIMAL" = "Decimal",
+									"CLEAR" = "Center"
+								)
+
+								new_key = key_map[new_key] || new_key
+
+								var/full_key
+								switch(new_key)
+									if("ALT")
+										full_key = "Alt[ctrl_mod][shift_mod]"
+									if("CONTROL")
+										full_key = "[alt_mod]Ctrl[shift_mod]"
+									if("SHIFT")
+										full_key = "[alt_mod][ctrl_mod]Shift"
+									else
+										full_key = "[alt_mod][ctrl_mod][shift_mod][numpad][new_key]"
+
+								// Update overrides
+								var/list/key_overrides = keybindings_overrides[KB.name] || KB.keys?.Copy() || list()
+								var/index = key_overrides.Find(old_key)
+								var/changed = FALSE
+								if(clear) // Clear
+									key_overrides -= old_key
+									changed = TRUE
+								else if(old_key != full_key)
+									if(index) // Replace
+										var/cur_index = key_overrides.Find(full_key)
+										if(cur_index)
+											key_overrides[cur_index] = old_key
+										key_overrides[index] = full_key
+										changed = TRUE
+									else // Add
+										key_overrides -= (old_key || full_key) // Defaults to the new key itself, as to reorder it
+										key_overrides += full_key
+										changed = TRUE
+								else
+									changed = isnull(keybindings_overrides[KB.name]) // Sets it in the JSON
+
+								if(changed)
+									if(!length(key_overrides) && !length(KB.keys))
+										keybindings_overrides -= KB.name
+									else
+										keybindings_overrides[KB.name] = key_overrides
+
+								user << browse(null, "window=capturekeypress")
+							else
+								capture_keybinding(user, KB, href_list["old"])
+								return
+
+					else if(href_list["reset"])
+						var/datum/keybinding/KB = locateUID(href_list["reset"])
+						if(KB)
+							keybindings_overrides -= KB.name
+
+					else if(href_list["clear"])
+						var/datum/keybinding/KB = locateUID(href_list["clear"])
+						if(KB)
+							if(length(KB.keys))
+								keybindings_overrides[KB.name] = list()
+							else
+								keybindings_overrides -= KB.name
+
+					else if(href_list["all"])
+						var/yes = alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", "Yes", "No") == "Yes"
+						if(yes)
+							switch(href_list["all"])
+								if("reset")
+									keybindings_overrides = list()
+								if("clear")
+									for(var/kb in GLOB.keybindings)
+										var/datum/keybinding/KB = kb
+										keybindings_overrides[KB.name] = list()
+
+					else if(href_list["custom_emote_set"])
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_set"])
+						if(custom_emote_keybind)
+							var/emote_text = active_character.custom_emotes[custom_emote_keybind.name]
+							var/desired_emote = stripped_input(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", emote_text, max_length = 128)
+							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
+								active_character.custom_emotes[custom_emote_keybind.name] = desired_emote
+							active_character.save(user)
+
+					else if(href_list["custom_emote_reset"])
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_reset"])
+						if(custom_emote_keybind)
+							active_character.custom_emotes.Remove(custom_emote_keybind.name)
+							active_character.save(user)
+
+					init_keybindings(keybindings_overrides)
+					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
 
 
 	ShowChoices(user)

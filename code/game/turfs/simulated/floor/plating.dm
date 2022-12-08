@@ -11,6 +11,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	smoothing_groups = list(SMOOTH_GROUP_TURF)
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -25,9 +26,7 @@
 	. = ..()
 	burn_tile()
 
-/turf/simulated/floor/plating/update_icon()
-	if(!..())
-		return
+/turf/simulated/floor/plating/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
@@ -100,11 +99,13 @@
 			return TRUE
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
 	. = TRUE
+	if(locate(/obj/structure/cable) in src)
+		to_chat(user, "<span class='notice'>There is a cable still attached to [src]. Remove it first!</span>")
+		return
+	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
@@ -320,7 +321,7 @@
 	icon_state = "ironfoam"
 	metal = MFOAM_IRON
 
-/turf/simulated/floor/plating/metalfoam/update_icon()
+/turf/simulated/floor/plating/metalfoam/update_icon_state()
 	switch(metal)
 		if(MFOAM_ALUMINUM)
 			icon_state = "metalfoam"
@@ -374,15 +375,13 @@
 /turf/simulated/floor/plating/ice
 	name = "ice sheet"
 	desc = "A sheet of solid ice. Looks slippery."
-	icon = 'icons/turf/floors/ice_turfs.dmi'
-	icon_state = "unsmooth"
+	icon = 'icons/turf/floors/ice_turf.dmi'
+	icon_state = "ice_turf-0"
 	oxygen = 22
 	nitrogen = 82
 	temperature = 180
 	baseturf = /turf/simulated/floor/plating/ice
 	slowdown = TRUE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
 
 /turf/simulated/floor/plating/ice/Initialize(mapload)
 	. = ..()
@@ -392,9 +391,11 @@
 	return
 
 /turf/simulated/floor/plating/ice/smooth
-	icon_state = "smooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
+	icon_state = "ice_turf-255"
+	base_icon_state = "ice_turf"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	canSmoothWith = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_ICE)
+	smoothing_groups = list(SMOOTH_GROUP_FLOOR_ICE)
 
 /turf/simulated/floor/plating/nitrogen
 	oxygen = 0

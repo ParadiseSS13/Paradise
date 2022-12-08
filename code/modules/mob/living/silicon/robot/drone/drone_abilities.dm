@@ -29,9 +29,11 @@
 	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
 		to_chat(src, text("<span class='notice'>You are now hiding.</span>"))
+		pass_flags |= PASSDOOR
 	else
 		layer = MOB_LAYER
 		to_chat(src, text("<span class='notice'>You have stopped hiding.</span>"))
+		pass_flags &= ~PASSDOOR
 
 /mob/living/silicon/robot/drone/verb/light()
 	set name = "Light On/Off"
@@ -53,8 +55,8 @@
 	var/obj/item/holder/H = ..()
 	if(!istype(H))
 		return
-	if(resting)
-		resting = 0
+	if(IS_HORIZONTAL(src))
+		stand_up()
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'

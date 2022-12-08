@@ -39,9 +39,6 @@
 		job_engsec_high,
 		job_engsec_med,
 		job_engsec_low,
-		job_karma_high,
-		job_karma_med,
-		job_karma_low,
 		flavor_text,
 		med_record,
 		sec_record,
@@ -56,7 +53,12 @@
 		body_accessory,
 		gear,
 		autohiss,
-		slot
+		slot,
+		hair_gradient,
+		hair_gradient_offset,
+		hair_gradient_colour,
+		hair_gradient_alpha,
+		custom_emotes
 		FROM characters WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey
 		))
@@ -81,13 +83,14 @@
 
 	while(Q.NextRow())
 		character_loaded = TRUE
-		var/datum/character_save/CS = C.prefs.character_saves[Q.item[53]] // Get the slot referenced by this query
+		var/datum/character_save/CS = C.prefs.character_saves[Q.item[50]] // Get the slot referenced by this query
 		CS.load(Q) // Let the save handle the query processing
 		CS.valid_save = TRUE
 
 	if(character_loaded)
 		// They have a character, set their active as their default slot
 		C.prefs.active_character = C.prefs.character_saves[C.prefs.default_slot]
+		C.prefs.active_character.init_custom_emotes(C.prefs.active_character.custom_emotes)
 	else
 		// If we are here, they dont have a character. Lets make them a random one
 		var/datum/character_save/CS = C.prefs.character_saves[1] // Get slot 1

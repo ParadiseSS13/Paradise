@@ -64,17 +64,17 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	active_power_usage = 300
-	interact_offline = 1
+	interact_offline = TRUE
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/opened = 0
+	var/opened = FALSE
 	var/damage_coeff
 	var/scan_level
 	var/precision_coeff
 
-/obj/machinery/dna_scannernew/New()
-	..()
+/obj/machinery/dna_scannernew/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -85,8 +85,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/dna_scannernew/upgraded/New()
-	..()
+/obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -168,6 +168,12 @@
 	add_fingerprint(usr)
 	SStgui.update_uis(src)
 
+/obj/machinery/dna_scannernew/update_icon_state()
+	if(occupant)
+		icon_state = "scanner_occupied"
+	else
+		icon_state = "scanner_open"
+
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user)
 	if(!istype(O))
 		return
@@ -179,13 +185,13 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+	if(isanimal(O) || issilicon(O)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
@@ -247,9 +253,16 @@
 	return ..()
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		for(var/obj/thing in contents) // in case there is something in the scanner
-			thing.forceMove(loc)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(flags & NODECONSTRUCT)//We need to check for this early or the contents could be moved before it checks for the flag normally
+		return
+	for(var/obj/thing in contents) // in case there is something in the scanner
+		thing.forceMove(loc)
+	default_deconstruction_crowbar(user, I)	
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
@@ -266,7 +279,7 @@
 /obj/machinery/dna_scannernew/proc/put_in(mob/M)
 	M.forceMove(src)
 	occupant = M
-	icon_state = "scanner_occupied"
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 	// search for ghosts, if the corpse is empty and the scanner is connected to a cloner
@@ -288,7 +301,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
-	icon_state = "scanner_open"
+	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
 /obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
@@ -304,7 +317,7 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 
 // Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
@@ -359,17 +372,20 @@
 	else
 		return ..()
 
-/obj/machinery/computer/scan_consolenew/New()
-	..()
+/obj/machinery/computer/scan_consolenew/Initialize(mapload)
+	. = ..()
 	for(var/i=0;i<3;i++)
 		buffers[i+1]=new /datum/dna2/record
-	spawn(5)
-		for(dir in list(NORTH,EAST,SOUTH,WEST))
-			connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
-			if(!isnull(connected))
-				break
-		spawn(250)
-			injector_ready = TRUE
+	addtimer(CALLBACK(src, PROC_REF(find_machine)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(ready)), 25 SECONDS)
+
+/obj/machinery/computer/scan_consolenew/proc/find_machine()
+	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
+		connected = scanner
+		return
+
+/obj/machinery/computer/scan_consolenew/proc/ready()
+	injector_ready = TRUE
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
@@ -499,7 +515,7 @@
 /obj/machinery/computer/scan_consolenew/ui_act(action, params)
 	if(..())
 		return FALSE // don't update uis
-	if(!istype(usr.loc, /turf))
+	if(!isturf(usr.loc))
 		return FALSE // don't update uis
 	if(!src || !connected)
 		return FALSE // don't update uis
@@ -792,7 +808,7 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	addtimer(CALLBACK(src, .proc/injector_cooldown_finish), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 30 SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]

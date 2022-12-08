@@ -26,8 +26,8 @@
 		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(mobloc)
 		animation.name = "odd blood"
-		animation.density = 0
-		animation.anchored = 1
+		animation.density = FALSE
+		animation.anchored = TRUE
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.icon_state = "jaunt"
 		animation.layer = 5
@@ -59,7 +59,7 @@
 			if(animation)
 				qdel(animation)
 			var/sound
-			if(istype(src, /mob/living/simple_animal/slaughter))
+			if(isslaughterdemon(src))
 				var/mob/living/simple_animal/slaughter/SD = src
 				sound = SD.feast_sound
 			else
@@ -68,13 +68,18 @@
 			for(var/i in 1 to 3)
 				playsound(get_turf(src), sound, 100, 1)
 				sleep(30)
-			if(kidnapped)
-				to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
-				adjustBruteLoss(-1000)
-				adjustFireLoss(-1000)
-				adjustOxyLoss(-1000)
-				adjustToxLoss(-1000)
 
+			if(kidnapped)
+				if(ishuman(kidnapped) || isrobot(kidnapped))
+					to_chat(src, "<span class='warning'>You devour [kidnapped]. Your health is fully restored.</span>")
+					adjustBruteLoss(-1000)
+					adjustFireLoss(-1000)
+					adjustOxyLoss(-1000)
+					adjustToxLoss(-1000)
+				else
+					to_chat(src, "<span class='warning'>You devour [kidnapped], but this measly meal barely sates your appetite!</span>")
+					adjustBruteLoss(-25)
+					adjustFireLoss(-25)
 				if(istype(src, /mob/living/simple_animal/slaughter)) //rason, do not want humans to get this
 					var/mob/living/simple_animal/slaughter/demon = src
 					demon.devoured++
@@ -96,7 +101,7 @@
 			sleep(6)
 			if(animation)
 				qdel(animation)
-		notransform = 0
+		notransform = FALSE
 	return 1
 
 /obj/item/bloodcrawl
@@ -120,15 +125,15 @@
 
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
 	animation.name = "odd blood"
-	animation.density = 0
-	animation.anchored = 1
+	animation.density = FALSE
+	animation.anchored = TRUE
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
 	animation.layer = 5
 	animation.master = B.loc
 	animation.dir = dir
 
-	if(prob(25) && istype(src, /mob/living/simple_animal/slaughter))
+	if(prob(25) && isslaughterdemon(src))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
 		playsound(get_turf(src), pick(voice),50, 1, -1)
 	visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")
@@ -157,8 +162,8 @@
 	name = "odd blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 

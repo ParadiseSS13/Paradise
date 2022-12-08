@@ -32,7 +32,7 @@
 	/// Message to send to the construct when they are created, containing information about their role.
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 
-/mob/living/simple_animal/hostile/construct/New()
+/mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		name = "[construct_type] ([rand(1, 1000)])"
@@ -130,31 +130,22 @@
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
-						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
+						create shield walls, rip apart enemies and walls.</b>"
 
 /mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
 /mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
-	if(istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam))
-		var/reflectchance = 80 - round(P.damage/3)
-		if(prob(reflectchance))
-			if((P.damage_type == BRUTE || P.damage_type == BURN))
-				adjustBruteLoss(P.damage * 0.5)
-			visible_message("<span class='danger'>[P] gets reflected by [src]'s shell!</span>", \
-							"<span class='userdanger'>[P] gets reflected by [src]'s shell!</span>")
-
-			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
-
-			return -1 // complete projectile permutation
-
-	return (..(P))
-
-
+	if(P.is_reflectable(REFLECTABILITY_ENERGY))
+		if(P.damage_type == BRUTE || P.damage_type == BURN)
+			adjustBruteLoss(P.damage * 0.6) // 21 hit with security laser gun
+			P.on_hit(src)
+			return FALSE
+	return ..()
 
 ////////////////////////Wraith/////////////////////////////////////////////
 
@@ -173,7 +164,7 @@
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "wraith"
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
+	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 
@@ -203,13 +194,13 @@
 	minimum_distance = 10 //AI artificers will flee like fuck
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_type = "builder"
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
-							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
+	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
+							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
+							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -289,10 +280,6 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/behemoth/Life(seconds, times_fired)
-	weakened = 0
-	return ..()
-
 
 /////////////////////////////Harvester/////////////////////////
 
@@ -310,10 +297,10 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
-							/obj/effect/proc_holder/spell/targeted/smoke/disable)
+	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
+							/obj/effect/proc_holder/spell/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"

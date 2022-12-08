@@ -2,8 +2,8 @@
 	var/obj/item/storage/internal/pockets
 	w_class = WEIGHT_CLASS_NORMAL //we don't want these to be able to fit in their own pockets.
 
-/obj/item/clothing/suit/storage/New()
-	..()
+/obj/item/clothing/suit/storage/Initialize(mapload)
+	. = ..()
 	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 2	//two slots
 	pockets.max_w_class = WEIGHT_CLASS_SMALL		//fit only pocket sized items
@@ -47,7 +47,7 @@
 		L += S.return_inv()
 	for(var/obj/item/gift/G in src)
 		L += G.gift
-		if(istype(G.gift, /obj/item/storage))
+		if(isstorage(G.gift))
 			L += G.gift:return_inv()
 	return L
 

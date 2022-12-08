@@ -39,15 +39,12 @@
 				winset(client, "input", "text=[null]")
 
 /mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
-	if(has_brain_worms()) //Brain worms translate everything. Even mice and alien speak.
-		return 1
-
 	if(dna.species.can_understand(other))
 		return 1
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if(!speaking)
-		if(istype(other, /mob/living/simple_animal/diona))
+		if(isnymph(other))
 			if(other.languages.len >= 2) //They've sucked down some blood and can speak common now.
 				return 1
 		if(issilicon(other))
@@ -83,8 +80,10 @@
 	if(has_changer)
 		return has_changer
 
-	if(mind && mind.changeling && mind.changeling.mimicing)
-		return mind.changeling.mimicing
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling?.mimicing)
+			return cling.mimicing
 
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
@@ -98,9 +97,11 @@
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
+	if(HAS_TRAIT(src, TRAIT_MUTE))
+		return FALSE
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
-	if(getOxyLoss() > 10 || losebreath >= 4)
+	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
 		emote("gasp")
 		return FALSE
 	if(mind)
@@ -142,7 +143,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || HAS_TRAIT(src, TRAIT_MUTE))
+		if(HAS_TRAIT(src, TRAIT_MUTE))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
@@ -198,20 +199,20 @@
 
 		if("right ear")
 			var/obj/item/radio/R
-			if(isradio(r_ear))
-				R = r_ear
-			else if(isradio(r_hand))
+			if(isradio(r_hand))
 				R = r_hand
+			else if(isradio(r_ear))
+				R = r_ear
 			if(R)
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)
 
 		if("left ear")
 			var/obj/item/radio/R
-			if(isradio(l_ear))
-				R = l_ear
-			else if(isradio(l_hand))
+			if(isradio(l_hand))
 				R = l_hand
+			else if(isradio(l_ear))
+				R = l_ear
 			if(R)
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)

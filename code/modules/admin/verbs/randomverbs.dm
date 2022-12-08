@@ -24,17 +24,19 @@
 		return
 
 	if(ismob(M))
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
 			return
 		//strip their stuff before they teleport into a cell :downs:
 		for(var/obj/item/W in M)
 			M.unEquip(W)
 		//teleport person to cell
-		M.Paralyse(5)
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
 		M.loc = pick(GLOB.prisonwarp)
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
@@ -87,6 +89,9 @@
 	var/missing_ages = 0
 	var/msg = ""
 	for(var/client/C in GLOB.clients)
+		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
+			continue // Skip those in stealth mode if an admin isnt viewing the panel
+
 		if(C.player_age == "Requires database")
 			missing_ages = 1
 			continue
@@ -220,13 +225,22 @@
 	var/mute_string
 
 	switch(mute_type)
-		if(MUTE_IC)			mute_string = "IC (say and emote)"
-		if(MUTE_OOC)		mute_string = "OOC"
-		if(MUTE_PRAY)		mute_string = "pray"
-		if(MUTE_ADMINHELP)	mute_string = "adminhelp, admin PM and ASAY"
-		if(MUTE_DEADCHAT)	mute_string = "deadchat and DSAY"
-		if(MUTE_ALL)		mute_string = "everything"
-		else				return
+		if(MUTE_IC)
+			mute_string = "IC (say and emote)"
+		if(MUTE_OOC)
+			mute_string = "OOC"
+		if(MUTE_PRAY)
+			mute_string = "pray"
+		if(MUTE_ADMINHELP)
+			mute_string = "adminhelp, admin PM and ASAY"
+		if(MUTE_DEADCHAT)
+			mute_string = "deadchat and DSAY"
+		if(MUTE_EMOTE)
+			mute_string = "emote"
+		if(MUTE_ALL)
+			mute_string = "everything"
+		else
+			return
 
 	if(automute)
 		muteunmute = "auto-muted"
@@ -412,7 +426,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.mind.special_verbs = list()
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Civilian"//If they somehow got a null assigned role.
+	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Assistant" //If they somehow got a null assigned role.
 
 	//DNA
 	if(record_found)//Pull up their name from database records if they did have a mind.
@@ -441,7 +455,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("traitor")
 			if(new_character.mind.has_antag_datum(/datum/antagonist/traitor))
 				var/datum/antagonist/traitor/T = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
-				T.equip_traitor(src)
+				T.give_uplink()
 			else
 				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
@@ -454,9 +468,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				new_character.loc = get_turf(synd_spawn)
 			call(/datum/game_mode/proc/equip_syndicate)(new_character)
 
-		if("Death Commando")//Leaves them at late-join spawn.
-			new_character.equip_death_commando()
-			new_character.internal = new_character.s_store
+		if("Deathsquad Commando")//Leaves them at late-join spawn.
+			new_character.equip_deathsquad_commando()
 			new_character.update_action_buttons_icon()
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
@@ -472,7 +485,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				//Add aliens.
 				else
-					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
+					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, FALSE, FALSE)
 					SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
@@ -616,27 +629,32 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(type == "Custom")
 		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
 
-	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
-	if(!customname)
+	var/subtitle = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
+	if(!subtitle)
 		return
-	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
-	if(!input)
+	var/message = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
+	if(!message)
 		return
 
 	switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
 		if("Yes")
 			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
 
-			GLOB.command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
-			print_command_report(input, customname)
+			GLOB.major_announcement.Announce(
+				message,
+				new_title = type,
+				new_subtitle = subtitle,
+				new_sound = MsgSound[beepsound]
+			)
+			print_command_report(message, subtitle)
 		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
 			GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
-			print_command_report(input, "Classified: [customname]")
+			print_command_report(message, "Classified: [subtitle]")
 		else
 			return
 
-	log_admin("[key_name(src)] has created a communications report: [input]")
+	log_admin("[key_name(src)] has created a communications report: [message]")
 	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Comms Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -756,7 +774,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] has gibbed [key_name(M)]")
 	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]", 1)
 
-	if(istype(M, /mob/dead/observer))
+	if(isobserver(M))
 		gibs(M.loc)
 		return
 
@@ -772,7 +790,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm == "Yes")
-		if(istype(mob, /mob/dead/observer)) // so they don't spam gibs everywhere
+		if(isobserver(mob)) // so they don't spam gibs everywhere
 			return
 		else
 			mob.gib()
@@ -1074,12 +1092,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(SSticker.mode.ert_disabled)
-		SSticker.mode.ert_disabled = 0
+		SSticker.mode.ert_disabled = FALSE
 		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
 	else
-		SSticker.mode.ert_disabled = 1
+		SSticker.mode.ert_disabled = TRUE
 		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)

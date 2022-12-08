@@ -4,18 +4,18 @@
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "fryer_off"
 	thiscooktype = "deep fried"
-	burns = 1
+	burns = TRUE
 	firechance = 100
 	cooktime = 200
 	foodcolor = "#FFAD33"
 	officon = "fryer_off"
 	onicon = "fryer_on"
 	openicon = "fryer_open"
-	has_specials = 1
-	upgradeable = 1
+	has_specials = TRUE
+	upgradeable = TRUE
 
-/obj/machinery/cooker/deepfryer/New()
-	..()
+/obj/machinery/cooker/deepfryer/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/deepfryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -23,8 +23,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/cooker/deepfryer/upgraded/New()
-	..()
+/obj/machinery/cooker/deepfryer/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/deepfryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -42,6 +42,47 @@
 /obj/machinery/cooker/deepfryer/gettype()
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
+
+/obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/ice))
+		var/ice_amount = I.reagents.get_reagent_amount("ice")
+		if(ice_amount)
+			I.reagents.remove_all(I.reagents.total_volume)
+			add_attack_logs(user, src, "poured [ice_amount]u ice into")
+			user.visible_message(
+				"<span class='warning'>[user] pours [I] into [src], and it seems to fizz a bit.</span>",
+				"<span class='warning'>You pour [I] into [src], and it seems to fizz a bit.</span>",
+				"You hear a splash, and a sizzle."
+			)
+
+			playsound(src, 'sound/goonstation/misc/drinkfizz.ogg', 25)
+			addtimer(CALLBACK(src, PROC_REF(boil_leadup), user), 4 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(make_foam), ice_amount), 5 SECONDS)
+
+			return TRUE
+
+	return ..()
+
+/obj/machinery/cooker/deepfryer/proc/boil_leadup(mob/user)
+	visible_message(
+		"<span class='danger'>[src] starts to bubble and froth unnervingly!</span>",
+		"<span class='danger'>You hear a growling and intimidating bubbling!</span>"
+	)
+
+	playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 75)
+	to_chat(user, "<span class='userdanger'>Are you sure that was such a good idea?</span>")
+
+/obj/machinery/cooker/deepfryer/examine(mob/user)
+	. = ..()
+	if(emagged)
+		. += "<span class='warning'>The heating element is smoking slightly.</span>"
+
+/obj/machinery/cooker/deepfryer/emag_act()
+	if(!emagged)
+		to_chat(usr, "<span class='warning'>You short out the fryer's safeties, allowing non-food objects to be placed in the oil.</span>")
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		emagged = TRUE
+		return
 
 /obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
 	if(ishuman(G.affecting))
@@ -63,6 +104,18 @@
 		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
 		return 0
 	return 0
+
+/// Make foam consisting of burning oil.
+/obj/machinery/cooker/deepfryer/proc/make_foam(ice_amount)
+	if(!reagents)
+		create_reagents()
+	// the cooking oil should spread through the foam.
+	// when it gets added, it's at 1000 degrees so it quickly fireflashes and reacts to form inert cooking oil.
+	reagents.add_reagent("cooking_oil", ice_amount * 2, reagtemp = 1000)
+	reagents.chem_temp = 1000
+	var/datum/effect_system/foam_spread/S = new()
+	S.set_up(ice_amount * 2, loc, reagents, FALSE)
+	S.start()
 
 
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)
@@ -140,3 +193,9 @@
 		return FALSE
 	var/obj/item/organ/external/E = I
 	return istype(E.dna.species, /datum/species/vox)
+
+/obj/machinery/cooker/deepfryer/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 30)

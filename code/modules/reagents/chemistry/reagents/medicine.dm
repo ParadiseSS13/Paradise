@@ -6,7 +6,7 @@
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
-	var/total_depletion_rate = (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio // Cache it
+	var/total_depletion_rate = metabolization_rate / M.metabolism_efficiency // Cache it
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
@@ -45,7 +45,7 @@
 /datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
 	id = "synaptizine"
-	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as paralysis."
+	description = "Synaptizine is used to treat neuroleptic shock. Can be used to help remove disabling symptoms such as confusion."
 	reagent_state = LIQUID
 	color = "#FA46FA"
 	overdose_threshold = 40
@@ -54,11 +54,10 @@
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
-	update_flags |= M.AdjustParalysis(-1, FALSE)
-	update_flags |= M.AdjustStunned(-1, FALSE)
-	update_flags |= M.AdjustWeakened(-1, FALSE)
-	update_flags |= M.SetSleeping(0, FALSE)
+	M.AdjustDrowsy(-10 SECONDS)
+	M.AdjustConfused(-10 SECONDS)
+	M.AdjustDizzy(-10 SECONDS)
+	M.SetSleeping(0)
 	if(prob(50))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	return ..() | update_flags
@@ -81,8 +80,8 @@
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
-			M.Dizzy(8)
-			update_flags |= M.Weaken(4, FALSE)
+			M.Dizzy(16 SECONDS)
+			M.Weaken(8 SECONDS)
 		if(effect <= 15)
 			update_flags |= M.adjustToxLoss(1, FALSE)
 	return list(effect, update_flags)
@@ -138,7 +137,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
 			if(head)
-				head.disfigured = FALSE
+				head.status &= ~ORGAN_DISFIGURED
 	return ..() | update_flags
 
 /datum/reagent/medicine/rezadone
@@ -161,14 +160,14 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head = H.get_organ("head")
 		if(head)
-			head.disfigured = FALSE
+			head.status &= ~ORGAN_DISFIGURED
 	return ..() | update_flags
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
-	M.Dizzy(5)
-	M.Jitter(5)
+	M.Dizzy(10 SECONDS)
+	M.Jitter(10 SECONDS)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/spaceacillin
@@ -345,7 +344,7 @@
 	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(50))
-		M.AdjustLoseBreath(-1)
+		M.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
@@ -353,36 +352,34 @@
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1) //lesser
-		M.AdjustStuttering(1)
+		M.AdjustStuttering(2 SECONDS)
 		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
+			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
 			M.emote("scream")
-			update_flags |= M.Stun(4, FALSE)
-			update_flags |= M.Weaken(4, FALSE)
+			M.Weaken(8 SECONDS)
 		else if(effect <= 3)
 			M.visible_message("<span class='warning'>[M] completely spaces out for a moment.</span>")
-			M.AdjustConfused(15)
+			M.AdjustConfused(30 SECONDS)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
-			M.Dizzy(5)
-			update_flags |= M.Weaken(3, FALSE)
+			M.Dizzy(10 SECONDS)
+			M.Weaken(6 SECONDS)
 		else if(effect <= 7)
 			M.visible_message("<span class='warning'>[M] shakes uncontrollably.</span>")
-			M.Jitter(30)
+			M.Jitter(60 SECONDS)
 	else if(severity == 2) // greater
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
+			M.visible_message("<span class='warning'>[M] suddenly clutches [M.p_their()] gut!</span>")
 			M.emote("scream")
-			update_flags |= M.Stun(7, FALSE)
-			update_flags |= M.Weaken(7, FALSE)
+			M.Weaken(14 SECONDS)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
-			update_flags |= M.Paralyse(5, FALSE)
-			update_flags |= M.Weaken(4, FALSE)
+			M.Paralyse(10 SECONDS)
+			M.Weaken(8 SECONDS)
 		else if(effect <= 8)
 			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
-			M.Dizzy(5)
-			update_flags |= M.Weaken(3, FALSE)
+			M.Dizzy(10 SECONDS)
+			M.Weaken(6 SECONDS)
 	return list(effect, update_flags)
 
 /datum/reagent/medicine/calomel
@@ -490,7 +487,7 @@
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustOxyLoss(-6*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	M.AdjustLoseBreath(-4)
+	M.AdjustLoseBreath(-8 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/perfluorodecalin
@@ -510,7 +507,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(volume >= 4)
-		M.LoseBreath(6)
+		M.LoseBreath(12 SECONDS)
 	if(prob(33))
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -530,14 +527,16 @@
 	harmless = FALSE
 	taste_description = "stimulation"
 
+//super weak antistun chem, barely any downside
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
-	update_flags |= M.AdjustParalysis(-1, FALSE)
-	update_flags |= M.AdjustStunned(-1, FALSE)
-	update_flags |= M.AdjustWeakened(-1, FALSE)
+	M.AdjustDrowsy(-10 SECONDS)
+	M.AdjustParalysis(-2 SECONDS)
+	M.AdjustStunned(-2 SECONDS)
+	M.AdjustWeakened(-2 SECONDS)
+	M.AdjustKnockDown(-2 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	M.AdjustLoseBreath(-1, bound_lower = 5)
+	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
 	if(M.health < 0 || M.health > 0 && prob(33))
@@ -564,8 +563,8 @@
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M.name] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
-			M.Dizzy(2)
-			update_flags |= M.Weaken(3, FALSE)
+			M.Dizzy(4 SECONDS)
+			M.Weaken(6 SECONDS)
 		if(effect <= 15)
 			M.emote("collapse")
 	return list(effect, update_flags)
@@ -582,14 +581,14 @@
 	taste_description = "antihistamine"
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
-	M.AdjustJitter(-20)
+	M.AdjustJitter(-40 SECONDS)
 	M.reagents.remove_reagent("histamine",3)
 	M.reagents.remove_reagent("itching_powder",3)
 	if(prob(7))
 		M.emote("yawn")
 	if(prob(3))
 
-		M.AdjustDrowsy(1)
+		M.AdjustDrowsy(2 SECONDS)
 		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
 	return ..()
 
@@ -608,16 +607,16 @@
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-25)
+	M.AdjustJitter(-50 SECONDS)
 	switch(current_cycle)
 		if(1 to 15)
 			if(prob(7))
 				M.emote("yawn")
 		if(16 to 35)
-			M.Drowsy(20)
+			M.Drowsy(40 SECONDS)
 		if(36 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
-			M.Drowsy(20)
+			M.Paralyse(30 SECONDS)
+			M.Drowsy(40 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/oculine
@@ -641,13 +640,13 @@
 				ears.AdjustEarDamage(-1)
 				if(ears.ear_damage < 25 && prob(30))
 					ears.deaf = 0
-		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
+		M.AdjustEyeBlurry(-2 SECONDS)
 		update_flags |= M.AdjustEarDamage(-1)
 	if(prob(50))
 		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
 	if(prob(30))
 		update_flags |= M.cure_blind(EYE_DAMAGE, FALSE)
-		update_flags |= M.SetEyeBlind(0, FALSE)
+		M.SetEyeBlind(0)
 	return ..() | update_flags
 
 /datum/reagent/medicine/atropine
@@ -663,11 +662,11 @@
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDizzy(1)
-	M.Confused(5)
+	M.AdjustDizzy(2 SECONDS)
+	M.Confused(10 SECONDS)
 	if(prob(4))
 		M.emote("collapse")
-	M.AdjustLoseBreath(-5, bound_lower = 5)
+	M.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 65)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -25)
@@ -692,19 +691,13 @@
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustDrowsy(-5)
-	if(prob(20))
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-	if(prob(20))
-		update_flags |= M.AdjustStunned(-1, FALSE)
-	if(prob(20))
-		update_flags |= M.AdjustWeakened(-1, FALSE)
+	M.AdjustDrowsy(-10 SECONDS)
 	if(prob(5))
-		update_flags |= M.SetSleeping(0, FALSE)
+		M.SetSleeping(0)
 	if(prob(5))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
-	M.AdjustLoseBreath(-1, bound_lower = 3)
+	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 6 SECONDS)
 	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.health < -10 && M.health > -65)
@@ -731,8 +724,8 @@
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
 			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
-			M.Dizzy(2)
-			update_flags |= M.Weaken(3, FALSE)
+			M.Dizzy(4 SECONDS)
+			M.Weaken(6 SECONDS)
 		if(effect <= 15)
 			M.emote("collapse")
 	return list(effect, update_flags)
@@ -788,6 +781,7 @@
 					M.adjustFireLoss(rand(0, 15))
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
+						H.decaylevel = 0
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
 						for(var/obj/item/organ/O in (H.bodyparts | H.internal_organs))
 							// Per non-vital body part:
@@ -803,6 +797,7 @@
 					M.grab_ghost()
 					M.update_revive()
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
+					SSblackbox.record_feedback("tally", "players_revived", 1, "strange_reagent")
 	..()
 
 /datum/reagent/medicine/mannitol
@@ -856,8 +851,8 @@
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetSlur(0)
-	M.AdjustDrunk(-4)
-	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8, 0, 1)
+	M.AdjustDrunk(-8 SECONDS)
+	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8)
 	if(M.getToxLoss() <= 25)
 		update_flags |= M.adjustToxLoss(-2.0, FALSE)
 	return ..() | update_flags
@@ -880,10 +875,10 @@
 		update_flags |= M.adjustFireLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.setStaminaLoss(0, FALSE)
 		M.SetSlowed(0)
-		M.AdjustDizzy(-10)
-		M.AdjustDrowsy(-10)
+		M.AdjustDizzy(-20 SECONDS)
+		M.AdjustDrowsy(-20 SECONDS)
 		M.SetConfused(0)
-		update_flags |= M.SetSleeping(0, FALSE)
+		M.SetSleeping(0)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
 		M.status_flags &= ~status
 	else
@@ -891,7 +886,7 @@
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
-			update_flags |= M.Stun(3, FALSE)
+			M.Stun(6 SECONDS)
 
 	return ..() | update_flags
 
@@ -899,6 +894,7 @@
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
 	..()
 
+//the highest end antistun chem, removes stun and stamina rapidly.
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
@@ -909,18 +905,16 @@
 	harmless = FALSE
 	can_synth = FALSE
 
+/datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/L)
+	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	ADD_TRAIT(M, TRAIT_GOTTAGOFAST, id)
-	if(M.health < 50 && M.health > 0)
-		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.AdjustParalysis(-3, FALSE)
-	update_flags |= M.AdjustStunned(-3, FALSE)
-	update_flags |= M.AdjustWeakened(-3, FALSE)
-	update_flags |= M.adjustStaminaLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	M.AdjustParalysis(-6 SECONDS)
+	M.AdjustStunned(-6 SECONDS)
+	M.AdjustWeakened(-6 SECONDS)
+	M.AdjustKnockDown(-6 SECONDS)
+	update_flags |= M.adjustStaminaLoss(-20*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
@@ -932,7 +926,7 @@
 	if(prob(33))
 		update_flags |= M.adjustStaminaLoss(2.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		M.AdjustLoseBreath(1)
+		M.AdjustLoseBreath(2 SECONDS)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/insulin
@@ -1010,6 +1004,7 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
+	harmless = FALSE
 	var/list/drug_list = list("crank", "methamphetamine", "space_drugs", "synaptizine", "psilocybin", "ephedrine", "epinephrine", "stimulants", "stimulative_agent", "bath_salts", "lsd", "thc")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
@@ -1018,11 +1013,13 @@
 		var/datum/reagent/R = I
 		if(drug_list.Find(R.id))
 			M.reagents.remove_reagent(R.id, 5)
-	update_flags |= M.AdjustDruggy(-5, FALSE)
-	M.AdjustHallucinate(-5)
-	M.AdjustJitter(-5)
-	if(prob(50))
-		M.Drowsy(3)
+	M.AdjustDruggy(-10 SECONDS)
+	M.AdjustHallucinate(-5 SECONDS)
+	M.AdjustJitter(-10 SECONDS)
+	if(prob(40))
+		M.EyeBlurry(10 SECONDS)
+	if(prob(75))
+		M.Confused(6 SECONDS)
 	if(prob(10))
 		M.emote("drool")
 	if(prob(20))
@@ -1041,16 +1038,16 @@
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-25)
+	M.AdjustJitter(-50 SECONDS)
 	switch(current_cycle)
 		if(1 to 30)
 			if(prob(7))
 				M.emote("yawn")
 		if(31 to 40)
-			M.Drowsy(20)
+			M.Drowsy(40 SECONDS)
 		if(41 to INFINITY)
-			update_flags |= M.Paralyse(15, FALSE)
-			M.Drowsy(20)
+			M.Paralyse(30 SECONDS)
+			M.Drowsy(40 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/syndicate_nanites //Used exclusively by Syndicate medical cyborgs
@@ -1121,11 +1118,8 @@
 
 /datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(50))		//Same effects as coffee, to help purge ill effects like paralysis
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-1, FALSE)
-		update_flags |= M.AdjustWeakened(-1, FALSE)
-		M.AdjustConfused(-5)
+	if(prob(50))
+		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
 			if(R.id == "ultralube" || R.id == "lube")
@@ -1218,7 +1212,6 @@
 		update_flags |= M.adjustOxyLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustCloneLoss(-0.1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustStaminaLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustBrainLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	else
 		update_flags |= M.adjustBruteLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -1226,10 +1219,9 @@
 		update_flags |= M.adjustOxyLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustCloneLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustStaminaLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		M.SetJitter(min(max(0, M.jitteriness + 3), 30))
+		M.AdjustJitter(6 SECONDS, 0, 60 SECONDS)
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //See above
-	update_flags |= M.SetDruggy(min(max(0, M.druggy + 10), 15), FALSE) //See above
+	M.AdjustDruggy(10 SECONDS, 0, 15 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/earthsblood/on_mob_add(mob/living/M)
@@ -1242,7 +1234,7 @@
 
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.SetHallucinate(min(max(0, M.hallucination + 5), 60))
+	M.AdjustHallucinate(5 SECONDS, 0, 60 SECONDS)
 	if(current_cycle > 25)
 		update_flags |= M.adjustToxLoss(4 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		if(current_cycle > 100) //podpeople get out reeeeeeeeeeeeeeeeeeeee
@@ -1261,12 +1253,12 @@
 /datum/reagent/medicine/nanocalcium
 	name = "Nano-Calcium"
 	id = "nanocalcium"
-	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
+	description = "Highly advanced nanites equipped with an unknown payload designed to repair a body. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
 	can_synth = FALSE
 	harmless = FALSE
-	taste_description = "wholeness"
+	taste_description = "2 minutes of suffering"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
@@ -1278,31 +1270,52 @@
 			has_stimulant = TRUE
 	switch(current_cycle)
 		if(1 to 19)
-			M.AdjustJitter(4)
+			M.AdjustJitter(8 SECONDS)
 			if(prob(10))
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
+				update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			for(var/datum/reagent/R in M.reagents.reagent_list)
+				if(stimulant_list.Find(R.id))
+					M.reagents.remove_reagent(R.id, 0.5) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(20 to 43)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(has_stimulant == TRUE)
 				update_flags |= M.adjustToxLoss(10, FALSE)
 			else //apply debilitating effects
 				if(prob(75))
-					M.AdjustConfused(5)
+					M.AdjustConfused(4 SECONDS)
 				else
-					update_flags |= M.AdjustWeakened(5, FALSE)
+					M.AdjustKnockDown(10 SECONDS) //You can still crawl around a bit for now, but soon suffering kicks in.
 		if(44)
 			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
-			update_flags |= M.AdjustWeakened(15, FALSE)
+			M.AdjustWeakened(30 SECONDS)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(has_stimulant == TRUE)
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
-					if(E.is_broken())
-						if(prob(50)) // Each tick has a 50% chance of repearing a bone.
+					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
+						if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED)) //I can't just check for !E.status
 							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
 							E.rejuvenate() //Repair it completely.
-							break
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.
+						I.heal_internal_damage(4)
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.7)// If below 70% blood, regenerate 150 units total
+						H.blood_volume += 10
+					for(var/datum/disease/critical/heart_failure/HF in H.viruses)
+						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+				if(M.health < 40)
+					update_flags |= M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+					update_flags |= M.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+					update_flags |= M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+					update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+				else
+					if(prob(25))
+						to_chat(M, "<span class='warning'>Your skin feels like it is ripping apart and your veins are on fire!</span>") //It is experimental and does cause scars, after all.
+						update_flags |= M.adjustBruteLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+						update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract
@@ -1322,7 +1335,7 @@
 
 /datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/M) // This WILL be brutal
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustConfused(5)
+	M.AdjustConfused(10 SECONDS)
 	update_flags |= M.adjustBruteLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustToxLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)

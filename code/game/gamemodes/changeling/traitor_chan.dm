@@ -9,6 +9,8 @@
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
 	secondary_protected_species = list("Machine")
+	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
+	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/traitor/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Traitor+Changeling!</B>")
@@ -26,27 +28,20 @@
 		if((player.mind in possible_changelings) && (player.client.prefs.active_character.species in secondary_protected_species))
 			possible_changelings -= player.mind
 
-	if(possible_changelings.len > 0)
-		for(var/I in possible_changelings)
-			if(length(changelings) >= secondary_enemies)
-				break
-			var/datum/mind/changeling = pick(possible_changelings)
-			changelings += changeling
-			modePlayer += changelings
-			possible_changelings -= changeling
-			changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
-			changeling.special_role = SPECIAL_ROLE_CHANGELING
-
+	if(!length(possible_changelings))
 		return ..()
-	else
-		return 0
+
+	for(var/I in possible_changelings)
+		if(length(pre_changelings) >= secondary_enemies)
+			break
+		var/datum/mind/changeling = pick_n_take(possible_changelings)
+		pre_changelings += changeling
+		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+		changeling.special_role = SPECIAL_ROLE_CHANGELING
+
+	return ..()
 
 /datum/game_mode/traitor/changeling/post_setup()
-	for(var/datum/mind/changeling in changelings)
-		grant_changeling_powers(changeling.current)
-		changeling.special_role = SPECIAL_ROLE_CHANGELING
-		forge_changeling_objectives(changeling)
-		greet_changeling(changeling)
-		update_change_icons_added(changeling)
+	for(var/datum/mind/changeling as anything in pre_changelings)
+		changeling.add_antag_datum(/datum/antagonist/changeling)
 	..()
-	return

@@ -56,14 +56,14 @@
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
-	else if(istype(W, /obj/item/screwdriver))
-		if(diode)
-			to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
-			diode.loc = get_turf(src.loc)
-			diode = null
-			return
-		..()
-	return
+/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
+	if(!diode)
+		return
+
+	to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
+	diode.forceMove(get_turf(loc))
+	diode = null
+	return TRUE
 
 /obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
@@ -118,7 +118,7 @@
 		//20% chance to actually hit the sensors
 		if(prob(effectchance * diode.rating))
 			S.flash_eyes(affect_silicon = 1)
-			S.Weaken(rand(5,10))
+			S.Weaken(rand(10 SECONDS, 20 SECONDS))
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
 

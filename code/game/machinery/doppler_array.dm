@@ -5,8 +5,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	desc = "A highly precise directional sensor array which measures the release of quants from decaying tachyons. The doppler shifting of the mirror-image formed by these quants can reveal the size, location and temporal affects of energetic disturbances within a large radius ahead of the array."
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "tdoppler"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	atom_say_verb = "states coldly"
 	var/list/logged_explosions = list()
 	var/explosion_target
@@ -26,8 +26,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	actual_size_message = log_actual_size_message
 	theoretical_size_message = log_theoretical_size_message
 
-/obj/machinery/doppler_array/New()
-	..()
+/obj/machinery/doppler_array/Initialize(mapload)
+	. = ..()
 	GLOB.doppler_arrays += src
 	explosion_target = rand(8, 20)
 	toxins_tech = new /datum/tech/toxins(src)
@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
 	atom_say("Printing explosive log. Standby...")
-	addtimer(CALLBACK(src, .proc/print), 50)
+	addtimer(CALLBACK(src, PROC_REF(print)), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")

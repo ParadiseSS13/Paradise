@@ -178,27 +178,35 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 /datum/ErrorViewer/ErrorEntry/showTo(user, datum/ErrorViewer/back_to, linear)
 	if(!istype(back_to))
 		back_to = error_source
+
 	var/html = buildHeader(back_to, linear)
+	html += "<div class='bad'><b>Be sure to censor out ckeys when copying runtimes!</b></div><br>"
 	html += "<div class='runtime'>[html_encode(name)]<br>[desc]</div>"
+
 	if(srcRef)
 		html += "<br>src: <a href='?_src_=vars;Vars=[srcUID]'>VV</a>"
+
 		if(ispath(srcType, /mob))
 			html += " <a href='?_src_=holder;adminplayeropts=[srcUID]'>PP</a>"
 			html += " <a href='?_src_=holder;adminplayerobservefollow=[srcUID]'>Follow</a>"
+
 		if(istype(srcLoc))
 			html += "<br>src.loc: <a href='?_src_=vars;Vars=[srcLoc.UID()]'>VV</a>"
 			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[srcLoc.x];Y=[srcLoc.y];Z=[srcLoc.z]'>JMP</a>"
+
 	if(usrRef)
 		html += "<br>usr: <a href='?_src_=vars;Vars=[usrUID]'>VV</a>"
 		html += " <a href='?_src_=holder;adminplayeropts=[usrUID]'>PP</a>"
 		html += " <a href='?_src_=holder;adminplayerobservefollow=[usrUID]'>Follow</a>"
+
 		if(istype(usrLoc))
 			html += "<br>usr.loc: <a href='?_src_=vars;Vars=[usrLoc.UID()]'>VV</a>"
 			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[usrLoc.x];Y=[usrLoc.y];Z=[usrLoc.z]'>JMP</a>"
+
 	browseTo(user, html)
 
 /datum/ErrorViewer/ErrorEntry/makeLink(linktext, datum/ErrorViewer/back_to, linear)
 	if(isSkipCount)
 		return html_encode(name)
-	else
-		return ..()
+
+	return ..()

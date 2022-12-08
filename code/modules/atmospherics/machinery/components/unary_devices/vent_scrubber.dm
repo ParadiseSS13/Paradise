@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber
 	icon = 'icons/atmos/vent_scrubber.dmi'
-	icon_state = "map_scrubber"
+	icon_state = "map_scrubber_off"
 
 	req_one_access_txt = "24;10"
 
@@ -12,7 +12,7 @@
 	idle_power_usage = 10
 	active_power_usage = 60
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/area/initial_loc
 
@@ -20,26 +20,27 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
-	var/scrub_O2 = 0
-	var/scrub_N2 = 0
-	var/scrub_CO2 = 1
-	var/scrub_Toxins = 0
-	var/scrub_N2O = 0
+	var/scrubbing = TRUE //FALSE = siphoning, TRUE = scrubbing
+	var/scrub_O2 = FALSE
+	var/scrub_N2 = FALSE
+	var/scrub_CO2 = TRUE
+	var/scrub_Toxins = FALSE
+	var/scrub_N2O = FALSE
 
 	var/volume_rate = 200
-	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
+	var/widenet = FALSE //is this scrubber acting on the 3x3 area around it.
 
-	var/welded = 0
+	var/welded = FALSE
 
 	var/area_uid
 	var/radio_filter_out
 	var/radio_filter_in
 
-	connect_types = list(1,3) //connects to regular and scrubber pipes
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SCRUBBER) //connects to regular and scrubber pipes
 
 /obj/machinery/atmospherics/unary/vent_scrubber/on
 	on = TRUE
+	icon_state = "map_scrubber"
 
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
 	..()
@@ -63,7 +64,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
+/obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()
 	if(welded)
 		. += "It seems welded shut."
@@ -95,16 +96,9 @@
 	use_power(amount, power_channel)
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/update_icon(safety = 0)
-	..()
-
+/obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
+	. = ..()
 	plane = FLOOR_PLANE
-
-	if(!check_icon_cache())
-		return
-
-	overlays.Cut()
-
 	var/scrubber_icon = "scrubber"
 
 	var/turf/T = get_turf(src)
@@ -115,10 +109,13 @@
 		scrubber_icon += "off"
 	else
 		scrubber_icon += "[on ? "[scrubbing ? "on" : "in"]" : "off"]"
+		if(on && widenet)
+			scrubber_icon += "_expanded"
+
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += SSair.icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	. += SSair.icon_manager.get_atmos_icon("device", state = scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
@@ -134,6 +131,9 @@
 				add_underlay(T, node, dir, node.icon_connect_type)
 			else
 				add_underlay(T,, dir)
+			var/icon/frame = icon('icons/atmos/vent_scrubber.dmi', "frame")
+			underlays += frame
+
 
 /obj/machinery/atmospherics/unary/vent_scrubber/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -201,7 +201,7 @@
 		return
 
 	if(!node)
-		on = 0
+		on = FALSE
 
 	if(welded)
 		return 0

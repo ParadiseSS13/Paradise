@@ -6,7 +6,7 @@
 	name = "passive vent"
 	desc = "A large air vent"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/volume = 250
 
@@ -67,3 +67,5 @@
 		if(!istype(T))
 			return
 		add_underlay(T, node, dir)
+		var/icon/frame = icon('icons/atmos/vent_pump.dmi', "frame")
+		underlays += frame

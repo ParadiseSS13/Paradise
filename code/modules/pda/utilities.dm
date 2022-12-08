@@ -58,7 +58,7 @@
 	icon = "link"
 
 /datum/data/pda/utility/scanmode/dna/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	if(istype(C, /mob/living/carbon/human))
+	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!istype(H.dna, /datum/dna))
 			to_chat(user, "<span class='notice'>No fingerprints found on [H]</span>")
@@ -121,8 +121,8 @@
 	if(istype(A, /obj/item/tank))
 		var/obj/item/tank/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
-	else if(istype(A, /obj/machinery/portable_atmospherics))
-		var/obj/machinery/portable_atmospherics/T = A
+	else if(istype(A, /obj/machinery/atmospherics/portable))
+		var/obj/machinery/atmospherics/portable/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
 	else if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/T = A
@@ -135,8 +135,8 @@
 		var/obj/item/flamethrower/T = A
 		if(T.ptank)
 			pda.atmosanalyzer_scan(T.ptank.air_contents, user, T)
-	else if(istype(A, /obj/machinery/portable_atmospherics/scrubber/huge))
-		var/obj/machinery/portable_atmospherics/scrubber/huge/T = A
+	else if(istype(A, /obj/machinery/atmospherics/portable/scrubber/huge))
+		var/obj/machinery/atmospherics/portable/scrubber/huge/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
 	else if(istype(A, /obj/machinery/atmospherics/unary/tank))
 		var/obj/machinery/atmospherics/unary/tank/T = A

@@ -9,6 +9,7 @@
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/chemtraces = list()
 	var/target_name = null
+	var/target_UID = null
 	var/timeofdeath = null
 
 /obj/item/autopsy_scanner/Destroy()
@@ -65,7 +66,7 @@
 				chemtraces += V
 
 /obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
-	if(istype(P, /obj/item/pen))
+	if(is_pen(P))
 		var/dead_name = input("Insert name of deceased individual")
 		var/dead_rank = input("Insert rank of deceased individual")
 		var/dead_tod = input("Insert time of death")
@@ -153,10 +154,11 @@
 	if(!istype(M))
 		return
 
-	if(!can_operate(M))
+	if(!on_operable_surface(M))
 		return
 
-	if(target_name != M.name)
+	if(target_UID != M.UID())
+		target_UID = M.UID()
 		target_name = M.name
 		wdata.Cut()
 		chemtraces.Cut()

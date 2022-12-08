@@ -13,6 +13,9 @@
 	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
+	var/alien_disarm_damage = 30 //Aliens deal a good amount of stamina damage on disarm intent
+	var/alien_slash_damage = 20 //Aliens deal a good amount of damage on harm intent
+	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
 	pass_flags = PASSTABLE
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
@@ -60,7 +63,7 @@
 		if(3.0)
 			b_loss += 30
 			if(prob(50) && !shielded)
-				Paralyse(1)
+				Paralyse(2 SECONDS)
 			AdjustEarDamage(15, 60)
 
 	take_overall_damage(b_loss, f_loss)
@@ -72,6 +75,10 @@
 
 
 /mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
+
+/mob/living/carbon/alien/humanoid/movement_delay() //Aliens have a varied movespeed
+	. = ..()
+	. += alien_movement_delay
 
 /mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
 	user.set_machine(src)
@@ -103,7 +110,7 @@
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free
 	..(I, cuff_break = 1)
 
-/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
+/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset()
 	if(leaping)
 		return -32
 	else if(custom_pixel_y_offset)

@@ -92,10 +92,8 @@
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE) + get_all_accesses()
 		if("Research Officer")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_STORAGE, ACCESS_CENT_TELECOMMS, ACCESS_CENT_TELEPORTER) + get_all_accesses()
-		if("Death Commando")
+		if("Deathsquad Commando")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_CENT_SPECOPS_COMMANDER, ACCESS_CENT_BLACKOPS) + get_all_accesses()
-		if("Deathsquad Officer")
-			return get_all_centcom_access() + get_all_accesses()
 		if("NT Undercover Operative")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
@@ -119,10 +117,6 @@
 			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 		if("Syndicate Agent")
 			return list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS)
-		if("Vox Raider")
-			return list(ACCESS_VOX)
-		if("Vox Trader")
-			return list(ACCESS_VOX)
 		if("Syndicate Commando")
 			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 		if("Syndicate Officer")
@@ -143,7 +137,7 @@
 	return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SHUTTLES, ACCESS_CENT_TELECOMMS, ACCESS_CENT_TELEPORTER, ACCESS_CENT_SPECOPS, ACCESS_CENT_SPECOPS_COMMANDER, ACCESS_CENT_BLACKOPS, ACCESS_CENT_THUNDER, ACCESS_CENT_BRIDGE, ACCESS_CENT_COMMANDER)
 
 /proc/get_all_syndicate_access()
-	return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_VOX, ACCESS_SYNDICATE_COMMAND)
+	return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND)
 
 /proc/get_all_misc_access()
 	return list(ACCESS_SALVAGE_CAPTAIN, ACCESS_TRADE_SOL, ACCESS_CRATE_CASH, ACCESS_AWAY01)
@@ -380,8 +374,6 @@
 			return "Syndicate Operative"
 		if(ACCESS_SYNDICATE_LEADER)
 			return "Syndicate Operative Leader"
-		if(ACCESS_VOX)
-			return "Vox"
 		if(ACCESS_SYNDICATE_COMMAND)
 			return "Syndicate Command"
 
@@ -396,7 +388,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Deathsquad Commando","Research Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
 
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Lieutenant","Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")

@@ -31,7 +31,7 @@
 	minbodytemp = 0
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	gold_core_spawnable = HOSTILE_SPAWN
+	gold_core_spawnable = NO_SPAWN
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -64,23 +64,22 @@
 	maxHealth = 150
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 
-
 /mob/living/simple_animal/hostile/alien/queen
 	name = "alien queen"
 	icon_state = "alienq_running"
 	icon_living = "alienq_running"
-	icon_dead = "alienq_d"
+	icon_dead = "alienq_dead"
 	health = 250
 	maxHealth = 250
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	move_to_delay = 4
@@ -134,7 +133,6 @@
 	health = 400
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 10, /obj/item/stack/sheet/animalhide/xeno = 2)
 	mob_size = MOB_SIZE_LARGE
-	gold_core_spawnable = NO_SPAWN
 
 /obj/item/projectile/neurotox
 	name = "neurotoxin"
@@ -153,14 +151,16 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
+	var/cleanspeed = 15
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
-	if(ismovable(target))
-		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
-			qdel(target)
-			return TRUE
-		var/atom/movable/M = target
-		M.clean_blood()
+	if(ishuman(target))
+		var/atom/movable/H = target
+		H.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
 		return TRUE
+	target.cleaning_act(src, src, cleanspeed, text_description = ".") //LXM is both the user and the cleaning implement itself. Wow!
+
+/mob/living/simple_animal/hostile/alien/maid/can_clean()
+	return TRUE
+

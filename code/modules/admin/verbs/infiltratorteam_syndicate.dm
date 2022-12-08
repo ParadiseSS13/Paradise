@@ -66,15 +66,12 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	var/list/sit_spawns = list()
 	var/list/sit_spawns_leader = list()
-	var/list/sit_spawns_mgmt = list()
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/L = thing
-		if(L.name == "Syndicate-Infiltrator")
+		if(istype(L, /obj/effect/landmark/spawner/syndicate_infiltrator))
 			sit_spawns += L
-		if(L.name == "Syndicate-Infiltrator-Leader")
+		if(istype(L, /obj/effect/landmark/spawner/syndicate_infiltrator_leader))
 			sit_spawns_leader += L
-		if(L.name == "Syndicate-Infiltrator-Admin")
-			sit_spawns_mgmt += L
 
 	var/num_spawned = 1
 	var/team_leader = null
@@ -90,7 +87,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy
 		to_chat(new_syndicate_infiltrator, "<span class='danger'>You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B></span>")
-		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink implant to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
+		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink bio-chip to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
 		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
 		if(syndicate_leader_selected)
@@ -105,7 +102,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You have more helpful information stored in your Notes.</span>")
 		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
-		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
+		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Bio-chip ((top left of screen)) <BR> - Dust Bio-chip ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink bio-chip")
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
 		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
@@ -181,8 +178,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	else
 		W.icon_state = "id"
 	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
-	W.assignment = "Civilian"
-	W.access += get_access("Civilian")
+	W.assignment = "Assistant"
+	W.access += get_access("Assistant")
 	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"

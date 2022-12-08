@@ -23,8 +23,8 @@ SUBSYSTEM_DEF(overlays)
 	return ..()
 
 
-/datum/controller/subsystem/overlays/stat_entry()
-	..("Ov:[length(queue)]")
+/datum/controller/subsystem/overlays/get_stat_details()
+	return "Ov:[length(queue)]"
 
 /datum/controller/subsystem/overlays/Recover()
 	overlay_icon_state_caches = SSoverlays.overlay_icon_state_caches
@@ -84,9 +84,7 @@ SUBSYSTEM_DEF(overlays)
 /atom/proc/build_appearance_list(old_overlays)
 	var/static/image/appearance_bro = new()
 	var/list/new_overlays = list()
-	if(!islist(old_overlays))
-		old_overlays = list(old_overlays)
-	for(var/overlay in old_overlays)
+	for(var/overlay in (islist(old_overlays) ? old_overlays : list(old_overlays)))
 		if(!overlay)
 			continue
 		if(istext(overlay))
@@ -94,7 +92,7 @@ SUBSYSTEM_DEF(overlays)
 		else if(isicon(overlay))
 			new_overlays += icon2appearance(overlay)
 		else
-			if(isloc(overlay))
+			if(isatom(overlay))
 				var/atom/A = overlay
 				if(A.flags_2 & OVERLAY_QUEUED_2)
 					COMPILE_OVERLAYS(A)

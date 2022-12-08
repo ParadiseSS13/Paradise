@@ -7,8 +7,8 @@
 	desc = "A huge pipe segment used for constructing disposal systems."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "conpipe-s"
-	anchored = 0
-	density = 0
+	anchored = FALSE
+	density = FALSE
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	level = 2
 	max_integrity = 200
@@ -171,20 +171,20 @@
 
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			if(ispipe)
 				level = 2
-				density = 0
+				density = FALSE
 			else
-				density = 1
+				density = TRUE
 			to_chat(user, "You detach the [nicetype] from the underfloor.")
 		else
-			anchored = 1
+			anchored = TRUE
 			if(ispipe)
 				level = 1 // We don't want disposal bins to disappear under the floors
-				density = 0
+				density = FALSE
 			else
-				density = 1 // We don't want disposal bins or outlets to go density 0
+				density = TRUE // We don't want disposal bins or outlets to go density 0
 			to_chat(user, "You attach the [nicetype] to the underfloor.")
 		playsound(src.loc, I.usesound, 100, 1)
 		update()
@@ -222,7 +222,7 @@
 						P.base_icon_state = base_state
 						P.dir = dir
 						P.dpdir = dpdir
-						P.update_icon()
+						P.update_icon(UPDATE_ICON_STATE)
 
 						//Needs some special treatment ;)
 						if(ptype == PIPE_DISPOSALS_SORT_RIGHT || ptype == PIPE_DISPOSALS_SORT_LEFT)

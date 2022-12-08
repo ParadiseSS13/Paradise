@@ -38,7 +38,7 @@
 			do_disease_transformation(affected_mob)
 
 /datum/disease/transformation/proc/do_disease_transformation(mob/living/affected_mob)
-	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
+	if(iscarbon(affected_mob) && affected_mob.stat != DEAD)
 		if(stage5)
 			to_chat(affected_mob, pick(stage5))
 		if(jobban_isbanned(affected_mob, job_role))
@@ -48,8 +48,7 @@
 			return
 		if(transformation_text)
 			to_chat(affected_mob, transformation_text)
-		affected_mob.notransform = 1
-		affected_mob.canmove = 0
+		affected_mob.notransform = TRUE
 		affected_mob.icon = null
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101
@@ -65,6 +64,7 @@
 			var/obj/O = affected_mob.loc
 			O.force_eject_occupant(affected_mob)
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
+		affected_mob.create_log(MISC_LOG, "has transformed into [new_mob], due to having the virus \"[src]\"")
 		if(istype(new_mob))
 			new_mob.a_intent = "harm"
 			if(affected_mob.mind)
@@ -112,7 +112,7 @@
 		if(3)
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.AdjustConfused(10)
+				affected_mob.AdjustConfused(20 SECONDS)
 		if(4)
 			if(prob(3))
 				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."))
@@ -145,7 +145,7 @@
 				affected_mob.say(pick("Beep, boop", "beep, beep!", "Boop...bop"))
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.Paralyse(2)
+				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
 				affected_mob.say(pick("beep, beep!", "Boop bop boop beep.", "kkkiiiill mmme", "I wwwaaannntt tttoo dddiiieeee..."))
@@ -175,7 +175,7 @@
 		if(3)
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head.</span>")
-				affected_mob.Paralyse(2)
+				affected_mob.Paralyse(4 SECONDS)
 		if(4)
 			if(prob(20))
 				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"))

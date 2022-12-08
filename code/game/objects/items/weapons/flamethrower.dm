@@ -12,7 +12,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(MAT_METAL=500)
+	materials = list(MAT_METAL = 5000)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	var/status = FALSE
@@ -40,7 +40,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return null
 	var/turf/location = loc
-	if(istype(location, /mob/))
+	if(ismob(location))
 		var/mob/M = location
 		if(M.l_hand == src || M.r_hand == src)
 			location = M.loc
@@ -48,14 +48,8 @@
 		igniter.flamethrower_process(location)
 
 
-/obj/item/flamethrower/update_icon()
-	cut_overlays()
-	if(igniter)
-		add_overlay("+igniter[status]")
-	if(ptank)
-		add_overlay("+ptank")
+/obj/item/flamethrower/update_icon_state()
 	if(lit)
-		add_overlay("+lit")
 		item_state = "flamethrower_1"
 	else
 		item_state = "flamethrower_0"
@@ -63,6 +57,15 @@
 		var/mob/M = loc
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
+
+/obj/item/flamethrower/update_overlays()
+	. = ..()
+	if(igniter)
+		. += "+igniter[status]"
+	if(ptank)
+		. += "+ptank"
+	if(lit)
+		. += "+lit"
 
 /obj/item/flamethrower/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)

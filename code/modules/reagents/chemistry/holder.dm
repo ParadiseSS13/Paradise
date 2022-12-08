@@ -130,7 +130,7 @@
 	if(total_volume <= 0)
 		return
 	var/datum/reagents/R
-	if(istype(target, /obj))
+	if(isobj(target))
 		var/obj/O = target
 		if(!O.reagents)
 			return
@@ -237,17 +237,28 @@
 	R.handle_reactions()
 	return amount
 
+/datum/reagents/proc/can_metabolize(mob/living/carbon/human/H, datum/reagent/R)
+	if(!H.dna.species || !H.dna.species.reagent_tag)
+		return FALSE
+	if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
+		return TRUE
+	if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
+		return TRUE
+	//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
+	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
+		return TRUE
 
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
+		M.absorb_blood()
 
-	for(var/thing in addiction_threshold_accumulated)
-		if(has_reagent(thing))
+	for(var/datum/reagent/R as anything in addiction_threshold_accumulated)
+		if(has_reagent(initial(R.id)))
 			continue // if we have the reagent in our system, then don't deplete the addiction threshold
-		addiction_threshold_accumulated[thing] -= 0.01 // Otherwise very slowly deplete the buildup
-		if(addiction_threshold_accumulated[thing] <= 0)
-			addiction_threshold_accumulated -= thing
+		addiction_threshold_accumulated[R] -= initial(R.addiction_decay_rate) // Otherwise very slowly deplete the buildup (defaults to 0.01)
+		if(addiction_threshold_accumulated[R] <= 0)
+			addiction_threshold_accumulated -= R
 
 	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
 	var/update_flags = STATUS_UPDATE_NONE
@@ -260,17 +271,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent
-			var/can_process = FALSE
-			//If we somehow avoided getting a species or reagent_tag set, we'll assume we aren't meant to process ANY reagents (CODERS: SET YOUR SPECIES AND TAG!)
-			if(H.dna.species && H.dna.species.reagent_tag)
-				if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-					can_process = TRUE
-				if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-					can_process = TRUE
-				//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-				if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
-					can_process = TRUE
-
+			var/can_process = can_metabolize(H, R)
 			//If handle_reagents returns 0, it's doing the reagent removal on its own
 			var/species_handled = !(H.dna.species.handle_reagents(H, R))
 			can_process = can_process && !species_handled
@@ -297,7 +298,7 @@
 				if(overdose_results) // to protect against poorly-coded overdose procs
 					update_flags |= overdose_results[REAGENT_OVERDOSE_FLAGS]
 				else
-					log_runtime(EXCEPTION("Reagent '[R.name]' does not return an overdose info list!"))
+					stack_trace("Reagent '[R.name]' does not return an overdose info list!")
 
 	for(var/AB in addiction_list)
 		var/datum/reagent/R = AB
@@ -327,19 +328,13 @@
 	else if(update_flags & STATUS_UPDATE_STAT)
 		// update_stat is called in updatehealth
 		M.update_stat("reagent metabolism")
-	if(update_flags & STATUS_UPDATE_CANMOVE)
-		M.update_canmove()
 	if(update_flags & STATUS_UPDATE_STAMINA)
 		M.update_stamina()
 		M.update_health_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
-	if(update_flags & STATUS_UPDATE_BLURRY)
-		M.update_blurry_effects()
 	if(update_flags & STATUS_UPDATE_NEARSIGHTED)
 		M.update_nearsighted_effects()
-	if(update_flags & STATUS_UPDATE_DRUGGY)
-		M.update_druggy_effects()
 	update_total()
 
 /datum/reagents/proc/death_metabolize(mob/living/M)
@@ -485,8 +480,8 @@
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
 		if(R.id == reagent)
-			if(isliving(my_atom))
-				var/mob/living/M = my_atom
+			if(ishuman(my_atom) && can_metabolize(my_atom, R))
+				var/mob/living/carbon/human/M = my_atom
 				R.on_mob_delete(M)
 			cached_reagents -= A
 			qdel(A)
@@ -537,7 +532,7 @@
 		react_type = "LIVING"
 	else if(isturf(A))
 		react_type = "TURF"
-	else if(istype(A, /obj))
+	else if(isobj(A))
 		react_type = "OBJ"
 	else
 		return
@@ -622,7 +617,7 @@
 		if(data)
 			R.data = data
 
-		if(isliving(my_atom))
+		if(ishuman(my_atom) && can_metabolize(my_atom, R))
 			R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
 		update_total()
 		if(my_atom)
@@ -702,10 +697,10 @@
 		// Switch between how we check the reagent type
 		if(strict)
 			if(R.type == reagent_type)
-				matches = FALSE
+				matches = TRUE
 		else
 			if(istype(R, reagent_type))
-				matches = FALSE
+				matches = TRUE
 		// We found a match, proceed to remove the reagent.	Keep looping, we might find other reagents of the same type.
 		if(matches)
 			// Have our other proc handle removement
@@ -869,3 +864,4 @@
 	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
+	my_atom = null

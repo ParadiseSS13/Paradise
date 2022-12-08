@@ -15,7 +15,13 @@
 	var/client/C = mymob.client
 	if(!apply_parallax_pref())
 		return
-
+	// this is needed so it blends properly with the space plane and blackness plane.
+	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
+	S.color = list(1, 1, 1, 1,
+				   1, 1, 1, 1,
+				   1, 1, 1, 1,
+				   1, 1, 1, 1,)
+	S.appearance_flags |= NO_CLIENT_COLOR
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_1(null, C.view)
@@ -36,12 +42,15 @@
 	var/client/C = mymob.client
 	C.screen -= (C.parallax_layers_cached + C.parallax_static_layers_tail)
 	C.parallax_layers = null
+	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
+	S.color = null
+	S.appearance_flags &= ~NO_CLIENT_COLOR
 
 /datum/hud/proc/apply_parallax_pref()
 	var/client/C = mymob.client
 	if(C.prefs)
 		var/pref = C.prefs.parallax
-		if (isnull(pref))
+		if(isnull(pref))
 			pref = PARALLAX_HIGH
 		switch(C.prefs.parallax)
 			if (PARALLAX_INSANE)
@@ -121,7 +130,7 @@
 	C.parallax_movedir = new_parallax_movedir
 	if(C.parallax_animate_timer)
 		deltimer(C.parallax_animate_timer)
-	var/datum/callback/CB = CALLBACK(src, .proc/update_parallax_motionblur, C, animatedir, new_parallax_movedir, newtransform)
+	var/datum/callback/CB = CALLBACK(src, PROC_REF(update_parallax_motionblur), C, animatedir, new_parallax_movedir, newtransform)
 	if(skip_windups)
 		CB.Invoke()
 	else
@@ -192,17 +201,12 @@
 		if(L.view_sized != C.view)
 			L.update_o(C.view)
 
-		var/change_x
-		var/change_y
-
 		if(L.absolute)
 			L.offset_x = -(posobj.x - SSparallax.planet_x_offset) * L.speed
 			L.offset_y = -(posobj.y - SSparallax.planet_y_offset) * L.speed
 		else
-			change_x = offset_x * L.speed
-			L.offset_x -= change_x
-			change_y = offset_y * L.speed
-			L.offset_y -= change_y
+			L.offset_x -= offset_x * L.speed
+			L.offset_y -= offset_y * L.speed
 
 			if(L.offset_x > 240)
 				L.offset_x -= 480
@@ -212,10 +216,6 @@
 				L.offset_y -= 480
 			if(L.offset_y < -240)
 				L.offset_y += 480
-
-		if(!(areaobj.parallax_movedir && areaobj.moving) && C.dont_animate_parallax <= world.time && (offset_x || offset_y) && abs(offset_x) <= max(C.parallax_throttle/world.tick_lag+1,1) && abs(offset_y) <= max(C.parallax_throttle/world.tick_lag+1,1) && (round(abs(change_x)) > 1 || round(abs(change_y)) > 1))
-			L.transform = matrix(1, 0, offset_x*L.speed, 0, 1, offset_y*L.speed)
-			animate(L, transform=matrix(), time = last_delay)
 
 		L.screen_loc = "CENTER-7:[round(L.offset_x,1)],CENTER-7:[round(L.offset_y,1)]"
 
@@ -293,6 +293,7 @@
 
 /obj/screen/parallax_layer/random/asteroids
 	icon_state = "asteroids"
+	layer = 4
 
 /obj/screen/parallax_layer/planet
 	icon_state = "planet"

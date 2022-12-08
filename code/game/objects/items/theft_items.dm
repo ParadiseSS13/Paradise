@@ -89,7 +89,7 @@
 	core = new_core
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
 /obj/item/nuke_core_container/proc/unload(mob/user)
 	core.add_fingerprint(user)
@@ -236,7 +236,7 @@
 	I.item_state = "supermatter_tongs"
 	icon_state = "supermatter_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
@@ -355,6 +355,8 @@
 	else if(istype(AM, /obj/singularity))
 		return
 	else if(istype(AM, /obj/item/nuke_core_container))
+		return
+	else if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
 		return
 	else
 		investigate_log("has consumed [AM].", "supermatter")

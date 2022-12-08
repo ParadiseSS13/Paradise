@@ -20,6 +20,9 @@ GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_co
     GLOB.command_announcer = new(null)
   return
 
+///Library Catalog global is for storing a library catalog datum that will track book, category, and report lists for the library
+GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
+
 GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
 	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
 	"table","td","th","tr"))
@@ -42,11 +45,6 @@ GLOBAL_VAR_INIT(timezoneOffset, 0) // The difference betwen midnight (of the hos
 GLOBAL_VAR_INIT(fileaccess_timer, 0)
 
 GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
-
-//printers shutdown if too much shit printed
-GLOBAL_VAR_INIT(copier_items_printed, 0)
-GLOBAL_VAR_INIT(copier_max_items, 300)
-GLOBAL_VAR_INIT(copier_items_printed_logged, FALSE)
 
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest, etc
 

@@ -52,6 +52,9 @@
 
 /obj/item/grown/bananapeel/Initialize(mapload)
 	. = ..()
+	choose_icon_state()
+
+/obj/item/grown/bananapeel/proc/choose_icon_state()
 	icon_state = "[icon_state]_[rand(1, 3)]"
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)
@@ -123,8 +126,9 @@
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
 
-/obj/item/grown/bananapeel/specialpeel/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 2, 2, 100, 0, FALSE)
+/obj/item/grown/bananapeel/specialpeel/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
 
 /obj/item/grown/bananapeel/specialpeel/after_slip(mob/living/carbon/human/H)
 	. = ..()

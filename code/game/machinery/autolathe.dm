@@ -6,18 +6,17 @@
 	name = "autolathe"
 	desc = "It produces items using metal and glass."
 	icon_state = "autolathe"
-	density = 1
+	density = TRUE
 
-	var/operating = 0.0
 	var/list/queue = list()
 	var/queue_max_len = 12
 	var/turf/BuildTurf
-	anchored = 1.0
+	anchored = TRUE
 	var/list/L = list()
 	var/list/LL = list()
-	var/hacked = 0
-	var/disabled = 0
-	var/shocked = 0
+	var/hacked = FALSE
+	var/disabled = FALSE
+	var/shocked = FALSE
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
@@ -39,9 +38,9 @@
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 	var/board_type = /obj/item/circuitboard/autolathe
 
-/obj/machinery/autolathe/New()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
-	..()
+/obj/machinery/autolathe/Initialize()
+	. = ..()
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	component_parts = list()
 	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -55,8 +54,8 @@
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
 
-/obj/machinery/autolathe/upgraded/New()
-	..()
+/obj/machinery/autolathe/upgraded/Initialize()
+	. = ..()
 	component_parts = list()
 	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -66,20 +65,10 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/autolathe/upgraded/gamma/New()
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/autolathe(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	RefreshParts()
-
 /obj/machinery/autolathe/upgraded/gamma/Initialize()
-    . = ..()
-    adjust_hacked(TRUE)
+	. = ..()
+	files = new /datum/research/autolathe/gamma(src)
+	adjust_hacked(TRUE)
 
 /obj/machinery/autolathe/Destroy()
 	SStgui.close_uis(wires)
@@ -514,8 +503,6 @@
 	name = "syndicate autolathe"
 	board_type = /obj/item/circuitboard/autolathe/syndi
 
-/obj/machinery/autolathe/syndicate/New()
-	..()
-	if(files)
-		QDEL_NULL(files)
+/obj/machinery/autolathe/syndicate/Initialize()
+	. = ..()
 	files = new /datum/research/autolathe/syndicate(src)

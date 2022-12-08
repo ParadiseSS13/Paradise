@@ -29,5 +29,5 @@
 
 /mob/living/simple_animal/bunny/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
-		get_scooped(M)
+		get_scooped(M, TRUE)
 	..()

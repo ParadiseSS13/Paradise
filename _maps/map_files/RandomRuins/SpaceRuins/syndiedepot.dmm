@@ -387,7 +387,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -506,7 +506,7 @@
 	},
 /area/syndicate_depot/outer)
 "bz" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -544,7 +544,7 @@
 	},
 /area/syndicate_depot/core)
 "bG" = (
-/obj/machinery/vending/syndisnack,
+/obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -627,7 +627,7 @@
 	},
 /area/syndicate_depot/core)
 "bQ" = (
-/obj/machinery/vending/syndicigs,
+/obj/machinery/economy/vending/syndicigs,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

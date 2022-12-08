@@ -9,9 +9,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	var/drydesc = "It's dry and crusty. Someone is not doing their job."
 	gender = PLURAL
 	density = FALSE
-	anchored = TRUE
 	layer = TURF_LAYER
-	plane = GAME_PLANE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
@@ -40,7 +38,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
 	if(!.)
-		dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
@@ -51,6 +49,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(basecolor == "rainbow")
 		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	color = basecolor
+	..()
 
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
@@ -137,27 +136,33 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	desc = "They look bloody and gruesome."
 	gender = PLURAL
 	density = FALSE
-	anchored = TRUE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "gibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
 	mergeable_decal = FALSE
-
+	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
 
-/obj/effect/decal/cleanable/blood/gibs/update_icon()
-	var/image/giblets = new(base_icon, "[icon_state]_flesh", dir)
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	giblets = null
+	return ..()
+
+/obj/effect/decal/cleanable/blood/gibs/update_icon(updates = ALL)
+	if(!updates)
+		return
+	giblets = new(base_icon, "[icon_state]_flesh", dir)
 	if(!fleshcolor || fleshcolor == "rainbow")
 		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	giblets.color = fleshcolor
 	var/icon/blood = new(base_icon,"[icon_state]",dir)
-
 	icon = blood
-	overlays.Cut()
-	overlays += giblets
 	. = ..()
+
+/obj/effect/decal/cleanable/blood/gibs/update_overlays()
+	. = ..()
+	. += giblets
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity)
 	return
@@ -181,6 +186,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 	scoop_reagents = null
+	mergeable_decal = TRUE
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
 	set waitfor = 0

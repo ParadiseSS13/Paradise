@@ -10,9 +10,8 @@
 
 	for(var/i=1, i <= lightsoutAmount, i++)
 		var/list/possibleEpicentres = list()
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/newEpicentre = thing
-			if(newEpicentre.name == "lightsout" && !(newEpicentre in epicentreList))
+		for(var/obj/effect/landmark/lightsout/newEpicentre in GLOB.landmarks_list)
+			if(!(newEpicentre in epicentreList))
 				possibleEpicentres += newEpicentre
 		if(possibleEpicentres.len)
 			epicentreList += pick(possibleEpicentres)
@@ -25,4 +24,4 @@
 	for(var/thing in epicentreList)
 		var/obj/effect/landmark/epicentre = thing
 		for(var/obj/machinery/power/apc/apc in range(epicentre, lightsoutRange))
-			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
+			INVOKE_ASYNC(apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))

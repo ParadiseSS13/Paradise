@@ -47,7 +47,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
-	armour_penetration = 50
+	armour_penetration_percentage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	speed = 10
@@ -58,7 +58,7 @@ Difficulty: Hard
 	loot = list(/obj/item/hierophant_club)
 	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
-	internal_type = /obj/item/gps/internal/hierophant
+	internal_gps = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
@@ -186,13 +186,13 @@ Difficulty: Hard
 
 	else if(prob(70 - anger_modifier)) //a cross blast of some type
 		if(prob(anger_modifier * (2 / target_slowness)) && health < maxHealth * 0.5) //we're super angry do it at all dirs
-			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.alldirs)
+			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.alldirs)
 		else if(prob(60))
-			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.cardinal)
+			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.cardinal)
 		else
-			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.diagonals)
+			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.diagonals)
 	else //just release a burst of power
-		INVOKE_ASYNC(src, .proc/burst, get_turf(src))
+		INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
@@ -210,7 +210,7 @@ Difficulty: Hard
 			blinking = TRUE
 			SLEEP_CHECK_DEATH(4 + target_slowness)
 		animate(src, color = oldcolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 		SLEEP_CHECK_DEATH(8)
 		blinking = FALSE
 	else
@@ -226,12 +226,12 @@ Difficulty: Hard
 	while(!QDELETED(target) && cross_counter)
 		cross_counter--
 		if(prob(60))
-			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.cardinal)
+			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.cardinal)
 		else
-			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.diagonals)
+			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.diagonals)
 		SLEEP_CHECK_DEATH(6 + target_slowness)
 	animate(src, color = oldcolor, time = 8)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 	SLEEP_CHECK_DEATH(8)
 	blinking = FALSE
 
@@ -259,7 +259,7 @@ Difficulty: Hard
 		SLEEP_CHECK_DEATH(8 + target_slowness)
 	chaser_cooldown = world.time + initial(chaser_cooldown)
 	animate(src, color = oldcolor, time = 8)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 	SLEEP_CHECK_DEATH(8)
 	blinking = FALSE
 
@@ -277,7 +277,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(2)
 	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
 	for(var/d in directions)
-		INVOKE_ASYNC(src, .proc/blast_wall, T, d)
+		INVOKE_ASYNC(src, PROC_REF(blast_wall), T, d)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blast_wall(turf/T, set_dir) //make a wall of blasts beam_range tiles long
 	var/range = beam_range
@@ -296,13 +296,12 @@ Difficulty: Hard
 		return
 	arena_cooldown = world.time + initial(arena_cooldown)
 	for(var/d in GLOB.cardinal)
-		INVOKE_ASYNC(src, .proc/arena_squares, T, d)
-	for(var/t in RANGE_TURFS(11, T))
-		if(t && get_dist(t, T) == 11)
-			new /obj/effect/temp_visual/hierophant/wall(t, src)
-			new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
+		INVOKE_ASYNC(src, PROC_REF(arena_squares), T, d)
+	for(var/t in RANGE_EDGE_TURFS(11, T))
+		new /obj/effect/temp_visual/hierophant/wall(t, src)
+		new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
 	if(get_dist(src, T) >= 11) //hey you're out of range I need to get closer to you!
-		INVOKE_ASYNC(src, .proc/blink, T)
+		INVOKE_ASYNC(src, PROC_REF(blink), T)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/arena_squares(turf/T, set_dir) //make a fancy effect extending from the arena target
 	var/turf/previousturf = T
@@ -398,14 +397,14 @@ Difficulty: Hard
 	if(health > 0 || stat == DEAD)
 		return
 	else
-		stat = DEAD
+		set_stat(DEAD)
 		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
 		visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")
 		visible_message("<span class='hierophant_warning'>[src] shrinks, releasing a massive burst of energy!</span>")
 		for(var/mob/living/L in view(7, src))
 			stored_nearby += L // store the people to grant the achievements to once we die
 		hierophant_burst(null, get_turf(src), 10)
-		stat = CONSCIOUS // deathgasp wont run if dead, stupid
+		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
 		..(/* force_grant = stored_nearby */)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
@@ -448,10 +447,10 @@ Difficulty: Hard
 				if(ranged_cooldown <= world.time)
 					calculate_rage()
 					ranged_cooldown = world.time + max(5, ranged_cooldown_time - anger_modifier * 0.75)
-					INVOKE_ASYNC(src, .proc/burst, get_turf(src))
+					INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src))
 				else
 					burst_range = 3
-					INVOKE_ASYNC(src, .proc/burst, get_turf(src), 0.25) //melee attacks on living mobs cause it to release a fast burst if on cooldown
+					INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src), 0.25) //melee attacks on living mobs cause it to release a fast burst if on cooldown
 				OpenFire()
 			else
 				devour(L)
@@ -512,18 +511,23 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
 	name = "vortex wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
-	icon_state = "wall"
+	icon_state = "hierophant_wall_temp-0"
+	base_icon_state = "hierophant_wall_temp"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	duration = 100
-	smooth = SMOOTH_TRUE
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/hierophant/wall/Destroy()
-	queue_smooth_neighbors(src)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
@@ -561,7 +565,7 @@ Difficulty: Hard
 	friendly_fire_check = is_friendly_fire
 	if(new_speed)
 		speed = new_speed
-	addtimer(CALLBACK(src, .proc/seek_target), 1)
+	addtimer(CALLBACK(src, PROC_REF(seek_target)), 1)
 
 /obj/effect/temp_visual/hierophant/chaser/proc/get_target_dir()
 	. = get_cardinal_dir(src, targetturf)
@@ -645,7 +649,7 @@ Difficulty: Hard
 	if(ismineralturf(loc)) //drill mineral turfs
 		var/turf/simulated/mineral/M = loc
 		M.gets_drilled(caster)
-	INVOKE_ASYNC(src, .proc/blast)
+	INVOKE_ASYNC(src, PROC_REF(blast))
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
@@ -668,7 +672,7 @@ Difficulty: Hard
 		return
 	for(var/mob/living/L in T.contents - hit_things) //find and damage mobs...
 		hit_things += L
-		if((friendly_fire_check && caster && caster.faction_check_mob(L)) || L.stat == DEAD)
+		if((friendly_fire_check && caster && L.faction_check_mob(caster)) || L.stat == DEAD)
 			continue
 		L.flash_screen_color("#660099", 1)
 		playsound(L,'sound/weapons/sear.ogg', 50, TRUE, -4)
@@ -717,7 +721,7 @@ Difficulty: Hard
 		if(H.beacon == src)
 			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")
 			H.timer = world.time + 51
-			INVOKE_ASYNC(H, /obj/item/hierophant_club.proc/prepare_icon_update)
+			INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
 			if(do_after(user, 50, target = src))
 				playsound(src,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
@@ -727,7 +731,7 @@ Difficulty: Hard
 				qdel(src)
 			else
 				H.timer = world.time
-				INVOKE_ASYNC(H, /obj/item/hierophant_club.proc/prepare_icon_update)
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
 		else
 			to_chat(user, "<span class='hierophant_warning'>You touch the beacon with the club, but nothing happens.</span>")
 	else

@@ -46,6 +46,7 @@
 			mind.transfer_to(new_xeno)
 		else
 			new_xeno.key = key
+		SSblackbox.record_feedback("tally", "alien_growth", 1, "[lowertext(alien_caste)]")
 		new_xeno.mind.name = new_xeno.name
 		qdel(src)
 		return

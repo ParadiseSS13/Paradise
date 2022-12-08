@@ -8,9 +8,9 @@
 	recipe_type = RECIPE_OVEN
 	off_icon = "oven_off"
 	on_icon = "oven_on"
-	broken_icon = "oven_broke"
 	dirty_icon = "oven_dirty"
 	open_icon = "oven_open"
+	soundloop_type = /datum/looping_sound/kitchen/oven
 
 // see code/modules/food/recipes_oven.dm for recipes
 
@@ -18,8 +18,8 @@
 *   Initialising
 ********************/
 
-/obj/machinery/kitchen_machine/oven/New()
-	..()
+/obj/machinery/kitchen_machine/oven/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/oven(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -28,8 +28,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/kitchen_machine/oven/upgraded/New()
-	..()
+/obj/machinery/kitchen_machine/oven/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/oven(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -60,7 +60,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		C.apply_damage(5, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
 		C.apply_damage(15, BRUTE, "head")
-		C.Weaken(2)
+		C.Weaken(4 SECONDS)
 		add_attack_logs(user, G.affecting, "Smashed with [src]")
 		qdel(G) //Removes the grip to prevent rapid bashes. With the weaken, you PROBABLY can't run unless they are slow to grab you again...
 		return 0

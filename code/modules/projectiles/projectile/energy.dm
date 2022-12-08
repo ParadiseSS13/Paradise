@@ -4,17 +4,16 @@
 	damage = 0
 	damage_type = BURN
 	flag = "energy"
-	is_reflectable = TRUE
+	reflectability = REFLECTABILITY_ENERGY
 
 /obj/item/projectile/energy/electrode
 	name = "electrode"
 	icon_state = "spark"
 	color = "#FFFF00"
 	nodamage = 1
-	stun = 5
-	weaken = 5
-	stutter = 5
-	jitter = 20
+	weaken = 10 SECONDS
+	stutter = 10 SECONDS
+	jitter = 40 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
@@ -30,7 +29,7 @@
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
 			spawn(5)
-				C.do_jitter_animation(jitter)
+				C.Jitter(jitter)
 
 /obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)
@@ -44,30 +43,16 @@
 	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
-/obj/item/projectile/energy/dart
-	name = "dart"
-	icon_state = "toxin"
-	damage = 5
-	damage_type = TOX
-	weaken = 5
-	range = 7
-
-/obj/item/projectile/energy/shuriken
-	name = "shuriken"
-	icon_state = "toxin"
-	damage = 10
-	damage_type = TOX
-	weaken = 5
-	stutter = 5
-
 /obj/item/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
 	damage_type = TOX
-	nodamage = 0
-	weaken = 5
-	stutter = 5
+	nodamage = FALSE
+	stamina = 60
+	eyeblur = 20 SECONDS
+	knockdown = 2 SECONDS
+	slur = 10 SECONDS
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20
@@ -99,15 +84,15 @@
 	damage = 60
 	damage_type = BURN
 	range = 9
-	weaken = 1 //This is going to knock you off your feet
-	eyeblur = 5
+	knockdown = 4 SECONDS //This is going to knock you off your feet
+	eyeblur = 10 SECONDS
 	speed = 2
 	alwayslog = TRUE
 
 /obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
 	var/obj/item/projectile/energy/bsg/P = BB
-	addtimer(CALLBACK(P, /obj/item/projectile/energy/bsg/.proc/make_chain, P, user), 1)
+	addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/projectile/energy/bsg, make_chain), P, user), 1)
 
 /obj/item/projectile/energy/bsg/proc/make_chain(obj/item/projectile/P, mob/user)
 	P.chain = P.Beam(user, icon_state = "sm_arc_supercharged", icon = 'icons/effects/beam.dmi', time = 10 SECONDS, maxdistance = 30)
@@ -140,7 +125,7 @@
 			add_attack_logs(src, M, "Hit heavily by [src]")
 			if(floored)
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
-				M.Weaken(1)
+				M.KnockDown(4 SECONDS)
 			else
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
 		else
@@ -148,9 +133,17 @@
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5), BURN)
 
-/obj/item/projectile/energy/toxplasma
+/obj/item/projectile/energy/weak_plasma
 	name = "plasma bolt"
-	icon_state = "energy"
-	damage = 20
-	damage_type = TOX
-	irradiate = 20
+	icon_state = "plasma_light"
+	damage = 12.5
+	damage_type = BURN
+
+/obj/item/projectile/energy/charged_plasma
+	name = "charged plasma bolt"
+	icon_state = "plasma_heavy"
+	damage = 45
+	damage_type = BURN
+	armour_penetration_flat = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
+	shield_buster = TRUE
+	reflectability = REFLECTABILITY_PHYSICAL //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard. Carp still can reflect though, screw you.

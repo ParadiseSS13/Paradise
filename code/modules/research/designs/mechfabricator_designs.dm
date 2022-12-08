@@ -672,12 +672,12 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_taser
-	name = "Exosuit Weapon (PBT \"Pacifier\" Mounted Taser)"
-	id = "mech_taser"
+/datum/design/mech_disabler
+	name = "Exosuit Weapon (CH-DS \"Peacemaker\" Disabler)"
+	id = "mech_disabler"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -892,17 +892,6 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_disabler
-	name = "Exosuit Weapon (CH-PD Disabler)"
-	desc = "Allows for the construction of CH-PD Disabler."
-	id = "mech_disabler"
-	build_type = MECHFAB
-	req_tech = list("combat" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
-	materials = list(MAT_METAL=10000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
 /datum/design/mech_carbine
 	name = "Exosuit Weapon (FNX-99 \"Hades\" Carbine)"
 	desc = "Allows for the construction of FNX-99 \"Hades\" Carbine."
@@ -994,7 +983,7 @@
 //Cyborg Upgrade Modules
 
 /datum/design/borg_upgrade_reset
-	name = "Cyborg Upgrade Module (Reset)"
+	name = "Cyborg Upgrade Module (Module Reset)"
 	id = "borg_upgrade_reset"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/reset
@@ -1037,16 +1026,6 @@
 	build_path = /obj/item/borg/upgrade/thrusters
 	req_tech = list("engineering" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL=10000, MAT_PLASMA=5000, MAT_URANIUM = 6000)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_upgrade_disablercooler
-	name = "Cyborg Upgrade Module (Rapid Disabler Cooling)"
-	id = "borg_upgrade_disablercooler"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/disablercooler
-	req_tech = list("combat" = 7, "powerstorage" = 7, "engineering" = 7)
-	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_GOLD= 2000, MAT_DIAMOND = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 

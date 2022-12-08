@@ -8,7 +8,7 @@
 	name = "manual switching valve"
 	desc = "A pipe valve"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/state = TVALVE_STATE_STRAIGHT
 
@@ -21,11 +21,11 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/flipped
 	icon_state = "map_tvalvem0"
-	flipped = 1
+	flipped = TRUE
 
 /obj/machinery/atmospherics/trinary/tvalve/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = 1
+	flipped = TRUE
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/update_icon(animation)
@@ -36,6 +36,7 @@
 		flick("tvalve[flipstate][state][!state]",src)
 	else
 		icon_state = "tvalve[flipstate][state]"
+	..()
 
 /obj/machinery/atmospherics/trinary/tvalve/update_underlays()
 	if(..())
@@ -121,11 +122,11 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped
 	icon_state = "map_tvalvem0"
-	flipped = 1
+	flipped = TRUE
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = 1
+	flipped = TRUE
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/power_change()
@@ -134,9 +135,7 @@
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/update_icon()
-	..()
-
+/obj/machinery/atmospherics/trinary/tvalve/digital/update_icon_state()
 	if(!powered())
 		icon_state = "tvalvenopower"
 

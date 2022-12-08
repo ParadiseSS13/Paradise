@@ -1,7 +1,14 @@
 import { Fragment } from 'inferno';
-import { useBackend } from "../backend";
-import { Box, Button, Flex, LabeledList, ProgressBar, Section } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  Flex,
+  LabeledList,
+  ProgressBar,
+  Section,
+} from '../components';
+import { Window } from '../layouts';
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];
@@ -19,12 +26,7 @@ export const HandheldChemDispenser = (props, context) => {
 
 const HandheldChemDispenserSettings = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    amount,
-    energy,
-    maxEnergy,
-    mode,
-  } = data;
+  const { amount, energy, maxEnergy, mode } = data;
   return (
     <Section title="Settings" flex="content">
       <LabeledList>
@@ -37,7 +39,8 @@ const HandheldChemDispenserSettings = (properties, context) => {
               good: [maxEnergy * 0.5, Infinity],
               average: [maxEnergy * 0.25, maxEnergy * 0.5],
               bad: [-Infinity, maxEnergy * 0.25],
-            }}>
+            }}
+          >
             {energy} / {maxEnergy} Units
           </ProgressBar>
         </LabeledList.Item>
@@ -51,9 +54,11 @@ const HandheldChemDispenserSettings = (properties, context) => {
                   content={a}
                   m="0"
                   width="100%"
-                  onClick={() => act('amount', {
-                    amount: a,
-                  })}
+                  onClick={() =>
+                    act('amount', {
+                      amount: a,
+                    })
+                  }
                 />
               </Flex.Item>
             ))}
@@ -63,33 +68,39 @@ const HandheldChemDispenserSettings = (properties, context) => {
           <Flex direction="row" justify="space-between">
             <Button
               icon="cog"
-              selected={mode === "dispense"}
+              selected={mode === 'dispense'}
               content="Dispense"
               m="0"
               width="32%"
-              onClick={() => act('mode', {
-                mode: "dispense",
-              })}
+              onClick={() =>
+                act('mode', {
+                  mode: 'dispense',
+                })
+              }
             />
             <Button
               icon="cog"
-              selected={mode === "remove"}
+              selected={mode === 'remove'}
               content="Remove"
               m="0"
               width="32%"
-              onClick={() => act('mode', {
-                mode: "remove",
-              })}
+              onClick={() =>
+                act('mode', {
+                  mode: 'remove',
+                })
+              }
             />
             <Button
               icon="cog"
-              selected={mode === "isolate"}
+              selected={mode === 'isolate'}
               content="Isolate"
               m="0"
               width="32%"
-              onClick={() => act('mode', {
-                mode: "isolate",
-              })}
+              onClick={() =>
+                act('mode', {
+                  mode: 'isolate',
+                })
+              }
             />
           </Flex>
         </LabeledList.Item>
@@ -100,10 +111,7 @@ const HandheldChemDispenserSettings = (properties, context) => {
 
 const HandheldChemDispenserChemicals = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    chemicals = [],
-    current_reagent,
-  } = data;
+  const { chemicals = [], current_reagent } = data;
   const flexFillers = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
     flexFillers.push(true);
@@ -111,14 +119,16 @@ const HandheldChemDispenserChemicals = (properties, context) => {
   return (
     <Section
       title={data.glass ? 'Drink Selector' : 'Chemical Selector'}
-      flexGrow="1">
+      flexGrow="1"
+    >
       <Flex
         direction="row"
         wrap="wrap"
         height="100%"
         spacingPrecise="2"
         align="flex-start"
-        alignContent="flex-start">
+        alignContent="flex-start"
+      >
         {chemicals.map((c, i) => (
           <Flex.Item
             key={i}
@@ -126,7 +136,8 @@ const HandheldChemDispenserChemicals = (properties, context) => {
             basis="25%"
             height="20px"
             width="30%"
-            display="inline-block">
+            display="inline-block"
+          >
             <Button
               icon="arrow-circle-down"
               overflow="hidden"
@@ -136,9 +147,11 @@ const HandheldChemDispenserChemicals = (properties, context) => {
               height="100%"
               align="flex-start"
               content={c.title}
-              onClick={() => act('dispense', {
-                reagent: c.id,
-              })}
+              onClick={() =>
+                act('dispense', {
+                  reagent: c.id,
+                })
+              }
             />
           </Flex.Item>
         ))}

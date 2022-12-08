@@ -15,7 +15,7 @@
 
 /obj/item/holder/process()
 
-	if(istype(loc,/turf) || !(contents.len))
+	if(isturf(loc) || !(contents.len))
 
 		for(var/mob/M in contents)
 
@@ -41,6 +41,10 @@
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
+/obj/item/holder/examine(mob/user)
+	for(var/mob/living/M in contents)
+		. += M.examine(user)
+
 /obj/item/holder/container_resist(mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
@@ -48,29 +52,29 @@
 		M.unEquip(src)
 		to_chat(M, "[src] wriggles out of your grip!")
 		to_chat(L, "You wriggle out of [M]'s grip!")
-	else if(istype(loc,/obj/item))
+	else if(isitem(loc))
 		to_chat(L, "You struggle free of [loc].")
 		forceMove(get_turf(src))
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
-			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/holder))
+			if(istype(A, /obj/item/holder))
 				return
 		M.status_flags &= ~PASSEMOTES
 
 	return
 
-//Mob procs and vars for scooping up
-/mob/living/var/holder_type
-
-/mob/living/proc/get_scooped(mob/living/carbon/grabber)
-	if(!holder_type)	return
+/mob/living/proc/get_scooped(mob/living/carbon/grabber, has_variant = FALSE)
+	if(!holder_type)
+		return
 
 	var/obj/item/holder/H = new holder_type(loc)
-	src.forceMove(H)
+	forceMove(H)
 	H.name = name
-	if(istype(H, /obj/item/holder/mouse))	H.icon_state = icon_state
-	if(desc)	H.desc = desc
+	if(has_variant)
+		H.icon_state = icon_state
+	if(desc)
+		H.desc = desc
 	H.attack_hand(grabber)
 
 	to_chat(grabber, "<span class='notice'>You scoop up \the [src].")
@@ -110,3 +114,9 @@
 	desc = "Awww a cute bunny"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "m_bunny"
+
+/obj/item/holder/chicken
+	name = "chicken"
+	desc = "Hopefully the eggs are good this season."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "chicken_brown"

@@ -33,7 +33,7 @@ Ask ninjanomnom if they're around
 
 #define RAD_MOB_KNOCKDOWN 2000						// How much stored radiation to check for stunning
 #define RAD_MOB_KNOCKDOWN_PROB 1					// Chance of knockdown per tick when over threshold
-#define RAD_MOB_KNOCKDOWN_AMOUNT 3					// Amount of knockdown when it occurs
+#define RAD_MOB_KNOCKDOWN_AMOUNT 6 SECONDS 			// Amount of knockdown when it occurs
 
 #define RAD_NO_INSULATION 1.0						// For things that shouldn't become irradiated for whatever reason
 #define RAD_VERY_LIGHT_INSULATION 0.9				// What girders have

@@ -20,7 +20,7 @@
 		var/datum/robot_component/C = owner.components[c]
 		data["component_data"] += list(list(
 			"name" = C.name,
-			"installed" = C.installed,
+			"installed" = C.is_destroyed() ? -1 : C.installed,
 			"brute_damage" = C.brute_damage,
 			"electronic_damage" = C.electronics_damage,
 			"max_damage" = C.max_damage,

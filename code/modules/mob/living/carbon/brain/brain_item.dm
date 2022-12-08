@@ -33,7 +33,7 @@
 /obj/item/organ/internal/brain/proc/transfer_identity(mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
-		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
+		stack_trace("[src] at [loc] did not contain a dna datum at time of removal.")
 		dna = H.dna.Clone()
 	name = "\the [dna.real_name]'s [initial(src.name)]"
 	brainmob.dna = dna.Clone() // Silly baycode, what you do
@@ -61,23 +61,21 @@
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
-		var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
-		if(borer)
-			borer.leave_host() //Should remove borer if the brain is removed - RR
-
 		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
-	if(istype(owner,/mob/living/carbon/human))
+	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair()
+	
+	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
 /obj/item/organ/internal/brain/insert(mob/living/target,special = 0)
 
 	name = "[initial(name)]"
 	var/brain_already_exists = 0
-	if(istype(target,/mob/living/carbon/human)) // No more IPC multibrain shenanigans
+	if(ishuman(target)) // No more IPC multibrain shenanigans
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
 			brain_already_exists = 1
 

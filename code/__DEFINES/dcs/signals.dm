@@ -70,13 +70,29 @@
 	#define EXAMINE_POSITION_BEFORE (1<<1)
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
-///from base of atom/update_icon(): ()
+	///from base of [/atom/proc/update_appearance]: (updates)
+	#define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its name.
+	#define COMSIG_ATOM_NO_UPDATE_NAME UPDATE_NAME
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its desc.
+	#define COMSIG_ATOM_NO_UPDATE_DESC UPDATE_DESC
+	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its icon.
+	#define COMSIG_ATOM_NO_UPDATE_ICON UPDATE_ICON
+///from base of [/atom/proc/update_name]: (updates)
+#define COMSIG_ATOM_UPDATE_NAME "atom_update_name"
+///from base of [/atom/proc/update_desc]: (updates)
+#define COMSIG_ATOM_UPDATE_DESC "atom_update_desc"
+///from base of [/atom/update_icon]: ()
 #define COMSIG_ATOM_UPDATE_ICON "atom_update_icon"
-	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE	(1<<0)
-	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS		(1<<1)
-///from base of atom/update_overlays(): (list/new_overlays)
+	/// If returned from [COMSIG_ATOM_UPDATE_ICON] it prevents the atom from updating its icon state.
+	#define COMSIG_ATOM_NO_UPDATE_ICON_STATE UPDATE_ICON_STATE
+	/// If returned from [COMSIG_ATOM_UPDATE_ICON] it prevents the atom from updating its overlays.
+	#define COMSIG_ATOM_NO_UPDATE_OVERLAYS UPDATE_OVERLAYS
+///Sent after [atom/update_icon_state] is called by [/atom/update_icon]: ()
+#define COMSIG_ATOM_UPDATE_ICON_STATE "atom_update_icon_state"
+///Sent after [atom/update_overlays] is called by [/atom/update_icon]: (list/new_overlays)
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
-///from base of atom/update_icon(): (signalOut, did_anything)
+///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
 ///from base of atom/Entered(): (atom/movable/entering, /atom)
 #define COMSIG_ATOM_ENTERED "atom_entered"
@@ -158,6 +174,18 @@
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
+/// Called when an atom is sharpened or dulled.
+#define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+
+// Attack signals. These should share the returned flags, to standardize the attack chain.
+// The chain currently works like:
+// tool_act -> pre_attack -> target.attackby (item.attack) -> afterattack
+// You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
+	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
+	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
+
+/// Called from atom/Initialize() of target: (atom/target)
+#define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -268,7 +296,8 @@
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
-
+///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
+#define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
 
 // /datum/mind signals
 
@@ -334,11 +363,30 @@
 ///from /mob/say_dead(): (mob/speaker, message)
 #define COMSIG_MOB_DEADSAY "mob_deadsay"
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT (1<<0)
-///from /mob/living/emote(): ()
+
+/// Signal fired when an emote is used but before it's executed.
+///from /datum/emote/proc/try_run_emote(): (key, intentional)
+#define COMSIG_MOB_PREEMOTE "mob_preemote"
+	// Use these to block execution of emotes from components.
+	/// Return this to block an emote and let the user know the emote is unusable.
+	#define COMPONENT_BLOCK_EMOTE_UNUSABLE (1<<0)
+	/// Return this to block an emote silently.
+	#define COMPONENT_BLOCK_EMOTE_SILENT (1<<1)
+/// General signal fired when a mob does any old emote
+///from /datum/emote/proc/run_emote(): (key, intentional)
 #define COMSIG_MOB_EMOTE "mob_emote"
+/// Specific signal used to track when a specific emote is used.
+/// From /datum/emote/run_emote(): (P, key, m_type, message, intentional)
+#define COMSIG_MOB_EMOTED(emote_key) "mob_emoted_[emote_key]"
+/// From /datum/emote/select_param(): (target, key, intentional)
+#define COMSIG_MOB_EMOTE_AT "mob_emote_at"
+	#define COMPONENT_BLOCK_EMOTE_ACTION (1<<2)
+
 ///from base of mob/swap_hand(): (obj/item)
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 	#define COMPONENT_BLOCK_SWAP (1<<0)
+
+
 
 // /mob/living signals
 
@@ -354,6 +402,14 @@
 #define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
 ///sent by stuff like stunbatons and tasers: ()
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
+///Sent from defibrillators when everything seems good and the user will be shocked: (defibber, defib_item, ghost)
+#define COMSIG_LIVING_PRE_DEFIB "living_pre_defib"
+	/// If returned from LIVING_BEFORE_DEFIB or LIVING_DEFIBBED, the defibrillation will fail
+	#define COMPONENT_BLOCK_DEFIB (1<<0)
+	/// If returned, don't even show the "failed" message, defer to the signal handler to do that.
+	#define COMPONENT_DEFIB_OVERRIDE (1<<1)
+///send from defibs on ressurection: (defibber, defib_item, ghost)
+#define COMSIG_LIVING_DEFIBBED "living_defibbed"
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
 ///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
@@ -367,20 +423,26 @@
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 ///sent from borg mobs to itself, for tools to catch an upcoming destroy() due to safe decon (rather than detonation)
 #define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"
+///sent from living mobs every tick of fire
+#define COMSIG_LIVING_FIRE_TICK "living_fire_tick"
+//sent from living mobs when they are ahealed
+#define COMSIG_LIVING_AHEAL "living_aheal"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
-
-///from base of mob/living/Stun() (amount, update, ignore)
+// none of these are called as of right now, as there is nothing listening for them.
+///from base of mob/living/Stun() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_STUN "living_stun"
-///from base of mob/living/Knockdown() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown"
-///from base of mob/living/Paralyze() (amount, update, ignore)
-#define COMSIG_LIVING_STATUS_PARALYZE "living_paralyze"
-///from base of mob/living/Immobilize() (amount, update, ignore)
+///from base of mob/living/Stun() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_WEAKEN "living_weaken"
+///from base of mob/living/Knockdown() (amount, ignore_canstun)
+///#define COMSIG_LIVING_STATUS_KNOCKDOWN "living_knockdown" // one day
+///from base of mob/living/Paralyse() (amount, ignore_canstun)
+#define COMSIG_LIVING_STATUS_PARALYSE "living_paralyse"
+///from base of mob/living/Immobilize() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_IMMOBILIZE "living_immobilize"
-///from base of mob/living/Unconscious() (amount, update, ignore)
+///from base of mob/living/Unconscious() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_UNCONSCIOUS "living_unconscious"
-///from base of mob/living/Sleeping() (amount, update, ignore)
+///from base of mob/living/Sleeping() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_SLEEP "living_sleeping"
 	#define COMPONENT_NO_STUN (1<<0)									//For all of them
 ///from base of /mob/living/can_track(): (mob/user)
@@ -403,6 +465,11 @@
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
+/// From /mob/living/carbon/swap_hand(): Called when the user swaps their active hand
+#define COMSIG_CARBON_SWAP_HANDS "carbon_swap_hands"
+/// From /mob/living/carbon/toggle_throw_mode()
+#define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
+
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
@@ -455,13 +522,14 @@
 #define COMSIG_ITEM_PICKUP "item_pickup"
 ///from base of mob/living/carbon/attacked_by(): (mob/living/carbon/target, mob/living/user, hit_zone)
 #define COMSIG_ITEM_ATTACK_ZONE "item_attack_zone"
-///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/targeted/lichdom/cast(): (mob/user)
+///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/lichdom/cast(): (mob/user)
 #define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
-///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/targeted/summonitem/cast() : (mob/user)
+///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/summonitem/cast() : (mob/user)
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1<<0)
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
+	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
 ///called on item when crossed by something (): (/atom/movable, mob/living/crossed)
 #define COMSIG_ITEM_WEARERCROSSED "wearer_crossed"
 ///called on item when microwaved (): (obj/machinery/microwave/M)
@@ -585,6 +653,11 @@
 #define COMSIG_JOB_RECEIVED "job_received"
 // called after DNA is updated
 #define COMSIG_HUMAN_UPDATE_DNA "human_update_dna"
+/// From mob/living/carbon/human/change_body_accessory(): (mob/living/carbon/human/H, body_accessory_style)
+#define COMSIG_HUMAN_CHANGE_BODY_ACCESSORY "human_change_body_accessory"
+	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
+/// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
+#define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
 
 // /datum/species signals
 
@@ -751,3 +824,7 @@
 // /obj/machinery/door/airlock signals
 #define COMSIG_AIRLOCK_OPEN "airlock_open"
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
+
+// /datum/objective signals
+///from datum/objective/proc/find_target()
+#define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"

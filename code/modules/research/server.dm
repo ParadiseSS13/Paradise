@@ -1,7 +1,7 @@
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "RD-server"
+	icon_state = "RD-server-off"
 	var/datum/research/files
 	var/health = 100
 	var/list/id_with_upload = list()		//List of R&D consoles with upload to server access.
@@ -15,8 +15,8 @@
 	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
 
-/obj/machinery/r_n_d/server/New()
-	..()
+/obj/machinery/r_n_d/server/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -25,8 +25,8 @@
 	RefreshParts()
 	initialize_serv(); //Agouri // fuck you agouri
 
-/obj/machinery/r_n_d/server/upgraded/New()
-	..()
+/obj/machinery/r_n_d/server/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -44,15 +44,15 @@
 		tot_rating += SP.rating
 	heat_gen /= max(1, tot_rating)
 
-/obj/machinery/r_n_d/server/update_icon()
+/obj/machinery/r_n_d/server/update_icon_state()
 	if(stat & NOPOWER)
-		icon_state = "[initial(icon_state)]-off"
-		return
-	icon_state = "[initial(icon_state)]-on"
+		icon_state = "RD-server-off"
+	else
+		icon_state = "RD-server-on"
 
 /obj/machinery/r_n_d/server/power_change()
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/r_n_d/server/proc/initialize_serv()
 	if(!files)
@@ -140,16 +140,6 @@
 				air_update_turf()
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(disabled)
-		return
-
-	if(shocked)
-		shock(user,50)
-
-	if(istype(O, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", O)
-		return 1
-
 	if(exchange_parts(user, O))
 		return 1
 
@@ -161,13 +151,9 @@
 	else
 		return ..()
 
-/obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
-	if(disabled)
-		return
-
-	if(shocked)
-		shock(user,50)
-	return
+/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
+	return TRUE
 
 /obj/machinery/r_n_d/server/centcom
 	name = "CentComm. Central R&D Database"
@@ -352,7 +338,7 @@
 /obj/machinery/computer/rdservercontrol/emag_act(user as mob)
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
 	src.updateUsrDialog()
 
@@ -364,7 +350,7 @@
 	plays_sound = 1
 
 /obj/machinery/r_n_d/server/robotics
-	name = "Robotics and Mechanic R&D Server"
+	name = "Robotics R&D Server"
 	id_with_upload_string = "1;2;4"
 	id_with_download_string = "1;2;4"
 	server_id = 2

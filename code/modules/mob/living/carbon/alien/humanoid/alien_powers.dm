@@ -13,7 +13,7 @@ Doesn't work on other aliens/AI.*/
 	else if(X && getPlasma() < X)
 		to_chat(src, "<span class='noticealien'>Not enough plasma stored.</span>")
 		return 0
-	else if(Y && (!isturf(src.loc) || istype(src.loc, /turf/space)))
+	else if(Y && (!isturf(src.loc) || isspaceturf(src.loc)))
 		to_chat(src, "<span class='noticealien'>You can't place that here!</span>")
 		return 0
 	else	return 1
@@ -89,10 +89,13 @@ Doesn't work on other aliens/AI.*/
 	set name = "Spit Neurotoxin (50)"
 	set desc = "Spits neurotoxin at someone, paralyzing them for a short time."
 	set category = "Alien"
+	var/obj/item/organ/internal/xenos/neurotoxin/organ = locate() in internal_organs
 
-	if(powerc(50))
+	if(powerc(50) && !organ.neurotoxin_cooldown)
 		adjustPlasma(-50)
-		src.visible_message("<span class='danger'>[src] spits neurotoxin!", "<span class='alertalien'>You spit neurotoxin.</span>")
+		visible_message("<span class='danger'>[src] spits neurotoxin!</span>", "<span class='alertalien'>You spit neurotoxin.</span>")
+		organ.neurotoxin_cooldown = TRUE
+		addtimer(VARSET_CALLBACK(organ, neurotoxin_cooldown, FALSE), organ.neurotoxin_cooldown_time)
 
 		var/turf/T = loc
 		var/turf/U = get_step(src, dir) // Get the tile infront of the move, based on their direction
@@ -102,6 +105,7 @@ Doesn't work on other aliens/AI.*/
 		var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(usr.loc)
 		A.current = U
 		A.firer = src
+		A.firer_source_atom = src
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
 		A.fire()
@@ -114,10 +118,15 @@ Doesn't work on other aliens/AI.*/
 	set desc = "Secrete tough malleable resin."
 	set category = "Alien"
 
-	if(powerc(55))
+	if(powerc(55, TRUE))
 		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
 
-		if(!choice || !powerc(55))	return
+		if(!choice || !powerc(55, TRUE))
+			return
+		var/obj/structure/alien/resin/T = locate() in get_turf(src)
+		if(T)
+			to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
+			return
 		adjustPlasma(-55)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)

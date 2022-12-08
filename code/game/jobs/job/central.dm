@@ -39,7 +39,7 @@
 	)
 	box = /obj/item/storage/box/centcomofficer
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened
 	)
 
 /datum/outfit/job/ntnavyofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -94,8 +94,8 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/eyes/cybernetic/xray/hardened,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 

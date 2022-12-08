@@ -14,15 +14,15 @@
 	desc = "A machine that combines ingredients and bottles the resulting beverages."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "bottler_off"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/list/slots[3]
 	var/list/datum/bottler_recipe/available_recipes
 	var/list/acceptable_items
 	var/list/containers = list("glass bottle" = 10, "plastic bottle" = 20, "metal can" = 25)
-	var/bottling = 0
+	var/bottling = FALSE
 
-/obj/machinery/bottler/New()
+/obj/machinery/bottler/Initialize(mapload)
 	. = ..()
 	if(!available_recipes)
 		available_recipes = list()
@@ -57,7 +57,7 @@
 		else if(istype(O, /obj/item/reagent_containers/food/drinks/cans))
 			var/obj/item/reagent_containers/food/drinks/cans/C = O
 			if(C.reagents)
-				if(C.canopened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
+				if(C.can_opened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
 					to_chat(user, "<span class='warning'>Only unopened cans and bottles can be processed to ensure product integrity.</span>")
 					return 0
 				user.unEquip(C)
@@ -235,7 +235,7 @@
 	if(containers[con_type])
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
-		drink_container.canopened = TRUE
+		drink_container.can_opened = TRUE
 		drink_container.container_type |= OPENCONTAINER
 		drink_container.forceMove(loc)
 		containers[con_type]--
@@ -270,7 +270,7 @@
 		containers[con_type]--
 	//select and process a recipe based on inserted ingredients
 	visible_message("<span class='notice'>[src] hums as it processes the ingredients...</span>")
-	bottling = 1
+	bottling = TRUE
 	var/datum/bottler_recipe/recipe_to_use = select_recipe()
 	if(!recipe_to_use)
 		//bad recipe, ruins the drink
@@ -288,7 +288,7 @@
 	flick("bottler_on", src)
 	spawn(45)
 		resetSlots()
-		bottling = 0
+		bottling = FALSE
 		drink_container.forceMove(loc)
 		updateUsrDialog()
 
@@ -399,7 +399,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/bottler/update_icon()
+/obj/machinery/bottler/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "bottler_broken"
 	else if(bottling)

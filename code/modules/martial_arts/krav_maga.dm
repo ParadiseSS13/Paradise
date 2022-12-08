@@ -42,6 +42,9 @@
 	if(owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You can't use Krav Maga while you're incapacitated.</span>")
 		return
+	if(!owner.get_num_legs())
+		to_chat(owner, "<span class='warning'>You can't leg sweep someone if you have no legs.</spawn>")
+		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
 	var/mob/living/carbon/human/H = owner
@@ -68,6 +71,9 @@
 
 /datum/martial_art/krav_maga/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
+	if(HAS_TRAIT(H, TRAIT_PACIFISM))
+		to_chat(H, "<span class='warning'>The arts of Krav Maga echo uselessly in your head, the thought of their violence repulsive to you!</span>")
+		return
 	to_chat(H, "<span class = 'userdanger'>You know the arts of Krav Maga!</span>")
 	to_chat(H, "<span class = 'danger'>Place your cursor over a move at the top of the screen to see what it does.</span>")
 	neutral.Grant(H)
@@ -88,7 +94,7 @@
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	var/picked_hit_type = pick("punches", "kicks")
 	var/bonus_damage = 10
-	if(D.IsWeakened() || D.resting || D.lying)
+	if(IS_HORIZONTAL(D))
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, BRUTE)
@@ -104,6 +110,7 @@
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
+	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	var/obj/item/I = D.get_active_hand()
 	if(prob(60) && D.unEquip(I))
 		if(!(QDELETED(I) || (I.flags & ABSTRACT)))
@@ -158,4 +165,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 200, ACID = 50)

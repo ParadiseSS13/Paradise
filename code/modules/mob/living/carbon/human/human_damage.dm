@@ -2,7 +2,7 @@
 /mob/living/carbon/human/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 		return
 
 	var/total_burn  = 0
@@ -234,7 +234,7 @@
 //Damages ONE external organ, organ gets randomly selected from damagable ones.
 //It automatically updates damage overlays if necesary
 //It automatically updates health status
-/mob/living/carbon/human/take_organ_damage(brute, burn, updating_health = TRUE, sharp = 0, edge = 0)
+/mob/living/carbon/human/take_organ_damage(brute, burn, updating_health = TRUE, sharp = FALSE, edge = 0)
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 	if(!parts.len)
 		return
@@ -267,7 +267,7 @@
 		UpdateDamageIcon()
 
 // damage MANY external organs, in random order
-/mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0)
+/mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = FALSE, edge = 0)
 	if(status_flags & GODMODE)
 		return	//godmode
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
@@ -304,10 +304,11 @@ This function restores all organs.
 /mob/living/carbon/human/restore_all_organs()
 	for(var/obj/item/organ/external/current_organ in bodyparts)
 		current_organ.rejuvenate()
+		current_organ.add_limb_flags()
 
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
 	var/obj/item/organ/external/E = get_organ(zone)
-	if(istype(E, /obj/item/organ/external))
+	if(isorgan(E))
 		if(E.heal_damage(brute, burn))
 			UpdateDamageIcon()
 	else

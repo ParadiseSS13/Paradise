@@ -137,7 +137,7 @@
 		if(prob(50))
 			ChangeTurf(baseturf)
 
-/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	. = ..()
 	//Do this *after* the turf has changed as qdel in spacevines will call changeturf again if it hasn't
 	for(var/obj/structure/spacevine/SV in src)
@@ -230,7 +230,7 @@
 	if(explosion_severity < 3)
 		qdel(holder)
 	else
-		addtimer(CALLBACK(holder, /obj/structure/spacevine.proc/wither), 5)
+		addtimer(CALLBACK(holder, TYPE_PROC_REF(/obj/structure/spacevine, wither)), 5)
 		return TRUE
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
@@ -268,7 +268,7 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(istype(target, /turf/simulated/wall/r_wall))
+	if(isreinforcedwallturf(target))
 		// Too tough to pierce - should lead to interesting spread patterns
 		return
 	// Bust through windows or other stuff blocking the way
@@ -668,7 +668,7 @@
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
-			if(!istype(stepturf, /turf/space) && stepturf.Enter(src))
+			if(!isspaceturf(stepturf) && stepturf.Enter(src))
 				if(master)
 					master.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE

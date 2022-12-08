@@ -18,7 +18,7 @@
 		return 1
 
 /obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)
-	if(!istype(I) || I.anchored == 1)
+	if(!istype(I) || I.anchored)
 		return
 
 	if(istype(I, /obj/item/storage/box))
@@ -38,7 +38,7 @@
 		return
 
 	if(!isturf(I.loc)) //If it isn't on the floor. Do some checks to see if it's in our hands or a box. Otherwise give up.
-		if(istype(I.loc,/obj/item/storage))	//in a container.
+		if(isstorage(I.loc))	//in a container.
 			var/obj/item/storage/U = I.loc
 			U.remove_from_storage(I, src)
 		else if(user.l_hand == I)					//in a hand

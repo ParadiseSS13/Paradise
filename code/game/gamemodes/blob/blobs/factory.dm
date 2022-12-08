@@ -24,6 +24,4 @@
 	spore_delay = world.time + 100 // 10 seconds
 	var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore(src.loc, src)
 	if(overmind)
-		BS.color = overmind.blob_reagent_datum?.complementary_color
-		BS.overmind = overmind
-		overmind.blob_mobs.Add(BS)
+		overmind.add_mob_to_overmind(BS)

@@ -61,8 +61,8 @@
 		"green" = list(0, 1, 0),
 		"blue" = list(0.5, 0.5, 1),
 		"yellow" = list(1, 1, 0))
-	var/pen_color_iconstate = "pencolor"
-	var/pen_color_shift = 3
+	var/pen_colour_iconstate = "pencolor"
+	var/pen_colour_shift = 3
 
 /obj/item/pen/multi/Initialize(mapload)
 	..()
@@ -78,14 +78,14 @@
 /obj/item/pen/multi/attack_self(mob/living/user as mob)
 	select_colour(user)
 
-/obj/item/pen/multi/update_icon()
-	overlays.Cut()
-	var/icon/o = new(icon, pen_color_iconstate)
-	var/list/c = colour_choices[colour]
-	o.SetIntensity(c[1], c[2], c[3])
-	if(pen_color_shift)
-		o.Shift(SOUTH, pen_color_shift)
-	overlays += o
+/obj/item/pen/multi/update_overlays()
+	. = ..()
+	var/icon/colour_overlay = new(icon, pen_colour_iconstate)
+	var/list/colours = colour_choices[colour]
+	colour_overlay.SetIntensity(colours[1], colours[2], colours[3])
+	if(pen_colour_shift)
+		colour_overlay.Shift(SOUTH, pen_colour_shift)
+	. += colour_overlay
 
 /obj/item/pen/fancy
 	name = "fancy pen"
@@ -96,13 +96,13 @@
 	name = "Gilded Pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon_state = "goldpen"
-	pen_color_shift = 0
+	pen_colour_shift = 0
 
 /obj/item/pen/multi/fountain
 	name = "Engraved Fountain Pen"
 	desc = "An expensive looking pen."
 	icon_state = "fountainpen"
-	pen_color_shift = 0
+	pen_colour_shift = 0
 
 /*
  * Sleepypens
@@ -119,10 +119,17 @@
 	if(!M.can_inject(user, TRUE))
 		return
 	var/transfered = 0
+	var/contained = list()
+
+	for(var/R in reagents.reagent_list)
+		var/datum/reagent/reagent = R
+		contained += "[round(reagent.volume, 0.01)]u [reagent]"
+
 	if(reagents.total_volume && M.reagents)
 		transfered = reagents.trans_to(M, 50)
+
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
+	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	return TRUE
 
 
@@ -137,16 +144,15 @@
  */
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
-	var/on = 0
+	var/on = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
-	armour_penetration = 20
+	armour_penetration_flat = 20
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
-		on = 0
+		on = FALSE
 		force = initial(force)
-		sharp = 0
 		w_class = initial(w_class)
 		name = initial(name)
 		attack_verb = list()
@@ -157,9 +163,8 @@
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 		set_light(0)
 	else
-		on = 1
+		on = TRUE
 		force = 18
-		sharp = 1
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -169,9 +174,10 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
+	set_sharpness(on)
 	update_icon()
 
-/obj/item/pen/edagger/update_icon()
+/obj/item/pen/edagger/update_icon_state()
 	if(on)
 		icon_state = "edagger"
 		item_state = "edagger"

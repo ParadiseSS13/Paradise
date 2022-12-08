@@ -10,6 +10,8 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, GLOB.head_accessory_styles_list)
 	//hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_public_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list, GLOB.hair_styles_full_list)
+	//hair gradients
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair_gradient, GLOB.hair_gradients_list)
 	//facial hair
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
 	//underwear
@@ -27,6 +29,8 @@
 	__init_body_accessory(/datum/body_accessory/body)
 	// Different tails
 	__init_body_accessory(/datum/body_accessory/tail)
+	// Different wings
+	__init_body_accessory(/datum/body_accessory/wing)
 
 	// Setup species:accessory relations
 	initialize_body_accessory_by_species()
@@ -134,6 +138,40 @@
 	// Sort them by priority, lowest first
 	sortTim(GLOB.client_login_processors, /proc/cmp_login_processor_priority)
 
+	// Setup karma packages
+	// Package base type to do comparison stuff
+	var/datum/karma_package/basetype = new()
+	for(var/package_type in subtypesof(/datum/karma_package))
+		var/datum/karma_package/KP = new package_type()
+		if(KP.type in basetype.meta_packages)
+			// Skip this one
+			continue
+
+		if(KP.database_id == basetype.database_id)
+			stack_trace("[KP.type] has no DB ID set!")
+			continue
+		if(KP.category == basetype.category)
+			stack_trace("[KP.type] has no category set!")
+			continue
+		if(KP.friendly_name == basetype.friendly_name)
+			stack_trace("[KP.type] has no name set!")
+			continue
+
+		// Make sure its not already in there
+		if(KP.database_id in GLOB.karma_packages)
+			stack_trace("[KP.database_id] has already been registered! Skipping for [KP.type]")
+			continue
+
+		GLOB.karma_packages[KP.database_id] = KP
+
+	GLOB.emote_list = init_emote_list()
+
+	// Keybindings
+	for(var/path in subtypesof(/datum/keybinding))
+		var/datum/keybinding/D = path
+		if(initial(D.name))
+			GLOB.keybindings += new path()
+
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
@@ -166,3 +204,22 @@
 			if(assoc) //value gotten
 				L["[assoc]"] = D //put in association
 	return L
+
+
+/proc/init_emote_list()
+	. = list()
+	for(var/path in subtypesof(/datum/emote))
+		var/datum/emote/E = new path()
+		if(E.key)
+			if(!.[E.key])
+				.[E.key] = list(E)
+			else
+				.[E.key] += E
+		else if(E.message) //Assuming all non-base emotes have this
+			stack_trace("Keyless emote: [E.type]")
+
+		if(E.key_third_person) //This one is optional
+			if(!.[E.key_third_person])
+				.[E.key_third_person] = list(E)
+			else
+				.[E.key_third_person] |= E

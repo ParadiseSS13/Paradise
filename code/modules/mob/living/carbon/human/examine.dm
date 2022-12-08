@@ -46,70 +46,64 @@
 	else
 		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
 
-	//uniform
-	if(w_uniform && !skipjumpsuit && !(w_uniform.flags & ABSTRACT))
-		//Ties
-		var/tie_msg
-		if(istype(w_uniform,/obj/item/clothing/under))
-			var/obj/item/clothing/under/U = w_uniform
-			if(U.accessories.len)
-				tie_msg += " with [english_accessory_list(U)]"
+	// All the things wielded/worn that can be reasonably described with a common template:
+	var/list/message_parts = list(
+		list("[p_are()] holding", l_hand, "in", "left hand"),
+		list("[p_are()] holding", r_hand, "in", "right hand"),
+		list("[p_are()] wearing", head, "on", "head"),
+		list("[p_are()] wearing", !skipjumpsuit && w_uniform, null, null, length(w_uniform?.accessories) && "[english_accessory_list(w_uniform)]"),
+		list("[p_are()] wearing", wear_suit, null, null),
+		list("[p_are()] carrying", !skipsuitstorage && s_store, "on", wear_suit && wear_suit.name),
+		list("[p_have()]", back, "on", "back"),
+		list("[p_have()]", !skipgloves && gloves, "on", "hands"),
+		list("[p_have()]", belt, "about", "waist"),
+		list("[p_are()] wearing", !skipshoes && shoes, "on", "feet"),
+		list("[p_have()]", !skipmask && wear_mask, "on", "face"),
+		list("[p_have()]", glasses, "covering", "eyes"),
+		list("[p_have()]", !skipears && l_ear, "on", "left ear"),
+		list("[p_have()]", !skipears && r_ear, "on", "right ear"),
+		list("[p_are()] wearing", wear_id, null, null),
+	)
+	for(var/parts in message_parts)
+		var/action = parts[1]
+		var/obj/item/item = parts[2]
+		var/preposition = parts[3]
+		var/limb_name = parts[4]
+		var/accessories = null
+		if(length(parts) >= 5)
+			accessories = parts[5]
 
-		if(w_uniform.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(w_uniform)] [w_uniform.gender==PLURAL?"some":"a"] [w_uniform.blood_color != "#030303" ? "blood-stained":"oil-stained"] [w_uniform.name][tie_msg]!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(w_uniform)] \a [w_uniform][tie_msg].\n"
-
-	//head
-	if(head && !(head.flags & ABSTRACT))
-		if(head.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(head)] [head.gender==PLURAL?"some":"a"] [head.blood_color != "#030303" ? "blood-stained":"oil-stained"] [head.name] on [p_their()] head!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(head)] \a [head] on [p_their()] head.\n"
-
-	//suit/armour
-	if(wear_suit && !(wear_suit.flags & ABSTRACT))
-		if(wear_suit.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(wear_suit)] [wear_suit.gender==PLURAL?"some":"a"] [wear_suit.blood_color != "#030303" ? "blood-stained":"oil-stained"] [wear_suit.name]!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_suit)] \a [wear_suit].\n"
-
-		//suit/armour storage
-		if(s_store && !skipsuitstorage)
-			if(s_store.blood_DNA)
-				msg += "<span class='warning'>[p_they(TRUE)] [p_are()] carrying [bicon(s_store)] [s_store.gender==PLURAL?"some":"a"] [s_store.blood_color != "#030303" ? "blood-stained":"oil-stained"] [s_store.name] on [p_their()] [wear_suit.name]!</span>\n"
+		if(item && !(item.flags & ABSTRACT))
+			var/item_words = item.name
+			if(item.blood_DNA)
+				item_words = "[item.blood_color != "#030303" ? "blood-stained":"oil-stained"] [item_words]"
+			var/submsg = "[p_they(TRUE)] [action] [bicon(item)] \a [item_words]"
+			if(accessories)
+				submsg += " with [accessories]"
+			if(limb_name)
+				submsg += " [preposition] [p_their()] [limb_name]"
+			if(item.blood_DNA)
+				submsg = "<span class='warning'>[submsg]!</span>\n"
 			else
-				msg += "[p_they(TRUE)] [p_are()] carrying [bicon(s_store)] \a [s_store] on [p_their()] [wear_suit.name].\n"
-
-	//back
-	if(back && !(back.flags & ABSTRACT))
-		if(back.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(back)] [back.gender==PLURAL?"some":"a"] [back.blood_color != "#030303" ? "blood-stained":"oil-stained"] [back] on [p_their()] back.</span>\n"
+				submsg = "[submsg].\n"
+			msg += submsg
+			continue
 		else
-			msg += "[p_they(TRUE)] [p_have()] [bicon(back)] \a [back] on [p_their()] back.\n"
-
-	//left hand
-	if(l_hand && !(l_hand.flags & ABSTRACT))
-		if(l_hand.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] holding [bicon(l_hand)] [l_hand.gender==PLURAL?"some":"a"] [l_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [l_hand.name] in [p_their()] left hand!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_are()] holding [bicon(l_hand)] \a [l_hand] in [p_their()] left hand.\n"
-
-	//right hand
-	if(r_hand && !(r_hand.flags & ABSTRACT))
-		if(r_hand.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] holding [bicon(r_hand)] [r_hand.gender==PLURAL?"some":"a"] [r_hand.blood_color != "#030303" ? "blood-stained":"oil-stained"] [r_hand.name] in [p_their()] right hand!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_are()] holding [bicon(r_hand)] \a [r_hand] in [p_their()] right hand.\n"
-
-	//gloves
-	if(gloves && !skipgloves && !(gloves.flags & ABSTRACT))
-		if(gloves.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(gloves)] [gloves.gender==PLURAL?"some":"a"] [gloves.blood_color != "#030303" ? "blood-stained":"oil-stained"] [gloves.name] on [p_their()] hands!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_have()] [bicon(gloves)] \a [gloves] on [p_their()] hands.\n"
-	else if(blood_DNA)
-		msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+			// no items worn, thus revealing the skin
+			switch(limb_name)
+				if("hands")
+					if(blood_DNA)
+						msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [hand_blood_color != "#030303" ? "blood-stained":"oil-stained"] hands!</span>\n"
+				if("eyes")
+					if(HAS_TRAIT(src, SCRYING))
+						if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+							msg += "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
+						else
+							msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
+					else
+						if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+							msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
+			continue
 
 	//handcuffed?
 	if(handcuffed)
@@ -120,82 +114,52 @@
 		else
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
 
-	//belt
-	if(belt)
-		if(belt.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(belt)] [belt.gender==PLURAL?"some":"a"] [belt.blood_color != "#030303" ? "blood-stained":"oil-stained"] [belt.name] about [p_their()] waist!</span>\n"
+	//legcuffed?
+	if(legcuffed)
+		if(istype(legcuffed, /obj/item/restraints/legcuffs/beartrap))
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>\n"
 		else
-			msg += "[p_they(TRUE)] [p_have()] [bicon(belt)] \a [belt] about [p_their()] waist.\n"
-
-	//shoes
-	if(shoes && !skipshoes && !(shoes.flags & ABSTRACT))
-		if(shoes.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(shoes)] [shoes.gender==PLURAL?"some":"a"] [shoes.blood_color != "#030303" ? "blood-stained":"oil-stained"] [shoes.name] on [p_their()] feet!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_are()] wearing [bicon(shoes)] \a [shoes] on [p_their()] feet.\n"
-	else if(blood_DNA)
-		msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [feet_blood_color != "#030303" ? "blood-stained":"oil-stained"] feet!</span>\n"
-
-
-	//mask
-	if(wear_mask && !skipmask && !(wear_mask.flags & ABSTRACT))
-		if(wear_mask.blood_DNA)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(wear_mask)] [wear_mask.gender==PLURAL?"some":"a"] [wear_mask.blood_color != "#030303" ? "blood-stained":"oil-stained"] [wear_mask.name] on [p_their()] face!</span>\n"
-		else
-			msg += "[p_they(TRUE)] [p_have()] [bicon(wear_mask)] \a [wear_mask] on [p_their()] face.\n"
-
-	//eyes
-	if(!skipeyes)
-		if(glasses && !(glasses.flags & ABSTRACT))
-			if(glasses.blood_DNA)
-				msg += "<span class='warning'>[p_they(TRUE)] [p_have()] [bicon(glasses)] [glasses.gender==PLURAL?"some":"a"] [glasses.blood_color != "#030303" ? "blood-stained":"oil-stained"] [glasses] covering [p_their()] eyes!</span>\n"
-			else
-				msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
-		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
-
-	//left ear
-	if(l_ear && !skipears)
-		msg += "[p_they(TRUE)] [p_have()] [bicon(l_ear)] \a [l_ear] on [p_their()] left ear.\n"
-
-	//right ear
-	if(r_ear && !skipears)
-		msg += "[p_they(TRUE)] [p_have()] [bicon(r_ear)] \a [r_ear] on [p_their()] right ear.\n"
-
-	//ID
-	if(wear_id)
-		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
 
 	//Jitters
-	switch(jitteriness)
-		if(300 to INFINITY)
+	switch(AmountJitter())
+		if(600 SECONDS to INFINITY)
 			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
-		if(200 to 300)
+		if(400 SECONDS to 600 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
-		if(100 to 200)
+		if(200 SECONDS to 400 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
 
 
 	var/appears_dead = FALSE
+	var/just_sleeping = FALSE //We don't appear as dead upon casual examination, just sleeping
+
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		appears_dead = TRUE
+		var/obj/item/clothing/glasses/E = get_item_by_slot(slot_glasses)
+		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair/wheelchair) //Are we in a wheelchair with our eyes obscured?
+
+		if(isliving(user) && are_we_in_weekend_at_bernies)
+			just_sleeping = TRUE
+		else
+			appears_dead = TRUE
+
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
-		msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
-		if(get_int_organ(/obj/item/organ/internal/brain))
-			if(!key)
-				var/foundghost = FALSE
-				if(mind)
-					for(var/mob/dead/observer/G in GLOB.player_list)
-						if(G.mind == mind)
-							foundghost = TRUE
-							if(G.can_reenter_corpse == 0)
-								foundghost = FALSE
-							break
-				if(!foundghost)
-					msg += " and [p_their()] soul has departed"
-		msg += "...</span>\n"
-
+		if(!just_sleeping)
+			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
+			if(get_int_organ(/obj/item/organ/internal/brain))
+				if(!key)
+					var/foundghost = FALSE
+					if(mind)
+						for(var/mob/dead/observer/G in GLOB.player_list)
+							if(G.mind == mind)
+								foundghost = TRUE
+								if(G.can_reenter_corpse == 0)
+									foundghost = FALSE
+								break
+					if(!foundghost)
+						msg += " and [p_their()] soul has departed"
+			msg += "...</span>\n"
 	if(!get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
 
@@ -219,6 +183,9 @@
 
 				else if(E.status & ORGAN_SPLINTED)
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
+
+				else if(!E.properly_attached)
+					wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is barely attached!\n"
 
 			if(E.open)
 				if(E.is_robotic())
@@ -320,20 +287,18 @@
 	msg += "</span>"
 
 	if(!appears_dead)
-		if(stat == UNCONSCIOUS)
+		if(stat == UNCONSCIOUS || just_sleeping)
 			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
 		else if(getBrainLoss() >= 60)
 			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(dna.species.show_ssd)
-				if(!key)
-					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
-				else if(!client)
-					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
-
-	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
-		msg += "Their features seem unnaturally tight and drawn.\n"
+				if(!HAS_TRAIT(src, SCRYING))
+					if(!key)
+						msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
+					else if(!client)
+						msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
@@ -398,7 +363,7 @@
 	if(print_flavor_text() && !skipface)
 		if(get_organ("head"))
 			var/obj/item/organ/external/head/H = get_organ("head")
-			if(!H.disfigured)
+			if(!(H.status & ORGAN_DISFIGURED))
 				msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
@@ -413,7 +378,7 @@
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M, hudtype)
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/have_hudtypes = list()
 		var/mob/living/carbon/human/H = M
 

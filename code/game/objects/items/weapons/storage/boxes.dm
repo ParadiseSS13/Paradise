@@ -157,7 +157,7 @@
 		new /obj/item/dnainjector/h2m(src)
 
 /obj/item/storage/box/slug
-	name = "Ammunition Box (Slug)"
+	name = "ammunition box (Slug)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "slugbox"
 
@@ -166,7 +166,7 @@
 		new /obj/item/ammo_casing/shotgun(src)
 
 /obj/item/storage/box/buck
-	name = "Ammunition Box (Buckshot)"
+	name = "ammunition box (Buckshot)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "buckshotbox"
 
@@ -175,7 +175,7 @@
 		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
 /obj/item/storage/box/dragonsbreath
-	name = "Ammunition Box (Dragonsbreath)"
+	name = "ammunition box (Dragonsbreath)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "dragonsbreathbox"
 
@@ -184,7 +184,7 @@
 		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
 
 /obj/item/storage/box/stun
-	name = "Ammunition Box (Stun shells)"
+	name = "ammunition box (Stun shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "stunbox"
 
@@ -193,7 +193,7 @@
 		new /obj/item/ammo_casing/shotgun/stunslug(src)
 
 /obj/item/storage/box/beanbag
-	name = "Ammunition Box (Beanbag shells)"
+	name = "ammunition box (Beanbag shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "beanbagbox"
 
@@ -202,7 +202,7 @@
 		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/box/rubbershot
-	name = "Ammunition Box (Rubbershot shells)"
+	name = "ammunition box (Rubbershot shells)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "rubbershotbox"
 
@@ -211,7 +211,7 @@
 		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/box/tranquilizer
-	name = "Ammunition Box (Tranquilizer darts)"
+	name = "ammunition box (Tranquilizer darts)"
 	desc = "A small box capable of holding seven shotgun shells."
 	icon_state = "tranqbox"
 
@@ -257,7 +257,7 @@
 
 
 /obj/item/storage/box/trackimp
-	name = "tracking implant kit"
+	name = "tracking bio-chip kit"
 	desc = "Box full of scum-bag tracking utensils."
 	icon_state = "implant"
 
@@ -271,7 +271,7 @@
 	new /obj/item/locator(src)
 
 /obj/item/storage/box/minertracker
-	name = "boxed tracking implant kit"
+	name = "boxed tracking bio-chip kit"
 	desc = "For finding those who have died on the accursed lavaworld."
 	icon_state = "implant"
 
@@ -284,8 +284,8 @@
 	new /obj/item/locator(src)
 
 /obj/item/storage/box/chemimp
-	name = "chemical implant kit"
-	desc = "Box of stuff used to implant chemicals."
+	name = "chemical bio-chip kit"
+	desc = "Box of stuff used to bio-chip chemicals."
 	icon_state = "implant"
 
 /obj/item/storage/box/chemimp/populate_contents()
@@ -295,8 +295,8 @@
 	new /obj/item/implantpad(src)
 
 /obj/item/storage/box/exileimp
-	name = "boxed exile implant kit"
-	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
+	name = "boxed exile bio-chip kit"
+	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
 	icon_state = "implant"
 
 /obj/item/storage/box/exileimp/populate_contents()
@@ -305,8 +305,8 @@
 	new /obj/item/implanter(src)
 
 /obj/item/storage/box/deathimp
-	name = "death alarm implant kit"
-	desc = "Box of life sign monitoring implants."
+	name = "death alarm bio-chip kit"
+	desc = "Box of life sign monitoring bio-chips."
 	icon_state = "implant"
 
 /obj/item/storage/box/deathimp/populate_contents()
@@ -321,7 +321,7 @@
 
 /obj/item/storage/box/tapes/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/tape(src)
+		new /obj/item/tape/random(src)
 
 /obj/item/storage/box/rxglasses
 	name = "prescription glasses"
@@ -512,8 +512,8 @@
 	new /obj/item/clothing/suit/syndicatefake(src)
 
 /obj/item/storage/box/enforcer_rubber
-	name = "enforcer pistol kit (rubber)"
-	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
+	name = "\improper Enforcer pistol kit (rubber)"
+	desc = "A box marked with pictures of an Enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
 	icon_state = "box_ert"
 
 /obj/item/storage/box/enforcer_rubber/populate_contents()
@@ -522,8 +522,8 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 
 /obj/item/storage/box/enforcer_lethal
-	name = "enforcer pistol kit (lethal)"
-	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'LETHAL'."
+	name = "\improper Enforcer pistol kit (lethal)"
+	desc = "A box marked with pictures of an Enforcer pistol, two ammo clips, and the word 'LETHAL'."
 	icon_state = "box_ert"
 
 /obj/item/storage/box/enforcer_lethal/populate_contents()
@@ -609,6 +609,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "matchbox"
+	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -626,6 +627,18 @@
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 	return
+
+/obj/item/storage/box/matches/update_icon_state()
+	. = ..()
+	switch(length(contents))
+		if(10)
+			icon_state = base_icon_state
+		if(5 to 9)
+			icon_state = "[base_icon_state]_almostfull"
+		if(1 to 4)
+			icon_state = "[base_icon_state]_almostempty"
+		if(0)
+			icon_state = "[base_icon_state]_e"
 
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
@@ -724,13 +737,29 @@
 	foldable = null
 	var/design = NODESIGN
 
-/obj/item/storage/box/papersack/update_icon()
-	if(!contents.len)
+/obj/item/storage/box/papersack/update_desc()
+	. = ..()
+	switch(design)
+		if(NODESIGN)
+			desc = "A sack neatly crafted out of paper."
+		if(NANOTRASEN)
+			desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+		if(SYNDI)
+			desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+		if(HEART)
+			desc = "A paper sack with a heart etched onto the side."
+		if(SMILE)
+			desc = "A paper sack with a crude smile etched onto the side."
+
+/obj/item/storage/box/papersack/update_icon_state()
+	item_state = "paperbag_[design]"
+	if(!length(contents))
 		icon_state = "[item_state]"
-	else icon_state = "[item_state]_closed"
+	else
+		icon_state = "[item_state]_closed"
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
@@ -746,19 +775,7 @@
 			return
 		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
 		design = switchDesign
-		icon_state = "paperbag_[design]"
-		item_state = "paperbag_[design]"
-		switch(design)
-			if(NODESIGN)
-				desc = "A sack neatly crafted out of paper."
-			if(NANOTRASEN)
-				desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
-			if(SYNDI)
-				desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
-			if(HEART)
-				desc = "A paper sack with a heart etched onto the side."
-			if(SMILE)
-				desc = "A paper sack with a crude smile etched onto the side."
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(is_sharp(W))
 		if(!contents.len)
@@ -798,6 +815,7 @@
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
 	icon_state = "box_ert"
+	storage_slots = 8
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
@@ -809,9 +827,22 @@
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
+/obj/item/storage/box/deathsquad
+	name = "boxed death kit"
+	icon_state = "box_of_doom"
+
+/obj/item/storage/box/deathsquad/populate_contents()
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+	new /obj/item/ammo_box/a357(src)
+	new /obj/item/ammo_box/a357(src)
+
 /obj/item/storage/box/clown
 	name = "clown box"
-	desc = "A colorful cardboard box for the clown"
+	desc = "A colorful cardboard box for the clown."
 	icon_state = "box_clown"
 	var/robot_arm // This exists for bot construction
 
@@ -879,6 +910,38 @@
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
 	icon_state = "box_wizard"
+	w_class = WEIGHT_CLASS_GIGANTIC
+
+/obj/item/storage/box/breaching
+	name = "breaching charges"
+	desc = "Contains three T4 thermal breaching charges."
+	icon_state = "flashbang"
+
+/obj/item/storage/box/breaching/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/grenade/plastic/c4/thermite(src)
+
+/obj/item/storage/box/mindshield
+	name = "boxed mindshield kit"
+	desc = "Contains everything needed to secure the minds of those around you."
+
+/obj/item/storage/box/mindshield/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/implantcase/mindshield(src)
+	new /obj/item/implanter/mindshield(src)
+
+/obj/item/storage/box/dish_drive
+	name = "DIY Dish Drive Kit"
+	desc = "Contains everything you need to build your own Dish Drive!"
+
+/obj/item/storage/box/dish_drive/populate_contents()
+	new /obj/item/stack/sheet/metal/(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	new /obj/item/circuitboard/dish_drive(src)
+	new /obj/item/stack/sheet/glass(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/screwdriver(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

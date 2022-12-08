@@ -8,7 +8,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
-	materials = list(MAT_METAL=75)
+	materials = list(MAT_METAL = 200)
 	canhear_range = 0 // can't hear headsets from very far away
 
 	slot_flags = SLOT_EARS
@@ -82,6 +82,17 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/alt/deathsquad
+	name = "Deathsquad headset"
+	desc = "Special Operations only. Protects ears from flashbangs."
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+/obj/item/radio/headset/alt/deathsquad/Initialize()
+	. = ..()
+	set_frequency(DTH_FREQ)
+
 /obj/item/radio/headset/syndicate
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/syndicate/nukeops
@@ -127,10 +138,6 @@
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
-
-/obj/item/radio/headset/headset_sec/alt/brig_phys
-	name = "brig physician bowman headset"
-	ks1type = /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs radio headset"
@@ -343,7 +350,7 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ai_integrated
 	var/myAi = null    // Atlantis: Reference back to the AI which has this radio.
-	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
+	var/disabledAi = FALSE // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
 /obj/item/radio/headset/heads/ai_integrated/is_listening()
 	if(disabledAi)
@@ -352,7 +359,7 @@
 
 /obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/encryptionkey/))
-		user.set_machine(src)
+
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
 			return
@@ -365,15 +372,17 @@
 			user.drop_item()
 			W.loc = src
 			keyslot2 = W
+
 		recalculateChannels()
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	user.set_machine(src)
+
 	if(keyslot1 || keyslot2)
 
 		for(var/ch_name in channels)

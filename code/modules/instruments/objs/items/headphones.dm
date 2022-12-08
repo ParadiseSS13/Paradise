@@ -3,8 +3,9 @@
 	desc = "Unce unce unce unce."
 	icon_state = "headphones0"
 	item_state = "headphones0"
-	actions_types = list(/datum/action/item_action/change_headphones_song)
+	actions_types = list(/datum/action/item_action/change_headphones_song, /datum/action/item_action/toggle_music_notes)
 	var/datum/song/headphones/song
+	var/on = FALSE
 
 /obj/item/clothing/ears/headphones/Initialize(mapload)
 	. = ..()
@@ -12,15 +13,19 @@
 	song.instrument_range = 0
 	song.allowed_instrument_ids = SSinstruments.synthesizer_instrument_ids
 	// To update the icon
-	RegisterSignal(src, COMSIG_SONG_START, .proc/start_playing)
-	RegisterSignal(src, COMSIG_SONG_END, .proc/stop_playing)
+	RegisterSignal(src, COMSIG_SONG_START, PROC_REF(start_playing))
+	RegisterSignal(src, COMSIG_SONG_END, PROC_REF(stop_playing))
 
 /obj/item/clothing/ears/headphones/Destroy()
 	QDEL_NULL(song)
 	return ..()
 
-/obj/item/clothing/ears/headphones/attack_self(mob/user)
-	ui_interact(user)
+/obj/item/clothing/ears/headphones/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/change_headphones_song)
+		ui_interact(user)
+	else
+		on = !on
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/ears/headphones/ui_data(mob/user)
 	return song.ui_data(user)
@@ -35,12 +40,12 @@
 		return
 	return song.ui_act(action, params)
 
-/obj/item/clothing/ears/headphones/update_icon()
+/obj/item/clothing/ears/headphones/update_icon_state()
 	var/mob/living/carbon/human/user = loc
 	if(istype(user))
 		user.update_action_buttons_icon()
 		user.update_inv_ears()
-	..()
+	icon_state = item_state = "headphones[on]"
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
 	if(slot == slot_l_ear || slot == slot_r_ear)
@@ -50,15 +55,15 @@
   * Called by a component signal when our song starts playing.
   */
 /obj/item/clothing/ears/headphones/proc/start_playing()
-	icon_state = item_state = "headphones1"
-	update_icon()
+	on = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Called by a component signal when our song stops playing.
   */
 /obj/item/clothing/ears/headphones/proc/stop_playing()
-	icon_state = item_state = "headphones0"
-	update_icon()
+	on = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 /**
   * Whether the headphone's song should stop playing

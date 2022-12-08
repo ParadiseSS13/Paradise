@@ -21,7 +21,7 @@
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/ai_slipper/attack_ai(mob/user)
 	add_hiddenprint(user)
@@ -54,9 +54,9 @@
 		uses--
 		cooldown_on = TRUE
 		power_change()
-		addtimer(CALLBACK(src, .proc/recharge), cooldown_time)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown_time)
 
-/obj/machinery/ai_slipper/update_icon()
+/obj/machinery/ai_slipper/update_icon_state()
 	if(stat & (NOPOWER|BROKEN) || cooldown_on || !uses)
 		icon_state = "liquid_dispenser"
 	else

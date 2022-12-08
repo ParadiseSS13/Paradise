@@ -3,12 +3,12 @@
 	desc = "Used for advanced medical procedures."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 1
 	active_power_usage = 5
-	var/mob/living/carbon/human/patient
+	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
 	buckle_lying = -1
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
@@ -16,8 +16,8 @@
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
 
-/obj/machinery/optable/New()
-	..()
+/obj/machinery/optable/Initialize(mapload)
+	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
 		if(computer)
@@ -32,7 +32,7 @@
 	return ..()
 
 /obj/machinery/optable/detailed_examine()
-	return "Click your target with Grab intent, then click on the table with an empty hand, to place them on it."
+	return "Click your target and drag them onto the table to place them onto it."
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
@@ -64,13 +64,13 @@
   * Updates the `patient` var to be the mob occupying the table
   */
 /obj/machinery/optable/proc/update_patient()
-	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && M.lying)
-		patient = M
+	var/mob/living/carbon/C = locate(/mob/living/carbon, loc)
+	if(C && IS_HORIZONTAL(C))
+		patient = C
 	else
 		patient = null
 	if(!no_icon_updates)
-		if(patient && patient.pulse)
+		if(C && C.pulse)
 			icon_state = "table2-active"
 		else
 			icon_state = "table2-idle"
@@ -94,7 +94,7 @@
 	else
 		visible_message("<span class='alert'>[new_patient] has been laid on the operating table by [user].</span>")
 	new_patient.resting = TRUE
-	new_patient.update_canmove()
+	new_patient.lay_down()
 	new_patient.forceMove(loc)
 	if(user.pulling == new_patient)
 		user.stop_pulling()
@@ -107,7 +107,7 @@
 	set name = "Climb On Table"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table())
+	if(usr.stat || !iscarbon(usr) || usr.restrained() || !check_table())
 		return
 	take_patient(usr, usr)
 

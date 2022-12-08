@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
 	var/next_use_time
-	var/spamcheck = 0
+	var/spamcheck = FALSE
 
 /obj/item/hailer/attack_self(mob/living/carbon/user as mob)
 	if(world.time < next_use_time)
@@ -28,6 +28,6 @@
 /obj/item/hailer/emag_act(user as mob)
 	if(!emagged)
 		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
-		emagged = 1
+		emagged = TRUE
 
 #undef USE_COOLDOWN

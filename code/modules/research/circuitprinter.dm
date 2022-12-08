@@ -23,8 +23,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		"Teleportation Machinery"
 	)
 
-/obj/machinery/r_n_d/circuit_imprinter/New()
-	..()
+/obj/machinery/r_n_d/circuit_imprinter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -34,8 +34,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	create_reagents()
 	RefreshParts()
 
-/obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
-	..()
+/obj/machinery/r_n_d/circuit_imprinter/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -75,9 +75,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
 /obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(shocked)
-		if(shock(user,50))
-			return TRUE
 	if(default_deconstruction_screwdriver(user, "circuit_imprinter_t", "circuit_imprinter", O))
 		if(linked_console)
 			linked_console.linked_imprinter = null

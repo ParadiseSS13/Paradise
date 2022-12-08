@@ -1,6 +1,6 @@
-import { useBackend } from "../backend";
-import { Button, Section, NumberInput, LabeledList, Flex } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import { Button, Section, NumberInput, LabeledList, Flex } from '../components';
+import { Window } from '../layouts';
 
 export const AtmosMixer = (props, context) => {
   const { act, data } = useBackend(context);
@@ -19,11 +19,12 @@ export const AtmosMixer = (props, context) => {
           <LabeledList>
             <LabeledList.Item label="Power">
               <Button
-                icon={on ? "power-off" : "power-off"}
-                content={on ? "On" : "Off"}
-                color={on ? null : "red"}
+                icon={on ? 'power-off' : 'power-off'}
+                content={on ? 'On' : 'Off'}
+                color={on ? null : 'red'}
                 selected={on}
-                onClick={() => act('power')} />
+                onClick={() => act('power')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Rate">
               <Button
@@ -31,7 +32,8 @@ export const AtmosMixer = (props, context) => {
                 textAlign="center"
                 disabled={pressure === 0}
                 width={2.2}
-                onClick={() => act('min_pressure')} />
+                onClick={() => act('min_pressure')}
+              />
               <NumberInput
                 animated
                 unit="kPa"
@@ -41,22 +43,22 @@ export const AtmosMixer = (props, context) => {
                 minValue={0}
                 maxValue={max_pressure}
                 value={pressure}
-                onDrag={(e, value) => act('custom_pressure', {
-                  pressure: value,
-                })} />
+                onDrag={(e, value) =>
+                  act('custom_pressure', {
+                    pressure: value,
+                  })
+                }
+              />
               <Button
                 icon="fast-forward"
                 textAlign="center"
                 disabled={pressure === max_pressure}
                 width={2.2}
-                onClick={() => act('max_pressure')} />
+                onClick={() => act('max_pressure')}
+              />
             </LabeledList.Item>
-            <NodeControls
-              node_name="Node 1"
-              node_ref={node1_concentration} />
-            <NodeControls
-              node_name="Node 2"
-              node_ref={node2_concentration} />
+            <NodeControls node_name="Node 1" node_ref={node1_concentration} />
+            <NodeControls node_name="Node 2" node_ref={node2_concentration} />
           </LabeledList>
         </Section>
       </Window.Content>
@@ -66,10 +68,7 @@ export const AtmosMixer = (props, context) => {
 
 const NodeControls = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    node_name,
-    node_ref,
-  } = props;
+  const { node_name, node_ref } = props;
 
   return (
     <LabeledList.Item label={node_name}>
@@ -78,10 +77,13 @@ const NodeControls = (props, context) => {
         textAlign="center"
         width={2.2}
         disabled={node_ref === 0}
-        onClick={() => act('set_node', {
-          node_name: node_name,
-          concentration: (node_ref - 10) / 100,
-        })} />
+        onClick={() =>
+          act('set_node', {
+            node_name: node_name,
+            concentration: (node_ref - 10) / 100,
+          })
+        }
+      />
       <NumberInput
         animated
         unit="%"
@@ -91,19 +93,25 @@ const NodeControls = (props, context) => {
         minValue={0}
         maxValue={100}
         value={node_ref}
-        onChange={(e, value) => act('set_node', {
-          node_name: node_name,
-          concentration: (value / 100),
-        })} />
+        onChange={(e, value) =>
+          act('set_node', {
+            node_name: node_name,
+            concentration: value / 100,
+          })
+        }
+      />
       <Button
         icon="fast-forward"
         textAlign="center"
         width={2.2}
         disabled={node_ref === 100}
-        onClick={() => act('set_node', {
-          node_name: node_name,
-          concentration: (node_ref + 10) / 100,
-        })} />
+        onClick={() =>
+          act('set_node', {
+            node_name: node_name,
+            concentration: (node_ref + 10) / 100,
+          })
+        }
+      />
     </LabeledList.Item>
   );
 };

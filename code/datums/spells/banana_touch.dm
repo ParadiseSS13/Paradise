@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/touch/banana
+/obj/effect/proc_holder/spell/touch/banana
 	name = "Banana Touch"
 	desc = "A spell popular at wizard birthday parties, this spell will put on a clown costume on the target, \
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
@@ -6,8 +6,8 @@
 	hand_path = /obj/item/melee/touch_attack/banana
 	school = "transmutation"
 
-	charge_max = 300
-	clothes_req = 1
+	base_cooldown = 30 SECONDS
+	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 
@@ -20,11 +20,11 @@
 	item_state = "banana_touch"
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.lying || user.handcuffed)
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
-	s.set_up(5, 0, target)
+	s.set_up(5, FALSE, target)
 	s.start()
 
 	to_chat(user, "<font color='red' size='6'>HONK</font>")
@@ -34,10 +34,9 @@
 
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")
-	Weaken(7)
-	Stun(7)
-	Stuttering(15)
-	do_jitter_animation(15)
+	Weaken(14 SECONDS)
+	Stuttering(30 SECONDS)
+	do_jitter_animation(30 SECONDS)
 
 	if(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) //Wizards get non-cursed clown robes and magical mask.
 		unEquip(shoes, TRUE)
@@ -52,7 +51,7 @@
 		qdel(shoes)
 		qdel(wear_mask)
 		qdel(w_uniform)
-		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/clown/nodrop, slot_w_uniform, TRUE, TRUE)
+		equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/clown/nodrop, slot_w_uniform, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/shoes/clown_shoes/nodrop, slot_shoes, TRUE, TRUE)
 		equip_to_slot_if_possible(new /obj/item/clothing/mask/gas/clown_hat/nodrop, slot_wear_mask, TRUE, TRUE)
 	dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)

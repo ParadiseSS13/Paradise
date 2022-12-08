@@ -57,10 +57,11 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	return 1
 
-/proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
+/proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
 	GLOB.response_team_members = list()
 	GLOB.active_team = response_team_type
 	GLOB.active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
+	GLOB.active_team.cyborg_security_permitted = cyborg_security
 
 	GLOB.send_emergency_team = TRUE
 	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
@@ -88,7 +89,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/list/ert_gender_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs), 100)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs), 100)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
 	var/list/ert_role_prefs = list()
@@ -96,7 +97,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		A.close()
 	for(var/mob/M in response_team_members)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_role_prefs), 200)
 
 /proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
@@ -136,6 +137,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
 	if(role == "Cyborg")
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
+		if(GLOB.active_team.cyborg_security_permitted)
+			R.force_modules = list("Security", "Engineering", "Medical")
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
@@ -169,12 +172,11 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.age = rand(23,35)
 	M.regenerate_icons()
 	M.update_body()
-	M.update_dna()
 
 	//Creates mind stuff.
 	M.mind = new
 	M.mind.current = M
-	M.mind.original = M
+	M.mind.set_original_mob(M)
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	M.mind.offstation_role = TRUE
@@ -209,6 +211,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/janitor_outfit
 	var/paranormal_outfit
 	var/borg_path = /mob/living/silicon/robot/ert
+	var/cyborg_security_permitted = FALSE
 
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
 	slots["Commander"] = com

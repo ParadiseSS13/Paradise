@@ -8,10 +8,10 @@
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
-	var/use_huds = 1
+	var/use_huds = TRUE
 
-	var/finished = 0
-	var/but_wait_theres_more = 0
+	var/finished = FALSE
+	var/but_wait_theres_more = FALSE
 
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
@@ -29,7 +29,7 @@
 	modePlayer += wizard
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
-	wizard.original = wizard.current
+	wizard.set_original_mob(wizard.current)
 	if(GLOB.wizardstart.len == 0)
 		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return 0
@@ -46,7 +46,7 @@
 		log_game("[key_name(wizard)] has been selected as a Wizard")
 		forge_wizard_objectives(wizard)
 		equip_wizard(wizard.current)
-		INVOKE_ASYNC(src, .proc/name_wizard, wizard.current)
+		INVOKE_ASYNC(src, PROC_REF(name_wizard), wizard.current)
 		greet_wizard(wizard)
 		if(use_huds)
 			update_wiz_icons_added(wizard)
@@ -99,7 +99,7 @@
 		wizard_mob.mind.name = newname
 
 /datum/game_mode/proc/greet_wizard(datum/mind/wizard, you_are=1)
-	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
+	addtimer(CALLBACK(wizard.current, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
@@ -164,7 +164,7 @@
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
 			continue
@@ -175,7 +175,7 @@
 	// Apprentices
 	if(!wizards_alive)
 		for(var/datum/mind/apprentice in apprentices)
-			if(!istype(apprentice.current,/mob/living/carbon))
+			if(!iscarbon(apprentice.current))
 				continue
 			if(apprentice.current.stat==DEAD)
 				continue
@@ -186,7 +186,7 @@
 	if(wizards_alive || apprentices_alive || but_wait_theres_more)
 		return ..()
 	else
-		finished = 1
+		finished = TRUE
 		return 1
 
 /datum/game_mode/wizard/declare_completion(ragin = 0)
@@ -202,7 +202,7 @@
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br><b>[wizard.key]</b> was <b>[wizard.name]</b> ("
+			text += "<br><b>[wizard.get_display_key()]</b> was <b>[wizard.name]</b> ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"

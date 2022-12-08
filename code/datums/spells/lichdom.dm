@@ -1,16 +1,14 @@
-/obj/effect/proc_holder/spell/targeted/lichdom
+/obj/effect/proc_holder/spell/lichdom
 	name = "Bind Soul"
 	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
 	school = "necromancy"
-	charge_max = 10
-	clothes_req = 0
-	centcom_cancast = 0
+	base_cooldown = 10
+	clothes_req = FALSE
+	centcom_cancast = FALSE
 	invocation = "NECREM IMORTIUM!"
 	invocation_type = "shout"
-	range = -1
 	level_max = 0 //cannot be improved
 	cooldown_min = 10
-	include_user = 1
 
 	var/obj/marked_item
 	var/mob/living/current_body
@@ -19,16 +17,19 @@
 
 	action_icon_state = "skeleton"
 
-/obj/effect/proc_holder/spell/targeted/lichdom/Destroy()
+/obj/effect/proc_holder/spell/lichdom/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/lichdom/Destroy()
 	for(var/datum/mind/M in SSticker.mode.wizards) //Make sure no other bones are about
 		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
-			if(istype(S,/obj/effect/proc_holder/spell/targeted/lichdom) && S != src)
+			if(istype(S,/obj/effect/proc_holder/spell/lichdom) && S != src)
 				return ..()
 	if(existence_stops_round_end)
 		GLOB.configuration.gamemode.disable_certain_round_early_end = FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/lichdom/cast(list/targets, mob/user = usr)
 	if(!GLOB.configuration.gamemode.disable_certain_round_early_end)
 		existence_stops_round_end = TRUE
 		GLOB.configuration.gamemode.disable_certain_round_early_end = TRUE
@@ -46,7 +47,7 @@
 			if(M.stat == CONSCIOUS && iscarbon(M))
 				to_chat(M, "<span class='notice'>You aren't dead enough to revive!</span>")//Usually a good problem to have
 
-				charge_counter = charge_max
+				cooldown_handler.revert_cast()
 				return
 
 			if(!marked_item || QDELETED(marked_item)) //Wait nevermind
@@ -70,11 +71,12 @@
 			M.mind.transfer_to(lich)
 			lich.set_species(/datum/species/skeleton)
 			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
-			charge_max += 600
+			cooldown_handler.recharge_duration += 1 MINUTES
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
 			current_body = lich
-			lich.Weaken(10 + 10 * resurrections)
+			var/stun_time = (1 + resurrections) * 20 SECONDS
+			lich.Weaken(stun_time)
 			++resurrections
 			equip_lich(lich)
 
@@ -109,9 +111,9 @@
 					return
 				name = "RISE!"
 				desc = "Rise from the dead! You will reform at the location of your phylactery and your old body will crumble away."
-				charge_max = 1800 //3 minute cooldown, if you rise in sight of someone and killed again, you're probably screwed.
-				charge_counter = 1800
-				stat_allowed = 1
+				cooldown_handler.recharge_duration = 3 MINUTES
+				cooldown_handler.revert_cast()
+				stat_allowed = UNCONSCIOUS
 				marked_item.name = "Ensouled [marked_item.name]"
 				marked_item.desc = "A terrible aura surrounds this item, its very existence is offensive to life itself..."
 				marked_item.color = "#003300"
@@ -126,7 +128,7 @@
 					H.unEquip(H.head)
 					equip_lich(H)
 
-/obj/effect/proc_holder/spell/targeted/lichdom/proc/equip_lich(mob/living/carbon/human/H)
+/obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), slot_wear_suit)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), slot_head)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)

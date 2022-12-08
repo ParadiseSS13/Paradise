@@ -6,7 +6,6 @@
 	var/useGrille = TRUE
 	var/window_to_spawn_regular = /obj/structure/window/basic
 	var/window_to_spawn_full = /obj/structure/window/full/basic
-	anchored = TRUE // No sliding out while you prime
 
 /obj/effect/spawner/window/Initialize(mapload)
 	. = ..()
@@ -14,7 +13,7 @@
 	var/obj/structure/window/WI
 	for(var/obj/structure/grille/G in get_turf(src))
 		// Complain noisily
-		log_runtime(EXCEPTION("Extra grille on turf: ([T.x],[T.y],[T.z])"), src)
+		stack_trace("Extra grille on turf: ([T.x],[T.y],[T.z])")
 		qdel(G) //just in case mappers don't know what they are doing
 
 	if(!useFull)
@@ -90,8 +89,3 @@
 	name = "plastitanium window spawner"
 	icon_state = "plastitaniumwindow_spawner"
 	window_to_spawn_full = /obj/structure/window/full/plastitanium
-
-/obj/effect/spawner/window/ice
-	name = "ice window spawner"
-	icon_state = "icewindow_spawner"
-	window_to_spawn_full = /obj/structure/window/full/reinforced/ice

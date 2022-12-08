@@ -55,11 +55,11 @@
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
 
-/obj/machinery/mineral/ore_redemption/New()
-	..()
+
+/obj/machinery/mineral/ore_redemption/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
 	ore_buffer = list()
-	// Components
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert))
 	files = new /datum/research/smelter(src)
 	// Stock parts
 	component_parts = list()
@@ -71,8 +71,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/ore_redemption/upgraded/New()
-	..()
+/obj/machinery/mineral/ore_redemption/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -91,8 +91,8 @@
 	req_access = list(ACCESS_FREE_GOLEMS)
 	req_access_claim = ACCESS_FREE_GOLEMS
 
-/obj/machinery/mineral/ore_redemption/golem/New()
-	..()
+/obj/machinery/mineral/ore_redemption/golem/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/golem(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -112,8 +112,8 @@
 	req_access = list()
 	anyone_claim = TRUE
 
-/obj/machinery/mineral/ore_redemption/labor/New()
-	..()
+/obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -154,13 +154,13 @@
 
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
-/obj/machinery/mineral/ore_redemption/update_icon()
+/obj/machinery/mineral/ore_redemption/update_icon_state()
 	if(powered())
 		icon_state = initial(icon_state)
 	else
@@ -235,7 +235,7 @@
 		return TRUE
 
 /obj/machinery/mineral/ore_redemption/wrench_act(mob/user, obj/item/I)
-	if(default_unfasten_wrench(user, I))
+	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		return TRUE
 
 /obj/machinery/mineral/ore_redemption/attack_ghost(mob/user)
@@ -286,6 +286,7 @@
 		alloys += list(list(
 			"id" = D.id,
 			"name" = D.name,
+			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))
 	data["alloys"] = alloys
@@ -375,7 +376,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreRedemption", name, 400, 600)
+		ui = new(user, src, ui_key, "OreRedemption", name, 500, 600)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

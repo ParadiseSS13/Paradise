@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(HAS_TRAIT(H, TRAIT_MUTE) || H.silent)
+		if(HAS_TRAIT(H, TRAIT_MUTE))
 			overlays -= GLOB.typing_indicator[bubble_icon]
 			return
 

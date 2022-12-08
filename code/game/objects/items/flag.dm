@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_integrity = 40
 	resistance_flags = FLAMMABLE
+	custom_fire_overlay = "fire"
 	var/rolled = FALSE
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
@@ -29,18 +30,16 @@
 	..()
 	update_icon()
 
-/obj/item/flag/update_icon()
-	overlays.Cut()
+/obj/item/flag/update_icon_state()
 	updateFlagIcon()
 	item_state = icon_state
 	if(rolled)
 		icon_state = "[icon_state]_rolled"
+		custom_fire_overlay = "fire_rolled"
+	else
+		custom_fire_overlay = initial(custom_fire_overlay)
 	if(resistance_flags & ON_FIRE)
 		item_state = "[item_state]_fire"
-	if((resistance_flags & ON_FIRE) && rolled)
-		overlays += image('icons/obj/flag.dmi', src , "fire_rolled")
-	else if((resistance_flags & ON_FIRE) && !rolled)
-		overlays += image('icons/obj/flag.dmi', src , "fire")
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_r_hand()
@@ -136,6 +135,11 @@
 	name = "\improper Plasmaman flag"
 	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
 	icon_state = "plasmaflag"
+
+/obj/item/flag/species/nian
+	name ="\improper Nian flag"
+	desc = "An eccentric handmade standard, luxuriously soft due to exotic silks and embossed with lustrous gold. Although inspired by the pride that Nianae take in their baubles, it ultimately feels melancholic. Beauty knows no pain, afterall."
+	icon_state = "nianflag"
 
 //Department Flags
 
@@ -269,7 +273,7 @@
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
 		fire_act()
-		addtimer(CALLBACK(src, .proc/prime_boobytrap), boobytrap.det_time)
+		addtimer(CALLBACK(src, PROC_REF(prime_boobytrap)), boobytrap.det_time)
 	else
 		..()
 

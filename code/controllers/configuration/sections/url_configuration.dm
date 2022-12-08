@@ -28,6 +28,8 @@
 	var/forum_playerinfo_url
 	/// URL for the CentCom Ban DB API
 	var/centcom_ban_db_url
+	/// URL for the stats page
+	var/round_stats_url
 
 /datum/configuration_section/url_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -45,3 +47,4 @@
 	CONFIG_LOAD_STR(forum_link_url, data["forum_link_url"])
 	CONFIG_LOAD_STR(forum_playerinfo_url, data["forum_playerinfo_url"])
 	CONFIG_LOAD_STR(centcom_ban_db_url, data["centcomm_ban_db_url"])
+	CONFIG_LOAD_STR(round_stats_url, data["round_stats_url"])

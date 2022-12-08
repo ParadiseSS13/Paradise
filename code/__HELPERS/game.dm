@@ -162,7 +162,7 @@
 			L |= M
 			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
-		else if(include_radio && istype(A, /obj/item/radio))
+		else if(include_radio && isradio(A))
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= A
@@ -191,7 +191,7 @@
 			if(M.client || include_clientless)
 				hear += M
 			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(istype(A, /obj/item/radio))
+		else if(isradio(A))
 			hear += A
 
 		if(isobj(A) || ismob(A))
@@ -229,7 +229,7 @@
 			var/turf/ear = get_turf(M)
 			if(ear)
 				// Ghostship is magic: Ghosts can hear radio chatter from anywhere
-				if(speaker_coverage[ear] || (istype(M, /mob/dead/observer) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
+				if(speaker_coverage[ear] || (isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO)))
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
@@ -346,7 +346,7 @@
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/remove_images_from_clients, I, show_to), duration, TIMER_CLIENT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), I, show_to), duration, TIMER_CLIENT_TIME)
 
 /proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
 	var/list/viewing = list()
@@ -451,10 +451,10 @@
 
 	var/list/candidate_ghosts = willing_ghosts.Copy()
 
-	to_chat(adminusr, "Candidate Ghosts:");
+	to_chat(adminclient, "Candidate Ghosts:");
 	for(var/mob/dead/observer/G in candidate_ghosts)
 		if(G.key && G.client)
-			to_chat(adminusr, "- [G] ([G.key])");
+			to_chat(adminclient, "- [G] ([G.key])");
 		else
 			candidate_ghosts -= G
 
@@ -479,48 +479,31 @@
   * Will not include parent-less vents to the returned list.
   * Arguments:
   * * unwelded_only - Whether the list should only include vents that are unwelded
-  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
-  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
-  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
+  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs
   * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
-  * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
-  * * z_level - The Z-level number to look for vents in. Defaults to all
   */
-/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
+/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, min_network_size = 50)
 	ASSERT(min_network_size >= 0)
-	ASSERT(z_level >= 0)
-
-	var/num_z_levels = length(GLOB.space_manager.z_list)
-	var/list/non_station_levels[num_z_levels] // Cache so we don't do is_station_level for every vent!
 
 	. = list()
 	for(var/object in GLOB.all_vent_pumps) // This only contains vent_pumps so don't bother with type checking
 		var/obj/machinery/atmospherics/unary/vent_pump/vent = object
 		var/vent_z = vent.z
-		if(z_level && vent_z != z_level)
-			continue
-		if(station_levels_only && (non_station_levels[vent_z] || !is_station_level(vent_z)))
-			non_station_levels[vent_z] = TRUE
+		if(!is_station_level(vent_z))
 			continue
 		if(unwelded_only && vent.welded)
 			continue
 		if(exclude_mobs_nearby)
 			var/turf/T = get_turf(vent)
 			var/mobs_nearby = FALSE
-			for(var/mob/living/M in orange(nearby_mobs_range, T))
-				if(!M.is_dead())
-					mobs_nearby = TRUE
-					break
+			for(var/mob/living/M in orange(7, T))
+				if(M.is_dead()) //we don't care about dead mobs
+					continue
+				if(!M.client && !istype(get_area(T), /area/toxins/xenobiology)) //we add an exception here for clientless mobs (apart from ones near xenobiology vents because it's usually filled with gold slime mobs who attack hostile mobs)
+					continue
+				mobs_nearby = TRUE
+				break
 			if(mobs_nearby)
-				continue
-		if(exclude_visible_by_mobs)
-			var/turf/T = get_turf(vent)
-			var/visible_by_mobs = FALSE
-			for(var/mob/living/M in viewers(world.view, T))
-				if(!M.is_dead())
-					visible_by_mobs = TRUE
-					break
-			if(visible_by_mobs)
 				continue
 		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
 			// Can cause heavy message spam in some situations (e.g. pipenets breaking)

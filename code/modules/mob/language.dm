@@ -20,6 +20,8 @@
 	var/follow = 0                              // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 	var/english_names = 0                       // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
+	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
+	var/join_override
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -62,7 +64,9 @@
 			capitalize = 0
 		scrambled_text += next
 		var/chance = rand(100)
-		if(chance <= 5)
+		if(join_override)
+			scrambled_text += join_override
+		else if(chance <= 5)
 			scrambled_text += ". "
 			capitalize = 1
 		else if(chance > 5 && chance <= space_chance)
@@ -70,7 +74,7 @@
 
 	scrambled_text = trim(scrambled_text)
 	var/ending = copytext(scrambled_text, length(scrambled_text))
-	if(ending == ".")
+	if(ending == "." || ending == "-")
 		scrambled_text = copytext(scrambled_text,1,length(scrambled_text)-1)
 	var/input_ending = copytext(input, input_size)
 	if(input_ending in list("!","?","."))
@@ -203,6 +207,15 @@
 	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
 	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
 
+/datum/language/vulpkanin/get_random_name(gender)
+	var/new_name
+	if(gender == FEMALE)
+		new_name = pick(GLOB.first_names_female_vulp)
+	else
+		new_name = pick(GLOB.first_names_male_vulp)
+	new_name += " " + pick(GLOB.last_names_vulp)
+	return new_name
+
 /datum/language/skrell
 	name = "Skrellian"
 	desc = "A melodic and complex language spoken by the Skrell of Qerrbalak. Some of the notes are inaudible to humans."
@@ -302,6 +315,15 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
 
+/datum/language/slime/get_random_name(gender)
+	var/new_name
+	if(gender == FEMALE)
+		new_name = pick(GLOB.first_names_female_slime)
+	else
+		new_name = pick(GLOB.first_names_male_slime)
+	new_name += " " + pick(GLOB.last_names_slime)
+	return new_name
+
 /datum/language/grey
 	name = "Psionic Communication"
 	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy. Talk to other greys within a limited radius."
@@ -323,7 +345,7 @@
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
 			return FALSE
-	if(speaker.incapacitated(ignore_lying = 1))
+	if(HAS_TRAIT(speaker, TRAIT_HANDS_BLOCKED))
 		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
 		return FALSE
 
@@ -351,6 +373,28 @@
 	var/new_name = "[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
 	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
 	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
+	return new_name
+
+/datum/language/moth
+	name = "Tkachi"
+	desc = "The language of the Nianae mothpeople borders on complete unintelligibility."
+	speech_verb = "buzzes"
+	ask_verb = "flaps"
+	exclaim_verbs = list("chatters")
+	colour = "moth"
+	key = "#"
+	flags = RESTRICTED | WHITELISTED
+	join_override = "-"
+	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+					 "lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han",
+					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+
+/datum/language/moth/get_random_name()
+	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
+	new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
+	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
 /datum/language/common
@@ -433,26 +477,6 @@
 					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
-/datum/language/wryn
-	name = "Wryn Hivemind"
-	desc = "Wryn have the strange ability to commune over a psychic hivemind."
-	speech_verb = "chitters"
-	ask_verb = "chitters"
-	exclaim_verbs = list("buzzes")
-	colour = "alien"
-	key = "y"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
-/datum/language/wryn/check_special_condition(mob/other)
-	var/mob/living/carbon/M = other
-	if(!istype(M))
-		return TRUE
-	if(locate(/obj/item/organ/internal/wryn/hivenode) in M.internal_organs)
-		return TRUE
-
-	return FALSE
-
 /datum/language/xenocommon
 	name = "Xenomorph"
 	colour = "alien"
@@ -474,6 +498,13 @@
 	key = "a"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
+
+/datum/language/xenos/broadcast(mob/living/speaker, message, speaker_mask)
+	if(isalien(speaker))
+		var/mob/living/carbon/alien/humanoid/alienspeaker = speaker
+		if(alienspeaker.loudspeaker)
+			return ..(speaker, "<font size=3><b>[message]</b></font>")
+	return ..()
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
@@ -504,29 +535,14 @@
 	follow = TRUE
 
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
-	if(speaker.mind && speaker.mind.changeling)
-		..(speaker, message, speaker.mind.changeling.changelingID)
-	else if(speaker.mind && speaker.mind.linglink)
+	var/datum/antagonist/changeling/cling = speaker.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(cling)
+		..(speaker, message, cling.changelingID)
+	else if(speaker.mind?.linglink)
 		..()
 	else
 		..(speaker,message)
 
-/datum/language/shadowling
-	name = "Shadowling Hivemind"
-	desc = "Shadowlings and their thralls are capable of communicating over a psychic hivemind."
-	speech_verb = "says"
-	colour = "shadowling"
-	key = "8"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
-/datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
-	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
-		..(speaker,"<font size=3><b>[message]</b></font>", "<span class='shadowling'><font size=3>([speaker.mind.special_role]) [speaker]</font></span>")
-	else if(speaker.mind && speaker.mind.special_role)
-		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
-	else
-		..(speaker, message)
 
 /datum/language/abductor
 	name = "Abductor Mindlink"
@@ -556,30 +572,6 @@
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE
-
-/datum/language/corticalborer
-	name = "Cortical Link"
-	desc = "Cortical borers possess a strange link between their tiny minds."
-	speech_verb = "sings"
-	ask_verb = "sings"
-	exclaim_verbs = list("sings")
-	colour = "alien"
-	key = "bo"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
-/datum/language/corticalborer/broadcast(mob/living/speaker, message, speaker_mask)
-	var/mob/living/simple_animal/borer/B
-
-	if(iscarbon(speaker))
-		var/mob/living/carbon/M = speaker
-		B = M.has_brain_worms()
-	else if(istype(speaker,/mob/living/simple_animal/borer))
-		B = speaker
-
-	if(B)
-		speaker_mask = B.truename
-	..(speaker,message,speaker_mask)
 
 /datum/language/binary
 	name = "Robot Talk"
@@ -613,7 +605,7 @@
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
-		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
+		if(drone_only && !isdrone(S))
 			continue
 		else if(isAI(S))
 			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
@@ -652,17 +644,6 @@
 	flags = RESTRICTED
 	follow = TRUE
 	syllables = list ("beep", "boop")
-
-/datum/language/swarmer
-	name = "Swarmer"
-	desc = "A heavily encoded alien binary pattern."
-	speech_verb = "tones"
-	ask_verb = "tones"
-	exclaim_verbs = list("tones")
-	colour = "say_quote"
-	key = "z"//Zwarmer...Or Zerg!
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
 
 // Language handling.
 /mob/proc/add_language(language)

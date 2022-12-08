@@ -2,21 +2,33 @@
 	name = "cooker"
 	desc = "You shouldn't be seeing this!"
 	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
-	var/on = 0
+	var/on = FALSE
 	var/onicon = null
 	var/officon = null
 	var/openicon = null
 	var/thiscooktype = null
-	var/burns = 0				// whether a machine burns something - if it does, you probably want to add the cooktype to /snacks/badrecipe
+	/// whether a machine burns something - if it does, you probably want to add the cooktype to /snacks/badrecipe
+	var/burns = FALSE
 	var/firechance = 0
 	var/cooktime = 0
 	var/foodcolor = null
-	var/has_specials = 0		//Set to 1 if the machine has specials to check, otherwise leave it at 0
-	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+	///Set to TRUE if the machine has specials to check, otherwise leave it at FALSE
+	var/has_specials = FALSE
+	///Set to TRUE if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
+	var/upgradeable = FALSE
+	var/datum/looping_sound/kitchen/deep_fryer/soundloop
+
+/obj/machinery/cooker/Initialize(mapload)
+	. = ..()
+	soundloop = new(list(src), FALSE) // cereal machine, screw off
+
+/obj/machinery/cooker/Destroy()
+	QDEL_NULL(soundloop)
+	return ..()
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
@@ -38,15 +50,24 @@
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
-		return 0
-	if(istype(check, /obj/item/reagent_containers/food/snacks))
-		return 1
+		return FALSE
 	if(istype(check, /obj/item/grab))
 		return special_attack(check, user)
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	to_chat(user, "<span class ='notice'>You can only process food!</span>")
-	return 0
+	if(istype(check, /obj/item/reagent_containers/food/snacks) || emagged)
+		if(istype(check, /obj/item/disk/nuclear)) //(1984 voice) you will not deep fry the NAD
+			to_chat(user, "<span class='notice'>The disk is more useful raw than [thiscooktype].</span>")
+			return FALSE
+		var/obj/item/disk/nuclear/datdisk = locate() in check
+		if(datdisk)
+			to_chat(user, "<span class='notice'>You get the feeling that something very important is inside this. Something that shouldn't be [thiscooktype].</span>")
+			return FALSE
+		if(check.flags & (ABSTRACT | DROPDEL | NODROP)) //you will not deep fry the armblade
+			return FALSE
+		return TRUE
+	to_chat(user, "<span class='notice'>You can only process food!</span>")
+	return FALSE
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
 	copyto.color = foodcolor
@@ -56,20 +77,22 @@
 
 /obj/machinery/cooker/proc/turnoff(obj/item/olditem)
 	icon_state = officon
+	soundloop.stop()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	on = 0
+	on = FALSE
 	qdel(olditem)
 	return
 
 // Burns the food with a chance of starting a fire - for if you try cooking something that's already been cooked that way
-// if burns = 0 then it'll just tell you that the item is already that foodtype and it would do nothing
+// if burns = FALSE then it'll just tell you that the item is already that foodtype and it would do nothing
 // if you wanted a different side effect set burns to 1 and override burn_food()
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
+	soundloop.stop()
 	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
-	smoke.set_up(5, 0, src)
+	smoke.set_up(5, FALSE, src)
 	smoke.start()
 	if(prob(firechance))
 		var/turf/location = get_turf(src)
@@ -82,12 +105,13 @@
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)
 	setme.name = "[thiscooktype] [name.name]"
-	setme.desc = "[name.desc]. It has been [thiscooktype]"
+	setme.desc = "[name.desc] It has been [thiscooktype]."
 
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	icon_state = onicon
 	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
-	on = 1
+	soundloop.start()
+	on = TRUE
 	chef.drop_item()
 	tocook.loc = src
 
@@ -116,7 +140,20 @@
 				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
 				return
 	putIn(I, user)
-	sleep(cooktime)
+	for(var/mob/living/L in I.contents) //Emagged cookers - Any mob put in will not survive the trip
+		if(L.stat != DEAD)
+			if(ispAI(L)) //Snowflake check because pAIs are weird
+				var/mob/living/silicon/pai/P = L
+				P.death(cleanWipe = TRUE)
+			else
+				L.death()
+		break
+	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
+
+/obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
+	if(QDELETED(I)) //For situations where the item being cooked gets deleted mid-cook (primed grenades)
+		turnoff()
+		return
 	if(I && I.loc == src)
 		//New interaction to allow special foods to be made/cooked via deepfryer without removing original functionality
 		//Define the foods/results on the specific machine		--FalseIncarnate
@@ -138,7 +175,7 @@
 			setRegents(I, newfood)
 		if(istype(I, /obj/item/reagent_containers/food/snacks))
 			setCooked(I, newfood)
-		newfood.cooktype[thiscooktype] = 1
+		newfood.cooktype[thiscooktype] = TRUE
 		turnoff(I)
 		//qdel(I)
 

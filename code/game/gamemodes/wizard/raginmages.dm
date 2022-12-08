@@ -2,8 +2,8 @@
 	name = "ragin' mages"
 	config_tag = "raginmages"
 	required_players = 20
-	use_huds = 1
-	but_wait_theres_more = 1
+	use_huds = TRUE
+	but_wait_theres_more = TRUE
 	var/max_mages = 0
 	var/making_mage = FALSE
 	var/mages_made = 1
@@ -35,13 +35,13 @@
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
-		if(istype(wizard.current,/mob/living/carbon/brain))
+		if(isbrain(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
@@ -78,7 +78,7 @@
 			make_more_mages()
 	else
 		if(wizards.len >= wizard_cap)
-			finished = 1
+			finished = TRUE
 			return 1
 		else
 			make_more_mages()
@@ -100,10 +100,10 @@
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
 			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
 		L.ghostize()
-		if(istype(L, /mob/living/carbon/brain))
+		if(isbrain(L))
 			// diediedie
 			var/mob/living/carbon/brain/B = L
-			if(istype(B.loc, /obj/item))
+			if(isitem(B.loc))
 				qdel(B.loc)
 			if(B && B.container)
 				qdel(B.container)
@@ -137,8 +137,8 @@
 			mages_made++
 			return TRUE
 		else
-			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
-			return FALSE
+			. = FALSE
+			CRASH("The candidates list for ragin' mages contained non-observer entries!")
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS

@@ -32,7 +32,7 @@
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
-	sharp = 0
+	sharp = FALSE
 	var/max_contents = 1
 
 /obj/item/kitchen/utensil/New()
@@ -127,8 +127,7 @@
 	name = "plastic knife"
 	desc = "The bluntest of blades."
 	icon_state = "pknife"
-	item_state = "knife"
-	sharp = 0
+	sharp = FALSE
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -153,6 +152,10 @@
 	item_state = "butch"
 	force = 25
 	throwforce = 15
+
+/obj/item/kitchen/knife/butcher/meatcleaver/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
 
 /obj/item/kitchen/knife/combat
 	name = "combat knife"

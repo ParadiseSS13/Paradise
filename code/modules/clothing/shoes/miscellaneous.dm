@@ -10,15 +10,15 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
-	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, BIO = 5, RAD = 0, FIRE = 115, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
 
-/obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
+/obj/item/clothing/shoes/combat/swat //overpowered gimmick boots
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 15, ENERGY = 15, BOMB = 50, BIO = 20, RAD = 20, FIRE = 450, ACID = 50)
 	flags = NOSLIP
 
 /obj/item/clothing/shoes/sandal
@@ -50,7 +50,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 75)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 35, ACID = 150)
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -59,7 +59,7 @@
 
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, .proc/on_step)
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
 
 /obj/item/clothing/shoes/galoshes/dry/proc/on_step()
 	SIGNAL_HANDLER
@@ -124,14 +124,14 @@
 	if(slot == slot_shoes)
 		return TRUE
 
-/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
 	if(recharging_time > world.time)
 		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return
 	var/prev_dir = user.dir
 	var/prev_pass_flags = user.pass_flags
 	user.pass_flags |= PASSMOB
-	user.Weaken(2)
+	user.Weaken(4 SECONDS)
 	user.dir = prev_dir
 	playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 	recharging_time = world.time + recharging_rate
@@ -256,6 +256,12 @@
 	item_color = "noble_boot"
 	item_state = "noble_boot"
 
+/obj/item/clothing/shoes/furboots
+	name = "fur boots"
+	desc = "Warm, furry boots."
+	icon_state = "furboots"
+	item_state = "furboots"
+
 /obj/item/clothing/shoes/sandal/white
 	name = "white sandals"
 	desc = "Medical sandals that nerds wear."
@@ -330,7 +336,7 @@
 	name = "lizard skin boots"
 	desc = "You can hear a faint hissing from inside the boots; you hope it is just a mournful ghost."
 	icon_state = "lizardboots_green"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 0) //lizards like to stay warm
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 35, ACID = 0) //lizards like to stay warm
 
 /obj/item/clothing/shoes/cowboy/lizardmasterwork
 	name = "\improper Hugs-The-Feet lizard skin boots"
@@ -382,8 +388,11 @@
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
-
-	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
+	var/do_callback = FALSE
+	if(!user.flying)
+		user.flying = TRUE
+		do_callback  = TRUE
+	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
@@ -392,7 +401,7 @@
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"
-	desc = "These shoes are made for quacking, and thats just what they'll do."
+	desc = "These shoes are made for quacking, and that's just what they'll do."
 	icon_state = "ducky"
 	item_state = "ducky"
 

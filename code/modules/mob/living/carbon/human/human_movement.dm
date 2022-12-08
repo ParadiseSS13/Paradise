@@ -7,7 +7,7 @@
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 
 	if(..())
-		return 1
+		return TRUE
 
 	//Do we have a working jetpack?
 	var/obj/item/tank/jetpack/thrust
@@ -18,8 +18,10 @@
 		thrust = C.jetpack
 	if(thrust)
 		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
-			return 1
-	return 0
+			return TRUE
+	if(dna.species.spec_Process_Spacemove(src))
+		return TRUE
+	return FALSE
 
 /mob/living/carbon/human/mob_has_gravity()
 	. = ..()
@@ -33,7 +35,7 @@
 /mob/living/carbon/human/Move(NewLoc, direct)
 	. = ..()
 	if(.) // did we actually move?
-		if(!lying && !buckled && !throwing)
+		if(!IS_HORIZONTAL(src) && !buckled && !throwing)
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
 				splinted.update_splints()
 
@@ -42,7 +44,7 @@
 
 	var/obj/item/clothing/shoes/S = shoes
 
-	if(S && !lying && loc == NewLoc)
+	if(S && !IS_HORIZONTAL(src) && loc == NewLoc)
 		SEND_SIGNAL(S, COMSIG_SHOES_STEP_ACTION)
 
 	//Bloody footprints

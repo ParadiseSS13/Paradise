@@ -2,6 +2,7 @@
 #define AB_CHECK_STUNNED 2
 #define AB_CHECK_LYING 4
 #define AB_CHECK_CONSCIOUS 8
+#define AB_CHECK_TURF 16
 
 
 /datum/action
@@ -75,13 +76,20 @@
 		if(owner.restrained())
 			return FALSE
 	if(check_flags & AB_CHECK_STUNNED)
-		if(owner.stunned || owner.IsWeakened())
-			return FALSE
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(L.IsStunned() || L.IsWeakened())
+				return FALSE
 	if(check_flags & AB_CHECK_LYING)
-		if(owner.lying)
-			return FALSE
+		if(isliving(owner))
+			var/mob/living/L = owner
+			if(IS_HORIZONTAL(L))
+				return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		if(owner.stat)
+			return FALSE
+	if(check_flags & AB_CHECK_TURF)
+		if(!isturf(owner.loc))
 			return FALSE
 	return TRUE
 
@@ -218,6 +226,9 @@
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
 
+/datum/action/item_action/toggle_music_notes
+	name = "Toggle Music Notes"
+
 /datum/action/item_action/toggle_helmet_light
 	name = "Toggle Helmet Light"
 
@@ -324,6 +335,9 @@
 /datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
 	name = "YEAH!"
 
+/datum/action/item_action/laugh_track
+	name = "Laugh Track"
+
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)
@@ -377,6 +391,10 @@
 	if(istype(H))
 		H.toggle_geiger_counter()
 
+/datum/action/item_action/toggle_radio_jammer
+	name = "Toggle Radio Jammer"
+	desc = "Turns your jammer on or off. Hush, you."
+
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -398,7 +416,7 @@
 
 /datum/action/item_action/toggle_research_scanner/Remove(mob/living/L)
 	if(owner)
-		owner.research_scanner = 0
+		owner.research_scanner = FALSE
 	..()
 
 /datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
@@ -437,6 +455,19 @@
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 	use_itemicon = FALSE
+
+
+/datum/action/item_action/gravity_jump
+	name = "Gravity jump"
+	desc = "Directs a pulse of gravity in front of the user, pulling them foward rapidly."
+
+/datum/action/item_action/gravity_jump/Trigger()
+	if(!IsAvailable())
+		return FALSE
+
+	var/obj/item/clothing/shoes/magboots/gravity/G = target
+	G.dash(usr)
+
 
 ///prset for organ actions
 /datum/action/item_action/organ_action
@@ -494,6 +525,10 @@
 	name = "View Storage"
 
 
+/datum/action/item_action/accessory/herald
+	name = "Mirror Walk"
+	desc = "Use near a mirror to enter it"
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = 0
@@ -529,9 +564,6 @@
 		return FALSE
 	var/obj/effect/proc_holder/spell/spell = target
 
-	if(spell.special_availability_check)
-		return TRUE
-
 	if(owner)
 		return spell.can_cast(owner)
 	return FALSE
@@ -540,7 +572,7 @@
 	var/obj/effect/proc_holder/spell/S = target
 	if(!istype(S))
 		return ..()
-	var/progress = S.get_availability_percentage()
+	var/progress = S.cooldown_handler.get_availability_percentage()
 	if(progress == 1)
 		return ..() // This means that the spell is charged but unavailable due to something else
 

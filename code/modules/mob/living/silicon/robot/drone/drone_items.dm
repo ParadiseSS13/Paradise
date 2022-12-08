@@ -21,7 +21,7 @@
 		/obj/item/mounted/frame/apc_frame,
 		/obj/item/mounted/frame/alarm_frame,
 		/obj/item/mounted/frame/firealarm,
-		/obj/item/mounted/frame/newscaster_frame,
+		/obj/item/mounted/frame/display/newscaster_frame,
 		/obj/item/mounted/frame/intercom,
 		/obj/item/mounted/frame/extinguisher,
 		/obj/item/mounted/frame/light_switch,
@@ -38,7 +38,7 @@
 
 /obj/item/gripper/medical
 	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete."
+	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."
 	can_hold = list()
 
 /obj/item/gripper/medical/attack_self(mob/user)
@@ -48,13 +48,13 @@
 	var/mob/living/carbon/human/H
 	if(!gripped_item && proximity && target && ishuman(target))
 		H = target
-		if(H.lying)
-			H.AdjustSleeping(-5)
-			if(H.sleeping == 0)
-				H.StopResting()
-			H.AdjustParalysis(-3)
-			H.AdjustStunned(-3)
-			H.AdjustWeakened(-3)
+		if(IS_HORIZONTAL(H))
+			H.AdjustSleeping(-10 SECONDS)
+			H.AdjustParalysis(-6 SECONDS)
+			H.AdjustStunned(-6 SECONDS)
+			H.AdjustWeakened(-6 SECONDS)
+			H.AdjustKnockDown(-6 SECONDS)
+			H.stand_up()
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
 				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
@@ -112,7 +112,7 @@
 		else if(gripped_item && !contents.len)
 			gripped_item = null
 
-	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
+	else if(isitem(target)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
@@ -134,7 +134,7 @@
 				A.cell.forceMove(src)
 				A.cell = null
 
-				A.charging = 0
+				A.charging = APC_NOT_CHARGING
 				A.update_icon()
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")

@@ -16,8 +16,9 @@ GLOBAL_VAR(bomb_set)
 	desc = "Uh oh. RUN!!!!"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	anchored = TRUE
 	var/extended = TRUE
 	var/lighthack = FALSE
@@ -69,8 +70,20 @@ GLOBAL_VAR(bomb_set)
 		GLOB.bomb_set = TRUE // So long as there is one nuke timing, it means one nuke is armed.
 		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
 		if(timeleft <= 0)
-			INVOKE_ASYNC(src, .proc/explode)
+			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
+
+/obj/machinery/nuclearbomb/update_overlays()
+	. = ..()
+	underlays.Cut()
+	set_light(0)
+
+	if(!lighthack)
+		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
+		set_light(1, LIGHTING_MINIMUM_POWER)
+
+	if(panel_open)
+		. += "npanel_open"
 
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
@@ -183,13 +196,11 @@ GLOBAL_VAR(bomb_set)
 	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
 		if(!panel_open)
 			panel_open = TRUE
-			overlays += image(icon, "npanel_open")
 			to_chat(user, "You unscrew the control panel of [src].")
 			anchor_stage = removal_stage
 			removal_stage = core_stage
 		else
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
@@ -198,11 +209,11 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
 		if(panel_open == TRUE)
 			panel_open = FALSE
-			overlays -= image(icon, "npanel_open")
 			to_chat(user, "You screw the control panel of [src] back on.")
 			core_stage = removal_stage
 			removal_stage = anchor_stage
 		flick("nuclearbombc", src)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -318,6 +329,7 @@ GLOBAL_VAR(bomb_set)
 			if(!lighthack)
 				flick("nuclearbombc", src)
 				icon_state = "nuclearbomb1"
+				update_icon(UPDATE_OVERLAYS)
 			extended = TRUE
 			return
 		if("auth")
@@ -361,6 +373,9 @@ GLOBAL_VAR(bomb_set)
 				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 				return FALSE
 			else
+				if(!yes_code && anchored && timing)
+					to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
+					return
 				anchored = !(anchored)
 				if(anchored)
 					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
@@ -394,6 +409,7 @@ GLOBAL_VAR(bomb_set)
 			if(timing)
 				if(!lighthack)
 					icon_state = "nuclearbomb2"
+					update_icon(UPDATE_OVERLAYS)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
@@ -407,15 +423,25 @@ GLOBAL_VAR(bomb_set)
 				GLOB.bomb_set = FALSE
 				if(!lighthack)
 					icon_state = "nuclearbomb1"
+					update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(exploded)
 		return
 	if(timing)	//boom
-		INVOKE_ASYNC(src, .proc/explode)
+		INVOKE_ASYNC(src, PROC_REF(explode))
 		return
-	qdel(src)
+
+    //if no boom then we need to let the blob capture our nuke
+	var/turf/T = get_turf(src)
+	if(!T)
+		return
+	if(locate(/obj/structure/blob) in T)
+		return
+	var/obj/structure/blob/captured_nuke/N = new(T, src)
+	N.overmind = B.overmind
+	N.adjustcolors(B.color)
 
 /obj/machinery/nuclearbomb/zap_act(power, zap_flags)
 	. = ..()
@@ -432,9 +458,10 @@ GLOBAL_VAR(bomb_set)
 	safety = TRUE
 	if(!lighthack)
 		icon_state = "nuclearbomb3"
+		update_icon(UPDATE_OVERLAYS)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	if(SSticker && SSticker.mode)
-		SSticker.mode.explosion_in_progress = 1
+		SSticker.mode.explosion_in_progress = TRUE
 	sleep(100)
 
 	GLOB.enter_allowed = 0
@@ -456,7 +483,7 @@ GLOBAL_VAR(bomb_set)
 			SSticker.mode:nuke_off_station = off_station
 		SSticker.station_explosion_cinematic(off_station,null)
 		if(SSticker.mode)
-			SSticker.mode.explosion_in_progress = 0
+			SSticker.mode.explosion_in_progress = FALSE
 			if(SSticker.mode.name == "nuclear emergency")
 				SSticker.mode:nukes_left --
 			else if(off_station == 1)
@@ -486,6 +513,8 @@ GLOBAL_VAR(bomb_set)
 		if(!lighthack)
 			if(icon_state == "nuclearbomb2")
 				icon_state = "nuclearbomb1"
+				update_icon(UPDATE_OVERLAYS)
+
 	else
 		visible_message("<span class='notice'>[src] emits a quiet whirling noise!</span>")
 
@@ -536,15 +565,15 @@ GLOBAL_VAR(bomb_set)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
-	if(GLOB.blobstart.len > 0)
+	if(length(GLOB.nukedisc_respawn))
 		GLOB.poi_list.Remove(src)
-		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.blobstart))
+		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.nukedisc_respawn))
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")
 		return QDEL_HINT_HARDDEL_NOW
 	else
-		error("[src] was supposed to be destroyed, but we were unable to locate a blobstart landmark to spawn a new one.")
+		error("[src] was supposed to be destroyed, but we were unable to locate a nukedisc_respawn landmark to spawn a new one.")
 	return QDEL_HINT_LETMELIVE // Cancel destruction unless forced.
 
 #undef NUKE_INTACT

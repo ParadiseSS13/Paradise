@@ -8,14 +8,6 @@
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/sleeping_carp/crashing_kick, /datum/martial_combo/sleeping_carp/keelhaul, /datum/martial_combo/sleeping_carp/gnashing_teeth)
 
-/datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = D.grabbedby(A,1)
-	if(G)
-		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
-	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Grabbed", ATKLOG_ALL)
-	return TRUE
-
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -37,6 +29,9 @@
 					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you when in throw mode. \
 					However, you are also unable to use any ranged weaponry. \
 					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
+	if(HAS_TRAIT(H, TRAIT_PACIFISM))
+		to_chat(H, "<span class='warning'>You feel the knowledge of the scroll in your mind, yet reject its more violent teachings. \
+					You will instead deflect projectiles into the ground.")
 
 /datum/martial_art/the_sleeping_carp/remove(mob/living/carbon/human/H)
 	. = ..()

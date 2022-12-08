@@ -1,7 +1,9 @@
 /obj/item/melee/energy
-	var/active = 0
+	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
+	var/force_off //Used to properly reset the force
+	var/throwforce_off
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
 	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
 	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
@@ -18,6 +20,11 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+
+/obj/item/melee/energy/Initialize(mapload)
+	. = ..()
+	force_off = initial(force) //We want to check this only when initializing, not when swapping, so sharpening works.
+	throwforce_off = initial(throwforce)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -59,8 +66,8 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
-		force = initial(force)
-		throwforce = initial(throwforce)
+		force = force_off
+		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)
@@ -70,7 +77,7 @@
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 		set_light(0)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
@@ -92,11 +99,11 @@
 	w_class_on = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	origin_tech = "combat=4;magnets=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
-	sharp = 1
+	sharp = TRUE
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
@@ -114,16 +121,17 @@
 	hitsound = "swing_hit"
 	embed_chance = 75
 	embedded_impact_pain_multiplier = 10
-	armour_penetration = 35
+	armour_penetration_percentage = 50
+	armour_penetration_flat = 10
 	origin_tech = "combat=3;magnets=4;syndicate=4"
-	block_chance = 50
-	sharp = 1
-	var/hacked = 0
+	sharp = TRUE
+	var/hacked = FALSE
 
 /obj/item/melee/energy/sword/New()
 	..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/energy/sword/detailed_examine()
 	return "The energy sword is a very strong melee weapon, capable of severing limbs easily, if they are targeted. It can also has a chance \
@@ -153,7 +161,7 @@
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30
 	force = 18 //About as much as a spear
-	sharp = 1
+	sharp = TRUE
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
@@ -162,6 +170,7 @@
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
+	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
 	..()
@@ -195,7 +204,7 @@
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
 			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
-				newSaber.hacked = 1
+				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
 			user.unEquip(W)
 			user.unEquip(src)
@@ -203,8 +212,8 @@
 			qdel(src)
 			user.put_in_hands(newSaber)
 	else if(istype(W, /obj/item/multitool))
-		if(hacked == 0)
-			hacked = 1
+		if(!hacked)
+			hacked = TRUE
 			item_color = "rainbow"
 			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
 
@@ -233,12 +242,12 @@
 	icon_state = "blade"
 	force = 30	//Normal attacks deal esword damage
 	hitsound = 'sound/weapons/blade1.ogg'
-	active = 1
+	active = TRUE
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
 	throw_range = 1
 	w_class = WEIGHT_CLASS_BULKY //So you can't hide it in your pocket or some such.
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
 	return
@@ -278,6 +287,8 @@
 	var/swiping = FALSE
 
 /obj/item/melee/energy/cleaving_saw/nemesis_effects(mob/living/user, mob/living/target)
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite)) // you get the bonus damage, but the bleed buildup is too much.
+		return
 	var/datum/status_effect/saw_bleed/B = target.has_status_effect(STATUS_EFFECT_SAWBLEED)
 	if(!B)
 		if(!active) //This isn't in the above if-check so that the else doesn't care about active
@@ -318,8 +329,8 @@
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
 	else
-		force = initial(force)
-		throwforce = initial(throwforce)
+		force = force_off
+		throwforce = throwforce_off
 		hitsound = initial(hitsound)
 		throw_speed = initial(throw_speed)
 		if(attack_verb_on.len)

@@ -29,8 +29,15 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
-	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
-	SEND_SOUND(world, sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg')))
+
+	var/sound/cry = sound(pick('sound/hallucinations/im_here1.ogg', 'sound/hallucinations/im_here2.ogg'))
+
+	for(var/mob/living/player in GLOB.player_list)
+		if(isnewplayer(player))
+			continue
+
+		to_chat(player, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
+		SEND_SOUND(player, cry)
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
@@ -41,8 +48,8 @@
 		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
-	INVOKE_ASYNC(src, .proc/narsie_spawn_animation)
-	addtimer(CALLBACK(src, .proc/call_shuttle), 7 SECONDS)
+	INVOKE_ASYNC(src, PROC_REF(narsie_spawn_animation))
+	addtimer(CALLBACK(src, PROC_REF(call_shuttle)), 7 SECONDS)
 
 /obj/singularity/narsie/large/proc/call_shuttle()
 	SSshuttle.emergency.request(null, 0.3)
@@ -84,7 +91,7 @@
 	return
 
 /obj/singularity/narsie/proc/godsmack(atom/A)
-	if(istype(A,/obj/))
+	if(isobj(A))
 		var/obj/O = A
 		O.ex_act(1)
 		if(O) qdel(O)
@@ -98,7 +105,7 @@
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
 				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
-				M.apply_effect(3, STUN)
+				M.Stun(6 SECONDS)
 
 
 /obj/singularity/narsie/consume(atom/A)

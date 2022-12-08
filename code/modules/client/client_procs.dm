@@ -47,14 +47,10 @@
 			hsrc = locate(href_list["src"])
 			if(hsrc)
 				var/hsrc_info = datum_info_line(hsrc) || "[hsrc]"
-				log_runtime(EXCEPTION("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]"))
+				stack_trace("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]")
 
-	#if defined(TOPIC_DEBUGGING)
-	to_chat(world, "[src]'s Topic: [href] destined for [hsrc].")
-	#endif
 
 	if(href_list["asset_cache_confirm_arrival"])
-//		to_chat(src, "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
 		var/job = text2num(href_list["asset_cache_confirm_arrival"])
 		completed_asset_jobs += job
 		return
@@ -64,17 +60,19 @@
 
 	// Rate limiting
 	var/mtl = 100 // 100 topics per minute
-	if (!holder) // Admins are allowed to spam click, deal with it.
+	if(!holder) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
-		if (!topiclimiter)
+		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
-		if (minute != topiclimiter[CURRENT_MINUTE])
+
+		if(minute != topiclimiter[CURRENT_MINUTE])
 			topiclimiter[CURRENT_MINUTE] = minute
 			topiclimiter[MINUTE_COUNT] = 0
+
 		topiclimiter[MINUTE_COUNT] += 1
-		if (topiclimiter[MINUTE_COUNT] > mtl)
+		if(topiclimiter[MINUTE_COUNT] > mtl)
 			var/msg = "Your previous action was ignored because you've done too many in a minute."
-			if (minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
+			if(minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				topiclimiter[ADMINSWARNED_AT] = minute
 				msg += " Administrators have been informed."
 				log_game("[key_name(src)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
@@ -83,22 +81,24 @@
 			return
 
 	var/stl = 10 // 10 topics a second
-	if (!holder) // Admins are allowed to spam click, deal with it.
+	if(!holder) // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
-		if (!topiclimiter)
+		if(!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
-		if (second != topiclimiter[CURRENT_SECOND])
+
+		if(second != topiclimiter[CURRENT_SECOND])
 			topiclimiter[CURRENT_SECOND] = second
 			topiclimiter[SECOND_COUNT] = 0
+
 		topiclimiter[SECOND_COUNT] += 1
-		if (topiclimiter[SECOND_COUNT] > stl)
+		if(topiclimiter[SECOND_COUNT] > stl)
 			to_chat(src, "<span class='danger'>Your previous action was ignored because you've done too many in a second</span>")
 			return
 
 	//search the href for script injection
-	if( findtext(href,"<script",1,0) )
+	if(findtext(href, "<script", 1, 0))
 		log_world("Attempted use of scripts within a topic call, by [src]")
-		log_runtime(EXCEPTION("Attempted use of scripts within a topic call, by [src]"), src)
+		stack_trace("Attempted use of scripts within a topic call, by [src]")
 		message_admins("Attempted use of scripts within a topic call, by [src]")
 		return
 
@@ -119,63 +119,9 @@
 		cmd_admin_discord_pm()
 		return
 
-
-
 	//Logs all hrefs
 	if(GLOB.configuration.logging.href_logging)
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
-
-	if(href_list["karmashop"])
-		if(!GLOB.configuration.general.enable_karma)
-			to_chat(src, "Karma is disabled on this server.")
-			return
-
-		switch(href_list["karmashop"])
-			if("tab")
-				karma_tab = text2num(href_list["tab"])
-				karmashopmenu()
-				return
-			if("shop")
-				if(href_list["KarmaBuy"])
-					var/karma=verify_karma()
-					if(isnull(karma)) //Doesn't display anything if karma database is down.
-						return
-					switch(href_list["KarmaBuy"])
-						if("1")
-							karma_purchase(karma,5,"job","Barber")
-						if("2")
-							karma_purchase(karma,5,"job","Brig Physician")
-						if("3")
-							karma_purchase(karma,30,"job","Nanotrasen Representative")
-						if("4")
-							karma_purchase(karma,30,"job","Blueshield")
-					return
-				if(href_list["KarmaBuy2"])
-					var/karma=verify_karma()
-					if(isnull(karma)) //Doesn't display anything if karma database is down.
-						return
-					switch(href_list["KarmaBuy2"])
-						if("1")
-							karma_purchase(karma,15,"species","Machine People","Machine")
-						if("2")
-							karma_purchase(karma,30,"species","Kidan")
-						if("3")
-							karma_purchase(karma,30,"species","Grey")
-						if("4")
-							karma_purchase(karma,45,"species","Vox")
-						if("5")
-							karma_purchase(karma,45,"species","Slime People")
-						if("6")
-							karma_purchase(karma,45,"species","Plasmaman")
-						if("7")
-							karma_purchase(karma,30,"species","Drask")
-					return
-				if(href_list["KarmaRefund"])
-					var/type = href_list["KarmaRefundType"]
-					var/job = href_list["KarmaRefund"]
-					var/cost = href_list["KarmaRefundCost"]
-					karmarefund(type,job,cost)
-					return
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
@@ -187,9 +133,42 @@
 		ssd_warning_acknowledged = TRUE
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
 		return
+
 	if(href_list["link_forum_account"])
 		link_forum_account()
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
+
+	if(href_list["withdraw_consent"])
+		var/choice = alert(usr, "Are you SURE you want to withdraw your consent to the Terms of Service?\nYou will be instantaneously removed from the server and will have to re-accept the Terms of Service.", "Warning", "Yes", "No")
+		if(choice == "Yes")
+			// Update the DB
+			var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
+			"ckey" = ckey
+			))
+
+			if(!query.warn_execute())
+				to_chat(usr, "Well, this is embarassing. We tried to save your ToS withdrawal but the DB failed. Please contact the server host")
+				return
+
+			// I know its a very rare occurance, but I wouldnt doubt people using this to withdraw consent right when sec captures them
+			message_admins("[key_name_admin(usr)] was disconnected due to withdrawing their ToS consent.")
+			to_chat(usr, "<span class='boldannounce'>Your ToS consent has been withdrawn. You have been kicked from the server</span>")
+			qdel(src)
+			return
+
+	if(href_list["__keydown"])
+		var/keycode = href_list["__keydown"]
+		if(keycode)
+			KeyDown(keycode)
+		return
+
+	if(href_list["__keyup"])
+		var/keycode = href_list["__keyup"]
+		if(keycode)
+			KeyUp(keycode)
+		return
+
+
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
@@ -198,14 +177,8 @@
 
 
 /client/proc/get_display_key()
-	var/fakekey = src?.holder?.fakekey
+	var/fakekey = holder?.fakekey
 	return fakekey ? fakekey : key
-
-/client/proc/is_content_unlocked()
-	if(!prefs.unlock_content)
-		to_chat(src, "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>.")
-		return 0
-	return 1
 
 //Like for /atoms, but clients are their own snowflake FUCK
 /client/proc/setDir(newdir)
@@ -218,25 +191,28 @@
 			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>")
 			return 1
 		last_message_time = world.time
+
 	if(GLOB.configuration.general.enable_auto_mute && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
 			cmd_admin_mute(mob, mute_type, 1)
-			return 1
+			return TRUE
+
 		if(last_message_count >= SPAM_TRIGGER_WARNING)
 			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
-			return 0
+			return FALSE
+
 	else
 		last_message = message
 		last_message_count = 0
-		return 0
+		return FALSE
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
 	if(filelength > UPLOAD_LIMIT)
 		to_chat(src, "<font color='red'>Error: AllowUpload(): File Upload too large. Upload Limit: [UPLOAD_LIMIT/1024]KiB.</font>")
-		return 0
+		return FALSE
 /*	//Don't need this at the moment. But it's here if it's needed later.
 	//Helps prevent multiple files being uploaded at once. Or right after eachother.
 	var/time_to_wait = fileaccess_timer - world.time
@@ -244,7 +220,7 @@
 		to_chat(src, "<font color='red'>Error: AllowUpload(): Spam prevention. Please wait [round(time_to_wait/10)] seconds.</font>")
 		return 0
 	fileaccess_timer = world.time + FTPDELAY	*/
-	return 1
+	return TRUE
 
 
 	///////////
@@ -257,14 +233,18 @@
 
 	if(connection != "seeker")					//Invalid connection type.
 		return null
+
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
+
 	if(byond_build < GLOB.configuration.general.minimum_client_build)
 		version_blocked = TRUE
 
 	var/show_update_prompt = FALSE
+
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
 		show_update_prompt = TRUE
+
 	else if(byond_version == SUGGESTED_CLIENT_VERSION && byond_build < SUGGESTED_CLIENT_BUILD)
 		show_update_prompt = TRUE
 
@@ -274,9 +254,7 @@
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
-	if(GLOB.configuration.admin.enable_localhost_autoadmin)
-		if(is_connecting_from_localhost())
-			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
+	try_localhost_autoadmin()
 
 	holder = GLOB.admin_datums[ckey]
 	if(holder)
@@ -284,6 +262,9 @@
 		holder.owner = src
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
+
+	// We have a holder. Inform the relevant places
+	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
 	pai_save = new(src)
 
@@ -302,6 +283,7 @@
 			CLP.process_result(login_queries[CLP.type], src)
 
 		QDEL_LIST_ASSOC_VAL(login_queries) // Clear out the used queries
+
 	else
 		// Set vars here that need to be set if the DB is offline
 
@@ -316,7 +298,7 @@
 		// ToS accepted
 		tos_consent = TRUE
 
-
+	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
@@ -324,6 +306,7 @@
 	// Log alts
 	if(length(related_accounts_ip))
 		log_admin("[key_name(src)] Alts by IP: [jointext(related_accounts_ip, " ")]")
+
 	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] Alts by CID: [jointext(related_accounts_cid, " ")]")
 
@@ -349,11 +332,12 @@
 			deadmin()
 			verbs += /client/proc/readmin
 			GLOB.deadmins += ckey
+
 		else
 			on_holder_add()
 			add_admin_verbs()
 			// Must be async because any sleeps (happen in sql queries) will break connectings clients
-			INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
+			INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
 
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
@@ -364,6 +348,8 @@
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	. = ..()	//calls mob.Login()
+
+	mob.update_client_colour(0) // Activate colourblind mode if they have one set
 
 
 	if(ckey in GLOB.clientmessages)
@@ -379,6 +365,7 @@
 
 	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
 		activate_darkmode()
+
 	else
 		// activate_darkmode() calls the CL update button proc, so we dont want it double called
 		SSchangelog.UpdatePlayerChangelogButton(src)
@@ -414,12 +401,6 @@
 
 	Master.UpdateTickRate()
 
-	// Check total playercount
-	var/playercount = 0
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			playercount += 1
-
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
@@ -430,10 +411,17 @@
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
+	// This happens "asyncronously"
+	if(karmaholder)
+		karmaholder.processRefunds(mob)
+
+	// Tell client about their connection
+	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
+	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 
 /client/proc/is_connecting_from_localhost()
-	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && (address in localhost_addresses))
+	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
+	if((!address && !world.port) || (address in localhost_addresses))
 		return TRUE
 	return FALSE
 
@@ -447,21 +435,82 @@
 	return ..()
 
 /client/Destroy()
+	announce_leave() // Do not put this below
+	SSdebugview.stop_processing(src)
+	SSchangelog.startup_clients_open -= src
+
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
+
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	SSinstancing.update_playercache() // Clear us out
 	QDEL_NULL(chatOutput)
 	QDEL_NULL(pai_save)
+
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+
 	SSambience.ambience_listening_clients -= src
+	SSinput.processing -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
+
+
+/client/proc/announce_join()
+	if(!holder)
+		return
+
+	if(holder.rights & R_MENTOR)
+		if(SSredis.connected)
+			var/list/mentorcounter = staff_countup(R_MENTOR)
+			var/msg = "**[ckey]** logged in. **[mentorcounter[1]]** mentor[mentorcounter[1] == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.msay", json_encode(data))
+
+	else if(holder.rights & R_BAN)
+		if(SSredis.connected)
+			var/list/admincounter = staff_countup(R_BAN)
+			var/msg = "**[ckey]** logged in. **[admincounter[1]]** admin[admincounter[1] == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay", json_encode(data))
+
+/client/proc/announce_leave()
+	if(!holder)
+		return
+
+	if(holder.rights & R_MENTOR)
+		if(SSredis.connected)
+			var/list/mentorcounter = staff_countup(R_MENTOR)
+			var/mentor_count = mentorcounter[1]
+			mentor_count-- // Exclude ourself
+			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.msay", json_encode(data))
+
+	else if(holder.rights & R_BAN)
+		if(SSredis.connected)
+			var/list/admincounter = staff_countup(R_BAN)
+			var/admin_count = admincounter[1]
+			admin_count-- // Exclude ourself
+			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
+			var/list/data = list()
+			data["author"] = "alice"
+			data["source"] = GLOB.configuration.system.instance_id
+			data["message"] = msg
+			SSredis.publish("byond.asay", json_encode(data))
 
 
 /client/proc/donor_loadout_points()
@@ -525,7 +574,8 @@
 
 		qdel(query_update)
 		// After the regular update
-		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), FALSE) // Async to avoid other procs in the client chain being delayed by a web request
+
 	else
 		//New player!! Need to insert all the stuff
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
@@ -540,10 +590,10 @@
 		qdel(query_insert)
 		// This is their first connection instance, so TRUE here to notify admins
 		// This needs to happen here to ensure they actually have a row to update
-		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
@@ -586,24 +636,29 @@
 /client/proc/check_forum_link()
 	if(!GLOB.configuration.url.forum_link_url || !prefs || prefs.fuid)
 		return
+
 	if(GLOB.configuration.jobs.enable_exp_tracking)
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return
+
 	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM oauth_tokens WHERE ckey=:ckey limit 1", list(
 		"ckey" = ckey
 	))
+
 	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
 	if(!query_find_token.warn_execute(log_error=FALSE))
 		qdel(query_find_token)
 		return
+
 	if(query_find_token.NextRow())
 		var/tkn = query_find_token.item[1]
 		qdel(query_find_token)
 		return tkn
+
 	qdel(query_find_token)
 
 	var/tokenstr = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
@@ -612,46 +667,57 @@
 		"ckey" = ckey,
 		"tokenstr" = tokenstr,
 	))
+
 	// These queries have log_error=FALSE to avoid auth tokens being in plaintext logs
-	if(!query_insert_token.warn_execute(log_error=FALSE))
+	if(!query_insert_token.warn_execute(log_error = FALSE))
 		qdel(query_insert_token)
 		return
+
 	qdel(query_insert_token)
 	return tokenstr
 
 /client/proc/link_forum_account(fromban)
 	if(!GLOB.configuration.url.forum_link_url)
 		return
+
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
 		return
+
 	if(prefs && prefs.fuid)
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.")
 		return
+
 	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM player WHERE ckey=:ckey LIMIT 1", list(
 		"ckey" = ckey
 	))
+
 	if(!query_find_link.warn_execute())
 		qdel(query_find_link)
 		return
+
 	if(query_find_link.NextRow())
 		if(query_find_link.item[1])
 			if(!fromban)
 				to_chat(src, "Your forum account is already set. ([query_find_link.item[1]])")
 			qdel(query_find_link)
 			return
+
 	qdel(query_find_link)
 	var/tokenid = create_oauth_token()
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
+
 	var/url = "[GLOB.configuration.url.forum_link_url][tokenid]"
 	if(fromban)
 		url += "&fwd=appeal"
 		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
+		to_chat(src, "<span class='boldannounce'>If you are screenshotting this screen for your ban appeal, please blur/draw over the token in the above link.</span>")
 	else
 		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
+
 	src << link(url)
 	return
 
@@ -663,11 +729,14 @@
 /client/proc/check_randomizer(topic)
 	set waitfor = FALSE // Yes I know this is already called from an async proc but someone may change that without thinking properly
 	. = FALSE
+
 	if(connection != "seeker")					//Invalid connection type.
 		return null
+
 	topic = params2list(topic)
 	if(!GLOB.configuration.general.enabled_cid_randomiser_buster)
 		return
+
 	// Stash o' ckeys
 	var/static/cidcheck = list()
 	var/static/tokens = list()
@@ -681,6 +750,7 @@
 		var/datum/db_query/query_cidcheck = SSdbcore.NewQuery("SELECT computerid FROM player WHERE ckey=:ckey", list(
 			"ckey" = ckey
 		))
+
 		if(!query_cidcheck.warn_execute())
 			qdel(query_cidcheck)
 			return
@@ -688,6 +758,7 @@
 		var/lastcid = computer_id
 		if(query_cidcheck.NextRow())
 			lastcid = query_cidcheck.item[1]
+
 		qdel(query_cidcheck)
 
 		if(computer_id != lastcid)
@@ -703,9 +774,10 @@
 			to_chat(src, "<pre class=\"system system\">you're a huge nerd. wakka wakka doodle doop nobody's ever gonna see this, the chat system shouldn't be online by this point</pre>")
 			qdel(src)
 			return TRUE
+
 	else
-		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
-			if (!cidcheck_spoofckeys[ckey])
+		if(!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
+			if(!cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] appears to have attempted to spoof a cid randomizer check.</span>")
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
@@ -714,6 +786,7 @@
 			sleep(10) //browse is queued, we don't want them to disconnect before getting the browse() command.
 			qdel(src)
 			return TRUE
+
 		// We DO have their cached CID handy - compare it, now
 		if(oldcid != computer_id)
 			// Change detected, they are randomizing
@@ -732,6 +805,7 @@
 
 			qdel(src)
 			return TRUE
+
 		else
 			// don't shoot, I'm innocent
 			if(cidcheck_failedckeys[ckey])
@@ -739,7 +813,8 @@
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
 				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
-			if (cidcheck_spoofckeys[ckey])
+
+			if(cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
@@ -752,33 +827,42 @@
 		"ckey" = ckey,
 		"adminckey" = adminckey
 	))
+
 	if(!query_get_notes.warn_execute())
 		qdel(query_get_notes)
 		return
+
 	if(query_get_notes.NextRow())
 		qdel(query_get_notes)
 		return
+
 	qdel(query_get_notes)
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
 	var/datum/db_query/query_get_note = SSdbcore.NewQuery("SELECT adminckey FROM notes WHERE ckey=:ckey ORDER BY timestamp DESC LIMIT 1", list(
 		"ckey" = ckey
 	))
+
 	if(!query_get_note.warn_execute())
 		qdel(query_get_note)
 		return
+
 	if(query_get_note.NextRow())
 		if(query_get_note.item[1] == adminckey)
 			qdel(query_get_note)
 			return
+
 	qdel(query_get_note)
-	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = 0)
+	add_note(ckey, "Detected as using a cid randomizer.", null, adminckey, logged = FALSE)
 
 /client/proc/cid_check_reconnect()
 	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	. = token
+
 	log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer check")
+
 	var/url = winget(src, null, "url")
+
 	//special javascript to make them reconnect under a new window.
 	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
 		byond://[url]?token=[token]\
@@ -788,12 +872,12 @@
 		window.location=\"byond://winset?command=.quit\"\
 	</script>",
 	"border=0;titlebar=0;size=1x1")
+
 	to_chat(src, "<a href='byond://[url]?token=[token]'>You will be automatically taken to the game, if not, click here to be taken manually</a>. Except you can't, since the chat window doesn't exist yet.")
 
-//checks if a client is afk
-//3000 frames = 5 minutes
-/client/proc/is_afk(duration=3000)
-	if(inactivity > duration)	return inactivity
+/client/proc/is_afk(duration = 5 MINUTES)
+	if(inactivity > duration)
+		return inactivity
 	return 0
 
 //Send resources to the client.
@@ -801,13 +885,16 @@
 	// Change the way they should download resources.
 	if(length(GLOB.configuration.url.rsc_urls))
 		preload_rsc = pick(GLOB.configuration.url.rsc_urls)
+
 	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
+
 	// Most assets are now handled through global_cache.dm
 	getFiles(
 		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
+
 	spawn (10) //removing this spawn causes all clients to not get verbs.
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
 		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
@@ -817,8 +904,10 @@
 	for(var/L in GLOB.all_languages)
 		var/datum/language/lang = GLOB.all_languages[L]
 		var/message = "[lang.name] : [lang.type]"
+
 		if(lang.flags & RESTRICTED)
 			message += " (RESTRICTED)"
+
 		to_chat(world, "[message]")
 
 /client/proc/colour_transition(list/colour_to = null, time = 10) //Call this with no parameters to reset to default.
@@ -842,25 +931,26 @@
 	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.webmap", "background-color=#40628a;text-color=#FFFFFF")
-	/* Mainwindow */
-	winset(src, "mainwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "mainwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
+	/* Outputwindow */
+	winset(src, "outputwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "outputwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
 	winset(src, "mainwindow", "background-color=#272727")
 	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
 	winset(src, "mainwindow.tooltip", "background-color=#272727")
 	/* Outputwindow */
+	winset(src, "outputwindow", "background-color=#1d1d1d")
 	winset(src, "outputwindow.browseroutput", "background-color=#272727")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#272727")
-	winset(src, "rpane.rpanewindow", "background-color=#272727")
+	winset(src, "rpane", "background-color=#1d1d1d")
+	winset(src, "rpane.rpanewindow", "background-color=#1d1d1d")
 	/* Browserwindow */
 	winset(src, "browserwindow", "background-color=#272727")
 	winset(src, "browserwindow.browser", "background-color=#272727")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
-	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
+	winset(src, "infowindow", "background-color=#1d1d1d;text-color=#FFFFFF")
+	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#1d1d1d")
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
@@ -875,15 +965,16 @@
 	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
-	/* Mainwindow */
-	winset(src, "mainwindow.saybutton", "background-color=none;text-color=#000000")
-	winset(src, "mainwindow.mebutton", "background-color=none;text-color=#000000")
+	/* Outputwindow */
+	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
+	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
 	winset(src, "mainwindow", "background-color=none")
 	winset(src, "mainwindow.mainvsplit", "background-color=none")
 	winset(src, "mainwindow.tooltip", "background-color=none")
 	/* Outputwindow */
+	winset(src, "outputwindow", "background-color=none")
 	winset(src, "outputwindow.browseroutput", "background-color=none")
 	/* Rpane */
 	winset(src, "rpane", "background-color=none")
@@ -910,10 +1001,13 @@
 /client/proc/send_ssd_warning(mob/M)
 	if(!GLOB.configuration.general.ssd_warning)
 		return FALSE
+
 	if(ssd_warning_acknowledged)
 		return FALSE
-	if(M && M.player_logged < SSD_WARNING_TIMER)
+
+	if(M?.player_logged < SSD_WARNING_TIMER)
 		return FALSE
+
 	to_chat(src, "Are you taking this person to cryo or giving them medical treatment? If you are, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</a> and proceed. Interacting with SSD players in other ways is against server rules unless you've ahelped first for permission.")
 	return TRUE
 
@@ -959,23 +1053,26 @@
   */
 /client/proc/retrieve_byondacc_data()
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
-	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
+	var/list/http[] = HTTPGet("http://www.byond.com/members/[ckey]?format=text")
 	if(http)
 		var/status = text2num(http["STATUS"])
 
 		if(status == 200)
 			// This is wrapped in try/catch because lummox could change the format on any day without informing anyone
 			try
-				var/list/lines = splittext(file2text(http["CONTENT"]), "\n")
+				var/list/lines = splittext(http["CONTENT"], "\n")
 				var/list/initial_data = list()
 				var/current_index = ""
+
 				for(var/L in lines)
 					if(L == "")
 						continue
+
 					if(!findtext(L, "\t"))
 						current_index = L
 						initial_data[current_index] = list()
 						continue
+
 					initial_data[current_index] += replacetext(replacetext(L, "\t", ""), "\"", "")
 
 				var/list/parsed_data = list()
@@ -992,12 +1089,15 @@
 
 				// Main return is here
 				return parsed_data
+
 			catch
 				log_debug("Error parsing byond.com data for [ckey]. Please inform maintainers.")
 				return null
+
 		else
 			log_debug("Error retrieving data from byond.com for [ckey]. Invalid status code (Expected: 200 | Got: [status]).")
 			return null
+
 	else
 		log_debug("Failed to retrieve data from byond.com for [ckey]. Connection failed.")
 		return null
@@ -1016,6 +1116,7 @@
 	var/datum/db_query/query_date = SSdbcore.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM player WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
+
 	if(!query_date.warn_execute())
 		qdel(query_date)
 		return
@@ -1043,21 +1144,25 @@
 		"date" = byondacc_date,
 		"ckey" = ckey
 	))
+
 	if(!query_update.warn_execute())
 		qdel(query_update)
 		return
+
 	qdel(query_update)
 
 	// Now retrieve the age again because BYOND doesnt have native methods for this
 	var/datum/db_query/query_age = SSdbcore.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM player WHERE ckey=:ckey", list(
 		"ckey" = ckey
 	))
+
 	if(!query_age.warn_execute())
 		qdel(query_age)
 		return
 
 	while(query_age.NextRow())
 		byondacc_age = max(text2num(query_age.item[1]), 0) // Ensure account isnt negative days old
+
 	qdel(query_age)
 
 	// Notify admins on new clients connecting, if the byond account age is less than a config value
@@ -1071,9 +1176,66 @@
 	if(prefs.sound & SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
 			return // If already properly set we don't want to reset the timer.
+
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+
 	else
 		SSambience.ambience_listening_clients -= src
+
+/client/proc/try_localhost_autoadmin()
+	if(GLOB.configuration.admin.enable_localhost_autoadmin && is_connecting_from_localhost())
+		return new /datum/admins("!LOCALHOST!", R_HOST, ckey)
+
+// Verb scoped to the client level so its ALWAYS available
+/client/verb/open_tos()
+	set category = "OOC"
+	set name = "Terms of Service"
+
+	var/output = GLOB.join_tos
+	output += "<hr><p>By withdrawing your consent, you acknowledge that you will be instantaneously kicked from the server and will have to re-accept the Terms of Service. If you do not wish to withdraw your consent at this moment, feel free to close this window.</p>"
+	output += "<p><a href='byond://?src=[UID()];withdraw_consent=1'>Withdraw consent</a></p>"
+
+	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Privacy Consent</div>", 500, 400)
+
+	popup.set_content(output)
+	popup.open(FALSE)
+
+/client/verb/change_region()
+	set category = "OOC"
+	set name = "Change Region"
+
+	if(!length(GLOB.configuration.system.region_map))
+		to_chat(usr, "<span class='warning'>Error: No extra regions defined for this server</span>")
+		return
+
+	var/list/target_regions = list("--DIRECT--")
+	for(var/region in GLOB.configuration.system.region_map)
+		target_regions += region
+
+	var/formatted_existing = (prefs.server_region ? prefs.server_region : "--DIRECT--")
+
+	var/choice = input(usr, "Select a region for routing optimisation.\nSelecting --DIRECT-- will bypass routing optimisations.", "Region", formatted_existing) as null|anything in target_regions
+
+	if(!choice || (choice == formatted_existing))
+		return
+
+	prefs.server_region = choice
+	prefs.save_preferences(src)
+
+	alert(usr, "Now routing you from [formatted_existing] to [choice]. You will briefly disconnect.", "ALERT", "Ok")
+
+	if(choice == "--DIRECT--")
+		src << link("byond://[GLOB.configuration.url.server_url]")
+	else
+		src << link(GLOB.configuration.system.region_map[choice])
+
+
+/client/verb/reload_graphics()
+	set category = "Special Verbs"
+	set name = "Reload Graphics"
+
+	winset(src, null, "command=\".configure graphics-hwmode off\"")
+	winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -94,14 +94,12 @@
 
 	var/list/turf/synd_spawn = list()
 
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/A = thing
-		if(A.name == "Syndicate-Spawn")
-			synd_spawn += get_turf(A)
-			qdel(A)
-			continue
+	for(var/obj/effect/landmark/spawner/syndie/S in GLOB.landmarks_list)
+		synd_spawn += get_turf(S)
+		qdel(S)
+		continue
 
-	var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
+	var/obj/effect/landmark/nuke_spawn = locate(/obj/effect/landmark/spawner/nuclear_bomb)
 
 	var/nuke_code = rand(10000, 99999)
 	var/leader_selected = 0
@@ -110,7 +108,7 @@
 
 	var/obj/machinery/nuclearbomb/syndicate/the_bomb
 	if(nuke_spawn && length(synd_spawn))
-		the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
+		the_bomb = new /obj/machinery/nuclearbomb/syndicate(get_turf(nuke_spawn))
 		the_bomb.r_code = nuke_code
 
 	for(var/datum/mind/synd_mind in syndicates)
@@ -282,7 +280,7 @@
 		var/race = synd_mob.dna.species.name
 
 		switch(race)
-			if("Vox" || "Vox Armalis")
+			if("Vox", "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
 				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
@@ -311,7 +309,7 @@
 
 /datum/game_mode/proc/is_operatives_are_dead()
 	for(var/datum/mind/operative_mind in syndicates)
-		if(!istype(operative_mind.current,/mob/living/carbon/human))
+		if(!ishuman(operative_mind.current))
 			if(operative_mind.current)
 				if(operative_mind.current.stat!=2)
 					return 0
@@ -390,7 +388,7 @@
 
 		for(var/datum/mind/syndicate in syndicates)
 
-			text += "<br><b>[syndicate.key]</b> was <b>[syndicate.name]</b> ("
+			text += "<br><b>[syndicate.get_display_key()]</b> was <b>[syndicate.name]</b> ("
 			if(syndicate.current)
 				if(syndicate.current.stat == DEAD)
 					text += "died"

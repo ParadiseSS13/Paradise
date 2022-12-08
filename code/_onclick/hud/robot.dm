@@ -148,21 +148,23 @@
 	infodisplay += mymob.healths
 
 //Installed Module
-	mymob.hands = new /obj/screen/robot/module()
-	mymob.hands.screen_loc = ui_borg_module
-	static_inventory += mymob.hands
+	mymobR.hands = new /obj/screen/robot/module()
+	mymobR.hands.screen_loc = ui_borg_module
+	static_inventory += mymobR.hands
 
 	module_store_icon = new /obj/screen/robot/store()
 	module_store_icon.screen_loc = ui_borg_store
 
 	mymob.pullin = new /obj/screen/pull()
 	mymob.pullin.icon = 'icons/mob/screen_robot.dmi'
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.hud = src
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_borg_pull
 	hotkeybuttons += mymob.pullin
 
 	zone_select = new /obj/screen/zone_sel/robot()
-	zone_select.update_icon(mymob)
+	zone_select.hud = src
+	zone_select.update_icon(UPDATE_OVERLAYS)
 	static_inventory += zone_select
 
 //Headlamp
@@ -175,6 +177,17 @@
 	using.screen_loc = ui_borg_thrusters
 	static_inventory += using
 	mymobR.thruster_button = using
+
+/datum/hud/robot/Destroy()
+	var/mob/living/silicon/robot/myrob = mymob
+	myrob.inv1 = null
+	myrob.hands = null
+	myrob.inv2 = null
+	myrob.inv3 = null
+	myrob.lamp_button = null
+	myrob.thruster_button = null
+
+	return ..()
 
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))
@@ -239,5 +252,5 @@
 			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
 				//Module is not currently active
 				R.client.screen -= A
-		R.shown_robot_modules = 0
+		R.shown_robot_modules = FALSE
 		R.client.screen -= R.robot_modules_background

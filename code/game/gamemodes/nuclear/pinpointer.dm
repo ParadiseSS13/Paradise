@@ -5,6 +5,8 @@
 #define MODE_SHIP 4
 #define MODE_OPERATIVE 5
 #define MODE_CREW 6
+#define MODE_DET 7
+#define MODE_TENDRIL 8
 #define SETTING_DISK 0
 #define SETTING_LOCATION 1
 #define SETTING_OBJECT 2
@@ -54,6 +56,8 @@
 		workbomb()
 
 /obj/item/pinpointer/attack_self(mob/user)
+	if(mode == MODE_DET)
+		return
 	cycle(user)
 
 /obj/item/pinpointer/proc/cycle(mob/user)
@@ -84,6 +88,8 @@
 			return "You point the pinpointer to the nearest operative."
 		if(MODE_CREW)
 			return "You turn on the pinpointer."
+		if(MODE_TENDRIL)
+			return "High energy scanner active"
 
 /obj/item/pinpointer/proc/activate_mode(mode, mob/user) //for crew pinpointer
 	return
@@ -100,7 +106,7 @@
 		if(!the_s_bomb)
 			the_s_bomb = locate()
 
-/obj/item/pinpointer/proc/point_at(atom/target)
+/obj/item/pinpointer/proc/point_at_target(atom/target)
 	if(!target)
 		icon_state = icon_null
 		return
@@ -124,15 +130,15 @@
 
 /obj/item/pinpointer/proc/workdisk()
 	scandisk()
-	point_at(the_disk)
+	point_at_target(the_disk)
 
 /obj/item/pinpointer/proc/workbomb()
 	if(!syndicate)
 		scanbomb()
-		point_at(the_bomb)
+		point_at_target(the_bomb)
 	else
 		scanbomb()
-		point_at(the_s_bomb)
+		point_at_target(the_s_bomb)
 
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
@@ -143,7 +149,8 @@
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
-	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
+	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal. \n \
+			<span class='notice'>Alt-click to toggle mode.</span>"
 	modes = list(MODE_ADV)
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
@@ -155,13 +162,18 @@
 		if(SETTING_DISK)
 			workdisk()
 		if(SETTING_LOCATION)
-			point_at(location)
+			point_at_target(location)
 		if(SETTING_OBJECT)
-			point_at(target)
+			point_at_target(target)
 
 /obj/item/pinpointer/advpinpointer/workdisk() //since mode works diffrently for advpinpointer
 	scandisk()
-	point_at(the_disk)
+	point_at_target(the_disk)
+
+/obj/item/pinpointer/advpinpointer/AltClick(mob/user)
+	if(!isliving(user) || !Adjacent(user))
+		return ..()
+	toggle_mode()
 
 /obj/item/pinpointer/advpinpointer/verb/toggle_mode()
 	set category = "Object"
@@ -268,7 +280,7 @@
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
 		return		//Get outta here
 	scandisk()
-	point_at(the_disk)
+	point_at_target(the_disk)
 
 /obj/item/pinpointer/nukeop/workbomb()
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
@@ -278,7 +290,7 @@
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
 		return		//Get outta here
 	scanbomb()
-	point_at(the_s_bomb)
+	point_at_target(the_s_bomb)
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
 	if(!GLOB.bomb_set)
@@ -295,7 +307,7 @@
 	if(loc.z != home.z)	//If you are on a different z-level from the shuttle
 		icon_state = icon_null
 	else
-		point_at(home)
+		point_at_target(home)
 
 /obj/item/pinpointer/operative
 	name = "operative pinpointer"
@@ -321,7 +333,7 @@
 /obj/item/pinpointer/operative/proc/workop()
 	if(mode == MODE_OPERATIVE)
 		scan_for_ops()
-		point_at(nearest_op, FALSE)
+		point_at_target(nearest_op, FALSE)
 	else
 		return FALSE
 
@@ -347,8 +359,59 @@
 	modes = list(MODE_CREW)
 	var/target = null //for targeting in processing
 	var/target_set = FALSE //have we set a target at any point?
+	///Var to track the linked detective gun
+	var/linked_gun_UID
+
+/obj/item/pinpointer/crew/attackby(obj/item/I, mob/living/user)
+	. = ..()
+	if(istype(I, /obj/item/gun/energy/detective))
+		link_gun(I.UID())
+
+/obj/item/pinpointer/crew/emp_act(severity)
+	var/obj/item/gun/energy/detective/D = locateUID(linked_gun_UID)
+	if(!D)
+		return
+	D.unlink()
+	atom_say("EMP detected. Connection to revolver tracking system lost.")
+
+/obj/item/pinpointer/crew/proc/link_gun(gun_UID)
+	var/obj/item/gun/energy/detective/D = locateUID(gun_UID)
+	if(!D)
+		return
+	if((D.linked_pinpointer_UID && D.linked_pinpointer_UID != UID()) || linked_gun_UID)
+		visible_message("<span class='notice'>The pinpointer pings to indicate either it or the gun is already linked.</span>", "<span class='notice'>You hear a pinpointer pinging.</span>")
+		return
+	D.link_pinpointer(UID())
+	linked_gun_UID = gun_UID
+	visible_message("<span class='notice'>The pinpointer pings twice to indicate a successful link.</span>", "<span class='notice'>You hear a pinpointer pinging twice.</span>")
+
+/obj/item/pinpointer/crew/proc/start_tracking()
+	if(!linked_gun_UID)
+		return
+	var/obj/item/gun/energy/detective/D = locateUID(linked_gun_UID)
+	if(!D)
+		return
+	var/target_UID = D.tracking_target_UID
+	target = locateUID(target_UID)
+	target_set = TRUE
+	mode = MODE_DET
+	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
+	addtimer(CALLBACK(src, PROC_REF(stop_tracking)), 1 MINUTES, TIMER_UNIQUE)
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/pinpointer/crew/proc/stop_tracking()
+	visible_message("<span class='notice'>The pinpointer powers down, no longer recieving signals from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer powering down.</span>")
+	target = null
+	target_set = FALSE
+	mode = MODE_OFF
+	icon_state = icon_off
+	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
+	if(mode == MODE_DET) // Sensors? Where we're going, we dont need sensors!
+		var/turf/here = get_turf(src)
+		var/turf/there = get_turf(H)
+		return istype(there) && istype(here) && there.z == here.z
 	if(H && istype(H.w_uniform, /obj/item/clothing/under))
 		var/turf/here = get_turf(src)
 		var/obj/item/clothing/under/U = H.w_uniform
@@ -360,10 +423,10 @@
 	return FALSE
 
 /obj/item/pinpointer/crew/process()
-	if(mode == MODE_CREW && target_set)
-		point_at(target)
+	if(mode != MODE_OFF && target_set)
+		point_at_target(target)
 
-/obj/item/pinpointer/crew/point_at(atom/target)
+/obj/item/pinpointer/crew/point_at_target(atom/target)
 	if(!target || !trackable(target))
 		icon_state = icon_null
 		return
@@ -412,6 +475,49 @@
 	var/turf/there = get_turf(H)
 	return istype(there) && istype(here) && there.z == here.z
 
+/obj/item/pinpointer/tendril
+	name = "ancient scanning unit"
+	desc = "Convenient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
+	icon_state = "pinoff_ancient"
+	icon_off = "pinoff_ancient"
+	icon_null = "pinonnull_ancient"
+	icon_direct = "pinondirect_ancient"
+	icon_close = "pinonclose_ancient"
+	icon_medium = "pinonmedium_ancient"
+	icon_far = "pinonfar_ancient"
+	modes = list(MODE_TENDRIL)
+	var/obj/structure/spawner/lavaland/target
+
+/obj/item/pinpointer/tendril/process()
+	if(mode == MODE_TENDRIL)
+		worktendril()
+		point_at_target(target, FALSE)
+	else
+		icon_state = icon_off
+
+/obj/item/pinpointer/tendril/proc/worktendril()
+	if(mode == MODE_TENDRIL)
+		scan_for_tendrils()
+		point_at_target(target)
+	else
+		return FALSE
+
+/obj/item/pinpointer/tendril/proc/scan_for_tendrils()
+	if(mode == MODE_TENDRIL)
+		target = null //Resets nearest_op every time it scans
+		var/closest_distance = 1000
+		for(var/obj/structure/spawner/lavaland/T in GLOB.tendrils)
+			var/temp_distance = get_dist(T, get_turf(src))
+			if(temp_distance < closest_distance)
+				target = T
+				closest_distance = temp_distance
+
+/obj/item/pinpointer/tendril/examine(mob/user)
+	. = ..()
+	if(mode == MODE_TENDRIL)
+		. += "Number of high energy signatures remaining: [length(GLOB.tendrils)]"
+
+
 #undef MODE_OFF
 #undef MODE_DISK
 #undef MODE_NUKE
@@ -419,6 +525,7 @@
 #undef MODE_SHIP
 #undef MODE_OPERATIVE
 #undef MODE_CREW
+#undef MODE_TENDRIL
 #undef SETTING_DISK
 #undef SETTING_LOCATION
 #undef SETTING_OBJECT

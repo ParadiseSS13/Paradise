@@ -1,13 +1,12 @@
 /mob/living/silicon
 	gender = NEUTER
-	robot_talk_understand = 1
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
-	has_unlimited_silicon_privilege = 1
+	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list("ash")
 	mob_biotypes = MOB_ROBOTIC
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
-	var/syndicate = 0
+	var/syndicate = FALSE
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
 	var/list/stating_laws = list()// Channels laws are currently being stated on
@@ -36,15 +35,13 @@
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //There is only one kind of diag hud
 
-	var/obj/item/radio/common_radio
-
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
 	..()
 	add_language("Galactic Common")
 	init_subsystems()
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
@@ -66,7 +63,11 @@
 	QDEL_NULL(crew_monitor)
 	QDEL_NULL(law_manager)
 	QDEL_NULL(power_monitor)
+	QDEL_NULL(aiCamera)
 	return ..()
+
+/mob/living/silicon/proc/get_radio()
+	return
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
 	return
@@ -86,7 +87,7 @@
 	if(in_cooldown)
 		return
 
-	addtimer(CALLBACK(src, .proc/show_alarms), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(show_alarms)), 3 SECONDS)
 
 /mob/living/silicon/proc/show_alarms()
 	if(alarms_to_show.len < 5)
@@ -168,12 +169,12 @@
 /mob/living/silicon/emp_act(severity)
 	..()
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			take_organ_damage(20)
-			Stun(8)
-		if(2)
+			Stun(16 SECONDS)
+		if(EMP_LIGHT)
 			take_organ_damage(10)
-			Stun(3)
+			Stun(6 SECONDS)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
@@ -225,7 +226,6 @@
 
 /mob/living/silicon/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
 	return FALSE //The only effect that can hit them atm is flashes and they still directly edit so this works for now
-
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
@@ -366,3 +366,15 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	. = TRUE
+
+/mob/living/silicon/on_floored_start()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_floored_end()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_lying_down()
+	return // Silicons are always standing by default.
+
+/mob/living/silicon/on_standing_up()
+	return // Silicons are always standing by default.

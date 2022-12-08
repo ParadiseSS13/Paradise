@@ -3,7 +3,7 @@
 
 /obj/structure/ore_box
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "orebox0"
+	icon_state = "orebox"
 	name = "ore box"
 	desc = "A heavy wooden box, which can be filled with a lot of ores."
 	density = TRUE
@@ -14,7 +14,7 @@
 		if(!user.drop_item())
 			return
 		W.forceMove(src)
-	else if(istype(W, /obj/item/storage))
+	else if(isstorage(W))
 		var/obj/item/storage/S = W
 		S.hide_from(usr)
 		for(var/obj/item/stack/ore/O in S.contents)

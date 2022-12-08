@@ -3,7 +3,6 @@
 	desc = "Let it snow, let it snow, let it snow!"
 	icon_state = "snowcloud"
 	layer = FLY_LAYER
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/snow_machine/parent_machine
 
@@ -21,7 +20,7 @@
 	if(QDELETED(parent_machine))
 		parent_machine = null
 	var/turf/T = get_turf(src)
-	if(isspaceturf(T))
+	if(isspaceturf(T) || T.density) // Don't want snowclouds or snow on walls
 		qdel(src)
 		return
 	var/turf_hotness
@@ -70,7 +69,6 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "snow"
 	layer = ABOVE_ICYOVERLAY_LAYER
-	anchored = TRUE
 
 /obj/effect/snow/New()
 	START_PROCESSING(SSobj, src)
@@ -83,7 +81,7 @@
 
 /obj/effect/snow/process()
 	var/turf/T = get_turf(src)
-	if(isspaceturf(T))
+	if(isspaceturf(T) || T.density) // Don't want snowclouds or snow on walls
 		qdel(src)
 		return
 	else if(issimulatedturf(T))

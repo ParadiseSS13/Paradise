@@ -7,7 +7,7 @@
 	icon_living = "drone3"
 	icon_dead = "drone_dead"
 	mob_biotypes = MOB_ROBOTIC
-	ranged = 1
+	ranged = TRUE
 	rapid = 3
 	retreat_distance = 3
 	minimum_distance = 3
@@ -29,12 +29,12 @@
 	minbodytemp = 0
 	faction = list("malf_drone")
 	deathmessage = "suddenly breaks apart."
-	del_on_death = 1
+	del_on_death = TRUE
 	var/passive_mode = TRUE // if true, don't target anything.
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 	update_icons()
 
 /mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)

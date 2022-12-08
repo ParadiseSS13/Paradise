@@ -116,7 +116,8 @@
 /mob/living/silicon/proc/law_channels()
 	var/list/channels = new()
 	channels += MAIN_CHANNEL
-	channels += common_radio.channels
+	var/obj/item/radio/radio = get_radio()
+	channels += radio.channels
 	channels += additional_law_channels
 	return channels
 

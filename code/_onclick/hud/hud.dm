@@ -39,6 +39,8 @@
 	var/list/obj/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 	///Assoc list of controller groups, associated with key string group name with value of the plane master controller ref
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
+	///UI for screentips that appear when you mouse over things
+	var/obj/screen/screentip/screentip_text
 
 /mob/proc/create_mob_hud()
 	if(client && !hud_used)
@@ -58,6 +60,9 @@
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
 		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
 		plane_master_controllers[controller_instance.name] = controller_instance
+
+	screentip_text = new(null, src)
+	static_inventory += screentip_text
 
 /datum/hud/Destroy()
 	if(mymob.hud_used == src)
@@ -98,6 +103,7 @@
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
 
 	mymob = null
+	QDEL_NULL(screentip_text)
 	return ..()
 
 /datum/hud/proc/show_hud(version = 0)

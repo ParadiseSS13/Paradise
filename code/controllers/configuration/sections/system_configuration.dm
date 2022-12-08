@@ -14,27 +14,45 @@
 	var/is_production = FALSE
 	/// If above is true, you can run a shell command
 	var/shutdown_shell_command = null
-	/// 2FA backend server host
-	var/_2fa_auth_host = null
+	/// Internal API host
+	var/api_host = null
+	/// Internal API key
+	var/api_key = null
 	/// List of IP addresses which bypass world topic rate limiting
 	var/list/topic_ip_ratelimit_bypass = list()
 	/// Server instance ID
 	var/instance_id = "paradise_main"
 	/// Server internal IP
 	var/internal_ip = "127.0.0.1"
+	/// Are we using an external handler for TOS
+	var/external_tos_handler = FALSE
+	/// Map datum of the map to use, overriding the defaults, and `data/next_map.txt`
+	var/override_map = null
+	/// Assoc list of region names and their server IPs. Used for geo-routing.
+	var/list/region_map = list()
 
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
 	CONFIG_LOAD_BOOL(shutdown_on_reboot, data["shutdown_on_reboot"])
 	CONFIG_LOAD_BOOL(is_production, data["is_production"])
+	CONFIG_LOAD_BOOL(external_tos_handler, data["external_tos_handler"])
 
 	CONFIG_LOAD_STR(topic_key, data["communications_password"])
 	CONFIG_LOAD_STR(medal_hub_address, data["medal_hub_address"])
 	CONFIG_LOAD_STR(medal_hub_password, data["medal_hub_password"])
 	CONFIG_LOAD_STR(shutdown_shell_command, data["shutdown_shell_command"])
-	CONFIG_LOAD_STR(_2fa_auth_host, data["_2fa_auth_host"])
+	CONFIG_LOAD_STR(api_host, data["api_host"])
+	CONFIG_LOAD_STR(api_key, data["api_key"])
 
 	CONFIG_LOAD_LIST(topic_ip_ratelimit_bypass, data["topic_ip_ratelimit_bypass"])
 
 	CONFIG_LOAD_STR(instance_id, data["instance_id"])
 	CONFIG_LOAD_STR(internal_ip, data["internal_ip"])
+
+	CONFIG_LOAD_STR(override_map, data["override_map"])
+
+	// Load region overrides
+	if(islist(data["regional_servers"]))
+		region_map.Cut()
+		for(var/list/kvset in data["regional_servers"])
+			region_map[kvset["name"]] = kvset["ip"]

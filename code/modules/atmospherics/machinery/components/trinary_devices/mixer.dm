@@ -2,7 +2,7 @@
 	icon = 'icons/atmos/mixer.dmi'
 	icon_state = "map"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	name = "gas mixer"
 
@@ -33,11 +33,9 @@
 
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
-	flipped = 1
+	flipped = TRUE
 
-/obj/machinery/atmospherics/trinary/mixer/update_icon(safety = 0)
-	..()
-
+/obj/machinery/atmospherics/trinary/mixer/update_icon_state()
 	if(flipped)
 		icon_state = "m"
 	else
@@ -49,7 +47,7 @@
 		icon_state += on ? "on" : "off"
 	else
 		icon_state += "off"
-		on = 0
+		on = FALSE
 
 /obj/machinery/atmospherics/trinary/mixer/update_underlays()
 	if(..())
@@ -199,7 +197,7 @@
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 		return
 	else

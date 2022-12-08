@@ -242,7 +242,8 @@
 	},
 /area/awaymission/challenge/main)
 "aM" = (
-/turf/simulated/wall/rust,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
 /area/awaymission/challenge/main)
 "aN" = (
 /obj/structure/inflatable/door,
@@ -398,7 +399,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/challenge/main)
 "bu" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
 "bv" = (
@@ -499,9 +500,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
 "bK" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/greengrid,
 /area/awaymission/challenge/start)
 "bL" = (

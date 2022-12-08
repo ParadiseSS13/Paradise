@@ -29,11 +29,11 @@
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
 	var/obj/item/organ/external/parent
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
-			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
+			stack_trace("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
 		else
 			parent.internal_organs |= src
 	loc = null
@@ -49,7 +49,7 @@
 // However, you MUST set the object's positiion yourself when you call this!
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
-		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
+		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
 	owner = null
 	if(M)
 		M.internal_organs -= src
@@ -59,11 +59,11 @@
 			if(M.stat != DEAD)//safety check!
 				M.death()
 
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
-			log_runtime(EXCEPTION("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]"), src)
+			stack_trace("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]")
 		else
 			parent.internal_organs -= src
 		H.update_int_organs()
@@ -72,6 +72,9 @@
 		var/datum/action/A = X
 		A.Remove(M)
 	START_PROCESSING(SSobj, src)
+	if(destroy_on_removal && !QDELETED(src))
+		qdel(src)
+		return
 	return src
 
 /obj/item/organ/internal/emp_act(severity)
@@ -114,9 +117,9 @@
 
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(parent_organ != parent.limb_name)
-		return 0
+		return FALSE
 	insert(H)
-	return 1
+	return TRUE
 
 // Rendering!
 /obj/item/organ/internal/proc/render()
@@ -127,9 +130,8 @@
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
 
-/obj/item/reagent_containers/food/snacks/organ/New()
-	..()
-
+/obj/item/reagent_containers/food/snacks/organ/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("nutriment", 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
@@ -192,36 +194,6 @@
 		S.reagents.add_reagent("????", 5)
 	return S
 
-//shadowling tumor
-/obj/item/organ/internal/shadowtumor
-	name = "black tumor"
-	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
-	icon_state = "blacktumor"
-	origin_tech = "biotech=5"
-	w_class = WEIGHT_CLASS_TINY
-	parent_organ = "head"
-	slot = "brain_tumor"
-	max_integrity = 3
-
-/obj/item/organ/internal/shadowtumor/New()
-	..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/organ/internal/shadowtumor/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/organ/internal/shadowtumor/process()
-	if(isturf(loc))
-		var/turf/T = loc
-		var/light_count = T.get_lumcount()*10
-		if(light_count > 4 && obj_integrity > 0) //Die in the light
-			obj_integrity--
-		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
-			obj_integrity++
-		if(obj_integrity <= 0)
-			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
-			qdel(src)
 
 //debug and adminbus....
 
@@ -233,6 +205,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
+	destroy_on_removal = TRUE
+
 	var/organhonked = 0
 	var/suffering_delay = 900
 	var/datum/component/squeak
@@ -248,29 +222,28 @@
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
-	. = ..()
 	M.dna.SetSEState(GLOB.clumsyblock, FALSE)
 	M.dna.SetSEState(GLOB.comicblock, FALSE)
 	singlemutcheck(M, GLOB.clumsyblock, MUTCHK_FORCED)
 	singlemutcheck(M, GLOB.comicblock, MUTCHK_FORCED)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
-	qdel(src)
+	return ..()
 
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
 		organhonked = world.time + suffering_delay
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.SetSleeping(0)
-		owner.Stuttering(20)
+		owner.Stuttering(40 SECONDS)
 		owner.AdjustEarDamage(0, 30)
-		owner.Weaken(3)
+		owner.Weaken(6 SECONDS)
 		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
 		if(prob(30))
-			owner.Stun(10)
-			owner.Paralyse(4)
+			owner.Stun(20 SECONDS)
+			owner.Paralyse(8 SECONDS)
 		else
-			owner.Jitter(500)
+			owner.Jitter(1000 SECONDS)
 
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
@@ -300,6 +273,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "groin"
 	slot = "honk_bladder"
+	destroy_on_removal = TRUE
+
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
@@ -307,10 +282,8 @@
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
-	. = ..()
-
 	QDEL_NULL(squeak)
-	qdel(src)
+	return ..()
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
@@ -326,7 +299,7 @@
 	if(!owner)
 		return
 
-	if(istype(owner, /mob/living/carbon/human))
+	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))

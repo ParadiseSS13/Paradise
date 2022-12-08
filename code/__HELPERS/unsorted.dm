@@ -47,7 +47,7 @@
 		. += 360
 
 //Returns location. Returns null if no location was found.
-/proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = 0, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
+/proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = TRUE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 /*
 Location where the teleport begins, target that will teleport, distance to go, density checking 0/1(yes/no).
 Random error in tile placement x, error in tile placement y, and block offset.
@@ -147,6 +147,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	if(!A)
 		return FALSE
 	if(A.tele_proof)
+		return TRUE
+	if(!is_teleport_allowed(O.z))
 		return TRUE
 	else
 		return FALSE
@@ -290,7 +292,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -305,7 +307,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 		if(A.stat == DEAD)
 			continue
-		if(A.control_disabled == 1)
+		if(A.control_disabled)
 			continue
 		. += A
 	return .
@@ -374,7 +376,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
 		if(M.stat == DEAD)
-			if(istype(M, /mob/dead/observer/))
+			if(isobserver(M))
 				name += " \[ghost\]"
 			else
 				name += " \[dead\]"
@@ -599,12 +601,14 @@ Returns 1 if the chain up to the area contains the given typepath
 
 /proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
-		return 1
+		return TRUE
 	for(var/i in T)
 		var/atom/A = i
+		if(isAI(A)) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+			return TRUE
 		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/get_step_towards2(atom/ref , atom/trg)
 	var/base_dir = get_dir(ref, get_step_towards(ref,trg))
@@ -761,7 +765,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
 					// Give the new turf our air, if simulated
-					if(istype(X, /turf/simulated) && istype(T, /turf/simulated))
+					if(issimulatedturf(X) && issimulatedturf(T))
 						var/turf/simulated/sim = X
 						sim.copy_air_with_tile(T)
 
@@ -772,8 +776,8 @@ Returns 1 if the chain up to the area contains the given typepath
 						// Spawn a new shuttle corner object
 						var/obj/corner = new()
 						corner.loc = X
-						corner.density = 1
-						corner.anchored = 1
+						corner.density = TRUE
+						corner.anchored = TRUE
 						corner.icon = X.icon
 						corner.icon_state = replacetext(X.icon_state, "_s", "_f")
 						corner.tag = "delete me"
@@ -781,7 +785,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 						// Find a new turf to take on the property of
 						var/turf/nextturf = get_step(corner, direction)
-						if(!nextturf || !istype(nextturf, /turf/space))
+						if(!nextturf || !isspaceturf(nextturf))
 							nextturf = get_step(corner, turn(direction, 180))
 
 
@@ -799,7 +803,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
-						if(!istype(O,/obj)) continue
+						if(!isobj(O)) continue
 						O.loc.Exited(O)
 						O.setLoc(X,teleported=1)
 						O.loc.Entered(O)
@@ -853,7 +857,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	if(perfectcopy)
 		if((O) && (original))
-			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group")
+			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
 				if(istype(original.vars[V],/list))
@@ -867,7 +871,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		O.update_icon()
 	return O
 
-/area/proc/copy_contents_to(area/A , platingRequired = 0 )
+/area/proc/copy_contents_to(area/A , platingRequired = 0, perfect_copy = TRUE)
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -924,7 +928,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					var/old_icon1 = T.icon
 
 					if(platingRequired)
-						if(istype(B, /turf/space))
+						if(isspaceturf(B))
 							continue moving
 
 					var/turf/X = new T.type(B)
@@ -940,14 +944,14 @@ Returns 1 if the chain up to the area contains the given typepath
 
 					for(var/obj/O in T)
 
-						if(!istype(O,/obj))
+						if(!isobj(O))
 							continue
 
 						objs += O
 
 
 					for(var/obj/O in objs)
-						newobjs += DuplicateObject(O , 1)
+						newobjs += DuplicateObject(O , perfect_copy)
 
 
 					for(var/obj/O in newobjs)
@@ -1143,7 +1147,7 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 			return 0
 	if(istype(W, /obj/item/match))
 		var/obj/item/match/O = W
-		if(O.lit == 1)
+		if(O.lit)
 			return 1000
 		else
 			return 0
@@ -1328,7 +1332,7 @@ Standard way to write links -Sayu
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
 	That said, this proc should not be used if the change facing proc of the click code is overriden at the same time*/
-	if(!ismob(target) || target.lying)
+	if(!ismob(target) || IS_HORIZONTAL(target))
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
 		return FACING_FAILED
 	if(initator.dir == target.dir) //mobs are facing the same direction
@@ -1374,9 +1378,7 @@ Standard way to write links -Sayu
 		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
 	else
 		for(var/i=1;i<=3;i++)
-			var/temp_col = "[num2hex(rand(lower,upper))]"
-			if(length(temp_col )<2)
-				temp_col  = "0[temp_col]"
+			var/temp_col = "[num2hex(rand(lower,upper), 2)]"
 			colour += temp_col
 	return colour
 
@@ -1414,12 +1416,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /mob/dview
 	invisibility = 101
-	density = 0
+	density = FALSE
 	move_force = 0
 	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
-	canmove = FALSE
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
@@ -1434,7 +1435,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(istype(A, /datum))
 		var/datum/D = A
 		return !QDELETED(D)
-	if(istype(A, /client))
+	if(isclient(A))
 		return TRUE
 	return FALSE
 
@@ -1458,9 +1459,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //datum may be null, but it does need to be a typed var
 #define NAMEOF(datum, X) (#X || ##datum.##X)
 
-#define VARSET_LIST_CALLBACK(target, var_name, var_value) CALLBACK(GLOBAL_PROC, /proc/___callbackvarset, ##target, ##var_name, ##var_value)
+#define VARSET_LIST_CALLBACK(target, var_name, var_value) CALLBACK(GLOBAL_PROC, PROC_REF(___callbackvarset), ##target, ##var_name, ##var_value)
 //dupe code because dm can't handle 3 level deep macros
-#define VARSET_CALLBACK(datum, var, var_value) CALLBACK(GLOBAL_PROC, /proc/___callbackvarset, ##datum, NAMEOF(##datum, ##var), ##var_value)
+#define VARSET_CALLBACK(datum, var, var_value) CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(___callbackvarset), ##datum, NAMEOF(##datum, ##var), ##var_value)
 
 /proc/___callbackvarset(list_or_datum, var_name, var_value)
 	if(length(list_or_datum))
@@ -1491,7 +1492,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return 0
 	if(isliving(A))
 		var/mob/living/LA = A
-		if(LA.lying)
+		if(IS_HORIZONTAL(LA))
 			return 0
 	var/goal_dir = angle2dir(dir2angle(get_dir(B, A)+180))
 	var/clockwise_A_dir = get_clockwise_dir(A.dir)
@@ -1500,68 +1501,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(A.dir == goal_dir || clockwise_A_dir == goal_dir || anticlockwise_A_dir == goal_dir)
 		return 1
 	return 0
-
-//This is just so you can stop an orbit.
-//orbit() can run without it (swap orbiting for A)
-//but then you can never stop it and that's just silly.
-/atom/movable/var/atom/orbiting = null
-/atom/movable/var/cached_transform = null
-//A: atom to orbit
-//radius: range to orbit at, radius of the circle formed by orbiting
-//clockwise: whether you orbit clockwise or anti clockwise
-//rotation_speed: how fast to rotate
-//rotation_segments: the resolution of the orbit circle, less = a more block circle, this can be used to produce hexagons (6 segments) triangles (3 segments), and so on, 36 is the best default.
-//pre_rotation: Chooses to rotate src 90 degress towards the orbit dir (clockwise/anticlockwise), useful for things to go "head first" like ghosts
-//lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels when src gets too far away (eg: ghosts)
-
-/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
-	if(!istype(A))
-		return
-
-	if(orbiting)
-		stop_orbit()
-
-	orbiting = A
-	var/matrix/initial_transform = matrix(transform)
-	cached_transform = initial_transform
-	var/lastloc = loc
-
-	//Head first!
-	if(pre_rotation)
-		var/matrix/M = matrix(transform)
-		var/pre_rot = 90
-		if(!clockwise)
-			pre_rot = -90
-		M.Turn(pre_rot)
-		transform = M
-
-	var/matrix/shift = matrix(transform)
-	shift.Translate(0,radius)
-	transform = shift
-
-	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
-
-	while(orbiting && orbiting == A && A.loc)
-		var/targetloc = get_turf(A)
-		if(!lockinorbit && loc != lastloc && loc != targetloc)
-			break
-		if(forceMove)
-			forceMove(targetloc)
-		else
-			loc = targetloc
-		lastloc = loc
-		sleep(0.6)
-
-	if(orbiting == A) //make sure we haven't started orbiting something else.
-		orbiting = null
-		SpinAnimation(0, 0, parallel = FALSE)
-		transform = cached_transform
-
-
-
-/atom/movable/proc/stop_orbit()
-	orbiting = null
-	transform = cached_transform
 
 //Centers an image.
 //Requires:
@@ -1794,8 +1733,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/machinery/door/airlock = "AIRLOCK",
 			/obj/machinery/door = "DOOR",
 			/obj/machinery/kitchen_machine = "KITCHEN",
-			/obj/machinery/portable_atmospherics/canister = "CANISTER",
-			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
+			/obj/machinery/atmospherics/portable/canister = "CANISTER",
+			/obj/machinery/atmospherics/portable = "PORT_ATMOS",
 			/obj/machinery/power = "POWER",
 			/obj/machinery = "MACHINERY",
 			/obj/mecha = "MECHA",
@@ -1906,7 +1845,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(M.real_name && M.real_name != M.name)
 			name += " \[[M.real_name]\]"
 		if(M.stat == DEAD)
-			if(istype(M, /mob/dead/observer/))
+			if(isobserver(M))
 				name += " \[ghost\]"
 			else
 				name += " \[dead\]"
@@ -1926,6 +1865,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			pois[name] = A
 
 	return pois
+
+/proc/get_observers()
+	var/list/ghosts = list()
+	for(var/mob/dead/observer/M in GLOB.player_list) // for every observer with a client
+		ghosts += M
+
+	return ghosts
 
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
@@ -1984,13 +1930,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		. += A
 
-//gives us the stack trace from CRASH() without ending the current proc.
-/proc/stack_trace(msg)
-	CRASH(msg)
-
-/datum/proc/stack_trace(msg)
-	CRASH(msg)
-
 /proc/pass()
 	return
 
@@ -2025,30 +1964,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(A in GLOB.frozen_atom_list)
 		return TRUE
 	return FALSE
-
-/**
- * Proc which gets all adjacent turfs to `src`, including the turf that `src` is on.
- *
- * This is similar to doing `for(var/turf/T in range(1, src))`. However it is slightly more performant.
- * Additionally, the above proc becomes more costly the more atoms there are nearby. This proc does not care about that.
- */
-/atom/proc/get_all_adjacent_turfs()
-	var/turf/src_turf = get_turf(src)
-	var/list/_list = list(
-		src_turf,
-		get_step(src_turf, NORTH),
-		get_step(src_turf, NORTHEAST),
-		get_step(src_turf, NORTHWEST),
-		get_step(src_turf, SOUTH),
-		get_step(src_turf, SOUTHEAST),
-		get_step(src_turf, SOUTHWEST),
-		get_step(src_turf, EAST),
-		get_step(src_turf, WEST)
-	)
-	return _list
-
-/// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) sleep(world.tick_lag)
 
 // Check if the source atom contains another atom
 /atom/proc/contains(atom/location)
@@ -2095,6 +2010,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Ambience"
 		if(CHANNEL_ENGINE)
 			return "Engine Ambience"
+		if(CHANNEL_FIREALARM)
+			return "Fire Alarms"
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)
@@ -2122,3 +2039,38 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return slot_wear_pda
 		if(SLOT_TIE)
 			return slot_tie
+
+
+/**
+  * HTTP Get (Powered by RUSTG)
+  *
+  * This proc should be used as a replacement for [world.Export()] due to an underlying issue with it.
+  * See: https://www.byond.com/forum/post/2772166
+  * The one thing you will need to be aware of is that this no longer wraps the response inside a "file", so anything that relies on a file2text() unwrap will need tweaking.
+  * RUST HTTP also has better support for HTTPS as well as weird quirks with modern webservers.
+  * Returns an assoc list that follows the standard [world.Export()] format (https://secure.byond.com/docs/ref/index.html#/world/proc/Export), with the above exception
+  *
+  * Arguments:
+  * * url - URL to GET
+  */
+/proc/HTTPGet(url)
+	var/datum/http_request/req = new()
+	req.prepare(RUSTG_HTTP_METHOD_GET, url)
+	req.begin_async()
+
+	// Check if we are complete
+	UNTIL(req.is_complete())
+	var/datum/http_response/res = req.into_response()
+
+	if(res.errored)
+		. = list() // Return an empty list
+		CRASH("Internal error during HTTP get: [res.error]")
+
+	var/list/output = list()
+	output["STATUS"] = res.status_code
+
+	// Handle changes of line format. ASCII 13 = CR
+	var/content = replacetext(res.body, "[ascii2text(13)]\n", "\n")
+	output["CONTENT"] = content
+
+	return output

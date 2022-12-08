@@ -62,9 +62,9 @@
 	var/poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/Initialize(mapload)
-	. = ..()
 	if(random_basetype)
 		randomise(random_basetype)
+	. = ..()
 	if(!ruined)
 		original_name = name
 		name = "poster - [name]"
@@ -87,6 +87,9 @@
 	poster_item_desc = initial(selected.poster_item_desc)
 	poster_item_icon_state = initial(selected.poster_item_icon_state)
 	ruined = initial(selected.ruined)
+
+/obj/structure/sign/poster/screwdriver_act(mob/user, obj/item/I)
+	return
 
 /obj/structure/sign/poster/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -161,7 +164,7 @@
 	flick("poster_being_set", D)
 	D.forceMove(temp_loc)
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
-	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
+	playsound(D.loc, 'sound/effects/rustle1.ogg', 100, 1)
 
 	if(do_after(user, PLACE_SPEED, target = src))
 		if(!D || QDELETED(D))
@@ -169,6 +172,7 @@
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
 			to_chat(user, "<span class='notice'>You place the poster!</span>")
+			playsound(D.loc, 'sound/effects/pageturn3.ogg', 100, 1)
 			return
 
 	to_chat(user, "<span class='notice'>The poster falls down!</span>")

@@ -13,7 +13,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 360
-	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
+	universal_speak = TRUE //So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
 	gold_core_spawnable = NO_SPAWN
 	can_be_on_fire = TRUE
@@ -30,8 +30,10 @@
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src)) //hello yes you are being healed
 			if(overmind)
 				H.color = overmind.blob_reagent_datum.complementary_color
+				if(H.color == COMPLEMENTARY_COLOR_RIPPING_TENDRILS) //the colour define for ripping tendrils
+					H.color = COLOR_HEALING_GREEN //bye red cross
 			else
-				H.color = "#000000"
+				H.color = COLOR_BLACK
 		adjustHealth(-maxHealth * 0.0125)
 
 /mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
@@ -69,11 +71,11 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/New(loc, obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, obj/structure/blob/factory/linked_node)
+	. = ..()
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
-	..()
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
@@ -200,8 +202,8 @@
 			adjustFireLoss(0.2)
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/New()
-	..()
+/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
+	. = ..()
 	if(name == "blobbernaut")
 		name = text("blobbernaut ([rand(1, 1000)])")
 
@@ -222,8 +224,11 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
 	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> <span class='message'>states, \"[message]\"</span></span></i></font>"
+	var/rendered
+	var/follow_text
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
-			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
-				M.show_message(rendered, 2)
+			follow_text = isobserver(M) ? " ([ghost_follow_link(src, ghost = M)])" : ""
+			rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span>[follow_text] <span class='message'>states, \"[message]\"</span></span></i></font>"
+			if(isovermind(M) || isobserver(M) || istype(M, /mob/living/simple_animal/hostile/blob/blobbernaut))
+				M.show_message(rendered, EMOTE_AUDIBLE)

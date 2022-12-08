@@ -12,7 +12,7 @@
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
 	layer = WIRE_LAYER+0.001
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 
@@ -21,45 +21,38 @@
 	var/magnetic_field = 1 // the range of magnetic attraction
 	var/code = 0 // frequency code, they should be different unless you have a group of magnets working together or something
 	var/turf/center // the center of magnetic attraction
-	var/on = 0
-	var/magpulling = 0
+	var/on = FALSE
+	var/magpulling = FALSE
 
 	// x, y modifiers to the center turf; (0, 0) is centered on the magnet, whereas (1, -1) is one tile right, one tile down
 	var/center_x = 0
 	var/center_y = 0
 	var/max_dist = 20 // absolute value of center_x,y cannot exceed this integer
 
-/obj/machinery/magnetic_module/New()
-	..()
+/obj/machinery/magnetic_module/Initialize(mapload)
+	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)
 		hide(T.intact)
 	center = T
 
-	spawn(10)	// must wait for map loading to finish
-		if(SSradio)
-			SSradio.add_object(src, freq, RADIO_MAGNETS)
+	SSradio.add_object(src, freq, RADIO_MAGNETS)
 
 	spawn()
 		magnetic_process()
 
+/obj/machinery/magnetic_module/Destroy()
+	SSradio.remove_object(src, freq)  // i have zero idea what the hell is going on
+	return ..()
+
 	// update the invisibility and icon
 /obj/machinery/magnetic_module/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
-	// update the icon_state
-/obj/machinery/magnetic_module/proc/updateicon()
-	var/state="floor_magnet"
-	var/onstate=""
-	if(!on)
-		onstate="0"
-
-	if(invisibility)
-		icon_state = "[state][onstate]-f"	// if invisible, set icon to faded version
+/obj/machinery/magnetic_module/update_icon_state()
+	icon_state = "floor_magnet[on ? "" : "0"][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
 											// in case of being revealed by T-scanner
-	else
-		icon_state = "[state][onstate]"
 
 /obj/machinery/magnetic_module/receive_signal(datum/signal/signal)
 	var/command = signal.data["command"]
@@ -126,7 +119,7 @@
 
 /obj/machinery/magnetic_module/process()
 	if(stat & NOPOWER)
-		on = 0
+		on = FALSE
 
 	// Sanity checks:
 	if(electricity_level <= 0)
@@ -151,14 +144,14 @@
 		active_power_usage = electricity_level*15
 	else
 		use_power = 0
-		updateicon()
+		update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/magnetic_module/proc/magnetic_process() // proc that actually does the pulling
 	if(magpulling) return
 	while(on)
 
-		magpulling = 1
+		magpulling = TRUE
 		center = locate(x+center_x, y+center_y, z)
 		if(center)
 			for(var/obj/M in orange(magnetic_field, center))
@@ -166,20 +159,20 @@
 					step_towards(M, center)
 
 			for(var/mob/living/silicon/S in orange(magnetic_field, center))
-				if(istype(S, /mob/living/silicon/ai)) continue
+				if(isAI(S)) continue
 				step_towards(S, center)
 
 		use_power(electricity_level * 5)
 		sleep(13 - electricity_level)
 
-	magpulling = 0
+	magpulling = FALSE
 
 /obj/machinery/magnetic_controller
 	name = "Magnetic Control Console"
 	icon = 'icons/obj/airlock_machines.dmi' // uses an airlock machine icon, THINK GREEN HELP THE ENVIRONMENT - RECYCLING!
 	icon_state = "airlock_control_standby"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 45
 	frequency = AIRLOCK_FREQ
@@ -197,36 +190,41 @@
 	var/looping = 0 // 1 if looping
 
 
-/obj/machinery/magnetic_controller/New()
-	..()
+/obj/machinery/magnetic_controller/Initialize(mapload)
+	. = ..()
 
-	if(autolink)
-		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
-			if(M.freq == frequency && M.code == code)
-				magnets.Add(M)
-
-
-	spawn(45)	// must wait for map loading to finish
-		if(SSradio)
-			radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
-
+	radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
 
 	if(path) // check for default path
 		filter_path() // renders rpath
 
+	if(autolink)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/magnetic_controller/LateInitialize()
+	..()
+	if(autolink)
+		// GLOB.machines is populated in /machinery/Initialize
+		// so linkage gets delayed until that one finished.
+		link_magnets()
 
 /obj/machinery/magnetic_controller/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 
+/obj/machinery/magnetic_controller/proc/on_magnet_del(atom/magnet)
+	magnets -= magnet
+
+/obj/machinery/magnetic_controller/proc/link_magnets()
+	for(var/obj/machinery/magnetic_module/M in GLOB.machines)
+		if(M.freq == frequency && M.code == code)
+			magnets.Add(M)
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_magnet_del))
+
 /obj/machinery/magnetic_controller/process()
 	if(magnets.len == 0 && autolink)
-		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
-			if(M.freq == frequency && M.code == code)
-				magnets.Add(M)
-
+		link_magnets()
 
 /obj/machinery/magnetic_controller/attack_ai(mob/user as mob)
 	return src.attack_hand(user)

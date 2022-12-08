@@ -6,8 +6,7 @@
 	can_hold = list(/obj/item/dice)
 	allow_wrap = FALSE
 
-/obj/item/storage/pill_bottle/dice/New()
-	..()
+/obj/item/storage/pill_bottle/dice/populate_contents()
 	var/special_die = pick("1","2","fudge","00","100")
 	if(special_die == "1")
 		new /obj/item/dice/d1(src)
@@ -116,14 +115,197 @@
 	icon_state = "d20"
 	sides = 20
 
+// Die of Fate
+/obj/item/dice/d20/fate
+	name = "\improper Die of Fate"
+	desc = "A die with twenty sides. You can feel unearthly energies radiating from it. Using this might be VERY risky."
+	icon_state = "d20"
+	var/reusable = TRUE
+	var/used = FALSE
+
+/obj/item/dice/d20/fate/stealth
+	name = "d20"
+	desc = "A die with twenty sides. The preferred die to throw at the GM."
+
+/obj/item/dice/d20/fate/one_use
+	reusable = FALSE
+
+/obj/item/dice/d20/fate/one_use/stealth
+	name = "d20"
+	desc = "A die with twenty sides. The preferred die to throw at the GM."
+
+/obj/item/dice/d20/fate/cursed
+	name = "cursed Die of Fate"
+	desc = "A die with twenty sides. You feel that rolling this is a REALLY bad idea."
+	color = "#00BB00"
+
+	rigged = DICE_TOTALLY_RIGGED
+	rigged_value = 1
+
+/obj/item/dice/d20/fate/diceroll(mob/user)
+	. = ..()
+	if(!used)
+		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+			to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans!</span>")
+			return
+
+		if(!reusable)
+			used = TRUE
+
+		var/turf/T = get_turf(src)
+		T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
+
+		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
+
+/obj/item/dice/d20/fate/equipped(mob/user, slot)
+	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans! You should leave it alone.</span>")
+		user.unEquip(src)
+
+/obj/item/dice/d20/fate/proc/create_smoke(amount)
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(amount, FALSE, drop_location())
+	smoke.start()
+
+/obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
+	var/turf/T = get_turf(src)
+	switch(roll)
+		if(1)
+			//Dust
+			T.visible_message("<span class='userdanger'>[user] turns to dust!</span>")
+			user.dust()
+		if(2)
+			//Death
+			T.visible_message("<span class='userdanger'>[user] suddenly dies!</span>")
+			user.death()
+		if(3)
+			//Swarm of creatures
+			T.visible_message("<span class='userdanger'>A swarm of creatures surround [user]!</span>")
+			for(var/direction in GLOB.alldirs)
+				new /mob/living/simple_animal/hostile/netherworld(get_step(get_turf(user),direction))
+		if(4)
+			//Destroy Equipment
+			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
+			for(var/obj/item/I in user)
+				if(istype(I, /obj/item/implant))
+					continue
+				qdel(I)
+		if(5)
+			//Monkeying
+			T.visible_message("<span class='userdanger'>[user] transforms into a monkey!</span>")
+			user.monkeyize()
+		if(6)
+			//Cut speed
+			T.visible_message("<span class='userdanger'>[user] starts moving slower!</span>")
+			var/datum/species/S = user.dna.species
+			S.speed_mod += 1
+		if(7)
+			//Throw
+			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
+			user.Stun(12 SECONDS)
+			user.adjustBruteLoss(50)
+			var/throw_dir = GLOB.cardinal
+			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
+			user.throw_at(throw_target, 200, 4)
+		if(8)
+			//Fueltank Explosion
+			T.visible_message("<span class='userdanger'>An explosion bursts into existence around [user]!</span>")
+			explosion(get_turf(user),-1,0,2, flame_range = 2)
+		if(9)
+			//Cold
+			var/datum/disease/D = new /datum/disease/cold()
+			T.visible_message("<span class='userdanger'>[user] looks a little under the weather!</span>")
+			user.ForceContractDisease(D)
+		if(10)
+			//Nothing
+			T.visible_message("<span class='userdanger'>Nothing seems to happen.</span>")
+		if(11)
+			//Cookie
+			T.visible_message("<span class='userdanger'>A cookie appears out of thin air!</span>")
+			var/obj/item/reagent_containers/food/snacks/cookie/C = new(drop_location())
+			create_smoke(2)
+			C.name = "Cookie of Fate"
+		if(12)
+			//Healing
+			T.visible_message("<span class='userdanger'>[user] looks very healthy!</span>")
+			user.revive()
+		if(13)
+			//Mad Dosh
+			T.visible_message("<span class='userdanger'>Mad dosh shoots out of [src]!</span>")
+			var/turf/Start = get_turf(src)
+			for(var/direction in GLOB.alldirs)
+				var/turf/dirturf = get_step(Start,direction)
+				if(prob(50))
+					new /obj/item/stack/spacecash/c1000(dirturf)
+				else
+					var/obj/item/storage/bag/money/M = new(dirturf)
+					for(var/i in 1 to rand(5,50))
+						new /obj/item/coin/gold(M)
+		if(14)
+			//Free Gun
+			T.visible_message("<span class='userdanger'>An impressive gun appears!</span>")
+			create_smoke(2)
+			new /obj/item/gun/projectile/revolver/mateba(drop_location())
+		if(15)
+			//Random One-use spellbook
+			T.visible_message("<span class='userdanger'>A magical looking book drops to the floor!</span>")
+			create_smoke(2)
+			new /obj/item/spellbook/oneuse/random(drop_location())
+		if(16)
+			//Servant & Servant Summon
+			T.visible_message("<span class='userdanger'>A Dice Servant appears in a cloud of smoke!</span>")
+			var/mob/living/carbon/human/H = new(drop_location())
+			create_smoke(2)
+
+			H.equipOutfit(/datum/outfit/butler)
+			var/datum/mind/servant_mind = new /datum/mind()
+			var/datum/objective/O = new
+			O.owner = servant_mind
+			O.target = user.mind
+			O.explanation_text = "Serve [user.real_name]."
+			servant_mind.objectives += O
+			servant_mind.transfer_to(H)
+
+			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", ROLE_WIZARD, poll_time = 30 SECONDS, source = H)
+			if(length(candidates) && !QDELETED(H))
+				var/mob/dead/observer/C = pick(candidates)
+				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
+				H.key = C.key
+				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
+
+			var/obj/effect/proc_holder/spell/summonmob/S = new
+			S.target_mob = H
+			user.mind.AddSpell(S)
+
+		if(17)
+			//Tator Kit
+			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
+			new /obj/item/storage/box/syndie_kit/bundle(drop_location())
+			create_smoke(2)
+		if(18)
+			//Captain ID
+			T.visible_message("<span class='userdanger'>A golden identification card appears!</span>")
+			new /obj/item/card/id/captains_spare(drop_location())
+			create_smoke(2)
+		if(19)
+			//Instrinct Resistance
+			T.visible_message("<span class='userdanger'>[user] looks very robust!</span>")
+			user.physiology.brute_mod *= 0.5
+			user.physiology.burn_mod *= 0.5
+
+		if(20)
+			//Free wizard!
+			T.visible_message("<span class='userdanger'>Magic flows out of [src] and into [user]!</span>")
+			user.mind.make_Wizard()
+
 /obj/item/dice/d100
 	name = "d100"
 	desc = "A die with one hundred sides! Probably not fairly weighted..."
 	icon_state = "d100"
 	sides = 100
 
-/obj/item/dice/d100/update_icon()
-	return
+/obj/item/dice/d100/update_overlays()
+	return list()
 
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
@@ -132,7 +314,7 @@
 	diceroll(user)
 
 /obj/item/dice/throw_impact(atom/target)
-	diceroll(thrownby)
+	diceroll(locateUID(thrownby))
 	. = ..()
 
 /obj/item/dice/proc/diceroll(mob/user)
@@ -151,7 +333,7 @@
 		comment = "NAT 20!"
 	else if(sides == 20 && result == 1)
 		comment = "Ouch, bad luck."
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(initial(icon_state) == "d00")
 		result = (result - 1) * 10
 	if(length(special_faces) == sides)
@@ -176,7 +358,7 @@
 	else
 		triggered = TRUE
 		visible_message("<span class='notice'>You hear a quiet click.</span>")
-		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(boom), user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)
 	var/capped = TRUE
@@ -193,17 +375,16 @@
 	log_game("E20 detonated at [A.name] ([epicenter.x],[epicenter.y],[epicenter.z]) with a roll of [actual_result]. Triggered by: [key_name(user)]")
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
 
-/obj/item/dice/update_icon()
-	overlays.Cut()
-	overlays += "[icon_state][result]"
+/obj/item/dice/update_overlays()
+	. = ..()
+	. += "[icon_state][result]"
 
 /obj/item/storage/box/dice
 	name = "Box of dice"
 	desc = "ANOTHER ONE!? FUCK!"
 	icon_state = "box"
 
-/obj/item/storage/box/dice/New()
-	..()
+/obj/item/storage/box/dice/populate_contents()
 	new /obj/item/dice/d2(src)
 	new /obj/item/dice/d4(src)
 	new /obj/item/dice/d8(src)

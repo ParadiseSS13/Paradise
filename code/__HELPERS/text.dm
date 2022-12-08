@@ -13,7 +13,7 @@
  */
 // Can be used almost the same way as normal input for text
 /proc/clean_input(Message, Title, Default, mob/user=usr)
-	var/txt = input(user, Message, Title, Default) as text | null
+	var/txt = input(user, Message, Title, html_decode(Default)) as text | null
 	if(txt)
 		return html_encode(txt)
 
@@ -55,7 +55,7 @@
 
 // Used to get a properly sanitized multiline input, of max_length
 /proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = input(user, message, title, default) as message|null
+	var/name = input(user, message, title, html_decode(default)) as message|null
 	if(no_trim)
 		return copytext(html_encode(name), 1, max_length)
 	else
@@ -82,7 +82,7 @@
 
 // Used to get a sanitized input.
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = html_encode(input(user, message, title, default) as text|null)
+	var/name = sanitize(input(user, message, title, html_decode(default)) as text|null)
 	if(!no_trim)
 		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 	return copytext(name, 1, max_length)
@@ -93,7 +93,7 @@
 		return null
 	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
 	C.typing = TRUE
-	var/msg = input(user, message, title, default) as text|null
+	var/msg = input(user, message, title, html_decode(default)) as text|null
 	if(!C)
 		return null
 	C.typing = FALSE
@@ -411,7 +411,7 @@
 		var/index = findtext(text, char)
 		var/keylength = length(char)
 		while(index)
-			log_runtime(EXCEPTION("Bad string given to dmm encoder! [text]"))
+			stack_trace("Bad string given to dmm encoder! [text]")
 			// Replace w/ underscore to prevent "&#3&#123;4;" from cheesing the radar
 			// Should probably also use canon text replacing procs
 			text = copytext(text, 1, index) + "_" + copytext(text, index+keylength)
@@ -492,6 +492,8 @@
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
+		text = replacetext(text, "\[syndielogo\]", 	"")
+
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
@@ -507,7 +509,8 @@
 		text = replacetext(text, "\[/grid\]",	"</td></tr></table>")
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
-		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
+		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src='ntlogo.png'>")
+		text = replacetext(text, "\[syndielogo\]", 	"&ZeroWidthSpace;<img src='syndielogo.png'>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
 		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
 		text = replacetext(text, "\[station\]", "[SSmapping.map_datum.fluff_name]")
@@ -589,7 +592,8 @@
 	text = replacetext(text, "</td></tr></table>",		"\[/grid\]")
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
-	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src='ntlogo.png'>",	"\[logo\]")
+	text = replacetext(text, "<img src='syndielogo.png'>",	"\[syndielogo\]")
 	return text
 
 /datum/html/split_holder
@@ -725,3 +729,8 @@
 		return "#e67e22" // Patreon orange
 	return null
 
+
+// Removes HTML tags, preserving text
+/proc/strip_html_tags(the_text)
+	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
+	return html_replacer.Replace(the_text, "")

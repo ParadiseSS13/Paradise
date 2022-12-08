@@ -48,16 +48,75 @@
 
 /obj/item/circuitboard/camera
 	board_name = "Camera Monitor"
+	desc = "A monitor board whose type can be changed when screwed."
 	build_path = /obj/machinery/computer/security
 	origin_tech = "programming=2;combat=2"
+	var/static/list/monitor_names_paths = list(
+							"Camera Monitor" = /obj/machinery/computer/security,
+							"Wooden TV" = /obj/machinery/computer/security/wooden_tv,
+							"Outpost Camera Monitor" = /obj/machinery/computer/security/mining,
+							"Engineering Camera Monitor" = /obj/machinery/computer/security/engineering,
+							"Research Monitor" = /obj/machinery/computer/security/telescreen/research,
+							"Research Director Monitor" = /obj/machinery/computer/security/telescreen/rd,
+							"Prison Monitor" = /obj/machinery/computer/security/telescreen/prison,
+							"Interrogation Monitor" = /obj/machinery/computer/security/telescreen/interrogation,
+							"MiniSat Monitor" = /obj/machinery/computer/security/telescreen/minisat,
+							"AI Upload Monitor" = /obj/machinery/computer/security/telescreen/upload,
+							"Vault Monitor" = /obj/machinery/computer/security/telescreen/vault,
+							"Turbine Vent Monitor" = /obj/machinery/computer/security/telescreen/turbine,
+							"Engine Camera Monitor" = /obj/machinery/computer/security/telescreen/engine)
+
+/obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in monitor_names_paths
+	if(!choice)
+		return
+	board_name = choice
+	build_path = monitor_names_paths[choice]
+	format_board_name()
+	to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
 
 /obj/item/circuitboard/camera/telescreen
 	board_name = "Telescreen"
 	build_path = /obj/machinery/computer/security/telescreen
 
-/obj/item/circuitboard/camera/telescreen/entertainment
-	board_name = "Entertainment Monitor"
-	build_path = /obj/machinery/computer/security/telescreen/entertainment
+/obj/item/circuitboard/camera/engine
+	board_name = "Engine Camera Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/engine
+
+/obj/item/circuitboard/camera/research
+	board_name = "Research Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/research
+
+/obj/item/circuitboard/camera/rd
+	board_name = "Research Director Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/rd
+
+/obj/item/circuitboard/camera/prison
+	board_name = "Prison Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/prison
+
+/obj/item/circuitboard/camera/interrogation
+	board_name = "Interrogation Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/interrogation
+
+/obj/item/circuitboard/camera/minisat
+	board_name = "MiniSat Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/minisat
+
+/obj/item/circuitboard/camera/upload
+	board_name = "AI Upload Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/upload
+
+/obj/item/circuitboard/camera/vault
+	board_name = "Vault Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/vault
+
+/obj/item/circuitboard/camera/turbine
+	board_name = "Turbine Vent Monitor"
+	build_path = /obj/machinery/computer/security/telescreen/turbine
 
 /obj/item/circuitboard/camera/wooden_tv
 	board_name = "Wooden TV"
@@ -175,18 +234,6 @@
 	board_name = "Atmospheric Monitor"
 	build_path = /obj/machinery/computer/general_air_control
 
-/obj/item/circuitboard/injector_control
-	board_name = "Injector Control"
-	build_path = /obj/machinery/computer/general_air_control/fuel_injection
-
-/obj/item/circuitboard/pod
-	board_name = "Massdriver Control"
-	build_path = /obj/machinery/computer/pod
-
-/obj/item/circuitboard/pod/deathsquad
-	board_name = "Deathsquad Massdriver Control"
-	build_path = /obj/machinery/computer/pod/deathsquad
-
 /obj/item/circuitboard/robotics
 	board_name = "Robotics Control Console"
 	build_path = /obj/machinery/computer/robotics
@@ -226,18 +273,6 @@
 	board_name = "Outdated Power Monitor"
 	build_path = /obj/machinery/computer/monitor/secret
 	origin_tech = "programming=2;powerstorage=2"
-
-/obj/item/circuitboard/olddoor
-	board_name = "DoorMex"
-	build_path = /obj/machinery/computer/pod/old
-
-/obj/item/circuitboard/syndicatedoor
-	board_name = "ProComp Executive"
-	build_path = /obj/machinery/computer/pod/old/syndicate
-
-/obj/item/circuitboard/swfdoor
-	board_name = "Magix"
-	build_path = /obj/machinery/computer/pod/old/swf
 
 /obj/item/circuitboard/prisoner
 	board_name = "Prisoner Management"
@@ -446,6 +481,23 @@
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
 
+/obj/structure/computerframe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is <b>[anchored ? "bolted to the floor" : "unbolted"]</b>.</span>"
+	switch(state)
+		if(STATE_EMPTY)
+			. += "<span class='notice'>The frame is <b>welded together</b>, but it is missing a <i>circuit board</i>.</span>"
+		if(STATE_CIRCUIT)
+			. += "<span class='notice'>A circuit board is <b>firmly connected</b>, but the cover is <i>unscrewed and open</i>.</span>"
+		if(STATE_NOWIRES)
+			. += "<span class='notice'>The cover is <b>screwed shut</b>, but the frame is missing <i>wiring</i>.</span>"
+		if(STATE_WIRES)
+			. += "<span class='notice'>The frame is <b>wired</b>, but the <i>glass</i> is missing.</span>"
+		if(STATE_GLASS)
+			. += "<span class='notice'>The glass is <b>loosely connected</b> and needs to be <i>screwed into place</i>.</span>"
+	if(!anchored)
+		. += "<span class='notice'>Alt-Click to rotate it.</span>"
+
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		drop_computer_parts()
@@ -477,8 +529,7 @@
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
 
-/obj/structure/computerframe/update_icon()
-	. = ..()
+/obj/structure/computerframe/update_icon_state()
 	icon_state = "comp_frame_[state]"
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
@@ -574,6 +625,10 @@
 			var/obj/item/circuitboard/B = I
 			if(B.board_type != "computer")
 				to_chat(user, "<span class='warning'>[src] does not accept circuit boards of this type!</span>")
+				return
+
+			if(!B.build_path)
+				to_chat(user, "<span class='warning'>This is not a functional computer circuit board!</span>")
 				return
 
 			B.play_tool_sound(src)

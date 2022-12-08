@@ -23,6 +23,19 @@
 	QDEL_LIST(upgrades)
 	return ..()
 
+/obj/item/camera_assembly/examine(mob/user)
+	. = ..()
+	switch(state)
+		if(ASSEMBLY_UNBUILT)
+			. += "<span class='notice'>The camera assembly's <i>bolts</i> need to be secured in a wall.</span>"
+		if(ASSEMBLY_WRENCHED)
+			. += "<span class='notice'>The camera assembly is <b>bolted</b>, but it needs to be <i>welded</i> into place.</span>"
+		if(ASSEMBLY_WELDED)
+			. += "<span class='notice'>The camera assembly is <b>welded</b> to the wall, it's lacking <i>wires</i>.</span>"
+		if(ASSEMBLY_WIRED)
+			. += "<span class='notice'>The camera assembly is <b>wired</b>, but the maintenence panel needs to be <i>screwed shut</i>.</span>"
+			. += "<span class='notice'>Upgrades can be added to the camera assembly, and removed with a crowbar.</span>"
+
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	if(state == ASSEMBLY_WELDED && iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
@@ -127,12 +140,12 @@
 		WRENCH_ANCHOR_TO_WALL_MESSAGE
 		anchored = TRUE
 		state = ASSEMBLY_WRENCHED
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		auto_turn()
 	else if(state == ASSEMBLY_WRENCHED)
 		WRENCH_UNANCHOR_WALL_MESSAGE
 		anchored = FALSE
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		state = ASSEMBLY_UNBUILT
 	else
 		to_chat(user, "<span class='warning'>[src] can't fit here!</span>")
@@ -155,7 +168,7 @@
 		to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
 		state = ASSEMBLY_WRENCHED
 
-/obj/item/camera_assembly/update_icon()
+/obj/item/camera_assembly/update_icon_state()
 	if(anchored)
 		icon_state = "camera1"
 	else

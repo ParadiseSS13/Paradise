@@ -1,6 +1,7 @@
 /datum/disease/cold
 	name = "The Cold"
 	max_stages = 3
+	spread_text = "Airborne"
 	spread_flags = AIRBORNE
 	cure_text = "Rest & Spaceacillin"
 	cures = list("spaceacillin")
@@ -20,7 +21,7 @@
 				cure()
 				return
 */
-			if(affected_mob.lying && prob(40))  //changed FROM prob(10) until sleeping is fixed
+			if(IS_HORIZONTAL(affected_mob) && prob(40))  //changed FROM prob(10) until sleeping is fixed
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return
@@ -43,7 +44,7 @@
 				cure()
 				return
 */
-			if(affected_mob.lying && prob(25))  //changed FROM prob(5) until sleeping is fixed
+			if(IS_HORIZONTAL(affected_mob) && prob(25))  //changed FROM prob(5) until sleeping is fixed
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				cure()
 				return

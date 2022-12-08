@@ -37,8 +37,8 @@ SUBSYSTEM_DEF(machines)
 			NewPN.add_cable(PC)
 			propagate_network(PC,PC.powernet)
 
-/datum/controller/subsystem/machines/stat_entry()
-	..("Machines: [processing.len]\nPowernets: [powernets.len]\tDeferred: [deferred_powernet_rebuilds.len]")
+/datum/controller/subsystem/machines/get_stat_details()
+	return "Machines: [processing.len] | Powernets: [powernets.len] | Deferred: [deferred_powernet_rebuilds.len]"
 
 /datum/controller/subsystem/machines/proc/process_defered_powernets(resumed = 0)
 	if(!resumed)

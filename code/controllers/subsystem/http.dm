@@ -20,8 +20,8 @@ SUBSYSTEM_DEF(http)
 	active_async_requests = list()
 	return ..()
 
-/datum/controller/subsystem/http/stat_entry()
-	..("P: [length(active_async_requests)] | T: [total_requests]")
+/datum/controller/subsystem/http/get_stat_details()
+	return "P: [length(active_async_requests)] | T: [total_requests]"
 
 /datum/controller/subsystem/http/fire(resumed)
 	for(var/r in active_async_requests)
@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(http)
 /client/verb/testing()
 	set name = "Testing"
 
-	var/datum/callback/cb = CALLBACK(src, /client/.proc/response, usr)
+	var/datum/callback/cb = CALLBACK(src, TYPE_PROC_REF(/client, response), usr)
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://site.domain/page.html", proc_callback=cb)
 
 /client/proc/response(mob/user, datum/http_response/response)

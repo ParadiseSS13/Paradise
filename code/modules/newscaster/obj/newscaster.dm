@@ -18,7 +18,8 @@
 	name = "newscaster"
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "newscaster_normal"
+	icon_state = "newscaster_off"
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 50
 	light_range = 0
@@ -52,19 +53,22 @@
 
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
+	desc = "A security Nanotrasen-licensed newsfeed handler for use in commercial space stations. It comes with a small slot for inserting photos."
 	is_security = TRUE
-
-/obj/machinery/newscaster/New()
-	GLOB.allNewscasters += src
-	unit_number = length(GLOB.allNewscasters)
-	update_icon() //for any custom ones on the map...
-	if(!last_views)
-		last_views = list()
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
-	..()
 
 /obj/machinery/newscaster/Initialize(mapload)
 	. = ..()
+
+	GLOB.allNewscasters += src
+	unit_number = length(GLOB.allNewscasters)
+	update_icon(UPDATE_OVERLAYS) //for any custom ones on the map...
+	if(!last_views)
+		last_views = list()
+
+	if(is_security)
+		name = "security newscaster"
+	else
+		name = "newscaster"
 	if(!jobblacklist)
 		jobblacklist = list(
 			/datum/job/ai,
@@ -73,13 +77,12 @@
 			/datum/job/judge,
 			/datum/job/blueshield,
 			/datum/job/nanotrasenrep,
-			/datum/job/brigdoc,
 			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntspecops,
 			/datum/job/ntspecops/solgovspecops,
-			/datum/job/civilian,
+			/datum/job/assistant,
 			/datum/job/syndicateofficer
 		)
 
@@ -89,40 +92,52 @@
 	QDEL_NULL(photo)
 	return ..()
 
-/obj/machinery/newscaster/update_icon()
-	cut_overlays()
+/obj/machinery/newscaster/update_overlays()
+	. = ..()
+	underlays.Cut()
 	if(inoperable())
-		icon_state = "newscaster_off"
+		return
+
+	if(!(stat & NOPOWER))
+		underlays += emissive_appearance(icon, "newscaster_lightmask")
+
+	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
+		. += "newscaster_alert"
+
+	if(GLOB.news_network.wanted_issue)
+		. += "newscaster_wanted"
 	else
-		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
-			icon_state = "newscaster_normal"
-			if(alert) //new message alert overlay
-				add_overlay("newscaster_alert")
+		. += "newscaster_normal"
+
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
-		if(75 to INFINITY)
+		if(75 to 200)
 			return
 		if(50 to 75)
-			add_overlay("crack1")
+			. += "crack1"
 		if(25 to 50)
-			add_overlay("crack2")
-		else
-			add_overlay("crack3")
+			. += "crack2"
+		if(1 to 25)
+			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
 	..()
-	update_icon()
+	if(stat & NOPOWER)
+		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
-	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
@@ -132,7 +147,7 @@
 		new /obj/item/shard(loc)
 	else
 		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
-		new /obj/item/mounted/frame/newscaster_frame(loc)
+		new /obj/item/mounted/frame/display/newscaster_frame(loc)
 	qdel(src)
 
 /obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
@@ -162,7 +177,7 @@
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
 	ui_interact(user)
@@ -416,6 +431,8 @@
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Wanted notice cleared.", update_now = TRUE)
+			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
+				NC.update_icon(UPDATE_OVERLAYS)
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
@@ -527,8 +544,7 @@
 					SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 					var/announcement = FC.get_announce_text(title)
 					// Announce it
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(announcement)
 					// Redirect and eject photo
 					LAZYINITLIST(last_views[user_name])
@@ -561,8 +577,7 @@
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
 					WN.publish_time = world.time
 					// Announce it and eject photo
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Wanted notice distributed.", "good")
@@ -651,7 +666,7 @@
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
-	addtimer(CALLBACK(src, .proc/print_newspaper_finish), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
@@ -688,15 +703,15 @@
 	else
 		return
 	alert = TRUE
-	addtimer(CALLBACK(src, .proc/alert_timer_finish), 30 SECONDS)
-	update_icon()
+	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
+	update_icon(UPDATE_OVERLAYS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/alert_news] finishes.
   */
 /obj/machinery/newscaster/proc/alert_timer_finish()
 	alert = FALSE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /**
   * Ejects the currently loaded photo if there is one.

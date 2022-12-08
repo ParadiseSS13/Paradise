@@ -13,12 +13,12 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1
-	layer = 4
 	pressure_resistance = 0
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	blocks_emissive = null
 	attack_verb = list("bapped")
 	dog_fashion = /datum/dog_fashion/head
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
@@ -28,13 +28,14 @@
 	var/footer 	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
+	var/list/stamp_overlays = list()
 	var/fields		//Amount of user created fields
 	var/list/stamped
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
 	var/offset_y[0] //usage by the photocopier
-	var/rigged = 0
-	var/spam_flag = 0
+	var/rigged = FALSE
+	var/spam_flag = FALSE
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
@@ -56,8 +57,7 @@
 		update_icon()
 		updateinfolinks()
 
-/obj/item/paper/update_icon()
-	..()
+/obj/item/paper/update_icon_state()
 	if(info)
 		icon_state = "paper_words"
 		return
@@ -66,7 +66,7 @@
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			show_content(user)
 		else
 			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
@@ -118,11 +118,11 @@
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
 	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
-		if(spam_flag == 0)
-			spam_flag = 1
+		if(!spam_flag)
+			spam_flag = TRUE
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
 			spawn(20)
-				spam_flag = 0
+				spam_flag = FALSE
 	return
 
 /obj/item/paper/attack_ai(mob/living/silicon/ai/user as mob)
@@ -260,10 +260,9 @@
 	info = null
 	stamps = null
 	stamped = list()
-	overlays.Cut()
+	stamp_overlays = list()
 	updateinfolinks()
 	update_icon()
-
 
 /obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
 	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
@@ -317,7 +316,7 @@
 		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
 		var/obj/item/i = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 		add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-		if(!istype(i, /obj/item/pen))
+		if(!is_pen(i))
 			if(!istype(i, /obj/item/toy/crayon))
 				return
 
@@ -359,9 +358,9 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	var/clown = 0
+	var/clown = FALSE
 	if(user.mind && (user.mind.assigned_role == "Clown"))
-		clown = 1
+		clown = TRUE
 
 	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
 		if(istype(P, /obj/item/paper/carbon))
@@ -376,7 +375,7 @@
 		else if(P.name != "paper" && P.name != "photo")
 			B.name = P.name
 		user.unEquip(P)
-		if(istype(user, /mob/living/carbon/human))
+		if(ishuman(user))
 			var/mob/living/carbon/human/h_user = user
 			if(h_user.r_hand == src)
 				h_user.unEquip(src)
@@ -401,7 +400,7 @@
 			else if(h_user.head == src)
 				h_user.unEquip(src)
 				h_user.put_in_hands(B)
-			else if(!istype(src.loc, /turf))
+			else if(!isturf(src.loc))
 				src.loc = get_turf(h_user)
 				if(h_user.client)	h_user.client.screen -= src
 				h_user.put_in_hands(B)
@@ -411,7 +410,7 @@
 		B.amount++
 		B.update_icon()
 
-	else if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
+	else if(is_pen(P) || istype(P, /obj/item/toy/crayon))
 		if(user.is_literate())
 			var/obj/item/pen/multi/robopen/RP = P
 			if(istype(P, /obj/item/pen/multi/robopen) && RP.mode == 2)
@@ -484,7 +483,11 @@
 	if(!stamped)
 		stamped = new
 	stamped += S.type
-	overlays += stampoverlay
+	stamp_overlays += stampoverlay
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/paper/update_overlays()
+	return stamp_overlays
 
 /*
  * Premade paper
@@ -512,7 +515,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -531,7 +534,7 @@
 	name = "paper scrap"
 	icon_state = "scrap"
 
-/obj/item/paper/crumpled/update_icon()
+/obj/item/paper/crumpled/update_icon_state()
 	if(info)
 		icon_state = "scrap_words"
 
@@ -549,9 +552,9 @@
 	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
 	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
 
-/obj/item/paper/fortune/update_icon()
-	..()
+/obj/item/paper/fortune/update_icon_state()
 	icon_state = initial(icon_state)
+
 /*
  * Premade paper
  */
@@ -582,7 +585,7 @@
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
 	item_state = "paper"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/item/paper/jobs
 	name = "Job Information"
@@ -607,7 +610,7 @@
 
 /obj/item/paper/armory
 	name = "paper- 'Armory Inventory'"
-	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Implant Kit<br>1 Chemical Implant Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>6 Gas Masks<br>1 Lockbox of Mindshield Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Advanced Tasers"
+	info = "4 Deployable Barriers<br>4 Portable Flashers<br>1 Mechanical Toolbox<br>2 Boxes of Spare Handcuffs<br>1 Box of Flashbangs<br>1 Box of Spare R.O.B.U.S.T. Cartridges<br>1 Tracking Bio-chip Kit<br>1 Chemical Bio-chip Kit<br>1 Box of Tear Gas Grenades<br>1 Explosive Ordnance Disposal Suit<br>1 Biohazard Suit<br>6 Gas Masks<br>1 Lockbox of Mindshield Implants<br>1 Ion Rifle<br>3 Sets of Riot Equipment<br>2 Sets of Security Hardsuits<br>1 Ablative Armor Vest<br>3 Bulletproof Vests<br>3 Helmets<br><br>2 Riot Shotguns<br>2 Boxes of Beanbag Shells<br>3 Laser Guns<br>3 Energy Guns<br>3 Disablers"
 
 /obj/item/paper/firingrange
 	name = "paper- 'Firing Range Instructions'"
@@ -615,7 +618,7 @@
 
 /obj/item/paper/holodeck
 	name = "paper- 'Holodeck Disclaimer'"
-	info = "Brusies sustained in the holodeck can be healed simply by sleeping."
+	info = "Bruises sustained in the holodeck can be healed simply by sleeping."
 
 /obj/item/paper/syndimemo
 	name = "paper- 'Memo'"
@@ -653,19 +656,27 @@
 	info = ""
 	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
 
+/obj/item/paper/syndicate_druglab
+	name = "paper - 'Excerpt from a Diary'"
+	info = "<p style='font-size:80%'><center><i>3 January</i></center><br><br>New year, new me! Since I botched my last job, the boss has \"re-assigned\" me to this hellhole. \"A little gardening will help with calming down, so you can focus on your work better next time!\" I don't fucking need to calm down. How the hell was I supposed to know that plasmamen catch on fire by PURELY EXISTING??? What kind of evolutionary bullshit is this?<br><br>And why did we start hiring living fireballs and putTING THEM INTO <b><i>OUR ATMOSPHERICS DEPARTMENT?!??!!</i></b><br><br>Fine. I might really need some calming down.<br><br>Glory to the Syndicate.<br><br><center>...<br><br><i>24 March</i></center><br><br>This asteroid sucks. I thought growing drugs and taking some will be fun, but it's not. I can't really get high or else these shitty plants die instantly. I brought some music albums with me but I'm getting tired of them. I might pick up singing, but I'm worried I'd shatter the windows with it.<br><br>The next shipment is due tomorrow. I hope the delivery guy has some new stuff for me.<br><br>Glory to the Syndicate.<br><br><center>...<br><br><i>22 November</i></center><br><br>I thought by now I served my time, but management probably just forgot about me and I'm stuck here for another year. I miss my family. I doubt I can go home for Christmas.<br><br>Man, when did I become such a softy?<br><br>Yesterday, I realized that the hangar is echoing. If I yell loud enough, my voice bounces back. It's almost like having someone talk to me.<br><br>Glory to the Syndicate.<br><br><center>...<br><br><i>09 April</i></center><br><br>I think the disposal system is not working properly, I keep hearing weird noises from the other side. Well, the boss didn't issue me any EVA gear, so whatever or whoever is there can fuck themselves. I hope it won't crawl up the pipes.<br><br>Glory to the Syndicate.<br><br><center>...<br><br><i>25 December</i></center><br><br>I don't have anything interesting or witty to write today. I tried to grow a pine tree-shaped reishi, but failed. Of course I failed. I fail at everything.<br><br>Merry Christmas to... me. I guess.<br><br>Glory to the... eh... whatever...<br><br><center>...<br><br><i>16 March</i></center><br><br>Piece of shit machine broke down. I tried to take apart the biogenerator to cannibalize its parts, but I tore its cables in the process. Delivery guy is coming tomorrow and I am NOT trusting him with getting new parts again. Everything George brought so far keeps breaking. I will be back in a few weeks.<br><br>It will be nice to meet some new people after four years...<br><br>Note to self: do <b><u>NOT</u></b> forget to close the hangar doors!!<br><br>Glory to the Syndicate.</p>"
+
+/obj/item/paper/syndicate_druglab/delivery
+	name = "paper - 'Delivery Note'"
+	info = "<i>Hey sweetie! The boss wants you to have some friends. I couldn't get you a real suit, but I found this in a cosplay shop! The bees surely won't see through your IMPECCABLE disguise!<br><br>xoxo,<br>george ♥</i><br><br>- What the fuck. I'm airlocking him tomorrow."
+
 /obj/item/paper/evilfax
 	name = "Centcomm Reply"
 	info = ""
 	var/mytarget = null
 	var/myeffect = null
-	var/used = 0
+	var/used = FALSE
 	var/countdown = 60
-	var/activate_on_timeout = 0
+	var/activate_on_timeout = FALSE
 	var/faxmachineid = null
 
 /obj/item/paper/evilfax/show_content(mob/user, forceshow = 0, forcestars = 0, infolinks = 0, view = 1)
 	if(user == mytarget)
-		if(istype(user, /mob/living/carbon))
+		if(iscarbon(user))
 			var/mob/living/carbon/C = user
 			evilpaper_specialaction(C)
 			..()
@@ -701,14 +712,14 @@
 				message_admins("[mytarget] ignored an evil fax until it timed out.")
 		else
 			message_admins("Evil paper '[src]' timed out, after not being assigned a target.")
-		used = 1
+		used = TRUE
 		evilpaper_selfdestruct()
 	else
 		countdown--
 
 /obj/item/paper/evilfax/proc/evilpaper_specialaction(mob/living/carbon/target)
 	spawn(30)
-		if(istype(target, /mob/living/carbon))
+		if(iscarbon(target))
 			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 			if(myeffect == "Borgification")
 				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
@@ -731,19 +742,19 @@
 					to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
 					organ.insert(target)
 			else if(myeffect == "Cluwne")
-				if(istype(target, /mob/living/carbon/human))
+				if(ishuman(target))
 					var/mob/living/carbon/human/H = target
 					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 					H.makeCluwne()
 			else if(myeffect == "Demote")
-				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Assistant. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
 						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 				update_all_mob_security_hud()
 			else if(myeffect == "Demote with Bot")
-				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Assistant. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
@@ -762,7 +773,7 @@
 					fax.become_mimic()
 			else
 				message_admins("Evil paper [src] was activated without a proper effect set! This is a bug.")
-		used = 1
+		used = TRUE
 		evilpaper_selfdestruct()
 
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()

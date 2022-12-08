@@ -70,7 +70,7 @@
 	transform = matrix() * 0.75
 	animate(src, transform = matrix() * 1.5, time = duration)
 	deltimer(timerid)
-	timerid = addtimer(CALLBACK(src, .proc/burst), duration, TIMER_STOPPABLE)
+	timerid = addtimer(CALLBACK(src, PROC_REF(burst)), duration, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/resonance/Destroy()
 	if(res)

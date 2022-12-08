@@ -1,5 +1,5 @@
 /datum/wires/vending
-	holder_type = /obj/machinery/vending
+	holder_type = /obj/machinery/economy/vending
 	wire_count = 4
 	window_y = 112
 	window_x = 350
@@ -10,8 +10,8 @@
 	return ..()
 
 /datum/wires/vending/interactable(mob/user)
-	var/obj/machinery/vending/V = holder
-	if(!istype(user, /mob/living/silicon) && V.seconds_electrified && V.shock(user, 100))
+	var/obj/machinery/economy/vending/V = holder
+	if(!issilicon(user) && V.seconds_electrified && V.shock(user, 100))
 		return FALSE
 	if(V.panel_open)
 		return TRUE
@@ -19,14 +19,14 @@
 
 /datum/wires/vending/get_status()
 	. = ..()
-	var/obj/machinery/vending/V = holder
+	var/obj/machinery/economy/vending/V = holder
 	. += "The orange light is [V.seconds_electrified ? "on" : "off"]."
 	. += "The red light is [V.shoot_inventory ? "off" : "blinking"]."
 	. += "The green light is [V.extended_inventory ? "on" : "off"]."
 	. += "A [V.scan_id ? "purple" : "yellow"] light is on."
 
 /datum/wires/vending/on_pulse(wire)
-	var/obj/machinery/vending/V = holder
+	var/obj/machinery/economy/vending/V = holder
 	switch(wire)
 		if(WIRE_THROW_ITEM)
 			V.shoot_inventory = !V.shoot_inventory
@@ -39,7 +39,7 @@
 	..()
 
 /datum/wires/vending/on_cut(wire, mend)
-	var/obj/machinery/vending/V = holder
+	var/obj/machinery/economy/vending/V = holder
 	switch(wire)
 		if(WIRE_THROW_ITEM)
 			V.shoot_inventory = !mend

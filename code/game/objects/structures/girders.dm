@@ -1,8 +1,8 @@
 /obj/structure/girder
 	name = "girder"
 	icon_state = "girder"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	layer = BELOW_OBJ_LAYER
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
@@ -63,6 +63,12 @@
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You disintegrate the girder!</span>")
+		refundMetal(metalUsed)
+		qdel(src)
+
+	else if(istype(W, /obj/item/twohanded/required/pyro_claws))
+		playsound(loc, W.usesound, 100, 1)
+		to_chat(user, "<span class='notice'>You melt the girder!</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
@@ -378,7 +384,7 @@
 		else
 			return 0
 
-/obj/structure/girder/CanAStarPass(ID, dir, caller)
+/obj/structure/girder/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
@@ -398,7 +404,7 @@
 /obj/structure/girder/displaced
 	name = "displaced girder"
 	icon_state = "displaced"
-	anchored = 0
+	anchored = FALSE
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
 	max_integrity = 120

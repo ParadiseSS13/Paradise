@@ -4,7 +4,7 @@
  * @param {any[]} classNames
  * @return {string}
  */
-export const classes = classNames => {
+export const classes = (classNames) => {
   let className = '';
   for (let i = 0; i < classNames.length; i++) {
     const part = classNames[i];
@@ -19,9 +19,9 @@ export const classes = classNames => {
  * Normalizes children prop, so that it is always an array of VDom
  * elements.
  */
-export const normalizeChildren = children => {
+export const normalizeChildren = (children) => {
   if (Array.isArray(children)) {
-    return children.flat().filter(value => value);
+    return children.flat().filter((value) => value);
   }
   if (typeof children === 'object') {
     return [children];
@@ -60,8 +60,6 @@ export const pureComponentHooks = {
 /**
  * A helper to determine whether to render an item.
  */
-export const isFalsy = value => {
-  return value === undefined
-    || value === null
-    || value === false;
+export const isFalsy = (value) => {
+  return value === undefined || value === null || value === false;
 };

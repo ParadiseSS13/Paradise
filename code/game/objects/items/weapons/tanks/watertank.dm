@@ -14,13 +14,17 @@
 	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
-	var/on = 0
+	var/on = FALSE
 	var/volume = 500
 
 /obj/item/watertank/New()
 	..()
 	create_reagents(volume)
 	noz = make_noz()
+
+/obj/item/watertank/Destroy()
+	QDEL_NULL(noz)
+	return ..()
 
 /obj/item/watertank/ui_action_click()
 	toggle_mister()
@@ -46,7 +50,7 @@
 
 		//Detach the nozzle into the user's hands
 		if(!user.put_in_hands(noz))
-			on = 0
+			on = FALSE
 			to_chat(user, "<span class='notice'>You need a free hand to hold the mister.</span>")
 			return
 		noz.loc = user
@@ -124,18 +128,22 @@
 
 	var/obj/item/watertank/tank
 
-/obj/item/reagent_containers/spray/mister/New(parent_tank)
-	..()
-	if(check_tank_exists(parent_tank, src))
-		tank = parent_tank
-		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-		loc = tank
-	return
+/obj/item/reagent_containers/spray/mister/Initialize(mapload)
+	if(!check_tank_exists(loc, src))
+		return INITIALIZE_HINT_QDEL
+	tank = loc
+	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
+	return ..()
+
+/obj/item/reagent_containers/spray/mister/Destroy()
+	tank = null
+	reagents = null // Unset, this is the tanks reagents
+	return ..()
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
 	..()
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
-	tank.on = 0
+	tank.on = FALSE
 	loc = tank
 
 /obj/item/reagent_containers/spray/mister/attack_self()
@@ -143,11 +151,9 @@
 
 /proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
-		M.unEquip(O)
-		qdel(0)
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/reagent_containers/spray/mister/Move()
 	..()
@@ -231,14 +237,20 @@
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
-/obj/item/extinguisher/mini/nozzle/New(parent_tank)
-	. = ..()
-	if(check_tank_exists(parent_tank, src))
-		tank = parent_tank
-		reagents = tank.reagents
-		max_water = tank.volume
-		loc = tank
-	return
+/obj/item/extinguisher/mini/nozzle/Initialize(mapload)
+	if(!check_tank_exists(loc, src))
+		return INITIALIZE_HINT_QDEL
+
+	tank = loc
+	reagents = tank.reagents
+	max_water = tank.volume
+
+	return ..()
+
+/obj/item/extinguisher/mini/nozzle/Destroy()
+	tank = null
+	reagents = null // Unset, this is the tanks reagents
+	return ..()
 
 /obj/item/extinguisher/mini/nozzle/Move()
 	..()
@@ -268,7 +280,7 @@
 /obj/item/extinguisher/mini/nozzle/dropped(mob/user as mob)
 	..()
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
-	tank.on = 0
+	tank.on = FALSE
 	loc = tank
 
 /obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
@@ -302,7 +314,7 @@
 				nanofrost_cooldown = 0
 		return
 	if(nozzle_mode == METAL_FOAM)
-		if(!Adj|| !istype(target, /turf))
+		if(!Adj|| !isturf(target))
 			return
 		if(metal_synthesis_cooldown < 5)
 			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), 1)
@@ -325,7 +337,7 @@
 
 /obj/effect/nanofrost_container/proc/Smoke()
 	var/datum/effect_system/smoke_spread/freezing/S = new
-	S.set_up(6, 0, loc, null, 1)
+	S.set_up(6, FALSE, loc, null, 1)
 	S.start()
 	var/obj/effect/decal/cleanable/flour/F = new /obj/effect/decal/cleanable/flour(src.loc)
 	F.color = "#B2FFFF"

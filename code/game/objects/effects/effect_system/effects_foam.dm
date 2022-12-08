@@ -5,9 +5,8 @@
 /obj/effect/particle_effect/foam
 	name = "foam"
 	icon_state = "foam"
-	opacity = 0
-	anchored = 1
-	density = 0
+	opacity = FALSE
+	density = FALSE
 	layer = OBJ_LAYER + 0.9
 	animate_movement = 0
 	var/amount = 3
@@ -29,7 +28,7 @@
 
 		if(metal)
 			var/turf/T = get_turf(src)
-			if(istype(T, /turf/space) && !istype(T, /turf/space/transit))
+			if(isspaceturf(T) && !istype(T, /turf/space/transit))
 				T.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 				var/turf/simulated/floor/plating/metalfoam/MF = get_turf(src)
 				MF.metal = metal
@@ -37,7 +36,7 @@
 
 			var/obj/structure/foamedmetal/M = new(src.loc)
 			M.metal = metal
-			M.updateicon()
+			M.update_state()
 
 		flick("[icon_state]-disolve", src)
 		sleep(5)
@@ -100,7 +99,7 @@
 
 	if(iscarbon(AM))
 		var/mob/living/carbon/M =	AM
-		if(M.slip("foam", 5, 2))
+		if(M.slip("foam", 10 SECONDS))
 			if(reagents)
 				for(var/reagent_id in reagents.reagent_list)
 					var/amount = M.reagents.get_reagent_amount(reagent_id)
@@ -194,15 +193,20 @@
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(src.loc, 'sound/weapons/tap.ogg', 100, TRUE)
 
-/obj/structure/foamedmetal/proc/updateicon()
+/obj/structure/foamedmetal/proc/update_state()
 	if(metal == MFOAM_ALUMINUM)
-		icon_state = "metalfoam"
 		max_integrity = 20
 		obj_integrity = max_integrity
 	else
-		icon_state = "ironfoam"
 		max_integrity = 50
 		obj_integrity = max_integrity
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/structure/foamedmetal/update_icon_state()
+	if(metal == MFOAM_ALUMINUM)
+		icon_state = "metalfoam"
+	else
+		icon_state = "ironfoam"
 
 /obj/structure/foamedmetal/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)

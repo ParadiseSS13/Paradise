@@ -1,12 +1,12 @@
-import { useBackend } from "../../backend";
-import { Box, Button, LabeledList } from "../../components";
+import { useBackend } from '../../backend';
+import { Box, Button, LabeledList } from '../../components';
 
 export const pda_status_display = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    records,
-  } = data;
+  const { records } = data;
+
+  // The magic number values for the statdisp entry can be found in code\__DEFINES\machines.dm
 
   return (
     <Box>
@@ -16,57 +16,78 @@ export const pda_status_display = (props, context) => {
             color="transparent"
             icon="trash"
             content="Clear"
-            onClick={() => act("Status", { statdisp: "blank" })} />
+            onClick={() => act('Status', { statdisp: 0 })}
+          />
           <Button
             color="transparent"
             icon="clock"
             content="Evac ETA"
-            onClick={() => act("Status", { statdisp: "shuttle" })} />
+            onClick={() => act('Status', { statdisp: 1 })}
+          />
           <Button
             color="transparent"
             icon="edit"
             content="Message"
-            onClick={() => act("Status", { statdisp: "message" })} />
+            onClick={() => act('Status', { statdisp: 2 })}
+          />
           <Button
             color="transparent"
             icon="exclamation-triangle"
             content="Red Alert"
-            onClick={() => act("Status", {
-              statdisp: "alert", alert: "redalert",
-            })} />
+            onClick={() =>
+              act('Status', {
+                statdisp: 3,
+                alert: 'redalert',
+              })
+            }
+          />
           <Button
             color="transparent"
             icon="boxes"
             content="NT Logo"
-            onClick={() => act("Status", {
-              statdisp: "alert", alert: "default",
-            })} />
+            onClick={() =>
+              act('Status', {
+                statdisp: 3,
+                alert: 'default',
+              })
+            }
+          />
           <Button
             color="transparent"
             icon="lock"
             content="Lockdown"
-            onClick={() => act("Status", {
-              statdisp: "alert", alert: "lockdown",
-            })} />
+            onClick={() =>
+              act('Status', {
+                statdisp: 3,
+                alert: 'lockdown',
+              })
+            }
+          />
           <Button
             color="transparent"
             icon="biohazard"
             content="Biohazard"
-            onClick={() => act("Status", {
-              statdisp: "alert", alert: "biohazard",
-            })} />
+            onClick={() =>
+              act('Status', {
+                statdisp: 3,
+                alert: 'biohazard',
+              })
+            }
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Message line 1">
           <Button
-            content={records.message1 + " (set)"}
+            content={records.message1 + ' (set)'}
             icon="pen"
-            onClick={() => act("Status", { statdisp: "setmsg1" })} />
+            onClick={() => act('SetMessage', { msgnum: 1 })}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Message line 2">
           <Button
-            content={records.message2 + " (set)"}
+            content={records.message2 + ' (set)'}
             icon="pen"
-            onClick={() => act("Status", { statdisp: "setmsg2" })} />
+            onClick={() => act('SetMessage', { msgnum: 2 })}
+          />
         </LabeledList.Item>
       </LabeledList>
     </Box>

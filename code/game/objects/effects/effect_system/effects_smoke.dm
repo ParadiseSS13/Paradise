@@ -10,8 +10,8 @@
 	icon = 'icons/effects/96x96.dmi'
 	pixel_x = -32
 	pixel_y = -32
-	opacity = 1
-	anchored = 0
+	opacity = TRUE
+	anchored = FALSE
 	var/steps = 0
 	var/lifetime = 5
 	var/direction
@@ -39,7 +39,7 @@
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
 	STOP_PROCESSING(SSobj, src)
-	INVOKE_ASYNC(src, .proc/fade_out)
+	INVOKE_ASYNC(src, PROC_REF(fade_out))
 	QDEL_IN(src, 10)
 
 /obj/effect/particle_effect/smoke/process()
@@ -67,7 +67,7 @@
 	if(C.smoke_delay)
 		return FALSE
 	C.smoke_delay++
-	addtimer(CALLBACK(src, .proc/remove_smoke_delay, C), 10)
+	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
@@ -78,17 +78,12 @@
 	effect_type = /obj/effect/particle_effect/smoke
 	var/direction
 
-/datum/effect_system/smoke_spread/set_up(n = 5, c = 0, loca, direct)
-	if(n > 20)
-		n = 20
-	number = n
-	cardinals = c
-	if(isturf(loca))
-		location = loca
-	else
-		location = get_turf(loca)
-	if(direct)
-		direction = direct
+/datum/effect_system/smoke_spread/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction)
+	number = clamp(amount, amount, 20)
+	cardinals = only_cardinals
+	location = get_turf(source)
+	if(desired_direction)
+		direction = desired_direction
 
 /datum/effect_system/smoke_spread/start()
 	for(var/i=0, i<number, i++)
@@ -142,14 +137,14 @@
 /obj/effect/particle_effect/smoke/freezing
 	name = "nanofrost smoke"
 	color = "#B2FFFF"
-	opacity = 0
+	opacity = FALSE
 
 /datum/effect_system/smoke_spread/freezing
 	effect_type = /obj/effect/particle_effect/smoke/freezing
-	var/blast = 0
+	var/blast = FALSE
 
 /datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
-	if(istype(A, /turf/simulated))
+	if(issimulatedturf(A))
 		var/turf/simulated/T = A
 		if(T.air)
 			var/datum/gas_mixture/G = T.air
@@ -163,12 +158,12 @@
 					G.toxins = 0
 		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
 			if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
-				V.welded = 1
+				V.welded = TRUE
 				V.update_icon()
 				V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
 			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
-				U.welded = 1
+				U.welded = TRUE
 				U.update_icon()
 				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
 		for(var/mob/living/L in T)
@@ -176,7 +171,7 @@
 		for(var/obj/item/Item in T)
 			Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(n = 5, c = 0, loca, direct, blasting = 0)
+/datum/effect_system/smoke_spread/freezing/set_up(amount = 5, only_cardinals = FALSE, source, desired_direction, blasting = 0)
 	..()
 	blast = blasting
 
@@ -202,7 +197,7 @@
 /obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
 	if(..())
 		M.drop_item()
-		M.Sleeping(max(M.sleeping,10))
+		M.Sleeping(20 SECONDS)
 		M.emote("cough")
 		return 1
 

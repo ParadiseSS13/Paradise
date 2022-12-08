@@ -5,16 +5,16 @@
 	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 	if(isliving(target))
-		RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/LivingWaddle)
+		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(LivingWaddle))
 	else
-		RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/Waddle)
+		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(Waddle))
 
 /datum/element/waddling/Detach(datum/source, force)
 	. = ..()
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 
 /datum/element/waddling/proc/LivingWaddle(mob/living/target)
-	if(target.incapacitated() || target.lying)
+	if(target.incapacitated() || IS_HORIZONTAL(target))
 		return
 	Waddle(target)
 

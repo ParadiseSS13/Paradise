@@ -17,7 +17,7 @@
 
 	if(is_ventcrawling(src)) // To stop drones interacting with anything while ventcrawling
 		return
-	if(stat == DEAD || lockcharge || IsWeakened() || stunned || paralysis || low_power_mode)
+	if(stat == DEAD || lockcharge || IsWeakened() || IsStunned() || IsParalyzed() || low_power_mode)
 		return
 
 	var/list/modifiers = params2list(params)
@@ -111,7 +111,7 @@
 
 //Middle click points
 /mob/living/silicon/robot/MiddleClickOn(atom/A)
-	if(istype(src, /mob/living/silicon/robot/drone))
+	if(isdrone(src))
 		// Drones cannot point.
 		return
 	pointed(A)

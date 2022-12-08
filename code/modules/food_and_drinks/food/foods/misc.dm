@@ -105,6 +105,7 @@
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
+	ingredient_name = "turnover"
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket
 	name = "warm Donk-pocket"
@@ -164,8 +165,8 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("popcorn" = 3, "butter" = 1)
 
-/obj/item/reagent_containers/food/snacks/popcorn/New()
-	..()
+/obj/item/reagent_containers/food/snacks/popcorn/Initialize(mapload)
+	. = ..()
 	unpopped = rand(1,10)
 
 /obj/item/reagent_containers/food/snacks/popcorn/On_Consume(mob/M, mob/user)

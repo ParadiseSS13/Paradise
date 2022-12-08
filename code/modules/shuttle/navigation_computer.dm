@@ -27,7 +27,7 @@
 	GLOB.navigation_computers += src
 	if(access_station)
 		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
-	if(access_mining)
+	if(access_mining && GLOB.configuration.ruins.enable_lavaland)
 		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
@@ -115,7 +115,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget))
+		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, PROC_REF(canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
@@ -274,7 +274,7 @@
 	return ..()
 
 /mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
-	if(istype(get_turf(T), /turf/space) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
+	if(isspaceturf(get_turf(T)) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()

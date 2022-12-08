@@ -120,7 +120,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
-		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		body += "<A href='?_src_=holder;viewkarma=[M.ckey]'>View Karma</A> | "
 		if(GLOB.configuration.url.forum_playerinfo_url)
@@ -142,6 +141,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
 			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
 			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a>]
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><font color='[check_mute(M.client.ckey, MUTE_EMOTE) ?" red" : "#6685f5"]'>EMOTE</font></a>]
 			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
 		"}
 
@@ -204,7 +204,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			else
 				body += "<A href='?_src_=holder;makeanimal=[M.UID()]'>Animalize</A> | "
 
-			if(istype(M, /mob/dead/observer))
+			if(isobserver(M))
 				body += "<A href='?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
 
 			if(ispAI(M))
@@ -312,19 +312,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(key)
 		SSipintel.vpn_whitelist_panel(key)
 
-/datum/admins/proc/Jobbans()
-	if(!check_rights(R_BAN))
-		return
-
-	var/dat = "<B>Job Bans!</B><HR><table>"
-	for(var/t in GLOB.jobban_keylist)
-		var/r = t
-		if( findtext(r,"##") )
-			r = copytext( r, 1, findtext(r,"##") )//removes the description
-		dat += text("<tr><td>[t] (<A href='?src=[UID()];removejobban=[r]'>unban</A>)</td></tr>")
-	dat += "</table>"
-	usr << browse(dat, "window=ban;size=400x400")
-
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
 		return
@@ -404,7 +391,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/end_round()
 	set category = "Server"
 	set name = "End Round"
-	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
+	set desc = "Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do."
 	if(!check_rights(R_SERVER))
 		return
 	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
@@ -665,17 +652,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		antag_list += "Changeling"
 	if(M.mind in SSticker.mode.abductors)
 		antag_list += "Abductor"
-	if(M.mind in SSticker.mode.vampires)
+	if(M.mind.has_antag_datum(/datum/antagonist/vampire))
 		antag_list += "Vampire"
-	if(M.mind in SSticker.mode.vampire_enthralled)
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave/thrall))
 		antag_list += "Vampire Thrall"
-	if(M.mind in SSticker.mode.shadows)
-		antag_list += "Shadowling"
-	if(M.mind in SSticker.mode.shadowling_thralls)
-		antag_list += "Shadowling Thrall"
 	if(M.mind.has_antag_datum(/datum/antagonist/traitor))
 		antag_list += "Traitor"
-	if(M.mind.has_antag_datum(/datum/antagonist/mindslave))
+	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
 		antag_list += "Mindslave"
 	if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
@@ -705,7 +688,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/spawn_atom(object as text)
 	set category = "Debug"
-	set desc = "(atom path) Spawn an atom"
+	set desc = "(atom path) Spawn an atom. Append a period to the text in order to exclude subtypes of paths matching the input."
 	set name = "Spawn"
 
 	if(!check_rights(R_SPAWN))
@@ -714,9 +697,20 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/list/types = typesof(/atom)
 	var/list/matches = new()
 
-	for(var/path in types)
-		if(findtext("[path]", object))
-			matches += path
+	var/include_subtypes = TRUE
+	if(copytext(object, -1) == ".")
+		include_subtypes = FALSE
+		object = copytext(object, 1, -1)
+
+	if(include_subtypes)
+		for(var/path in types)
+			if(findtext("[path]", object))
+				matches += path
+	else
+		var/needle_length = length(object)
+		for(var/path in types)
+			if(copytext("[path]", -needle_length) == object)
+				matches += path
 
 	if(matches.len==0)
 		return
@@ -850,7 +844,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /proc/formatJumpTo(location, where="")
 	var/turf/loc
-	if(istype(location,/turf/))
+	if(isturf(location))
 		loc = location
 	else
 		loc = get_turf(location)
@@ -860,7 +854,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /proc/formatLocation(location)
 	var/turf/loc
-	if(istype(location,/turf/))
+	if(isturf(location))
 		loc = location
 	else
 		loc = get_turf(location)
@@ -899,7 +893,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 	if(!frommob.ckey)
 		return 0
 
-	if(istype(tothing, /obj/item))
+	if(isitem(tothing))
 		var/mob/living/toitem = tothing
 
 		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")

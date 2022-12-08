@@ -1,6 +1,6 @@
 import { Section } from '../components';
 import { Window } from '../layouts';
-import { CrewManifest } from "./common/CrewManifest";
+import { CrewManifest } from './common/CrewManifest';
 
 export const GenericCrewManifest = (props, context) => {
   return (

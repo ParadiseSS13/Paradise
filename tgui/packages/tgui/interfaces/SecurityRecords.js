@@ -1,23 +1,33 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table, Tabs } from '../components';
+import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Table,
+  Tabs,
+} from '../components';
 import { FlexItem } from '../components/Flex';
-import { Window } from "../layouts";
+import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
 
 const statusStyles = {
-  "*Execute*": "execute",
-  "*Arrest*": "arrest",
-  "Incarcerated": "incarcerated",
-  "Parolled": "parolled",
-  "Released": "released",
-  "Demote": "demote",
-  "Search": "search",
-  "Monitor": "monitor",
+  '*Execute*': 'execute',
+  '*Arrest*': 'arrest',
+  'Incarcerated': 'incarcerated',
+  'Parolled': 'parolled',
+  'Released': 'released',
+  'Demote': 'demote',
+  'Search': 'search',
+  'Monitor': 'monitor',
 };
 
 const doEdit = (context, field) => {
@@ -29,10 +39,7 @@ const doEdit = (context, field) => {
 
 export const SecurityRecords = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    loginState,
-    currentPage,
-  } = data;
+  const { loginState, currentPage } = data;
 
   let body;
   if (!loginState.logged_in) {
@@ -68,21 +75,18 @@ export const SecurityRecords = (properties, context) => {
 
 const SecurityRecordsNavigation = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    currentPage,
-    general,
-  } = data;
+  const { currentPage, general } = data;
   return (
     <Tabs>
       <Tabs.Tab
         selected={currentPage === 1}
-        onClick={() => act('page', { page: 1 })}>
+        onClick={() => act('page', { page: 1 })}
+      >
         <Icon name="list" />
         List Records
       </Tabs.Tab>
-      {(currentPage === 2 && general && !general.empty) && (
-        <Tabs.Tab
-          selected={currentPage === 2}>
+      {currentPage === 2 && general && !general.empty && (
+        <Tabs.Tab selected={currentPage === 2}>
           <Icon name="file" />
           Record: {general.fields[0].value}
         </Tabs.Tab>
@@ -93,12 +97,10 @@ const SecurityRecordsNavigation = (properties, context) => {
 
 const SecurityRecordsPageList = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    records,
-  } = data;
-  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
-  const [sortId, _setSortId] = useLocalState(context, "sortId", "name");
-  const [sortOrder, _setSortOrder] = useLocalState(context, "sortOrder", true);
+  const { records } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
     <Flex direction="column" height="100%">
       <SecurityRecordsActions />
@@ -112,27 +114,41 @@ const SecurityRecordsPageList = (properties, context) => {
             <SortButton id="status">Criminal Status</SortButton>
           </Table.Row>
           {records
-            .filter(createSearch(searchText, record => {
-              return record.name + "|"
-                      + record.id + "|"
-                      + record.rank + "|"
-                      + record.fingerprint + "|"
-                      + record.status;
-            }))
+            .filter(
+              createSearch(searchText, (record) => {
+                return (
+                  record.name +
+                  '|' +
+                  record.id +
+                  '|' +
+                  record.rank +
+                  '|' +
+                  record.fingerprint +
+                  '|' +
+                  record.status
+                );
+              })
+            )
             .sort((a, b) => {
               const i = sortOrder ? 1 : -1;
               return a[sortId].localeCompare(b[sortId]) * i;
             })
-            .map(record => (
+            .map((record) => (
               <Table.Row
                 key={record.id}
-                className={"SecurityRecords__listRow--"
-                            + statusStyles[record.status]}
-                onClick={() => act('view', {
-                  uid_gen: record.uid_gen,
-                  uid_sec: record.uid_sec,
-                })}>
-                <Table.Cell><Icon name="user" /> {record.name}</Table.Cell>
+                className={
+                  'SecurityRecords__listRow--' + statusStyles[record.status]
+                }
+                onClick={() =>
+                  act('view', {
+                    uid_gen: record.uid_gen,
+                    uid_sec: record.uid_sec,
+                  })
+                }
+              >
+                <Table.Cell>
+                  <Icon name="user" /> {record.name}
+                </Table.Cell>
                 <Table.Cell>{record.id}</Table.Cell>
                 <Table.Cell>{record.rank}</Table.Cell>
                 <Table.Cell>{record.fingerprint}</Table.Cell>
@@ -146,16 +162,13 @@ const SecurityRecordsPageList = (properties, context) => {
 };
 
 const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, "sortId", "name");
-  const [sortOrder, setSortOrder] = useLocalState(context, "sortOrder", true);
-  const {
-    id,
-    children,
-  } = properties;
+  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const { id, children } = properties;
   return (
     <Table.Cell>
       <Button
-        color={sortId !== id && "transparent"}
+        color={sortId !== id && 'transparent'}
         width="100%"
         onClick={() => {
           if (sortId === id) {
@@ -164,13 +177,11 @@ const SortButton = (properties, context) => {
             setSortId(id);
             setSortOrder(true);
           }
-        }}>
+        }}
+      >
         {children}
         {sortId === id && (
-          <Icon
-            name={sortOrder ? "sort-up" : "sort-down"}
-            ml="0.25rem;"
-          />
+          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
         )}
       </Button>
     </Table.Cell>
@@ -179,10 +190,8 @@ const SortButton = (properties, context) => {
 
 const SecurityRecordsActions = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    isPrinting,
-  } = data;
-  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
+  const { isPrinting } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   return (
     <Flex>
       <FlexItem>
@@ -197,7 +206,7 @@ const SecurityRecordsActions = (properties, context) => {
           iconSpin={!!isPrinting}
           content="Print Cell Log"
           ml="0.25rem"
-          onClick={() => modalOpen(context, "print_cell_log")}
+          onClick={() => modalOpen(context, 'print_cell_log')}
         />
       </FlexItem>
       <FlexItem grow="1" ml="0.5rem">
@@ -213,17 +222,9 @@ const SecurityRecordsActions = (properties, context) => {
 
 const SecurityRecordsPageView = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    isPrinting,
-    general,
-    security,
-  } = data;
+  const { isPrinting, general, security } = data;
   if (!general || !general.fields) {
-    return (
-      <Box color="bad">
-        General records lost!
-      </Box>
-    );
+    return <Box color="bad">General records lost!</Box>;
   }
   return (
     <Fragment>
@@ -242,14 +243,17 @@ const SecurityRecordsPageView = (properties, context) => {
             />
             <Button.Confirm
               icon="trash"
-              tooltip={"WARNING: This will also delete the Security "
-              + "and Medical records associated to this crew member!"}
+              tooltip={
+                'WARNING: This will also delete the Security ' +
+                'and Medical records associated to this crew member!'
+              }
               tooltipPosition="bottom-left"
               content="Delete Record"
               onClick={() => act('delete_general')}
             />
           </Fragment>
-        }>
+        }
+      >
         <SecurityRecordsViewGeneral />
       </Section>
       <Section
@@ -263,7 +267,8 @@ const SecurityRecordsPageView = (properties, context) => {
             content="Delete Record"
             onClick={() => act('delete_security')}
           />
-        }>
+        }
+      >
         <SecurityRecordsViewSecurity />
       </Section>
     </Fragment>
@@ -272,15 +277,9 @@ const SecurityRecordsPageView = (properties, context) => {
 
 const SecurityRecordsViewGeneral = (_properties, context) => {
   const { data } = useBackend(context);
-  const {
-    general,
-  } = data;
+  const { general } = data;
   if (!general || !general.fields) {
-    return (
-      <Box color="bad">
-        General records lost!
-      </Box>
-    );
+    return <Box color="bad">General records lost!</Box>;
   }
   return (
     <Fragment>
@@ -302,13 +301,14 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
         </LabeledList>
       </Box>
       <Box position="absolute" right="0" textAlign="right">
-        {!!general.has_photos && (
+        {!!general.has_photos &&
           general.photos.map((p, i) => (
             <Box
               key={i}
               display="inline-block"
               textAlign="center"
-              color="label">
+              color="label"
+            >
               <img
                 src={p}
                 style={{
@@ -316,11 +316,11 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
                   'margin-bottom': '0.5rem',
                   '-ms-interpolation-mode': 'nearest-neighbor',
                 }}
-              /><br />
+              />
+              <br />
               Photo #{i + 1}
             </Box>
-          ))
-        )}
+          ))}
       </Box>
     </Fragment>
   );
@@ -328,13 +328,12 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
 
 const SecurityRecordsViewSecurity = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    security,
-  } = data;
+  const { security } = data;
   if (!security || !security.fields) {
     return (
       <Box color="bad">
-        Security records lost!<br />
+        Security records lost!
+        <br />
         <Button
           icon="pen"
           content="Create New Record"
@@ -348,9 +347,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
     <Fragment>
       <LabeledList>
         {security.fields.map((field, i) => (
-          <LabeledList.Item
-            key={i}
-            label={field.field}>
+          <LabeledList.Item key={i} label={field.field}>
             {decodeHtmlEntities(field.value)}
             {!!field.edit && (
               <Button
@@ -372,25 +369,27 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
             content="Add Entry"
             onClick={() => modalOpen(context, 'comment_add')}
           />
-        }>
+        }
+      >
         {security.comments.length === 0 ? (
-          <Box color="label">
-            No comments found.
-          </Box>
-        ) : security.comments.map((comment, i) => (
-          <Box key={i}>
-            <Box color="label" display="inline">
-              {comment.header || "Auto-generated"}
-            </Box><br />
-            {comment.text || comment}
-            <Button
-              icon="comment-slash"
-              color="bad"
-              ml="0.5rem"
-              onClick={() => act('comment_delete', { id: i + 1 })}
-            />
-          </Box>
-        ))}
+          <Box color="label">No comments found.</Box>
+        ) : (
+          security.comments.map((comment, i) => (
+            <Box key={i}>
+              <Box color="label" display="inline">
+                {comment.header || 'Auto-generated'}
+              </Box>
+              <br />
+              {comment.text || comment}
+              <Button
+                icon="comment-slash"
+                color="bad"
+                ml="0.5rem"
+                onClick={() => act('comment_delete', { id: i + 1 })}
+              />
+            </Box>
+          ))
+        )}
       </Section>
     </Fragment>
   );

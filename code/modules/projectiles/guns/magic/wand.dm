@@ -4,24 +4,25 @@
 	ammo_type = /obj/item/ammo_casing/magic
 	icon_state = "nothingwand"
 	item_state = "wand"
+	belt_icon = "wand_nothing"
 	w_class = WEIGHT_CLASS_SMALL
-	can_charge = 0
+	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = 1
 
-/obj/item/gun/magic/wand/New()
+/obj/item/gun/magic/wand/Initialize(mapload)
+	. = ..()
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
 		if(prob(33))
 			max_charges = CEILING(max_charges / 3, 1)
 		else
 			max_charges = CEILING(max_charges / 2, 1)
-	..()
 
 /obj/item/gun/magic/wand/examine(mob/user)
 	. = ..()
 	. += "Has [charges] charge\s remaining."
 
-/obj/item/gun/magic/wand/update_icon()
+/obj/item/gun/magic/wand/update_icon_state()
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
 
 
@@ -63,6 +64,7 @@
 	fire_sound = 'sound/magic/wandodeath.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/death
 	icon_state = "deathwand"
+	belt_icon = "wand_death"
 	max_charges = 3 //3, 2, 2, 1
 
 /obj/item/gun/magic/wand/death/zap_self(mob/living/user)
@@ -88,6 +90,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/heal
 	fire_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "revivewand"
+	belt_icon = "wand_revive"
 	max_charges = 3 //3, 2, 2, 1
 
 /obj/item/gun/magic/wand/resurrection/zap_self(mob/living/user)
@@ -111,6 +114,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	fire_sound = 'sound/magic/staff_change.ogg'
 	icon_state = "polywand"
+	belt_icon = "wand_polymorph"
 	max_charges = 10 //10, 5, 5, 4
 
 /obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
@@ -127,6 +131,7 @@
 	desc = "This wand will wrench targets through space and time to move them somewhere else."
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	icon_state = "telewand"
+	belt_icon = "wand_tele"
 	max_charges = 10 //10, 5, 5, 4
 	no_den_usage = TRUE
 	fire_sound = 'sound/magic/wand_teleport.ogg'
@@ -134,7 +139,7 @@
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
 	do_teleport(user, user, 10)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(10, 0, user.loc)
+	smoke.set_up(10, FALSE, user)
 	smoke.start()
 	charges--
 	..()
@@ -149,6 +154,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/door
 	fire_sound = 'sound/magic/staff_door.ogg'
 	icon_state = "doorwand"
+	belt_icon = "wand_door"
 	max_charges = 20 //20, 10, 10, 7
 	no_den_usage = TRUE
 
@@ -167,6 +173,7 @@
 	fire_sound = 'sound/magic/fireball.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/fireball
 	icon_state = "firewand"
+	belt_icon = "wand_fireball"
 	max_charges = 8 //8, 4, 4, 3
 
 /obj/item/gun/magic/wand/fireball/zap_self(mob/living/user)

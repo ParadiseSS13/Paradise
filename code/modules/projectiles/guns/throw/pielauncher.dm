@@ -7,15 +7,15 @@
 	throw_range = 3
 	force = 5
 
-	clumsy_check = 0
+	clumsy_check = FALSE
 	valid_projectile_type = /obj/item/reagent_containers/food/snacks/pie
 	max_capacity = 5
 	projectile_speed = 2
 	projectile_range = 30
 
 
-/obj/item/gun/throw/piecannon/New()
-	..()
+/obj/item/gun/throw/piecannon/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to max_capacity)
 		var/obj/item/reagent_containers/food/snacks/pie/P = new /obj/item/reagent_containers/food/snacks/pie(src)
 		loaded_projectiles += P
@@ -24,7 +24,7 @@
 /obj/item/gun/throw/piecannon/notify_ammo_count()
 	return "<span class='notice'>[src] has [get_ammocount()] of [max_capacity] pies left.</span>"
 
-/obj/item/gun/throw/piecannon/update_icon()
+/obj/item/gun/throw/piecannon/update_icon_state()
 	if(to_launch)
 		icon_state = "piecannon1"
 	else
@@ -33,4 +33,4 @@
 
 /obj/item/gun/throw/piecannon/process_chamber()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
