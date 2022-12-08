@@ -32,7 +32,6 @@
 		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/proc/do_jaunt(mob/living/target)
-	ADD_TRAIT(target, TRAIT_JAUNTING, "jaunt")
 	target.notransform = TRUE
 	var/turf/mobloc = get_turf(target)
 	var/obj/effect/dummy/spell_jaunt/holder = new jaunt_type_path(mobloc)
@@ -60,7 +59,6 @@
 	target.setDir(holder.dir)
 	sleep(jaunt_in_time)
 	qdel(holder)
-	REMOVE_TRAIT(target, TRAIT_JAUNTING, "jaunt")
 	if(!QDELETED(target))
 		if(is_blocked_turf(mobloc, TRUE))
 			for(var/turf/T in orange(7))
