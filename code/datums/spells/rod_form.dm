@@ -17,6 +17,8 @@
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/rod_form/cast(list/targets,mob/user = usr)
+	if(HAS_TRAIT(usr, TRAIT_JAUNTING))
+		return
 	for(var/mob/living/M in targets)
 		var/turf/start = get_turf(M)
 		var/obj/effect/immovablerod/wizard/W = new(start, get_ranged_target_turf(M, M.dir, (15 + spell_level * 3)), rod_delay)
