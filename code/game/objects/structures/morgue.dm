@@ -334,7 +334,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/structure/crematorium/obj_break(damage_flag)
 	if(!broken)
-		visible_message("<span class='warning'[src] dims as its paneling collapses and it becomes non-functional.")
+		visible_message("<span class='warning'[src] dims as its paneling collapses and it becomes non-functional.</span>")
 		icon_state = "crema_broke"
 		resistance_flags = INDESTRUCTIBLE
 		name = "broken crematorium"
