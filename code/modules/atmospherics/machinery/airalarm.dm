@@ -722,7 +722,7 @@
 	if(length(alarm_area.vents))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 			var/list/vent_info = list()
-			vent_info["id_tag"] = UID(P)
+			vent_info["id_tag"] = P.UID()
 			vent_info["name"] = sanitize(P.name)
 			vent_info["power"] = P.on
 			vent_info["direction"] = P.releasing ? "release" : "siphon"
@@ -735,7 +735,7 @@
 	if(length(alarm_area.scrubbers))
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/S as anything in alarm_area.scrubbers)
 			var/list/scrubber_info = list()
-			scrubber_info["id_tag"] = UID(S)
+			scrubber_info["id_tag"] = S.UID()
 			scrubber_info["name"] = sanitize(S.name)
 			scrubber_info["power"] = S.on
 			scrubber_info["scrubbing"] = S.scrubbing
@@ -887,6 +887,8 @@
 					var/obj/machinery/atmospherics/unary/U = locateUID(device_id)
 					if(!U)
 						return
+					
+					#warn add a check to make sure the target is actually in the list of things it should be able to access
 
 					// Its a vent. Handle
 					if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))

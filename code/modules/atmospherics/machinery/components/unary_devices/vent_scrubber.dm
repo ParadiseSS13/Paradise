@@ -39,6 +39,7 @@
 	icon = null
 	initial_loc = get_area(loc)
 	initial_loc.scrubbers += src
+	name = "[initial_loc.name] Air Scrubber #[length(initial_loc.scrubbers)]"
 
 /obj/machinery/atmospherics/unary/vent_scrubber/detailed_examine()
 	return "This filters the atmosphere of harmful gas. Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \

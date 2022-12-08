@@ -57,6 +57,7 @@
 	icon = null
 	initial_loc = get_area(loc)
 	initial_loc.vents += src
+	name = "[initial_loc.name] Vent Pump #[length(initial_loc.vents)]"
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "large air vent"
