@@ -79081,12 +79081,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/maintcentral)
-"tJu" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/medical/medbay)
 "tJO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -135740,7 +135734,7 @@ blC
 bmT
 cKk
 cKk
-tJu
+cKk
 cKk
 jVQ
 jVQ
