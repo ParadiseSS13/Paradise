@@ -395,7 +395,10 @@
 
 // The following three procs handle refusing access to contents if the duffel is zipped
 
-/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning)
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning, bypass_zip = FALSE)
+	if(bypass_zip)
+		return ..()
+
 	if(zipped)
 		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE
