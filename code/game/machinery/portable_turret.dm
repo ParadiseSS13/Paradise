@@ -736,6 +736,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		A.current = T
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
+		A.starting = loc
 		A.fire()
 	else
 		A.throw_at(target, scan_range, 1)
