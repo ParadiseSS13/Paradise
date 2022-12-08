@@ -17,7 +17,7 @@
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/rod_form/cast(list/targets,mob/user = usr)
-	if(get_turf(usr) != usr.loc)
+	if(get_turf(user) != user.loc)
 		to_chat(user, "<span class='warning'>You cannot summon a rod in the ether, the spell fizzles out!</span>")
 		revert_cast()
 		return FALSE
