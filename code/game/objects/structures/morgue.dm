@@ -283,6 +283,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema"
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE
 	var/obj/structure/c_tray/connected = null
 	anchored = TRUE
 	var/cremating = FALSE
@@ -308,31 +309,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(length(contents))
 		. += "crema_full"
-
-/obj/structure/crematorium/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A in src)
-				A.forceMove(loc)
-				ex_act(severity)
-			qdel(src)
-			return
-
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					ex_act(severity)
-				qdel(src)
-				return
-
-		if(3.0)
-			if(prob(5))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					ex_act(severity)
-				qdel(src)
-				return
 
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
@@ -470,6 +446,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema_tray"
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE
 	layer = 2.0
 	var/obj/structure/crematorium/connected = null
 	anchored = TRUE
@@ -512,6 +489,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
+	resistance_flags = INDESTRUCTIBLE
 	power_channel = EQUIP
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 100
