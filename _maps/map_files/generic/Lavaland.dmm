@@ -6389,10 +6389,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"XI" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/mine/living_quarters)
 "XW" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/light/small{
@@ -18026,7 +18022,7 @@ Ej
 gL
 cQ
 mp
-XI
+cM
 cM
 cp
 dJ
