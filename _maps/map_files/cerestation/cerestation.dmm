@@ -43006,11 +43006,6 @@
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
-"dKH" = (
-/turf/space,
-/area/solar/starboard{
-	name = "\improper Arrivals Solar Array"
-	})
 "dKM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -78587,7 +78582,7 @@
 /obj/structure/lattice,
 /obj/item/storage/toolbox/electrical,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "tlj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -82382,10 +82377,6 @@
 "uSP" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
-"uTb" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "uTg" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -119206,8 +119197,8 @@ ftr
 ftr
 ccW
 rWw
-uTb
-uTb
+lzH
+lzH
 lyI
 qak
 dtb
@@ -127159,7 +127150,7 @@ rNK
 rNK
 dcv
 rNK
-dKH
+rNK
 knD
 knD
 mLq
@@ -127933,7 +127924,7 @@ rNK
 rNK
 rNK
 rNK
-uTb
+lzH
 mkY
 tla
 rNK
@@ -128190,9 +128181,9 @@ rNK
 rNK
 rNK
 rNK
-uTb
+lzH
 mkY
-uTb
+lzH
 rNK
 rNK
 rNK
