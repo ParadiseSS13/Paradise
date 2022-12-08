@@ -157,7 +157,7 @@
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return
 	if(SSticker.current_state == GAME_STATE_FINISHED)
-		to_chat(usr, "<span class='warning'>Access denied, borgs are no longer your stations property.</span>")
+		to_chat(usr, "<span class='warning'>Access denied, borgs are no longer your station's property.</span>")
 		return
 	switch(action)
 		if("arm") // Arms the emergency self-destruct system
