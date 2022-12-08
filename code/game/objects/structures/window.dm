@@ -448,6 +448,9 @@
 	. = ..()
 	setDir(ini_dir)
 	move_update_air(T)
+
+/obj/structure/window/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	. = ..()
 	anchored = FALSE
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
