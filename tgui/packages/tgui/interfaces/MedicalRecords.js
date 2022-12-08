@@ -22,7 +22,6 @@ import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { SortButton } from './common/SortButton';
 
 const severities = {
   'Minor': 'lightgray',
@@ -479,6 +478,33 @@ const MedicalRecordsMedbots = (_properties, context) => {
         </Table>
       </Section>
     </Flex>
+  );
+};
+
+const SortButton = (properties, context) => {
+  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const { id, children } = properties;
+  return (
+    <Table.Cell>
+      <Button
+        color={sortId !== id && 'transparent'}
+        width="100%"
+        onClick={() => {
+          if (sortId === id) {
+            setSortOrder(!sortOrder);
+          } else {
+            setSortId(id);
+            setSortOrder(true);
+          }
+        }}
+      >
+        {children}
+        {sortId === id && (
+          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+        )}
+      </Button>
+    </Table.Cell>
   );
 };
 
