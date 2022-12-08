@@ -729,7 +729,7 @@
 "bP" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/maintenance{
-	name = "Mining Station Maintenance";
+	name = "Catwalk Airlock";
 	req_access_txt = "48"
 	},
 /obj/structure/cable{
@@ -1002,7 +1002,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Crates Airlock"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1288,7 +1290,10 @@
 /area/mine/mechbay)
 "cZ" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Outpost Airlock";
+	req_access_txt = "54"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1330,7 +1335,6 @@
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "de" = (
-/obj/machinery/door/airlock/mining/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1346,6 +1350,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/mining/glass{
+	req_access_txt = "54";
+	name = "Main Airlock"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2276,7 +2284,6 @@
 	},
 /area/mine/mechbay)
 "eL" = (
-/obj/machinery/door/airlock,
 /obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2285,10 +2292,13 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock{
+	name = "Maintence Door"
+	},
+/obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "eM" = (
-/obj/machinery/door/airlock,
 /obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2297,6 +2307,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock{
+	name = "Maintence Door"
+	},
+/obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "eN" = (
@@ -2556,11 +2570,13 @@
 "fj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Mech bay Airlock"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2578,7 +2594,9 @@
 	},
 /area/mine/cafeteria)
 "fl" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	name = "Maintence Door"
+	},
 /turf/simulated/floor/plating,
 /area/mine/mechbay)
 "fm" = (
@@ -2701,9 +2719,9 @@
 	},
 /area/mine/cafeteria)
 "fz" = (
-/obj/machinery/door/airlock,
-/obj/structure/barricade/wooden,
 /obj/structure/fans/tiny,
+/obj/structure/barricade/wooden,
+/obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
 "fA" = (
@@ -3221,7 +3239,6 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "gw" = (
-/obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -3232,6 +3249,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock{
+	name = "Maintence Door"
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -3781,8 +3801,11 @@
 /area/lavaland/surface/outdoors)
 "kf" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Outpost Airlock";
+	req_access_txt = "54"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -4563,7 +4586,9 @@
 	},
 /area/mine/laborcamp)
 "pa" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	name = "Maintence Door"
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "pq" = (
@@ -5203,7 +5228,10 @@
 	},
 /area/mine/sleeper)
 "BE" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock/maintenance{
+	name = "Airlock Maintence";
+	req_access_txt = "54"
+	},
 /turf/simulated/floor/plating,
 /area/mine/airlock)
 "BH" = (
@@ -5947,6 +5975,15 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"QF" = (
+/obj/machinery/door/airlock{
+	name = "Abandoned Airlock";
+	req_access_txt = "48"
+	},
+/obj/structure/barricade/wooden,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/mine/cafeteria)
 "QR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5980,7 +6017,6 @@
 	},
 /area/mine/laborcamp)
 "Rs" = (
-/obj/machinery/door/airlock,
 /obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5989,6 +6025,9 @@
 	dir = 4
 	},
 /obj/structure/barricade/wooden,
+/obj/machinery/door/airlock{
+	name = "Catwalk Airlock"
+	},
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "Ss" = (
@@ -16965,7 +17004,7 @@ El
 eb
 eb
 rV
-fz
+QF
 GO
 fz
 fY
@@ -20543,7 +20582,7 @@ am
 am
 ai
 aj
-ab
+aj
 aj
 aj
 aj
@@ -20799,9 +20838,9 @@ am
 am
 am
 ai
+aj
+aj
 ab
-ab
-AE
 aj
 aj
 aj
@@ -21056,8 +21095,8 @@ am
 am
 am
 am
-ai
 ab
+aj
 aj
 ab
 ab
@@ -21314,7 +21353,7 @@ am
 am
 am
 am
-ai
+aj
 aj
 AE
 AE
@@ -21572,7 +21611,7 @@ am
 am
 am
 am
-ai
+aj
 aj
 AE
 AE
@@ -22087,7 +22126,7 @@ am
 ai
 aj
 aj
-AE
+ab
 aj
 bf
 Rs
