@@ -197,7 +197,7 @@ def check_space_indentation(filename, lines):
 
 def check_mixed_indentation(filename, lines):
     for line in lines:
-        if re.match(r"^(\t+ | +\t)\s*[^\*]", line):
+        if re.match(r"^(\t+ | +\t)+ +[^\*]", line):
             return "ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation."
 
 
