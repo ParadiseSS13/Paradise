@@ -17,12 +17,12 @@
 		if(istype(W, /obj/item/gun/energy/plasmacutter))
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
-								 "<span class='notice'>You are slicing apart the [name]...</span>")
+								"<span class='notice'>You are slicing apart the [name]...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
-									 "<span class='notice'>You slice apart the [name].</span>")
+									"<span class='notice'>You slice apart the [name].</span>")
 				deconstruct(TRUE)
 			return
 	return ..()
@@ -44,7 +44,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
-						 "<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
+						"<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

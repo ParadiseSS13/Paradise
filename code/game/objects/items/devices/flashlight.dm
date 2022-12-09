@@ -61,14 +61,14 @@
 		if(M == user)	//they're using it on themselves
 			if(M.flash_eyes(visual = 1))
 				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
-									 "<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
+									"<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
 			else
 				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
-									 "<span class='notice'>You wave the light in front of your eyes.</span>")
+									"<span class='notice'>You wave the light in front of your eyes.</span>")
 		else
 
 			user.visible_message("<span class='notice'>[user] directs [src] to [M]'s eyes.</span>", \
-								 "<span class='notice'>You direct [src] to [M]'s eyes.</span>")
+								"<span class='notice'>You direct [src] to [M]'s eyes.</span>")
 
 			if(istype(H)) //robots and aliens are unaffected
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
