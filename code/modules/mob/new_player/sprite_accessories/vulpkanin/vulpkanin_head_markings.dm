@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/head/vulpkanin
-    icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_head_markings.dmi'
-    species_allowed = list("Vulpkanin")
+	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_head_markings.dmi'
+	species_allowed = list("Vulpkanin")
 
 /datum/sprite_accessory/body_markings/head/vulpkanin/nose_default_vulp
 	name = "Vulpkanin Nose"

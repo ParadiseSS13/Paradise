@@ -137,7 +137,7 @@
 		destination = pick(L)
 	var/obj/effect/temp_visual/getaway_flare/F = new(get_turf(src))
 	user.visible_message("<span class='notice'>[user] pulls out a black and gold flare and lights it.</span>",\
-						  "<span class='notice'>You light an emergency extraction flare, initiating the extraction process.</span>")
+						"<span class='notice'>You light an emergency extraction flare, initiating the extraction process.</span>")
 	user.drop_item()
 	forceMove(F)
 	addtimer(CALLBACK(src, PROC_REF(create_portal), destination), 5 SECONDS)

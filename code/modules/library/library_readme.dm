@@ -4,12 +4,12 @@
 //
 //*******************************
 /*
-   The Library
-   ------------
-   A place for the crew to go, relax, and enjoy a good book.
-   Aspiring authors can even self publish and submit it to the Archives
-   to be chronicled in history forever - some say even persisting
-   through alternate dimensions.
+ * The Library
+ * ------------
+ * A place for the crew to go, relax, and enjoy a good book.
+ * Aspiring authors can even self publish and submit it to the Archives
+ * to be chronicled in history forever - some say even persisting
+ * through alternate dimensions.
 */
 
 /* DB Notes:

@@ -317,8 +317,8 @@
 		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
-    . = ..()
-    weapon_weight = WEAPON_MEDIUM
+	. = ..()
+	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0

@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/tattoo/vox
-    icon = 'icons/mob/sprite_accessories/vox/vox_body_markings.dmi'
-    species_allowed = list("Vox")
+	icon = 'icons/mob/sprite_accessories/vox/vox_body_markings.dmi'
+	species_allowed = list("Vox")
 
 /datum/sprite_accessory/body_markings/tattoo/vox/heart_vox
 	name = "Vox Heart Tattoo"

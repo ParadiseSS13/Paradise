@@ -80,19 +80,19 @@ mapGeneratorModule
 Simple Workflow:
 
 	1. Define a/some mapGeneratorModule(s) to your liking, choosing atoms and turfs to spawn
-	 #Note: I chose to split Turfs and Atoms off into seperate modules, but this is NOT required.
-	 #Note: A mapGeneratorModule may have turfs AND atoms, so long as each is in it's appropriate list
+	#Note: I chose to split Turfs and Atoms off into seperate modules, but this is NOT required.
+	#Note: A mapGeneratorModule may have turfs AND atoms, so long as each is in it's appropriate list
 
 	2. Define a mapGenerator type who's modules list contains the typepath(s) of all the module(s) you wish to use
-	 #Note: The order of the typepaths in the modules list is the order they will happen in, this is important for clusterCheckFlags.
+	#Note: The order of the typepaths in the modules list is the order they will happen in, this is important for clusterCheckFlags.
 
 	3. Take notes of the Bottom Left and Top Right turfs of your rectangular "map"'s coordinates
-	 #Note: X,Y AND Z, Yes you can created 3D "maps" by having differing Z coords
+	#Note: X,Y AND Z, Yes you can created 3D "maps" by having differing Z coords
 
 	4. Create the mapGenerator type you created
 
 	5. Call yourMapGeneratorType.defineRegion(locate(X,Y,Z), locate(X,Y,Z))
-	 #Note: The above X/Y/Zs are the coordinates of the start and end turfs, the locate() simply finds the turf for the code
+	#Note: The above X/Y/Zs are the coordinates of the start and end turfs, the locate() simply finds the turf for the code
 
 	6. Call yourMapGeneratorType.generate(), this will cause all the modules in the generator to build within the map bounds
 

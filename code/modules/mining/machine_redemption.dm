@@ -209,7 +209,7 @@
 		SStgui.update_uis(src)
 		interact(user)
 		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
-						 	 "<span class='notice'>You insert [I] into [src].</span>")
+							"<span class='notice'>You insert [I] into [src].</span>")
 		return
 	return ..()
 

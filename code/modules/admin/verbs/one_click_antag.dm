@@ -25,7 +25,7 @@
 	return
 
 /datum/admins/proc/CandCheck(role = null, mob/living/carbon/human/M, datum/game_mode/temp = null)
-  // You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
+	// You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
 	if(jobban_isbanned(M, ROLE_SYNDICATE))
 		return FALSE
 	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)

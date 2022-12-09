@@ -100,7 +100,7 @@
 
 //abstract proc called by carbon/death()
 /obj/item/organ/internal/proc/on_owner_death()
- 	return
+	return
 
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())

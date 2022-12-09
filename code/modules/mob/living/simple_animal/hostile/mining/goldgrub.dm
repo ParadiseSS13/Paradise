@@ -27,7 +27,7 @@
 	status_flags = CANPUSH
 	search_objects = 1
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						  /obj/item/stack/ore/uranium)
+						/obj/item/stack/ore/uranium)
 
 	var/chase_time = 100
 	var/will_burrow = TRUE

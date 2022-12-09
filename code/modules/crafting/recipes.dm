@@ -667,7 +667,7 @@
 	result = list(/obj/item/clothing/accessory/necklace/talisman)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonecodpiece
@@ -675,7 +675,7 @@
 	result = list(/obj/item/clothing/accessory/necklace/skullcodpiece)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bracers
@@ -683,7 +683,7 @@
 	result = list(/obj/item/clothing/gloves/bracer)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/skullhelm
@@ -738,7 +738,7 @@
 	result = list(/obj/item/twohanded/spear/bonespear)
 	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 4,
-				 /obj/item/stack/sheet/sinew = 1)
+				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonepickaxe
@@ -746,7 +746,7 @@
 	result = list(/obj/item/pickaxe/bone)
 	time = 40
 	reqs = list(/obj/item/stack/sheet/bone = 4,
-				 /obj/item/stack/sheet/sinew = 2)
+				/obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonescythe
@@ -754,7 +754,7 @@
 	result = list(/obj/item/scythe/bone)
 	time = 40
 	reqs = list(/obj/item/stack/sheet/bone = 5,
-				 /obj/item/stack/sheet/sinew = 2)
+				/obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boneaxe
@@ -762,7 +762,7 @@
 	result = list(/obj/item/twohanded/fireaxe/boneaxe)
 	time = 50
 	reqs = list(/obj/item/stack/sheet/bone = 6,
-				 /obj/item/stack/sheet/sinew = 3)
+				/obj/item/stack/sheet/sinew = 3)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonfire
@@ -792,8 +792,8 @@
 	result = list(/obj/structure/guillotine)
 	time = 150 // Building a functioning guillotine takes time
 	reqs = list(/obj/item/stack/sheet/plasteel = 3,
-		        /obj/item/stack/sheet/wood = 20,
-		        /obj/item/stack/cable_coil = 10)
+				/obj/item/stack/sheet/wood = 20,
+				/obj/item/stack/cable_coil = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
@@ -810,10 +810,10 @@
 	result = list(/obj/item/thermal_drill)
 	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
-		        /obj/item/mecha_parts/mecha_equipment/drill = 1,
-		        /obj/item/stock_parts/cell = 1,
-		        /obj/item/stack/rods = 2,
-		        /obj/item/assembly/timer = 1)
+				/obj/item/mecha_parts/mecha_equipment/drill = 1,
+				/obj/item/stock_parts/cell = 1,
+				/obj/item/stack/rods = 2,
+				/obj/item/assembly/timer = 1)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 
@@ -822,10 +822,10 @@
 	result = list(/obj/item/thermal_drill/diamond_drill)
 	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
-		        /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
-		        /obj/item/stock_parts/cell = 1,
-		        /obj/item/stack/rods = 2,
-		        /obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
+				/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
+				/obj/item/stock_parts/cell = 1,
+				/obj/item/stack/rods = 2,
+				/obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 
