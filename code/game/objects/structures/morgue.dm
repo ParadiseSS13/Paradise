@@ -376,7 +376,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 	if(istype(P, /obj/item/assembly/igniter))
 		if(repairstate == 0)
-			user.visible_message("<span class='notice'>[user] replaces [src]'s igniter'.</span>", "<span class='notice'>You replace [src]'s damaged igniter. Now it just needs its paneling welded.</span>")
+			user.visible_message("<span class='notice'>[user] replaces [src]'s igniter.</span>", "<span class='notice'>You replace [src]'s damaged igniter. Now it just needs its paneling welded.</span>")
 			repairstate = 1
 			desc = "A broken human incinerator. No longer works well on barbeque nights. It requires its paneling to be welded to function."
 			qdel(P)
