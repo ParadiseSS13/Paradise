@@ -1060,7 +1060,7 @@
 			sort_type -= O.currTag
 			to_chat(user, "<span class='notice'>Removed [tag] from filter.</span>")
 		else
-			sort_type += O.currTag
+			sort_type |= O.currTag
 			to_chat(user, "<span class='notice'>Added [tag] to filter.</span>")
 		update_appearance(UPDATE_NAME|UPDATE_DESC)
 
