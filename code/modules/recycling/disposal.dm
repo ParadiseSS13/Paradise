@@ -1040,7 +1040,7 @@
 	updatedir()
 	if(sort_type_txt)
 		var/list/sort_type_str = splittext(sort_type_txt, ";")
-		for(var/x in sort_type_str )
+		for(var/x in sort_type_str)
 			var/n = text2num(x)
 			if(n)
 				sort_type += n
