@@ -43,8 +43,7 @@
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
-	var/will_not_miss = !isturf(A) && A.Adjacent(user)
-	INVOKE_ASYNC(src, .proc/spray, A, will_not_miss)
+	INVOKE_ASYNC(src, .proc/spray, A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
@@ -67,7 +66,7 @@
 	return
 
 
-/obj/item/reagent_containers/spray/proc/spray(atom/A, will_not_miss = FALSE)
+/obj/item/reagent_containers/spray/proc/spray(atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
 	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
@@ -75,12 +74,9 @@
 	var/turf/target_turf = get_turf(A)
 	for(var/i in 1 to spray_currentrange)
 		step_towards(D, target_turf)
-		if(will_not_miss)
-			D.reagents.reaction(A)
-		else
-			D.reagents.reaction(get_turf(D))
-			for(var/atom/T in get_turf(D))
-				D.reagents.reaction(T)
+		D.reagents.reaction(get_turf(D))
+		for(var/atom/T in get_turf(D))
+			D.reagents.reaction(T)
 		sleep(3)
 	qdel(D)
 
