@@ -668,7 +668,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery/robotics/reconfigure_id
-	name = "Reconfigure Identity"
+	name = "Identity Reconfiguration"
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
