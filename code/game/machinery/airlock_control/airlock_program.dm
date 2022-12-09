@@ -1,56 +1,4 @@
 //Handles the control of airlocks
-
-#define STATE_IDLE			0
-#define STATE_PREPARE		1
-#define STATE_DEPRESSURIZE	2
-#define STATE_PRESSURIZE	3
-
-#define TARGET_NONE			0
-#define TARGET_INOPEN		-1
-#define TARGET_OUTOPEN		-2
-
-
-/datum/computer/file/embedded_program/airlock
-	var/tag_exterior_door
-	var/tag_interior_door
-	var/tag_airpump
-	var/tag_chamber_sensor
-	var/tag_exterior_sensor
-	var/tag_interior_sensor
-	var/tag_airlock_mech_sensor
-	var/tag_shuttle_mech_sensor
-
-	var/state = STATE_IDLE
-	var/target_state = TARGET_NONE
-
-/datum/computer/file/embedded_program/airlock/New(obj/machinery/airlock_controller/M)
-	..(M)
-
-	memory["chamber_sensor_pressure"] = ONE_ATMOSPHERE
-	memory["external_sensor_pressure"] = 0					//assume vacuum for simple airlock controller
-	memory["internal_sensor_pressure"] = ONE_ATMOSPHERE
-	memory["exterior_status"] = list(state = "closed", lock = "locked")		//assume closed and locked in case the doors dont report in
-	memory["interior_status"] = list(state = "closed", lock = "locked")
-	memory["pump_status"] = "unknown"
-	memory["target_pressure"] = ONE_ATMOSPHERE
-	memory["purge"] = 0
-	memory["secure"] = 0
-
-	if(istype(M, /obj/machinery/airlock_controller))	//if our controller is an airlock controller than we can auto-init our tags
-		var/obj/machinery/airlock_controller/controller = M
-		tag_exterior_door = controller.tag_exterior_door
-		tag_interior_door = controller.tag_interior_door
-		tag_airpump = controller.tag_airpump
-		tag_chamber_sensor = controller.tag_chamber_sensor
-		tag_exterior_sensor = controller.tag_exterior_sensor
-		tag_interior_sensor = controller.tag_interior_sensor
-		tag_airlock_mech_sensor = controller.tag_airlock_mech_sensor
-		tag_shuttle_mech_sensor = controller.tag_shuttle_mech_sensor
-
-		spawn(10)
-			signalDoor(tag_exterior_door, "update")		//signals connected doors to update their status
-			signalDoor(tag_interior_door, "update")
-
 #warn KILL THIS
 /datum/computer/file/embedded_program/airlock/proc/offme(datum/signal/signal, receive_method, receive_param)
 	var/receive_tag = signal.data["tag"]
@@ -159,105 +107,6 @@
 		signalPump(tag_airpump, 0)		//send a signal to stop pressurizing
 
 
-/datum/computer/file/embedded_program/airlock/process()
-	if(!state) //Idle
-		if(target_state)
-			switch(target_state)
-				if(TARGET_INOPEN)
-					memory["target_pressure"] = memory["internal_sensor_pressure"]
-				if(TARGET_OUTOPEN)
-					memory["target_pressure"] = memory["external_sensor_pressure"]
-
-			//lock down the airlock before activating pumps
-			close_doors()
-
-			state = STATE_PREPARE
-		else
-			//make sure to return to a sane idle state
-			if(memory["pump_status"] != "off")	//send a signal to stop pumping
-				signalPump(tag_airpump, 0)
-
-	if((state == STATE_PRESSURIZE || state == STATE_DEPRESSURIZE) && !check_doors_secured())
-		//the airlock will not allow itself to continue to cycle when any of the doors are forced open.
-		stop_cycling()
-
-	switch(state)
-		if(STATE_PREPARE)
-			if(check_doors_secured())
-				var/chamber_pressure = memory["chamber_sensor_pressure"]
-				var/target_pressure = memory["target_pressure"]
-
-				if(memory["purge"])
-					target_pressure = 0
-
-				if(memory["purge"])
-					target_pressure = 0
-
-				if(chamber_pressure <= target_pressure)
-					state = STATE_PRESSURIZE
-					signalPump(tag_airpump, 1, 1, target_pressure)	//send a signal to start pressurizing
-
-				else if(chamber_pressure > target_pressure)
-					state = STATE_DEPRESSURIZE
-					signalPump(tag_airpump, 1, 0, target_pressure)	//send a signal to start depressurizing
-
-				//Check for vacuum - this is set after the pumps so the pumps are aiming for 0
-				if(!memory["target_pressure"])
-					memory["target_pressure"] = ONE_ATMOSPHERE * 0.05
-
-		if(STATE_PRESSURIZE)
-			if(memory["chamber_sensor_pressure"] >= memory["target_pressure"] * 0.95)
-				cycleDoors(target_state)
-
-				state = STATE_IDLE
-				target_state = TARGET_NONE
-
-				if(memory["pump_status"] != "off")
-					signalPump(tag_airpump, 0)		//send a signal to stop pumping
-
-
-		if(STATE_DEPRESSURIZE)
-			if(memory["purge"])
-				if(memory["chamber_sensor_pressure"] <= ONE_ATMOSPHERE * 0.05)
-					state = STATE_PRESSURIZE
-					signalPump(tag_airpump, 1, 1, memory["target_pressure"])
-
-
-			else if(memory["chamber_sensor_pressure"] <= memory["target_pressure"] * 1.05)
-				cycleDoors(target_state)
-
-				state = STATE_IDLE
-				target_state = TARGET_NONE
-
-				//send a signal to stop pumping
-				if(memory["pump_status"] != "off")
-					signalPump(tag_airpump, 0)
-
-
-	memory["processing"] = state != target_state
-
-	return 1
-
-//these are here so that other types don't have to make so many assuptions about our implementation
-
-/datum/computer/file/embedded_program/airlock/proc/begin_cycle_in()
-	state = STATE_IDLE
-	target_state = TARGET_INOPEN
-
-/datum/computer/file/embedded_program/airlock/proc/begin_cycle_out()
-	state = STATE_IDLE
-	target_state = TARGET_OUTOPEN
-
-/datum/computer/file/embedded_program/airlock/proc/close_doors()
-	toggleDoor(memory["interior_status"], tag_interior_door, 1, "close")
-	toggleDoor(memory["exterior_status"], tag_exterior_door, 1, "close")
-
-/datum/computer/file/embedded_program/airlock/proc/stop_cycling()
-	state = STATE_IDLE
-	target_state = TARGET_NONE
-
-/datum/computer/file/embedded_program/airlock/proc/done_cycling()
-	return (state == STATE_IDLE && target_state == TARGET_NONE)
 
 //are the doors closed and locked?
 /datum/computer/file/embedded_program/airlock/proc/check_exterior_door_secured()
@@ -319,18 +168,6 @@
 	signal_mech_sensor("disable", tag_shuttle_mech_sensor)
 	signal_mech_sensor("disable", tag_airlock_mech_sensor)
 
-/*----------------------------------------------------------
-toggleDoor()
-
-Sends a radio command to a door to either open or close. If
-the command is 'toggle' the door will be sent a command that
-reverses it's current state.
-Can also toggle whether the door bolts are locked or not,
-depending on the state of the 'secure' flag.
-Only sends a command if it is needed, i.e. if the door is
-already open, passing an open command to this proc will not
-send an additional command to open the door again.
-----------------------------------------------------------*/
 /datum/computer/file/embedded_program/airlock/proc/toggleDoor(list/doorStatus, doorTag, secure, command)
 	var/doorCommand = null
 
@@ -363,7 +200,7 @@ send an additional command to open the door again.
 					doorCommand = "lock"
 			else
 				if(doorStatus["state"] == "closed")
-					if(doorStatus["lock"] == "locked")
+					if(doorStatus["lock"] == "locfked")
 						signalDoor(doorTag,"unlock")
 					doorCommand = "open"
 				else if(doorStatus["lock"] == "locked")

@@ -99,6 +99,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/boltUp = 'sound/machines/boltsup.ogg'
 	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = FALSE
+	/// Our ID ta for map linking shenanigans
+	var/id_tag
+	/// List of people who have shocked this door for logging purposes
+	var/shockedby = list()
+
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE
