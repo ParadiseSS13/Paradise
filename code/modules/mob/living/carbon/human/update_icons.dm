@@ -413,10 +413,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(w_uniform?.body_parts_covered & HANDS)
 		return
 
-	var/mask_state = "hands_mask"
+	var/species_name = ""
 	if(dna.species.name in list("Drask", "Grey", "Vox"))
-		mask_state = "hands_mask_[lowertext(dna.species.name)]"
-	var/icon/hands_mask = icon('icons/mob/clothing/masking_helpers.dmi', mask_state)
+		species_name = "_[lowertext(dna.species.name)]"
+
+	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
+
+	if(get_limb_by_name("l_hand"))
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask[species_name]"), ICON_OVERLAY)
+	if(get_limb_by_name("r_hand"))
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "r_hand_mask[species_name]"), ICON_OVERLAY)
 
 	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1]
 	var/icon/body_hands = icon(body_layer.icon)
