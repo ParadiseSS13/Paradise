@@ -393,6 +393,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message)
 
+	if(!message)
+		return
+
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)
 	if(istype(message_pieces, /datum/multilingual_say_piece)) // Little quirk to just easily deal with HIVEMIND languages
@@ -401,13 +404,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return 1
 	// Log it here since it skips the default way say handles it
 	create_log(SAY_LOG, "(whisper) '[message]'")
-	whisper_say(message_pieces)
+	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
 
 // for weird circumstances where you're inside an atom that is also you, like pai's
 /mob/living/proc/get_whisper_loc()
 	return src
 
-/mob/living/proc/whisper_say(list/message_pieces, verb = "whispers")
+/mob/living/whisper_say(list/message_pieces, verb = "whispers")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")

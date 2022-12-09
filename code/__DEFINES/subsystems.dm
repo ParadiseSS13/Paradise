@@ -48,6 +48,7 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_TITLE 100 // This **MUST** load first or people will se blank lobby screens
+#define INIT_ORDER_SPEECH_CONTROLLER 22
 #define INIT_ORDER_GARBAGE 21
 #define INIT_ORDER_DBCORE 20
 #define INIT_ORDER_BLACKBOX 19
@@ -119,6 +120,7 @@
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
 #define FIRE_PRIORITY_OVERLAYS		500
+#define FIRE_PRIORITY_SPEECH_CONTROLLER 900
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
 
 
