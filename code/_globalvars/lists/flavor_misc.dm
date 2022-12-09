@@ -31,8 +31,8 @@ GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons
 'sound/voice/hiss3.ogg','sound/voice/hiss4.ogg','sound/voice/hiss5.ogg','sound/voice/hiss6.ogg','sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg', \
 'sound/items/welder.ogg','sound/items/welder2.ogg','sound/machines/airlock_open.ogg','sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'))
 
-// Reference list for disposal sort junctions. Set the sortType variable on disposal sort junctions to
-// the index of the sort department that you want. For example, sortType set to 2 will reroute all packages
+// Reference list for disposal sort junctions. Set the sort_type variable on disposal sort junctions to
+// the index of the sort department that you want. For example, sort_type set to 2 will reroute all packages
 // tagged for the Cargo Bay.
 
 //If you don't want to fuck up disposals, add to this list, and don't change the order.

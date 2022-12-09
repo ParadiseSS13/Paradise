@@ -9991,7 +9991,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Quartermaster Junction";
-	sortType = 3
+	sort_type_txt = "3"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10066,7 +10066,7 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "Disposals Junction";
-	sortType = 1
+	sort_type_txt = "1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -14033,7 +14033,7 @@
 "aYk" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	sortType = 2
+	sort_type_txt = "2"
 	},
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -14404,7 +14404,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	name = "CE's Junction";
-	sortType = 5
+	sort_type_txt = "5"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -22521,7 +22521,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	name = "Engineering Junction";
-	sortType = 4
+	sort_type_txt = "4"
 	},
 /obj/effect/landmark/start/engineer,
 /turf/simulated/floor/plasteel,
@@ -25140,7 +25140,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Custodial Junction";
-	sortType = 22
+	sort_type_txt = "22"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
@@ -25461,7 +25461,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
 	name = "Captain's Junction";
-	sortType = 18
+	sort_type_txt = "18"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -25927,7 +25927,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "HoP Junction";
-	sortType = 15
+	sort_type_txt = "15"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -30334,7 +30334,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "Atmospherics Junction";
-	sortType = 6
+	sort_type_txt = "6"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -36339,7 +36339,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "Hydroponics Junction";
-	sortType = 21
+	sort_type_txt = "21"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
@@ -40750,7 +40750,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Chemistry Junction";
-	sortType = 11
+	sort_type_txt = "11"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -52105,7 +52105,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "Chapel";
-	sortType = 17
+	sort_type_txt = "17"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -60711,7 +60711,7 @@
 	dir = 4;
 	icon_state = "pipe-j2s";
 	name = "Security Junction";
-	sortType = 8
+	sort_type_txt = "8"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -62869,7 +62869,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Detective";
-	sortType = 24
+	sort_type_txt = "24"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -65091,7 +65091,7 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "CMO's Junction";
-	sortType = 10
+	sort_type_txt = "10"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68819,7 +68819,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "Bar Junction";
-	sortType = 19
+	sort_type_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -70722,7 +70722,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	name = "Robotics Junction";
-	sortType = 14
+	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -74254,7 +74254,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "RD Junction";
-	sortType = 13
+	sort_type_txt = "13"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -79696,7 +79696,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	name = "Research Junction";
-	sortType = 12
+	sort_type_txt = "12"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -82663,7 +82663,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "Kitchen Junction";
-	sortType = 20
+	sort_type_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -82804,7 +82804,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Medbay Junction";
-	sortType = 9
+	sort_type_txt = "9"
 	},
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -83040,7 +83040,7 @@
 	dir = 4;
 	icon_state = "pipe-j2s";
 	name = "HoS Junction";
-	sortType = 7
+	sort_type_txt = "7"
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -84458,7 +84458,7 @@
 	dir = 4;
 	icon_state = "pipe-j2s";
 	name = "Library Junction";
-	sortType = 16
+	sort_type_txt = "16"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
