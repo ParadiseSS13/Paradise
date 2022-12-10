@@ -56,7 +56,7 @@
 	if(!T.footstep || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || LM.flying || istype(LM.loc, /obj/machinery/atmospherics))
 		return
 
-	if(LM.body_position == LYING_DOWN) //play crawling sound if we're lying
+	if(IS_HORIZONTAL(LM)) //play crawling sound if we're lying
 		playsound(T, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
 		return
 
