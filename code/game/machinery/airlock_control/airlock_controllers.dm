@@ -25,19 +25,10 @@
 	/// All interior doors to control. Soft-refs only.
 	var/list/interior_doors = list()
 
-	/// Is external meant to be open?
-	var/external_open = FALSE
-	/// Is internal meant to be open?
-	var/internal_open = FALSE
-
 	/// Current state (IDLE, PREPARE, DEPRESSURIZE, PRESSURIZE)
 	var/state = CONTROL_STATE_IDLE
 	/// Target state (MONE, INOPEN, OUTOPEN)
 	var/target_state = TARGET_NONE
-
-	/// Is an operation in progress? This basically makes /ui_act() syncronous
-	var/operation_in_progress = FALSE
-
 
 	/// Vent ID for all vents to link to on LateInitialize()
 	var/vent_link_id
@@ -45,8 +36,8 @@
 	var/list/vents = list()
 
 	// Program vars
-	/// Target pressure
 	var/target_pressure
+
 
 /obj/machinery/airlock_controller/Initialize(mapload)
 	..()
@@ -103,6 +94,9 @@
 	else
 		icon_state = "airlock_control_off"
 
+/obj/machinery/airlock_controller/proc/handle_button(button_mode)
+	// dm please give me abstracts I beg
+	CRASH("handle_button() not overriden for [type]")
 
 /obj/machinery/airlock_controller/ui_act(action, params)
 	if(..())
@@ -110,226 +104,231 @@
 
 	add_fingerprint(usr)
 
-	if(operation_in_progress)
-		return
-
 	// Repeat the frontend check to make sure only allowed command are sent. You are only allowed to lock or cycle exterior if exterior is open
 	// Vice versa for internal
 
 	switch(action)
-		if("abort")
-			state = CONTROL_STATE_IDLE
-			target_state = TARGET_NONE
+		if("cycle_ext")
+			begin_cycle_out()
+
+		if("cycle_int")
+			begin_cycle_in()
+
 		if("cycle_ext_door")
-			// The reason these set state and dont just open the airlocks directly, is because this same topic is used by the cycler as well
-			// It would be a major issue if they instantly opened before waiting for air to update
-			state = CONTROL_STATE_IDLE
-			target_state = TARGET_OUTOPEN
+			cycleDoors(TARGET_OUTOPEN)
+
 		if("cycle_int_door")
-			state = CONTROL_STATE_IDLE
-			target_state = TARGET_INOPEN
+			cycleDoors(TARGET_INOPEN)
+
+		if("abort")
+			stop_cycling()
+
 		if("force_ext")
-			// Cannot force exterior if interior open
-			if(internal_open)
-				return
-
-			operation_in_progress = TRUE
-			if(external_open)
-				set_airlocks(exterior_doors, FALSE)
-			else
-				set_airlocks(exterior_doors, TRUE)
-
-			operation_in_progress = FALSE
-			external_open = !external_open
+			toggleDoors(exterior_doors, "toggle")
 
 		if("force_int")
-			// Cannot force interior if exterior open
-			if(external_open)
-				return
-
-			operation_in_progress = TRUE
-			if(internal_open)
-				set_airlocks(interior_doors, FALSE)
-			else
-				set_airlocks(interior_doors, TRUE)
-
-			operation_in_progress = FALSE
-			internal_open = !internal_open
+			toggleDoors(interior_doors, "toggle")
 
 	return TRUE
 
-
-/obj/machinery/airlock_controller/proc/set_airlocks(list/airlocks, open = TRUE)
-	// This logic makes sure that we dont finish until all airlocks are done
-	var/list/current_run = list()
-	var/list/current_queue = list()
-
-	for(var/airlock_uid in airlocks)
-		var/obj/machinery/door/airlock/A = locateUID(airlock_uid)
-		if(QDELETED(A)) // It got qdeleted
-			airlocks -= airlock_uid
-			continue
-
-		current_run += airlock_uid
-		if(open)
-			open_airlock_async(A, current_queue)
-		else
-			close_airlock_async(A, current_queue)
-
-	UNTIL(length(current_run) == length(current_queue))
-
-// These are async because the airlock animation thing sleeps
-/obj/machinery/airlock_controller/proc/open_airlock_async(obj/machinery/door/airlock/A, list/Q)
-	set waitfor = FALSE
-	A.locked = FALSE
-	A.open()
-	A.locked = TRUE
-	Q += 1
-
-/obj/machinery/airlock_controller/proc/close_airlock_async(obj/machinery/door/airlock/A, list/Q)
-	set waitfor = FALSE
-	A.locked = FALSE
-	A.close()
-	A.locked = TRUE
-	Q += 1
-
-// Now for the pain
 /obj/machinery/airlock_controller/process()
-	#warn this needs to invoke and deploy a sleep, and have a catchup point
-	if(operation_in_progress)
-		return
-
 	if(!state) //Idle
 		if(target_state)
 			switch(target_state)
 				if(TARGET_INOPEN)
 					target_pressure = ONE_ATMOSPHERE
 				if(TARGET_OUTOPEN)
-					target_pressure =  0
+					target_pressure = 0
 
-			// Prevent process() stacking with sleep locks
-			operation_in_progress = TRUE
-			begin_cycle()
+			//lock down the airlock before activating pumps
+			close_doors()
+
+			state = CONTROL_STATE_PREPARE
 		else
 			//make sure to return to a sane idle state
-			for(var/vent_uid in vents)
-				var/obj/machinery/atmospherics/unary/vent_pump/V = locateUID(vent_uid)
-				if(QDELETED(V))
-					vents -= vent_uid
-					continue
+			signalPumps(FALSE)
 
-				if(V.on)
-					V.on = FALSE
-					V.update_icon()
-
-	// Dont double-stack
-	if(operation_in_progress)
-		return
-
-	if((state == CONTROL_STATE_PRESSURIZE || state == CONTROL_STATE_DEPRESSURIZE) && (internal_open || external_open))
+	if((state == CONTROL_STATE_PRESSURIZE || state == CONTROL_STATE_DEPRESSURIZE) && !check_doors_secured())
 		//the airlock will not allow itself to continue to cycle when any of the doors are forced open.
-		state = CONTROL_STATE_IDLE
-		target_state = TARGET_NONE
+		stop_cycling()
 
 	switch(state)
 		if(CONTROL_STATE_PREPARE)
-			if(!(internal_open || external_open)) // Both closed
-				var/chamber_pressure = round(return_air().return_pressure(), 0.1)
+			if(check_doors_secured())
+				var/chamber_pressure = return_air().return_pressure()
 
 				if(chamber_pressure <= target_pressure)
 					state = CONTROL_STATE_PRESSURIZE
-					// Start pressurising
-					for(var/vent_uid in vents)
-						var/obj/machinery/atmospherics/unary/vent_pump/V = locateUID(vent_uid)
-						if(QDELETED(V))
-							vents -= vent_uid
-							continue
-
-						if(!V.on)
-							V.on = TRUE
-							V.releasing = TRUE
-							V.external_pressure_bound = clamp(target_pressure, 0, ONE_ATMOSPHERE * 50)
-							V.update_icon()
+					signalPumps(TRUE, TRUE, target_pressure)	//send a signal to start pressurizing
 
 				else if(chamber_pressure > target_pressure)
 					state = CONTROL_STATE_DEPRESSURIZE
-					// Start depressurising
-					for(var/vent_uid in vents)
-						var/obj/machinery/atmospherics/unary/vent_pump/V = locateUID(vent_uid)
-						if(QDELETED(V))
-							vents -= vent_uid
-							continue
-
-						if(!V.on)
-							V.on = TRUE
-							V.releasing = FALSE
-							V.external_pressure_bound = clamp(target_pressure, 0, ONE_ATMOSPHERE * 50)
-							V.update_icon()
+					signalPumps(TRUE, FALSE, target_pressure)	//send a signal to start depressurizing
 
 				//Check for vacuum - this is set after the pumps so the pumps are aiming for 0
 				if(!target_pressure)
 					target_pressure = ONE_ATMOSPHERE * 0.05
 
 		if(CONTROL_STATE_PRESSURIZE)
-			var/chamber_pressure = round(return_air().return_pressure(), 0.1)
-			if(chamber_pressure >= (target_pressure * 0.95))
-				operation_in_progress = TRUE
-				finish_cycle()
+			if(return_air().return_pressure() >= (target_pressure * 0.95))
+				cycleDoors(target_state)
+
+				state = CONTROL_STATE_IDLE
+				target_state = TARGET_NONE
+
+				signalPumps(FALSE) //send a signal to stop pumping
 
 
 		if(CONTROL_STATE_DEPRESSURIZE)
-			var/chamber_pressure = round(return_air().return_pressure(), 0.1)
-			if(chamber_pressure <= (target_pressure * 1.05))
-				operation_in_progress = TRUE
-				finish_cycle()
+			if(return_air().return_pressure() <= (target_pressure * 1.05))
+				cycleDoors(target_state)
 
+				state = CONTROL_STATE_IDLE
+				target_state = TARGET_NONE
+
+				//send a signal to stop pumping
+				signalPumps(FALSE)
 
 	return TRUE
 
-/obj/machinery/airlock_controller/proc/begin_cycle()
-	set waitfor = FALSE
+/obj/machinery/airlock_controller/proc/begin_cycle_in()
+	state = CONTROL_STATE_IDLE
+	target_state = TARGET_INOPEN
 
-	// Lock it down
-	set_airlocks(interior_doors, FALSE)
-	set_airlocks(exterior_doors, FALSE)
-	state = CONTROL_STATE_PREPARE
+/obj/machinery/airlock_controller/proc/begin_cycle_out()
+	state = CONTROL_STATE_IDLE
+	target_state = TARGET_OUTOPEN
 
-	operation_in_progress = FALSE
+/obj/machinery/airlock_controller/proc/close_doors()
+	toggleDoors(interior_doors, "close")
+	toggleDoors(exterior_doors, "close")
 
+/obj/machinery/airlock_controller/proc/stop_cycling()
+	state = CONTROL_STATE_IDLE
+	target_state = TARGET_NONE
 
-/obj/machinery/airlock_controller/proc/finish_cycle()
-	set waitfor = FALSE
+/obj/machinery/airlock_controller/proc/done_cycling()
+	return (state == CONTROL_STATE_IDLE && target_state == TARGET_NONE)
 
-	state_set_airlocks()
+//are the doors closed and locked?
+/obj/machinery/airlock_controller/proc/check_doors_match_state_uid(list/door_uids, door_state)
+	var/list/obj/machinery/door/airlock/temp_airlocks = list()
+	for(var/airlock_uid in door_uids)
+		var/obj/machinery/door/airlock/A = locateUID(airlock_uid)
+		if(QDELETED(A))
+			door_uids -= airlock_uid
+			continue
 
-	// Stop pumping
+		temp_airlocks += A
+
+	return check_doors_match_state(temp_airlocks, door_state)
+
+/obj/machinery/airlock_controller/proc/check_doors_match_state(list/doors, door_state)
+	for(var/obj/machinery/door/airlock/A as anything in doors)
+		switch(door_state)
+			if("open")
+				if(A.density)
+					return FALSE // Fail if door is dense (closed) on open check
+			if("closed")
+				if(!A.density)
+					return FALSE // Fail if door is not dense (open) on closed check
+			if("locked")
+				if(!A.locked)
+					return FALSE // Fail if door is not locked on locked check
+			if("unlocked")
+				if(A.locked)
+					return FALSE // Fail if door is locked on unlock check
+
+	// We passed!
+	return TRUE
+
+/obj/machinery/airlock_controller/proc/check_doors_secured()
+	var/ext_closed = (check_doors_match_state_uid(exterior_doors, "closed") && check_doors_match_state_uid(exterior_doors, "locked"))
+	var/int_closed = (check_doors_match_state_uid(interior_doors, "closed") && check_doors_match_state_uid(interior_doors, "locked"))
+	return (ext_closed && int_closed)
+
+/obj/machinery/airlock_controller/proc/signalDoors(list/uids, command)
+	for(var/airlock_uid in uids)
+		var/obj/machinery/door/airlock/A = locateUID(airlock_uid)
+		if(QDELETED(A))
+			uids -= airlock_uid
+			continue
+
+		A.airlock_cycle_callback(command)
+
+/obj/machinery/airlock_controller/proc/signalPumps(power, direction, pressure)
 	for(var/vent_uid in vents)
 		var/obj/machinery/atmospherics/unary/vent_pump/V = locateUID(vent_uid)
 		if(QDELETED(V))
 			vents -= vent_uid
 			continue
 
-		if(V.on)
-			V.on = FALSE
-			V.update_icon()
-
-	state = CONTROL_STATE_IDLE
-	target_state = TARGET_NONE
-
-	operation_in_progress = FALSE
+		V.on = power
+		V.releasing = direction
+		V.external_pressure_bound = pressure
+		V.update_icon()
 
 
-/obj/machinery/airlock_controller/proc/state_set_airlocks()
-	switch(target_state)
+//this is called to set the appropriate door state at the end of a cycling process, or for the exterior buttons
+/obj/machinery/airlock_controller/proc/cycleDoors(target)
+	switch(target)
 		if(TARGET_OUTOPEN)
-			set_airlocks(interior_doors, FALSE)
-			set_airlocks(exterior_doors, TRUE)
+			toggleDoors(interior_doors, "close")
+			toggleDoors(exterior_doors, "open")
 		if(TARGET_INOPEN)
-			set_airlocks(interior_doors, TRUE)
-			set_airlocks(exterior_doors, FALSE)
+			toggleDoors(interior_doors, "open")
+			toggleDoors(exterior_doors, "close")
 		if(TARGET_NONE)
-			set_airlocks(interior_doors, FALSE)
-			set_airlocks(exterior_doors, FALSE)
+			signalDoors(interior_doors, "unlock")
+			signalDoors(exterior_doors, "unlock")
+
+/*----------------------------------------------------------
+toggleDoor()
+Sends a radio command to a door to either open or close. If
+the command is 'toggle' the door will be sent a command that
+reverses it's current state.
+Can also toggle whether the door bolts are locked or not,
+depending on the state of the 'secure' flag.
+Only sends a command if it is needed, i.e. if the door is
+already open, passing an open command to this proc will not
+send an additional command to open the door again.
+----------------------------------------------------------*/
+/obj/machinery/airlock_controller/proc/toggleDoors(list/doors, command)
+	var/doorCommand = null
+
+	// Cache this. it will be expensive otherwise.
+	var/list/obj/machinery/door/airlock/airlocks = list()
+	for(var/airlock_uid in doors)
+		var/obj/machinery/door/airlock/A = locateUID(airlock_uid)
+		if(QDELETED(A))
+			doors -= airlock_uid
+			continue
+
+		airlocks += A
+
+
+	if(command == "toggle")
+		if(check_doors_match_state(airlocks, "open"))
+			command = "close"
+		else if(check_doors_match_state(airlocks, "closed"))
+			command = "open"
+
+	switch(command)
+		if("close")
+			if(check_doors_match_state(airlocks, "open"))
+				doorCommand = "secure_close"
+			else if(check_doors_match_state(airlocks, "unlocked"))
+				doorCommand = "lock"
+
+		if("open")
+			if(check_doors_match_state(airlocks, "closed"))
+				doorCommand = "secure_open"
+			else if(check_doors_match_state(airlocks, "unlocked"))
+				doorCommand = "lock"
+
+	if(doorCommand)
+		signalDoors(doors, doorCommand)
+
 
 /* =============================== ACCESS CONTROLLER - No cycling required */
 /obj/machinery/airlock_controller/access_controller
@@ -354,12 +353,18 @@
 /obj/machinery/airlock_controller/access_controller/ui_data(mob/user)
 	var/list/data = list()
 
-	data["exterior_status"] = (external_open ? "open" : "closed")
-	data["interior_status"] = (internal_open ? "open" : "closed")
+	data["exterior_status"] = (check_doors_match_state_uid(exterior_doors, "closed") ? "closed" : "open")
+	data["interior_status"] = (check_doors_match_state_uid(interior_doors, "closed") ? "closed" : "open")
 	data["processing"] = (state != target_state)
 
 	return data
 
+/obj/machinery/airlock_controller/access_controller/handle_button(button_mode)
+	switch(button_mode)
+		if(MODE_INTERIOR)
+			cycleDoors(TARGET_INOPEN)
+		if(MODE_EXTERIOR)
+			cycleDoors(TARGET_OUTOPEN)
 
 /* =============================== AIR CYCLER - Ensures internal pressure matches (just about) the void or the normal atmosphere */
 /obj/machinery/airlock_controller/air_cycler/LateInitialize()
@@ -382,9 +387,15 @@
 	var/list/data = list()
 
 	data["chamber_pressure"] = round(return_air().return_pressure())
-	data["exterior_status"] = (external_open ? "open" : "closed")
-	data["interior_status"] = (internal_open ? "open" : "closed")
+	data["exterior_status"] = (check_doors_match_state_uid(exterior_doors, "closed") ? "closed" : "open")
+	data["interior_status"] = (check_doors_match_state_uid(interior_doors, "closed") ? "closed" : "open")
 	data["processing"] = (state != target_state)
 
 	return data
 
+/obj/machinery/airlock_controller/air_cycler/handle_button(button_mode)
+	switch(button_mode)
+		if(MODE_INTERIOR)
+			begin_cycle_in()
+		if(MODE_EXTERIOR)
+			begin_cycle_out()

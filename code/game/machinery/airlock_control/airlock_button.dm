@@ -56,13 +56,7 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 		to_chat(user, "<span class='warning'>Could not communicate with controller.</span>")
 		return
 
-	switch(assigned_command)
-		if(MODE_INTERIOR)
-			C.state= CONTROL_STATE_IDLE
-			C.target_state = TARGET_INOPEN
-		if(MODE_EXTERIOR)
-			C.state = CONTROL_STATE_IDLE
-			C.target_state = TARGET_OUTOPEN
+	C.handle_button(assigned_command)
 
 	flick("access_button_cycle", src)
 
