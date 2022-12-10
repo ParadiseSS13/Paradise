@@ -887,8 +887,10 @@
 					var/obj/machinery/atmospherics/unary/U = locateUID(device_id)
 					if(!U)
 						return
-					
-					#warn add a check to make sure the target is actually in the list of things it should be able to access
+
+					if(!((U in alarm_area.vents) || (U in alarm_area.scrubbers)))
+						message_admins("<span class='boldannounce'>[key_name_admin(usr)] attempted to href-exploit an air alarm to control another object!!!</span>")
+						return
 
 					// Its a vent. Handle
 					if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
