@@ -41,7 +41,7 @@
 #define LYING_DOWN 1
 
 ///How much a mob's sprite should be moved when they're lying down
-#define PIXEL_Y_OFFSET_LYING -6
+#define PIXEL_Y_OFFSET_LYING -3
 
 #define LEFT 1
 #define RIGHT 2
