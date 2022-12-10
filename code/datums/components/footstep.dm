@@ -56,10 +56,6 @@
 	if(!T.footstep || !(LM.mobility_flags & MOBILITY_MOVE) || LM.buckled || LM.throwing || LM.flying || istype(LM.loc, /obj/machinery/atmospherics))
 		return
 
-	if(IS_HORIZONTAL(LM)) //play crawling sound if we're lying
-		playsound(T, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
-		return
-
 	if(ishuman(LM))
 		var/mob/living/carbon/human/H = LM
 		if(!H.get_organ(BODY_ZONE_L_LEG) && !H.get_organ(BODY_ZONE_R_LEG))
@@ -76,6 +72,11 @@
 
 	if(steps != 0 && !has_gravity(LM, T)) // don't need to step as often when you hop around
 		return
+
+	if(IS_HORIZONTAL(LM)) //play crawling sound if we're lying
+		playsound(T, 'sound/effects/footstep/crawl1.ogg', 15 * volume, falloff_distance = 1, vary = sound_vary)
+		return
+
 	return T
 
 /datum/component/footstep/proc/play_simplestep()
