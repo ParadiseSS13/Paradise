@@ -190,14 +190,50 @@ def check_515_proc_syntax(filename, lines):
 
 
 def check_space_indentation(filename, lines):
+    """
+    Check specifically for space-significant indentation. Excludes dmdoc
+    block comment lines so long as there is an asterisk immediately after the
+    leading spaces.
+
+    >>> bool(check_space_indentation(None, ["  foo"]))
+    True
+
+    >>> bool(check_space_indentation(None, ["\\tfoo"]))
+    False
+    >>> bool(check_space_indentation(None, ["  * foo"]))
+    False
+    """
     for line in lines:
         if re.match(r"^ {2,}[^\*]", line):
             return "ERROR: Space indentation detected, please use tab indentation."
 
 
 def check_mixed_indentation(filename, lines):
+    """
+    Check specifically for leading whitespace which contains a mix of tab and
+    space characters. Excludes dmdoc block comment lines so long as there is an
+    asterisk immediately after the leading whitespace.
+
+    >>> bool(check_mixed_indentation(None, ["\\t\\t foo"]))
+    True
+    >>> bool(check_mixed_indentation(None, ["\\t \\t foo"]))
+    True
+    >>> bool(check_mixed_indentation(None, ["\\t // foo"]))
+    True
+    >>> bool(check_mixed_indentation(None, [" \\tfoo"]))
+    True
+    >>> bool(check_mixed_indentation(None, ["  \\t  foo"]))
+    True
+
+    >>> bool(check_mixed_indentation(None, ["\\t  * foo"]))
+    False
+    >>> bool(check_mixed_indentation(None, ["\\t\\t* foo"]))
+    False
+    >>> bool(check_mixed_indentation(None, ["\\t \\t  * foo"]))
+    False
+    """
     for line in lines:
-        if re.match(r"^(\t+ | +\t)\s*[^ \*]", line):
+        if re.match(r"^(\t+ | +\t)\s*[^\s\*]", line):
             return "ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation."
 
 
