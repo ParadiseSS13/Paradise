@@ -38,6 +38,11 @@
 			if(tank)
 				tank.boom(TRUE)  // this qdel's `src`
 
+		if(istype(locloc, /obj/item/onetankbomb))
+			var/obj/item/onetankbomb/bomb = locloc
+			if(bomb?.bombtank)
+				bomb.bombtank.detonate()
+
 		else if(istype(locloc, /obj/item/reagent_containers/glass/beaker))
 			var/obj/item/reagent_containers/glass/beaker/beakerbomb = locloc
 			if(beakerbomb)
