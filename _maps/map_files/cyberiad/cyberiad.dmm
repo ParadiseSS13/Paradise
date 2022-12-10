@@ -84562,12 +84562,12 @@
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = 6;
 	req_access_txt = "13";
-	vent_link_id = "apmaint_vent";
-	ext_door_link_id = "apmaint_door_ext";
-	int_door_link_id = "apmaint_door_int";
+	vent_link_id = "fpmaint_vent";
+	ext_door_link_id = "fpmaint_door_ext";
+	int_door_link_id = "fpmaint_door_int";
 	pixel_x = 24;
-	ext_button_link_id = "apmaint_btn_ext";
-	int_button_link_id = "apmaint_btn_int"
+	ext_button_link_id = "fpmaint_btn_ext";
+	int_button_link_id = "fpmaint_btn_int"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;

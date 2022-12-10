@@ -5296,7 +5296,7 @@
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "150";
-	vent_link_id = "synd_pump";
+	vent_link_id = "syndishuttle_vent";
 	ext_door_link_id = "syndishuttle_door_ext";
 	int_door_link_id = "syndishuttle_door_int";
 	ext_button_link_id = "syndishuttle_btn_ext";
@@ -5361,17 +5361,6 @@
 "sG" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
-/area/shuttle/syndicate)
-"sH" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "synd_pump"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "syndishuttle_vent"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "sI" = (
 /obj/structure/rack,
@@ -60457,7 +60446,7 @@ BZ
 KY
 rU
 sn
-sH
+SR
 KY
 tx
 KX

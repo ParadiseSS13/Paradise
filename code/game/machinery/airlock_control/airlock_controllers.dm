@@ -354,9 +354,9 @@
 /obj/machinery/airlock_controller/access_controller/ui_data(mob/user)
 	var/list/data = list()
 
-	data["exterior_status"] = 1//program.memory["exterior_status"]
-	data["interior_status"] = 1//program.memory["interior_status"]
-	data["processing"] = 1//program.memory["processing"]
+	data["exterior_status"] = (external_open ? "open" : "closed")
+	data["interior_status"] = (internal_open ? "open" : "closed")
+	data["processing"] = (state != target_state)
 
 	return data
 
@@ -381,10 +381,10 @@
 /obj/machinery/airlock_controller/air_cycler/ui_data(mob/user)
 	var/list/data = list()
 
-	data["chamber_pressure"] = 1//round(program.memory["chamber_sensor_pressure"])
-	data["exterior_status"] = 1//program.memory["exterior_status"]
-	data["interior_status"] = 1//program.memory["interior_status"]
-	data["processing"] = 1//program.memory["processing"]
+	data["chamber_pressure"] = round(return_air().return_pressure())
+	data["exterior_status"] = (external_open ? "open" : "closed")
+	data["interior_status"] = (internal_open ? "open" : "closed")
+	data["processing"] = (state != target_state)
 
 	return data
 

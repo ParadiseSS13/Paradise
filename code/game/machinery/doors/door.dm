@@ -45,15 +45,11 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
-/obj/machinery/door/New()
-	..()
-	GLOB.airlocks += src
-	update_freelook_sight()
-
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_dir()
+	update_freelook_sight()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
