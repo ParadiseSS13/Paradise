@@ -328,7 +328,7 @@
 			continue
 		var/mob/living/simple_animal/revenant/R = M.current
 		total_essence += R.essence_accumulated
-	if(total_essence >= targetAmount)
+	if(total_essence < targetAmount)
 		return FALSE
 	return TRUE
 

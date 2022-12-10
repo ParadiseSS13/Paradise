@@ -168,7 +168,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		// NON-BAY EVENTS
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Mass Hallucination",		/datum/event/mass_hallucination,		300),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Brand Intelligence",		/datum/event/brand_intelligence,		50, 	list(ASSIGNMENT_ENGINEER = 25),	TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Space Dust",				/datum/event/dust,						50,		list(ASSIGNMENT_ENGINEER = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Dimensional Tear",			/datum/event/tear,						0,		list(ASSIGNMENT_SECURITY = 35)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Honknomoly",				/datum/event/tear/honk,						0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vent Clog",				/datum/event/vent_clog,					250),
