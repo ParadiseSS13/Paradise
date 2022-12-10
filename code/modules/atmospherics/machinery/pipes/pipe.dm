@@ -69,6 +69,7 @@
 		air_update_turf()
 
 /obj/machinery/atmospherics/pipe/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(!parent)
 		return 0
 	return parent.air

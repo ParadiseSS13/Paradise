@@ -112,6 +112,7 @@
 		return null
 
 /obj/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(loc)
 		return loc.return_air()
 	else

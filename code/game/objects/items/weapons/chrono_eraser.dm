@@ -243,6 +243,7 @@
 	return 0
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/GM = new
 	GM.oxygen = MOLES_O2STANDARD
 	GM.nitrogen = MOLES_N2STANDARD

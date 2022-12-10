@@ -93,6 +93,7 @@
 	return
 
 /obj/machinery/atmospherics/portable/pump/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/machinery/atmospherics/portable/pump/replace_tank(mob/living/user, close_valve)

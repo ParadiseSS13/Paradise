@@ -1666,7 +1666,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "prison_airlock_control_exterior";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2";
@@ -3823,7 +3823,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/full,
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "prison_airlock_control_interior";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2";
@@ -3858,7 +3858,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "prison_airlock_control";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2";
@@ -7709,7 +7709,7 @@
 	},
 /area/security/permabrig)
 "avM" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "dorms_maint_exterior";
 	pixel_x = -25;
 	pixel_y = -25;
@@ -7978,7 +7978,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "awk" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "fp_solar_control";
 	pixel_x = 25;
 	pixel_y = -25;
@@ -8219,10 +8219,6 @@
 /turf/simulated/wall,
 /area/security/detectives_office)
 "axf" = (
-/obj/machinery/airlock_sensor{
-	autolink_id = "dorms_sensor";
-	pixel_y = 25
-	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
 	autolink_id = "dorms_pump"
@@ -8855,7 +8851,7 @@
 	},
 /area/security/execution)
 "ayE" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "fs_solar_control";
 	pixel_x = -25;
 	pixel_y = -25;
@@ -9136,7 +9132,7 @@
 /turf/simulated/wall/r_wall,
 /area/security/processing)
 "azb" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "barmaint_control_exterior";
 	pixel_x = -25;
 	pixel_y = -25;
@@ -10210,7 +10206,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aBx" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "eva_airlock_control_exterior";
 	pixel_x = 25;
 	req_access_txt = "13"
@@ -10236,18 +10232,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "fp_solar_pump"
 	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "fp_solar_sensor";
-	pixel_x = 25;
-	pixel_y = 12
-	},
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
-	tag_airpump = "fp_solar_pump";
-	tag_chamber_sensor = "fp_solar_sensor";
-	tag_exterior_door = "fp_solar_airlock_ext";
-	tag_interior_door = "fp_solar_airlock_int"
+	vent_link_id = "fp_solar_pump";
+	ext_door_link_id = "fp_solar_airlock_ext";
+	int_door_link_id = "fp_solar_airlock_int"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -10621,18 +10611,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "bar_pump"
 	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "bar_sensor";
-	pixel_x = 25;
-	pixel_y = 12
-	},
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
-	tag_airpump = "bar_pump";
-	tag_chamber_sensor = "bar_sensor";
-	tag_exterior_door = "barmaint_airlock_outer";
-	tag_interior_door = "barmaint_airlock_inner"
+	vent_link_id = "bar_pump";
+	ext_door_link_id = "barmaint_airlock_outer";
+	int_door_link_id = "barmaint_airlock_inner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -11071,7 +11055,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "aDy" = (
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "fp_solar_control";
 	pixel_x = 25;
 	pixel_y = 25;
@@ -11226,10 +11210,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "aDT" = (
-/obj/machinery/airlock_sensor{
-	autolink_id = "eva_sensor";
-	pixel_x = 25
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
@@ -11581,7 +11561,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aEM" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "arrivals_airlock_control_exterior";
 	pixel_x = -25;
 	pixel_y = -25;
@@ -11615,21 +11595,15 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "solar_chapel_sensor";
-	pixel_x = 25;
-	pixel_y = 12
-	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "solar_chapel_pump"
 	},
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
-	tag_airpump = "solar_chapel_pump";
-	tag_chamber_sensor = "solar_chapel_sensor";
-	tag_exterior_door = "solar_chapel_outer";
-	tag_interior_door = "solar_chapel_inner"
+	vent_link_id = "solar_chapel_pump";
+	ext_door_link_id = "solar_chapel_outer";
+	int_door_link_id = "solar_chapel_inner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
@@ -11850,10 +11824,9 @@
 	name = "EVA Airlock Console";
 	pixel_x = 25;
 	req_one_access_txt = "1;5;11;18;24";
-	tag_airpump = "eva_pump";
-	tag_chamber_sensor = "eva_sensor";
-	tag_exterior_door = "eva_outer";
-	tag_interior_door = "eva_inner"
+	vent_link_id = "eva_pump";
+	ext_door_link_id = "eva_outer";
+	int_door_link_id = "eva_inner"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
@@ -12452,7 +12425,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "fs_solar_control";
 	pixel_x = 25;
 	pixel_y = 25;
@@ -13335,18 +13308,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "arrivals_pump"
 	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "arrivals_sensor";
-	pixel_x = 25;
-	pixel_y = 12
-	},
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
-	tag_airpump = "arrivals_pump";
-	tag_chamber_sensor = "arrivals_sensor";
-	tag_exterior_door = "arrivals_outer";
-	tag_interior_door = "arrivals_inner"
+	vent_link_id = "arrivals_pump";
+	ext_door_link_id = "arrivals_outer";
+	int_door_link_id = "arrivals_inner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
@@ -14968,7 +14935,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "aNf" = (
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "barmaint_control_interior";
 	pixel_x = -25;
 	pixel_y = 25;
@@ -15114,7 +15081,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
 "aNz" = (
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "arrivals_airlock_control_interior";
 	pixel_x = -25;
 	pixel_y = 25;
@@ -16014,17 +15981,11 @@
 	dir = 4;
 	autolink_id = "sol_pump"
 	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "sol_sensor";
-	pixel_x = 11;
-	pixel_y = -25
-	},
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -25;
-	tag_airpump = "sol_pump";
-	tag_chamber_sensor = "sol_sensor";
-	tag_exterior_door = "sol_outer";
-	tag_interior_door = "sol_inner"
+	vent_link_id = "sol_pump";
+	ext_door_link_id = "sol_outer";
+	int_door_link_id = "sol_inner"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
@@ -16627,7 +16588,7 @@
 	locked = 1;
 	name = "Arrivals External Access"
 	},
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "sol_airlock_control_exterior";
 	pixel_x = -10;
 	pixel_y = -23
@@ -18321,7 +18282,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "sol_airlock_control_interior";
 	pixel_x = -22;
 	pixel_y = -23
@@ -24753,17 +24714,11 @@
 	dir = 4;
 	autolink_id = "ai_pump"
 	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "ai_sensor";
-	pixel_x = 12;
-	pixel_y = 25
-	},
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = 25;
-	tag_airpump = "ai_pump";
-	tag_chamber_sensor = "ai_sensor";
-	tag_exterior_door = "ai_outer";
-	tag_interior_door = "ai_inner"
+	vent_link_id = "ai_pump";
+	ext_door_link_id = "ai_outer";
+	int_door_link_id = "ai_inner"
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
@@ -25489,7 +25444,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "ai_airlock_control_interior";
 	pixel_x = -25;
 	pixel_y = 25
@@ -27987,7 +27942,7 @@
 	},
 /area/hallway/primary/central/ne)
 "bqt" = (
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "eva_airlock_interior_control";
 	pixel_y = 25;
 	req_access_txt = "13"
@@ -40544,7 +40499,7 @@
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "bVQ" = (
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "dorms_maint_interior";
 	name = "interior access button";
 	pixel_x = 9;
@@ -44075,7 +44030,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	layer = 3.6;
 	autolink_id = "viro_lab_airlock_control_exterior";
 	name = "Virology Lab Access Button";
@@ -47530,7 +47485,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "viro_lab_airlock_control_interior";
 	name = "Virology Lab Access Button";
 	pixel_x = -24;
@@ -52284,8 +52239,8 @@
 	pixel_x = -26;
 	pixel_y = 6;
 	req_access_txt = "12";
-	tag_exterior_door = "incinerator_airlock_exterior";
-	tag_interior_door = "incinerator_airlock_interior"
+	ext_door_link_id = "incinerator_airlock_exterior";
+	int_door_link_id = "incinerator_airlock_interior"
 	},
 /obj/machinery/ignition_switch{
 	id = "Incinerator";
@@ -52681,7 +52636,7 @@
 	name = "Mixing Room Exterior Airlock";
 	req_access_txt = "12"
 	},
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	layer = 3.1;
 	autolink_id = "incinerator_access_control_exterior";
 	name = "Incinerator Airlock Control";
@@ -52698,7 +52653,7 @@
 	name = "Mixing Room Interior Airlock";
 	req_access_txt = "12"
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "incinerator_access_control_interior";
 	name = "Incinerator Airlock Control";
 	pixel_y = -22
@@ -53884,7 +53839,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "ap_maint_control";
 	pixel_x = -25;
 	pixel_y = -25;
@@ -56791,7 +56746,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "sm_airlock_control_exterior";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
@@ -57227,7 +57182,7 @@
 	dir = 4
 	},
 /obj/structure/lattice,
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "engineering_east_airlock_exterior";
 	pixel_x = -22;
 	pixel_y = 20;
@@ -57555,7 +57510,7 @@
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cQa" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "ap_solar_control";
 	pixel_x = 25;
 	pixel_y = 25;
@@ -57962,7 +57917,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "cRg" = (
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "engineering_east_airlock_control_interior";
 	pixel_x = -22;
 	pixel_y = -20;
@@ -59147,15 +59102,9 @@
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -25;
 	req_access_txt = "13";
-	tag_airpump = "robotics_solar_pump";
-	tag_chamber_sensor = "robotics_solar_sensor";
-	tag_exterior_door = "robotics_solar_outer";
-	tag_interior_door = "robotics_solar_inner"
-	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "robotics_solar_sensor";
-	pixel_x = 12;
-	pixel_y = -25
+	vent_link_id = "robotics_solar_pump";
+	ext_door_link_id = "robotics_solar_outer";
+	int_door_link_id = "robotics_solar_inner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
@@ -59187,7 +59136,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "ap_solar_control";
 	pixel_x = -25;
 	pixel_y = -25;
@@ -60610,7 +60559,7 @@
 "cYm" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "sm_airlock_control_exterior";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
@@ -60703,7 +60652,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "cYz" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "atmospherics_south";
 	pixel_x = -25;
 	pixel_y = -8
@@ -62138,8 +62087,8 @@
 	pixel_x = 6;
 	pixel_y = -26;
 	req_access_txt = "12";
-	tag_exterior_door = "gas_turbine_exterior";
-	tag_interior_door = "gas_turbine_interior"
+	ext_door_link_id = "gas_turbine_exterior";
+	int_door_link_id = "gas_turbine_interior"
 	},
 /obj/machinery/ignition_switch{
 	id = "gasturbine";
@@ -62160,7 +62109,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "as_solar_control_exterior";
 	pixel_x = 25;
 	pixel_y = 25;
@@ -62298,7 +62247,7 @@
 /turf/space,
 /area/solar/starboard)
 "ddX" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "sci_maint_control";
 	pixel_x = 8;
 	pixel_y = 25;
@@ -62806,7 +62755,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "as_solar_control_interior";
 	pixel_x = -25;
 	pixel_y = -25;
@@ -62931,15 +62880,9 @@
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = 25;
 	req_access_txt = "13";
-	tag_airpump = "solar_xeno_pump";
-	tag_chamber_sensor = "solar_xeno_sensor";
-	tag_exterior_door = "solar_xeno_outer";
-	tag_interior_door = "solar_xeno_inner"
-	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "solar_xeno_sensor";
-	pixel_x = 25;
-	pixel_y = 12
+	vent_link_id = "solar_xeno_pump";
+	ext_door_link_id = "solar_xeno_outer";
+	int_door_link_id = "solar_xeno_inner"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -63167,10 +63110,9 @@
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -25;
 	req_access_txt = "13";
-	tag_airpump = "dorms_pump";
-	tag_chamber_sensor = "dorms_sensor";
-	tag_exterior_door = "dorms_maint_outer";
-	tag_interior_door = "dorms_maint_inner"
+	vent_link_id = "dorms_pump";
+	ext_door_link_id = "dorms_maint_outer";
+	int_door_link_id = "dorms_maint_inner"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
@@ -65299,7 +65241,7 @@
 	})
 "dlV" = (
 /obj/machinery/atmospherics/binary/pump/on,
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	layer = 3.1;
 	autolink_id = "turbine_control_exterior";
 	name = "Gas Turbine Airlock Control";
@@ -65318,7 +65260,7 @@
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "turbine_control_interior";
 	name = "Gas Turbine Airlock Control";
 	pixel_x = -8;
@@ -66239,17 +66181,11 @@
 	dir = 8;
 	autolink_id = "atmospherics_south_pump"
 	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "atmospherics_south_sensor";
-	pixel_x = -8;
-	pixel_y = -30
-	},
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = -25;
-	tag_airpump = "atmospherics_south_pump";
-	tag_chamber_sensor = "atmospherics_south_sensor";
-	tag_exterior_door = "atmospherics_south_outer";
-	tag_interior_door = "atmospherics_south_inner"
+	vent_link_id = "atmospherics_south_pump";
+	ext_door_link_id = "atmospherics_south_outer";
+	int_door_link_id = "atmospherics_south_inner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
@@ -66267,7 +66203,7 @@
 /area/maintenance/storage)
 "doo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "atmospherics_south_interior";
 	pixel_x = 22;
 	pixel_y = 10
@@ -70315,14 +70251,9 @@
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = 27;
 	req_access_txt = "13";
-	tag_airpump = "sci_bombrange_pump";
-	tag_chamber_sensor = "sci_bombrange_sensor";
-	tag_exterior_door = "sci_bombrange_outer";
-	tag_interior_door = "sci_bombrange_inner"
-	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "sci_bombrange_sensor";
-	pixel_y = -25
+	vent_link_id = "sci_bombrange_pump";
+	ext_door_link_id = "sci_bombrange_outer";
+	int_door_link_id = "sci_bombrange_inner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -71562,7 +71493,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "xeno_airlock_control_interior";
 	name = "Xenobiology Access Button";
 	pixel_x = 8;
@@ -73090,7 +73021,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/full,
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "prison_airlock_control_interior";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2";
@@ -74976,8 +74907,8 @@
 /obj/machinery/airlock_controller/access_controller{
 	name = "Supermatter Access Console";
 	pixel_y = 22;
-	tag_exterior_door = "sm_airlock_exterior";
-	tag_interior_door = "sm_airlock_interior"
+	ext_door_link_id = "sm_airlock_exterior";
+	int_door_link_id = "sm_airlock_interior"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -75367,8 +75298,8 @@
 /obj/machinery/airlock_controller/access_controller{
 	name = "Prison Access Console";
 	pixel_y = 22;
-	tag_exterior_door = "prison_airlock_exterior";
-	tag_interior_door = "prison_airlock_interior";
+	ext_door_link_id = "prison_airlock_exterior";
+	int_door_link_id = "prison_airlock_interior";
 	pixel_x = -22
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -75440,11 +75371,6 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/arrival/station)
 "jyP" = (
-/obj/machinery/airlock_sensor{
-	autolink_id = "sci_sensor";
-	pixel_x = -25;
-	pixel_y = 12
-	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
 	autolink_id = "sci_pump"
@@ -75453,10 +75379,9 @@
 	pixel_x = -25;
 	pixel_y = -6;
 	req_access_txt = "13";
-	tag_airpump = "sci_pump";
-	tag_chamber_sensor = "sci_sensor";
-	tag_exterior_door = "sci_outer";
-	tag_interior_door = "sci_inner"
+	vent_link_id = "sci_pump";
+	ext_door_link_id = "sci_outer";
+	int_door_link_id = "sci_inner"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
@@ -78928,7 +78853,7 @@
 	name = "Atmospherics Access Chamber";
 	req_access_txt = "24"
 	},
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "atmos_airlock_control";
 	name = "Atmospherics Access Button";
 	pixel_y = -24;
@@ -80175,7 +80100,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "atmos_airlock_control";
 	name = "Atmospherics Access Button";
 	pixel_y = -24;
@@ -81154,7 +81079,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "xeno_airlock_control";
 	name = "Xenobiology Access Button";
 	pixel_x = -24;
@@ -81328,8 +81253,8 @@
 	name = "Xenobiology Access Console";
 	pixel_x = 22;
 	pixel_y = -8;
-	tag_exterior_door = "xeno_airlock_exterior";
-	tag_interior_door = "xeno_airlock_interior"
+	ext_door_link_id = "xeno_airlock_exterior";
+	int_door_link_id = "xeno_airlock_interior"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -83193,7 +83118,7 @@
 	},
 /area/maintenance/asmaint2)
 "pPU" = (
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "sci_maint";
 	pixel_x = -28;
 	pixel_y = -5;
@@ -83883,7 +83808,7 @@
 	},
 /area/assembly/chargebay)
 "qsx" = (
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "sci_bombrange_airlock_control";
 	pixel_x = 24;
 	pixel_y = 25;
@@ -84601,15 +84526,9 @@
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_y = 6;
 	req_access_txt = "13";
-	tag_airpump = "port_pump";
-	tag_chamber_sensor = "port_sensor";
-	tag_exterior_door = "port_maint_outer";
-	tag_interior_door = "port_maint_inner";
-	pixel_x = 24
-	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "port_sensor";
-	pixel_y = -8;
+	vent_link_id = "port_pump";
+	ext_door_link_id = "port_maint_outer";
+	int_door_link_id = "port_maint_inner";
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -85779,7 +85698,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/access_button/airlock_interior{
+/obj/machinery/access_button{
 	autolink_id = "sm_airlock_control";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
@@ -86005,7 +85924,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "sci_bombrange_airlock_control";
 	pixel_x = -24;
 	pixel_y = 25;
@@ -86914,8 +86833,8 @@
 	name = "Virology Lab Access Console";
 	pixel_y = 24;
 	req_one_access_txt = "39";
-	tag_exterior_door = "viro_lab_airlock_exterior";
-	tag_interior_door = "viro_lab_airlock_interior"
+	ext_door_link_id = "viro_lab_airlock_exterior";
+	int_door_link_id = "viro_lab_airlock_interior"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -87446,7 +87365,7 @@
 	},
 /area/toxins/xenobiology)
 "tBS" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "ap_maint_control";
 	pixel_x = 25;
 	pixel_y = 8;
@@ -87786,15 +87705,9 @@
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = -25;
 	req_access_txt = "10;13";
-	tag_airpump = "engineering_east_pump";
-	tag_chamber_sensor = "engineering_east_sensor";
-	tag_exterior_door = "engineering_east_outer";
-	tag_interior_door = "engineering_east_inner"
-	},
-/obj/machinery/airlock_sensor{
-	autolink_id = "engineering_east_sensor";
-	pixel_x = -25;
-	pixel_y = 12
+	vent_link_id = "engineering_east_pump";
+	ext_door_link_id = "engineering_east_outer";
+	int_door_link_id = "engineering_east_inner"
 	},
 /turf/simulated/floor/plating,
 /area/engine/hardsuitstorage)
@@ -92650,8 +92563,8 @@
 /obj/machinery/airlock_controller/access_controller{
 	name = "Atmos Supermatter Access Console";
 	pixel_x = 24;
-	tag_exterior_door = "atmos_airlock_exterior";
-	tag_interior_door = "atmos_airlock_interior"
+	ext_door_link_id = "atmos_airlock_exterior";
+	int_door_link_id = "atmos_airlock_interior"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
