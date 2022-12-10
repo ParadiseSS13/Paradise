@@ -35,7 +35,7 @@
 /datum/action/changeling/panacea/proc/heal_tox(mob/living/user)
 	for(var/i in 1 to 10)
 		user.adjustToxLoss(-5) //Has the same healing as 20 charcoal, but happens faster
-		user.radiation = (max(0, user.radiation-70)) //Same radiation healing as pentetic
+		user.radiation = max(0, user.radiation - 70) //Same radiation healing as pentetic
 		user.adjustBrainLoss(-5)
 		user.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
 		user.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
