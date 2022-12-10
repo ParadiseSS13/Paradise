@@ -180,6 +180,7 @@
 			qdel(AA)
 		alternate_appearances = null
 
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	QDEL_NULL(reagents)
 	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
