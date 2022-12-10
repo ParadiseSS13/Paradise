@@ -671,8 +671,8 @@
 	},
 /obj/machinery/airlock_controller/access_controller{
 	pixel_y = 25;
-	tag_exterior_door = "mining_outer";
-	tag_interior_door = "mining_inner"
+	ext_door_link_id = "mining_outer";
+	int_door_link_id = "mining_inner"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -809,8 +809,8 @@
 	},
 /area/mine/eva)
 "bX" = (
-/obj/machinery/access_button/airlock_interior{
-	autolink_id = "lavaland_control";
+/obj/machinery/access_button{
+	autolink_id = "lavaland_btn_xys";
 	pixel_x = 25;
 	pixel_y = 25
 	},
@@ -2885,7 +2885,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gH" = (
-/obj/machinery/access_button/airlock_exterior{
+/obj/machinery/access_button{
 	autolink_id = "lavaland_ext";
 	pixel_x = -25;
 	pixel_y = -25;

@@ -3,6 +3,7 @@
 	layer = ABOVE_WINDOW_LAYER
 	name = "airlock controller"
 	icon = 'icons/obj/airlock_machines.dmi'
+	icon_state = "airlock_control_standby"
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -332,8 +333,8 @@
 
 /* =============================== ACCESS CONTROLLER - No cycling required */
 /obj/machinery/airlock_controller/access_controller
-	icon_state = "access_control_standby"
 	name = "airlock access controller"
+	icon_state = "access_control_standby"
 
 /obj/machinery/airlock_controller/access_controller/update_icon_state()
 	if(powered(power_channel))

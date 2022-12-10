@@ -750,6 +750,14 @@
 /obj/item/camera,
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
+"de" = (
+/obj/machinery/access_button{
+	pixel_x = -22;
+	pixel_y = -8;
+	autolink_id = "syndijail_btn_int"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership/jail)
 "df" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/outpost)
@@ -2465,7 +2473,7 @@
 /area/syndicate_mothership)
 "jj" = (
 /obj/machinery/access_button{
-	autolink_id = "synd_airlock_interior";
+	autolink_id = "syndishuttle_btn_int";
 	pixel_x = 25;
 	pixel_y = 25
 	},
@@ -2527,7 +2535,7 @@
 /area/shuttle/syndicate)
 "jw" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "synd_airlock_inner";
+	id_tag = "syndishuttle_door_int";
 	locked = 1;
 	name = "Ship External Access";
 	req_access_txt = "150"
@@ -3048,9 +3056,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
-"lc" = (
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership/jail)
 "ld" = (
 /obj/machinery/door/window/westleft,
 /turf/simulated/floor/plasteel/dark,
@@ -3078,7 +3083,7 @@
 "lj" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	autoclose = 0;
-	id_tag = "syndicate_jail_airlock_external";
+	id_tag = "syndijail_door_ext";
 	locked = 1;
 	name = "Syndicate Jail External Airlock"
 	},
@@ -3089,18 +3094,17 @@
 	name = "Syndicate Jail Access Controller";
 	pixel_y = 24;
 	req_access_txt = "150";
-	ext_door_link_id = "syndicate_jail_airlock_external";
-	int_door_link_id = "syndicate_jail_airlock_internal";
-	ext_button_link_id = "syndicate_jail_airlock_control_exterior";
-	int_button_link_id = "syndicate_jail_airlock_control_interior";
-
+	ext_door_link_id = "syndijail_door_ext";
+	int_door_link_id = "syndijail_door_int";
+	ext_button_link_id = "syndijail_btn_ext";
+	int_button_link_id = "syndijail_btn_int"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "ll" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	autoclose = 0;
-	id_tag = "syndicate_jail_airlock_internal";
+	id_tag = "syndijail_door_int";
 	locked = 1;
 	name = "Syndicate Jail Internal Airlock"
 	},
@@ -4775,7 +4779,7 @@
 /area/shuttle/assault_pod)
 "qR" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "synd_airlock_exterior";
+	id_tag = "syndishuttle_door_ext";
 	name = "Ship External Access";
 	req_access_txt = "150"
 	},
@@ -4790,7 +4794,7 @@
 	id = "smindicate";
 	name = "External Door Control";
 	pixel_x = -26;
-	pixel_y = -2;
+	pixel_y = 2;
 	req_access_txt = "150"
 	},
 /obj/docking_port/mobile{
@@ -5147,7 +5151,7 @@
 /area/tdome/tdomeobserve)
 "rU" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "synd_pump"
+	autolink_id = "syndishuttle_vent"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -5293,8 +5297,10 @@
 	pixel_x = 25;
 	req_access_txt = "150";
 	vent_link_id = "synd_pump";
-	ext_door_link_id = "synd_airlock_interior";
-	int_door_link_id = "synd_airlock_exterior"
+	ext_door_link_id = "syndishuttle_door_ext";
+	int_door_link_id = "syndishuttle_door_int";
+	ext_button_link_id = "syndishuttle_btn_ext";
+	int_button_link_id = "syndishuttle_btn_int"
 	},
 /obj/machinery/light{
 	dir = 4
@@ -5361,6 +5367,10 @@
 	dir = 1;
 	autolink_id = "synd_pump"
 	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	autolink_id = "syndishuttle_vent"
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "sI" = (
@@ -5369,7 +5379,7 @@
 /obj/item/clothing/head/helmet/space/syndicate/black/red,
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
-	autolink_id = "synd_pump"
+	autolink_id = "syndishuttle_vent"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -5382,6 +5392,14 @@
 /area/syndicate_mothership)
 "sM" = (
 /obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/syndicate_mothership)
+"sN" = (
+/obj/machinery/access_button{
+	pixel_y = -22;
+	pixel_x = 8;
+	autolink_id = "syndijail_btn_ext"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sQ" = (
@@ -11505,6 +11523,13 @@
 	icon_state = "browncorner"
 	},
 /area/shuttle/escape)
+"SR" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	autolink_id = "syndishuttle_vent"
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "ST" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -12385,6 +12410,17 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"WK" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	autolink_id = "syndishuttle_vent"
+	},
+/obj/machinery/access_button{
+	autolink_id = "syndishuttle_btn_ext";
+	pixel_x = -25;
+	pixel_y = 25
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "WM" = (
 /obj/structure/railing,
 /obj/structure/table,
@@ -12650,9 +12686,6 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"XJ" = (
-/turf/simulated/floor/plasteel/dark,
-/area/syndicate_mothership)
 "XL" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -60679,9 +60712,9 @@ BZ
 BY
 BV
 qR
-rU
+WK
 sn
-sH
+SR
 KY
 jx
 jz
@@ -64023,8 +64056,8 @@ BY
 BY
 sE
 sK
-XJ
-XJ
+li
+li
 tW
 Yi
 aN
@@ -64280,8 +64313,8 @@ BY
 BY
 BY
 sK
-XJ
-XJ
+li
+li
 tW
 Yi
 aN
@@ -64537,8 +64570,8 @@ rc
 BZ
 Yi
 sL
-XJ
-XJ
+li
+li
 tW
 Yi
 aN
@@ -64794,8 +64827,8 @@ BY
 BZ
 Yi
 sM
-XJ
-XJ
+li
+li
 tW
 Yi
 aN
@@ -65051,8 +65084,8 @@ BY
 BZ
 Yi
 sQ
-XJ
-XJ
+li
+li
 tW
 Yi
 aN
@@ -65308,7 +65341,7 @@ BY
 BZ
 Yi
 sR
-XJ
+li
 kD
 tX
 Yi
@@ -65805,8 +65838,8 @@ ks
 ky
 kM
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -66048,22 +66081,22 @@ hD
 hQ
 gk
 Yi
-XJ
+li
 Yi
 iz
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
+li
+li
+li
+li
+li
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -66305,22 +66338,22 @@ gD
 gD
 hY
 Yi
-XJ
+li
 iw
-XJ
-XJ
-XJ
+li
+li
+li
 jr
 jr
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
+li
 Hr
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -66562,22 +66595,22 @@ hD
 hV
 gk
 Yi
-XJ
+li
 Yi
 iB
-XJ
-XJ
+li
+li
 jr
 jM
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
+li
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -66819,22 +66852,22 @@ gk
 gk
 gk
 Yi
-XJ
+li
 Yi
 iC
-XJ
-XJ
-XJ
+li
+li
+li
 id
 jV
-XJ
+li
 kj
 kt
 kz
 kN
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -67076,7 +67109,7 @@ Yi
 Yi
 Yi
 Yi
-XJ
+li
 Yi
 Yi
 jg
@@ -67090,8 +67123,8 @@ Yi
 Yi
 Yi
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -67330,25 +67363,25 @@ ab
 Yi
 hv
 hF
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
 Yi
 iD
 jh
-XJ
+li
 js
 jO
 Yi
-XJ
-XJ
+li
+li
 ku
 kA
 kO
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -67586,16 +67619,16 @@ ab
 ab
 Yi
 hw
-XJ
-XJ
+li
+li
 id
-XJ
-XJ
+li
+li
 Yi
 iE
-XJ
-XJ
-XJ
+li
+li
+li
 jP
 Yi
 jZ
@@ -67604,8 +67637,8 @@ kv
 kD
 kP
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -67849,11 +67882,11 @@ Yi
 Yi
 in
 Yi
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
 Yi
 Yi
 Yi
@@ -67861,8 +67894,8 @@ Yi
 Yi
 Yi
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -68106,20 +68139,20 @@ Yi
 ij
 io
 ix
-XJ
-XJ
+li
+li
 jm
 jB
-XJ
+li
 Yi
 iN
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
+li
+li
 Yi
 aN
 aN
@@ -68361,22 +68394,22 @@ BG
 ab
 Yi
 ik
-XJ
+li
 iy
-XJ
-XJ
+li
+li
 jn
 jC
-XJ
+li
 iy
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
+li
+li
+li
 Yi
 aN
 aN
@@ -68620,20 +68653,20 @@ Yi
 il
 ip
 ix
-XJ
-XJ
+li
+li
 jo
 jD
-XJ
+li
 Yi
 iN
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
+li
+li
 Yi
 aN
 aN
@@ -68877,11 +68910,11 @@ Yi
 Yi
 iq
 Yi
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
 Yi
 Yi
 Yi
@@ -68889,8 +68922,8 @@ Yi
 Yi
 Yi
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -69128,16 +69161,16 @@ ab
 ab
 Yi
 hv
-XJ
-XJ
+li
+li
 ie
-XJ
-XJ
+li
+li
 Yi
 iL
-XJ
-XJ
-XJ
+li
+li
+li
 jQ
 Yi
 ka
@@ -69146,8 +69179,8 @@ kw
 kE
 kQ
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -69386,25 +69419,25 @@ ab
 Yi
 hw
 hN
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
 Yi
 iM
 jh
-XJ
-XJ
+li
+li
 jR
 Yi
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -69646,7 +69679,7 @@ Yi
 Yi
 Yi
 Yi
-XJ
+li
 Yi
 Yi
 ji
@@ -69660,8 +69693,8 @@ Yi
 Yi
 Yi
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -69903,22 +69936,22 @@ gq
 gq
 ih
 Yi
-XJ
+li
 Yi
 iN
-XJ
-XJ
-XJ
+li
+li
+li
 ie
-XJ
-XJ
+li
+li
 sR
 ks
 ky
 kM
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -70160,22 +70193,22 @@ hO
 gq
 gq
 Yi
-XJ
+li
 Yi
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
 jS
 jS
 jS
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -70417,22 +70450,22 @@ gJ
 hX
 ii
 Yi
-XJ
+li
 iw
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
 jT
 jW
 jT
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
 lb
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -70674,22 +70707,22 @@ hP
 gq
 gq
 Yi
-XJ
+li
 Yi
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
 jS
 jS
 jS
-XJ
-XJ
-XJ
+li
+li
+li
 kR
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -70938,15 +70971,15 @@ iQ
 jp
 jp
 jp
-XJ
+li
 jp
 jp
 jp
 kF
 kS
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -71202,8 +71235,8 @@ Yi
 Yi
 Yi
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -71448,19 +71481,19 @@ jq
 ab
 Yi
 iY
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
-XJ
+li
+li
+li
+li
+li
+li
+li
+li
+li
 kT
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -71705,19 +71738,19 @@ gP
 ab
 Yi
 iZ
-XJ
+li
 iZ
-XJ
+li
 iZ
-XJ
+li
 ke
-XJ
+li
 ke
-XJ
+li
 ke
 Yi
 li
-XJ
+sN
 Yi
 aN
 aN
@@ -71962,15 +71995,15 @@ Nd
 Nd
 Yi
 je
-XJ
+li
 je
-XJ
+li
 je
-XJ
+li
 je
-XJ
+li
 je
-XJ
+li
 je
 Yi
 lj
@@ -72230,8 +72263,8 @@ Yi
 Yi
 Yi
 Yi
-XJ
-XJ
+li
+li
 Yi
 aN
 aN
@@ -72488,7 +72521,7 @@ aN
 aN
 Yi
 lk
-XJ
+li
 Yi
 aN
 aN
@@ -73000,7 +73033,7 @@ aN
 aN
 kG
 kU
-lc
+de
 kU
 kU
 ls
