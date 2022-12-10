@@ -56,8 +56,9 @@
 	GLOB.all_vent_pumps += src
 	icon = null
 	initial_loc = get_area(loc)
-	initial_loc.vents += src
-	name = "[initial_loc.name] Vent Pump #[length(initial_loc.vents)]"
+	if(!autolink_id) // Autolink vents are externally managed, and should not show up on the air alarm
+		initial_loc.vents += src
+		name = "[initial_loc.name] Vent Pump #[length(initial_loc.vents)]"
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "large air vent"
