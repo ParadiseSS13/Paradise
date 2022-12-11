@@ -113,6 +113,9 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	point_value = 4
 	table_type = /obj/structure/table/glass/reinforced
 
+/obj/item/stack/sheet/rglass/fifty
+	amount = 50
+
 /obj/item/stack/sheet/rglass/New(loc, amount)
 	recipes = GLOB.reinforced_glass_recipes
 	..()
