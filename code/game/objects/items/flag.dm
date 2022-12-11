@@ -203,7 +203,7 @@
 /obj/item/flag/solgov
 	name = "\improper Trans-Solar Federation flag"
 	desc = "A flag proudly boasting the logo of the SolGov, allied to NT government originated from Earth."
-	icon_state = "cultflag"
+	icon_state = "solgovflag"
 
 //Chameleon
 
