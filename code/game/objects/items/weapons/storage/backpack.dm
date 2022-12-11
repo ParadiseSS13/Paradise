@@ -405,7 +405,14 @@
 
 	return ..()
 
-/obj/item/storage/backpack/duffel/remove_from_storage(obj/item/I, atom/new_location)
+/obj/item/storage/backpack/duffel/removal_allowed_check(mob/user)
+	if(zipped)
+		to_chat(user, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return TRUE
+
+/obj/item/storage/backpack/duffel/drop_inventory(user)
 	if(zipped)
 		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE
