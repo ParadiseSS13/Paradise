@@ -107,9 +107,9 @@
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
 		to_chat(user, "<span class='warning'>The [E.name] does not go there.</span>")
 		return 0
-	// if(E.parent_organ && !target.get_organ(E.parent_organ))
-	// 	// No rayman allowed
-	// 	return 0
+	if(!target.get_organ(E.parent_organ))
+		to_chat(user, "<span class='warning'>cannot attach a [E.name] because there is no limb to attach to!</span>")
+		return 0
 	if(!is_correct_limb(E, target))
 		to_chat(user, "<span class='warning'>This is not the correct limb type for this surgery!</span>")
 		return 0
