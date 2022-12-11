@@ -390,9 +390,9 @@ const MedicalRecordsViruses = (_properties, context) => {
     <Section flexGrow="1" mt="0.5rem">
       <Table className="MedicalRecords__list">
         <Table.Row bold>
-          <SortButton id="name">Name</SortButton>
-          <SortButton id="max_stages">Max Stages</SortButton>
-          <SortButton id="severity">Severity</SortButton>
+          <SortButton2 id="name">Name</SortButton2>
+          <SortButton2 id="max_stages">Max Stages</SortButton2>
+          <SortButton2 id="severity">Severity</SortButton2>
         </Table.Row>
         {virus
           .filter(
@@ -502,6 +502,33 @@ const SortButton = (properties, context) => {
         {children}
         {sortId === id && (
           <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+        )}
+      </Button>
+    </Table.Cell>
+  );
+};
+
+const SortButton2 = (properties, context) => {
+  const [sortId2, setSortId2] = useLocalState(context, 'sortId2', 'name');
+  const [sortOrder2, setSortOrder2] = useLocalState(context, 'sortOrder2', true);
+  const { id, children } = properties;
+  return (
+    <Table.Cell>
+      <Button
+        color={sortId2 !== id && 'transparent'}
+        width="100%"
+        onClick={() => {
+          if (sortId2 === id) {
+            setSortOrder2(!sortOrder2);
+          } else {
+            setSortId2(id);
+            setSortOrder2(true);
+          }
+        }}
+      >
+        {children}
+        {sortId2 === id && (
+          <Icon name={sortOrder2 ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
         )}
       </Button>
     </Table.Cell>
