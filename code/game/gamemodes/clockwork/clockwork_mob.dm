@@ -37,9 +37,7 @@
 
 /mob/living/simple_animal/hostile/clockwork/marauder/Initialize(mapload)
 	. = ..()
-	name = text("clockwork marauder ([rand(1, 1000)])")
-	if(!isclocker(src))
-		SSticker.mode.add_clocker(mind)
+	real_name = text("clockwork marauder ([rand(1, 1000)])")
 
 /mob/living/simple_animal/hostile/clockwork/marauder/death(gibbed)
 	. = ..()

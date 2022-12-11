@@ -212,5 +212,5 @@
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && disassembled)
-		new /obj/item/stack/sheet/brass(loc, 3)
+		new /obj/item/stack/sheet/brass(loc, 1)
 	return ..()

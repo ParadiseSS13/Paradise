@@ -273,6 +273,11 @@
 				lawsync = FALSE
 				laws_to_give = new /datum/ai_laws/syndicate_override
 
+			if(M.clock)
+				aisync = FALSE
+				lawsync = FALSE
+				laws_to_give = new /datum/ai_laws/ratvar
+
 			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), syndie = sabotaged, unfinished = 1, ai_to_sync_to = forced_ai, connect_to_AI = aisync)
 
 			if(!O)
