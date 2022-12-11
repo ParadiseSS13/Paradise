@@ -12151,9 +12151,6 @@
 /obj/machinery/economy/vending/engivend,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"Vq" = (
-/turf,
-/area/shuttle/gamma/space)
 "Vs" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/badminbrew,
@@ -31025,7 +31022,7 @@ aN
 aN
 aN
 Db
-Vq
+DB
 HI
 Iq
 JN
