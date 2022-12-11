@@ -152,6 +152,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	point_value = 19
 	table_type = /obj/structure/table/glass/plasma
 
+/obj/item/stack/sheet/plasmaglass/fifty
+	amount = 50
+
 /obj/item/stack/sheet/plasmaglass/New(loc, amount)
 	recipes = GLOB.pglass_recipes
 	..()
@@ -196,6 +199,9 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	point_value = 23
 	table_type = /obj/structure/table/glass/reinforced/plasma
 
+/obj/item/stack/sheet/plasmarglass/fifty
+	amount = 50
+
 /obj/item/stack/sheet/plasmarglass/New(loc, amount)
 	recipes = GLOB.prglass_recipes
 	..()
@@ -216,6 +222,9 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	merge_type = /obj/item/stack/sheet/titaniumglass
 	full_window = /obj/structure/window/full/shuttle
 	table_type = /obj/structure/table/glass/reinforced/titanium
+
+/obj/item/stack/sheet/titaniumglass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/titaniumglass/New(loc, amount)
 	recipes = GLOB.titaniumglass_recipes
@@ -238,6 +247,10 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	full_window = /obj/structure/window/full/plastitanium
 	table_type = /obj/structure/table/glass/reinforced/plastitanium
 
+/obj/item/stack/sheet/plastitaniumglass/fifty
+	amount = 50
+
 /obj/item/stack/sheet/plastitaniumglass/New(loc, amount)
 	recipes = GLOB.plastitaniumglass_recipes
 	..()
+

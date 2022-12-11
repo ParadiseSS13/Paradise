@@ -405,8 +405,9 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
 	point_value = 45
 
-/obj/item/stack/sheet/mineral/plastinium/fifty
+/obj/item/stack/sheet/mineral/plastitanium/fifty
 	amount = 50
+
 
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new /datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
