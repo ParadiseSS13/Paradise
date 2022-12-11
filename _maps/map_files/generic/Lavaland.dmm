@@ -618,7 +618,7 @@
 	},
 /area/mine/eva)
 "bF" = (
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "bG" = (
@@ -1084,6 +1084,9 @@
 "cC" = (
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -2292,10 +2295,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_barrier/obstruction,
 /obj/machinery/door/airlock{
-	name = "Mech Bay Maintenance"
+	name = "Maintence Door"
 	},
+/obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "eM" = (
@@ -2307,11 +2310,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_barrier/obstruction,
-/obj/machinery/door/airlock/maintenance{
-	name = "Abandoned Processing";
-	req_access_txt = "48"
+/obj/machinery/door/airlock{
+	name = "Maintence Door"
 	},
+/obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "eN" = (
@@ -2596,7 +2598,7 @@
 /area/mine/cafeteria)
 "fl" = (
 /obj/machinery/door/airlock{
-	name = "Airlock Maintenance"
+	name = "Maintence Door"
 	},
 /turf/simulated/floor/plating,
 /area/mine/mechbay)
@@ -3252,7 +3254,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock{
-	name = "Mech Bay Maintenance"
+	name = "Maintence Door"
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -4530,6 +4532,14 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"oj" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 4;
+	name = "scrubber outlet"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/mine/laborcamp)
 "on" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -4588,7 +4598,7 @@
 /area/mine/laborcamp)
 "pa" = (
 /obj/machinery/door/airlock{
-	name = "Mech Bay Maintenance"
+	name = "Maintence Door"
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -4714,6 +4724,14 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
 /area/mine/storage)
+"sM" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
 "sO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -5727,11 +5745,10 @@
 /turf/simulated/floor/plating,
 /area/mine/sleeper)
 "Lz" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 4;
-	name = "scrubber outlet"
+/obj/structure/lattice/catwalk/mining,
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp)
 "LK" = (
@@ -6389,6 +6406,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"XI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/mine/living_quarters)
 "XW" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/light/small{
@@ -10818,7 +10839,7 @@ rd
 Xr
 yw
 aq
-aj
+oj
 aj
 aj
 aj
@@ -13389,7 +13410,7 @@ aq
 bB
 bM
 cA
-cA
+sM
 tZ
 aj
 aj
@@ -13646,7 +13667,7 @@ aq
 qT
 qT
 cg
-cA
+sM
 tZ
 aj
 aj
@@ -18022,7 +18043,7 @@ Ej
 gL
 cQ
 mp
-cM
+XI
 cM
 cp
 dJ
@@ -18215,7 +18236,7 @@ aj
 aj
 aj
 aj
-aj
+ab
 aj
 aj
 aj
@@ -18473,7 +18494,7 @@ aj
 aj
 aj
 aj
-aj
+ab
 aj
 aj
 aj
@@ -18729,6 +18750,10 @@ aj
 aj
 aj
 aj
+ab
+ai
+aj
+ab
 aj
 aj
 aj
@@ -18746,6 +18771,24 @@ aj
 aj
 aj
 aj
+ab
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+ab
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+ab
 aj
 aj
 aj
@@ -18755,29 +18798,7 @@ aj
 aj
 aj
 aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
+ab
 aj
 aj
 aj
@@ -18986,20 +19007,38 @@ aj
 aj
 ad
 ab
+ai
+ai
+ai
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+ai
+ai
+ai
+ai
+ai
+ai
+ai
+aj
+aj
+aj
+aj
+aj
+ai
+ai
+ai
+ai
+ai
+ai
+ai
 ab
 ab
 ai
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-ai
-ai
-ai
-ai
 ai
 ai
 ai
@@ -19007,33 +19046,15 @@ aj
 aj
 aj
 aj
+ai
+ai
 aj
-ai
-ai
-ai
-ai
-ai
-ai
-ai
+aj
+aj
+aj
+aj
+aj
 ab
-ab
-ai
-ai
-ai
-ai
-aj
-aj
-aj
-aj
-ai
-ai
-aj
-aj
-aj
-aj
-aj
-aj
-aj
 ai
 ai
 ai
@@ -19808,9 +19829,9 @@ am
 ai
 ab
 aj
-aj
-AE
 ab
+AE
+aj
 AE
 AE
 cP
@@ -20065,9 +20086,9 @@ am
 ai
 ab
 aj
-ab
 aj
 ab
+AE
 AE
 AE
 bQ
