@@ -201,7 +201,7 @@
 	icon_state = "usspflag"
 
 /obj/item/flag/solgov
-	name = "\improper Solar Federation flag"
+	name = "\improper Trans-Solar Federation flag"
 	desc = "A flag proudly boasting the logo of the SolGov, allied to NT government originated from Earth."
 	icon_state = "cultflag"
 
