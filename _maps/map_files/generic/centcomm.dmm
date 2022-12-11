@@ -7182,7 +7182,7 @@
 "Bm" = (
 /obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
 	id_tag = "SpecopsEngineering";
-	name = "Specops Engineering Storage"
+	name = "Special Operations Engineering Storage"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
