@@ -538,30 +538,19 @@ const SortButton2 = (properties, context) => {
 const MedicalRecordsNavigation = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { screen, general } = data;
-  const [_sortId, setSortId] = useLocalState(context, 'sortId', 'name');
-  const [_sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
     <Tabs>
       <Tabs.Tab
         selected={screen === 2}
-        onClick={
-          () => {
-            setSortId('name') // prevents trying to sort on null IDs
-            setSortOrder(true)
-            act('screen', { screen: 2 })
-            }
-          }>
+        onClick={() => {act('screen', { screen: 2 })}}
+      >
         <Icon name="list"/>
         List Records
       </Tabs.Tab>
       <Tabs.Tab
         selected={screen === 5}
-        onClick={() => {
-          setSortId('name') // prevents trying to sort on null IDs
-          setSortOrder(true)
-          act('screen', { screen: 5 })
-          }
-        }>
+        onClick={() => {act('screen', { screen: 5 })}}
+      >
         <Icon name="database"/>
         Virus Database
       </Tabs.Tab>
