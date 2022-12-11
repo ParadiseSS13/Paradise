@@ -72,10 +72,8 @@
 		STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
+// This needs to die
 /obj/machinery/proc/locate_machinery()
-	return
-
-/obj/machinery/proc/set_frequency()
 	return
 
 /obj/machinery/process() // If you dont use process or power why are you here

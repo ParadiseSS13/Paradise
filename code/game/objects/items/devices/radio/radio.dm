@@ -84,7 +84,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
 
-
 /obj/item/radio/New()
 	..()
 	wires = new(src)
