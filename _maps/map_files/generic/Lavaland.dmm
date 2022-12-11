@@ -3627,9 +3627,6 @@
 	},
 /area/mine/sleeper)
 "zK" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
