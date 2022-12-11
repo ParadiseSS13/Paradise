@@ -387,6 +387,37 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	amount = 50
 
 
+/*
+ * Plastitanium
+ */
+/obj/item/stack/sheet/mineral/plastitanium
+	name = "plastitanium"
+	icon_state = "sheet-plastitanium"
+	item_state = "sheet-plastitanium"
+	singular_name = "plastitanium sheet"
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	sheettype = "plastitanium"
+	merge_type = /obj/item/stack/sheet/mineral/plastitanium
+	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
+	point_value = 45
+
+/obj/item/stack/sheet/mineral/plastinium/fifty
+	amount = 50
+
+GLOBAL_LIST_INIT(plastitanium_recipes, list(
+	new /datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
+	new /datum/stack_recipe("Kidan Warrior Statue", /obj/structure/statue/plastitanium/kidanstatue, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	))
+
+/obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
+	recipes = GLOB.plastitanium_recipes
+	..()
+
+
 //Alien Alloy
 /obj/item/stack/sheet/mineral/abductor
 	name = "alien alloy"
