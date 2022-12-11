@@ -118,6 +118,7 @@
 	var/discordforumurl = "http://example.org"
 
 	var/overflow_server_url
+	var/tutorial_server_url
 	var/forbid_singulo_possession = 0
 
 	var/check_randomizer = 0
@@ -750,6 +751,9 @@
 
 				if("overflow_server_url")
 					config.overflow_server_url = value
+
+				if("tutorial_server_url")
+					config.tutorial_server_url = value
 
 				if("disable_away_missions")
 					config.disable_away_missions = 1

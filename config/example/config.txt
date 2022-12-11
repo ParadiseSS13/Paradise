@@ -383,6 +383,9 @@ PLAYER_REROUTE_CAP 0
 ## Server to reroute to
 #OVERFLOW_SERVER_URL byond://example.org:1111
 
+## Server to reroute to
+#TUTORIAL_SERVER_URL byond://example.org:1111
+
 ## Disable the loading of away missions
 #DISABLE_AWAY_MISSIONS
 
