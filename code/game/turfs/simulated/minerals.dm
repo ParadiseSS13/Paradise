@@ -27,10 +27,14 @@
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
 	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
+	/// Should this be set to the normal rock colour on init?
+	var/should_reset_color = TRUE
 
 /turf/simulated/mineral/Initialize(mapload)
 	. = ..()
-	color = COLOR_ROCK
+	if(should_reset_color)
+		color = COLOR_ROCK
+
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in GLOB.cardinal)
 			if(prob(spreadChance))
@@ -157,13 +161,24 @@
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
 	mine_time = 6 SECONDS
+	color = COLOR_ANCIENT_ROCK
 	layer = TURF_LAYER
+	should_reset_color = FALSE
+	mineralAmt = 2
+	mineralType = /obj/item/stack/ore/glass/basalt/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"
 	desc = "This ancient and pickaxe vulnerable rock seems colder and smoother than usual due to being exposed to space and space dust!"
 	mine_time = 15 SECONDS
-	color = COLOR_ANCIENT_ROCK
+	color = COLOR_COLD_ANCIENT_ROCK
+
+/turf/simulated/mineral/ancient/outer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pickaxe) && !istype(I, /obj/item/pickaxe/diamond))
+		to_chat(user, "<span class='notice'>Only a diamond pickaxe can break this rock.</span>")
+		return
+	return ..()
 
 /turf/simulated/mineral/random/high_chance
 	color = COLOR_YELLOW
