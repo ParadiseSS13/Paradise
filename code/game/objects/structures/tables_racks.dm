@@ -515,19 +515,19 @@
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_REINFORCED_TABLES)
 
-/obj/structure/table/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 3 procs, or copy paste all of the glass stuff
+/obj/structure/table/glass/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 3 procs, or copy paste all of the glass stuff
 	if(deconstruction_ready)
 		to_chat(user, "<span class='notice'>The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.</span>")
 	else
 		to_chat(user, "<span class='notice'>The top cover is firmly <b>welded</b> on.</span>")
 
-/obj/structure/table/reinforced/flip(direction)
+/obj/structure/table/glass/reinforced/flip(direction)
 	if(!deconstruction_ready)
 		return FALSE
 	else
 		return ..()
 
-/obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
+/obj/structure/table/glass/reinforced/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
