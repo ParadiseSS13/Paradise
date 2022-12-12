@@ -158,6 +158,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			<A href='?_src_=holder;cma_self=[M.UID()]'>Mirror UI to Player</A> |
 			<A href='?_src_=holder;select_equip=[M.UID()]'>Select Equipment</A> |
 			<A href='?_src_=holder;update_mob_sprite=[M.UID()]'>Update Mob Sprite</A> |
+			<A href='?_src_=holder;change_voice=[M.UID()]'>Change Voice</A> |
 			"}
 		if(isliving(M))
 			body += {"<A href='?_src_=holder;check_contents=[M.UID()]'>Check Contents</A> |"}

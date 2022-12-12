@@ -203,3 +203,7 @@
 	#define url_encode(text) rustg_url_encode(text)
 	#define url_decode(text) rustg_url_decode(text)
 #endif
+
+// Text Operations //
+#define rustg_cyrillic_to_latin(text) call(RUST_G, "cyrillic_to_latin")("[text]")
+#define rustg_latin_to_cyrillic(text) call(RUST_G, "latin_to_cyrillic")("[text]")

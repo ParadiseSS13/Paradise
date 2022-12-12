@@ -302,6 +302,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	maim_clone(H)
 	H.Paralyse(4)
 
+	H.tts_seed = pick(SStts.tts_seeds)
+
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
 		H.ckey = R.ckey

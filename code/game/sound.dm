@@ -60,9 +60,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/list/listeners = GLOB.player_list
 	if(!ignore_walls) //these sounds don't carry through walls
 		listeners = listeners & hearers(maxdistance, turf_source)
-	for(var/P in listeners)
-		var/mob/M = P
-		if(!M || !M.client)
+	for(var/mob/M in listeners)
+		if(!M.client)
 			continue
 
 		var/turf/T = get_turf(M) // These checks need to be changed if z-levels are ever further refactored
@@ -76,14 +75,14 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		if(distance <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
 	if(!client || !can_hear())
 		return
 
 	if(!S)
 		S = sound(get_sfx(soundin))
 
-	S.wait = 0 //No queue
+	S.wait = wait
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol * client.prefs.get_channel_volume(CHANNEL_GENERAL)
 	S.environment = -1
@@ -157,6 +156,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
 
 	SEND_SOUND(src, S)
+	return S
 
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
 	if(!S)
@@ -246,3 +246,34 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				if(!check_sound)
 					CRASH("No sound file were found for \'[soundin]\' input!")
 	return soundin
+
+/proc/apply_sound_effect(effect, filename_input, filename_output)
+	filename_input = filename_sanitize(filename_input)
+	filename_output = filename_sanitize(filename_output)
+
+	if(!effect)
+		CRASH("Invalid sound effect chosen.")
+
+	var/list/output
+	switch(effect)
+		if(SOUND_EFFECT_RADIO)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=1000, lowpass=f=3000, acrusher=1:1:50:0:log" [filename_output]"})
+		if(SOUND_EFFECT_ROBOT)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, volume=volume=1.5" [filename_output]"})
+		if(SOUND_EFFECT_RADIO_ROBOT)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, volume=volume=1.5, highpass=f=1000, lowpass=f=3000, acrusher=1:1:50:0:log" [filename_output]"})
+		if(SOUND_EFFECT_MEGAPHONE)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=500, lowpass=f=4000, volume=volume=10, acrusher=1:1:45:0:log" [filename_output]"})
+		if(SOUND_EFFECT_MEGAPHONE_ROBOT)
+			output = world.shelleo({"ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, highpass=f=500, lowpass=f=4000, volume=volume=10, acrusher=1:1:45:0:log" [filename_output]"})
+		else
+			CRASH("Invalid sound effect chosen.")
+	var/errorlevel = output[SHELLEO_ERRORLEVEL]
+	var/stdout = output[SHELLEO_STDOUT]
+	var/stderr = output[SHELLEO_STDERR]
+	if(errorlevel)
+		error("Error: apply_sound_effect([effect], [filename_input], [filename_output]) - See debug logs.")
+		log_debug("apply_sound_effect([effect], [filename_input], [filename_output]) STDOUT: [stdout]")
+		log_debug("apply_sound_effect([effect], [filename_input], [filename_output]) STDERR: [stderr]")
+		return FALSE
+	return TRUE

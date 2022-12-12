@@ -2080,3 +2080,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "White Noise"
 		if(CHANNEL_AMBIENCE)
 			return "Ambience"
+		if(CHANNEL_TTS_LOCAL)
+			return "TTS Local"
+		if(CHANNEL_TTS_RADIO)
+			return "TTS Radio"

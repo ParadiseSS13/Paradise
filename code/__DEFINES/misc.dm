@@ -500,3 +500,7 @@
 
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
+
+#define TTS_SEED_DEFAULT_FEMALE "tyrande"
+#define TTS_SEED_DEFAULT_MALE "arthas"
+#define TTS_SEED_ANNOUNCER "anubarak"

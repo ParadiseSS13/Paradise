@@ -95,6 +95,7 @@
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
 	verbs += /mob/living/silicon/pai/proc/choose_verbs
+	verbs += /mob/living/silicon/pai/proc/pai_change_voice
 
 	//PDA
 	pda = new(src)
@@ -338,6 +339,11 @@
 
 	verbs -= /mob/living/silicon/pai/proc/choose_verbs
 
+/mob/living/silicon/pai/proc/pai_change_voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "pAI Commands"
+	change_voice()
 
 /mob/living/silicon/pai/lay_down()
 	set name = "Rest"

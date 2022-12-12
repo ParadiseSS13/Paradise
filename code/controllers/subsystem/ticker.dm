@@ -62,6 +62,9 @@ SUBSYSTEM_DEF(ticker)
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
 
+	var/list/randomtips = list()
+	var/list/memetips = list()
+
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
 	'sound/music/thunderdome.ogg',\
@@ -72,6 +75,9 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
 	'sound/music/title3.ogg',)
+
+	randomtips = file2list("strings/tips.txt")
+	memetips = file2list("strings/sillytips.txt")
 
 	return ..()
 
@@ -427,8 +433,6 @@ SUBSYSTEM_DEF(ticker)
 	if(selected_tip)
 		m = selected_tip
 	else
-		var/list/randomtips = file2list("strings/tips.txt")
-		var/list/memetips = file2list("strings/sillytips.txt")
 		if(randomtips.len && prob(95))
 			m = pick(randomtips)
 		else if(memetips.len)

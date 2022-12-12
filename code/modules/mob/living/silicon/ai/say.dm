@@ -162,7 +162,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
 			var/turf/T = get_turf(M)
 			if(T && T.z == z && M.can_hear())
-				SEND_SOUND(M, 'sound/misc/notice2.ogg')
+				SEND_SOUND(M, 'sound/misc/announce_dig.ogg')
 				to_chat(M, formatted_message)
 
 /proc/play_vox_word(word, z_level, mob/only_listener)

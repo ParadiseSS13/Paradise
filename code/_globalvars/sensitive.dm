@@ -11,3 +11,5 @@ GLOBAL_REAL_VAR(sqlfdbklogin) = "root"
 GLOBAL_REAL_VAR(sqlfdbkpass) = ""
 GLOBAL_REAL_VAR(sqlfdbktableprefix) = "erro_"
 GLOBAL_REAL_VAR(sql_version) = 0
+
+GLOBAL_REAL_VAR(tts_token_silero) = "" // Token we use to talk with text-to-speech service

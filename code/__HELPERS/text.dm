@@ -54,6 +54,11 @@
 	return html_encode(sanitize_simple(t,repl_chars))
 
 // Gut ANYTHING that isnt alphanumeric, or brackets
+/proc/filename_sanitize(t)
+	var/regex/alphanum_only = regex("\[^a-zA-Z0-9._/-]", "g")
+	return alphanum_only.Replace(t, "")
+
+// Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
@@ -237,9 +242,12 @@
  * Text modification
  */
 // See bygex.dm
-/proc/replace_characters(var/t,var/list/repl_chars)
+/proc/replace_characters(var/t,var/list/repl_chars, case_sensitive = FALSE)
 	for(var/char in repl_chars)
-		t = replacetext_char(t, char, repl_chars[char])
+		if(case_sensitive)
+			t = replacetextEx_char(t, char, repl_chars[char])
+		else
+			t = replacetext_char(t, char, repl_chars[char])
 	return t
 
 //Strips the first char and returns it and the new string as a list

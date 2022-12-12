@@ -1161,6 +1161,24 @@
 		to_chat(usr, "Added all languages to [H].")
 		log_and_message_admins("has given [key_name(H)] all languages")
 
+	else if(href_list["changevoice"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/H = locateUID(href_list["changevoice"])
+
+		if(!istype(H))
+			to_chat(usr, "This can only be done to instances of type /mob")
+			return
+
+		var/old_tts_seed = H.tts_seed
+		var/new_tts_seed = H.change_voice(usr)
+		if(!new_tts_seed)
+			return
+
+		to_chat(usr, "Changed voice from [old_tts_seed] to [new_tts_seed] for [H].")
+		to_chat(H, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>")
+		log_and_message_admins("has changed [key_name(H)]'s voice from [old_tts_seed] to [new_tts_seed]")
+
 	else if(href_list["addverb"])
 		if(!check_rights(R_DEBUG))			return
 

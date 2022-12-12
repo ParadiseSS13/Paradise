@@ -266,6 +266,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return 0
 	rename_self(braintype, 1)
 
+/mob/living/silicon/robot/verb/Change_Voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "Robot Commands"
+	change_voice()
+
 /mob/living/silicon/robot/proc/sync()
 	if(lawupdate && connected_ai)
 		lawsync()

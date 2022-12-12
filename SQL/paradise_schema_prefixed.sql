@@ -76,6 +76,7 @@ CREATE TABLE `SS13_characters` (
   `gear` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `autohiss` tinyint(1) NOT NULL,
   `uplink_pref` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tts_seed` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Xenia',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

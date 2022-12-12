@@ -198,7 +198,8 @@
 					body_accessory,
 					gear,
 					autohiss,
-					uplink_pref
+					uplink_pref,
+					tts_seed
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -280,6 +281,9 @@
 		autohiss_mode = text2num(query.item[52])
 		uplink_pref = query.item[53]
 
+		// TTS
+		tts_seed = query.item[54]
+
 		saved = TRUE
 
 	qdel(query)
@@ -317,6 +321,7 @@
 	b_type			= sanitize_text(b_type, initial(b_type))
 	autohiss_mode	= sanitize_integer(autohiss_mode, 0, 2, initial(autohiss_mode))
 	uplink_pref     = sanitize_text(uplink_pref, initial(uplink_pref))
+	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -427,7 +432,8 @@
 												body_accessory=:body_accessory,
 												gear=:gearlist,
 												autohiss=:autohiss_mode,
-												uplink_pref=:uplink_pref
+												uplink_pref=:uplink_pref,
+												tts_seed=:tts_seed
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -484,6 +490,7 @@
 													"gearlist" = (gearlist ? gearlist : ""),
 													"autohiss_mode" = autohiss_mode,
 													"uplink_pref" = uplink_pref,
+													"tts_seed" = tts_seed,
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -525,7 +532,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, uplink_pref)
+											socks, body_accessory, gear, autohiss, uplink_pref, tts_seed)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -553,7 +560,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :uplink_pref)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :uplink_pref, :tts_seed)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -611,7 +618,8 @@
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
 		"autohiss_mode" = autohiss_mode,
-		"uplink_pref" = uplink_pref
+		"uplink_pref" = uplink_pref,
+		"tts_seed" = tts_seed
 	))
 
 	if(!query.warn_execute())

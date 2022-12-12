@@ -76,12 +76,18 @@
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])
 		var/obj/effect/overlay/holo_pad_hologram/H = T.masters[src]
+		var/message = combine_message(message_pieces, null, src)
+		var/message_verbed = combine_message(message_pieces, verb, src)
+		var/message_tts = message
+		message = replace_characters(message, list("+"))
+		message_verbed = replace_characters(message_verbed, list("+"))
 		if ((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
-			var/message = combine_message(message_pieces, null, src)
 			create_chat_message(H, message, TRUE, FALSE)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
+		log_debug("holopad_talk(): [message]")
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
 			M.hear_holopad_talk(message_pieces, verb, src, H)
-		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [combine_message(message_pieces, verb, src)]</span></i>")
+		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [message_verbed]</span></i>")
 	else
 		to_chat(src, "No holopad connected.")
 		return

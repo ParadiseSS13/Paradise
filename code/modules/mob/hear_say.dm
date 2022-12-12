@@ -52,6 +52,8 @@
 	if(!client)
 		return 0
 
+	var/is_whisper = verb == "whispers"
+
 	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
 			//Does the speaker have a client?  It's either random stuff that observers won't care about (Experiment 97B says, 'EHEHEHEHEHEHEHE')
@@ -80,6 +82,8 @@
 		speaker_name = H.GetVoice()
 
 	var/message = combine_message(message_pieces, null, speaker)
+	var/message_tts = message
+	message = replace_characters(message, list("+"))
 	if(message == "")
 		return
 
@@ -116,6 +120,14 @@
 		// Create map text message
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
 			create_chat_message(speaker.runechat_msg_location, message_clean,FALSE, italics)
+
+		var/effect = SOUND_EFFECT_NONE
+		if(isrobot(speaker))
+			effect = SOUND_EFFECT_ROBOT
+		var/traits = TTS_TRAIT_RATE_FASTER
+		if(is_whisper)
+			traits |= TTS_TRAIT_PITCH_WHISPER
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_tts, speaker.tts_seed, TRUE, effect, traits)
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
@@ -156,6 +168,10 @@
 
 	var/message = combine_message(message_pieces, verb, speaker, always_stars = hard_to_hear)
 	var/message_clean = combine_message(message_pieces, null, speaker, always_stars = hard_to_hear)
+	var/message_tts = message_clean
+	message = replace_characters(message, list("+"))
+	message_clean = replace_characters(message_clean, list("+"))
+
 	if(message == "")
 		return
 
@@ -174,10 +190,20 @@
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
+		if(src != speaker || isrobot(src) || isAI(src))
+			var/effect = SOUND_EFFECT_RADIO
+			if(isrobot(speaker))
+				effect = SOUND_EFFECT_RADIO_ROBOT
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, 'sound/effects/radio_chatter.ogg')
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
+		if(src != speaker || isrobot(src) || isAI(src))
+			var/effect = SOUND_EFFECT_RADIO
+			if(isrobot(speaker))
+				effect = SOUND_EFFECT_RADIO_ROBOT
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, 'sound/effects/radio_chatter.ogg')
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
@@ -226,6 +252,9 @@
 
 	var/message = combine_message(message_pieces, verb, speaker)
 	var/message_unverbed = combine_message(message_pieces, null, speaker)
+	var/message_tts = message_unverbed
+	message = replace_characters(message, list("+"))
+	message_unverbed = replace_characters(message_unverbed, list("+"))
 
 	var/name = speaker.name
 	if(!say_understands(speaker))
@@ -233,6 +262,11 @@
 
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_unverbed, TRUE, FALSE)
+
+	var/effect = SOUND_EFFECT_RADIO
+	if(isrobot(speaker))
+		effect = SOUND_EFFECT_RADIO_ROBOT
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_tts, speaker.tts_seed, TRUE, effect)
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)

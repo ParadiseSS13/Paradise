@@ -231,6 +231,7 @@
 		if(MUTE_PRAY)		mute_string = "pray"
 		if(MUTE_ADMINHELP)	mute_string = "adminhelp, admin PM and ASAY"
 		if(MUTE_DEADCHAT)	mute_string = "deadchat and DSAY"
+		if(MUTE_TTS)		mute_string = "text to speech"
 		if(MUTE_ALL)		mute_string = "everything"
 		else				return
 
@@ -603,7 +604,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Enemy Communications" = "Unknown Message",
 		"Custom" = "Cryptic Message")
 
-	var/list/MsgSound = list("Beep" = 'sound/misc/notice2.ogg',
+	var/list/MsgSound = list("Beep" = 'sound/misc/announce_dig.ogg',
 		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
 		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 

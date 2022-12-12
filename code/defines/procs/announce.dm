@@ -19,27 +19,27 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	log = do_log
 	newscast = do_newscast
 
-/datum/announcement/minor/New(var/do_log = 0, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/minor/New(var/do_log = 0, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	title = "Attention"
 	announcement_type = "Minor Announcement"
 
-/datum/announcement/priority/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	title = "Priority Announcement"
 	announcement_type = "Priority Announcement"
 
-/datum/announcement/priority/command/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/command/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 1
 	title = "[command_name()] Update"
 	announcement_type = "[command_name()] Update"
 
-/datum/announcement/priority/command/event/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/command/event/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 0
 
-/datum/announcement/priority/security/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/security/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	title = "Security Announcement"
 	announcement_type = "Security Announcement"
@@ -68,12 +68,13 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/formatted_message = Format_Message(message, message_title, message_announcer, from)
 	var/garbled_formatted_message = Format_Message(message_language.scramble(message), message_language.scramble(message_title), message_language.scramble(message_announcer), message_language.scramble(from))
 
-	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers)
+	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
 
 	if(do_newscast)
 		NewsCast(message, message_title)
 
-	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
+	if(!config.tts_enabled)
+		Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
 
 /datum/announcement/proc/Get_Receivers(var/datum/language/message_language)
@@ -100,15 +101,27 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 	return list(receivers, garbled_receivers)
 
-/datum/announcement/proc/Message(message, garbled_message, receivers, garbled_receivers)
+/datum/announcement/proc/Message(message, garbled_message, receivers, garbled_receivers, message_sound)
+	var/tts_seed = "Glados"
+	if(GLOB.ai_list.len)
+		var/mob/living/silicon/ai/AI = pick(GLOB.ai_list)
+		tts_seed = AI.tts_seed
+	var/message_tts = message
+	var/garbled_message_tts = garbled_message
+	message = replace_characters(message, list("+"))
+	garbled_message = replace_characters(garbled_message, list("+"))
 	for(var/mob/M in receivers)
 		to_chat(M, message)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
+		log_debug("announcement.Message: [message]")
 	for(var/mob/M in garbled_receivers)
 		to_chat(M, garbled_message)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, garbled_message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
+		log_debug("announcement.Message: [garbled_message]")
 
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<h2 class='alert'>[message_title]</h2>"
+	formatted_message += "<h2 class='alert'>[message_title].</h2>"
 	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
@@ -117,14 +130,14 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/minor/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<b><font size=3><font color=red>[message_title]</font color></font></b>"
+	formatted_message += "<b><font size=3><font color=red>[message_title].</font color></font></b>"
 	formatted_message += "<br><b><font size=3>[message]</font size></font></b>"
 
 	return formatted_message
 
 /datum/announcement/priority/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<h1 class='alert'>[message_title]</h1>"
+	formatted_message += "<h1 class='alert'>[message_title].</h1>"
 	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
 		formatted_message += "<br><span class='alert'> -[message_announcer]</span>"
@@ -156,7 +169,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/datum/news_announcement/news = new
 	news.channel_name = channel_name
 	news.author = announcer
-	news.message = message
+	news.message = replace_characters(message, list("+"))
 	news.message_type = announcement_type
 	news.can_be_redacted = 0
 	announce_newscaster_news(news)

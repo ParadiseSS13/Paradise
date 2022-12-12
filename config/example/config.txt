@@ -544,3 +544,8 @@ LOG_TIMERS_ON_BUCKET_RESET
 
 ## List of IP addresses (separated with space) to be ignored by the world/Topic rate limiting. Useful if you have other services
 TOPIC_FILTERING_WHITELIST 127.0.0.1
+
+## Silero Text-to-speech
+#TTS_TOKEN_SILERO mytoken
+#TTS_ENABLED
+#TTS_CACHE

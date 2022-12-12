@@ -21,7 +21,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
 	/mob/living/silicon/ai/proc/change_arrival_message,
-	/mob/living/silicon/ai/proc/arrivals_announcement
+	/mob/living/silicon/ai/proc/arrivals_announcement,
+	/mob/living/silicon/ai/proc/ai_change_voice,
 ))
 
 //Not sure why this is necessary...
@@ -1143,6 +1144,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
 	toggle_sensor_mode()
+
+/mob/living/silicon/ai/proc/ai_change_voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "AI Commands"
+	change_voice()
 
 /mob/living/silicon/ai/proc/arrivals_announcement()
 	set name = "Toggle Arrivals Announcer"
