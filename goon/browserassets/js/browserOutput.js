@@ -779,6 +779,11 @@ $(function() {
 		href: "./browserOutput.css"
 	});
 
+	if (savedConfig.darkChat == "") {
+		savedConfig.darkChat = "on";
+		setCookie('darkChat', "on", 365);
+	}
+
 	if (savedConfig.darkChat == "on") {
 		$("head").append("<link>");
 		var $css_dark = $("head").children(":last");
