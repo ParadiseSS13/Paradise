@@ -67,7 +67,7 @@
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || has_buckled_mobs())
+		if(!item_chair || has_buckled_mobs() || anchored)
 			return
 		if(usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
