@@ -2295,10 +2295,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/barricade/wooden,
 /obj/machinery/door/airlock{
-	name = "Maintence Door"
+	name = "Mech Bay Maintenance"
 	},
-/obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "eM" = (
@@ -2310,10 +2310,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock{
-	name = "Maintence Door"
-	},
-/obj/effect/spawner/random_barrier/obstruction,
+/obj/structure/barricade/wooden,
+/obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "eN" = (
@@ -2598,7 +2596,7 @@
 /area/mine/cafeteria)
 "fl" = (
 /obj/machinery/door/airlock{
-	name = "Maintence Door"
+	name = "Airlock Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/mine/mechbay)
@@ -3254,7 +3252,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock{
-	name = "Maintence Door"
+	name = "Mech Bay Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -4598,7 +4596,7 @@
 /area/mine/laborcamp)
 "pa" = (
 /obj/machinery/door/airlock{
-	name = "Maintence Door"
+	name = "Mech Bay Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
