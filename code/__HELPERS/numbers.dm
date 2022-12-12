@@ -104,7 +104,7 @@
 
 	var/list/_orders = list(main_units) + orders
 	if(num == 0)
-		return trim(jointext(units[1] + _orders[1][1][3], " "))
+		return trim(jointext(list(units[1], _orders[1][1][3]), " "))
 
 	var/rest = abs(num)
 	var/ord = 1
@@ -113,9 +113,9 @@
 	while(rest > 0)
 		var/list/thousand_result = thousand((rest % 1000), _orders[ord][2])
 		var/plural = thousand_result[1]
-		var/nme = thousand_result[2]
+		var/list/nme = thousand_result[2]
 
-		if(nme || ord == 1)
+		if(length(nme) || ord == 1)
 			name += _orders[ord][1][plural]
 
 		name += nme
@@ -126,7 +126,7 @@
 
 	var/temp_name = name
 	name = list()
-	for(var/i = length_char(temp_name), i > 1, i--)
+	for(var/i = length_char(temp_name), i >= 1, i--)
 		name += temp_name[i]
 
 	var/result = trim(jointext(name, " "))
