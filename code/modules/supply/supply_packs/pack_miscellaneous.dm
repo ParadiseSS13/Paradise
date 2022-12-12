@@ -363,7 +363,7 @@
 /datum/supply_packs/misc/flags
 	name = "Unapproved flags Crate"
 	contains = list(/obj/item/flag/ussp,
-					/obj/item/flag/syndi,)
+					/obj/item/flag/syndi)
 	cost = 200
 	containername = "flags crate"
 	contraband = TRUE
