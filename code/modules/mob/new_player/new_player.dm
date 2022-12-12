@@ -159,6 +159,7 @@
 			return FALSE
 		if(config.tts_enabled && !client.prefs.tts_seed)
 			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+			client.prefs.ShowChoices(src)
 			return FALSE
 		ready = !ready
 		new_player_panel_proc()
@@ -245,6 +246,7 @@
 				return FALSE
 		if(config.tts_enabled && !client.prefs.tts_seed)
 			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+			client.prefs.ShowChoices(src)
 			return FALSE
 
 		LateChoices()
