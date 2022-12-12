@@ -967,11 +967,17 @@
 /area/hallway/secondary/exit)
 "agQ" = (
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	output_level = 150000
 	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
@@ -5050,11 +5056,6 @@
 "aCy" = (
 /obj/structure/cable{
 	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
@@ -5063,6 +5064,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15003,6 +15009,18 @@
 	icon_state = "red"
 	},
 /area/security/processing)
+"bsI" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/item/reagent_containers/glass/bucket,
+/obj/machinery/camera{
+	c_tag = "Hydroponics North 2";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkgreenfull"
+	},
+/area/hydroponics)
 "bsK" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -18516,6 +18534,14 @@
 	dir = 1
 	},
 /obj/machinery/computer/sm_monitor,
+/obj/machinery/computer/security/telescreen{
+	desc = "A telescreen that connects to the engine's camera network.";
+	dir = 8;
+	layer = 4;
+	name = "Engine Monitor";
+	network = list("engine");
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFn" = (
@@ -18581,17 +18607,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/rods{
-	amount = 50
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/shower{
+	pixel_y = 20
+	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/noslip,
 /area/engine/engineering)
 "bFs" = (
 /obj/structure/cable/yellow{
@@ -18616,20 +18639,14 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/stack/sheet/plasteel,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/computer/security/telescreen{
-	desc = "A telescreen that connects to the engine's camera network.";
-	dir = 8;
-	layer = 4;
-	name = "Engine Monitor";
-	network = list("engine");
-	pixel_y = 30
+/obj/machinery/shower{
+	pixel_y = 20
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/noslip,
 /area/engine/engineering)
 "bFu" = (
 /obj/structure/cable/yellow{
@@ -18666,6 +18683,7 @@
 	name = "north bump"
 	},
 /obj/item/storage/belt/utility,
+/obj/item/stack/sheet/plasteel,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bFw" = (
@@ -19713,6 +19731,12 @@
 "bIv" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/rods{
+	amount = 50
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bIw" = (
@@ -26303,7 +26327,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "cdZ" = (
-/obj/machinery/atmospherics/binary/pump/on,
+/obj/machinery/atmospherics/binary/valve/open,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -27740,14 +27764,14 @@
 	},
 /area/hallway/secondary/entry/south)
 "ckp" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29139,7 +29163,7 @@
 	},
 /area/security/main)
 "crp" = (
-/obj/machinery/atmospherics/binary/pump/on,
+/obj/machinery/atmospherics/binary/valve/open,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -45050,6 +45074,18 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"eOu" = (
+/obj/effect/turf_decal/bot_white,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purplefull"
+	},
+/area/hallway/primary/aft/west)
 "eOx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -46103,6 +46139,7 @@
 	locked = 1;
 	name = "External airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/south)
 "foP" = (
@@ -48656,16 +48693,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
-"gxl" = (
-/obj/machinery/camera{
-	c_tag = "Docking Asteroid Hall 6";
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "escape"
-	},
-/area/hallway/secondary/exit)
 "gxv" = (
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
@@ -54557,11 +54584,6 @@
 "jew" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -56738,9 +56760,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "jZE" = (
-/obj/machinery/atmospherics/binary/pump/on{
-	dir = 1
-	},
+/obj/machinery/atmospherics/binary/valve/open,
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "jZN" = (
@@ -59326,6 +59346,15 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
+"lfD" = (
+/obj/structure/grille,
+/obj/structure/cable/orange{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "lfU" = (
 /turf/simulated/wall,
 /area/crew_quarters/heads/hos)
@@ -60142,6 +60171,10 @@
 /area/hallway/primary/fore/east)
 "lwE" = (
 /obj/structure/chair/comfy,
+/obj/machinery/camera{
+	c_tag = "Docking Asteroid Hall 6";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -66795,6 +66828,7 @@
 	locked = 1;
 	name = "External airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/south)
 "oBG" = (
@@ -68364,19 +68398,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"pjZ" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
 "pkt" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
@@ -69325,14 +69346,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
-"pDe" = (
-/obj/machinery/camera{
-	c_tag = "Hydroponics North 2";
-	dir = 4
-	},
-/obj/structure/sign/botany,
-/turf/simulated/wall,
-/area/hydroponics)
 "pDl" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -70469,6 +70482,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
+"pYy" = (
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/security/nuke_storage)
 "pYF" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -71805,11 +71828,7 @@
 /area/maintenance/disposal/external/southwest)
 "qxG" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	name = "Mix Output";
-	on = 1
-	},
+/obj/machinery/atmospherics/binary/valve/open,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -75265,15 +75284,11 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	name = "Mix Input";
-	on = 1
-	},
 /obj/machinery/door/airlock/maintenance/external{
 	name = "External Airlock Access";
 	req_access_txt = "12"
 	},
+/obj/machinery/atmospherics/binary/valve/open,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "sbn" = (
@@ -77762,14 +77777,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/port/east)
-"tfs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/secondary/entry)
 "tfK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -82045,7 +82052,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/binary/valve/open{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -82464,19 +82471,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/port/south)
-"vhG" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "vib" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -89862,6 +89856,13 @@
 "yii" = (
 /turf/simulated/mineral/ancient/outer,
 /area/hallway/primary/central)
+"yiw" = (
+/obj/machinery/door/airlock/external{
+	name = "Arrival Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry/south)
 "yiE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -107068,7 +107069,7 @@ btd
 btd
 btd
 btd
-pDe
+uQa
 qbU
 lJR
 lJR
@@ -107324,7 +107325,7 @@ oir
 oAm
 oQS
 pdc
-dcz
+bsI
 bfI
 bgS
 bjs
@@ -111001,7 +111002,7 @@ slG
 dWM
 idI
 eET
-xCH
+eOu
 pYu
 qxn
 omg
@@ -117172,8 +117173,8 @@ tuF
 snx
 wsR
 lJN
-vhG
-gEj
+whv
+rza
 jew
 wIq
 wIq
@@ -117186,8 +117187,8 @@ wIq
 wIq
 wIq
 wIq
-rza
 vNu
+gEj
 tEe
 wsR
 ccW
@@ -117429,8 +117430,8 @@ nKx
 pQN
 ccW
 rza
-npL
-lJN
+lfD
+qpu
 whv
 wIq
 wIq
@@ -118353,7 +118354,7 @@ gOp
 hRl
 iCA
 gNk
-jZd
+pYy
 jZd
 jZd
 lme
@@ -123537,7 +123538,7 @@ cKr
 cKr
 prq
 bCT
-cFw
+bhd
 bFr
 qAX
 bJP
@@ -135931,8 +135932,8 @@ vpJ
 omG
 noC
 ckp
-tfs
-pjZ
+djw
+hJY
 xMQ
 rNK
 rNK
@@ -135949,7 +135950,7 @@ sHm
 xAr
 opo
 rNi
-jcQ
+yiw
 rNK
 rNK
 rNK
@@ -136206,7 +136207,7 @@ sHm
 gvM
 frc
 rTU
-jcQ
+yiw
 xWD
 rNK
 rNK
@@ -140030,7 +140031,7 @@ ruX
 ciV
 sQj
 ciV
-gxl
+ciV
 lwE
 uKT
 cQp

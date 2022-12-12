@@ -156,12 +156,13 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	mine_time = 6 SECONDS
 	layer = TURF_LAYER
 
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"
 	desc = "This ancient and pickaxe vulnerable rock seems colder and smoother than usual due to being exposed to space and space dust!"
-	mine_time = 8 SECONDS
+	mine_time = 15 SECONDS
 	color = COLOR_ANCIENT_ROCK
 
 /turf/simulated/mineral/random/high_chance
