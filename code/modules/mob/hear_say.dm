@@ -194,7 +194,7 @@
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, 'sound/effects/radio_chatter.ogg')
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
 	else
 		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
@@ -203,7 +203,7 @@
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, 'sound/effects/radio_chatter.ogg')
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"

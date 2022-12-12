@@ -297,7 +297,7 @@ SUBSYSTEM_DEF(tts)
 
 	output = listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
 
-	if(output.volume <= 0)
+	if(!output || output.volume <= 0)
 		return
 
 	if(postSFX)
