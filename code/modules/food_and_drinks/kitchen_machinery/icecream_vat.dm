@@ -148,8 +148,7 @@
 	else if(href_list["createchoco"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Chocolate Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
-		C = new(loc)
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -161,8 +160,7 @@
 	else if(href_list["createcone"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
-		C = new(loc)
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -174,8 +172,7 @@
 	else if(href_list["createwaffle"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Waffle Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamwafflecone/C
-		C = new(loc)
+		var/obj/item/reagent_containers/food/snacks/icecream/wafflecone/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
