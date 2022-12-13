@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(gas_sensors)
+
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
@@ -18,6 +20,14 @@
 	// 8 for toxins concentration
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
+
+/obj/machinery/atmospherics/air_sensor/Initialize(mapload)
+	. = ..()
+	GLOB.gas_sensors += src
+
+/obj/machinery/atmospherics/air_sensor/Destroy()
+	GLOB.gas_sensors -= src
+	return ..()
 
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
@@ -51,34 +61,50 @@
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
-	var/list/sensors = list()
+	// Map set vars
+	/// List of sensors to autolink to. Key = sensor_id, Value = sensor display name
+	var/list/autolink_sensors = list()
+
+	// Instanced vars. These are /tmp/ to avoid mappers trying to set them
+	/// List of sensor names to UIDs to be used in the display
+	var/tmp/list/sensor_name_uid_map = list()
+
+/obj/machinery/computer/general_air_control/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD // Do all our work in here
+
+/obj/machinery/computer/general_air_control/LateInitialize()
+	for(var/obj/machinery/atmospherics/air_sensor/AS as anything in GLOB.gas_sensors)
+		for(var/sensor_id in autolink_sensors)
+			if(AS.autolink_id == sensor_id)
+				sensor_name_uid_map[autolink_sensors[sensor_id]]  = AS.UID()
+
+	if(!length(sensor_name_uid_map))
+		stack_trace("[src] at [x],[y],[z] failed to initialise its air sensors.")
 
 /obj/machinery/computer/general_air_control/attack_hand(mob/user)
-	if(..(user))
-		return
-	#warn aa todo - tgui
+	ui_interact(user)
 
-	var/datum/browser/popup = new(user, "gac", name, 400, 400)
-	popup.open(FALSE)
-	user.set_machine(src)
-
+/obj/machinery/computer/general_air_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// We can use the same template here for sensors and for tanks with inlets/outlets with TGUI memes
+		ui = new(user, src, ui_key, "AtmosTankControl", name, 400, 400, master_ui, state)
+		ui.open()
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
 
-	var/input_tag
-	var/output_tag
+	// Map set vars
+	/// Autolink ID of the chamber inlet injector
+	var/inlet_injector_autolink_id
+	/// Autolink ID of the chamber outlet vent
+	var/outlet_vent_autolink_id
 
-	var/list/input_info
-	var/list/output_info
-
-	var/list/input_linkable = list(
-		/obj/machinery/atmospherics/unary/outlet_injector,
-		/obj/machinery/atmospherics/unary/vent_pump
-	)
-
-	var/list/output_linkable = list(
-		/obj/machinery/atmospherics/unary/vent_pump
-	)
+	// Instanced vars. These are /tmp/ to avoid mappers trying to set them
+	/// The runtime UID of the inlet injector
+	var/tmp/inlet_injector_uid
+	/// The runtime UID of the outlet vent
+	var/tmp/outlet_vent_uid
 
 	var/pressure_setting = ONE_ATMOSPHERE * 45
 
@@ -93,6 +119,7 @@
 */
 
 #warn needs TGUIing
+/*
 /obj/machinery/computer/general_air_control/large_tank_control/proc/bollocks()
 	var/output = "piss"
 	//if(signal.data)
@@ -142,8 +169,8 @@
 "}
 		else
 			output += "<FONT color='red'>ERROR: Can not find output port</FONT> <A href='?src=[UID()];out_refresh_status=1'>Search</A><BR>"
-
 	return output
+	*/
 
 /obj/machinery/computer/general_air_control/large_tank_control/Topic(href, href_list)
 	if(..())
@@ -161,6 +188,7 @@
 	signal.transmission_method = 1 //radio signal
 	signal.source = src
 
+	/*
 	if(href_list["in_refresh_status"])
 		input_info = null
 		signal.data = list ("tag" = input_tag, "status" = 1)
@@ -186,6 +214,7 @@
 
 	signal.data["sigtype"] = "command"
 	updateUsrDialog()
+	*/
 
 
 
@@ -207,3 +236,14 @@
 /obj/machinery/computer/atmoscontrol/Destroy()
 	QDEL_NULL(atmos_control)
 	return ..()
+
+/obj/machinery/computer/atmoscontrol/attack_ai(mob/user)
+	ui_interact(user)
+
+/obj/machinery/computer/atmoscontrol/attack_hand(mob/user)
+	if(..())
+		return
+	ui_interact(user)
+
+/obj/machinery/computer/atmoscontrol/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	atmos_control.ui_interact(user, ui_key, ui, force_open)
