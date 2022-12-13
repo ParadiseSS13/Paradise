@@ -150,5 +150,6 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_SECURITY = list(titles = technically_security_positions),
 	EXP_TYPE_SILICON = list(titles = list("AI","Cyborg")),
 	EXP_TYPE_SERVICE = list(titles = service_positions),
-	EXP_TYPE_WHITELIST = list(titles = whitelisted_positions) // karma-locked jobs
+	EXP_TYPE_WHITELIST = list(titles = whitelisted_positions), // karma-locked jobs
+	EXP_TYPE_BASE_TUTORIAL = list(), // is basic tutorial complete
 ))
