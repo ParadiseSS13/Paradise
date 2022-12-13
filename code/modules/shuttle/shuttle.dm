@@ -602,7 +602,6 @@
 					A.unlock()
 
 /obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	var/list/hurt_mobs = list()
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
 		var/turf/T1 = L1[i]
@@ -621,17 +620,11 @@
 				if(isliving(AM))
 					var/mob/living/L = AM
 					L.stop_pulling()
-					if(L.anchored)
-						L.gib()
-					else
-						if(!(L in hurt_mobs))
-							hurt_mobs |= L
-							L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
+					L.visible_message("<span class='warning'>[L] is hit by \
+									a hyperspace ripple!</span>",
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(20 SECONDS)
-							L.ex_act(2)
+					L.gib()
 
 			// Move unanchored atoms
 			if(!AM.anchored)
