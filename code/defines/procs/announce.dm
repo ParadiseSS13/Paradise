@@ -73,8 +73,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	if(do_newscast)
 		NewsCast(message, message_title)
 
-	if(!config.tts_enabled)
-		Sound(message_sound, combined_receivers[1] + combined_receivers[2])
+	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
 
 /datum/announcement/proc/Get_Receivers(var/datum/language/message_language)
@@ -178,6 +177,10 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	if(!message_sound)
 		return
 	for(var/mob/M in receivers)
+		if(config.tts_enabled)
+			var/volume = M.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
+			if(volume > 0)
+				return
 		SEND_SOUND(M, message_sound)
 
 /datum/announcement/proc/Log(message as text, message_title as text)
