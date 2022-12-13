@@ -5920,7 +5920,7 @@
 /area/awaymission/academy/academyaft)
 "CT" = (
 /obj/structure/table,
-/obj/item/ashtray/glass,
+/obj/item/storage/ashtray/glass,
 /obj/item/clothing/mask/cigarette/robustgold{
 	pixel_x = 8;
 	pixel_y = 12

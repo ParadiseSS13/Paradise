@@ -9600,7 +9600,7 @@
 /area/centcom/specops)
 "fgu" = (
 /obj/structure/table/wood/fancy/royalblue,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -6;
 	pixel_y = 7
 	},
@@ -22540,7 +22540,7 @@
 	},
 /area/shuttle/trade/sol)
 "mcX" = (
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -7;
 	pixel_y = -4
 	},
@@ -37078,7 +37078,7 @@
 	},
 /area/shuttle/escape)
 "sMy" = (
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -7;
 	pixel_y = 10
 	},

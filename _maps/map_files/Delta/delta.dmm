@@ -39228,7 +39228,7 @@
 /area/hallway/primary/central/south)
 "dCb" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -4;
 	pixel_y = -4
 	},
@@ -72884,7 +72884,7 @@
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/lighter,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = 6;
 	pixel_y = 7
 	},
@@ -79814,7 +79814,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/tray,
-/obj/item/ashtray/plastic{
+/obj/item/storage/ashtray/{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -92515,7 +92515,7 @@
 "ovX" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "owd" = (
@@ -121514,7 +121514,7 @@
 	pixel_x = -3;
 	pixel_y = 8
 	},
-/obj/item/ashtray/glass,
+/obj/item/storage/ashtray/glass,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -122501,7 +122501,7 @@
 /area/storage/primary)
 "uQq" = (
 /obj/structure/table/reinforced,
-/obj/item/ashtray/bronze{
+/obj/item/storage/ashtray/bronze{
 	pixel_x = -1;
 	pixel_y = 1
 	},
@@ -134227,7 +134227,7 @@
 /area/aisat/maintenance)
 "xtO" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/bronze{
+/obj/item/storage/ashtray/bronze{
 	pixel_x = -1;
 	pixel_y = 1
 	},

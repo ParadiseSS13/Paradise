@@ -1146,7 +1146,7 @@
 /area/shuttle/administration)
 "Vp" = (
 /obj/structure/table/wood/fancy/royalblue,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -6;
 	pixel_y = 7
 	},

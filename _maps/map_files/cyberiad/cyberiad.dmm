@@ -430,7 +430,7 @@
 /area/security/securearmory)
 "acV" = (
 /obj/structure/table,
-/obj/item/ashtray/bronze{
+/obj/item/storage/ashtray/bronze{
 	pixel_x = -1;
 	pixel_y = 1
 	},
@@ -4651,7 +4651,7 @@
 	pixel_x = -8;
 	pixel_y = 12
 	},
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -13939,7 +13939,7 @@
 /area/crew_quarters/courtroom)
 "aEm" = (
 /obj/structure/table/wood/poker,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -14626,7 +14626,7 @@
 	pixel_y = 8
 	},
 /obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /obj/item/radio/intercom/department/security{
 	name = "east station intercom (Security)";
 	pixel_x = 28
@@ -14778,7 +14778,7 @@
 "aFV" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes,
-/obj/item/ashtray/glass,
+/obj/item/storage/ashtray/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -22101,7 +22101,7 @@
 /area/crew_quarters/dorms)
 "aWD" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/bronze,
+/obj/item/storage/ashtray/bronze,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/dorms)
 "aWE" = (
@@ -28414,7 +28414,7 @@
 	pixel_x = 32
 	},
 /obj/structure/table/wood,
-/obj/item/ashtray/bronze{
+/obj/item/storage/ashtray/bronze{
 	pixel_x = -1;
 	pixel_y = 1
 	},
@@ -57784,7 +57784,7 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -4;
 	pixel_y = -4
 	},
@@ -67211,7 +67211,7 @@
 /area/maintenance/asmaint)
 "cIo" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/bronze{
+/obj/item/storage/ashtray/bronze{
 	pixel_x = -1;
 	pixel_y = 1
 	},

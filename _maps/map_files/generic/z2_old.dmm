@@ -26381,7 +26381,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi/fountain,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -7;
 	pixel_y = 10
 	},
@@ -28290,7 +28290,7 @@
 /area/centcom/specops)
 "ujV" = (
 /obj/structure/table/reinforced,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -7;
 	pixel_y = -4
 	},
@@ -30589,7 +30589,7 @@
 /area/centcom/specops)
 "vOW" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass{
+/obj/item/storage/ashtray/glass{
 	pixel_x = -4;
 	pixel_y = -4
 	},

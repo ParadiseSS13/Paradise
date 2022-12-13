@@ -129,3 +129,12 @@
 
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return
+
+/obj/item/trash/broken_ashtray
+	name = "ashtray shards"
+	icon = 'icons/ashtray.dmi'
+	icon_state = "ashtray_bork_bl"
+
+/obj/item/trash/broken_ashtray/Initialize(mapload)
+	. = ..()
+	icon_state = "ashtray_bork_" + pick(list("bl","br","gl"))
