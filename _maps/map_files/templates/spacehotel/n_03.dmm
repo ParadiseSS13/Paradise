@@ -7,42 +7,42 @@
 	dir = 8;
 	pixel_x = -32
 	},
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "c" = (
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "d" = (
 /obj/structure/dresser,
 /obj/item/lipstick/purple,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "e" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "f" = (
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
 /obj/item/toy/random,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "g" = (
 /obj/structure/window/reinforced/polarized{
 	id = "room_n"
 	},
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "h" = (
 /obj/machinery/door/window/southright,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "i" = (
 /obj/item/flashlight/lamp/green,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "j" = (
 /obj/structure/sink{
@@ -55,7 +55,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -63,7 +63,7 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -74,7 +74,7 @@
 	pixel_y = -24;
 	range = 2
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -82,12 +82,12 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "n" = (
-/turf/unsimulated/wall/metal,
+/turf/simulated/wall/indestructible/metal,
 /area/template_noop)
 
 (1,1,1) = {"

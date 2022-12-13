@@ -1,4 +1,9 @@
 /turf/simulated/wall/indestructible
+	name = "wall"
+	desc = "Effectively impervious to conventional methods of destruction."
+	explosion_block = 50
+	icon = 'icons/turf/walls.dmi'
+	icon_state = "riveted"
 
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
 	return
@@ -54,6 +59,42 @@
 /turf/simulated/wall/indestructible/thermitemelt(mob/user as mob, speed)
 	return
 
+/turf/simulated/wall/indestructible/fakeglass
+	name = "window"
+	icon = 'icons/turf/walls/fake_glass.dmi'
+	icon_state = "fake_glass"
+	opacity = FALSE
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/wall/indestructible/fakeglass)
+
+/turf/simulated/wall/indestructible/reinforced
+	name = "reinforced wall"
+	icon = 'icons/turf/walls/reinforced_wall.dmi'
+	icon_state = "r_wall"
+	canSmoothWith = list(
+	/turf/simulated/wall/indestructible/reinforced,
+	/turf/simulated/wall,
+	/turf/simulated/wall/r_wall,
+	/obj/structure/falsewall,
+	/obj/structure/falsewall/reinforced,
+	/obj/structure/falsewall/clockwork,
+	/turf/simulated/wall/rust,
+	/turf/simulated/wall/r_wall/rust,
+	/turf/simulated/wall/r_wall/coated)
+	smooth = SMOOTH_TRUE
+
+/turf/simulated/wall/indestructible/wood
+	name = "wooden wall"
+	desc = "A wall with wooden plating against any method of destruction. Very stiff."
+	icon = 'icons/turf/walls/wood_wall.dmi'
+	icon_state = "wood"
+	canSmoothWith = list(
+	/turf/simulated/wall/indestructible/wood,
+	/turf/simulated/wall/mineral/wood,
+	/obj/structure/falsewall/wood,
+	/turf/simulated/wall/mineral/wood/nonmetal)
+	smooth = SMOOTH_TRUE
+
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
 	desc = "A seemingly impenetrable wall."
@@ -85,3 +126,19 @@
 /turf/simulated/wall/indestructible/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
+
+/turf/simulated/wall/indestructible/metal
+	icon = 'icons/turf/walls/wall.dmi'
+	icon_state = "wall"
+	smooth = SMOOTH_TRUE
+
+/turf/simulated/wall/indestructible/abductor
+	name = "alien wall"
+	desc = "A wall with alien alloy plating."
+	icon_state = "alien1"
+
+/turf/simulated/wall/indestructible/splashcreen
+	name = "Space Station 13"
+	icon = 'config/title_screens/images/blank.png'
+	icon_state = ""
+	layer = FLY_LAYER

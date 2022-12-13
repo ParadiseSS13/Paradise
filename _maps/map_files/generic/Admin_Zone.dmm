@@ -1,10 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /obj/machinery/computer/mech_bay_power_console,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "ah" = (
 /obj/structure/table/wood/poker,
@@ -13,8 +10,7 @@
 /obj/item/shield/riot/roman,
 /obj/item/clothing/head/helmet/roman/legionaire,
 /obj/item/twohanded/spear/bonespear,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -26,21 +22,12 @@
 	tag = "icon-carpet7-0 (EAST)"
 	},
 /area/holodeck/source_meetinghall)
-"am" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet15-11"
-	},
-/area/admin)
 "an" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/plasmacutter/adv,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
-	},
-/area/admin)
-"ap" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet15-14"
 	},
 /area/admin)
 "ar" = (
@@ -52,39 +39,26 @@
 /obj/machinery/ai_status_display{
 	pixel_y = -30
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
-	},
-/area/admin)
-"au" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet15-13"
 	},
 /area/admin)
 "ax" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/speargun,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "aG" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/chrono_gun,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "aK" = (
 /obj/structure/table/wood/poker,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
-/area/admin)
-"aN" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet15-7"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "aO" = (
 /obj/structure/table/wood,
@@ -110,17 +84,17 @@
 /obj/item/dnainjector/antitele,
 /obj/item/dnainjector/antitour,
 /obj/item/dnainjector/antixray,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "aQ" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/focus,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "aU" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/fireaxe/boneaxe,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -135,7 +109,7 @@
 "bf" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/combat,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -145,8 +119,8 @@
 /obj/item/clothing/under/pj/red,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/shoes/winterboots,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -166,7 +140,7 @@
 "bx" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/xray,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "by" = (
 /obj/item/mecha_parts/mecha_equipment/cable_layer,
@@ -175,7 +149,7 @@
 /obj/item/mecha_parts/mecha_equipment/rcd,
 /obj/item/mecha_parts/mecha_equipment/extinguisher,
 /obj/structure/closet/crate,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "bE" = (
 /obj/structure/chair/stool/holostool,
@@ -193,8 +167,8 @@
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/sleeping_carp_scroll,
 /obj/item/twohanded/bostaff,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -216,15 +190,12 @@
 /obj/structure/rack,
 /obj/item/tank/jetpack/oxygen,
 /obj/item/tank/jetpack/oxygen,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "bX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "cd" = (
 /obj/structure/table,
@@ -234,10 +205,7 @@
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/fancy/cigarettes,
 /obj/item/pen,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "ce" = (
 /turf/simulated/floor/holofloor{
@@ -259,19 +227,13 @@
 /obj/mecha/combat/durand/rover/loaded{
 	operation_req_access = list(114)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "cB" = (
 /obj/machinery/light_switch{
 	pixel_x = 30
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "cE" = (
 /turf/simulated/floor/holofloor{
@@ -282,15 +244,12 @@
 "cG" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw/toy,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "cH" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/mini_uzi,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "cP" = (
 /obj/structure/table/holotable,
@@ -305,60 +264,52 @@
 /area/holodeck/source_boxingcourt)
 "cQ" = (
 /obj/mecha/combat/marauder/mauler/loaded,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
 "cR" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/c20r,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "cV" = (
 /obj/mecha/combat/marauder/loaded,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
 "cW" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/spikethrower,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "cX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/ar,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "cZ" = (
 /obj/structure/table/wood,
 /obj/item/melee/energy/sword,
 /obj/item/melee/energy/sword/cyborg,
 /obj/item/melee/energy/sword/cyborg/saw,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "db" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
 /area/tdome/tdomeobserve)
-"dl" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet10-8"
-	},
-/area/admin)
 "dn" = (
 /obj/mecha/combat/marauder/loaded{
 	operation_req_access = list(114)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "do" = (
 /obj/structure/rack,
@@ -368,8 +319,8 @@
 /obj/item/sleeping_carp_scroll,
 /obj/item/twohanded/bostaff,
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -383,12 +334,12 @@
 "dz" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "dB" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/combat/survival/bone,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -402,22 +353,19 @@
 	pixel_x = 12;
 	pixel_y = -10
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome1)
 "dU" = (
 /obj/structure/table/wood,
 /obj/item/toy/sword,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "dX" = (
 /obj/machinery/vending/sustenance,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -434,11 +382,12 @@
 /obj/item/gun/energy/disabler,
 /obj/item/gun/energy/disabler/cyborg,
 /obj/item/gun/energy/mimicgun,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ee" = (
 /obj/item/card/id/admin,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -452,22 +401,21 @@
 	badmin = 1;
 	name = "Master R&amp;D Server Controller"
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "eo" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/toy/cards/deck/syndicate = 10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/toy/cards/deck/syndicate=10)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "er" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/immolator/multi,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "et" = (
 /obj/structure/table/wood/poker,
@@ -481,8 +429,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -507,7 +454,8 @@
 	name = "Strela";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -518,19 +466,20 @@
 	name = "Bojutsu";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
 "eP" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/tentacle,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "eR" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/immolator/multi/cyborg,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "eW" = (
 /obj/structure/flora/grass/green,
@@ -545,7 +494,8 @@
 	id_tag = "TD_Mecha";
 	name = "Mecha"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -559,14 +509,15 @@
 "fc" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/grenadelauncher,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "fd" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "TD_Baseball";
 	name = "4-shot base/ball"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -582,8 +533,7 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "What?"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -604,14 +554,16 @@
 /obj/item/radio/intercom/pirate{
 	req_access_txt = "153"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena_source)
 "fp" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/minebot,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -621,7 +573,8 @@
 	id_tag = "TD_Baseball";
 	name = "4-shot base/ball"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -629,18 +582,15 @@
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "fC" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/immolator,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "fE" = (
-/turf/unsimulated/wall,
+/turf/simulated/wall/indestructible,
 /area/admin)
 "fI" = (
 /obj/structure/table/wood,
@@ -651,7 +601,7 @@
 /obj/structure/ninjatele{
 	pixel_x = -28
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "fL" = (
 /obj/machinery/door/poddoor/shutters{
@@ -660,39 +610,38 @@
 	name = "Shitcurity";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
 "fX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/doublebarrel,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ge" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/fingergun/fake,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "gf" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/cyborg,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "gp" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/boltaction,
 /obj/item/gun/projectile/shotgun/boltaction/enchanted,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "gr" = (
 /obj/machinery/sleeper/upgraded,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "gt" = (
 /obj/machinery/door/poddoor/shutters{
@@ -701,24 +650,22 @@
 	name = "Robaster";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
 "gA" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/ritual,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "gD" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "gI" = (
 /turf/simulated/floor/holofloor{
@@ -739,11 +686,6 @@
 	icon_state = "redgreenfull"
 	},
 /area/holodeck/source_thunderdomecourt)
-"gP" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet9-4"
-	},
-/area/admin)
 "gS" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/brown,
@@ -752,15 +694,16 @@
 /obj/item/sleeping_carp_scroll,
 /obj/item/twohanded/bostaff,
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
 "gX" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/temperature,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -775,8 +718,8 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -30
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -787,8 +730,8 @@
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/energy/sword/saber/red,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -800,10 +743,7 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/storage/box/autoinjectors,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "hm" = (
 /turf/simulated/floor/holofloor{
@@ -821,26 +761,26 @@
 	pixel_x = 11;
 	pixel_y = -9
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome2)
 "hF" = (
 /obj/machinery/teleport/station,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "hH" = (
 /obj/structure/table/wood,
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "hI" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/compact,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "hJ" = (
 /obj/effect/overlay/palmtree_r,
@@ -862,7 +802,7 @@
 "io" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/wt550,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ir" = (
 /obj/structure/rack,
@@ -871,19 +811,15 @@
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/melee/energy/sword/saber/blue,
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
 "iu" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/destroyer/annihilator,
-/turf/unsimulated/floor/wood,
-/area/admin)
-"iv" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet7-3"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "iw" = (
 /turf/simulated/floor/plasteel{
@@ -894,7 +830,7 @@
 "iz" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "iA" = (
 /obj/structure/rack,
@@ -907,8 +843,8 @@
 	pixel_x = 30
 	},
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -919,20 +855,18 @@
 	icon_state = "cabinet_closed";
 	req_access_txt = "114"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "iE" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/hos,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "iF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/capgun,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -953,21 +887,18 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 30
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "iL" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/toy,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "iQ" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/tdome2)
@@ -982,13 +913,8 @@
 /obj/item/suppressor,
 /obj/item/suppressor,
 /obj/item/suppressor,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
-"jb" = (
-/turf/unsimulated/wall/fakeglass{
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/space)
 "jc" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -999,25 +925,21 @@
 /obj/mecha/combat/honker/loaded{
 	operation_req_access = list(114)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "je" = (
 /obj/machinery/computer/syndicate_depot/teleporter{
 	use_power = 0
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "jh" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/unsimulated/wall{
-	icon_state = "iron12";
-	tag = "icon-iron12"
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
 	},
 /area/space)
 "ji" = (
@@ -1027,7 +949,8 @@
 	name = "Cowboy";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -1036,17 +959,11 @@
 /obj/random/toolbox,
 /obj/random/bomb_supply,
 /obj/machinery/syndicatebomb/badmin/clown,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "jq" = (
 /obj/structure/mineral_door/wood,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "jt" = (
 /obj/structure/table/wood,
@@ -1060,10 +977,7 @@
 /obj/item/ammo_box/foambox/sniper/riot,
 /obj/item/ammo_box/foambox/sniper/riot,
 /obj/item/ammo_box/foambox/sniper/riot,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "jx" = (
 /obj/item/clothing/accessory/cowboyshirt,
@@ -1085,8 +999,8 @@
 /obj/item/ammo_casing/shotgun/improvised,
 /obj/item/ammo_casing/shotgun/improvised,
 /obj/item/clothing/under/color/black,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -1105,25 +1019,25 @@
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/melee/energy/sword/saber/blue,
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
 "jE" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "jG" = (
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb/badmin,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "jN" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/detective,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "jO" = (
 /obj/structure/rack,
@@ -1145,15 +1059,15 @@
 /obj/item/clothing/shoes/cowboy/fancy,
 /obj/item/clothing/accessory/cowboyshirt/white,
 /obj/item/clothing/under/color/white,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
 "jQ" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/plastic,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -1161,8 +1075,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -1171,8 +1084,7 @@
 /obj/structure/table/wood/poker,
 /obj/item/pen/multi/gold,
 /obj/item/stamp/chameleon,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -1181,15 +1093,12 @@
 /obj/item/stack/cable_coil,
 /obj/item/stack/rods,
 /obj/item/pen,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "kl" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/ionrifle/carbine,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ks" = (
 /obj/structure/rack,
@@ -1203,8 +1112,8 @@
 	pixel_x = 3;
 	pixel_y = -30
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -1220,22 +1129,22 @@
 	pixel_y = -30
 	},
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
 "kD" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/envy,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "kE" = (
 /obj/mecha/combat/marauder/mauler/loaded,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
@@ -1263,20 +1172,14 @@
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "kR" = (
 /obj/structure/table,
 /obj/random/tool,
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/pinpointer/advpinpointer,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "kT" = (
 /obj/structure/table/wood,
@@ -1291,7 +1194,7 @@
 	icon_state = "nazi"
 	},
 /obj/item/clothing/shoes/black,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "lc" = (
 /obj/structure/holowindow{
@@ -1304,18 +1207,18 @@
 "lg" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "lo" = (
 /obj/machinery/computer/account_database{
 	name = "Admin Accounts Database"
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "lq" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/bluespace_beacon/syndicate,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "lx" = (
 /turf/simulated/floor/holofloor{
@@ -1324,27 +1227,21 @@
 	},
 /area/holodeck/source_meetinghall)
 "lM" = (
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
 "lP" = (
 /obj/mecha/combat/marauder/seraph/loaded,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "lQ" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/ionrifle,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "lX" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/chaos,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "lY" = (
 /turf/simulated/floor/holofloor{
@@ -1363,7 +1260,7 @@
 "mr" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic/dual_tube,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "mw" = (
 /obj/structure/table,
@@ -1382,35 +1279,29 @@
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "mz" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot/short,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "mJ" = (
 /obj/structure/table/wood,
 /obj/item/grenade/clusterbuster/mega_syndieminibomb,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "mO" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/chainsaw,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "mX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/proto,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "nb" = (
 /obj/structure/table,
@@ -1424,18 +1315,18 @@
 	pixel_y = 3
 	},
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	name = "security checkpoint"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "nc" = (
 /obj/structure/table/holotable,
@@ -1448,7 +1339,7 @@
 "ne" = (
 /obj/structure/table/wood,
 /obj/item/whetstone/cult,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -1468,7 +1359,7 @@
 "nv" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "nx" = (
 /turf/simulated/floor/holofloor{
@@ -1479,12 +1370,12 @@
 "nK" = (
 /obj/structure/table/wood,
 /obj/item/gun/syringe/blowgun,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "nM" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/carrotshiv,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -1496,8 +1387,8 @@
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/sleeping_carp_scroll,
 /obj/item/twohanded/bostaff,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
@@ -1509,10 +1400,7 @@
 	network = list("Thunderdome")
 	},
 /obj/structure/table,
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
 "nV" = (
 /turf/simulated/floor/holofloor{
@@ -1532,7 +1420,7 @@
 "of" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/retro/old,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ok" = (
 /obj/machinery/door/poddoor/shutters{
@@ -1541,7 +1429,8 @@
 	name = "Cowboy";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -1556,15 +1445,12 @@
 /area/holodeck/source_wildlife)
 "on" = (
 /obj/structure/dresser,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "oK" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "oL" = (
 /turf/simulated/floor/holofloor{
@@ -1577,7 +1463,7 @@
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 2
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "oV" = (
 /obj/machinery/door/poddoor/shutters{
@@ -1585,25 +1471,21 @@
 	id_tag = "eventroom";
 	name = "Privacy Shutters"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/wood{
 	icon_state = "woodalt"
 	},
 /area/admin)
 "pa" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "pb" = (
 /obj/structure/table/wood,
 /obj/item/toy/russian_revolver/trick_revolver,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "ph" = (
 /obj/structure/table/holotable,
@@ -1622,12 +1504,12 @@
 "pp" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/advtaser,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "pA" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/polymorph,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "pG" = (
 /obj/structure/table/holotable,
@@ -1642,26 +1524,21 @@
 /area/holodeck/source_boxingcourt)
 "pK" = (
 /obj/effect/decal/warning_stripes/blue,
-/turf/unsimulated/wall,
+/turf/simulated/wall/indestructible,
 /area/admin)
 "pL" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
 	},
 /area/tdome/tdome1)
-"pR" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 8;
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/space)
 "pY" = (
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "TD_Baseball";
 	name = "4-shot base/ball"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -1678,15 +1555,15 @@
 /obj/machinery/computer/card/centcom{
 	req_access = list(150)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "qv" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/noisecannon,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -1701,11 +1578,10 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
 /obj/structure/closet/crate,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "qE" = (
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -1725,7 +1601,8 @@
 	name = "Shitcurity";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -1741,10 +1618,7 @@
 /obj/item/shard,
 /obj/item/kitchen/knife,
 /obj/item/storage/firstaid/tactical,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "qN" = (
 /obj/structure/chair/stool/holostool,
@@ -1757,10 +1631,10 @@
 "qT" = (
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb/badmin/clown,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ra" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
 	},
@@ -1768,20 +1642,17 @@
 "re" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/toy/tommygun,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "rx" = (
 /obj/item/gun/energy/sniperrifle,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "rK" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/door,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "rO" = (
 /turf/simulated/floor/holofloor{
@@ -1792,19 +1663,19 @@
 "sk" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/bostaff,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "sm" = (
 /obj/mecha/combat/marauder/loaded,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
 "sZ" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/fireaxe,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -1826,39 +1697,38 @@
 	pixel_x = 30
 	},
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
 "tg" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "th" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain/scattershot,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "tp" = (
 /obj/machinery/light_switch{
 	pixel_x = 30
 	},
-/turf/unsimulated/floor{
-	icon_state = "carpet11-12"
-	},
+/turf/simulated/floor/carpet,
 /area/admin)
 "tq" = (
 /obj/item/card/id/admin,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
 "tG" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping/honkmother,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "tK" = (
 /obj/structure/table/holotable,
@@ -1870,16 +1740,11 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_thunderdomecourt)
-"tM" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 6;
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/space)
 "tO" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -1895,15 +1760,12 @@
 /obj/item/ammo_box/foambox/riot,
 /obj/item/ammo_box/foambox/riot,
 /obj/item/ammo_box/foambox/riot,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "uj" = (
 /obj/item/gun/energy/taser,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "un" = (
 /obj/structure/chair/stool/holostool,
@@ -1922,8 +1784,7 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -1959,28 +1820,25 @@
 	pixel_y = 3
 	},
 /obj/machinery/door/window/southleft{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	name = "security checkpoint"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "uN" = (
 /obj/mecha/combat/marauder/mauler/loaded{
 	operation_req_access = list(114)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "uW" = (
 /obj/structure/table/wood,
@@ -2001,10 +1859,7 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "vi" = (
 /obj/machinery/computer/syndicate_depot/teleporter{
@@ -2012,8 +1867,7 @@
 	name = "Redspace Teleporter Console";
 	use_power = 0
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -2042,9 +1896,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/unsimulated/wall{
-	icon_state = "iron3";
-	tag = "icon-iron3"
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
 	},
 /area/space)
 "vD" = (
@@ -2064,7 +1917,7 @@
 /obj/item/melee/energy/sword/saber/green,
 /obj/item/melee/energy/sword/saber/purple,
 /obj/item/melee/energy/sword/saber/red,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -2079,24 +1932,22 @@
 "vR" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/turret,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "vW" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/retro/sc_retro,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "vY" = (
 /obj/structure/chair/comfy/blue,
 /obj/effect/landmark{
 	name = "tdomeobserve"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
 "wc" = (
 /obj/structure/table/holotable,
@@ -2105,13 +1956,8 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
-"we" = (
-/turf/unsimulated/floor{
-	icon_state = "carpetnoconnect"
-	},
-/area/adminconstruction)
 "wo" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkbrown"
 	},
@@ -2119,7 +1965,7 @@
 "wq" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ws" = (
 /obj/structure/rack,
@@ -2128,22 +1974,23 @@
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/melee/energy/sword/saber/blue,
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
 "wt" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/plasmacutter,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "wx" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/nuclear,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "wA" = (
 /obj/structure/table/wood,
@@ -2171,12 +2018,13 @@
 /obj/item/dnainjector/telemut,
 /obj/item/dnainjector/tourmut,
 /obj/item/dnainjector/xraymut,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "wM" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/turret,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -2194,10 +2042,7 @@
 	pixel_y = -32;
 	req_access_txt = "153"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/tdome/tdomeadmin)
 "wO" = (
 /obj/structure/railing{
@@ -2221,10 +2066,7 @@
 /obj/item/ammo_box/foambox,
 /obj/item/ammo_box/foambox,
 /obj/item/ammo_box/foambox,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "wQ" = (
 /obj/structure/table/holotable,
@@ -2239,9 +2081,8 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/unsimulated/wall{
-	icon_state = "iron12";
-	tag = "icon-iron12"
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
 	},
 /area/space)
 "wZ" = (
@@ -2249,17 +2090,14 @@
 /obj/item/multisword,
 /obj/item/multisword/pike,
 /obj/item/multisword/pure_evil,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "xf" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy/pistol,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "xo" = (
 /turf/simulated/floor/holofloor{
@@ -2281,15 +2119,12 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/helmet/space,
 /obj/item/clothing/head/helmet/space,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "xx" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/russian,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "xT" = (
 /turf/simulated/floor/plasteel{
@@ -2300,18 +2135,13 @@
 "yb" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/mounted,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "yc" = (
 /obj/structure/table/wood,
 /obj/item/whetstone/super,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
-	},
-/area/admin)
-"yl" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet5-1"
 	},
 /area/admin)
 "ym" = (
@@ -2341,8 +2171,8 @@
 /obj/item/clothing/under/pj/blue,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/shoes/winterboots,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -2350,7 +2180,8 @@
 /obj/effect/landmark{
 	name = "tdome1"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome1)
@@ -2358,39 +2189,29 @@
 /obj/mecha/combat/phazon{
 	operation_req_access = list(114)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "yI" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome1)
 "yJ" = (
 /obj/mecha/makeshift,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
-/area/admin)
-"yK" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet11-12"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "yL" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/required/chainsaw,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "yT" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/enforcer/security,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "yV" = (
 /obj/structure/rack,
@@ -2398,17 +2219,11 @@
 	throw_speed = 20;
 	throwforce = 1000
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
-"za" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 5;
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/space)
 "zd" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -2420,15 +2235,16 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_x = -30
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
 "zh" = (
 /obj/structure/table/wood,
 /obj/item/gun/throw/piecannon,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -2447,10 +2263,7 @@
 "zu" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/tag/blue,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "zv" = (
 /turf/simulated/floor/holofloor{
@@ -2458,7 +2271,7 @@
 	},
 /area/holodeck/source_meetinghall)
 "zy" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbrown"
 	},
@@ -2466,12 +2279,13 @@
 "zE" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/dominator,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "zG" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -2484,8 +2298,7 @@
 	pixel_y = 6;
 	req_access_txt = "150"
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -2503,21 +2316,15 @@
 "zP" = (
 /obj/structure/table/wood,
 /obj/item/gun/throw/crossbow,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
-	},
-/area/admin)
-"zQ" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
 	},
 /area/admin)
 "zU" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/advtaser/mounted,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "zZ" = (
 /obj/structure/rack,
@@ -2526,20 +2333,16 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Ad" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Ah" = (
 /obj/structure/table/wood/poker,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -2559,15 +2362,14 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "AJ" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/resurrection,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "AO" = (
 /obj/structure/table/wood,
@@ -2577,7 +2379,7 @@
 /obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun/cyborg,
 /obj/item/gun/energy/gun/nuclear,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "AS" = (
 /obj/structure/holowindow{
@@ -2589,7 +2391,7 @@
 	},
 /area/holodeck/source_knightarena)
 "AV" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgreen"
 	},
@@ -2632,25 +2434,20 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Bl" = (
 /obj/machinery/computer/operating,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Bm" = (
 /obj/structure/table/wood,
 /obj/item/grenade/clusterbuster/syndieminibomb,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Bp" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -2667,19 +2464,14 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
-"Bt" = (
-/turf/unsimulated/floor{
-	icon_state = "carpetnoconnect"
-	},
-/area/admin)
 "Bu" = (
 /obj/structure/rack,
 /obj/item/beach_ball/holoball{
 	throw_speed = 20;
 	throwforce = 1000
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
@@ -2709,12 +2501,12 @@
 /obj/item/suppressor/specialoffer,
 /obj/item/suppressor/specialoffer,
 /obj/item/suppressor/specialoffer,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "BN" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "BU" = (
 /turf/simulated/floor/holofloor{
@@ -2724,10 +2516,7 @@
 "BZ" = (
 /obj/structure/table/wood,
 /obj/item/toy/foamblade,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Ca" = (
 /obj/structure/rack,
@@ -2735,8 +2524,8 @@
 /obj/item/clothing/under/pj/red,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/shoes/winterboots,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
@@ -2760,15 +2549,14 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "Cs" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/carbine,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Cv" = (
 /turf/simulated/floor/holofloor{
@@ -2787,17 +2575,17 @@
 "CE" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/destroyer,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "CF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/russian/soul,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "CG" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/golden,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "CH" = (
 /obj/structure/holowindow,
@@ -2809,19 +2597,20 @@
 "CJ" = (
 /obj/item/gun/energy/shock_revolver,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "CY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "Dc" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Dn" = (
 /turf/simulated/floor/holofloor{
@@ -2832,7 +2621,7 @@
 "Do" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/gyropistol,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Dp" = (
 /turf/simulated/floor/plasteel{
@@ -2843,13 +2632,10 @@
 "DF" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/fireball,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "DM" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 10;
-	tag = "icon-fakewindows (WEST)"
-	},
+/turf/simulated/wall/indestructible/fakeglass,
 /area/space)
 "DU" = (
 /obj/structure/chair/stool/holostool,
@@ -2862,7 +2648,7 @@
 "DV" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "DX" = (
 /turf/simulated/floor/holofloor{
@@ -2876,9 +2662,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
-"Eg" = (
-/turf/unsimulated/floor/wood,
-/area/admin)
 "Em" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
@@ -2886,28 +2669,22 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Ep" = (
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Ey" = (
 /obj/structure/table/wood,
 /obj/item/nullrod/tribal_knife,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "EA" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/hook,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -2924,17 +2701,18 @@
 "EU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/APS,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "EV" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena)
 "EZ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/lethal,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Fb" = (
 /obj/structure/rack,
@@ -2956,29 +2734,28 @@
 /obj/item/clothing/shoes/cowboy/fancy,
 /obj/item/clothing/accessory/cowboyshirt/white,
 /obj/item/clothing/under/color/white,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
 "Ff" = (
-/turf/unsimulated/floor{
-	dir = 4;
-	icon_state = "navybluefull"
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
 	},
 /area/tdome/arena_source)
 "Fi" = (
-/turf/unsimulated/wall{
-	icon = 'icons/turf/walls/coated_reinforced_wall.dmi';
-	icon_state = "r_wall-1"
+/turf/simulated/wall/indestructible{
+	icon_state = "r_wall-1";
+	icon = 'icons/turf/walls/coated_reinforced_wall.dmi'
 	},
 /area/space)
 "Fv" = (
 /obj/machinery/computer/teleporter{
 	req_access = list(150)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -2997,29 +2774,29 @@
 "FU" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/fireaxe/energized,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "FW" = (
 /obj/structure/table/wood,
 /obj/item/sleeping_carp_scroll,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "FX" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/spellblade,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "FY" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/healing,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Ge" = (
 /obj/item/gun/throw,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Gi" = (
 /obj/item/bedsheet/black,
@@ -3030,10 +2807,7 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Gn" = (
 /obj/structure/table/holotable,
@@ -3050,22 +2824,11 @@
 /obj/item/clothing/under/rebeloutfit,
 /obj/item/clothing/neck/poncho/ponchoshame,
 /obj/item/clothing/head/sombrero/shamebrero,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
-"Gu" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet9-4"
-	},
-/area/adminconstruction)
 "GA" = (
 /obj/machinery/chem_master,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "GC" = (
 /obj/machinery/door/poddoor{
@@ -3074,7 +2837,8 @@
 	name = "Thunderdome Blast Door";
 	opacity = 0
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena_source)
@@ -3091,15 +2855,10 @@
 	name = "Да арена разрушаема. Да это нормально."
 	},
 /area/adminconstruction)
-"GT" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet11-12"
-	},
-/area/adminconstruction)
 "GU" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/floragun,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "He" = (
 /obj/structure/chair/comfy/beige{
@@ -3107,25 +2866,21 @@
 	layer = 5;
 	pixel_y = -2
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "Hf" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/required/chainsaw/doomslayer,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "Hh" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy/pistol/riot,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Hi" = (
 /obj/structure/chair/comfy/beige{
@@ -3133,10 +2888,7 @@
 	layer = 5;
 	pixel_y = -2
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Hu" = (
 /turf/simulated/floor/holofloor{
@@ -3167,10 +2919,7 @@
 	pixel_y = -5;
 	req_access_txt = "153"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/tdome/tdomeadmin)
 "Hy" = (
 /obj/structure/table/holotable,
@@ -3188,18 +2937,12 @@
 	desc = "It appears Fox is doing more fruit chemistry today!";
 	hackedcheck = 1
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "HG" = (
 /obj/structure/table/wood,
 /obj/item/toy/russian_revolver,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "HP" = (
 /obj/structure/flora/tree/pine,
@@ -3211,73 +2954,64 @@
 "HR" = (
 /obj/structure/table/wood,
 /obj/item/gun/syringe/rapidsyringe,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "HZ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Ic" = (
 /obj/structure/table/wood,
 /obj/item/hatchet/unathiknife,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "If" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/alien,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Iq" = (
 /obj/effect/turf_decal/mech,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Iu" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Ix" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "IF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/c20r/sc_c20r,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "IN" = (
 /obj/item/gun/projectile/shotgun/sc_pump,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "IT" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/butcher,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "IU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/enforcer,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Je" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/doublebarrel/improvised,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Jf" = (
 /obj/structure/chair/comfy/beige{
@@ -3285,8 +3019,7 @@
 	layer = 5;
 	pixel_y = -2
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -3294,10 +3027,7 @@
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb,
 /obj/machinery/syndicatebomb/training,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Jm" = (
 /turf/simulated/floor/holofloor{
@@ -3314,7 +3044,7 @@
 "Jp" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/nagant,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Jr" = (
 /obj/structure/table,
@@ -3325,34 +3055,33 @@
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /obj/item/reagent_containers/food/snacks/grown/corn,
 /obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Jt" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/telegun,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "Jy" = (
 /obj/structure/table/wood,
 /obj/item/melee/energy/axe,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "Jz" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/toxgun,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "JB" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkgreen"
 	},
@@ -3373,31 +3102,22 @@
 "JV" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/pdw9,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Ke" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/c20r/toy,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Kp" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/lasercannon,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
-"Ku" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 4;
-	tag = "icon-fakewindows (EAST)"
-	},
-/area/space)
 "KA" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot/buckshot,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "KL" = (
 /obj/structure/table,
@@ -3414,31 +3134,25 @@
 /obj/item/grenade/chem_grenade/large,
 /obj/item/grenade/chem_grenade/large,
 /obj/item/grenade/chem_grenade/large,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "KN" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/instakill/red,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "KR" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/dualsaber/toy,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "KU" = (
-/turf/unsimulated/wall,
+/turf/simulated/wall/indestructible,
 /area/space)
 "Lb" = (
 /obj/structure/table/wood,
 /obj/item/whetstone,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -3449,12 +3163,13 @@
 	},
 /area/holodeck/source_emptycourt)
 "Lr" = (
-/turf/unsimulated/wall,
+/turf/simulated/wall/indestructible,
 /area/adminconstruction)
 "LA" = (
 /obj/structure/table/wood,
 /obj/item/gun/throw/crossbow/french,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -3471,7 +3186,7 @@
 "LH" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "LQ" = (
 /turf/simulated/floor/holofloor/space,
@@ -3489,7 +3204,7 @@
 "Mb" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/mini,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Mc" = (
 /turf/simulated/floor/holofloor{
@@ -3500,7 +3215,7 @@
 "Md" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Mj" = (
 /turf/simulated/floor/holofloor{
@@ -3511,7 +3226,7 @@
 "Ml" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/pistol,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Mo" = (
 /obj/machinery/door/poddoor/shutters{
@@ -3520,7 +3235,8 @@
 	name = "Bojutsu";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -3533,22 +3249,16 @@
 "MA" = (
 /obj/item/grenade/clusterbuster/smoke,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "MD" = (
 /obj/machinery/optable,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "ME" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/toy/chainsaw,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "MF" = (
 /obj/structure/chair/comfy/beige{
@@ -3556,8 +3266,7 @@
 	layer = 5;
 	pixel_y = -2
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -3572,12 +3281,12 @@
 "Nc" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/mindflayer,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Ni" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/teleport,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Nn" = (
 /obj/item/storage/toolbox/syndicate{
@@ -3586,12 +3295,12 @@
 	name = "toolbox of robustness"
 	},
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Np" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/e_gun/old,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Nr" = (
 /obj/structure/rack,
@@ -3600,8 +3309,8 @@
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/energy/sword/saber/red,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
@@ -3614,32 +3323,30 @@
 	throw_range = 6
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "Nt" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/deagle/camo,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "NA" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "NB" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "NF" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/blueshield,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "NL" = (
 /obj/machinery/door/poddoor/shutters{
@@ -3648,7 +3355,8 @@
 	name = "Strela";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -3660,8 +3368,7 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -3682,7 +3389,8 @@
 /obj/item/radio/intercom/pirate{
 	req_access_txt = "153"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena)
@@ -3700,13 +3408,12 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "Oq" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "rampbottom"
 	},
@@ -3716,7 +3423,8 @@
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena)
@@ -3730,7 +3438,7 @@
 "OG" = (
 /obj/structure/table/wood,
 /obj/item/melee/candy_sword,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -3742,7 +3450,8 @@
 "OL" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/cyborg,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -3755,21 +3464,18 @@
 "OU" = (
 /obj/item/gun/rocketlauncher,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Pa" = (
 /obj/structure/table,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /obj/item/reagent_containers/glass/bottle/adminordrazine,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Pn" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/animate,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Pq" = (
 /turf/simulated/floor/beach/water,
@@ -3777,15 +3483,12 @@
 "Pt" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/toy/crossbow,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "PB" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/wormhole_projector,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "PG" = (
 /obj/structure/table/holotable,
@@ -3797,7 +3500,7 @@
 /area/holodeck/source_thunderdomecourt)
 "PH" = (
 /obj/machinery/r_n_d/server/centcom,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "PL" = (
 /turf/simulated/floor/holofloor{
@@ -3812,26 +3515,24 @@
 	name = "Thunderdome Blast Door";
 	opacity = 0
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena)
 "PV" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/tag/red,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "PY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/tommygun,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Qa" = (
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Qi" = (
 /obj/structure/table/holotable,
@@ -3845,10 +3546,7 @@
 "Qr" = (
 /obj/structure/table/wood,
 /obj/item/grenade/syndieminibomb,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Qt" = (
 /turf/simulated/floor/beach/coastline,
@@ -3856,14 +3554,14 @@
 "QC" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/combat/survival,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
 "QE" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/pistol/m1911,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "QF" = (
 /turf/simulated/floor/holofloor{
@@ -3882,32 +3580,21 @@
 	tag = "icon-grimy"
 	},
 /area/holodeck/source_meetinghall)
-"QI" = (
-/obj/effect/decal/warning_stripes/blue,
-/turf/unsimulated/floor{
-	icon_state = "carpet9-4"
-	},
-/area/admin)
 "QK" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/instakill,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "QM" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena_source)
-"QN" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 9;
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/space)
 "QP" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Rj" = (
 /obj/machinery/door/poddoor/shutters{
@@ -3916,36 +3603,27 @@
 	name = "Robaster";
 	tag = null
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
-"Rn" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 8;
-	icon_state = "fakewindows2";
-	tag = "icon-fakewindows2 (WEST)"
-	},
-/area/space)
 "Rx" = (
 /obj/machinery/chem_heater,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "RF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Sc" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Sm" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
 	},
@@ -3953,25 +3631,18 @@
 "Sn" = (
 /obj/structure/table/wood,
 /obj/item/toy/katana,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
-/area/admin)
-"Sp" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet14-10"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Sq" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/deagle/gold,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Su" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/experimental,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -3990,25 +3661,22 @@
 /area/holodeck/source_emptycourt)
 "SH" = (
 /obj/machinery/computer/card/centcom,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "SJ" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/lasercannon/cyborg,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "SK" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/lasercarbine,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "SN" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/c20r/toy/riot,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "SP" = (
 /turf/simulated/floor/holofloor{
@@ -4023,29 +3691,31 @@
 	id_tag = "TD_Baseball";
 	name = "4-shot base/ball"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
 "Tb" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome2)
 "Td" = (
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb/emp,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Tg" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/advtaser/cyborg,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Tl" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/butcher/meatcleaver,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
 /area/admin)
@@ -4054,8 +3724,7 @@
 	admin_usage = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -4068,7 +3737,7 @@
 /obj/item/gun/energy/laser/practice/sc_laser,
 /obj/item/gun/energy/laser/scatter,
 /obj/item/gun/energy/laser/tag,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "TE" = (
 /obj/structure/table/wood,
@@ -4082,7 +3751,7 @@
 /obj/item/encryptionkey/headset_sci,
 /obj/item/encryptionkey/headset_sec,
 /obj/item/encryptionkey/headset_service,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "TF" = (
 /obj/structure/table/wood,
@@ -4097,12 +3766,12 @@
 /obj/item/melee/energy_katana/borg{
 	pixel_y = 6
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "TU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/m1911,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "TV" = (
 /obj/structure/holowindow,
@@ -4120,8 +3789,7 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -4132,9 +3800,7 @@
 	},
 /area/holodeck/source_desert)
 "Ug" = (
-/turf/unsimulated/floor{
-	icon_state = "carpetside"
-	},
+/turf/simulated/floor/carpet,
 /area/adminconstruction)
 "Uk" = (
 /obj/structure/table/holotable,
@@ -4150,10 +3816,7 @@
 /obj/effect/landmark{
 	name = "tdomeobserve"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
 "Us" = (
 /obj/structure/table/wood,
@@ -4167,27 +3830,25 @@
 /obj/item/ammo_box/foambox/sniper,
 /obj/item/ammo_box/foambox/sniper,
 /obj/item/ammo_box/foambox/sniper,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Uu" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/bow,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "Uv" = (
 /obj/structure/table/wood,
 /obj/item/gun/syringe,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "UB" = (
 /obj/structure/table/wood,
 /obj/item/adminfu_scroll,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "UM" = (
 /turf/simulated/floor/holofloor{
@@ -4196,7 +3857,7 @@
 	},
 /area/holodeck/source_thunderdomecourt)
 "UN" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
 	},
@@ -4204,23 +3865,12 @@
 "UO" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "UR" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
-"UT" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet5-1"
-	},
-/area/adminconstruction)
 "Vb" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4230,8 +3880,7 @@
 "Vm" = (
 /obj/structure/table/wood/poker,
 /obj/item/radio/intercom/syndicate,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -4285,25 +3934,22 @@
 /obj/item/radio/headset/syndicate/alt/syndteam{
 	name = "syndicate team headset"
 	},
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Vs" = (
 /obj/structure/table/wood,
 /obj/item/gun/medbeam,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Vv" = (
 /obj/item/gun/projectile/revolver/grenadelauncher/multi,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Vx" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "VD" = (
 /obj/machinery/light/small{
@@ -4313,42 +3959,31 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
-	},
-/area/admin)
-"VM" = (
-/turf/unsimulated/floor{
-	icon_state = "carpetside"
 	},
 /area/admin)
 "VO" = (
 /obj/structure/closet/secure_closet/personal,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "VU" = (
 /obj/item/gun/syringe/syndicate,
 /obj/structure/table/wood,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
 "VX" = (
 /obj/structure/table/wood,
 /obj/item/grenade/smokebomb,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "Wd" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Wg" = (
 /turf/simulated/floor/holofloor{
@@ -4360,17 +3995,13 @@
 /obj/structure/table/wood,
 /obj/item/gun/energy/meteorgun,
 /obj/item/gun/energy/meteorgun/pen,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
-"Ww" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet7-3"
-	},
-/area/adminconstruction)
 "WC" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/crossbow,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -4387,9 +4018,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/unsimulated/wall{
-	icon_state = "iron3";
-	tag = "icon-iron3"
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
 	},
 /area/space)
 "WJ" = (
@@ -4407,15 +4037,14 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
 "WN" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/instakill/blue,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "WO" = (
 /obj/structure/rack/holorack,
@@ -4427,16 +4056,8 @@
 /area/holodeck/source_theatre)
 "WP" = (
 /obj/mecha/combat/reticence/loaded,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
-"WS" = (
-/turf/unsimulated/floor{
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "Xk" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -4447,12 +4068,13 @@
 "Xm" = (
 /obj/item/gun/energy/dominator,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Xw" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/decloner,
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/admin)
@@ -4486,40 +4108,32 @@
 	pixel_y = -5;
 	req_access_txt = "153"
 	},
-/turf/unsimulated/floor{
-	icon = 'icons/turf/floors/carpet_black.dmi';
-	icon_state = "carpet"
-	},
+/turf/simulated/floor/carpet/black,
 /area/tdome/tdomeadmin)
 "XG" = (
 /obj/mecha/combat/gygax/dark/loaded{
 	operation_req_access = list(114)
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "XI" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/toy,
-/turf/unsimulated/floor/wood{
-	icon = 'icons/goonstation/turf/floor.dmi';
-	icon_state = "arcade"
-	},
+/turf/simulated/floor/carpet/arcade,
 /area/admin)
 "XO" = (
 /obj/effect/landmark{
 	name = "tdome2"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome2)
 "XT" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic/combat,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "XV" = (
 /obj/structure/rack,
@@ -4533,8 +4147,8 @@
 	pixel_y = -30
 	},
 /obj/item/clothing/under/color/blue,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
@@ -4543,20 +4157,14 @@
 	icon_state = "redgreenfull"
 	},
 /area/holodeck/source_boxingcourt)
-"XX" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 1;
-	tag = "icon-fakewindows (WEST)"
-	},
-/area/space)
 "XZ" = (
 /obj/structure/rack,
 /obj/item/melee/baseball_bat/ablative,
 /obj/item/clothing/under/pj/blue,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/shoes/winterboots,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
@@ -4572,8 +4180,8 @@
 	pixel_x = 3;
 	pixel_y = -30
 	},
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
@@ -4593,7 +4201,7 @@
 "Yc" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/deagle,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Yl" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -4619,8 +4227,7 @@
 /area/holodeck/source_basketball)
 "YJ" = (
 /obj/machinery/vending/sovietsoda,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/admin)
@@ -4632,25 +4239,22 @@
 	nightshift_light_range = 6;
 	throw_range = 6
 	},
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "YR" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/door,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Za" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/change,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Zd" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/mateba,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Zg" = (
 /obj/item/clothing/accessory/cowboyshirt,
@@ -4672,15 +4276,15 @@
 /obj/item/ammo_casing/shotgun/improvised,
 /obj/item/ammo_casing/shotgun/improvised,
 /obj/item/clothing/under/color/black,
-/turf/unsimulated/floor{
-	dir = 8;
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "vault"
 	},
 /area/tdome/arena)
 "Zh" = (
 /obj/item/gun/grenadelauncher,
 /obj/structure/table/wood,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "Zo" = (
 /turf/simulated/floor/plasteel{
@@ -4693,32 +4297,29 @@
 	id_tag = "thunderdome";
 	name = "Thunderdome Blast Door"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena_source)
 "Zt" = (
 /obj/structure/table/wood,
 /obj/item/pizza_bomb,
-/turf/unsimulated/floor{
-	dir = 8;
-	icon_state = "wood"
-	},
+/turf/simulated/floor/wood,
 /area/admin)
 "ZB" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/retro,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ZE" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/tdome1)
 "ZG" = (
-/turf/unsimulated/floor{
-	icon_state = "carpet6-2"
-	},
+/turf/simulated/floor/carpet,
 /area/admin)
 "ZJ" = (
 /turf/simulated/floor/holofloor{
@@ -4728,7 +4329,7 @@
 "ZM" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/m90,
-/turf/unsimulated/floor/wood,
+/turf/simulated/floor/wood,
 /area/admin)
 "ZO" = (
 /obj/machinery/door/poddoor/shutters{
@@ -4736,7 +4337,8 @@
 	id_tag = "TD_Mecha";
 	name = "Mecha"
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/plasteel{
+	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -5026,7 +4628,7 @@ gA
 sZ
 aU
 ZG
-yl
+ZG
 wP
 ui
 Us
@@ -5279,14 +4881,14 @@ Ep
 VO
 fE
 dB
-Eg
-Eg
-Eg
-Sp
-VM
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+ZG
+ZG
+Ep
+Ep
+Ep
 KR
 Lr
 EK
@@ -5539,11 +5141,11 @@ nM
 bf
 Lb
 jQ
-Sp
-VM
+ZG
+ZG
 HG
 pb
-Eg
+Ep
 dU
 Lr
 EK
@@ -5796,11 +5398,11 @@ Tl
 yc
 ne
 vO
-Sp
-VM
+ZG
+ZG
 BZ
 Sn
-Eg
+Ep
 Pt
 Lr
 EK
@@ -6050,14 +5652,14 @@ qE
 NB
 fE
 IT
-Eg
-Eg
-Eg
-Sp
-VM
+Ep
+Ep
+Ep
+ZG
+ZG
 zu
 PV
-Eg
+Ep
 UO
 Lr
 EK
@@ -6310,11 +5912,11 @@ Ey
 EA
 yL
 OG
-Sp
-VM
+ZG
+ZG
 iL
 re
-Eg
+Ep
 Ix
 Lr
 EK
@@ -6567,11 +6169,11 @@ QC
 mO
 Hf
 cZ
-Sp
-VM
+ZG
+ZG
 Ke
 SN
-Eg
+Ep
 xf
 Lr
 EK
@@ -6821,14 +6423,14 @@ Ep
 Ep
 fE
 Ic
-Eg
-Eg
-Eg
-Sp
-VM
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+ZG
+ZG
+Ep
+Ep
+Ep
 Hh
 Lr
 EK
@@ -7081,8 +6683,8 @@ pa
 FU
 Jy
 wZ
-Sp
-VM
+ZG
+ZG
 cG
 HZ
 ME
@@ -7338,8 +6940,8 @@ fE
 fE
 fE
 fE
-Sp
-VM
+ZG
+ZG
 fE
 fE
 fE
@@ -7595,8 +7197,8 @@ gX
 fp
 Su
 OL
-Sp
-VM
+ZG
+ZG
 LA
 zP
 WC
@@ -7849,14 +7451,14 @@ jq
 fE
 fE
 ge
-Eg
-Eg
-Eg
-Sp
-VM
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+ZG
+ZG
+Ep
+Ep
+Ep
 VU
 Lr
 EK
@@ -8109,8 +7711,8 @@ Uu
 PB
 oK
 cW
-Sp
-VM
+ZG
+ZG
 ax
 Uv
 hH
@@ -8366,8 +7968,8 @@ wt
 GU
 nK
 Vs
-Sp
-VM
+ZG
+ZG
 Md
 Wt
 HR
@@ -8620,14 +8222,14 @@ Ep
 Gi
 fE
 an
-Eg
-Eg
-Eg
-Sp
-VM
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+ZG
+ZG
+Ep
+Ep
+Ep
 Jt
 Lr
 EK
@@ -8880,8 +8482,8 @@ aG
 wM
 vR
 qv
-Sp
-VM
+ZG
+ZG
 Xw
 CY
 tO
@@ -9137,8 +8739,8 @@ fE
 fE
 fE
 fE
-Sp
-VM
+ZG
+ZG
 fE
 fE
 fE
@@ -9382,31 +8984,31 @@ fk
 fE
 fE
 fE
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Sp
-aN
-iv
-iv
-iv
-iv
-Ww
-Ww
-Ww
-Ww
-Ww
-Ww
-UT
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
 Zo
 Zo
 Zo
@@ -9647,22 +9249,22 @@ jN
 CF
 Jp
 CG
-Eg
+Ep
 IF
 cR
 Qa
-Sp
-Bt
-Bt
-Bt
-Bt
-Bt
-we
-we
-we
-we
-we
-we
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
 Ug
 zO
 Zo
@@ -9904,23 +9506,23 @@ Ge
 xx
 Zd
 bX
-Eg
+Ep
 cH
 mX
 ZM
-Sp
-au
-yK
-yK
-yK
-yK
-GT
-GT
-GT
-GT
-GT
-GT
-Gu
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
+Ug
 Zo
 Zo
 Zo
@@ -10153,20 +9755,20 @@ ah
 qE
 YJ
 fE
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Eg
-Sp
-VM
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+Ep
+ZG
+ZG
 Pn
 rK
 lX
@@ -10417,17 +10019,17 @@ fX
 Wd
 Dc
 LH
-Eg
+Ep
 gp
-Eg
+Ep
 hI
 QP
-Sp
-VM
+ZG
+ZG
 rK
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
 Lr
 Lr
 Lr
@@ -10674,13 +10276,13 @@ Je
 lg
 EZ
 mr
-Eg
+Ep
 RF
-Eg
+Ep
 BN
 wq
-Sp
-VM
+ZG
+ZG
 tg
 Sc
 aQ
@@ -10919,28 +10521,28 @@ Yq
 fE
 by
 ZG
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-iv
-am
-aN
-iv
-iv
-yl
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
 Iu
 Lr
 EK
@@ -11175,29 +10777,29 @@ Yq
 (26,1,1) = {"
 fE
 qx
-dl
-yK
-yK
-yK
-yK
-yK
-yK
-yK
-yK
-ap
-au
-yK
-yK
-yK
-yK
-yK
-yK
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
 tp
-yK
-yK
-yK
-ap
-VM
+ZG
+ZG
+ZG
+ZG
+ZG
 Iu
 Lr
 EK
@@ -11441,20 +11043,20 @@ jd
 io
 PY
 Iu
-Sp
-VM
+ZG
+ZG
 Do
 OU
 DV
-Eg
-Eg
+Ep
+Ep
 fE
 fE
 fE
 fE
 fE
-dl
-gP
+ZG
+ZG
 fE
 Lr
 EK
@@ -11698,20 +11300,20 @@ fE
 Qa
 cX
 Iu
-Sp
-VM
+ZG
+ZG
 Zh
 Vv
 fc
-Eg
-Eg
+Ep
+Ep
 fE
 Nc
 bx
 NA
 SK
-Eg
-Eg
+Ep
+Ep
 ZB
 Lr
 EK
@@ -11953,22 +11555,22 @@ Em
 Pa
 fE
 ZG
-iv
-iv
-am
-VM
-Eg
-Eg
-Eg
-Eg
+ZG
+ZG
+ZG
+ZG
+Ep
+Ep
+Ep
+Ep
 tG
 fE
 QK
-Eg
-Eg
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+Ep
+Ep
 vW
 Lr
 EK
@@ -12209,23 +11811,23 @@ mw
 Ep
 Vx
 fE
-Sp
-au
-yK
-yK
-gP
-Eg
-Eg
-Eg
-Eg
+ZG
+ZG
+ZG
+ZG
+ZG
+Ep
+Ep
+Ep
+Ep
 FX
 fE
 WN
-Eg
+Ep
 fC
 JV
 lQ
-Eg
+Ep
 of
 Lr
 EK
@@ -12466,8 +12068,8 @@ Ep
 Ep
 hl
 fE
-Sp
-VM
+ZG
+ZG
 Iu
 Ni
 AJ
@@ -12478,11 +12080,11 @@ nv
 eP
 fE
 KN
-Eg
+Ep
 eR
 TU
 kl
-Eg
+Ep
 Tt
 Lr
 EK
@@ -12720,11 +12322,11 @@ fA
 Ep
 Ep
 ZG
-iv
-iv
-iv
-am
-VM
+ZG
+ZG
+ZG
+ZG
+ZG
 Iu
 fE
 fE
@@ -12735,11 +12337,11 @@ fE
 fE
 fE
 Ad
-Eg
-Eg
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+Ep
+Ep
 AO
 Lr
 EK
@@ -12976,15 +12578,15 @@ fE
 MD
 Ep
 Ep
-dl
-yK
-yK
-yK
-ap
-aN
-iv
-iv
-yl
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
+ZG
 UB
 fI
 MA
@@ -12992,11 +12594,11 @@ kT
 sk
 fE
 Cs
-Eg
+Ep
 er
 CJ
 uj
-Eg
+Ep
 eb
 Lr
 EK
@@ -13235,25 +12837,25 @@ gr
 Ep
 Rx
 GA
-zQ
+Iu
 fE
-Sp
-au
-yK
-yK
-QI
-Eg
-Eg
-Eg
-Eg
+ZG
+ZG
+ZG
+ZG
+ZG
+Ep
+Ep
+Ep
+Ep
 Nn
 fE
 gf
-Eg
-Eg
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+Ep
+Ep
 th
 Lr
 EK
@@ -13494,23 +13096,23 @@ fE
 fE
 fE
 fE
-Sp
-VM
+ZG
+ZG
 fE
 fE
-Eg
-Eg
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+Ep
+Ep
 ej
 fE
 CE
-Eg
+Ep
 zU
 If
 wx
-Eg
+Ep
 Kp
 Lr
 EK
@@ -13751,23 +13353,23 @@ Ep
 fE
 qT
 Ep
-dl
-gP
+ZG
+ZG
 mJ
 fE
 je
-Eg
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+Ep
 SH
 fE
 iu
-Eg
+Ep
 Mb
 QE
 Ml
-Eg
+Ep
 SJ
 Lr
 EK
@@ -14013,18 +13615,18 @@ Ep
 Bm
 fE
 lq
-Eg
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+Ep
 lo
 fE
 rx
-Eg
-Eg
-Eg
-Eg
-Eg
+Ep
+Ep
+Ep
+Ep
+Ep
 NF
 Lr
 EK
@@ -56436,7 +56038,7 @@ bJ
 Fi
 Fi
 Bu
-WS
+Ff
 Bu
 Fi
 Fi
@@ -56688,17 +56290,17 @@ Fi
 Fi
 Fi
 bJ
-WS
-WS
-WS
+Ff
+Ff
+Ff
 Fi
 Bu
-WS
+Ff
 Bu
 Fi
-WS
-WS
-WS
+Ff
+Ff
+Ff
 ha
 Fi
 Fi
@@ -56944,19 +56546,19 @@ Yq
 Fi
 Fi
 bJ
-WS
-WS
-WS
-WS
+Ff
+Ff
+Ff
+Ff
 Fi
 Fi
 fd
 Fi
 Fi
-WS
-WS
-WS
-WS
+Ff
+Ff
+Ff
+Ff
 ks
 Fi
 Fi
@@ -57201,9 +56803,9 @@ Yq
 Fi
 Fi
 bJ
-WS
-WS
-WS
+Ff
+Ff
+Ff
 eO
 Fi
 Fi
@@ -57211,9 +56813,9 @@ Fi
 Fi
 Fi
 fL
-WS
-WS
-WS
+Ff
+Ff
+Ff
 ks
 Fi
 Fi
@@ -57458,8 +57060,8 @@ Yq
 Fi
 Fi
 Fi
-WS
-WS
+Ff
+Ff
 eO
 Fi
 Fi
@@ -57469,8 +57071,8 @@ Fi
 Fi
 Fi
 fL
-WS
-WS
+Ff
+Ff
 Fi
 Fi
 Fi
@@ -58228,8 +57830,8 @@ Fi
 Yq
 Fi
 bn
-WS
-WS
+Ff
+Ff
 eI
 Fi
 Fi
@@ -58241,8 +57843,8 @@ Fi
 Fi
 Fi
 ji
-WS
-WS
+Ff
+Ff
 jx
 Fi
 Yq
@@ -59000,8 +58602,8 @@ Yq
 Fi
 Fi
 Fi
-WS
-WS
+Ff
+Ff
 eY
 Fi
 Fi
@@ -59011,8 +58613,8 @@ Fi
 Fi
 Fi
 gt
-WS
-WS
+Ff
+Ff
 Fi
 Fi
 Fi
@@ -59258,8 +58860,8 @@ Fi
 Fi
 cQ
 ee
-WS
-WS
+Ff
+Ff
 eY
 Fi
 Fi
@@ -59267,9 +58869,9 @@ Fi
 Fi
 Fi
 gt
-WS
-WS
-WS
+Ff
+Ff
+Ff
 hh
 Fi
 Fi
@@ -59516,17 +59118,17 @@ Fi
 cQ
 ee
 ee
-WS
-WS
+Ff
+Ff
 Fi
 Fi
 Fi
 Fi
 Fi
-WS
-WS
-WS
-WS
+Ff
+Ff
+Ff
+Ff
 hh
 Fi
 Fi
@@ -59774,15 +59376,15 @@ Fi
 cQ
 ee
 ee
-WS
+Ff
 Fi
 Fi
 Fi
 Fi
 Fi
-WS
-WS
-WS
+Ff
+Ff
+Ff
 hh
 Fi
 Fi
@@ -60524,14 +60126,14 @@ lM
 lM
 lM
 Oq
-QN
-jb
+DM
+DM
 Bp
 Bp
 EV
 Bp
 Bp
-XX
+DM
 DM
 db
 lM
@@ -60544,14 +60146,14 @@ Yq
 Yq
 Yq
 Yq
-QN
-jb
-WS
-WS
+DM
+DM
+Ff
+Ff
 QM
-WS
-WS
-XX
+Ff
+Ff
+DM
 DM
 Yq
 Yq
@@ -60780,8 +60382,8 @@ Fi
 lM
 vY
 vY
-QN
-tM
+DM
+DM
 Bp
 Bp
 Bp
@@ -60789,7 +60391,7 @@ EV
 Bp
 Bp
 Bp
-za
+DM
 DM
 Uq
 Uq
@@ -60800,16 +60402,16 @@ Fi
 Yq
 Yq
 Yq
-QN
-tM
-WS
-WS
-WS
+DM
+DM
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-za
+Ff
+Ff
+Ff
+DM
 DM
 Yq
 Yq
@@ -61037,7 +60639,7 @@ Fi
 lM
 vY
 nR
-Rn
+DM
 Bp
 Bp
 Bp
@@ -61047,7 +60649,7 @@ Bp
 Bp
 Bp
 Bp
-Rn
+DM
 nR
 Uq
 lM
@@ -61057,17 +60659,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -61294,7 +60896,7 @@ Fi
 lM
 vY
 vY
-Rn
+DM
 Bp
 Bp
 Bp
@@ -61304,7 +60906,7 @@ Bp
 Bp
 Bp
 Bp
-Rn
+DM
 Uq
 Uq
 lM
@@ -61314,17 +60916,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -61551,7 +61153,7 @@ Fi
 lM
 vY
 vY
-Rn
+DM
 Bp
 Bp
 Bp
@@ -61561,7 +61163,7 @@ Bp
 Bp
 Bp
 Bp
-Rn
+DM
 Uq
 Uq
 lM
@@ -61571,17 +61173,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -61808,7 +61410,7 @@ Fi
 lM
 vY
 nR
-Rn
+DM
 Bp
 Bp
 Bp
@@ -61818,7 +61420,7 @@ Bp
 Bp
 Bp
 Bp
-Rn
+DM
 nR
 Uq
 lM
@@ -61828,17 +61430,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -62065,7 +61667,7 @@ Fi
 lM
 vY
 vY
-Rn
+DM
 Bp
 Bp
 Bp
@@ -62075,7 +61677,7 @@ Bp
 Bp
 Bp
 Bp
-Ku
+DM
 Uq
 Uq
 lM
@@ -62085,17 +61687,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -62322,7 +61924,7 @@ Fi
 lM
 lM
 lM
-Rn
+DM
 Bp
 Bp
 Bp
@@ -62342,17 +61944,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -62836,7 +62438,7 @@ Fi
 lM
 lM
 lM
-Rn
+DM
 Bp
 Bp
 Bp
@@ -62856,17 +62458,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -63093,7 +62695,7 @@ Fi
 lM
 vY
 vY
-Rn
+DM
 Bp
 Bp
 Bp
@@ -63103,7 +62705,7 @@ Bp
 Bp
 Bp
 Bp
-pR
+DM
 Uq
 Uq
 lM
@@ -63113,17 +62715,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -63350,7 +62952,7 @@ Fi
 lM
 vY
 nR
-Rn
+DM
 Bp
 Bp
 Bp
@@ -63360,7 +62962,7 @@ Bp
 Bp
 Bp
 Bp
-Rn
+DM
 nR
 Uq
 lM
@@ -63370,17 +62972,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -63607,7 +63209,7 @@ Fi
 lM
 vY
 vY
-Rn
+DM
 Bp
 Bp
 Bp
@@ -63617,7 +63219,7 @@ Bp
 Bp
 Bp
 Bp
-Rn
+DM
 Uq
 Uq
 lM
@@ -63627,17 +63229,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -63864,7 +63466,7 @@ Fi
 lM
 vY
 vY
-Rn
+DM
 Bp
 Bp
 Bp
@@ -63874,7 +63476,7 @@ Bp
 Bp
 Bp
 Bp
-Rn
+DM
 Uq
 Uq
 lM
@@ -63884,17 +63486,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -64121,7 +63723,7 @@ Fi
 lM
 vY
 nR
-Rn
+DM
 Bp
 Bp
 Bp
@@ -64131,7 +63733,7 @@ Bp
 Bp
 Bp
 Bp
-Rn
+DM
 nR
 Uq
 lM
@@ -64141,17 +63743,17 @@ Fi
 Yq
 Yq
 Yq
-Rn
-WS
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-WS
-Rn
+Ff
+Ff
+Ff
+Ff
+DM
 Yq
 Yq
 Yq
@@ -64378,7 +63980,7 @@ Fi
 lM
 vY
 vY
-za
+DM
 DM
 Bp
 Bp
@@ -64387,8 +63989,8 @@ EV
 Bp
 Bp
 Bp
-QN
-tM
+DM
+DM
 Uq
 Uq
 lM
@@ -64398,17 +64000,17 @@ Fi
 Yq
 Yq
 Yq
-za
 DM
-WS
-WS
-WS
+DM
+Ff
+Ff
+Ff
 QM
-WS
-WS
-WS
-QN
-tM
+Ff
+Ff
+Ff
+DM
+DM
 Yq
 Yq
 Yq
@@ -64636,15 +64238,15 @@ lM
 lM
 lM
 Oq
-za
-jb
+DM
+DM
 Bp
 Bp
 EV
 Bp
 Bp
-XX
-tM
+DM
+DM
 db
 lM
 lM
@@ -64656,15 +64258,15 @@ Yq
 Yq
 Yq
 Yq
-za
-jb
+DM
+DM
 Ff
-WS
+Ff
 QM
-WS
-WS
-XX
-tM
+Ff
+Ff
+DM
+DM
 Yq
 Yq
 Yq
@@ -65428,15 +65030,15 @@ Fi
 cV
 ee
 ee
-WS
+Ff
 Fi
 Fi
 Fi
 Fi
 Fi
-WS
-WS
-WS
+Ff
+Ff
+Ff
 jD
 Fi
 Fi
@@ -65684,17 +65286,17 @@ Fi
 cV
 ee
 ee
-WS
-WS
+Ff
+Ff
 Fi
 Fi
 Fi
 Fi
 Fi
-WS
-WS
-WS
-WS
+Ff
+Ff
+Ff
+Ff
 jD
 Fi
 Fi
@@ -65940,8 +65542,8 @@ Fi
 Fi
 cV
 ee
-WS
-WS
+Ff
+Ff
 eY
 Fi
 Fi
@@ -65949,9 +65551,9 @@ Fi
 Fi
 Fi
 gt
-WS
-WS
-WS
+Ff
+Ff
+Ff
 jD
 Fi
 Fi
@@ -66196,8 +65798,8 @@ Yq
 Fi
 Fi
 Fi
-WS
-WS
+Ff
+Ff
 eY
 Fi
 Fi
@@ -66207,8 +65809,8 @@ Fi
 Fi
 Fi
 gt
-WS
-WS
+Ff
+Ff
 Fi
 Fi
 Fi
@@ -66966,8 +66568,8 @@ Fi
 Yq
 Fi
 yu
-WS
-WS
+Ff
+Ff
 eI
 Fi
 Fi
@@ -66979,8 +66581,8 @@ Fi
 Fi
 Fi
 ji
-WS
-WS
+Ff
+Ff
 jO
 Fi
 Yq
@@ -67738,8 +67340,8 @@ Yq
 Fi
 Fi
 Fi
-WS
-WS
+Ff
+Ff
 eO
 Fi
 Fi
@@ -67749,8 +67351,8 @@ Fi
 Fi
 Fi
 fL
-WS
-WS
+Ff
+Ff
 Fi
 Fi
 Fi
@@ -67995,9 +67597,9 @@ Yq
 Fi
 Fi
 do
-WS
-WS
-WS
+Ff
+Ff
+Ff
 eO
 Fi
 Fi
@@ -68005,9 +67607,9 @@ Fi
 Fi
 Fi
 fL
-WS
-WS
-WS
+Ff
+Ff
+Ff
 kA
 Fi
 Fi
@@ -68252,19 +67854,19 @@ Yq
 Fi
 Fi
 do
-WS
-WS
-WS
-WS
+Ff
+Ff
+Ff
+Ff
 Fi
 Fi
 fs
 Fi
 Fi
-WS
-WS
-WS
-WS
+Ff
+Ff
+Ff
+Ff
 kA
 Fi
 Fi
@@ -68510,17 +68112,17 @@ Fi
 Fi
 Fi
 do
-WS
-WS
-WS
+Ff
+Ff
+Ff
 Fi
 Bu
-WS
+Ff
 Bu
 Fi
-WS
-WS
-WS
+Ff
+Ff
+Ff
 iA
 Fi
 Fi
@@ -68772,7 +68374,7 @@ do
 Fi
 Fi
 Bu
-WS
+Ff
 Bu
 Fi
 Fi

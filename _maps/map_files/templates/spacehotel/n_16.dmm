@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "sandstone2"
 	},
 /area/template_noop)
@@ -16,12 +16,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
 /area/template_noop)
 "d" = (
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
 /area/template_noop)
@@ -34,12 +34,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
 /area/template_noop)
 "f" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "sandstone3"
 	},
 /area/template_noop)
@@ -50,7 +50,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/light/small,
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
 /area/template_noop)
@@ -61,17 +61,17 @@
 	pixel_x = 28
 	},
 /obj/machinery/light/small,
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
 /area/template_noop)
 "i" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "sandstone5"
 	},
 /area/template_noop)
 "j" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "sandstone8"
 	},
 /area/template_noop)
@@ -80,24 +80,24 @@
 	id = "beach_room"
 	},
 /obj/structure/curtain/open,
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
 /area/template_noop)
 "l" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "sandstone4"
 	},
 /area/template_noop)
 "m" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "sandstone9"
 	},
 /area/template_noop)
 "n" = (
-/turf/unsimulated/wall{
-	dynamic_lighting = 0;
-	icon = null
+/turf/simulated/wall/indestructible{
+	icon = null;
+	dynamic_lighting = 0
 	},
 /area/template_noop)
 "o" = (
@@ -107,7 +107,7 @@
 	id = "beach";
 	radius = 1
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
 /area/template_noop)

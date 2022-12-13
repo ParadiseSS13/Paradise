@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "rock";
 	name = "rock"
 	},
@@ -7726,7 +7726,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "UO71_air_out";
 	pressure_setting = 2000;
-	sensors = list("UO71_air_sensor" = "Tank")
+	sensors = list("UO71_air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -9087,7 +9087,7 @@
 	input_tag = "UO71_waste_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "UO71_waste_out";
-	sensors = list("UO71_waste_sensor" = "Tank")
+	sensors = list("UO71_waste_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 6
@@ -9709,7 +9709,7 @@
 	input_tag = "UO71_n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "UO71_n2_out";
-	sensors = list("UO71_n2_sensor" = "Tank")
+	sensors = list("UO71_n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -9726,7 +9726,7 @@
 	input_tag = "UO71_o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "UO71_o2_out";
-	sensors = list("UO71_o2_sensor" = "Tank")
+	sensors = list("UO71_o2_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -9826,7 +9826,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	sensors = list("UO71_n2_sensor" = "Nitrogen", "UO71_o2_sensor" = "Oxygen", "UO71_waste_sensor" = "Gas Mix Tank")
+	sensors = list("UO71_n2_sensor"="Nitrogen","UO71_o2_sensor"="Oxygen","UO71_waste_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -10013,7 +10013,7 @@
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("UO71_mair_in_meter" = "Mixed Air In", "UO71_air_sensor" = "Mixed Air Supply Tank", "UO71_mair_out_meter" = "Mixed Air Out", "UO71_dloop_atm_meter" = "Distribution Loop", "UO71_wloop_atm_meter" = "Waste Loop")
+	sensors = list("UO71_mair_in_meter"="Mixed Air In","UO71_air_sensor"="Mixed Air Supply Tank","UO71_mair_out_meter"="Mixed Air Out","UO71_dloop_atm_meter"="Distribution Loop","UO71_wloop_atm_meter"="Waste Loop")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -11715,14 +11715,14 @@
 	},
 /area/awaymission/UO71/outside)
 "zd" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "rock";
 	name = "rock"
 	},
 /area/awaymission/UO71/queen)
 "ze" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "rock";
 	name = "rock"
 	},
@@ -12088,7 +12088,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
 "Lf" = (
-/turf/unsimulated/wall{
+/turf/simulated/wall/indestructible{
 	icon_state = "rock";
 	name = "rock"
 	},

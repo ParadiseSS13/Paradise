@@ -1,11 +1,19 @@
-/turf/space/transit 			// A
-	icon_state = "black_ns"		// |
-	dir = SOUTH					// |
-	plane = PLANE_SPACE			// V
+/turf/space/transit
+	icon_state = "black_arrow"
+	dir = SOUTH
+	plane = PLANE_SPACE
 
-/turf/space/transit/horizontal 	// <---->
-	icon_state = "black_ew"
+/turf/space/transit/north
+	dir = NORTH
+
+/turf/space/transit/east
 	dir = EAST
+
+/turf/space/transit/south
+	dir = SOUTH
+
+/turf/space/transit/west
+	dir = WEST
 
 //Overwrite because we dont want people building rods in space.
 /turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)

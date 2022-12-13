@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/unsimulated/wall/metal,
+/turf/simulated/wall/indestructible/metal,
 /area/template_noop)
 "c" = (
 /obj/effect/view_portal{
@@ -12,7 +12,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
 /area/template_noop)
@@ -23,14 +23,14 @@
 	id = "mazeland";
 	radius = 1
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
 /area/template_noop)
 "e" = (
-/turf/unsimulated/wall{
-	dynamic_lighting = 0;
-	icon = null
+/turf/simulated/wall/indestructible{
+	icon = null;
+	dynamic_lighting = 0
 	},
 /area/template_noop)
 

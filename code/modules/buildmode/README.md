@@ -25,13 +25,13 @@ Existing varieties:
 	**Controls**:
 
 	+ *Left click a turf*:
-	
+
 		"Upgrades" the turf based on the following rules below:
 
 		+ Space -> Tiled floor
 		+ Simulated floor -> Regular wall
 		+ Wall -> Reinforced wall
-	
+
 	+ *Right click a turf*:
 
 		"Downgrades" the turf based on the following rules below:
@@ -39,7 +39,7 @@ Existing varieties:
 		+ Reinforced wall -> Regular wall
 		+ Wall -> Tiled floor
 		+ Simulated floor -> Space
-	
+
 	+ *Right click an object*:
 
 		Deletes the clicked object.
@@ -47,7 +47,7 @@ Existing varieties:
 	+ *Alt+Left click a location*:
 
 		Places an airlock at the clicked location.
-	
+
 	+ *Ctrl+Left click a location*:
 
 		Places a window at the clicked location.
@@ -63,11 +63,11 @@ Existing varieties:
 	+ *Right click on the mode selector*:
 
 		Choose a path to spawn.
-	
+
 	+ *Alt+Left click a turf, object, or mob*:
 
 		Select the type of the object clicked.
-	
+
 	+ *Left click a location* (requires chosen path):
 
 		Place an instance of the chosen path at the location.
@@ -106,7 +106,7 @@ Existing varieties:
 
 	**Description**:
 
-	Fills a region with configurable atmos. By default, ignores unsimulated turfs, but is able to "overwrite" the atmos of unsimulated turfs with a special control input.
+	Fills a region with configurable atmos.
 
 	By default, fills a region with a breathable, standard atmosphere.
 
@@ -130,8 +130,8 @@ Existing varieties:
 
 	+ *Control+Left click a region*:
 
-		As with the regular left click, but also "overwrites" the base atmos of any unsimulated turfs in the region - such as space turfs.
-	
+		As with the regular left click, but also "overwrites" space turfs.
+
 	+ *Right click during region selection*:
 
 		Cancel region selection.
@@ -139,7 +139,7 @@ Existing varieties:
 + Copy
 
 	**Description**:
-	
+
 	Take an existing object in the world, and place duplicates with identical attributes where you click.
 
 	May not always work nicely - "deep" variables such as lists or datums may malfunction.
@@ -171,7 +171,7 @@ Existing varieties:
 	+ *Right click an airlock* (requires active button):
 
 		Links the airlock to the active button. Will remove all links from the button first, if the button is linked to pod bay doors.
-	
+
 	+ *Right click a pod bay door* (requires active button):
 
 		Links the pod bay door to the active button. Will remove all links from the button first, if the button is linked to regular airlocks.
@@ -215,7 +215,7 @@ Existing varieties:
 	+ *Left click an atom*:
 
 		Change the clicked atom's variables as configured.
-	
+
 	+ *Right click an atom*:
 
 		Reset the targeted variable to its original value in the code.
@@ -231,9 +231,9 @@ Existing varieties:
 	**Controls**:
 
 	+ *Right-click on the mode selector*:
-	
+
 		Select a map generator from all the generators present in the codebase.
-		
+
 	+ *Left click two corners of an area*:
 
 		Use the generator to populate the region.
@@ -255,7 +255,7 @@ Existing varieties:
 	+ *Right click on the mode selector*:
 
 		Configure whether to save in either JSON mode or not.
-	
+
 	+ *Left click two corners of an area*:
 
 		Save the region to a `.dmm` file. You will be prompted for where to save this - a copy will be saved in the `_maps/quicksave` folder.
@@ -273,9 +273,9 @@ Existing varieties:
 	**Controls**:
 
 	+ *Left click on a movable atom*:
-		
+
 		Select the atom for throwing.
-	
+
 	+ *Right click on a location*:
 
 		Throw the selected atom towards that location.
@@ -289,9 +289,9 @@ Existing varieties:
 	**Controls**:
 
 	+ *Right click the mode selector*:
-	
+
 		Configure the explosion size.
 
 	+ *Left click a location*:
-	
+
 		Cause an explosion where you clicked.

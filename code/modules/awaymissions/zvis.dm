@@ -4,7 +4,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	requires_power = FALSE
 
-// Used by /turf/unsimulated/floor/upperlevel as a reference for where the other floor is
+// Used by /turf/simulated/floor/indestructible/upperlevel as a reference for where the other floor is
 /obj/effect/levelref
 	name = "level reference"
 	icon = 'icons/mob/screen_gen.dmi'
@@ -30,7 +30,7 @@
 			update_offset()
 			O.other = src
 			O.update_offset()
-			for(var/turf/unsimulated/floor/upperlevel/U in get_area(loc))
+			for(var/turf/simulated/floor/indestructible/upperlevel/U in get_area(loc))
 				U.init(src)
 			return
 
@@ -43,7 +43,7 @@
 	offset_y = other.y - y
 	offset_z = other.z - z
 
-// Used by /turf/unsimulated/floor/upperlevel and /obj/effect/view_portal/visual
+// Used by /turf/simulated/floor/indestructible/upperlevel and /obj/effect/view_portal/visual
 // to know if the world changed on the remote side
 /obj/effect/portal_sensor
 	invisibility = 101
@@ -87,11 +87,11 @@
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
 		var/atom/movable/lighting_object/O = T.lighting_object
 		var/hash = 0
-		
+
 		for(var/lighting_corner in O)
 			var/datum/lighting_corner/C = lighting_corner
 			hash = hash + C.lum_r + C.lum_g + C.lum_b
-			
+
 		if(hash != light_hash)
 			light_hash = hash
 			trigger()
@@ -101,7 +101,7 @@
 			trigger()
 
 // for second floor showing floor below
-/turf/unsimulated/floor/upperlevel
+/turf/simulated/floor/indestructible/upperlevel
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "dark128"
 	layer = AREA_LAYER + 0.5
@@ -109,22 +109,22 @@
 	var/turf/lower_turf
 	var/obj/effect/portal_sensor/sensor
 
-/turf/unsimulated/floor/upperlevel/New()
+/turf/simulated/floor/indestructible/upperlevel/New()
 	..()
 	var/obj/effect/levelref/R = locate() in get_area(src)
 	if(R && R.other)
 		init(R)
 
-/turf/unsimulated/floor/upperlevel/Destroy()
+/turf/simulated/floor/indestructible/upperlevel/Destroy()
 	QDEL_NULL(sensor)
 	return ..()
 
-/turf/unsimulated/floor/upperlevel/proc/init(var/obj/effect/levelref/R)
+/turf/simulated/floor/indestructible/upperlevel/proc/init(var/obj/effect/levelref/R)
 	lower_turf = locate(x + R.offset_x, y + R.offset_y, z + R.offset_z)
 	if(lower_turf)
 		sensor = new(lower_turf, src)
 
-/turf/unsimulated/floor/upperlevel/Entered(atom/movable/AM, atom/OL, ignoreRest = 0)
+/turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/AM, atom/OL, ignoreRest = 0)
 	if(isliving(AM) || istype(AM, /obj))
 		if(isliving(AM))
 			var/mob/living/M = AM
@@ -132,10 +132,10 @@
 			M.SpinAnimation(5, 1)
 		AM.forceMove(lower_turf)
 
-/turf/unsimulated/floor/upperlevel/attack_ghost(mob/user)
+/turf/simulated/floor/indestructible/upperlevel/attack_ghost(mob/user)
 	user.forceMove(lower_turf)
 
-/turf/unsimulated/floor/upperlevel/proc/trigger()
+/turf/simulated/floor/indestructible/upperlevel/proc/trigger()
 	name = lower_turf.name
 	desc = lower_turf.desc
 

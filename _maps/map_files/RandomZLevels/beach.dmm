@@ -3,172 +3,172 @@
 /turf/space,
 /area/space)
 "ab" = (
-/turf/unsimulated/beach/water/deep,
+/turf/simulated/floor/indestructible/beach/water/deep,
 /area/awaymission/undersea)
 "ac" = (
 /obj/machinery/poolcontroller/invisible/sea,
-/turf/unsimulated/beach/water/deep,
+/turf/simulated/floor/indestructible/beach/water/deep,
 /area/awaymission/undersea)
 "ad" = (
-/turf/unsimulated/beach/water/deep/rock_wall,
+/turf/simulated/floor/indestructible/beach/water/deep/rock_wall,
 /area/awaymission/undersea)
 "ae" = (
 /obj/structure/ladder/unbreakable/dive_point/anchor{
 	id = "pirate"
 	},
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "af" = (
 /obj/structure/constructshell,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "ag" = (
 /obj/structure/chair/wood/wings,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "ah" = (
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "ai" = (
 /obj/structure/cult/pylon,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aj" = (
 /obj/structure/cult/altar,
 /obj/item/veilrender/crabrender,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "ak" = (
 /obj/structure/cult/altar,
 /obj/item/tome,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "al" = (
 /obj/structure/curtain/black,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "am" = (
 /obj/structure/cult/forge,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "an" = (
 /obj/structure/flora/rock/pile,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "ao" = (
 /obj/structure/flora/rock,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "ap" = (
 /obj/structure/chair/stool,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aq" = (
 /mob/living/simple_animal/hostile/carp/sea,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "ar" = (
 /mob/living/simple_animal/hostile/carp/sea,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "as" = (
 /obj/structure/boulder,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "at" = (
 /obj/item/flag/cult,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "au" = (
 /obj/structure/mineral_door/sandstone,
 /obj/structure/barricade/wooden,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "av" = (
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aw" = (
 /obj/item/toy/eight_ball/conch,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "ax" = (
 /obj/structure/reagent_dispensers/beerkeg,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "ay" = (
 /obj/structure/closet/cabinet,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "az" = (
 /obj/structure/rack/skeletal_bar/left,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aA" = (
 /obj/structure/rack/skeletal_bar/right,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aB" = (
 /obj/structure/rack/skeletal_bar,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aC" = (
 /obj/structure/mineral_door/wood{
 	tag = "icon-wood"
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aD" = (
 /obj/structure/chair/comfy/teal{
 	dir = 4
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aE" = (
 /obj/structure/table/wood,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aF" = (
 /obj/structure/chair/comfy/teal{
 	dir = 8
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aG" = (
 /obj/structure/toilet,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aH" = (
 /obj/structure/grille,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aI" = (
 /obj/structure/chair/wood/wings{
 	dir = 4;
 	tag = "icon-wooden_chair_wings (EAST)"
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aJ" = (
 /obj/structure/chair/wood/wings{
 	dir = 8;
 	tag = "icon-wooden_chair_wings (WEST)"
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aK" = (
 /obj/structure/chair/sofa/right,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aL" = (
 /obj/structure/chair/sofa/left,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aM" = (
 /obj/structure/sink{
 	dir = 4;
 	pixel_x = 11
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aN" = (
 /obj/structure/sink{
@@ -176,16 +176,16 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aO" = (
 /obj/structure/closet/crate/can,
 /obj/item/storage/bag/trash,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aP" = (
 /obj/item/flag/species/skrell,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aQ" = (
 /obj/structure/mirror{
@@ -193,44 +193,44 @@
 	pixel_y = 28
 	},
 /obj/item/storage/wallet/random,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aR" = (
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
 	pixel_y = 28
 	},
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aS" = (
 /obj/structure/bed,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aT" = (
 /obj/structure/dresser,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aU" = (
 /obj/structure/ladder/unbreakable/dive_point/anchor,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aV" = (
 /obj/structure/barricade/wooden,
-/turf/unsimulated/beach/water/deep/wood_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aW" = (
 /obj/structure/grille/broken,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aX" = (
 /obj/item/stack/spacecash/c500,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aY" = (
 /obj/structure/mineral_door/wood{
 	tag = "icon-wood"
 	},
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aZ" = (
 /obj/structure/closet/crate{
@@ -244,7 +244,7 @@
 /obj/item/coin/gold,
 /obj/item/coin/gold,
 /obj/item/coin/gold,
-/turf/unsimulated/beach/water/deep/sand_floor,
+/turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "bc" = (
 /obj/structure/flora/ausbushes/leafybush,
@@ -253,11 +253,11 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTHWEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bd" = (
 /obj/structure/flora/grass/brown,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "be" = (
 /obj/effect/decal/snow/sand/edge{
@@ -265,11 +265,11 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTHEAST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bf" = (
 /obj/structure/flora/ausbushes/genericbush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bg" = (
 /obj/effect/decal/snow/sand/edge{
@@ -277,7 +277,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (WEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bh" = (
 /obj/structure/flora/ausbushes/leafybush,
@@ -286,16 +286,16 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (EAST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bi" = (
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bj" = (
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bk" = (
 /obj/effect/decal/snow/sand/surround{
@@ -303,7 +303,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_surround (NORTH)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bl" = (
 /obj/effect/decal/snow/sand/edge{
@@ -311,7 +311,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (EAST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bm" = (
 /obj/effect/decal/snow/sand/edge{
@@ -319,13 +319,13 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTHWEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bn" = (
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
 	},
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/indestructible/grass,
 /area/awaymission/beach)
 "bo" = (
 /obj/effect/decal/snow/sand/edge{
@@ -333,13 +333,13 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (SOUTHWEST)"
 	},
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/indestructible/grass,
 /area/awaymission/beach)
 "bp" = (
 /obj/effect/decal/snow/sand/surround{
 	name = "rough sand"
 	},
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/indestructible/grass,
 /area/awaymission/beach)
 "bq" = (
 /obj/effect/decal/snow/sand/edge{
@@ -347,7 +347,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (SOUTHEAST)"
 	},
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/indestructible/grass,
 /area/awaymission/beach)
 "br" = (
 /obj/effect/decal/snow/sand/edge{
@@ -355,7 +355,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (SOUTHEAST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bs" = (
 /obj/effect/decal/snow/sand/edge{
@@ -363,11 +363,11 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (SOUTHWEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bt" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bu" = (
 /obj/structure/flora/ausbushes/leafybush,
@@ -376,7 +376,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTHWEST)"
 	},
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bv" = (
 /obj/effect/decal/snow/sand/edge{
@@ -384,11 +384,11 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTHEAST)"
 	},
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bw" = (
 /obj/effect/overlay/palmtree_r,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bx" = (
 /obj/effect/overlay/palmtree_r,
@@ -397,7 +397,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTHWEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "by" = (
 /obj/effect/decal/snow/sand/edge{
@@ -405,11 +405,11 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTH)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bz" = (
 /obj/effect/overlay/palmtree_r,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bA" = (
 /obj/structure/flora/ausbushes/genericbush,
@@ -418,7 +418,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTH)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bB" = (
 /obj/effect/overlay/palmtree_r,
@@ -427,7 +427,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTH)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bC" = (
 /obj/effect/overlay/palmtree_r,
@@ -436,24 +436,24 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (EAST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bD" = (
 /obj/effect/overlay/palmtree_r,
 /obj/effect/overlay/coconut,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bE" = (
 /obj/structure/flora/bush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bF" = (
 /obj/effect/overlay/palmtree_l,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bG" = (
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bH" = (
 /obj/effect/overlay/palmtree_r,
@@ -462,7 +462,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (WEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bI" = (
 /obj/effect/decal/snow/sand/edge{
@@ -470,7 +470,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (EAST)"
 	},
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bJ" = (
 /obj/effect/overlay/palmtree_l,
@@ -479,16 +479,16 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTH)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bK" = (
 /obj/effect/overlay/palmtree_l,
 /obj/effect/overlay/coconut,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bL" = (
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bM" = (
 /obj/structure/flora/ausbushes/sunnybush,
@@ -497,102 +497,102 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTH)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bN" = (
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bO" = (
 /obj/structure/flora/grass/brown,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bP" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/overlay/palmtree_l,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bQ" = (
 /obj/structure/flora/ausbushes/grassybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bR" = (
 /obj/structure/flora/ausbushes/reedbush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bS" = (
 /obj/structure/flora/grass/green,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "bT" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/palebush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bU" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/genericbush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bV" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bW" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bX" = (
 /obj/structure/flora/rock,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bY" = (
 /obj/structure/flora/ausbushes/palebush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "bZ" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "ca" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/overlay/palmtree_r,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "cb" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/overlay/palmtree_l,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "cc" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/fernybush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "cd" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ce" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cf" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/fernybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cg" = (
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "ch" = (
 /obj/structure/flora/rock,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ci" = (
 /obj/effect/overlay/palmtree_r,
@@ -602,46 +602,46 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTH)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cj" = (
 /obj/machinery/gateway{
 	dir = 9
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ck" = (
 /obj/machinery/gateway{
 	dir = 1
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cl" = (
 /obj/machinery/gateway{
 	dir = 5
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cm" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/palebush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cn" = (
 /obj/machinery/gateway{
 	dir = 8
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "co" = (
 /obj/machinery/gateway/centeraway,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cp" = (
 /obj/machinery/gateway{
 	dir = 4
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cq" = (
 /obj/effect/decal/snow/sand/edge{
@@ -653,14 +653,14 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cr" = (
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
 	},
 /obj/structure/dispenser/oxygen,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cs" = (
 /obj/structure/flora/ausbushes/reedbush,
@@ -669,40 +669,40 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (NORTHEAST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ct" = (
 /obj/effect/overlay/palmtree_r,
 /obj/effect/overlay/coconut,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "cu" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "cv" = (
 /obj/structure/flora/bush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "cx" = (
 /obj/structure/flora/ausbushes/genericbush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "cy" = (
 /obj/machinery/gateway{
 	dir = 10
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cz" = (
 /obj/machinery/gateway,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cA" = (
 /obj/machinery/gateway{
 	dir = 6
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cB" = (
 /obj/effect/decal/snow/sand/edge{
@@ -711,28 +711,25 @@
 	tag = "icon-gravsnow_corner (EAST)"
 	},
 /obj/effect/overlay/palmtree_r,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cC" = (
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "cD" = (
-/turf/unsimulated/wall{
-	icon_state = "sandstone12";
-	tag = "icon-sandstone12"
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone12"
 	},
 /area/awaymission/beach)
 "cE" = (
-/turf/unsimulated/wall{
-	icon_state = "sandstone6";
-	tag = "icon-sandstone6"
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone6"
 	},
 /area/awaymission/beach)
 "cF" = (
-/turf/unsimulated/wall{
-	icon_state = "sandstone10";
-	tag = "icon-sandstone10"
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone10"
 	},
 /area/awaymission/beach)
 "cG" = (
@@ -742,18 +739,16 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (WEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cH" = (
-/turf/unsimulated/wall{
-	icon_state = "sandstone3";
-	tag = "icon-sandstone3"
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone3"
 	},
 /area/awaymission/beach)
 "cI" = (
-/turf/unsimulated/wall{
-	icon_state = "sandstone1";
-	tag = "icon-sandstone1"
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone1"
 	},
 /area/awaymission/beach)
 "cJ" = (
@@ -763,7 +758,7 @@
 	tag = "icon-gravsnow_corner (EAST)"
 	},
 /obj/structure/closet/athletic_mixed,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cK" = (
 /obj/effect/decal/snow/sand/edge{
@@ -772,13 +767,13 @@
 	tag = "icon-gravsnow_corner (WEST)"
 	},
 /obj/effect/overlay/palmtree_l,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cL" = (
 /obj/structure/mineral_door/wood{
 	tag = "icon-wood"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cN" = (
 /obj/effect/decal/snow/sand/edge{
@@ -790,142 +785,130 @@
 /obj/item/clothing/shoes/sandal,
 /obj/item/clothing/shoes/sandal,
 /obj/structure/closet/crate,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cO" = (
 /obj/structure/chair/stool,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "cS" = (
 /obj/structure/closet/gmcloset{
 	name = "formal wardrobe"
 	},
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "cT" = (
 /obj/structure/closet/crate,
 /obj/item/gun/energy/laser/retro,
 /obj/item/gun/energy/laser/retro,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cU" = (
 /obj/structure/closet/secure_closet/bar,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "cV" = (
 /obj/structure/table/wood,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "cW" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/barman_recipes,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "cX" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/shaker,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "cY" = (
 /obj/structure/flora/rock/pile,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cZ" = (
 /obj/machinery/vending/boozeomat{
 	emagged = 1
 	},
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "da" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/sunglasses,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "db" = (
 /obj/machinery/vending/cola,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "dc" = (
 /obj/structure/flora/ausbushes/palebush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dd" = (
 /mob/living/simple_animal/crab,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "de" = (
 /obj/effect/overlay/coconut,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "df" = (
 /mob/living/simple_animal/crab/Coffee,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dg" = (
 /obj/structure/chair,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dh" = (
 /obj/structure/flora/ausbushes/reedbush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "di" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/stalkybush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "dj" = (
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/indestructible/beach/coastline,
 /area/awaymission/beach)
 "dk" = (
-/turf/unsimulated/beach/coastline/dense,
+/turf/simulated/floor/indestructible/beach/coastline/dense,
 /area/awaymission/beach)
 "dl" = (
 /obj/machinery/vending/cigarette,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "dm" = (
 /obj/machinery/vending/snack,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "dn" = (
 /obj/structure/curtain/open,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "do" = (
@@ -935,41 +918,40 @@
 	tag = "icon-gravsnow_corner (NORTH)"
 	},
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dp" = (
 /turf/simulated/wall/shuttle,
 /area/awaymission/beach)
 "dq" = (
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "dr" = (
-/turf/unsimulated/beach/water,
+/turf/simulated/floor/indestructible/beach/water,
 /area/awaymission/beach)
 "ds" = (
-/turf/unsimulated/beach/water/dense,
+/turf/simulated/floor/indestructible/beach/water/dense,
 /area/awaymission/beach)
 "dt" = (
-/turf/unsimulated/beach/water/drop,
+/turf/simulated/floor/indestructible/beach/water/drop,
 /area/awaymission/beach)
 "du" = (
-/turf/unsimulated/beach/water/deep,
+/turf/simulated/floor/indestructible/beach/water/deep,
 /area/awaymission/beach)
 "dv" = (
 /obj/structure/ladder/unbreakable/dive_point/buoy,
-/turf/unsimulated/beach/water/deep,
+/turf/simulated/floor/indestructible/beach/water/deep,
 /area/awaymission/beach)
 "dw" = (
-/turf/unsimulated/beach/water/deep/dense,
+/turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/awaymission/beach)
 "dx" = (
-/turf/unsimulated/beach/water/drop/dense,
+/turf/simulated/floor/indestructible/beach/water/drop/dense,
 /area/awaymission/beach)
 "dy" = (
-/turf/unsimulated/beach/water/edge_drop,
+/turf/simulated/floor/indestructible/beach/water/edge_drop,
 /area/awaymission/beach)
 "dz" = (
 /obj/effect/overlay/palmtree_r,
@@ -978,33 +960,30 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (SOUTHWEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dA" = (
 /obj/structure/mineral_door/wood{
 	tag = "icon-wood"
 	},
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "dB" = (
 /obj/structure/flora/grass/green,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "dC" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/soda,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "dD" = (
-/turf/unsimulated/wall{
-	icon_state = "sandstone0";
-	tag = "icon-sandstone0"
+/turf/simulated/wall/indestructible{
+	icon_state = "sandstone0"
 	},
 /area/awaymission/beach)
 "dE" = (
@@ -1012,20 +991,19 @@
 	name = "rough sand"
 	},
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dF" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer,
-/turf/unsimulated/floor{
-	icon_state = "wood";
-	tag = "icon-wood"
+/turf/simulated/floor/indestructible{
+	icon_state = "wood"
 	},
 /area/awaymission/beach)
 "dG" = (
 /obj/structure/flora/grass/green,
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "dH" = (
 /obj/effect/decal/snow/sand/edge{
@@ -1034,28 +1012,28 @@
 	tag = "icon-gravsnow_corner (NORTH)"
 	},
 /obj/structure/chair/stool/bar,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dI" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/eyepatch,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dJ" = (
 /obj/structure/table/wood,
 /obj/item/clothing/head/bandana,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dK" = (
 /obj/item/ship_in_a_bottle,
 /obj/structure/table/wood,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dL" = (
 /mob/living/simple_animal/hostile/pirate/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged)
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dM" = (
 /obj/structure/table/wood,
@@ -1063,18 +1041,18 @@
 /obj/item/stack/sheet/mineral/diamond{
 	amount = 2
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dN" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/mineral/uranium{
 	amount = 20
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dO" = (
 /obj/structure/chair/office/light,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dP" = (
 /obj/effect/overlay/palmtree_r,
@@ -1083,14 +1061,14 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (SOUTHEAST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dQ" = (
 /obj/structure/chair/office/light,
 /mob/living/simple_animal/hostile/pirate/ranged{
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged)
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dR" = (
 /obj/machinery/light{
@@ -1117,7 +1095,7 @@
 	name = "rough sand";
 	tag = "icon-gravsnow_corner (WEST)"
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dU" = (
 /obj/structure/grille,
@@ -1127,17 +1105,17 @@
 "dV" = (
 /obj/structure/flora/rock,
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand/dense,
+/turf/simulated/floor/indestructible/beach/sand/dense,
 /area/awaymission/beach)
 "dW" = (
 /obj/structure/ladder/unbreakable/dive_point/buoy{
 	id = "pirate"
 	},
-/turf/unsimulated/beach/water,
+/turf/simulated/floor/indestructible/beach/water,
 /area/awaymission/beach)
 "dX" = (
 /obj/item/paper,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dZ" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1159,17 +1137,17 @@
 /obj/structure/closet/crate,
 /obj/item/clothing/under/pirate,
 /obj/item/clothing/under/pirate,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ee" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/suit/pirate_brown,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ef" = (
 /obj/effect/overlay/palmtree_r,
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "eg" = (
 /mob/living/simple_animal/hostile/pirate{
@@ -1189,14 +1167,14 @@
 "ej" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/pirate_black,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ek" = (
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
 	},
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "el" = (
 /obj/machinery/door/airlock/titanium,
@@ -1204,42 +1182,42 @@
 /area/awaymission/beach)
 "em" = (
 /obj/item/beach_ball,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "en" = (
 /mob/living/simple_animal/hostile/pirate{
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate)
 	},
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "eo" = (
 /obj/effect/waterfall{
 	dir = 1;
 	water_frequency = 75
 	},
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/indestructible/beach/coastline,
 /area/awaymission/beach)
 "ep" = (
 /obj/effect/decal/cleanable/blood,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "eq" = (
 /obj/effect/waterfall{
 	dir = 1;
 	water_frequency = 192
 	},
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/indestructible/beach/coastline,
 /area/awaymission/beach)
 "er" = (
 /obj/effect/waterfall{
 	dir = 1;
 	water_frequency = 104
 	},
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/indestructible/beach/coastline,
 /area/awaymission/beach)
 "es" = (
 /obj/structure/chair/stool,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "et" = (
 /obj/structure/shuttle/engine/heater,
@@ -1247,19 +1225,19 @@
 /area/awaymission/beach)
 "eu" = (
 /obj/structure/table/wood,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ev" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/pie,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ew" = (
 /obj/effect/waterfall{
 	dir = 1;
 	water_frequency = 44
 	},
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/indestructible/beach/coastline,
 /area/awaymission/beach)
 "ex" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -1272,7 +1250,7 @@
 	dir = 1;
 	water_frequency = 97
 	},
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/indestructible/beach/coastline,
 /area/awaymission/beach)
 "ez" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -1289,24 +1267,24 @@
 	dir = 1;
 	water_frequency = 94
 	},
-/turf/unsimulated/beach/coastline,
+/turf/simulated/floor/indestructible/beach/coastline,
 /area/awaymission/beach)
 "eC" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/blood,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "eD" = (
 /obj/structure/closet/crate/can,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "eE" = (
 /obj/structure/closet/crate,
-/turf/unsimulated/beach/sand,
+/turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "LZ" = (
 /obj/machinery/poolcontroller/invisible,
-/turf/unsimulated/beach/water/deep,
+/turf/simulated/floor/indestructible/beach/water/deep,
 /area/awaymission/beach)
 "Sq" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
@@ -14370,7 +14348,7 @@ aa
 aa
 aa
 aa
-bs
+bo
 cg
 by
 bj
@@ -14627,7 +14605,7 @@ aa
 aa
 aa
 aa
-br
+bq
 bw
 cs
 bj

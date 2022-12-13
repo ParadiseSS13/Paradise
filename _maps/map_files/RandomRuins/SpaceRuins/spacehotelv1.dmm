@@ -265,7 +265,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/full/basic,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/space/spacehotelv1/centralhallway)
 "bu" = (
 /obj/machinery/vending/clothing,
@@ -2348,7 +2348,7 @@
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/space/spacehotelv1/reception)
 "pU" = (
 /obj/machinery/alarm{
@@ -3344,7 +3344,7 @@
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/space/spacehotelv1/centralhallway)
 "we" = (
 /obj/structure/closet/cabinet,
@@ -7451,7 +7451,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/effect/spawner/window/reinforced,
-/turf/unsimulated/floor/grass,
+/turf/simulated/floor/grass,
 /area/ruin/space/spacehotelv1/barber)
 "Wl" = (
 /obj/machinery/door/window/westright{

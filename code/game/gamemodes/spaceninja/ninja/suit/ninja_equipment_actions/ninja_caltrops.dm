@@ -42,7 +42,7 @@
 			for(direct in list(WEST,NORTHWEST,NORTH))
 				possible_turfs += get_step(src,direct)
 		for(var/turf/spawn_turf in possible_turfs)
-			if(!istype(spawn_turf, /turf/simulated/wall) && !istype(spawn_turf, /turf/unsimulated/wall) && !locate(/obj/structure/grille) in spawn_turf)
+			if(!istype(spawn_turf, /turf/simulated/wall) && !locate(/obj/structure/grille) in spawn_turf)
 				new /obj/structure/energy_caltrops(spawn_turf)
 		s_coold = 1 SECONDS
 		playsound(ninja, 'sound/effects/glass_step_sm.ogg', 50, TRUE)

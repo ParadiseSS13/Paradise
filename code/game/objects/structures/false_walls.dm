@@ -26,6 +26,8 @@
 	canSmoothWith = list(
 	/turf/simulated/wall,
 	/turf/simulated/wall/r_wall,
+	/turf/simulated/wall/indestructible/metal,
+	/turf/simulated/wall/indestructible/reinforced,
 	/obj/structure/falsewall,
 	/obj/structure/falsewall/brass,
 	/obj/structure/falsewall/clockwork,

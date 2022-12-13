@@ -8,7 +8,7 @@
 /turf/template_noop,
 /area/ruin/unpowered)
 "bk" = (
-/turf/unsimulated,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "dy" = (
 /obj/structure/lattice,
@@ -46,7 +46,7 @@
 /area/ruin)
 "hm" = (
 /obj/structure/lattice,
-/turf/unsimulated,
+/turf/simulated/floor/plating/airless,
 /area/template_noop)
 "ho" = (
 /mob/living/simple_animal/pet/dog/corgi,
@@ -66,18 +66,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"jv" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 4
-	},
-/area/ruin/unpowered)
 "jR" = (
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"ke" = (
-/turf/unsimulated/floor/plating/airless,
-/area/space)
 "kh" = (
 /obj/machinery/conveyor/east{
 	dir = 2;
@@ -133,7 +125,7 @@
 /turf/template_noop,
 /area/space)
 "oO" = (
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/airless,
 /area/ruin)
 "pb" = (
 /obj/structure/lattice/catwalk,
@@ -143,7 +135,7 @@
 /turf/template_noop,
 /area/space)
 "pp" = (
-/turf/unsimulated,
+/turf/simulated/floor/plating/airless,
 /area/template_noop)
 "pR" = (
 /obj/machinery/light{
@@ -272,7 +264,7 @@
 	animal_species = /mob/living/simple_animal/pet/dog;
 	attack_sound = 'sound/weapons/bite.ogg';
 	attacktext = "кусает";
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
+	damage_coeff = list("brute"=1,"fire"=1,"tox"=1,"clone"=1,"stamina"=1,"oxy"=1);
 	death_sound = null;
 	deathmessage = "";
 	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
@@ -429,9 +421,6 @@
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"KS" = (
-/turf/unsimulated/floor/plating/airless,
-/area/ruin)
 "Le" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/blue{
@@ -542,7 +531,7 @@
 /area/space)
 "UR" = (
 /obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "Vf" = (
 /obj/structure/cable{
@@ -553,16 +542,14 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Vt" = (
-/turf/unsimulated/wall/fakeglass{
-	dir = 8
-	},
+/turf/simulated/wall/indestructible/fakeglass,
 /area/ruin/unpowered)
 "VH" = (
 /turf/simulated/wall,
 /area/space)
 "VR" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "WL" = (
 /turf/space,
@@ -581,13 +568,13 @@
 /turf/space,
 /area/ruin/space)
 "YR" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "YT" = (
 /obj/item/reagent_containers/food/snacks/syndicake,
 /obj/item/reagent_containers/food/snacks/syndicake,
 /obj/item/reagent_containers/food/snacks/syndicake,
-/turf/unsimulated/floor/plating/airless,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "YU" = (
 /obj/structure/computerframe,
@@ -601,7 +588,7 @@
 /area/ruin/unpowered)
 "Zt" = (
 /obj/structure/lattice,
-/turf/unsimulated,
+/turf/simulated/floor/plating/airless,
 /area/space)
 
 (1,1,1) = {"
@@ -1012,7 +999,7 @@ Hy
 Hy
 EJ
 Zs
-jv
+Vt
 ky
 rL
 Rg
@@ -1025,7 +1012,7 @@ rJ
 rJ
 VR
 Xn
-KS
+oO
 OU
 EJ
 pd
@@ -1065,8 +1052,8 @@ sN
 sN
 Kr
 OU
-KS
-KS
+oO
+oO
 EJ
 pd
 pd
@@ -1104,8 +1091,8 @@ sN
 sN
 sN
 EJ
-KS
-KS
+oO
+oO
 rJ
 EJ
 pd
@@ -1132,7 +1119,7 @@ Hy
 Hy
 EJ
 Zs
-jv
+Vt
 lK
 YU
 sN
@@ -1145,7 +1132,7 @@ Ry
 Ry
 EJ
 OU
-KS
+oO
 rJ
 EJ
 Ic
@@ -1185,7 +1172,7 @@ EJ
 EJ
 EJ
 OU
-KS
+oO
 OK
 Da
 pd
@@ -1214,8 +1201,8 @@ Zt
 fY
 OU
 OU
-KS
-KS
+oO
+oO
 yU
 WL
 OU
@@ -1224,7 +1211,7 @@ OU
 OU
 WL
 XZ
-KS
+oO
 Da
 OK
 OK
@@ -1254,16 +1241,16 @@ pd
 rJ
 rJ
 rJ
-KS
+oO
 rJ
-KS
+oO
 rJ
-KS
-KS
+oO
+oO
 Hx
 NQ
 OU
-KS
+oO
 NQ
 NQ
 Da
@@ -1292,12 +1279,12 @@ Hy
 Hy
 pd
 Uq
-ke
+bk
 nV
-KS
+oO
 nV
-KS
-KS
+oO
+oO
 Da
 NQ
 Da
@@ -1421,7 +1408,7 @@ pd
 Ic
 pd
 pd
-KS
+oO
 OU
 OU
 Da
@@ -1465,7 +1452,7 @@ QF
 QF
 QF
 Da
-ke
+bk
 oJ
 pd
 pd

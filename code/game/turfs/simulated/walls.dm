@@ -43,7 +43,9 @@
 	/obj/structure/falsewall/clockwork,
 	/turf/simulated/wall/rust,
 	/turf/simulated/wall/r_wall/rust,
-	/turf/simulated/wall/r_wall/coated)
+	/turf/simulated/wall/r_wall/coated,
+	/turf/simulated/wall/indestructible/metal,
+	/turf/simulated/wall/indestructible/reinforced)
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/BeforeChange()

@@ -12,17 +12,17 @@
 	pixel_y = 32
 	},
 /obj/random/plushie,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "c" = (
 /obj/structure/sign/poster/official/random{
 	dir = 1;
 	pixel_y = 32
 	},
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "d" = (
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "e" = (
 /obj/structure/sign/poster/official/random{
@@ -30,7 +30,7 @@
 	pixel_y = 32
 	},
 /obj/random/plushie,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "f" = (
 /obj/structure/dresser,
@@ -42,14 +42,14 @@
 	dir = 4;
 	pixel_x = 32
 	},
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "g" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/random/plushie,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "h" = (
 /obj/structure/bed,
@@ -59,11 +59,11 @@
 	},
 /obj/item/bedsheet/rainbow,
 /obj/random/plushie,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "i" = (
 /obj/random/plushie,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "j" = (
 /obj/structure/window/reinforced/polarized{
@@ -74,24 +74,24 @@
 	pixel_x = -32
 	},
 /obj/random/plushie,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "k" = (
 /obj/structure/window/reinforced/polarized{
 	id = "room_n"
 	},
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "l" = (
 /obj/machinery/door/window/southright,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "m" = (
 /obj/structure/window/reinforced/polarized{
 	id = "room_n"
 	},
 /obj/random/plushie,
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "n" = (
 /obj/item/flashlight/lamp/green,
@@ -103,7 +103,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/turf/unsimulated/floor/carpet,
+/turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "o" = (
 /obj/structure/sink{
@@ -116,7 +116,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -124,7 +124,7 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -135,7 +135,7 @@
 	pixel_y = -24;
 	range = 2
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
@@ -143,12 +143,12 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/unsimulated/floor{
+/turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
 "s" = (
-/turf/unsimulated/wall/metal,
+/turf/simulated/wall/indestructible/metal,
 /area/template_noop)
 
 (1,1,1) = {"
