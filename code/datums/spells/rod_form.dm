@@ -17,6 +17,10 @@
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/rod_form/cast(list/targets,mob/user = usr)
+	if(get_turf(user) != user.loc)
+		to_chat(user, "<span class='warning'>You cannot summon a rod in the ether, the spell fizzles out!</span>")
+		revert_cast()
+		return FALSE
 	for(var/mob/living/M in targets)
 		var/turf/start = get_turf(M)
 		var/obj/effect/immovablerod/wizard/W = new(start, get_ranged_target_turf(M, M.dir, (15 + spell_level * 3)), rod_delay)

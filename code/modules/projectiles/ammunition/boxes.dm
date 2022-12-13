@@ -14,7 +14,7 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
 	multi_sprite_step = 1
-	icon_state = "357OLD"
+	icon_state = "357_box"
 
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
