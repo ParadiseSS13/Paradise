@@ -591,8 +591,10 @@
 						)
 					)
 					update_query.warn_execute()
+					qdel(update_query)
 				else
 					is_tutorial_needed = TRUE
+			qdel(exp_read)
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
 		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
