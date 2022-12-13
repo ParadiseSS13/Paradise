@@ -312,16 +312,16 @@
 	description = "A fatty, bitter paste made from cocoa beans."
 	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
-	color = "#302000" // rgb: 48, 32, 0
+	color = "#5F3A13"
 	taste_description = "bitter cocoa"
 
 /datum/reagent/consumable/vanilla
-	name = "Vanilla Powder"
+	name = "Vanilla"
 	id = "vanilla"
 	description = "A fatty, bitter paste made from vanilla pods."
 	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
-	color = "#FFFACD"
+	color = "#FEFEFE"
 	taste_description = "bitter vanilla"
 
 /datum/reagent/consumable/hot_coco
