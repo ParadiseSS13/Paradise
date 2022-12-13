@@ -24,7 +24,7 @@
 	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
 		return //don't recheck connected clients.
 
-	if((ckey in GLOB.admin_datums) || (ckey in GLOB.deadmins))
+	if((ckey in GLOB.admin_datums) || (ckey in GLOB.de_admins))
 		var/datum/admins/A = GLOB.admin_datums[ckey]
 		if(A && (A.rights & R_ADMIN))
 			admin = 1

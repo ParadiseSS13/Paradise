@@ -1,0 +1,36 @@
+/client/proc/ping_all_admins()
+	set name = "Ping all admins"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN, FALSE))
+		return
+
+	var/msg = input(src, "What message do you want the ping to show?", "Ping all admins") as text|null
+	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
+
+	if(!msg)
+		return
+
+	var/list/admins_to_ping = list()
+
+	for(var/client/C in GLOB.admins)
+		if(R_ADMIN & C.holder.rights)
+			admins_to_ping.Add(C)
+
+	for(var/key in GLOB.de_admins)
+		var/client/C = get_client_by_ckey(key)
+		if(!istype(C))
+			continue
+		admins_to_ping.Add(C)
+
+	if(length(admins_to_ping) < 2) // Just the two of us, we can make it if we try
+		to_chat(usr, "<span class='boldannounce'>No other admins online to ping, including those that have used de-admin!</span>")
+		return
+
+	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	GLOB.asays += asay
+	log_ping_all_admins(msg, src)
+
+	for(var/client/C in admins_to_ping)
+		SEND_SOUND(C, sound('sound/misc/ping.ogg'))
+		to_chat(C, "<span class='admin_channel'>ALL ADMIN PING: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>Your attention is required in asay. <font color='red'>[length(admins_to_ping)] clients pinged.</font> Reason: <span class='emoji_enabled'>[msg]</span></span></span>")
