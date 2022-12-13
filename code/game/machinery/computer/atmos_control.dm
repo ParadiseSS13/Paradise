@@ -91,6 +91,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		// We can use the same template here for sensors and for tanks with inlets/outlets with TGUI memes
 		ui = new(user, src, ui_key, "AtmosTankControl", name, 400, 400, master_ui, state)
 		ui.open()
+
+
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
 
