@@ -121,9 +121,15 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
 
+/obj/item/stack/sheet/wetleather/burn()
+	visible_message("<span class='notice'>[src] finishes drying!</span>")
+	new /obj/item/stack/sheet/leather(loc)
+	qdel(src)
+
 /obj/item/stack/sheet/leather
 	name = "leather"
 	desc = "The by-product of mob grinding."
+	resistance_flags = LAVA_PROOF | FIRE_PROOF //So it doesn't burn when drying via lava
 	singular_name = "leather piece"
 	icon_state = "sheet-leather"
 	item_state = "sheet-leather"
