@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	objectives = list()
 	if(!islist(starting_members))
 		starting_members = list(starting_members)
-	for(var/datum/mind/M in starting_members)
+	for(var/datum/mind/M as anything in starting_members)
 		add_member(M)
 	GLOB.antagonist_teams += src
 

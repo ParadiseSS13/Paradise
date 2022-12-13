@@ -1621,8 +1621,14 @@
 		var/datum/mind/member
 		if(href_list["team"])
 			team = locateUID(href_list["team"])
+			if(QDELETED(team))
+				to_chat(usr, "<span class='warning'>This team doesn't exist anymore!</span>")
+				return
 		if(href_list["member"])
 			member = locateUID(href_list["member"])
+			if(QDELETED(member))
+				to_chat(usr, "<span class='warning'>This team member doesn't exist anymore!</span>")
+				return
 		switch(href_list["team_command"])
 			if("communicate")
 				team.admin_communicate(usr)
