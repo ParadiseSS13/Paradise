@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	add_objective_to_members(O)
 
 	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
-	log_admin("[key_name(user)] added objective [O.type]  to the team '[name]'.")
+	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
 
 /**
  * Allows admins to remove a team objective.
@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /**
  * Allows admins to remove a team member.
  */
-/datum/team/proc/admin_remove_member(mob/user,datum/mind/M)
+/datum/team/proc/admin_remove_member(mob/user, datum/mind/M)
 	message_admins("[key_name_admin(user)] removed [key_name_admin(M)] from the team '[name]'.")
 	log_admin("[key_name(user)] removed [key_name(M)] from the team '[name]'.")
 	remove_member(M)
@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		content += "<h3>[T.name] - [T.type]</h3>"
 		content += "<a href='?_src_=holder;team_command=rename_team;team=[T.UID()]'>Rename Team</a>"
 		content += "<a href='?_src_=holder;team_command=delete_team;team=[T.UID()]'>Delete Team</a>"
-		content += "<a href='?_src_=holder;team_command=communicate;team=[T.UID()]'>Mesage Team</a>"
+		content += "<a href='?_src_=holder;team_command=communicate;team=[T.UID()]'>Message Team</a>"
 		for(var/command in T.get_admin_commands())
 			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
 			content += "<a href='?_src_=[T.UID()];command=[command]'>[command]</a>"
