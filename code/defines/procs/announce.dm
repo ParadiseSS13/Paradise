@@ -4,13 +4,13 @@ GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, ne
 GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = 0, do_newscast = 0))
 
 /datum/announcement
-	var/title = "Attention"
+	var/title = "Внимание"
 	var/announcer = ""
 	var/log = 0
 	var/sound
 	var/newscast = 0
 	var/channel_name = "Station Announcements"
-	var/announcement_type = "Announcement"
+	var/announcement_type = "Оповещение"
 	var/admin_announcement = 0 // Admin announcements are received regardless of being in range of a radio, unless you're in the lobby to prevent metagaming
 	var/language = "Galactic Common"
 
@@ -21,19 +21,19 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/minor/New(var/do_log = 0, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
-	title = "Attention"
-	announcement_type = "Minor Announcement"
+	title = "Внимание"
+	announcement_type = "Незначительное оповещение"
 
 /datum/announcement/priority/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
-	title = "Priority Announcement"
-	announcement_type = "Priority Announcement"
+	title = "Приоритетное оповещение"
+	announcement_type = "Приоритетное оповещение"
 
 /datum/announcement/priority/command/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 1
-	title = "[command_name()] Update"
-	announcement_type = "[command_name()] Update"
+	title = "[command_name()] обновление"
+	announcement_type = "[command_name()] обновление"
 
 /datum/announcement/priority/command/event/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
@@ -41,8 +41,8 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/priority/security/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
-	title = "Security Announcement"
-	announcement_type = "Security Announcement"
+	title = "Оповещение о безопасности"
+	announcement_type = "Оповещение о безопасности"
 
 /datum/announcement/proc/Announce(var/message as text, var/new_title = "", var/new_sound = null, var/do_newscast = newscast, var/msg_sanitized = 0, var/from, var/msg_language)
 	if(!message)

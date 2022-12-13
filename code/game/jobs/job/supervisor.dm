@@ -24,7 +24,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	GLOB.captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
+	GLOB.captain_announcement.Announce("Экипажу станции, капитан [H.real_name] взошел на борт!")
 
 /datum/outfit/job/captain
 	name = "Captain"

@@ -41,7 +41,7 @@
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+	GLOB.event_announcement.Announce("Отчет был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
 
 /datum/station_state
 	var/floor = 0

@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			send_intercept(1)
 			declared = 1
 		if(1)
-			GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+			GLOB.event_announcement.Announce("Подтверждена вспышка биологической опасности пятого уровня на борту [station_name()]. Весь персонал обязан локализовать вспышку.", "Тревога о биологической опасности", 'sound/AI/outbreak5.ogg')
 		if(2)
 			send_intercept(2)
 

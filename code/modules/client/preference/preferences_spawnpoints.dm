@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/arrivals
 	display_name = "Arrivals Shuttle"
-	msg = "has arrived on the station"
+	msg = "прибыл на станцию"
 
 /datum/spawnpoint/arrivals/New()
 	..()
