@@ -12,8 +12,7 @@
 			final_pixel_y = pixel_y
 		else //if(lying != 0)
 			if(lying_prev == 0) //Standing to lying
-				pixel_y = pixel_y
-				final_pixel_y = pixel_y + PIXEL_Y_OFFSET_LYING
+				final_pixel_y = PIXEL_Y_OFFSET_LYING
 				if(dir & (EAST|WEST)) //Facing east or west
 					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
 	if(resize != RESIZE_DEFAULT_SIZE)
