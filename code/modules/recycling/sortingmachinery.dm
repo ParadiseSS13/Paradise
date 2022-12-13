@@ -241,8 +241,8 @@
 	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 	var/datum/ui_module/destination_tagger/destination_tagger
 
-/obj/item/destTagger/New()
-	..()
+/obj/item/destTagger/Initialize(mapload)
+	. = ..()
 	destination_tagger = new(src)
 
 /obj/item/destTagger/Destroy()
