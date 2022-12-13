@@ -35,7 +35,7 @@
 	description = "An illegal chemical compound used as drug."
 	reagent_state = LIQUID
 	color = "#9087A2"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	addiction_chance = 15
 	addiction_threshold = 10
 	heart_rate_decrease = 1
@@ -307,7 +307,7 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
-	metabolization_rate = 0.6
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	heart_rate_increase = 1
 	taste_description = "speed"
 
@@ -369,7 +369,7 @@
 	overdose_threshold = 20
 	addiction_chance = 15
 	addiction_threshold = 5
-	metabolization_rate = 0.6
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "WAAAAGH"
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
@@ -559,7 +559,7 @@
 	description = "Do some flips!"
 	reagent_state = LIQUID
 	color = "#A42964"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 15
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
 	addiction_chance = 1
@@ -671,7 +671,7 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 5
-	metabolization_rate = 0.6
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "wiper fluid"
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/M)

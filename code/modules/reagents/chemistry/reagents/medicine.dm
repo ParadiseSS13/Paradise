@@ -19,7 +19,7 @@
 	description = "An extremely effective painkiller; may have long term abuse consequences."
 	reagent_state = LIQUID
 	color = "#C805DC"
-	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
+	metabolization_rate = 0.75 * REAGENTS_METABOLISM // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_description = "numbness"
 
@@ -171,7 +171,7 @@
 	description = "An all-purpose antibiotic agent extracted from space fungus."
 	reagent_state = LIQUID
 	color = "#0AB478"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "antibiotics"
 
 /datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/M)
@@ -203,7 +203,7 @@
 	description = "This antibacterial compound is used to treat burn victims."
 	reagent_state = LIQUID
 	color = "#F0DC00"
-	metabolization_rate = 3
+	metabolization_rate = 7.5 * REAGENTS_METABOLISM
 	harmless = FALSE	//toxic if ingested, and I am NOT going to account for the difference
 	taste_description = "burn cream"
 
@@ -230,7 +230,7 @@
 	description = "Styptic (aluminum sulfate) powder helps control bleeding and heal physical wounds."
 	reagent_state = LIQUID
 	color = "#FF9696"
-	metabolization_rate = 3
+	metabolization_rate = 7.5 * REAGENTS_METABOLISM
 	harmless = FALSE
 	taste_description = "wound cream"
 
@@ -259,7 +259,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	penetrates_skin = TRUE
-	metabolization_rate = 0.30
+	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	taste_description = "salt"
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
@@ -301,7 +301,7 @@
 	id = "antiburn_stimulant"
 	description = "Стимулятор регенеративных способностей клеток, способный излечить обугленную кожу в кратчайшие сроки."
 	reagent_state = LIQUID
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 3
 	color = "#fab9b9"
 	taste_description = "bitterness"
@@ -350,7 +350,6 @@
 	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	metabolization_rate = 0.4
 	overdose_threshold = 30
 	addiction_chance = 3
 	addiction_chance_additional = 20
@@ -411,7 +410,7 @@
 	description = "This potent purgative rids the body of impurities. It is highly toxic however and close supervision is required."
 	reagent_state = LIQUID
 	color = "#22AB35"
-	metabolization_rate = 0.8
+	metabolization_rate = 2 * REAGENTS_METABOLISM
 	harmless = FALSE
 	taste_description = "a painful cleansing"
 
@@ -467,7 +466,7 @@
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#B54848"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	shock_reduction = 25
 	overdose_threshold = 25
 	harmless = FALSE
@@ -487,7 +486,7 @@
 	description = "Menthol relieves burns and aches while providing a cooling sensation."
 	reagent_state = LIQUID
 	color = "#F0F9CA"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "soothing"
 
 /datum/reagent/medicine/menthol/on_mob_life(mob/living/M)
@@ -504,7 +503,6 @@
 	description = "Salbutamol is a common bronchodilation medication for asthmatics. It may help with other breathing problems as well."
 	reagent_state = LIQUID
 	color = "#00FFFF"
-	metabolization_rate = 0.4
 	taste_description = "safety"
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
@@ -519,7 +517,7 @@
 	description = "This experimental perfluoronated solvent has applications in liquid breathing and tissue oxygenation. Use with caution."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 10
@@ -542,7 +540,7 @@
 	description = "Ephedrine is a plant-derived stimulant."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	metabolization_rate = 0.3
+	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	overdose_threshold = 35
 	addiction_chance = 1
 	addiction_chance_additional = 10
@@ -671,7 +669,7 @@
 	description = "Atropine is a potent cardiac resuscitant but it can causes confusion, dizzyness and hyperthermia."
 	reagent_state = LIQUID
 	color = "#000000"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	harmless = FALSE
 	taste_description = "a moment of respite"
@@ -700,7 +698,7 @@
 	description = "Epinephrine is a potent neurotransmitter, used in medical emergencies to halt anaphylactic shock and prevent cardiac arrest."
 	reagent_state = LIQUID
 	color = "#96B1AE"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 20
 	harmless = FALSE
 	taste_description = "borrowed time"
@@ -758,7 +756,7 @@
 	description = "A glowing green fluid highly reminiscent of nuclear waste."
 	reagent_state = LIQUID
 	color = "#A0E85E"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "life"
 	harmless = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
@@ -1050,7 +1048,7 @@
 	description = "A strong anesthetic and sedative."
 	reagent_state = LIQUID
 	color = "#96DEDE"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	harmless = FALSE
 	taste_description = "sleepiness"
 
@@ -1094,7 +1092,7 @@
 	reagent_state = LIQUID
 	color = "#DCDCDC"
 	overdose_threshold = 30
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	harmless = FALSE
 	taste_description = "faint hope"
 
@@ -1257,7 +1255,7 @@
 	id = "nanocalcium"
 	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
 	color = "#9b3401"
-	metabolization_rate = 0.5
+	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "wholeness"

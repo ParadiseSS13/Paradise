@@ -425,7 +425,7 @@
 	id = "blindness_smoke"
 	description = "<::ERROR::> CANNOT ANALYZE REAGENT <::ERROR::>"
 	color = "#000000" //Complete black (RGB: 0, 0, 0)
-	metabolization_rate = 100 //lel
+	metabolization_rate = 250 * REAGENTS_METABOLISM //still lel
 
 /datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

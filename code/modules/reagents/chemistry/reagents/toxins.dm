@@ -108,7 +108,7 @@
 	description = "A chemical element."
 	reagent_state = LIQUID
 	color = "#484848" // rgb: 72, 72, 72
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	taste_mult = 0 // elemental mercury is tasteless
 
@@ -173,7 +173,7 @@
 	description = "Might cause unpredictable mutations. Keep away from children."
 	reagent_state = LIQUID
 	color = "#04DF27"
-	metabolization_rate = 0.3
+	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	taste_mult = 0.9
 	taste_description = "slime"
 
@@ -255,7 +255,7 @@
 	description = "Lexorin temporarily stops respiration. Causes tissue damage."
 	reagent_state = LIQUID
 	color = "#52685D"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "sweetness"
 
 /datum/reagent/lexorin/on_mob_life(mob/living/M)
@@ -466,7 +466,7 @@
 	description = "Cause significant Radiation damage over time."
 	reagent_state = LIQUID
 	color = "#CF3600"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	can_synth = FALSE
 	taste_mult = 0
@@ -481,7 +481,7 @@
 	description = "Immune-system neurotransmitter. If detected in blood, the subject is likely undergoing an allergic reaction."
 	reagent_state = LIQUID
 	color = "#E7C4C4"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 40
 	taste_mult = 0
 
@@ -589,7 +589,7 @@
 	description = "An incredibly potent poison. Origin unknown."
 	reagent_state = LIQUID
 	color = "#CF3600"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 40
 	can_synth = FALSE
 	taste_mult = 0
@@ -617,7 +617,7 @@
 	description = "A dangerous toxin that attacks the nervous system."
 	reagent_state = LIQUID
 	color = "#60A584"
-	metabolization_rate = 1
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	taste_mult = 0
 
 /datum/reagent/neurotoxin2/on_mob_life(mob/living/M)
@@ -656,7 +656,7 @@
 	description = "A highly toxic chemical with some uses as a building block for other things."
 	reagent_state = LIQUID
 	color = "#CF3600"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	taste_description = "almonds"
 
@@ -681,7 +681,7 @@
 	description = "An abrasive powder beloved by cruel pranksters."
 	reagent_state = LIQUID
 	color = "#B0B0B0"
-	metabolization_rate = 0.3
+	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	taste_description = "prickliness"
 
@@ -749,7 +749,7 @@
 	description = "Pancuronium bromide is a powerful skeletal muscle relaxant."
 	reagent_state = LIQUID
 	color = "#1E4664"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_mult = 0
 
 /datum/reagent/pancuronium/on_mob_life(mob/living/M)
@@ -783,7 +783,7 @@
 	description = "An rapidly-acting barbituate tranquilizer."
 	reagent_state = LIQUID
 	color = "#5F8BE1"
-	metabolization_rate = 0.7
+	metabolization_rate = 1.75 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	taste_mult = 0
 
@@ -812,7 +812,7 @@
 	description = "A potent veterinary tranquilizer."
 	reagent_state = LIQUID
 	color = "#646EA0"
-	metabolization_rate = 0.8
+	metabolization_rate = 2 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	can_synth = FALSE
 	taste_mult = 0
@@ -840,7 +840,7 @@
 	description = "Deals some toxin damage, and puts you to sleep after 66 seconds."
 	reagent_state = LIQUID
 	color = "#6BA688"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_mult = 0
 
 /datum/reagent/sulfonal/on_mob_life(mob/living/M)
@@ -880,7 +880,7 @@
 	description = "A compound found in many seedy dollar stores in the form of a weight-loss tonic."
 	reagent_state = SOLID
 	color = "#D1DED1"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "battery acid"
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
@@ -907,7 +907,7 @@
 	description = "A neurotoxin that rapidly causes respiratory failure."
 	reagent_state = LIQUID
 	color = "#C2D8CD"
-	metabolization_rate = 0.05
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	taste_mult = 0
 
@@ -923,7 +923,7 @@
 	description = "A highly dangerous paralytic poison."
 	reagent_state = LIQUID
 	color = "#191919"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	can_synth = FALSE
 	penetrates_skin = TRUE
 	taste_mult = 0
@@ -959,7 +959,7 @@
 	description = "An extremely deadly neurotoxin."
 	reagent_state = LIQUID
 	color = "#C7C7C7"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	overdose_threshold = 25
 	taste_mult = 0
@@ -1226,7 +1226,7 @@
 	description = "An unstable, electrically-charged metallic slurry. Increases the conductance of living things."
 	reagent_state = LIQUID
 	color = "#20324D" //RGB: 32, 50, 77
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "electricity"
@@ -1257,7 +1257,7 @@
 	description = "A horrible cardiotoxin that protects the humble bungo pit."
 	reagent_state = LIQUID
 	color = "#EBFF8E"
-	metabolization_rate = 0.5
+	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	taste_description = "tannin"
 
 /datum/reagent/bungotoxin/on_mob_life(mob/living/carbon/M)

@@ -597,7 +597,7 @@
 	description = "A highly-radioactive pork byproduct first discovered in hotdogs."
 	reagent_state = LIQUID
 	color = "#AB5D5D"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 133
 	harmless = FALSE
 	taste_description = "bacon"
@@ -616,7 +616,7 @@
 	description = "An old household remedy for mild illnesses."
 	reagent_state = LIQUID
 	color = "#B4B400"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	nutriment_factor = 2.5 * REAGENTS_METABOLISM
 	taste_description = "broth"
 
@@ -708,7 +708,7 @@
 	description = "An oil derived from extra-terrestrial soybeans, with additional hydrogen atoms added to convert it into a saturated form."
 	reagent_state = LIQUID
 	color = "#B1B0B0"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 75
 	harmless = FALSE
 	taste_description = "oil"
@@ -719,9 +719,9 @@
 	if(prob(8))
 		M.reagents.add_reagent("porktonium", 5)
 	if(volume >= 75)
-		metabolization_rate = 0.4
+		metabolization_rate = 1 * REAGENTS_METABOLISM
 	else
-		metabolization_rate = 0.2
+		metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	return ..()
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/overdose_process(mob/living/M, severity)
@@ -800,7 +800,7 @@
 	description = "Monosodium Glutamate is a sodium salt known chiefly for its use as a controversial flavor enhancer."
 	reagent_state = LIQUID
 	color = "#F5F5F5"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "excellent cuisine"
 	taste_mult = 4
 
