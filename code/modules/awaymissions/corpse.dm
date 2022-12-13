@@ -162,8 +162,7 @@
 			if(M.change_voice())
 				break
 	else
-		var/datum/tts_seed/seed = pick(SStts.tts_seeds)
-		M.tts_seed = seed.name
+		M.tts_seed = pick(SStts.tts_seeds)
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
