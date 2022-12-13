@@ -151,6 +151,7 @@
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
 #define NO_MALF_EFFECT	(1<<8) //So malf cannot blow certain things
+#define NO_MOUSTACHING	(1<<9) //Saves from super hairgrowium shenanigans
 
 #define MEAT 		1
 #define VEGETABLES 	2

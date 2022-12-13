@@ -478,6 +478,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(add_image)
 		overlays_standing[MUTATIONS_LAYER] = standing
 	apply_overlay(MUTATIONS_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_MUTATIONS)
 
 
 /mob/living/carbon/human/proc/update_mutantrace()
@@ -538,6 +539,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
+	// Had to add this little delay because of a possible bug, that turns ninja invisible, or mess his model up
+	// Bug probably happens because of the fact that many of the procs above also sends signals, that ninja's
+	// chameleon_helper receives. And while working all of them up, it sometimes bugs out.
+	// Doing the last one, with a little delay, fixes those visual errors
+	sleep(1)
+	SEND_SIGNAL(src, COMSIG_MOB_REGENERATE_ICONS)
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
@@ -611,6 +618,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)
 	apply_overlay(UNIFORM_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_W_UNIFORM)
 
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)
@@ -627,6 +635,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(w_uniform && w_uniform:displays_id)
 			overlays_standing[ID_LAYER]	= mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
 	apply_overlay(ID_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_WEAR_ID)
 
 /mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
@@ -667,6 +676,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			flashies.color = CLOCK_COLOR
 			overlays_standing[GLOVES_LAYER]	= flashies
 	apply_overlay(GLOVES_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_GLOVES)
 
 
 /mob/living/carbon/human/update_inv_glasses()
@@ -709,6 +719,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			apply_overlay(GLASSES_LAYER)
 
 	update_misc_effects()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_GLASSES)
 
 /mob/living/carbon/human/update_inv_ears()
 	remove_overlay(EARS_LAYER)
@@ -757,6 +768,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			else
 				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/ears.dmi', "[t_type]", layer = -EARS_LAYER)
 	apply_overlay(EARS_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_EARS)
 
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
@@ -794,6 +806,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			bloodsies.color = feet_blood_color
 			overlays_standing[SHOES_LAYER] = bloodsies
 	apply_overlay(SHOES_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_SHOES)
 
 /mob/living/carbon/human/update_inv_s_store()
 	remove_overlay(SUIT_STORE_LAYER)
@@ -814,6 +827,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[SUIT_STORE_LAYER] = mutable_appearance(dmi, "[t_state]", layer = -SUIT_STORE_LAYER)
 		s_store.screen_loc = ui_sstore1		//TODO
 	apply_overlay(SUIT_STORE_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_S_STORE)
 
 
 /mob/living/carbon/human/update_inv_head()
@@ -841,6 +855,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.color = head.color
 		overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_HEAD)
 
 /mob/living/carbon/human/update_inv_belt()
 	remove_overlay(BELT_LAYER)
@@ -866,6 +881,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			overlays_standing[BELT_LAYER] = mutable_appearance('icons/mob/belt.dmi', "[t_state]", layer = -BELT_LAYER)
 	apply_overlay(BELT_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_BELT)
 
 
 /mob/living/carbon/human/update_inv_wear_suit()
@@ -912,6 +928,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_tail_layer()
 	update_wing_layer()
 	update_collar()
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_WEAR_SUIT)
 
 /mob/living/carbon/human/update_inv_pockets()
 	if(client && hud_used)
@@ -933,6 +950,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(r_store)
 				client.screen += r_store
 				r_store.screen_loc = ui_storage2
+		SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_POCKETS)
 
 /mob/living/carbon/human/update_inv_wear_pda()
 	if(client && hud_used)
@@ -943,6 +961,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(wear_pda)
 			client.screen += wear_pda
 			wear_pda.screen_loc = ui_pda
+		SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_WEAR_PDA)
 
 /mob/living/carbon/human/update_inv_wear_mask()
 	..()
@@ -980,6 +999,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing.color = wear_mask.color
 			overlays_standing[FACEMASK_LAYER] = standing
 	apply_overlay(FACEMASK_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_WEAR_MASK)
 
 /mob/living/carbon/human/update_inv_neck()
 	remove_overlay(NECK_LAYER)
@@ -1005,6 +1025,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.color = neck.color
 		overlays_standing[NECK_LAYER] = standing
 	apply_overlay(NECK_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_NECK)
 
 /mob/living/carbon/human/update_inv_back()
 	..()
@@ -1024,6 +1045,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.color = back.color
 		overlays_standing[BACK_LAYER] = standing
 	apply_overlay(BACK_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_BACK)
 
 /mob/living/carbon/human/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)
@@ -1035,6 +1057,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
 	apply_overlay(HANDCUFF_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_HANDCUFFED)
 
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
@@ -1047,6 +1070,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(hud_used && hud_used.move_intent)
 				hud_used.move_intent.icon_state = "walking"
 	apply_overlay(LEGCUFF_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_LEGCUFFED)
 
 
 /mob/living/carbon/human/update_inv_r_hand()
@@ -1066,6 +1090,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = center_image(standing, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
 		overlays_standing[R_HAND_LAYER] = standing
 	apply_overlay(R_HAND_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_R_HAND)
 
 
 /mob/living/carbon/human/update_inv_l_hand()
@@ -1085,6 +1110,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = center_image(standing, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
 		overlays_standing[L_HAND_LAYER] = standing
 	apply_overlay(L_HAND_LAYER)
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_INV_L_HAND)
 
 //human HUD updates for items in our inventory
 
