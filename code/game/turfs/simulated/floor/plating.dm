@@ -117,6 +117,8 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	if(user.a_intent == INTENT_HARM) // no repairing on harm intent, so you can use the welder in a fight near damaged paneling without welding your eyes out
+		return
 	if(unfastened)
 		to_chat(user, "<span class='warning'>You start removing [src], exposing space after you're done!</span>")
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume * 2)) //extra loud to let people know something's going down
