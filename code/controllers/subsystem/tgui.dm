@@ -147,6 +147,29 @@ SUBSYSTEM_DEF(tgui)
 	return close_count
 
 /**
+ *
+ * Gets the amount of open UIs on an object
+ * Returns the number of UIs open.
+ *
+ * * datum/src_object - The object/datum which owns the UIs.
+ */
+/datum/controller/subsystem/tgui/proc/get_open_ui_count(datum/src_object)
+	if(!src_object.unique_datum_id) // First check if the datum has an UID set
+		return 0
+	var/src_object_key = "[src_object.UID()]"
+	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+		return 0 // Couldn't find any UIs for this object.
+
+	var/open_count = 0
+	for(var/ui_key in open_uis[src_object_key])
+		for(var/datum/tgui/ui in open_uis[src_object_key][ui_key])
+			if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user)) // Check the UI is valid.
+				open_count++ // Count each UI thats open
+
+	return open_count
+
+
+/**
  * private
  *
  * Close *ALL* UIs

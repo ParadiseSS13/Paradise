@@ -1,5 +1,13 @@
 GLOBAL_LIST_EMPTY(gas_sensors)
 
+#define SENSOR_PRESSURE 1
+#define SENSOR_TEMPERATURE 2
+#define SENSOR_O2 4
+#define SENSOR_PLASMA 8
+#define SENSOR_N2 16
+#define SENSOR_CO2 32
+#define SENSOR_N2O 64
+
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
@@ -11,8 +19,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	var/bolts = TRUE
 
 	on = TRUE
-	var/output = 3
-	//Flags:
+	var/output = SENSOR_PRESSURE | SENSOR_TEMPERATURE
+	//Flags: (see lines 3-9)
 	// 1 for pressure
 	// 2 for temperature
 	// Output >= 4 includes gas composition
@@ -20,6 +28,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	// 8 for toxins concentration
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
+	// 64 for carbon dioxide concentration
 
 /obj/machinery/atmospherics/air_sensor/Initialize(mapload)
 	. = ..()
@@ -32,28 +41,58 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 
-#warn multitool_act
-/obj/machinery/atmospherics/air_sensor/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/multitool))
-		return TRUE
-
-	if(istype(W, /obj/item/wrench))
-		if(bolts)
-			to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
-			return TRUE
-
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-
-		if(do_after(user, 40 * W.toolspeed, target = src))
-			user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
-			new /obj/item/pipe_gsensor(src.loc)
-			qdel(src)
-			return TRUE
-
+/obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/I)
+	if(bolts)
+		to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
 		return
 
-	return ..()
+	. = TRUE
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		return
+
+	user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
+	new /obj/item/pipe_gsensor(src.loc)
+	qdel(src)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+
+#define ONOFF_TOGGLE(flag) "\[[(output & flag) ? "YES" : "NO"]]"
+/obj/machinery/atmospherics/air_sensor/multitool_act(mob/living/user, obj/item/I)
+	while(Adjacent(user))
+
+		var/list/options = list(
+			"Pressure: [ONOFF_TOGGLE(SENSOR_PRESSURE)]" = SENSOR_PRESSURE,
+			"Temperature: [ONOFF_TOGGLE(SENSOR_TEMPERATURE)]" = SENSOR_TEMPERATURE,
+			"Oxygen: [ONOFF_TOGGLE(SENSOR_O2)]" = SENSOR_O2,
+			"Toxins: [ONOFF_TOGGLE(SENSOR_PLASMA)]" = SENSOR_PLASMA,
+			"Nitrogen: [ONOFF_TOGGLE(SENSOR_N2)]" = SENSOR_N2,
+			"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
+			"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O
+		)
+
+		var/temp_answer = input(usr, "Select an option to toggle reporting of", "Options!", null) as null|anything in options
+
+		if(!Adjacent(user))
+			break
+
+		if(temp_answer in options) // Null will break us out
+			switch(options[temp_answer])
+				if(SENSOR_PRESSURE)
+					output ^= SENSOR_PRESSURE
+				if(SENSOR_TEMPERATURE)
+					output ^= SENSOR_TEMPERATURE
+				if(SENSOR_O2)
+					output ^= SENSOR_O2
+				if(SENSOR_PLASMA)
+					output ^= SENSOR_PLASMA
+				if(SENSOR_N2)
+					output ^= SENSOR_N2
+				if(SENSOR_CO2)
+					output ^= SENSOR_CO2
+				if(SENSOR_N2O)
+					output ^= SENSOR_N2O
+		else
+			break
+#undef ONOFF_TOGGLE
 
 /obj/machinery/computer/general_air_control
 	name = "air sensor monitor"
@@ -68,6 +107,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	// Instanced vars. These are /tmp/ to avoid mappers trying to set them
 	/// List of sensor names to UIDs to be used in the display
 	var/tmp/list/sensor_name_uid_map = list()
+	/// List of sensor names to cache lists used in the display TGUI
+	var/tmp/list/sensor_name_data_map = list()
 
 /obj/machinery/computer/general_air_control/Initialize()
 	..()
@@ -78,6 +119,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		for(var/sensor_id in autolink_sensors)
 			if(AS.autolink_id == sensor_id)
 				sensor_name_uid_map[autolink_sensors[sensor_id]]  = AS.UID()
+				sensor_name_data_map[autolink_sensors[sensor_id]] = list()
 
 	if(!length(sensor_name_uid_map))
 		stack_trace("[src] at [x],[y],[z] failed to initialise its air sensors.")
@@ -86,11 +128,76 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	ui_interact(user)
 
 /obj/machinery/computer/general_air_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	if(!isprocessing)
+		START_PROCESSING(SSmachines, src)
+		refresh_sensors()
+
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// We can use the same template here for sensors and for tanks with inlets/outlets with TGUI memes
 		ui = new(user, src, ui_key, "AtmosTankControl", name, 400, 400, master_ui, state)
 		ui.open()
+
+// Refreshes the sensors every so often, but only when the UI is opened
+/obj/machinery/computer/general_air_control/proc/refresh_sensors()
+	for(var/sensor_name in sensor_name_uid_map)
+		var/obj/machinery/atmospherics/air_sensor/AS = locateUID(sensor_name_uid_map[sensor_name])
+		if(QDELETED(AS))
+			sensor_name_uid_map -= sensor_name
+			continue
+
+		// Cache here to avoid a ton of list lookups
+		var/list/sensor_data = sensor_name_data_map[sensor_name]
+		var/datum/gas_mixture/air_sample = AS.return_air()
+
+		// We remove it from the list incase sensor reporting is ever disabled
+		// We only want to show the information available
+		if(AS.output & SENSOR_PRESSURE)
+			sensor_data["pressure"] = air_sample.return_pressure()
+		else
+			sensor_data -= "pressure"
+
+		if(AS.output & SENSOR_TEMPERATURE)
+			sensor_data["temperature"] = air_sample.return_temperature()
+		else
+			sensor_data -= "temperature"
+
+		var/total_moles = air_sample.total_moles()
+
+		if(total_moles > 0)
+			if(AS.output & SENSOR_O2)
+				sensor_data["o2"] = round(100 * air_sample.oxygen / total_moles, 0.1)
+			else
+				sensor_data -= "o2"
+
+			if(AS.output & SENSOR_PLASMA)
+				sensor_data["tox"] = round(100 * air_sample.toxins / total_moles, 0.1)
+			else
+				sensor_data -= "tox"
+
+			if(AS.output & SENSOR_N2)
+				sensor_data["n2"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
+			else
+				sensor_data -= "n2"
+
+			if(AS.output & SENSOR_CO2)
+				sensor_data["co2"] = round(100 * air_sample.carbon_dioxide / total_moles, 0.1)
+			else
+				sensor_data -= "co2"
+
+			if(AS.output & SENSOR_N2O)
+				sensor_data["n2o"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
+			else
+				sensor_data -= "n2o"
+
+
+
+/obj/machinery/computer/general_air_control/process()
+	// We only care about refreshing if people are looking at us
+	if(SStgui.get_open_ui_count(src) < 1)
+		return PROCESS_KILL
+
+	refresh_sensors()
 
 
 /obj/machinery/computer/general_air_control/large_tank_control

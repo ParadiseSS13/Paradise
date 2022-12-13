@@ -78437,7 +78437,7 @@
 "mKw" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "waste_sensor";
-	output = 63
+	output = 127
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
