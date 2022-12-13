@@ -23,6 +23,7 @@
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
+	var/fake_signing = FALSE //do we always write like [sign]?
 
 /obj/item/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
@@ -208,3 +209,7 @@
 		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
 	else
 		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")
+
+/obj/item/pen/fakesign
+	fake_signing = TRUE
+	//desc = "It's a normal black ink pen with constantly moving tip. Wait what?" //documented bcs its should be stealthy item, like edagger and poison

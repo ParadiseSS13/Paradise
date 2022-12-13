@@ -541,7 +541,9 @@
 		text = replacetext(text, "\[station\]", "[station_name()]")
 		if(!no_font)
 			if(P)
-				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
+				text = "<font face=\"[P.fake_signing ? signfont : deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
+				if(P.fake_signing) //or this, or one string in Kmetres
+					text = "<I>[text]</I>"
 			else
 				text = "<font face=\"[deffont]\">[text]</font>"
 

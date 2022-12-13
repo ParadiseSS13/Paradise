@@ -347,6 +347,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+	new /obj/item/pen/fakesign(src)
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"

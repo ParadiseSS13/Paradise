@@ -1209,6 +1209,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 35
 
+/datum/uplink_item/stealthy_tools/chameleonpen
+	name = "Chameleon Pen"
+	desc = "A pen with customized ultra-super high-tech tip, that makes everything you write look like a real signature."
+	reference = "CHPEN"
+	item = /obj/item/pen/fakesign
+	cost = 1
+	surplus = 35
+
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
 	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
