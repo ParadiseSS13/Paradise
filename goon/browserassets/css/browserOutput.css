@@ -281,6 +281,7 @@ em						{font-style: normal;	font-weight: bold;}
 .srvradio				{color: #80A000;}
 .proradio				{color: #E3027A;}
 .admin_channel			{color: #9A04D1;	font-weight: bold;}
+.all_admin_ping			{color: #12A5F4;	font-weight: bold; font-size: 120%; text-align: center;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
 .djradio				{color: #663300;}

@@ -20,8 +20,8 @@
 	var/de_admin_also = alert(usr, "Do you want to ping admins that have used de-admin?","Ping all admins", "Yes", "No")
 	if(de_admin_also == "Yes")
 		for(var/key in GLOB.de_admins)
-			var/client/C = get_client_by_ckey(key)
-			if(!istype(C))
+			var/client/C = GLOB.directory[ckey]
+			if(!C)
 				continue
 			admins_to_ping.Add(C)
 
@@ -31,8 +31,9 @@
 
 	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
-	log_ping_all_admins(msg, src)
+	log_ping_all_admins("[length(admins_to_ping)] clients pinged: [msg]", src)
 
 	for(var/client/C in admins_to_ping)
 		SEND_SOUND(C, sound('sound/misc/ping.ogg'))
-		to_chat(C, "<span class='admin_channel'>ALL ADMIN PING: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>Your attention is required in asay. <font color='red'>[length(admins_to_ping)] clients pinged.</font> Reason: <span class='emoji_enabled'>[msg]</span></span></span>")
+		to_chat(C, "<span class='all_admin_ping'>ALL ADMIN PING: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='emoji_enabled'>[msg]</span></span></span>")
+	to_chat(usr, "[length(admins_to_ping)] clients pinged.")
