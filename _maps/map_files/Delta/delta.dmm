@@ -1037,7 +1037,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "ais" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -1079,7 +1079,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aiK" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -1387,12 +1387,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "alO" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/fore2)
 "alP" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/fore2)
 "alR" = (
@@ -1832,11 +1832,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fore2)
 "anH" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -1963,6 +1959,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "bluecorner"
 	},
 /area/hallway/secondary/entry)
@@ -2155,14 +2152,14 @@
 	},
 /area/maintenance/fore2)
 "aoy" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/hallway/secondary/entry)
 "aoz" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/economy/vending/clothing,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -2199,7 +2196,7 @@
 	},
 /area/maintenance/fore2)
 "aoF" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -6292,7 +6289,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "axX" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6452,7 +6449,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "ayu" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7720,7 +7717,7 @@
 	},
 /area/maintenance/fore)
 "aBq" = (
-/obj/machinery/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -9128,11 +9125,7 @@
 	},
 /area/quartermaster/storage)
 "aEV" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 5
 	},
@@ -9288,11 +9281,7 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics/abandoned_garden)
 "aFo" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 9
 	},
@@ -9879,7 +9868,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aGC" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -11136,12 +11125,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aJu" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -11382,11 +11366,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
 "aJT" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/controlroom)
 "aJU" = (
@@ -12194,7 +12174,7 @@
 /area/crew_quarters/bar)
 "aLN" = (
 /obj/machinery/light,
-/obj/machinery/vending/bardrobe,
+/obj/machinery/economy/vending/bardrobe,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aLO" = (
@@ -13174,11 +13154,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aOi" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/atmos)
 "aOj" = (
@@ -13324,7 +13300,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/crew_quarters/theatre)
 "aOF" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aOG" = (
@@ -13835,7 +13811,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -13868,14 +13844,14 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/plasteel,
 /area/storage/art)
 "aPR" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/clothing,
+/obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel,
 /area/storage/art)
 "aPS" = (
@@ -14072,7 +14048,7 @@
 	},
 /area/quartermaster/sorting)
 "aQm" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -14611,7 +14587,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "aRo" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -16280,12 +16256,7 @@
 	},
 /area/quartermaster/office)
 "aVc" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall,
 /area/quartermaster/qm)
 "aVf" = (
@@ -16765,7 +16736,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "aVW" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "aVX" = (
@@ -17344,11 +17315,7 @@
 	id = "Execution";
 	pixel_y = 22
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -19817,7 +19784,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/vending/hydrodrobe,
+/obj/machinery/economy/vending/hydrodrobe,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "bcj" = (
@@ -19975,7 +19942,7 @@
 	},
 /area/atmos)
 "bcz" = (
-/obj/machinery/vending/chefdrobe,
+/obj/machinery/economy/vending/chefdrobe,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -20043,12 +20010,7 @@
 	},
 /area/quartermaster/miningdock)
 "bcG" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall,
 /area/quartermaster/miningdock)
 "bcH" = (
@@ -20076,7 +20038,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/vending/cargodrobe,
+/obj/machinery/economy/vending/cargodrobe,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -20973,7 +20935,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = 30
 	},
-/obj/machinery/vending/atmosdrobe,
+/obj/machinery/economy/vending/atmosdrobe,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -22595,7 +22557,7 @@
 	},
 /area/security/interrogation)
 "biz" = (
-/obj/machinery/vending/security,
+/obj/machinery/economy/vending/security,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -23491,7 +23453,7 @@
 	},
 /area/security/interrogation)
 "bko" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -23819,7 +23781,7 @@
 /area/crew_quarters/kitchen)
 "blg" = (
 /obj/machinery/light,
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
@@ -23987,13 +23949,13 @@
 	},
 /area/hallway/primary/fore)
 "blz" = (
-/obj/machinery/vending/cart,
+/obj/machinery/economy/vending/cart,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
 /area/hallway/primary/fore)
 "blA" = (
-/obj/machinery/computer/merch{
+/obj/machinery/economy/merch{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -26563,7 +26525,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/vending/security,
+/obj/machinery/economy/vending/security,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -26682,9 +26644,9 @@
 /area/quartermaster/storage)
 "brf" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/bulletproof,
+/obj/item/clothing/suit/armor/bulletproof/sec,
+/obj/item/clothing/suit/armor/bulletproof/sec,
+/obj/item/clothing/suit/armor/bulletproof/sec,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/head/helmet/alt,
@@ -27749,14 +27711,14 @@
 	},
 /area/hallway/primary/port)
 "btB" = (
-/obj/machinery/vending/hydroseeds,
+/obj/machinery/economy/vending/hydroseeds,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/hydroponics)
 "btC" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -29179,6 +29141,7 @@
 	c_tag = "Vault";
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/brown/Tom,
 /turf/simulated/floor/plasteel/dark,
 /area/security/nuke_storage)
 "bws" = (
@@ -30099,6 +30062,10 @@
 	icon_state = "caution"
 	},
 /area/atmos)
+"byA" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/maintenance/library)
 "byB" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -30974,11 +30941,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "bAu" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "bAv" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "bAw" = (
@@ -31061,11 +31028,11 @@
 	},
 /area/bridge)
 "bAF" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "bAG" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge)
 "bAI" = (
@@ -31103,9 +31070,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/stack/spacecash/c1000{
-	amount = 100000
-	},
+/obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -32345,10 +32310,7 @@
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai)
 "bDb" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
 /obj/machinery/light{
@@ -33215,11 +33177,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bEL" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall,
 /area/engine/gravitygenerator)
 "bEM" = (
@@ -34388,7 +34346,7 @@
 	},
 /area/storage/tech)
 "bGV" = (
-/obj/machinery/vending/assist,
+/obj/machinery/economy/vending/assist,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -30
@@ -34772,7 +34730,7 @@
 	name = "west bump";
 	pixel_x = -30
 	},
-/obj/machinery/vending/detdrobe,
+/obj/machinery/economy/vending/detdrobe,
 /turf/simulated/floor/plasteel/dark,
 /area/security/detectives_office)
 "bHK" = (
@@ -35269,7 +35227,7 @@
 	},
 /area/storage/tech)
 "bIQ" = (
-/obj/machinery/vending/tool,
+/obj/machinery/economy/vending/tool,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -36171,7 +36129,7 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bKO" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge/meeting_room)
 "bKP" = (
@@ -36214,7 +36172,7 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bKX" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/captain)
 "bKY" = (
@@ -36888,7 +36846,7 @@
 	},
 /area/engine/break_room)
 "bMy" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
@@ -36902,7 +36860,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/chinese,
+/obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -37131,7 +37089,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel/dark,
 /area/bridge/meeting_room)
 "bMW" = (
@@ -37166,7 +37124,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/turret_protected/ai_upload)
 "bNb" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/captain)
 "bNc" = (
@@ -38828,7 +38786,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "bQG" = (
@@ -41919,7 +41877,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "bWV" = (
-/obj/machinery/vending/cart,
+/obj/machinery/economy/vending/cart,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
@@ -42414,11 +42372,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bYb" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall,
 /area/engine/engineering)
 "bYc" = (
@@ -43397,7 +43351,7 @@
 	},
 /area/hallway/primary/central)
 "cav" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/courtroom)
 "caw" = (
@@ -43611,7 +43565,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/heads/hop)
 "caS" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -45672,7 +45626,7 @@
 /turf/simulated/floor/wood,
 /area/library)
 "cfA" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/wood,
 /area/library)
 "cfB" = (
@@ -46078,7 +46032,7 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "cgH" = (
-/obj/machinery/vending/engivend,
+/obj/machinery/economy/vending/engivend,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/cable{
 	d1 = 4;
@@ -46234,7 +46188,7 @@
 /turf/simulated/wall,
 /area/hallway/primary/central)
 "che" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/central)
 "chf" = (
@@ -46268,7 +46222,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "chk" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
@@ -46708,7 +46662,7 @@
 	},
 /area/engine/engineering)
 "cik" = (
-/obj/machinery/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light{
 	dir = 4
@@ -48079,11 +48033,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "clq" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "clr" = (
@@ -48108,7 +48058,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "clt" = (
-/obj/machinery/vending/engidrobe,
+/obj/machinery/economy/vending/engidrobe,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -49487,7 +49437,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/courtroom)
 "coK" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/courtroom)
 "coL" = (
@@ -50050,10 +50000,7 @@
 	},
 /area/hallway/primary/central/south)
 "cpV" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -50195,10 +50142,7 @@
 	},
 /area/hallway/primary/central/south)
 "cqg" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -50324,7 +50268,7 @@
 	},
 /area/hallway/primary/central)
 "cqq" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
@@ -50835,10 +50779,7 @@
 	},
 /area/crew_quarters/locker)
 "crC" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_x = -32;
 	pixel_y = -32
 	},
@@ -50918,10 +50859,7 @@
 	},
 /area/hallway/primary/central/south)
 "crI" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_x = 32;
 	pixel_y = -32
 	},
@@ -51069,7 +51007,7 @@
 	},
 /area/hallway/primary/central)
 "crV" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -51549,12 +51487,12 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "csZ" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "cta" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
@@ -51625,7 +51563,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
 "ctk" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
@@ -51744,7 +51682,7 @@
 	},
 /area/crew_quarters/fitness)
 "ctD" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -54174,7 +54112,7 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -54751,7 +54689,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "cAk" = (
-/obj/machinery/vending/shoedispenser,
+/obj/machinery/economy/vending/shoedispenser,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -55965,15 +55903,15 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "cDi" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "cDk" = (
-/obj/machinery/vending/hatdispenser,
+/obj/machinery/economy/vending/hatdispenser,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "cDl" = (
-/obj/machinery/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "cDm" = (
@@ -56302,11 +56240,7 @@
 /turf/simulated/floor/plating,
 /area/assembly/showroom)
 "cEf" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/assembly/showroom)
 "cEg" = (
@@ -56372,7 +56306,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "cEn" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "cEo" = (
@@ -56419,7 +56353,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "cEu" = (
-/obj/machinery/arcade/claw,
+/obj/machinery/economy/arcade/claw,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
@@ -57823,7 +57757,7 @@
 	},
 /area/crew_quarters/fitness)
 "cGR" = (
-/obj/machinery/vending/suitdispenser,
+/obj/machinery/economy/vending/suitdispenser,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "cGS" = (
@@ -58021,7 +57955,7 @@
 /turf/space,
 /area/space/nearstation)
 "cHu" = (
-/obj/machinery/vending/artvend,
+/obj/machinery/economy/vending/artvend,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -58266,7 +58200,7 @@
 	},
 /area/crew_quarters/fitness)
 "cIc" = (
-/obj/machinery/arcade/claw,
+/obj/machinery/economy/arcade/claw,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -59563,7 +59497,7 @@
 	},
 /area/civilian/barber)
 "cLs" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59846,7 +59780,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -59985,7 +59919,7 @@
 	},
 /area/medical/reception)
 "cMu" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -60135,7 +60069,7 @@
 	},
 /area/hallway/secondary/entry)
 "cMQ" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62664,7 +62598,7 @@
 	},
 /area/medical/medbay)
 "cSG" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -62752,7 +62686,7 @@
 /turf/simulated/wall,
 /area/medical/biostorage)
 "cSP" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel/white,
 /area/medical/biostorage)
 "cSQ" = (
@@ -63505,7 +63439,7 @@
 	},
 /area/medical/medbreak)
 "cUm" = (
-/obj/machinery/vending/medidrobe,
+/obj/machinery/economy/vending/medidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -64159,7 +64093,7 @@
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = 32
 	},
-/obj/machinery/vending/chemdrobe,
+/obj/machinery/economy/vending/chemdrobe,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/medical/chemistry)
@@ -64350,7 +64284,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "cWj" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -64850,7 +64784,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/chemistry)
 "cXl" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -65004,7 +64938,7 @@
 	},
 /area/medical/medbreak)
 "cXH" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -65027,7 +64961,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cXM" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -65458,7 +65392,7 @@
 	},
 /area/medical/medbreak)
 "cZa" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 30
@@ -66482,7 +66416,7 @@
 /turf/space,
 /area/maintenance/starboardsolar)
 "dbn" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -67564,7 +67498,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "ddA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67575,7 +67509,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "ddC" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -68060,7 +67994,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "deA" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -68300,7 +68234,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "deV" = (
 /obj/structure/sign/examroom,
 /turf/simulated/wall,
@@ -68947,7 +68881,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dgB" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -70093,7 +70027,7 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28
@@ -70411,7 +70345,7 @@
 /turf/simulated/wall,
 /area/toxins/explab)
 "djw" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -32
 	},
@@ -71391,7 +71325,7 @@
 /turf/simulated/floor/plating,
 /area/medical/surgery)
 "dlC" = (
-/obj/machinery/vending/artvend,
+/obj/machinery/economy/vending/artvend,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "escape"
@@ -71788,7 +71722,7 @@
 	},
 /area/medical/surgeryobs)
 "dmC" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -71815,7 +71749,7 @@
 	},
 /area/maintenance/starboard)
 "dmF" = (
-/obj/machinery/vending/crittercare,
+/obj/machinery/economy/vending/crittercare,
 /turf/simulated/floor/carpet,
 /area/maintenance/starboard)
 "dmG" = (
@@ -72200,7 +72134,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/assembly/chargebay)
 "dnG" = (
-/obj/machinery/vending/genedrobe,
+/obj/machinery/economy/vending/genedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -74924,7 +74858,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedbar)
 "dtM" = (
@@ -75748,7 +75682,7 @@
 /area/medical/morgue)
 "dvF" = (
 /obj/structure/table/glass,
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_y = -32
@@ -76084,7 +76018,7 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/item/reagent_containers/iv_bag/blood/random,
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = -25
@@ -76321,7 +76255,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "dwR" = (
-/obj/machinery/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -79459,7 +79393,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "dDL" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "dDM" = (
@@ -79960,19 +79894,16 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
-"dFg" = (
-/turf/simulated/wall,
-/area/library/abandoned)
 "dFh" = (
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFi" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFj" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance,
@@ -79982,11 +79913,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/library/abandoned)
-"dFk" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFl" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel{
@@ -80143,29 +80070,29 @@
 /obj/item/pen,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFL" = (
 /obj/structure/table/wood,
 /obj/item/folder,
 /obj/item/pen,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFM" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFN" = (
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFP" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFQ" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFR" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -80173,12 +80100,12 @@
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFS" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dFU" = (
 /obj/structure/chair{
 	dir = 1
@@ -80280,7 +80207,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/hallway/primary/aft)
 "dGm" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -80440,42 +80367,42 @@
 "dGB" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dGC" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dGD" = (
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dGE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dGF" = (
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dGG" = (
 /obj/structure/table/wood,
 /obj/item/paicard,
 /turf/simulated/floor/carpet,
-/area/library/abandoned)
+/area/maintenance/library)
 "dGH" = (
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/dice,
 /turf/simulated/floor/carpet,
-/area/library/abandoned)
+/area/maintenance/library)
 "dGI" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dGJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -80549,7 +80476,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/vending/robodrobe,
+/obj/machinery/economy/vending/robodrobe,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
@@ -80831,18 +80758,18 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dHs" = (
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dHt" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dHu" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
@@ -80850,13 +80777,13 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/carpet,
-/area/library/abandoned)
+/area/maintenance/library)
 "dHv" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder/red,
 /turf/simulated/floor/carpet,
-/area/library/abandoned)
+/area/maintenance/library)
 "dHw" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -80867,7 +80794,7 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dHx" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -81093,7 +81020,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/assembly/robotics)
 "dHS" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -81333,15 +81260,15 @@
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dIq" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dIr" = (
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dIt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -81349,20 +81276,20 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dIu" = (
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dIv" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dIw" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dIx" = (
 /turf/simulated/wall,
 /area/chapel/office)
@@ -81630,7 +81557,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dJm" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81641,7 +81568,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dJn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81649,7 +81576,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dJo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81657,7 +81584,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dJp" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -81665,17 +81592,14 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dJq" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
-"dJr" = (
-/turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dJs" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -81684,7 +81608,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dJt" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -81693,7 +81617,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dJu" = (
 /obj/structure/morgue,
 /turf/simulated/floor/plasteel/dark,
@@ -81911,7 +81835,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/medical/virology)
 "dJZ" = (
-/obj/machinery/vending/virodrobe,
+/obj/machinery/economy/vending/virodrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgreen"
@@ -81923,13 +81847,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dKb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/grimy,
-/area/library/abandoned)
+/area/maintenance/library)
 "dKc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -81942,7 +81866,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dKd" = (
 /obj/structure/table,
 /obj/machinery/newscaster{
@@ -82101,7 +82025,7 @@
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "dKC" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25
 	},
@@ -82133,16 +82057,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dKF" = (
 /obj/structure/cult/archives,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dKG" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dKH" = (
 /obj/structure/closet/crate,
 /obj/item/flashlight,
@@ -82418,7 +82342,7 @@
 "dLm" = (
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dLn" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -82724,23 +82648,19 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dMd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dMe" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dMf" = (
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
-"dMg" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dMh" = (
 /obj/machinery/camera{
 	c_tag = "Chapel Backroom";
@@ -83033,12 +82953,12 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dMJ" = (
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dMK" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -83047,17 +82967,17 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dMO" = (
 /obj/machinery/door/morgue{
 	name = "Occult Study"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dMP" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dMQ" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -83301,13 +83221,13 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dNy" = (
 /obj/structure/table/wood,
 /obj/item/folder,
 /obj/item/pen,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dNz" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small,
@@ -83315,40 +83235,40 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/library/abandoned)
+/area/maintenance/library)
 "dNA" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dNB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dNC" = (
 /obj/machinery/light/small,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dND" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/crayons,
 /turf/simulated/floor/wood,
-/area/library/abandoned)
+/area/maintenance/library)
 "dNE" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dNF" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plating,
-/area/library/abandoned)
+/area/maintenance/library)
 "dNG" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
 /turf/simulated/floor/plasteel/dark,
-/area/library/abandoned)
+/area/maintenance/library)
 "dNH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -83643,10 +83563,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology)
-"dOm" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall,
-/area/library/abandoned)
 "dOn" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -84338,7 +84254,7 @@
 	},
 /area/medical/virology)
 "dPY" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -84456,7 +84372,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "dQo" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -85435,7 +85351,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28
@@ -86768,7 +86684,7 @@
 	},
 /area/hallway/primary/aft)
 "dWM" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -86791,14 +86707,14 @@
 /area/hallway/primary/central)
 "dWQ" = (
 /obj/machinery/light,
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central)
 "dWR" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -87920,11 +87836,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -87969,7 +87881,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/vending/shoedispenser,
+/obj/machinery/economy/vending/shoedispenser,
 /turf/simulated/floor/plasteel,
 /area/storage/art)
 "eqc" = (
@@ -89003,10 +88915,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ggp" = (
-/obj/machinery/vending/coffee/free,
 /obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -89597,7 +89509,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/art)
 "hrM" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -89646,7 +89558,7 @@
 	},
 /area/turret_protected/aisat)
 "hAi" = (
-/obj/machinery/vending/scidrobe,
+/obj/machinery/economy/vending/scidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -89945,7 +89857,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/assembly/chargebay)
 "ibc" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -90203,7 +90115,7 @@
 	},
 /area/security/prison/cell_block)
 "isz" = (
-/obj/machinery/vending/sustenance,
+/obj/machinery/economy/vending/sustenance,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -90550,6 +90462,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block)
+"iZi" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/maintenance/library)
 "iZW" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Internal Affairs Maintenance";
@@ -90855,7 +90771,7 @@
 	},
 /area/engine/engineering)
 "jHa" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -91061,6 +90977,9 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
+"kcy" = (
+/turf/simulated/floor/plating,
+/area/maintenance/library)
 "kdu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -91172,9 +91091,9 @@
 /area/crew_quarters/fitness)
 "kkM" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot/sec,
+/obj/item/clothing/suit/armor/riot/sec,
+/obj/item/clothing/suit/armor/riot/sec,
 /obj/item/clothing/head/helmet/riot,
 /obj/item/clothing/head/helmet/riot,
 /obj/item/clothing/head/helmet/riot,
@@ -92367,7 +92286,7 @@
 	},
 /area/engine/engineering)
 "mOF" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -92523,7 +92442,7 @@
 	dir = 4;
 	network = list("Research","SS13")
 	},
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -92673,7 +92592,7 @@
 /turf/simulated/wall/r_wall,
 /area/security/prison/cell_block)
 "nnz" = (
-/obj/machinery/vending/hatdispenser,
+/obj/machinery/economy/vending/hatdispenser,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -92879,7 +92798,7 @@
 	},
 /area/ai_monitored/storage/eva)
 "nFX" = (
-/obj/machinery/vending/cart,
+/obj/machinery/economy/vending/cart,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "nGA" = (
@@ -93013,7 +92932,7 @@
 /turf/simulated/wall,
 /area/space/nearstation)
 "nQq" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -93680,7 +93599,7 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "pfp" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -93782,6 +93701,9 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"plp" = (
+/turf/simulated/wall,
+/area/maintenance/library)
 "pnF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -94986,6 +94908,10 @@
 	icon_state = "red"
 	},
 /area/hallway/secondary/exit)
+"rmX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/library)
 "rnA" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -96130,7 +96056,7 @@
 /area/crew_quarters/fitness)
 "twd" = (
 /obj/machinery/light,
-/obj/machinery/vending/crittercare,
+/obj/machinery/economy/vending/crittercare,
 /turf/simulated/floor/wood,
 /area/civilian/pet_store)
 "twX" = (
@@ -96887,7 +96813,7 @@
 	},
 /area/maintenance/fsmaint)
 "uQA" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -97293,7 +97219,7 @@
 	},
 /area/security/prisonershuttle)
 "vEw" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -97344,6 +97270,10 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/crew_quarters/theatre)
+"vHl" = (
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/wall,
+/area/hallway/primary/aft)
 "vId" = (
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/beach/sand,
@@ -97406,7 +97336,7 @@
 /area/security/prison/cell_block)
 "vSC" = (
 /obj/machinery/light,
-/obj/machinery/vending/suitdispenser,
+/obj/machinery/economy/vending/suitdispenser,
 /turf/simulated/floor/plasteel,
 /area/storage/art)
 "vSU" = (
@@ -97550,7 +97480,7 @@
 	},
 /area/crew_quarters/sleep)
 "wia" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/lawoffice)
@@ -97831,7 +97761,7 @@
 	},
 /area/security/warden)
 "wWE" = (
-/obj/machinery/vending/secdrobe,
+/obj/machinery/economy/vending/secdrobe,
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
@@ -127450,7 +127380,7 @@ gQW
 dCB
 gQW
 dEA
-dFg
+ddy
 abj
 abj
 abj
@@ -127707,19 +127637,19 @@ mGS
 dCC
 dDT
 dEB
-dFg
-dFg
-dFg
-dFg
-dFg
-dFg
-dFg
-dFg
-dFg
-dFg
-dFg
-dFg
-dFg
+ddy
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
+plp
 abj
 dPq
 dXH
@@ -127964,7 +127894,7 @@ dBA
 dCD
 gQW
 dEE
-dFg
+ddy
 dFK
 dGB
 dHr
@@ -127976,7 +127906,7 @@ dHt
 dMc
 dMI
 dNx
-dFg
+plp
 ddy
 dPq
 dPq
@@ -128221,7 +128151,7 @@ mGS
 dCE
 gQW
 dEF
-dFg
+plp
 dFL
 dGC
 dHs
@@ -128233,7 +128163,7 @@ dIp
 dHs
 dMJ
 dNy
-dFg
+plp
 dOO
 dPr
 deW
@@ -128488,9 +128418,9 @@ ddz
 dHs
 dIu
 dMd
-dMg
+rmX
 dNz
-dFg
+plp
 dOO
 dPs
 dOO
@@ -128747,7 +128677,7 @@ dFN
 dFN
 dMK
 dNA
-dFg
+plp
 dOP
 dPt
 dbw
@@ -129004,7 +128934,7 @@ dFN
 dFN
 dNy
 dMI
-dFg
+plp
 dOO
 dXo
 dQb
@@ -129506,19 +129436,19 @@ cHA
 dCG
 dDU
 dEG
-dFg
+plp
 dFP
 dGE
 dHs
 dIu
 dIu
 ddB
-dJr
+kcy
 dIu
 dIu
 dHs
 dNC
-dFg
+plp
 dEi
 dPw
 dQe
@@ -129763,7 +129693,7 @@ dbk
 dEy
 dDV
 dEH
-dFg
+plp
 dFN
 dGF
 dGF
@@ -129775,7 +129705,7 @@ dIq
 dMe
 dIu
 dND
-dFg
+plp
 dhx
 dPx
 dQf
@@ -130020,7 +129950,7 @@ cHA
 dCH
 dDW
 dID
-dFk
+iZi
 dFQ
 dGG
 dHu
@@ -130032,7 +129962,7 @@ dHt
 dMe
 dHs
 dNE
-dFg
+plp
 dbp
 dPy
 dbw
@@ -130277,19 +130207,19 @@ dkI
 dCI
 dDX
 dOO
-dFg
+plp
 dFR
 dGH
 dHv
 dIw
-dJr
-dFg
-dFg
-dFk
-dFg
+kcy
+plp
+plp
+iZi
+plp
 dMO
-dFg
-dFg
+plp
+plp
 dOO
 dPz
 dQg
@@ -130534,19 +130464,19 @@ dkI
 dbo
 dDX
 dbp
-dFg
+plp
 dFS
 dGI
 dHw
 dFN
 dJs
-dFg
+plp
 dKF
 dLm
 dMf
 dMP
 dNF
-dFg
+plp
 dik
 diD
 dQn
@@ -130791,19 +130721,19 @@ dkI
 dEi
 dDX
 dOO
-dFg
-dFg
-dFg
-dFg
-dFg
+plp
+plp
+plp
+plp
+plp
 dJt
-dFg
+plp
 dKG
 dIv
-dMg
+rmX
 dGE
 dNG
-dFg
+plp
 dbp
 dPA
 dQc
@@ -131052,15 +130982,15 @@ dFl
 dcA
 dOO
 dHx
-dFg
-dFg
-dFk
-dFk
-dFg
-dFk
-dFk
-dFg
-dOm
+plp
+plp
+iZi
+iZi
+plp
+iZi
+iZi
+plp
+byA
 dik
 dPB
 dbw
@@ -136700,7 +136630,7 @@ dHR
 dql
 dGf
 dBT
-dfu
+vHl
 dEU
 dFv
 dGl

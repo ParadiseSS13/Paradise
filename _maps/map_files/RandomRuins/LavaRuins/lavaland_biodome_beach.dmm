@@ -174,7 +174,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "aI" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aJ" = (
@@ -191,12 +191,12 @@
 /area/ruin/powered/beach)
 "aL" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/vending/cigarette/beach,
+/obj/machinery/economy/vending/cigarette/beach,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "aN" = (
 /obj/effect/turf_decal/sand,
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "aQ" = (

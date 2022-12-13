@@ -11,6 +11,9 @@
 	name = "White Terror spider"
 	desc = "An ominous-looking white spider, its ghostly eyes and vicious-looking fangs are the stuff of nightmares."
 	spider_role_summary = "Rare, bite-and-run spider that infects hosts with spiderlings"
+	spider_intro_text = "As a White Terror Spider, your role is to infect the crew with spider eggs which make them a host for future spiderlings. \
+	Both your bite and webs will inject these eggs into your victims, which will gradually cause spiderlings to burst out of them unless removed through surgery. Your webs will not inject victims wearing full hardsuits. \
+	You also have high health and while your attacks are weak, they will knock people down to make it harder for them to chase after you."
 	ai_target_method = TS_DAMAGE_POISON
 	icon_state = "terror_white"
 	icon_living = "terror_white"
@@ -50,6 +53,26 @@
 		return 1
 	return 0
 
+/obj/item/organ/internal/body_egg/terror_eggs/Initialize(mapload)
+	. = ..()
+	GLOB.ts_infected_list += src
+
+/obj/item/organ/internal/body_egg/terror_eggs/insert(mob/living/carbon/M, special)
+	. = ..()
+	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(readd_infected))
+
+/obj/item/organ/internal/body_egg/terror_eggs/proc/readd_infected(mob/infected, new_stat, old_stat)
+  SIGNAL_HANDLER
+  if(new_stat != DEAD)
+    GLOB.ts_infected_list |= src
+
+/obj/item/organ/internal/body_egg/terror_eggs/Destroy()
+	GLOB.ts_infected_list -= src
+	return ..()
+
+/obj/item/organ/internal/body_egg/terror_eggs/on_owner_death()
+	GLOB.ts_infected_list -= src
+	return ..()
 
 /obj/structure/spider/terrorweb/white
 	name = "infested web"

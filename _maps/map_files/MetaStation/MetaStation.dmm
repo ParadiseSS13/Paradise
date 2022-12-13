@@ -1049,7 +1049,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "ajl" = (
-/obj/machinery/arcade/claw,
+/obj/machinery/economy/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "ajm" = (
@@ -1645,7 +1645,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/cart,
+/obj/machinery/economy/vending/cart,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "ama" = (
@@ -1809,6 +1809,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/structure/sign/electricshock{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/security/brig)
 "amI" = (
@@ -1946,11 +1949,7 @@
 	},
 /area/engine/gravitygenerator)
 "anm" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/portable/canister/air,
@@ -2581,10 +2580,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/prison/cell_block/A)
 "apJ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
+/obj/structure/sign/radiation/rad_area{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -3335,10 +3331,6 @@
 	icon_state = "dark"
 	},
 /area/engine/gravitygenerator)
-"asT" = (
-/obj/structure/sign/security,
-/turf/simulated/wall/r_wall,
-/area/security/processing)
 "asU" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -3350,7 +3342,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "asV" = (
-/obj/machinery/vending/detdrobe,
+/obj/machinery/economy/vending/detdrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3618,7 +3610,7 @@
 	name = "\improper Recreation Area"
 	})
 "atS" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "atT" = (
@@ -3643,11 +3635,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -3673,7 +3661,7 @@
 /area/maintenance/auxsolarstarboard)
 "atW" = (
 /obj/machinery/light,
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -3681,11 +3669,7 @@
 	name = "\improper Recreation Area"
 	})
 "atX" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -3901,7 +3885,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "auH" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
@@ -4129,7 +4113,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "avJ" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
@@ -4226,11 +4210,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -4332,11 +4312,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -4499,7 +4475,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awO" = (
-/obj/machinery/vending/chinese,
+/obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awP" = (
@@ -5099,11 +5075,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "ayA" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/maintenance/fsmaint)
 "ayB" = (
@@ -5189,11 +5161,8 @@
 	})
 "ayN" = (
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+/obj/structure/sign/radiation/rad_area{
 	dir = 1;
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -5206,11 +5175,8 @@
 	c_tag = "Gravity Generator Foyer"
 	},
 /obj/structure/closet/radiation,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+/obj/structure/sign/radiation/rad_area{
 	dir = 1;
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
 	pixel_y = 32
 	},
 /obj/machinery/alarm{
@@ -5659,11 +5625,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+/obj/structure/sign/radiation/rad_area{
 	dir = 1;
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5691,11 +5654,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
+/obj/structure/sign/radiation/rad_area{
 	dir = 1;
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA";
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -5851,7 +5811,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /obj/structure/cable/yellow{
@@ -6778,7 +6738,7 @@
 /area/engine/engineering)
 "aEA" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aEB" = (
@@ -8055,12 +8015,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "aIy" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall,
 /area/quartermaster/miningdock{
 	name = "\improper Mining Office"
@@ -10071,7 +10026,7 @@
 	name = "\improper Storage Wing"
 	})
 "aNk" = (
-/obj/machinery/vending/assist,
+/obj/machinery/economy/vending/assist,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
 	dir = 4;
@@ -10398,7 +10353,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_x = 30
- 	},
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aOk" = (
@@ -10792,7 +10747,7 @@
 	},
 /area/quartermaster/qm)
 "aPx" = (
-/obj/machinery/vending/tool,
+/obj/machinery/economy/vending/tool,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = -32
@@ -11166,7 +11121,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/vending/clothing,
+/obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -12069,7 +12024,7 @@
 	name = "\improper Restrooms"
 	})
 "aTi" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -12413,12 +12368,7 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "aTU" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -12903,7 +12853,7 @@
 /area/quartermaster/storage)
 "aVf" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/vending/engivend,
+/obj/machinery/economy/vending/engivend,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aVg" = (
@@ -12913,7 +12863,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/vending/engidrobe,
+/obj/machinery/economy/vending/engidrobe,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aVh" = (
@@ -12943,8 +12893,12 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 10;
+	icon_state = "caution"
 	},
 /area/atmos/control)
 "aVk" = (
@@ -12968,7 +12922,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/vending/artvend,
+/obj/machinery/economy/vending/artvend,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -12983,7 +12937,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aVp" = (
-/obj/machinery/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 30
@@ -13121,7 +13075,7 @@
 /turf/simulated/floor/redgrid,
 /area/turret_protected/ai_upload)
 "aVD" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13142,7 +13096,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/fpmaint)
 "aVG" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13609,7 +13563,7 @@
 	c_tag = "Central Primary Hallway - Fore - Port Corner";
 	dir = 4
 	},
-/obj/machinery/computer/merch{
+/obj/machinery/economy/merch{
 	dir = 4
 	},
 /obj/item/radio/intercom{
@@ -13728,7 +13682,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aXp" = (
-/obj/machinery/vending/crittercare,
+/obj/machinery/economy/vending/crittercare,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -14457,11 +14411,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "aZe" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
 "aZj" = (
@@ -14835,7 +14785,7 @@
 	},
 /area/crew_quarters/locker)
 "bag" = (
-/obj/machinery/vending/shoedispenser,
+/obj/machinery/economy/vending/shoedispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -15408,7 +15358,7 @@
 /turf/simulated/wall,
 /area/crew_quarters/locker)
 "bbB" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -16896,7 +16846,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bfh" = (
-/obj/machinery/vending/cargodrobe,
+/obj/machinery/economy/vending/cargodrobe,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -17182,11 +17132,7 @@
 	},
 /area/hallway/primary/central)
 "bga" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/machinery/light,
@@ -17760,7 +17706,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bhj" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
@@ -18031,11 +17977,7 @@
 	},
 /area/engine/chiefs_office)
 "bhV" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -18044,7 +17986,7 @@
 	name = "Arrivals"
 	})
 "bhW" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
@@ -18746,7 +18688,7 @@
 	},
 /area/storage/tech)
 "bjx" = (
-/obj/machinery/vending/assist,
+/obj/machinery/economy/vending/assist,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18848,7 +18790,7 @@
 	dir = 8;
 	layer = 4;
 	pixel_x = 30
- 	},
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -19247,7 +19189,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bkH" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -20450,9 +20392,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/stack/spacecash/c1000{
-	amount = 100000
-	},
+/obj/item/stack/spacecash/c1000,
 /obj/effect/turf_decal/bot_white/left,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -21858,7 +21798,7 @@
 /obj/machinery/photocopier/faxmachine{
 	department = "Chief Medical Officer's Office"
 	},
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -28
 	},
@@ -22862,7 +22802,7 @@
 	},
 /area/hallway/primary/port)
 "btr" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -23340,7 +23280,7 @@
 	},
 /area/bridge)
 "bun" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/machinery/camera{
 	c_tag = "Bar - Fore"
 	},
@@ -23350,7 +23290,7 @@
 	},
 /area/crew_quarters/bar)
 "buo" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
 	},
@@ -23959,7 +23899,7 @@
 	},
 /area/hallway/primary/port)
 "bvE" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/machinery/newscaster{
 	dir = 4;
 	name = "west bump";
@@ -24666,7 +24606,7 @@
 	},
 /area/tcommsat/computer)
 "bxe" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -24930,7 +24870,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "bxH" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -25038,7 +24978,7 @@
 	},
 /area/hallway/primary/port)
 "bxP" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -25125,7 +25065,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/vending/cart,
+/obj/machinery/economy/vending/cart,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "byb" = (
@@ -25288,7 +25228,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/vending/cola{
+/obj/machinery/economy/vending/cola{
 	pixel_x = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -26180,7 +26120,7 @@
 	},
 /area/assembly/robotics)
 "bAl" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -26331,7 +26271,7 @@
 	name = "Arrivals"
 	})
 "bAR" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry{
@@ -26412,7 +26352,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "bAZ" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -28
 	},
@@ -26695,7 +26635,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/vending/snack{
+/obj/machinery/economy/vending/snack{
 	pixel_x = -2
 	},
 /turf/simulated/floor/plasteel{
@@ -26940,7 +26880,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "bCm" = (
-/obj/machinery/vending/cigarette{
+/obj/machinery/economy/vending/cigarette{
 	pixel_y = 2;
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate=7,/obj/item/storage/fancy/cigarettes/cigpack_uplift=3,/obj/item/storage/fancy/cigarettes/cigpack_robust=2,/obj/item/storage/fancy/cigarettes/cigpack_carp=3,/obj/item/storage/fancy/cigarettes/cigpack_midori=1,/obj/item/storage/box/matches=10,/obj/item/lighter/random=4)
 	},
@@ -27026,11 +26966,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bCx" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -27295,11 +27231,7 @@
 	})
 "bDo" = (
 /obj/structure/chair,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -27559,7 +27491,7 @@
 	name = "\improper Auxiliary Restrooms"
 	})
 "bDJ" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
@@ -27978,7 +27910,7 @@
 	c_tag = "Arrivals - Middle Arm";
 	dir = 1
 	},
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -28224,7 +28156,7 @@
 	name = "\improper Command Hallway"
 	})
 "bFC" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28265,7 +28197,7 @@
 	name = "Arrivals"
 	})
 "bFK" = (
-/obj/machinery/vending/coffee{
+/obj/machinery/economy/vending/coffee{
 	pixel_x = -3
 	},
 /obj/machinery/door_control{
@@ -28342,7 +28274,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/vending/cigarette{
+/obj/machinery/economy/vending/cigarette{
 	pixel_x = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -28550,7 +28482,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/atmos/control)
 "bGE" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
@@ -28743,10 +28675,7 @@
 /area/maintenance/port)
 "bHq" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -30027,7 +29956,7 @@
 	name = "\improper Auxiliary Restrooms"
 	})
 "bKE" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -30763,7 +30692,7 @@
 	},
 /area/medical/reception)
 "bNl" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -30985,7 +30914,7 @@
 	network = list("Turbine")
 	},
 /turf/space,
-/area/maintenance/turbine)
+/area/space/nearstation)
 "bNS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -31432,7 +31361,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -31901,7 +31830,7 @@
 	name = "\improper Command Hallway"
 	})
 "bQu" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken4"
 	},
@@ -31932,7 +31861,7 @@
 	name = "Mr. Deempisi portrait";
 	pixel_y = -28
 	},
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -32301,7 +32230,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bRG" = (
-/obj/machinery/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -32646,7 +32575,7 @@
 /turf/space,
 /area/solar/port)
 "bSx" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -32705,7 +32634,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "bSD" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -33216,7 +33145,7 @@
 /area/crew_quarters/kitchen)
 "bUe" = (
 /obj/machinery/light,
-/obj/machinery/vending/chefdrobe,
+/obj/machinery/economy/vending/chefdrobe,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -33787,7 +33716,7 @@
 	},
 /area/atmos)
 "bVP" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "bVR" = (
@@ -35566,7 +35495,7 @@
 	},
 /area/chapel/office)
 "caA" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/machinery/newscaster{
 	dir = 4;
 	name = "west bump";
@@ -35708,7 +35637,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "caQ" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -35913,11 +35842,7 @@
 	frequency = 1379;
 	id_tag = "atmospherics_south_pump"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
@@ -36064,7 +35989,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "cbD" = (
-/obj/machinery/vending/hydroseeds,
+/obj/machinery/economy/vending/hydroseeds,
 /obj/structure/noticeboard{
 	pixel_y = 28
 	},
@@ -36690,7 +36615,7 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "cdl" = (
-/obj/machinery/vending/chemdrobe,
+/obj/machinery/economy/vending/chemdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellow"
@@ -37145,11 +37070,7 @@
 /obj/machinery/mass_driver{
 	id_tag = "chapelgun"
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/machinery/light/small{
@@ -37233,7 +37154,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/vending/cart,
+/obj/machinery/economy/vending/cart,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "ceZ" = (
@@ -37258,7 +37179,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cfb" = (
-/obj/machinery/slot_machine,
+/obj/machinery/economy/slot_machine,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -37521,7 +37442,7 @@
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "cfD" = (
-/obj/machinery/vending/bardrobe,
+/obj/machinery/economy/vending/bardrobe,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
@@ -38320,7 +38241,7 @@
 /turf/space,
 /area/space/nearstation)
 "chT" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
@@ -38472,7 +38393,7 @@
 	},
 /area/medical/medbay)
 "cio" = (
-/obj/machinery/vending/hydroseeds,
+/obj/machinery/economy/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -38493,7 +38414,7 @@
 	},
 /area/hallway/primary/central)
 "ciq" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /obj/machinery/camera{
 	c_tag = "Hydroponics - Foyer";
 	dir = 1
@@ -38550,7 +38471,7 @@
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "ciB" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /obj/machinery/camera{
 	c_tag = "Medbay Foyer Reception"
 	},
@@ -38813,11 +38734,7 @@
 	},
 /area/maintenance/apmaint)
 "cjn" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -38912,7 +38829,7 @@
 	},
 /area/medical/reception)
 "cjy" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /obj/machinery/camera{
 	c_tag = "Medbay Treatment Hallway";
 	dir = 8
@@ -40048,7 +39965,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/vending/assist,
+/obj/machinery/economy/vending/assist,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -42328,11 +42245,7 @@
 /area/toxins/lab)
 "cuu" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
@@ -42513,11 +42426,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cuO" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -44007,7 +43916,7 @@
 	},
 /area/medical/reception)
 "czv" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -44592,7 +44501,9 @@
 /obj/machinery/door/window/northright,
 /obj/effect/mapping_helpers/airlock/access/any/medical/general,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cBx" = (
@@ -44646,7 +44557,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/machinery/vending/genedrobe,
+/obj/machinery/economy/vending/genedrobe,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -44764,7 +44675,7 @@
 	},
 /area/toxins/server)
 "cBT" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -45671,11 +45582,7 @@
 /area/toxins/xenobiology)
 "cEB" = (
 /obj/structure/closet/emcloset/anchored,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
@@ -46048,11 +45955,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
@@ -48150,11 +48053,7 @@
 	name = "Aft Port Solar Control"
 	},
 /obj/structure/cable,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -48493,11 +48392,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
@@ -48749,11 +48644,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -49491,7 +49382,7 @@
 	},
 /area/medical/surgery2)
 "cRq" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -52031,11 +51922,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "dar" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -52155,13 +52042,13 @@
 	},
 /area/medical/research)
 "daL" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
 /area/medical/medbreak)
 "daM" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -52189,7 +52076,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "daO" = (
-/obj/machinery/vending/chinese,
+/obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -52265,7 +52152,7 @@
 	},
 /area/security/permabrig)
 "daZ" = (
-/obj/machinery/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -52709,7 +52596,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "ded" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/effect/turf_decal/woodsiding,
 /obj/machinery/light{
 	dir = 1
@@ -52789,7 +52676,7 @@
 	},
 /area/chapel/main)
 "deq" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -53502,7 +53389,7 @@
 	},
 /area/medical/exam_room)
 "diA" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -28
 	},
@@ -55720,7 +55607,7 @@
 	},
 /area/toxins/mixing)
 "euU" = (
-/obj/machinery/vending/virodrobe,
+/obj/machinery/economy/vending/virodrobe,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -56115,11 +56002,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -56198,7 +56081,7 @@
 	},
 /area/medical/exam_room)
 "eFH" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -28
 	},
@@ -56601,7 +56484,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "eRc" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -57568,7 +57451,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "fpy" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -59294,7 +59177,7 @@
 	},
 /area/medical/research)
 "geG" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/machinery/camera{
 	c_tag = "Science Break Room";
 	dir = 8;
@@ -60451,8 +60334,11 @@
 	},
 /area/medical/medbay)
 "gLH" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -61123,6 +61009,9 @@
 /area/toxins/test_chamber)
 "hfb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -62120,7 +62009,7 @@
 	},
 /area/toxins/explab)
 "hBM" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -62701,7 +62590,7 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "hOP" = (
-/obj/machinery/vending/secdrobe,
+/obj/machinery/economy/vending/secdrobe,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = 30
 	},
@@ -62718,7 +62607,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/vending/scidrobe,
+/obj/machinery/economy/vending/scidrobe,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62937,11 +62826,7 @@
 	},
 /area/security/seceqstorage)
 "hWr" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "hWw" = (
@@ -63259,10 +63144,6 @@
 	icon_state = "yellow"
 	},
 /area/engine/break_room)
-"ieA" = (
-/obj/structure/sign/electricshock,
-/turf/simulated/wall/r_wall,
-/area/security/prisonlockers)
 "ieT" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -63613,7 +63494,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "iot" = (
-/obj/machinery/vending/suitdispenser,
+/obj/machinery/economy/vending/suitdispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -64202,7 +64083,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "iAS" = (
-/obj/machinery/vending/hatdispenser,
+/obj/machinery/economy/vending/hatdispenser,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -64394,9 +64275,6 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "iEX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -64808,7 +64686,7 @@
 	dir = 4;
 	network = list("Research","SS13")
 	},
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -69524,7 +69402,7 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/machinery/vending/atmosdrobe,
+/obj/machinery/economy/vending/atmosdrobe,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -69665,13 +69543,13 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/vending/sustenance,
+/obj/machinery/economy/vending/sustenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/security/permabrig)
 "ljg" = (
-/obj/machinery/vending/plasmaresearch,
+/obj/machinery/economy/vending/plasmaresearch,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -70276,7 +70154,7 @@
 /area/quartermaster/storage)
 "lCb" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/vending/assist,
+/obj/machinery/economy/vending/assist,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "lCt" = (
@@ -70420,7 +70298,7 @@
 /area/maintenance/asmaint)
 "lEQ" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/chinese,
+/obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -74092,11 +73970,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "nlB" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -74525,7 +74399,7 @@
 	},
 /area/security/securearmoury)
 "nya" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
@@ -78382,7 +78256,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/machinery/vending/hydrodrobe,
+/obj/machinery/economy/vending/hydrodrobe,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -79328,7 +79202,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -80340,7 +80214,7 @@
 	},
 /area/security/brig)
 "qEn" = (
-/obj/machinery/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light_switch{
 	dir = 4;
@@ -81137,6 +81011,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"rcQ" = (
+/obj/structure/sign/security{
+	pixel_y = 32
+	},
+/turf/space,
+/area/space/nearstation)
 "rcY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -81515,7 +81395,7 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "rmg" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -82216,17 +82096,6 @@
 	icon_state = "black"
 	},
 /area/security/permabrig)
-"rBT" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engine/engineering)
 "rCq" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -82282,11 +82151,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -82508,7 +82373,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "rHb" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
@@ -82531,7 +82396,7 @@
 	},
 /area/medical/surgery2)
 "rHM" = (
-/obj/machinery/vending/security,
+/obj/machinery/economy/vending/security,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
@@ -83299,7 +83164,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/security/securearmoury)
+/area/space)
 "saw" = (
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
@@ -83965,7 +83830,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "stI" = (
@@ -84263,25 +84128,25 @@
 /area/toxins/xenobiology)
 "sDr" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/riot{
+/obj/item/clothing/suit/armor/riot/sec{
 	pixel_x = 3;
 	pixel_y = 7
 	},
-/obj/item/clothing/suit/armor/riot{
+/obj/item/clothing/suit/armor/riot/sec{
 	pixel_y = 6
 	},
-/obj/item/clothing/suit/armor/riot{
+/obj/item/clothing/suit/armor/riot/sec{
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/item/clothing/suit/armor/bulletproof{
+/obj/item/clothing/suit/armor/bulletproof/sec{
 	pixel_x = 3;
 	pixel_y = -1
 	},
-/obj/item/clothing/suit/armor/bulletproof{
+/obj/item/clothing/suit/armor/bulletproof/sec{
 	pixel_y = -2
 	},
-/obj/item/clothing/suit/armor/bulletproof{
+/obj/item/clothing/suit/armor/bulletproof/sec{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -84367,7 +84232,7 @@
 	name = "\improper MiniSat East Wing"
 	})
 "sFN" = (
-/obj/machinery/vending/robodrobe,
+/obj/machinery/economy/vending/robodrobe,
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
@@ -86618,6 +86483,10 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
+"tHk" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "tHm" = (
 /obj/structure/table/reinforced,
 /obj/structure/table/reinforced,
@@ -86687,7 +86556,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "tKm" = (
-/obj/machinery/vending/security,
+/obj/machinery/economy/vending/security,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -87141,7 +87010,7 @@
 	},
 /area/security/securearmoury)
 "tYH" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
@@ -91214,11 +91083,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -91285,7 +91150,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "wkM" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -93395,10 +93260,7 @@
 "xrZ" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -94047,7 +93909,7 @@
 /area/chapel/main)
 "xKg" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -94355,11 +94217,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK";
+/obj/structure/sign/vacuum/external{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
@@ -94386,7 +94244,7 @@
 	},
 /area/toxins/storage)
 "xSh" = (
-/obj/machinery/vending/medidrobe,
+/obj/machinery/economy/vending/medidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -94859,11 +94717,7 @@
 	name = "Toxins Launch Room"
 	})
 "yeW" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
-	icon_state = "radiation";
-	name = "RADIOACTIVE AREA"
-	},
+/obj/structure/sign/radiation/rad_area,
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "yeY" = (
@@ -117784,7 +117638,7 @@ tfl
 tfl
 tfl
 tfl
-ieA
+tfl
 amE
 ufj
 aky
@@ -118570,8 +118424,8 @@ lGL
 dBT
 axN
 hvR
-asT
-aaa
+aHI
+rcQ
 nKT
 hOu
 xJy
@@ -138868,7 +138722,7 @@ ans
 aBZ
 hQX
 tSX
-avA
+tHk
 iLI
 aDi
 gHz
@@ -139386,7 +139240,7 @@ apL
 aBZ
 iJz
 enh
-rBT
+vZU
 aHi
 vIz
 aDL
