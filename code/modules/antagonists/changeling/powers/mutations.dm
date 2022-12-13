@@ -118,11 +118,28 @@
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
-	force = 50
-	armour_penetration_flat = -60
+	force = 25
+	armour_penetration_flat = 20
+	var/knockdown_duration = 3 SECONDS
+	var/silicon_stun_time = 2 SECONDS
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+
+/// Handles attacking someone with an (actual) changeling armblade
+/obj/item/melee/arm_blade/attack(mob/M, mob/user)
+	. = ..()
+	var/mob/living/target = M // For sake of readability
+	if(issilicon(target))
+		to_chat(target, "<span class='danger'>[user] rips into your sensors with [src]!</span>")
+		target.Weaken(silicon_stun_time)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+			return FALSE
+	target.LAssailant = iscarbon(user) ? user : null
+	target.KnockDown(knockdown_duration)
+	return TRUE
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
