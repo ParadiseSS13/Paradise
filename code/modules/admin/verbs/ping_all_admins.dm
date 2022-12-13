@@ -17,14 +17,16 @@
 		if(R_ADMIN & C.holder.rights)
 			admins_to_ping.Add(C)
 
-	for(var/key in GLOB.de_admins)
-		var/client/C = get_client_by_ckey(key)
-		if(!istype(C))
-			continue
-		admins_to_ping.Add(C)
+	var/de_admin_also = alert(usr, "Do you want to ping admins that have used de-admin?","Ping all admins", "Yes", "No")
+	if(de_admin_also == "Yes")
+		for(var/key in GLOB.de_admins)
+			var/client/C = get_client_by_ckey(key)
+			if(!istype(C))
+				continue
+			admins_to_ping.Add(C)
 
-	if(length(admins_to_ping) < 2) // Just the two of us, we can make it if we try
-		to_chat(usr, "<span class='boldannounce'>No other admins online to ping, including those that have used de-admin!</span>")
+	if(length(admins_to_ping) < 2) // All by yourself?
+		to_chat(usr, "<span class='boldannounce'>No other admins online to ping[de_admin_also == "Yes" ? ", including those that have used de-admin" : ""]!</span>")
 		return
 
 	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
