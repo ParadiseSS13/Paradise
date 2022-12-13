@@ -103,6 +103,7 @@ const AccountsRecordList = (properties, context) => {
               <SortButton id="owner_name">Account Holder</SortButton>
               <SortButton id="account_number">Account Number</SortButton>
               <SortButton id="suspended">Account Status</SortButton>
+              <SortButton id="money">Account Balance</SortButton>
             </Table.Row>
             {accounts
               .filter(
@@ -112,7 +113,9 @@ const AccountsRecordList = (properties, context) => {
                     '|' +
                     account.account_number +
                     '|' +
-                    account.suspended
+                    account.suspended +
+                    '|' +
+                    account.money
                   );
                 })
               )
@@ -123,6 +126,9 @@ const AccountsRecordList = (properties, context) => {
               .map((account) => (
                 <Table.Row
                   key={account.account_number}
+                  className={
+                    'AccountsUplinkTerminal__listRow--' + account.suspended
+                  }
                   onClick={() =>
                     act('view_account_detail', { account_num: account.account_number })
                   }
@@ -132,6 +138,7 @@ const AccountsRecordList = (properties, context) => {
                   </Table.Cell>
                   <Table.Cell>#{account.account_number}</Table.Cell>
                   <Table.Cell>{account.suspended}</Table.Cell>
+                  <Table.Cell>{account.money}</Table.Cell>
                 </Table.Row>
               ))}
           </Table>
@@ -153,17 +160,25 @@ const DepartmentAccountsList = (properties, context) => {
             <Table.Row bold>
               <TableCell>Department Name</TableCell>
               <TableCell>Account Number</TableCell>
+              <TableCell>Account Status</TableCell>
+              <TableCell>Account Balance</TableCell>
             </Table.Row>
             {department_accounts
               .map((account) => (
-                <Table.Row key={account.account_number}
+                <Table.Row
+                  key={account.account_number}
+                  className={
+                    'AccountsUplinkTerminal__listRow--' + account.suspended
+                  }
                   onClick={() => act('view_account_detail', {
                     account_num: account.account_number
                   })}>
                   <Table.Cell>
-                    <Icon name="user"/> {account.name}
+                    <Icon name="wallet"/> {account.name}
                   </Table.Cell>
                   <Table.Cell>#{account.account_number}</Table.Cell>
+                  <Table.Cell>{account.suspended}</Table.Cell>
+                  <Table.Cell>{account.money}</Table.Cell>
                 </Table.Row>
               ))}
           </Table>

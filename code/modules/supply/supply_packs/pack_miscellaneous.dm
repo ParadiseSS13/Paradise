@@ -360,6 +360,14 @@
 	containername = "crate"	//let's keep it subtle, eh?
 	contraband = TRUE
 
+/datum/supply_packs/misc/flags
+	name = "Unapproved flags Crate"
+	contains = list(/obj/item/flag/ussp,
+					/obj/item/flag/syndi)
+	cost = 200
+	containername = "flags crate"
+	contraband = TRUE
+
 /datum/supply_packs/misc/formalwear //This is a very classy crate.
 	name = "Formal Wear Crate"
 	contains = list(/obj/item/clothing/under/dress/blacktango,
