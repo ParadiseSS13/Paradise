@@ -5,7 +5,8 @@
 // #define UNIT_TESTS
 
 // Uncomment the following line to enable Tracy profiling.
-// DO NOT DO THIS UNLESS YOU UNDERSTAND THE IMPLICATIONS. THIS IS NOT A JOKE.
+// DO NOT DO THIS UNLESS YOU UNDERSTAND THE IMPLICATIONS
+// Your data directory will grow by about a gigabyte every time you launch the server, as well as introducing potential instabilities over multiple BYOND versions. 
 // #define ENABLE_BYOND_TRACY
 
 
