@@ -16,6 +16,7 @@
 	pass_flags = PASSTABLE
 
 	speak_emote = list("clanks", "clinks", "clunks", "clangs")
+	tts_seed = "Earth"
 	speak_statement = "clinks"
 	speak_exclamation = "proclaims"
 	speak_query = "requests"

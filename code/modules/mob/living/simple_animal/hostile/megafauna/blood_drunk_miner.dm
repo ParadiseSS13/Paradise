@@ -31,6 +31,7 @@ Difficulty: Medium
 	light_color = "#E4C7C5"
 	flying = FALSE
 	speak_emote = list("roars")
+	tts_seed = "Chen"
 	speed = 3
 	move_to_delay = 3
 	projectiletype = /obj/item/projectile/kinetic/miner

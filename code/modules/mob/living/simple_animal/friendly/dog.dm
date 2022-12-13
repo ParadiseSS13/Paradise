@@ -12,6 +12,7 @@
 	speak_emote = list("barks", "woofs")
 	emote_hear = list("barks!", "woofs!", "yaps.", "pants.")
 	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
+	tts_seed = "Stetmann"
 	faction = list("neutral")
 	see_in_dark = 5
 	speak_chance = 1
@@ -105,6 +106,7 @@
 	var/obj/item/inventory_back
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	tts_seed = "Stetmann"
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
@@ -576,6 +578,7 @@
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
+	tts_seed = "Mannoroth"
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
@@ -635,6 +638,7 @@
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
+	tts_seed = "Jaina"
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
@@ -654,6 +658,7 @@
 	unsuitable_atmos_damage = 0
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
+	tts_seed = "Kael"
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
@@ -674,6 +679,7 @@
 	response_harm   = "kicks"
 	var/turns_since_scan = 0
 	var/puppies = 0
+	tts_seed = "Luna"
 
 //Lisa already has a cute bow!
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Topic(href, href_list)
@@ -716,6 +722,7 @@
 	icon_living = "borgi"
 	bark_sound = null	//No robo-bjork...
 	yelp_sound = null	//Or robo-Yelp.
+	tts_seed = "Glados"
 	var/emagged = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -781,6 +788,7 @@
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
 	collar_type = "pug"
+	tts_seed = "Kleiner"
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()

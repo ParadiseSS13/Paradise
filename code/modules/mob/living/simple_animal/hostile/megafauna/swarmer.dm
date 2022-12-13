@@ -66,6 +66,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	/// Time between calling swarmers to help us when attacked
 	var/call_help_cooldown_amt = 15 SECONDS
 	var/static/list/swarmer_caps
+	tts_seed = "Antimage"
 
 
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Initialize(mapload)

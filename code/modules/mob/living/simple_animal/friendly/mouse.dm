@@ -11,6 +11,7 @@
 	emote_hear = list("squeeks","squeaks","squiks")
 	emote_see = list("runs in a circle", "shakes", "scritches at something")
 	var/squeak_sound = 'sound/creatures/mousesqueak.ogg'
+	tts_seed = "Gyro"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -154,6 +155,7 @@
 /mob/living/simple_animal/mouse/white
 	mouse_color = "white"
 	icon_state = "mouse_white"
+	tts_seed = "Meepo"
 
 /mob/living/simple_animal/mouse/gray
 	mouse_color = "gray"
@@ -162,6 +164,7 @@
 /mob/living/simple_animal/mouse/brown
 	mouse_color = "brown"
 	icon_state = "mouse_brown"
+	tts_seed = "Clockwerk"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/Tom
@@ -172,6 +175,7 @@
 	response_harm   = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+	tts_seed = "Arthas"
 
 
 /mob/living/simple_animal/mouse/blobinfected

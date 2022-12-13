@@ -33,6 +33,7 @@
 	spider_spawnfrequency = 300 // 30 seconds
 	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
 	var/spider_max_children = 8
+	tts_seed = "Ranger"
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_queen_subtype_abilities()

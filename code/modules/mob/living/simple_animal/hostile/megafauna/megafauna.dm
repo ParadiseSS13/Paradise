@@ -10,6 +10,7 @@
 	light_range = 3
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")
+	tts_seed = "Mannoroth"
 	flying = TRUE
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE

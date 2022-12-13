@@ -52,6 +52,7 @@
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
+	tts_seed = "Queen"
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()

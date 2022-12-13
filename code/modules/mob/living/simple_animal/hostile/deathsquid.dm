@@ -4,6 +4,7 @@
 
 	speed = 1
 	speak_emote = list("telepathically thunders", "telepathically booms")
+	tts_seed = "Earth"
 	maxHealth = 2500 // same as megafauna
 	health = 2500
 

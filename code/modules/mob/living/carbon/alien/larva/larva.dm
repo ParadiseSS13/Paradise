@@ -9,6 +9,8 @@
 	health = 25
 	density = 0
 
+	tts_seed = "Templar"
+
 	var/amount_grown = 0
 	var/max_grown = 200
 	var/time_of_birth

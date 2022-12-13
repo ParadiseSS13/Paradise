@@ -67,6 +67,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	speak_chance = 0 // quiet but deadly
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
+	tts_seed = "Anubarak"
 
 	// Sentience Type
 	sentience_type = SENTIENCE_OTHER

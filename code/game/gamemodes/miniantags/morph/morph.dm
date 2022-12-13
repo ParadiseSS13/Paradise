@@ -19,6 +19,7 @@
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler = 2
+	tts_seed = "Treant"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -62,6 +63,7 @@
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
+
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))

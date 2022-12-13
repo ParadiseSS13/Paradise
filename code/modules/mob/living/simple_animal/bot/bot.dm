@@ -17,6 +17,7 @@
 	can_strip = 0
 
 	speak_emote = list("states")
+	tts_seed = "Glados"
 	friendly = "boops"
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")

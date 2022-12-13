@@ -33,6 +33,7 @@
 	var/datum/action/innate/terrorspider/mother/gatherspiderlings/gatherspiderlings_action
 	var/datum/action/innate/terrorspider/mother/incubateeggs/incubateeggs_action
 	var/jelly_cost = 100
+	tts_seed = "Maiev"
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/New()

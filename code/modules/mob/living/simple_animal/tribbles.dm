@@ -12,6 +12,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	speak_emote = list("purrs", "trills")
 	emote_hear = list("shuffles", "purrs")
 	emote_see = list("trundles around", "rolls")
+	tts_seed = "Meepo"
 	speak_chance = 10
 	turns_per_move = 5
 	maxHealth = 10

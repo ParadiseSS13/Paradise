@@ -10,6 +10,7 @@
 	speak_emote = list("squawks", "gakkers")
 	emote_hear = list("squawk!", "gakkers!", "noots.","NOOTS!")
 	emote_see = list("shakes its beak.", "flaps it's wings.","preens itself.")
+	tts_seed = "Narrator"
 	faction = list("penguin")
 	see_in_dark = 5
 	speak_chance = 1

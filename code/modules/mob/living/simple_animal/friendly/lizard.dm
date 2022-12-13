@@ -6,6 +6,7 @@
 	icon_living = "lizard"
 	icon_dead = "lizard-dead"
 	speak_emote = list("hisses")
+	tts_seed = "Ladyvashj"
 	health = 5
 	maxHealth = 5
 	attacktext = "кусает"

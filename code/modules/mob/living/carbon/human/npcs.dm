@@ -11,3 +11,4 @@
 	name = "Pun Pun"
 	real_name = name
 	equip_to_slot(new /obj/item/clothing/under/punpun(src), slot_w_uniform)
+	tts_seed = "Chen"

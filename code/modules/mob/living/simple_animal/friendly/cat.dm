@@ -28,6 +28,7 @@
 	var/mob/living/simple_animal/mouse/movement_target
 	var/eats_mice = 1
 	footstep_type = FOOTSTEP_MOB_CLAW
+	tts_seed = "Valerian"
 
 /mob/living/simple_animal/pet/cat/floppa
 	name = "Big Floppa"
@@ -37,6 +38,7 @@
 	icon_dead = "floppa_dead"
 	icon_resting = "floppa_rest"
 	unique_pet = TRUE
+	tts_seed = "Uther"
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime

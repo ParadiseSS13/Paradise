@@ -10,6 +10,7 @@
 	speak_emote = list("yawns")
 	emote_hear = list("snores.","yawns.")
 	emote_see = list("dozes off.", "looks around sleepily.")
+	tts_seed = "Peon"
 	speak_chance = 1
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)

@@ -21,6 +21,7 @@
 	mob_size = MOB_SIZE_TINY
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
+	tts_seed = "Meepo"
 
 /mob/living/simple_animal/butterfly/New()
 	..()

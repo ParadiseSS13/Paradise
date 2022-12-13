@@ -14,6 +14,7 @@
 	icon_dead = "guard_dead"
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
+	tts_seed = "Anubarak"
 	speak_chance = 5
 	turns_per_move = 5
 	see_in_dark = 8

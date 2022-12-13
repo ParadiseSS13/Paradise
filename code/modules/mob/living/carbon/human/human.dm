@@ -27,6 +27,9 @@
 		if(mind)
 			mind.name = real_name
 
+		if (!tts_seed)
+			tts_seed = pick(SStts.tts_seeds)
+
 	create_reagents(330)
 
 	handcrafting = new()
@@ -104,9 +107,13 @@
 
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
+	if (!tts_seed)
+		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
+	if (!tts_seed)
+		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
 	. = ..(mapload, /datum/species/machine)

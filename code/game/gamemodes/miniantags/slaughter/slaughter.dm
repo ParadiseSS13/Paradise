@@ -7,6 +7,7 @@
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
+	tts_seed = "Mannoroth"
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
 	response_harm   = "punches"

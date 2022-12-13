@@ -10,6 +10,7 @@
 	health = 50
 	speak_emote = list("hisses")
 	emote_hear = list("wails","screeches")
+	tts_seed = "Kelthuzad"
 	response_help  = "puts their hand through"
 	response_disarm = "flails at"
 	response_harm   = "punches the"

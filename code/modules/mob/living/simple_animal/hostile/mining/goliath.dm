@@ -14,6 +14,7 @@
 	ranged_cooldown_time = 120
 	friendly = "wails at"
 	speak_emote = list("bellows")
+	tts_seed = "Bloodseeker"
 	vision_range = 4
 	speed = 3
 	maxHealth = 300

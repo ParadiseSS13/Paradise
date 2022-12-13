@@ -23,6 +23,7 @@
 	web_type = /obj/structure/spider/terrorweb/green
 	var/feedings_to_lay = 2
 	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
+	tts_seed = "Mortred"
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/New()

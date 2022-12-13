@@ -15,6 +15,7 @@
 
 	speak_emote = list("roars")
 	emote_hear = list("roars")
+	tts_seed = "Grunt"
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
 	response_harm   = "punches"
@@ -34,6 +35,7 @@
 /mob/living/simple_animal/hulk/human
 	hulk_powers = list(/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_jump,
 	/obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_dash)
+	tts_seed = "Grunt"
 
 //Clown Hulk
 
@@ -52,6 +54,7 @@
 
 	speak_emote = list("honks")
 	emote_hear = list("honks")
+	tts_seed = "Bandit"
 	attack_sound = list('sound/items/bikehorn.ogg')
 	health_regen = 6
 
@@ -75,6 +78,7 @@
 
 	speak_emote = list("gnaw")
 	emote_hear = list("gnaw")
+	tts_seed = "Huskar"
 	attack_sound = list('sound/weapons/bite.ogg')
 	health_regen = 1.5
 

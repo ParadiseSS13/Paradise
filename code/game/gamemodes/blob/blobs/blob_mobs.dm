@@ -19,6 +19,7 @@
 	can_be_on_fire = TRUE
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
+	tts_seed = "Earth"
 
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
 	if(a_color)

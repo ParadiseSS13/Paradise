@@ -14,6 +14,7 @@
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
 	emote_hear = list("meows", "mews")
+	tts_seed = "Mannoroth"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6

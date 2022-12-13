@@ -20,6 +20,7 @@
 	can_hide = 1
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+	tts_seed = "Riki"
 
 /mob/living/simple_animal/crab/handle_automated_movement()
 	//CRAB movement

@@ -9,6 +9,7 @@
 	speak_emote = list("brays")
 	emote_hear = list("brays")
 	emote_see = list("shakes its head", "stamps a foot", "glares around")
+	tts_seed = "Muradin"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -112,6 +113,7 @@
 	speak_emote = list("moos","moos hauntingly")
 	emote_hear = list("brays")
 	emote_see = list("shakes its head")
+	tts_seed = "Cairne"
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
@@ -179,6 +181,7 @@
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps")
 	emote_see = list("pecks at the ground","flaps its tiny wings")
+	tts_seed = "Meepo"
 	density = 0
 	speak_chance = 2
 	turns_per_move = 2
@@ -227,6 +230,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_emote = list("clucks","croons")
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
+	tts_seed = "Windranger"
 	density = 0
 	speak_chance = 2
 	turns_per_move = 3
@@ -319,6 +323,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "pig_dead"
 	speak = list("oink?","oink","OINK")
 	speak_emote = list("oinks")
+	tts_seed = "Anubarak"
 //	emote_hear = list("brays")
 	emote_see = list("rolls around")
 	speak_chance = 1
@@ -367,6 +372,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "goose_dead"
 	speak = list("quack?","quack","QUACK")
 	speak_emote = list("quacks")
+	tts_seed = "pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
 //	emote_hear = list("brays")
 	emote_see = list("flaps it's wings")
 	speak_chance = 1
@@ -391,6 +397,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "seal_dead"
 	speak = list("Urk?","urk","URK")
 	speak_emote = list("urks")
+	tts_seed = "Narrator"
 //	emote_hear = list("brays")
 	emote_see = list("flops around")
 	speak_chance = 1
@@ -416,6 +423,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "walrus_dead"
 	speak = list("Urk?","urk","URK")
 	speak_emote = list("urks")
+	tts_seed = "Tychus"
 //	emote_hear = list("brays")
 	emote_see = list("flops around")
 	speak_chance = 1
