@@ -936,7 +936,7 @@
 /area/derelict/bridge)
 "cg" = (
 /obj/structure/table/wood,
-/obj/item/storage/ashtray/,
+/obj/item/storage/ashtray,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -1457,7 +1457,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/storage/ashtray/,
+/obj/item/storage/ashtray,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2908,7 +2908,7 @@
 /area/derelict/annex)
 "gg" = (
 /obj/structure/table/wood,
-/obj/item/storage/ashtray/,
+/obj/item/storage/ashtray,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -5705,7 +5705,7 @@
 /area/derelict/annex)
 "mP" = (
 /obj/structure/table/wood,
-/obj/item/storage/ashtray/,
+/obj/item/storage/ashtray,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6110,7 +6110,7 @@
 	},
 /area/derelict/annex)
 "nQ" = (
-/obj/item/storage/ashtray/,
+/obj/item/storage/ashtray,
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -7476,7 +7476,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table,
-/obj/item/storage/ashtray/,
+/obj/item/storage/ashtray,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)

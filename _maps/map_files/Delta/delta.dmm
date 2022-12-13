@@ -79814,7 +79814,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/tray,
-/obj/item/storage/ashtray/{
+/obj/item/storage/ashtray{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
