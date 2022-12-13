@@ -515,7 +515,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_REINFORCED_TABLES)
 
-/obj/structure/table/glass/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 3 procs, or copy paste all of the glass stuff
+/obj/structure/table/glass/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 4 procs, or copy paste all of the glass stuff
 	if(deconstruction_ready)
 		to_chat(user, "<span class='notice'>The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.</span>")
 	else
@@ -535,6 +535,19 @@
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
 		deconstruction_ready = !deconstruction_ready
+
+/obj/structure/table/glass/reinforced/shove_impact(mob/living/target, mob/living/attacker)
+	if(locate(/obj/structure/table) in get_turf(target))
+		return FALSE
+	var/pass_flags_cache = target.pass_flags
+	target.pass_flags |= PASSTABLE
+	if(target.Move(loc))
+		. = TRUE
+		target.Weaken(4 SECONDS)
+		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	else
+		. = FALSE
+	target.pass_flags = pass_flags_cache
 
 /obj/structure/table/glass/reinforced/check_break(mob/living/M)
 	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL && (obj_integrity < (max_integrity / 2))) //big tables for big boys, only breaks under 50% hp
