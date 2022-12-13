@@ -255,7 +255,7 @@
 	icon_state = "soupcan"
 	item_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
-	foodtype = MEAT
+	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/drinks/sillycup
 	name = "paper cup"
