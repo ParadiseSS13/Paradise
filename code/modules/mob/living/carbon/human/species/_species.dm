@@ -1019,4 +1019,5 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return H.skin_colour
 	else
 		var/obj/item/organ/external/head/HD = H.get_organ("head")
-		return HD.hair_colour
+		if(HD)
+			return HD.hair_colour

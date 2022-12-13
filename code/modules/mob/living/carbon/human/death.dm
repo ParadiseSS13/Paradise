@@ -105,7 +105,7 @@
 		return
 	var/obj/item/organ/external/head/H = get_organ("head")
 
-	if(istype(H))
+	if(H && istype(H))
 		H.status |= ORGAN_DISFIGURED
 		if(H.f_style)
 			H.f_style = initial(H.f_style)
