@@ -10,6 +10,8 @@
 	// Coffee is really bad for you with busted kidneys.
 	// This should probably be expanded in some way, but fucked if I know
 	// what else kidneys can process in our reagent list.
+	if(!owner.reagents)
+		return
 	var/datum/reagent/coffee = locate(/datum/reagent/consumable/drink/coffee) in owner.reagents.reagent_list
 	if(coffee)
 		if(is_bruised())

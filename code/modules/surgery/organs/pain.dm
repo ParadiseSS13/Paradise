@@ -7,11 +7,11 @@
 /mob/living/carbon/human/proc/pain(partname, amount)
 	if(stat >= UNCONSCIOUS)
 		return
-	if(reagents.has_reagent("sal_acid"))
+	if(reagents?.has_reagent("sal_acid"))
 		return
-	if(reagents.has_reagent("morphine"))
+	if(reagents?.has_reagent("morphine"))
 		return
-	if(reagents.has_reagent("hydrocodone"))
+	if(reagents?.has_reagent("hydrocodone"))
 		return
 	if(world.time < next_pain_time)
 		return
@@ -36,9 +36,9 @@
 
 	if(NO_PAIN in dna.species.species_traits)
 		return
-	if(reagents.has_reagent("morphine"))
+	if(reagents?.has_reagent("morphine"))
 		return
-	if(reagents.has_reagent("hydrocodone"))
+	if(reagents?.has_reagent("hydrocodone"))
 		return
 
 	var/msg = "<span class='userdanger'>[message]</span>"
@@ -56,9 +56,9 @@
 		return
 	if(NO_PAIN in dna.species.species_traits)
 		return
-	if(reagents.has_reagent("morphine"))
+	if(reagents?.has_reagent("morphine"))
 		return
-	if(reagents.has_reagent("hydrocodone"))
+	if(reagents?.has_reagent("hydrocodone"))
 		return
 
 	var/maxdam = 0

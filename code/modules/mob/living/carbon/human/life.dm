@@ -981,22 +981,23 @@
 	if(status_flags & FAKEDEATH)
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
-	for(var/datum/reagent/R in reagents.reagent_list)
-		if(R.heart_rate_decrease)
-			if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
-				temp--
-				break
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.heart_rate_decrease)
+				if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
+					temp--
+					break
 
-	for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
-		if(R.heart_rate_increase)
-			if(temp <= PULSE_FAST && temp >= PULSE_NONE)
-				temp++
-				break
+		for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
+			if(R.heart_rate_increase)
+				if(temp <= PULSE_FAST && temp >= PULSE_NONE)
+					temp++
+					break
 
-	for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
-		if(R.heart_rate_stop)
-			temp = PULSE_NONE
-			break
+		for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
+			if(R.heart_rate_stop)
+				temp = PULSE_NONE
+				break
 
 	return temp
 
