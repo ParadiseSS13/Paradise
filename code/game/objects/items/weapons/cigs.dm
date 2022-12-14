@@ -189,6 +189,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoke()
 
 
+/obj/item/clothing/mask/cigarette/extinguish_light(force)
+	if(!force)
+		return
+	die()
+
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
 		user.visible_message("<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>")
@@ -361,6 +366,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 500
 	chem_volume = 200
 	list_reagents = list("nicotine" = 200)
+
+/obj/item/clothing/mask/cigarette/pipe/die()
+	return
 
 /obj/item/clothing/mask/cigarette/pipe/light(flavor_text = null)
 	if(!lit)
