@@ -173,6 +173,8 @@
 					var/area = get_access_desc(A)
 					entry += "[i > 1 ? ", [area]" : "[area]"]"
 			var/obj/item/card/id/guest/pass = new(get_turf(src))
+			if(Adjacent(usr))
+				usr.put_in_hands(pass)
 			pass.temp_access = accesses.Copy()
 			pass.registered_name = giv_name
 			pass.expiration_time = world.time + duration MINUTES
