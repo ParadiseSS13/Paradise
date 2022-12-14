@@ -3,13 +3,26 @@
 	var/name = null
 	var/id = null
 	var/result = null
+	/// A list of IDs of the required reagents.
+	///
+	/// Each ID also needs an associated value that gives us the minimum
+	/// required amount / of that reagent. The handle_reaction proc can detect
+	/// mutiples of the same recipes / so for most cases you want to set the
+	/// required amount to 1.
 	var/list/required_reagents = list()
 	var/list/required_catalysts = list()
 
-	// Both of these variables are mostly going to be used with slime cores - but if you want to, you can use them for other things
-	var/atom/required_container = null // the container required for the reaction to happen
-	var/required_other = FALSE // extra requirements for the reaction to happen
+	// Both of these variables are mostly going to be used with slime cores
+	// but if you want to, you can use them for other things
 
+	/// The container required for the reaction to happen.
+	/// Leave this null if you want the reaction to happen anywhere.
+	var/atom/required_container = null
+	/// Extra requirements for the reaction to happen.
+	var/required_other = FALSE
+
+	/// This is the amount of the resulting reagent this recipe will produce.
+	/// It's recommended you set this to the total volume of all required reagents.
 	var/result_amount = 0
 	var/list/secondary_results = list()		//additional reagents produced by the reaction
 	var/min_temp = 0		//Minimum temperature required for the reaction to occur (heat to/above this). min_temp = 0 means no requirement

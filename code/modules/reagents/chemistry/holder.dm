@@ -1,11 +1,31 @@
 #define ADDICTION_TIME 4800 //8 minutes
 
-///////////////////////////////////////////////////////////////////////////////////
-
+/**
+ * # Reagents Holder
+ *
+ * The holder is the datum that holds a list of all reagents
+ * currently in the object.
+ *
+ * By default, all atom have an empty reagents var. If you want to use
+ * an object for the chemistry system you'll need to add something like this in
+ * its new proc:
+ *
+ * 	// Create a new datum, 100 is the maximum_volume of the new holder datum.
+ * 	var/datum/reagents/R = new/datum/reagents(100)
+ * 	reagents = R // Assign the new datum to the objects reagents var
+ * 	R.my_atom = src // set the holders my_atom to src so that we know where we are.
+ *
+ * This can also be done by calling a convenience proc e.g.
+ * 	/atom/proc/create_reagents(max_volume)
+ */
 /datum/reagents
+	/// All contained reagents. More specifically, references to the reagent datums.
 	var/list/datum/reagent/reagent_list = new/list()
+	/// The total volume of all reagents in this holder.
 	var/total_volume = 0
+	/// This is the maximum volume of the holder.
 	var/maximum_volume = 100
+	/// This is the atom the holder is 'in'. Useful if you need to find the location. (i.e. for explosions)
 	var/atom/my_atom = null
 	var/chem_temp = T20C
 	var/temperature_min = 0
@@ -53,6 +73,11 @@
 				GLOB.chemical_reactions_list[id] += D
 				break // Don't bother adding ourselves to other reagent ids, it is redundant.
 
+/**
+ * Removes reagents from the holder until the passed amount is matched.
+ *
+ * It'll try to remove some of ALL reagents contained.
+ */
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
 	var/total_transfered = 0
@@ -124,7 +149,17 @@
 
 	return the_id
 
-/datum/reagents/proc/trans_to(target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE) //if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
+/**
+ * Equally transfer the contents of the holder to another objects holder.
+ *
+ * You need to pass it the object (not the holder) you want to transfer to and
+ * the amount you want to transfer. Its return value is the actual amount
+ * transfered (if one of the objects is full/empty).
+ *
+ * If `preserve_data = FALSE`, the reagents data will be lost. Useful if you use
+ * data for some strange stuff and don't want it to be transferred.
+ */
+/datum/reagents/proc/trans_to(target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE)
 	if(!target)
 		return
 	if(total_volume <= 0)
@@ -212,6 +247,12 @@
 
 	handle_reactions()
 
+/**
+ * Same as [/datum/reagents/proc/trans_to] but only for a specific reagent in
+ * the reagent list. If the specified amount is greater than what is available,
+ * it will use the amount of the reagent that is available. If no reagent
+ * exists, returns null.
+ */
 /datum/reagents/proc/trans_id_to(obj/target, reagent, amount = 1, preserve_data = TRUE) //Not sure why this proc didn't exist before. It does now! /N
 	if(!target)
 		return
@@ -248,6 +289,9 @@
 	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
 		return TRUE
 
+/**
+ * Called by `/mob/living/proc/Life`. You shouldn't have to use this one directly.
+ */
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
@@ -346,6 +390,9 @@
 		var/datum/reagent/R = A
 		R.on_mob_death(M)
 
+/**
+ * Returns a list of all the chemical IDs in the reagent holder that are overdosing.
+ */
 /datum/reagents/proc/overdose_list()
 	var/od_chems[0]
 	for(var/A in reagent_list)
@@ -372,6 +419,14 @@
 		R.on_update(A)
 	update_total()
 
+/**
+ * Check all recipes and, on a match, uses them.
+ *
+ * It will also call the recipe's on_reaction proc (for explosions or w/e).
+ * Currently, this proc is automatically called by [/datum/reagents/proc/trans_to].
+ * Modified from the original to preserve reagent data across reactions
+ * (originally for xenoarchaeology).
+ */
 /datum/reagents/proc/handle_reactions()
 	if(flags & REAGENT_NOREACT)
 		return //Yup, no reactions here. No siree.
@@ -468,6 +523,9 @@
 	update_total()
 	return FALSE
 
+/**
+ * Remove all reagents but the specified one.
+ */
 /datum/reagents/proc/isolate_reagent(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
@@ -475,6 +533,9 @@
 			del_reagent(R.id)
 			update_total()
 
+/**
+ * Completely remove the reagent with the matching ID.
+ */
 /datum/reagents/proc/del_reagent(reagent)
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
@@ -491,6 +552,9 @@
 			return FALSE
 	return TRUE
 
+/**
+ * Update the total volume of the holder (the volume of all reagents added together).
+ */
 /datum/reagents/proc/update_total()
 	total_volume = 0
 	for(var/A in reagent_list)
@@ -501,6 +565,9 @@
 			total_volume += R.volume
 	return FALSE
 
+/**
+ * Remove all reagents from the holder.
+ */
 /datum/reagents/proc/clear_reagents()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
@@ -526,6 +593,22 @@
 			can_process = TRUE
 	return can_process
 
+/**
+ * Calls the appropriate reaction procs of the reagents.
+ *
+ * I.e. if A is an object, it will call the reagent's reaction_obj
+ * proc. The method var is used for reaction on mobs. It simply tells
+ * us if the mob TOUCHed the reagent or if it INGESTed the reagent.
+ *
+ * Since the volume can be checked in a reagents proc, you might want to
+ * use the volume_modifier var to modifiy the passed value without actually
+ * changing the volume of the reagents.
+ *
+ * If you're not sure if you need to use this the answer is very most likely 'No'.
+ *
+ * You'll want to use this proc whenever an atom first comes in contact
+ * with the reagents of a holder. (in the 'splash' part of a beaker i.e.)
+ */
 /datum/reagents/proc/reaction(atom/A, method = REAGENT_TOUCH, volume_modifier = 1, show_message = TRUE)
 	var/react_type
 	if(isliving(A))
@@ -583,6 +666,11 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
+/**
+ * Attempts to add X of the matching reagent to the holder.
+ *
+ * You won't use this much. Mostly in new procs for pre-filled objects.
+ */
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
 	if(!isnum(amount))
 		return TRUE
@@ -637,6 +725,12 @@
 		add_reagent(reagent, add)
 		return TRUE
 
+/**
+ * The exact opposite of the add_reagent proc.
+ *
+ * Modified from original to return the reagent's data, in order to preserve
+ * reagent data across reactions (originally for xenoarchaeology).
+ */
 /datum/reagents/proc/remove_reagent(reagent, amount, safety) //Added a safety check for the trans_id_to
 	if(!isnum(amount))
 		return TRUE
@@ -653,6 +747,11 @@
 			return FALSE
 	return TRUE
 
+/**
+ * Return whether the holder contains the reagent.
+ *
+ * If you pass it an amount it will additionally check if the amount is matched.
+ */
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
@@ -666,6 +765,11 @@
 					return FALSE
 	return FALSE
 
+/**
+ * Returns the amount of the matching reagent inside the holder.
+ *
+ * Returns FALSE if the reagent is missing.
+ */
 /datum/reagents/proc/get_reagent_amount(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
