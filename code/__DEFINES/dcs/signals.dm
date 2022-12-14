@@ -294,57 +294,6 @@
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"
 	#define COMSIG_MOB_CANCEL_CLICKON (1<<0)
 
-/// Mob icon update signals
-/// All used in the modules/mob/update_icons.dm
-/// And in their children
-
-///from base of mob/regenerate_icons(): ()
-#define COMSIG_MOB_REGENERATE_ICONS "mob_regenerate_icons"
-///from base of mob/update_icons(): ()
-#define COMSIG_MOB_UPDATE_ICONS "mob_update_icons"
-///from base of mob/update_inv_handcuffed(): ()
-#define COMSIG_MOB_UPDATE_INV_HANDCUFFED "mob_update_inv_handcuffed"
-///from base of mob/update_inv_legcuffed(): ()
-#define COMSIG_MOB_UPDATE_INV_LEGCUFFED "mob_update_inv_legcuffed"
-///from base of mob/update_inv_back(): ()
-#define COMSIG_MOB_UPDATE_INV_BACK "mob_update_inv_back"
-///from base of mob/update_inv_l_hand(): ()
-#define COMSIG_MOB_UPDATE_INV_L_HAND "mob_update_inv_l_hand"
-///from base of mob/update_inv_r_hand(): ()
-#define COMSIG_MOB_UPDATE_INV_R_HAND "mob_update_inv_r_hand"
-///from base of mob/update_inv_wear_mask(): ()
-#define COMSIG_MOB_UPDATE_INV_WEAR_MASK "mob_update_inv_wear_mask"
-///from base of mob/update_inv_wear_suit(): ()
-#define COMSIG_MOB_UPDATE_INV_WEAR_SUIT "mob_update_inv_wear_suit"
-///from base of mob/update_inv_w_uniform(): ()
-#define COMSIG_MOB_UPDATE_INV_W_UNIFORM "mob_update_inv_w_uniform"
-///from base of mob/update_inv_belt(): ()
-#define COMSIG_MOB_UPDATE_INV_BELT "mob_update_inv_belts"
-///from base of mob/update_inv_head(): ()
-#define COMSIG_MOB_UPDATE_INV_HEAD "mob_update_inv_head"
-///from base of mob/update_inv_gloves(): ()
-#define COMSIG_MOB_UPDATE_INV_GLOVES "mob_update_inv_gloves"
-///from base of mob/update_inv_neck(): ()
-#define COMSIG_MOB_UPDATE_INV_NECK "mob_update_inv_neck"
-///from base of mob/update_mutations(): ()
-#define COMSIG_MOB_UPDATE_MUTATIONS "mob_update_mutations"
-///from base of mob/update_inv_wear_id(): ()
-#define COMSIG_MOB_UPDATE_INV_WEAR_ID "mob_update_inv_wear_id"
-///from base of mob/update_inv_shoes(): ()
-#define COMSIG_MOB_UPDATE_INV_SHOES "mob_update_inv_shoes"
-///from base of mob/update_inv_glasses(): ()
-#define COMSIG_MOB_UPDATE_INV_GLASSES "mob_update_inv_glasses"
-///from base of mob/update_inv_s_store(): ()
-#define COMSIG_MOB_UPDATE_INV_S_STORE "mob_update_inv_s_store"
-///from base of mob/update_inv_pockets(): ()
-#define COMSIG_MOB_UPDATE_INV_POCKETS "mob_update_inv_pockets"
-///from base of mob/update_inv_wear_pda(): ()
-#define COMSIG_MOB_UPDATE_INV_WEAR_PDA "mob_update_inv_wear_pda"
-///from base of mob/update_inv_ears(): ()
-#define COMSIG_MOB_UPDATE_INV_EARS "mob_update_inv_ears"
-///from base of mob/update_transform(): ()
-#define COMSIG_MOB_UPDATE_TRANSFORM "mob_update_transform"
-
 ///from base of mob/key_down(): (_key, client/user)
 #define COMSIG_MOB_DROP_ITEM "mob_drop_item"
 

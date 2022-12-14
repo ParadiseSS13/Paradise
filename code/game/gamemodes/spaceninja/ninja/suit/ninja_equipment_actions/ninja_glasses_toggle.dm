@@ -42,8 +42,7 @@
 		n_mask.item_state = "ninja_mask_[n_mask.visuals_type]_[current_mode]"
 	user.update_sight()
 	user.update_action_buttons_icon()
-	user.update_inv_glasses()
-	user.update_inv_wear_mask()
+	user.regenerate_icons()
 
 /obj/item/clothing/glasses/ninja/proc/next_mode()
 	switch(current_mode)

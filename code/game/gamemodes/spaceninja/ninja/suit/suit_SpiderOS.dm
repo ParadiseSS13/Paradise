@@ -94,12 +94,8 @@
 	var/mob/living/carbon/human/ninja = usr
 	switch(action)
 		if("initialise_suit")
-			if(ninja.get_item_by_slot(slot_wear_suit) == src)
-				toggle_on_off()
-				suit_tgui_state = NINJA_TGUI_LOADING_STATE
-			else
-				to_chat(usr, span_boldwarning("Наденьте костюм!"))
-				return
+			toggle_on_off()
+			suit_tgui_state = NINJA_TGUI_LOADING_STATE
 		if("set_UI_state")
 			suit_tgui_state = text2num(params["suit_tgui_state"])
 		if("set_design")
