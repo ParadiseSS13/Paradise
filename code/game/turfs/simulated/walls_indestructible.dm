@@ -196,6 +196,10 @@
 	underlays += mutable_appearance('icons/obj/structures.dmi', "grille")
 	underlays += mutable_appearance('icons/turf/floors.dmi', "plating")
 
+/turf/simulated/wall/indestructible/opsglass/limited_smooth
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+
 /turf/simulated/wall/indestructible/rock
 	name = "dense rock"
 	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."

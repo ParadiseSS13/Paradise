@@ -11971,6 +11971,9 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
+"UO" = (
+/turf/simulated/wall/indestructible/opsglass/limited_smooth,
+/area/syndicate_mothership)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -60454,9 +60457,9 @@ KR
 mI
 KY
 nB
-BZ
-BZ
-BZ
+UO
+UO
+UO
 KY
 rU
 sn
@@ -60970,7 +60973,7 @@ ab
 ab
 BZ
 hG
-BZ
+UO
 iT
 rU
 sx
@@ -61227,7 +61230,7 @@ ab
 ab
 BZ
 BY
-BZ
+UO
 lB
 KY
 KY

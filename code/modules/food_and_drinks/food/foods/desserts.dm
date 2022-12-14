@@ -19,7 +19,9 @@
 /obj/item/reagent_containers/food/snacks/icecream/update_overlays()
 	. = ..()
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/kitchen.dmi', "icecream_color")
-	filling.color = mix_color_from_reagents(reagents.reagent_list)
+	var/list/reagent_colors = rgb2num(mix_color_from_reagents(reagents.reagent_list), COLORSPACE_HSV)  //switching to HSV colorspace lets us easily manipulate the saturation and brightness independently
+	//Clamping the brightness keeps us from having greyish ice cream while still alowing for a range of colours
+	filling.color = rgb(reagent_colors[1], ((1.5 * reagent_colors[2]) - 10), (clamp(reagent_colors[3], 85, 100) - 10), space = COLORSPACE_HSV)
 	. += filling
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcone
@@ -30,12 +32,20 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
 
+/obj/item/reagent_containers/food/snacks/icecream/wafflecone
+	name = "ice cream in a waffle cone"
+	desc = "Delicious ice cream."
+	icon_state = "icecream_cone_waffle"
+	volume = 50
+	bitesize = 3
+	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
+
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcup
 	name = "chocolate ice cream cone"
 	desc = "Delicious ice cream."
-	icon_state = "icecream_cup"
+	icon_state = "icecream_cone_chocolate"
 	volume = 50
-	bitesize = 6
+	bitesize = 3
 	list_reagents = list("nutriment" = 5, "chocolate" = 8, "ice" = 2)
 
 /obj/item/reagent_containers/food/snacks/icecreamsandwich
