@@ -22,7 +22,7 @@
 	var/required_other = FALSE
 
 	/// This is the amount of the resulting reagent this recipe will produce.
-	/// It's recommended you set this to the total volume of all required reagent.
+	/// It's recommended you set this to the total volume of all required reagents.
 	var/result_amount = 0
 	var/list/secondary_results = list()		//additional reagents produced by the reaction
 	var/min_temp = 0		//Minimum temperature required for the reaction to occur (heat to/above this). min_temp = 0 means no requirement

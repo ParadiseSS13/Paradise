@@ -156,8 +156,8 @@
  * the amount you want to transfer. Its return value is the actual amount
  * transfered (if one of the objects is full/empty).
  *
- * If `preserve_data=0`, the reagents data will be lost. Useful if you use data
- * for some strange stuff and don't want it to be transferred.
+ * If `preserve_data = FALSE`, the reagents data will be lost. Useful if you use
+ * data for some strange stuff and don't want it to be transferred.
  */
 /datum/reagents/proc/trans_to(target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE)
 	if(!target)
