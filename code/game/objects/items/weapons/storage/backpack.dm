@@ -383,9 +383,12 @@
 		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
 		zipped = !zipped
 
-		if(!zipped && zip_time) // Handle slowdown and stuff now that we just zipped it
-			slowdown = 1
+		if(!zipped) // Handle slowdown and stuff now that we just zipped it
 			show_to(user)
+
+			if(zip_time)
+				slowdown = 1
+
 			return
 
 		slowdown = 0
