@@ -79,12 +79,17 @@
 
 	flick("inject", src)
 
+/obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool))
+		return
+
+	var/obj/item/multitool/M = I
+	M.buffer_uid = UID()
+	to_chat(src, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+
 /obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/multitool))
-		#warn AA put multitool buffer here or use multitool_act
-		return 1
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
-			return 1
+			return TRUE
 	return ..()

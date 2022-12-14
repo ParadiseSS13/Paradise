@@ -25,12 +25,9 @@
 	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
-	var/obj/machinery/buffer // simple machine buffer for device linkage
-
-/obj/item/multitool/proc/IsBufferA(typepath)
-	if(!buffer)
-		return 0
-	return istype(buffer,typepath)
+	var/obj/machinery/buffer // simple machine buffer for device linkage - TODO - Make this a soft ref to tie into whats below
+	/// Soft-ref for linked stuff.
+	var/buffer_uid
 
 /obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
 	return TRUE
@@ -56,8 +53,8 @@
 	var/rangewarning = 20 //Glows yellow when inside
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
 
-/obj/item/multitool/ai_detect/New()
-	..()
+/obj/item/multitool/ai_detect/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/multitool/ai_detect/Destroy()

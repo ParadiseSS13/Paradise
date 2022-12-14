@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	// 8 for toxins concentration
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
-	// 64 for carbon dioxide concentration
+	// 64 for nitrous dioxide concentration
 
 /obj/machinery/atmospherics/air_sensor/Initialize(mapload)
 	. = ..()
@@ -66,10 +66,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			"Toxins: [ONOFF_TOGGLE(SENSOR_PLASMA)]" = SENSOR_PLASMA,
 			"Nitrogen: [ONOFF_TOGGLE(SENSOR_N2)]" = SENSOR_N2,
 			"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
-			"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O
+			"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O,
+			"-SAVE TO BUFFER-" = "multitool"
 		)
 
-		var/temp_answer = input(usr, "Select an option to toggle reporting of", "Options!", null) as null|anything in options
+		var/temp_answer = input(user, "Select an option to adjust", "Options!", null) as null|anything in options
 
 		if(!Adjacent(user))
 			break
@@ -90,9 +91,19 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					output ^= SENSOR_CO2
 				if(SENSOR_N2O)
 					output ^= SENSOR_N2O
+				if("multitool")
+					if(!istype(I, /obj/item/multitool)) // should never happen
+						return
+
+					var/obj/item/multitool/M = I
+					M.buffer_uid = UID()
+					to_chat(src, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 		else
 			break
 #undef ONOFF_TOGGLE
+
+
+
 
 /obj/machinery/computer/general_air_control
 	name = "air sensor monitor"
@@ -138,6 +149,52 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		ui = new(user, src, ui_key, "AtmosTankControl", name, 400, 400, master_ui, state)
 		ui.open()
 
+/obj/machinery/computer/general_air_control/ui_data(mob/user)
+	var/list/L = list()
+	L["sensors"] = sensor_name_data_map // We can make this super cheap by sending our existing data
+	return L
+
+/obj/machinery/computer/general_air_control/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool)) // Should never happen
+		return
+
+	configure_sensors(user, I)
+
+// This is its own proc so it can be modified in child types
+/obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/multitool/M)
+	var/choice = alert(user, "Would you like to add or remove a sensor", "Configuration", "Add", "Remove", "Cancel")
+	if((choice == "Cancel") || !Adjacent(user))
+		return
+
+	switch(choice)
+		if("Add")
+			// First see if they have a scrubber in their buffer
+			var/datum/linked_datum = locateUID(M.buffer_uid)
+			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/air_sensor))
+				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not a sensor.</span>")
+				return
+
+			var/new_name = clean_input(user, "Enter a name for the sensor", "Name")
+			if(!new_name || !Adjacent(user))
+				return
+
+			sensor_name_uid_map[new_name] = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
+			to_chat(user, "<span class='notice'>Successfully added a new sensor with name <code>[new_name]</code>")
+
+		if("Remove")
+			var/to_remove = input(user, "Select a sensor to remove", "Sensor Removal") as null|anything in sensor_name_uid_map
+			if(!to_remove)
+				return
+
+			var/confirm = alert(user, "Are you sure you want to remove the sensor '[to_remove]'?", "Warning", "Yes", "No")
+			if((confirm != "Yes") || !Adjacent(user))
+				return
+
+			sensor_name_uid_map -= to_remove
+			sensor_name_data_map -= to_remove
+			to_chat(user, "<span class='notice'>Successfully removed sensor with name <code>[to_remove]</code>")
+
+
 // Refreshes the sensors every so often, but only when the UI is opened
 /obj/machinery/computer/general_air_control/proc/refresh_sensors()
 	for(var/sensor_name in sensor_name_uid_map)
@@ -171,9 +228,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				sensor_data -= "o2"
 
 			if(AS.output & SENSOR_PLASMA)
-				sensor_data["tox"] = round(100 * air_sample.toxins / total_moles, 0.1)
+				sensor_data["plasma"] = round(100 * air_sample.toxins / total_moles, 0.1)
 			else
-				sensor_data -= "tox"
+				sensor_data -= "plasma"
 
 			if(AS.output & SENSOR_N2)
 				sensor_data["n2"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
@@ -189,7 +246,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				sensor_data["n2o"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
 			else
 				sensor_data -= "n2o"
-
 
 
 /obj/machinery/computer/general_air_control/process()

@@ -177,7 +177,6 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-#warn multitool act
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/paper))
 		if(!welded)
@@ -189,13 +188,21 @@
 		else
 			to_chat(user, "The vent is welded.")
 		return 1
-	#warn wrench_act
+
 	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1
 
 	return ..()
+
+/obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool))
+		return
+
+	var/obj/item/multitool/M = I
+	M.buffer_uid = UID()
+	to_chat(src, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/I)
 	if(welded)
