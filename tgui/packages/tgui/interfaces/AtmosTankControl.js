@@ -15,14 +15,19 @@ export const AtmosTankControl = (props, context) => {
         {Object.keys(sensors_list).map(s => (
           <Section key={s} title={s}>
             <LabeledList>
-              <LabeledList.Item label="Pressure">
-                {sensors_list[s]['pressure']} kpa
-              </LabeledList.Item>
-              <LabeledList.Item label="Temperature">
-              {sensors_list[s]['temperature']}K
-              </LabeledList.Item>
+              {(Object.keys(sensors_list[s]).indexOf("pressure") > -1) ? (
+                <LabeledList.Item label="Pressure">
+                  {sensors_list[s]['pressure']} kpa
+                </LabeledList.Item>
+              ) : ""}
+              {(Object.keys(sensors_list[s]).indexOf("temperature") > -1) ? (
+                <LabeledList.Item label="Temperature">
+                  {sensors_list[s]['temperature']} kpa
+                </LabeledList.Item>
+              ) : ""}
+
               {["o2", "n2", "plasma", "co2", "n2o"].map(g => (
-                (Object.keys(sensors_list[s]).indexOf(g) > 0) ? (
+                (Object.keys(sensors_list[s]).indexOf(g) > -1) ? (
                   <LabeledList.Item label={getGasLabel(g)}>
                     <ProgressBar
                       color={getGasColor(g)}
@@ -33,7 +38,7 @@ export const AtmosTankControl = (props, context) => {
                     {toFixed(sensors_list[s][g], 2) + '%'}
                     </ProgressBar>
                   </LabeledList.Item>
-                ) : ("")
+                ) : ""
               ))}
             </LabeledList>
           </Section>

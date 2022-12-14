@@ -85,7 +85,7 @@
 
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
-	to_chat(src, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 
 /obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/wrench))

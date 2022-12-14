@@ -86,7 +86,6 @@
 	var/custom_name
 	var/alarm_id = null
 	//var/skipprocess = 0 //Experimenting
-	var/alarm_frequency = ATMOS_FIRE_FREQ
 	var/remote_control = TRUE
 	var/rcon_setting = RCON_AUTO
 	var/rcon_time = 0
@@ -546,39 +545,9 @@
 	for(var/obj/machinery/alarm/AA in alarm_area)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = max(new_area_danger_level, AA.danger_level)
-	if(alarm_area.atmosalert(new_area_danger_level, src)) //if area was in normal state or if area was in alert state
-		post_alert(new_area_danger_level)
+	alarm_area.atmosalert(new_area_danger_level, src)
 
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/machinery/alarm/proc/post_alert(alert_level)
-	if(!report_danger_level)
-		// Don't report the level to computers, but do toggle firedoors
-		var/area/A = get_area(src)
-		if(alert_level == ATMOS_ALARM_NONE)
-			A.air_doors_open()
-		else if(alert_level != ATMOS_ALARM_NONE)
-			A.air_doors_close()
-		return
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
-
-	if(!frequency)
-		return
-
-	var/datum/signal/alert_signal = new
-	alert_signal.source = src
-	alert_signal.transmission_method = 1
-	alert_signal.data["zone"] = get_area_name(src, TRUE)
-	alert_signal.data["type"] = "Atmospheric"
-
-	if(alert_level == ATMOS_ALARM_DANGER)
-		alert_signal.data["alert"] = "severe"
-	else if(alert_level == ATMOS_ALARM_WARNING)
-		alert_signal.data["alert"] = "minor"
-	else if(alert_level == ATMOS_ALARM_NONE)
-		alert_signal.data["alert"] = "clear"
-
-	frequency.post_signal(src, alert_signal)
 
 ///////////////
 //END HACKING//
@@ -965,14 +934,12 @@
 						tlv.vars[varname] = newval
 
 		if("atmos_alarm")
-			if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
-				post_alert(ATMOS_ALARM_DANGER)
+			alarm_area.atmosalert(ATMOS_ALARM_DANGER, src)
 			alarmActivated = TRUE
 			update_icon(UPDATE_ICON_STATE)
 
 		if("atmos_reset")
-			if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
-				post_alert(ATMOS_ALARM_NONE)
+			alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE)
 			alarmActivated = FALSE
 			update_icon(UPDATE_ICON_STATE)
 

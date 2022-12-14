@@ -97,9 +97,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 					var/obj/item/multitool/M = I
 					M.buffer_uid = UID()
-					to_chat(src, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+					to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 		else
 			break
+
+	return TRUE
 #undef ONOFF_TOGGLE
 
 
@@ -159,6 +161,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		return
 
 	configure_sensors(user, I)
+	return TRUE
 
 // This is its own proc so it can be modified in child types
 /obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/multitool/M)
@@ -179,6 +182,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				return
 
 			sensor_name_uid_map[new_name] = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
+			sensor_name_data_map[new_name] = list()
 			to_chat(user, "<span class='notice'>Successfully added a new sensor with name <code>[new_name]</code>")
 
 		if("Remove")
@@ -201,6 +205,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		var/obj/machinery/atmospherics/air_sensor/AS = locateUID(sensor_name_uid_map[sensor_name])
 		if(QDELETED(AS))
 			sensor_name_uid_map -= sensor_name
+			sensor_name_data_map -= sensor_name
 			continue
 
 		// Cache here to avoid a ton of list lookups

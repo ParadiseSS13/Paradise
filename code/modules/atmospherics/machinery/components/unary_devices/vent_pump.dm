@@ -202,7 +202,7 @@
 
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
-	to_chat(src, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/I)
 	if(welded)
