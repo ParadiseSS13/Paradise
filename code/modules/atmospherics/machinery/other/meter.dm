@@ -107,14 +107,6 @@
 
 	return ..()
 
-/obj/machinery/atmospherics/meter/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
-		return
-
-	var/obj/item/multitool/M = I
-	M.buffer_uid = UID()
-	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
-
 /obj/machinery/atmospherics/meter/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!istype(W, /obj/item/wrench))
 		return ..()
