@@ -341,6 +341,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		desc = "A broken human incinerator. No longer works well on barbeque nights. It requires a new igniter to be repaired."
 		repairstate = 0
 		broken = TRUE
+		cremating = FALSE
+		update_icon(UPDATE_OVERLAYS)
 		GLOB.crematoriums -= src
 
 /obj/structure/crematorium/welder_act(mob/user, obj/item/I)
