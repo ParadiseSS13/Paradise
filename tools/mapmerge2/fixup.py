@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-import os
-import pygit2
+import os, pygit2
 from . import dmm
 from .mapmerge import merge_map
 

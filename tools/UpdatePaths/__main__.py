@@ -1,17 +1,19 @@
 # A script and syntax for applying path updates to maps.
-import re
-import os
-import argparse
-import frontend
-from dmm import *
+import re, os, sys, argparse
+from mapmerge2 import frontend
+from mapmerge2.dmm import *
 
 desc = """
 Update dmm files given update file/string.
 Replacement syntax example:
-    /turf/open/floor/plasteel/warningline : /obj/effect/turf_decal {dir = @OLD ;tag = @SKIP;icon_state = @SKIP}
-    /turf/open/floor/plasteel/warningline : /obj/effect/turf_decal {@OLD} , /obj/thing {icon_state = @OLD:name; name = "meme"}
-    /turf/open/floor/plasteel/warningline{dir=2} : /obj/thing
+    /turf/open/floor/iron/warningline : /obj/effect/turf_decal {dir = @OLD ;tag = @SKIP;icon_state = @SKIP}
+    /turf/open/floor/iron/warningline : /obj/effect/turf_decal {@OLD} , /obj/thing {icon_state = @OLD:name; name = "meme"}
+    /turf/open/floor/iron/warningline{dir=2} : /obj/thing
+    /obj/effect/landmark/start/virologist : @DELETE
+Syntax for subtypes also exist, to update a path's type but maintain subtypes:
+    /obj/structure/closet/crate/@SUBTYPES : /obj/structure/new_box/@SUBTYPES {@OLD}
 New paths properties:
+    @DELETE - if used as new path name the old path will be deleted
     @OLD - if used as property name copies all modified properties from original path to this one
     property = @SKIP - will not copy this property through when global @OLD is used.
     property = @OLD - will copy this modified property from original object even if global @OLD is not used
@@ -23,14 +25,14 @@ Old paths properties:
 """
 
 default_map_directory = "../../_maps"
-replacement_re = re.compile('\s*([^{]*)\s*(\{(.*)\})?')
+replacement_re = re.compile(r'\s*(?P<path>[^{]*)\s*(\{(?P<props>.*)\})?')
 
 #urgent todo: replace with actual parser, this is slow as janitor in crit
-split_re = re.compile('((?:[A-Za-z0-9_\-$]+)\s*=\s*(?:"(?:.+?)"|[^";]*)|@OLD)')
+split_re = re.compile(r'((?:[A-Za-z0-9_\-$]+)\s*=\s*(?:"(?:.+?)"|[^";][^;]*)|@OLD);?')
 
 
 def props_to_string(props):
-    return "{{{0}}}".format(";".join([k+" = "+props[k] for k in props]))
+    return "{{{}}}".format(";".join([f"{k} = {v}" for k, v in props.items()]))
 
 
 def string_to_props(propstring, verbose = False):
@@ -48,8 +50,8 @@ def string_to_props(propstring, verbose = False):
 def parse_rep_string(replacement_string, verbose = False):
     # translates /blah/blah {meme = "test",} into path,prop dictionary tuple
     match = re.match(replacement_re, replacement_string)
-    path = match.group(1)
-    props = match.group(3)
+    path = match['path']
+    props = match['props']
     if props:
         prop_dict = string_to_props(props, verbose)
     else:
@@ -65,9 +67,18 @@ def update_path(dmm_data, replacement_string, verbose=False):
         new_path, new_path_props = parse_rep_string(replacement_def, verbose)
         new_paths.append((new_path, new_path_props))
 
+    subtypes = ""
+    if old_path.endswith("/@SUBTYPES"):
+        old_path = old_path[:-len("/@SUBTYPES")]
+        if verbose:
+            print("Looking for subtypes of", old_path)
+        subtypes = r"(?:/\w+)*"
+
+    replacement_pattern = re.compile(rf"(?P<path>{re.escape(old_path)}(?P<subtype>{subtypes}))\s*(:?{{(?P<props>.*)}})?$")
+
     def replace_def(match):
-        if match.group(2):
-            old_props = string_to_props(match.group(2), verbose)
+        if match['props']:
+            old_props = string_to_props(match['props'], verbose)
         else:
             old_props = dict()
         for filter_prop in old_path_props:
@@ -83,7 +94,18 @@ def update_path(dmm_data, replacement_string, verbose=False):
             print("Found match : {0}".format(match.group(0)))
         out_paths = []
         for new_path, new_props in new_paths:
-            out = new_path
+            if new_path == "@OLD":
+                out = match.group('path')
+            elif new_path == "@DELETE":
+                if verbose:
+                    print("Deleting match : {0}".format(match.group(0)))
+                return [None]
+            elif new_path.endswith("/@SUBTYPES"):
+                path_start = new_path[:-len("/@SUBTYPES")]
+                out = path_start + match.group('subtype')
+            else:
+                out = new_path
+
             out_props = dict()
             for prop_name, prop_value in new_props.items():
                 if prop_name == "@OLD":
@@ -106,29 +128,33 @@ def update_path(dmm_data, replacement_string, verbose=False):
         return out_paths
 
     def get_result(element):
-        p = re.compile("{0}\s*({{(.*)}})?$".format(re.escape(old_path)))
-        match = p.match(element)
+        match = replacement_pattern.match(element)
         if match:
-            return replace_def(match) # = re.sub(p,replace_def,element)
+            return replace_def(match)
         else:
             return [element]
 
     bad_keys = {}
+    modified_keys = []
     keys = list(dmm_data.dictionary.keys())
     for definition_key in keys:
         def_value = dmm_data.dictionary[definition_key]
-        new_value = tuple(y for x in def_value for y in get_result(x))
+        new_value = tuple(y for x in def_value for y in get_result(x) if y != None)
         if new_value != def_value:
             dmm_data.overwrite_key(definition_key, new_value, bad_keys)
+            modified_keys.append(definition_key)
     dmm_data.reassign_bad_keys(bad_keys)
+    return modified_keys
 
 
 def update_map(map_filepath, updates, verbose=False):
     print("Updating: {0}".format(map_filepath))
     dmm_data = DMM.from_file(map_filepath)
+    modified_keys = []
     for update_string in updates:
-        update_path(dmm_data, update_string, verbose)
-    dmm_data.to_file(map_filepath, True)
+        modified_keys.extend(update_path(dmm_data, update_string, verbose))
+    dmm_data.remove_unused_keys(modified_keys)
+    dmm_data.to_file(map_filepath)
 
 
 def update_all_maps(map_directory, updates, verbose=False):
@@ -141,10 +167,12 @@ def update_all_maps(map_directory, updates, verbose=False):
 
 def main(args):
     if args.inline:
+        print("Using replacement:", args.update_source)
         updates = [args.update_source]
     else:
         with open(args.update_source) as f:
             updates = [line for line in f if line and not line.startswith("#") and not line.isspace()]
+        print(f"Using {len(updates)} replacements from file:", args.update_source)
 
     if args.map:
         update_map(args.map, updates, verbose=args.verbose)
@@ -154,7 +182,11 @@ def main(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=desc, formatter_class=argparse.RawTextHelpFormatter)
+    prog = __spec__.name.replace('.__main__', '')
+    if os.name == 'nt' and len(sys.argv) <= 1:
+        print("usage: drag-and-drop a path script .txt onto `Update_Paths.bat`\n  or")
+
+    parser = argparse.ArgumentParser(prog=prog, description=desc, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("update_source", help="update file path / line of update notation")
     parser.add_argument("--map", "-m", help="path to update, defaults to all maps in maps directory")
     parser.add_argument("--directory", "-d", help="path to maps directory, defaults to _maps/")

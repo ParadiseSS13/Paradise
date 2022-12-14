@@ -9,12 +9,7 @@
 # Merge drivers will also need a corresponding entry in the `.gitattributes`
 # file.
 
-import os
-import stat
-import glob
-import re
-import pygit2
-import shlex
+import os, stat, glob, re, pygit2, shlex
 
 
 def write_hook(fname, command):

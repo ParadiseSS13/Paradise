@@ -1,10 +1,5 @@
 # merge_frontend.py
-import sys
-import io
-import os
-import pygit2
-import collections
-import typing
+import sys, io, os, pygit2, collections, typing
 
 
 ENCODING = 'utf-8'
