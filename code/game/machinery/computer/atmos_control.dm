@@ -128,11 +128,19 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return INITIALIZE_HINT_LATELOAD // Do all our work in here
 
 /obj/machinery/computer/general_air_control/LateInitialize()
+	// Setup meters
 	for(var/obj/machinery/atmospherics/air_sensor/AS as anything in GLOB.gas_sensors)
 		for(var/sensor_id in autolink_sensors)
 			if(AS.autolink_id == sensor_id)
-				sensor_name_uid_map[autolink_sensors[sensor_id]]  = AS.UID()
+				sensor_name_uid_map[autolink_sensors[sensor_id]] = AS.UID()
 				sensor_name_data_map[autolink_sensors[sensor_id]] = list()
+
+	// Setup meters
+	for(var/obj/machinery/atmospherics/meter/GM as anything in GLOB.gas_meters)
+		for(var/meter_id in autolink_sensors)
+			if(GM.autolink_id == meter_id)
+				sensor_name_uid_map[autolink_sensors[meter_id]] = GM.UID()
+				sensor_name_data_map[autolink_sensors[meter_id]] = list()
 
 	if(!length(sensor_name_uid_map))
 		stack_trace("[src] at [x],[y],[z] failed to initialise its air sensors.")
@@ -165,7 +173,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 // This is its own proc so it can be modified in child types
 /obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/multitool/M)
-	var/choice = alert(user, "Would you like to add or remove a sensor", "Configuration", "Add", "Remove", "Cancel")
+	var/choice = alert(user, "Would you like to add or remove a sensor/meter", "Configuration", "Add", "Remove", "Cancel")
 	if((choice == "Cancel") || !Adjacent(user))
 		return
 
@@ -173,84 +181,95 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		if("Add")
 			// First see if they have a scrubber in their buffer
 			var/datum/linked_datum = locateUID(M.buffer_uid)
-			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/air_sensor))
-				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not a sensor.</span>")
+			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/air_sensor) || !istype(linked_datum, /obj/machinery/atmospherics/meter))
+				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not a sensor or meter.</span>")
 				return
 
-			var/new_name = clean_input(user, "Enter a name for the sensor", "Name")
+			var/new_name = clean_input(user, "Enter a name for the sensor/meter", "Name")
 			if(!new_name || !Adjacent(user))
 				return
 
 			sensor_name_uid_map[new_name] = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
 			sensor_name_data_map[new_name] = list()
-			to_chat(user, "<span class='notice'>Successfully added a new sensor with name <code>[new_name]</code>")
+			to_chat(user, "<span class='notice'>Successfully added a new sensor/meter with name <code>[new_name]</code>")
 
 		if("Remove")
-			var/to_remove = input(user, "Select a sensor to remove", "Sensor Removal") as null|anything in sensor_name_uid_map
+			var/to_remove = input(user, "Select a sensor/meter to remove", "Sensor/Meter Removal") as null|anything in sensor_name_uid_map
 			if(!to_remove)
 				return
 
-			var/confirm = alert(user, "Are you sure you want to remove the sensor '[to_remove]'?", "Warning", "Yes", "No")
+			var/confirm = alert(user, "Are you sure you want to remove the sensor/meter '[to_remove]'?", "Warning", "Yes", "No")
 			if((confirm != "Yes") || !Adjacent(user))
 				return
 
 			sensor_name_uid_map -= to_remove
 			sensor_name_data_map -= to_remove
-			to_chat(user, "<span class='notice'>Successfully removed sensor with name <code>[to_remove]</code>")
+			to_chat(user, "<span class='notice'>Successfully removed sensor/meter with name <code>[to_remove]</code>")
 
 
 // Refreshes the sensors every so often, but only when the UI is opened
 /obj/machinery/computer/general_air_control/proc/refresh_sensors()
 	for(var/sensor_name in sensor_name_uid_map)
-		var/obj/machinery/atmospherics/air_sensor/AS = locateUID(sensor_name_uid_map[sensor_name])
-		if(QDELETED(AS))
+		var/obj/machinery/atmospherics/AM = locateUID(sensor_name_uid_map[sensor_name])
+		if(QDELETED(AM))
 			sensor_name_uid_map -= sensor_name
 			sensor_name_data_map -= sensor_name
 			continue
 
-		// Cache here to avoid a ton of list lookups
-		var/list/sensor_data = sensor_name_data_map[sensor_name]
-		var/datum/gas_mixture/air_sample = AS.return_air()
+		if(istype(AM, /obj/machinery/atmospherics/air_sensor))
+			// Cache here to avoid a ton of list lookups
+			var/obj/machinery/atmospherics/air_sensor/AS = AM
+			var/list/sensor_data = sensor_name_data_map[sensor_name]
+			var/datum/gas_mixture/air_sample = AS.return_air()
 
-		// We remove it from the list incase sensor reporting is ever disabled
-		// We only want to show the information available
-		if(AS.output & SENSOR_PRESSURE)
-			sensor_data["pressure"] = air_sample.return_pressure()
-		else
-			sensor_data -= "pressure"
-
-		if(AS.output & SENSOR_TEMPERATURE)
-			sensor_data["temperature"] = air_sample.return_temperature()
-		else
-			sensor_data -= "temperature"
-
-		var/total_moles = air_sample.total_moles()
-
-		if(total_moles > 0)
-			if(AS.output & SENSOR_O2)
-				sensor_data["o2"] = round(100 * air_sample.oxygen / total_moles, 0.1)
+			// We remove it from the list incase sensor reporting is ever disabled
+			// We only want to show the information available
+			if(AS.output & SENSOR_PRESSURE)
+				sensor_data["pressure"] = air_sample.return_pressure()
 			else
-				sensor_data -= "o2"
+				sensor_data -= "pressure"
 
-			if(AS.output & SENSOR_PLASMA)
-				sensor_data["plasma"] = round(100 * air_sample.toxins / total_moles, 0.1)
+			if(AS.output & SENSOR_TEMPERATURE)
+				sensor_data["temperature"] = air_sample.return_temperature()
 			else
-				sensor_data -= "plasma"
+				sensor_data -= "temperature"
 
-			if(AS.output & SENSOR_N2)
-				sensor_data["n2"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
-			else
-				sensor_data -= "n2"
+			var/total_moles = air_sample.total_moles()
 
-			if(AS.output & SENSOR_CO2)
-				sensor_data["co2"] = round(100 * air_sample.carbon_dioxide / total_moles, 0.1)
-			else
-				sensor_data -= "co2"
+			if(total_moles > 0)
+				if(AS.output & SENSOR_O2)
+					sensor_data["o2"] = round(100 * air_sample.oxygen / total_moles, 0.1)
+				else
+					sensor_data -= "o2"
 
-			if(AS.output & SENSOR_N2O)
-				sensor_data["n2o"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
-			else
-				sensor_data -= "n2o"
+				if(AS.output & SENSOR_PLASMA)
+					sensor_data["plasma"] = round(100 * air_sample.toxins / total_moles, 0.1)
+				else
+					sensor_data -= "plasma"
+
+				if(AS.output & SENSOR_N2)
+					sensor_data["n2"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
+				else
+					sensor_data -= "n2"
+
+				if(AS.output & SENSOR_CO2)
+					sensor_data["co2"] = round(100 * air_sample.carbon_dioxide / total_moles, 0.1)
+				else
+					sensor_data -= "co2"
+
+				if(AS.output & SENSOR_N2O)
+					sensor_data["n2o"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
+				else
+					sensor_data -= "n2o"
+
+		else if(istype(AM, /obj/machinery/atmospherics/meter))
+			var/list/meter_data = sensor_name_data_map[sensor_name]
+			var/obj/machinery/atmospherics/meter/the_meter = AM
+			if(the_meter.target)
+				var/datum/gas_mixture/meter_env = the_meter.target.return_air()
+				if(meter_env)
+					meter_data["pressure"] = meter_env.return_pressure()
+					meter_data["temperature"] = meter_env.return_temperature()
 
 
 /obj/machinery/computer/general_air_control/process()

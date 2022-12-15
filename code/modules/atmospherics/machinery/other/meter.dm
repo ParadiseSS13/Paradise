@@ -1,27 +1,29 @@
+GLOBAL_LIST_EMPTY(gas_meters)
+
 /obj/machinery/atmospherics/meter
 	name = "gas flow meter"
 	desc = "It measures something."
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
-
 	layer = GAS_PUMP_LAYER
-
-	var/obj/machinery/atmospherics/pipe/target = null
 	anchored = TRUE
 	max_integrity = 150
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
 	power_channel = ENVIRON
-	var/id_tag
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 5
 
+	var/obj/machinery/atmospherics/pipe/target = null
+
 /obj/machinery/atmospherics/meter/Initialize(mapload)
 	. = ..()
+	GLOB.gas_meters += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 
 /obj/machinery/atmospherics/meter/Destroy()
 	target = null
+	GLOB.gas_meters -= src
 	return ..()
 
 /obj/machinery/atmospherics/meter/detailed_examine()
@@ -128,3 +130,12 @@
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
+
+
+/obj/machinery/atmospherics/meter/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool))
+		return
+
+	var/obj/item/multitool/M = I
+	M.buffer_uid = UID()
+	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")

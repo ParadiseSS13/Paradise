@@ -56750,7 +56750,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/meter{
-	id_tag = "wloop_atm_meter";
+	autolink_id = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
 /obj/machinery/light_switch{
@@ -56774,7 +56774,7 @@
 /area/atmos/distribution)
 "cQh" = (
 /obj/machinery/atmospherics/meter{
-	id_tag = "dloop_atm_meter";
+	autolink_id = "dloop_atm_meter";
 	name = "Distribution Loop"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
@@ -63182,7 +63182,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
 /obj/machinery/atmospherics/meter{
-	id_tag = "mair_in_meter";
+	autolink_id = "mair_in_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank In"
 	},
@@ -63192,7 +63192,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/grille,
 /obj/machinery/atmospherics/meter{
-	id_tag = "mair_out_meter";
+	autolink_id = "mair_out_meter";
 	layer = 2.9;
 	name = "Mixed Air Tank Out"
 	},
