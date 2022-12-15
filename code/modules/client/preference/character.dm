@@ -888,7 +888,7 @@
 				preview_icon.Blend(h_marking_s, ICON_OVERLAY)
 
 	var/icon/hands_icon = icon(preview_icon)
-	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "hands_mask"), ICON_MULTIPLY)
+	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask"), ICON_MULTIPLY)
 
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(current_species.bodyflags & NO_EYES))
