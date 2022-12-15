@@ -6,7 +6,6 @@
 	layer = OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
-	anchored = TRUE
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
