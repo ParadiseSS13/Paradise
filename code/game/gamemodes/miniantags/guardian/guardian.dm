@@ -69,7 +69,7 @@
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
 	if(summoner)
-		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
+		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD) || QDELETED(summoner))
 			summoner.remove_guardian_actions()
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
 			visible_message("<span class='danger'>[src] dies along with its user!</span>")
