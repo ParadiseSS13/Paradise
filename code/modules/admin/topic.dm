@@ -1638,6 +1638,8 @@
 				qdel(team)
 			if("rename_team")
 				team.admin_rename_team(usr)
+			if("admin_add_member")
+				team.admin_add_member(usr)
 			if("remove_member")
 				team.admin_remove_member(usr, member)
 			if("view_member")

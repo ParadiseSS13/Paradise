@@ -12,12 +12,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/list/members
 	/// A list of objectives which all team members share.
 	var/list/objectives
+	/// Type of antag datum members of this team have. Also given to new members added by admins.
+	var/antag_datum_type
 
 /datum/team/New(list/starting_members)
 	..()
 	members = list()
 	objectives = list()
-	if(!islist(starting_members))
+	if(starting_members && !islist(starting_members))
 		starting_members = list(starting_members)
 	for(var/datum/mind/M as anything in starting_members)
 		add_member(M)
@@ -33,11 +35,14 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 /**
  * Adds `new_member` to this team.
+ *
+ * Generally this should ONLY be called by `add_antag_datum()` to ensure proper order of operations.
  */
-/datum/team/proc/add_member(datum/mind/new_member, datum/antagonist/antag)
+/datum/team/proc/add_member(datum/mind/new_member)
 	SHOULD_CALL_PARENT(TRUE)
+	var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
 	members |= new_member
-	antag.objectives |= objectives
+	team_antag.objectives |= objectives
 
 /**
  * Removes `member` from this team.
@@ -47,6 +52,24 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/datum/antagonist/A = get_antag_datum_from_member(member)
 	members -= member
 	A.objectives -= objectives
+
+/**
+ * Adds a new member to this team from a list of players in the round.
+ */
+/datum/team/proc/admin_add_member(mob/user)
+	var/list/valid_minds = list()
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(!H.mind || (H.mind in members))
+			continue
+		valid_minds[H.real_name] = H.mind
+
+	var/name = input(user, "Choose a player to add to this team", "Add Team Member") as null|anything in valid_minds
+	if(!name)
+		to_chat(user, "<span class='warning'>No suitable humanoid targets found!</span>")
+		return
+
+	var/datum/mind/new_member = valid_minds[name]
+	add_member(new_member)
 
 /**
  * Adds a team objective to each member's matching antag datum.
@@ -74,6 +97,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		if(A.get_team() != src)
 			continue
 		return A
+	// If no matching antag datum was found, give them one.
+	if(antag_datum_type)
+		member.add_antag_datum(antag_datum_type, src)
 
 /**
  * Allows admins to send a message to all members of this team.
@@ -187,5 +213,5 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		for(var/datum/mind/M as anything in T.members)
 			content += "<li>[M.name] - <a href='?_src_=holder;team_command=view_member;team=[T.UID()];member=[M.UID()]'>Show Player Panel</a>"
 			content += "<a href='?_src_=holder;team_command=remove_member;team=[T.UID()];member=[M.UID()]'>Remove Member</a></li>"
-		content += "</ol><hr>"
+		content += "</ol><a href='?_src_=holder;team_command=admin_add_member;team=[T.UID()]'>Add Member</a><hr>"
 	return content.Join()
