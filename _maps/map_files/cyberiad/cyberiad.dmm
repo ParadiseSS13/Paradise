@@ -89089,7 +89089,7 @@
 "uZC" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "air_sensor";
-	output = 7
+	output = 127
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
