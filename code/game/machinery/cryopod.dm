@@ -110,7 +110,7 @@
 				return
 
 			var/obj/item/item = locateUID(params["item"])
-			if(!item)
+			if(!item || item.loc != src)
 				to_chat(user, "<span class='notice'>[item] is no longer in storage.</span>")
 				return
 
