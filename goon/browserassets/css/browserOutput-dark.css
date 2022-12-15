@@ -295,7 +295,7 @@ em				{font-style: normal;font-weight: bold;}
 h1.alert, h2.alert			{color: #a4bad6;}
 .ghostalert			{color: #cc00c6;font-style: italic; font-weight: bold;}
 .emote				{font-style: italic;}
-.selecteddna			{color: #FFFFFF; 	background-color: #001B1B}
+.selecteddna			{color: #a4bad6; 	background-color: #001B1B}
 
 .attack				{color: #ff0000;}
 .moderate			{color: #CC0000;}
@@ -430,7 +430,7 @@ h1.alert, h2.alert			{color: #a4bad6;}
 span.body .codephrases 		{color: #5555FF;}
 span.body .coderesponses 		{color: #FF3333;}
 
-.announcement h1, .announcement h2 { color: #fff; margin: 8pt 0; line-height: 1.2; }
+.announcement h1, .announcement h2 { color: #a4bad6; margin: 8pt 0; line-height: 1.2; }
 .announcement p { color: #d82020; line-height: 1.3; }
 .announcement.minor h1 { font-size: 180%; }
 .announcement.minor h2 { font-size: 170%; }
