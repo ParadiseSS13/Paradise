@@ -71,6 +71,8 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return FALSE // Yes, we may not have a limb in this area (Example being fixing someones arm by slapping it on)
 		if(!affected.encased) //no bone, problem.
 			return FALSE
 		if(HAS_TRAIT(target, TRAIT_NO_BONES))
