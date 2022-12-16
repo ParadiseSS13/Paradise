@@ -306,6 +306,9 @@
 	var/tts_enabled = FALSE // Global switch
 	var/tts_cache = FALSE // Store generated tts files and reuse them, instead of always requesting new
 
+	/// the amount of players needed to automatically switch gamemode to extended. Doesn't work if set to zero
+	var/auto_extended_players_num = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -871,6 +874,9 @@
 
 				if("tts_cache")
 					config.tts_cache = TRUE
+
+				if("auto_extended_players_num")
+					config.auto_extended_players_num = text2num(value)
 
 				else
 					log_config("Unknown setting in configuration: '[name]'")

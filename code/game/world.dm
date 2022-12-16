@@ -186,6 +186,18 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	fdel(F)
 	F << the_mode
 
+/world/proc/check_for_lowpop()
+	if(!config.auto_extended_players_num)
+		return
+
+	if(length(GLOB.clients) <= config.auto_extended_players_num)
+		GLOB.master_mode = "extended"
+		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
+	else
+		GLOB.master_mode = "secret"
+	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
+	world.save_mode(GLOB.master_mode)
+
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
