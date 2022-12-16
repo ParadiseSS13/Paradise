@@ -34,7 +34,7 @@
 	head = /obj/item/clothing/head/caphat
 	l_ear = /obj/item/radio/headset/heads/captain/alt
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
-	id = /obj/item/card/id/captain
+	id = /obj/item/card/id/captains_spare/assigned
 	pda = /obj/item/pda/captain
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,

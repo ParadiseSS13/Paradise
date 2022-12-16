@@ -26,7 +26,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		bold_jobs = list()
 		bold_jobs += GLOB.command_positions
 		bold_jobs += get_all_centcom_jobs()
-		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
+		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate", "Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Inquisitor", "Emergency Response Team Janitor", "Emergency Response Team Leader", "Emergency Response Team Member")
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing

@@ -778,12 +778,6 @@
 	icon_state = "chemist"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 
-/obj/item/card/id/chemist
-	name = "Chemist ID"
-	registered_name = "Chemist"
-	icon_state = "chemist"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
-
 /obj/item/card/id/paramedic
 	name = "Paramedic ID"
 	registered_name = "Paramedic"
@@ -868,15 +862,10 @@
 	icon_state = "atmostech"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
 
-/obj/item/card/id/captain
+/obj/item/card/id/captains_spare/assigned
 	name = "Captain ID"
 	registered_name = "Captain"
 	icon_state = "captain"
-
-/obj/item/card/id/captain/New()
-	var/datum/job/captain/J = new/datum/job/captain
-	access = J.get_access()
-	..()
 
 /obj/item/card/id/hop
 	name = "Head of Personal ID"
