@@ -400,6 +400,9 @@
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Deathsquad Commando","Research Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
 
+/proc/get_all_ERT_jobs()
+	return list("Emergency Response Team Officer","Emergency Response Team Engineer","Emergency Response Team Medic","Emergency Response Team Inquisitor","Emergency Response Team Janitor","Emergency Response Team Leader","Emergency Response Team Member")
+
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Lieutenant","Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
 
@@ -467,7 +470,7 @@
 			return ID.registered_name
 
 /proc/get_all_job_icons() //For all existing HUD icons
-	return GLOB.joblist + list("Prisoner", "Emergency Response Team Leader", "Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Inquisitor", "Emergency Response Team Janitor")
+	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation
 	var/assignmentName = "Unknown"
