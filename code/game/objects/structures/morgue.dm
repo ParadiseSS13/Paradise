@@ -358,10 +358,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 			return TRUE
 		WELDER_REPAIR_SUCCESS_MESSAGE
-		icon_state = "crema" // there's probably a better way to handle this than setting icon_state, name, and desc to their original values, but I am not a smart man
+		icon_state = initial(icon_state)
 		resistance_flags = NONE
-		name = "crematorium"
-		desc = "A human incinerator. Works well on barbeque nights."
+		name = initial(name)
+		desc = initial(desc)
 		repairstate = 2
 		broken = FALSE
 		obj_integrity = max_integrity
