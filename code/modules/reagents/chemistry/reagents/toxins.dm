@@ -9,7 +9,7 @@
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/spider_venom
@@ -51,9 +51,9 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
-		update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
+		update_flags |= M.adjustToxLoss(rand(2,6) / 2, FALSE) // avg 0.2 toxin per cycle
 	else if(prob(40))
-		update_flags |= M.adjustBruteLoss(-0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/slimejelly/on_merge(list/mix_data)
@@ -146,7 +146,7 @@
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustFireLoss(1, FALSE)
-	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/radium
@@ -190,7 +190,7 @@
 /datum/reagent/mutagen/on_mob_life(mob/living/M)
 	if(!M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	M.apply_effect(1, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
 	return ..()
@@ -215,7 +215,7 @@
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
 	if(!ishuman(M) || !M.dna)
 		return
-	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
+	M.apply_effect(1, IRRADIATE, negate_armor = 1)
 	if(current_cycle == 10 && islist(data))
 		if(istype(data["dna"], /datum/dna))
 			var/mob/living/carbon/human/H = M
@@ -329,7 +329,7 @@
 
 /datum/reagent/acid/facid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -405,7 +405,7 @@
 
 /datum/reagent/carpotoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/staminatoxin
@@ -419,7 +419,7 @@
 
 /datum/reagent/staminatoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustStaminaLoss(REAGENTS_EFFECT_MULTIPLIER * data, FALSE)
+	update_flags |= M.adjustStaminaLoss(0.5 * data, FALSE)
 	data = max(data - 1, 3)
 	return ..() | update_flags
 
@@ -457,7 +457,7 @@
 			update_flags |= M.Sleeping(2, FALSE)
 		if(51 to INFINITY)
 			update_flags |= M.Sleeping(2, FALSE)
-			update_flags |= M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			update_flags |= M.adjustToxLoss((current_cycle - 50) / 2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/polonium
@@ -564,7 +564,7 @@
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(0.5, FALSE)
 	if(prob(10))
 		M.reagents.add_reagent("histamine",rand(5,15))
 	return ..() | update_flags
@@ -580,7 +580,7 @@
 
 /datum/reagent/acetaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/venom
@@ -662,7 +662,7 @@
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(0.75, FALSE)
 	if(prob(5))
 		M.emote("drool")
 	if(prob(10))

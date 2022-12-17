@@ -105,7 +105,7 @@
 		update_flags |= M.AdjustParalysis(-1, FALSE)
 		update_flags |= M.AdjustStunned(-1, FALSE)
 		update_flags |= M.AdjustWeakened(-1, FALSE)
-		update_flags |= M.adjustStaminaLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustStaminaLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/nicotine/overdose_process(mob/living/M, severity)
@@ -756,6 +756,6 @@
 		B.pixel_x = rand(-20, 0)
 		B.pixel_y = rand(-20, 0)
 		B.icon = I
-		update_flags |= M.adjustFireLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(rand(1,5)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(rand(1,5) / 2, FALSE)
+		update_flags |= M.adjustBruteLoss(rand(1,5) / 2, FALSE)
 	return list(0, update_flags)

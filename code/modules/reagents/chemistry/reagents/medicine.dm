@@ -209,7 +209,7 @@
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
@@ -236,7 +236,7 @@
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
@@ -265,8 +265,8 @@
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
@@ -309,7 +309,7 @@
 /datum/reagent/medicine/ab_stimulant/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	to_chat(M, "<span class='notice'>Вы чуствуете чесотку.</span>")
-	update_flags |= M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-1.5, FALSE)
 	if(volume > 1.9)
 		if((HUSK) in M.mutations)
 			var/mob/living/carbon/human/H = M
@@ -337,7 +337,7 @@
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(-0.75, FALSE)
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
@@ -359,10 +359,10 @@
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(-0.5, FALSE)
+	update_flags |= M.adjustOxyLoss(-0.5, FALSE)
+	update_flags |= M.adjustBruteLoss(-1, FALSE)
+	update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(prob(50))
 		M.AdjustLoseBreath(-1)
 	return ..() | update_flags
@@ -420,7 +420,7 @@
 		if(R != src)
 			M.reagents.remove_reagent(R.id,5)
 	if(M.health > 20)
-		update_flags |= M.adjustToxLoss(5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(2.5, FALSE)
 	if(prob(6))
 		M.fakevomit()
 	return ..() | update_flags
@@ -454,10 +454,10 @@
 			M.reagents.remove_reagent(R.id,4)
 	M.radiation = max(0, M.radiation-7)
 	if(prob(75))
-		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(-2, FALSE)
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(0.5, FALSE)
+		update_flags |= M.adjustFireLoss(0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
@@ -475,7 +475,7 @@
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
-		update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	if(M.bodytemperature > 310.15)
 		M.bodytemperature = max(310.15, M.bodytemperature - 10)
 	return ..() | update_flags
@@ -492,7 +492,7 @@
 /datum/reagent/medicine/menthol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
-		update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(M.bodytemperature > 280)
 		M.bodytemperature = max(280, M.bodytemperature - 10)
 	return ..() | update_flags
@@ -507,7 +507,7 @@
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustOxyLoss(-6*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(-3, FALSE)
 	M.AdjustLoseBreath(-4)
 	return ..() | update_flags
 
@@ -526,12 +526,12 @@
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustOxyLoss(-12.5, FALSE)
 	if(volume >= 4)
 		M.LoseBreath(6)
 	if(prob(33))
-		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.5, FALSE)
+		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/ephedrine
@@ -554,7 +554,7 @@
 	update_flags |= M.AdjustParalysis(-1, FALSE)
 	update_flags |= M.AdjustStunned(-1, FALSE)
 	update_flags |= M.AdjustWeakened(-1, FALSE)
-	update_flags |= M.adjustStaminaLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
 	M.AdjustLoseBreath(-1, bound_lower = 5)
 	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
@@ -682,11 +682,11 @@
 		M.emote("collapse")
 	M.AdjustLoseBreath(-5, bound_lower = 5)
 	if(M.getOxyLoss() > 65)
-		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-5, FALSE)
 	if(M.health < -25)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
-		update_flags |= M.adjustBruteLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-1.5, FALSE)
+		update_flags |= M.adjustFireLoss(-1.5, FALSE)
 	else if(M.health > -60)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	M.reagents.remove_reagent("sarin", 20)
@@ -719,11 +719,11 @@
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-1, bound_lower = 3)
 	if(M.getOxyLoss() > 35)
-		update_flags |= M.adjustOxyLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-5, FALSE)
 	if(M.health < -10 && M.health > -65)
-		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(-0.5, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.5, FALSE)
+		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/epinephrine/overdose_process(mob/living/M, severity)
@@ -764,8 +764,8 @@
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
-		update_flags |= M.adjustBruteLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(1, FALSE)
+		update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -887,10 +887,10 @@
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(volume > 5)
-		update_flags |= M.adjustOxyLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustToxLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-2.5, FALSE)
+		update_flags |= M.adjustToxLoss(-2.5, FALSE)
+		update_flags |= M.adjustBruteLoss(-5, FALSE)
+		update_flags |= M.adjustFireLoss(-5, FALSE)
 		update_flags |= M.setStaminaLoss(0, FALSE)
 		M.SetSlowed(0)
 		M.AdjustDizzy(-10)
@@ -926,14 +926,14 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.status_flags |= GOTTAGOFAST
 	if(M.health < 50 && M.health > 0)
-		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-0.5, FALSE)
+		update_flags |= M.adjustToxLoss(-0.5, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.5, FALSE)
+		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	update_flags |= M.AdjustParalysis(-3, FALSE)
 	update_flags |= M.AdjustStunned(-3, FALSE)
 	update_flags |= M.AdjustWeakened(-3, FALSE)
-	update_flags |= M.adjustStaminaLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustStaminaLoss(-7.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
@@ -943,8 +943,8 @@
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
-		update_flags |= M.adjustStaminaLoss(2.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustStaminaLoss(1.25, FALSE)
+		update_flags |= M.adjustToxLoss(0.5, FALSE)
 		M.AdjustLoseBreath(1)
 	return list(0, update_flags)
 
@@ -1077,12 +1077,12 @@
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE) //A ton of healing - this is a 50 telecrystal investment.
-	update_flags |= M.adjustFireLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustToxLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBrainLoss(-15*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustCloneLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-2.5, FALSE) //A ton of healing - this is a 50 telecrystal investment.
+	update_flags |= M.adjustFireLoss(-2.5, FALSE)
+	update_flags |= M.adjustOxyLoss(-7.5, FALSE)
+	update_flags |= M.adjustToxLoss(-2.5, FALSE)
+	update_flags |= M.adjustBrainLoss(-7.5, FALSE)
+	update_flags |= M.adjustCloneLoss(-1.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine_diluted
@@ -1104,18 +1104,18 @@
 
 /datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(-0.25, FALSE)
+	update_flags |= M.adjustOxyLoss(-0.25, FALSE)
+	update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+	update_flags |= M.adjustFireLoss(-0.25, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine_diluted/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(0.75, FALSE)
+	update_flags |= M.adjustOxyLoss(0.75, FALSE)
+	update_flags |= M.adjustBruteLoss(0.75, FALSE)
+	update_flags |= M.adjustFireLoss(0.75, FALSE)
 	return list(0, update_flags)
 
 //////////////////////////////
@@ -1183,12 +1183,12 @@
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(2, FALSE)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/kelotane
@@ -1203,12 +1203,12 @@
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/kelotane/overdose_process(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(2, FALSE)
 	return ..() | update_flags
 
 
@@ -1223,13 +1223,13 @@
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-15 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustToxLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
-	update_flags |= M.adjustCloneLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustStaminaLoss(-9 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-1.5, FALSE)
+	update_flags |= M.adjustFireLoss(-1.5, FALSE)
+	update_flags |= M.adjustOxyLoss(-7.5, FALSE)
+	update_flags |= M.adjustToxLoss(-1.5, FALSE)
+	update_flags |= M.adjustBrainLoss(1, FALSE) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
+	update_flags |= M.adjustCloneLoss(-0.5, FALSE)
+	update_flags |= M.adjustStaminaLoss(-4.5, FALSE)
 	M.SetJitter(min(max(0, M.jitteriness + 3), 30))
 	update_flags |= M.SetDruggy(min(max(0, M.druggy + 10), 15), FALSE) //See above
 	return ..() | update_flags
@@ -1238,7 +1238,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetHallucinate(min(max(0, M.hallucination + 10), 50))
 	M.last_hallucinator_log = "[name] overdose"
-	update_flags |= M.adjustToxLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(2.5, FALSE)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/corazone
@@ -1308,14 +1308,14 @@
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-2.5, FALSE)
+	update_flags |= M.adjustFireLoss(-2.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/M) // This WILL be brutal
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustConfused(5)
-	update_flags |= M.adjustBruteLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustToxLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(1.5, FALSE)
+	update_flags |= M.adjustFireLoss(1.5, FALSE)
+	update_flags |= M.adjustToxLoss(1.5, FALSE)
 	return ..() | update_flags

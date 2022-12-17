@@ -11,7 +11,7 @@
 /datum/reagent/consumable/drink/orangejuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(30))
-		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustOxyLoss(-0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/tomatojuice

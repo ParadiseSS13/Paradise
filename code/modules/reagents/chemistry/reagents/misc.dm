@@ -474,7 +474,7 @@
 	if(prob(10))
 		M.emote("giggle")
 	if(M?.mind.assigned_role == "Clown" || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
-		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
+		update_flags |= M.adjustBruteLoss(-0.75) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(10, 0, 500)
 		M.Druggy(15)
@@ -494,7 +494,7 @@
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
 		if(M?.mind.assigned_role == "Mime")
-			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
+			update_flags |= M.adjustToxLoss(0.75)
 	return ..() | update_flags
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
@@ -592,7 +592,7 @@
 /datum/reagent/plantnutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(tox_prob))
-		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/plantnutriment/eznutriment

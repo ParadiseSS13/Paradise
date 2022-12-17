@@ -163,7 +163,7 @@
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(0.5, FALSE)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))

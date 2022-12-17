@@ -585,10 +585,10 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.mind)
 		if(M.mind.special_role == SPECIAL_ROLE_WIZARD || M.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
-			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-			update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			update_flags |= M.adjustToxLoss(-0.5, FALSE)
+			update_flags |= M.adjustOxyLoss(-0.5, FALSE)
+			update_flags |= M.adjustBruteLoss(-0.5, FALSE)
+			update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium
@@ -927,9 +927,9 @@
 		update_flags |= M.Paralyse(2, FALSE)
 	if(prob(20))
 		update_flags |= M.LoseBreath(4, FALSE)
-		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+		update_flags |= M.adjustToxLoss(1.5, FALSE)
+		update_flags |= M.adjustStaminaLoss(5, FALSE)
 		update_flags |= M.EyeBlurry(5, FALSE)
 	return ..() | update_flags
 
@@ -961,6 +961,6 @@
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(80))
-		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.5, FALSE)
+		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
