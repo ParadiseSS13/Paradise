@@ -437,9 +437,9 @@
 			M.Stun(2)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
-		update_flags |= M.heal_organ_damage(2, 2, updating_health = FALSE)
-		update_flags |= M.adjustOxyLoss(-2, FALSE)
-		update_flags |= M.adjustToxLoss(-2, FALSE)
+		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
+		update_flags |= M.adjustOxyLoss(-10, FALSE)
+		update_flags |= M.adjustToxLoss(-10, FALSE)
 	return ..() | update_flags
 
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech
