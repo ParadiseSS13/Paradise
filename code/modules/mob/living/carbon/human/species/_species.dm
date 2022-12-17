@@ -229,7 +229,7 @@
 	for(var/name in H.bodyparts_by_name)
 		var/part_type = H.bodyparts_by_name[name]
 		if(!isnull(part_type))
-			H.bodyparts |= part_type  // we do not want nulls here
+			H.bodyparts |= part_type  // we do not want nulls here, even though it's alright to have them in bodyparts_by_name
 
 	for(var/obj/item/organ/external/E as anything in H.bodyparts)
 		E.owner = H
