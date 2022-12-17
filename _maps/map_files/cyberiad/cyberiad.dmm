@@ -65003,11 +65003,23 @@
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "cFC" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "ceoffice"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cFD" = (
@@ -65889,7 +65901,6 @@
 	},
 /area/gateway)
 "cHa" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
@@ -65904,6 +65915,15 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "ceoffice"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cHb" = (
@@ -66006,8 +66026,20 @@
 	},
 /area/hallway/primary/aft)
 "cHk" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow,
+/obj/structure/window/reinforced/polarized{
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized,
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "ceoffice"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cHl" = (
@@ -66648,7 +66680,18 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow,
-/obj/effect/spawner/window/reinforced,
+/obj/structure/window/reinforced/polarized{
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "ceoffice"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cIx" = (
@@ -66691,7 +66734,18 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/structure/window/reinforced/polarized{
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "ceoffice"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cIz" = (
@@ -70835,6 +70889,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/button/windowtint{
+	pixel_x = -7;
+	pixel_y = 37;
+	id = "ceoffice"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -71401,7 +71460,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "cRJ" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 4;
@@ -71421,6 +71479,15 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "ceoffice"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cRK" = (
@@ -72153,7 +72220,8 @@
 /obj/machinery/door/airlock/command/glass{
 	id_tag = "ceofficedoor";
 	name = "Chief Engineer";
-	req_access_txt = "56"
+	req_access_txt = "56";
+	id = "ceoffice"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -73675,7 +73743,22 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/structure/window/reinforced/polarized{
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 1;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "ceoffice"
+	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/engine/chiefs_office)
 "cVV" = (
@@ -73757,7 +73840,8 @@
 /obj/machinery/door/airlock/command/glass{
 	id_tag = "ceofficedoor";
 	name = "Chief Engineer";
-	req_access_txt = "56"
+	req_access_txt = "56";
+	id = "ceoffice"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -89071,6 +89155,22 @@
 	icon_state = "whiteblue"
 	},
 /area/security/medbay)
+"rFJ" = (
+/obj/structure/cable/yellow,
+/obj/structure/window/reinforced/polarized{
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 4;
+	id = "ceoffice"
+	},
+/obj/structure/window/reinforced/polarized{
+	dir = 8;
+	id = "ceoffice"
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/engine/chiefs_office)
 "rGg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -121444,7 +121544,7 @@ cRR
 cTg
 cFC
 cHa
-cHk
+rFJ
 cRR
 cRR
 cZP
