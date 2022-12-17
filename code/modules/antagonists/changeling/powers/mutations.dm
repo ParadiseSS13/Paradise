@@ -328,10 +328,12 @@
 /obj/item/restraints/legcuffs/beartrap/changeling
 	name = "tentacle mass"
 	desc = "A disgusting mass of flesh wrapped around some poor persons legs."
+	icon_state = "fleshtrap" //Never on ground, only on examine, so doesn't need to be super detaled
 	trap_damage = 5
 	armed = TRUE
 	anchored = TRUE
 	breakouttime = 5 SECONDS
+	cuffed_state = "fleshlegcuff"
 	flags = DROPDEL
 
 /obj/item/restraints/legcuffs/beartrap/changeling/Crossed(AM, oldloc)

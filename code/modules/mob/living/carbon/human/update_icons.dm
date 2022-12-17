@@ -1057,7 +1057,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(LEGCUFF_LAYER)
 	clear_alert("legcuffed")
 	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "legcuff", layer = -LEGCUFF_LAYER)
+		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', legcuffed.cuffed_state, layer = -LEGCUFF_LAYER)
 		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
 		if(m_intent != MOVE_INTENT_WALK)
 			m_intent = MOVE_INTENT_WALK
