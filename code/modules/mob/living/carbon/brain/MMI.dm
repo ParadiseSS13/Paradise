@@ -175,7 +175,7 @@
 /obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
-		radio_action.ApplyIcon()
+		radio_action.UpdateButtonIcon()
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
@@ -209,17 +209,9 @@
 	return ..()
 
 /datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
-	// A copy/paste of the item action icon code
-	current_button.overlays.Cut()
-	if(target)
-		var/obj/item/I = mmi
-		var/old_layer = I.layer
-		var/old_plane = I.plane
-		I.layer = 21
-		I.plane = HUD_PLANE
-		current_button.overlays += I
-		I.layer = old_layer
-		I.plane = old_plane
+	icon_icon = mmi.icon
+	button_icon_state = mmi.icon_state
+	..()
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
