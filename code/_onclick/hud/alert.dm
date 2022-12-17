@@ -572,6 +572,8 @@ so as to remain in compliance with the most up-to-date laws."
 		if(poll.sign_up(G))
 			// Add a small overlay to indicate we've signed up
 			display_signed_up()
+		else
+			display_signed_down()
 	else if(target)
 		switch(action)
 			if(NOTIFY_ATTACK)
@@ -592,6 +594,12 @@ so as to remain in compliance with the most up-to-date laws."
 	I.layer = FLOAT_LAYER
 	I.plane = FLOAT_PLANE + 2
 	overlays += I
+
+/obj/screen/alert/notify_action/proc/display_signed_down()
+	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+	I.layer = FLOAT_LAYER
+	I.plane = FLOAT_PLANE + 2
+	overlays -= I
 
 /obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
 	if(stacks <= 1)

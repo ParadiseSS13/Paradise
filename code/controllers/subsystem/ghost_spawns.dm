@@ -240,7 +240,8 @@ SUBSYSTEM_DEF(ghost_spawns)
 		return
 	if(M in signed_up)
 		if(!silent)
-			to_chat(M, "<span class='warning'>You have already signed up for this!</span>")
+			signed_up -= M
+			to_chat(M, "<span class='warning'>You removed from registration list.</span>")
 		return
 	if(time_left() <= 0)
 		if(!silent)
