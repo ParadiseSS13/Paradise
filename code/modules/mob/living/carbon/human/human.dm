@@ -1243,7 +1243,7 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
 	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
@@ -1258,7 +1258,19 @@
 	sec_hud_set_ID()
 
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE)
+/**
+ * Change a mob's species.
+ *
+ * Arguments:
+ * * new_species - The user's new species.
+ * * use_default_color - If true, use the species' default color for the new mob.
+ * * delay_icon_update - If true, UpdateAppearance() won't be called in this proc.
+ * * skip_same_check - If true, don't bail out early if we would be changing to our current species and run through everything anyway.
+ * * retain_damage - If true, damage on the mob will be re-applied post-transform. Otherwise, the mob will have its organs healed.
+ * * transformation - If true, don't apply new species traits to the mob. A false value should be used when creating a new mob instead of transforming into a new species.
+ * * keep_missing_bodyparts - If true, any bodyparts (legs, head, etc.) that were missing on the mob before species change will be missing post-change as well.
+ */
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, use_default_color = FALSE, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, transformation = FALSE, keep_missing_bodyparts = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1316,10 +1328,16 @@
 	if(!transformation) //Distinguish between creating a mob and switching species
 		dna.species.on_species_gain(src)
 
+	var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
+	if(keep_missing_bodyparts)
+		for(var/organ_name as anything in bodyparts_by_name)
+			if(isnull(bodyparts_by_name[organ_name]))
+				missing_bodyparts |= organ_name
+
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
 		var/bodypart_damages = list()
-		var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
+
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E as anything in bodyparts)
 			if(E.brute_dam == 0 && E.burn_dam == 0 && !(E.status & ORGAN_INT_BLEEDING)) //If there's no damage we don't bother remembering it.
@@ -1330,10 +1348,6 @@
 			var/obj/item/organ/external/OE = new E.type()
 			var/stats = list(OE, brute, burn, IB)
 			bodypart_damages += list(stats)
-
-		for(var/O as anything in bodyparts_by_name)
-			if(isnull(bodyparts_by_name[O]))
-				missing_bodyparts |= O
 
 		//Now we do the same for internal organs via the same proceedure.
 		var/internal_damages = list()
@@ -1382,7 +1396,7 @@
 					qdel(part)
 
 	else
-		dna.species.create_organs(src)
+		dna.species.create_organs(src, missing_bodyparts)
 
 	for(var/obj/item/thing in kept_items)
 		var/equipped = equip_to_slot_if_possible(thing, kept_items[thing])

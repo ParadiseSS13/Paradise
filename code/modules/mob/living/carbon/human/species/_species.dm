@@ -242,7 +242,7 @@
 
 	if(mutantears)
 		var/obj/item/organ/internal/ears/new_ears = new mutantears()
-		if(new_ears.parent_organ in H.bodyparts)
+		if(H.bodyparts_by_name[new_ears.parent_organ] != null)
 			new_ears.insert(H)
 		else
 			qdel(new_ears)
