@@ -140,7 +140,6 @@
 /datum/game_mode/proc/forge_ninja_objectives(datum/mind/ninja_mind, objective_type = null)
 	if(!objective_type)
 		objective_type = pick("stealthy", "generic", "aggressive")
-		log_debug("Ninja_Objectives_Log: Выпавший тип целей для ниндзя: [objective_type]")
 	switch(objective_type)
 		if("stealthy")
 			forge_stealthy_ninja_objectives(ninja_mind)
@@ -152,7 +151,6 @@
 // Цели с которыми для ниндзя больше поощряется стелс геймплей
 /datum/game_mode/proc/forge_stealthy_ninja_objectives(datum/mind/ninja_mind)
 	var/datum/ninja/ninja_datum = ninja_mind.ninja
-//	var/mob/living/carbon/human/ninja_mob = ninja_mind.current
 
 	//Защита цели//
 	var/datum/objective/protect/ninja/protect_objective = new
@@ -163,16 +161,12 @@
 	for(var/sanity_check = 0, sanity_check < 10)
 		if("[protect_target]" in ninja_datum.assigned_targets || protect_target.special_role)
 			protect_objective.find_target()
-			log_debug("Ninja_Objectives_Log: Не вышло найти не повторяющуюся цель на защиту. Пробуем снова")
 			sanity_check++
 			continue
 		else
-			log_debug("Ninja_Objectives_Log: Цель на защиту у ниндзя - уникальна")
 			break
 
 	if(protect_target)
-		log_debug("Ninja_Objectives_Log: Защищаемый: \"[protect_target]\"")
-		log_debug("Ninja_Objectives_Log: Начата генерация трейторов для охоты на защищаемого.")
 		//Генерация трейторов для атаки защищаемого
 		var/list/possible_traitors = list()
 		for(var/mob/living/player in GLOB.alive_mob_list)
@@ -184,11 +178,8 @@
 			if(player.current)
 				if(ismindshielded(player.current))
 					possible_traitors -= player
-		log_debug("Ninja_Objectives_Log: Кол-во потенциальных трейторов [possible_traitors.len]")
 		if(possible_traitors.len)
-			log_debug("Ninja_Objectives_Log: Успешно набраны потенциальные трейторы")
 			var/traitor_num = max(1, round((num_players_started())/(config.traitor_scaling*2))+1)
-			log_debug("Ninja_Objectives_Log: Трейторов: [traitor_num]")
 			for(var/j = 0, j < traitor_num, j++)
 				var/datum/mind/newtraitormind = pick(possible_traitors)
 				var/datum/antagonist/traitor/killer = new()
@@ -201,13 +192,11 @@
 					killer_maroon_objective.target = protect_target
 					killer_maroon_objective.check_cryo = FALSE
 					killer_maroon_objective.explanation_text = "Prevent from escaping alive or assassinate [protect_target.current.real_name], the [protect_target.assigned_role]."
-					log_debug("Ninja_Objectives_Log: killer_maroon_objective найден. Цель изменена для \"[newtraitormind]\"")
 					protect_objective.killers_objectives += killer_maroon_objective
 				else if(killer_kill_objective)
 					killer_kill_objective.target = protect_target
 					killer_kill_objective.check_cryo = FALSE
 					killer_kill_objective.explanation_text = "Assassinate [protect_target.current.real_name], the [protect_target.assigned_role]."
-					log_debug("Ninja_Objectives_Log: killer_kill_objective найден. Цель изменена для \"[newtraitormind]\"")
 					protect_objective.killers_objectives += killer_kill_objective
 				else //Не нашли целей на убийство? Значит подставляем пресет из трёх целей вместо того, что нагенерил стандартный код. Прости хиджакер, не при ниндзя.
 					QDEL_LIST(newtraitormind.objectives)	// Очищаем листы
@@ -231,7 +220,6 @@
 					var/datum/objective/survive/survive_objective = new
 					survive_objective.owner = newtraitormind
 					killer.add_objective(survive_objective)
-					log_debug("Ninja_Objectives_Log: Не нашли целей на убийство. Генерим подставные для \"[newtraitormind]\"")
 				killer.greet()	// Вот теперь здороваемся!
 				killer.update_traitor_icons_added()	// Фикс худа, а то порой те кому выпал хиджак при ниндзя - получали замену целек, но не худа
 			//Сама выдача защиты
@@ -239,10 +227,8 @@
 			ninja_mind.objectives += protect_objective
 		else
 			qdel(protect_objective)
-			log_debug("Ninja_Objectives_Log: Удаляем цель на защиту у ниндзя ибо не вышло сгенерить трейторов")
 	else//Если не кого защищать, просто не даём цель
 		qdel(protect_objective)
-		log_debug("Ninja_Objectives_Log: Удаляем цель на защиту у ниндзя ибо не кого защищать")
 
 	//Подставить цель//
 	var/datum/objective/set_up/set_up_objective = new
@@ -252,25 +238,19 @@
 	for(var/sanity_check = 0, sanity_check < 10)
 		if("[set_up_objective.target]" in ninja_datum.assigned_targets)
 			set_up_objective.find_target()
-			log_debug("Ninja_Objectives_Log: Не вышло найти не повторяющуюся цель на подставу. Пробуем снова")
 			sanity_check++
 			continue
 		else
-			log_debug("Ninja_Objectives_Log: Цель на подставу у ниндзя - уникальна")
 			break
 	//Выдача или удаление цели если нету
 	if(set_up_objective.target)
-		log_debug("Ninja_Objectives_Log: Подставляемый: \"[protect_target]\"")
 		ninja_datum.assigned_targets.Add("[set_up_objective.target]")
 		ninja_mind.objectives += set_up_objective
-		log_debug("Ninja_Objectives_Log: Цель на подставу у ниндзя успешно выдана")
 	else
 		qdel(set_up_objective)
-		log_debug("Ninja_Objectives_Log: Удаляем цель на подставу у ниндзя ибо не кого подставить")
 
 	//Другой тип целей если не сгенерились цели выше//
 	if(!ninja_mind.objectives.len)
-		log_debug("Ninja_Objectives_Log: Не сгенерились цели по причине нехватки людей. Генерируем \"generic\" цели")
 		forge_generic_ninja_objectives(ninja_mind)
 
 	//Выжить//
@@ -283,7 +263,6 @@
 // Цели заточенные на взломе и кражах
 /datum/game_mode/proc/forge_generic_ninja_objectives(datum/mind/ninja_mind)
 	var/datum/ninja/ninja_datum = ninja_mind.ninja
-//	var/mob/living/carbon/human/ninja_mob = ninja_mind.current
 
 	//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
 	var/datum/objective/cyborg_hijack/hijack = new
@@ -335,20 +314,16 @@
 				for(var/sanity_check = 0, sanity_check < 10)
 					if("[kill_objective.target]" in ninja_datum.assigned_targets)
 						kill_objective.find_target()
-						log_debug("Ninja_Objectives_Log: Не вышло найти не повторяющуюся цель на убийство. Пробуем снова")
 						sanity_check++
 						continue
 					else
-						log_debug("Ninja_Objectives_Log: Цель на убийство у ниндзя - уникальна")
 						break
 				//Выдача или удаление цели если нету
 				if(kill_objective.target)
 					ninja_datum.assigned_targets.Add("[kill_objective.target]")
 					ninja_mind.objectives += kill_objective
-					log_debug("Ninja_Objectives_Log: Цель на убийство у ниндзя успешно выдана")
 				else
 					qdel(kill_objective)
-					log_debug("Ninja_Objectives_Log: Удаляем цель на убийство у ниндзя ибо не кого убивать")
 
 	if(!(locate(/datum/objective/survive) in ninja_mind.objectives))
 		var/datum/objective/survive/survive_objective = new
@@ -387,7 +362,6 @@
 	if(!length(SSticker.mode.changelings))//Если нет генокрадов, просто не даём цель
 		GLOB.all_objectives -= hunt_changelings
 		ninja_mind.objectives -= hunt_changelings
-		log_debug("Ninja_Objectives_Log: Удаляем цель охоты на генок у ниндзя ибо нет генокрадов")
 		qdel(hunt_changelings)
 
 	//Выжить

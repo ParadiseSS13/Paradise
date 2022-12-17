@@ -17,7 +17,7 @@
 	strip_delay = 120
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flash_protect = -1	//Не должна защищать от флешек
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | NO_MOUSTACHING
 	// "classic"	- Классическая белая маска
 	// "new"		- Чёрная маска-визор
 	var/visuals_type = "classic"

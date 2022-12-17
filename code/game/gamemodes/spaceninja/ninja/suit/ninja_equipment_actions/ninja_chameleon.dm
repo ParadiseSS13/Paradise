@@ -138,46 +138,65 @@
 		restore_form(ninja)
 		return
 
-/obj/item/clothing/suit/space/space_ninja/proc/toggle_chameleon()
+/// When reloading our disguise via helper, we don't need to do some things.
+/// That's why the "extra_important_things" flag is here.
+/obj/item/clothing/suit/space/space_ninja/proc/toggle_chameleon(extra_important_things = TRUE)
 	var/mob/living/carbon/human/ninja = affecting
 	var/old_name = "[ninja]"
 
+	if(extra_important_things)
+		//Voice changing
+		n_mask.voice_changer.set_voice(ninja, disguise.name)
+		if(!n_mask.voice_changer.active)
+			n_mask.voice_changer.attack_self(ninja)
+		//ID card initialisation
+		n_id_card = new
+		toggle_ninja_nodrop(n_id_card)
+		n_id_card.flags ^= DROPDEL
+		n_id_card.assignment = disguise.assignment
+		n_id_card.rank = disguise.rank
+		if(!ninja.wear_id)
+			ninja.equip_to_slot(n_id_card, slot_wear_id)
+		else
+			qdel(n_id_card)
+			n_id_card = null
+		//Sparks
+		playsound(ninja, "sparks", 75, TRUE)
+		spark_system.start()
+		//Log and info
+		ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы маскируете свою внешность становясь [ninja]."), "Вы слышите странный электрический звук!")
+		add_game_logs("Замаскировался под [ninja]", ninja)
+		//Components
+		ninja.AddComponent(/datum/component/examine_override, disguise.examine_text)
+		ninja.AddComponent(/datum/component/ninja_states_breaker, src)
+		ninja.AddComponent(/datum/component/ninja_chameleon_helper, src)
+		//Chameleon_scanner icon reloading
+		if(chameleon_scanner)
+			chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
+		//Action icon reloading
+		for(var/datum/action/item_action/ninja_chameleon/ninja_action in actions)
+			toggle_ninja_action_active(ninja_action, TRUE)
+
+	//Disguise
 	ninja.name_override = disguise.name
 	ninja.icon = disguise.icon
 	ninja.icon_state = disguise.icon_state
 	ninja.overlays = disguise.overlays
 	ninja.update_inv_r_hand()
 	ninja.update_inv_l_hand()
-
-	n_mask.voice_changer.set_voice(ninja, disguise.name)
-	if(!n_mask.voice_changer.active)
-		n_mask.voice_changer.attack_self(ninja)
-
-	playsound(ninja, "sparks", 75, TRUE)
-	spark_system.start()
-
-	ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы маскируете свою внешность становясь [ninja]."), "Вы слышите странный электрический звук!")
-	add_game_logs("Замаскировался под [ninja]", ninja)
-
-	ninja.AddComponent(/datum/component/examine_override, disguise.examine_text)
-	ninja.AddComponent(/datum/component/ninja_states_breaker, src)
-
-	if(chameleon_scanner)
-		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
-
-	for(var/datum/action/item_action/ninja_chameleon/ninja_action in actions)
-		toggle_ninja_action_active(ninja_action, TRUE)
+	//Disguise flag
 	disguise_active = TRUE
+
 /*
 * Proc восстанавливающий внешность ниндзя и отрубающий хамелион.
 */
 /obj/item/clothing/suit/space/space_ninja/proc/restore_form()
+	//Disguise flag
 	disguise_active = FALSE
-	var/mob/living/carbon/human/ninja = affecting
-	if(chameleon_scanner)
-		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]"
-	var/old_name = "[ninja.name_override]"
 
+	var/mob/living/carbon/human/ninja = affecting
+	var/old_name = "[ninja.name_override]"
+	//Disguise off
 	ninja.cut_overlays()
 	ninja.icon = initial(ninja.icon)
 	ninja.icon_state = initial(ninja.icon_state)
@@ -187,17 +206,25 @@
 	ninja.desc = initial(ninja.desc)
 	ninja.color = initial(ninja.color)
 
+	//Voice changing off
 	if(n_mask.voice_changer.active)
 		n_mask.voice_changer.attack_self(ninja)
-
+	//ID card deinitialisation
+	qdel(n_id_card)
+	n_id_card = null
+	//Sparks
 	playsound(ninja, "sparks", 150, TRUE)
 	spark_system.start()
-
+	//Info
 	ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы возвращаете себе свою внешность."), "Вы слышите странный электрический звук!")
-
+	//Chameleon_scanner icon reloading
+	if(chameleon_scanner)
+		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]"
+	//Action icon reloading
 	for(var/datum/action/item_action/ninja_chameleon/ninja_action in actions)
 		toggle_ninja_action_active(ninja_action, FALSE)
-
+	//Components
 	qdel(ninja.GetComponent(/datum/component/examine_override))
 	qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
+	qdel(ninja.GetComponent(/datum/component/ninja_chameleon_helper))
 

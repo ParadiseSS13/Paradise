@@ -74,6 +74,9 @@
 	var/obj/item/radio/headset/ninja/n_headset
 	/// The space ninja's backpack
 	var/obj/item/radio/headset/ninja/n_backpack
+	/// The space ninja's chameleon id card
+	/// used only to fake sechuds while using chameleon
+	var/obj/item/card/id/ninja/n_id_card
 
 	/// Создаются способностями и помещаются в руку
 	/// Удаляются полностью при убирании из руки
@@ -669,7 +672,7 @@
 		return TRUE
 
 //Блочит определённую часть костюма, чтобы ниндзя не мог её снять
-/obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_nodrop(var/obj/item/clothing/ninja_clothing)
+/obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_nodrop(var/obj/item/ninja_clothing)
 	ninja_clothing.flags ^= NODROP
 	current_initialisation_text = "[ninja_clothing.flags & NODROP ? "Блокировка" : "Разблокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)

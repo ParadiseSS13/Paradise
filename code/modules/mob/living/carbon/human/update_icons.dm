@@ -112,6 +112,7 @@ Please contact me on #coderbus IRC. ~Carn x
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
 	if((. = overlays_standing[cache_index]))
 		add_overlay(.)
+		SEND_SIGNAL(src, COMSIG_HUMAN_APPLY_OVERLAY)
 
 /mob/living/carbon/human/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
@@ -479,7 +480,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[MUTATIONS_LAYER] = standing
 	apply_overlay(MUTATIONS_LAYER)
 
-
 /mob/living/carbon/human/proc/update_mutantrace()
 //BS12 EDIT
 	var/skel = (SKELETON in mutations)
@@ -815,7 +815,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		s_store.screen_loc = ui_sstore1		//TODO
 	apply_overlay(SUIT_STORE_LAYER)
 
-
 /mob/living/carbon/human/update_inv_head()
 	..()
 	remove_overlay(HEAD_LAYER)
@@ -866,7 +865,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		else
 			overlays_standing[BELT_LAYER] = mutable_appearance('icons/mob/belt.dmi', "[t_state]", layer = -BELT_LAYER)
 	apply_overlay(BELT_LAYER)
-
 
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)

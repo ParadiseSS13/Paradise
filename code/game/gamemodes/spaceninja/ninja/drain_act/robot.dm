@@ -77,7 +77,6 @@
 		ninja_borg.set_zeroth_law("[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [genderize_ru(ninja.gender,"его","её","его","их")] приказы и указания.")
 		//Переносим разум в нового борга и удаляем старое тело
 		mind.transfer_to(ninja_borg)
-		log_debug("Ninja_Objectives_Log: Борг успешно трансформирован: [src]")
 		add_conversion_logs(ninja_borg, "Converted into ninja borg.")
 		qdel(src)
 		SSticker.mode.update_ninja_icons_added(ninja_borg.mind)

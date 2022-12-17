@@ -607,6 +607,8 @@
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
 /// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
+//from /mob/living/carbon/human/proc/apply_overlay
+#define COMSIG_HUMAN_APPLY_OVERLAY "living_apply_overlay"
 
 // /datum/species signals
 

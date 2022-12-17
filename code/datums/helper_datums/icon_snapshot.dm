@@ -5,6 +5,8 @@
 	var/list/overlays
 	//используется только для ниндзя
 	var/examine_text
+	var/assignment = "Unknown"
+	var/rank = "Unknown"
 
 /datum/icon_snapshot/proc/makeImg()
 	if(!icon || !icon_state)
@@ -22,3 +24,7 @@
 	icon_state = target_mob.icon_state
 	examine_text = target_mob.examine()
 	overlays = target_mob.get_overlays_copy(list(L_HAND_LAYER,R_HAND_LAYER))
+	var/obj/item/card/id/id_card = GetIdCard(target_mob)
+	if(istype(id_card))
+		assignment = id_card.assignment
+		rank = id_card.rank
