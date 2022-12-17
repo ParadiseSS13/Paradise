@@ -119,7 +119,7 @@
 				"id" = access
 			))
 
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/rcd/examine(mob/user)
 	. = ..()
@@ -180,7 +180,7 @@
 	qdel(R)
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
 /**
@@ -581,20 +581,17 @@
 	switch(mode)
 		if(MODE_TURF)
 			. = mode_turf(A, user)
-			update_icon()
 		if(MODE_AIRLOCK)
 			. = mode_airlock(A, user)
-			update_icon()
 		if(MODE_DECON)
 			. = mode_decon(A, user)
-			update_icon()
 		if(MODE_WINDOW)
 			. = mode_window(A, user)
-			update_icon()
 		else
 			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
 			. = 0
 
+	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
 
 /**
@@ -624,9 +621,9 @@
 		to_chat(user, no_ammo_message)
 		flick("[icon_state]_empty", src)
 
-	return .
+	return
 
-/obj/item/rcd/update_icon()
+/obj/item/rcd/update_overlays()
 	..()
 	var/ratio = CEILING((matter / max_matter) * 10, 1)
 	cut_overlays()
