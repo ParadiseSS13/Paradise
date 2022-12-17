@@ -38,7 +38,7 @@
 	. = ..()
 	var/list/turf/to_switcharoo = get_targets_to_scramble(usr)
 	if(!length(to_switcharoo))
-		to_chat(usr, "<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>")
+		to_chat(user, "<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>")
 		return
 
 	ready = FALSE
