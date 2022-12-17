@@ -176,7 +176,7 @@ const MedicalRecordsList = (_properties, context) => {
                 className={
                   'MedicalRecords__listRow--' + medStatusStyles[record.p_stat]
                 }
-                onClick={() => act('d_rec', { d_rec: record.ref })}
+                onClick={() => act('view_record', { view_record: record.ref })}
               >
                 <Table.Cell>
                   <Icon name="user" /> {record.name}
@@ -209,7 +209,7 @@ const MedicalRecordsMaintenance = (_properties, context) => {
       <Button.Confirm
         icon="trash"
         content="Delete All Medical Records"
-        onClick={() => act('del_all')}
+        onClick={() => act('del_all_med_records')}
       />
     </Fragment>
   );
@@ -231,7 +231,7 @@ const MedicalRecordsView = (_properties, context) => {
             iconSpin={!!printing}
             content="Print Entry"
             ml="0.5rem"
-            onClick={() => act('print_p')}
+            onClick={() => act('print_record')}
           />
         }>
         <MedicalRecordsViewGeneral />
@@ -244,7 +244,7 @@ const MedicalRecordsView = (_properties, context) => {
             icon="trash"
             disabled={!!medical.empty}
             content="Delete Medical Record"
-            onClick={() => act('del_r')}
+            onClick={() => act('del_med_record')}
           />
         }>
         <MedicalRecordsViewMedical />
@@ -316,7 +316,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           icon="pen"
           content="New Record"
           ml="0.5rem"
-          onClick={() => act('new')}
+          onClick={() => act('new_med_record')}
         />
       </Box>
     );
@@ -343,7 +343,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           <Button
             icon="comment"
             content="Add Entry"
-            onClick={() => modalOpen(context, 'add_c')}
+            onClick={() => modalOpen(context, 'add_comment')}
           />
         }>
         {medical.comments.length === 0 ? (
@@ -360,7 +360,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
                 icon="comment-slash"
                 color="bad"
                 ml="0.5rem"
-                onClick={() => act('del_c', { del_c: i + 1 })}
+                onClick={() => act('del_comment', { del_comment: i + 1 })}
               />
             </Box>
           ))
@@ -374,8 +374,8 @@ const MedicalRecordsViruses = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { virus } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [sortId2, _setSortId2] = useLocalState(context, 'sortId2', 'name');
+  const [sortOrder2, _setSortOrder2] = useLocalState(context, 'sortOrder2', true);
   return(
   <Flex direction="column" height="100%">
     <Flex>
@@ -407,8 +407,8 @@ const MedicalRecordsViruses = (_properties, context) => {
             })
           )
           .sort((a, b) => {
-            const i = sortOrder ? 1 : -1;
-            return a[sortId].localeCompare(b[sortId]) * i;
+            const i = sortOrder2 ? 1 : -1;
+            return a[sortId2].localeCompare(b[sortId2]) * i;
           })
           .map((vir) => (
             <Table.Row
@@ -473,7 +473,7 @@ const MedicalRecordsMedbots = (_properties, context) => {
                       medbot.maximum_volume
                     : 'Using internal synthesizer'}
                 </Table.Cell>
-            </Table.Row>
+              </Table.Row>
           ))}
         </Table>
       </Section>
