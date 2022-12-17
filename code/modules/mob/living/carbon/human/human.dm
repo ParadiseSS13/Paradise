@@ -1319,6 +1319,7 @@
 	if(retain_damage)
 		//Create a list of body parts which are damaged by burn or brute and save them to apply after new organs are generated. First we just handle external organs.
 		var/bodypart_damages = list()
+		var/list/missing_bodyparts = list()  // should line up here to pop out only what's missing
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E as anything in bodyparts)
 			if(E.brute_dam == 0 && E.burn_dam == 0 && !(E.status & ORGAN_INT_BLEEDING)) //If there's no damage we don't bother remembering it.
@@ -1329,6 +1330,10 @@
 			var/obj/item/organ/external/OE = new E.type()
 			var/stats = list(OE, brute, burn, IB)
 			bodypart_damages += list(stats)
+
+		for(var/O as anything in bodyparts_by_name)
+			if(isnull(bodyparts_by_name[O]))
+				missing_bodyparts |= O
 
 		//Now we do the same for internal organs via the same proceedure.
 		var/internal_damages = list()
@@ -1342,7 +1347,7 @@
 			internal_damages += list(stats)
 
 		//Create the new organs for the species change
-		dna.species.create_organs(src)
+		dna.species.create_organs(src, missing_bodyparts)
 
 		//Apply relevant damages and variables to the new organs.
 		for(var/obj/item/organ/external/E as anything in bodyparts)

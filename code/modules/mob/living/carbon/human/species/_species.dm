@@ -190,7 +190,14 @@
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
-/datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
+/**
+ * Handles creation of mob organs.
+ *
+ * Arguments:
+ * * H: The human to create organs inside of
+ * * bodyparts_to_omit: Any bodyparts in this list (and organs within them) should not be added.
+ */
+/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit) //Handles creation of mob organs.
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
 
@@ -198,21 +205,31 @@
 	LAZYREINITLIST(H.bodyparts_by_name)
 	LAZYREINITLIST(H.internal_organs)
 
-	for(var/limb_type in has_limbs)
-		var/list/organ_data = has_limbs[limb_type]
+	for(var/limb_name in has_limbs)
+		if(limb_name in bodyparts_to_omit)
+			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
+			continue
+		var/list/organ_data = has_limbs[limb_name]
 		var/limb_path = organ_data["path"]
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
 	for(var/index in has_organ)
-		var/organ = has_organ[index]
-		// organ new code calls `insert` on its own
-		new organ(H)
+		var/organ_path = has_organ[index]
+		var/obj/item/organ/internal/org = new organ_path()
+
+		if(org.parent_organ in bodyparts_to_omit)
+			// We can't really squish organs in if there's no place for them to go
+			continue
+
+		org.insert(H)
 
 	create_mutant_organs(H)
 
 	for(var/name in H.bodyparts_by_name)
-		H.bodyparts |= H.bodyparts_by_name[name]
+		var/part_type = H.bodyparts_by_name[name]
+		if(!isnull(part_type))
+			H.bodyparts |= part_type  // we do not want nulls here
 
 	for(var/obj/item/organ/external/E as anything in H.bodyparts)
 		E.owner = H
@@ -224,7 +241,12 @@
 		qdel(ears)
 
 	if(mutantears)
-		ears = new mutantears(H)
+		var/obj/item/organ/internal/ears/new_ears = new mutantears()
+		if(new_ears.parent_organ in H.bodyparts)
+			new_ears.insert(H)
+		else
+			qdel(new_ears)
+
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
