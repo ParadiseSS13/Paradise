@@ -471,6 +471,7 @@
 #include "code\datums\spell_targeting\remoteview_targeting.dm"
 #include "code\datums\spell_targeting\self.dm"
 #include "code\datums\spell_targeting\spell_targeting.dm"
+#include "code\datums\spell_targeting\spiral_targeting.dm"
 #include "code\datums\spell_targeting\targeted.dm"
 #include "code\datums\spell_targeting\telepathic.dm"
 #include "code\datums\spells\area_teleport.dm"

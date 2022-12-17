@@ -14,6 +14,7 @@
 	centcom_cancast = FALSE //Prevent people from getting to centcom
 	cooldown_min = 30 SECONDS //No reduction, just more range.
 	level_max = 3
+	create_attack_logs = FALSE //no please god no do not log range^2 turfs being targeted
 
 	/// Whether we're ready to cast again yet or not. In the event someone lowers their cooldown with charge.
 	var/ready = TRUE
@@ -29,19 +30,26 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/spacetime_dist/create_new_targeting()
-	return new /datum/spell_targeting/self
+	if(targeting)
+		targeting.range = scramble_radius + 3 * spell_level
+		message_admins("[scramble_radius + 3 * spell_level]")
+		message_admins("[targeting.range]")
+	else
+		var/datum/spell_targeting/spiral/targeting = new()
+		return targeting
 
 /obj/effect/proc_holder/spell/spacetime_dist/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
 	return ..() && ready
 
 /obj/effect/proc_holder/spell/spacetime_dist/cast(list/targets, mob/user = usr)
 	. = ..()
-	var/list/turf/to_switcharoo = get_targets_to_scramble(usr)
+	var/list/turf/to_switcharoo = targets
 	if(!length(to_switcharoo))
 		to_chat(user, "<span class='warning'>For whatever reason, the strings nearby aren't keen on being tangled.</span>")
 		return
 
 	ready = FALSE
+	effects = list()
 
 	for(var/turf/swap_a as anything in to_switcharoo)
 		var/turf/swap_b = to_switcharoo[swap_a]
@@ -52,22 +60,9 @@
 		effect_b.linked_dist = effect_a
 		effect_b.add_overlay(swap_a.photograph())
 		effect_b.set_light(4, 30, "#c9fff5")
-		LAZYADD(effects, effect_a)
-		LAZYADD(effects, effect_b)
+		effects += effect_a
+		effects += effect_b
 
-/turf/proc/photograph(limit = 20)
-	var/image/I = new()
-	I.add_overlay(src)
-	for(var/V in contents)
-		var/atom/A = V
-		if(A.invisibility)
-			continue
-		I.add_overlay(A)
-		if(limit)
-			limit--
-		else
-			return I
-	return I
 
 /obj/effect/proc_holder/spell/spacetime_dist/after_cast(list/targets, mob/user)
 	. = ..()
@@ -77,36 +72,6 @@
 /obj/effect/proc_holder/spell/spacetime_dist/proc/clean_turfs()
 	QDEL_LIST(effects)
 	ready = TRUE
-
-/**
- * Gets a list of turfs around the center atom to scramble.
- *
- * Returns an assoc list of [turf] to [turf]. These pairs are what turfs are
- * swapped between one another when the cast is done.
- */
-/obj/effect/proc_holder/spell/spacetime_dist/proc/get_targets_to_scramble(atom/center)
-	// Get turfs around the center
-	var/list/turfs = spiral_range_turfs(scramble_radius + 3 * spell_level, center) // 7 10 13 16
-	if(!length(turfs))
-		return
-
-	var/list/turf_steps = list()
-
-	// Go through the turfs we got and pair them up
-	// This is where we determine what to swap where
-	var/num_to_scramble = round(length(turfs) * 0.5)
-	for(var/i in 1 to num_to_scramble)
-		turf_steps[pick_n_take(turfs)] = pick_n_take(turfs)
-
-	// If there's any turfs unlinked with a friend,
-	// just randomly swap it with any turf in the area
-	if(length(turfs))
-		var/turf/loner = pick(turfs)
-		var/area/caster_area = get_area(center)
-		turf_steps[loner] = get_turf(pick(caster_area.contents))
-
-	return turf_steps
-
 
 /obj/effect/cross_action
 	name = "cross me"
@@ -119,7 +84,8 @@
 	icon_state = "nothing"
 	/// A flags which save people from being thrown about
 	var/obj/effect/cross_action/spacetime_dist/linked_dist
-	var/busy = FALSE
+	/// Used to prevent an infinite loop in the space tiime continuum
+	var/cant_teleport = FALSE
 	var/walks_left = 50 //prevents the game from hanging in extreme cases
 
 /obj/effect/cross_action/singularity_act()
@@ -135,13 +101,13 @@
 		walks_left--
 
 /obj/effect/cross_action/spacetime_dist/proc/get_walker(atom/movable/AM)
-	busy = TRUE
+	cant_teleport = TRUE
 	flick("purplesparkles", src)
 	AM.forceMove(get_turf(src))
-	busy = FALSE
+	cant_teleport = FALSE
 
 /obj/effect/cross_action/spacetime_dist/Crossed(atom/movable/AM, oldloc)
-	if(!busy)
+	if(!cant_teleport)
 		walk_link(AM)
 
 /obj/effect/cross_action/spacetime_dist/attackby(obj/item/W, mob/user, params)
@@ -155,6 +121,6 @@
 	walk_link(user)
 
 /obj/effect/cross_action/spacetime_dist/Destroy()
-	busy = TRUE
+	cant_teleport = TRUE
 	linked_dist = null
 	return ..()
