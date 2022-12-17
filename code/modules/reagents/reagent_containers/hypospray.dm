@@ -134,6 +134,10 @@
 	else
 		. += "<span class='notice'>It is spent.</span>"
 
+/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/M, mob/user)
+	if(..())
+		playsound(loc, 'sound/effects/stimpak.ogg', 35, 1)
+
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction."
