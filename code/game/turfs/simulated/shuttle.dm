@@ -13,16 +13,52 @@
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 
-/turf/simulated/wall/shuttle/try_decon(obj/item/I, mob/user, params)
+/turf/simulated/wall/shuttle/dismantle_wall(devastated = 0, explode = 0)
 	return
 
-/turf/simulated/wall/shuttle/thermitemelt(mob/user as mob, speed)
+/turf/simulated/wall/shuttle/take_damage(dam)
+	return
+
+/turf/simulated/wall/shuttle/welder_act()
+	return
+
+/turf/simulated/wall/shuttle/ex_act(severity)
+	return
+
+/turf/simulated/wall/shuttle/blob_act(obj/structure/blob/B)
+	return
+
+/turf/simulated/wall/shuttle/singularity_act()
+	return
+
+/turf/simulated/wall/shuttle/singularity_pull(S, current_size)
 	return
 
 /turf/simulated/wall/shuttle/burn_down()
 	return
 
-/turf/simulated/wall/shuttle/welder_act()
+/turf/simulated/wall/shuttle/attackby(obj/item/I, mob/user, params)
+	return
+
+/turf/simulated/wall/shuttle/attack_hand(mob/user)
+	return
+
+/turf/simulated/wall/shuttle/attack_animal(mob/living/simple_animal/M)
+	return
+
+/turf/simulated/wall/shuttle/mech_melee_attack(obj/mecha/M)
+	return
+
+/turf/simulated/wall/shuttle/rpd_act()
+	return
+
+/turf/simulated/wall/shuttle/acid_act(acidpwr, acid_volume, acid_id)
+	return
+
+/turf/simulated/wall/shuttle/try_decon(obj/item/I, mob/user, params)
+	return
+
+/turf/simulated/wall/shuttle/thermitemelt(mob/user as mob, speed)
 	return
 
 /turf/simulated/wall/shuttle/nodiagonal
