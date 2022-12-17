@@ -35,7 +35,7 @@
 	if(in_use)
 		to_chat(user, "It's already in use - wait a bit.")
 		return
-	else
+	else if((get_dist(user, src)<=1)&&(user.z == src.z))
 		in_use = TRUE
 		icon_state = icon_state_inuse
 		user.setDir(SOUTH)

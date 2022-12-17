@@ -118,7 +118,7 @@
 	var/d = get_dist(user, target)
 	if(focus)
 		d = max(d,get_dist(user,focus)) // whichever is further
-	if(d > TK_MAXRANGE)
+	if((d > TK_MAXRANGE)||(user.z != target.z))
 		to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
 		return
 
