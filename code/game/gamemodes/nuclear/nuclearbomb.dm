@@ -577,7 +577,7 @@ GLOBAL_VAR(bomb_set)
 		log_game("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]). It will not respawn.")
 		GLOB.poi_list.Remove(src)
 		STOP_PROCESSING(SSobj, src)
-		return..()
+		return ..()
 
 	if(length(GLOB.nukedisc_respawn))
 		GLOB.poi_list.Remove(src)

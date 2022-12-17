@@ -1,7 +1,5 @@
 //Deathsquad
 
-#define MAX_COMMANDOS 14
-
 GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 /client/proc/send_deathsquad()
@@ -28,12 +26,19 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 			return
 
-	var/commando_number = input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6, Max is [MAX_COMMANDOS])", "Specify Commandos") as num|null
+	// Locates commandos spawns
+	var/list/commando_spawn_locations = list()
+	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list) //Despite obj/effect/landmark/spawner/ds being in the exact same location and doing the exact same thing as obj/effect/landmark/spawner/ert, switching them breaks it?
+		commando_spawn_locations += L
+
+	var/max_commandos = length(commando_spawn_locations)
+
+	var/commando_number = input(src, "How many Deathsquad Commandos would you like to send? (Recommended is 6, Max is [max_commandos])", "Specify Commandos") as num|null
 	if(!commando_number)
 		message_admins("[key_name_admin(proccaller)] cancelled their Deathsquad.")
 		log_admin("[key_name(proccaller)] cancelled their Deathsquad.")
 		return
-	commando_number = clamp(commando_number, 1, MAX_COMMANDOS)
+	commando_number = clamp(commando_number, 1, max_commandos)
 
 	var/is_leader = TRUE
 	if(GLOB.deathsquad_sent)
@@ -69,11 +74,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		to_chat(src, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
 
-	// Spawns commandos and equips them.
-	var/list/commando_spawn_locations = list()
-	for(var/obj/effect/landmark/spawner/ds/L in GLOB.landmarks_list) //Despite obj/effect/landmark/spawner/ds being in the exact same location and doing the exact same thing as obj/effect/landmark/spawner/ert, switching them breaks it?
-		commando_spawn_locations += L
-
+	// Equips the Deathsquad
 	for(var/mob/ghost_mob in commando_ghosts)
 		if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
 			continue
