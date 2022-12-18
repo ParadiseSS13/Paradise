@@ -160,6 +160,8 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	smoothing_groups = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = TURF_LAYER
