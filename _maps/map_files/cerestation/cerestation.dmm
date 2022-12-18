@@ -48766,8 +48766,9 @@
 	},
 /area/security/prisonershuttle)
 "gYq" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
 /area/security/detectives_office)
 "gYz" = (
 /obj/machinery/light/small,
