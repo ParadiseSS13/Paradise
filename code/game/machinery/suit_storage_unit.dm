@@ -175,23 +175,6 @@
 	name = "medical suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas
 
-/obj/machinery/suit_storage_unit/security/hos
-	name = "head of security's suit storage unit"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/security/hos
-	mask_type	= /obj/item/clothing/mask/gas/sechailer/hos
-	req_access = list(ACCESS_HOS)
-
-/obj/machinery/suit_storage_unit/security/hos/secure
-	secure = TRUE
-
-/obj/machinery/suit_storage_unit/rd
-	name = "research directors's suit storage unit"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/rd
-	mask_type	= /obj/item/clothing/mask/gas
-	req_access = list(ACCESS_RD)
-
-/obj/machinery/suit_storage_unit/rd/secure
-	secure = TRUE
 /obj/machinery/suit_storage_unit/clown
 	name = "clown suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/clown

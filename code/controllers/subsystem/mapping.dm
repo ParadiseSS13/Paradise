@@ -25,10 +25,10 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			map_datum = new /datum/map/cerestation // Assume cyberiad if non-existent
+			map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
 	else
-		map_datum = new /datum/map/cerestation // Assume cyberiad if non-existent
+		map_datum = new /datum/map/cyberiad // Assume cyberiad if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
