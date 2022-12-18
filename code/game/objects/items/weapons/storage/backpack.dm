@@ -59,7 +59,7 @@
 	max_combined_w_class = 35
 	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
-	cant_hold = list(/obj/item/storage/backpack/holding)
+	cant_hold = list(/obj/item/storage/backpack, /obj/item/storage/belt/bluespace)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)

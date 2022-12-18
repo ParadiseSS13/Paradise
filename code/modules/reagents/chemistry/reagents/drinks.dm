@@ -18,7 +18,7 @@
 	name = "Tomato Juice"
 	id = "tomatojuice"
 	description = "Tomatoes made into juice. What a waste of big, juicy tomatoes, huh?"
-	color = "#731008" // rgb: 115, 16, 8
+	color = "#C00609"
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
@@ -44,7 +44,7 @@
 	name = "Lime Juice"
 	id = "limejuice"
 	description = "The sweet-sour juice of limes."
-	color = "#365E30" // rgb: 54, 94, 48
+	color = "#68E735"
 	drink_icon = "glass_green"
 	drink_name = "Glass of Lime juice"
 	drink_desc = "A glass of sweet-sour lime juice."
@@ -60,7 +60,7 @@
 	name = "Carrot juice"
 	id = "carrotjuice"
 	description = "Just like a carrot, but without the crunching."
-	color = "#973800" // rgb: 151, 56, 0
+	color = "#FFA500"
 	drink_icon = "carrotjuice"
 	drink_name = "Glass of  carrot juice"
 	drink_desc = "Just like a carrot, but without the crunching."
@@ -100,7 +100,7 @@
 	id = "triple_citrus"
 	description = "A refreshing mixed drink of orange, lemon and lime juice."
 	reagent_state = LIQUID
-	color = "#23A046"
+	color = "#B5FF00"
 	drink_icon = "triplecitrus"
 	drink_name = "Glass of Triplecitrus Juice"
 	drink_desc = "As colorful and healthy as it is delicious."
@@ -114,7 +114,7 @@
 	name = "Berry Juice"
 	id = "berryjuice"
 	description = "A delicious blend of several different kinds of berries."
-	color = "#863333" // rgb: 134, 51, 51
+	color = "#B23A4E"
 	drink_icon = "berryjuice"
 	drink_name = "Glass of berry juice"
 	drink_desc = "Berry juice. Or maybe it's jam. Who cares?"
@@ -124,7 +124,7 @@
 	name = "Poison Berry Juice"
 	id = "poisonberryjuice"
 	description = "A tasty juice blended from various kinds of very deadly and toxic berries."
-	color = "#863353" // rgb: 134, 51, 83
+	color = "#B23A4E"
 	drink_icon = "poisonberryjuice"
 	drink_name = "Glass of poison berry juice"
 	drink_desc = "A glass of deadly juice."
@@ -139,7 +139,7 @@
 	name = "Apple Juice"
 	id = "applejuice"
 	description = "The sweet juice of an apple, fit for all ages."
-	color = "#ECFF56" // rgb: 236, 255, 86
+	color = "#FBF969"
 	drink_name = "Apple Juice"
 	drink_desc = "Apple juice. Maybe it would have been better in a pie..."
 	taste_description = "apple juice"
@@ -157,7 +157,7 @@
 	name = "Lemon Juice"
 	id = "lemonjuice"
 	description = "This juice is VERY sour."
-	color = "#863333" // rgb: 175, 175, 0
+	color = "#E5F249"
 	drink_icon = "lemonglass"
 	drink_name = "Glass of lemonjuice"
 	drink_desc = "Sour..."
@@ -176,7 +176,7 @@
 	name = "Banana Juice"
 	id = "banana"
 	description = "The raw essence of a banana."
-	color = "#863333" // rgb: 175, 175, 0
+	color = "#F6F834"
 	drink_icon = "banana"
 	drink_name = "Glass of banana juice"
 	drink_desc = "The raw essence of a banana. HONK"
@@ -220,7 +220,7 @@
 	name = "Milk"
 	id = "milk"
 	description = "An opaque white liquid produced by the mammary glands of mammals."
-	color = "#DFDFDF" // rgb: 223, 223, 223
+	color = "#F1F1F1"
 	drink_icon = "glass_white"
 	drink_name = "Glass of milk"
 	drink_desc = "White and nutritious goodness!"
@@ -238,7 +238,7 @@
 	name = "Soy Milk"
 	id = "soymilk"
 	description = "An opaque white liquid made from soybeans."
-	color = "#DFDFC7" // rgb: 223, 223, 199
+	color = "#DCD3AF"
 	drink_name = "Glass of soy milk"
 	drink_desc = "White and nutritious soy goodness!"
 	taste_description = "fake milk"
@@ -246,8 +246,8 @@
 /datum/reagent/consumable/drink/milk/cream
 	name = "Cream"
 	id = "cream"
-	description = "The fatty, still liquid part of milk. Why don't you mix this with sum scotch, eh?"
-	color = "#DFD7AF" // rgb: 223, 215, 175
+	description = "The fatty, still liquid part of milk. Why don't you mix this with some scotch, eh?"
+	color = "#F1F1F1"
 	drink_name = "Glass of cream"
 	drink_desc = "Ewwww..."
 	taste_description = "cream"
@@ -256,7 +256,7 @@
 	name = "Chocolate milk"
 	id ="chocolate_milk"
 	description = "Chocolate-flavored milk, tastes like being a kid again."
-	color = "#85432C"
+	color = "#652109"
 	drink_name = "Chocolate milk"
 	drink_desc = "Smells like childhood. What would they need to add to make it taste like childhood too?"
 	taste_description = "chocolate milk"
@@ -266,7 +266,7 @@
 	id = "hot_coco"
 	description = "Made with love! And coco beans."
 	nutriment_factor = 3 * REAGENTS_METABOLISM
-	color = "#403010" // rgb: 64, 48, 16
+	color = "#401101"
 	drink_icon = "hot_coco"
 	drink_name = "Glass of hot coco"
 	drink_desc = "Delicious and cozy."
@@ -307,7 +307,7 @@
 	name = "Iced Coffee"
 	id = "icecoffee"
 	description = "Coffee and ice, refreshing and cool."
-	color = "#102838" // rgb: 16, 40, 56
+	color = "#33250A"
 	drink_icon = "icedcoffeeglass"
 	drink_name = "Iced Coffee"
 	drink_desc = "A drink to perk you up and refresh you!"
@@ -317,12 +317,12 @@
 	name = "Soy Latte"
 	id = "soy_latte"
 	description = "A nice and tasty beverage while you are reading your hippie books."
-	color = "#664300" // rgb: 102, 67, 0
+	color = "#8A6723"
 	adj_sleepy = 0
 	drink_icon = "soy_latte"
 	drink_name = "Soy Latte"
 	drink_desc = "A nice and refrshing beverage while you are reading."
-	taste_description = "fake milky coffee"
+	taste_description = "milkish coffee"
 
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -335,7 +335,7 @@
 	name = "Cafe Latte"
 	id = "cafe_latte"
 	description = "A nice, strong and tasty beverage while you are reading."
-	color = "#664300" // rgb: 102, 67, 0
+	color = "#7A5C21"
 	adj_sleepy = 0
 	drink_icon = "cafe_latte"
 	drink_name = "Cafe Latte"
@@ -353,7 +353,7 @@
 	name = "Cafe Mocha"
 	id = "cafe_mocha"
 	description = "The perfect blend of coffee, milk, and chocolate."
-	color = "#673629"
+	color = "#3E2603"
 	drink_name = "Cafe Mocha"
 	drink_desc = "The perfect blend of coffee, milk, and chocolate."
 	taste_description = "chocolatey coffee"
@@ -633,7 +633,7 @@
 	name = "Space-Up"
 	id = "space_up"
 	description = "Tastes like a hull breach in your mouth."
-	color = "#202800" // rgb: 32, 40, 0
+	color = "#C7DF67"
 	drink_icon = "space-up_glass"
 	drink_name = "Glass of Space-up"
 	drink_desc = "Space-up. It helps keep your cool."
@@ -643,7 +643,7 @@
 	name = "Lemon Lime"
 	description = "A tangy substance made of 0.5% natural citrus!"
 	id = "lemon_lime"
-	color = "#878F00" // rgb: 135, 40, 0
+	color = "#BEC80F"
 	taste_description = "citrus soda"
 
 /datum/reagent/consumable/drink/lemonade
@@ -731,7 +731,7 @@
 		return ..()
 	// imitate alcohol effects using current cycle
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
-	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)		
+	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)
 	return ..()
 
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)

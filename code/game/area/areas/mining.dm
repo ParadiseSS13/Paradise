@@ -89,6 +89,11 @@
 /area/mine/podbay
 	name = "Mining Podbay"
 
+/area/mine/airlock
+	name = "Mining Airlock"
+
+/area/mine/mechbay
+	name = "Mining Mechbay Storage"
 
 
 /**********************Lavaland Areas**************************/

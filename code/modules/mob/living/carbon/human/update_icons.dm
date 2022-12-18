@@ -280,6 +280,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_head_accessory()
 	//markings
 	update_markings()
+	update_hands_layer()
 	//hair
 	update_hair()
 	update_fhair()
@@ -412,39 +413,29 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(w_uniform?.body_parts_covered & HANDS)
 		return
 
-	var/mutable_appearance/hands_appearance = new()
-	hands_appearance.layer = -HANDS_LAYER
+	var/species_name = ""
+	if(dna.species.name in list("Drask", "Grey", "Vox"))
+		species_name = "_[lowertext(dna.species.name)]"
 
-	var/obj/item/organ/external/hand/l_hand = get_limb_by_name("l_hand")
-	var/obj/item/organ/external/hand/right/r_hand = get_limb_by_name("r_hand")
+	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
 
-	if(l_hand)
-		hands_appearance.overlays += l_hand.mob_icon
-	if(r_hand)
-		hands_appearance.overlays += r_hand.mob_icon
+	if(get_limb_by_name("l_hand"))
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask[species_name]"), ICON_OVERLAY)
+	if(get_limb_by_name("r_hand"))
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "r_hand_mask[species_name]"), ICON_OVERLAY)
 
-	overlays_standing[HANDS_LAYER] = hands_appearance
+	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1]
+	var/icon/body_hands = icon(body_layer.icon)
+	body_hands.Blend(hands_mask, ICON_MULTIPLY)
 
-	apply_overlay(HANDS_LAYER)
+	var/mutable_appearance/markings_layer = overlays_standing[MARKINGS_LAYER]
+	var/icon/markings_hands = icon(markings_layer.icon)
+	markings_hands.Blend(hands_mask, ICON_MULTIPLY)
 
-/mob/living/carbon/human/golem/update_hands_layer()
-	remove_overlay(HANDS_LAYER)
+	var/mutable_appearance/final_sprite = mutable_appearance(body_hands, layer = -HANDS_LAYER)
+	final_sprite.overlays += markings_hands
 
-	var/mutable_appearance/hands_appearance = new()
-	hands_appearance.layer = -HANDS_LAYER
-
-	var/obj/item/organ/external/hand/l_hand = get_limb_by_name("l_hand")
-	var/obj/item/organ/external/hand/right/r_hand = get_limb_by_name("r_hand")
-	var/datum/species/golem/G = dna.species
-	var/icon/golem_icon = G.icobase
-
-	if(G.golem_colour)
-		if(l_hand)
-			hands_appearance.overlays += icon(golem_icon.ColorTone(G.golem_colour), "l_hand")
-		if(r_hand)
-			hands_appearance.overlays += icon(golem_icon.ColorTone(G.golem_colour), "r_hand")
-
-	overlays_standing[HANDS_LAYER] = hands_appearance
+	overlays_standing[HANDS_LAYER] = final_sprite
 	apply_overlay(HANDS_LAYER)
 
 //FACIAL HAIR OVERLAY
@@ -571,7 +562,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_inv_wear_pda()
 	UpdateDamageIcon()
 	force_update_limbs()
-	update_hands_layer()
 	update_tail_layer()
 	update_wing_layer()
 	update_halo_layer()
