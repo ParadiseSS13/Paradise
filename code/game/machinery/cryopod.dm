@@ -173,14 +173,14 @@
 	name = "cryogenic freezer"
 	desc = "A man-sized pod for entering suspended animation."
 	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "bodyscanner-open"
+	icon_state = "cryopod-open"
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
 	dir = WEST
-	base_icon_state = "bodyscanner-open"
-	var/occupied_icon_state = "bodyscanner"
+	base_icon_state = "cryopod-open"
+	var/occupied_icon_state = "cryopod"
 	var/on_store_message = "has entered long-term storage."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
