@@ -108,6 +108,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ionpulse = FALSE // Jetpack-like effect.
 	var/ionpulse_on = FALSE // Jetpack-like effect.
 
+	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
@@ -170,6 +171,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	init(alien, connect_to_AI, ai_to_sync_to)
 
 	diag_hud_set_borgcell()
+	scanner = new(src)
+	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 
 /mob/living/silicon/robot/get_radio()
@@ -298,6 +301,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_LIST_ASSOC_VAL(components)
 	QDEL_NULL(rbPDA)
 	QDEL_NULL(radio)
+	scanner = null
 	module_actions.Cut()
 	return ..()
 
