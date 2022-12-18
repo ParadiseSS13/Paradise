@@ -100,6 +100,7 @@
 	icon_state = initial(icon_state)
 	icon_state = "[base_icon_state]-[smoothing_junction]"
 	QUEUE_SMOOTH(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
 	var/turf/T = get_turf(src)
@@ -418,7 +419,7 @@
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
 	color = COLOR_ANCIENT_ROCK
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
 	mineral = /obj/item/stack/ore/glass/basalt/ancient
