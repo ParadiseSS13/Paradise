@@ -3,6 +3,7 @@
 	desc = "Looks absolutely SHOCKING!"
 	icon_state = "echair0"
 	item_chair = null
+	anchored = TRUE
 	var/obj/item/assembly/shock_kit/part = null
 	var/last_time = 1.0
 	var/delay_time = 50

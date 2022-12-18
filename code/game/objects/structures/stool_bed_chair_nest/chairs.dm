@@ -220,7 +220,6 @@
 	color = rgb(255,251,0)
 
 /obj/structure/chair/office
-	anchored = FALSE
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
@@ -229,6 +228,7 @@
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
 	icon_state = "shuttle_chair"
+	anchored = TRUE
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
@@ -266,6 +266,7 @@
 	icon_state = "barber_chair"
 	buildstackamount = 1
 	item_chair = null
+	anchored = TRUE
 
 // SOFAS
 /obj/structure/chair/sofa

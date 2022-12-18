@@ -2,7 +2,6 @@
 	name = "wheelchair"
 	icon_state = "wheelchair"
 	item_chair = null
-	anchored = FALSE
 	movable = TRUE
 
 	var/move_delay = null
