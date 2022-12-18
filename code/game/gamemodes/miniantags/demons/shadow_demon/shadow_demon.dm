@@ -11,24 +11,10 @@
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
-	var/turf/T = get_turf(src)
-	var/lum_count = T.get_lumcount()
+	var/lum_count = check_darkness()
 	var/damage_mod = istype(loc, /obj/effect/dummy/slaughter) ? 0.5 : 1
 	if(lum_count > 0.2)
 		adjustBruteLoss(40 * damage_mod) // 10 seconds in light
-		if(!thrown_alert)
-			thrown_alert = TRUE
-			throw_alert("light", /obj/screen/alert/lightexposure)
-		SEND_SOUND(src, sound('sound/weapons/sear.ogg'))
-		to_chat(src, "<span class='biggerdanger'>The light scalds you!</span>")
-		alpha = 255
-	else
-		adjustBruteLoss(-20)
-		if(thrown_alert)
-			thrown_alert = FALSE
-			clear_alert("light")
-		alpha = 125
-
 
 
 /mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
@@ -60,6 +46,7 @@
 			thrown_alert = FALSE
 			clear_alert("light")
 		alpha = 125
+	return lum_count
 
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple

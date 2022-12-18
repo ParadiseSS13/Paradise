@@ -169,22 +169,18 @@
 	if(iscarbon(L) && !block_hands(L))
 		return FALSE
 
-	var/turf/mobloc = get_turf(L)
 	L.notransform = TRUE
-	spawn(0)
-		sink_animation(B, L)
-		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
-		L.forceMove(holder)
-		L.ExtinguishMob()
-		handle_consumption(L, L.pulling, B, holder)
-		post_phase_in(L, holder)
+	INVOKE_ASYNC(src, PROC_REF(async_phase), )
 	return TRUE
 
-/obj/item/bloodcrawl
-	name = "blood crawl"
-	desc = "You are unable to hold anything while in this form."
-	icon = 'icons/effects/blood.dmi'
-	flags = NODROP | ABSTRACT
+/obj/effect/proc_holder/spell/bloodcrawl/proc/async_phase(obj/effect/decal/cleanable/B, mob/living/L)
+	var/turf/mobloc = get_turf(L)
+	sink_animation(B, L)
+	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
+	L.forceMove(holder)
+	L.ExtinguishMob()
+	handle_consumption(L, L.pulling, B, holder)
+	post_phase_in(L, holder)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/rise_animation(turf/tele_loc, mob/living/L, atom/A)
 	var/atom/movable/overlay/animation = new(tele_loc)
