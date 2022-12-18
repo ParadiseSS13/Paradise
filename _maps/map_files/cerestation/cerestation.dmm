@@ -77684,7 +77684,6 @@
 	pixel_x = -30
 	},
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /turf/simulated/floor/plasteel{
 	icon_state = "warning"
 	},
@@ -88826,7 +88825,8 @@
 /area/hallway/primary/central)
 "yiw" = (
 /obj/machinery/door/airlock/external{
-	name = "Arrival Airlock"
+	name = "Arrival Airlock";
+	locked = 1
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -142745,9 +142745,9 @@ iss
 cns
 cqo
 cvp
-rWb
-rWb
-rWb
+aRx
+aRx
+aRx
 rWb
 rWb
 rWb
@@ -143002,7 +143002,7 @@ uKL
 any
 txT
 any
-rWb
+aRx
 rWb
 rWb
 rWb
