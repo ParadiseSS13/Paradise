@@ -199,9 +199,6 @@ SUBSYSTEM_DEF(ticker)
 		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
-
-		world.check_for_lowpop()
-
 		return FALSE
 
 	if(hide_mode)

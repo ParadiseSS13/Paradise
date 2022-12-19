@@ -198,8 +198,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(totalPlayersReady <= config.auto_extended_players_num)
 		GLOB.master_mode = "extended"
 		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
-	else
-		GLOB.master_mode = "secret"
 	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
 	world.save_mode(GLOB.master_mode)
 

@@ -200,8 +200,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(!current_runlevel)
 		SetRunLevel(1)
 
-	world.check_for_lowpop()
-
 	// Sort subsystems by display setting for easy access.
 	sortTim(subsystems, /proc/cmp_subsystem_display)
 	// Set world options.
