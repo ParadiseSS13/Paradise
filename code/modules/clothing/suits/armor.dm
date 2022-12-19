@@ -319,7 +319,7 @@
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	var/mob/living/carbon/human/user = loc
-	if(user.wear_suit == !src)
+	if(user.wear_suit != src)
 		return
 	if(world.time - lastreflect >= 4 SECONDS)
 		lastreflect = world.time
