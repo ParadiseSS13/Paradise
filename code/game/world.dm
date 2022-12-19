@@ -199,7 +199,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		GLOB.master_mode = "extended"
 		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
 	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
-	world.save_mode(GLOB.master_mode)
 
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
