@@ -415,9 +415,11 @@
 /obj/item/organ/internal/cyberimp/arm/v1_arm
 	name = "vortex feedback arm implant"
 	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles with feedback from the vortex anomaly core."
-	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4" //update this
+	origin_tech = "combat=6;magnets=6;biotech=6;engineering=6"
 	icon = 'icons/obj/items.dmi'
-	icon_state = "v1_arm" //TEMP
+	icon_state = "v1_arm"
+	parent_organ = "l_arm" //Left arm by default
+	slot = "l_arm_device"
 
 	contents = newlist(/obj/item/shield/v1_arm)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
@@ -445,8 +447,9 @@
 /obj/item/shield/v1_arm
 	name = "vortex feedback arm" //format is they are holding x
 	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attack. Rumors that it runs on the users blood are unconfirmed"
-	icon_state = "v1_arm" //TEMP
-	item_state = "v1_arm" //Temp, need vox / drask / grey icons
+	icon_state = "v1_arm"
+	item_state = "v1_arm"
+	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
 	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted", "gored")
 	hitsound = 'sound/effects/bang.ogg'

@@ -222,10 +222,10 @@ emp_act
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	var/obj/item/shield = get_best_shield()
-	var/bullshit_I_have_to_do_again = shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type)
-	if(bullshit_I_have_to_do_again >= 1)
+	var/shield_result = shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type)
+	if(shield_result >= 1)
 		return TRUE
-	if(bullshit_I_have_to_do_again == -1)
+	if(shield_result == -1)
 		return -1
 
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
