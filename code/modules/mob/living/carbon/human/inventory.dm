@@ -432,3 +432,80 @@
 /mob/living/carbon/human/proc/delete_equipment()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
+
+/mob/living/carbon/human/verb/quick_equip_bag() // take most recent item out of bag or place held item in bag
+	set hidden = 1
+	var/obj/item/thing = get_active_hand()
+	var/obj/item/storage/equipped_backpack = get_item_by_slot(slot_back)
+	if(!equipped_backpack) // We also let you equip a backpack like this
+		if(!thing)
+			to_chat(src, "<span class='notice'>You have no backpack to take something out of.</span>")
+			return
+		equip_to_slot_if_possible(thing, slot_back)
+		return
+	if(!istype(equipped_backpack)) // not a storage item
+		if(!thing)
+			to_chat(src, "<span class='notice'>You have no backpack to take something out of.</span>")
+		else
+			to_chat(src, "<span class='notice'>You can't fit anything in.</span>")
+		return
+	if(thing) // put thing in backpack
+		if(equipped_backpack.can_be_inserted(thing))
+			equipped_backpack.handle_item_insertion(thing)
+			playsound(loc, "rustle", 50, 1, -5)
+		return
+	if(!equipped_backpack.contents.len) // nothing to take out
+		to_chat(src, "<span class='notice'>There's nothing in your backpack to take out.</span>")
+		return
+	var/obj/item/stored = equipped_backpack.contents[equipped_backpack.contents.len]
+	if(!stored || stored.on_found(src))
+		return
+	stored.attack_hand(src) // take out thing from backpack
+	return
+
+/mob/living/carbon/human/verb/quick_equip_belt() // take most recent item out of belt or place held item in belt
+	set hidden = 1
+	var/obj/item/thing = get_active_hand()
+	var/obj/item/storage/equipped_belt = get_item_by_slot(slot_belt)
+	if(!equipped_belt) // We also let you equip a belt like this
+		if(!thing)
+			to_chat(src, "<span class='notice'>You have no belt to take something out of.</span>")
+			return
+		equip_to_slot_if_possible(thing, slot_belt)
+		return
+	if(!istype(equipped_belt)) // not a storage item
+		if(!thing)
+			equipped_belt.attack_hand(src)
+		else
+			to_chat(src, "<span class='notice'>Something is already there.</span>")
+		return
+	if(thing) // put thing in belt
+		if(equipped_belt.can_be_inserted(thing))
+			equipped_belt.handle_item_insertion(thing)
+			playsound(loc, "rustle", 50, 1, -5)
+		return
+	if(!equipped_belt.contents.len) // nothing to take out
+		to_chat(src, "<span class='notice'>There's nothing in your belt to take out.</span>")
+		return
+	var/obj/item/stored = equipped_belt.contents[equipped_belt.contents.len]
+	if(!stored || stored.on_found(src))
+		return
+	stored.attack_hand(src) // take out thing from belt
+	return
+
+/mob/living/carbon/human/verb/quick_equip_suit() // takes things in and out of the suit slot
+	set hidden = 1
+	var/obj/item/thing = get_active_hand()
+	var/obj/item/equipped_suit = get_item_by_slot(slot_s_store)
+	if(!equipped_suit)
+		if(!thing)
+			to_chat(src, "<span class='notice'>There's nothing to take out of your suit slot.</span>")
+			return
+		equip_to_slot_if_possible(thing, slot_s_store)
+		return
+	if(equipped_suit)
+		if(!thing)
+			equipped_suit.attack_hand(src)
+		else
+			to_chat(src, "<span class='notice'>Something is already there.</span>")
+		return
