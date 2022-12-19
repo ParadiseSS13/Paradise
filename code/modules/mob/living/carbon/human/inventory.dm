@@ -463,8 +463,7 @@
 	stored.attack_hand(src) // take out thing from backpack
 	return
 
-/mob/living/carbon/human/verb/quick_equip_belt() // take most recent item out of belt or place held item in belt
-	set hidden = 1
+/mob/living/carbon/human/proc/quick_equip_belt() // take most recent item out of belt or place held item in belt
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/storage/equipped_belt = get_item_by_slot(slot_belt)
 	if(!equipped_belt) // We also let you equip a belt like this
@@ -493,7 +492,7 @@
 	stored.attack_hand(src) // take out thing from belt
 	return
 
-/mob/living/carbon/human/verb/quick_equip_suit() // takes things in and out of the suit slot
+/mob/living/carbon/human/proc/quick_equip_suit() // takes things in and out of the suit slot
 	set hidden = 1
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/equipped_suit = get_item_by_slot(slot_s_store)
