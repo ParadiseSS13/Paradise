@@ -315,12 +315,18 @@
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 75, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
-	var/hit_reflect_chance = 40
+	var/lastreflect
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	var/mob/living/carbon/human/user = loc
-	if(prob(hit_reflect_chance) && (user.wear_suit == src))
+	if(!user.wear_suit == src)
+		return
+	if(world.time - lastreflect >= 4 SECONDS)
+		lastreflect = world.time
 		return 1
+	if(world.time - lastreflect <= 1)
+		return 1
+	return 0
 
 /obj/item/clothing/suit/armor/vest/det_suit
 	name = "armor"

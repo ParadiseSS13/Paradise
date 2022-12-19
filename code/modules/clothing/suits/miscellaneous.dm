@@ -535,12 +535,18 @@
 	put_on_delay = 4 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
-	var/hit_reflect_chance = 50
+	var/lastreflect
 
 /obj/item/clothing/suit/hooded/ablative/IsReflect()
 	var/mob/living/carbon/human/user = loc
-	if(prob(hit_reflect_chance) && (user.wear_suit == src))
+	if(!user.wear_suit == src)
+		return
+	if(world.time - lastreflect >= 4 SECONDS)
+		lastreflect = world.time
 		return 1
+	if(world.time - lastreflect <= 1)
+		return 1
+	return 0
 
 /*
  * Misc
