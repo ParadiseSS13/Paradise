@@ -266,7 +266,6 @@
 		owner.apply_damage(damage, BRUTE)
 		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
 
-
 /datum/status_effect/cling_tentacle
 	id = "cling_tentacle"
 	alert_type = null
@@ -278,8 +277,6 @@
 
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
-
-
 
 // start of `living` level status procs.
 

@@ -3,7 +3,6 @@
 	desc = "Should not exist. Report me to a(n) coder/admin!"
 	var/cuffed_state = "handcuff"
 
-
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."

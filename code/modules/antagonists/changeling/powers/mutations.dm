@@ -234,6 +234,7 @@
 	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
+	reflectability = REFLECTABILITY_NEVER //Let us not reflect this ever. It's not quite a bullet, and a cling should never wrap its tentacle around itself, it controls its body well
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
 /obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
@@ -245,14 +246,12 @@
 		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
 	..()
 
-
-
 /mob/proc/tentacle_stab(mob/living/carbon/C)
 	if(Adjacent(C))
 		var/obj/item/I = r_hand
-		if(I == null || istype(/obj/item/gun/magic/tentacle, I))
+		if(!I || istype(/obj/item/gun/magic/tentacle, I))
 			I = l_hand
-		if(I == null || istype(/obj/item/gun/magic/tentacle, I))
+		if(!I || istype(/obj/item/gun/magic/tentacle, I))
 			return
 		I.melee_attack_chain(src, C)//Hits the victim with whatever they are holding that is no the zero force tentacle
 
@@ -266,7 +265,7 @@
 		var/obj/item/I = target
 		if(!I.anchored)
 			to_chat(firer, "<span class='notice'>You grab [I] with your tentacle.</span>")
-			add_attack_logs(src, I, "[src] grabs [I] with a tentacle")
+			add_attack_logs(H, I, "[src] grabs [I] with a tentacle")
 			I.forceMove(H.loc)
 			I.attack_hand(H)//The tentacle takes the item back with them and makes them pick it up. No silly throw mode.
 			. = 1
@@ -278,7 +277,7 @@
 				var/mob/living/carbon/C = L
 				switch(firer.a_intent)
 					if(INTENT_HELP)
-						C.visible_message("<span class='danger'>[L] is pulled to and up by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you up towards [H]!</span>")
+						C.visible_message("<span class='danger'>[L] is pulled to their feet towards [H]!</span>","<span class='userdanger'>A tentacle grabs you and pulls you up towards [H]!</span>")
 						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
 						C.throw_at(get_step_towards(H,C), 8, 2)
 						C.AdjustParalysis(-2 SECONDS)
@@ -286,39 +285,40 @@
 						C.AdjustWeakened(-4 SECONDS)
 						C.AdjustKnockDown(-4 SECONDS)
 						C.adjustStaminaLoss(-25)
-						return 1
+						return TRUE
+
 					if(INTENT_DISARM)
 						var/obj/item/I = C.get_active_hand()
 						if(I)
 							if(C.drop_item())
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
-								add_attack_logs(src, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
+								add_attack_logs(H, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
-								return 1
+								return TRUE
 							to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
-							add_attack_logs(src, C, "[src] tried to grab [I] out of [C]'s hand with a tentacle, but failed")
+							add_attack_logs(H, C, "[src] tried to grab [I] out of [C]'s hand with a tentacle, but failed")
 						C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>","<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
-						add_attack_logs(src, C, "[src] knocked over [C] with a tentacle")
+						add_attack_logs(H, C, "[src] knocked over [C] with a tentacle")
 						C.KnockDown(2 SECONDS) //Not useless with antidrop.
-						return 1
+						return TRUE
 
 					if(INTENT_GRAB)
-						C.visible_message("<span class='danger'>[L] is entangledd by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and wraps around your legs!</span>")
+						C.visible_message("<span class='danger'>[L] is entangled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and wraps around your legs!</span>")
 						add_attack_logs(H, C, "[H] imobilised [C] with a changeling tentacle")
 						if(!iscarbon(H))
-							return 1
+							return TRUE
 						var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(H.loc)
 						B.Crossed(C)
-						return 1
+						return TRUE
 
 					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
 						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, TYPE_PROC_REF(/mob, tentacle_stab), C))
-						return 1
+						return TRUE
 			else
 				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 				L.throw_at(get_step_towards(H,L), 8, 2)
-				. = 1
+				. = TRUE
 
 /obj/item/projectile/tentacle/Destroy()
 	qdel(chain)
@@ -332,6 +332,7 @@
 	trap_damage = 5
 	armed = TRUE
 	anchored = TRUE
+	silent_arming = TRUE
 	breakouttime = 5 SECONDS
 	cuffed_state = "fleshlegcuff"
 	flags = DROPDEL
@@ -341,7 +342,9 @@
 		return
 	var/mob/living/carbon/C = AM
 	C.apply_status_effect(STATUS_EFFECT_CLINGTENTACLE)
+
 	..()
+
 	if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
 		qdel(src)
 
