@@ -213,11 +213,13 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	icon_state = "1x1_S_to_N"
 	interior_direction = SOUTH
 	exterior_direction = NORTH
+
 /obj/effect/spawner/airlock/e_to_w
 	name = "1 by 1 airlock spawner (interior east, exterior west)"
 	icon_state = "1x1_E_to_W"
 	interior_direction = EAST
 	exterior_direction = WEST
+
 /obj/effect/spawner/airlock/w_to_e
 	name = "1 by 1 airlock spawner (interior west, exterior east)"
 	icon_state = "1x1_W_to_E"
@@ -228,14 +230,17 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	name = "long airlock spawner (interior north, exterior south)"
 	icon_state = "1x2_N_to_S"
 	tiles_in_y_direction = 2
+
 /obj/effect/spawner/airlock/s_to_n/long
 	name = "long airlock spawner (interior south, exterior north)"
 	icon_state = "1x2_S_to_N"
 	tiles_in_y_direction = 2
+
 /obj/effect/spawner/airlock/e_to_w/long
 	name = "long airlock spawner (interior east, exterior west)"
 	icon_state = "1x2_E_to_W"
 	tiles_in_x_direction = 2
+
 /obj/effect/spawner/airlock/w_to_e/long
 	name = "long airlock spawner (interior west, exterior east)"
 	icon_state = "1x2_W_to_E"
@@ -245,18 +250,22 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	name = "square airlock spawner (interior north, exterior south)"
 	icon_state = "2x2_N_to_S"
 	tiles_in_x_direction = 2
+
 /obj/effect/spawner/airlock/s_to_n/long/square
 	name = "square airlock spawner (interior south, exterior north)"
 	icon_state = "2x2_S_to_N"
 	tiles_in_x_direction = 2
+
 /obj/effect/spawner/airlock/e_to_w/long/square
 	name = "square airlock spawner (interior east, exterior west)"
 	icon_state = "2x2_E_to_W"
 	tiles_in_y_direction = 2
+
 /obj/effect/spawner/airlock/w_to_e/long/square
 	name = "square airlock spawner (interior west, exterior east)"
 	icon_state = "2x2_W_to_E"
 	tiles_in_y_direction = 2
+
 /obj/effect/spawner/airlock/long/square/e_to_s
 	name = "square airlock spawner (interior east, exterior south)"
 	icon_state = "2x2_E_to_S"
@@ -267,14 +276,17 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	name = "rectangular airlock spawner (interior north, exterior south)"
 	icon_state = "3x2_N_to_S"
 	tiles_in_x_direction = 3
+
 /obj/effect/spawner/airlock/s_to_n/long/square/wide
 	name = "rectangular airlock spawner (interior south, exterior north)"
 	icon_state = "3x2_S_to_N"
 	tiles_in_x_direction = 3
+
 /obj/effect/spawner/airlock/e_to_w/long/square/wide
 	name = "rectangular airlock spawner (interior east, exterior west)"
 	icon_state = "3x2_E_to_W"
 	tiles_in_y_direction = 3
+
 /obj/effect/spawner/airlock/w_to_e/long/square/wide
 	name = "rectangular airlock spawner (interior west, exterior east)"
 	icon_state = "3x2_W_to_E"
@@ -294,15 +306,23 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/engineer
 	req_access_txt = ACCESS_ENGINE
 	door_name = "engineering external access"
+
 /obj/effect/spawner/airlock/e_to_w/engineer
 	req_access_txt = ACCESS_ENGINE
 	door_name = "engineering external access"
+
+/obj/effect/spawner/airlock/w_to_e/engineer
+	req_access_txt = ACCESS_ENGINE
+	door_name = "engineering external access"
+
 /obj/effect/spawner/airlock/s_to_n/engineer
 	req_access_txt = ACCESS_ENGINE
 	door_name = "engineering external access"
+
 /obj/effect/spawner/airlock/long/engineer
 	req_access_txt = ACCESS_ENGINE
 	door_name = "engineering external access"
+
 /obj/effect/spawner/airlock/long/square/engine
 	req_access_txt = ACCESS_ENGINE
 	door_name = "engine external access"
@@ -310,6 +330,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	door_type = /obj/machinery/door/airlock/external
 	one_door_interior = DOOR_NORMAL_PLACEMENT
 	one_door_exterior = DOOR_NORMAL_PLACEMENT
+
 /obj/effect/spawner/airlock/long/square/engine/reversed
 	icon_state = "2x2_N_to_S_rightdoors"
 	one_door_interior = DOOR_FLIPPED_PLACEMENT
@@ -318,6 +339,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/w_to_e/long/square/wide/mining
 	door_name = "mining external access"
 	req_access_txt = ACCESS_MINING
+
 /obj/effect/spawner/airlock/long/square/wide/mining
 	door_name = "mining external access"
 	req_access_txt = ACCESS_MINING
@@ -325,6 +347,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/e_to_w/minisat
 	door_name = "minisat external access"
 	req_access_txt = ACCESS_MINISAT
+
 /obj/effect/spawner/airlock/long/square/e_to_s/telecoms
 	door_name = "telecoms external access"
 	req_access_txt = "61;13" //ACCESS_TCOMSAT,ACCESS_EXTERNAL_AIRLOCKS
