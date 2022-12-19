@@ -43,6 +43,72 @@ export const AtmosTankControl = (props, context) => {
             </LabeledList>
           </Section>
         ))}
+        {(data.inlet && Object.keys(data.inlet).length > 0) ? (
+          <Section title="Inlet Control">
+            <LabeledList>
+              <LabeledList.Item label="Power">
+                <Button
+                  icon={data.inlet.on ? 'power-off' : 'power-off'}
+                  content={data.inlet.on ? 'On' : 'Off'}
+                  color={data.inlet.on ? null : 'red'}
+                  selected={data.inlet.on}
+                  onClick={() => act('toggle_active', { dev: 'inlet' })}
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Rate">
+                <NumberInput
+                  animated
+                  unit={"L/s"}
+                  width={6.1}
+                  lineHeight={1.5}
+                  step={1}
+                  minValue={0}
+                  maxValue={50}
+                  value={data.inlet.rate}
+                  onDrag={(e, value) =>
+                    act('set_pressure', {
+                      dev: 'inlet',
+                      val: value,
+                    })
+                  }
+                />
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
+        ) : ""}
+        {(data.outlet && Object.keys(data.outlet).length > 0) ? (
+          <Section title="Outlet Control">
+            <LabeledList>
+              <LabeledList.Item label="Power">
+                <Button
+                  icon={data.outlet.on ? 'power-off' : 'power-off'}
+                  content={data.outlet.on ? 'On' : 'Off'}
+                  color={data.outlet.on ? null : 'red'}
+                  selected={data.outlet.on}
+                  onClick={() => act('toggle_active', { dev: 'outlet' })}
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Rate">
+                <NumberInput
+                  animated
+                  unit={"kPa"}
+                  width={6.1}
+                  lineHeight={1.5}
+                  step={10}
+                  minValue={0}
+                  maxValue={5066}
+                  value={data.outlet.rate}
+                  onDrag={(e, value) =>
+                    act('set_pressure', {
+                      dev: 'outlet',
+                      val: value,
+                    })
+                  }
+                />
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
+        ) : ""}
       </Window.Content>
     </Window>
   );

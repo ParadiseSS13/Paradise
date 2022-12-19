@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(air_injectors)
+
 /obj/machinery/atmospherics/unary/outlet_injector
 	icon = 'icons/atmos/injector.dmi'
 	icon_state = "map_injector"
@@ -14,6 +16,14 @@
 	var/injecting = FALSE
 
 	var/volume_rate = 50
+
+/obj/machinery/atmospherics/unary/outlet_injector/Initialize(mapload)
+	. = ..()
+	GLOB.air_injectors += src
+
+/obj/machinery/atmospherics/unary/outlet_injector/Destroy()
+	GLOB.air_injectors -= src
+	return ..()
 
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = TRUE
@@ -61,23 +71,6 @@
 		parent.update = 1
 
 	return 1
-
-/obj/machinery/atmospherics/unary/outlet_injector/proc/inject()
-	if(on || injecting)
-		return 0
-
-	injecting = TRUE
-
-	if(air_contents.temperature > 0)
-		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
-
-		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
-
-		loc.assume_air(removed)
-
-		parent.update = 1
-
-	flick("inject", src)
 
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/living/user, obj/item/I)
 	if(!istype(I, /obj/item/multitool))

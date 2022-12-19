@@ -82121,7 +82121,7 @@
 	inlet_injector_autolink_id = "air_in";
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
-	pressure_setting = 2000;
+	outlet_setting = 2000;
 	autolink_sensors = list("air_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
