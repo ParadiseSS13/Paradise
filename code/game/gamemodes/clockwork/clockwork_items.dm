@@ -142,6 +142,8 @@
 			add_attack_logs(user, target, "Stunned by [src]")
 			deplete_spell()
 		if(KNOCK_SPELL)
+			if(!proximity) //magical key only works if you're close enough
+				return
 			if(istype(target, /obj/machinery/door))
 				var/obj/machinery/door/door = target
 				if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
@@ -254,6 +256,8 @@
 	. = ..()
 	if(!wielded || !isliving(target))
 		return
+	if(!proximity)
+		return
 	var/mob/living/living = target
 	switch(enchant_type)
 		if(CONFUSE_SPELL)
@@ -301,6 +305,8 @@
 /obj/item/clock_borg_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!isliving(target))
+		return
+	if(!proximity)
 		return
 	var/mob/living/living = target
 	switch(enchant_type)
@@ -445,7 +451,8 @@
 
 /obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-
+	if(!proximity_flag) //no, you can't just tear skin just by looking. You need to attack.
+		return
 	if(enchant_type == BLOODSHED_SPELL && ishuman(target))
 		var/mob/living/carbon/human/human = target
 		var/obj/item/organ/external/BP = pick(human.bodyparts)
@@ -491,6 +498,8 @@
 /obj/item/shield/clock_buckler/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!isclocker(user))
+		return
+	if(!proximity) //how you can push someone without getting to them close?
 		return
 	if(enchant_type == PUSHOFF_SPELL && isliving(target))
 		var/mob/living/liv = target
@@ -738,6 +747,8 @@
 /obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
 	var/mob/living/user = loc
 	if(!(user.a_intent == INTENT_HARM) || !enchant_type)
+		return
+	if(!proximity)
 		return
 	if(enchant_type == STUNHAND_SPELL && isliving(A))
 		var/mob/living/living = A
@@ -1169,6 +1180,8 @@
 /obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(!ishuman(target) || !isclocker(user))
+		return
+	if(!proximity)
 		return
 	var/mob/living/carbon/human/human = target
 	if(human.stat == DEAD && isclocker(human)) // dead clocker
