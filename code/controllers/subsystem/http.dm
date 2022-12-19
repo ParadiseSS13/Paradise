@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(http)
 	/// List of all async HTTP requests in the processing chain
 	var/list/datum/http_request/active_async_requests
 	/// Variable to define if logging is enabled or not. Disabled by default since we know the requests the server is making. Enable with VV if you need to debug requests
-	var/logging_enabled = FALSE
+	var/logging_enabled = TRUE
 	var/logging_errors_only = TRUE
 	/// Total requests the SS has processed in a round
 	var/total_requests
