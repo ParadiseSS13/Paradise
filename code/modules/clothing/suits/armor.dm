@@ -323,7 +323,7 @@
 	if(user.wear_suit != src)
 		return
 	if(world.time - last_reflect_time >= reflect_cooldown)
-		lastreflect = world.time
+		last_reflect_time = world.time
 		return 1
 	if(world.time - last_reflect_time <= 1) // This is so if multiple energy projectiles hit at once, they're all reflected
 		return 1
