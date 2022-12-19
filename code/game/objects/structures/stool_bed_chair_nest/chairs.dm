@@ -32,6 +32,14 @@
 	..()
 	handle_rotation()
 
+/obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
+	anchored = TRUE
+	. = ..()
+
+/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
+	anchored = initial(anchored)
+	. = ..()
+
 /obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
