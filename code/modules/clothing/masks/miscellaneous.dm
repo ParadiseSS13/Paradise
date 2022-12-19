@@ -7,7 +7,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 2 SECONDS 
-	var/resist_time = 0 SECONDS // How long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
+	/// How long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
+	var/resist_time = 0 SECONDS
 	var/mute = MUZZLE_MUTE_ALL
 	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
