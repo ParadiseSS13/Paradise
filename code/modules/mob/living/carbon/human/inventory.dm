@@ -433,8 +433,7 @@
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
 
-/mob/living/carbon/human/verb/quick_equip_bag() // take most recent item out of bag or place held item in bag
-	set hidden = 1
+/mob/living/carbon/human/proc/quick_equip_bag() // take most recent item out of bag or place held item in bag
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/storage/equipped_backpack = get_item_by_slot(slot_back)
 	if(!equipped_backpack) // We also let you equip a backpack like this
@@ -493,7 +492,6 @@
 	return
 
 /mob/living/carbon/human/proc/quick_equip_suit() // takes things in and out of the suit slot
-	set hidden = 1
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/equipped_suit = get_item_by_slot(slot_s_store)
 	if(!equipped_suit)
