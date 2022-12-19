@@ -297,7 +297,8 @@ Difficulty: Hard
 	qdel(DA)
 
 	if(target.z != z)
-		return
+		return FALSE
+	
 	var/obj/effect/decal/cleanable/blood/found_bloodpool
 	pools = get_pools(get_turf(target), 5)
 	pools_to_remove = get_pools(get_turf(target), 4)
