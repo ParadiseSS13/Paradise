@@ -40850,9 +40850,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "dCe" = (
@@ -79286,6 +79283,12 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
+"txK" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
+/area/toxins/mixing)
 "txQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/engine{
@@ -103294,7 +103297,7 @@ ccW
 uCu
 nyc
 xbh
-xbh
+txK
 vid
 rBV
 qll
