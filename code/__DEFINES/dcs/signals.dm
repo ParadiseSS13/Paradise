@@ -824,3 +824,7 @@
 // /obj/machinery/door/airlock signals
 #define COMSIG_AIRLOCK_OPEN "airlock_open"
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
+
+// /datum/objective signals
+///from datum/objective/proc/find_target()
+#define COMSIG_OBJECTIVE_TARGET_FOUND "objective_target_found"

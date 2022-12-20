@@ -5,7 +5,7 @@
 	name = "NanoBank"
 	icon = "fas fa-university"
 	notify_icon = "comments"
-	title = "NanoBank 1.0"
+	title = "NanoBank 1.1"
 	template = "pda_nanobank"
 	update = PDA_APP_UPDATE_SLOW //we want to avoid iterating through the data lists constantly
 

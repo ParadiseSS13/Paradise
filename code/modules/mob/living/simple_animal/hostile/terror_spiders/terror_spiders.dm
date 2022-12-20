@@ -7,6 +7,7 @@ GLOBAL_VAR_INIT(ts_death_window, 9000) // 15 minutes
 GLOBAL_LIST_EMPTY(ts_spiderlist)
 GLOBAL_LIST_EMPTY(ts_egg_list)
 GLOBAL_LIST_EMPTY(ts_spiderling_list)
+GLOBAL_LIST_EMPTY(ts_infected_list)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------

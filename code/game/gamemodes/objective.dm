@@ -90,6 +90,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
 
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+
 /**
   * Called when the objective's target goes to cryo.
   */
@@ -348,22 +350,53 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/escape/escape_with_identity
-	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
+	/// Stored because the target's `[mob/var/real_name]` can change over the course of the round.
+	var/target_real_name
+	/// If the objective has an assassinate objective tied to it.
+	var/has_assassinate_objective = FALSE
+
+/datum/objective/escape/escape_with_identity/New(text, datum/objective/assassinate/assassinate)
+	..()
+	if(!assassinate)
+		return
+	target = assassinate.target
+	target_real_name = assassinate.target.current.real_name
+	explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
+	has_assassinate_objective = TRUE
+	RegisterSignal(assassinate, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(assassinate_found_target))
+
+/datum/objective/escape/escape_with_identity/is_invalid_target(datum/mind/possible_target)
+	if(..() || !possible_target.current.client)
+		return TRUE
+	// If the target is geneless, then it's an invalid target.
+	return HAS_TRAIT(possible_target.current, TRAIT_GENELESS)
 
 /datum/objective/escape/escape_with_identity/find_target()
-	var/list/possible_targets = list() //Copypasta because NO_DNA races, yay for snowflakes.
-	for(var/datum/mind/possible_target in SSticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
-			var/mob/living/carbon/human/H = possible_target.current
-			if(!HAS_TRAIT(H, TRAIT_GENELESS))
-				possible_targets += possible_target
-	if(possible_targets.len > 0)
-		target = pick(possible_targets)
+	..()
 	if(target && target.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
 		explanation_text = "Free Objective"
+
+/datum/objective/escape/escape_with_identity/proc/assassinate_found_target(datum/source, datum/mind/new_target)
+	SIGNAL_HANDLER
+	if(new_target)
+		target_real_name = new_target.current.real_name
+		return
+	// The assassinate objective was unable to find a new target after the old one cryo'd as was qdel'd. We're on our own.
+	find_target()
+	has_assassinate_objective = FALSE
+
+/datum/objective/escape/escape_with_identity/on_target_cryo()
+	if(has_assassinate_objective)
+		return // Our assassinate objective will handle this.
+	..()
+
+/datum/objective/escape/escape_with_identity/post_target_cryo()
+	if(has_assassinate_objective)
+		return // Our assassinate objective will handle this.
+	..()
 
 // This objective should only be given to a single owner since only 1 person can have the ID card of the target.
 // We're fine to use `owner` instead of `get_owners()`.

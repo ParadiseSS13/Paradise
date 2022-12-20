@@ -98,7 +98,18 @@
 	icon_state = "shield2"
 	density = FALSE
 	var/boing = FALSE
+	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
+
+/obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE, event_spawned = TRUE)
+	. = ..()
+	if(!event_spawned) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
+		return
+	for(var/I in 1 to 3)
+		if(prob(75))
+			new /obj/item/stack/rods(loc)
+		if(prob(75))
+			new /obj/item/shard(loc)
 
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
@@ -112,7 +123,7 @@
 		if(!M.mob_negates_gravity())
 			step_towards(M,src)
 	for(var/obj/O in range(0, src))
-		if(!O.anchored && O.loc != src) // so it cannot throw the anomaly core
+		if(!O.anchored && O.loc != src && O.move_resist < MOVE_FORCE_OVERPOWERING) // so it cannot throw the anomaly core or super big things
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10, dodgeable = FALSE)
@@ -129,7 +140,10 @@
 
 /obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
 	if(boing && isliving(A) && !A.stat)
-		A.Weaken(4 SECONDS)
+		if(!knockdown)
+			A.Weaken(4 SECONDS)
+		else
+			A.KnockDown(4 SECONDS) //You know, maybe hard stuns in a megafauna fight are a bad idea.
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
 		A.throw_at(target, 5, 1)
 		boing = FALSE
@@ -147,6 +161,7 @@
 	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
 	var/zap_range = 5
 	var/power = 5000
+	var/knockdown = FALSE
 
 /obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
 	. = ..()
@@ -175,7 +190,10 @@
 	if(canshock && istype(M))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
 		M.electrocute_act(shockdamage, name, flags = SHOCK_NOGLOVES)
-		M.Weaken(explosive ? 6 SECONDS : 3 SECONDS) //Back to being deadly if you touch it, rather than just being able to crawl out of it. Non explosive ones less deadly, since you can't loot them / vetus
+		if(!knockdown)
+			M.Weaken(explosive ? 6 SECONDS : 3 SECONDS) //Back to being deadly if you touch it, rather than just being able to crawl out of it. Non explosive ones less deadly, since you can't loot them
+		else
+			M.KnockDown(3 SECONDS)
 
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)
@@ -231,7 +249,7 @@
 			var/turf/turf_to = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
-			GLOB.event_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
+			GLOB.minor_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
 
 			var/list/flashers = list()
 			for(var/mob/living/carbon/C in viewers(turf_to, null))
