@@ -147,7 +147,19 @@
 	var/on = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
+	stealthy_audio = TRUE
 	armour_penetration_flat = 20
+
+/obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+	if(on && user.dir == M.dir && !M.incapacitated(TRUE) && user != M)
+		M.apply_damage(12, BRUTE, BODY_ZONE_CHEST)
+		M.apply_damage(40, STAMINA) //Just enough to slow
+		M.KnockDown(2 SECONDS)
+		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+	. = ..()
+
+/obj/item/pen/edagger/get_clamped_volume()
+	return 5
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -159,7 +171,7 @@
 		hitsound = initial(hitsound)
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
-		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 2, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 		set_light(0)
 	else
@@ -171,7 +183,7 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35
-		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 2, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
 	set_sharpness(on)
