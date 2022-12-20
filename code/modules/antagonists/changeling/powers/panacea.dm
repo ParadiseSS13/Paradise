@@ -22,7 +22,7 @@
 		egg.forceMove(get_turf(user))
 
 	user.reagents.add_reagent("mutadone", 1)
-	INVOKE_ASYNC(src, PROC_REF(heal_tox), user)
+	user.apply_status_effect(STATUS_EFFECT_PANACEA)
 	for(var/thing in user.viruses)
 		var/datum/disease/D = thing
 		if(D.severity == NONTHREAT)
@@ -31,15 +31,3 @@
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-
-/datum/action/changeling/panacea/proc/heal_tox(mob/living/user)
-	for(var/i in 1 to 10)
-		user.adjustToxLoss(-5) //Has the same healing as 20 charcoal, but happens faster
-		user.radiation = max(0, user.radiation - 70) //Same radiation healing as pentetic
-		user.adjustBrainLoss(-5)
-		user.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
-		user.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
-		for(var/datum/reagent/R in user.reagents.reagent_list)
-			if(!R.harmless)
-				user.reagents.remove_reagent(R.id, 2)
-		sleep(2 SECONDS)
