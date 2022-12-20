@@ -1,10 +1,16 @@
 //general-use clothing vendors, wardrobe vendors are in another file
 /obj/machinery/economy/vending/assist
-	products = list(/obj/item/assembly/prox_sensor = 5, /obj/item/assembly/igniter = 3, /obj/item/assembly/signaler = 4,
-						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
-	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
 	ads_list = list("Only the finest!",  "Have some tools.",  "The most robust equipment.",  "The finest gear in space!")
+	products = list(/obj/item/assembly/prox_sensor = 4, /obj/item/assembly/igniter = 4, /obj/item/assembly/signaler = 4,
+						/obj/item/wirecutters = 2, /obj/item/cartridge/signal = 4)
+	contraband = list(/obj/item/flashlight = 4, /obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
+	prices = list(/obj/item/assembly/prox_sensor = 20, /obj/item/assembly/igniter = 20, /obj/item/assembly/signaler = 30,
+					/obj/item/wirecutters = 50, /obj/item/cartridge/signal = 75, /obj/item/flashlight = 40,
+					/obj/item/assembly/timer = 20, /obj/item/assembly/voice = 20, /obj/item/assembly/health = 20)
 	refill_canister = /obj/item/vending_refill/assist
+
+/obj/machinery/economy/vending/assist/free
+	prices = list()
 
 /obj/machinery/economy/vending/boozeomat
 	name = "\improper Booze-O-Mat"
@@ -720,6 +726,7 @@
 	/obj/item/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
 	premium = list(/obj/item/poster/random_contraband = 5, /obj/item/pen/fancy = 2)
+	prices = list(/obj/item/stack/cable_coil/random = 20)
 
 /obj/machinery/economy/vending/tool
 	name = "\improper YouTool"

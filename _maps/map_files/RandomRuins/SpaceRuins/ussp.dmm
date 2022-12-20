@@ -3812,7 +3812,7 @@
 	name = "Derelict Annex"
 	})
 "iH" = (
-/obj/machinery/economy/vending/assist,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"

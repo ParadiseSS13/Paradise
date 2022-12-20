@@ -18688,7 +18688,7 @@
 	},
 /area/storage/tech)
 "bjx" = (
-/obj/machinery/economy/vending/assist,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70154,7 +70154,7 @@
 /area/quartermaster/storage)
 "lCb" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/economy/vending/assist,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "lCt" = (
