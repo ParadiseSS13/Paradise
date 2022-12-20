@@ -511,11 +511,12 @@
 				return -1
 
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-			melee_attack_chain(owner, hitby)
 			playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
 			if(istype(hitby, /obj/item)) //Thrown items
 				var/obj/item/TT = hitby
-				addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), 10, 10, locateUID(TT.thrownby)), 2)//yeet that shit right back
+				addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 10), 0.3 SECONDS)//yeet that shit right back
+				return TRUE
+			melee_attack_chain(owner, hitby)
 			return TRUE
 		else
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
