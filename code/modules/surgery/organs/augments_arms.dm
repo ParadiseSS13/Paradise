@@ -514,7 +514,7 @@
 			playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
 			if(istype(hitby, /obj/item)) //Thrown items
 				var/obj/item/TT = hitby
-				addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 10), 0.3 SECONDS)//yeet that shit right back
+				addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 15, 15, owner), 0.1 SECONDS)//yeet that shit right back
 				return TRUE
 			melee_attack_chain(owner, hitby)
 			return TRUE
