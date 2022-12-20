@@ -20,6 +20,7 @@
 
 /mob/living/silicon/robot
 	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
+	var/datum/ui_module/destination_tagger/mail_setter
 	silicon_subsystems = list(
 		/mob/living/silicon/robot/proc/self_diagnosis,
 		/mob/living/silicon/proc/subsystem_law_manager
@@ -27,6 +28,7 @@
 
 /mob/living/silicon/robot/drone
 	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/set_mail_tag,
 		/mob/living/silicon/robot/proc/self_diagnosis,
 		/mob/living/silicon/proc/subsystem_law_manager,
 		/mob/living/silicon/proc/subsystem_power_monitor
@@ -34,6 +36,13 @@
 
 /mob/living/silicon/robot/syndicate
 	register_alarms = 0
+
+/mob/living/silicon/robot/syndicate/saboteur
+	silicon_subsystems = list(
+		/mob/living/silicon/robot/proc/set_mail_tag,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
 
 /mob/living/silicon/proc/init_subsystems()
 	atmos_control 	= new(src)
@@ -44,6 +53,7 @@
 /mob/living/silicon/robot/init_subsystems()
 	. = ..()
 	self_diagnosis  = new(src)
+	mail_setter	= new(src)
 
 /********************
 *	Atmos Control	*
@@ -89,3 +99,13 @@
 		return
 
 	self_diagnosis.ui_interact(src)
+
+/********************
+*	Set Mail Tag	*
+********************/
+/mob/living/silicon/robot/proc/set_mail_tag()
+	set name = "Set Mail Tag"
+	set desc = "Tag yourself for delivery through the disposals system."
+	set category = "Robot Commands"
+
+	mail_setter.ui_interact(src)
