@@ -492,7 +492,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if("Syndicate Nuclear Operative")
 			clothes_s = new /icon('icons/mob/clothing/under/syndicate.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
-<<<<<<< HEAD
 			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
 		if("Emergency Response Team Officer")
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
@@ -527,8 +526,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
-=======
->>>>>>> master
 		else
 			if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
 				clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
