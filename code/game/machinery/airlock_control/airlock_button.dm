@@ -8,10 +8,10 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
 	power_channel = ENVIRON
-	/// UID of the airlock controller that owns us
-	var/controller_uid
 	/// Id to be used by the controller to grab us on spawn
 	var/autolink_id
+	/// UID of the airlock controller that owns us
+	var/tmp/controller_uid
 	/// Command, whether this button cycles in or out. This is /tmp/ so mappers dont try and define it in a map. Its assigned at runtime.
 	var/tmp/assigned_command
 
