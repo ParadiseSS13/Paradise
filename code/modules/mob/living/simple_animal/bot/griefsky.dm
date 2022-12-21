@@ -8,7 +8,7 @@
 	window_name = "Automatic Security Unit v3.0"
 
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
-	var/weapon = /obj/item/melee/energy/sword
+	var/weapon = /obj/item/melee/energy/sword/saber
 	var/block_chance = 50   //block attacks
 	var/reflect_chance = 80 // chance to reflect projectiles
 	var/dmg = 30 //esword dmg
