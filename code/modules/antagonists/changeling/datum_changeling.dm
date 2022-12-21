@@ -119,7 +119,6 @@
 	// Brains are optional for changelings.
 	var/obj/item/organ/internal/brain/ling_brain = C.get_organ_slot("brain")
 	if(ling_brain)
-		ling_brain.vital = FALSE
 		ling_brain.decoy_brain = TRUE
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
@@ -148,7 +147,6 @@
 	var/obj/item/organ/internal/brain/former_ling_brain = C.get_organ_slot("brain")
 	if(former_ling_brain && (former_ling_brain.decoy_brain != initial(former_ling_brain.decoy_brain)))
 		// TODO we should make it vital here, but for some reason (probably order of operations) this is causing the brain to become vital again before death
-		former_ling_brain.vital = FALSE
 		former_ling_brain.decoy_brain = TRUE
 
 /*

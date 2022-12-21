@@ -51,12 +51,12 @@
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
-	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
+	if(decoy_brain || (brainmob && brainmob.client))  //if thar be a brain inside... the brain (or it's an imposter...)
 		. += "You can feel the small spark of life still left in this one."
 	else
 		. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/internal/brain/remove(mob/living/user,special = 0)
+/obj/item/organ/internal/brain/remove(mob/living/user, special = 0)
 	if(dna)
 		name = "[dna.real_name]'s [initial(name)]"
 
@@ -74,7 +74,7 @@
 	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
-/obj/item/organ/internal/brain/insert(mob/living/target,special = 0)
+/obj/item/organ/internal/brain/insert(mob/living/target, special = 0)
 
 	name = "[initial(name)]"
 	var/brain_already_exists = FALSE
@@ -86,10 +86,7 @@
 		H.update_hair()
 
 	if(ischangeling(target))
-		vital = FALSE
 		decoy_brain = TRUE
-
-
 
 	if(!brain_already_exists)
 		if(brainmob)
