@@ -5,6 +5,7 @@
 	icon_state = "chair"
 	layer = OBJ_LAYER
 	can_buckle = TRUE
+	buckle_prevents_pull = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
@@ -33,7 +34,8 @@
 	handle_rotation()
 
 /obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
-	anchored = TRUE
+	if(!movable)
+		anchored = TRUE
 	. = ..()
 
 /obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
