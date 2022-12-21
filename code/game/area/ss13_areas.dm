@@ -998,25 +998,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/sleep
-	name = "\improper Dormitories"
+	name = "\improper Primary Cyrogenic Dormitories"
 	icon_state = "Sleep"
 	valid_territory = FALSE
 
-/area/crew_quarters/sleep_male
-	name = "\improper Male Dorm"
+/area/crew_quarters/sleep/secondary
+	name = "\improper Secondary Cyrogenic Dormitories"
 	icon_state = "Sleep"
-
-/area/crew_quarters/sleep_male/toilet_male
-	name = "\improper Male Toilets"
-	icon_state = "toilet"
-
-/area/crew_quarters/sleep_female
-	name = "\improper Female Dorm"
-	icon_state = "Sleep"
-
-/area/crew_quarters/sleep_female/toilet_female
-	name = "\improper Female Toilets"
-	icon_state = "toilet"
 
 /area/crew_quarters/locker
 	name = "\improper Locker Room"
@@ -1096,6 +1084,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/clownoffice
 	name = "\improper Clown's Office"
 	icon_state = "clown_office"
+
+/area/clownoffice/secret
+	name = "\improper Top Secret Clown HQ"
 
 /area/mimeoffice
 	name = "\improper Mime's Office"
@@ -1241,6 +1232,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "aft"
 
 /area/solar/starboard
+	name = "\improper Starboard Solar Array"
+	icon_state = "ASsolars"
+
+/area/solar/starboard/aft
 	name = "\improper Aft Starboard Solar Array"
 	icon_state = "ASsolars"
 
@@ -1253,6 +1248,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "FPctrl"
 
 /area/maintenance/starboardsolar
+	name = "\improper Starboard Solar Maintenance"
+	icon_state = "ASctrl"
+
+/area/maintenance/starboardsolar/aft
 	name = "\improper Aft Starboard Solar Maintenance"
 	icon_state = "ASctrl"
 
@@ -1263,7 +1262,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/auxsolarstarboard
 	name = "\improper Fore Starboard Solar Maintenance"
 	icon_state = "FSctrl"
-
 
 /area/assembly/chargebay
 	name = "\improper Mech Bay"
@@ -1999,17 +1997,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/aisat/entrance
 	name = "\improper AI Satellite Entrance"
-	icon_state = "ai"
 
 /area/aisat/maintenance
 	name = "\improper AI Satellite Maintenance"
-	icon_state = "ai"
 
 /area/turret_protected/aisat_interior
 	name = "\improper AI Satellite Antechamber"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
+/area/turret_protected/aisat_interior/secondary
+	name = "\improper AI Satellite Secondary Antechamber"
 
 //Misc
 

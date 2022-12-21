@@ -304,27 +304,27 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	req_access_txt = null
 
 /obj/effect/spawner/airlock/engineer
-	req_access_txt = ACCESS_ENGINE
+	req_access_txt = ACCESS_ENGINE_EQUIP
 	door_name = "engineering external access"
 
 /obj/effect/spawner/airlock/e_to_w/engineer
-	req_access_txt = ACCESS_ENGINE
+	req_access_txt = ACCESS_ENGINE_EQUIP
 	door_name = "engineering external access"
 
 /obj/effect/spawner/airlock/w_to_e/engineer
-	req_access_txt = ACCESS_ENGINE
+	req_access_txt = ACCESS_ENGINE_EQUIP
 	door_name = "engineering external access"
 
 /obj/effect/spawner/airlock/s_to_n/engineer
-	req_access_txt = ACCESS_ENGINE
+	req_access_txt = ACCESS_ENGINE_EQUIP
 	door_name = "engineering external access"
 
 /obj/effect/spawner/airlock/long/engineer
-	req_access_txt = ACCESS_ENGINE
+	req_access_txt = ACCESS_ENGINE_EQUIP
 	door_name = "engineering external access"
 
 /obj/effect/spawner/airlock/long/square/engine
-	req_access_txt = ACCESS_ENGINE
+	req_access_txt = ACCESS_ENGINE_EQUIP
 	door_name = "engine external access"
 	icon_state = "2x2_N_to_S_leftdoors"
 	door_type = /obj/machinery/door/airlock/external
