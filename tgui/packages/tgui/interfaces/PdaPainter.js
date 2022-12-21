@@ -1,17 +1,10 @@
-import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
-  AnimatedNumber,
-  Box,
   Button,
   Flex,
   Icon,
-  LabeledList,
-  ProgressBar,
   Section,
   Table,
-  Tooltip,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -33,8 +26,7 @@ export const PdaPainter = (props, context) => {
 }
 
 const PdaInsert = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { has_pda, pda_colors } = data;
+  const { act } = useBackend(context);
   return (
     <Section height="100%" stretchContents>
       <Flex height="100%" align="center" justify="center">
@@ -65,7 +57,7 @@ const PdaInsert = (props, context) => {
 
 const PdaMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { has_pda, pda_colors } = data;
+  const { pda_colors } = data;
   return (
     <Flex height = "100%">
       <Flex.Item width="200px" mr="3px">
@@ -106,7 +98,7 @@ const PdaMenu = (props, context) => {
 
 const PdaImage = (props, context) => {
   const { act, data } = useBackend(context);
-  const { has_pda, current_appearance} = data;
+  const { current_appearance} = data;
   return (
     <Section title = "Current PDA">
       <img
