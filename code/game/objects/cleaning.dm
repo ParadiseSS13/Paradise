@@ -37,7 +37,7 @@
 	to_chat(user, "<span class='notice'>You [text_verb] \the [text_targetname][text_description]</span>")
 
 	if(is_cmagged) //If we've cleaned a cmagged object
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		uncmag()
 		return TRUE
 	else

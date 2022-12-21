@@ -8,6 +8,7 @@
 	is_supply = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
+	department_account_access = TRUE
 	selection_color = "#e2c59d"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -437,7 +438,7 @@
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam = 1)
+		/obj/item/videocam/advanced = 1)
 
 /datum/job/barber
 	title = "Barber"

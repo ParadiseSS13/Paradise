@@ -49,6 +49,8 @@
 
 #define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
 
+#define isspacecash(W) (istype(W, /obj/item/stack/spacecash))
+
 #define isstorage(A) (istype(A, /obj/item/storage))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(

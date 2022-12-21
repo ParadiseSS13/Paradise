@@ -184,13 +184,6 @@
 	category = "Defensive"
 	cost = 1
 
-/datum/spellbook_entry/greaterforcewall
-	name = "Greater Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/forcewall/greater
-	log_name = "GFW"
-	category = "Defensive"
-	cost = 1
-
 /datum/spellbook_entry/repulse
 	name = "Repulse"
 	spell_type = /obj/effect/proc_holder/spell/aoe/repulse

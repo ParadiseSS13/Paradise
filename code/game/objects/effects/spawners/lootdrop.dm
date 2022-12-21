@@ -129,6 +129,8 @@
 				/obj/item/clothing/under/color/black = 30,
 				/obj/item/stack/tape_roll = 10,
 				/obj/item/storage/bag/plasticbag = 20,
+				/obj/item/storage/wallet = 20,
+				/obj/item/storage/wallet/random = 5,
 				/obj/item/caution = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,

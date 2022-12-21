@@ -1,5 +1,6 @@
 /obj/item/paicard
 	name = "personal AI device"
+	desc = "A handheld device that allows you to install an artificial intelligence to be your companion."
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
 	item_state = "electronic"

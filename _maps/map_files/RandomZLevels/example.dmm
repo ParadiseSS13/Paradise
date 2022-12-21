@@ -332,13 +332,13 @@
 	},
 /area/awaymission/example)
 "aV" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/example)
 "aW" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -628,7 +628,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bG" = (
-/obj/machinery/vending/boozeomat{
+/obj/machinery/economy/vending/boozeomat{
 	density = 0;
 	pixel_x = -32
 	},
@@ -696,7 +696,7 @@
 	},
 /area/awaymission/example)
 "bO" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bP" = (
@@ -728,7 +728,7 @@
 	},
 /area/awaymission/example)
 "bT" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bU" = (
@@ -758,7 +758,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bZ" = (
-/obj/machinery/vending/assist,
+/obj/machinery/economy/vending/assist,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ca" = (

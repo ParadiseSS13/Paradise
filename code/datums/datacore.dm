@@ -349,6 +349,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY)
 
+	var/icon/hands_icon = icon(preview_icon)
+	hands_icon.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask"), ICON_MULTIPLY)
 
 	var/icon/clothes_s = null
 	var/job_clothes = null
@@ -366,7 +368,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if("Blueshield")
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "blueshield"), ICON_OVERLAY)
 		if("Magistrate")
 			clothes_s = new /icon('icons/mob/clothing/under/suit.dmi', "really_black_suit_s")
@@ -488,10 +489,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if("Syndicate Officer")
 			clothes_s = new /icon('icons/mob/clothing/under/syndicate.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
-			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
 		if("Syndicate Nuclear Operative")
 			clothes_s = new /icon('icons/mob/clothing/under/syndicate.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
+<<<<<<< HEAD
 			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
 		if("Emergency Response Team Officer")
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
@@ -526,6 +527,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
+=======
+>>>>>>> master
 		else
 			if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
 				clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
@@ -549,6 +552,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(t_marking_s)
 			temp.Blend(t_marking_s, ICON_OVERLAY)
 		preview_icon.Blend(temp, ICON_OVERLAY)
+
+	preview_icon.Blend(hands_icon, ICON_OVERLAY)
 	qdel(face_s)
 	qdel(clothes_s)
 

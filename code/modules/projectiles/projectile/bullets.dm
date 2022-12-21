@@ -223,6 +223,10 @@
 			for(var/obj/item/mecha_parts/mecha_equipment/weapon/honker in chassis.equipment)
 				honker.set_ready_state(0)
 
+/obj/item/projectile/bullet/mime/nonlethal
+	damage = 0 /// We deal no normal damage...
+	stamina = 40 /// ...Rather a large amount of stamina damage. Used in the mime mecha
+
 /obj/item/projectile/bullet/mime/fake
 	damage = 0
 	nodamage = TRUE

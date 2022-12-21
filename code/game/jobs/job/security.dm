@@ -9,6 +9,7 @@
 	department_head = list("Captain")
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
+	department_account_access = TRUE
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
@@ -71,7 +72,7 @@
 	jobtype = /datum/job/warden
 
 	uniform = /obj/item/clothing/under/rank/security/warden
-	suit = /obj/item/clothing/suit/armor/vest/warden
+	suit = /obj/item/clothing/suit/armor/vest/warden/alt
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/warden

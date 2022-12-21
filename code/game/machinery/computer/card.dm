@@ -644,7 +644,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
 			if(!scan || !modify)
 				return FALSE
-			modify.associated_account_number = clamp(round(account_num), 0, 999999)
+			modify.associated_account_number = clamp(round(account_num), 1000000, 9999999) //force a 7 digit number
+			//for future reference, you should never be able to modify the money account datum through the card computer
 			return
 		if("skin")
 			if(!modify)

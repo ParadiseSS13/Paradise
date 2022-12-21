@@ -115,7 +115,6 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
-			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
 				SSvote.start_vote(new /datum/vote/crew_transfer)

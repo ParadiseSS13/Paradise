@@ -1,5 +1,5 @@
 // SyndiChem
-/obj/machinery/vending/syndichem
+/obj/machinery/economy/vending/syndichem
 	name = "\improper SyndiChem"
 	desc = "A vending machine full of grenades and grenade accessories. Sponsored by DonkCo(tm)."
 	req_access = list(ACCESS_SYNDICATE)

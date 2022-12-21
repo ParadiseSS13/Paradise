@@ -12,6 +12,11 @@
 	name = "Mother of Terror spider"
 	desc = "An enormous spider. Tiny spiderlings are crawling all over it. Their beady little eyes all stare at you. The horror!"
 	spider_role_summary = "Carries spiderlings to protect them. Creates royal jelly that heals other spiders."
+	spider_intro_text = "As a Mother of Terror Spider, your role is to support other spiders and spiderlings. \
+	You can pickup and incubate spiderlings to ensure they mature safely and at a faster rate, and your webs cannot be passed by spiderlings to keep them closer to nests. \
+	You can also produce royal jelly for other spiders to consume for faster health regeneration. \
+	Both of these require you to expend your own regeneration, though you gain much more from webbing corpses than other spiders. \
+	While you can open powered doors and bust open vents like a brown spider, you have low health and deal low damage, so you should avoid fights wherever possible."
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"

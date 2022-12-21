@@ -42,6 +42,8 @@
 			crab.origin.active = TRUE
 			crab.origin.transfer_to(crab)
 			to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")
+			to_chat(crab, "<span class='boldnotice'>We must bite the corpse of a non-primitive humanoid to lay our egg within them.</span>")
+			to_chat(crab, "<span class='boldnotice'>Though this form shall perish after laying the egg, our true self shall be reborn in time.</span>")
 
 	// This is done because after the original changeling gibs below, ALL of their actions are qdeleted
 	// We need to store their power types so we can re-create them later.

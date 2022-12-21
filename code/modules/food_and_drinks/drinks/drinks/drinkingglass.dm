@@ -59,7 +59,7 @@
 		name = "glass"
 		desc = "Your standard drinking glass."
 
-// for /obj/machinery/vending/sovietsoda
+// for /obj/machinery/economy/vending/sovietsoda
 /obj/item/reagent_containers/food/drinks/drinkingglass/soda
 	list_reagents = list("sodawater" = 50)
 

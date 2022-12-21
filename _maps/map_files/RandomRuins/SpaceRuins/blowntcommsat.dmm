@@ -324,11 +324,11 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "bg" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "bh" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "bi" = (

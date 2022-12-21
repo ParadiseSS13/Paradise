@@ -5,6 +5,7 @@
 	health = 250
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
+	loudspeaker = TRUE
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0

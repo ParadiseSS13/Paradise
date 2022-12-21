@@ -1349,7 +1349,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, 1)
-	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)

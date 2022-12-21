@@ -44,6 +44,8 @@
 
 	var/datum/job/assigned_job
 	var/list/datum/objective/objectives = list()
+	///a list of objectives that a player with this job could complete for space credit rewards
+	var/list/job_objectives = list()
 	var/list/datum/objective/special_verbs = list()
 	var/list/targets = list()
 
@@ -173,7 +175,7 @@
 
 		var/obj_count = 1
 		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
+			output += "<LI><B>Task #[obj_count]</B>: [objective.description]</LI>"
 			obj_count++
 		output += "</UL>"
 	if(window)
@@ -704,12 +706,6 @@
 					return
 
 				switch(new_obj_type)
-					if("download")
-						new_objective = new /datum/objective/download
-						new_objective.explanation_text = "Download [target_number] research levels."
-					if("capture")
-						new_objective = new /datum/objective/capture
-						new_objective.explanation_text = "Accumulate [target_number] capture points."
 					if("absorb")
 						new_objective = new /datum/objective/absorb
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
@@ -1199,10 +1195,7 @@
 
 			if("traitor")
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
-					var/datum/antagonist/traitor/T = new()
-					T.give_objectives = FALSE
-					T.give_uplink = FALSE
-					add_antag_datum(T)
+					add_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
 

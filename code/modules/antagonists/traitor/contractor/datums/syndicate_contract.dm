@@ -36,7 +36,7 @@
 		/obj/item/toy/syndicateballoon,
 	)
 	/// The base credits reward upon completion. Multiplied by the two lower bounds below.
-	var/credits_base = 100
+	var/credits_base = 10
 	// The lower bound of the credits reward multiplier.
 	var/credits_lower_mult = 25
 	// The upper bound of the credits reward multiplier.

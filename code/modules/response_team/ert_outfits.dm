@@ -385,6 +385,7 @@
 
 	backpack_contents = list(
 		/obj/item/bodyanalyzer/advanced = 1,
+		/obj/item/storage/firstaid/toxin = 1,
 		/obj/item/storage/firstaid/doctor = 1,
 		/obj/item/storage/firstaid/adv = 1,
 		/obj/item/extinguisher/mini = 1,

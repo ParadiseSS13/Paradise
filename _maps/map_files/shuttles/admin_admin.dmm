@@ -33,7 +33,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "ag" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ah" = (
@@ -238,20 +238,20 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aO" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aP" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aQ" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aR" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aS" = (
@@ -471,7 +471,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bz" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bA" = (

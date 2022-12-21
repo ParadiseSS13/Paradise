@@ -192,8 +192,8 @@
 #define GROWING 2
 #define GROWN 3
 ///time it takes to grow a hugger
-#define MIN_GROWTH_TIME 3 MINUTES
-#define MAX_GROWTH_TIME 5 MINUTES
+#define MIN_GROWTH_TIME 2 MINUTES
+#define MAX_GROWTH_TIME 3 MINUTES
 
 /obj/structure/alien/egg
 	name = "egg"
