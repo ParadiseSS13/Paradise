@@ -258,7 +258,6 @@
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
 				for(var/area/shuttle/escape/E in world)
-					E << 'sound/effects/hyperspace_progress_new.ogg'
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
@@ -272,6 +271,9 @@
 				//move each escape pod to its corresponding escape dock
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
+
+				for(var/area/shuttle/escape/E in world)
+					E << 'sound/effects/hyperspace_end_new.ogg'
 
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
