@@ -151,8 +151,8 @@
 	armour_penetration_flat = 20
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
-	if(on && user.dir == M.dir && !M.incapacitated(TRUE) && user != M)
-		M.apply_damage(12, BRUTE, BODY_ZONE_CHEST)
+	if(on && user.dir == M.dir && !HAS_TRAIT(src, TRAIT_FLOORED) && user != M)
+		M.apply_damage(12, BRUTE, def_zone)
 		M.apply_damage(40, STAMINA) //Just enough to slow
 		M.KnockDown(2 SECONDS)
 		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
