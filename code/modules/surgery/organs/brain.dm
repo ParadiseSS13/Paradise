@@ -51,7 +51,7 @@
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
-	if(decoy_brain || (brainmob && brainmob.client))  //if thar be a brain inside... the brain (or it's an imposter...)
+	if(brainmob && brainmob.client)  //if thar be a brain inside... the brain
 		. += "You can feel the small spark of life still left in this one."
 	else
 		. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
@@ -142,7 +142,7 @@
 		var/mob/living/carbon/human/H = target
 		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape
 
-/// TODO DEBUG REMOVE THIS
+/// TODO DEBUG REMOVE THIS JUST BEFORE PUTTING IN THE PR
 /obj/item/melee/energy/sword/saber/decap
 	name = "debug delimbing sword"
 	desc = "It says \"property of Issac Clarke\". Wonder who that is."

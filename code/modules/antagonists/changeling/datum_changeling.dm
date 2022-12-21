@@ -143,11 +143,10 @@
 	if(!istype(C))
 		return
 
-	// Brains are optional for changelings.
+	// If they get de-clinged, make sure they can't just chop their own head off for the hell of it
 	var/obj/item/organ/internal/brain/former_ling_brain = C.get_organ_slot("brain")
 	if(former_ling_brain && (former_ling_brain.decoy_brain != initial(former_ling_brain.decoy_brain)))
-		// TODO we should make it vital here, but for some reason (probably order of operations) this is causing the brain to become vital again before death
-		former_ling_brain.decoy_brain = TRUE
+		former_ling_brain.decoy_brain = FALSE
 
 /*
  * Always absorb X amount of genomes, plus random traitor objectives.
