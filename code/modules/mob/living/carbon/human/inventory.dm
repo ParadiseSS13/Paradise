@@ -436,6 +436,11 @@
 /mob/living/carbon/human/proc/quick_equip_bag() // take most recent item out of bag or place held item in bag
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/storage/equipped_backpack = get_item_by_slot(slot_back)
+	if(istype(equipped_backpack, /obj/item/storage/backpack/duffel))
+		var/obj/item/storage/backpack/duffel/duffel = equipped_backpack
+		if(duffel.zipped)
+			to_chat(src, "<span class='notice'>The duffelbag is zipped shut!</span>")
+			return
 	if(!equipped_backpack) // We also let you equip a backpack like this
 		if(!thing)
 			to_chat(src, "<span class='notice'>You have no backpack to take something out of.</span>")
@@ -444,7 +449,7 @@
 		return
 	if(!istype(equipped_backpack)) // not a storage item
 		if(!thing)
-			to_chat(src, "<span class='notice'>You have no backpack to take something out of.</span>")
+			equipped_backpack.attack_hand(src)
 		else
 			to_chat(src, "<span class='notice'>You can't fit anything in.</span>")
 		return
