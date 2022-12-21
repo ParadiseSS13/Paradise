@@ -7549,6 +7549,11 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "aRT" = (
@@ -8798,9 +8803,7 @@
 	},
 /area/turret_protected/aisat_interior)
 "aXi" = (
-/obj/machinery/power/tracker{
-	dir = 1
-	},
+/obj/machinery/power/tracker,
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	d2 = 4;
@@ -8821,9 +8824,8 @@
 "aXk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
 /turf/space,
 /area/solar/auxport)
@@ -25432,6 +25434,11 @@
 "cdC" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "cdD" = (
@@ -25514,6 +25521,7 @@
 	dir = 1;
 	name = "Security Asteroid Solar Control"
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "cdZ" = (
@@ -33487,10 +33495,8 @@
 	pixel_y = 3
 	},
 /obj/item/storage/firstaid/o2,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = -3
-	},
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/firstaid/brute,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -47954,12 +47960,10 @@
 	pixel_y = 3
 	},
 /obj/item/storage/firstaid/toxin,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = -3
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/fire,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -66275,6 +66279,22 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -81479,16 +81499,19 @@
 /turf/simulated/mineral/ancient,
 /area/crew_quarters/arcade)
 "tYa" = (
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/brute{
-	pixel_x = 3;
-	pixel_y = 3
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen/nitrogen{
+	pixel_x = -4
 	},
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = -3
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = 5
 	},
+/obj/item/tank/internals/emergency_oxygen/plasma{
+	pixel_x = 10
+	},
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -86009,19 +86032,28 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/fire{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = -3
-	},
 /obj/machinery/alarm{
 	pixel_y = 24;
 	name = "north bump"
+	},
+/obj/structure/rack,
+/obj/item/clothing/under/plasmaman{
+	pixel_x = 2;
+	pixel_y = -6
+	},
+/obj/item/clothing/under/plasmaman/enviroslacks,
+/obj/item/clothing/head/helmet/space/plasmaman{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/head/helmet/space/plasmaman/white,
+/obj/item/clothing/head/helmet/space/plasmaman{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/clothing/under/plasmaman{
+	pixel_x = 2;
+	pixel_y = -6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -100954,7 +100986,7 @@ bZA
 bZA
 oOL
 cdC
-cdJ
+cdD
 cdV
 lBh
 ciC
