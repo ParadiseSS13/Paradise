@@ -1415,6 +1415,7 @@
 	name = "Prison Lockdown Blast Doors";
 	opacity = 0
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "ajL" = (
@@ -1439,6 +1440,7 @@
 	name = "Prison Lockdown Blast Doors";
 	opacity = 0
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "ajM" = (
@@ -38368,6 +38370,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
