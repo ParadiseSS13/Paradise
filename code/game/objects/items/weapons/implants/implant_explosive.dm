@@ -35,35 +35,34 @@
 		return
 	timed_explosion()
 
-// Micro/macro-bomb users (typically nukies) should have all of their
-// (destructible) equipment destroyed on activation.
+/// Gib the implantee and delete their destructible contents.
 /obj/item/implant/explosive/proc/self_destruct()
 	if(!imp_in)
 		return
 
-	explosion(src, heavy,medium,weak,weak, flame_range = weak)
+	explosion(src, heavy, medium, weak, weak, flame_range = weak)
 
-	// Iterate over the implantee's contents and take out indestructible
-	// things to avoid having to worry about containers and recursion
-	var/preserved_items = list()
-	var/destructed_items = list()
 	// In case something happens to the implantee between now and the
 	// self-destruct
 	var/current_location = get_turf(imp_in)
 
+	var/destructed_items = list()
+
+	// Iterate over the implantee's contents and take out indestructible
+	// things to avoid having to worry about containers and recursion
 	for(var/obj/item/I in imp_in.get_contents())
 		if(I)
 			if(I == src) // Don't delete ourselves prematurely
 				continue
+			// Drop indestructible items on the ground first, to avoid them
+			// getting deleted when destroying the rest of the items, which we
+			// track in a list to qdel afterwards
 			if(I.resistance_flags & INDESTRUCTIBLE)
-				preserved_items += I
+				I.forceMove(current_location)
 			else
 				destructed_items += I
 
-	for(var/obj/item/I in preserved_items)
-		I.forceMove(current_location)
-
-	for(var/obj/item/I in destructed_items)
+	for(var/I in destructed_items)
 		qdel(I)
 
 	imp_in.gib()
