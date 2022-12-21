@@ -27,12 +27,24 @@
 
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()
-	var/blocked = list(/obj/item/pda/silicon/ai, /obj/item/pda/silicon/robot, /obj/item/pda/silicon/pai, /obj/item/pda/heads,
-						/obj/item/pda/clear, /obj/item/pda/syndicate, /obj/item/pda/chameleon, /obj/item/pda/chameleon/broken)
+	var/blocked = list(
+		/obj/item/pda/silicon,
+		/obj/item/pda/silicon/ai,
+		/obj/item/pda/silicon/robot,
+		/obj/item/pda/silicon/pai,
+		/obj/item/pda/heads,
+		/obj/item/pda/clear,
+		/obj/item/pda/syndicate,
+		/obj/item/pda/chameleon,
+		/obj/item/pda/chameleon/broken
+	)
 
 	for(var/thing in typesof(/obj/item/pda) - blocked)
 		var/obj/item/pda/P = thing
-		colorlist[initial(P.icon_state)] = initial(P.desc)
+
+		// Icon state for TGUI, only select the first frame
+		var/pda_icon_state = "[icon2base64(icon(initial(P.icon), initial(P.icon_state), frame = 1))]"
+		colorlist[initial(P.icon_state)] = list(pda_icon_state, initial(P.desc))
 
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
@@ -69,6 +81,7 @@
 					P.forceMove(src)
 					P.add_fingerprint(user)
 					update_icon()
+					ui_interact(user)
 	else
 		return ..()
 
@@ -84,42 +97,79 @@
 			stat |= BROKEN
 			update_icon()
 
-/obj/machinery/pdapainter/attack_hand(mob/user as mob)
+/obj/machinery/pdapainter/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 
-	src.add_fingerprint(user)
+	ui_interact(user)
 
+/obj/machinery/pdapainter/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "PdaPainter", "PDA Painter", 500, 500)
+		ui.open()
+
+/obj/machinery/pdapainter/ui_data(mob/user)
+	var/list/data = list()
+	data["has_pda"] = storedpda ? TRUE : FALSE
 	if(storedpda)
-		var/obj/item/pda/P
-		P = input(user, "Select your color!", "PDA Painting") as null|anything in colorlist
-		if(!P)
-			return
-		if(!in_range(src, user))
-			return
+		var/icon/pda_sprite = icon(storedpda.icon, storedpda.icon_state, frame = 1)
+		data["current_appearance"] = icon2base64(pda_sprite)
 
-		storedpda.icon_state = P
-		storedpda.desc = colorlist[P]
+	return data
 
-	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+/obj/machinery/pdapainter/ui_static_data(mob/user)
+	var/list/data = list()
+	data["pda_colors"] = colorlist
+	return data
 
-
-/obj/machinery/pdapainter/verb/ejectpda()
-	set name = "Eject PDA"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/pdapainter/ui_act(action, params, datum/tgui/ui)
+	if(..())
 		return
 
-	if(storedpda)
-		storedpda.loc = get_turf(src.loc)
-		storedpda = null
-		update_icon()
-	else
-		to_chat(usr, "<span class='notice'>[src] is empty.</span>")
+	. = TRUE
 
+	switch(action)
+		if("insert_pda")
+			insertpda(ui.user)
+		if("eject_pda")
+			ejectpda(ui.user)
+		if("choose_pda")
+			if(storedpda)
+				storedpda.icon_state = params["selectedPda"]
+				storedpda.desc = colorlist[storedpda.icon_state][2]
+
+	if(.)
+		add_fingerprint(ui.user)
+
+/obj/machinery/pdapainter/proc/insertpda(mob/user)
+	if(storedpda)
+		return
+	if(!ishuman(user))
+		return
+
+	var/obj/item/pda/P = user.get_active_hand()
+
+	if(istype(P))
+		if(user.drop_item())
+			storedpda = P
+			P.forceMove(src)
+			P.add_fingerprint(usr)
+			update_icon()
+			SStgui.update_uis(src)
+			return TRUE
+
+/obj/machinery/pdapainter/proc/ejectpda(mob/user)
+	if(!storedpda)
+		to_chat(usr, "<span class='notice'>[src] is empty.</span>")
+		return
+	storedpda.forceMove(get_turf(src))
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.put_in_hands(storedpda)
+
+	storedpda = null
+	update_icon()
 
 /obj/machinery/pdapainter/power_change()
 	..()
