@@ -27318,11 +27318,6 @@
 /area/storage/tech)
 "cmZ" = (
 /obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -67404,18 +67399,6 @@
 "owf" = (
 /turf/simulated/wall,
 /area/maintenance/starboardsolar)
-"owB" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/structure/cable/orange,
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
-/turf/simulated/floor/transparent/glass/reinforced,
-/area/maintenance/apmaint)
 "owE" = (
 /obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
@@ -75691,10 +75674,6 @@
 /turf/space,
 /area/maintenance/fore)
 "rIl" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -86262,20 +86241,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/aft/west)
-"vVs" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/item/clothing/head/cone,
-/obj/item/clothing/head/cone,
-/obj/item/clothing/head/cone,
-/obj/machinery/light_switch{
-	dir = 4;
-	pixel_x = -24;
-	name = "west bump"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "vVt" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/firealarm{
@@ -89781,18 +89746,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
-"xpQ" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "xrc" = (
 /turf/simulated/floor/transparent/glass/reinforced{
 	slowdown = -0.3
@@ -114232,7 +114185,7 @@ lmA
 kMZ
 uiZ
 cmZ
-owB
+uxn
 xPU
 erm
 ovi
@@ -120124,7 +120077,7 @@ rWw
 rWw
 ftr
 iyA
-vVs
+lOY
 ivv
 ftr
 ccW
@@ -120895,7 +120848,7 @@ rNK
 rWw
 ftr
 ftr
-xpQ
+rza
 rza
 ftr
 ftr
