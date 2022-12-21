@@ -52423,7 +52423,7 @@
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
 	id = "whiteship_cyberiad";
-	name = "South of Cyberiad"
+	name = "South of Farragus"
 	},
 /turf/space,
 /area/space)
