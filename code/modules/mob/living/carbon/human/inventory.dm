@@ -436,6 +436,8 @@
 /mob/living/carbon/human/proc/quick_equip_bag() // take most recent item out of bag or place held item in bag
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/storage/equipped_backpack = get_item_by_slot(slot_back)
+	if(ismecha(src.loc) || src.incapacitated(FALSE, TRUE))
+		return
 	if(istype(equipped_backpack, /obj/item/storage/backpack/duffel))
 		var/obj/item/storage/backpack/duffel/duffel = equipped_backpack
 		if(duffel.zipped)
@@ -470,6 +472,8 @@
 /mob/living/carbon/human/proc/quick_equip_belt() // take most recent item out of belt or place held item in belt
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/storage/equipped_belt = get_item_by_slot(slot_belt)
+	if(ismecha(src.loc) || src.incapacitated(FALSE, TRUE))
+		return
 	if(!equipped_belt) // We also let you equip a belt like this
 		if(!thing)
 			to_chat(src, "<span class='notice'>You have no belt to take something out of.</span>")
@@ -499,6 +503,8 @@
 /mob/living/carbon/human/proc/quick_equip_suit() // takes things in and out of the suit slot
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/equipped_suit = get_item_by_slot(slot_s_store)
+	if(ismecha(src.loc) || src.incapacitated(FALSE, TRUE))
+		return
 	if(!equipped_suit)
 		if(!thing)
 			to_chat(src, "<span class='notice'>There's nothing to take out of your suit slot.</span>")
