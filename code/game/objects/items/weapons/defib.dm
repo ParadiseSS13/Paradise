@@ -452,8 +452,9 @@
 						update_icon(UPDATE_ICON_STATE)
 						defib.cooldowncheck(user)
 						return
-				if(H.stat == DEAD)
+				if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 					var/health = H.health
+					var/brain = H.get_int_organ(/obj/item/organ/internal/brain)
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 					playsound(get_turf(src), "bodyfall", 50, 1)
 					playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -461,7 +462,8 @@
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
 					ghost = H.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)) && !(signal_result & COMPONENT_BLOCK_DEFIB))
+					// god this sucks. if you update something here, make sure to update it (read: duplicate it) in the borg stuff below as well.
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !HAS_TRAIT(H, TRAIT_BADDNA) && H.blood_volume > BLOOD_VOLUME_SURVIVE && (H.get_int_organ(/obj/item/organ/internal/heart) || H.get_int_organ(/obj/item/organ/internal/brain/slime)) && !(signal_result & COMPONENT_BLOCK_DEFIB) && !HAS_TRAIT(M, TRAIT_FAKEDEATH) && brain)
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -503,6 +505,8 @@
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Subject is husked.</span>")
 						else if (H.blood_volume < BLOOD_VOLUME_SURVIVE)
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient blood volume critically low.</span>")
+						else if (!brain)  // so things like headless clings don't get outed
+							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: No brain detected within patient.</span>")
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
 								user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: No electrical brain activity detected.</span>")
@@ -609,15 +613,16 @@
 			var/signal_result = SEND_SIGNAL(M, COMSIG_LIVING_PRE_DEFIB, user, src, ghost)
 			if(do_after(user, 20 * toolspeed, target = M)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 				signal_result |= SEND_SIGNAL(M, COMSIG_LIVING_DEFIBBED, user, src, ghost)
-				if(H.stat == DEAD)
+				if(H.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH))
 					var/health = H.health
+					var/brain = H.get_int_organ(/obj/item/organ/internal/brain)
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 					playsound(get_turf(src), "bodyfall", 50, 1)
 					playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
-					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !(signal_result & COMPONENT_BLOCK_DEFIB))
+					if(total_burn <= 180 && total_brute <= 180 && !H.suiciding && !ghost && tplus < tlimit && !HAS_TRAIT(H, TRAIT_HUSK) && !(signal_result & COMPONENT_BLOCK_DEFIB) && !HAS_TRAIT(M, TRAIT_FAKEDEATH) && brain)
 						tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
 						tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 						H.adjustOxyLoss(tobehealed)
@@ -641,9 +646,11 @@
 						SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 					else
 						if(tplus > tlimit)
-							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
+							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed: Heart tissue damage beyond point of no return for defibrillation.</span>")
 						else if(total_burn >= 180 || total_brute >= 180)
-							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
+							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed: Severe tissue damage detected.</span>")
+						else if (!brain)  // so things like headless clings don't get outed
+							user.visible_message("<span class='boldnotice'>[user] buzzes: Resuscitation failed: No brain detected within patient.</span>")
 						else if(ghost)
 							user.visible_message("<span class='notice'>[user] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
 							to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
