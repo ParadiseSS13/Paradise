@@ -16195,8 +16195,7 @@
 /area/medical/morgue)
 "byd" = (
 /obj/machinery/computer/security/mining{
-	dir = 8;
-	network = list("MINE","AuxBase")
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
