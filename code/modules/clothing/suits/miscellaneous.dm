@@ -541,7 +541,7 @@
 /obj/item/clothing/suit/hooded/ablative/IsReflect()
 	var/mob/living/carbon/human/user = loc
 	if(user.wear_suit != src)
-		return
+		return 0
 	if(world.time - last_reflect_time >= reflect_cooldown)
 		last_reflect_time = world.time
 		return 1

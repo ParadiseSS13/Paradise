@@ -316,12 +316,12 @@
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 75, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	var/last_reflect_time
-	var/reflect_cooldown = 4 SECONDS
+	var/reflect_cooldown = 5 SECONDS
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	var/mob/living/carbon/human/user = loc
 	if(user.wear_suit != src)
-		return
+		return 0
 	if(world.time - last_reflect_time >= reflect_cooldown)
 		last_reflect_time = world.time
 		return 1
