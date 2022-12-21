@@ -2612,15 +2612,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
-"aoG" = (
-/obj/machinery/conveyor/auto{
-	dir = 8
-	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal/northeast)
 "aoH" = (
 /obj/machinery/conveyor/auto/ccw{
 	dir = 9
@@ -9467,13 +9458,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal/northwest)
-"bad" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/obj/machinery/conveyor/auto,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northwest)
 "bae" = (
@@ -61776,9 +61760,6 @@
 /area/hallway/primary/fore/east)
 "mdr" = (
 /obj/machinery/conveyor/auto,
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
 "mdH" = (
@@ -102746,7 +102727,7 @@ xbm
 eFk
 aIR
 aAq
-bad
+aAq
 azb
 ueH
 bsA
@@ -129207,7 +129188,7 @@ xkY
 amx
 amx
 aqT
-aoG
+amu
 aqT
 aqT
 cRv
