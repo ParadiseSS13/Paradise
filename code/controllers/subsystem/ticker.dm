@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Time the world started, relative to world.time
 	var/round_start_time = 0
 	/// Default timeout for if world.Reboot() doesnt have a time specified
-	var/const/restart_timeout = 600
+	var/const/restart_timeout = 1200
 	/// Current status of the game. See code\__DEFINES\game.dm
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
