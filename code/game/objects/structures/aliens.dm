@@ -99,6 +99,57 @@
 		return !opacity
 	return !density
 
+/obj/structure/mineral_door/alien
+	name = "resin door"
+	density = TRUE
+	anchored = TRUE
+	opacity = TRUE
+	sheetType = null
+	operatetime = 6
+
+	icon = 'icons/obj/doors/mineral_doors.dmi'
+	icon_state = "resin"
+	max_integrity = 200
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	damage_deflection = 0
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
+	close_delay = 4 //-1 if does not auto close.
+	openSound = 'sound/machines/alien_airlock.ogg'
+	closeSound = 'sound/machines/alien_airlock.ogg'
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
+
+/obj/structure/mineral_door/alien/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
+	if(isAI(user))
+		return
+	if(isrobot(user))
+		return
+
+/obj/structure/mineral_door/alien/try_to_operate(atom/user)
+	if(is_operating)
+		return
+	if(isalien(user))
+		var/mob/living/carbon/alien/C = user
+		if(world.time - C.last_bumped <= 60)
+			return
+		if(!C.handcuffed)
+			operate()
+
+/obj/structure/mineral_door/alien/attack_alien(mob/living/carbon/alien/humanoid/user)
+	if(user.a_intent != INTENT_HARM)
+		try_to_operate(user)
+	else
+		return ..()
+
+/obj/structure/mineral_door/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+    if(damage_flag == MELEE)
+        switch(damage_type)
+            if(BRUTE)
+                damage_amount *= 0.25
+            if(BURN)
+                damage_amount *= 2
+    . = ..()
 
 /*
  * Weeds
@@ -208,7 +259,7 @@
 	/*can be GROWING, GROWN or BURST; all mutually exclusive. GROWING has the egg in the grown state, and it will take 180-300 seconds for it to advance to the hatched state
 	*In the GROWN state, an alien egg can be destroyed or attacked by a xenomorph to force it to be burst, going near an egg in this state will also cause it to burst if you can be infected by a face hugger
 	*In the BURST/BURSTING state, the alien egg can be removed by being attacked by a alien or any other weapon
-	**/ 
+	**/
 	var/status = GROWING
 
 /obj/structure/alien/egg/grown

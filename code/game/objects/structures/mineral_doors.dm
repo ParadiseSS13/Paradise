@@ -15,6 +15,7 @@
 	var/state_open = FALSE
 	var/is_operating = FALSE
 	var/close_delay = -1 //-1 if does not auto close.
+	var/operatetime = 10 //This variable was made solely to adapt sleep(10) for the alien subtype of this kind of door in operate()
 
 	var/hardness = 1
 	var/sheetType = /obj/item/stack/sheet/metal
@@ -89,10 +90,11 @@
 	else
 		var/turf/T = get_turf(src)
 		for(var/mob/living/L in T)
+			is_operating = FALSE
 			return
 		playsound(loc, closeSound, 100, 1)
 		flick("[initial_state]closing",src)
-	sleep(10)
+	sleep(operatetime)
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
@@ -207,17 +209,3 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
-
-/obj/structure/mineral_door/resin
-	name = "resin door"
-	icon_state = "resin"
-	hardness = 1.5
-	close_delay = 100
-	openSound = 'sound/effects/attackblob.ogg'
-	closeSound = 'sound/effects/attackblob.ogg'
-	damageSound = 'sound/effects/attackblob.ogg'
-	sheetType = null
-
-/obj/structure/mineral_door/resin/try_to_operate(atom/user)
-	if(isalien(user))
-		return ..()
