@@ -142,16 +142,6 @@
 		var/mob/living/carbon/human/H = target
 		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape
 
-/// A dummy brain, belonging to a cling. Should look just about identical to an actual brain.
-/obj/item/organ/internal/brain/dummy
-	vital = FALSE
-	non_primary = TRUE
-	decoy_brain = TRUE
-
-/// An actual, secret brain that hides within any body a cling takes on.
-/obj/item/organ/internal/brain/cling
-
-
 /// TODO DEBUG REMOVE THIS
 /obj/item/melee/energy/sword/saber/decap
 	name = "debug delimbing sword"
