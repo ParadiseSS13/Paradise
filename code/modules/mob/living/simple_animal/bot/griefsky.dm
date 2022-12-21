@@ -59,10 +59,6 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/secbot/griefsky/Destroy()
-	QDEL_NULL(weapon)
-	return ..()
-
 /mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //like secbots its only possible with admin intervention
 	if(!on)
 		return
