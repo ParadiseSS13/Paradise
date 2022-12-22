@@ -5,6 +5,7 @@
 	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT
+	var/module_armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 	/// Has the AI hacked the borg module, allowing access to the malf AI exclusive item.
 	var/malfhacked = FALSE
@@ -85,7 +86,9 @@
 	QDEL_LIST(special_rechargables)
 	return ..()
 
-
+/obj/item/robot_module/Initialize(mapload)
+	. = ..()
+	module_armor = getArmor(arglist(module_armor))
 /**
  * Searches through the various module lists for the given `item_type`, deletes and removes the item from all supplied lists, if the item is found.
  *
@@ -262,6 +265,11 @@
 	R.add_language("Orluum", 0)
 	R.add_language("Clownish", 0)
 	R.add_language("Tkachi", 0)
+
+///Adds armor to a cyborg. Normaly resets it to 0 across the board, unless the module has an armor defined.
+/obj/item/robot_module/proc/add_armor(mob/living/silicon/robot/R)
+	R.armor = module_armor
+
 
 /// Adds anything in `subsystems` to the robot's verbs, and grants any actions that are in `module_actions`.
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
@@ -539,6 +547,7 @@
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
+	module_armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	custom_removals = list("KA modkits")
 	basic_modules = list(
