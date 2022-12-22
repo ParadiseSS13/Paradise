@@ -542,6 +542,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
+	armor = getArmor(arglist(initial(armor)))
 
 	status_flags |= CANPUSH
 
