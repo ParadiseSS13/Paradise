@@ -25,8 +25,6 @@
 	/// uid to an item that should be making noise and handling things that our direct parent shouldn't be concerned with.
 	var/actual_unit_uid
 
-// Interactable specifies the actual item that the defibrillator belongs to. If specified, it implies that whatever this component is attached to
-// is something like paddles. The EMP/emag state of that actual item will be listened to for emag/emp, rather than our parent.
 /datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, combat = FALSE, combat_defib_chance = 100, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -54,7 +52,6 @@
 	if(!actual_unit)
 		return parent
 	return actual_unit
-
 
 /datum/component/defib/proc/on_emp(obj/item/unit)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMP_ACT
@@ -120,7 +117,7 @@
 	var/should_cause_harm = user.a_intent == INTENT_HARM && !safety
 
 	// check what the unit itself has to say about how the defib went
-	var/application_result = SEND_SIGNAL(defib_ref, COMSIG_DEFIB_PADDLES_APPLIED, user, target, should_cause_harm)
+	var/application_result = SEND_SIGNAL(parent, COMSIG_DEFIB_PADDLES_APPLIED, user, target, should_cause_harm)
 
 	if(!should_cause_harm && (application_result & COMPONENT_DEFIB_BECOME_THE_DANGER))
 		should_cause_harm = TRUE
@@ -138,8 +135,6 @@
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)
 		return  // the unit should handle this
-		// TODO HANDLE WIELDED CHECK LIKE THIS
-
 
 	if(!istype(target))
 		if(robotic)

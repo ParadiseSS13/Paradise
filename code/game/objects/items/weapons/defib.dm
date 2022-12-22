@@ -25,7 +25,7 @@
 	var/obj/item/twohanded/shockpaddles/paddles
 	/// Ref to internal power cell.
 	var/obj/item/stock_parts/cell/high/cell = null
-	/// If false, using harm intent will let you zap people.
+	/// If false, using harm intent will let you zap people. Note that any updates to this after init will only impact icons.
 	var/safety = TRUE
 	/// If true, this can be used through hardsuits, and can cause heart attacks in harm intent.
 	var/combat = FALSE
@@ -129,7 +129,14 @@
 /obj/item/defibrillator/emp_act(severity)
 	if(cell)
 		deductcharge(1000 / severity)
+	safety = !safety
+	update_icon(UPDATE_OVERLAYS)
 	..()
+
+/obj/item/defibrillator/emag_act(mob/user)
+	safety = !safety
+	..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/verb/toggle_paddles()
 	set name = "Toggle Paddles"
