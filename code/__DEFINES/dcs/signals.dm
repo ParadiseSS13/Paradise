@@ -549,6 +549,27 @@
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 
+/// Defib-specific signals
+
+/// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)
+#define COMSIG_DEFIB_PADDLES_APPLIED "defib_paddles_applied"
+	/// Battery's dead
+	#define COMPONENT_BLOCK_DEFIB_DEAD (1<<0)
+	/// Something else: handle it on the defib side
+	#define COMPONENT_BLOCK_DEFIB_MISC (1<<1)
+	/// This should situationally cause a dangerous interaction, actually
+	#define COMPONENT_DEFIB_BECOME_THE_DANGER (1<<2)
+	/// If our situation were to get more dangerous, actually make it safe
+	#define COMPONENT_DEFIB_BECOME_SAFE (1<<3)
+/// Called when a defib has been successfully used. (): (mob/living/user, mob/living/target, harmful, successful)
+#define COMSIG_DEFIB_SHOCK_APPLIED "defib_zap"
+/// Called when a defib is aborted. (mob/living/user, mob/living/target, harmful)
+#define COMSIG_DEFIB_ABORTED "defib_aborted"
+/// Called when a defib's cooldown has run its course and it is once again ready.
+#define COMSIG_DEFIB_READY "defib_ready"
+/// Called when a defib causes an excess shock on someone (mob/living/user, mob/living/shock_origin, mob/living/shocked)
+#define COMSIG_DEFIB_EXCESS_SHOCK "defib_excess"
+
 // /obj/item signals for economy
 ///called when an item is sold by the exports subsystem
 #define COMSIG_ITEM_SOLD "item_sold"
