@@ -220,6 +220,7 @@
 
 		if(org.parent_organ in bodyparts_to_omit)
 			// We can't really squish organs in if there's no place for them to go
+			qdel(org)
 			continue
 
 		org.insert(H)
