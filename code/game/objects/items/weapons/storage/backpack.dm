@@ -379,6 +379,9 @@
 	handle_zipping(user)
 
 /obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
+	if(!Adjacent(user))
+		return
+
 	if(!zip_time || do_after(user, zip_time, target = src))
 		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
 		zipped = !zipped
