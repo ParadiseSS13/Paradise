@@ -8,6 +8,7 @@
 	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	var/list/colorlist = list()
+	var/preview_icon_state = "pda"
 
 /obj/machinery/pdapainter/update_icon_state()
 	if(stat & BROKEN)
@@ -106,7 +107,7 @@
 /obj/machinery/pdapainter/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "PdaPainter", "PDA Painter", 500, 500)
+		ui = new(user, src, ui_key, "PdaPainter", "PDA Painter", 510, 510)
 		ui.open()
 
 /obj/machinery/pdapainter/ui_data(mob/user)
@@ -115,6 +116,9 @@
 	if(storedpda)
 		var/icon/pda_sprite = icon(storedpda.icon, storedpda.icon_state, frame = 1)
 		data["current_appearance"] = icon2base64(pda_sprite)
+
+		var/icon/preview_sprite = icon(storedpda.icon, preview_icon_state, frame = 1)
+		data["preview_appearance"] = icon2base64(preview_sprite)
 
 	return data
 
@@ -135,9 +139,9 @@
 		if("eject_pda")
 			ejectpda(ui.user)
 		if("choose_pda")
-			if(storedpda)
-				storedpda.icon_state = params["selectedPda"]
-				storedpda.desc = colorlist[storedpda.icon_state][2]
+			preview_icon_state = params["selectedPda"]
+		if("paint_pda")
+			paintpda()
 
 	if(.)
 		add_fingerprint(ui.user)
@@ -170,6 +174,12 @@
 
 	storedpda = null
 	update_icon()
+
+/obj/machinery/pdapainter/proc/paintpda()
+	if(storedpda)
+		storedpda.icon_state = preview_icon_state
+		storedpda.desc = colorlist[preview_icon_state][2]
+		playsound(src.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 
 /obj/machinery/pdapainter/power_change()
 	..()

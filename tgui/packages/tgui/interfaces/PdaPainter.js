@@ -1,4 +1,4 @@
-import { useBackend } from '../backend';
+  import { useBackend } from '../backend';
 import {
   Button,
   Flex,
@@ -12,8 +12,8 @@ export const PdaPainter = (props, context) => {
   const { data } = useBackend(context);
   const { has_pda } = data;
   return (
-    <Window resizeable>
-      <Window.Content scrollable>
+    <Window>
+      <Window.Content>
         {!has_pda ? (
           <PdaInsert/>
         ) : (
@@ -60,7 +60,7 @@ const PdaMenu = (props, context) => {
   const { pda_colors } = data;
   return (
     <Flex height = "100%">
-      <Flex.Item width="200px" mr="3px">
+      <Flex.Item width="180px" mr="3px">
         <PdaImage/>
       </Flex.Item>
       <Flex.Item width="65%" mr="3px">
@@ -98,26 +98,48 @@ const PdaMenu = (props, context) => {
 
 const PdaImage = (props, context) => {
   const { act, data } = useBackend(context);
-  const { current_appearance} = data;
+  const { current_appearance, preview_appearance } = data;
   return (
-    <Section title = "Current PDA">
-      <img
-      src={`data:image/jpeg;base64,${current_appearance}`}
-      style={{
-        'vertical-align': 'middle',
-        width: '160px',
-        margin: '0px',
-        'margin-left': '0px',
-        '-ms-interpolation-mode': 'nearest-neighbor'
-      }}
-      />
-    <Button
-      fluid
-      textAlign="center"
-      icon="eject"
-      content="Eject PDA"
-      onClick={() => act('eject_pda')}
-    />
-    </Section>
+    <Flex.Item>
+      <Section title = "Current PDA">
+        <img
+        src={`data:image/jpeg;base64,${current_appearance}`}
+        style={{
+          'vertical-align': 'middle',
+          width: '160px',
+          margin: '0px',
+          'margin-left': '0px',
+          '-ms-interpolation-mode': 'nearest-neighbor'
+        }}
+        />
+        <Button
+            fluid
+            textAlign="center"
+            icon="eject"
+            content="Eject"
+            color = "green"
+            onClick={() => act('eject_pda')}
+          />
+        <Button
+          fluid
+          textAlign="center"
+          icon="paint-roller"
+          content="Paint PDA"
+          onClick={() => act('paint_pda')}
+        />
+      </Section>
+      <Section title = "Preview">
+        <img
+          src={`data:image/jpeg;base64,${preview_appearance}`}
+          style={{
+            'vertical-align': 'middle',
+            width: '160px',
+            margin: '0px',
+            'margin-left': '0px',
+            '-ms-interpolation-mode': 'nearest-neighbor'
+          }}
+          />
+      </Section>
+    </Flex.Item>
   )
 }
