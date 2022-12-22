@@ -5,23 +5,23 @@
 	/// If this is being used by a borg or not, with necessary safeties applied if so.
 	var/robotic
 	/// If it should penetrate space suits
-	var/combat = FALSE
+	var/combat
 	/// If combat is true, this determines whether or not it should always cause a heart attack.
-	var/combat_defib_chance = 30
+	var/combat_defib_chance
 	/// Whether the safeties are enabled or not
-	var/safety = TRUE
+	var/safety
 	/// If the defib is actively performing a defib cycle
 	var/busy = FALSE
-	/// Cooldown length for this defib
-	var/cooldown = 5 SECONDS
+	/// Cooldown length for this defib in seconds
+	var/cooldown
 	/// Whether or not we're currently on cooldown
 	var/on_cooldown = FALSE
 	/// How fast the defib should work.
-	var/speed_multiplier = 1
+	var/speed_multiplier
 	/// If true, EMPs will have no effect.
-	var/emp_proof = FALSE
+	var/emp_proof
 	/// If true, this cannot be emagged.
-	var/emag_proof = FALSE
+	var/emag_proof
 	/// uid to an item that should be making noise and handling things that our direct parent shouldn't be concerned with.
 	var/actual_unit_uid
 

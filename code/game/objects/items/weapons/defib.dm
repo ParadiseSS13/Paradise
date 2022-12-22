@@ -243,8 +243,9 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
 	combat = TRUE
 	safety = TRUE
-	hardened = TRUE
+	hardened = TRUE  // emp-proof (on the component), but not emag-proof.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
+	heart_attack_probability = 10
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
