@@ -309,15 +309,15 @@
 
 	return
 
-/obj/item/twohanded/shockpaddles/proc/on_cooldown_expire(obj/item/paddles, mob/user)
+/obj/item/twohanded/shockpaddles/proc/on_cooldown_expire(obj/item/paddles)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_READY
 	on_cooldown = FALSE
 	if(defib.cell)
 		if(defib.cell.charge >= revivecost)
-			user.visible_message("<span class='notice'>[src] beeps: Unit ready.</span>")
+			defib.visible_message("<span class='notice'>[defib] beeps: Unit ready.</span>")
 			playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 		else
-			user.visible_message("<span class='notice'>[src] beeps: Charge depleted.</span>")
+			defib.visible_message("<span class='notice'>[defib] beeps: Charge depleted.</span>")
 			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		update_icon(UPDATE_ICON_STATE)
 	defib.update_icon(UPDATE_ICON_STATE)
@@ -382,7 +382,7 @@
 
 /obj/item/borg_defib/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/defib, robotic = TRUE)
+	AddComponent(/datum/component/defib, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
 
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))
@@ -394,9 +394,9 @@
 		R.cell.use(revivecost)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/borg_defib/proc/on_cooldown_expire(obj/item/defib, mob/user)
+/obj/item/borg_defib/proc/on_cooldown_expire(obj/item/defib)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_READY
-	user.visible_message("<span class='notice'>[src] beeps: Unit ready.</span>")
+	visible_message("<span class='notice'>[src] beeps: Defibrillation unit ready.</span>")
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 	update_icon(UPDATE_ICON_STATE)
 
