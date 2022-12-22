@@ -35,6 +35,7 @@
 
 /obj/item/melee/baton/Destroy()
 	if(cell?.loc == src)
+		STOP_PROCESSING(SSobj, src)
 		QDEL_NULL(cell)
 	return ..()
 
@@ -102,6 +103,7 @@
 		turned_on = FALSE
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
+		STOP_PROCESSING(SSobj, src)
 
 /obj/item/melee/baton/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
@@ -138,6 +140,10 @@
 		turned_on = !turned_on
 		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
 		playsound(src, "sparks", 75, TRUE, -1)
+		if(turned_on)
+			START_PROCESSING(SSobj, src)
+		else
+			STOP_PROCESSING(SSobj, src)
 	else
 		if(isrobot(loc))
 			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge [src]!</span>")
@@ -145,9 +151,17 @@
 			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is out of charge.</span>")
+		STOP_PROCESSING(SSobj, src)
 	update_icon()
 	add_fingerprint(user)
 
+/obj/item/melee/baton/process()
+	cell.use(100)
+	if(!cell.charge)
+		turned_on = FALSE
+		playsound(src, "sparks", 75, TRUE, -1)
+		update_icon()
+		STOP_PROCESSING(SSobj, src)
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
