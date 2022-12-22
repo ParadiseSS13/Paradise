@@ -17928,10 +17928,6 @@
 "aTV" = (
 /obj/structure/table/glass,
 /obj/item/hand_labeler,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner"
-	},
 /obj/machinery/door_control{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "imnotmakingyoulubepissoff";
@@ -43585,7 +43581,7 @@
 /area/janitor)
 "ccR" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /obj/item/key/janitor,
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
@@ -46245,12 +46241,9 @@
 "ckC" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 2
 	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -47761,9 +47754,6 @@
 /area/blueshield)
 "coZ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -47886,7 +47876,6 @@
 	pixel_y = 10
 	},
 /obj/item/soap/nanotrasen,
-/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -50395,8 +50384,8 @@
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_y = -30
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3
+/obj/item/roller{
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -61158,7 +61147,6 @@
 "cZy" = (
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -72376,11 +72364,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner";
-	pixel_x = -8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -82089,9 +82072,6 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/box/bodybags,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -3
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -89271,9 +89251,6 @@
 	pixel_x = -24
 	},
 /obj/structure/table,
-/obj/item/roller{
-	pixel_y = 9
-	},
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/machinery/power/apc{
 	name = "south bump";

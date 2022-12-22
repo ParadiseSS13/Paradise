@@ -80,7 +80,7 @@
 	new /obj/item/clothing/shoes/galoshes(src)
 	new /obj/item/soap(src)
 	new /obj/item/soap(src)
-	new /obj/item/reagent_containers/spray/cleaner(src)
+	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)

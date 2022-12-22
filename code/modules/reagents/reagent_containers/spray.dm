@@ -112,11 +112,23 @@
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
-	desc = "BLAM!-brand non-foaming space cleaner!"
+	desc = "Your standard spritz cleaner bottle designed to keep ALL of your workplaces spotless."
+	spray_maxrange = 2
+	spray_currentrange = 2
 	list_reagents = list("cleaner" = 250)
+
+/obj/item/reagent_containers/spray/cleaner/advanced
+	name = "advanced space cleaner"
+	desc = "BLAM!-brand non-foaming space cleaner!"
+	icon_state = "adv_cleaner"
+	item_state = "adv_cleaner"
+	spray_maxrange = 3
+	spray_currentrange = 3
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
+	spray_maxrange = 3
+	spray_currentrange = 3
 
 /obj/item/reagent_containers/spray/cleaner/safety/on_reagent_change()
 	for(var/filth in reagents.reagent_list)
@@ -131,6 +143,8 @@
 /obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
+	spray_maxrange = 3
+	spray_currentrange = 3
 	volume = 50
 	list_reagents = list("cleaner" = 50)
 

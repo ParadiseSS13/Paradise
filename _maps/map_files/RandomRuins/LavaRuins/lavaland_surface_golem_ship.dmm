@@ -16,7 +16,7 @@
 /area/shuttle/freegolem)
 "e" = (
 /obj/item/storage/toolbox/mechanical,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "f" = (

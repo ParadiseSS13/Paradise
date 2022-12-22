@@ -20149,7 +20149,7 @@
 	icon_state = "0-4"
 	},
 /obj/item/key/janitor,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
@@ -40730,9 +40730,6 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -42798,10 +42795,6 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner"
-	},
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
 	name = "Chemistry Cleaner"
@@ -61903,6 +61896,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -102632,7 +102626,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+xmi
 aaa
 aaa
 aaa
