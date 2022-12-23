@@ -6567,7 +6567,7 @@
 /area/maintenance/fore2)
 "aNd" = (
 /obj/structure/table,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/machinery/light,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
@@ -15800,10 +15800,7 @@
 /area/medical/reception)
 "bwG" = (
 /obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
+/obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /obj/item/stamp/cmo,
 /obj/machinery/computer/guestpass{
@@ -16251,7 +16248,7 @@
 /area/hallway/primary/port/north)
 "byn" = (
 /obj/structure/table,
-/obj/item/paper_bin,
+/obj/item/paper_bin/nanotrasen,
 /obj/item/stamp/hop,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -21356,22 +21353,12 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
 	},
 /area/engine/engine_smes)
 "bOH" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -22347,7 +22334,7 @@
 	id = "engiestoragesmes";
 	name = "Secure Storage Blast Door Control";
 	pixel_y = -24;
-	req_access_txt = "10;11"
+	req_access_txt = "56"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
@@ -22794,7 +22781,7 @@
 	id = "engiestoragesmes";
 	name = "Secure Storage Blast Door Control";
 	pixel_y = 24;
-	req_access_txt = "10;11"
+	req_access_txt = "56"
 	},
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
@@ -22941,6 +22928,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "bTL" = (
@@ -33720,10 +33708,7 @@
 /area/crew_quarters/heads/hop)
 "cQK" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
+/obj/item/paper_bin/nanotrasen,
 /obj/item/stamp/ce,
 /obj/item/pen,
 /obj/item/megaphone,
@@ -45076,6 +45061,10 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
+"flF" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall/r_wall,
+/area/maintenance/fore)
 "flM" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable{
@@ -51324,10 +51313,7 @@
 /area/teleporter/quantum/docking)
 "hND" = (
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
-	},
+/obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /obj/item/folder/white,
 /obj/item/stamp/rd{
@@ -51335,7 +51321,6 @@
 	pixel_y = -2
 	},
 /obj/item/paper/monitorkey,
-/obj/item/clothing/glasses/welding/superior,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -73042,7 +73027,7 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
-/area/medical/surgery)
+/area/maintenance/starboard)
 "qDG" = (
 /obj/machinery/camera{
 	c_tag = "Civilian Escape Pod"
@@ -88430,9 +88415,6 @@
 "wOD" = (
 /turf/simulated/floor/plasteel,
 /area/security/range)
-"wOE" = (
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/locker)
 "wOV" = (
 /obj/structure/bed/roller,
 /obj/effect/turf_decal/bot,
@@ -121191,7 +121173,7 @@ avS
 gZD
 avS
 avS
-wOE
+aqC
 aqC
 dub
 dPQ
@@ -121447,7 +121429,7 @@ abW
 abW
 abW
 abW
-rBH
+ivS
 diU
 bvF
 dud
@@ -121962,7 +121944,7 @@ bxw
 bvd
 bxx
 bAK
-rBH
+ivS
 aKp
 bES
 ugQ
@@ -127874,7 +127856,7 @@ abW
 abW
 abW
 abW
-dmA
+aKp
 dxt
 dQg
 eTj
@@ -129412,7 +129394,7 @@ aQq
 aRc
 cDf
 cMH
-cMH
+flF
 cSh
 cVY
 djv
@@ -129669,8 +129651,8 @@ czt
 qbE
 gKc
 aTa
-cMH
-cMH
+flF
+flF
 cWl
 cMz
 dmA
