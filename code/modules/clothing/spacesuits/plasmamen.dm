@@ -15,6 +15,7 @@
 	var/smile_color = "#FF0000"
 	var/visor_icon = "envisor"
 	var/smile_state = "envirohelm_smile"
+	var/obj/item/clothing/head/attached_hat
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
@@ -32,6 +33,46 @@
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(!user.incapacitated() && Adjacent(user))
 		toggle_welding_screen(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/examine(mob/user)
+	.=..()
+	if(attached_hat)
+		. += to_chat(user, "<span class='notice'>There's [attached_hat.name] placed on the helmet.  Right-click to remove it.</span>")
+	else
+		. += to_chat(user, "<span_class='notice'>There's nothing placed on the helmet!</span>")
+
+/obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/hitting_item, mob/living/user)
+	if(istype(hitting_item, /obj/item/clothing/head))
+		var/obj/item/clothing/hitting_clothing = hitting_item
+		/*
+		if(hitting_clothing)
+			to_chat(user, "<span class='notice'>You cannot place [hitting_clothing.name] on the helmet!</span>")
+			return
+		*/
+		if(attached_hat)
+			to_chat(user, "<span class='notice'>There is already something placed on the helmet!</span>")
+			return
+		else
+			attached_hat = hitting_clothing
+			to_chat(user, "<span class='notice'>You placed [hitting_clothing.name] on the helmet!</span>")
+			hitting_clothing.forceMove(src)
+			update_appearance()
+
+/obj/item/clothing/head/helmet/space/plasmaman/update_overlays(mob/user)
+	. = ..()
+	if(attached_hat)
+		. += image('icons/mob/clothing/head.dmi', icon_state = "hitting_clothing.item_state", layer = HEAD_LAYER) // possible issue here at the moment
+	else
+		cut_overlay()
+
+/obj/item/clothing/head/helmet/space/plasmaman/AltShiftClick(mob/user)
+	..()
+	if(!attached_hat)
+		return
+	user.put_in_active_hand(attached_hat)
+	to_chat(user, "<span class='notice'> You removed [attached_hat.name] from the Helmet!.</span>")
+	attached_hat = null
+	update_appearance()
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
@@ -79,7 +120,7 @@
 	if(!on || !up)
 		set_light(0)
 		return
-	
+
 	set_light(brightness_on)
 
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
