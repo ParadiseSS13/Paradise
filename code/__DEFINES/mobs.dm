@@ -245,6 +245,7 @@
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
 #define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/slaughter))
+#define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
