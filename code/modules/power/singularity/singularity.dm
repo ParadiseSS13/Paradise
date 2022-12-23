@@ -33,6 +33,7 @@
 	admin_investigate_setup()
 
 	energy = starting_energy
+	AddComponent(/datum/component/proximity_monitor, _radius = 5)
 
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -116,7 +117,6 @@
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.5)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
@@ -402,6 +402,8 @@
 
 
 /obj/singularity/proc/mezzer()
+	return // stfu
+	/*
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(isbrain(M)) //Ignore brains
 			continue
@@ -418,7 +420,7 @@
 		M.Stun(6 SECONDS)
 		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
 						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
-	return
+	return */
 
 
 /obj/singularity/proc/emp_area()
@@ -444,3 +446,41 @@
 	eat()
 	if(prob(1))
 		mezzer()
+
+
+/obj/singularity/HasProximity(atom/movable/AM)
+	if(istype(AM, /obj/item/projectile))
+		var/obj/item/projectile/P = AM
+		var/distance = get_dist(src, P)
+		var/projectile_angle = P.Angle
+		var/angle_to_projectile = ATAN2(y - P.y, x - P.x) - projectile_angle
+		if(distance == 0)
+			qdel(src)
+			return
+		projectile_angle += angle_to_projectile / (distance ** 2)
+		/*
+		M.Turn(angle_to_projectile / (distance ** 2))
+		var/new_angle = arcsin(M.b)
+		*/
+		P.set_angle(projectile_angle)
+
+
+		//P.set_angle(projectile_angle + (angle_to_projectile * sin(angle_to_projectile)) / distance ** 2)
+
+		/*
+		var/projectile_speed = P.range / P.speed
+		var/projectile_velocity_x = projectile_speed * cos(P.Angle)
+		var/projectile_velocity_y = projectile_speed * sin(P.Angle)
+
+		var/distance = get_dist(src, P)
+
+		var/added_speed = 30 / distance ** 2
+		var/angle_to_projectile = get_angle(src, P)
+		projectile_velocity_x += cos(angle_to_projectile) * added_speed
+		projectile_velocity_y += sin(angle_to_projectile) * added_speed
+
+		var/new_angle = ATAN2(projectile_velocity_x, projectile_velocity_y)
+
+		P.set_angle(new_angle)
+
+*/
