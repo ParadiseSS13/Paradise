@@ -23,12 +23,12 @@ GLOBAL_DATUM_INIT(apc_repository, /datum/repository/apc, new())
 		for(var/obj/machinery/power/apc/A in L)
 			apcData[++apcData.len] = list(
 				"Name" = html_encode(A.area.name),
-				"Equipment" = Status[A.equipment + 1],
-				"Lights" = Status[A.lighting + 1],
-				"Environment" = Status[A.environ + 1],
+				"Equipment" = Status[A.equipment_channel + 1],
+				"Lights" = Status[A.lighting_channel + 1],
+				"Environment" = Status[A.environment_channel + 1],
 				"CellPct" = A.cell ? round(A.cell.percent(), 1) : 0,
 				"CellStatus" = A.cell ? chg[A.charging + 1] : "M",
-				"Load" = round(A.lastused_total, 1)
+				"Load" = round(A.last_used_total, 1)
 			)
 
 	cache_entry.timestamp = world.time + 5 SECONDS

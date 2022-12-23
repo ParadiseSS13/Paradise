@@ -10,9 +10,8 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	idle_power_consumption = 5
+	active_power_consumption = 100
 	face_while_pulling = TRUE
 	/// The maximum number of items the fridge can hold. Multiplicated by the matter bin component's rating.
 	var/max_n_of_items = 1500
@@ -458,7 +457,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	visible_contents = FALSE
 	face_while_pulling = FALSE
 	silicon_controllable = FALSE
@@ -794,9 +793,9 @@
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying_rack"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 200
+	power_state = IDLE_POWER_USE
+	idle_power_consumption = 5
+	active_power_consumption = 200
 	can_dry = TRUE
 	visible_contents = FALSE
 	light_range_on = null
@@ -823,7 +822,7 @@
 	return
 
 /obj/machinery/smartfridge/drying_rack/power_change()
-	if(powered() && anchored)
+	if(has_power() && anchored)
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
@@ -852,7 +851,7 @@
 	switch(action)
 		if("drying")
 			drying = !drying
-			use_power = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			power_state = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/drying_rack/update_overlays()
@@ -886,10 +885,10 @@
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
 		drying = FALSE
-		use_power = IDLE_POWER_USE
+		power_state = IDLE_POWER_USE
 	else
 		drying = TRUE
-		use_power = ACTIVE_POWER_USE
+		power_state = ACTIVE_POWER_USE
 	update_icon(UPDATE_OVERLAYS)
 
 /**

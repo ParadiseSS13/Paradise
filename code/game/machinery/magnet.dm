@@ -11,10 +11,9 @@
 	name = "Electromagnetic Generator"
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
-	layer = WIRE_LAYER+0.001
+	layer = WIRE_LAYER + 0.001
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 50
+	idle_power_consumption = 50
 
 	var/freq = AIRLOCK_FREQ		// radio frequency
 	var/electricity_level = 1 // intensity of the magnetic pull
@@ -140,10 +139,10 @@
 
 	// Update power usage:
 	if(on)
-		use_power = 2
-		active_power_usage = electricity_level*15
+		power_state = ACTIVE_POWER_USE
+		active_power_consumption = electricity_level*15
 	else
-		use_power = 0
+		power_state = NO_POWER_USE
 		update_icon(UPDATE_ICON_STATE)
 
 
@@ -173,9 +172,9 @@
 	icon_state = "airlock_control_standby"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 45
+	idle_power_consumption = 45
 	frequency = AIRLOCK_FREQ
+
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"

@@ -267,7 +267,7 @@
 		on = FALSE
 		set_light(0)
 	else
-		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
+		on = current_area.powernet.has_power(PW_CHANNEL_EQUIPMENT) // set "on" to the equipment power status of our area.
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 

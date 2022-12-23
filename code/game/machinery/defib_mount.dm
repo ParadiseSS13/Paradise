@@ -7,9 +7,8 @@
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
 	density = FALSE
-	use_power = IDLE_POWER_USE
 	anchored = TRUE
-	idle_power_usage = 1
+	idle_power_consumption = 1
 	power_channel = EQUIP
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_HEADS) //used to control clamps
 	var/obj/item/defibrillator/defib //this mount's defibrillator

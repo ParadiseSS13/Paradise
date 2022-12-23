@@ -595,7 +595,7 @@
 
 /obj/machinery/button/windowtint/power_change()
 	..()
-	if(active && !powered(power_channel))
+	if(active && !has_power(power_channel))
 		toggle_tint()
 
 /obj/machinery/button/windowtint/update_icon_state()

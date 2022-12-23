@@ -18,21 +18,16 @@
 	var/lightswitch = TRUE
 
 	var/debug = FALSE
-	var/requires_power = TRUE
-	var/always_unpowered = FALSE	//this gets overriden to 1 for space in area/New()
 
-	var/power_equip = TRUE
-	var/power_light = TRUE
-	var/power_environ = TRUE
-	var/used_equip = FALSE
-	var/used_light = FALSE
-	var/used_environ = FALSE
-	var/static_equip
-	var/static_light = FALSE
-	var/static_environ
+	var/apc_starts_off = FALSE
+	var/requires_power = TRUE
+	var/always_unpowered = FALSE
+
+	var/datum/local_powernet/powernet = null
+	var/list/apc = list()
 
 	var/has_gravity = TRUE
-	var/list/apc = list()
+
 	var/no_air = null
 
 	var/air_doors_activated = FALSE
@@ -91,13 +86,22 @@
 	uid = ++global_uid
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
+	powernet = new()
 
 	if(requires_power)
 		luminosity = 0
-	else
-		power_light = TRUE
-		power_equip = TRUE
-		power_environ = TRUE
+		if(apc_starts_off)
+			powernet.lighting_powered = FALSE
+			powernet.equipment_powered = FALSE
+			powernet.environment_powered = FALSE
+	else //if area doesn't require power, lets find out why
+		if(always_unpowered) //area will never be powered, set all power channels to off
+			powernet.lighting_powered = FALSE
+			powernet.equipment_powered = FALSE
+			powernet.environment_powered = FALSE
+			powernet.power_flags |= PW_ALWAYS_UNPOWERED  //ensures all power checks will return FALSE
+		else //area doesn't require power so it will always be powered
+			powernet.power_flags |= PW_ALWAYS_POWERED //ensures all power checks will return TRUE
 
 		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
 			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
@@ -178,28 +182,6 @@
 /area/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
-/**
-  * Generate a power alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
-/area/proc/poweralert(state, obj/source)
-	if(state != poweralm)
-		poweralm = state
-		if(istype(source))	//Only report power alarms on the z-level where the source is located.
-			for(var/thing in cameras)
-				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C) && is_station_level(C.z))
-					if(state)
-						C.network -= "Power Alarms"
-					else
-						C.network |= "Power Alarms"
-
-			if(state)
-				SSalarm.cancelAlarm("Power", src, source)
-			else
-				SSalarm.triggerAlarm("Power", src, cameras, source)
 
 /**
   * Generate an atmospheric alert for this area
@@ -398,95 +380,6 @@
 
 /area/space/update_icon_state()
 	icon_state = null
-
-/*
-#define EQUIP 1
-#define LIGHT 2
-#define ENVIRON 3
-*/
-
-/area/proc/powered(chan)		// return true if the area has power to given channel
-
-	if(!requires_power)
-		return 1
-	if(always_unpowered)
-		return 0
-	switch(chan)
-		if(EQUIP)
-			return power_equip
-		if(LIGHT)
-			return power_light
-		if(ENVIRON)
-			return power_environ
-
-	return 0
-
-/area/space/powered(chan) //Nope.avi
-	return 0
-
-/**
-  * Called when the area power status changes
-  *
-  * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
-  */
-/area/proc/power_change()
-	for(var/obj/machinery/M in src)	// for each machine in the area
-		M.power_change()			// reverify power status (to update icons etc.)
-	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
-	update_icon(UPDATE_ICON_STATE)
-
-/area/proc/usage(chan)
-	var/used = 0
-	switch(chan)
-		if(LIGHT)
-			used += used_light
-		if(EQUIP)
-			used += used_equip
-		if(ENVIRON)
-			used += used_environ
-		if(TOTAL)
-			used += used_light + used_equip + used_environ
-		if(STATIC_EQUIP)
-			used += static_equip
-		if(STATIC_LIGHT)
-			used += static_light
-		if(STATIC_ENVIRON)
-			used += static_environ
-	return used
-
-/area/proc/addStaticPower(value, powerchannel)
-	switch(powerchannel)
-		if(STATIC_EQUIP)
-			static_equip += value
-		if(STATIC_LIGHT)
-			static_light += value
-		if(STATIC_ENVIRON)
-			static_environ += value
-
-/area/proc/clear_usage()
-
-	used_equip = 0
-	used_light = 0
-	used_environ = 0
-
-/area/proc/use_power(amount, chan)
-	switch(chan)
-		if(EQUIP)
-			used_equip += amount
-		if(LIGHT)
-			used_light += amount
-		if(ENVIRON)
-			used_environ += amount
-
-/area/proc/use_battery_power(amount, chan)
-	switch(chan)
-		if(EQUIP)
-			used_equip += amount
-		if(LIGHT)
-			used_light += amount
-		if(ENVIRON)
-			used_environ += amount
-
 
 /area/Entered(A)
 	var/area/newarea

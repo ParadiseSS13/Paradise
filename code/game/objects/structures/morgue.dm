@@ -513,9 +513,8 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
 	power_channel = EQUIP
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 100
-	active_power_usage = 5000
+	idle_power_consumption = 100
+	active_power_consumption = 5000
 	anchored = TRUE
 	req_access = list(ACCESS_CREMATORIUM)
 	/// ID of the crematorium to hook into
@@ -526,7 +525,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return attack_hand(user)
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
-	if(!powered(power_channel)) // Do we have power?
+	if(!has_power(power_channel)) // Do we have power?
 		return
 
 	if(!(allowed(usr) || user.can_advanced_admin_interact()))

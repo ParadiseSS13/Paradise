@@ -64,7 +64,7 @@
 	A.power_change()
 
 /obj/machinery/light_switch/power_change()
-	if(powered(LIGHT))
+	if(has_power(PW_CHANNEL_LIGHTING))
 		stat &= ~NOPOWER
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	else

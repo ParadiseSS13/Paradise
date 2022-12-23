@@ -7,7 +7,6 @@
 	name = "treadmill"
 	desc = "A power-generating treadmill."
 	layer = 2.2
-	use_power = NO_POWER_USE
 
 	var/speed = 0
 	var/friction = 0.15		// lose this much speed every ptick

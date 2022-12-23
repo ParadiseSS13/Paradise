@@ -34,8 +34,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 500
+	idle_power_consumption = 500
 	/// Network ID used for names + auto linkage
 	var/network_id = "None"
 	/// Is the machine active

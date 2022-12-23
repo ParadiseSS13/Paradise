@@ -15,9 +15,8 @@
 	icon_state = "fab-idle"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
-	active_power_usage = 5000
+	idle_power_consumption = 20
+	active_power_consumption = 5000
 	// Settings
 	/// Bitflags of design types that can be produced.
 	var/allowed_design_types = MECHFAB
@@ -194,7 +193,7 @@
 	build_start = world.time
 	build_end = build_start + build_time
 	desc = "It's building \a [initial(D.name)]."
-	use_power = ACTIVE_POWER_USE
+	power_state = ACTIVE_POWER_USE
 	add_overlay("fab-active")
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)
 
@@ -224,7 +223,7 @@
 	build_start = 0
 	build_end = 0
 	desc = initial(desc)
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 	cut_overlays()
 	atom_say("[A] is complete.")
 

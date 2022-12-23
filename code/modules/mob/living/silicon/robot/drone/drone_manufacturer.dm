@@ -9,16 +9,15 @@
 
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
-	active_power_usage = 5000
+	idle_power_consumption = 20
+	active_power_consumption = 5000
 
 	var/produce_drones = TRUE
 	var/drone_progress = 100
 	var/time_last_drone = 0
 
 /obj/machinery/drone_fabricator/power_change()
-	if(powered())
+	if(has_power())
 		stat &= ~NOPOWER
 	else
 		icon_state = "drone_fab_nopower"

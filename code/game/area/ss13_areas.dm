@@ -33,12 +33,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/space
 	icon_state = "space"
-	requires_power = TRUE
+	requires_power = FALSE
 	always_unpowered = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	power_light = FALSE
-	power_equip = FALSE
-	power_environ = FALSE
 	valid_territory = FALSE
 	outdoors = TRUE
 	ambientsounds = SPACE_SOUNDS
@@ -692,9 +689,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/abandonedbar
 	name = "Maintenance Bar"
 	icon_state = "oldbar"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	apc_starts_off = TRUE
 
 /area/maintenance/library
 	name = "Abandoned Library"
@@ -703,9 +698,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/spacehut
 	name = "Space Hut"
 	icon_state = "spacehut"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	apc_starts_off = TRUE
 
 /area/maintenance/electrical_shop
 	name ="Electronics Den"
@@ -1176,9 +1169,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/assembly/assembly_line //Derelict Assembly Line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	apc_starts_off = TRUE
 
 //Teleporter
 

@@ -17,7 +17,7 @@
 	. += "<span class='notice'>A small counter shows it has: [uses] use\s remaining.</span>"
 
 /obj/machinery/ai_slipper/power_change()
-	if(powered())
+	if(has_power(power_channel))
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER

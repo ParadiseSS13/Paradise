@@ -425,7 +425,7 @@
 /obj/machinery/computer/syndicate_depot/teleporter/proc/findbeacon()
 	if(mybeacon)
 		return TRUE
-	for(var/obj/machinery/bluespace_beacon/syndicate/B in myArea)
+	for(var/obj/machinery/bluespace_beacon/syndicate/B in machine_area)
 		mybeacon = B
 		B.mycomputer = src
 		return TRUE

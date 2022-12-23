@@ -80,7 +80,7 @@
 	return 0
 
 /obj/machinery/door/firedoor/power_change()
-	if(powered(power_channel))
+	if(has_power(power_channel))
 		stat &= ~NOPOWER
 		latetoggle()
 	else

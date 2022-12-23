@@ -12,8 +12,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 	name = "status display"
 	anchored = TRUE
 	density = FALSE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1

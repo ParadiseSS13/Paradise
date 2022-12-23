@@ -521,9 +521,8 @@
 	var/eventstarted = 0
 
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 6
+	idle_power_consumption = 2
+	active_power_consumption = 6
 	power_channel = ENVIRON
 
 /obj/machinery/readybutton/attack_ai(mob/user as mob)

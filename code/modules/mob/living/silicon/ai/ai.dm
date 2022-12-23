@@ -346,8 +346,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 */
 /obj/machinery/ai_powersupply
 	name="\improper AI power supply"
-	active_power_usage=1000
-	use_power = ACTIVE_POWER_USE
+	active_power_consumption = 1000
+	power_state = ACTIVE_POWER_USE
 	power_channel = EQUIP
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
@@ -369,9 +369,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
-		use_power = NO_POWER_USE
+		power_state = NO_POWER_USE
 	if(powered_ai.anchored)
-		use_power = ACTIVE_POWER_USE
+		power_state = ACTIVE_POWER_USE
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"

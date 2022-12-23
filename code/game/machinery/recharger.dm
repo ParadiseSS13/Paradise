@@ -8,9 +8,8 @@
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
-	active_power_usage = 200
+	idle_power_consumption = 4
+	active_power_consumption = 200
 	pass_flags = PASSTABLE
 
 	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive)
@@ -50,7 +49,7 @@
 
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
 	var/area/A = get_area(src)
-	if(!istype(A) || !A.power_equip)
+	if(!istype(A) || !A.powernet.equipment_powered)
 		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [G].</span>")
 		return
 
@@ -65,7 +64,7 @@
 
 	G.forceMove(src)
 	charging = G
-	use_power = ACTIVE_POWER_USE
+	power_state = ACTIVE_POWER_USE
 	using_power = check_cell_needs_recharging(get_cell_from(G))
 	update_icon()
 
@@ -116,7 +115,7 @@
 		charging.forceMove(loc)
 		user.put_in_hands(charging)
 		charging = null
-		use_power = IDLE_POWER_USE
+		power_state = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/recharger/attack_tk(mob/user)
@@ -124,7 +123,7 @@
 		charging.update_icon()
 		charging.forceMove(loc)
 		charging = null
-		use_power = IDLE_POWER_USE
+		power_state = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/recharger/process()

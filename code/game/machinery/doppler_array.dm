@@ -166,7 +166,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
-		if(powered() && anchored)
+		if(has_power() && anchored)
 			icon_state = initial(icon_state)
 			stat &= ~NOPOWER
 		else

@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector
 	icon = 'icons/atmos/injector.dmi'
 	icon_state = "map_injector"
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 	layer = GAS_SCRUBBER_LAYER
 
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
@@ -40,7 +40,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
-	if(!powered())
+	if(!has_power())
 		icon_state = "off"
 	else
 		icon_state = "[on ? "on" : "off"]"

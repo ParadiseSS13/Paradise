@@ -58,7 +58,7 @@ Thus, the two variables affect pump operation are set in New():
 	on = TRUE
 
 /obj/machinery/atmospherics/binary/pump/update_icon_state()
-	if(!powered())
+	if(!has_power())
 		icon_state = "off"
 	else
 		icon_state = "[on ? "on" : "off"]"

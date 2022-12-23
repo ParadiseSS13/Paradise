@@ -40,8 +40,7 @@
 	/// Icon for the lightmask, defaults to icon_state + _off, _lightmask if one is defined.
 	var/icon_lightmask
 	// Power
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 	var/vend_power_usage = 150
 
 	var/light_range_on = 1
@@ -798,7 +797,7 @@
 	atom_say(message)
 
 /obj/machinery/economy/vending/power_change()
-	if(powered())
+	if(has_power())
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER

@@ -8,7 +8,7 @@
 
 	name = "air vent"
 	desc = "Has a valve and pump attached to it"
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 	plane = FLOOR_PLANE
 	layer = GAS_SCRUBBER_LAYER
 
@@ -89,7 +89,7 @@
 
 	if(welded)
 		vent_icon += "weld"
-	else if(!powered())
+	else if(!has_power())
 		vent_icon += "off"
 	else
 		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"

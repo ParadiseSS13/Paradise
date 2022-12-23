@@ -4,8 +4,7 @@
 	name = "Embedded Controller"
 	anchored = TRUE
 
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 
 	var/on = TRUE
 

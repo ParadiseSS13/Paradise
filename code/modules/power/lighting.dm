@@ -171,16 +171,16 @@
 	anchored = TRUE
 	layer = 5
 	max_integrity = 100
-	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 20
+	power_state = ACTIVE_POWER_USE
+	idle_power_consumption = 2
+	active_power_consumption = 20
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	/// Is the light on or off?
 	var/on = FALSE
 	/// Is the light currently turning on?
 	var/turning_on = FALSE
 	/// If the light state has changed since the last 'update()', also update the power requirements
-	var/power_state = FALSE
+	var/light_state = FALSE
 	/// How much power does it use?
 	var/static_power_used = 0
 	/// Light range (Also used in power calculation)
@@ -334,17 +334,17 @@
 	else if(!turned_off())
 		set_emergency_lights()
 	else // Turning off
-		use_power = IDLE_POWER_USE
+		power_state = IDLE_POWER_USE
 		set_light(0)
 	update_icon()
-	active_power_usage = (brightness_range * 10)
-	if(on != power_state) // Light was turned on/off, so update the power usage
-		power_state = on
+	active_power_consumption = (brightness_range * 10)
+	if(on != light_state) // Light was turned on/off, so update the power usage
+		light_state = on
 		if(on)
 			static_power_used = brightness_range * 20 //20W per unit of luminosity
-			addStaticPower(static_power_used, STATIC_LIGHT)
+			add_static_power(STATIC_LIGHT, static_power_used)
 		else
-			removeStaticPower(static_power_used, STATIC_LIGHT)
+			remove_static_power(STATIC_LIGHT, static_power_used)
 
 
 /**
@@ -390,7 +390,7 @@
 			burnout()
 			return
 
-	use_power = ACTIVE_POWER_USE
+	power_state = ACTIVE_POWER_USE
 	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
@@ -567,13 +567,12 @@
 // if a light is turned off, it won't activate emergency power
 /obj/machinery/light/proc/turned_off()
 	var/area/A = get_area(src)
-	return !A.lightswitch && A.power_light
+	return !A.lightswitch && A.powernet.lighting_powered
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
-/obj/machinery/light/proc/has_power()
-	var/area/A = get_area(src)
-	return A.lightswitch && A.power_light
+/obj/machinery/light/has_power()
+	return machine_area.lightswitch && machine_area.powernet.lighting_powered
 
 // attempts to set emergency lights
 /obj/machinery/light/proc/set_emergency_lights()
@@ -755,7 +754,7 @@
 /obj/machinery/light/power_change()
 	var/area/A = get_area(src)
 	if(A)
-		seton(A.lightswitch && A.power_light)
+		seton(A.lightswitch && A.powernet.lighting_powered)
 
 // called when on fire
 

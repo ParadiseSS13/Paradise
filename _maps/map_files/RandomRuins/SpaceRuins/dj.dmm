@@ -295,7 +295,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	name = "Worn-out APC";
 	pixel_y = -24
 	},

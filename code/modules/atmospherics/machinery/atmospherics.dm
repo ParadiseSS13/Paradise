@@ -14,8 +14,9 @@ Pipelines + Other Objects -> Pipe network
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	plane = GAME_PLANE
-	idle_power_usage = 0
-	active_power_usage = 0
+	power_state = NO_POWER_USE
+	idle_power_consumption = 0
+	active_power_consumption = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
@@ -413,7 +414,7 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is toggling the machine.
  */
 /obj/machinery/atmospherics/proc/toggle(mob/living/user)
-	if(!powered())
+	if(!has_power())
 		return
 	on = !on
 	update_icon()
@@ -429,7 +430,7 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is setting the output pressure to maximum.
  */
 /obj/machinery/atmospherics/proc/set_max(mob/living/user)
-	if(!powered())
+	if(!has_power())
 		return
 	target_pressure = MAX_OUTPUT_PRESSURE
 	update_icon()

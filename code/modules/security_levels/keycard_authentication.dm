@@ -17,9 +17,8 @@
 	var/ert_reason
 
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 6
+	idle_power_consumption = 2
+	active_power_consumption = 6
 	power_channel = ENVIRON
 
 	req_access = list(ACCESS_KEYCARD_AUTH)
@@ -71,7 +70,7 @@
 	return ..()
 
 /obj/machinery/keycard_auth/power_change()
-	if(powered(ENVIRON))
+	if(has_power(PW_CHANNEL_ENVIRONMENT))
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER

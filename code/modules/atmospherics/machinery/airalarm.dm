@@ -74,9 +74,8 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 4
-	active_power_usage = 8
+	idle_power_consumption = 4
+	active_power_consumption = 8
 	power_channel = ENVIRON
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
@@ -1077,7 +1076,7 @@
 	qdel(src)
 
 /obj/machinery/alarm/power_change()
-	if(powered(power_channel))
+	if(has_power(power_channel))
 		stat &= ~NOPOWER
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	else

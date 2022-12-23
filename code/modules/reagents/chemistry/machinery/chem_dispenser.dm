@@ -4,8 +4,7 @@
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dispenser"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_consumption = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/ui_title = "Chem Dispenser 5000"
 	var/cell_type = /obj/item/stock_parts/cell/high
@@ -124,7 +123,7 @@
 	recharge_counter++
 
 /obj/machinery/chem_dispenser/power_change()
-	if(powered())
+	if(has_power())
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
@@ -133,7 +132,7 @@
 	if(panel_open)
 		icon_state = "[initial(icon_state)]-o"
 		return
-	if(!powered() && !is_drink)
+	if(!has_power() && !is_drink)
 		icon_state = "dispenser_nopower"
 		return
 	icon_state = "[initial(icon_state)][beaker ? "_working" : ""]"

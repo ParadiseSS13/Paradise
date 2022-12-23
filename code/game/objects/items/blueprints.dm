@@ -209,9 +209,9 @@
 		return area_created
 	var/area/A = new
 	A.name = str
-	A.power_equip = FALSE
-	A.power_light = FALSE
-	A.power_environ = FALSE
+	A.powernet.equipment_powered = FALSE
+	A.powernet.lighting_powered = FALSE
+	A.powernet.environment_powered = FALSE
 	A.always_unpowered = FALSE
 	A.set_dynamic_lighting()
 
