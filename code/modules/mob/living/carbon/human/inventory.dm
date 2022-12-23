@@ -433,7 +433,7 @@
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
 
-/mob/living/carbon/human/proc/quick_equip_bag() // tputs things in bag
+/mob/living/carbon/human/proc/quick_equip_bag() // puts things in bag
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/storage/equipped_backpack = get_item_by_slot(slot_back)
 	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
