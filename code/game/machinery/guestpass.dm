@@ -118,7 +118,7 @@
 	data["regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
 	return data
 
-/obj/machinery/computer/guestpass/ui_act(action, params)
+/obj/machinery/computer/guestpass/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	. = TRUE
@@ -180,6 +180,8 @@
 					var/area = get_access_desc(A)
 					entry += "[i > 1 ? ", [area]" : "[area]"]"
 			var/obj/item/card/id/guest/pass = new(get_turf(src))
+			if(Adjacent(ui.user))
+				ui.user.put_in_hands(pass)
 			pass.temp_access = accesses.Copy()
 			pass.registered_name = giv_name
 			pass.expiration_time = world.time + duration MINUTES
