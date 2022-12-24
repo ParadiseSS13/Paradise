@@ -27,7 +27,7 @@
 
 ///Try to make a table with the item used to attack. FALSE if you can't make a table and should attack. TRUE does not necessarily mean a table was made.
 /obj/structure/table_frame/proc/try_make_table(obj/item/stack/stack, mob/user)
-	if(!isstack(stack))
+	if(!istype(stack))
 		return FALSE
 
 	if(!stack.table_type)
