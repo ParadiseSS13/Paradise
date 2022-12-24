@@ -139,10 +139,10 @@
 
 	// Update power usage:
 	if(on)
-		power_state = ACTIVE_POWER_USE
+		change_power_mode(ACTIVE_POWER_USE)
 		active_power_consumption = electricity_level*15
 	else
-		power_state = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 		update_icon(UPDATE_ICON_STATE)
 
 

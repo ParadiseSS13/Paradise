@@ -8,7 +8,7 @@
 	desc = "Has a valve and pump attached to it"
 	layer = GAS_SCRUBBER_LAYER
 	plane = FLOOR_PLANE
-	power_state = IDLE_POWER_USE
+	power_state = ACTIVE_POWER_USE
 	idle_power_consumption = 10
 	active_power_consumption = 60
 
@@ -69,17 +69,14 @@
 	if(welded)
 		. += "It seems welded shut."
 
-/obj/machinery/atmospherics/unary/vent_scrubber/process_power_consumption()
-	if(!..())
-		return FALSE
-	if(!on || welded)
-		return 0
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/adjust_power_consumption()
 	if(stat & (NOPOWER|BROKEN))
 		return 0
-
-	var/amount = idle_power_consumption
+	if(!on || welded)
+		return 0
 
 	if(scrubbing)
+		var/amount = idle_power_consumption
 		if(scrub_CO2)
 			amount += idle_power_consumption
 		if(scrub_Toxins)
@@ -88,13 +85,13 @@
 			amount += idle_power_consumption
 		if(scrub_N2O)
 			amount += idle_power_consumption
+		if(widenet)
+			amount += amount*(adjacent_turfs.len*(adjacent_turfs.len/2))
+		change_power_mode(ACTIVE_POWER_USE)
+		add_static_power(power_channel, (amount - active_power_consumption))
+		active_power_consumption = amount
 	else
-		amount = active_power_consumption
-
-	if(widenet)
-		amount += amount*(adjacent_turfs.len*(adjacent_turfs.len/2))
-	use_power(amount, power_channel)
-	return TRUE
+		change_power_mode(IDLE_POWER_USE)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
 	. = ..()
@@ -339,14 +336,14 @@
 		broadcast_status()
 		return //do not update_icon
 
+	adjust_power_consumption()
 	broadcast_status()
 	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"

@@ -202,7 +202,10 @@
 			top_layer.layer = 4.1
 			icon_state = "cannon_east"
 	overlays += top_layer
-	reload()
+
+/obj/machinery/bsa/full/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(reload)), 30 SECONDS) //wait until shit is loaded before we start using power to reload!
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()

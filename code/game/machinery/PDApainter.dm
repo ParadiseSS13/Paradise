@@ -122,5 +122,6 @@
 
 
 /obj/machinery/pdapainter/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()

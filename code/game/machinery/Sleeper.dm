@@ -43,7 +43,7 @@
 			Note that you cannot control the sleeper while inside of it."
 
 /obj/machinery/sleeper/power_change()
-	..()
+	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else

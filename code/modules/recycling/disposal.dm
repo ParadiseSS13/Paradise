@@ -364,7 +364,7 @@
 // timed process
 // charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/process()
-	power_state = NO_POWER_USE
+	change_power_mode(NO_POWER_USE)
 	if(stat & BROKEN)			// nothing can happen if broken
 		return
 
@@ -384,13 +384,13 @@
 	if(stat & NOPOWER)			// won't charge if no power
 		return
 
-	power_state = IDLE_POWER_USE
+	change_power_mode(IDLE_POWER_USE)
 
 	if(mode != 1)		// if off or ready, no need to charge
 		return
 
 	// otherwise charge
-	power_state = ACTIVE_POWER_USE
+	change_power_mode(ACTIVE_POWER_USE)
 
 	var/atom/L = loc						// recharging from loc turf
 
@@ -455,7 +455,8 @@
 
 // called when area power changes
 /obj/machinery/disposal/power_change()
-	..()	// do default setting/reset of stat NOPOWER bit
+	if(!..())
+		return	// do default setting/reset of stat NOPOWER bit
 	update()	// update icon
 	if(stat & NOPOWER)
 		set_light(0)

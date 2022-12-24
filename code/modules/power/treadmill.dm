@@ -163,7 +163,8 @@
 	frame = !frame
 
 /obj/machinery/treadmill_monitor/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/treadmill_monitor/examine(mob/user)

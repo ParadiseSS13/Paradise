@@ -1,4 +1,3 @@
-#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
 
 /obj/machinery
 	name = "machinery"
@@ -24,7 +23,8 @@
 	/// The powernet this machine is connected to
 	var/datum/local_powernet/machine_powernet = null
 
-	var/siemens_strength = 0.7 // how badly will it shock you?
+	/// how badly will it shock you?
+	var/siemens_strength = 0.7
 
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
@@ -50,7 +50,8 @@
 
 	if(requires_power)
 		machine_area = get_area(src)
-		if(machine_area.powernet) // areas don't always initialize before machines so we need to check to see if the powernet exists first
+		// areas don't always initialize before machines so we need to check to see if the powernet exists first
+		if(machine_area.powernet)
 			machine_powernet = machine_area.powernet
 		else
 			machine_powernet = machine_area.create_powernet()
@@ -118,9 +119,11 @@
 
 // use active power from the local powernet
 /obj/machinery/proc/use_power(channel, amount)
+	if(!has_power())
+		return FALSE
 	if(!channel)
 		channel = power_channel
-	machine_powernet.use_active_power(channel, amount)
+	return machine_powernet.use_active_power(channel, amount)
 
 /obj/machinery/proc/add_static_power(channel, amount)
 	machine_powernet.adjust_static_power(channel, amount)
@@ -128,17 +131,26 @@
 /obj/machinery/proc/remove_static_power(channel, amount)
 	machine_powernet.adjust_static_power(channel, -amount)
 
-/// Checks to see if the machines set power channel is powered and updates stat accordingly
+/*
+	* # power_change()
+	*
+	* Checks to see if the machines set power channel is powered and updates stat accordingly
+	* returns TRUE if machine's stat changes, returns FALSE if it does not, this is to make sure machines dont
+	* update their icon/overlays/lighting uneccesarily if it's contigent on NOPOWER
+	*
+	* NOTE:Subtypes of machinery should call parent here unless they change this proc's behaviour regarding NOPOWER
+*/
 /obj/machinery/proc/power_change()
-	if(has_power(power_channel))
+	var/old_stat = stat
+	if(has_power(power_channel) || !requires_power) //if we don't require power, we don't give a shit about the power channel!
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
-	return
+	return old_stat != stat //performance saving for machines that use power_change() to update icons!
 
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
-	if(use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
+	if(!use_type || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
 		return
 	switch(power_state)
 		if(IDLE_POWER_USE)
@@ -153,13 +165,6 @@
 			add_static_power(power_channel, active_power_consumption)
 
 	power_state = use_type
-
-/obj/machinery/proc/process_power_consumption()
-	if(!has_power(power_channel))
-		return FALSE
-	if(prob(MACHINE_FLICKER_CHANCE))
-		flicker()
-	return TRUE
 
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
 	. = ..()

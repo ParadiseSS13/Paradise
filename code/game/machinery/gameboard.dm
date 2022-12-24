@@ -19,7 +19,8 @@
 	RefreshParts()
 
 /obj/machinery/gameboard/power_change()
-	. = ..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 	if(stat & NOPOWER)
 		set_light(0)

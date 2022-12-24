@@ -164,7 +164,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
-	power_state = IDLE_POWER_USE
+	change_power_mode(IDLE_POWER_USE)
 	return
 
 /obj/machinery/recharge_station/force_eject_occupant(mob/target)
@@ -234,5 +234,5 @@
 
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
-	power_state = IDLE_POWER_USE
+	change_power_mode(IDLE_POWER_USE)
 	return

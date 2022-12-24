@@ -19,7 +19,7 @@
 	anchored = TRUE
 	idle_power_consumption = 2
 	active_power_consumption = 6
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 
 	req_access = list(ACCESS_KEYCARD_AUTH)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -70,10 +70,8 @@
 	return ..()
 
 /obj/machinery/keycard_auth/power_change()
-	if(has_power(PW_CHANNEL_ENVIRONMENT))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/keycard_auth/attack_ghost(mob/user)

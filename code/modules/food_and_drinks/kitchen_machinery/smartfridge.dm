@@ -105,13 +105,12 @@
 		throw_item()
 
 /obj/machinery/smartfridge/power_change()
-	var/old_stat = stat
-	..()
-	if((stat & (BROKEN|NOPOWER)))
+	. = ..()
+	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	if(old_stat != stat)
+	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/extinguish_light()
@@ -159,8 +158,6 @@
 
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
 	. = default_unfasten_wrench(user, I)
-	if(.)
-		power_change()
 
 /obj/machinery/smartfridge/crowbar_act(mob/living/user, obj/item/I)
 	. = default_deconstruction_crowbar(user, I)
@@ -796,7 +793,6 @@
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying_rack"
-	power_state = IDLE_POWER_USE
 	idle_power_consumption = 5
 	active_power_consumption = 200
 	can_dry = TRUE
@@ -854,7 +850,7 @@
 	switch(action)
 		if("drying")
 			drying = !drying
-			power_state = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			change_power_mode(drying ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/drying_rack/update_overlays()
@@ -888,10 +884,10 @@
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
 		drying = FALSE
-		power_state = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 	else
 		drying = TRUE
-		power_state = ACTIVE_POWER_USE
+		change_power_mode(ACTIVE_POWER_USE)
 	update_icon(UPDATE_OVERLAYS)
 
 /**

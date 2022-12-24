@@ -48,7 +48,7 @@
 
 /obj/machinery/particle_accelerator/control_box/update_state()
 	if(construction_state < 3)
-		power_state = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 		assembled = 0
 		active = FALSE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
@@ -58,7 +58,7 @@
 		connected_parts = list()
 		return
 	if(!part_scan())
-		power_state = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		active = FALSE
 		connected_parts = list()
 
@@ -150,9 +150,9 @@
 	..()
 	if(stat & NOPOWER)
 		active = FALSE
-		power_state = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 	else if(!stat && construction_state <= 3)
-		power_state = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 	update_icon()
 
 	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
@@ -234,13 +234,13 @@
 		usr.create_log(MISC_LOG, "PA Control Computer turned ON", src)
 		log_game("PA Control Computer turned ON by [key_name(usr)] in ([x],[y],[z])")
 	if(active)
-		power_state = ACTIVE_POWER_USE
+		change_power_mode(ACTIVE_POWER_USE)
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = strength
 			part.powered = TRUE
 			part.update_icon()
 	else
-		power_state = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
 			part.powered = FALSE

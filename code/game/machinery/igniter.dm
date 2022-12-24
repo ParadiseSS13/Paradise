@@ -65,7 +65,8 @@
 	update_icon()
 
 /obj/machinery/igniter/power_change()
-	. = ..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		on = FALSE
 	update_icon()
@@ -84,13 +85,16 @@
 	var/base_state = "migniter"
 	anchored = TRUE
 
-/obj/machinery/sparker/power_change()
-	if(has_power() && !disable)
-		stat &= ~NOPOWER
-		icon_state = "[base_state]"
-	else
-		stat |= NOPOWER
+/obj/machinery/sparker/update_icon_state()
+	if(stat & NOPOWER)
 		icon_state = "[base_state]-p"
+	else
+		icon_state = "[base_state]"
+
+/obj/machinery/sparker/power_change()
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/sparker/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

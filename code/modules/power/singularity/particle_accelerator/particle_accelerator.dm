@@ -308,11 +308,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		construction_state = ACCELERATOR_READY
-		power_state = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 	else
 		construction_state = ACCELERATOR_WIRED
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
-		power_state = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 		update_state()
 	update_icon()
 

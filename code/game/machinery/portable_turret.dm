@@ -11,7 +11,7 @@
 	density = FALSE
 	idle_power_consumption = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
-	power_channel = EQUIP	//drains power from the EQUIPMENT channel
+	power_channel = PW_CHANNEL_EQUIPMENT	//drains power from the EQUIPMENT channel
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
@@ -316,10 +316,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				one_access = !one_access
 
 /obj/machinery/porta_turret/power_change()
-	if(has_power() || !power_state)
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -1021,7 +1019,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	syndicate = TRUE
 	installation = null
 	always_up = TRUE
+	requires_power = FALSE
 	power_state = NO_POWER_USE
+	idle_power_consumption = 0
+	active_power_consumption = 0
 	has_cover = FALSE
 	raised = TRUE
 	scan_range = 9

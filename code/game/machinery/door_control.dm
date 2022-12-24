@@ -3,7 +3,7 @@
 	desc = "A remote control-switch for a door."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl0"
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	var/id = null
 	var/safety_z_check = TRUE
 	var/normaldoorcontrol = FALSE
@@ -118,7 +118,8 @@
 			icon_state = "doorctrl0"
 
 /obj/machinery/door_control/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		icon_state = "doorctrl-p"
 	else

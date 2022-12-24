@@ -81,7 +81,8 @@ SUBSYSTEM_DEF(machines)
 		var/obj/machinery/thing = currentrun[currentrun.len]
 		currentrun.len--
 		if(!QDELETED(thing) && thing.process(seconds) != PROCESS_KILL)
-			thing.process_power_consumption() //add back the power state
+			if(prob(MACHINE_FLICKER_CHANCE))
+				thing.flicker()
 		else
 			processing -= thing
 			if(!QDELETED(thing))

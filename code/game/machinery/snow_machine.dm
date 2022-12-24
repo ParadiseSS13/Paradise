@@ -84,8 +84,9 @@
 		make_snowcloud(TF)
 
 /obj/machinery/snow_machine/power_change()
-	..()
-	if(!has_power())
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		turn_on_or_off(FALSE, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 

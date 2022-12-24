@@ -51,7 +51,8 @@
 	underlays += emissive_appearance(icon, "atm_lightmask")
 
 /obj/machinery/economy/atm/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else

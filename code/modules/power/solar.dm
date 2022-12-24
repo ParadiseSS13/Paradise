@@ -494,7 +494,8 @@
 
 
 /obj/machinery/power/solar_control/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 

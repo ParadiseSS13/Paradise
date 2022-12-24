@@ -94,9 +94,10 @@
 	prize_list["Extra"] = list() // Used in child vendors
 
 /obj/machinery/mineral/equipment_vendor/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !has_power())
+	if(inserted_id && !(stat & NOPOWER))
 		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(loc)
 

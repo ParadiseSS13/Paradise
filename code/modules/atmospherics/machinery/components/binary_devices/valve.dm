@@ -103,10 +103,9 @@
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/digital/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon(UPDATE_ICON_STATE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/binary/valve/digital/update_icon_state()
 	if(!has_power())

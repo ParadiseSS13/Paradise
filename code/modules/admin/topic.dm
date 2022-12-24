@@ -2904,11 +2904,9 @@
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
 							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
-								AffectedArea.powernet.lighting_powered = FALSE
-								AffectedArea.power_change()
+								AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 								spawn(rand(55, 185))
-									AffectedArea.powernet.lighting_powered = TRUE
-									AffectedArea.power_change()
+									AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, TRUE)
 								var/Message = rand(1,4)
 								switch(Message)
 									if(1)

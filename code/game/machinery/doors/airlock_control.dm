@@ -144,7 +144,7 @@
 	name = "airlock sensor"
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 
 	var/id_tag
 	var/master_tag
@@ -220,7 +220,7 @@
 	name = "access button"
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	var/master_tag
 	frequency = AIRLOCK_FREQ
 	var/command = "cycle"

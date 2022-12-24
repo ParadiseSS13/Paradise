@@ -42,7 +42,7 @@
 
 /turf/simulated/floor/light/proc/power_check()
 	var/area/A = get_area(src)
-	return A.powered(LIGHT)
+	return A.powernet.has_power(PW_CHANNEL_LIGHTING)
 
 /turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)
@@ -96,11 +96,11 @@
 	// 1 = ON
 	on = light
 	if(!on && using_power)
-		A.addStaticPower(-100, STATIC_LIGHT)
+		A.powernet.adjust_static_power(PW_CHANNEL_LIGHTING, -100)
 		using_power = FALSE
 	if(on && !using_power)
 		using_power = TRUE
-		A.addStaticPower(100, STATIC_LIGHT)
+		A.powernet.adjust_static_power(PW_CHANNEL_LIGHTING, 100)
 	update_icon()
 
 

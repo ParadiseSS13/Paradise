@@ -11,7 +11,6 @@
 	density = TRUE
 	idle_power_consumption = 30
 	active_power_consumption = 200
-	power_channel = EQUIP
 	max_integrity = 300
 	integrity_failure = 100
 	atom_say_verb = "bleeps"

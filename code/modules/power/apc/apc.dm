@@ -94,11 +94,11 @@
 
 	/*** APC Settings Vars ***/
 	/// The current setting for the lighting channel
-	var/lighting_channel = 3
+	var/lighting_channel = CHANNEL_SETTING_AUTO_ON
 	/// The current setting for the equipment channel
-	var/equipment_channel = 3
+	var/equipment_channel = CHANNEL_SETTING_AUTO_ON
 	/// The current setting for the environment channel
-	var/environment_channel = 3
+	var/environment_channel = CHANNEL_SETTING_AUTO_ON
 	/// Is the APC cover locked? i.e cannot be opened?
 	var/coverlocked = TRUE
 	/// Is the APC User Interface locked (prevents interaction)? Will not prevent silicons or admin observers from interacting
@@ -170,9 +170,10 @@
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
-	machine_powernet.lighting_powered = FALSE
-	machine_powernet.equipment_powered = FALSE
-	machine_powernet.environment_powered = FALSE
+
+	machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
+	machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, FALSE)
+	machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 	machine_powernet.power_change()
 	if(occupier)
 		malfvacate(1)
@@ -468,9 +469,9 @@
 
 /obj/machinery/power/apc/proc/update()
 	if(operating && !shorted)
-		machine_powernet.lighting_powered = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
-		machine_powernet.equipment_powered = (equipment_channel > CHANNEL_SETTING_AUTO_OFF)
-		machine_powernet.environment_powered = (environment_channel > CHANNEL_SETTING_AUTO_OFF)
+		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, (lighting_channel > CHANNEL_SETTING_AUTO_OFF))
+		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, (equipment_channel > CHANNEL_SETTING_AUTO_OFF))
+		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, (environment_channel > CHANNEL_SETTING_AUTO_OFF))
 		if(lighting_channel)
 			emergency_power = TRUE
 			if(emergency_power_timer)
@@ -479,12 +480,11 @@
 		else
 			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	else
-		machine_powernet.lighting_powered = FALSE
-		machine_powernet.equipment_powered = FALSE
-		machine_powernet.environment_powered = FALSE
+		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
+		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, FALSE)
+		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	machine_powernet.power_change()
-	apc_area.power_change()
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
@@ -530,29 +530,30 @@
 	else
 		return locked
 
-/obj/machinery/power/apc/ui_act(action, params)
-	if(..() || !can_use(usr, TRUE) || (locked && !usr.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !usr.can_admin_interact()))
+/obj/machinery/power/apc/ui_act(action, params, datum/tgui/ui)
+	var/mob/user = ui.user
+	if(..() || !can_use(user, TRUE) || (locked && !user.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !user.can_admin_interact()))
 		return
 	. = TRUE
 	switch(action)
 		if("lock")
-			if(usr.has_unlimited_silicon_privilege)
+			if(user.has_unlimited_silicon_privilege)
 				if(emagged || stat & BROKEN)
-					to_chat(usr, "<span class='warning'>The APC does not respond to the command!</span>")
+					to_chat(user, "<span class='warning'>The APC does not respond to the command!</span>")
 					return FALSE
 				else
 					locked = !locked
 					update_icon()
 			else
-				to_chat(usr, "<span class='warning'>Access Denied!</span>")
+				to_chat(user, "<span class='warning'>Access Denied!</span>")
 				return FALSE
 		if("cover")
 			coverlocked = !coverlocked
 		if("breaker")
-			toggle_breaker(usr)
+			toggle_breaker(user)
 		if("toggle_nightshift")
 			if(last_nightshift_switch > world.time + 100) // don't spam...
-				to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
+				to_chat(user, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
 				return FALSE
 			last_nightshift_switch = world.time
 			set_nightshift(!nightshift_lights)
@@ -572,16 +573,16 @@
 				update_icon()
 				update()
 		if("overload")
-			if(usr.has_unlimited_silicon_privilege)
-				INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
+			if(user.has_unlimited_silicon_privilege)
+				INVOKE_ASYNC(src, PROC_REF(overload_lighting))
 		if("hack")
-			if(get_malf_status(usr))
-				malfhack(usr)
+			if(get_malf_status(user))
+				malfhack(user)
 		if("occupy")
-			if(get_malf_status(usr))
+			if(get_malf_status(user))
 				malfoccupy(usr)
 		if("deoccupy")
-			if(get_malf_status(usr))
+			if(get_malf_status(user))
 				malfvacate()
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
@@ -711,9 +712,9 @@
 	// Put most likely at the top so we don't check it last, effeciency 101 <--- old coders can't spell
 	if(cell.charge >= 1250 || longtermpower > 0)
 		if(autoflag != APC_AUTOFLAG_ALL_ON)
-			equipment_channel = autoset(equipment_channel, CHANNEL_SETTING_ON)
-			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_ON)
-			environment_channel = autoset(environment_channel, CHANNEL_SETTING_ON)
+			equipment_channel = autoset(equipment_channel, CHANNEL_SETTING_AUTO_OFF)
+			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_AUTO_OFF)
+			environment_channel = autoset(environment_channel, CHANNEL_SETTING_AUTO_OFF)
 			autoflag = APC_AUTOFLAG_ALL_ON
 			if(report_power_alarm)
 				apc_area.poweralert(TRUE, src)
@@ -826,7 +827,7 @@
 	else if(stat & (BROKEN|MAINT))
 		to_chat(user, "<span class='warning'>Nothing happens!</span>")
 	else
-		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
+		if(allowed(user) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_icon()
@@ -842,7 +843,7 @@
 	* # autoset
 	*
 	* this proc is rather confusing at first glance, it handles apc power channel settings when trying to
-	* auto set values to it, see each settings define documentation to understand what's going on here
+	* auto set values to it, good luck understanding how this works but I sure as hell don't
 */
 /obj/machinery/power/apc/proc/autoset(current_setting, new_setting)
 	switch(new_setting)

@@ -34,17 +34,16 @@
 	AddComponent(/datum/component/proximity_monitor)
 
 /obj/machinery/flasher/power_change()
-	if(has_power())
-		stat &= ~NOPOWER
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
 /obj/machinery/flasher/update_icon_state()
 	. = ..()
-
 	if((stat & NOPOWER) || !anchored)
 		icon_state = "[base_state]1-p"
 	else

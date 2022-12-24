@@ -80,11 +80,11 @@
 	return 0
 
 /obj/machinery/door/firedoor/power_change()
-	if(has_power(power_channel))
-		stat &= ~NOPOWER
+	. = ..()
+	if(!(stat & NOPOWER))
 		latetoggle()
-	else
-		stat |= NOPOWER
+	if(!.)
+		return
 	adjust_light()
 	update_icon()
 

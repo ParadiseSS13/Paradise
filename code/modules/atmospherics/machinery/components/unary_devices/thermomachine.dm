@@ -186,7 +186,7 @@
 	switch(action)
 		if("power")
 			on = !on
-			power_state = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
 			update_icon()
 			. = TRUE

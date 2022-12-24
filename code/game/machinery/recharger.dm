@@ -64,7 +64,7 @@
 
 	G.forceMove(src)
 	charging = G
-	power_state = ACTIVE_POWER_USE
+	change_power_mode(ACTIVE_POWER_USE)
 	using_power = check_cell_needs_recharging(get_cell_from(G))
 	update_icon()
 
@@ -115,7 +115,7 @@
 		charging.forceMove(loc)
 		user.put_in_hands(charging)
 		charging = null
-		power_state = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		update_icon()
 
 /obj/machinery/recharger/attack_tk(mob/user)
@@ -123,7 +123,7 @@
 		charging.update_icon()
 		charging.forceMove(loc)
 		charging = null
-		power_state = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		update_icon()
 
 /obj/machinery/recharger/process()
@@ -154,7 +154,8 @@
 	..(severity)
 
 /obj/machinery/recharger/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else

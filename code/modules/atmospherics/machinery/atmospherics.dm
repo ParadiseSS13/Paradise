@@ -17,7 +17,7 @@ Pipelines + Other Objects -> Pipe network
 	power_state = NO_POWER_USE
 	idle_power_consumption = 0
 	active_power_consumption = 0
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 

@@ -797,15 +797,13 @@
 	atom_say(message)
 
 /obj/machinery/economy/vending/power_change()
-	if(has_power())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon(UPDATE_OVERLAYS)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/economy/vending/obj_break(damage_flag)
 	if(stat & BROKEN)

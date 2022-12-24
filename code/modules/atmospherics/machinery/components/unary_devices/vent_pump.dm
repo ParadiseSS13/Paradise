@@ -72,7 +72,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "large air vent"
-	power_channel = EQUIP
+	power_channel = PW_CHANNEL_EQUIPMENT
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume/New()
 	..()
@@ -362,10 +362,9 @@
 		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_pump/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 
 /obj/machinery/atmospherics/unary/vent_pump/interact(mob/user as mob)

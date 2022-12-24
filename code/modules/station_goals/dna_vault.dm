@@ -195,10 +195,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	icon_state = "vault"
 
 /obj/machinery/dna_vault/power_change()
-	if(has_power(power_channel))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 

@@ -65,15 +65,15 @@
 /obj/machinery/dish_drive/RefreshParts()
 	idle_power_consumption = initial(idle_power_consumption)
 	active_power_consumption = initial(active_power_consumption)
-	power_state = initial(power_state)
+	change_power_mode(initial(power_state))
 	var/total_rating = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		total_rating += S.rating
-	if(total_rating >= 9)
+	if(total_rating >= 9) //this entire power use section needs to be cleaned up :sob:
 		active_power_consumption = 0
-		power_state = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 	else
-		power_state = max(0, idle_power_consumption - total_rating)
+		change_power_mode((idle_power_consumption - total_rating) > 0 ? ACTIVE_POWER_USE : NO_POWER_USE)
 		active_power_consumption = max(0, active_power_consumption - total_rating)
 	var/obj/item/circuitboard/dish_drive/board = locate() in component_parts
 	if(board)

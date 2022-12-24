@@ -193,7 +193,7 @@
 	build_start = world.time
 	build_end = build_start + build_time
 	desc = "It's building \a [initial(D.name)]."
-	power_state = ACTIVE_POWER_USE
+	change_power_mode(ACTIVE_POWER_USE)
 	add_overlay("fab-active")
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)
 
@@ -223,7 +223,7 @@
 	build_start = 0
 	build_end = 0
 	desc = initial(desc)
-	power_state = IDLE_POWER_USE
+	change_power_mode(IDLE_POWER_USE)
 	cut_overlays()
 	atom_say("[A] is complete.")
 

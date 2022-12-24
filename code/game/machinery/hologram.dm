@@ -81,14 +81,14 @@ GLOBAL_LIST_EMPTY(holopads)
 	return ..()
 
 /obj/machinery/hologram/holopad/power_change()
-	if(has_power())
-		stat &= ~NOPOWER
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
 		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/hologram/holopad/update_overlays()
@@ -417,7 +417,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/hologram/holopad/proc/SetLightsAndPower()
 	var/total_users = masters.len + LAZYLEN(holo_calls)
-	power_state = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
+	change_power_mode(total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 	active_power_consumption = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)
 		set_light(2)

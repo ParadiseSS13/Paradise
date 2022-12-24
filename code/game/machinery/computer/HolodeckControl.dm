@@ -523,7 +523,7 @@
 	anchored = TRUE
 	idle_power_consumption = 2
 	active_power_consumption = 6
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 
 /obj/machinery/readybutton/attack_ai(mob/user as mob)
 	to_chat(user, "The station AI is not to interact with these devices.")

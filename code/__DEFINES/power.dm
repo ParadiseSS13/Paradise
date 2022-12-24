@@ -5,21 +5,14 @@
 #define PW_ALWAYS_UNPOWERED       (1 << 0)
 #define PW_ALWAYS_POWERED         (1 << 1)
 
+#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
+
 // bitflags for machine stat variable
 #define BROKEN		1
 #define NOPOWER		2
 #define POWEROFF	4		// tbd
 #define MAINT		8			// under maintaince
 #define EMPED		16		// temporary broken by EMP pulse
-
-// channel numbers for power
-#define EQUIP           1
-#define LIGHT           2
-#define ENVIRON         3
-#define TOTAL           4	//for total power used only
-#define STATIC_EQUIP    5
-#define STATIC_LIGHT    6
-#define STATIC_ENVIRON  7
 
 //Power use
 #define NO_POWER_USE 0

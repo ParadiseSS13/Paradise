@@ -157,7 +157,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * Proc which ensures icons are updated when machines lose power
   */
 /obj/machinery/tcomms/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 /**

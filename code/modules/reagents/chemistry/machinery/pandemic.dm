@@ -321,7 +321,6 @@
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
-		power_change()
 		return
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
 		if(stat & (NOPOWER|BROKEN))

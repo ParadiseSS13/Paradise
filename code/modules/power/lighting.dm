@@ -172,9 +172,9 @@
 	layer = 5
 	max_integrity = 100
 	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 2
-	active_power_consumption = 20
-	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
+	idle_power_consumption = 2  //when in low power mode
+	active_power_consumption = 20 //when in full power mode
+	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
 	/// Is the light on or off?
 	var/on = FALSE
 	/// Is the light currently turning on?
@@ -334,7 +334,7 @@
 	else if(!turned_off())
 		set_emergency_lights()
 	else // Turning off
-		power_state = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		set_light(0)
 	update_icon()
 	active_power_consumption = (brightness_range * 10)
@@ -342,9 +342,9 @@
 		light_state = on
 		if(on)
 			static_power_used = brightness_range * 20 //20W per unit of luminosity
-			add_static_power(STATIC_LIGHT, static_power_used)
+			add_static_power(PW_CHANNEL_LIGHTING, static_power_used)
 		else
-			remove_static_power(STATIC_LIGHT, static_power_used)
+			remove_static_power(PW_CHANNEL_LIGHTING, static_power_used)
 
 
 /**
@@ -390,7 +390,7 @@
 			burnout()
 			return
 
-	power_state = ACTIVE_POWER_USE
+	change_power_mode(ACTIVE_POWER_USE)
 	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)

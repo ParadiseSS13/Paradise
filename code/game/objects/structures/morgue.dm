@@ -512,7 +512,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
-	power_channel = EQUIP
 	idle_power_consumption = 100
 	active_power_consumption = 5000
 	anchored = TRUE

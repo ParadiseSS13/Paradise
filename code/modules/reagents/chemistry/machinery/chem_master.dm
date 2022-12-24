@@ -78,10 +78,8 @@
 		qdel(src)
 
 /obj/machinery/chem_master/power_change()
-	if(has_power())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
@@ -143,7 +141,6 @@
 	if(panel_open)
 		return
 	if(default_unfasten_wrench(user, I))
-		power_change()
 		return TRUE
 
 /obj/machinery/chem_master/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)

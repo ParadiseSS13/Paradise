@@ -54,8 +54,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 	underlays += emissive_appearance(icon, "lightmask")
 
 /obj/machinery/status_display/power_change()
-	..()
-
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else

@@ -25,7 +25,8 @@
 	return ..()
 
 /obj/machinery/bodyscanner/power_change()
-	..()
+	if(!..())
+		return
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else

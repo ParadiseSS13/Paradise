@@ -491,6 +491,8 @@
 
 /obj/machinery/teleport/perma/power_change()
 	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_lighting()
 
@@ -656,7 +658,8 @@
 		add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 	if(teleporter_hub)

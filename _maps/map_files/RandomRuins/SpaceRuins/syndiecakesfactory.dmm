@@ -103,7 +103,7 @@
 /area/space)
 "lK" = (
 /obj/machinery/power/apc/off_station{
-	area = null;
+	apc_area = null;
 	dir = 8;
 	keep_preset_name = 1;
 	light_power = 0;
@@ -232,7 +232,7 @@
 /area/space)
 "zd" = (
 /obj/machinery/power/apc/off_station{
-	area = null;
+	apc_area = null;
 	dir = 8;
 	keep_preset_name = 1;
 	locked = 0;

@@ -153,9 +153,10 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/mineral/ore_redemption/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !has_power())
+	if(inserted_id && !(stat & NOPOWER))
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null

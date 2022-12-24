@@ -16,12 +16,15 @@
 	var/drone_progress = 100
 	var/time_last_drone = 0
 
-/obj/machinery/drone_fabricator/power_change()
-	if(has_power())
-		stat &= ~NOPOWER
-	else
+/obj/machinery/drone_fabricator/update_icon_state()
+	. = ..()
+	if(stat & NOPOWER)
 		icon_state = "drone_fab_nopower"
-		stat |= NOPOWER
+
+/obj/machinery/drone_fabricator/power_change()
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/drone_fabricator/process()
 

@@ -122,12 +122,6 @@
 		return
 	recharge_counter++
 
-/obj/machinery/chem_dispenser/power_change()
-	if(has_power())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-
 /obj/machinery/chem_dispenser/update_icon_state()
 	if(panel_open)
 		icon_state = "[initial(icon_state)]-o"
