@@ -24,9 +24,9 @@
 							"blood","morphine","ether","fluorine","mutadone","mutagen","hydrocodone","fuel",
 							"haloperidol","lsd","syndicate_nanites","lipolicide","frostoil","salglu_solution","beepskysmash",
 							"omnizine", "amanitin", "neurotoxin", "synaptizine", "rotatium")
-		var/datum/reagents/R = new/datum/reagents(50)
+		var/datum/reagents/R = new (2500)
 		R.my_atom = vent
-		R.add_reagent(pick(gunk), 50)
+		R.add_reagent(pick(gunk), 2450)
 
 		var/datum/effect_system/smoke_spread/chem/smoke = new
 		smoke.set_up(R, vent, TRUE)

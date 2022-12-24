@@ -312,9 +312,9 @@
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] destroys [exp_on], leaking dangerous gas!</span>")
 			chosenchem = pick("carbon","radium","toxin","condensedcapsaicin","psilocybin","space_drugs","ethanol","beepskysmash")
-			var/datum/reagents/R = new/datum/reagents(15)
+			var/datum/reagents/R = new/datum/reagents(400)
 			R.my_atom = src
-			R.add_reagent(chosenchem , 15)
+			R.add_reagent(chosenchem , 375)
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)
@@ -325,9 +325,9 @@
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s chemical chamber has sprung a leak!</span>")
 			chosenchem = pick("mutationtoxin","nanomachines","sacid")
-			var/datum/reagents/R = new/datum/reagents(15)
+			var/datum/reagents/R = new/datum/reagents(400)
 			R.my_atom = src
-			R.add_reagent(chosenchem , 15)
+			R.add_reagent(chosenchem , 375)
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
@@ -411,9 +411,9 @@
 			investigate_log("Experimentor has made a cup of [chosenchem] coffee.", INVESTIGATE_EXPERIMENTOR)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] malfunctions, shattering [exp_on] and releasing a dangerous cloud of coolant!</span>")
-			var/datum/reagents/R = new/datum/reagents(15)
+			var/datum/reagents/R = new/datum/reagents(400)
 			R.my_atom = src
-			R.add_reagent("frostoil" , 15)
+			R.add_reagent("frostoil" , 375)
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
 			var/datum/effect_system/smoke_spread/chem/smoke = new
 			smoke.set_up(R, src, TRUE)

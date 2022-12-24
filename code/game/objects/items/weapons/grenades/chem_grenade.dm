@@ -490,14 +490,14 @@
 
 /obj/item/grenade/chem_grenade/antiweed/New()
 	..()
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("atrazine", 30)
-	B1.reagents.add_reagent("potassium", 20)
-	B2.reagents.add_reagent("phosphorus", 20)
-	B2.reagents.add_reagent("sugar", 20)
-	B2.reagents.add_reagent("atrazine", 10)
+	B1.reagents.add_reagent("atrazine", 85)
+	B1.reagents.add_reagent("potassium", 15)
+	B2.reagents.add_reagent("phosphorus", 15)
+	B2.reagents.add_reagent("sugar", 15)
+	B2.reagents.add_reagent("atrazine", 70)
 
 	beakers += B1
 	beakers += B2
@@ -530,13 +530,14 @@
 
 /obj/item/grenade/chem_grenade/teargas/New()
 	..()
-	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("condensedcapsaicin", 25)
-	B1.reagents.add_reagent("potassium", 25)
-	B2.reagents.add_reagent("phosphorus", 25)
-	B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent("condensedcapsaicin", 85)
+	B1.reagents.add_reagent("potassium", 15)
+	B2.reagents.add_reagent("phosphorus", 15)
+	B2.reagents.add_reagent("sugar", 15)
+	B2.reagents.add_reagent("condensedcapsaicin", 70)
 
 	beakers += B1
 	beakers += B2
@@ -552,11 +553,11 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent("facid", 80)
-	B1.reagents.add_reagent("potassium", 20)
-	B2.reagents.add_reagent("phosphorus", 20)
-	B2.reagents.add_reagent("sugar", 20)
-	B2.reagents.add_reagent("facid", 60)
+	B1.reagents.add_reagent("facid", 85)
+	B1.reagents.add_reagent("potassium", 15)
+	B2.reagents.add_reagent("phosphorus", 15)
+	B2.reagents.add_reagent("sugar", 15)
+	B2.reagents.add_reagent("facid", 70)
 
 	beakers += B1
 	beakers += B2
@@ -572,10 +573,11 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent("sarin", 25)
-	B1.reagents.add_reagent("potassium", 25)
-	B2.reagents.add_reagent("phosphorus", 25)
-	B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent("sarin", 85)
+	B1.reagents.add_reagent("potassium", 15)
+	B2.reagents.add_reagent("phosphorus", 15)
+	B2.reagents.add_reagent("sugar", 15)
+	B2.reagents.add_reagent("sarin", 70)
 
 	beakers += B1
 	beakers += B2
