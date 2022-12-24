@@ -512,6 +512,7 @@
 #include "code\datums\spells\touch_attacks.dm"
 #include "code\datums\spells\trigger.dm"
 #include "code\datums\spells\turf_teleport.dm"
+#include "code\datums\spells\alien_spells\queen_evolve.dm"
 #include "code\datums\spells\alien_spells\regurgitate.dm"
 #include "code\datums\spells\alien_spells\whisper.dm"
 #include "code\datums\spells\alien_spells\larva_evolve.dm"
