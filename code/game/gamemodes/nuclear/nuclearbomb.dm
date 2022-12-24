@@ -526,16 +526,24 @@ GLOBAL_VAR(bomb_set)
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	/// Is the disk restricted to the station? If true, also respawns the disk when deleted
+	var/restricted_to_station = TRUE
 
 /obj/item/disk/nuclear/unrestricted
+	name = "unrestricted nuclear authentication disk"
 	desc = "Seems to have been stripped of its safeties, you better not lose it."
+	restricted_to_station = FALSE
 
 /obj/item/disk/nuclear/New()
 	..()
-	START_PROCESSING(SSobj, src)
+	if(restricted_to_station)
+		START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 
 /obj/item/disk/nuclear/process()
+	if(!restricted_to_station)
+		stack_trace("An unrestricted NAD ([src]) was processing.")
+		return PROCESS_KILL
 	if(!check_disk_loc())
 		var/holder = get(src, /mob)
 		if(holder)
@@ -544,6 +552,8 @@ GLOBAL_VAR(bomb_set)
 
  //station disk is allowed on the station level, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
 /obj/item/disk/nuclear/proc/check_disk_loc()
+	if(!restricted_to_station)
+		return TRUE
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
 	if(is_station_level(T.z))
@@ -552,15 +562,19 @@ GLOBAL_VAR(bomb_set)
 		return TRUE
 	return FALSE
 
-/obj/item/disk/nuclear/unrestricted/check_disk_loc()
-	return TRUE
-
 /obj/item/disk/nuclear/Destroy(force)
 	var/turf/diskturf = get_turf(src)
 
 	if(force)
 		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
+		GLOB.poi_list.Remove(src)
+		STOP_PROCESSING(SSobj, src)
+		return ..()
+
+	if(!restricted_to_station) // Non-restricted NADs should be allowed to be deleted, otherwise it becomes a restricted NAD when teleported
+		message_admins("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]). It will not respawn.")
+		log_game("[src] (unrestricted) has been deleted in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]). It will not respawn.")
 		GLOB.poi_list.Remove(src)
 		STOP_PROCESSING(SSobj, src)
 		return ..()

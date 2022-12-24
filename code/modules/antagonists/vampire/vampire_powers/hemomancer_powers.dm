@@ -243,6 +243,7 @@
 	gain_desc = "Your senses are heightened, nobody can hide from you now."
 	action_icon_state = "predator_sense"
 	base_cooldown = 20 SECONDS
+	create_attack_logs = FALSE
 
 /obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
 	var/datum/spell_targeting/alive_mob_list/A = new()
