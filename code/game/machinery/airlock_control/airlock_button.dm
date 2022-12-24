@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 		return attack_hand(user)
 
 /obj/machinery/access_button/attack_hand(mob/user)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 	if(!powered(power_channel))
 		return
@@ -58,7 +58,6 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 		return
 
 	C.handle_button(assigned_command)
-
 	flick("access_button_cycle", src)
 
 /obj/machinery/access_button/proc/setup(obj/machinery/airlock_controller/C, mode)
