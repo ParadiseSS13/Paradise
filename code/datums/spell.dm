@@ -284,8 +284,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 ///Lets the spell have a special effect applied to it when upgraded. By default, does nothing.
 /obj/effect/proc_holder/spell/proc/on_purchase_upgrade()
-	if(spell_level == 0)
-		return
+	return
 
 /**
  * Will try to choose targets using the targeting variable and perform the spell if it can
