@@ -18203,7 +18203,9 @@
 /area/shuttle/gamma/space)
 "jVI" = (
 /obj/item/flashlight,
-/obj/item/gps,
+/obj/item/gps{
+	tracking = 0
+	},
 /obj/item/radio{
 	pixel_y = 6
 	},
