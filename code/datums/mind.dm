@@ -1025,9 +1025,7 @@
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
 
 			if("autoobjectives")
-				var/list/heads = SSticker.mode.get_living_heads()
-				for(var/datum/mind/head_mind in heads)
-					SSticker.mode.rev_objective(src, head_mind)
+				SSticker.mode.forge_revolutionary_objectives(src)
 				log_admin("[key_name(usr)] has automatically forged revolutionary objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged revolutionary objectives for [key_name_admin(current)]")
 
@@ -2085,9 +2083,7 @@
 
 /datum/mind/proc/make_Rev()
 	SSticker.mode.head_revolutionaries += src
-	var/list/heads = SSticker.mode.get_living_heads()
-	for(var/datum/mind/head_mind in heads)
-		SSticker.mode.rev_objective(src, head_mind)
+	SSticker.mode.forge_revolutionary_objectives(src)
 	SSticker.mode.equip_revolutionary(current)
 	SSticker.mode.greet_revolutionary(src,0)
 

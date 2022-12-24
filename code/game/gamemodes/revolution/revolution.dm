@@ -19,8 +19,6 @@
 
 	var/check_counter = 0
 	var/max_headrevs = 3
-	var/list/datum/mind/heads_to_kill = list()
-	var/list/possible_revolutionaries = list()
 
 ///////////////////////////
 //Announces the game type//
@@ -86,14 +84,13 @@
 //Gets the round setup, cancelling if there's not enough players at the start//
 ///////////////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/pre_setup()
-	possible_revolutionaries = get_players_for_role(ROLE_REV)
+	var/list/possible_revolutionaries = get_players_for_role(ROLE_REV)
 
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
-
 	for(var/i=1 to max_headrevs)
-		if(possible_revolutionaries.len==0)
+		if(!possible_revolutionaries.len)
 			break
 		var/datum/mind/lenin = pick(possible_revolutionaries)
 		possible_revolutionaries -= lenin
@@ -114,11 +111,8 @@
 
 	while(weighted_score < head_revolutionaries.len) //das vi danya
 		var/datum/mind/trotsky = pick(head_revolutionaries)
-		possible_revolutionaries += trotsky
 		head_revolutionaries -= trotsky
 		trotsky.special_role = null
-
-	heads_to_kill += heads
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		add_game_logs("has been selected as a head rev", rev_mind.current)
@@ -135,14 +129,16 @@
 /datum/game_mode/revolution/process()
 	check_counter++
 	if(check_counter >= 5)
-		check_heads()
+		check_latejoin()
 		check_counter = 0
 	return FALSE
 
 
-/datum/game_mode/revolution/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
-	for(var/datum/mind/head_mind in heads_to_kill)
-		rev_objective(rev_mind, head_mind)
+/datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
+	var/datum/objective/rev_obj = new
+	rev_obj.owner = rev_mind
+	rev_obj.explanation_text = "Вы или ваши сподвижники должны занять командные должности, отправив в отставку занимающий их экипаж"
+	rev_mind.objectives += rev_obj
 
 /datum/game_mode/proc/greet_revolutionary(datum/mind/rev_mind, you_are=1)
 	var/obj_count = 1
@@ -191,31 +187,16 @@
 		to_chat(mob, "The chameleon security HUD in your [where2] will help you keep track of who is mindshield-implanted, and unable to be recruited.")
 		return 1
 
-/////////////////////////////////
-//Gives head revs their targets//
-/////////////////////////////////
-/datum/game_mode/proc/rev_objective(datum/mind/rev_mind, datum/mind/head_mind)
-	var/datum/objective/mutiny/rev_obj = new
-	rev_obj.owner = rev_mind
-	rev_obj.target = head_mind
-	rev_obj.explanation_text = "Exile or assassinate [head_mind.name], the [head_mind.assigned_role]."
-	rev_mind.objectives += rev_obj
-
 ////////////////////////////////////////////
 //Checks if new heads have joined midround//
 ////////////////////////////////////////////
-/datum/game_mode/revolution/proc/check_heads()
-	var/list/heads = get_all_heads()
-	var/list/sec = get_all_sec()
-	if(heads_to_kill.len < heads.len)
-		var/list/new_heads = heads - heads_to_kill
-		for(var/datum/mind/head_mind in new_heads)
-			for(var/datum/mind/rev_mind in head_revolutionaries)
-				rev_objective(rev_mind, head_mind)
-			heads_to_kill += head_mind
+/datum/game_mode/revolution/proc/check_latejoin()
+	if(head_revolutionaries.len < max_headrevs)
+		var/list/heads = get_all_heads()
+		var/list/sec = get_all_sec()
 
-	if(head_revolutionaries.len < max_headrevs && head_revolutionaries.len < round(heads.len - ((8 - sec.len) / 3)))
-		latejoin_headrev()
+		if(head_revolutionaries.len < round(heads.len - ((8 - sec.len) / 3)))
+			latejoin_headrev()
 
 ///////////////////////////////
 //Adds a new headrev midround//
@@ -289,27 +270,10 @@
 	revhud.leave_hud(rev_mind.current)
 	set_antag_hud(rev_mind.current, null)
 
-//////////////////////////
-//Checks for rev victory//
-//////////////////////////
-/datum/game_mode/revolution/proc/check_rev_victory()
-	for(var/datum/mind/rev_mind in head_revolutionaries)
-		for(var/datum/objective/mutiny/objective in rev_mind.objectives)
-			if(!(objective.check_completion()))
-				return FALSE
-
-	return TRUE
-
 //////////////////////////////////////////////////////////////////////
 //Announces the end of the game with all relavent information stated//
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
-	if(check_rev_victory())
-		SSticker.mode_result = "revolution win - heads killed"
-		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
-	else
-		SSticker.mode_result = "revolution loss - rev heads killed"
-		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
 	..()
 	return TRUE
 
