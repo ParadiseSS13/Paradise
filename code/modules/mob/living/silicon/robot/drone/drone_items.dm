@@ -5,6 +5,7 @@
 	desc = "A simple grasping tool for synthetic assets."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
+	actions_types = list(/datum/action/item_action/drop_gripped_item)
 
 	//Has a list of items that it can hold.
 	var/list/can_hold = list(
@@ -44,10 +45,9 @@
 
 
 /obj/item/gripper_medical/afterattack(atom/target, mob/living/user, proximity, params)
-	var/mob/living/carbon/human/pickup_target
 	if(!proximity || !target || !ishuman(target))
 		return
-	pickup_target = target
+	var/mob/living/carbon/human/pickup_target = target
 	if(!IS_HORIZONTAL(pickup_target))
 		return
 	pickup_target.AdjustSleeping(-10 SECONDS)
@@ -66,11 +66,7 @@
 	. = ..()
 	can_hold = typecacheof(can_hold)
 
-/obj/item/gripper_engineering/verb/drop_item_gripped()
-	set name = "Drop Gripped Item"
-	set desc = "Release an item from your magnetic gripper."
-	set category = "Robot Commands"
-
+/obj/item/gripper_engineering/ui_action_click(mob/user)
 	drop_gripped_item()
 
 /obj/item/gripper_engineering/attack_self(mob/user)
@@ -90,7 +86,7 @@
 /obj/item/gripper_engineering/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
 
-/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's. // What does this even MEAN - GDN 
+/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's. // What does this even MEAN - GDN
 /obj/item/gripper_engineering/forceMove(atom/destination)
 	return
 
