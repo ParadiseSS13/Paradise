@@ -63,7 +63,7 @@
 	consumable_recharge_coeff = max(1, recharge_speed / 200)
 
 /obj/machinery/recharge_station/process()
-	if(!(NOPOWER|BROKEN))
+	if(stat & (NOPOWER|BROKEN))
 		return
 
 	if(occupant)
@@ -116,11 +116,11 @@
 	..(severity)
 
 /obj/machinery/recharge_station/update_icon_state()
-	if(NOPOWER|BROKEN)
-		if(occupant)
+	if(occupant)
+		if(!(stat & (NOPOWER|BROKEN)))
 			icon_state = "borgcharger1"
 		else
-			icon_state = "borgcharger0"
+			icon_state = "borgcharger2"
 	else
 		icon_state = "borgcharger0"
 

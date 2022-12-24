@@ -99,6 +99,8 @@
 
 	if(isstorage(I))
 		var/obj/item/storage/S = I
+		if(!S.removal_allowed_check(user))
+			return
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")

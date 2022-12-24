@@ -591,7 +591,7 @@
 	icon_state = "handheld_booze"
 	is_drink = TRUE
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
-	 "vermouth", "cognac", "ale", "mead", "synthanol")
+		"vermouth", "cognac", "ale", "mead", "synthanol")
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"

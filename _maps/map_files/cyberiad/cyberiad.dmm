@@ -66353,7 +66353,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/space)
+/area/turret_protected/aisat_interior)
 "doe" = (
 /obj/structure/sign/securearea{
 	pixel_y = -32
@@ -74107,7 +74107,7 @@
 	volume_rate = 200
 	},
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/engine/engineering)
 "idz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4

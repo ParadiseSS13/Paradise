@@ -164,6 +164,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
+	var/bursted = FALSE
 
 /mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
 	. = ..()
@@ -175,10 +176,14 @@
 	return ..()
 
 /mob/living/simple_animal/mouse/blobinfected/death(gibbed)
-	burst(gibbed)
-	return ..(gibbed)
+	. = ..(gibbed)
+	if(.) // Only burst if they actually died
+		burst(gibbed)
 
 /mob/living/simple_animal/mouse/blobinfected/proc/burst(gibbed)
+	if(bursted)
+		return // Avoids double bursting in some situations
+	bursted = TRUE
 	var/turf/T = get_turf(src)
 	if(!is_station_level(T.z) || isspaceturf(T))
 		to_chat(src, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
