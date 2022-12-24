@@ -64,6 +64,7 @@
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
+	playsound(loc, 'sound/effects/alien_resin_break2.ogg', 100, TRUE)
 	. = ..()
 	T.air_update_turf(TRUE)
 
@@ -79,10 +80,10 @@
 	if(user.a_intent != INTENT_HARM)
 		return
 	else
-		playsound(loc, 'sound/weapons/slice.ogg', 100, 1)
+		to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
 		if(do_after(user, 40, target = src) && src)
-			playsound(loc, 'sound/effects/splat.ogg', 100, 1)
 			qdel(src)
+
 
 /obj/structure/alien/resin/wall
 	name = "resin wall"
@@ -107,7 +108,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
 	base_icon_state = "resin"
-	max_integrity = 200
+	max_integrity = 150
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
@@ -137,6 +138,7 @@
 /obj/structure/alien/resin/door/Destroy()
 	density = FALSE
 	QUEUE_SMOOTH_NEIGHBORS(src)
+	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 100, FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -218,9 +220,8 @@
 	if(user.a_intent != INTENT_HARM)
 		try_to_operate(user)
 	else
-		playsound(loc, 'sound/weapons/slice.ogg', 100, 1)
+		to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
 		if(do_after(user, 40, target = src) && src)
-			playsound(loc, 'sound/effects/splat.ogg', 100, 1)
 			qdel(src)
 
 /obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
@@ -263,10 +264,17 @@
     START_PROCESSING(SSobj, src)
 
 /obj/structure/alien/weeds/Destroy()
-    STOP_PROCESSING(SSobj, src)
-    QUEUE_SMOOTH_NEIGHBORS(src)
-    linked_node = null
-    return ..()
+	STOP_PROCESSING(SSobj, src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	linked_node = null
+	return ..()
+
+/obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/user)
+	if(user.a_intent != INTENT_HARM)
+		return
+	else
+		return ..()
 
 /obj/structure/alien/weeds/process()
     check_counter++
