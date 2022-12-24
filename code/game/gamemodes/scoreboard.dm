@@ -162,7 +162,7 @@
 	to_chat(world, "<b><font size='4'>[GLOB.score_crewscore]</font></b>")
 
 	// Generate the score panel
-	var/dat = {"<meta charset="UTF-8"><b>Итоги смены</b><br><hr>"}
+	var/dat = {"<head><title>Итоги смены №[GLOB.round_id]</title><meta charset='UTF-8'></head>"}
 	if(mode)
 		dat += mode.get_scoreboard_stats()
 
