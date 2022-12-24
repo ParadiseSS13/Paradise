@@ -296,15 +296,15 @@
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
 								return TRUE
 							to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
-							add_attack_logs(H, C, "[src] tried to grab [I] out of [C]'s hand with a tentacle, but failed")
-						C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>","<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
-						add_attack_logs(H, C, "[src] knocked over [C] with a tentacle")
+							add_attack_logs(H, C, "[src] tried to grab [I] out of their hand with a tentacle, but failed")
+						C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>", "<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
+						add_attack_logs(H, C, "[src] knocked over with a tentacle")
 						C.KnockDown(2 SECONDS) //Not useless with antidrop.
 						return TRUE
 
 					if(INTENT_GRAB)
-						C.visible_message("<span class='danger'>[L] is entangled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and wraps around your legs!</span>")
-						add_attack_logs(H, C, "[H] imobilised [C] with a changeling tentacle")
+						C.visible_message("<span class='danger'>[L] is entangled by [H]'s tentacle!</span>", "<span class='userdanger'>A tentacle grabs you and wraps around your legs!</span>")
+						add_attack_logs(H, C, "imobilised with a changeling tentacle")
 						if(!iscarbon(H))
 							return TRUE
 						var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(H.loc)
