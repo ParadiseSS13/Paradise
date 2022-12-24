@@ -54,10 +54,15 @@
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user)
 	var/response = alert(user, "Are you sure you want to spawn here?\n(If you do this, you won't be able to be cloned!)", "Respawn?", "Yes", "No")
 	if(response == "Yes")
-		user.forceMove(get_turf(src))
-		log_admin("[key_name(user)] was incarnated by a respawner machine.")
-		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")
+		var/turf/respawner_location = get_turf(src)
+		if(!respawner_location) // gotta check it still exists, else you'll get sent to nullspace
+			return
 		var/mob/living/carbon/human/new_human = user.incarnate_ghost()
+		if(!new_human) // gotta check they haven't spawned in again yet, else we get runtimes and logspam
+			return
+		new_human.forceMove(respawner_location)
+		log_admin("[key_name(new_human)] was incarnated by a respawner machine.")
+		message_admins("[key_name_admin(new_human)] was incarnated by a respawner machine.")
 		new_human.mind.offstation_role = TRUE // To prevent them being an antag objective
 
 /obj/structure/ghost_beacon

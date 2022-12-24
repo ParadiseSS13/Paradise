@@ -116,6 +116,7 @@
 	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
 	icon_state = "wt550"
 	item_state = "wt550"
+	w_class = WEIGHT_CLASS_BULKY
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'

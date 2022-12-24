@@ -415,9 +415,7 @@
 			H.visible_message("<span class='danger'>[P] gets reflected by [H]'s glass skin!</span>", \
 			"<span class='userdanger'>[P] gets reflected by [H]'s glass skin!</span>")
 
-			P.reflect_back(H)
-
-			return FALSE
+			return FALSE //Reflect back must be handled on the human bullet act for some arcane reason
 	return TRUE
 
 /datum/unarmed_attack/golem/glass

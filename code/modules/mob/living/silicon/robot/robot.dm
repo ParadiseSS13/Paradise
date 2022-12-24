@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ear_protection = FALSE
 	var/damage_protection = 0
 	var/emp_protection = FALSE
- 	/// Value incoming brute damage to borgs is mutiplied by.
+	/// Value incoming brute damage to borgs is mutiplied by.
 	var/brute_mod = 1
 	/// Value incoming burn damage to borgs is multiplied by.
 	var/burn_mod = 1
@@ -112,6 +112,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/module_actions = list()
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
+
+	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
+	var/mail_destination = 0
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -1533,7 +1536,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /// Used in `robot.dm` when the user presses "Q" by default.
 /mob/living/silicon/robot/proc/on_drop_hotkey_press()
-	var/obj/item/gripper/G = get_active_hand()
+	var/obj/item/gripper_engineering/G = get_active_hand()
 	if(istype(G) && G.gripped_item)
 		G.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
 	else
@@ -1577,7 +1580,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='warning'>The low-power capacitor for your speaker system is still recharging, please try again later.</span>")
 			return
 		visible_message("<span class='warning'>The power warning light on <span class='name'>[src]</span> flashes urgently.</span>",\
-						 "<span class='warning'>You announce you are operating in low power mode.</span>")
+						"<span class='warning'>You announce you are operating in low power mode.</span>")
 		playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 	else
 		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")

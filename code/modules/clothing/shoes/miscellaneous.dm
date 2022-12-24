@@ -353,12 +353,12 @@
 		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
 
 /obj/item/clothing/shoes/footwraps
- 	name = "cloth footwraps"
- 	desc = "A roll of treated canvas used for wrapping claws or paws."
- 	icon_state = "clothwrap"
- 	item_state = "clothwrap"
- 	force = 0
- 	w_class = WEIGHT_CLASS_SMALL
+	name = "cloth footwraps"
+	desc = "A roll of treated canvas used for wrapping claws or paws."
+	icon_state = "clothwrap"
+	item_state = "clothwrap"
+	force = 0
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"

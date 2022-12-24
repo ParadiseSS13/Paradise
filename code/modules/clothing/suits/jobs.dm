@@ -87,7 +87,7 @@
 
 	//Chef
 /obj/item/clothing/suit/toggle/chef
-  	name = "chef's apron"
+	name = "chef's apron"
 
 
 //Chef
