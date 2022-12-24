@@ -62,9 +62,9 @@
 	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(readd_infected))
 
 /obj/item/organ/internal/body_egg/terror_eggs/proc/readd_infected(mob/infected, new_stat, old_stat)
-  SIGNAL_HANDLER
-  if(new_stat != DEAD)
-    GLOB.ts_infected_list |= src
+	SIGNAL_HANDLER
+	if(new_stat != DEAD)
+		GLOB.ts_infected_list |= src
 
 /obj/item/organ/internal/body_egg/terror_eggs/Destroy()
 	GLOB.ts_infected_list -= src

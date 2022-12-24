@@ -342,7 +342,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
 				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
-														   //Having it this way preserves animations. Useful for animated antennae.
+														//Having it this way preserves animations. Useful for animated antennae.
 
 				if(head_accessory_style.over_hair) //Select which layer to use based on the properties of the head accessory style.
 					overlays_standing[HEAD_ACC_OVER_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACC_OVER_LAYER)
