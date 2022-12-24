@@ -55,6 +55,11 @@
 
 /obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
+	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
+		qdel(W)
+	for(var/obj/structure/alien/weeds/E in get_turf(src))
+		return ..()
+	new /obj/structure/alien/weeds(loc)
 	..()
 
 /obj/structure/alien/resin/Destroy()
@@ -70,6 +75,15 @@
 /obj/structure/alien/resin/CanAtmosPass()
 	return !density
 
+/obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/user)
+	if(user.a_intent != INTENT_HARM)
+		return
+	else
+		playsound(loc, 'sound/weapons/slice.ogg', 100, 1)
+		if(do_after(user, 40, target = src) && src)
+			playsound(loc, 'sound/effects/splat.ogg', 100, 1)
+			qdel(src)
+
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
@@ -82,51 +96,77 @@
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return TRUE
 
-/obj/structure/alien/resin/membrane
-	name = "resin membrane"
-	desc = "Resin just thin enough to let light pass through."
-	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
-	icon_state = "resin_membrane-0"
-	base_icon_state = "resin_membrane"
-	opacity = FALSE
-	max_integrity = 160
-	resintype = "membrane"
-	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
-
-/obj/structure/alien/resin/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return !opacity
-	return !density
-
-/obj/structure/mineral_door/alien
+/*  Resin-Door
+	This borrs a bit of code from Mineral-Door, but is mostly its own thing due to not needing many of the latter's things instead of its own things */
+/obj/structure/alien/resin/door
 	name = "resin door"
 	density = TRUE
 	anchored = TRUE
 	opacity = TRUE
-	sheetType = null
-	operatetime = 6
 
-	icon = 'icons/obj/doors/mineral_doors.dmi'
+	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
+	base_icon_state = "resin"
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
-	close_delay = 4 //-1 if does not auto close.
-	openSound = 'sound/machines/alien_airlock.ogg'
-	closeSound = 'sound/machines/alien_airlock.ogg'
+	var/initial_state
+	var/state_open = FALSE
+	var/is_operating = FALSE
+	var/close_delay = 15
+	smoothing_flags = null
+	var/openSound = 'sound/machines/alien_airlock.ogg'
+	var/closeSound = 'sound/machines/alien_airlock.ogg'
+
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
-/obj/structure/mineral_door/alien/attack_ai(mob/user) //those aren't machinery, they're just big fucking slabs of a mineral
+/obj/structure/alien/resin/door/Initialize()
+	. = ..()
+	initial_state = icon_state
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	air_update_turf(1)
+	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
+		qdel(W)
+	for(var/obj/structure/alien/weeds/E in get_turf(src))
+		return
+	new /obj/structure/alien/weeds(loc)
+
+/obj/structure/alien/resin/door/Destroy()
+	density = FALSE
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	air_update_turf(1)
+	return ..()
+
+/obj/structure/alien/resin/door/Move()
+	var/turf/T = loc
+	. = ..()
+	move_update_air(T)
+
+/obj/structure/alien/resin/door/Crossed(mob/living/L, oldloc)
+	..()
+	if(!state_open)
+		return try_to_operate(L)
+
+/obj/structure/alien/resin/door/attack_ai(mob/user)
 	if(isAI(user))
 		return
 	if(isrobot(user))
 		return
 
-/obj/structure/mineral_door/alien/try_to_operate(atom/user)
+/obj/structure/alien/resin/door/attack_hand(mob/user)
+	return try_to_operate(user)
+
+/obj/structure/alien/resin/door/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		operate()
+
+/obj/structure/alien/resin/door/CanAtmosPass(turf/T)
+	return !density
+
+/obj/structure/alien/resin/door/proc/try_to_operate(atom/user)
 	if(is_operating)
 		return
 	if(isalien(user))
@@ -136,20 +176,57 @@
 		if(!C.handcuffed)
 			operate()
 
-/obj/structure/mineral_door/alien/attack_alien(mob/living/carbon/alien/humanoid/user)
+/obj/structure/alien/resin/door/proc/mobless_try_to_operate() // This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
+	if(is_operating)
+		if(state_open)
+			addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
+		return
+	operate()
+
+/obj/structure/alien/resin/door/proc/operate()
+	is_operating = TRUE
+	if(!state_open)
+		playsound(loc, openSound, 100, 1)
+		flick("[initial_state]opening",src)
+	else
+		var/turf/T = get_turf(src)
+		for(var/mob/living/L in T)
+			is_operating = FALSE
+			if(state_open)
+				addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
+			return
+		playsound(loc, closeSound, 100, 1)
+		flick("[initial_state]closing",src)
+	density = !density
+	opacity = !opacity
+	state_open = !state_open
+	sleep(10)
+	air_update_turf(1)
+	update_icon(UPDATE_ICON_STATE)
+	is_operating = FALSE
+
+	if(state_open)
+		addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
+
+/obj/structure/alien/resin/door/update_icon_state()
+	if(state_open)
+		icon_state = "[initial_state]open"
+	else
+		icon_state = initial_state
+
+/obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
 		try_to_operate(user)
 	else
-		return ..()
+		playsound(loc, 'sound/weapons/slice.ogg', 100, 1)
+		if(do_after(user, 40, target = src) && src)
+			playsound(loc, 'sound/effects/splat.ogg', 100, 1)
+			qdel(src)
 
-/obj/structure/mineral_door/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-    if(damage_flag == MELEE)
-        switch(damage_type)
-            if(BRUTE)
-                damage_amount *= 0.25
-            if(BURN)
-                damage_amount *= 2
-    . = ..()
+/obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
+    if(istype(mover) && isalien(mover))
+        return 1
+    return !density
 
 /*
  * Weeds
@@ -165,51 +242,53 @@
 	density = FALSE
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
-	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
-	icon_state = "weeds1"
-	base_icon_state = "weeds1"
+	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
+	icon_state = "weeds"
+	base_icon_state = "weeds"
 	max_integrity = 15
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
-	transform = matrix(1, 0, -4, 0, 1, -4)
 	var/obj/structure/alien/weeds/node/linked_node = null
 	var/static/list/weedImageCache
+	var/check_counter
 
 
 /obj/structure/alien/weeds/New(pos, node)
-	..()
-	linked_node = node
-	if(isspaceturf(loc))
-		qdel(src)
-		return
-	if(icon_state == "weeds")
-		icon_state = pick("weeds", "weeds1", "weeds2")
-	spawn(rand(150, 200))
-		if(src)
-			Life()
+    ..()
+    linked_node = node
+    if(isspaceturf(loc))
+        qdel(src)
+        return
+    START_PROCESSING(SSobj, src)
 
 /obj/structure/alien/weeds/Destroy()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	linked_node = null
-	return ..()
+    STOP_PROCESSING(SSobj, src)
+    QUEUE_SMOOTH_NEIGHBORS(src)
+    linked_node = null
+    return ..()
 
-/obj/structure/alien/weeds/proc/Life()
-	var/turf/U = get_turf(src)
+/obj/structure/alien/weeds/process()
+    check_counter++
+    if(check_counter >= 5)
+        spread()
+        check_counter = 0
 
-	if(isspaceturf(U))
-		qdel(src)
-		return
+/obj/structure/alien/weeds/proc/spread()
+    var/turf/U = get_turf(src)
 
-	if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
-		return
+    if(isspaceturf(U))
+        qdel(src)
+        return
 
-	for(var/turf/T in U.GetAtmosAdjacentTurfs())
+    if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
+        return
 
-		if(locate(/obj/structure/alien/weeds) in T || isspaceturf(T))
-			continue
+    for(var/turf/T in U.GetAtmosAdjacentTurfs())
+        if(locate(/obj/structure/alien/weeds) in T || isspaceturf(T))
+            continue
 
-		new /obj/structure/alien/weeds(T, linked_node)
+        new /obj/structure/alien/weeds(T, linked_node)
 
 /obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -218,16 +297,17 @@
 
 //Weed nodes
 /obj/structure/alien/weeds/node
-	name = "glowing resin"
-	desc = "Blue bioluminescence shines from beneath the surface."
-	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
-	icon_state = "weednode"
-	base_icon_state = "weednode"
+	name = "resin node"
+	desc = "A large bulbous node pumping resin into the surface bellow it."
+	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
+	icon_state = "weeds"
+	base_icon_state = "weeds"
 	light_range = 1
 	var/node_range = NODERANGE
 
 
 /obj/structure/alien/weeds/node/New()
+	add_overlay("weednode")
 	..(loc, src)
 
 #undef NODERANGE

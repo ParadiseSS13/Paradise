@@ -88,7 +88,10 @@
 	if(user.a_intent != INTENT_HARM)
 		return attack_hand(user)
 	else
-		return ..()
+		playsound(loc, 'sound/weapons/slice.ogg', 100, 1)
+		if(do_after(user, 40, target = src) && src)
+			playsound(loc, 'sound/effects/splat.ogg', 100, 1)
+			qdel(src)
 
 /obj/structure/bed/nest/prevents_buckled_mobs_attacking()
 	return TRUE
