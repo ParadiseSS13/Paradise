@@ -248,8 +248,8 @@
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/eyes/cybernetic/shield,
-	 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	/obj/item/organ/internal/eyes/cybernetic/shield,
+	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -340,8 +340,8 @@
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit_store = /obj/item/gun/energy/gun
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/cyberimp/arm/surgery,
-	 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	/obj/item/organ/internal/cyberimp/arm/surgery,
+	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 	belt = /obj/item/defibrillator/compact/advanced/loaded
 

@@ -193,7 +193,7 @@
 	if(data_hud)
 		data_hud.remove_hud_from(src)
 
- 	GLOB.bots_list -= src
+	GLOB.bots_list -= src
 	QDEL_NULL(path)
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
@@ -577,7 +577,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(reset_access_timer_id)
 		deltimer(reset_access_timer_id)
 		reset_access_timer_id = null
- 	set_path(null)
+	set_path(null)
 	summon_target = null
 	pathset = FALSE
 	access_card.access = prev_access

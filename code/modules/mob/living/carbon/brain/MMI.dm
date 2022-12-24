@@ -113,13 +113,13 @@
 		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
 		return
 	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-							 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+							"<span class='notice'>You start to uninstall the radio from [src]...</span>")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
 	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-						 "<span class='notice'>You uninstall the radio from [src].</span>")
+						"<span class='notice'>You uninstall the radio from [src].</span>")
 
 
 /obj/item/mmi/attack_self(mob/user as mob)
