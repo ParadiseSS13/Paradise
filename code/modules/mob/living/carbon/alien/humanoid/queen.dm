@@ -44,24 +44,6 @@
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE
 
-//Queen verbs
-/mob/living/carbon/alien/humanoid/queen/verb/lay_egg()
-
-	set name = "Lay Egg (75)"
-	set desc = "Lay an egg to produce huggers to impregnate prey with."
-	set category = "Alien"
-	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
-		return
-
-	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustPlasma(-75)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
-		new /obj/structure/alien/egg(loc)
-	return
-
-
 /mob/living/carbon/alien/humanoid/queen/large
 	icon = 'icons/mob/alienlarge.dmi'
 	icon_state = "queen_s"

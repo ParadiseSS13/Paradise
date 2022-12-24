@@ -12,14 +12,14 @@
 		cooldown_handler.revert_cast()
 		attached_hand = null
 		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
-		return 0
+		return FALSE
 	..()
 
 /obj/effect/proc_holder/spell/touch/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
 		if(!attached_hand)
 			if(!ChargeHand(target))
-				return 0
+				return FALSE
 	while(attached_hand) //hibernate untill the spell is actually used
 		cooldown_handler.recharge_time++ // adds a tick onto the cooldown each tick
 		sleep(1)
@@ -27,6 +27,9 @@
 /obj/effect/proc_holder/spell/touch/proc/ChargeHand(mob/living/carbon/user)
 	var/hand_handled = 1
 	attached_hand = new hand_path(src)
+	if(isalien(user))
+		user.put_in_hands(attached_hand)
+		return
 	if(user.hand) 	//left active hand
 		if(!user.equip_to_slot_if_possible(attached_hand, slot_l_hand, FALSE, TRUE))
 			if(!user.equip_to_slot_if_possible(attached_hand, slot_r_hand, FALSE, TRUE))

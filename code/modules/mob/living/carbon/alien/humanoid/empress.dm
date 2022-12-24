@@ -57,19 +57,3 @@
 		/obj/item/organ/internal/xenos/resinspinner,
 		/obj/item/organ/internal/xenos/neurotoxin,
 	)
-
-/mob/living/carbon/alien/humanoid/empress/verb/lay_egg()
-	set name = "Lay Egg (250)"
-	set desc = "Lay an egg to produce huggers to impregnate prey with."
-	set category = "Alien"
-
-	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
-		return
-
-	if(powerc(250,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustPlasma(-250)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class=notice'><B>[src] has laid an egg!</B></span>"), 1)
-		new /obj/structure/alien/egg(loc)
-	return

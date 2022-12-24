@@ -24,6 +24,7 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
 
 /mob/living/carbon/alien/larva/get_caste_organs()
 	. = ..()
@@ -74,7 +75,7 @@
 	return
 
 /mob/living/carbon/alien/larva/restrained()
-	return 0
+	return FALSE
 
 /mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
 

@@ -4,6 +4,7 @@
 	var/catchphrase = "High Five!"
 	var/on_use_sound = null
 	var/obj/effect/proc_holder/spell/touch/attached_spell
+	var/has_catchphrase = TRUE
 	icon_state = "syndballoon"
 	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
@@ -26,7 +27,8 @@
 	..()
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
-	user.say(catchphrase)
+	if(has_catchphrase)
+		user.say(catchphrase)
 	playsound(get_turf(user), on_use_sound,50,1)
 	attached_spell.attached_hand = null
 	qdel(src)
