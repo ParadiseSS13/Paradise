@@ -40,7 +40,13 @@
 	name = "medical gripper"
 	desc = "A grasping tool used to hold organs and help patients up once surgery is complete."
 	can_hold = list(/obj/item/organ,
-					/obj/item/reagent_containers/iv_bag)
+					/obj/item/reagent_containers/iv_bag,
+					/obj/item/robot_parts/head,
+					/obj/item/robot_parts/l_arm,
+					/obj/item/robot_parts/r_arm,
+					/obj/item/robot_parts/l_leg,
+					/obj/item/robot_parts/r_leg,
+					/obj/item/robot_parts/chest)
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
