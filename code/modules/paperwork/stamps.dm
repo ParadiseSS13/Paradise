@@ -72,6 +72,14 @@
 	icon_state = "stamp-clown"
 	item_color = "clown"
 
+/obj/item/stamp/gib
+	name = "gib rubber stamp"
+	icon_state = "stamp-clown"
+	item_color = "clown"
+
+/mob/living/carbon/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stamp/gib))
+		src.gib()
 /obj/item/stamp/rep
 	name = "Nanotrasen Representative's rubber stamp"
 	icon_state = "stamp-rep"
