@@ -32,8 +32,6 @@
 /obj/effect/proc_holder/spell/spacetime_dist/create_new_targeting()
 	if(targeting)
 		targeting.range = scramble_radius + 3 * spell_level
-		message_admins("[scramble_radius + 3 * spell_level]")
-		message_admins("[targeting.range]")
 	else
 		var/datum/spell_targeting/spiral/targeting = new()
 		return targeting
