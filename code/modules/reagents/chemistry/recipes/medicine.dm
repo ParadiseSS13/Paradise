@@ -1,3 +1,9 @@
+/datum/chemical_reaction/nutrifinin
+	name = "Nutrifinin"
+	id = "nutrifinin"
+	result = "nutrifinin"
+	required_reagents = list("nutriment" = 3, "sugar" = 1, "water" = 1, "ammonia" = 1)
+	result_amount = 3
 /datum/chemical_reaction/hydrocodone
 	name = "Hydrocodone"
 	id = "hydrocodone"
