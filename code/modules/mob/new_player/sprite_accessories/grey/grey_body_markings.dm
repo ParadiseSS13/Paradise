@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/tattoo/grey
-    icon = 'icons/mob/sprite_accessories/grey/grey_body_markings.dmi'
-    species_allowed = list("Grey")
+	icon = 'icons/mob/sprite_accessories/grey/grey_body_markings.dmi'
+	species_allowed = list("Grey")
 
 /datum/sprite_accessory/body_markings/tattoo/grey/heart_grey
 	name = "Grey Heart Tattoo"

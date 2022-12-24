@@ -516,7 +516,7 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 3 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-						 "Grey" = 'icons/mob/clothing/species/grey/head.dmi')
+						"Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
 /obj/item/clothing/suit/hooded/ablative
 	name = "ablative trenchcoat"
@@ -534,7 +534,7 @@
 	strip_delay = 3 SECONDS
 	put_on_delay = 4 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
+						"Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/suit/hooded/ablative/IsReflect()
