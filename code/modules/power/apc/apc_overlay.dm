@@ -219,7 +219,7 @@
 		cut_overlays()
 		managed_overlays = null
 		// APC power distruptions have a chance to propogate to other machines on its network
-		for(var/obj/machinery/M in area)
+		for(var/obj/machinery/M in apc_area)
 			// Please don't cascade, thanks
 			if(M == src)
 				continue

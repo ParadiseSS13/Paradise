@@ -39,7 +39,8 @@
 	if(machine in registered_machines)
 		machine.power_change()
 		return
-	registered_machines += machine
+	// machines ref'd in this list should clear themselves from it in destroy(), no need for signals here
+	registered_machines += machine 
 	machine.power_change()
 
 /// untethers a machine to this local powernet

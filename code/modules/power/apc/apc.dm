@@ -51,11 +51,9 @@
 
 	/*** APC Area/Powernet vars ***/
 	/// the area that this APC is in
-	var/area/area
+	var/area/apc_area
 	/// the set string name of the area, used in naming the APC
 	var/areastring = null
-	/// the local powernet associated with this apc and its area. NOT the powernet associated with the terminals wirenet
-	var/datum/local_powernet/area_powernet = null
 	/// The power terminal connected to this APC
 	var/obj/machinery/power/terminal/terminal = null
 	/// The status of the terminals powernet that this APC is connected to: not connected, no power, or recieving power
@@ -159,11 +157,11 @@
 		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
-		area = get_area(src)
-		area.apc |= src
+		apc_area = get_area(src)
+		apc_area.apc |= src
 		opened = APC_OPENED
 		operating = FALSE
-		name = "[area.name] APC"
+		name = "[apc_area.name] APC"
 		stat |= MAINT
 		constructed = TRUE
 		update_icon()
@@ -172,17 +170,17 @@
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
-	area_powernet.lighting_powered = FALSE
-	area_powernet.equipment_powered = FALSE
-	area_powernet.environment_powered = FALSE
-	area_powernet.power_change()
+	machine_powernet.lighting_powered = FALSE
+	machine_powernet.equipment_powered = FALSE
+	machine_powernet.environment_powered = FALSE
+	machine_powernet.power_change()
 	if(occupier)
 		malfvacate(1)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
-	area_powernet.powernet_apc = null
+	machine_powernet.powernet_apc = null
 	return ..()
 
 
@@ -204,14 +202,14 @@
 	//if area isn't specified use current
 	if(keep_preset_name)
 		if(isarea(A))
-			area = A
+			apc_area = A
 		// no-op, keep the name
 	else if(isarea(A) && !areastring)
-		area = A
-		name = "\improper [area.name] APC"
+		apc_area = A
+		name = "\improper [apc_area.name] APC"
 	else
-		name = "\improper [get_area_name(area, TRUE)] APC"
-	area.apc |= src
+		name = "\improper [get_area_name(apc_area, TRUE)] APC"
+	apc_area.apc |= src
 
 	update_icon()
 
@@ -432,8 +430,8 @@
 	data["nightshiftLights"] = nightshift_lights
 	data["emergencyLights"] = !emergency_lights
 
-	var/powerChannels[0]
-	powerChannels[++powerChannels.len] = list(
+	var/list/power_channels = list()
+	power_channels += list(list(
 		"title" = "Equipment",
 		"powerLoad" = round(last_used_equipment),
 		"status" = equipment_channel,
@@ -442,8 +440,8 @@
 			"on"   = list("eqp" = 2),
 			"off"  = list("eqp" = 1)
 		)
-	)
-	powerChannels[++powerChannels.len] = list(
+	))
+	power_channels += list(list(
 		"title" = "Lighting",
 		"powerLoad" = round(last_used_lighting),
 		"status" = lighting_channel,
@@ -452,8 +450,8 @@
 			"on"   = list("lgt" = 2),
 			"off"  = list("lgt" = 1)
 		)
-	)
-	powerChannels[++powerChannels.len] = list(
+	))
+	power_channels += list(list(
 		"title" = "Environment",
 		"powerLoad" = round(last_used_environment),
 		"status" = environment_channel,
@@ -462,17 +460,17 @@
 			"on"   = list("env" = 2),
 			"off"  = list("env" = 1)
 		)
-	)
+	))
 
-	data["powerChannels"] = powerChannels
+	data["powerChannels"] = power_channels
 
 	return data
 
 /obj/machinery/power/apc/proc/update()
 	if(operating && !shorted)
-		area_powernet.lighting_powered = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
-		area_powernet.equipment_powered = (equipment_channel > CHANNEL_SETTING_AUTO_OFF)
-		area_powernet.environment_powered = (environment_channel > CHANNEL_SETTING_AUTO_OFF)
+		machine_powernet.lighting_powered = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
+		machine_powernet.equipment_powered = (equipment_channel > CHANNEL_SETTING_AUTO_OFF)
+		machine_powernet.environment_powered = (environment_channel > CHANNEL_SETTING_AUTO_OFF)
 		if(lighting_channel)
 			emergency_power = TRUE
 			if(emergency_power_timer)
@@ -481,12 +479,12 @@
 		else
 			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	else
-		area_powernet.lighting_powered = FALSE
-		area_powernet.equipment_powered = FALSE
-		area_powernet.environment_powered = FALSE
+		machine_powernet.lighting_powered = FALSE
+		machine_powernet.equipment_powered = FALSE
+		machine_powernet.environment_powered = FALSE
 		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
-	area.power_change()
-
+	machine_powernet.power_change()
+	apc_area.power_change()
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
@@ -587,22 +585,22 @@
 				malfvacate()
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
-			for(var/obj/machinery/light/L in area)
+			for(var/obj/machinery/light/L in apc_area)
 				INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 				CHECK_TICK
 
 /obj/machinery/power/apc/proc/update_last_used()
-	last_used_lighting = area_powernet.get_channel_usage(PW_CHANNEL_LIGHTING)
-	last_used_equipment = area_powernet.get_channel_usage(PW_CHANNEL_EQUIPMENT)
-	last_used_environment = area_powernet.get_channel_usage(PW_CHANNEL_ENVIRONMENT)
-	last_used_total = area_powernet.get_total_usage()
-	area_powernet.clear_usage()
+	last_used_lighting = machine_powernet.get_channel_usage(PW_CHANNEL_LIGHTING)
+	last_used_equipment = machine_powernet.get_channel_usage(PW_CHANNEL_EQUIPMENT)
+	last_used_environment = machine_powernet.get_channel_usage(PW_CHANNEL_ENVIRONMENT)
+	last_used_total = machine_powernet.get_total_usage()
+	machine_powernet.clear_usage()
 
 /// What the APC will do every process interval, updates power settings and power changes depending on powernet state
 /obj/machinery/power/apc/process()
 	if(stat & (BROKEN|MAINT)) // if the APC is broken, don't even bother
 		return
-	if(!area.requires_power) // if the area doesn't use power, don't even bother
+	if(!apc_area.requires_power) // if the area doesn't use power, don't even bother
 		return
 
 	//We store the initial power channel states so we can check if they've changed at the end of the proc so we can update overlays efficiently
@@ -696,7 +694,7 @@
 		lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_OFF)
 		environment_channel = autoset(environment_channel, CHANNEL_SETTING_OFF)
 		if(report_power_alarm)
-			area.poweralert(FALSE, src)
+			apc_area.poweralert(FALSE, src)
 		autoflag = APC_AUTOFLAG_ALL_OFF
 
 	// update icon & area power if anything changed
@@ -707,7 +705,7 @@
 	else if(last_charging_state != charging)
 		queue_icon_update()
 
-	area_powernet.handle_flicker() // try and flicker machines/lights in the area randomly
+	machine_powernet.handle_flicker() // try and flicker machines/lights in the area randomly
 
 /obj/machinery/power/apc/proc/handle_autoflag()
 	// Put most likely at the top so we don't check it last, effeciency 101 <--- old coders can't spell
@@ -718,7 +716,7 @@
 			environment_channel = autoset(environment_channel, CHANNEL_SETTING_ON)
 			autoflag = APC_AUTOFLAG_ALL_ON
 			if(report_power_alarm)
-				area.poweralert(TRUE, src)
+				apc_area.poweralert(TRUE, src)
 		return
 	if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0) // <30%, turn off equipment
 		if(autoflag != APC_AUTOFLAG_EQUIPMENT_OFF)
@@ -726,7 +724,7 @@
 			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_AUTO_OFF)
 			environment_channel = autoset(environment_channel, CHANNEL_SETTING_AUTO_OFF)
 			if(report_power_alarm)
-				area.poweralert(FALSE, src)
+				apc_area.poweralert(FALSE, src)
 			autoflag = APC_AUTOFLAG_EQUIPMENT_OFF
 	else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
 		if(autoflag > APC_AUTOFLAG_ENVIRO_ONLY)
@@ -734,7 +732,7 @@
 			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_ON)
 			environment_channel = autoset(environment_channel, CHANNEL_SETTING_AUTO_OFF)
 			if(report_power_alarm)
-				area.poweralert(FALSE, src)
+				apc_area.poweralert(FALSE, src)
 			autoflag = APC_AUTOFLAG_ENVIRO_ONLY
 	else if(cell.charge <= 0)                                   // zero charge, turn all off
 		if(autoflag != APC_AUTOFLAG_ALL_OFF)
@@ -742,7 +740,7 @@
 			lighting_channel = autoset(lighting_channel, CHANNEL_SETTING_OFF)
 			environment_channel = autoset(environment_channel, CHANNEL_SETTING_OFF)
 			if(report_power_alarm)
-				area.poweralert(FALSE, src)
+				apc_area.poweralert(FALSE, src)
 			autoflag = APC_AUTOFLAG_ALL_OFF
 
 /// Handles APC arc'ing every APC process interval
@@ -891,7 +889,7 @@
 		return
 	if(cell && cell.charge >= 20)
 		cell.use(20)
-		for(var/obj/machinery/light/L in area)
+		for(var/obj/machinery/light/L in apc_area)
 			if(prob(chance))
 				L.break_light_tube(0, 1)
 				stoplag()
@@ -899,14 +897,14 @@
 /// turns off emergency power and sets each light to update
 /obj/machinery/power/apc/proc/turn_emergency_power_off()
 	emergency_power = FALSE
-	for(var/obj/machinery/light/L in area)
+	for(var/obj/machinery/light/L in apc_area)
 		INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /// sets nightshift mode on for the APC
 /obj/machinery/power/apc/proc/set_nightshift(on)
 	set waitfor = FALSE
 	nightshift_lights = on
-	for(var/obj/machinery/light/L in area)
+	for(var/obj/machinery/light/L in apc_area)
 		if(L.nightshift_allowed)
 			L.nightshift_enabled = nightshift_lights
 			L.update(FALSE, play_sound = FALSE)

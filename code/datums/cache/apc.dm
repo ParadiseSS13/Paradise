@@ -22,7 +22,7 @@ GLOBAL_DATUM_INIT(apc_repository, /datum/repository/apc, new())
 		var/list/chg = list("N","C","F") // Charging: no, charging, full
 		for(var/obj/machinery/power/apc/A in L)
 			apcData[++apcData.len] = list(
-				"Name" = html_encode(A.area.name),
+				"Name" = html_encode(A.apc_area.name),
 				"Equipment" = Status[A.equipment_channel + 1],
 				"Lights" = Status[A.lighting_channel + 1],
 				"Environment" = Status[A.environment_channel + 1],

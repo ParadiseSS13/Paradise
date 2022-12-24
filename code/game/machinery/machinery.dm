@@ -46,14 +46,20 @@
 
 /obj/machinery/Initialize(mapload)
 	. = ..()
-
 	GLOB.machines += src
 
 	if(requires_power)
 		machine_area = get_area(src)
-		if(machine_area)
+		if(machine_area.powernet) // areas don't always initialize before machines so we need to check to see if the powernet exists first
 			machine_powernet = machine_area.powernet
-			change_power_mode(power_state)
+		else
+			machine_powernet = machine_area.create_powernet()
+		machine_powernet.register_machine(src)
+		switch(power_state)
+			if(IDLE_POWER_USE)
+				add_static_power(power_channel, idle_power_consumption)
+			if(ACTIVE_POWER_USE)
+				add_static_power(power_channel, active_power_consumption)
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
@@ -132,7 +138,7 @@
 
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
-	if(!machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
+	if(use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
 		return
 	switch(power_state)
 		if(IDLE_POWER_USE)

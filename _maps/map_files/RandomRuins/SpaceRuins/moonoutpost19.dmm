@@ -141,7 +141,7 @@
 /area/ruin/space/unpowered)
 "au" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "tube-broken";
 	status = 2
@@ -203,7 +203,7 @@
 /area/ruin/space/unpowered)
 "aB" = (
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "bulb-broken";
 	status = 2
@@ -324,7 +324,7 @@
 /area/ruin/space/unpowered)
 "aP" = (
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 8;
 	icon_state = "bulb-broken";
 	status = 2
@@ -561,7 +561,7 @@
 	layer = 2.9
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -900,7 +900,7 @@
 /area/ruin/space/unpowered)
 "bM" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "tube-broken";
 	status = 2
@@ -1463,7 +1463,7 @@
 "cQ" = (
 /obj/structure/table,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1476,7 +1476,7 @@
 "cR" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 8;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1597,7 +1597,7 @@
 /area/ruin/space/unpowered)
 "da" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "tube-broken";
 	status = 2
@@ -1701,7 +1701,7 @@
 /area/ruin/space/unpowered)
 "dj" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "tube-broken";
 	status = 2
 	},
@@ -1818,7 +1818,7 @@
 /obj/item/trash/chips,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1880,7 +1880,7 @@
 "dB" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -2026,7 +2026,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},
@@ -2345,7 +2345,7 @@
 "eu" = (
 /obj/structure/closet/l3closet/general,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},
@@ -2602,7 +2602,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},

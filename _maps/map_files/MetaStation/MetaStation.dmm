@@ -30908,7 +30908,7 @@
 "bNP" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	c_tag = "Turbine Vent";
 	dir = 6;
 	network = list("Turbine")
@@ -74288,7 +74288,7 @@
 /obj/machinery/door/airlock/hatch/gamma{
 	locked = 1;
 	req_access_txt = "1";
-	use_power = 0
+	power_state = 0
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -78864,7 +78864,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
 	name = "Toxins Venting Bay Door";
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)

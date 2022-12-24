@@ -39007,7 +39007,7 @@
 /obj/machinery/door/airlock/hatch/gamma{
 	locked = 1;
 	req_access_txt = "1";
-	use_power = 0
+	power_state = 0
 	},
 /obj/machinery/door/poddoor{
 	density = 0;

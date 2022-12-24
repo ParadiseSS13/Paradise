@@ -86,7 +86,8 @@
 	uid = ++global_uid
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
-	powernet = new()
+	if(!powernet)
+		create_powernet()
 
 	if(requires_power)
 		luminosity = 0
@@ -125,6 +126,11 @@
 /area/LateInitialize()
 	. = ..()
 	power_change()		// all machines set to current power level, also updates lighting icon
+
+/area/proc/create_powernet()
+	powernet = new()
+	powernet.powernet_area = src
+	return powernet
 
 /area/proc/reg_in_areas_in_z()
 	if(contents.len)
