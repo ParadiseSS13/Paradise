@@ -1,11 +1,11 @@
 /obj/effect/proc_holder/spell/rathens
 	name = "Rathen's Secret"
-	desc = "Summons a powerful shockwave around you that tears the appendix and limbs off of enemies."
-	base_cooldown = 500
+	desc = "Summons a powerful shockwave around you that tears the appendix out of enemies, and occasionally removes their limbs."
+	base_cooldown = 50 SECONDS
 	clothes_req = TRUE
 	invocation = "APPEN NATH!"
 	invocation_type = "shout"
-	cooldown_min = 200
+	cooldown_min = 20 SECONDS
 	action_icon_state = "lungpunch"
 
 /obj/effect/proc_holder/spell/rathens/create_new_targeting()

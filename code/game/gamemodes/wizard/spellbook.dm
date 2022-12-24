@@ -184,6 +184,13 @@
 	category = "Defensive"
 	cost = 1
 
+/datum/spellbook_entry/rathens
+	name = "Rathen's Secret"
+	spell_type = /obj/effect/proc_holder/spell/rathens
+	log_name = "RS"
+	category = "Defensive"
+	cost = 1
+
 /datum/spellbook_entry/repulse
 	name = "Repulse"
 	spell_type = /obj/effect/proc_holder/spell/aoe/repulse
