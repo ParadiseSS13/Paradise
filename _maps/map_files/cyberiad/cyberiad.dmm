@@ -2253,6 +2253,7 @@
 	},
 /obj/item/clothing/suit/armor/riot,
 /obj/item/shield/riot,
+/obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/riot,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -70890,9 +70891,9 @@
 	dir = 4
 	},
 /obj/machinery/button/windowtint{
+	id = "ceoffice";
 	pixel_x = -7;
-	pixel_y = 37;
-	id = "ceoffice"
+	pixel_y = 37
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -72218,10 +72219,10 @@
 "cTg" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
+	id = "ceoffice";
 	id_tag = "ceofficedoor";
 	name = "Chief Engineer";
-	req_access_txt = "56";
-	id = "ceoffice"
+	req_access_txt = "56"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -73838,10 +73839,10 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/command/glass{
+	id = "ceoffice";
 	id_tag = "ceofficedoor";
 	name = "Chief Engineer";
-	req_access_txt = "56";
-	id = "ceoffice"
+	req_access_txt = "56"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -88277,6 +88278,7 @@
 	},
 /obj/item/clothing/suit/armor/riot,
 /obj/item/shield/riot,
+/obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/riot,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -90828,6 +90830,7 @@
 	},
 /obj/item/clothing/suit/armor/riot,
 /obj/item/shield/riot,
+/obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/riot,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
