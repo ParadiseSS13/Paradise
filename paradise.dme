@@ -1573,6 +1573,7 @@
 #include "code\modules\detective_work\footprints_and_rag.dm"
 #include "code\modules\detective_work\scanner.dm"
 #include "code\modules\economy\Accounts_DB.dm"
+#include "code\modules\economy\economy_admin.dm"
 #include "code\modules\economy\economy_helpers.dm"
 #include "code\modules\economy\merch_items.dm"
 #include "code\modules\economy\money_account.dm"
