@@ -33,7 +33,7 @@
 	admin_investigate_setup()
 
 	energy = starting_energy
-	AddComponent(/datum/component/proximity_monitor, _radius = 5)
+	AddComponent(/datum/component/proximity_monitor, _radius = 10)
 
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -453,34 +453,18 @@
 		var/obj/item/projectile/P = AM
 		var/distance = get_dist(src, P)
 		var/projectile_angle = P.Angle
-		var/angle_to_projectile = ATAN2(y - P.y, x - P.x) - projectile_angle
+		var/angle_to_projectile = ATAN2(y - P.y, x - P.x)
+		if(angle_to_projectile == 180)
+			angle_to_projectile = -180
+		angle_to_projectile -= projectile_angle
+		if(angle_to_projectile > 180)
+			angle_to_projectile -= 360
+		else if(angle_to_projectile < -180)
+			angle_to_projectile += 360
+
 		if(distance == 0)
 			qdel(src)
 			return
 		projectile_angle += angle_to_projectile / (distance ** 2)
-		/*
-		M.Turn(angle_to_projectile / (distance ** 2))
-		var/new_angle = arcsin(M.b)
-		*/
 		P.set_angle(projectile_angle)
 
-
-		//P.set_angle(projectile_angle + (angle_to_projectile * sin(angle_to_projectile)) / distance ** 2)
-
-		/*
-		var/projectile_speed = P.range / P.speed
-		var/projectile_velocity_x = projectile_speed * cos(P.Angle)
-		var/projectile_velocity_y = projectile_speed * sin(P.Angle)
-
-		var/distance = get_dist(src, P)
-
-		var/added_speed = 30 / distance ** 2
-		var/angle_to_projectile = get_angle(src, P)
-		projectile_velocity_x += cos(angle_to_projectile) * added_speed
-		projectile_velocity_y += sin(angle_to_projectile) * added_speed
-
-		var/new_angle = ATAN2(projectile_velocity_x, projectile_velocity_y)
-
-		P.set_angle(new_angle)
-
-*/
