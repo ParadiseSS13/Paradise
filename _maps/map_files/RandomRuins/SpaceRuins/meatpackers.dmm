@@ -130,9 +130,9 @@
 	},
 /obj/machinery/power/apc/off_station{
 	dir = 1;
-	environ = 2;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 2;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	locked = 0;
 	pixel_y = 24;
 	req_access = ""
@@ -431,8 +431,8 @@
 	},
 /obj/machinery/power/apc/off_station{
 	dir = 1;
-	equipment = 0;
-	lighting = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	locked = 0;
 	operating = 0;
 	pixel_y = 24;
@@ -767,7 +767,7 @@
 	},
 /obj/machinery/power/apc/off_station{
 	dir = 1;
-	environ = 0;
+	environment_channel = 0;
 	locked = 0;
 	operating = 0;
 	pixel_y = 24;
