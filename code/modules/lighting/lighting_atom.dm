@@ -55,11 +55,7 @@
 			light = new/datum/light_source(src, .)
 
 /atom/proc/extinguish_light(force = FALSE)
-	if(!light)
-		return // TEMPORARY RUNTIME REMOVE LATER
-	if(light_power <= 0.1)
-		return // filters out emissives
-	CRASH("extinguish_light called on a light producing atom, without a proper overide. TYPE: [type], Range : [light_range], Power : [light_power]")
+	return
 
 // If we have opacity, make sure to tell (potentially) affected light sources.
 /atom/movable/Destroy()
