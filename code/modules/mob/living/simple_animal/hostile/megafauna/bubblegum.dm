@@ -296,6 +296,9 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(3)
 	qdel(DA)
 
+	if(target.z != z)
+		return FALSE
+	
 	var/obj/effect/decal/cleanable/blood/found_bloodpool
 	pools = get_pools(get_turf(target), 5)
 	pools_to_remove = get_pools(get_turf(target), 4)
