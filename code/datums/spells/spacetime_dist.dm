@@ -30,11 +30,13 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/spacetime_dist/create_new_targeting()
-	if(targeting)
-		targeting.range = scramble_radius + 3 * spell_level
-	else
-		var/datum/spell_targeting/spiral/targeting = new()
-		return targeting
+	var/datum/spell_targeting/spiral/targeting = new()
+	targeting.range = scramble_radius + 3 * spell_level
+	return targeting
+
+/obj/effect/proc_holder/spell/spacetime_dist/on_purchase_upgrade()
+	. = ..()
+	targeting = create_new_targeting()
 
 /obj/effect/proc_holder/spell/spacetime_dist/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
 	return ..() && ready
