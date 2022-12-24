@@ -24,8 +24,6 @@
 
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
-	var/Mtoollink = FALSE // variable to decide if an object should show the multitool menu linking menu, not all objects use it
-
 	var/being_shocked = FALSE
 	var/speed_process = FALSE
 

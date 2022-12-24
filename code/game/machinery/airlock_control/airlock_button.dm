@@ -50,6 +50,7 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
 
 	var/obj/machinery/airlock_controller/C = locateUID(controller_uid)
 	if(!C)
