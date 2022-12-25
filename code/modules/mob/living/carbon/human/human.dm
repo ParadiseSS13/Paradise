@@ -64,7 +64,7 @@
 /mob/living/carbon/human/Destroy()
 	. = ..()
 	SSmobs.cubemonkeys -= src
-	QDEL_LIST(bodyparts)
+	QDEL_LIST_CONTENTS(bodyparts)
 	splinted_limbs.Cut()
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src

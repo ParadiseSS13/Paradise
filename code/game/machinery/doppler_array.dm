@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		return
 	switch(action)
 		if("delete_logs")
-			QDEL_LIST(logged_explosions)
+			QDEL_LIST_CONTENTS(logged_explosions)
 			to_chat(usr, "<span class='notice'>All logs deleted successfully.</span>")
 		if("delete_record")
 			var/index = text2num(params["index"])
