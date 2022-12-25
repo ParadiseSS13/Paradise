@@ -544,7 +544,7 @@
 	},
 /area/syndicate_depot/core)
 "bG" = (
-/obj/machinery/vending/syndisnack,
+/obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -627,7 +627,7 @@
 	},
 /area/syndicate_depot/core)
 "bQ" = (
-/obj/machinery/vending/syndicigs,
+/obj/machinery/economy/vending/syndicigs,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

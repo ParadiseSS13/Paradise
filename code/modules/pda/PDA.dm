@@ -49,6 +49,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		new/datum/data/pda/app/notekeeper,
 		new/datum/data/pda/app/messenger,
 		new/datum/data/pda/app/manifest,
+		new/datum/data/pda/app/nanobank,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/utility/flashlight)
 	var/list/shortcut_cache = list()
@@ -267,6 +268,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return
 		if(!owner)
+			var/datum/data/pda/app/nanobank/nanobank_program = (locate(/datum/data/pda/app/nanobank) in programs)
+			if(nanobank_program && idcard.associated_account_number)
+				nanobank_program.reconnect_database()
+				nanobank_program.user_account = nanobank_program.account_database?.find_user_account(idcard.associated_account_number)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
 			ownrank = idcard.rank

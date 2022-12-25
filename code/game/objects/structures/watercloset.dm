@@ -602,6 +602,7 @@
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
+	desc = "A puddle of clean water. Looks refreshing."
 	icon_state = "puddle"
 	can_move = 0
 	can_rotate = 0

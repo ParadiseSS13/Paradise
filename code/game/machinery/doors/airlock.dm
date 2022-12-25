@@ -739,6 +739,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked) // We really dont want mice/drones to get shocked on a door they're passing through
+		return TRUE
 	if(isElectrified() && density && isitem(mover))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
@@ -1347,7 +1349,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, 1)
-	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)

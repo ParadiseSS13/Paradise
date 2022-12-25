@@ -59,7 +59,7 @@
 	grow.Grant(H)
 	var/datum/action/innate/slimecolor/recolor = new()
 	recolor.Grant(H)
-	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
+	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
 
 

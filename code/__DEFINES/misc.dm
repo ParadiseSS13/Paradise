@@ -112,10 +112,10 @@
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
-  block( \
-	locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
-	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
-  )
+	block( \
+		locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
+		locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
@@ -152,9 +152,7 @@
 
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
-#define MANIFEST_ERROR_NAME		1
-#define MANIFEST_ERROR_COUNT	2
-#define MANIFEST_ERROR_ITEM		4
+
 
 //Turf wet states
 #define TURF_DRY		0
@@ -238,16 +236,16 @@
 
 //Matricies
 #define MATRIX_GREYSCALE list(0.33, 0.33, 0.33,\
-                              0.33, 0.33, 0.33,\
-                              0.33, 0.33, 0.33)
+							0.33, 0.33, 0.33,\
+							0.33, 0.33, 0.33)
 
 #define MATRIX_VULP_CBLIND list(0.5,0.4,0.1,\
-                                0.5,0.4,0.1,\
-                                0.0,0.2,0.8)
+								0.5,0.4,0.1,\
+								0.0,0.2,0.8)
 
 #define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
-                               0.4,0.6,0.0,\
-                               0.2,0.2,0.6)
+							0.4,0.6,0.0,\
+							0.2,0.2,0.6)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
@@ -380,7 +378,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 44
+#define SQL_VERSION 45
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -448,6 +446,7 @@
 
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
 #define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
+#define MAPTEXT_CENTER(text) {"<span class='maptext' style='text-align: center'>[##text]</span>"}
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15

@@ -41,7 +41,7 @@ if grep -P '/obj/merge_conflict_marker' _maps/**/*.dmm; then
     st=1
 fi;
 # Check for non-515 compatable .proc/ syntax
-if grep -P --exclude='__byond_version_compat.dm' '\.proc/' code/**/*.dm; then
+if grep -P --exclude='__byond_version_compat.dm' '(\.proc\/)|(CALLBACK\(.*proc\/)|(INVOKE_ASYNC\(.*proc\/)' code/**/*.dm; then
     echo "ERROR: Outdated proc reference use detected in code, please use proc reference helpers."
     st=1
 fi;

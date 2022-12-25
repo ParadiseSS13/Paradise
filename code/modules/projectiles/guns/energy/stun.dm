@@ -58,6 +58,13 @@
 	flight_y_offset = 10
 	can_holster = TRUE
 
+/obj/item/gun/energy/disabler/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	var/obj/item/gun/energy/disabler/offhand_disabler = user.get_inactive_hand()
+	if(istype(offhand_disabler) && offhand_disabler.semicd && (user.a_intent != INTENT_HARM))
+		return
+
+	return ..()
+
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."

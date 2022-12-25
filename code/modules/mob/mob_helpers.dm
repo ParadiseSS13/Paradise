@@ -3,7 +3,7 @@
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
- 	return 0
+	return 0
 
 /proc/ispet(A)
 	if(isanimal(A))
@@ -38,10 +38,10 @@
 				// Red-green (green weak, deuteranopia)
 				// Below is a colour matrix to account for that
 				. = list(
-					 1.8,  0, -0.14, 0,
+					1.8,  0, -0.14, 0,
 					-1.05, 1,  0.1,  0,
-					 0.3,  0,  1,    0,
-					 0,    0,  0,    1
+					0.3,  0,  1,    0,
+					0,    0,  0,    1
 				) // Time spent creating this matrix: 1 hour 32 minutes
 
 			if(COLOURBLIND_MODE_PROT)
@@ -58,10 +58,10 @@
 				// Blue-yellow (tritanopia)
 				// Below is a colour matrix to account for that
 				. = list(
-					 0.74,  0.07,  0, 0,
+					0.74,  0.07,  0, 0,
 					-0.405, 0.593, 0, 0,
-					 0.665, 0.335, 1, 0,
-					 0,     0,     0, 1
+					0.665, 0.335, 1, 0,
+					0,     0,     0, 1
 				) // Time spent creating this matrix: 34 minutes
 
 	return
@@ -344,9 +344,9 @@
 
 	return returntext
 
-/proc/Gibberish_all(list/message_pieces, p)
+/proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
-		S.message = Gibberish(S.message, p)
+		S.message = Gibberish(S.message, p, replace_rate)
 
 
 /proc/muffledspeech(phrase)
@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 	resting = !resting // this happens before the do_mob so that you can stay resting if you are stunned.
 
-	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
+	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
 		return
 
 	if(resting)

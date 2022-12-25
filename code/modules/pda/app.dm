@@ -22,7 +22,7 @@
 /datum/data/pda/proc/program_hit_check()
 	return
 
-/datum/data/pda/proc/notify(message, blink = 1)
+/datum/data/pda/proc/notify(message, blink = 1, silence_ringtone = FALSE)
 	if(message)
 		//Search for holder of the PDA.
 		var/mob/living/L = null
@@ -36,7 +36,7 @@
 			to_chat(L, "[bicon(pda)] [message]")
 			SStgui.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
-	if(!pda.silent)
+	if(!pda.silent && !silence_ringtone)
 		pda.play_ringtone()
 
 	if(blink && !(src in pda.notifying_programs))

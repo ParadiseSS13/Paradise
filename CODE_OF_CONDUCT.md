@@ -30,7 +30,9 @@ Headcoders may close your PR at their discretion if your PR history has little f
 
 All Pull Requests are expected to be tested prior to submission. If a submitted Pull Request fails to pass CI checks, the likelihood of it being merged will be significantly lower. If you can't take the time to compile/test your Pull Request, do not expect a warm reception.
 
-It is expected that contributors discuss larger changes on the forums or repository discussion tab prior to coding a Pull Request. The amount of time spent on any given Pull Request is not relevant. Repo staff are not responsible for contributors wasting their time creating features nobody asked for.
+It is expected that contributors discuss larger changes on the forums or repository discussion tab prior to starting work on a Pull Request. The amount of time spent on any given Pull Request is not relevant. Repo staff are not responsible for contributors wasting their time creating features nobody asked for. Be sure to inform the corresponding teams about the forum post or discussion.
+
+In addition, discussing any change with the relevant teams is strongly advised. For large changes, changes which have a lot of impact (balance or design), species changes (however minor), or other changes that might be controversial, you should always discuss this with the relevant teams. Failure to do so might result in your PR being closed.
 
 Barring highly specific circumstances (such as single line changes, submissions from advanced users, or changes to repo documentation), we will not accept Pull Requests utilising the web editor.
 

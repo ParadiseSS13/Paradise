@@ -91,7 +91,7 @@ STATUS EFFECTS
 
 	if(stat == DEAD && !work_when_dead)
 		return
-	if(!instant && !do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
+	if(!instant && !do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
 		return
 	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
 		return
@@ -129,13 +129,13 @@ STATUS EFFECTS
 	pixel_y = 0
 
 /* makes sure the crawlers head is pointing in the direction they crawl
-* effectively splits dirs down the middle.
+ * effectively splits dirs down the middle.
 
-									 # | #
-moving this way points the head left # | # moving this way points the head right
-									 # | #
+ *										# | #
+ * moving this way points the head left # | # moving this way points the head right
+ *										# | #
 
-moving up or down retains their old lying angle
+ * moving up or down retains their old lying angle
 
 */
 /mob/living/proc/orient_crawling(datum/source, old_dir, new_dir)

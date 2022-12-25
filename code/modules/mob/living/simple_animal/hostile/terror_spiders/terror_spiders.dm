@@ -7,6 +7,7 @@ GLOBAL_VAR_INIT(ts_death_window, 9000) // 15 minutes
 GLOBAL_LIST_EMPTY(ts_spiderlist)
 GLOBAL_LIST_EMPTY(ts_egg_list)
 GLOBAL_LIST_EMPTY(ts_spiderling_list)
+GLOBAL_LIST_EMPTY(ts_infected_list)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------
@@ -120,6 +121,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
 	var/spider_role_summary = "UNDEFINED"
+	var/spider_intro_text = "If you are seeing this, please alert the coders"
 	var/spider_placed = FALSE
 
 	// AI variables designed for use in procs
@@ -338,6 +340,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		GLOB.ts_count_dead++
 		GLOB.ts_death_last = world.time
 		GLOB.ts_count_alive_station--
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/give_intro_text()
+	to_chat(src, "<center><span class='userdanger'>You are a Terror Spider!</span></center>")
+	to_chat(src, "<center>Work with other terror spiders in your hive to eliminate the crew and claim the station as your nest!</center>")
+	to_chat(src, "<center><span class='danger'>Remember to follow the orders of higher tier spiders, such as princesses or queens.</span></center><br>")
+	to_chat(src, "<center><span class='big'>[spider_intro_text]</span></center><br>")
+	to_chat(src, "<center><span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span></center>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())

@@ -194,7 +194,7 @@
 	density = TRUE
 	opacity = FALSE
 	anchored = TRUE
-	flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE
 
 /obj/effect/proc_holder/spell/vampire/dark_passage
 	name = "Dark Passage (30)"
