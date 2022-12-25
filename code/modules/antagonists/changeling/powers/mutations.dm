@@ -253,6 +253,7 @@
 			I = l_hand
 		if(!I || istype(/obj/item/gun/magic/tentacle, I))
 			return
+		add_attack_logs(src, C, "[src] pulled [C] with a tentacle, attacking them with [I]")
 		I.melee_attack_chain(src, C)//Hits the victim with whatever they are holding that is no the zero force tentacle
 
 
