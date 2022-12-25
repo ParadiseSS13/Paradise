@@ -25,6 +25,7 @@
 	var/stop_automated_movement = FALSE //Use this to temporarely stop random movement or to if you write special movement code for animals.
 	var/wander = TRUE	// Does the mob wander around when idle?
 	var/stop_automated_movement_when_pulled = TRUE //When set to TRUE this stops the animal from moving when someone is pulling it.
+	var/stop_automated_movement_when_telegrabbed = TRUE //When set to TRUE this stops the animal from moving when someone is grabbing it with telekinesis
 
 	//Interaction
 	var/response_help   = "pokes"
@@ -212,10 +213,11 @@
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
-					var/anydir = pick(GLOB.cardinal)
-					if(Process_Spacemove(anydir))
-						Move(get_step(src,anydir), anydir)
-						turns_since_move = 0
+					if(!(stop_automated_movement_when_telegrabbed && grabbed_by.len != 0))
+						var/anydir = pick(GLOB.cardinal)
+						if(Process_Spacemove(anydir))
+							Move(get_step(src,anydir), anydir)
+							turns_since_move = 0
 			return 1
 
 /mob/living/simple_animal/proc/handle_automated_speech(override)

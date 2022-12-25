@@ -24,6 +24,7 @@
 	var/telegrab //determines if the grab was created from grabbing someone with telekinesis
 	var/last_telegrab_effect_time
 	var/telegrab_effect_time
+	var/last_affecting_turf
 
 	layer = 21
 	plane = HUD_PLANE
@@ -306,10 +307,11 @@
 //This is used to make sure the victim hasn't managed to yackety sax away before using the grab.
 /obj/item/grab/proc/confirm()
 	if(telegrab)
-		if(get_dist(assailant, affecting) > TK_GRABMAXRANGE)
+		if((get_dist(assailant, affecting) > TK_GRABMAXRANGE) || (last_affecting_turf != get_turf(affecting) && last_affecting_turf != null))
 			qdel(src)
 			return 0
 		else
+			last_affecting_turf = get_turf(affecting)
 			return 1
 	if(!assailant || !affecting)
 		qdel(src)
