@@ -4,6 +4,7 @@
 	This needs more thinking out, but I might as well.
 */
 #define TK_MAXRANGE 15
+#define TK_GRABMAXRANGE 10
 #define TK_COOLDOWN 1.5 SECONDS
 /*
 	Telekinetic attack:
@@ -47,6 +48,16 @@
 
 
 /mob/attack_tk(mob/user)
+	if(user.a_intent == INTENT_GRAB)
+		if(get_dist(user, src) > TK_GRABMAXRANGE)
+			to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
+		else
+			var/mob/living/carbon/human/U = user
+			var/mob/living/carbon/M = src
+			var/obj/item/grab/G = M.grabbedby(U, 1)
+			U.next_move = world.time + 10
+			G.telegrab = 1
+			new /obj/effect/temp_visual/telekinesis(get_turf(M))
 	return // needs more thinking about
 
 /*

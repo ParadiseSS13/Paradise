@@ -579,6 +579,9 @@
 				stop_pulling()
 
 /mob/living/proc/pull_grabbed(turf/old_turf, direct, movetime)
+	for(var/obj/item/grab/G in src)
+		if(G.telegrab)
+			return
 	if(!Adjacent(old_turf))
 		return
 	// We might not actually be grab pulled, but we are pretending that we are, so as to

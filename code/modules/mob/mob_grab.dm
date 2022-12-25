@@ -21,6 +21,9 @@
 	var/last_hit_zone = 0
 //	var/force_down //determines if the affecting mob will be pinned to the ground //disabled due to balance, kept for an example for any new things.
 	var/dancing //determines if assailant and affecting keep looking at each other. Basically a wrestling position
+	var/telegrab //determines if the grab was created from grabbing someone with telekinesis
+	var/last_telegrab_effect_time
+	var/telegrab_effect_time
 
 	layer = 21
 	plane = HUD_PLANE
@@ -79,7 +82,7 @@
 
 //Used by throw code to hand over the mob, instead of throwing the grab. The grab is then deleted by the throw code.
 /obj/item/grab/proc/get_mob_if_throwable()
-	if(affecting && assailant.Adjacent(affecting))
+	if((affecting && assailant.Adjacent(affecting)) || telegrab)
 		if(affecting.buckled)
 			return null
 		if(state >= GRAB_AGGRESSIVE)
@@ -96,6 +99,12 @@
 		assailant.client.screen += hud
 
 /obj/item/grab/process()
+	if(telegrab)
+		last_telegrab_effect_time = world.time
+		if(last_telegrab_effect_time >= telegrab_effect_time)
+			var/obj/effect/temp_visual/telekinesis/TK = new (get_turf(affecting))
+			telegrab_effect_time = world.time + TK.duration
+		tele_adjust_position()
 	if(!confirm())
 		return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
 
@@ -165,6 +174,8 @@
 //Updating pixelshift, position and direction
 //Gets called on process, when the grab gets upgraded or the assailant moves
 /obj/item/grab/proc/adjust_position()
+	if(telegrab)
+		return
 	if(affecting.buckled)
 		return
 	if(!assailant.Adjacent(affecting)) // To prevent teleportation via grab
@@ -178,6 +189,7 @@
 	var/shift = 0
 	var/adir = get_dir(assailant, affecting)
 	affecting.layer = 4
+
 	switch(state)
 		if(GRAB_PASSIVE)
 			shift = 8
@@ -207,6 +219,23 @@
 			animate(affecting, pixel_x = shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 		if(EAST)
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
+
+/obj/item/grab/proc/tele_adjust_position()
+	if(!telegrab)
+		return
+	var/shift = 0
+
+	switch(state)
+		if(GRAB_PASSIVE)
+			shift = 8
+		if(GRAB_AGGRESSIVE)
+			shift = 12
+		if(GRAB_NECK)
+			shift = 15
+		if(GRAB_KILL)
+			shift = 15
+
+	animate(affecting, pixel_x = 0, pixel_y = shift, 5, 1, LINEAR_EASING)
 
 /obj/item/grab/proc/s_click(obj/screen/S)
 	if(!affecting)
@@ -276,6 +305,12 @@
 
 //This is used to make sure the victim hasn't managed to yackety sax away before using the grab.
 /obj/item/grab/proc/confirm()
+	if(telegrab)
+		if(get_dist(assailant, affecting) > TK_GRABMAXRANGE)
+			qdel(src)
+			return 0
+		else
+			return 1
 	if(!assailant || !affecting)
 		qdel(src)
 		return 0

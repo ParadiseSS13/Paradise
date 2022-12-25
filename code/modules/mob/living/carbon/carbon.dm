@@ -667,7 +667,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(HAS_TRAIT(src, TRAIT_PACIFISM))
 				to_chat(src, "<span class='notice'>You gently let go of [throwable_mob].</span>")
 				return
-			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+			//Get the start and target tile for the descriptors
+			var/turf/start_T
+			if(G.telegrab)
+				start_T = get_turf(throwable_mob)
+			else
+				start_T = get_turf(loc)
 			var/turf/end_T = get_turf(target)
 			throwable_mob.forceMove(start_T)
 			if(start_T && end_T)
