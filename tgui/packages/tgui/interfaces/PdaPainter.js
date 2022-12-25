@@ -44,7 +44,7 @@ const PdaInsert = (props, context) => {
           />
           <br/>
           <Button
-            width = "160px"
+            width="160px"
             textAlign="center"
             content="Insert PDA"
             onClick={() => act('insert_pda')}

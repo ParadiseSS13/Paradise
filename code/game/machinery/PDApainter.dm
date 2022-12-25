@@ -7,8 +7,12 @@
 	anchored = TRUE
 	max_integrity = 200
 	var/obj/item/pda/storedpda = null
+	/// List of possible PDA colors to choose from
 	var/list/colorlist = list()
+	/// The preview to show of what the new paint will look like
 	var/preview_icon_state = "pda"
+	/// Cache of the icon state of the currently inserted PDA
+	var/cached_icon_state
 
 /obj/machinery/pdapainter/update_icon_state()
 	if(stat & BROKEN)
@@ -71,18 +75,7 @@
 		power_change()
 		return
 	if(istype(I, /obj/item/pda))
-		if(storedpda)
-			to_chat(user, "There is already a PDA inside.")
-			return
-		else
-			var/obj/item/pda/P = user.get_active_hand()
-			if(istype(P))
-				if(user.drop_item())
-					storedpda = P
-					P.forceMove(src)
-					P.add_fingerprint(user)
-					update_icon()
-					ui_interact(user)
+		insertpda(user)
 	else
 		return ..()
 
@@ -114,8 +107,7 @@
 	var/list/data = list()
 	data["has_pda"] = storedpda ? TRUE : FALSE
 	if(storedpda)
-		var/icon/pda_sprite = icon(storedpda.icon, storedpda.icon_state, frame = 1)
-		data["current_appearance"] = icon2base64(pda_sprite)
+		data["current_appearance"] = cached_icon_state
 
 		var/icon/preview_sprite = icon(storedpda.icon, preview_icon_state, frame = 1)
 		data["preview_appearance"] = icon2base64(preview_sprite)
@@ -148,6 +140,7 @@
 
 /obj/machinery/pdapainter/proc/insertpda(mob/user)
 	if(storedpda)
+		to_chat(user, "There is already a PDA inside.")
 		return
 	if(!ishuman(user))
 		return
@@ -160,8 +153,7 @@
 			P.forceMove(src)
 			P.add_fingerprint(usr)
 			update_icon()
-			SStgui.update_uis(src)
-			return TRUE
+			update_pda_cache()
 
 /obj/machinery/pdapainter/proc/ejectpda(mob/user)
 	if(!storedpda)
@@ -180,6 +172,15 @@
 		storedpda.icon_state = preview_icon_state
 		storedpda.desc = colorlist[preview_icon_state][2]
 		playsound(src.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		update_pda_cache()
+
+/obj/machinery/pdapainter/proc/update_pda_cache()
+	if(!storedpda)
+		cached_icon_state = null
+		return
+	var/icon/pda_sprite = icon(storedpda.icon, storedpda.icon_state, frame = 1)
+	cached_icon_state = icon2base64(pda_sprite)
+	SStgui.update_uis(src)
 
 /obj/machinery/pdapainter/power_change()
 	..()
