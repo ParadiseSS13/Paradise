@@ -500,7 +500,7 @@
 					playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 					return TRUE
 
-				P.damage = max(min(reflect_damage_cap, P.damage += 10), P.damage)
+				P.damage = clamp((P.damage + 10), P.damage, reflect_damage_cap)
 				var/sound = pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg', 'sound/effects/meteorimpact.ogg')
 				P.hitsound = sound
 				P.hitsound_wall = sound
@@ -512,9 +512,9 @@
 
 			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 			playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
-			if(istype(hitby, /obj/item)) //Thrown items
+			if(isitem(hitby)) //Thrown items
 				var/obj/item/TT = hitby
-				addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 15, 15, owner), 0.1 SECONDS)//yeet that shit right back
+				addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 15, 15, owner), 0.1 SECONDS) //yeet that shit right back
 				return TRUE
 			melee_attack_chain(owner, hitby)
 			return TRUE
