@@ -203,6 +203,9 @@
 			return
 	else if(isstorage(O.loc))
 		var/obj/item/storage/S = O.loc
+		if(!S.removal_allowed_check(user))
+			return
+
 		S.remove_from_storage(O, src)
 
 	for(var/datum/seed_pile/N in piles) //this for loop physically hurts me

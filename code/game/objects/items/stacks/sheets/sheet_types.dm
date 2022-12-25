@@ -180,6 +180,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	point_value = 23
 	table_type = /obj/structure/table/reinforced
 
+/obj/item/stack/sheet/plasteel/fifty
+	amount = 50
+
 /obj/item/stack/sheet/plasteel/New(loc, amount=null)
 	recipes = GLOB.plasteel_recipes
 	return ..()
