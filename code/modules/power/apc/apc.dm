@@ -471,7 +471,7 @@
 	if(operating && !shorted)
 		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, (lighting_channel > CHANNEL_SETTING_AUTO_OFF))
 		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, (equipment_channel > CHANNEL_SETTING_AUTO_OFF))
-		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, (environment_channel > CHANNEL_SETTING_AUTO_OFF))
+		machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, (environment_channel > CHANNEL_SETTING_AUTO_OFF))
 		if(lighting_channel)
 			emergency_power = TRUE
 			if(emergency_power_timer)
@@ -482,7 +482,7 @@
 	else
 		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 		machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, FALSE)
-		machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
+		machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, FALSE)
 		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	machine_powernet.power_change()
 
