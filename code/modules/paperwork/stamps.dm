@@ -72,10 +72,7 @@
 	icon_state = "stamp-clown"
 	item_color = "clown"
 
-/obj/item/stamp/gib
-	name = "gib rubber stamp"
-	icon_state = "stamp-clown"
-	item_color = "clown"
+
 
 /obj/item/stamp/rep
 	name = "Nanotrasen Representative's rubber stamp"
