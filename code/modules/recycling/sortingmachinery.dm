@@ -257,7 +257,7 @@
 	destination_tagger.ui_interact(user)
 
 /obj/machinery/disposal/deliveryChute
-	name = "Delivery chute"
+	name = "delivery chute"
 	desc = "A chute for big and small packages alike!"
 	density = TRUE
 	icon_state = "intake"
@@ -279,7 +279,7 @@
 	return
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
-	if(istype(AM, /obj/item/projectile)	|| isAI(AM))  return
+	if(istype(AM, /obj/item/projectile)	|| isAI(AM) || QDELETED(AM))  return
 	switch(dir)
 		if(NORTH)
 			if(AM.loc.y != loc.y + 1) return
