@@ -19,7 +19,7 @@
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+			if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 				unbuckle_mob(M)
 				add_fingerprint(user)
 				return
@@ -50,10 +50,10 @@
 	if (!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
 		return
 
-	if(M.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(M.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		return
 
-	if(!user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(!user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		return
 
 	if(has_buckled_mobs())

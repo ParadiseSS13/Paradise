@@ -12,6 +12,11 @@
 	item_state = "disintegrate"
 
 /obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(target == user)
+		user.add_plasma(200, user)
+		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
+		..()
+		return
 	if(!proximity || isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
 

@@ -208,7 +208,7 @@
 	/*can be GROWING, GROWN or BURST; all mutually exclusive. GROWING has the egg in the grown state, and it will take 180-300 seconds for it to advance to the hatched state
 	*In the GROWN state, an alien egg can be destroyed or attacked by a xenomorph to force it to be burst, going near an egg in this state will also cause it to burst if you can be infected by a face hugger
 	*In the BURST/BURSTING state, the alien egg can be removed by being attacked by a alien or any other weapon
-	**/ 
+	**/
 	var/status = GROWING
 
 /obj/structure/alien/egg/grown
@@ -231,7 +231,7 @@
 	return attack_hand(user)
 
 /obj/structure/alien/egg/attack_hand(mob/living/user)
-	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		switch(status)
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")

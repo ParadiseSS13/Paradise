@@ -15,9 +15,9 @@
 /mob/living/carbon/alien/humanoid/drone/get_caste_organs()
 	. = ..()
 	. += list(
-		/obj/item/organ/internal/xenos/plasmavessel/drone,
-		/obj/item/organ/internal/xenos/acidgland,
-		/obj/item/organ/internal/xenos/resinspinner,
+		/obj/item/organ/internal/alien/plasmavessel/drone,
+		/obj/item/organ/internal/alien/acidgland,
+		/obj/item/organ/internal/alien/resinspinner,
 	)
 
 

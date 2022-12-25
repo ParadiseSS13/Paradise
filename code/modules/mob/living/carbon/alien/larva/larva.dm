@@ -28,7 +28,7 @@
 
 /mob/living/carbon/alien/larva/get_caste_organs()
 	. = ..()
-	. += /obj/item/organ/internal/xenos/plasmavessel/larva
+	. += /obj/item/organ/internal/alien/plasmavessel/larva
 
 
 //This needs to be fixed
@@ -36,10 +36,10 @@
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/adjustPlasma(amount)
+/mob/living/carbon/alien/larva/add_plasma(amount, user)
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
-	..(amount)
+	..(amount, user)
 
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()

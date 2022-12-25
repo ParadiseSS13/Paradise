@@ -20,7 +20,7 @@
 
 	var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
 	if(!msg)
-		user.add_plasma(10, user)
+		revert_cast(user)
 		return
 	log_say("(AWHISPER to [key_name(target)]) [msg]", user)
 	to_chat(target, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'> [msg]")

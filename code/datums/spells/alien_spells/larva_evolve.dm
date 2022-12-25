@@ -16,7 +16,7 @@
 		to_chat(user, "<span class='warning'>You cannot evolve when you are cuffed.</span>")
 		return
 
-	if(!user.amount_grown <= user.max_grown)
+	if(user.amount_grown < user.max_grown)
 		to_chat(user, "<span class='warning'>You are not fully grown.</span>")
 		return
 	//green is impossible to read, so i made these blue and changed the formatting slightly
@@ -30,6 +30,8 @@
 								"Drone" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliend_s"))
 	var/new_xeno = show_radial_menu(user, user, to_evolve, src, radius = 40)
 	var/turf/T = user.loc
+	if(!new_xeno)
+		return
 	switch(new_xeno)
 		if("Hunter")
 			new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
@@ -37,10 +39,8 @@
 			new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
 		if("Drone")
 			new_xeno = new /mob/living/carbon/alien/humanoid/drone(T)
-	var/mob/living/carbon/alien/humanoid/alien_spell_remover = new_xeno
 	if(user.mind)
 		user.mind.transfer_to(new_xeno)
 	SSblackbox.record_feedback("tally", "alien_growth", 1, "[lowertext(new_xeno)]")
 	qdel(user)
-	alien_spell_remover.spellremove(src)
 	return

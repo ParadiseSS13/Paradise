@@ -12,10 +12,9 @@
 	for(var/mob/living/carbon/alien/humanoid/queen/living_queen in GLOB.alive_mob_list)
 		if(living_queen.key && !living_queen.get_int_organ(/obj/item/organ/internal/brain)) // We do a once over to check the queen didn't end up going away into the magic land of semi-dead
 			to_chat(user, "<span class='notice'>We already have an alive queen.</span>")
-			user.add_plasma(-500, user)
+			revert_cast(user)
 			return
 	/// If there is none, that means we can evolve
-	user.add_plasma(-500, user)
 	to_chat(user, "<span class='noticealien'>You begin to evolve!</span>")
 	for(var/mob/O in viewers(user, null))
 		O.show_message(text("<span class='alertalien'>[user] begins to twist and contort!</span>"), 1)

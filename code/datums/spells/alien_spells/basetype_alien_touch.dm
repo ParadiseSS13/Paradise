@@ -14,6 +14,14 @@
 	if(plasma_cost)
 		name = "[name] ([plasma_cost])"
 
+/obj/effect/proc_holder/spell/touch/alien_spell/Click(mob/user = usr)
+	if(attached_hand)
+		qdel(attached_hand)
+		custom_handler.revert_cast(user)
+		attached_hand = null
+		to_chat(user, "<span class='noticealien'>You withdraw your [src].</span>")
+		return FALSE
+	..()
 
 /obj/effect/proc_holder/spell/touch/alien_spell/create_new_handler()
 	var/datum/spell_handler/alien/H = new

@@ -12,11 +12,15 @@
 	item_state = "disintegrate"
 
 /obj/item/melee/touch_attack/alien/transfer_plasma/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(target == user)
+		user.add_plasma(50, user)
+		to_chat(user, "<span class='noticealien'>You withdraw your readied plasma.</span>")
+		..()
+		return
 	if(!proximity || !isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
 		return
 	var/mob/living/carbon/transfering_to = target
 	transfering_to.add_plasma(50, user)
 	to_chat(user, "<span class='noticealien'>You have transfered 50 plasma to [transfering_to].</span>")
-	if(!user == transfering_to)
-		to_chat(transfering_to, "<span class='noticealien'>[user] has transfered 50 plasma to you!</span>")
+	to_chat(transfering_to, "<span class='noticealien'>[user] has transfered 50 plasma to you!</span>")
 	..()

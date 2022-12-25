@@ -1,17 +1,16 @@
 /mob/living/carbon/proc/use_plasma_spell(amount, mob/living/carbon/user)
-	user.getPlasma()
-	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	if(amount > vessel.stored_plasma)
 		return FALSE
 	add_plasma(-amount, user)
 	return TRUE
 
 /mob/living/carbon/proc/add_plasma(amount, mob/living/carbon/user)
-	user.getPlasma()
-	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	vessel.stored_plasma += amount
-	for(var/obj/effect/proc_holder/spell/alien_spell/MS in mind.spell_list) // We want this to runtime if they lack a mind
-		MS.updateButtonIcon()
+	if(vessel.stored_plasma > vessel.max_plasma)
+		vessel.stored_plasma = vessel.max_plasma
+	user.updatePlasmaDisplay()
 
 /obj/effect/proc_holder/spell/alien_spell
 	action_background_icon_state = "bg_alien"

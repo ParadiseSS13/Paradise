@@ -51,9 +51,9 @@
 /mob/living/carbon/alien/humanoid/empress/get_caste_organs()
 	. = ..()
 	. += list(
-		/obj/item/organ/internal/xenos/plasmavessel/queen,
-		/obj/item/organ/internal/xenos/acidgland,
-		/obj/item/organ/internal/xenos/eggsac,
-		/obj/item/organ/internal/xenos/resinspinner,
-		/obj/item/organ/internal/xenos/neurotoxin,
+		/obj/item/organ/internal/alien/plasmavessel/queen,
+		/obj/item/organ/internal/alien/acidgland,
+		/obj/item/organ/internal/alien/eggsac,
+		/obj/item/organ/internal/alien/resinspinner,
+		/obj/item/organ/internal/alien/neurotoxin,
 	)

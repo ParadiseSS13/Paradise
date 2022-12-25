@@ -40,7 +40,7 @@
 	RETURN_TYPE(/list/obj/item/organ/internal)
 	return list(
 		/obj/item/organ/internal/brain/xeno,
-		/obj/item/organ/internal/xenos/hivenode,
+		/obj/item/organ/internal/alien/hivenode,
 		/obj/item/organ/internal/ears
 	)
 
@@ -220,9 +220,9 @@ Des: Removes all infected images from the alien.
 	return
 
 /mob/living/carbon/alien/canBeHandcuffed()
-	return 1
+	return TRUE
 
-/mob/living/carbon/alien/proc/updatePlasmaDisplay()
+/mob/living/carbon/proc/updatePlasmaDisplay()
 	if(hud_used) //clientless aliens
 		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[getPlasma()]</font></div>"
 		hud_used.alien_plasma_display.maptext_x = -3
