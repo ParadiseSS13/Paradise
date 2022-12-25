@@ -54,7 +54,7 @@
 		else
 			var/mob/living/carbon/human/U = user
 			var/mob/living/carbon/M = src
-			var/obj/item/grab/G = M.grabbedby(U, 1)
+			var/obj/item/grab/G = M.grabbedby(U)
 			U.next_move = world.time + 10
 			G.telegrab = 1
 			new /obj/effect/temp_visual/telekinesis(get_turf(M))
