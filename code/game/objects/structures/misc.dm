@@ -62,6 +62,8 @@
 			var/new_outfit = user.client.robust_dress_shop()
 			if(!new_outfit)
 				return
+			log_admin("[key_name(user)] changed a respawner machine's outfit to [new_outfit].")
+			message_admins("[key_name(user)] changed a respawner machine's outfit to [new_outfit].")
 			if(new_outfit == "Naked")
 				selected_outfit = null
 				return
