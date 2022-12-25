@@ -52,13 +52,12 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	id_to_link = "[UID()]" //We want unique IDs, this will give us a unique ID
 	var/turf/turf_interior = get_airlock_location(interior_direction)
 	var/turf/turf_exterior = get_airlock_location(exterior_direction)
-	// These need an init freeze because otherwise, they spawn and try link stuff before they should be allowed to
-	GLOB.space_manager.add_dirt(z)
+
 	handle_door_creation(turf_interior, TRUE, one_door_interior)
 	handle_door_creation(turf_exterior, FALSE, one_door_exterior)
 	handle_pipes_creation(turf_interior)
 	handle_control_placement()
-	GLOB.space_manager.remove_dirt(z)
+
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/airlock/proc/get_airlock_location(desired_direction) //Finds a turf to place an airlock and returns it, this turf will be in the middle of the relevant wall
