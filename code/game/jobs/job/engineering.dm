@@ -108,7 +108,7 @@
 	belt = /obj/item/storage/belt/utility/atmostech
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_eng
-	id = /obj/item/card/id/engineering
+	id = /obj/item/card/id/atmostech
 	pda = /obj/item/pda/atmos
 
 	backpack = /obj/item/storage/backpack/industrial/atmos

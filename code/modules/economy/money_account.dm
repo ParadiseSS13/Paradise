@@ -217,7 +217,7 @@
 	if(bonus)
 		LAZYADD(pay_check_bonuses, amount)
 	else
-		LAZYADD(pay_check_deductions, amount)
+		LAZYADD(pay_check_deductions, -amount) //we need to make the amount positive here
 	if(amount)
 		if(LAZYLEN(associated_nanobank_programs))
 			for(var/datum/data/pda/app/nanobank/program as anything in associated_nanobank_programs)
