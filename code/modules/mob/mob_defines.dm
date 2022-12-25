@@ -44,7 +44,8 @@
 	var/memory = ""
 	var/next_move = null
 	var/notransform = FALSE	//Carbon
-	var/hand = null // True for left hand active, otherwise for right hand active
+	/// True for left hand active, otherwise for right hand active
+	var/hand = null
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
