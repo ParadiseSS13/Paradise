@@ -12,25 +12,7 @@
 	sate_addiction(M)
 	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
-
-/datum/reagent/medicine/nutrifinin
-	name = "Nutrifinin"
-	id = "nutrifinin"
-	description = "Removes the need to eat as long it remains in your system."
-	reagent_state = LIQUID
-	color = "#a06417"
-	metabolization_rate = 0.01 // Lasts 35 minutes for 10 units
-	taste_description = "rich nutritions"
-
-/datum/reagent/medicine/nutrifinin/on_mob_life(mob/living/M)		
-	if(istype(M, /mob/living/carbon))
-		var/mob/living/carbon/W = M
-		if (!volume > 0.1)	
-			W.hunger_drain = 0.1
-			return
-		else
-			W.hunger_drain = 0
-	return
+	
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
 	id = "hydrocodone"
