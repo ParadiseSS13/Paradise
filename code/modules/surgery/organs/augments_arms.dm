@@ -485,43 +485,43 @@
 		return FALSE
 	// Hit by a melee weapon or blocked a projectile
 	. = ..()
-	if(.) // they did parry the attack
-		// Hit by a projectile
-		if(. > 1) // a perfect parry
-			set_light(3)
-			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
+	if(!.) // they did not block the attack
+		return
+	if(. == 1) // a normal block
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+		return TRUE
 
-			if(istype(hitby, /obj/item/projectile))
-				var/obj/item/projectile/P = hitby
-				if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
-					return FALSE
-				if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
-					owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-					playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
-					return TRUE
+	set_light(3)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
 
-				P.damage = clamp((P.damage + 10), P.damage, reflect_damage_cap)
-				var/sound = pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg', 'sound/effects/meteorimpact.ogg')
-				P.hitsound = sound
-				P.hitsound_wall = sound
-				P.add_overlay("parry")
-				playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
-				owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-				add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
-				return -1
-
-			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-			playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
-			if(isitem(hitby)) //Thrown items
-				var/obj/item/TT = hitby
-				addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 15, 15, owner), 0.1 SECONDS) //yeet that shit right back
-				return TRUE
-			melee_attack_chain(owner, hitby)
-			return TRUE
-		else
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
+			return FALSE
+		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
 			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 			return TRUE
+
+		P.damage = clamp((P.damage + 10), P.damage, reflect_damage_cap)
+		var/sound = pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg', 'sound/effects/meteorimpact.ogg')
+		P.hitsound = sound
+		P.hitsound_wall = sound
+		P.add_overlay("parry")
+		playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
+		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
+		return -1
+
+	owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
+	if(isitem(hitby)) //Thrown items
+		var/obj/item/TT = hitby
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 15, 15, owner), 0.1 SECONDS) //yeet that shit right back
+		return TRUE
+	melee_attack_chain(owner, hitby)
+	return TRUE
 
 /obj/item/v1_arm_shell
 	name = "vortex feedback arm implant frame"
@@ -530,9 +530,8 @@
 
 /obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
-		var/obj/item/assembly/signaler/anomaly/vortex/V = I
-		to_chat(user, "<span class='notice'>You insert [V] into the back of the hand, and the implant begins to boot up.</span>")
+		to_chat(user, "<span class='notice'>You insert [I] into the back of the hand, and the implant begins to boot up.</span>")
 		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
 		qdel(src)
-		qdel(V)
+		qdel(I)
 	return ..()
