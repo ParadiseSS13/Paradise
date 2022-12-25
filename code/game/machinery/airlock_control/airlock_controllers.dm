@@ -104,8 +104,9 @@
 
 	add_fingerprint(usr)
 
-	// Repeat the frontend check to make sure only allowed command are sent. You are only allowed to lock or cycle exterior if exterior is open
-	// Vice versa for internal
+	if(!allowed(usr))
+		to_chat(usr, "<span class='warning'>Access denied</span>")
+		return TRUE
 
 	switch(action)
 		if("cycle_ext")
