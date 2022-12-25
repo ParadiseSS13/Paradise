@@ -170,7 +170,7 @@
 		return FALSE
 
 	L.notransform = TRUE
-	INVOKE_ASYNC(src, PROC_REF(async_phase), )
+	INVOKE_ASYNC(src, PROC_REF(async_phase), B, L)
 	return TRUE
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/async_phase(obj/effect/decal/cleanable/B, mob/living/L)
