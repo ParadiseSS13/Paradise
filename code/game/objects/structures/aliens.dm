@@ -171,8 +171,8 @@
 /obj/structure/alien/resin/door/proc/try_to_operate(atom/user)
 	if(is_operating)
 		return
-	if(isalien(user))
-		var/mob/living/carbon/alien/C = user
+	var/mob/living/carbon/C = user
+	if(HAS_TRAIT(user, TRAIT_XENO_IMMUNE) && !C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 		if(world.time - C.last_bumped <= 60)
 			return
 		if(!C.handcuffed)
@@ -225,9 +225,10 @@
 			qdel(src)
 
 /obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
-    if(istype(mover) && isalien(mover))
-        return 1
-    return !density
+	var/mob/living/carbon/C = mover
+	if(istype(mover) && HAS_TRAIT(mover, TRAIT_XENO_IMMUNE) && !C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+		return 1
+	return !density
 
 /*
  * Weeds
@@ -254,14 +255,25 @@
 	var/static/list/weedImageCache
 	var/check_counter
 
-
 /obj/structure/alien/weeds/New(pos, node)
-    ..()
-    linked_node = node
-    if(isspaceturf(loc))
-        qdel(src)
-        return
-    START_PROCESSING(SSobj, src)
+	..()
+	if(src == "Wall Weeeeeed")
+		return
+	linked_node = node
+	if(isspaceturf(loc))
+		qdel(src)
+		return
+	for(var/turf/simulated/wall/W in orange(1, src))
+		var/wall_dir = get_dir(W, src)
+		var/wall_smoothing_junction  = W.smoothing_junction
+		switch(wall_dir)
+			if(1, 8, 4, 2)
+				new /obj/structure/alien/wallweed(pos, wall_dir)
+			if(9, 5, 10, 6)
+				switch(wall_smoothing_junction)
+					if(1,2,4,6,8,9,10)
+						new /obj/structure/alien/wallweed(pos, wall_dir)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/alien/weeds/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -283,25 +295,59 @@
         check_counter = 0
 
 /obj/structure/alien/weeds/proc/spread()
-    var/turf/U = get_turf(src)
+	var/turf/U = get_turf(src)
 
-    if(isspaceturf(U))
-        qdel(src)
-        return
+	if(isspaceturf(U))
+		qdel(src)
+		return
 
-    if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
-        return
+	if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
+		return
 
-    for(var/turf/T in U.GetAtmosAdjacentTurfs())
-        if(locate(/obj/structure/alien/weeds) in T || isspaceturf(T))
-            continue
-
-        new /obj/structure/alien/weeds(T, linked_node)
+	for(var/turf/T in U.GetAtmosAdjacentTurfs())
+		if(locate(/obj/structure/alien/weeds) in T || isspaceturf(T))
+			continue
+		new /obj/structure/alien/weeds(T, linked_node)
 
 /obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
+
+//Wall Weeds
+/obj/structure/alien/wallweed
+	name = "Wall Weeeeeed"
+	desc = "Wall go brrr"
+	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
+	icon_state = "wallweed"
+	base_icon_state = "wallweed"
+	layer = ABOVE_WINDOW_LAYER
+	plane = GAME_PLANE
+	max_integrity = 15
+
+/obj/structure/alien/wallweed/New(pos, wall_dir)
+	switch(wall_dir)
+		if(1, 5, 9)
+			pixel_y = -32
+		if(2, 6, 10)
+			pixel_y = 32
+	switch(wall_dir)
+		if(4, 5 ,6)
+			pixel_x = -32
+		if(8, 9, 10)
+			pixel_x = 32
+	icon_state = "wallweed-[wall_dir]"
+	..()
+
+/obj/structure/alien/wallweed/Destroy()
+	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	return ..()
+
+/obj/structure/alien/wallweed/attack_alien(mob/living/carbon/alien/humanoid/user)
+	if(user.a_intent != INTENT_HARM)
+		return
+	else
+		return ..()
 
 //Weed nodes
 /obj/structure/alien/weeds/node

@@ -19,14 +19,14 @@
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+			if(HAS_TRAIT(usr, TRAIT_XENO_IMMUNE) && !usr.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 				unbuckle_mob(M)
-				add_fingerprint(user)
+				add_fingerprint(usr)
 				return
 
-			if(M != user)
-				M.visible_message("<span class='notice'>[user.name] pulls [M.name] free from the sticky nest!</span>",\
-					"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
+			if(M != usr)
+				M.visible_message("<span class='notice'>[usr.name] pulls [M.name] free from the sticky nest!</span>",\
+					"<span class='notice'>[usr.name] pulls you free from the gelatinous resin.</span>",\
 					"<span class='italics'>You hear squelching...</span>")
 			else
 				M.visible_message("<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
@@ -43,17 +43,16 @@
 					"<span class='italics'>You hear squelching...</span>")
 
 			unbuckle_mob(M)
-			add_fingerprint(user)
-
+			add_fingerprint(usr)
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
 	if (!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
 		return
 
-	if(M.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE) && !M.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 		return
 
-	if(!user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(HAS_TRAIT(user, TRAIT_XENO_IMMUNE) && user.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 		return
 
 	if(has_buckled_mobs())
