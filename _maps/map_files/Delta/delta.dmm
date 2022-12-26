@@ -8637,11 +8637,11 @@
 	location = "QM #2"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/segment,
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #2";
 	suffix = "#2"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aDW" = (
@@ -12122,11 +12122,11 @@
 	location = "QM #4"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/segment,
 /mob/living/simple_animal/bot/mulebot{
 	home_destination = "QM #4";
 	suffix = "#4"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aLW" = (
@@ -17791,7 +17791,7 @@
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
-	sensors = list("co2_sensor"="Tank")
+	sensors = list("co2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel/dark,
@@ -19550,7 +19550,7 @@
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
-	sensors = list("o2_sensor"="Tank")
+	sensors = list("o2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -19767,7 +19767,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor"="Tank")
+	sensors = list("air_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 10
@@ -20700,7 +20700,7 @@
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
-	sensors = list("tox_sensor"="Tank")
+	sensors = list("tox_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -21795,7 +21795,7 @@
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
-	sensors = list("n2_sensor"="Tank")
+	sensors = list("n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -23333,7 +23333,7 @@
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
-	sensors = list("n2o_sensor"="Tank")
+	sensors = list("n2o_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -28534,7 +28534,7 @@
 	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "waste_out";
-	sensors = list("waste_sensor"="Tank")
+	sensors = list("waste_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -37542,12 +37542,12 @@
 /obj/structure/bed/dogbed{
 	name = "fox box"
 	},
-/mob/living/simple_animal/pet/dog/fox/Renault,
 /obj/machinery/newscaster/security_unit{
 	dir = 4;
 	name = "west bump";
 	pixel_x = -28
 	},
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/captain)
 "bOV" = (
@@ -70979,7 +70979,7 @@
 	},
 /area/crew_quarters/hor)
 "dqe" = (
-/obj/machinery/vending/chinese,
+/obj/item/reagent_containers/food/snacks/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -84869,7 +84869,7 @@
 	},
 /area/security/prison/cell_block)
 "gtR" = (
-/obj/machinery/vending/coffee,
+/obj/item/seeds/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -85964,7 +85964,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor"="Burn Mix");
+	sensors = list("burn_sensor" = "Burn Mix");
 	dir = 1
 	},
 /obj/machinery/ignition_switch{
@@ -88074,15 +88074,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/economy/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -88925,15 +88916,9 @@
 	},
 /area/crew_quarters/locker)
 "lQN" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "lQW" = (
@@ -89418,7 +89403,7 @@
 	},
 /area/medical/surgery2)
 "myi" = (
-/obj/machinery/vending/cola,
+/obj/item/vending_refill/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -91175,7 +91160,7 @@
 /turf/simulated/wall,
 /area/maintenance/apmaint)
 "oKa" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -92738,7 +92723,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "qQx" = (
-/obj/machinery/vending/plasmaresearch,
+/obj/machinery/economy/vending/plasmaresearch,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "qQS" = (
@@ -93318,15 +93303,6 @@
 	icon_state = "neutral"
 	},
 /area/maintenance/fore)
-"rse" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/economy/vending/scidrobe,
-/turf/simulated/floor/engine,
-/area/toxins/test_chamber)
 "rsF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -93411,7 +93387,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "rzO" = (
-/obj/machinery/vending/scidrobe,
+/obj/machinery/economy/vending/scidrobe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -95810,17 +95786,11 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera{
 	c_tag = "Research Break Room";
 	dir = 4;
 	network = list("Research","SS13")
 	},
-/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "uAP" = (
@@ -96941,12 +96911,12 @@
 /area/maintenance/incinerator)
 "woT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/pet/dog/pug,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/mob/living/simple_animal/pet/dog/pug,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "wpr" = (
@@ -133567,7 +133537,7 @@ cHC
 ddn
 lSu
 lQN
-rse
+pjk
 iNa
 pjk
 eTE
