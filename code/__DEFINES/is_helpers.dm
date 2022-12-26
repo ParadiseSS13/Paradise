@@ -95,6 +95,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
 
+#define issimplemob(A)		(istype((A), /mob/living/simple_animal))
+
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))
 

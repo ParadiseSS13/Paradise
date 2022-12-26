@@ -53,7 +53,7 @@
 		else
 			to_chat(user, "<span class='warning'>Select object type first.</span>")
 	else if(right_click)
-		if(isobj(object))
+		if(isobj(object) || issimplemob(object))
 			log_admin("Build Mode: [key_name(user)] deleted [object] at [COORD(object)]")
 			qdel(object)
 
