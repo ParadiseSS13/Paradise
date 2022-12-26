@@ -510,6 +510,7 @@ SUBSYSTEM_DEF(tts)
 			"трейзен" = "трэйзэн",
 			"нанотрейзен" = "нанотрэйзэн",
 			"мед" = "м ед",
+			"кз" = "Кэ Зэ",
 		)
 	var/match = tts_replacement_list[lowertext(word)]
 	if(match)
