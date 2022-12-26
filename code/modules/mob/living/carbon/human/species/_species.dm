@@ -211,7 +211,7 @@
 			continue
 		var/list/organ_data = has_limbs[limb_name]
 		var/limb_path = organ_data["path"]
-		var/obj/item/organ/external/O = new limb_path(H)
+		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
 	for(var/index in has_organ)
