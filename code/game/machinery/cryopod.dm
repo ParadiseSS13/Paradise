@@ -212,7 +212,7 @@
 	flags = NODECONSTRUCT
 	var/base_icon_state = "body_scanner_0"
 	var/occupied_icon_state = "body_scanner_1"
-	var/on_store_message = "has entered long-term storage."
+	var/on_store_message = "помещен в криохранилище."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
@@ -447,14 +447,14 @@
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if (announce_rank)
-				announcer.say(";[occupant.real_name] ([announce_rank]) [on_store_message]")
+				announcer.say("; [issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]")
 			else
-				announcer.say(";[occupant.real_name] [on_store_message]")
+				announcer.say("; [issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]")
 		else
 			if (announce_rank)
-				announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
+				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
 			else
-				announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
+				announce.autosay("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]")
 		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
 
 	// Ghost and delete the mob.
@@ -741,7 +741,7 @@
 	icon_state = "pod_0"
 	base_icon_state = "pod_0"
 	occupied_icon_state = "pod_1"
-	on_store_message = "has entered robotic storage."
+	on_store_message = "помещен в робохранилище."
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)
