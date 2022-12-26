@@ -172,7 +172,7 @@
 		if(initial(D.name))
 			GLOB.keybindings += new path()
 
-	for(var/path as anything in subtypesof(/datum/objective))
+	for(var/path in subtypesof(/datum/objective))
 		var/datum/objective/O = path
 		if(isnull(initial(O.name)))
 			continue // These are not valid objectives to add.
