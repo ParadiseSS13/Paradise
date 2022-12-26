@@ -24,8 +24,8 @@ export const AtmosAlertConsole = (props, context) => {
             )}
             {minorAlerts.map((alert) => (
               <li key={alert} className="color-average">
-              {alert}
-            </li>
+                {alert}
+              </li>
             ))}
           </ul>
         </Section>

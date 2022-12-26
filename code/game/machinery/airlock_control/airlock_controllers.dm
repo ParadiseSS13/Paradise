@@ -74,13 +74,13 @@
 		stack_trace("[src] at [x],[y],[z] didnt setup any exterior buttons! Please double check the IDs!")
 
 
-/obj/machinery/airlock_controller/attack_ghost(mob/user as mob)
+/obj/machinery/airlock_controller/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/airlock_controller/attack_ai(mob/user as mob)
+/obj/machinery/airlock_controller/attack_ai(mob/user)
 	ui_interact(user)
 
-/obj/machinery/airlock_controller/attack_hand(mob/user as mob)
+/obj/machinery/airlock_controller/attack_hand(mob/user)
 	if(!user.IsAdvancedToolUser())
 		return FALSE
 	ui_interact(user)

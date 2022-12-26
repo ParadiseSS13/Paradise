@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		return
 
 	user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
-	new /obj/item/pipe_gsensor(src.loc)
+	new /obj/item/pipe_gsensor(loc)
 	qdel(src)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
@@ -157,9 +157,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		ui.open()
 
 /obj/machinery/computer/general_air_control/ui_data(mob/user)
-	var/list/L = list()
-	L["sensors"] = sensor_name_data_map // We can make this super cheap by sending our existing data
-	return L
+	var/list/data = list()
+	data["sensors"] = sensor_name_data_map // We can make this super cheap by sending our existing data
+	return data
 
 /obj/machinery/computer/general_air_control/multitool_act(mob/living/user, obj/item/I)
 	if(!istype(I, /obj/item/multitool)) // Should never happen
