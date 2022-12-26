@@ -30,7 +30,8 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(!H.can_inject(user, TRUE))
+		if(isgolem(M))
+			to_chat(user, "<span class='danger'>This can't be used on golems!</span>")
 			return TRUE
 
 		if(!affecting)
@@ -45,6 +46,12 @@
 			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
 			if(!do_mob(user, H, self_delay))
 				return TRUE
+
+		if(H.head && H.head.flags & THICKMATERIAL)
+			if(H.wear_suit && H.wear_suit.flags & THICKMATERIAL)
+				to_chat(user, "<span class='danger'>There is no thin material to inject into.")
+				return TRUE
+
 		return
 
 	if(isanimal(M))
@@ -224,7 +231,7 @@
 	if(!get_amount())
 		to_chat(user, "<span class='danger'>Not enough medical supplies!</span>")
 		return 1
-	else 
+	else
 		.=..()
 
 //Medical Herbs//
@@ -264,7 +271,7 @@
 	if(!get_amount())
 		to_chat(user, "<span class='danger'>No splints left!</span>")
 		return 1
-	else 
+	else
 		.=..()
 /obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
 	if(..())
