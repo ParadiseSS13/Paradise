@@ -6,6 +6,10 @@
 #define TTS_CATEGORY_STALKER "STALKER"
 #define TTS_CATEGORY_DOTA2 "Dota 2"
 #define TTS_CATEGORY_LOL "League of Legends"
+#define TTS_CATEGORY_FALLOUT "Fallout"
+#define TTS_CATEGORY_FALLOUT2 "Fallout 2"
+#define TTS_CATEGORY_POSTAL2 "Postal 2"
+#define TTS_CATEGORY_TEAMFORTRESS2 "Team Fortress 2"
 
 #define TTS_GENDER_ANY "Любой"
 #define TTS_GENDER_MALE "Мужской"
