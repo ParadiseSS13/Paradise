@@ -638,6 +638,11 @@
 	icon_state = "puddle"
 
 /obj/structure/sink/puddle/attackby(obj/item/O as obj, mob/user as mob, params)
+	if(istype(O, /obj/item/shovel) && user.a_intent == INTENT_HARM)
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+		if(do_after(user, 5 SECONDS, target = src))
+			Destroy()
+			return
 	icon_state = "puddle-splash"
 	..()
 	icon_state = "puddle"

@@ -99,7 +99,9 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
-		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50)\
+		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50), \
+		null, \
+		new /datum/stack_recipe("puddle", /obj/structure/sink/puddle, 30, 1, 1, 10 SECONDS, 1, 1)\
 		))
 
 /obj/item/stack/ore/glass/Initialize(mapload, new_amount, merge = TRUE)
