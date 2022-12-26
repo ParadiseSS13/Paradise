@@ -50,8 +50,26 @@
 	icon_state = "borgcharger1(old)"
 	anchored = TRUE
 	density = TRUE
+	/// An outfit for ghosts to spawn with
+	var/datum/outfit/selected_outfit
 
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user)
+	if(check_rights(R_EVENT))
+		var/outfit_pick = alert(user, "Do you want to pick an outfit or respawn?", "Pick an Outfit?", "Pick outfit", "Respawn", "Cancel")
+		if(outfit_pick == "Cancel")
+			return
+		if(outfit_pick == "Pick outfit")
+			var/new_outfit = user.client.robust_dress_shop()
+			if(!new_outfit)
+				return
+			log_admin("[key_name(user)] changed a respawner machine's outfit to [new_outfit].")
+			message_admins("[key_name(user)] changed a respawner machine's outfit to [new_outfit].")
+			if(new_outfit == "Naked")
+				selected_outfit = null
+				return
+			selected_outfit = new_outfit
+			return
+
 	var/response = alert(user, "Are you sure you want to spawn here?\n(If you do this, you won't be able to be cloned!)", "Respawn?", "Yes", "No")
 	if(response == "Yes")
 		var/turf/respawner_location = get_turf(src)
@@ -64,6 +82,8 @@
 		log_admin("[key_name(new_human)] was incarnated by a respawner machine.")
 		message_admins("[key_name_admin(new_human)] was incarnated by a respawner machine.")
 		new_human.mind.offstation_role = TRUE // To prevent them being an antag objective
+		if(selected_outfit)
+			new_human.equipOutfit(selected_outfit)
 
 /obj/structure/ghost_beacon
 	name = "ethereal beacon"
