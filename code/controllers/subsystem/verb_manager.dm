@@ -158,3 +158,14 @@ SUBSYSTEM_DEF(verb_manager)
 
 /datum/controller/subsystem/verb_manager/get_stat_details()
 	return "V/S: [round(verbs_executed_per_second, 0.01)]"
+
+/client/proc/force_verb_bypass()
+	set category = "Debug"
+	set name = "Enable Forced Verb Execution"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(alert(src,"This will make all verbs bypass the queueing system, creating more lag. Are you absolutely sure?","Verb Manager","Yes","No") == "Yes")
+		SSverb_manager.FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs = TRUE
+		message_admins("Admin [key_name_admin(usr)] has forced verbs to bypass the verb queue subsystem.")
