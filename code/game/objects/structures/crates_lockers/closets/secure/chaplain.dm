@@ -30,3 +30,7 @@
 	new /obj/item/clothing/gloves/ring/silver(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
+	new /obj/item/clothing/neck/cloak/bishopblack(src)
+	new /obj/item/clothing/neck/cloak/bishop(src)
+	new /obj/item/clothing/head/bishopmitre(src)
+	new /obj/item/clothing/head/blackbishopmitre(src)

@@ -79,6 +79,18 @@
 	item_state = "witchhunterhat"
 	flags_cover = HEADCOVERSEYES
 
+/obj/item/clothing/head/bishopmitre
+	name = "bishop mitre"
+	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
+	icon_state = "bishopmitre"
+	item_state = "bishopmitre"
+
+/obj/item/clothing/head/blackbishopmitre
+	name = "black bishop mitre"
+	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
+	icon_state = "blackbishopmitre"
+	item_state = "blackbishopmitre"
+
 /obj/item/clothing/head/det_hat
 	name = "hat"
 	desc = "Someone who wears this will look very smart."

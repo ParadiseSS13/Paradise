@@ -79,6 +79,34 @@
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
 
+/obj/item/clothing/neck/cloak/bishop
+	name = "bishop's cloak"
+	desc = "Become the space pope."
+	icon_state = "bishopcloak"
+	item_state = "bishopcloak"
+
+/obj/item/clothing/neck/cloak/bishopblack
+	name = "black bishop cloak"
+	desc = "Become the space pope."
+	icon_state = "blackbishopcloak"
+	item_state = "blackbishopcloak"
+
+/obj/item/clothing/neck/cloak/syndiecap
+	name = "syndicate captain's cloak"
+	desc = "A cloak that inspires fear among Nanotrasen employees, worn by the greatest Syndicate captains."
+	icon_state = "syndcapt"
+	item_state = "syndcapt"
+
+/obj/item/clothing/neck/cloak/syndiecap/comms
+	name = "syndicate officer's cloak"
+	desc = "A cloak that inspires fear among Nanotrasen employees, worn by the greatest Syndicate officers."
+
+/obj/item/clothing/neck/cloak/syndieadm
+	name = "syndicate admiral's cloak"
+	desc = "A deep red cloak, worn by only the greatest of the Syndicate. If you are looking at this, you probably won't be looking at it for much longer."
+	icon_state = "syndadmiral"
+	item_state = "syndadmiral"
+
 /obj/item/clothing/neck/toggle/attack_self(mob/user)
 	if(icon_state == initial(icon_state))
 		icon_state = icon_state + "_t"

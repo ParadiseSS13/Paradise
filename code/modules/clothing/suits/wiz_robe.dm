@@ -173,6 +173,10 @@
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
+/obj/item/clothing/head/wizard/marisa/fake/alt
+	icon_state = "marisa_alt"
+	item_state = "marisa_alt"
+
 /obj/item/clothing/suit/wizrobe/marisa/fake
 	name = "Witch Robe"
 	desc = "Magic is all about the spell power, ZE!"

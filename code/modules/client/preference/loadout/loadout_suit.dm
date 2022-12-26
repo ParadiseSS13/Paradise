@@ -138,6 +138,10 @@
 	path = /obj/item/clothing/suit/armor/secjacket
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot")
 
+/datum/gear/suit/coat/russian
+	display_name = "russian coat"
+	path = /obj/item/clothing/suit/russiancoat
+
 //SURAGI JACKET
 /datum/gear/suit/suragi_jacket
 	subtype_path = /datum/gear/suit/suragi_jacket

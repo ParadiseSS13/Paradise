@@ -995,6 +995,12 @@
 	item_state = "sovietofficercoat"
 	armor = list(melee = 25, bullet = 25, laser = 25, energy = 10, bomb = 20, bio = 0, rad = 0, fire = 30, acid = 30)
 
+/obj/item/clothing/suit/russiancoat
+	name = "russian coat"
+	desc = "Used in extremly cold fronts, made out of real bears."
+	item_state = "rus_coat"
+	icon_state = "rus_coat"
+
 /obj/item/clothing/suit/lordadmiral
 	name = "Lord Admiral's Coat"
 	desc = "You'll be the Ruler of the King's Navy in no time."
