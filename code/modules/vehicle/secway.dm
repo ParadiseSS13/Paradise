@@ -9,6 +9,7 @@
 	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 1
+	pull_push_speed_modifier = 1
 
 
 /obj/item/key/security

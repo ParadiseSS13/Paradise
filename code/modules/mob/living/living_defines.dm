@@ -6,6 +6,7 @@
 	move_resist = null
 	move_force = null
 	pull_force = null
+	pull_push_speed_modifier = 1
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.

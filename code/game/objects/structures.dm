@@ -2,6 +2,7 @@
 	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
 	max_integrity = 300
+	pull_push_speed_modifier = 1.2
 	var/climbable
 	var/mob/climber
 	var/broken = FALSE

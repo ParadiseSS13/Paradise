@@ -5,6 +5,7 @@
 	icon_state = "cart"
 	anchored = 0
 	density = 1
+	pull_push_speed_modifier = 1
 	var/obj/item/stack/sheet/glass/myglass = null
 	var/obj/item/stack/sheet/metal/mymetal = null
 	var/obj/item/stack/sheet/plasteel/myplasteel = null

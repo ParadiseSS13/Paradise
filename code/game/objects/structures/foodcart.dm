@@ -5,6 +5,7 @@
 	icon_state = "cart"
 	anchored = 0
 	density = 1
+	pull_push_speed_modifier = 1
 	//Food slots
 	var/list/food_slots[6]
 	//var/obj/item/reagent_containers/food/snacks/food1 = null

@@ -77,6 +77,7 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
+	pull_push_speed_modifier = 1
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
