@@ -98,6 +98,8 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("NT Undercover Operative")
 			return get_all_centcom_access() + get_all_accesses()
+		if("Special Reaction Team Member")
+			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Solar Federation General")

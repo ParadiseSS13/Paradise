@@ -155,6 +155,64 @@
 		apply_to_card(I, H, get_centcom_access("VIP Guest"), "VIP Guest")
 	H.sec_hud_set_ID()
 
+/datum/outfit/admin/special_reaction_team
+	name = "Special Reaction Team Member"
+
+	uniform = /obj/item/clothing/under/fluff/jay_turtleneck
+	suit = /obj/item/clothing/suit/armor/bulletproof
+	back = /obj/item/storage/backpack/ert
+	belt = /obj/item/storage/belt/security/webbing/srt/full
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/combat/swat
+	head = /obj/item/clothing/head/HoS/beret
+	l_ear = /obj/item/radio/headset/ert
+	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
+	r_pocket = /obj/item/reagent_containers/food/snacks/candy/mre
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
+	id = /obj/item/card/id/centcom
+
+	backpack_contents = list(
+		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/ammo_box/magazine/smgm9mm = 3,
+		/obj/item/gun/projectile/automatic/pistol/enforcer/lethal = 1,
+		/obj/item/ammo_box/magazine/enforcer/lethal = 1,
+		/obj/item/shield/riot/tele = 1,
+		/obj/item/suppressor = 1,
+		/obj/item/CQC_manual = 1
+	)
+
+	accessories = list(
+		/obj/item/clothing/accessory/holster
+	)
+
+	implants = list(
+		/obj/item/implant/mindshield/ert
+	)
+
+/datum/outfit/admin/special_reaction_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	H.head.desc = null
+	H.head.name = "SRT beret"
+	H.back.desc = null
+	H.back.name = "SRT backpack"
+	H.l_ear.desc = null
+	H.l_ear.name = "SRT headset"
+	H.shoes.name = "SRT special shoes"
+	H.wear_suit.name = "SRT bulletproof vest"
+	H.w_uniform.name = "SRT uniform"
+
+
+/datum/outfit/admin/special_reaction_team/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
+		I.rank = "Blueshield"
+	H.sec_hud_set_ID()
+
 /datum/outfit/admin/nt_navy_captain
 	name = "NT Navy Captain"
 

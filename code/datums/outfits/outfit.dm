@@ -97,8 +97,7 @@
 	if(uniform)
 		for(var/path in accessories)
 			var/obj/item/clothing/accessory/A = new path()
-			var/obj/item/clothing/under/U = uniform
-			U.attach_accessory(A, H)
+			H.w_uniform.attach_accessory(A, H)
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)

@@ -98,6 +98,13 @@
 // Candy Products (Pre-existing)
 // ***********************************************************
 
+/obj/item/reagent_containers/food/snacks/candy/mre
+	name = "MRE"
+	desc = "Meal ready to eat."
+	trash = /obj/item/trash/candy
+	bitesize = 5
+	list_reagents = list("nutriment" = 30, "sugar" = 3)
+
 /obj/item/reagent_containers/food/snacks/candy/donor
 	name = "donor candy"
 	desc = "A little treat for blood donors."

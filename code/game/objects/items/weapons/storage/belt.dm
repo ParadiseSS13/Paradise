@@ -279,6 +279,20 @@
 	storage_slots = 6
 	use_item_overlays = FALSE
 
+/obj/item/storage/belt/security/webbing/srt
+	name = "SRT webbing"
+	desc = "Unique and versatile chest rig, can hold SRT gear."
+
+/obj/item/storage/belt/security/webbing/srt/full/New()
+	..()
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/grenade/flashbang(src)
+	update_icon()
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
