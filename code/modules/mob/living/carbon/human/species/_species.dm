@@ -206,23 +206,20 @@
 	LAZYREINITLIST(H.internal_organs)
 
 	for(var/limb_name in has_limbs)
-		if(limb_name in bodyparts_to_omit)
+		if(bodyparts_to_omit && (limb_name in bodyparts_to_omit))
 			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
 			continue
 		var/list/organ_data = has_limbs[limb_name]
 		var/limb_path = organ_data["path"]
-		var/obj/item/organ/O = new limb_path(H)
+		var/obj/item/organ/external/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
 	for(var/index in has_organ)
-		var/organ_path = has_organ[index]
-		var/obj/item/organ/internal/org = new organ_path()
-
-		if(org.parent_organ in bodyparts_to_omit)
-			// We can't really squish organs in if there's no place for them to go
-			qdel(org)
+		var/obj/item/organ/internal/organ_path = has_organ[index]
+		if(initial(organ_path.parent_organ) in bodyparts_to_omit)
 			continue
 
+		var/obj/item/organ/internal/org = new organ_path()
 		org.insert(H)
 
 	create_mutant_organs(H)
@@ -239,15 +236,15 @@
 /datum/species/proc/create_mutant_organs(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(ears)
+		if(istype(ears, mutantears))
+			// if they're the same, just heal them and don't bother replacing them
+			ears.rejuvenate()
+			return
 		qdel(ears)
 
-	if(mutantears)
+	if(mutantears && !isnull(H.bodyparts_by_name[initial(mutantears.parent_organ)]))
 		var/obj/item/organ/internal/ears/new_ears = new mutantears()
-		if(H.bodyparts_by_name[new_ears.parent_organ] != null)
-			new_ears.insert(H)
-		else
-			qdel(new_ears)
-
+		new_ears.insert(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
