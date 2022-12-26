@@ -43,6 +43,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 			return FALSE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
 		return FALSE
+	if(isanimal(mind.current))
+		return FALSE
 	return TRUE
 
 /datum/game_mode/cult
