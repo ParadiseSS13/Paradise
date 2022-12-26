@@ -441,11 +441,9 @@
 	if(!equipped_backpack) // We also let you equip a backpack like this
 		equip_to_slot_if_possible(thing, slot_back)
 		return
-	if(thing) // put thing in backpack
-		if(equipped_backpack.can_be_inserted(thing))
-			equipped_backpack.handle_item_insertion(thing)
-			playsound(loc, "rustle", 50, 1, -5)
-			return
+	if(thing && equipped_backpack.can_be_inserted(thing)) // put thing in backpack
+		equipped_backpack.handle_item_insertion(thing)
+		playsound(loc, "rustle", 50, 1, -5)
 
 /mob/living/carbon/human/proc/quick_equip_belt() // puts things in belt
 	var/obj/item/thing = get_active_hand()
@@ -455,11 +453,9 @@
 	if(!equipped_belt) // We also let you equip a belt like this
 		equip_to_slot_if_possible(thing, slot_belt)
 		return
-	if(thing) // put thing in belt
-		if(equipped_belt.can_be_inserted(thing))
-			equipped_belt.handle_item_insertion(thing)
-			playsound(loc, "rustle", 50, 1, -5)
-			return
+	if(thing && equipped_belt.can_be_inserted(thing)) // put thing in belt
+		equipped_belt.handle_item_insertion(thing)
+		playsound(loc, "rustle", 50, 1, -5)
 
 /mob/living/carbon/human/proc/quick_equip_suit() // puts things in the suitslot
 	var/obj/item/thing = get_active_hand()
@@ -468,4 +464,3 @@
 		return
 	if(!equipped_suit)
 		equip_to_slot_if_possible(thing, slot_s_store)
-		return
