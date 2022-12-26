@@ -88957,6 +88957,17 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
+"lSc" = (
+/obj/machinery/camera{
+	c_tag = "Research South Hallway";
+	dir = 4;
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research)
 "lSu" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/test_chamber)
@@ -129700,7 +129711,7 @@ jji
 hdu
 hnH
 ojf
-cPn
+lSc
 cPn
 cRd
 cZt
