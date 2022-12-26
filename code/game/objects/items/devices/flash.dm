@@ -77,14 +77,14 @@
 
 
 /obj/item/flash/proc/try_use_flash(mob/user = null)
+	if(broken)
+		return FALSE
+
 	if(cooldown >= world.time)
 		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
 	cooldown = world.time + cooldown_duration
 	flash_recharge(user)
-
-	if(broken)
-		return FALSE
 
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
