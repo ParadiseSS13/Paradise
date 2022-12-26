@@ -49,7 +49,7 @@
 			dpdir = dir | right | flip
 		if(PIPE_DISPOSALS_SORT_LEFT)
 			dpdir = dir | left | flip
-		 // disposal bin has only one dir, thus we don't need to care about setting it
+		// disposal bin has only one dir, thus we don't need to care about setting it
 		if(PIPE_DISPOSALS_BIN)
 			if(!anchored)
 				icon_state = "[base_state]-unanchored"

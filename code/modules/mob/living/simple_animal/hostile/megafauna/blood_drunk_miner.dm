@@ -56,8 +56,8 @@ Difficulty: Medium
 	death_sound = "bodyfall"
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
-							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
-							   /datum/action/innate/megafauna_attack/transform_weapon)
+							/datum/action/innate/megafauna_attack/kinetic_accelerator,
+							/datum/action/innate/megafauna_attack/transform_weapon)
 
 /obj/item/gps/internal/miner
 	icon_state = null
