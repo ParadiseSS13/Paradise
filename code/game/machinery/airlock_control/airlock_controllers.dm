@@ -46,7 +46,7 @@
 
 // Do setup of stuff here
 /obj/machinery/airlock_controller/LateInitialize()
-	for(var/obj/machinery/door/airlock/A as anything in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == int_door_link_id)
 			interior_doors += A.UID()
 		if(A.id_tag == ext_door_link_id)

@@ -137,7 +137,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	*		one wire for controlling door speed.  When active, dor closes at normal rate.  When cut, door does not close manually.  When pulsed, door attempts to close every tick.
 	*/
 	// You can find code for the airlock wires in the wire datum folder.
-	GLOB.airlocks += src
 	wires = new(src)
 
 	if(closeOtherId != null)
