@@ -15,6 +15,10 @@
 	var/damage_mod = istype(loc, /obj/effect/dummy/slaughter) ? 0.5 : 1
 	if(lum_count > 0.2)
 		adjustBruteLoss(40 * damage_mod) // 10 seconds in light
+		SEND_SOUND(src, sound('sound/weapons/sear.ogg'))
+		to_chat(src, "<span class='biggerdanger'>The light scalds you!</span>")
+	else
+		adjustBruteLoss(-20)
 
 
 /mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
