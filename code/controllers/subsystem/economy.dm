@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(economy)
 	wait = 30 SECONDS
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Crew wont get their paychecks. No immediate action is needed." // money go down
+	cpu_display = SS_CPUDISPLAY_LOW
 	///List of all money account databases existing in the round
 	var/list/money_account_databases = list()
 	///Total amount of account created during the round, neccesary for generating unique account ids
@@ -133,7 +134,6 @@ SUBSYSTEM_DEF(economy)
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	next_paycheck_delay = 30 MINUTES + world.time
-	return ..()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)

@@ -3,12 +3,13 @@ SUBSYSTEM_DEF(instancing)
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 30 SECONDS
 	flags = SS_KEEP_TIMING
+	cpu_display = SS_CPUDISPLAY_LOW
 	// This SS has the default init value since it needs to happen after the DB & redis
 
 	/// Associative list of registered commands. K = command name | V = command datum
 	var/list/datum/server_command/registered_commands = list()
 
-/datum/controller/subsystem/instancing/Initialize(start_timeofday)
+/datum/controller/subsystem/instancing/Initialize()
 	// Make sure no one broke things. This check will trip up CI
 	if(init_order >= SSredis.init_order)
 		CRASH("SSinstancing was set to init before SSredis. Who broke it?")
@@ -16,7 +17,7 @@ SUBSYSTEM_DEF(instancing)
 	// Dont even bother if we arent connected to redis or the DB
 	if(!SSdbcore.IsConnected() || !SSredis.connected)
 		flags |= SS_NO_FIRE
-		return ..()
+		return
 
 	// Setup our commands
 	for(var/sct in subtypesof(/datum/server_command))
@@ -36,7 +37,6 @@ SUBSYSTEM_DEF(instancing)
 	// Announce startup to peers
 	var/datum/server_command/new_round_announce/NRA = registered_commands["new_round_announce"]
 	NRA.custom_dispatch(GLOB.configuration.general.server_name, SSmapping.map_datum.fluff_name, SSmapping.map_datum.technical_name)
-	return ..()
 
 /datum/controller/subsystem/instancing/fire(resumed)
 	update_heartbeat()

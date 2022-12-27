@@ -64,7 +64,7 @@
 		// As per my comment 8 or so lines above, we do NOT log failed connections here
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
-	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && SSipintel.ipintel_is_banned(key, address))
+	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && GLOB.ipintel_manager.ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
 		if(GLOB.configuration.url.banappeals_url)

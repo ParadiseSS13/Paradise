@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(ticker)
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
@@ -75,8 +76,6 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
 	'sound/music/title3.ogg',)
-
-	return ..()
 
 
 /datum/controller/subsystem/ticker/fire()
@@ -307,7 +306,7 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
-	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
+	GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
 

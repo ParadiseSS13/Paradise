@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(shuttle)
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "Shuttles will no longer function. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
@@ -28,7 +29,7 @@ SUBSYSTEM_DEF(shuttle)
 	/// Default refuel delay
 	var/refuel_delay = 20 MINUTES
 
-/datum/controller/subsystem/shuttle/Initialize(start_timeofday)
+/datum/controller/subsystem/shuttle/Initialize()
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
 	if(!backup_shuttle)
@@ -38,8 +39,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	initial_load()
 	initial_move()
-
-	return ..()
 
 /datum/controller/subsystem/shuttle/get_stat_details()
 	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"

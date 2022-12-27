@@ -11,6 +11,7 @@ SUBSYSTEM_DEF(redis)
 	/// Message queue (If messages are sent before the SS has init'd)
 	var/list/datum/redis_message/queue = list()
 	offline_implications = "The server will no longer be able to send or receive redis messages. Shuttle call recommended (Potential server crash inbound)."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 // SS meta procs
 /datum/controller/subsystem/redis/get_stat_details()
@@ -41,7 +42,6 @@ SUBSYSTEM_DEF(redis)
 		var/amount_registered = length(subbed_channels)
 		log_startup_progress("Registered [amount_registered] callback[amount_registered == 1 ? "" : "s"].")
 
-	return ..()
 
 /datum/controller/subsystem/redis/fire()
 	check_messages()

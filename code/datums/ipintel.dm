@@ -1,19 +1,10 @@
-SUBSYSTEM_DEF(ipintel)
-	name = "XKeyScore"
-	wait = 1
-	flags = SS_NO_FIRE
-	init_order = INIT_ORDER_XKEYSCORE // 10
-	// Are we enabled? Auto disable at world init to avoid checking reconnects
-	var/enabled = FALSE
+GLOBAL_DATUM_INIT(ipintel_manager, /datum/ipintel_manager, new())
+
+/datum/ipintel_manager
 	var/throttle = 0
 	var/errors = 0
 
 	var/list/cache = list()
-
-/datum/controller/subsystem/ipintel/Initialize(timeofday)
-	enabled = TRUE
-	return ..()
-
 
 // Represents an IP intel holder datum
 /datum/ipintel
@@ -57,11 +48,11 @@ SUBSYSTEM_DEF(ipintel)
   * * bypasscache - Do we want to bypass the DB cache?
   * * updatecache - Do we want to update the DB cache?
   */
-/datum/controller/subsystem/ipintel/proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
+/datum/ipintel_manager/proc/get_ip_intel(ip, bypasscache = FALSE, updatecache = TRUE)
 	var/datum/ipintel/res = new()
 	res.ip = ip
 	. = res
-	if(!ip || !GLOB.configuration.ipintel.contact_email || !GLOB.configuration.ipintel.enabled || !enabled)
+	if(!ip || !GLOB.configuration.ipintel.contact_email || !GLOB.configuration.ipintel.enabled)
 		return
 	if(!bypasscache)
 		var/datum/ipintel/cachedintel = cache[ip]
@@ -129,13 +120,11 @@ SUBSYSTEM_DEF(ipintel)
   * * ip - The IP to lookup
   * * retried - Was this attempt retried?
   */
-/datum/controller/subsystem/ipintel/proc/ip_intel_query(ip, retried = FALSE)
+/datum/ipintel_manager/proc/ip_intel_query(ip, retried = FALSE)
 	. = -1 //default
 	if(!ip)
 		return
 	if(throttle > world.timeofday)
-		return
-	if(!enabled)
 		return
 
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
@@ -188,7 +177,7 @@ SUBSYSTEM_DEF(ipintel)
   * * ip - The IP that was tried
   * * retried - Was this on a retried attempt
   */
-/datum/controller/subsystem/ipintel/proc/ipintel_handle_error(error, ip, retried)
+/datum/ipintel_manager/proc/ipintel_handle_error(error, ip, retried)
 	if(retried)
 		errors++
 		error += " Could not check [ip]. Disabling IPINTEL for [errors] minute[(errors == 1 ? "" : "s")]"
@@ -207,7 +196,7 @@ SUBSYSTEM_DEF(ipintel)
   * Arguments:
   * * text - Argument 1
   */
-/datum/controller/subsystem/ipintel/proc/log_ipintel(text)
+/datum/ipintel_manager/proc/log_ipintel(text)
 	log_game("IPINTEL: [text]")
 	log_debug("IPINTEL: [text]")
 
@@ -222,7 +211,7 @@ SUBSYSTEM_DEF(ipintel)
   * * t_ckey - The ckey to check
   * * t_ip - The IP to check
   */
-/datum/controller/subsystem/ipintel/proc/ipintel_is_banned(t_ckey, t_ip)
+/datum/ipintel_manager/proc/ipintel_is_banned(t_ckey, t_ip)
 	if(!GLOB.configuration.ipintel.contact_email)
 		return FALSE
 	if(!GLOB.configuration.ipintel.enabled)
@@ -247,7 +236,7 @@ SUBSYSTEM_DEF(ipintel)
   * Arguments:
   * * target_ip - The IP to check
   */
-/datum/controller/subsystem/ipintel/proc/ipintel_badip_check(target_ip)
+/datum/ipintel_manager/proc/ipintel_badip_check(target_ip)
 	var/rating_bad = GLOB.configuration.ipintel.bad_rating
 	if(!rating_bad)
 		log_debug("ipintel_badip_check reports misconfigured rating_bad directive")
@@ -285,7 +274,7 @@ SUBSYSTEM_DEF(ipintel)
   * Arguments:
   * * target_ckey - The ckey to check
   */
-/datum/controller/subsystem/ipintel/proc/vpn_whitelist_check(target_ckey)
+/datum/ipintel_manager/proc/vpn_whitelist_check(target_ckey)
 	if(!GLOB.configuration.ipintel.whitelist_mode)
 		return FALSE
 	var/datum/db_query/query_whitelist_check = SSdbcore.NewQuery("SELECT * FROM vpn_whitelist WHERE ckey=:ckey", list(
@@ -310,7 +299,7 @@ SUBSYSTEM_DEF(ipintel)
   * Arguments:
   * * target_ckey - The ckey to whitelist
   */
-/datum/controller/subsystem/ipintel/proc/vpn_whitelist_add(target_ckey)
+/datum/ipintel_manager/proc/vpn_whitelist_add(target_ckey)
 	var/reason_string = input(usr, "Enter link to the URL of their whitelist request on the forum.","Reason required") as message|null
 	if(!reason_string)
 		return FALSE
@@ -334,7 +323,7 @@ SUBSYSTEM_DEF(ipintel)
   * Arguments:
   * * target_ckey - The ckey to remove
   */
-/datum/controller/subsystem/ipintel/proc/vpn_whitelist_remove(target_ckey)
+/datum/ipintel_manager/proc/vpn_whitelist_remove(target_ckey)
 	var/datum/db_query/query_whitelist_remove = SSdbcore.NewQuery("DELETE FROM vpn_whitelist WHERE ckey=:targetckey", list(
 		"targetckey" = target_ckey
 	))
@@ -354,7 +343,7 @@ SUBSYSTEM_DEF(ipintel)
   * Arguments:
   * * target_ckey - The ckey to add/remove
   */
-/datum/controller/subsystem/ipintel/proc/vpn_whitelist_panel(target_ckey as text)
+/datum/ipintel_manager/proc/vpn_whitelist_panel(target_ckey as text)
 	if(!check_rights(R_ADMIN))
 		return
 	if(!target_ckey)

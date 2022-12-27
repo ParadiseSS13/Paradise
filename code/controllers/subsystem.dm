@@ -19,6 +19,9 @@
 	/// What are the implications of this SS being offlined?
 	var/offline_implications = "None. No immediate action is needed."
 
+	/// Tab to display in under the MC subtabs
+	var/cpu_display = SS_CPUDISPLAY_DEFAULT
+
 	/// Order of initialization. Higher numbers are initialized first, lower numbers later. Use or create defines such as [INIT_ORDER_DEFAULT] so we can see the order in one file.
 	var/init_order = INIT_ORDER_DEFAULT
 
@@ -260,11 +263,16 @@
 	return
 
 //used to initialize the subsystem AFTER the map has loaded
-/datum/controller/subsystem/Initialize(start_timeofday)
+/datum/controller/subsystem/proc/call_init(start_timeofday)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	log_startup_progress("Initializing...")
+	Initialize()
 	initialized = TRUE
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 	log_startup_progress("Initialized within [time] second[time == 1 ? "" : "s"]!")
-	return time
+
+/datum/controller/subsystem/Initialize()
+	CRASH("Initialize() not overriden for [type]! Make the subsystem Initialize or add SS_NO_INIT to the flags")
 
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)
@@ -297,7 +305,7 @@
 		if(SS_SLEEPING)
 			. = "S"
 		if(SS_IDLE)
-			. = "  "
+			. = " "
 
 /datum/controller/subsystem/proc/state_colour()
 	switch(state)

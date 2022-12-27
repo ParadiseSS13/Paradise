@@ -718,10 +718,6 @@ lavaland_ruin_budget = 60
 
 # Communications password for authorising world/Topic requests. Comment out to disable
 #communications_password = "generateSomeLongRandomStringHere"
-# Medal hub for tracking lavaland stats
-#medal_hub_address = "hubmakerckey.hubname"
-# Medal hub password for tracking lavaland stats
-#medal_hub_password = "putYourPasswordHere"
 # Do we want to kill the world on reboot instead of restarting it?
 shutdown_on_reboot = false
 # If true to above, an optional shell command can be ran. Defaults to killing DD on windows
