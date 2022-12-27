@@ -50,9 +50,11 @@
 		return
 
 	if(M.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		to_chat(user, "<span class='noticealien'>[M]'s linkage with the hive prevents you from securing them into [src]</span>")
 		return
 
 	if(!user.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		to_chat(user, "<span class='noticealien'>Your lack of linkage to the hive prevents you from buckling [M] into [src]</span>")
 		return
 
 	if(has_buckled_mobs())

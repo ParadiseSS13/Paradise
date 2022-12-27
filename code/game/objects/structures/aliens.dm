@@ -167,15 +167,16 @@
 	return !density
 
 /obj/structure/alien/resin/door/proc/try_to_operate(mob/user)
-	if(is_operating)
-		return
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-			if(world.time - C.last_bumped <= 60)
-				return
-			if(!C.handcuffed)
-				operate()
+	if(!is_operating)
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+				if(world.time - C.last_bumped <= 60)
+					return
+				if(!C.handcuffed)
+					operate()
+			else
+				to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
 /*
   * This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or
   * call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
@@ -263,7 +264,7 @@
 	var/static/list/weedImageCache
 	var/check_counter
 
-/obj/structure/alien/weeds/New(pos, node)
+/obj/structure/alien/weeds/Initialize(mapload, node)
 	..()
 	linked_node = node
 	if(isspaceturf(loc))
@@ -273,7 +274,7 @@
 		var/wall_dir = get_dir(W, src)
 		switch(wall_dir)
 			if(1, 8, 4, 2)
-				new /obj/structure/alien/wallweed(pos, wall_dir)
+				new /obj/structure/alien/wallweed(loc, wall_dir)
 			if(9, 6, 5, 10)
 				continue
 	START_PROCESSING(SSobj, src)
@@ -333,7 +334,7 @@
 
 	max_integrity = 15
 
-/obj/structure/alien/wallweed/New(pos, wall_dir)
+/obj/structure/alien/wallweed/Initialize(mapload, wall_dir)
 	switch(wall_dir)
 		if(1, 5, 9)
 			pixel_y = -32
@@ -374,7 +375,7 @@
 	var/node_range = NODERANGE
 
 
-/obj/structure/alien/weeds/node/New()
+/obj/structure/alien/weeds/node/Initialize()
 	add_overlay("weednode")
 	..(loc, src)
 
