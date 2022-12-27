@@ -309,8 +309,6 @@
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.current.health >= 50)
-		if(!bloodtotal && !isspaceturf(get_turf(owner.current)))
-			return
 		switch(owner.current.health)
 			if(75 to 100)
 				to_chat(owner.current, "<span class='warning'>Your skin flakes away...</span>")
