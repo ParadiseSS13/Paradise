@@ -698,7 +698,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		for(var/datum/job/job in SSjobs.occupations)
 			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
 			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
-			 <b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
+			<b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
 			if(job.total_positions != -1) // Only count position that isn't unlimited
 				currentpositiontally += job.current_positions
 				totalpositiontally += job.total_positions

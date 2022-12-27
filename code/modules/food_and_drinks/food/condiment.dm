@@ -16,16 +16,16 @@
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
-	 "ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
-	 "capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
-	 "enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
-	 "soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
-	 "frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
-	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
-	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
-	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
+	"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
+	"capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
+	"enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
+	"soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
+	"frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
+	"sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
+	"blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
+	"cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
+	"wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
+	"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)

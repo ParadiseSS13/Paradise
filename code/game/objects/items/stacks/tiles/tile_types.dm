@@ -32,8 +32,8 @@
 	if (mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
 		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-					 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
-					 "<span class='italics'>You hear welding.</span>")
+					"<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
+					"<span class='italics'>You hear welding.</span>")
 		var/obj/item/stack/rods/R = src
 		src = null
 		var/replace = (user.get_inactive_hand()==R)

@@ -81,7 +81,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/breakouttime = 0
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
 
-	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
+	/// Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.
+	var/hit_reaction_chance = 0
 
 	// Needs to be in /obj/item because corgis can wear a lot of
 	// non-clothing items
@@ -398,9 +399,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if((SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) || prob(final_block_chance))
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-		return TRUE
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) + prob(final_block_chance)
+	if(signal_result != 0)
+		if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
+			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		return signal_result
 	return FALSE
 
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.

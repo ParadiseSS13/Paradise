@@ -336,6 +336,9 @@
 		else
 			if(isstorage(I.loc))
 				var/obj/item/storage/S = I.loc
+				if(!S.removal_allowed_check(user))
+					return
+
 				S.remove_from_storage(I, src)
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
