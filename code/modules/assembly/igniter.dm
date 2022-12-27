@@ -48,6 +48,10 @@
 			if(beakerbomb)
 				beakerbomb.heat_beaker()
 
+		else if(istype(locloc, /obj/item/grenade/chem_grenade))
+			var/obj/item/grenade/chem_grenade/CG = locloc
+			CG.prime()
+
 	return TRUE
 
 
