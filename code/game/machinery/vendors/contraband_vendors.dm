@@ -94,12 +94,12 @@
 					/obj/item/clothing/suit/syndicatefake = 5,
 					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
-					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
-					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
-  					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
-					  /obj/item/ammo_box/foambox/riot = 20,
-					  /obj/item/toy/katana = 10,
-					  /obj/item/twohanded/dualsaber/toy = 5,
-					  /obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
+					/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
+					/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+					/obj/item/ammo_box/foambox/riot = 20,
+					/obj/item/toy/katana = 10,
+					/obj/item/twohanded/dualsaber/toy = 5,
+					/obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
