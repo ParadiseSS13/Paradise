@@ -450,7 +450,7 @@
 	var/obj/item/storage/equipped_belt = get_item_by_slot(slot_belt)
 	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
-	if(!equipped_belt) // We also let you equip a belt like this
+	if(!istype(equipped_belt)) // We also let you equip a belt like this
 		equip_to_slot_if_possible(thing, slot_belt)
 		return
 	if(thing && equipped_belt.can_be_inserted(thing)) // put thing in belt
