@@ -372,8 +372,8 @@
 /turf/proc/burn_down()
 	return
 
-/// Returns the adjacent turfs, and can check for density or cardinal directions only instead of all 8
-/turf/proc/AdjacentTurfs(check_density = FALSE, cardinal_only = FALSE)
+/// Returns the adjacent turfs. Can check for density or cardinal directions only instead of all 8, or just dense turfs entirely. dense_only takes precedence over open_only.
+/turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
 	var/list/L = new()
 	var/turf/T
 	var/list/directions = cardinal_only ? GLOB.alldirs : GLOB.cardinal
@@ -381,7 +381,9 @@
 		T = get_step(src, dir)
 		if(!istype(T))
 			continue
-		if(check_density && T.density)
+		if(dense_only && !T.density)
+			continue
+		if((open_only && T.density) && !dense_only)
 			continue
 		L.Add(T)
 	return L
