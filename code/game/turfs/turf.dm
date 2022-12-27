@@ -376,7 +376,7 @@
 /turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
 	var/list/L = new()
 	var/turf/T
-	var/list/directions = cardinal_only ? GLOB.alldirs : GLOB.cardinal
+	var/list/directions = cardinal_only ? GLOB.cardinal : GLOB.alldirs
 	for(var/dir in directions)
 		T = get_step(src, dir)
 		if(!istype(T))
