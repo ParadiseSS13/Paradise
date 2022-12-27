@@ -88,7 +88,7 @@
 		return attack_hand(user)
 	else
 		playsound(loc, 'sound/weapons/slice.ogg', 100, 1)
-		if(do_after(user, 40, target = src) && src)
+		if(do_after(user, 40, target = src) && !QDELETED(src))
 			playsound(loc, 'sound/effects/splat.ogg', 100, 1)
 			qdel(src)
 

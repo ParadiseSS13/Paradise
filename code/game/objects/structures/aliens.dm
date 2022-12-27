@@ -132,7 +132,7 @@
 	air_update_turf(1)
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
-	for(var/obj/structure/alien/weeds/E in get_turf(src))
+	if(locate(/obj/structure/alien/weeds/E) in get_turf(src))
 		return
 	new /obj/structure/alien/weeds(loc)
 
@@ -166,7 +166,7 @@
 /obj/structure/alien/resin/door/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/alien/resin/door/proc/try_to_operate(atom/user)
+/obj/structure/alien/resin/door/proc/try_to_operate(mob/user)
 	if(is_operating)
 		return
 	if(iscarbon(user))
@@ -176,8 +176,11 @@
 				return
 			if(!C.handcuffed)
 				operate()
-
-/obj/structure/alien/resin/door/proc/mobless_try_to_operate() // This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
+/*
+  * This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or 
+  * call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
+*/
+/obj/structure/alien/resin/door/proc/mobless_try_to_operate() 
 	if(is_operating)
 		if(state_open)
 			addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
@@ -220,18 +223,18 @@
 		try_to_operate(user)
 	else
 		to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
-		if(do_after(user, 40, target = src) && src)
+		if(do_after(user, 40, target = src) && !QDELETED(src))
 			qdel(src)
 
 /obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
 		if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-			return 1
+			return TRUE
 	if(iscarbon(mover.pulledby))
 		var/mob/living/carbon/L = mover.pulledby
 		if(L.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-			return 1
+			return TRUE
 	return !density
 
 /*
@@ -355,8 +358,7 @@
 /obj/structure/alien/wallweed/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
 		return
-	else
-		return ..()
+	return ..()
 
 /*
  * Weed nodes

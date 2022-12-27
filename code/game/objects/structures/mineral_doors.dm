@@ -15,7 +15,8 @@
 	var/state_open = FALSE
 	var/is_operating = FALSE
 	var/close_delay = -1 //-1 if does not auto close.
-	var/operatetime = 10 //This variable was made solely to adapt sleep(10) for the alien subtype of this kind of door in operate()
+	/// This variable was made solely to adapt sleep(10) for the alien subtype of this kind of door in operate()
+	var/operatetime = 10 
 
 	var/hardness = 1
 	var/sheetType = /obj/item/stack/sheet/metal
