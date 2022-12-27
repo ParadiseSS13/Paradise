@@ -58547,15 +58547,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
-"cSn" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/meter{
-	layer = 2.9
-	},
-/turf/simulated/wall/r_wall,
-/area/atmos)
 "cSo" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -64458,13 +64449,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/hydroponics)
-"djB" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/atmospherics/meter{
-	layer = 2.9
-	},
-/turf/simulated/wall/r_wall,
-/area/atmos)
 "djC" = (
 /obj/machinery/camera{
 	c_tag = "Aft Starboard Solar Access";
@@ -64615,24 +64599,6 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat_interior)
-"djS" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/atmospherics/meter{
-	id_tag = "mair_in_meter";
-	layer = 2.9;
-	name = "Mixed Air Tank In"
-	},
-/turf/simulated/wall/r_wall,
-/area/atmos)
-"djU" = (
-/obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/atmospherics/meter{
-	id_tag = "mair_out_meter";
-	layer = 2.9;
-	name = "Mixed Air Tank Out"
-	},
-/turf/simulated/wall/r_wall,
-/area/atmos)
 "djV" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -66340,12 +66306,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
-"dod" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "doe" = (
 /obj/structure/sign/securearea{
 	pixel_y = -32
@@ -69829,6 +69789,15 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"fdB" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter{
+	id_tag = "mair_out_meter";
+	layer = 2.9;
+	name = "Mixed Air Tank Out"
+	},
+/turf/simulated/wall/r_wall,
+/area/atmos)
 "fdK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -70644,6 +70613,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/hallway)
+"fIe" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 1;
+	frequency = 1441;
+	id = "engine-waste_out";
+	name = "engine outlet injector";
+	volume_rate = 200
+	},
+/turf/simulated/floor/plating/airless,
+/area/engine/engineering)
 "fIB" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -71994,6 +71973,12 @@
 	icon_state = "whitehall"
 	},
 /area/medical/reception)
+"gJl" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/turret_protected/aisat_interior)
 "gJU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
@@ -74090,16 +74075,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
-"idy" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	frequency = 1441;
-	id = "engine-waste_out";
-	name = "engine outlet injector";
-	volume_rate = 200
-	},
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "idz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -76237,6 +76212,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"jYu" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/meter{
+	layer = 2.9
+	},
+/turf/simulated/wall/r_wall,
+/area/atmos)
 "jYv" = (
 /obj/structure/railing{
 	dir = 8
@@ -83207,6 +83191,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"pFX" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter{
+	id_tag = "mair_in_meter";
+	layer = 2.9;
+	name = "Mixed Air Tank In"
+	},
+/turf/simulated/wall/r_wall,
+/area/atmos)
 "pGa" = (
 /obj/structure/window/reinforced,
 /obj/structure/grille,
@@ -87234,6 +87227,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"taa" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/meter{
+	layer = 2.9
+	},
+/turf/simulated/wall/r_wall,
+/area/atmos)
 "taM" = (
 /mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
@@ -124813,7 +124813,7 @@ tky
 fFY
 ubz
 iEE
-idy
+fIe
 aaa
 aaa
 aaa
@@ -126605,7 +126605,7 @@ dgN
 dhB
 dik
 diU
-djB
+taa
 dki
 dkO
 dkO
@@ -127119,7 +127119,7 @@ dgP
 dhC
 dip
 mpD
-djB
+taa
 dkk
 dkO
 dkO
@@ -127633,7 +127633,7 @@ dgR
 dhE
 dit
 wdL
-djB
+taa
 dkq
 dkT
 dkT
@@ -128147,7 +128147,7 @@ dgP
 dhF
 dip
 mpD
-djB
+taa
 dks
 dkT
 dkT
@@ -128661,7 +128661,7 @@ dgP
 dhH
 cYb
 dja
-djS
+pFX
 dkw
 dkV
 dkV
@@ -129175,7 +129175,7 @@ deQ
 dhJ
 cYb
 dja
-djU
+fdB
 dkx
 dkV
 dkV
@@ -129926,21 +129926,21 @@ cLO
 cxO
 cQp
 cZS
-cSn
+jYu
 cTo
-cSn
+jYu
 cZS
-cSn
+jYu
 cTo
-cSn
+jYu
 cZS
-cSn
+jYu
 cTo
-cSn
+jYu
 cZS
-cSn
+jYu
 cTo
-cSn
+jYu
 cZS
 aaa
 aaa
@@ -131243,7 +131243,7 @@ aaa
 aaa
 aaa
 fmG
-dod
+gJl
 dnZ
 diL
 djp

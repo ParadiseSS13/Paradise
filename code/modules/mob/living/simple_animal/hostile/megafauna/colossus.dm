@@ -55,9 +55,9 @@ Difficulty: Very Hard
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
-							   /datum/action/innate/megafauna_attack/aoe_attack,
-							   /datum/action/innate/megafauna_attack/shotgun,
-							   /datum/action/innate/megafauna_attack/alternating_cardinals)
+							/datum/action/innate/megafauna_attack/aoe_attack,
+							/datum/action/innate/megafauna_attack/shotgun,
+							/datum/action/innate/megafauna_attack/alternating_cardinals)
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
 
