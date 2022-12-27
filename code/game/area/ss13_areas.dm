@@ -562,16 +562,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //STATION13
 
 /area/atmos
- 	name = "Atmospherics"
- 	icon_state = "atmos"
+	name = "Atmospherics"
+	icon_state = "atmos"
 
 /area/atmos/control
- 	name = "Atmospherics Control Room"
- 	icon_state = "atmosctrl"
+	name = "Atmospherics Control Room"
+	icon_state = "atmosctrl"
 
 /area/atmos/distribution
- 	name = "Atmospherics Distribution Loop"
- 	icon_state = "atmos"
+	name = "Atmospherics Distribution Loop"
+	icon_state = "atmos"
 
 //Maintenance
 /area/maintenance

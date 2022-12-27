@@ -336,19 +336,19 @@
 
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
-									 "Cause as much chaos and anger as you can without being killed.", \
-									 "Damage and render as much of the station rusted and unusable as possible.", \
-									 "Disable and cause malfunctions in as many machines as possible.", \
-									 "Ensure that any holy weapons are rendered unusable.", \
-									 "Hinder the crew while attempting to avoid being noticed.", \
-									 "Make the crew as miserable as possible.", \
-									 "Make the clown as miserable as possible.", \
-									 "Make the captain as miserable as possible.", \
-									 "Make the AI as miserable as possible.", \
-									 "Annoy the ones that insult you the most.", \
-									 "Whisper ghost jokes into peoples heads.", \
-									 "Help the crew in critical situations, but take your payments in souls.", \
-									 "Prevent the use of energy weapons where possible.")
+									"Cause as much chaos and anger as you can without being killed.", \
+									"Damage and render as much of the station rusted and unusable as possible.", \
+									"Disable and cause malfunctions in as many machines as possible.", \
+									"Ensure that any holy weapons are rendered unusable.", \
+									"Hinder the crew while attempting to avoid being noticed.", \
+									"Make the crew as miserable as possible.", \
+									"Make the clown as miserable as possible.", \
+									"Make the captain as miserable as possible.", \
+									"Make the AI as miserable as possible.", \
+									"Annoy the ones that insult you the most.", \
+									"Whisper ghost jokes into peoples heads.", \
+									"Help the crew in critical situations, but take your payments in souls.", \
+									"Prevent the use of energy weapons where possible.")
 	explanation_text = pick(explanationTexts)
 	..()
 
@@ -381,7 +381,7 @@
 	if(!reforming || inert)
 		return ..()
 	user.visible_message("<span class='notice'>[user] scatters [src] in all directions.</span>", \
-						 "<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
+						"<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
 	user.drop_item()
 	qdel(src)
 

@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dog bed", /obj/structure/bed/dogbed, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-    	new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe_list("pews", list(
@@ -457,14 +457,14 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	return ..()
 
 /datum/stack_recipe/cult
-   one_per_turf = TRUE
-   on_floor = TRUE
+	one_per_turf = TRUE
+	on_floor = TRUE
 
 /datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
-   if(ishuman(S.loc))
-      var/mob/living/carbon/human/H = S.loc
-      H.bleed(5)
-   ..()
+	if(ishuman(S.loc))
+		var/mob/living/carbon/human/H = S.loc
+		H.bleed(5)
+	..()
 
 /obj/item/stack/sheet/runed_metal/ten
 	amount = 10

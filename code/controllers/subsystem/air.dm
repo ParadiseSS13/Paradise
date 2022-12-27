@@ -283,10 +283,11 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/add_to_active(turf/simulated/T, blockchanges = 1)
 	if(!initialized)
 		/* it makes no sense to "activate" turfs before setup_allturfs is
-		   called, as setup_allturfs would simply cull the list incorrectly.
-		   only /turf/simulated/Initialize_Atmos() is blessed enough to
-		   activate turfs during this phase of initialization, as it happens
-		   post-cull and inlines the logic (perhaps incorrectly) */
+		 * called, as setup_allturfs would simply cull the list incorrectly.
+		 * only /turf/simulated/Initialize_Atmos() is blessed enough to
+		 * activate turfs during this phase of initialization, as it happens
+		 * post-cull and inlines the logic (perhaps incorrectly)
+		 **/
 		return
 
 	if(istype(T) && T.air)

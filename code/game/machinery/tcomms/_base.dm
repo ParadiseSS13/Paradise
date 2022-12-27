@@ -319,9 +319,9 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
 
-  /* ###### Organize the receivers into categories for displaying the message ###### */
+/* ###### Organize the receivers into categories for displaying the message ###### */
 
-  	// Understood the message:
+	// Understood the message:
 	var/list/heard_masked 	= list() // masked name or no real name
 	var/list/heard_normal 	= list() // normal message
 
@@ -333,7 +333,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	for(var/M in receive)
 		var/mob/R = M
 
-	  /* --- Loop through the receivers and categorize them --- */
+		/* --- Loop through the receivers and categorize them --- */
 
 		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
@@ -359,10 +359,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			heard_garbled += R
 
 
-  /* ###### Begin formatting and sending the message ###### */
+	/* ###### Begin formatting and sending the message ###### */
 	if(length(heard_masked) || length(heard_normal) || length(heard_voice) || length(heard_garbled) || length(heard_gibberish))
 
-	  /* --- Some miscellaneous variables to format the string output --- */
+		/* --- Some miscellaneous variables to format the string output --- */
 		var/freq_text = get_frequency_name(display_freq)
 
 		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\]</b> <span class='name'>" // goes in the actual output
@@ -374,10 +374,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		SSblackbox.LogBroadcast(display_freq)
 
-	 /* ###### Send the message ###### */
+	/* ###### Send the message ###### */
 
 
-	  	/* --- Process all the mobs that heard a masked voice (understood) --- */
+		/* --- Process all the mobs that heard a masked voice (understood) --- */
 
 		if(length(heard_masked))
 			for(var/M in heard_masked)

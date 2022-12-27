@@ -435,7 +435,7 @@ GLOBAL_VAR(bomb_set)
 		INVOKE_ASYNC(src, PROC_REF(explode))
 		return
 
-    //if no boom then we need to let the blob capture our nuke
+	//if no boom then we need to let the blob capture our nuke
 	var/turf/T = get_turf(src)
 	if(!T)
 		return

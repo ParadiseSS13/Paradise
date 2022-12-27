@@ -172,6 +172,12 @@
 		if(initial(D.name))
 			GLOB.keybindings += new path()
 
+	for(var/path in subtypesof(/datum/objective))
+		var/datum/objective/O = path
+		if(isnull(initial(O.name)))
+			continue // These are not valid objectives to add.
+		GLOB.admin_objective_list[initial(O.name)] = path
+
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
