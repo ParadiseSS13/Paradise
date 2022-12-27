@@ -111,7 +111,7 @@
 		for(var/power_type in innate_powers)
 			give_power(new power_type, L)
 
-	RegisterSignal(L, PROCREF())
+	RegisterSignal(L, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 	var/mob/living/carbon/C = L
 
@@ -132,6 +132,7 @@
 		L.hud_used.lingchemdisplay.invisibility = 101
 	L.remove_language("Changeling")
 	remove_unnatural_languages(L)
+	UnregisterSignal(L, COMSIG_MOB_DEATH)
 	// If there's a mob_override, this is a body transfer, and therefore we should only remove their powers from the old body.
 	if(mob_override)
 		for(var/datum/action/changeling/power in acquired_powers)
@@ -422,9 +423,9 @@
 		return FALSE
 	return TRUE
 
-/datum/antagonist/changeling/proc/on_death(mob/living/L)
+/datum/antagonist/changeling/proc/on_death(mob/living/L, gibbed)
 	SIGNAL_HANDLER
-	if(QDELETED(L))  // they were probably incinerated or gibbed, no coming back from that.
+	if(QDELETED(L) || gibbed)  // they were probably incinerated or gibbed, no coming back from that.
 		return
 	var/mob/living/carbon/human/H = L
 	if(!istype(H))
