@@ -364,4 +364,4 @@
 	set desc = "Shows or hides the MC tabs."
 	prefs.toggles2 ^= PREFTOGGLE_2_MC_TABS
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "no longer" : "now"] see the MC tabs on the top right.")
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "now" : "no longer"] see the MC tabs on the top right.")
