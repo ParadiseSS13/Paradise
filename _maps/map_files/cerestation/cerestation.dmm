@@ -134,6 +134,7 @@
 	pixel_y = 32;
 	random_basetype = /obj/structure/sign/poster/contraband
 	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/north)
 "aaV" = (
@@ -2107,13 +2108,6 @@
 "amu" = (
 /obj/machinery/conveyor/auto{
 	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal/northeast)
-"amv" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/machinery/conveyor/auto/ccw{
-	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
@@ -10062,8 +10056,8 @@
 /area/maintenance/port)
 "bco" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable/orange,
 /obj/structure/cable/orange{
@@ -21135,8 +21129,8 @@
 /area/engine/engine_smes)
 "bOC" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -21154,8 +21148,8 @@
 /area/engine/engine_smes)
 "bOD" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -21173,8 +21167,8 @@
 /area/engine/engine_smes)
 "bOE" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -21195,8 +21189,8 @@
 /area/engine/engine_smes)
 "bOF" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -33866,8 +33860,8 @@
 /area/medical/virology)
 "cSh" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable/orange{
 	d2 = 2;
@@ -36993,8 +36987,8 @@
 /area/teleporter)
 "diP" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -37536,8 +37530,8 @@
 /area/maintenance/fpmaint)
 "dlg" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable/orange{
 	d2 = 2;
@@ -61813,6 +61807,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
+"mco" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/northeast)
 "mcu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -62601,8 +62602,8 @@
 /area/hallway/spacebridge/sercom)
 "mwy" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -63937,6 +63938,7 @@
 /obj/machinery/conveyor/auto{
 	dir = 4
 	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southwest)
 "ncF" = (
@@ -68407,8 +68409,8 @@
 /area/hallway/secondary/exit)
 "oPK" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -69637,8 +69639,8 @@
 /area/hallway/secondary/entry/north)
 "pnZ" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -70821,6 +70823,13 @@
 	icon_state = "bcircuit"
 	},
 /area/turret_protected/ai_upload)
+"pLe" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/structure/plasticflaps,
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/external/east)
 "pLi" = (
 /obj/structure/morgue,
 /obj/machinery/light/small{
@@ -78263,6 +78272,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
+"sDk" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/structure/plasticflaps,
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/northeast)
 "sDE" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -78978,6 +78994,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
+"sUK" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/structure/plasticflaps,
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/northwest)
 "sUQ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -88010,6 +88033,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southeast)
 "wAG" = (
@@ -89035,8 +89059,8 @@
 /area/maintenance/starboardsolar)
 "wVD" = (
 /obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 150000
+	input_level = 125000;
+	output_level = 100000
 	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -102157,7 +102181,7 @@ sji
 sji
 aZY
 aCz
-dvE
+sUK
 sji
 nxA
 bHY
@@ -128613,7 +128637,7 @@ rNK
 rNK
 rNK
 oAO
-amu
+sDk
 anA
 aog
 aog
@@ -128870,7 +128894,7 @@ rNK
 rNK
 rNK
 oAO
-amu
+mco
 anB
 wUc
 aoh
@@ -129127,7 +129151,7 @@ rNK
 rNK
 rNK
 oAO
-amv
+aoH
 anC
 anC
 aoF
@@ -151340,7 +151364,7 @@ rNK
 rNK
 gEl
 gEl
-sGo
+pLe
 gEl
 rNK
 rNK
