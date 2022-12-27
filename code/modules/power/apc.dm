@@ -202,7 +202,7 @@
 		stat |= MAINT
 		constructed = TRUE
 		update_icon()
-		addtimer(CALLBACK(src, .proc/update), 5)
+		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/Destroy()
 	SStgui.close_uis(wires)
@@ -259,14 +259,14 @@
 
 	set_light(1, LIGHTING_MINIMUM_POWER)
 
-	addtimer(CALLBACK(src, .proc/update), 5)
+	addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		if(stat & BROKEN)
-			. += "Looks broken."
-		else if(opened)
+			return
+		if(opened)
 			if(has_electronics() && terminal)
 				. += "The cover is [opened == APC_OPENED ? "removed" : "open"] and the power cell is [ cell ? "installed" : "missing"]."
 			else if(!has_electronics() && terminal)
@@ -480,7 +480,7 @@
 	if(stat & (NOPOWER | BROKEN))
 		return FALSE
 	if(!second_pass) //The first time, we just cut overlays
-		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.flicker, TRUE), 1)
+		addtimer(CALLBACK(src, PROC_REF(flicker), TRUE), 1)
 		cut_overlays()
 		managed_overlays = null
 		// APC power distruptions have a chance to propogate to other machines on its network
@@ -492,7 +492,7 @@
 				M.flicker()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
-		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.update_icon, TRUE), 10)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), TRUE), 10)
 
 	return TRUE
 
@@ -906,7 +906,7 @@
 				deltimer(emergency_power_timer)
 				emergency_power_timer = null
 		else
-			emergency_power_timer = addtimer(CALLBACK(src, .proc/turn_emergency_power_off), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
+			emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			spawn(10)
 //				to_chat(world, " [area.name] [area.power_equip]")
@@ -914,7 +914,7 @@
 		area.power_light = 0
 		area.power_equip = 0
 		area.power_environ = 0
-		emergency_power_timer = addtimer(CALLBACK(src, .proc/turn_emergency_power_off), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
+		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 //		if(area.name == "AI Chamber")
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
@@ -922,7 +922,7 @@
 /obj/machinery/power/apc/proc/turn_emergency_power_off()
 	emergency_power = FALSE
 	for(var/obj/machinery/light/L in area)
-		INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+		INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 
 /obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
@@ -1017,7 +1017,7 @@
 				update()
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
-				INVOKE_ASYNC(src, /obj/machinery/power/apc.proc/overload_lighting)
+				INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 		if("hack")
 			if(get_malf_status(usr))
 				malfhack(usr)
@@ -1030,7 +1030,7 @@
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
 			for(var/obj/machinery/light/L in area)
-				INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+				INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 				CHECK_TICK
 
 /obj/machinery/power/apc/proc/toggle_breaker()
@@ -1051,7 +1051,7 @@
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you can only hack one APC at a time.")
 	malf.malfhack = src
-	malf.malfhacking = addtimer(CALLBACK(malf, /mob/living/silicon/ai/.proc/malfhacked, src), 600, TIMER_STOPPABLE)
+	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked), src), 600, TIMER_STOPPABLE)
 	var/obj/screen/alert/hackingapc/A
 	A = malf.throw_alert("hackingapc", /obj/screen/alert/hackingapc)
 	A.target = src
@@ -1366,6 +1366,24 @@
 		update_icon()
 		update()
 	..()
+
+/obj/machinery/power/apc/ex_act(severity)
+	..()
+	if(severity < EXPLODE_LIGHT)
+		power_destroy()
+
+/obj/machinery/power/apc/zap_act(power, zap_flags)
+	. = ..()
+	power_destroy()
+
+/obj/machinery/power/apc/proc/power_destroy() // Caused only by explosions and teslas, not for deconstruction
+	if(obj_integrity > integrity_failure || opened != APC_COVER_OFF)
+		return
+	var/drop_loc = drop_location()
+	new /obj/item/stack/sheet/metal(drop_loc, 3) // Metal from the frame
+	new /obj/item/stack/cable_coil(drop_loc, 10) // wiring from the terminal and the APC, some lost due to explosion
+	QDEL_NULL(terminal) // We don't want floating terminals
+	qdel(src)
 
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()

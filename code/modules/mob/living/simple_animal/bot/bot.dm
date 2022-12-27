@@ -184,6 +184,7 @@
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
 		ejectpai()
+	set_path(null)
 	if(path_hud)
 		QDEL_NULL(path_hud)
 		path_hud = null
@@ -192,7 +193,7 @@
 	if(data_hud)
 		data_hud.remove_hud_from(src)
 
- 	GLOB.bots_list -= src
+	GLOB.bots_list -= src
 	QDEL_NULL(path)
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
@@ -418,7 +419,7 @@
 
 	if(on)
 		turn_off()
-	addtimer(CALLBACK(src, .proc/un_emp, was_on), severity * 300)
+	addtimer(CALLBACK(src, PROC_REF(un_emp), was_on), severity * 300)
 
 
 /mob/living/simple_animal/bot/proc/un_emp(was_on)
@@ -508,7 +509,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(step_count >= 1 && tries < BOT_STEP_MAX_RETRIES)
 		for(var/step_number in 1 to step_count)
 			// Hopefully this wont fill the buckets too much
-			addtimer(CALLBACK(src, .proc/bot_step), BOT_STEP_DELAY * (step_number - 1))
+			addtimer(CALLBACK(src, PROC_REF(bot_step)), BOT_STEP_DELAY * (step_number - 1))
 	else
 		return FALSE
 	return TRUE
@@ -546,7 +547,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		if(client)
-			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
+			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[length(path)-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [length(path)-1] meters to destination.</span>")
@@ -576,7 +577,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(reset_access_timer_id)
 		deltimer(reset_access_timer_id)
 		reset_access_timer_id = null
- 	set_path(null)
+	set_path(null)
 	summon_target = null
 	pathset = FALSE
 	access_card.access = prev_access
@@ -594,14 +595,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/bot_patrol()
 	patrol_step()
-	addtimer(CALLBACK(src, .proc/do_patrol), 5)
+	addtimer(CALLBACK(src, PROC_REF(do_patrol)), 5)
 
 /mob/living/simple_animal/bot/proc/do_patrol()
 	if(mode == BOT_PATROL)
 		patrol_step()
 
 /mob/living/simple_animal/bot/proc/start_patrol()
-
+	set_path(null)
 	if(tries >= BOT_STEP_MAX_RETRIES) //Bot is trapped, so stop trying to patrol.
 		auto_patrol = FALSE
 		tries = 0
@@ -615,7 +616,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 
 	if(patrol_target) // has patrol target
-		INVOKE_ASYNC(src, .proc/target_patrol)
+		INVOKE_ASYNC(src, PROC_REF(target_patrol))
 	else // no patrol target, so need a new one
 		speak("Engaging patrol mode.")
 		find_patrol_target()
@@ -649,7 +650,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 		var/moved = bot_move(patrol_target)//step_towards(src, next) // attempt to move
 		if(!moved) //Couldn't proceed the next step of the path BOT_STEP_MAX_RETRIES times
-			addtimer(CALLBACK(src, .proc/patrol_step_not_moved), 2)
+			addtimer(CALLBACK(src, PROC_REF(patrol_step_not_moved)), 2)
 
 	else // no path, so calculate new one
 		mode = BOT_START_PATROL
@@ -784,7 +785,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 		var/moved = bot_move(summon_target, 3)	// Move attempt
 		if(!moved)
-			addtimer(CALLBACK(src, .proc/try_calc_path), 2)
+			addtimer(CALLBACK(src, PROC_REF(try_calc_path)), 2)
 
 
 	else	// no path, so calculate new one
@@ -1035,6 +1036,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	for(var/V in path_huds_watching_me)
 		var/datum/atom_hud/H = V
 		H.remove_from_hud(src)
+	clear_path_image()
 
 	var/list/path_images = hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
@@ -1087,6 +1089,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(I)
 		I.icon_state = null
 	path.Cut(1, 2)
+
+/mob/living/simple_animal/bot/proc/clear_path_image()
+	if(!path || !length(path))
+		return
+	for(var/P in path)
+		var/image/I = path[P]
+		if(I?.icon_state)
+			I.icon_state = null
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)

@@ -120,7 +120,7 @@
 				curse(user)
 
 		if("Body")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
 			for(var/species in GLOB.whitelisted_species)
 				if(can_use_species(H, species))
 					race_list += species

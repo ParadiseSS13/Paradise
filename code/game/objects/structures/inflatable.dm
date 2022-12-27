@@ -72,7 +72,7 @@
 		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
-		addtimer(CALLBACK(src, .proc/deflate), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(deflate)), 5 SECONDS)
 
 /obj/structure/inflatable/proc/deflate()
 	var/obj/item/inflatable/R = new intact(loc)

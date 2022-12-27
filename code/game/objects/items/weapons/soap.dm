@@ -12,6 +12,8 @@
 	throw_range = 20
 	discrete = 1
 	var/cleanspeed = 50 //slower than mop
+	var/times_eaten = 0 //How many times a Drask has chewed on this bar of soap
+	var/max_bites = 30 //The maximum amount of bites before the soap is depleted
 
 /obj/item/soap/Initialize(mapload)
 	. = ..()
@@ -23,11 +25,32 @@
 	if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && isdrask(muncher))
-			to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
-			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-			user.adjust_nutrition(2)
-		return
+			eat_soap(muncher)
+			return
 	target.cleaning_act(user, src, cleanspeed)
+
+/obj/item/soap/proc/eat_soap(mob/living/carbon/human/drask/user)
+	times_eaten++
+	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+	user.adjust_nutrition(5)
+	if(times_eaten < max_bites)
+		to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
+	else
+		to_chat(user, "<span class='notice'>You finish eating [src].</span>")
+		qdel(src)
+
+/obj/item/soap/examine(mob/user)
+	. = ..()
+	if(!user.Adjacent(src) || !times_eaten)
+		return
+	if(times_eaten < (max_bites * 0.3))
+		. += "<span class='notice'>[src] has bite marks on it!</span>"
+	else if(times_eaten < (max_bites * 0.6))
+		. += "<span class='notice'>Big chunks of [src] have been chewed off!</span>"
+	else if(times_eaten < (max_bites * 0.9))
+		. += "<span class='notice'>Most of [src] has been gnawed away!</span>"
+	else
+		. += "<span class='notice'>[src] has been eaten down to a sliver!</span>"
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )

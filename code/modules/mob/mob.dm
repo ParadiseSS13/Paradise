@@ -249,8 +249,8 @@
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
 		if(isstorage(back))
 			var/obj/item/storage/S = back
-			//Now, B represents a container we can insert W into.
-			S.handle_item_insertion(W,1)
+			//Now, S represents a container we can insert W into.
+			S.handle_item_insertion(W, TRUE, TRUE)
 			return S
 
 		var/turf/T = get_turf(src)
@@ -1108,7 +1108,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/add_to_respawnable_list()
 	GLOB.respawnable_list += src
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/remove_from_respawnable_list)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_respawnable_list))
 
 /mob/proc/remove_from_respawnable_list()
 	GLOB.respawnable_list -= src

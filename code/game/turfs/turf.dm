@@ -202,7 +202,7 @@
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-	if(L)
+	if(L && !(L.resistance_flags & INDESTRUCTIBLE))
 		qdel(L)
 
 /turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
@@ -344,9 +344,9 @@
 	for(var/mob/living/M in src)
 		if(M == U)
 			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		INVOKE_ASYNC(M, /mob/.proc/gib)
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, gib))
 	for(var/obj/mecha/M in src)//Mecha are not gibbed but are damaged.
-		INVOKE_ASYNC(M, /obj/mecha/.proc/take_damage, 100, "brute")
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
@@ -603,3 +603,18 @@
 		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID, no_id = no_id))
 			continue
 		. += turf_to_check
+
+// Makes an image of up to 20 things on a turf + the turf
+/turf/proc/photograph(limit = 20)
+	var/image/I = new()
+	I.add_overlay(src)
+	for(var/V in contents)
+		var/atom/A = V
+		if(A.invisibility)
+			continue
+		I.add_overlay(A)
+		if(limit)
+			limit--
+		else
+			return I
+	return I

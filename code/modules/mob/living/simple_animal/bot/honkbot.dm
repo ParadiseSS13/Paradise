@@ -43,14 +43,14 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
-	addtimer(CALLBACK(src, /atom/.proc/update_icon), 5, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 5, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 //honkbots react with sounds.
 /mob/living/simple_animal/bot/honkbot/proc/react_ping()
 	playsound(src, 'sound/machines/ping.ogg', 50, TRUE, -1) //the first sound upon creation!
 	spam_flag = TRUE
 	sensor_blink()
-	addtimer(CALLBACK(src, .proc/spam_flag_false), 18) // calibrates before starting the honk
+	addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 18) // calibrates before starting the honk
 
 /mob/living/simple_animal/bot/honkbot/proc/react_buzz()
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
@@ -95,7 +95,7 @@
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
 		retaliate(H)
-		addtimer(CALLBACK(src, .proc/react_buzz), 5)
+		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 	return ..()
 
 /mob/living/simple_animal/bot/honkbot/attackby(obj/item/W, mob/user, params)
@@ -104,7 +104,7 @@
 		return
 	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))//If the target is locked, they are recieving damage from the screwdriver
 		retaliate(user)
-		addtimer(CALLBACK(src, .proc/react_buzz), 5)
+		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 5)
 
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()
@@ -150,21 +150,21 @@
 			playsound(src, honksound, 50, TRUE, -1)
 			spam_flag = TRUE //prevent spam
 			sensor_blink()
-			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
+			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
 	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
 			playsound(src, "honkbot_e", 50, 0)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
-			addtimer(CALLBACK(src, /atom/.proc/update_icon), 30, TIMER_OVERRIDE|TIMER_UNIQUE)
-		addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 30, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/honk_attack(mob/living/carbon/C) // horn attack
 	if(!spam_flag)
 		playsound(loc, honksound, 50, TRUE, -1)
 		spam_flag = TRUE // prevent spam
 		sensor_blink()
-		addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
+		addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
 	if(!spam_flag)
@@ -186,14 +186,14 @@
 				target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
 				threatlevel = 6 // will never let you go
-			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
+			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
 			add_attack_logs(src, C, "honked by [src]")
 			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
 					"<span class='userdanger'>[src] has honked you!</span>")
 		else
 			C.Stuttering(40 SECONDS)
 			C.Stun(20 SECONDS)
-			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
+			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
 
 
 /mob/living/simple_animal/bot/honkbot/handle_automated_action()
@@ -248,13 +248,13 @@
 	target = null
 	last_found = world.time
 	frustration = 0
-	INVOKE_ASYNC(src, .proc/handle_automated_action) //responds quickly
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) //responds quickly
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
-	INVOKE_ASYNC(src, .proc/handle_automated_action) // responds quickly
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
 /mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
 	anchored = FALSE
@@ -277,7 +277,7 @@
 				speak("Honk!")
 				visible_message("<b>[src]</b> starts chasing [C.name]!")
 				mode = BOT_HUNT
-				INVOKE_ASYNC(src, .proc/handle_automated_action)
+				INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 				break
 			else
 				continue
@@ -311,12 +311,12 @@
 			if(!istype(C) || !C || in_range(src, target))
 				return
 			C.visible_message("<span class='warning'>[pick( \
-						  	"[C] dives out of [src]'s way!", \
-						  	"[C] stumbles over [src]!", \
-						  	"[C] jumps out of [src]'s path!", \
-						  	"[C] trips over [src] and falls!", \
-						  	"[C] topples over [src]!", \
-						  	"[C] leaps out of [src]'s way!")]</span>")
+							"[C] dives out of [src]'s way!", \
+							"[C] stumbles over [src]!", \
+							"[C] jumps out of [src]'s path!", \
+							"[C] trips over [src] and falls!", \
+							"[C] topples over [src]!", \
+							"[C] leaps out of [src]'s way!")]</span>")
 			C.KnockDown(10 SECONDS)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)

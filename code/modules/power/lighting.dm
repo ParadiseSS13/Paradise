@@ -330,7 +330,7 @@
 			_turn_on(trigger, play_sound)
 		else if(!turning_on)
 			turning_on = TRUE
-			addtimer(CALLBACK(src, .proc/_turn_on, trigger, play_sound), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
+			addtimer(CALLBACK(src, PROC_REF(_turn_on), trigger, play_sound), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
 	else if(!turned_off())
 		set_emergency_lights()
 	else // Turning off
@@ -592,12 +592,12 @@
 	emergency_mode = TRUE
 	set_light(3, 1.7, bulb_emergency_colour)
 	update_icon()
-	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update, override = TRUE)
+	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
 	set_light(0, 0, 0) //you, sir, are off!
 	if(current_apc)
-		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/update, override = TRUE)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
 /obj/machinery/light/flicker(amount = rand(20, 30))
 	if(flickering)
@@ -607,7 +607,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/light/.proc/flicker_event, amount)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/light, flicker_event), amount)
 
 	return TRUE
 
@@ -946,7 +946,7 @@
 	extinguished = TRUE
 	emergency_mode = FALSE
 	no_emergency = TRUE
-	addtimer(CALLBACK(src, .proc/enable_emergency_lighting), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(enable_emergency_lighting)), 5 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 	update(FALSE)
 

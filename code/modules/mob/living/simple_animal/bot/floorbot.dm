@@ -230,7 +230,7 @@
 				else
 					F.ReplaceWithLattice()
 				audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
-				addtimer(CALLBACK(src, .proc/inc_amount_callback), 5 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(inc_amount_callback)), 5 SECONDS)
 
 			path = list()
 			return
@@ -302,7 +302,7 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
 	if(isspaceturf(target_turf))
-		 //Must be a hull breach or in bridge mode to continue.
+		//Must be a hull breach or in bridge mode to continue.
 		if(!is_hull_breach(target_turf) && !targetdirection)
 			target = null
 			return
@@ -321,14 +321,14 @@
 		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
-		addtimer(CALLBACK(src, .proc/make_bridge_plating, target_turf), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
 
 	else
 		var/turf/simulated/floor/F = target_turf
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
-		addtimer(CALLBACK(src, .proc/make_bridge_plating, F), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
 	if(mode != BOT_REPAIRING)
@@ -362,7 +362,7 @@
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
 	mode = BOT_REPAIRING
-	addtimer(CALLBACK(src, .proc/do_eattile, T), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
 	if(isnull(T))
@@ -385,7 +385,7 @@
 		return
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
 	mode = BOT_REPAIRING
-	addtimer(CALLBACK(src, .proc/do_maketile, M), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
 	if(isnull(M))

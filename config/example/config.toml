@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 44
+sql_version = 45
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -338,7 +338,7 @@ byond_account_age_threshold = 3
 # Maximum CIDs a client can have attached to them before they trip a warning
 max_client_cid_history = 20
 # Enable automatic profiling of rounds to profile.json
-enable_auto_profiler = true
+enable_auto_profiler = false # REVERT THIS AFTER 515 BECOMES NOT BUSTED
 # Auto disable OOC when round starts?
 auto_disable_ooc = true
 # Enable/disable the breaking of bones
@@ -815,6 +815,24 @@ disable_default_vote = true
 enable_map_voting = false
 # Set to true to prevent the same map from being voted on twice in a row
 non_repeating_maps = true
+# Setup configuration here for specific rotation modes on specific days
+# This will trump above options
+# day_number = Numeric day of the week (1 = Mon, 7 = Sun)
+# rotation_type = Rotation mode.
+# - "Vote" = regular voting
+# - "Nodupes" = voting wont include current map
+# - "Random" = no vote, map is random
+# If you dont enter one correctly, it will whine on startup
+map_vote_day_types = [
+	{ day_number = 1, rotation_type = "Vote" }, # Monday
+	{ day_number = 2, rotation_type = "Random" }, # Tuesday
+	{ day_number = 3, rotation_type = "Vote" }, # Wednesday
+	{ day_number = 4, rotation_type = "Random" }, # Thursday
+	{ day_number = 5, rotation_type = "Vote" }, # Friday
+	{ day_number = 6, rotation_type = "Nodupes" }, # Saturday
+	{ day_number = 7, rotation_type = "Nodupes" }, # Sunday
+]
+
 
 ################################################################
 

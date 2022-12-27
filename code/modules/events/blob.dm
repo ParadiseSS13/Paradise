@@ -5,12 +5,12 @@
 
 /datum/event/blob/announce()
 	if(successSpawn)
-		GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+		GLOB.major_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 
 /datum/event/blob/start()
-	INVOKE_ASYNC(src, .proc/make_blob)
+	INVOKE_ASYNC(src, PROC_REF(make_blob))
 
 /datum/event/blob/proc/make_blob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)

@@ -365,7 +365,7 @@
 		atom_say("Overloading successful.")
 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
 		holder = user
-		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, .proc/discharge)
+		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, PROC_REF(discharge))
 	charging = FALSE
 
 /obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
@@ -844,7 +844,7 @@
 	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
 	if(C)
 		C.start_tracking()
-		addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(stop_pointing)), 1 MINUTES, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	if(linked_pinpointer_UID)

@@ -12,7 +12,7 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 7
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
 
 	// Built automatically from the corresponding vending machine.
@@ -45,8 +45,6 @@
 		. += contraband[key]
 	for(var/key in premium)
 		. += premium[key]
-
-//NOTE I decided to go for about 1/3 of a machine's capacity
 
 /obj/item/vending_refill/boozeomat
 	machine_name = "Booze-O-Mat"

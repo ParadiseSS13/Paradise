@@ -44,7 +44,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	assigned_targets = list()
 
 /datum/antagonist/Destroy(force, ...)
-	QDEL_LIST(objectives)
+	for(var/datum/objective/O as anything in objectives)
+		objectives -= O
+		if(!O.team)
+			qdel(O)
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
 	if(!silent)
@@ -278,7 +281,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(wiki_page_name)
 		to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
 	if(is_banned(owner.current) && replace_banned)
-		INVOKE_ASYNC(src, .proc/replace_banned_player)
+		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	return TRUE
 
 /**

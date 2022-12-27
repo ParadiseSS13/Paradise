@@ -47,6 +47,7 @@
 						aspell.name = "Instant [aspell.name]"
 				if(aspell.spell_level >= aspell.level_max)
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
+				aspell.on_purchase_upgrade()
 				return TRUE
 	//No same spell found - just learn it
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
@@ -184,16 +185,16 @@
 	category = "Defensive"
 	cost = 1
 
-/datum/spellbook_entry/greaterforcewall
-	name = "Greater Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/forcewall/greater
-	log_name = "GFW"
+/datum/spellbook_entry/rathens
+	name = "Rathen's Secret"
+	spell_type = /obj/effect/proc_holder/spell/rathens
+	log_name = "RS"
 	category = "Defensive"
 	cost = 1
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/repulse
+	spell_type = /obj/effect/proc_holder/spell/aoe/repulse
 	log_name = "RP"
 	category = "Defensive"
 	cost = 1
@@ -220,7 +221,7 @@
 
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
+	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/timestop
 	log_name = "TS"
 	category = "Defensive"
 
@@ -246,7 +247,7 @@
 //Mobility
 /datum/spellbook_entry/knock
 	name = "Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock
+	spell_type = /obj/effect/proc_holder/spell/aoe/knock
 	log_name = "KN"
 	category = "Mobility"
 	cost = 1
@@ -263,9 +264,16 @@
 	log_name = "EJ"
 	category = "Mobility"
 
+/datum/spellbook_entry/spacetime_dist
+	name = "Spacetime Distortion"
+	spell_type = /obj/effect/proc_holder/spell/spacetime_dist
+	cost = 1 //Better defence than greater forcewall (maybe) but good luck hitting anyone, so 1 point.
+	log_name = "STD" //listen it can't be SD and no one ever sees this unless they are stat profiling
+	category = "Mobility"
+
 /datum/spellbook_entry/greaterknock
 	name = "Greater Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock/greater
+	spell_type = /obj/effect/proc_holder/spell/aoe/knock/greater
 	log_name = "GK"
 	category = "Mobility"
 	refundable = 0 //global effect on cast
@@ -431,7 +439,7 @@
 /datum/spellbook_entry/item/soulstones/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
 	if(.)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/construct(null))
 	return .
 
 /datum/spellbook_entry/item/wands
@@ -1033,7 +1041,7 @@
 	user.drop_item()
 
 /obj/item/spellbook/oneuse/knock
-	spell = /obj/effect/proc_holder/spell/aoe_turf/knock
+	spell = /obj/effect/proc_holder/spell/aoe/knock
 	spellname = "knock"
 	icon_state = "bookknock"
 	desc = "This book is hard to hold closed properly."

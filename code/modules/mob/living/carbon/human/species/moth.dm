@@ -53,10 +53,10 @@
 	..()
 	var/datum/action/innate/cocoon/cocoon = new()
 	cocoon.Grant(H)
-	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
-	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/on_aheal)
-	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, .proc/on_change_body_accessory)
-	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, .proc/on_change_head_accessory)
+	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, PROC_REF(check_burn_wings))
+	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, PROC_REF(on_change_head_accessory))
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -148,7 +148,7 @@
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)
 		H.KnockOut()
 		H.create_log(MISC_LOG, "has woven a cocoon")
-		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
 

@@ -1355,7 +1355,7 @@
 
 	var/minimum_name_percent = 0.35
 	name = ""
-	var/list/names_in_order = sortTim(names, /proc/cmp_numeric_dsc, TRUE)
+	var/list/names_in_order = sortTim(names, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/named = FALSE
 	for(var/fruit_name in names)
 		if(names[fruit_name] >= minimum_name_percent)
@@ -1719,7 +1719,7 @@
 
 	if(current_cycle % 10 != 0 || !isplasmaman(M))
 		return ..()
-	
+
 	if(prob(30))
 		var/mob/living/carbon/human/H = M
 		to_chat(M, "<span class='warning'>You expell flaming substance from within your suit.</span>")
@@ -1729,7 +1729,7 @@
 		H.adjust_fire_stacks(1)
 		H.IgniteMob()
 		on_fire = TRUE
-			
+
 	return ..()
 
 /datum/reagent/consumable/ethanol/howler
@@ -1746,11 +1746,11 @@
 /datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
 	if(!isvulpkanin(M))
 		return ..()
-		
+
 	var/mob/living/carbon/human/H = M
 	if(H.health > 0)
 		H.adjustToxLoss(-0.5)
-		
+
 	return ..()
 
 /datum/reagent/consumable/ethanol/diona_smash
@@ -1772,5 +1772,5 @@
 	to_chat(M, "<span class='warning'>Mmm, tasty.</span>")
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	mutated = TRUE
-		
+
 	return ..()

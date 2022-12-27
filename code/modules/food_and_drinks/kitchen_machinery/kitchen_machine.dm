@@ -268,38 +268,44 @@
 /obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)
 	if(!recipes_to_make)
 		return
+
 	var/datum/reagents/temp_reagents = new(500)
-	for(var/i=1 to recipes_to_make.len)		//cycle through each entry on the recipes_to_make list for processing
-		var/list/L = recipes_to_make[i]
-		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
-		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
-		if(recipe == RECIPE_FAIL)		//we have a failure and create a burned mess
-			//failed recipe
+	for(var/list/L as anything in recipes_to_make)
+		var/obj/source = L[1] // The machine or a mixing bowl
+		var/datum/recipe/recipe = L[2] // Valid recipe or RECIPE_FAIL
+
+		if(recipe == RECIPE_FAIL)
 			fail()
-		else	//we have a valid recipe to begin making
-			for(var/obj/O in source.contents)	//begin processing the ingredients supplied
-				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
-					continue
-				if(O.reagents)
-					O.reagents.del_reagent("nutriment")
-					O.reagents.update_total()
-					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
-				qdel(O)
-			source.reagents.clear_reagents()
-			for(var/e=1 to efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
-				var/obj/cooked = new recipe.result()
-				temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency, no_react = TRUE) // Don't react with the abstract holder please
-				cooked.forceMove(loc)
-			temp_reagents.clear_reagents()
-			var/obj/byproduct = recipe.get_byproduct()	//if the recipe has a byproduct, handle returning that (such as re-usable candy moulds)
-			if(byproduct)
-				new byproduct(loc)
-			if(istype(source, /obj/item/mixing_bowl))	//if the recipe's source was a mixing bowl, make it a little dirtier and return that for re-use.
-				var/obj/item/mixing_bowl/mb = source
-				mb.make_dirty(5 * efficiency)
-				mb.forceMove(loc)
+			continue
+
+		for(var/obj/O in source.contents) // Process supplied ingredients
+			if(istype(O, /obj/item/mixing_bowl)) // Mixing bowls are not ingredients, ignore
+				continue
+
+			if(O.reagents)
+				O.reagents.del_reagent("nutriment")
+				O.reagents.update_total()
+				O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
+
+			qdel(O)
+		source.reagents.clear_reagents()
+
+		var/reagents_per_serving = temp_reagents.total_volume / efficiency
+		for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
+			var/obj/cooked = new recipe.result(loc)
+			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
+		temp_reagents.clear_reagents()
+
+		var/obj/byproduct = recipe.get_byproduct()
+		if(byproduct)
+			new byproduct(loc)
+
+		if(istype(source, /obj/item/mixing_bowl)) // Cooking in mixing bowls returns them dirtier
+			var/obj/item/mixing_bowl/mb = source
+			mb.make_dirty(5 * efficiency)
+			mb.forceMove(loc)
+
 	stop()
-	return
 
 /obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
@@ -482,16 +488,15 @@
 
 	switch(action)
 		if("cook")
+			if(!check_useable(ui.user))
+				return
+
 			cook()
 		if("eject")
 			dispose(ui.user)
 
 /obj/machinery/kitchen_machine/AltClick(mob/user)
-	if(dirty >= MAX_DIRT)
-		to_chat(user, "<span class='warning'>It's too dirty.</span>")
-		return
-	if(!has_cookables())
-		to_chat(user, "<span class='warning'>It's empty!</span>")
+	if(!check_useable(user))
 		return
 
 	cook()
@@ -499,6 +504,27 @@
 
 /obj/machinery/kitchen_machine/proc/has_cookables()
 	return reagents.total_volume > 0 || length(contents)
+
+/obj/machinery/kitchen_machine/proc/check_useable(mob/user)
+	if(dirty >= MAX_DIRT)
+		to_chat(user, "<span class='warning'>It's too dirty.</span>")
+		return FALSE
+	if(!has_cookables())
+		to_chat(user, "<span class='warning'>It's empty!</span>")
+		return FALSE
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>It's broken!</span>")
+		return FALSE
+	if(stat & NOPOWER)
+		to_chat(user, "<span class='warning'>It's depowered!</span>")
+		return FALSE
+	if(panel_open)
+		to_chat(user, "<span class='warning'>Its panel is open!</span>")
+		return FALSE
+	if(!anchored)
+		to_chat(user, "<span class='warning'>It's unanchored!</span>")
+		return FALSE
+	return TRUE
 
 #undef NO_DIRT
 #undef MAX_DIRT

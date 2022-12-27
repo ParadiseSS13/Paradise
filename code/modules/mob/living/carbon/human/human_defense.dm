@@ -11,7 +11,8 @@ emp_act
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
-		return FALSE
+		P.reflect_back(src) //It has to be here, not on species. Why? Who knows. Testing showed me no reason why it doesn't work on species, and neither did tracing. It has to be here, or it gets qdel'd by bump.
+		return -1
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/can_reflect = check_reflect(def_zone)
 		var/reflected = FALSE
@@ -25,7 +26,7 @@ emp_act
 
 		if(reflected)
 			visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", \
-				   "<span class='userdanger'>[P] gets reflected by [src]!</span>")
+				"<span class='userdanger'>[P] gets reflected by [src]!</span>")
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
@@ -215,21 +216,11 @@ emp_act
 
 //End Here
 
-#define BLOCK_CHANCE_CALCULATION(hand_block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier) clamp((hand_block_chance * ((100-armour_penetration_percentage) / 100)) - max(armour_penetration_flat, 0) + block_chance_modifier, 0, 100)
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
-	var/block_chance_modifier = round(damage / -3)
-	var/l_block_chance = 0
-	var/r_block_chance = 0
+	var/obj/item/shield = get_best_shield()
 
-	if(l_hand)
-		l_block_chance = BLOCK_CHANCE_CALCULATION(l_hand.block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier)
-	if(r_hand)
-		r_block_chance = BLOCK_CHANCE_CALCULATION(r_hand.block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier)
-
-	if(l_block_chance > r_block_chance && l_hand.hit_reaction(src, AM, attack_text, l_block_chance, damage, attack_type))
-		return TRUE
-	else if(r_block_chance > 0 && r_hand.hit_reaction(src, AM, attack_text, r_block_chance, damage, attack_type))
+	if(shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
 
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
@@ -243,7 +234,18 @@ emp_act
 
 	return FALSE
 
-#undef BLOCK_CHANCE_CALCULATION
+/mob/living/carbon/human/proc/get_best_shield()
+	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
+	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
+	if(!right_hand_parry && !left_hand_parry)
+		return null // no parry component
+
+	if(right_hand_parry && left_hand_parry)
+		if(right_hand_parry.stamina_coefficient > left_hand_parry.stamina_coefficient) // try and parry with your best item
+			return left_hand_parry.parent
+		else
+			return right_hand_parry.parent
+	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
@@ -630,7 +632,7 @@ emp_act
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
- 				"<span class='userdanger'>[M] has slashed at [src]!</span>")
+				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
 			apply_damage(M.alien_slash_damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")

@@ -128,7 +128,7 @@
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] prepares to charge!</span>")
-	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, dir_to_target, 0), 4)
+	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), dir_to_target, 0), 4)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran, list/hit_targets = list())
 	if(times_ran >= 6)
@@ -171,7 +171,7 @@
 			hit_targets += L
 			L.adjustBruteLoss(25)
 
-	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1), hit_targets), 0.7)
+	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), move_dir, (times_ran + 1), hit_targets), 0.7)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/head_detach(target)
 	ranged_cooldown = world.time + 1 SECONDS * revive_multiplier()
@@ -198,7 +198,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/onHeadDeath()
 	myhead = null
-	addtimer(CALLBACK(src, .proc/regain_head), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(regain_head)), 5 SECONDS)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/regain_head()
 	has_head = TRUE

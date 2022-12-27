@@ -336,6 +336,9 @@
 		else
 			if(isstorage(I.loc))
 				var/obj/item/storage/S = I.loc
+				if(!S.removal_allowed_check(user))
+					return
+
 				S.remove_from_storage(I, src)
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
@@ -375,7 +378,7 @@
 	if(!throw_item)
 		return FALSE
 
-	INVOKE_ASYNC(throw_item, /atom/movable.proc/throw_at, target, 16, 3, src)
+	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
 	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
 	return TRUE
 
@@ -432,7 +435,7 @@
   * # Seed Storage
   *
   * Seeds variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
+  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/economy/vending/hydroseeds].
   */
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"

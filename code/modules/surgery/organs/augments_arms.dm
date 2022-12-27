@@ -149,7 +149,7 @@
 	var/list/choices = list()
 	for(var/obj/I in items_list)
 		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	var/obj/item/selected
@@ -364,7 +364,7 @@
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 			else
-				INVOKE_ASYNC(src, .proc/powerdraw_loop, A, H)
+				INVOKE_ASYNC(src, PROC_REF(powerdraw_loop), A, H)
 		else
 			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
 	else

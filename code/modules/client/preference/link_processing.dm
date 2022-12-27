@@ -1073,7 +1073,7 @@
 
 				if("edit_2fa")
 					// Do this async so we arent holding up a topic() call
-					INVOKE_ASYNC(user.client, /client.proc/edit_2fa)
+					INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, edit_2fa))
 					return // We return here to avoid focus being lost
 
 				if("keybindings")

@@ -92,7 +92,7 @@
 /obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
 	var/obj/item/projectile/energy/bsg/P = BB
-	addtimer(CALLBACK(P, /obj/item/projectile/energy/bsg/.proc/make_chain, P, user), 1)
+	addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/projectile/energy/bsg, make_chain), P, user), 1)
 
 /obj/item/projectile/energy/bsg/proc/make_chain(obj/item/projectile/P, mob/user)
 	P.chain = P.Beam(user, icon_state = "sm_arc_supercharged", icon = 'icons/effects/beam.dmi', time = 10 SECONDS, maxdistance = 30)

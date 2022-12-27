@@ -26,7 +26,7 @@
 		var/mob/living/carbon/human/H = user
 		if(V.iscloaking)
 			H.physiology.burn_mod *= 1.3
-			user.RegisterSignal(user, COMSIG_LIVING_IGNITED, /mob/living.proc/update_vampire_cloak)
+			user.RegisterSignal(user, COMSIG_LIVING_IGNITED, TYPE_PROC_REF(/mob/living, update_vampire_cloak))
 		else
 			user.UnregisterSignal(user, COMSIG_LIVING_IGNITED)
 			H.physiology.burn_mod /= 1.3
@@ -144,7 +144,7 @@
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
 	anchor = new(anchor_turf)
-	timer = addtimer(CALLBACK(src, .proc/recall, user), 2 MINUTES, TIMER_STOPPABLE)
+	timer = addtimer(CALLBACK(src, PROC_REF(recall), user), 2 MINUTES, TIMER_STOPPABLE)
 	should_recharge_after_cast = TRUE
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user)
@@ -194,7 +194,7 @@
 	density = TRUE
 	opacity = FALSE
 	anchored = TRUE
-	flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE
 
 /obj/effect/proc_holder/spell/vampire/dark_passage
 	name = "Dark Passage (30)"

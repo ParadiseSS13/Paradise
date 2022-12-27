@@ -35,9 +35,9 @@
 
 	O.add_ai_verbs()
 
-	O.rename_self("AI",1)
+	O.rename_self("AI", TRUE)
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src) // To prevent the proc from returning null. Todo: Convert to QDEL_IN
 	return O
 
 
@@ -110,7 +110,7 @@
 	O.check_custom_sprite()
 	O.Namepick()
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src) // To prevent the proc from returning null. Todo: Convert to QDEL_IN
 	return O
 
 //human -> alien

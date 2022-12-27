@@ -27,6 +27,8 @@
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 	var/recipe_width = 400 //Width of the recipe popup
 	var/recipe_height = 400 //Height of the recipe popup
+	/// What sort of table is made when applying this stack to a frame?
+	var/table_type
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()

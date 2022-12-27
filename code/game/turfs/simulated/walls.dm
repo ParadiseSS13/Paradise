@@ -9,8 +9,8 @@
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 
 	var/rotting = FALSE
 
@@ -343,7 +343,7 @@
 	if(try_wallmount(I, user, params))
 		return
 	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
+	if(istype(I, /obj/item/gripper_engineering))
 		return
 
 	return ..()

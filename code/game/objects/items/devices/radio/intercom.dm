@@ -249,7 +249,7 @@
 	if(!current_area)
 		return
 	if(on)
-		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/AreaPowerCheck)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
 	else
 		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 

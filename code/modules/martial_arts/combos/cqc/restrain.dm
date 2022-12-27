@@ -2,7 +2,7 @@
 	name = "Restrain"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_GRAB)
 	explaination_text = "Locks opponents into a restraining position that is more effective the more stamina damage the target has taken, \
-						 disarm to begin a chokehold that will knock them out."
+						disarm to begin a chokehold that will knock them out."
 	combo_text_override = "Grab, switch hands, Grab"
 
 /datum/martial_combo/cqc/restrain/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
@@ -25,7 +25,7 @@
 				target.adjustStaminaLoss(40)
 
 		CQC.restraining = TRUE
-		addtimer(CALLBACK(CQC, /datum/martial_art/cqc/.proc/drop_restraining), 5 SECONDS, TIMER_UNIQUE)
+		addtimer(CALLBACK(CQC, TYPE_PROC_REF(/datum/martial_art/cqc, drop_restraining)), 5 SECONDS, TIMER_UNIQUE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Restrain", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

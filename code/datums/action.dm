@@ -335,6 +335,9 @@
 /datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
 	name = "YEAH!"
 
+/datum/action/item_action/laugh_track
+	name = "Laugh Track"
+
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)
@@ -438,6 +441,8 @@
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"
 
+/datum/action/item_action/drop_gripped_item
+	name = "Drop gripped item"
 
 // Clown Acrobat Shoes
 /datum/action/item_action/slipping

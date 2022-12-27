@@ -10,8 +10,8 @@
 	offset_x = rand(-max_x, max_x)
 	offset_y = rand(-max_y, max_y)
 
-	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/join_swarm)
-	RegisterSignal(parent, COMSIG_MOVABLE_UNCROSSED, .proc/leave_swarm)
+	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, PROC_REF(join_swarm))
+	RegisterSignal(parent, COMSIG_MOVABLE_UNCROSSED, PROC_REF(leave_swarm))
 
 /datum/component/swarming/Destroy()
 	for(var/other in swarm_members)

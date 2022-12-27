@@ -55,7 +55,7 @@
 			var/coef = 1
 			if(emagged)
 				coef = 5
-			INVOKE_ASYNC(O, /atom/movable.proc/throw_at, target, (drive_range * power * coef), (power * coef))
+			INVOKE_ASYNC(O, TYPE_PROC_REF(/atom/movable, throw_at), target, (drive_range * power * coef), (power * coef))
 
 	flick("mass_driver1", src)
 

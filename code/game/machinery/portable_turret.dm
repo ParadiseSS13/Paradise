@@ -736,6 +736,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		A.current = T
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
+		A.starting = loc
 		A.fire()
 	else
 		A.throw_at(target, scan_range, 1)
@@ -1040,6 +1041,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_synth	= TRUE
 	ailock = TRUE
 	var/area/syndicate_depot/core/depotarea
+
+/obj/machinery/porta_turret/syndicate/CanPass(atom/A)
+    return ((stat & BROKEN) || !isliving(A))
+
+/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((stat & BROKEN) || !isliving(caller))
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()

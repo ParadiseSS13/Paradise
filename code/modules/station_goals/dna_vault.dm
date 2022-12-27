@@ -36,17 +36,17 @@
 	<br><br>
 	The DNA Vault needs to contain samples of:
 	<ul style='margin-top: 10px; margin-bottom: 10px;'>
-	 <li>[animal_count] unique animal data.</li>
-	 <li>[plant_count] unique non-standard plant data.</li>
-	 <li>[human_count] unique sapient humanoid DNA data.</li>
+	<li>[animal_count] unique animal data.</li>
+	<li>[plant_count] unique non-standard plant data.</li>
+	<li>[human_count] unique sapient humanoid DNA data.</li>
 	</ul>
 	The base vault parts should be available for shipping by your cargo shuttle."}
 
 /datum/station_goal/dna_vault/on_report()
-	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]
+	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]
 	P.special_enabled = TRUE
 
-	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_probes]"]
+	P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/dna_probes]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/dna_vault/check_completion()

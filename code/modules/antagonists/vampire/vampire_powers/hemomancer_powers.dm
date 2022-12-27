@@ -103,7 +103,7 @@
 			continue
 		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
-	addtimer(CALLBACK(src, .proc/apply_slowdown, T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_slowdown), T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
 	for(var/mob/living/L in range(distance, T))
@@ -243,6 +243,7 @@
 	gain_desc = "Your senses are heightened, nobody can hide from you now."
 	action_icon_state = "predator_sense"
 	base_cooldown = 20 SECONDS
+	create_attack_logs = FALSE
 
 /obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
 	var/datum/spell_targeting/alive_mob_list/A = new()

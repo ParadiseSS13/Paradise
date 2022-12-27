@@ -148,7 +148,7 @@
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
-	addtimer(CALLBACK(src, .proc/Impregnate, M), impregnation_time)
+	addtimer(CALLBACK(src, PROC_REF(Impregnate), M), impregnation_time)
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
@@ -195,7 +195,7 @@
 
 	stat = UNCONSCIOUS
 	icon_state = "[initial(icon_state)]_inactive"
-	addtimer(CALLBACK(src, .proc/GoActive), rand(min_active_time, max_active_time))
+	addtimer(CALLBACK(src, PROC_REF(GoActive)), rand(min_active_time, max_active_time))
 
 /obj/item/clothing/mask/facehugger/proc/Die()
 	if(stat == DEAD)

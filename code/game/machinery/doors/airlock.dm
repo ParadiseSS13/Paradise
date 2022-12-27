@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	wires = new(src)
 
 	if(closeOtherId != null)
-		addtimer(CALLBACK(src, .proc/update_other_id), 5)
+		addtimer(CALLBACK(src, PROC_REF(update_other_id)), 5)
 	if(glass)
 		airlock_material = "glass"
 	if(security_level > AIRLOCK_SECURITY_METAL)
@@ -228,11 +228,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/loseMainPower()
 	main_power_lost_until = wires.is_cut(WIRE_MAIN_POWER1) ? -1 : world.time + 60 SECONDS
 	if(main_power_lost_until > 0)
-		main_power_timer = addtimer(CALLBACK(src, .proc/regainMainPower), 60 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+		main_power_timer = addtimer(CALLBACK(src, PROC_REF(regainMainPower)), 60 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 	// If backup power is permanently disabled then activate in 10 seconds if possible, otherwise it's already enabled or a timer is already running
 	if(backup_power_lost_until == -1 && !wires.is_cut(WIRE_BACKUP_POWER1))
 		backup_power_lost_until = world.time + 10 SECONDS
-		backup_power_timer = addtimer(CALLBACK(src, .proc/regainBackupPower), 10 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+		backup_power_timer = addtimer(CALLBACK(src, PROC_REF(regainBackupPower)), 10 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 	// Disable electricity if required
 	if(electrified_until && isAllPowerLoss())
 		electrify(0)
@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/loseBackupPower()
 	backup_power_lost_until = wires.is_cut(WIRE_BACKUP_POWER1) ? -1 : world.time + 60 SECONDS
 	if(backup_power_lost_until > 0)
-		backup_power_timer = addtimer(CALLBACK(src, .proc/regainBackupPower), 60 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+		backup_power_timer = addtimer(CALLBACK(src, PROC_REF(regainBackupPower)), 60 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 	// Disable electricity if required
 	if(electrified_until && isAllPowerLoss())
@@ -289,7 +289,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
 		electrified_until = duration == -1 ? -1 : world.time + duration SECONDS
 		if(duration != -1)
-			electrified_timer = addtimer(CALLBACK(src, .proc/electrify, 0), duration SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
+			electrified_timer = addtimer(CALLBACK(src, PROC_REF(electrify), 0), duration SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 	if(feedback && message)
 		to_chat(user, message)
 	diag_hud_set_electrified()
@@ -337,7 +337,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	// Animate() does not work on overlays, so a temporary effect is used
 	new /obj/effect/temp_visual/polarized_airlock(get_turf(src), polarized_image, animate_color)
 
-	addtimer(CALLBACK(src, /atom/.proc/update_icon, 0, 0), 0.5 SECONDS)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), 0, 0), 0.5 SECONDS)
 
 //
 // Polarization toggling effect
@@ -739,6 +739,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			attack_ai(user)
 
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
+	if(istype(mover) && mover.checkpass(PASSDOOR) && !locked) // We really dont want mice/drones to get shocked on a door they're passing through
+		return TRUE
 	if(isElectrified() && density && isitem(mover))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
@@ -1119,7 +1121,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 				"<span class='italics'>You hear welding.</span>")
 
-			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
+			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				if(!density && !welded)
 					return
 				welded = !welded
@@ -1130,7 +1132,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			user.visible_message("<span class='notice'>[user] is welding the airlock.</span>", \
 				"<span class='notice'>You begin repairing the airlock...</span>", \
 				"<span class='italics'>You hear welding.</span>")
-			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
+			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				obj_integrity = max_integrity
 				stat &= ~BROKEN
 				user.visible_message("<span class='notice'>[user.name] has repaired [src].</span>", \
@@ -1347,7 +1349,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, 1)
-	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)

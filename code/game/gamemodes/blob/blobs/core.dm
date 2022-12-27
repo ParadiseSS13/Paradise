@@ -98,7 +98,7 @@
 	if(overmind)
 		qdel(overmind)
 
-	INVOKE_ASYNC(src, .proc/get_new_overmind, new_overmind)
+	INVOKE_ASYNC(src, PROC_REF(get_new_overmind), new_overmind)
 
 /obj/structure/blob/core/proc/get_new_overmind(client/new_overmind)
 	var/mob/C = null
@@ -106,9 +106,9 @@
 	if(!new_overmind)
 		// sendit
 		if(is_offspring)
-			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, source = src)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, 10 SECONDS, source = src)
 		else
-			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, source = src)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, 10 SECONDS, source = src)
 
 		if(length(candidates))
 			C = pick(candidates)
@@ -126,7 +126,7 @@
 			B.mind.make_Overmind()
 
 /obj/structure/blob/core/proc/lateblobtimer()
-	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)
+	addtimer(CALLBACK(src, PROC_REF(lateblobcheck)), 50)
 
 /obj/structure/blob/core/proc/lateblobcheck()
 	if(overmind)

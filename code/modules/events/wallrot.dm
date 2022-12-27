@@ -1,5 +1,5 @@
 /datum/event/wallrot/start()
-	INVOKE_ASYNC(src, .proc/spawn_wallrot)
+	INVOKE_ASYNC(src, PROC_REF(spawn_wallrot))
 
 /datum/event/wallrot/proc/spawn_wallrot()
 	var/turf/simulated/wall/center = null

@@ -339,9 +339,18 @@
 			organ_found = null
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!O.is_robotic())
+					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp))
 						continue
 					organ_found = TRUE
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
+			to_chat(user, "<hr>")
+			to_chat(user, "<span class='notice'>Cybernetic implants:</span>")
+			organ_found = null
+			if(LAZYLEN(H.internal_organs))
+				for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+					organ_found = TRUE
+					to_chat(user, "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>")
+			if(!organ_found)
+				to_chat(user, "<span class='warning'>No implants located.</span>")

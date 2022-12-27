@@ -31,7 +31,7 @@
 			pda.name = "PDA-[pda.owner] ([pda.ownjob])"
 			if(!pda.silent)
 				playsound(pda, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, pda, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), pda, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 		if("pai")
 			if(pda.pai)
 				if(pda.pai.loc != pda)

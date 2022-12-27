@@ -260,7 +260,7 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
@@ -349,7 +349,7 @@
 	smoke2.start()
 	cooldown = TRUE
 	linked.cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reset), 20 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reset)), 20 SECONDS)
 
 /obj/item/warp_cube/proc/reset()
 	cooldown = FALSE

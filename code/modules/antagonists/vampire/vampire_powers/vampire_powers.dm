@@ -68,7 +68,7 @@
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
-		INVOKE_ASYNC(src, .proc/heal, U, rejuv_bonus)
+		INVOKE_ASYNC(src, PROC_REF(heal), U, rejuv_bonus)
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
 	for(var/i in 1 to 5)

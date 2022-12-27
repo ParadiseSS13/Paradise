@@ -39,8 +39,6 @@
 	parent = null
 
 /obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
-	if(A)
-		return // It's called by a moving mob that's already in the pipenet
 	return parent
 
 /obj/machinery/atmospherics/pipe/detailed_examine()

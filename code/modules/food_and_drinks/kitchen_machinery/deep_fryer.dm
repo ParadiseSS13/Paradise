@@ -56,8 +56,8 @@
 			)
 
 			playsound(src, 'sound/goonstation/misc/drinkfizz.ogg', 25)
-			addtimer(CALLBACK(src, .proc/boil_leadup, user), 4 SECONDS)
-			addtimer(CALLBACK(src, .proc/make_foam, ice_amount), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(boil_leadup), user), 4 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(make_foam), ice_amount), 5 SECONDS)
 
 			return TRUE
 

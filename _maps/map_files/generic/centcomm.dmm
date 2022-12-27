@@ -30,7 +30,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/evac)
 "ai" = (
-/turf/simulated/wall/indestructible/uranium,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/curtain/open{
+	color = "#222222";
+	name = "wizard council curtain";
+	pixel_y = -2
+	},
+/turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "aj" = (
 /obj/structure/rack/holorack,
@@ -257,6 +265,12 @@
 	icon_state = "asteroid"
 	},
 /area/holodeck/source_picnicarea)
+"aZ" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/dice,
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "ba" = (
 /obj/structure/chair/stool/holostool{
 	dir = 1
@@ -446,7 +460,7 @@
 	},
 /area/holodeck/source_emptycourt)
 "bY" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "ca" = (
@@ -637,11 +651,13 @@
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "cH" = (
-/obj/structure/bookcase{
-	name = "Forbidden Knowledge"
+/obj/structure/table/wood,
+/obj/item/tank/internals/emergency_oxygen/double/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
 	},
-/obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "cI" = (
 /obj/structure/railing,
@@ -660,10 +676,8 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
 "cK" = (
-/obj/structure/bookcase{
-	name = "Forbidden Knowledge"
-	},
-/turf/simulated/floor/engine/cult,
+/obj/machinery/economy/vending/magivend,
+/turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "cL" = (
 /turf/simulated/floor/holofloor{
@@ -672,7 +686,11 @@
 	},
 /area/holodeck/source_boxingcourt)
 "cN" = (
-/turf/simulated/floor/engine/cult,
+/obj/structure/chair/sofa/corner{
+	dir = 6;
+	color = "#63009c"
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "cO" = (
 /obj/structure/flora/tree/pine,
@@ -681,9 +699,9 @@
 	},
 /area/holodeck/source_snowfield)
 "cP" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/library,
-/turf/simulated/floor/engine/cult,
+/obj/item/trash/plate,
+/obj/structure/table/wood/fancy/black,
+/turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "cQ" = (
 /turf/simulated/floor/holofloor{
@@ -692,37 +710,17 @@
 	},
 /area/holodeck/source_basketball)
 "cS" = (
-/obj/machinery/vending/magivend,
-/turf/simulated/floor/engine/cult,
+/obj/effect/landmark/spawner/teleport_scroll,
+/obj/structure/table/wood/fancy/black,
+/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet{
+	name = "our demands";
+	info = "Deliver five cream pies to the agreed place or your apprentice gets honked again"
+	},
+/turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "cU" = (
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
-"cV" = (
-/obj/structure/closet/cabinet,
-/obj/item/clothing/under/color/lightpurple,
-/obj/item/clothing/under/color/purple,
-/obj/item/clothing/head/wizard/red,
-/obj/item/storage/backpack/satchel,
-/obj/item/storage/backpack/satchel,
-/obj/item/clothing/suit/wizrobe/red,
-/obj/item/clothing/head/wizard,
-/obj/item/clothing/suit/wizrobe,
-/obj/item/clothing/shoes/sandal,
-/obj/item/clothing/shoes/sandal,
-/turf/simulated/floor/carpet,
-/area/wizard_station)
-"cW" = (
-/obj/structure/mirror/magic{
-	pixel_y = 28
-	},
-/turf/simulated/floor/carpet,
-/area/wizard_station)
-"cX" = (
-/obj/structure/bed,
-/obj/item/bedsheet/wiz,
-/turf/simulated/floor/carpet,
+/obj/item/trash/tastybread,
+/turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "cY" = (
 /obj/structure/table,
@@ -752,13 +750,6 @@
 /obj/item/camera,
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
-"dd" = (
-/turf/simulated/floor/carpet,
-/area/wizard_station)
-"de" = (
-/obj/effect/landmark/spawner/wiz,
-/turf/simulated/floor/carpet,
-/area/wizard_station)
 "df" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/ninja/outpost)
@@ -787,7 +778,7 @@
 	},
 /area/holodeck/source_snowfield)
 "dl" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "do" = (
@@ -909,33 +900,12 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_boxingcourt)
-"dN" = (
-/obj/structure/bookcase{
-	name = "bookcase (Tactics)"
-	},
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
 "dO" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
-"dP" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 28
-	},
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
-"dQ" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/carpet,
-/area/wizard_station)
-"dR" = (
-/obj/structure/table/wood,
-/obj/effect/landmark/spawner/teleport_scroll,
-/turf/simulated/floor/carpet,
-/area/wizard_station)
 "dS" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
@@ -998,8 +968,8 @@
 /turf/simulated/floor/plating,
 /area/centcom)
 "ec" = (
-/obj/structure/chair/comfy/purp,
-/turf/simulated/floor/engine/cult,
+/obj/item/trash/chips,
+/turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "ed" = (
 /turf/simulated/floor/wood,
@@ -1016,7 +986,7 @@
 /turf/simulated/floor/plating,
 /area/centcom)
 "eh" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -1033,8 +1003,10 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ej" = (
-/obj/structure/bookcase,
-/turf/simulated/floor/engine/cult,
+/obj/structure/chair/comfy/purp{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "ek" = (
 /obj/structure/chair/sofa/corp{
@@ -1057,43 +1029,23 @@
 	},
 /area/holodeck/source_beach)
 "en" = (
-/obj/structure/chair/comfy/purp{
-	dir = 4
+/obj/structure/table/wood/fancy/black,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 5;
+	pixel_x = -7
 	},
-/turf/simulated/floor/engine/cult,
+/obj/item/reagent_containers/food/drinks/mugwort{
+	pixel_y = 6;
+	pixel_x = 8
+	},
+/turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "eo" = (
-/obj/structure/table/wood,
-/obj/machinery/recharger,
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
-"ep" = (
-/obj/structure/table/wood,
-/obj/item/dice/d20,
-/obj/item/dice,
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
-"eu" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/wizrobe/marisa,
-/obj/item/clothing/shoes/sandal/marisa,
-/obj/item/clothing/head/wizard/marisa,
-/obj/item/twohanded/staff/broom,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "ev" = (
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
-"ew" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/wizrobe/magusblue,
-/obj/item/clothing/head/wizard/magus,
-/obj/item/twohanded/staff,
-/obj/item/clothing/suit/wizrobe/magusred,
-/obj/item/clothing/head/wizard/magus,
-/obj/item/twohanded/staff,
-/turf/simulated/floor/wood,
-/area/wizard_station)
 "ex" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -1118,7 +1070,7 @@
 	},
 /area/ninja/holding)
 "ez" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -1193,32 +1145,17 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
 "eO" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mugwort,
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
-"eP" = (
-/obj/structure/table/wood,
-/obj/item/stack/spacecash,
-/turf/simulated/floor/engine/cult,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/mineral_door/wood{
+	name = "Main chamber"
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "eQ" = (
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_boxingcourt)
-"eR" = (
-/obj/structure/rack,
-/obj/item/tank/internals/emergency_oxygen/double/vox,
-/obj/item/clothing/mask/breath/vox,
-/turf/simulated/floor/wood,
-/area/wizard_station)
-"eT" = (
-/obj/structure/rack,
-/obj/item/clothing/under/plasmaman/wizard,
-/obj/item/clothing/head/helmet/space/plasmaman/wizard,
-/obj/item/clothing/mask/breath,
-/obj/item/tank/internals/plasmaman/belt/full,
-/turf/simulated/floor/wood,
-/area/wizard_station)
 "eU" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'FOURTH WALL'.";
@@ -1259,7 +1196,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "eY" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1278,7 +1215,7 @@
 	},
 /area/ninja/holding)
 "fb" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -1293,7 +1230,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 32;
 	use_power = 0
@@ -1305,19 +1242,9 @@
 /obj/machinery/poolcontroller/invisible,
 /turf/simulated/floor/beach/away/water,
 /area/ninja/holding)
-"ff" = (
-/obj/item/flag/wiz,
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
 "fg" = (
 /turf/simulated/wall/indestructible/wood,
 /area/ninja/holding)
-"fh" = (
-/obj/structure/chair/comfy/purp{
-	dir = 1
-	},
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
 "fi" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -1328,34 +1255,15 @@
 	icon_state = "cafeteria"
 	},
 /area/ninja/holding)
-"fk" = (
-/turf/simulated/wall/indestructible/fakeglass{
-	color = "#008000"
-	},
-/area/wizard_station)
 "fm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/centcom)
 "fn" = (
-/obj/item/trash/raisins,
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
-"fo" = (
-/obj/structure/showcase,
-/obj/structure/window/reinforced/clockwork{
-	dir = 8
+/obj/structure/chair/sofa/left{
+	dir = 4;
+	color = "#63009c"
 	},
-/turf/simulated/floor/wood,
-/area/wizard_station)
-"fp" = (
-/obj/structure/table/reinforced,
-/obj/structure/kitchenspike,
-/turf/simulated/floor/wood,
-/area/wizard_station)
-"fq" = (
-/obj/effect/decal/cleanable/cobweb2,
-/obj/structure/showcase,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "fr" = (
@@ -1396,11 +1304,18 @@
 /turf/simulated/floor/engine,
 /area/ninja/holding)
 "fv" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/grass,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/mug/novelty,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "fw" = (
-/turf/simulated/floor/grass,
+/obj/structure/chair/sofa/right{
+	color = "#63009c"
+	},
+/turf/simulated/floor/wood,
 /area/wizard_station)
 "fx" = (
 /obj/effect/decal/cleanable/blood,
@@ -1416,28 +1331,6 @@
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"fA" = (
-/mob/living/simple_animal/hostile/creature{
-	name = "Experiment 35b"
-	},
-/turf/simulated/floor/grass,
-/area/wizard_station)
-"fB" = (
-/obj/effect/decal/cleanable/molten_object,
-/turf/simulated/floor/grass,
-/area/wizard_station)
-"fC" = (
-/obj/item/trash/chips,
-/turf/simulated/floor/engine/cult,
-/area/wizard_station)
-"fD" = (
-/obj/structure/rack,
-/obj/item/kitchen/knife/ritual,
-/obj/structure/window/reinforced/clockwork{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/wizard_station)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -1446,11 +1339,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
-"fG" = (
-/obj/structure/rack,
-/obj/item/kitchen/knife/ritual,
-/turf/simulated/floor/wood,
-/area/wizard_station)
 "fH" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
@@ -1554,6 +1442,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
+"fX" = (
+/obj/structure/table/wood,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
+	},
+/obj/item/coin/uranium,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "fY" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -1582,6 +1478,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
+"ga" = (
+/obj/machinery/economy/vending/snack/free{
+	name = "\improper Wizmore Chocolate Corp"
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "gb" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/medal/silver{
@@ -1631,12 +1533,7 @@
 	},
 /area/centcom/control)
 "gj" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
 "gk" = (
@@ -1719,6 +1616,13 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
+"gB" = (
+/obj/structure/dresser,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
+	},
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "gC" = (
 /obj/docking_port/stationary/transit{
 	dheight = 9;
@@ -2019,6 +1923,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
+"hy" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/window/reinforced/clockwork{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "hA" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sst_away";
@@ -2448,6 +2360,11 @@
 /obj/item/flag/syndi,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"iO" = (
+/obj/machinery/computer/library,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "iP" = (
 /obj/structure/chair{
 	dir = 1
@@ -2465,12 +2382,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "iT" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
 "iU" = (
@@ -2509,6 +2421,14 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"jb" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/trash/semki,
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "je" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8
@@ -2695,10 +2615,27 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"jL" = (
+/obj/structure/chair/brass{
+	name = "arch wizard's throne"
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "jM" = (
 /obj/effect/landmark/spawner/syndicate_infiltrator_leader,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
+"jN" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/candle/eternal/wizard,
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "jO" = (
 /obj/machinery/computer/shuttle/syndicate{
 	dir = 1;
@@ -2800,7 +2737,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "kd" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
@@ -2881,7 +2818,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "ks" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kt" = (
@@ -2925,7 +2862,7 @@
 /turf/space/transit/horizontal,
 /area/space)
 "ky" = (
-/obj/machinery/vending/syndicigs,
+/obj/machinery/economy/vending/syndicigs,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kz" = (
@@ -2993,6 +2930,11 @@
 /obj/item/toy/figure/crew/syndie,
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"kJ" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "kK" = (
 /obj/item/disk/plantgene,
 /turf/simulated/floor/plating/asteroid/snow/airless,
@@ -3005,7 +2947,7 @@
 	},
 /area/centcom/specops)
 "kM" = (
-/obj/machinery/vending/syndisnack,
+/obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kN" = (
@@ -3760,13 +3702,13 @@
 	},
 /area/syndicate_mothership)
 "mN" = (
-/obj/machinery/vending/syndisnack,
+/obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "mO" = (
-/obj/machinery/vending/syndicigs,
+/obj/machinery/economy/vending/syndicigs,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4463,9 +4405,25 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"pm" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/gavelblock{
+	desc = "Smack it with a gavel hammer when the wizard council gets rowdy."
+	},
+/obj/item/gavelhammer{
+	desc = "Order, order! No bombs in my council chamber."
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "po" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/trader_station/sol)
+"pp" = (
+/obj/structure/displaycase{
+	start_showpiece_type = /obj/item/toy/spinningtoy
+	},
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "pq" = (
 /obj/machinery/clonepod/upgraded,
 /obj/machinery/light/spot{
@@ -4529,6 +4487,14 @@
 /obj/item/ammo_casing/shotgun/dart,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"pH" = (
+/obj/structure/table/wood,
+/obj/item/candle/eternal/wizard{
+	pixel_y = 5;
+	pixel_x = -7
+	},
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "pJ" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/jungle,
@@ -4638,7 +4604,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "pZ" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "qb" = (
@@ -4726,6 +4692,9 @@
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
+"qu" = (
+/turf/simulated/floor/carpet/red,
+/area/wizard_station)
 "qv" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
@@ -4946,7 +4915,7 @@
 	},
 /area/syndicate_mothership)
 "rh" = (
-/obj/machinery/vending/liberationstation,
+/obj/machinery/economy/vending/liberationstation,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ri" = (
@@ -5284,6 +5253,10 @@
 "sk" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/suppy)
+"sl" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "sm" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/control)
@@ -5291,12 +5264,16 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
+"so" = (
+/obj/structure/closet/cabinet/wizard,
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "sp" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "sq" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -5448,7 +5425,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sR" = (
-/obj/machinery/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sS" = (
@@ -5473,6 +5450,12 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"sX" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = 28
+	},
+/turf/simulated/floor/carpet/red,
+/area/wizard_station)
 "sY" = (
 /obj/structure/railing,
 /obj/structure/chair{
@@ -5540,7 +5523,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tt" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 30
 	},
@@ -5552,7 +5535,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tw" = (
-/obj/machinery/vending/wallmed/syndicate{
+/obj/machinery/economy/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5591,15 +5574,15 @@
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tB" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tD" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tE" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tF" = (
@@ -6679,6 +6662,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xo" = (
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "xr" = (
 /obj/structure/table,
 /obj/item/card/id/centcom{
@@ -6703,6 +6689,9 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
+"xH" = (
+/turf/simulated/wall/indestructible/wood,
+/area/wizard_station)
 "xI" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/suppy)
@@ -6719,6 +6708,16 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"xO" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/wizrobe/magusblue,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/twohanded/staff,
+/obj/item/clothing/suit/wizrobe/magusred,
+/obj/item/clothing/head/wizard/magus,
+/obj/item/twohanded/staff,
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "xP" = (
 /obj/structure/fans/tiny/invisible,
 /obj/machinery/door/airlock/external,
@@ -6736,7 +6735,7 @@
 /turf/space,
 /area/space)
 "xS" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -6774,6 +6773,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"yp" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = 28
+	},
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "yq" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush,
@@ -6781,10 +6786,14 @@
 /turf/simulated/floor/grass,
 /area/centcom/control)
 "yu" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
+"yx" = (
+/obj/structure/flora/rock/jungle,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -6846,6 +6855,10 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
+"zv" = (
+/obj/item/flag/wiz,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "zy" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Computer Hub"
@@ -6866,7 +6879,7 @@
 	},
 /area/tdome/tdomeobserve)
 "zF" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6890,7 +6903,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -6922,6 +6935,24 @@
 	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
+"Aj" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/stack/spacecash,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
+"Ak" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/radio/phone{
+	desc = "How else would the wizards order pizza?"
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "An" = (
 /obj/item/circular_saw,
 /obj/item/hemostat{
@@ -7055,6 +7086,22 @@
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/gamma)
+"Ba" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/wizrobe/marisa,
+/obj/item/clothing/shoes/sandal/marisa,
+/obj/item/clothing/head/wizard/marisa,
+/obj/item/twohanded/staff/broom,
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
+"Bb" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/bikehorn/airhorn,
+/turf/simulated/floor/plasteel/goonplaque{
+	desc = "Nosey little bastard aren't you?";
+	name = "Nosey little bastard aren't you?"
+	},
+/area/wizard_station)
 "Bd" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -7235,6 +7282,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
+"BR" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "BT" = (
 /obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/plasteel/dark,
@@ -7248,6 +7299,9 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
+"BX" = (
+/turf/simulated/floor/plating/asteroid/basalt/airless,
+/area/wizard_station)
 "BY" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -7509,6 +7563,19 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
+"CU" = (
+/obj/structure/chair/comfy/purp{
+	name = "wizard council throne";
+	dir = 1
+	},
+/turf/simulated/floor/carpet/red,
+/area/wizard_station)
+"CY" = (
+/obj/machinery/economy/vending/artvend{
+	name = "\improper WizArtVend"
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "CZ" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel/dark,
@@ -7669,7 +7736,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "DJ" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "DK" = (
@@ -7793,6 +7860,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
+"Ee" = (
+/obj/structure/flora/rock/pile/largejungle,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "Ef" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -7811,7 +7882,7 @@
 	},
 /area/holodeck/source_basketball)
 "Ek" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "El" = (
@@ -7856,7 +7927,7 @@
 	},
 /area/shuttle/escape)
 "Er" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -7949,7 +8020,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "EN" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ET" = (
@@ -8114,6 +8185,14 @@
 /obj/item/scalpel,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"FH" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/stack/ore/uranium,
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "FJ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/mousetraps,
@@ -8137,12 +8216,25 @@
 /obj/item/storage/box/grenades,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"FN" = (
+/obj/machinery/recharger,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "FP" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
+"FQ" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/dice/d20,
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "FS" = (
 /obj/structure/railing{
 	dir = 8
@@ -8167,7 +8259,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "FY" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -8229,6 +8321,14 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"Gj" = (
+/obj/structure/rack,
+/obj/item/kitchen/knife/ritual,
+/obj/structure/window/reinforced/clockwork{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "Gn" = (
 /obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
@@ -8288,6 +8388,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Gv" = (
+/obj/item/radio/intercom/syndicate{
+	pixel_x = 28
+	},
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "Gw" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -8331,6 +8437,14 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"GG" = (
+/obj/structure/rack,
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -28
+	},
+/obj/item/kitchen/knife/carrotshiv,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "GI" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -8371,6 +8485,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"GN" = (
+/turf/simulated/wall/indestructible/fakeglass/brass,
+/area/wizard_station)
 "GO" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel/dark,
@@ -8493,6 +8610,10 @@
 "Hi" = (
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/gamma)
+"Hj" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "Hl" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -8673,7 +8794,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "HY" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ia" = (
@@ -8884,7 +9005,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "IQ" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -9436,7 +9557,7 @@
 	},
 /area/centcom/specops)
 "KL" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KM" = (
@@ -9564,14 +9685,12 @@
 	},
 /area/holodeck/source_emptycourt)
 "Lm" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
+"Ln" = (
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "Ls" = (
 /obj/machinery/door_control/no_emag{
 	id = "ASSAULT";
@@ -9595,6 +9714,16 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
+"Lu" = (
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
+"Lv" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "Lw" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -9624,7 +9753,7 @@
 	},
 /area/tdome/tdomeadmin)
 "LH" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -9687,6 +9816,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/shuttle/escape)
+"LT" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/storage/box/matches,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "LU" = (
 /obj/machinery/door/airlock/titanium/glass{
 	name = "Emergency Airlock Access";
@@ -9985,6 +10122,16 @@
 	icon_state = "asteroid1"
 	},
 /area/holodeck/source_desert)
+"MU" = (
+/obj/machinery/economy/vending/cola/free{
+	name = "\improper Wizbust Softdrinks"
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
+"MV" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "MX" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -10251,12 +10398,7 @@
 	},
 /area/centcom/specops)
 "Og" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "Oi" = (
@@ -10304,12 +10446,23 @@
 /obj/item/flag/sec,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"Os" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/candle/eternal/wizard,
+/turf/simulated/floor/carpet/red,
+/area/wizard_station)
 "Ot" = (
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/evac)
+"Ou" = (
+/obj/structure/mirror/magic{
+	pixel_x = -28
+	},
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "Ov" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/madminmalt,
@@ -10392,6 +10545,17 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"OL" = (
+/obj/structure/curtain/open/shower,
+/obj/machinery/shower{
+	dir = 1;
+	pixel_y = -2
+	},
+/obj/structure/window/basic{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/wizard_station)
 "ON" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -10764,6 +10928,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"Qj" = (
+/obj/structure/chair/sofa{
+	color = "#63009c"
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "Qm" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/syndi,
@@ -10773,6 +10943,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Qn" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/structure/mineral_door/wood{
+	name = "Changing chamber"
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "Qr" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -10799,6 +10981,13 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/control)
+"Qy" = (
+/mob/living/simple_animal/hostile/creature{
+	name = "Experiment 35b"
+	},
+/obj/item/candle/eternal/wizard,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "QA" = (
 /obj/machinery/computer/card{
 	dir = 4
@@ -10918,6 +11107,12 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
+"QU" = (
+/obj/structure/bed,
+/obj/effect/landmark/spawner/wiz,
+/obj/item/bedsheet/wiz,
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "QV" = (
 /obj/item/clothing/under/color/rainbow,
 /obj/item/clothing/glasses/sunglasses_fake,
@@ -11011,6 +11206,16 @@
 "Rs" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"Rt" = (
+/obj/structure/table/wood,
+/obj/item/razor{
+	pixel_x = 10
+	},
+/obj/item/candle/eternal/wizard{
+	pixel_y = 11
+	},
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "Ru" = (
 /obj/structure/closet/emcloset,
 /obj/item/tank/internals/emergency_oxygen/engi,
@@ -11052,6 +11257,11 @@
 /obj/structure/table,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"RA" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/decorations/sticky_decorations/flammable/googlyeyes,
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "RB" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
@@ -11120,6 +11330,11 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"RT" = (
+/obj/effect/decal/cleanable/molten_object/large,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "RU" = (
 /obj/effect/overlay/palmtree_l,
 /obj/effect/overlay/coconut,
@@ -11483,7 +11698,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "TM" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -11592,12 +11807,24 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"Uc" = (
+/obj/structure/rack,
+/obj/item/clothing/under/plasmaman/wizard,
+/obj/item/clothing/head/helmet/space/plasmaman/wizard,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/plasmaman/belt/full,
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "Ud" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Nanotrasen Asset Protection"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Ue" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "Uf" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Nanotrasen Asset Protection"
@@ -11732,6 +11959,9 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
+"UJ" = (
+/turf/simulated/floor/plating/lava/smooth/airless,
+/area/wizard_station)
 "UK" = (
 /turf/simulated/floor/holofloor/carpet,
 /area/holodeck/source_theatre)
@@ -11741,8 +11971,11 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
+"UO" = (
+/turf/simulated/wall/indestructible/opsglass/limited_smooth,
+/area/syndicate_mothership)
 "UT" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -11789,6 +12022,14 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"Vf" = (
+/obj/structure/statue/sandstone/venus{
+	color = "#5c5c5c";
+	desc = "She lies just out of reach, as always. She somehow has your only toolbox.";
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/airless,
+/area/wizard_station)
 "Vg" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -11809,7 +12050,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Vk" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -11858,6 +12099,9 @@
 /obj/item/reagent_containers/food/drinks/cans/madminmalt,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"Vx" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/wizard_station)
 "Vy" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
@@ -11971,6 +12215,13 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
+"VX" = (
+/obj/item/bikehorn/rubberducky,
+/obj/structure/window/basic{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/wizard_station)
 "VY" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
@@ -12013,6 +12264,10 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
+"Wk" = (
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass/jungle,
+/area/wizard_station)
 "Wl" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/door_control/no_emag{
@@ -12276,7 +12531,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/transport)
 "Xg" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -12304,7 +12559,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Xl" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -12593,6 +12848,12 @@
 /obj/item/pen/blue,
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Yo" = (
+/obj/structure/chair/comfy/purp{
+	name = "wizard council throne"
+	},
+/turf/simulated/floor/carpet/red,
+/area/wizard_station)
 "Yp" = (
 /turf/simulated/floor/beach/water,
 /area/holodeck/source_beach)
@@ -12644,6 +12905,10 @@
 "YA" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/control)
+"YB" = (
+/obj/item/flag/wiz,
+/turf/simulated/floor/carpet/purple,
+/area/wizard_station)
 "YC" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -12685,7 +12950,7 @@
 	},
 /area/centcom/evac)
 "YL" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -12830,7 +13095,7 @@
 	},
 /area/centcom/specops)
 "Zj" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -12973,6 +13238,11 @@
 "ZG" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
+"ZH" = (
+/obj/structure/bookcase/random,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/carpet/red,
+/area/wizard_station)
 "ZJ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/adv{
@@ -12989,6 +13259,10 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
+"ZL" = (
+/obj/structure/showcase,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "ZN" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -13030,6 +13304,10 @@
 "ZT" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/tdome/tdomeobserve)
+"ZU" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/carpet/red,
+/area/wizard_station)
 "ZV" = (
 /obj/structure/railing,
 /obj/structure/railing{
@@ -48801,10 +49079,10 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
+ac
+df
+df
+ac
 aN
 aN
 aN
@@ -49058,10 +49336,10 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
+ac
+dU
+dT
+ac
 aN
 aN
 aN
@@ -49313,12 +49591,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+ac
+at
+ac
+dh
+dU
+ac
 aN
 aN
 aN
@@ -49570,12 +49848,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+ac
+aB
+aB
+aB
+aB
+ac
 aN
 aN
 aN
@@ -49827,12 +50105,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+ac
+bz
+aB
+aB
+aB
+ac
 aN
 aN
 aN
@@ -50084,12 +50362,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+ac
+aB
+aB
+aB
+aB
+ac
 aN
 aN
 aN
@@ -50341,12 +50619,12 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+ac
+ac
+ac
+ac
+ac
+ac
 aN
 aN
 aN
@@ -50598,15 +50876,15 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+fg
+fg
+fg
+fg
+fg
+fg
+fg
+fg
+fg
 aN
 aN
 aN
@@ -50855,18 +51133,18 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+fg
+cY
+cY
+di
+dV
+ee
+ee
+eY
+fg
+fg
+fg
+fg
 aN
 aN
 aN
@@ -51112,18 +51390,18 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ae
+bN
+bN
+bN
+da
+da
+da
+da
+fi
+fu
+fu
+fg
 aN
 aN
 aN
@@ -51369,18 +51647,18 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ae
+bO
+bN
+du
+dW
+da
+da
+da
+fj
+fu
+fu
+fg
 aN
 aN
 aN
@@ -51626,18 +51904,18 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ae
+bR
+bN
+dw
+dW
+da
+da
+da
+fj
+fu
+fu
+fg
 aN
 aN
 aN
@@ -51883,18 +52161,18 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+ae
+bR
+bN
+dx
+dW
+da
+da
+da
+fi
+fu
+fu
+fg
 aN
 aN
 aN
@@ -52140,18 +52418,18 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+fg
+bY
+bN
+dy
+dW
+da
+da
+db
+fg
+fg
+fg
+fg
 aN
 aN
 aN
@@ -52397,15 +52675,15 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+fg
+ci
+cZ
+dz
+dW
+da
+ey
+eZ
+fg
 aN
 aN
 aN
@@ -52654,15 +52932,15 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+fg
+co
+da
+da
+da
+da
+da
+fa
+fg
 aN
 aN
 aN
@@ -52911,15 +53189,15 @@ aN
 aN
 aN
 aN
-aN
-ac
-df
-df
-ac
-aN
-aN
-aN
-aN
+fg
+cs
+da
+da
+da
+da
+da
+db
+fg
 aN
 aN
 aN
@@ -53168,15 +53446,15 @@ aN
 aN
 aN
 aN
-aN
-ac
-dU
-dT
-ac
-aN
-aN
-aN
-aN
+fg
+ct
+da
+da
+da
+da
+ey
+eZ
+fg
 aN
 aN
 aN
@@ -53424,16 +53702,16 @@ aN
 aN
 aN
 aN
-ac
-at
-ac
-dh
-dU
-ac
 aN
-aN
-aN
-aN
+fg
+cv
+db
+da
+da
+da
+da
+db
+fg
 aN
 aN
 aN
@@ -53681,16 +53959,16 @@ aN
 aN
 aN
 aN
-ac
-aB
-aB
-aB
-aB
-ac
 aN
-aN
-aN
-aN
+fg
+cy
+cy
+cy
+cy
+eh
+ez
+fb
+fg
 aN
 aN
 aN
@@ -53938,16 +54216,16 @@ aN
 aN
 aN
 aN
-ac
-bz
-aB
-aB
-aB
-ac
 aN
-aN
-aN
-aN
+fg
+cz
+cy
+cy
+cy
+cy
+eE
+fc
+fg
 aN
 aN
 aN
@@ -54195,16 +54473,16 @@ aN
 aN
 aN
 aN
-ac
-aB
-aB
-aB
-aB
-ac
 aN
-aN
-aN
-aN
+fg
+cy
+cy
+dE
+cy
+cy
+eE
+fc
+fg
 aN
 aN
 aN
@@ -54452,16 +54730,16 @@ aN
 aN
 aN
 aN
-ac
-ac
-ac
-ac
-ac
-ac
 aN
-aN
-aN
-aN
+ag
+cy
+dc
+cy
+dX
+cy
+eE
+fc
+fg
 aN
 aN
 aN
@@ -54709,16 +54987,16 @@ aN
 aN
 aN
 aN
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-fg
 aN
+fg
+cy
+cy
+dF
+cy
+cy
+eF
+fc
+fg
 aN
 aN
 aN
@@ -54966,18 +55244,18 @@ aN
 aN
 aN
 aN
+aN
 fg
-cY
-cY
-di
-dV
-ee
-ee
-eY
+cG
+cy
+cz
+cy
+cy
+eE
+fe
 fg
-fg
-fg
-fg
+aN
+aN
 aN
 aN
 aN
@@ -55223,18 +55501,18 @@ aN
 aN
 aN
 aN
-ae
-bN
-bN
-bN
-da
-da
-da
-da
-fi
-fu
-fu
+aN
 fg
+fg
+fg
+fg
+fg
+fg
+fg
+fg
+fg
+aN
+aN
 aN
 aN
 aN
@@ -55480,18 +55758,18 @@ aN
 aN
 aN
 aN
-ae
-bO
-bN
-du
-dW
-da
-da
-da
-fj
-fu
-fu
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -55737,18 +56015,18 @@ aN
 aN
 aN
 aN
-ae
-bR
-bN
-dw
-dW
-da
-da
-da
-fj
-fu
-fu
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -55994,18 +56272,18 @@ aN
 aN
 aN
 aN
-ae
-bR
-bN
-dx
-dW
-da
-da
-da
-fi
-fu
-fu
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -56251,18 +56529,18 @@ aN
 aN
 aN
 aN
-fg
-bY
-bN
-dy
-dW
-da
-da
-db
-fg
-fg
-fg
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -56508,15 +56786,15 @@ aN
 aN
 aN
 aN
-fg
-ci
-cZ
-dz
-dW
-da
-ey
-eZ
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -56765,15 +57043,15 @@ aN
 aN
 aN
 aN
-fg
-co
-da
-da
-da
-da
-da
-fa
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -57022,15 +57300,15 @@ aN
 aN
 aN
 aN
-fg
-cs
-da
-da
-da
-da
-da
-db
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -57279,15 +57557,15 @@ aN
 aN
 aN
 aN
-fg
-ct
-da
-da
-da
-da
-ey
-eZ
-fg
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -57536,25 +57814,25 @@ aN
 aN
 aN
 aN
-fg
-cv
-db
-da
-da
-da
-da
-db
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -57793,25 +58071,25 @@ aN
 aN
 aN
 aN
-fg
-cy
-cy
-cy
-cy
-eh
-ez
-fb
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -58050,25 +58328,25 @@ aN
 aN
 aN
 aN
-fg
-cz
-cy
-cy
-cy
-cy
-eE
-fc
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -58307,25 +58585,25 @@ aN
 aN
 aN
 aN
-fg
-cy
-cy
-dE
-cy
-cy
-eE
-fc
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -58564,25 +58842,25 @@ aN
 aN
 aN
 aN
-ag
-cy
-dc
-cy
-dX
-cy
-eE
-fc
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -58815,31 +59093,31 @@ aN
 "}
 (179,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-fg
-cy
-cy
-dF
-cy
-cy
-eF
-fc
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -59072,36 +59350,36 @@ aN
 "}
 (180,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-fg
-cG
-cy
-cz
-cy
-cy
-eE
-fe
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
+xH
+GN
+GN
+xH
+xH
+xH
+xH
+xH
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -59329,38 +59607,38 @@ aN
 "}
 (181,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-fg
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
+ZL
+ed
+ed
+GG
+GN
+Ue
+RT
+yx
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -59586,39 +59864,39 @@ aN
 "}
 (182,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+GN
+Rt
+fx
+ed
+ed
+GN
+xo
+Hj
+Ue
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -59843,39 +60121,39 @@ aN
 "}
 (183,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+GN
+BR
+fz
+ed
+fx
+GN
+Ue
+Wk
+Qy
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -60100,39 +60378,39 @@ aN
 "}
 (184,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
+hy
+ed
+ed
+Gj
+GN
+yx
+Ee
+Ue
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -60179,9 +60457,9 @@ KR
 mI
 KY
 nB
-BZ
-BZ
-BZ
+UO
+UO
+UO
 KY
 rU
 sn
@@ -60357,39 +60635,39 @@ aN
 "}
 (185,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+xH
+xH
+xH
+xH
+xH
+xH
+UJ
+xH
+iO
+ed
+ed
+MU
+GN
+sl
+Lu
+Wk
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -60614,39 +60892,39 @@ aN
 "}
 (186,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+GN
+Ba
+Ou
+Uc
+xO
+xH
+xH
+xH
+FN
+ed
+ed
+ga
+xH
+xH
+xH
+xH
+xH
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -60695,7 +60973,7 @@ ab
 ab
 BZ
 hG
-BZ
+UO
 iT
 rU
 sx
@@ -60871,39 +61149,39 @@ aN
 "}
 (187,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
+so
+Ln
+Ln
+Ln
+pH
+OL
+xH
+CY
+ed
+ed
+zv
+xH
+xH
+ZH
+ZU
+ZU
+xH
+xH
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -60952,7 +61230,7 @@ ab
 ab
 BZ
 BY
-BZ
+UO
 lB
 KY
 KY
@@ -61128,39 +61406,39 @@ aN
 "}
 (188,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
 cH
-cN
-dN
-cN
+Ln
+Ln
+Ln
 ej
-cN
-ff
-fk
+VX
+xH
+xH
 fv
-fA
-fv
+ed
+ed
 ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+qu
+qu
+qu
+qu
+qu
+qu
+xH
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -61385,39 +61663,39 @@ aN
 "}
 (189,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+GN
 cK
-cN
-dN
-cN
-ej
-cN
-cN
-fk
+Ln
+Ln
+yp
+Ln
+Vx
+xH
+xH
 fw
-fw
-fB
+ed
+ed
 ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Yo
+jb
+jN
+FH
+CU
+qu
+ZU
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -61642,39 +61920,39 @@ aN
 "}
 (190,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
+xH
+xH
+Qn
+xH
+xH
+xH
+xH
+xH
+Qj
+ed
+ed
 ai
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-fk
-fk
-fk
-fk
-ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Yo
+LT
+Bb
+aZ
+CU
+qu
+ZU
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -61899,39 +62177,39 @@ aN
 "}
 (191,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
 cP
-cN
-cN
-cN
+RA
+eo
+YB
 en
-en
-cN
+xH
+fX
 fn
 cN
-cN
-ff
+ed
+ed
 ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Yo
+Aj
+pm
+kJ
+CU
+qu
+ZU
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -62156,39 +62434,39 @@ aN
 "}
 (192,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
 cS
-cN
-cN
+Lv
+eo
 ec
 eo
 eO
-fh
-cN
-cN
-cN
-fC
+ed
+ed
+ed
+ed
+ed
 ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+Yo
+FQ
+jL
+Ak
+CU
+qu
+ZU
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -62413,39 +62691,39 @@ aN
 "}
 (193,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+xH
 cU
-cN
-dP
-ec
-ep
-eP
-fh
-cN
-cN
-cN
-cN
+eo
+eo
+eo
+eo
+eO
+ed
+ed
+ed
+ed
+MV
 ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+qu
+qu
+qu
+qu
+qu
+sX
+xH
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -62670,39 +62948,39 @@ aN
 "}
 (194,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
-ai
-cN
-ai
-ai
-ai
-ai
-ai
-fo
-ed
-ed
-fD
-ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+BX
+BX
+BX
+xH
+gB
+QU
+eo
+Gv
+pp
+xH
+xH
+GN
+GN
+GN
+xH
+xH
+xH
+ZU
+Os
+ZU
+xH
+xH
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -62927,39 +63205,39 @@ aN
 "}
 (195,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
-cV
-dd
-dQ
-ai
-eu
-eR
-ai
-fp
-fx
-ed
-ed
-ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+xH
+xH
+xH
+GN
+xH
+xH
+xH
+UJ
+BX
+BX
+BX
+BX
+UJ
+xH
+xH
+xH
+xH
+xH
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -63184,39 +63462,39 @@ aN
 "}
 (196,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
-cW
-de
-dd
-ed
-ed
-ed
-ai
-fp
-fz
-ed
-fx
-ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -63441,39 +63719,39 @@ aN
 "}
 (197,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
-cX
-dd
-dR
-ai
-ew
-eT
-ai
-fq
-ed
-ed
-fG
-ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -63698,39 +63976,39 @@ aN
 "}
 (198,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+BX
+UJ
+UJ
+UJ
+Vf
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -63955,39 +64233,39 @@ aN
 "}
 (199,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -64212,38 +64490,38 @@ aN
 "}
 (200,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN
@@ -64469,36 +64747,36 @@ aN
 "}
 (201,1,1) = {"
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 aN
 aN
 aN

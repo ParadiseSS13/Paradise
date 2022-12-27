@@ -56,7 +56,7 @@
 				M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), slot_r_hand)
 				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
 			if("robeless")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
 				M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
 

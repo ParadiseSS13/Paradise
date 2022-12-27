@@ -29,7 +29,6 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	block_chance = 50
 	armour_penetration_percentage = 75
 	sharp = TRUE
 	origin_tech = "combat=5"
@@ -38,10 +37,9 @@
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 
-/obj/item/melee/rapier/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
+/obj/item/melee/rapier/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/melee/icepick
 	name = "ice pick"
@@ -108,12 +106,16 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	armour_penetration_flat = 50
-	block_chance = 50
 	sharp = TRUE
 	///enchantment holder, gives it unique on hit effects.
 	var/datum/enchantment/enchant = null
 	///the cooldown and power of enchantments are multiplied by this var when its applied
 	var/power = 1
+
+/obj/item/melee/spellblade/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+
 
 /obj/item/melee/spellblade/Destroy()
 	QDEL_NULL(enchant)
@@ -204,7 +206,7 @@
 	if(!target.electrocute_act(voltage, flags = SHOCK_TESLA)) // if it fails to shock someone, break the chain
 		return
 	protected_mobs += target
-	addtimer(CALLBACK(src, .proc/arc, target, voltage, protected_mobs), 2.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(arc), target, voltage, protected_mobs), 2.5 SECONDS)
 
 /datum/enchantment/lightning/proc/arc(mob/living/source, voltage, protected_mobs)
 	voltage = voltage - 4
@@ -225,7 +227,7 @@
 
 /datum/enchantment/fire/on_gain(obj/item/melee/spellblade/S, mob/living/user)
 	..()
-	RegisterSignal(S, list(COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED), .proc/toggle_traits)
+	RegisterSignal(S, list(COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED), PROC_REF(toggle_traits))
 	if(user)
 		toggle_traits(S, user)
 

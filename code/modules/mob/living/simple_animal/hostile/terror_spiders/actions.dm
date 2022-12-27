@@ -192,7 +192,7 @@
 		M.Weaken(8 SECONDS)
 		if(iscarbon(M))
 			web_special_ability(M)
-			addtimer(CALLBACK(src, .proc/after_carbon_crossed, M), 7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+			addtimer(CALLBACK(src, PROC_REF(after_carbon_crossed), M), 7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /**
   * Called some time after a carbon mob crossed the terror web.

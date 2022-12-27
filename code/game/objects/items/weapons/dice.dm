@@ -155,7 +155,7 @@
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
 
-		addtimer(CALLBACK(src, .proc/effect, user, .), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
@@ -235,7 +235,7 @@
 			var/turf/Start = get_turf(src)
 			for(var/direction in GLOB.alldirs)
 				var/turf/dirturf = get_step(Start,direction)
-				if(rand(0,1))
+				if(prob(50))
 					new /obj/item/stack/spacecash/c1000(dirturf)
 				else
 					var/obj/item/storage/bag/money/M = new(dirturf)
@@ -358,7 +358,7 @@
 	else
 		triggered = TRUE
 		visible_message("<span class='notice'>You hear a quiet click.</span>")
-		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(boom), user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)
 	var/capped = TRUE

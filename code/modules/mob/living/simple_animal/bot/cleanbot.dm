@@ -168,7 +168,7 @@
 	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
-	addtimer(CALLBACK(src, .proc/do_clean, target), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
 
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(mode == BOT_CLEANING)

@@ -181,7 +181,7 @@
 	E.GiveTarget(user) //so it starts running right away
 	E.Goto(user, E.move_to_delay, E.minimum_distance)
 	user.make_invisible()
-	addtimer(CALLBACK(user, /mob/living/.proc/reset_visibility), 6 SECONDS)
+	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), 6 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls
 	name = "Rally Thralls (100)"
@@ -208,7 +208,7 @@
 		playsound(H, 'sound/magic/staff_healing.ogg', 30)
 		H.remove_CC()
 		H.add_overlay(I)
-		addtimer(CALLBACK(H, /atom/.proc/cut_overlay, I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
+		addtimer(CALLBACK(H, TYPE_PROC_REF(/atom, cut_overlay), I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
 
 /obj/effect/proc_holder/spell/vampire/self/share_damage
 	name = "Blood Bond"

@@ -89,7 +89,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	toggle_all_huds_on(body)
-	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, .proc/set_ghost_darkness_level) //something something don't call this until we have a HUD
+	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	..()
 	plane = GAME_PLANE
 
@@ -494,7 +494,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(isobserver(usr)) //Make sure they're an observer!
 		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
 		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
-		A.on_close(CALLBACK(src, .proc/jump_to_mob))
+		A.on_close(CALLBACK(src, PROC_REF(jump_to_mob)))
 
 /mob/dead/observer/proc/jump_to_mob(mob/M)
 	if(!M || !isobserver(usr))

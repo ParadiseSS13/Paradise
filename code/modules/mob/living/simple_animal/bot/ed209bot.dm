@@ -91,6 +91,7 @@
 	oldtarget_name = null
 	anchored = FALSE
 	walk_to(src,0)
+	set_path(null)
 	last_found = world.time
 	set_weapon()
 
@@ -245,6 +246,7 @@
 
 		if(BOT_IDLE)		// idle
 			walk_to(src,0)
+			set_path(null)
 			if(!lasercolor) //lasertag bots don't want to arrest anyone
 				look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -254,6 +256,7 @@
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
 				walk_to(src,0)
+				set_path(null)
 				back_to_idle()
 
 			if(target)		// make sure target exists
@@ -334,13 +337,13 @@
 	target = null
 	last_found = world.time
 	frustration = 0
-	INVOKE_ASYNC(src, .proc/handle_automated_action)
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
-	INVOKE_ASYNC(src, .proc/handle_automated_action)
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 
 // look for a criminal in view of the bot
 
@@ -368,7 +371,7 @@
 			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			INVOKE_ASYNC(src, .proc/handle_automated_action)
+			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
 		else
 			continue
@@ -522,7 +525,7 @@
 			disabled = TRUE
 			walk_to(src, 0)
 			target = null
-			addtimer(CALLBACK(src, .proc/unset_disabled), 10 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE
 
 		else
@@ -574,7 +577,7 @@
 	C.SetStuttering(10 SECONDS)
 	C.adjustStaminaLoss(60)
 	baton_delayed = TRUE
-	addtimer(CALLBACK(C, .proc/KnockDown, 10 SECONDS), 2.5 SECONDS)
+	addtimer(CALLBACK(C, PROC_REF(KnockDown), 10 SECONDS), 2.5 SECONDS)
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
@@ -589,7 +592,7 @@
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 
-	addtimer(CALLBACK(src, .proc/cuff_target, C), 6 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(cuff_target), C), 6 SECONDS)
 
 /mob/living/simple_animal/bot/ed209/proc/cuff_target(mob/living/carbon/C)
 	if(!Adjacent(C)|| !isturf(C.loc)) //if he's in a closet or not adjacent, we cancel cuffing.

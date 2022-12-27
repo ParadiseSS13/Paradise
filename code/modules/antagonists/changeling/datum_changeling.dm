@@ -25,9 +25,9 @@
 	/// Number of victims the changeling has absorbed.
 	var/absorbed_count = 1
 	/// The current amount of chemicals the changeling has stored.
-	var/chem_charges = 20
+	var/chem_charges = 75
 	/// The amount of chemicals that recharges per `Life()` call.
-	var/chem_recharge_rate = 1
+	var/chem_recharge_rate = 3
 	/// Amount of chemical recharge slowdown, calculated as `chem_recharge_rate - chem_recharge_slowdown`
 	var/chem_recharge_slowdown = 0
 	/// The total amount of chemicals able to be stored.
@@ -173,11 +173,8 @@
 		var/mob/living/carbon/human/H = kill_objective.target?.current
 
 		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && H && !HAS_TRAIT(H, TRAIT_GENELESS))
-			var/datum/objective/escape/escape_with_identity/identity_theft = new
+			var/datum/objective/escape/escape_with_identity/identity_theft = new(assassinate = kill_objective)
 			identity_theft.owner = owner
-			identity_theft.target = kill_objective.target
-			identity_theft.target_real_name = kill_objective.target.current.real_name
-			identity_theft.explanation_text = "Escape on the shuttle or an escape pod with the identity of [identity_theft.target_real_name], the [identity_theft.target.assigned_role] while wearing [identity_theft.target.p_their()] identification card."
 			objectives += identity_theft
 
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))

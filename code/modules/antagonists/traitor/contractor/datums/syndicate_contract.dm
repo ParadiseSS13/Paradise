@@ -36,7 +36,7 @@
 		/obj/item/toy/syndicateballoon,
 	)
 	/// The base credits reward upon completion. Multiplied by the two lower bounds below.
-	var/credits_base = 100
+	var/credits_base = 10
 	// The lower bound of the credits reward multiplier.
 	var/credits_lower_mult = 25
 	// The upper bound of the credits reward multiplier.
@@ -197,7 +197,7 @@
 	status = CONTRACT_STATUS_COMPLETED
 	completed_time = station_time_timestamp()
 	dead_extraction = target_dead
-	addtimer(CALLBACK(src, .proc/notify_completion, final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(notify_completion), final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
 
 /**
   * Marks the contract as invalid and effectively cancels it for later use.
@@ -270,7 +270,7 @@
 		return "You and the target must be standing in the extraction area to start the extraction process."
 
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
-					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
+					"<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
 	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
@@ -278,9 +278,9 @@
 		extraction_flare = F
 		extraction_deadline = world.time + extraction_cooldown
 		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
-						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
-		addtimer(CALLBACK(src, .proc/open_extraction_portal, U, M, F), EXTRACTION_PHASE_PORTAL)
-		extraction_timer_handle = addtimer(CALLBACK(src, .proc/deadline_reached), portal_duration, TIMER_STOPPABLE)
+						"<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
+		addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), U, M, F), EXTRACTION_PHASE_PORTAL)
+		extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
 
 /**
   * Opens the extraction portal.
@@ -301,7 +301,7 @@
 		invalidate()
 		return
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
-			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
+				+ "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
@@ -318,7 +318,7 @@
   * * P - The extraction portal.
   */
 /datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
-	INVOKE_ASYNC(src, .proc/clean_up)
+	INVOKE_ASYNC(src, PROC_REF(clean_up))
 	add_attack_logs(owning_hub.owner.current, M, "extracted to Syndicate Jail")
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
@@ -336,7 +336,7 @@
 	if(target_dead)
 		penalty_text = " (penalty applied as the target was extracted dead)"
 	owning_hub.contractor_uplink?.message_holder("Well done, agent. The package has been received and will be processed shortly before being returned. "\
-									 + "As agreed, you have been credited with [tc] telecrystals[penalty_text] and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
+									+ "As agreed, you have been credited with [tc] telecrystals[penalty_text] and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
 
 /**
   * Handles the target's experience from extraction.
@@ -350,7 +350,7 @@
 	var/mob/living/carbon/human/H = M
 
 	// Prepare their return
-	prisoner_timer_handle = addtimer(CALLBACK(src, .proc/handle_target_return, M, T), prison_time, TIMER_STOPPABLE)
+	prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), prison_time, TIMER_STOPPABLE)
 	LAZYSET(GLOB.prisoner_belongings.prisoners, M, src)
 
 	// Shove all of the victim's items in the secure locker.

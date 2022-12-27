@@ -34,8 +34,6 @@
 	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/deliveryChute,
 													/obj/machinery/teleport/hub, /obj/effect/portal, /obj/structure/transit_tube/station)
 
-	//Used for self-mailing.
-	var/mail_destination = 0
 	var/reboot_cooldown = 1 MINUTES
 	var/last_reboot
 	var/list/pullable_drone_items = list(
@@ -215,7 +213,7 @@
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-	addtimer(CALLBACK(src, .proc/shut_down, TRUE), EMAG_TIMER)
+	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
 
 	emagged = TRUE
 	density = TRUE

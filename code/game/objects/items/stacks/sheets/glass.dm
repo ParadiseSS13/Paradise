@@ -37,6 +37,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	full_window = /obj/structure/window/full/basic
 	merge_type = /obj/item/stack/sheet/glass
 	point_value = 1
+	table_type = /obj/structure/table/glass
 
 /obj/item/stack/sheet/glass/detailed_examine()
 	return "Use in your hand to build a window. Can be upgraded to reinforced glass by adding metal rods, which are made from metal sheets."
@@ -110,6 +111,10 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	full_window = /obj/structure/window/full/reinforced
 	merge_type = /obj/item/stack/sheet/rglass
 	point_value = 4
+	table_type = /obj/structure/table/glass/reinforced
+
+/obj/item/stack/sheet/rglass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/rglass/New(loc, amount)
 	recipes = GLOB.reinforced_glass_recipes
@@ -145,6 +150,10 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	created_window = /obj/structure/window/plasmabasic
 	full_window = /obj/structure/window/full/plasmabasic
 	point_value = 19
+	table_type = /obj/structure/table/glass/plasma
+
+/obj/item/stack/sheet/plasmaglass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/plasmaglass/New(loc, amount)
 	recipes = GLOB.pglass_recipes
@@ -188,6 +197,10 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	created_window = /obj/structure/window/plasmareinforced
 	full_window = /obj/structure/window/full/plasmareinforced
 	point_value = 23
+	table_type = /obj/structure/table/glass/reinforced/plasma
+
+/obj/item/stack/sheet/plasmarglass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/plasmarglass/New(loc, amount)
 	recipes = GLOB.prglass_recipes
@@ -208,6 +221,10 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/titaniumglass
 	full_window = /obj/structure/window/full/shuttle
+	table_type = /obj/structure/table/glass/reinforced/titanium
+
+/obj/item/stack/sheet/titaniumglass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/titaniumglass/New(loc, amount)
 	recipes = GLOB.titaniumglass_recipes
@@ -228,7 +245,12 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 	full_window = /obj/structure/window/full/plastitanium
+	table_type = /obj/structure/table/glass/reinforced/plastitanium
+
+/obj/item/stack/sheet/plastitaniumglass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/plastitaniumglass/New(loc, amount)
 	recipes = GLOB.plastitaniumglass_recipes
 	..()
+

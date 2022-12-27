@@ -249,7 +249,7 @@
 			if(!printing)
 				printing = TRUE
 				visible_message("<span class='notice'>[src] begins to hum as it warms up its printing drums.</span>")
-				addtimer(CALLBACK(src, .proc/print_book), 5 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(print_book)), 5 SECONDS)
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		if("toggle_binder_category")
@@ -347,7 +347,7 @@
 
 	disconnect() //clear references to old computer, we have to unregister signals
 	computer = library_computer
-	RegisterSignal(library_computer, COMSIG_PARENT_QDELETING, .proc/disconnect)
+	RegisterSignal(library_computer, COMSIG_PARENT_QDELETING, PROC_REF(disconnect))
 	return TRUE
 
 /obj/item/barcodescanner/proc/disconnect()

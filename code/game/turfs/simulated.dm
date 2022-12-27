@@ -72,7 +72,7 @@
 		return
 	if(!time)
 		time =	rand(790, 820)
-	addtimer(CALLBACK(src, .proc/MakeDry, wet_setting), time)
+	addtimer(CALLBACK(src, PROC_REF(MakeDry), wet_setting), time)
 
 /turf/simulated/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)

@@ -289,6 +289,8 @@ em				{font-style: normal;font-weight: bold;}
 .djradio				{color: #996600;}
 .binaryradio			{color: #1B00FB;font-family: 'Courier New', Courier, monospace;}
 .mommiradio			{color: #6685f5;}
+.alert				{color: #d82020;}
+h1.alert, h2.alert			{color: #FFF;}
 .ghostalert			{color: #cc00c6;font-style: italic; font-weight: bold;}
 .emote				{font-style: italic;}
 .selecteddna			{color: #FFFFFF; 	background-color: #001B1B}
@@ -426,11 +428,10 @@ em				{font-style: normal;font-weight: bold;}
 span.body .codephrases 		{color: #5555FF;}
 span.body .coderesponses 		{color: #FF3333;}
 
-.announcement { font-size: 24pt; }
-.announcement h1, .announcement h2 { color: #fff; }
-.announcement p { color: #d82020; font-size: 12pt; }
-.announcement h1 { font-size: 100%; }
-.announcement h2 { font-size: 90%; }
-.announcement.minor h1 { font-size: 80%; }
-.announcement.minor h2 { font-size: 70%; }
-.announcement.sec h1 { color: #f00; font-size: 80%; font-family: Verdana, sans-serif; }
+.announcement h1, .announcement h2 { color: #fff; margin: 8pt 0; line-height: 1.2; }
+.announcement p { color: #d82020; line-height: 1.3; }
+.announcement.minor h1 { font-size: 180%; }
+.announcement.minor h2 { font-size: 170%; }
+.announcement.sec h1 { color: #f00; font-size: 180%; font-family: Verdana, sans-serif; }
+
+.bolditalics {font-style: italic; font-weight: bold;}

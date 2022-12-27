@@ -73,9 +73,13 @@
 		beam_from.Beam(target_atom, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 6)
 		if(isliving(target_atom))
 			var/mob/living/L = target_atom
+			var/surplus_power = C.surplus()
 			if(user.a_intent == INTENT_DISARM)
-				add_attack_logs(user, L, "shocked and weakened with power gloves")
-				L.Weaken(6 SECONDS)
+				add_attack_logs(user, L, "shocked with power gloves.")
+				L.adjustStaminaLoss(60)
+				L.Jitter(10 SECONDS)
+				var/atom/throw_target = get_edge_target_turf(user, get_dir(user, get_step_away(L, user)))
+				L.throw_at(throw_target, surplus_power / 100000, surplus_power / 100000) //100 kW surplus throws 1 tile, 200 throws 2, etc.
 			else
 				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power gloves")
 				if(P.unlimited_power)

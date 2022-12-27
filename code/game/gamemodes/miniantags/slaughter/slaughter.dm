@@ -65,7 +65,7 @@
 	whisper_action.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = TRUE
-	addtimer(CALLBACK(src, .proc/attempt_objectives), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
 
 
 /mob/living/simple_animal/slaughter/Life(seconds, times_fired)
@@ -344,15 +344,15 @@
 	..()
 
 /datum/objective/slaughter/check_completion()
-	if(!isslaughterdemon(owner.current) || !owner.current)
-		return 0
-	var/mob/living/simple_animal/slaughter/R = owner.current
-	if(!R || R.stat == DEAD)
-		return 0
-	var/deathCount = R.devoured
-	if(deathCount < targetKill)
-		return 0
-	return 1
+	var/kill_count = 0
+	for(var/datum/mind/M in get_owners())
+		if(!isslaughterdemon(M.current) || QDELETED(M.current))
+			continue
+		var/mob/living/simple_animal/slaughter/R = M.current
+		kill_count += R.devoured
+	if(kill_count >= targetKill)
+		return TRUE
+	return FALSE
 
 /datum/objective/demonFluff
 

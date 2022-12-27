@@ -59,7 +59,7 @@
 
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, .proc/on_step)
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
 
 /obj/item/clothing/shoes/galoshes/dry/proc/on_step()
 	SIGNAL_HANDLER
@@ -353,12 +353,12 @@
 		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
 
 /obj/item/clothing/shoes/footwraps
- 	name = "cloth footwraps"
- 	desc = "A roll of treated canvas used for wrapping claws or paws."
- 	icon_state = "clothwrap"
- 	item_state = "clothwrap"
- 	force = 0
- 	w_class = WEIGHT_CLASS_SMALL
+	name = "cloth footwraps"
+	desc = "A roll of treated canvas used for wrapping claws or paws."
+	icon_state = "clothwrap"
+	item_state = "clothwrap"
+	force = 0
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
@@ -401,7 +401,7 @@
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"
-	desc = "These shoes are made for quacking, and thats just what they'll do."
+	desc = "These shoes are made for quacking, and that's just what they'll do."
 	icon_state = "ducky"
 	item_state = "ducky"
 

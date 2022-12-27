@@ -65,7 +65,7 @@
 				to_chat(usr, "<span class='warning'>You are already fixing this AI!</span>")
 				return
 			active = TRUE
-			INVOKE_ASYNC(src, .proc/fix_ai)
+			INVOKE_ASYNC(src, PROC_REF(fix_ai))
 			add_fingerprint(usr)
 
 		if("wireless")

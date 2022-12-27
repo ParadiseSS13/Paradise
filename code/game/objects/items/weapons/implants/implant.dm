@@ -105,7 +105,7 @@
 		CRASH("User was given an bio-chip for an unintentional emote that they can't use.")
 
 	LAZYADD(trigger_emotes, emote_key)
-	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), .proc/on_emote)
+	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), PROC_REF(on_emote))
 
 /obj/item/implant/proc/on_emote(mob/living/user, datum/emote/fired_emote, key, emote_type, message, intentional)
 	SIGNAL_HANDLER
@@ -190,7 +190,7 @@
 			var/datum/action/A = X
 			A.Grant(source)
 	if(trigger_causes & (BIOCHIP_TRIGGER_DEATH_ONCE | BIOCHIP_TRIGGER_DEATH_ANY))
-		RegisterSignal(source, COMSIG_MOB_DEATH, .proc/on_death)
+		RegisterSignal(source, COMSIG_MOB_DEATH, PROC_REF(on_death))
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()

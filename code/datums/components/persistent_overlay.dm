@@ -6,10 +6,10 @@
 	persistent_overlay = image_overlay
 	target = _target
 	if(timer)
-		addtimer(CALLBACK(src, .proc/remove_persistent_overlay), timer)
+		addtimer(CALLBACK(src, PROC_REF(remove_persistent_overlay)), timer)
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/remove_persistent_overlay)
-	RegisterSignal(parent, COMSIG_PARENT_QDELETING, .proc/remove_persistent_overlay)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(remove_persistent_overlay))
+	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(remove_persistent_overlay))
 	add_persistent_overlay()
 
 /datum/component/persistent_overlay/Destroy()

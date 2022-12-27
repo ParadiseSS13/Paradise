@@ -41,8 +41,8 @@
 	src.forced_surgery = forced_surgery
 
 /datum/component/surgery_initiator/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/initiate_surgery_moment)
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, .proc/on_parent_sharpness_change)
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(initiate_surgery_moment))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, PROC_REF(on_parent_sharpness_change))
 
 /datum/component/surgery_initiator/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
@@ -83,7 +83,7 @@
 	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
 		return //no cult ghost surgery please
-	INVOKE_ASYNC(src, .proc/do_initiate_surgery_moment, target, user)
+	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), target, user)
 	// This signal is actually part of the attack chain, so it needs to return true to stop it
 	return TRUE
 

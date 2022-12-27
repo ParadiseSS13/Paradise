@@ -12,7 +12,7 @@
 		to_chat(A, "<br>")
 
 	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
-		GLOB.event_announcement.Announce(alert)
+		GLOB.minor_announcement.Announce(alert)
 
 /datum/event/communications_blackout/start()
 	// This only affects the cores, relays should be unaffected imo
@@ -20,4 +20,4 @@
 		T.start_ion()
 		// Bring it back sometime between 3-5 minutes. This uses deciseconds, so 1800 and 3000 respecticely.
 		// The AI cannot disable this, it must be waited for
-		addtimer(CALLBACK(T, /obj/machinery/tcomms.proc/end_ion), rand(1800, 3000))
+		addtimer(CALLBACK(T, TYPE_PROC_REF(/obj/machinery/tcomms, end_ion)), rand(1800, 3000))

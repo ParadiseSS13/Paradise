@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
@@ -360,7 +360,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
-	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // fucking magic numbers
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // fucking magic numbers
 
 /obj/item/camera/proc/reset_cooldown()
 	icon_state = icon_on
@@ -484,7 +484,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	icon_state = icon_off
 	on = FALSE
 	on_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // magic numbers here too
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // magic numbers here too
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)
@@ -547,42 +547,44 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam
 	name = "video camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "video camera that can send live feed to the entertainment network."
+	desc = "This video camera can send live feeds to the entertainment network. You must hold to use it."
 	icon_state = "videocam"
 	item_state = "videocam"
-	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL=2000)
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
 
-/obj/item/videocam/attack_self(mob/user)
-	on = !on
-	if(camera)
-		if(!on)
-			src.icon_state = icon_off
-			camera.c_tag = null
-			camera.network = list()
-		else
-			src.icon_state = icon_on
-			camera.network = list("news")
-			camera.c_tag = user.name
-	else
-
-		src.icon_state = icon_on
+/obj/item/videocam/proc/camera_state(mob/living/carbon/user)
+	if(!on)
+		on = TRUE
 		camera = new /obj/machinery/camera(src)
+		icon_state = icon_on
 		camera.network = list("news")
-		GLOB.cameranet.removeCamera(camera)
 		camera.c_tag = user.name
-	to_chat(user, "You switch the camera [on ? "on" : "off"].")
+	else
+		on = FALSE
+		icon_state = icon_off
+		camera.c_tag = null
+		QDEL_NULL(camera)
+	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
+
+/obj/item/videocam/attack_self(mob/user)
+	camera_state(user)
+
+/obj/item/videocam/dropped()
+	. = ..()
+	if(!on)
+		return
+	camera_state()
 
 /obj/item/videocam/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
+		. += "It's [on ? "" : "in"]active."
 
 /obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)
@@ -599,6 +601,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 
+/obj/item/videocam/advanced
+	name = "advanced video camera"
+	desc = "This video camera allows you to send live feeds even when attached to a belt."
+	slot_flags = SLOT_BELT
 
 ///hauntings, like hallucinations but more spooky
 

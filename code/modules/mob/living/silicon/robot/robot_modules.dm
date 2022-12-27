@@ -317,7 +317,7 @@
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
 		/obj/item/stack/nanopaste/cyborg,
-		/obj/item/gripper/medical
+		/obj/item/gripper_medical
 	)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
@@ -364,7 +364,7 @@
 		/obj/item/analyzer,
 		/obj/item/geiger_counter/cyborg,
 		/obj/item/holosign_creator/engineering,
-		/obj/item/gripper,
+		/obj/item/gripper_engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/painter,
 		/obj/item/areaeditor/blueprints/cyborg,
@@ -380,7 +380,7 @@
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
+	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 
@@ -432,7 +432,7 @@
 /obj/item/robot_module/janitor/Initialize(mapload)
 	. = ..()
 	var/mob/living/silicon/robot/R = loc
-	RegisterSignal(R, COMSIG_MOVABLE_MOVED, .proc/on_cyborg_move)
+	RegisterSignal(R, COMSIG_MOVABLE_MOVED, PROC_REF(on_cyborg_move))
 
 /**
  * Proc called after the janitor cyborg has moved, in order to clean atoms at it's new location.
@@ -636,7 +636,7 @@
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
 		/obj/item/extinguisher/mini,
-		/obj/item/gripper/medical
+		/obj/item/gripper_medical
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
@@ -657,7 +657,7 @@
 		/obj/item/multitool/cyborg,
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
-		/obj/item/gripper,
+		/obj/item/gripper_engineering,
 		/obj/item/melee/energy/sword/cyborg,
 		/obj/item/card/emag,
 		/obj/item/borg_chameleon,
@@ -741,7 +741,7 @@
 		/obj/item/wirecutters/cyborg/drone,
 		/obj/item/multitool/cyborg/drone,
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/gripper,
+		/obj/item/gripper_engineering,
 		/obj/item/matter_decompiler,
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/soap,
@@ -764,7 +764,7 @@
 	)
 
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
+	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 

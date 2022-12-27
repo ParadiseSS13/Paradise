@@ -74,10 +74,10 @@
 	knockdown_duration = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback)
-	. = ..()
 	if(!iscultist(thrower))
 		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
 		throw_impact(thrower)
+	. = ..()
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -505,11 +505,11 @@
 
 		// Hit by a melee weapon or blocked a projectile
 		. = ..()
-		if(.) // 50|50 chance
+		if(.) // they did parry the attack
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
-				addtimer(CALLBACK(src, .proc/readd), 45 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(readd)), 45 SECONDS)
 				if(prob(60))
 					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
@@ -568,13 +568,16 @@
 	throwforce = 30
 	throw_speed = 2
 	armour_penetration_percentage = 50
-	block_chance = 30
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
+
+/obj/item/twohanded/cult_spear/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 
 /obj/item/twohanded/cult_spear/Destroy()
 	if(spear_act)
@@ -625,20 +628,6 @@
 		new /obj/effect/decal/cleanable/blood/splatter(T)
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
-
-/obj/item/twohanded/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
-		final_block_chance *= 2
-	if(prob(final_block_chance))
-		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
-			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, TRUE)
-			return TRUE
-		else
-			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
-			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-			return TRUE
-	return FALSE
 
 /obj/item/twohanded/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()

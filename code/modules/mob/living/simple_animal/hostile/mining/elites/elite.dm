@@ -196,7 +196,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
 				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
-			addtimer(CALLBACK(src, .proc/return_elite), 3 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(return_elite)), 3 SECONDS)
 		if(TUMOR_INACTIVE)
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
 				user.visible_message("<span class='warning'>[user] reaches for [src] with [user.p_their()] arm, but nothing happens.</span>",
@@ -207,7 +207,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			visible_message("<span class='userdanger'>[src] begins to convulse. Your instincts tell you to step back.</span>")
 			make_activator(user)
 			if(!boosted)
-				addtimer(CALLBACK(src, .proc/spawn_elite), 3 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 3 SECONDS)
 				return
 			visible_message("<span class='danger'>Something within [src] stirs...</span>")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_ELITE, TRUE, 10 SECONDS, source = src)
@@ -220,7 +220,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					While the opponent might have an upper hand with  powerful mining equipment and tools, you have great power normally limited by AI mobs.\n\
 					If you want to win, you'll have to use your powers in creative ways to ensure the kill. It's suggested you try using them all as soon as possible.\n\
 					Should you win, you'll receive extra information regarding what to do after. Good luck!</b>")
-				addtimer(CALLBACK(src, .proc/spawn_elite, elitemind), 10 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 10 SECONDS)
 			else
 				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
 				activity = TUMOR_INACTIVE
@@ -236,8 +236,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	icon_state = "tumor_popped"
-	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, .proc/onEliteLoss)
-	INVOKE_ASYNC(src, .proc/arena_checks)
+	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
+	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS) //Boots out humanoid invaders. Minebots / random fauna / that colossus you forgot to clear away allowed.
 
 /obj/structure/elite_tumor/proc/return_elite()
@@ -250,7 +250,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.health = mychild.maxHealth
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
-	INVOKE_ASYNC(src, .proc/arena_checks)
+	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 	AddComponent(/datum/component/proximity_monitor, ARENA_RADIUS)
 
 /obj/structure/elite_tumor/Initialize(mapload)
@@ -273,7 +273,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return
 	activator = user
 	ADD_TRAIT(user, TRAIT_ELITE_CHALLENGER, "activation")
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, .proc/clear_activator)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_activator))
 
 /obj/structure/elite_tumor/proc/clear_activator(mob/source)
 	SIGNAL_HANDLER
@@ -313,10 +313,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/arena_checks()
 	if(activity != TUMOR_ACTIVE || QDELETED(src))
 		return
-	INVOKE_ASYNC(src, .proc/fighters_check)  //Checks to see if our fighters died.
-	INVOKE_ASYNC(src, .proc/arena_trap)  //Gets another arena trap queued up for when this one runs out.
-	INVOKE_ASYNC(src, .proc/border_check)  //Checks to see if our fighters got out of the arena somehow.
-	addtimer(CALLBACK(src, .proc/arena_checks), 5 SECONDS)
+	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
+	INVOKE_ASYNC(src, PROC_REF(arena_trap))  //Gets another arena trap queued up for when this one runs out.
+	INVOKE_ASYNC(src, PROC_REF(border_check))  //Checks to see if our fighters got out of the arena somehow.
+	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
 
 /obj/structure/elite_tumor/proc/fighters_check()
 	if(QDELETED(mychild) || mychild.stat == DEAD)
@@ -358,7 +358,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
 		invaders += M
-	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 1, src)
+	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src) // extra safety
 	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 

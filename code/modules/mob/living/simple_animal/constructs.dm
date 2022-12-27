@@ -76,10 +76,10 @@
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
 				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+						"<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
 			else
 				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
-						   "<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
+						"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
 		else
 			if(src != M)
 				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
@@ -130,7 +130,7 @@
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/build/lesserforcewall)
+	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls.</b>"
@@ -196,11 +196,11 @@
 	construct_type = "builder"
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
 							/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/floor,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/pylon,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone)
+							/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 						use magic missile, repair allied constructs (by clicking on them), \
@@ -298,8 +298,8 @@
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/build/floor,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
+							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
 							/obj/effect/proc_holder/spell/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \

@@ -137,7 +137,7 @@
 	remove_from_all_data_huds()
 	random_revenant_name()
 
-	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
+	addtimer(CALLBACK(src, PROC_REF(firstSetupAttempt)), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
 	var/built_name = ""
@@ -153,7 +153,7 @@
 		giveSpells()
 	else
 		message_admins("Revenant was created but has no mind. Put a ghost inside, or a poll will be made in one minute.")
-		addtimer(CALLBACK(src, .proc/setupOrDelete), 1 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(setupOrDelete)), 1 MINUTES)
 
 /mob/living/simple_animal/revenant/proc/setupOrDelete()
 	if(mind)
@@ -196,9 +196,11 @@
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
 	return TRUE
 
 
@@ -320,15 +322,15 @@
 	..()
 
 /datum/objective/revenant/check_completion()
-	if(!owner || !istype(owner.current, /mob/living/simple_animal/revenant))
-		return 0
-	var/mob/living/simple_animal/revenant/R = owner.current
-	if(!R || R.stat == DEAD)
-		return 0
-	var/essence_stolen  = R.essence_accumulated
-	if(essence_stolen  < targetAmount)
-		return 0
-	return 1
+	var/total_essence = 0
+	for(var/datum/mind/M in get_owners())
+		if(!istype(M.current, /mob/living/simple_animal/revenant) || QDELETED(M.current))
+			continue
+		var/mob/living/simple_animal/revenant/R = M.current
+		total_essence += R.essence_accumulated
+	if(total_essence < targetAmount)
+		return FALSE
+	return TRUE
 
 /datum/objective/revenantFluff
 
