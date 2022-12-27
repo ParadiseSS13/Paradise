@@ -410,7 +410,7 @@
 				M.stand_up()
 			else
 				M.lay_down()
-		 time--
+		time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
