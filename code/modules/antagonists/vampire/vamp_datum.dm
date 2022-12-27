@@ -261,11 +261,11 @@
 			hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 			hud.static_inventory += hud.vampire_blood_display
 			hud.show_hud(hud.hud_version)
-		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
+		hud.vampire_blood_display.maptext = "<div align='center' valign='middle'd style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
 	if(isspaceturf(get_turf(owner.current)))
 		check_sun()
-	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full))
+	if(istype(area, chapel) && (!isfullpower && total blood > 0))
 		vamp_burn(7)
 	nullified = max(0, nullified - 2)
 
@@ -309,8 +309,6 @@
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.current.health >= 50)
-		if(!bloodtotal && !isspaceturf(get_turf(owner.current)))
-			return
 		switch(owner.current.health)
 			if(75 to 100)
 				to_chat(owner.current, "<span class='warning'>Your skin flakes away...</span>")
