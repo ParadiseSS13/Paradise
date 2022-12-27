@@ -111,6 +111,8 @@
 		for(var/power_type in innate_powers)
 			give_power(new power_type, L)
 
+	RegisterSignal(L, PROCREF())
+
 	var/mob/living/carbon/C = L
 
 	if(!istype(C))
@@ -422,6 +424,19 @@
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
 		return FALSE
 	return TRUE
+
+/datum/antagonist/changeling/proc/on_death(mob/living/L)
+	SIGNAL_HANDLER
+	if(QDELETED(L))  // they were probably incinerated or gibbed, no coming back from that.
+		return
+	var/mob/living/carbon/human/H = L
+	if(!istype(H))
+		return
+
+	if(!H.get_organ_slot("brain"))
+		to_chat(L, "<span class='notice'>The brain is a useless organ to us, we are able to regenerate!</span>")
+	else
+		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
 
 /proc/ischangeling(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/changeling)

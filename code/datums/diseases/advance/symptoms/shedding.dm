@@ -28,12 +28,14 @@ BONUS
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
+		var/mob/living/carbon/human/H = M
+		if(istype(H) && !H.get_organ("head"))
+			return
 		to_chat(M, "<span class='warning'>[pick("Your scalp itches.", "Your skin feels flakey.")]</span>")
 		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 			if(NO_HAIR in H.dna.species.species_traits)
 				return // Hair can't fall out if you don't have any
-			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 			switch(A.stage)
 				if(3, 4)
 					if(!(head_organ.h_style == "Bald") && !(head_organ.h_style == "Balding Hair"))

@@ -1387,32 +1387,33 @@
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(dna.species.default_hair)
-		H.h_style = dna.species.default_hair
-	else
-		H.h_style = "Bald"
-	if(dna.species.default_fhair)
-		H.f_style = dna.species.default_fhair
-	else
-		H.f_style = "Shaved"
-	if(dna.species.default_headacc)
-		H.ha_style = dna.species.default_headacc
-	else
-		H.ha_style = "None"
+	if(H)
+		if(dna.species.default_hair)
+			H.h_style = dna.species.default_hair
+		else
+			H.h_style = "Bald"
+		if(dna.species.default_fhair)
+			H.f_style = dna.species.default_fhair
+		else
+			H.f_style = "Shaved"
+		if(dna.species.default_headacc)
+			H.ha_style = dna.species.default_headacc
+		else
+			H.ha_style = "None"
 
-	if(dna.species.default_hair_colour)
-		//Apply colour.
-		H.hair_colour = dna.species.default_hair_colour
-	else
-		H.hair_colour = "#000000"
-	if(dna.species.default_fhair_colour)
-		H.facial_colour = dna.species.default_fhair_colour
-	else
-		H.facial_colour = "#000000"
-	if(dna.species.default_headacc_colour)
-		H.headacc_colour = dna.species.default_headacc_colour
-	else
-		H.headacc_colour = "#000000"
+		if(dna.species.default_hair_colour)
+			//Apply colour.
+			H.hair_colour = dna.species.default_hair_colour
+		else
+			H.hair_colour = "#000000"
+		if(dna.species.default_fhair_colour)
+			H.facial_colour = dna.species.default_fhair_colour
+		else
+			H.facial_colour = "#000000"
+		if(dna.species.default_headacc_colour)
+			H.headacc_colour = dna.species.default_headacc_colour
+		else
+			H.headacc_colour = "#000000"
 
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
@@ -1519,6 +1520,8 @@
 
 /mob/living/carbon/human/proc/get_eye_shine() //Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	if(!head_organ)
+		return
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
