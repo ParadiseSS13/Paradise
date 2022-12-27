@@ -28,10 +28,9 @@ Doesn't work on other aliens/AI.*/
 		return
 
 	if(powerc(50,1))
-		for(var/obj/structure/S in get_turf(src))
-			if(istype(S, /obj/structure/alien/resin))
-				to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
-				return
+		for(var/obj/structure/alien/resin in get_turf(src))
+			to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
+			return
 		adjustPlasma(-50)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
@@ -130,10 +129,9 @@ Doesn't work on other aliens/AI.*/
 	var/choice = show_radial_menu(src, src, resin_buildings, src, radius = 40)
 	if(powerc(55, TRUE))
 		var/built = FALSE
-		for(var/obj/structure/S in get_turf(src))
-			if(istype(S, /obj/structure/alien/resin))
-				to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
-				return
+		for(var/obj/structure/alien/resin/S in get_turf(src))
+			to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
+			return
 		adjustPlasma(-55)
 
 		switch(choice)
