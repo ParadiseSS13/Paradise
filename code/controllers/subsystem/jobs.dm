@@ -589,6 +589,12 @@ SUBSYSTEM_DEF(jobs)
 	H.mind.store_memory(remembered_info)
 	H.mind.set_initial_account(account)
 
+	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
+	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
+
+	if(!job) //if their job datum is null (looking at you ERTs...), we don't need to do anything past this point
+		return
+
 	//add them to their department datum, (this relates a lot to money account I promise)
 	var/list/users_departments = get_departments_from_job(job.title)
 	for(var/datum/station_department/department as anything in users_departments)
@@ -599,11 +605,8 @@ SUBSYSTEM_DEF(jobs)
 		member.can_approve_crates = job?.department_account_access
 		department.members += member
 
-	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
-	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
-
 	// If they're head, give them the account info for their department
-	if(!job?.department_account_access)
+	if(!job.department_account_access)
 		return
 
 	announce_department_accounts(users_departments, H, job)

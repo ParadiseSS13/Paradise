@@ -1,7 +1,7 @@
 /datum/sprite_accessory/hair/vox
-    icon = 'icons/mob/sprite_accessories/vox/vox_hair.dmi'
-    species_allowed = list("Vox")
-    glasses_over = 1
+	icon = 'icons/mob/sprite_accessories/vox/vox_hair.dmi'
+	species_allowed = list("Vox")
+	glasses_over = 1
 
 /datum/sprite_accessory/hair/vox/vox_quills_short
 	name = "Short Vox Quills"
