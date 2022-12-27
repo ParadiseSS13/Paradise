@@ -150,7 +150,7 @@
 
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
-	if(!use_type || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
+	if(isnull(use_type) || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
 		return
 	switch(power_state)
 		if(IDLE_POWER_USE)

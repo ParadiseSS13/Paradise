@@ -85,6 +85,7 @@
 	var/operating = TRUE
 	/// The current charging mode of the APC: not charging, charging, fully charged
 	var/charging = APC_NOT_CHARGING
+	/// A counter var used to help determine if the APC has not been charging long enough to justify not performing certain auto setting such as turning all channels back on
 	var/longtermpower = 10
 	/// State of the APC Cover - Closed, Open, or Off
 	var/opened = APC_CLOSED

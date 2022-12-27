@@ -19,7 +19,7 @@
 	var/area/current_area = get_area(src)
 	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
 	if(current_apc)
-		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_update), override = TRUE)
+		RegisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(power_update), override = TRUE)
 	toggle_light(TRUE)
 
 /turf/simulated/floor/light/update_icon_state()

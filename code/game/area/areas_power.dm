@@ -6,27 +6,29 @@
   * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
   */
 /area/proc/poweralert(state, obj/source)
-	if(state != poweralm)
-		poweralm = state
-		if(istype(source))	//Only report power alarms on the z-level where the source is located.
-			for(var/thing in cameras)
-				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C) && is_station_level(C.z))
-					if(state)
-						C.network -= "Power Alarms"
-					else
-						C.network |= "Power Alarms"
-
+	if(state == poweralm)
+		return
+	poweralm = state
+	if(!istype(source))	//Only report power alarms on the z-level where the source is located.
+		return
+	for(var/thing in cameras)
+		var/obj/machinery/camera/C = locateUID(thing)
+		if(!QDELETED(C) && is_station_level(C.z))
 			if(state)
-				SSalarm.cancelAlarm("Power", src, source)
+				C.network -= "Power Alarms"
 			else
-				SSalarm.triggerAlarm("Power", src, cameras, source)
+				C.network |= "Power Alarms"
+
+	if(state)
+		SSalarm.cancelAlarm("Power", src, source)
+	else
+		SSalarm.triggerAlarm("Power", src, cameras, source)
 
 
 /**
   * Called when the area power status changes
   *
-  * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
+  * Updates the area icon
   */
 /area/proc/power_change()
 	update_icon(UPDATE_ICON_STATE)

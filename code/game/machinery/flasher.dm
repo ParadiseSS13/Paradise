@@ -71,7 +71,7 @@
 		return flash()
 
 /obj/machinery/flasher/proc/flash()
-	if(!(has_power()))
+	if(!has_power())
 		return
 
 	if((disable) || (last_flash && world.time < last_flash + 150))

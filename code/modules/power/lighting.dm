@@ -317,7 +317,7 @@
   */
 /obj/machinery/light/proc/update(trigger = TRUE, instant = FALSE, play_sound = TRUE)
 	var/area/current_area = get_area(src)
-	UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
+	UnregisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE)
 	switch(status)
 		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
 			on = FALSE
@@ -566,8 +566,7 @@
 // returns if the light has power /but/ is manually turned off
 // if a light is turned off, it won't activate emergency power
 /obj/machinery/light/proc/turned_off()
-	var/area/A = get_area(src)
-	return !A.lightswitch && A.powernet.lighting_powered
+	return !machine_area.lightswitch && machine_area.powernet.lighting_powered
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
@@ -591,12 +590,12 @@
 	emergency_mode = TRUE
 	set_light(3, 1.7, bulb_emergency_colour)
 	update_icon()
-	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
+	RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
 	set_light(0, 0, 0) //you, sir, are off!
 	if(current_apc)
-		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
+		RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
 /obj/machinery/light/flicker(amount = rand(20, 30))
 	if(flickering)

@@ -7,7 +7,7 @@
 	if(!(flags & NODECONSTRUCT))
 		if(!(stat & BROKEN))
 			set_broken()
-		if(opened != 2)
+		if(opened != APC_COVER_OFF)
 			opened = APC_COVER_OFF
 			coverlocked = FALSE
 			visible_message("<span class='warning'>The APC cover is knocked down!</span>")

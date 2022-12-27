@@ -205,7 +205,12 @@
 
 /obj/machinery/bsa/full/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(reload)), 30 SECONDS) //wait until shit is loaded before we start using power to reload!
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/bsa/full/LateInitialize(mapload)
+	. = ..()
+	reload() // so we don't try and use the powernet before it initializes
+
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()

@@ -490,7 +490,6 @@
 	update_lighting()
 
 /obj/machinery/teleport/perma/power_change()
-	..()
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
