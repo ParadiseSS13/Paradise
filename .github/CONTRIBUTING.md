@@ -732,6 +732,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Commit Access` members have write access to the repository and can merge your PRs. People included in this role are:
 
 
+* [Sirryan2002](https://github.com/Sirryan2002)
 * [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
@@ -739,7 +740,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 `Review Team` members are people who are denoted as having reviews which can affect mergeability status. People included in this role are:
 
 * [lewcc](https://github.com/lewcc)
-* [Sirryan2002](https://github.com/Sirryan2002)
+* [S34N](https://github.com/S34NW)
 
 ---
 

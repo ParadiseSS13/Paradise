@@ -460,7 +460,7 @@
 	},
 /area/holodeck/source_emptycourt)
 "bY" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "ca" = (
@@ -676,7 +676,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
 "cK" = (
-/obj/machinery/vending/magivend,
+/obj/machinery/economy/vending/magivend,
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "cL" = (
@@ -778,7 +778,7 @@
 	},
 /area/holodeck/source_snowfield)
 "dl" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "do" = (
@@ -986,7 +986,7 @@
 /turf/simulated/floor/plating,
 /area/centcom)
 "eh" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -1070,7 +1070,7 @@
 	},
 /area/ninja/holding)
 "ez" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -1196,7 +1196,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "eY" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1215,7 +1215,7 @@
 	},
 /area/ninja/holding)
 "fb" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -1230,7 +1230,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 32;
 	use_power = 0
@@ -1479,7 +1479,7 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "ga" = (
-/obj/machinery/vending/snack/free{
+/obj/machinery/economy/vending/snack/free{
 	name = "\improper Wizmore Chocolate Corp"
 	},
 /turf/simulated/floor/wood,
@@ -1533,12 +1533,7 @@
 	},
 /area/centcom/control)
 "gj" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
 "gk" = (
@@ -2387,12 +2382,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "iT" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
 "iU" = (
@@ -2747,7 +2737,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "kd" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
@@ -2828,7 +2818,7 @@
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
 "ks" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kt" = (
@@ -2872,7 +2862,7 @@
 /turf/space/transit/horizontal,
 /area/space)
 "ky" = (
-/obj/machinery/vending/syndicigs,
+/obj/machinery/economy/vending/syndicigs,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kz" = (
@@ -2957,7 +2947,7 @@
 	},
 /area/centcom/specops)
 "kM" = (
-/obj/machinery/vending/syndisnack,
+/obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kN" = (
@@ -3712,13 +3702,13 @@
 	},
 /area/syndicate_mothership)
 "mN" = (
-/obj/machinery/vending/syndisnack,
+/obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
 "mO" = (
-/obj/machinery/vending/syndicigs,
+/obj/machinery/economy/vending/syndicigs,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4614,7 +4604,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "pZ" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "qb" = (
@@ -4925,7 +4915,7 @@
 	},
 /area/syndicate_mothership)
 "rh" = (
-/obj/machinery/vending/liberationstation,
+/obj/machinery/economy/vending/liberationstation,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ri" = (
@@ -5283,7 +5273,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "sq" = (
-/obj/machinery/atm{
+/obj/machinery/economy/atm{
 	pixel_y = 32
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -5435,7 +5425,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sR" = (
-/obj/machinery/vending/tool,
+/obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sS" = (
@@ -5533,7 +5523,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tt" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 30
 	},
@@ -5545,7 +5535,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tw" = (
-/obj/machinery/vending/wallmed/syndicate{
+/obj/machinery/economy/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -5584,15 +5574,15 @@
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tB" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tD" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tE" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "tF" = (
@@ -6745,7 +6735,7 @@
 /turf/space,
 /area/space)
 "xS" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -6796,7 +6786,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/control)
 "yu" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
@@ -6889,7 +6879,7 @@
 	},
 /area/tdome/tdomeobserve)
 "zF" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -6913,7 +6903,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -7581,7 +7571,7 @@
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "CY" = (
-/obj/machinery/vending/artvend{
+/obj/machinery/economy/vending/artvend{
 	name = "\improper WizArtVend"
 	},
 /turf/simulated/floor/wood,
@@ -7746,7 +7736,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "DJ" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "DK" = (
@@ -7892,7 +7882,7 @@
 	},
 /area/holodeck/source_basketball)
 "Ek" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "El" = (
@@ -7937,7 +7927,7 @@
 	},
 /area/shuttle/escape)
 "Er" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -8030,7 +8020,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "EN" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ET" = (
@@ -8269,7 +8259,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "FY" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -8804,7 +8794,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "HY" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Ia" = (
@@ -9015,7 +9005,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "IQ" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -9567,7 +9557,7 @@
 	},
 /area/centcom/specops)
 "KL" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KM" = (
@@ -9695,12 +9685,7 @@
 	},
 /area/holodeck/source_emptycourt)
 "Lm" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
 "Ln" = (
@@ -9768,7 +9753,7 @@
 	},
 /area/tdome/tdomeadmin)
 "LH" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -10138,7 +10123,7 @@
 	},
 /area/holodeck/source_desert)
 "MU" = (
-/obj/machinery/vending/cola/free{
+/obj/machinery/economy/vending/cola/free{
 	name = "\improper Wizbust Softdrinks"
 	},
 /turf/simulated/floor/wood,
@@ -10413,12 +10398,7 @@
 	},
 /area/centcom/specops)
 "Og" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
+/obj/structure/sign/vacuum/external,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "Oi" = (
@@ -11718,7 +11698,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "TM" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -11991,8 +11971,11 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
+"UO" = (
+/turf/simulated/wall/indestructible/opsglass/limited_smooth,
+/area/syndicate_mothership)
 "UT" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -12067,7 +12050,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Vk" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -12548,7 +12531,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/transport)
 "Xg" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -12576,7 +12559,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "Xl" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -12967,7 +12950,7 @@
 	},
 /area/centcom/evac)
 "YL" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -13112,7 +13095,7 @@
 	},
 /area/centcom/specops)
 "Zj" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/economy/vending/snack/free,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -60474,9 +60457,9 @@ KR
 mI
 KY
 nB
-BZ
-BZ
-BZ
+UO
+UO
+UO
 KY
 rU
 sn
@@ -60990,7 +60973,7 @@ ab
 ab
 BZ
 hG
-BZ
+UO
 iT
 rU
 sx
@@ -61247,7 +61230,7 @@ ab
 ab
 BZ
 BY
-BZ
+UO
 lB
 KY
 KY

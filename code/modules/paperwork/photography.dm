@@ -547,42 +547,44 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam
 	name = "video camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "video camera that can send live feed to the entertainment network."
+	desc = "This video camera can send live feeds to the entertainment network. You must hold to use it."
 	icon_state = "videocam"
 	item_state = "videocam"
-	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL=2000)
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
 
-/obj/item/videocam/attack_self(mob/user)
-	on = !on
-	if(camera)
-		if(!on)
-			src.icon_state = icon_off
-			camera.c_tag = null
-			camera.network = list()
-		else
-			src.icon_state = icon_on
-			camera.network = list("news")
-			camera.c_tag = user.name
-	else
-
-		src.icon_state = icon_on
+/obj/item/videocam/proc/camera_state(mob/living/carbon/user)
+	if(!on)
+		on = TRUE
 		camera = new /obj/machinery/camera(src)
+		icon_state = icon_on
 		camera.network = list("news")
-		GLOB.cameranet.removeCamera(camera)
 		camera.c_tag = user.name
-	to_chat(user, "You switch the camera [on ? "on" : "off"].")
+	else
+		on = FALSE
+		icon_state = icon_off
+		camera.c_tag = null
+		QDEL_NULL(camera)
+	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
+
+/obj/item/videocam/attack_self(mob/user)
+	camera_state(user)
+
+/obj/item/videocam/dropped()
+	. = ..()
+	if(!on)
+		return
+	camera_state()
 
 /obj/item/videocam/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
+		. += "It's [on ? "" : "in"]active."
 
 /obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)
@@ -599,6 +601,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 
+/obj/item/videocam/advanced
+	name = "advanced video camera"
+	desc = "This video camera allows you to send live feeds even when attached to a belt."
+	slot_flags = SLOT_BELT
 
 ///hauntings, like hallucinations but more spooky
 

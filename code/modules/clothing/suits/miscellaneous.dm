@@ -172,6 +172,10 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	dog_fashion = /datum/dog_fashion/back
 
+/obj/item/clothing/suit/corgisuit/en
+	name = "\improper super-hero E-N suit"
+	icon_state = "ensuit"
+
 /obj/item/clothing/suit/corgisuit/super_hero
 	name = "super-hero corgi suit"
 	desc = "A suit made long ago by the ancient empire KFC. This one pulses with a strange power."
@@ -413,9 +417,19 @@
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/head/hooded/winterhood/security
 	icon_state = "winterhood_sec"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		)
 
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
@@ -502,7 +516,7 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 3 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-						 "Grey" = 'icons/mob/clothing/species/grey/head.dmi')
+						"Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
 /obj/item/clothing/suit/hooded/ablative
 	name = "ablative trenchcoat"
@@ -520,7 +534,7 @@
 	strip_delay = 3 SECONDS
 	put_on_delay = 4 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
+						"Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/suit/hooded/ablative/IsReflect()
@@ -714,12 +728,6 @@
 	icon_state = "creamsuit"
 	item_state = "creamsuit"
 
-/obj/item/clothing/under/stripper/mankini
-	name = "the mankini"
-	desc = "No honest man would wear this abomination"
-	icon_state = "mankini"
-	item_color = "mankini"
-
 /obj/item/clothing/suit/jacket/miljacket
 	name = "olive military jacket"
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one comes in olive."
@@ -800,7 +808,7 @@
 	icon_state = "bombersyndie"
 	item_state = "bombersyndie"
 	ignore_suitadjust = FALSE
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun, /obj/item/melee/classic_baton/telescopic/contractor, /obj/item/kitchen/knife/combat)
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -824,6 +832,11 @@
 	put_on_delay = 40
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
 	//End of inheritance from Security armour.
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/jacket/engibomber
 	name = "engineering bomber jacket"

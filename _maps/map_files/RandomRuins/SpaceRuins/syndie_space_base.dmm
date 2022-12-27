@@ -487,7 +487,7 @@
 /turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "fn" = (
-/obj/machinery/vending/syndichem,
+/obj/machinery/economy/vending/syndichem,
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
 	pixel_x = -5;
@@ -1475,7 +1475,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "pp" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1582,7 +1582,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "rp" = (
-/obj/machinery/vending/toyliberationstation{
+/obj/machinery/economy/vending/toyliberationstation{
 	req_access_txt = "150"
 	},
 /obj/structure/cable{
@@ -1705,7 +1705,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "sH" = (
-/obj/machinery/vending/artvend,
+/obj/machinery/economy/vending/artvend,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -2217,7 +2217,7 @@
 "xm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/economy/vending/medical/syndicate_access,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
@@ -2511,7 +2511,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "AU" = (
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/economy/vending/cigarette/syndicate/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -3231,7 +3231,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "IA" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3517,7 +3517,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Le" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -3919,7 +3919,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "PE" = (
-/obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/economy/vending/medical/syndicate_access,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -4165,7 +4165,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "SU" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4254,7 +4254,7 @@
 /obj/structure/window/basic{
 	dir = 4
 	},
-/obj/machinery/vending/hydroseeds,
+/obj/machinery/economy/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},

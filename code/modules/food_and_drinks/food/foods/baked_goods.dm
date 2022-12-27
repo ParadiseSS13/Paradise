@@ -527,5 +527,14 @@
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
 
+/obj/item/reagent_containers/food/snacks/croissant
+	name = "croissant"
+	desc = "Once a pastry reserved for the bourgeois, this flaky goodness is now on your table."
+	icon_state = "croissant"
+	bitesize = 4
+	filling_color = "#ecb54f"
+	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	tastes = list("croissant" = 1)
+
 #undef DONUT_NORMAL
 #undef DONUT_FROSTED

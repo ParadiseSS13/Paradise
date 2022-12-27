@@ -11,10 +11,10 @@
 	secondary_theme = "beads"
 
 /datum/sprite_accessory/hair/unathi/una_cobra_hood
-    name = "Unathi Cobra Hood"
-    icon_state = "cobrahood"
-    secondary_theme = "webbing"
-	
+	name = "Unathi Cobra Hood"
+	icon_state = "cobrahood"
+	secondary_theme = "webbing"
+
 /datum/sprite_accessory/hair/unathi/simple
 	name = "Simple Horns"
 	icon_state = "simple_horns"

@@ -144,11 +144,11 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "v" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "w" = (
-/obj/machinery/vending/hydroseeds,
+/obj/machinery/economy/vending/hydroseeds,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "x" = (

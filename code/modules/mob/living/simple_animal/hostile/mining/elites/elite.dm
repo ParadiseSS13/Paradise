@@ -358,7 +358,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		to_chat(M, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
 		invaders += M
-	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 1, src)
+	var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src) // extra safety
 	M.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
 	playsound(M, 'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 

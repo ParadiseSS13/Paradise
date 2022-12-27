@@ -37,7 +37,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "aj" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -193,7 +193,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "az" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -256,11 +256,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "aG" = (
@@ -1810,7 +1806,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "du" = (
-/obj/machinery/vending/medical{
+/obj/machinery/economy/vending/medical{
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel{
@@ -2735,7 +2731,7 @@
 /turf/simulated/wall,
 /area/ruin/space/unpowered)
 "fi" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -2803,7 +2799,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "fs" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2934,7 +2930,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "fI" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/structure/sign/poster/official/ue_no{
 	pixel_y = 32
 	},
@@ -3076,7 +3072,7 @@
 	},
 /area/ruin/space/unpowered)
 "fZ" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4327,7 +4323,7 @@
 	},
 /area/ruin/space/unpowered)
 "iM" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_y = -32
 	},

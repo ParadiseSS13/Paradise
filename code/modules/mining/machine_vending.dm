@@ -88,7 +88,7 @@
 		EQUIPMENT("Laser Pointer", /obj/item/laser_pointer, 300),
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
-		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c1000, 2000),
+		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
 	)
 	prize_list["Extra"] = list() // Used in child vendors

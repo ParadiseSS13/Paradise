@@ -106,6 +106,12 @@
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
+
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
@@ -118,6 +124,11 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	strip_delay = 80
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/hos/alt
 	name = "armored trenchcoat"
@@ -149,6 +160,11 @@
 	strip_delay = 70
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
@@ -217,7 +233,17 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
-	hide_tail_by_species = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
+
+/obj/item/clothing/suit/armor/riot/sec
+	name = "security riot suit"
+	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement. This one has security markings on it."
+	icon_state = "riot-sec"
+	item_state = "swat_suit"
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -225,6 +251,7 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	slowdown = 1
+	sprite_sheets = list()
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
@@ -268,8 +295,18 @@
 	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 35, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 8 SECONDS
 	put_on_delay = 6 SECONDS
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
+
+
+/obj/item/clothing/suit/armor/bulletproof/sec
+	name = "security bulletproof vest"
+	desc = "A bulletproof vest that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent. This one has security markings on it."
+	icon_state = "bulletproof-sec"
+	item_state = "armor"
+	blood_overlay_type = "armor"
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"

@@ -96,11 +96,6 @@
 	stat_attack = UNCONSCIOUS
 	robust_searching = TRUE
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
-	. = ..()
-	if(prob(1))
-		new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(loc)
-		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
 	name = "ancient goliath"

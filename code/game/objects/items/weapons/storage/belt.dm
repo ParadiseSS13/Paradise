@@ -15,11 +15,14 @@
 
 /obj/item/storage/belt/update_overlays()
 	. = ..()
-	if(use_item_overlays)
-		for(var/obj/item/I in contents)
-			var/image/belt_image = image(icon, I.belt_icon)
-			belt_image.color = I.color
-			. += belt_image
+	if(!use_item_overlays)
+		return
+	for(var/obj/item/I in contents)
+		if(!I.belt_icon)
+			continue
+		var/image/belt_image = image(icon, I.belt_icon)
+		belt_image.color = I.color
+		. += belt_image
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
