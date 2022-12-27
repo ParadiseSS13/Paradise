@@ -97,8 +97,9 @@
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return TRUE
 
-/*  Resin-Door
-	This borrs a bit of code from Mineral-Door, but is mostly its own thing due to not needing many of the latter's things instead of its own things */
+/*
+ *Resin-Door
+*/
 /obj/structure/alien/resin/door
 	name = "resin door"
 	density = TRUE
@@ -254,6 +255,7 @@
 	icon_state = "weeds"
 	base_icon_state = "weeds"
 	max_integrity = 15
+	layer = 2.455
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
@@ -263,8 +265,6 @@
 
 /obj/structure/alien/weeds/New(pos, node)
 	..()
-	if(src == "Wall Weeeeeed")
-		return
 	linked_node = node
 	if(isspaceturf(loc))
 		qdel(src)
@@ -317,10 +317,13 @@
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
-//Wall Weeds
+/*
+ * Wall Weeds
+ */
+
 /obj/structure/alien/wallweed
-	name = "Wall Weeeeeed"
-	desc = "Wall go brrr"
+	name = "Wall Weed"
+	desc = "A thick resin surface covers the wall."
 	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
 	icon_state = "wallweed"
 	base_icon_state = "wallweed"
@@ -358,7 +361,10 @@
 	else
 		return ..()
 
-//Weed nodes
+/*
+ * Weed nodes
+ */
+
 /obj/structure/alien/weeds/node
 	name = "resin node"
 	desc = "A large bulbous node pumping resin into the surface bellow it."
