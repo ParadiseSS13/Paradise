@@ -19,7 +19,7 @@
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(HAS_TRAIT(usr, TRAIT_XENO_IMMUNE) && !usr.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+			if(usr.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
 				unbuckle_mob(M)
 				add_fingerprint(usr)
 				return
@@ -49,10 +49,10 @@
 	if (!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
 		return
 
-	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE) && !M.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+	if(M.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
 		return
 
-	if(HAS_TRAIT(user, TRAIT_XENO_IMMUNE) && user.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+	if(!user.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
 		return
 
 	if(has_buckled_mobs())

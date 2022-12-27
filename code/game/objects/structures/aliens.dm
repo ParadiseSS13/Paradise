@@ -171,12 +171,13 @@
 /obj/structure/alien/resin/door/proc/try_to_operate(atom/user)
 	if(is_operating)
 		return
-	var/mob/living/carbon/C = user
-	if(HAS_TRAIT(user, TRAIT_XENO_IMMUNE) && !C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
-		if(world.time - C.last_bumped <= 60)
-			return
-		if(!C.handcuffed)
-			operate()
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+			if(world.time - C.last_bumped <= 60)
+				return
+			if(!C.handcuffed)
+				operate()
 
 /obj/structure/alien/resin/door/proc/mobless_try_to_operate() // This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
 	if(is_operating)
@@ -225,9 +226,14 @@
 			qdel(src)
 
 /obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
-	var/mob/living/carbon/C = mover
-	if(istype(mover) && HAS_TRAIT(mover, TRAIT_XENO_IMMUNE) && !C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
-		return 1
+	if(iscarbon(mover))
+		var/mob/living/carbon/C = mover
+		if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+			return 1
+	if(iscarbon(mover.pulledby))
+		var/mob/living/carbon/L = mover.pulledby
+		if(L.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+			return 1
 	return !density
 
 /*
@@ -265,14 +271,11 @@
 		return
 	for(var/turf/simulated/wall/W in orange(1, src))
 		var/wall_dir = get_dir(W, src)
-		var/wall_smoothing_junction  = W.smoothing_junction
 		switch(wall_dir)
 			if(1, 8, 4, 2)
 				new /obj/structure/alien/wallweed(pos, wall_dir)
-			if(9, 5, 10, 6)
-				switch(wall_smoothing_junction)
-					if(1,2,4,6,8,9,10)
-						new /obj/structure/alien/wallweed(pos, wall_dir)
+			if(9, 6, 5, 10)
+				continue
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/alien/weeds/Destroy()
@@ -321,8 +324,10 @@
 	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
 	icon_state = "wallweed"
 	base_icon_state = "wallweed"
+	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
+
 	max_integrity = 15
 
 /obj/structure/alien/wallweed/New(pos, wall_dir)
@@ -336,6 +341,10 @@
 			pixel_x = -32
 		if(8, 9, 10)
 			pixel_x = 32
+		if(8, 4)
+			layer = 4.1
+		if(1, 2)
+			layer = 4.2
 	icon_state = "wallweed-[wall_dir]"
 	..()
 
@@ -416,7 +425,7 @@
 	return attack_hand(user)
 
 /obj/structure/alien/egg/attack_hand(mob/living/user)
-	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(user.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
 		switch(status)
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
