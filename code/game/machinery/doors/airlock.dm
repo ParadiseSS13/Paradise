@@ -1396,7 +1396,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(user.queen_strength == 1)
 			open(TRUE)
 			visible_message("<span class='danger'>[user] forces the door!</span>")
-			playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			prying_so_hard = FALSE
 			return
 		user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
@@ -1407,7 +1407,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	else
 		time_to_open = 0
 		visible_message("<span class='danger'>[user] forces the door!</span>")
-		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	if(do_after(user, time_to_open, TRUE, src))
 		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)

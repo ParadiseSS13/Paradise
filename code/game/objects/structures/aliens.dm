@@ -57,7 +57,7 @@
 	air_update_turf(1)
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
-	for(var/obj/structure/alien/weeds/E in get_turf(src))
+	if(locate(/obj/structure/alien/weeds/E) in get_turf(src))
 		return ..()
 	new /obj/structure/alien/weeds(loc)
 	..()
@@ -81,7 +81,7 @@
 		return
 	else
 		to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
-		if(do_after(user, 40, target = src) && src)
+		if(do_after(user, 40, target = src) && !QDELETED(src))
 			qdel(src)
 
 
@@ -154,10 +154,7 @@
 		return try_to_operate(L)
 
 /obj/structure/alien/resin/door/attack_ai(mob/user)
-	if(isAI(user))
-		return
-	if(isrobot(user))
-		return
+	return
 
 /obj/structure/alien/resin/door/attack_hand(mob/user)
 	return try_to_operate(user)
