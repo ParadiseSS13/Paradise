@@ -438,7 +438,7 @@
 	var/obj/item/storage/equipped_backpack = get_item_by_slot(slot_back)
 	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
-	if(!equipped_backpack) // We also let you equip a backpack like this
+	if(!istype(equipped_backpack)) // We also let you equip a backpack like this
 		equip_to_slot_if_possible(thing, slot_back)
 		return
 	if(thing && equipped_backpack.can_be_inserted(thing)) // put thing in backpack
