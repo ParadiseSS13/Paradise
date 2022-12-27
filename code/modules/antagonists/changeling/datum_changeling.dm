@@ -147,7 +147,7 @@
 
 	// If they get de-clinged, make sure they can't just chop their own head off for the hell of it
 	var/obj/item/organ/internal/brain/former_ling_brain = C.get_organ_slot("brain")
-	if(former_ling_brain && (former_ling_brain.decoy_brain != initial(former_ling_brain.decoy_brain)))
+	if(former_ling_brain && former_ling_brain.decoy_brain != initial(former_ling_brain.decoy_brain))
 		former_ling_brain.decoy_brain = FALSE
 
 /*
