@@ -14,19 +14,19 @@
 	. = ..()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
 
-/obj/structure/bed/nest/user_unbuckle_mob(mob/living/user)
+/obj/structure/bed/nest/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	if(has_buckled_mobs())
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(usr.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+			if(user.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
 				unbuckle_mob(M)
-				add_fingerprint(usr)
+				add_fingerprint(user)
 				return
 
-			if(M != usr)
-				M.visible_message("<span class='notice'>[usr.name] pulls [M.name] free from the sticky nest!</span>",\
-					"<span class='notice'>[usr.name] pulls you free from the gelatinous resin.</span>",\
+			if(M != user)
+				M.visible_message("<span class='notice'>[user.name] pulls [M.name] free from the sticky nest!</span>",\
+					"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
 					"<span class='italics'>You hear squelching...</span>")
 			else
 				M.visible_message("<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
@@ -43,7 +43,7 @@
 					"<span class='italics'>You hear squelching...</span>")
 
 			unbuckle_mob(M)
-			add_fingerprint(usr)
+			add_fingerprint(user)
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
 	if (!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)

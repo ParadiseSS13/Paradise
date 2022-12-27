@@ -15,14 +15,12 @@
 	var/state_open = FALSE
 	var/is_operating = FALSE
 	var/close_delay = -1 //-1 if does not auto close.
-	/// This variable was made solely to adapt sleep(10) for the alien subtype of this kind of door in operate()
-	var/operatetime = 10 
 
 	var/hardness = 1
 	var/sheetType = /obj/item/stack/sheet/metal
 	var/sheetAmount = 7
-	var/openSound = 'sound/effects/stonedoor_openclose.ogg'
-	var/closeSound = 'sound/effects/stonedoor_openclose.ogg'
+	var/open_sound = 'sound/effects/stonedoor_openclose.ogg'
+	var/close_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/damageSound = null
 
 /obj/structure/mineral_door/Initialize()
@@ -86,16 +84,16 @@
 /obj/structure/mineral_door/proc/operate()
 	is_operating = TRUE
 	if(!state_open)
-		playsound(loc, openSound, 100, 1)
+		playsound(loc, open_sound, 100, 1)
 		flick("[initial_state]opening",src)
 	else
 		var/turf/T = get_turf(src)
 		for(var/mob/living/L in T)
 			is_operating = FALSE
 			return
-		playsound(loc, closeSound, 100, 1)
+		playsound(loc, close_sound, 100, 1)
 		flick("[initial_state]closing",src)
-	sleep(operatetime)
+	sleep(10)
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
@@ -203,8 +201,8 @@
 /obj/structure/mineral_door/wood
 	name = "wood door"
 	icon_state = "wood"
-	openSound = 'sound/effects/doorcreaky.ogg'
-	closeSound = 'sound/effects/doorcreaky.ogg'
+	open_sound = 'sound/effects/doorcreaky.ogg'
+	close_sound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
 	hardness = 1
 	resistance_flags = FLAMMABLE

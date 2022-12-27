@@ -57,7 +57,7 @@
 	air_update_turf(1)
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
-	if(locate(/obj/structure/alien/weeds/E) in get_turf(src))
+	if(locate(/obj/structure/alien/weeds) in get_turf(src))
 		return ..()
 	new /obj/structure/alien/weeds(loc)
 	..()
@@ -98,7 +98,7 @@
 	return TRUE
 
 /*
- *Resin-Door
+ *Resin-Door - Borrows its code from Mineral-Door, not a subtype due to needing many overrides if so
 */
 /obj/structure/alien/resin/door
 	name = "resin door"
@@ -117,10 +117,10 @@
 	var/initial_state
 	var/state_open = FALSE
 	var/is_operating = FALSE
-	var/close_delay = 15
+	var/close_delay = 1.5 SECONDS
 	smoothing_flags = null
-	var/openSound = 'sound/machines/alien_airlock.ogg'
-	var/closeSound = 'sound/machines/alien_airlock.ogg'
+	var/open_sound = 'sound/machines/alien_airlock.ogg'
+	var/close_sound = 'sound/machines/alien_airlock.ogg'
 
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
@@ -132,7 +132,7 @@
 	air_update_turf(1)
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
-	if(locate(/obj/structure/alien/weeds/E) in get_turf(src))
+	if(locate(/obj/structure/alien/weeds) in get_turf(src))
 		return
 	new /obj/structure/alien/weeds(loc)
 
@@ -177,10 +177,10 @@
 			if(!C.handcuffed)
 				operate()
 /*
-  * This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or 
+  * This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or
   * call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
 */
-/obj/structure/alien/resin/door/proc/mobless_try_to_operate() 
+/obj/structure/alien/resin/door/proc/mobless_try_to_operate()
 	if(is_operating)
 		if(state_open)
 			addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
@@ -190,7 +190,7 @@
 /obj/structure/alien/resin/door/proc/operate()
 	is_operating = TRUE
 	if(!state_open)
-		playsound(loc, openSound, 100, 1)
+		playsound(loc, open_sound, 100, 1)
 		flick("[initial_state]opening",src)
 	else
 		var/turf/T = get_turf(src)
@@ -199,7 +199,7 @@
 			if(state_open)
 				addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
 			return
-		playsound(loc, closeSound, 100, 1)
+		playsound(loc, close_sound, 100, 1)
 		flick("[initial_state]closing",src)
 	density = !density
 	opacity = !opacity
