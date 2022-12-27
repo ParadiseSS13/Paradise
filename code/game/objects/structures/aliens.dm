@@ -323,7 +323,7 @@
  */
 
 /obj/structure/alien/wallweed
-	name = "Wall Weed"
+	name = "resin overgrowth"
 	desc = "A thick resin surface covers the wall."
 	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
 	icon_state = "wallweed"
