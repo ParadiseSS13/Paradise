@@ -44,7 +44,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	assigned_targets = list()
 
 /datum/antagonist/Destroy(force, ...)
-	QDEL_LIST(objectives)
+	for(var/datum/objective/O as anything in objectives)
+		objectives -= O
+		if(!O.team)
+			qdel(O)
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
 	if(!silent)
