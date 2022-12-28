@@ -279,7 +279,8 @@
 	return
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
-	if(istype(AM, /obj/item/projectile)	|| isAI(AM) || QDELETED(AM))  return
+	if(istype(AM, /obj/item/projectile)	|| isAI(AM) || QDELETED(AM))
+		return
 	switch(dir)
 		if(NORTH)
 			if(AM.loc.y != loc.y + 1) return
