@@ -516,11 +516,16 @@
 
 	owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
-	if(isitem(hitby)) //Thrown items
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		if(!isitem(hitby))
+			return TRUE
 		var/obj/item/TT = hitby
-		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 15, 15, owner), 0.1 SECONDS) //yeet that shit right back
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
 		return TRUE
-	melee_attack_chain(owner, hitby)
+	if(isitem(hitby))
+		melee_attack_chain(owner, hitby.loc)
+	else
+		melee_attack_chain(owner, hitby)
 	return TRUE
 
 /obj/item/v1_arm_shell
