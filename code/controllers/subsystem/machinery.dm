@@ -10,6 +10,7 @@ SUBSYSTEM_DEF(machines)
 
 	var/list/processing = list()
 	var/list/currentrun = list()
+	/// All regional powernets (/datum/regional_powernet) in the world
 	var/list/powernets = list()
 	var/list/deferred_powernet_rebuilds = list()
 
@@ -27,13 +28,13 @@ SUBSYSTEM_DEF(machines)
 	.["custom"] = cust
 
 /datum/controller/subsystem/machines/proc/makepowernets()
-	for(var/datum/powernet/PN in powernets)
+	for(var/datum/regional_powernet/PN in powernets)
 		qdel(PN)
 	powernets.Cut()
 
 	for(var/obj/structure/cable/PC in GLOB.cable_list)
 		if(!PC.powernet)
-			var/datum/powernet/NewPN = new()
+			var/datum/regional_powernet/NewPN = new()
 			NewPN.add_cable(PC)
 			propagate_network(PC,PC.powernet)
 
@@ -49,7 +50,7 @@ SUBSYSTEM_DEF(machines)
 		var/obj/O = currentrun[currentrun.len]
 		currentrun.len--
 		if(O && !QDELETED(O))
-			var/datum/powernet/newPN = new() // create a new powernet...
+			var/datum/regional_powernet/newPN = new() // create a new powernet...
 			propagate_network(O, newPN)//... and propagate it to the other side of the cable
 
 		deferred_powernet_rebuilds.Remove(O)
@@ -62,10 +63,10 @@ SUBSYSTEM_DEF(machines)
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/datum/powernet/P = currentrun[currentrun.len]
+		var/datum/regional_powernet/P = currentrun[currentrun.len]
 		currentrun.len--
 		if(P)
-			P.reset() // reset the power state
+			P.process_power() // reset the power state
 		else
 			powernets.Remove(P)
 		if(MC_TICK_CHECK)
@@ -117,7 +118,7 @@ SUBSYSTEM_DEF(machines)
 	for(var/A in cables)
 		var/obj/structure/cable/PC = A
 		if(!PC.powernet)
-			var/datum/powernet/NewPN = new()
+			var/datum/regional_powernet/NewPN = new()
 			NewPN.add_cable(PC)
 			propagate_network(PC,PC.powernet)
 

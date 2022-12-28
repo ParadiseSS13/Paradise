@@ -8,7 +8,10 @@
 	active_power_usage = 80
 	light_color = LIGHT_COLOR_ORANGE
 	circuit = /obj/item/circuitboard/powermonitor
-	var/datum/powernet/powernet = null
+
+	/// The regional powernet this power monitor is hooked into
+	var/datum/regional_powernet/powernet = null
+	/// TGUI module this power monitor uses to produce a UI for the user
 	var/datum/ui_module/power_monitor/power_monitor
 	/// Will this monitor be hidden from viewers?
 	var/is_secret_monitor = FALSE
@@ -89,11 +92,11 @@
 			return
 
 		var/list/supply = history["supply"]
-		supply += powernet.viewavail
+		supply += powernet.smoothed_available_power
 		if(length(supply) > record_size)
 			supply.Cut(1, 2)
 
 		var/list/demand = history["demand"]
-		demand += powernet.viewload
+		demand += powernet.smoothed_demand
 		if(length(demand) > record_size)
 			demand.Cut(1, 2)

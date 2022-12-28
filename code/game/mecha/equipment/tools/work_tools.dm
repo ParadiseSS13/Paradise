@@ -440,7 +440,7 @@
 	NC.d2 = fdirn
 	NC.update_icon()
 
-	var/datum/powernet/PN
+	var/datum/regional_powernet/PN
 	if(last_piece && last_piece.d2 != Dir)
 		last_piece.d1 = min(last_piece.d2, Dir)
 		last_piece.d2 = max(last_piece.d2, Dir)

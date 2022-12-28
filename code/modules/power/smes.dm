@@ -311,7 +311,7 @@
 		output_used = 0
 		return
 
-	var/excess = powernet.netexcess		// this was how much wasn't used on the network last ptick, minus any removed by other SMESes
+	var/excess = powernet.excess_power		// this was how much wasn't used on the network last ptick, minus any removed by other SMESes
 
 	excess = min(output_used, excess)				// clamp it to how much was actually output by this SMES last ptick
 
@@ -322,7 +322,7 @@
 	var/clev = chargedisplay()
 
 	charge += excess * SMESRATE			// restore unused power
-	powernet.netexcess -= excess		// remove the excess from the powernet, so later SMESes don't try to use it
+	powernet.excess_power -= excess		// remove the excess from the powernet, so later SMESes don't try to use it
 
 	output_used -= excess
 

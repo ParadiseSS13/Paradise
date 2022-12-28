@@ -2281,7 +2281,6 @@
 #include "code\modules\point\point.dm"
 #include "code\modules\power\apc.dm"
 #include "code\modules\power\cable.dm"
-#include "code\modules\power\cable_logic.dm"
 #include "code\modules\power\cell.dm"
 #include "code\modules\power\generator.dm"
 #include "code\modules\power\gravitygenerator.dm"

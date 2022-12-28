@@ -113,7 +113,7 @@
 		set_mode(DISCONNECTED)
 		return
 
-	var/datum/powernet/PN = attached.powernet
+	var/datum/regional_powernet/PN = attached.powernet
 	if(PN)
 		set_light(5)
 

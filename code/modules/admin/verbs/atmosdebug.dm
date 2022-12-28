@@ -46,7 +46,7 @@
 		return
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Power") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-	for(var/datum/powernet/PN in SSmachines.powernets)
+	for(var/datum/regional_powernet/PN in SSmachines.powernets)
 		if(!PN.nodes || !PN.nodes.len)
 			if(PN.cables && (PN.cables.len > 1))
 				var/obj/structure/cable/C = PN.cables[1]

@@ -108,7 +108,7 @@
 	if((last_zap + zap_cooldown) > world.time || !powernet)
 		return FALSE
 	last_zap = world.time
-	var/power = (powernet.avail) * 0.2 * input_power_multiplier  //Always always always use more then you output for the love of god
+	var/power = (powernet.available_power) * 0.2 * input_power_multiplier  //Always always always use more then you output for the love of god
 	power = min(surplus(), power) //Take the smaller of the two
 	add_load(power)
 	playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)

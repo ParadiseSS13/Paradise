@@ -28,7 +28,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	level = 1
 	anchored = TRUE
 	on_blueprints = TRUE
-	var/datum/powernet/powernet
+
 	name = "power cable"
 	desc = "A flexible superconducting cable for heavy-duty power transfer"
 	icon = 'icons/obj/power_cond/power_cond_white.dmi'
@@ -36,6 +36,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/d1 = 0
 	var/d2 = 1
 	color = COLOR_RED
+
+	var/datum/regional_powernet/powernet
 
 	//The following vars are set here for the benefit of mapping - they are reset when the cable is spawned
 	alpha = 128	//is set to 255 when spawned
@@ -121,41 +123,41 @@ By design, d1 is the smallest direction and d2 is the highest
 
 // All power generation handled in add_avail()
 // Machines should use add_load(), surplus(), avail()
-// Non-machines should use add_delayedload(), delayed_surplus(), newavail()
+// Non-machines should use add_queued_power_demand(), delayed_surplus(), newavail()
 
 /obj/structure/cable/proc/add_avail(amount)
 	if(powernet)
-		powernet.newavail += amount
+		powernet.queued_power_production += amount
 
 /obj/structure/cable/proc/add_load(amount)
 	if(powernet)
-		powernet.load += amount
+		powernet.power_demand += amount
 
 /obj/structure/cable/proc/surplus()
 	if(powernet)
-		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
+		return clamp(powernet.available_power - powernet.power_demand, 0, powernet.available_power)
 	else
 		return 0
 
 /obj/structure/cable/proc/avail()
 	if(powernet)
-		return powernet.avail
+		return powernet.available_power
 	else
 		return 0
 
 /obj/structure/cable/proc/add_delayedload(amount)
 	if(powernet)
-		powernet.delayedload += amount
+		powernet.queued_power_demand += amount
 
 /obj/structure/cable/proc/delayed_surplus()
 	if(powernet)
-		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+		return clamp(powernet.queued_power_production - powernet.queued_power_demand, 0, powernet.queued_power_production)
 	else
 		return 0
 
 /obj/structure/cable/proc/newavail()
 	if(powernet)
-		return powernet.newavail
+		return powernet.queued_power_production
 	else
 		return 0
 
@@ -204,8 +206,8 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(powernet && (powernet.avail > 0))		// is it powered?
-		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
+	if(powernet && (powernet.available_power > 0))		// is it powered?
+		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(surplus())]</span>")
 	else
 		to_chat(user, "<span class='danger'>The cable is not powered.</span>")
 	shock(user, 5, 0.2)
@@ -274,7 +276,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 		if(C.d1 == (direction^3) || C.d2 == (direction^3)) //we've got a diagonally matching cable
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
-				var/datum/powernet/newPN = new()
+				var/datum/regional_powernet/newPN = new()
 				newPN.add_cable(C)
 
 			if(powernet) //if we already have a powernet, then merge the two powernets
@@ -294,7 +296,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			continue
 		if(C.d1 == (direction^12) || C.d2 == (direction^12)) //we've got a diagonally matching cable
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
-				var/datum/powernet/newPN = new()
+				var/datum/regional_powernet/newPN = new()
 				newPN.add_cable(C)
 
 			if(powernet) //if we already have a powernet, then merge the two powernets
@@ -322,7 +324,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 		if(C.d1 == fdir || C.d2 == fdir) //we've got a matching cable in the neighbor turf
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
-				var/datum/powernet/newPN = new()
+				var/datum/regional_powernet/newPN = new()
 				newPN.add_cable(C)
 
 			if(powernet) //if we already have a powernet, then merge the two powernets
@@ -335,7 +337,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/list/to_connect = list()
 
 	if(!powernet) //if we somehow have no powernet, make one (should not happen for cables)
-		var/datum/powernet/newPN = new()
+		var/datum/regional_powernet/newPN = new()
 		newPN.add_cable(src)
 
 	//first let's add turf cables to our powernet
@@ -424,7 +426,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	var/list/powerlist = power_list(T1,src,0,0) //find the other cables that ended in the centre of the turf, with or without a powernet
 	if(powerlist.len>0)
-		var/datum/powernet/PN = new()
+		var/datum/regional_powernet/PN = new()
 		propagate_network(powerlist[1],PN) //propagates the new powernet beginning at the source cable
 
 		if(PN.is_empty()) //can happen with machines made nodeless when smoothing cables
@@ -432,7 +434,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/auto_propogate_cut_cable(obj/O)
 	if(O && !QDELETED(O))
-		var/datum/powernet/newPN = new()// creates a new powernet...
+		var/datum/regional_powernet/newPN = new()// creates a new powernet...
 		propagate_network(O, newPN)//... and propagates it to the other side of the cable
 
 // cut the cable's powernet at this cable and updates the powergrid
@@ -689,7 +691,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	C.update_icon()
 
 	//create a new powernet with the cable, if needed it will be merged later
-	var/datum/powernet/PN = new()
+	var/datum/regional_powernet/PN = new()
 	PN.add_cable(C)
 
 	C.mergeConnectedNetworks(C.d2) //merge the powernet with adjacents powernets
@@ -754,7 +756,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 			NC.update_icon()
 
 			//create a new powernet with the cable, if needed it will be merged later
-			var/datum/powernet/newPN = new()
+			var/datum/regional_powernet/newPN = new()
 			newPN.add_cable(NC)
 
 			NC.mergeConnectedNetworks(NC.d2) //merge the powernet with adjacents powernets

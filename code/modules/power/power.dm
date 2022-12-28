@@ -11,7 +11,7 @@
 	icon = 'icons/obj/power.dmi'
 	anchored = TRUE
 	on_blueprints = TRUE
-	var/datum/powernet/powernet = null
+	var/datum/regional_powernet/powernet = null
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
@@ -27,44 +27,44 @@
 // common helper procs for all power machines
 // All power generation handled in add_avail()
 // Machines should use add_load(), surplus(), avail()
-// Non-machines should use add_delayedload(), delayed_surplus(), newavail()
+// Non-machines should use add_queued_power_demand(), delayed_surplus(), newavail()
 
 /obj/machinery/power/proc/add_avail(amount)
 	if(powernet)
-		powernet.newavail += amount
+		powernet.queued_power_production += amount
 		return TRUE
 	else
 		return FALSE
 
 /obj/machinery/power/proc/add_load(amount)
 	if(powernet)
-		powernet.load += amount
+		powernet.power_demand += amount
 
 /obj/machinery/power/proc/surplus()
 	if(powernet)
-		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
+		return clamp(powernet.available_power -powernet.power_demand, 0, powernet.available_power)
 	else
 		return 0
 
 /obj/machinery/power/proc/avail()
 	if(powernet)
-		return powernet.avail
+		return powernet.available_power
 	else
 		return 0
 
-/obj/machinery/power/proc/add_delayedload(amount)
+/obj/machinery/power/proc/add_queued_power_demand(amount)
 	if(powernet)
-		powernet.delayedload += amount
+		powernet.queued_power_demand += amount
 
 /obj/machinery/power/proc/delayed_surplus()
 	if(powernet)
-		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+		return clamp(powernet.queued_power_production - powernet.queued_power_demand, 0, powernet.queued_power_production)
 	else
 		return 0
 
 /obj/machinery/power/proc/newavail()
 	if(powernet)
-		return powernet.newavail
+		return powernet.queued_power_production
 	else
 		return 0
 
@@ -234,7 +234,7 @@
 	return .
 
 //remove the old powernet and replace it with a new one throughout the network.
-/proc/propagate_network(obj/O, datum/powernet/PN)
+/proc/propagate_network(obj/O, datum/regional_powernet/PN)
 	var/list/worklist = list()
 	var/list/found_machines = list()
 	var/index = 1
@@ -266,7 +266,7 @@
 
 
 //Merge two powernets, the bigger (in cable length term) absorbing the other
-/proc/merge_powernets(datum/powernet/net1, datum/powernet/net2)
+/proc/merge_powernets(datum/regional_powernet/net1, datum/regional_powernet/net2)
 	if(!net1 || !net2) //if one of the powernet doesn't exist, return
 		return
 
@@ -315,10 +315,10 @@
 		var/obj/structure/cable/Cable = power_source
 		power_source = Cable.powernet
 
-	var/datum/powernet/PN
+	var/datum/regional_powernet/PN
 	var/obj/item/stock_parts/cell/cell
 
-	if(istype(power_source, /datum/powernet))
+	if(istype(power_source, /datum/regional_powernet))
 		PN = power_source
 	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell = power_source
@@ -352,9 +352,9 @@
 
 	if(source_area)
 		source_area.use_power(drained_energy/GLOB.CELLRATE)
-	else if(istype(power_source, /datum/powernet))
+	else if(istype(power_source, /datum/regional_powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
-		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
+		PN.queued_power_demand += (min(drained_power, max(PN.queued_power_production - PN.queued_power_demand, 0)))
 	else if (istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy
