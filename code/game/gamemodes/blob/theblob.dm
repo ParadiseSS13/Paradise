@@ -177,7 +177,7 @@
 /obj/structure/blob/proc/double_expand(turf/T = null, prob = 1, a_color, _overmind = null)
 	for(var/turf/adjacent in circlerange(T, 1))
 		if(adjacent in circlerange(src, 1))
-			src.expand(adjacent, 0, overmind.blob_reagent_datum.color, overmind, T)
+			expand(adjacent, 0, overmind.blob_reagent_datum.color, overmind, T)
 			overmind.blob_core.chemical_attack(adjacent)
 			src.color = overmind.blob_reagent_datum.color
 			return
