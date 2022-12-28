@@ -355,6 +355,19 @@
 /datum/status_effect/regenerative_core/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 
+/datum/status_effect/fleshmend
+	duration = 10 SECONDS
+	status_type = STATUS_EFFECT_MULTIPLE
+	tick_interval = 1 SECONDS
+	alert_type = null
+
+/datum/status_effect/fleshmend/tick()
+	var/fleshmendinstances = (owner.has_status_effect_list(STATUS_EFFECT_FLESHMEND).len)
+	var/healpertick = 30 / (fleshmendinstances + 2) // for diminishing healing with number of instances
+	owner.heal_overall_damage((healpertick), (healpertick), updating_health = FALSE)
+	owner.adjustOxyLoss(-healpertick, FALSE)
+	owner.blood_volume = min(owner.blood_volume + (3*healpertick), BLOOD_VOLUME_NORMAL)
+	owner.updatehealth()
 
 /datum/status_effect/speedlegs
 	duration = -1

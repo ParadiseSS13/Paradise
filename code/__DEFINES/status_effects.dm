@@ -39,6 +39,8 @@
 
 #define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few secodns
 
+#define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend //Rapid burn/brute/oxy/blood healing from the cling ability
+
 #define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs //Handles cling speed boost and chemical cost.
 
 #define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halved damage for gargantua vampires
