@@ -266,7 +266,6 @@
 	)
 
 	success_sound = 'sound/surgery/organ2.ogg'
-	time = 5.4 SECONDS
 	time = 10 SECONDS
 
 /datum/surgery_step/generic/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
