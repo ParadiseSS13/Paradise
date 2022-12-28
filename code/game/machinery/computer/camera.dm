@@ -226,12 +226,12 @@
 	. = ..()
 	set_light(1, LIGHTING_MINIMUM_POWER) //so byond doesnt cull, and we get an emissive appearance
 
-/obj/machinery/computer/security/telescreen/entertainment/proc/now_live()
+/obj/machinery/computer/security/telescreen/entertainment/update_overlays()
 	if(feeds_on)
 		icon_screen = "entertainment"
 	else
 		icon_screen = "entertainment_off"
-	update_icon()
+	. = ..()
 
 /obj/machinery/computer/security/telescreen/entertainment/power_change()
 	..()

@@ -543,6 +543,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /**************
 *video camera *
 ***************/
+#define CAMERA_STATE_COOLDOWN 2 SECONDS
 
 /obj/item/videocam
 	name = "video camera"
@@ -553,6 +554,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
+	var/video_cooldown
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
@@ -576,9 +578,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			TV.feeds_on += 1
 		else
 			TV.feeds_on -= 1
-		TV.now_live()
+		TV.update_icon(UPDATE_OVERLAYS)
+	video_cooldown = world.time + CAMERA_STATE_COOLDOWN
 
 /obj/item/videocam/attack_self(mob/user)
+	if(world.time < video_cooldown)
+		to_chat(usr, "<span class='warning'>The video camera is overheating, give it some time.</span>")
+		return
 	camera_state(user)
 
 /obj/item/videocam/dropped()
@@ -611,6 +617,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	name = "advanced video camera"
 	desc = "This video camera allows you to send live feeds even when attached to a belt."
 	slot_flags = SLOT_BELT
+
+#undef CAMERA_STATE_COOLDOWN
 
 ///hauntings, like hallucinations but more spooky
 
