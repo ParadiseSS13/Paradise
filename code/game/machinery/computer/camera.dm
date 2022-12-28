@@ -231,7 +231,7 @@
 		icon_screen = "entertainment"
 	else
 		icon_screen = "entertainment_off"
-	. = ..()
+	return ..()
 
 /obj/machinery/computer/security/telescreen/entertainment/power_change()
 	..()

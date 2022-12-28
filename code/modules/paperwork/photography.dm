@@ -583,7 +583,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 /obj/item/videocam/attack_self(mob/user)
 	if(world.time < video_cooldown)
-		to_chat(usr, "<span class='warning'>The video camera is overheating, give it some time.</span>")
+		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
 		return
 	camera_state(user)
 
