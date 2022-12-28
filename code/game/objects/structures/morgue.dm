@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/structure/crematorium/obj_break(damage_flag)
 	if(!broken)
 		visible_message("<span class='warning'>[src] dims as its paneling collapses and it becomes non-functional.</span>")
-		icon_state = "crema_broke" // this will need a proper sprite when possible, as it's just a copy of crema
+		icon_state = "crema_broke" // this will need a proper sprite when possible, as it's just a shitty codersprite
 		resistance_flags = INDESTRUCTIBLE // prevents it from being destroyed instead of just broken
 		name = "broken crematorium"
 		desc = "A broken human incinerator. No longer works well on barbeque nights. It requires a new igniter to be repaired."
@@ -586,6 +586,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 #undef REVIVABLE
 #undef NOT_BODY
 #undef GHOST_CONNECTED
-#undef DESTROYED
-#undef IN_REPAIR
-#undef OPERATIONAL
+#undef CREMATOR_DESTROYED
+#undef CREMATOR_IN_REPAIR
+#undef CREMATOR_OPERATIONAL
