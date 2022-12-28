@@ -95,13 +95,15 @@
 /obj/structure/mirror/magic
 	name = "magic mirror"
 	icon_state = "magic_mirror"
+	var/options = list("Name", "Body", "Voice")
+	var/use_whitelist = TRUE
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
 	if(!ishuman(user) || broken)
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in options
 
 	switch(choice)
 		if("Name")
@@ -121,9 +123,10 @@
 
 		if("Body")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
-			for(var/species in GLOB.whitelisted_species)
-				if(can_use_species(H, species))
-					race_list += species
+			if(use_whitelist)
+				for(var/species in GLOB.whitelisted_species)
+					if(can_use_species(H, species))
+						race_list += species
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
@@ -167,3 +170,7 @@
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
+
+/obj/structure/mirror/magic/nuclear
+	options = list("Body")
+	use_whitelist = FALSE
