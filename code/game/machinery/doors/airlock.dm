@@ -1181,7 +1181,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		beingcrowbarred = TRUE
 	if(beingcrowbarred && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
-							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
+							"<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return

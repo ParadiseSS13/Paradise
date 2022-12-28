@@ -235,13 +235,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		if(!G)
 			return 0
 
-/*
-	if(clonemind.damnation_type) //Can't clone the damned.
-		playsound('sound/hallucinations/veryfar_noise.ogg', 50, 0)
-		malfunction()
- 		return -1 // so that the record gets flushed out
-	*/
-
 	if(biomass >= CLONE_BIOMASS)
 		biomass -= CLONE_BIOMASS
 	else
@@ -333,7 +326,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		else if(occupant.cloneloss > (100 - heal_level))
 			occupant.Paralyse(8 SECONDS)
 
-			 //Slowly get that clone healed and finished.
+			//Slowly get that clone healed and finished.
 			occupant.adjustCloneLoss(-((speed_coeff/2)))
 
 			// For human species that lack non-vital parts for some weird reason
