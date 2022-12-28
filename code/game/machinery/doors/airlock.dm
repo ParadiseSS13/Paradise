@@ -1391,7 +1391,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(prying_so_hard)
 		return
 	prying_so_hard = TRUE
-	var/time_to_open
+	var/time_to_open = 0
 	if(arePowerSystemsOn())
 		if(user.queen_strength == 1)
 			open(TRUE)
@@ -1405,7 +1405,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		time_to_open = 50 //Powered airlocks take longer to open, and are loud.
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 	else
-		time_to_open = 0
 		visible_message("<span class='danger'>[user] forces the door!</span>")
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 

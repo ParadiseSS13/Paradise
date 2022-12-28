@@ -79,11 +79,9 @@
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
 		return
-	else
-		to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
-		if(do_after(user, 40, target = src) && !QDELETED(src))
-			qdel(src)
-
+	to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
+	if(do_after(user, 40, target = src) && !QDELETED(src))
+		qdel(src)
 
 /obj/structure/alien/resin/wall
 	name = "resin wall"
@@ -167,16 +165,18 @@
 	return !density
 
 /obj/structure/alien/resin/door/proc/try_to_operate(mob/user)
-	if(!is_operating)
-		if(iscarbon(user))
-			var/mob/living/carbon/C = user
-			if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-				if(world.time - C.last_bumped <= 60)
-					return
-				if(!C.handcuffed)
-					operate()
-			else
-				to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
+	if(is_operating)
+		return
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/C = user
+	if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		if(world.time - C.last_bumped <= 60)
+			return
+		if(!C.handcuffed)
+			operate()
+	else
+		to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
 /*
   * This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or
   * call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
@@ -250,13 +250,12 @@
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
 	density = FALSE
-	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
 	icon_state = "weeds"
 	base_icon_state = "weeds"
 	max_integrity = 15
-	layer = 2.455
+	layer = WIRE_TERMINAL_LAYER
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
@@ -273,9 +272,9 @@
 	for(var/turf/simulated/wall/W in orange(1, src))
 		var/wall_dir = get_dir(W, src)
 		switch(wall_dir)
-			if(1, 8, 4, 2)
+			if(NORTH, WEST, EAST, SOUTH)
 				new /obj/structure/alien/wallweed(loc, wall_dir)
-			if(9, 6, 5, 10)
+			if(NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST)
 				continue
 	START_PROCESSING(SSobj, src)
 
@@ -289,8 +288,7 @@
 /obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
 		return
-	else
-		return ..()
+	return ..()
 
 /obj/structure/alien/weeds/process()
     check_counter++
@@ -336,19 +334,19 @@
 
 /obj/structure/alien/wallweed/Initialize(mapload, wall_dir)
 	switch(wall_dir)
-		if(1, 5, 9)
+		if(NORTH, NORTHEAST, NORTHWEST)
 			pixel_y = -32
-		if(2, 6, 10)
+		if(SOUTH, SOUTHEAST, SOUTHWEST)
 			pixel_y = 32
 	switch(wall_dir)
-		if(4, 5 ,6)
+		if(EAST, NORTHEAST, SOUTHEAST)
 			pixel_x = -32
-		if(8, 9, 10)
+		if(WEST, NORTHWEST, SOUTHWEST)
 			pixel_x = 32
-		if(8, 4)
-			layer = 4.1
-		if(1, 2)
-			layer = 4.2
+		if(WEST, EAST)
+			layer = ABOVE_MOB_LAYER
+		if(NORTH, SOUTH)
+			layer = WALL_OBJ_LAYER
 	icon_state = "wallweed-[wall_dir]"
 	..()
 
