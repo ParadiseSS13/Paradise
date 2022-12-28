@@ -54,6 +54,7 @@
 	var/obj/item/organ/external/L = null
 	repeatable = TRUE
 
+
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.organ_to_manipulate
 	if(L)
