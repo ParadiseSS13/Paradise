@@ -274,6 +274,10 @@
  * Crematorium
  */
 
+#define CREMATOR_DESTROYED 0
+#define CREMATOR_IN_REPAIR 1
+#define CREMATOR_OPERATIONAL 2
+
 GLOBAL_LIST_EMPTY(crematoriums)
 // These have so much copypasted code from the above that they should really be made into subtypes
 // Someone please I beg
@@ -289,7 +293,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	anchored = TRUE
 	var/cremating = FALSE
 	var/id = 1
-	var/repairstate = 2 // Repairstate 0 is broken, 1 has the igniter applied but needs welding, 2 is functional
+	var/repairstate = CREMATOR_OPERATIONAL // Repairstate 0 is DESTROYED, 1 has the igniter applied but needs welding (IN_REPAIR), 2 is OPERATIONAL
 	var/locked = FALSE
 	var/open_sound = 'sound/items/deconstruct.ogg'
 
@@ -339,7 +343,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		resistance_flags = INDESTRUCTIBLE // prevents it from being destroyed instead of just broken
 		name = "broken crematorium"
 		desc = "A broken human incinerator. No longer works well on barbeque nights. It requires a new igniter to be repaired."
-		repairstate = 0
+		repairstate = CREMATOR_DESTROYED
 		broken = TRUE
 		cremating = FALSE
 		update_icon(UPDATE_OVERLAYS)
@@ -348,28 +352,27 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/structure/crematorium/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM) // if you want to damage it with a welder you should be able to
 		return
-	if(broken)
-		if(!I.tool_use_check(user, 0))
-			return TRUE
-		if(!repairstate == 1)
-			to_chat(user, "<span class='notice'>[src] needs a new igniter before you weld the paneling closed.</span>")
-			return TRUE
-		WELDER_ATTEMPT_REPAIR_MESSAGE
-		if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
-			return TRUE
-		WELDER_REPAIR_SUCCESS_MESSAGE
-		icon_state = initial(icon_state)
-		resistance_flags = NONE
-		name = initial(name)
-		desc = initial(desc)
-		repairstate = 2
-		broken = FALSE
-		obj_integrity = max_integrity
-		GLOB.crematoriums += src
-		return TRUE
-	else
+	if(!broken)
 		to_chat(user, "<span class='notice'>The crematorium does not seem to need fixing.</span>")
 		return TRUE
+	if(!I.tool_use_check(user, 0))
+		return TRUE
+	if(!repairstate == CREMATOR_IN_REPAIR)
+		to_chat(user, "<span class='notice'>[src] needs a new igniter before you weld the paneling closed.</span>")
+		return TRUE
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return TRUE
+	WELDER_REPAIR_SUCCESS_MESSAGE
+	icon_state = initial(icon_state)
+	resistance_flags = NONE
+	name = initial(name)
+	desc = initial(desc)
+	repairstate = CREMATOR_OPERATIONAL
+	broken = FALSE
+	obj_integrity = max_integrity
+	GLOB.crematoriums += src
+	return TRUE
 
 /obj/structure/crematorium/attackby(obj/item/P, mob/user, params)
 	if(is_pen(P))
@@ -377,9 +380,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		add_fingerprint(user)
 		return
 	if(istype(P, /obj/item/assembly/igniter))
-		if(repairstate == 0)
+		if(repairstate == CREMATOR_DESTROYED)
 			user.visible_message("<span class='notice'>[user] replaces [src]'s igniter.</span>", "<span class='notice'>You replace [src]'s damaged igniter. Now it just needs its paneling welded.</span>")
-			repairstate = 1
+			repairstate = CREMATOR_IN_REPAIR
 			desc = "A broken human incinerator. No longer works well on barbeque nights. It requires its paneling to be welded to function."
 			qdel(P)
 		else
@@ -583,3 +586,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 #undef REVIVABLE
 #undef NOT_BODY
 #undef GHOST_CONNECTED
+#undef DESTROYED
+#undef IN_REPAIR
+#undef OPERATIONAL
