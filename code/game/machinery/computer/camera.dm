@@ -220,6 +220,7 @@
 	network = list("news")
 	luminosity = 0
 	circuit = null
+	/// Used to detect how many video cameras are active
 	var/feeds_on = 0
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
