@@ -179,7 +179,7 @@
 		if(adjacent in circlerange(src, 1))
 			expand(adjacent, 0, overmind.blob_reagent_datum.color, overmind, T)
 			overmind.blob_core.chemical_attack(adjacent)
-			src.color = overmind.blob_reagent_datum.color
+			color = overmind.blob_reagent_datum.color
 			return
 
 /obj/structure/blob/Crossed(mob/living/L, oldloc)
