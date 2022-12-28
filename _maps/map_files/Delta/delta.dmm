@@ -91496,14 +91496,6 @@
 	dir = 4
 	},
 /area/maintenance/apmaint)
-"oPx" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
-/obj/machinery/atmospherics/portable/pump,
-/turf/simulated/floor/plasteel,
-/area/toxins/mixing)
 "oQW" = (
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the E.X.P.E.R.I-MENTOR chamber.";
@@ -128661,7 +128653,7 @@ flx
 kEz
 uGg
 dkI
-oPx
+ioV
 ioV
 uKl
 rPd
