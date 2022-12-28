@@ -13,6 +13,12 @@
 		/obj/item/hatchet = 90
 	)
 
+	preop_sound = list(
+		/obj/item/circular_saw = 'sound/surgery/saw.ogg',
+		/obj/item = 'sound/surgery/scalpel1.ogg',
+	)
+
+	success_sound = 'sound/surgery/organ2.ogg'
 	time = 5.4 SECONDS
 
 /datum/surgery_step/open_encased/saw/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -58,6 +64,8 @@
 		TOOL_CROWBAR = 90
 	)
 
+	preop_sound = 'sound/surgery/retractor1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -104,6 +112,8 @@
 		TOOL_CROWBAR = 90
 	)
 
+	preop_sound = 'sound/surgery/retractor1.ogg'
+	success_sound = 'sound/surgery/retractor2.ogg'
 	time = 2.4 SECONDS
 
 /datum/surgery_step/open_encased/close/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -144,6 +154,11 @@
 	allowed_tools = list(
 		TOOL_BONEGEL = 100,
 		TOOL_SCREWDRIVER = 90
+	)
+
+	preop_sound = list(
+		/obj/item/bonegel = 'sound/surgery/organ1.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg',
 	)
 
 	time = 2.4 SECONDS

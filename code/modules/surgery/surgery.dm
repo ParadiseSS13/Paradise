@@ -169,6 +169,12 @@
 	var/can_infect = FALSE
 	/// How much blood this step can get on surgeon. See SURGERY_BLOODSPREAD_* defines
 	var/blood_level = SURGERY_BLOODSPREAD_NONE
+	//Sound played when the step is started
+	var/preop_sound
+	//Sound played if the step succeeded
+	var/success_sound
+	//Sound played if the step fails
+	var/failure_sound
 
 /**
  * Whether or not the tool being used is usable for the surgery.
@@ -298,6 +304,8 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_SUCCESS
 
+	play_preop_sound(user, target, target_zone, tool, surgery)
+
 	if(tool)
 		speed_mod = tool.toolspeed
 
@@ -353,8 +361,10 @@
 
 	surgery.step_in_progress = FALSE
 	if(advance)
+		play_success_sound(user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS
 	else
+		play_failure_sound(user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_FAILURE
 
 /**
@@ -513,3 +523,26 @@
 		for(var/reagent in chems_needed)
 			if(target.reagents.has_reagent(reagent))
 				return TRUE
+
+/datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!preop_sound)
+		return
+	var/sound_file_use
+	if(islist(preop_sound))
+		for(var/typepath in preop_sound)//iterate and assign subtype to a list, works best if list is arranged from subtype first and parent last
+			if(istype(tool, typepath))
+				sound_file_use = preop_sound[typepath]
+				break
+	else
+		sound_file_use = preop_sound
+	playsound(get_turf(target), sound_file_use, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
+
+/datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!success_sound)
+		return
+	playsound(get_turf(target), success_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
+
+/datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!failure_sound)
+		return
+	playsound(get_turf(target), failure_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
