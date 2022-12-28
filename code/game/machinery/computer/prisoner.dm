@@ -18,8 +18,8 @@
 	GLOB.prisoncomputer_list += src
 
 /obj/machinery/computer/prisoner/Destroy()
- 	GLOB.prisoncomputer_list -= src
- 	return ..()
+	GLOB.prisoncomputer_list -= src
+	return ..()
 
 /obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
 	var/datum/ui_login/state = ui_login_get()
