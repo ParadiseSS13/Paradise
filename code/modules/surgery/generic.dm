@@ -63,7 +63,6 @@
 	)
 
 	preop_sound = 'sound/surgery/hemostat1.ogg'
-	success_sound = 'sound/surgery/organ2.ogg'
 	time = 2.4 SECONDS
 
 

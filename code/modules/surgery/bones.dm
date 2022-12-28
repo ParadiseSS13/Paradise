@@ -96,7 +96,7 @@
 		TOOL_WRENCH = 90
 	)
 
-	preop_sound = "sound/surgery/hemostat1.ogg"
+	preop_sound = 'sound/surgery/hemostat1.ogg'
 	time = 3.2 SECONDS
 
 /datum/surgery_step/set_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
