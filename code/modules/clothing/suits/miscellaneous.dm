@@ -534,7 +534,7 @@
 	strip_delay = 3 SECONDS
 	put_on_delay = 4 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
+						"Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
 	var/last_reflect_time
 	var/reflect_cooldown = 4 SECONDS
 
