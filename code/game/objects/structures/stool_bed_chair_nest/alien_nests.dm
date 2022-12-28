@@ -88,10 +88,10 @@
 /obj/structure/bed/nest/attack_alien(mob/living/carbon/alien/user)
 	if(user.a_intent != INTENT_HARM)
 		return attack_hand(user)
-	playsound(loc, 'sound/weapons/slice.ogg', 100, 1)
-	if(do_after(user, 40, target = src) && !QDELETED(src))
-		playsound(loc, 'sound/effects/splat.ogg', 100, 1)
-		qdel(src)
+	if(!do_after(user, 40, target = src) || QDELETED(src))
+		return
+	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	qdel(src)
 
 /obj/structure/bed/nest/prevents_buckled_mobs_attacking()
 	return TRUE

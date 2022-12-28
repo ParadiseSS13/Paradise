@@ -93,7 +93,9 @@
 			return
 		playsound(loc, close_sound, 100, 1)
 		flick("[initial_state]closing",src)
-	sleep(10)
+	addtimer(CALLBACK(src, PROC_REF(operate_update)), 1 SECONDS)
+
+/obj/structure/mineral_door/proc/operate_update()
 	density = !density
 	opacity = !opacity
 	state_open = !state_open

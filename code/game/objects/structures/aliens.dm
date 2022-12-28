@@ -80,8 +80,9 @@
 	if(user.a_intent != INTENT_HARM)
 		return
 	to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
-	if(do_after(user, 40, target = src) && !QDELETED(src))
-		qdel(src)
+	if(!do_after(user, 40, target = src) || QDELETED(src))
+		return
+	qdel(src)
 
 /obj/structure/alien/resin/wall
 	name = "resin wall"
@@ -137,7 +138,6 @@
 /obj/structure/alien/resin/door/Destroy()
 	density = FALSE
 	QUEUE_SMOOTH_NEIGHBORS(src)
-	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 100, FALSE)
 	air_update_turf(1)
 	return ..()
 
@@ -205,7 +205,9 @@
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
-	sleep(10)
+	addtimer(CALLBACK(src, PROC_REF(operate_update)), 1 SECONDS)
+
+/obj/structure/alien/resin/door/proc/operate_update()
 	air_update_turf(1)
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
@@ -224,8 +226,9 @@
 		try_to_operate(user)
 	else
 		to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
-		if(do_after(user, 40, target = src) && !QDELETED(src))
-			qdel(src)
+		if(!do_after(user, 40, target = src) || QDELETED(src))
+			return
+		qdel(src)
 
 /obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
 	if(iscarbon(mover))
