@@ -94,6 +94,9 @@
 	/// Priority at the time the subsystem entered the queue. Needed to avoid changes in priority (by admins and the like) from breaking things.
 	var/queued_priority
 
+	/// Amount of times the subsystem has slept during fire()
+	var/fire_sleep_count = 0
+
 	/// How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
 	var/static/list/failure_strikes
 
@@ -128,8 +131,10 @@
 	fire(resumed)
 	. = state
 	if(state == SS_SLEEPING)
+		fire_sleep_count++
 		state = SS_IDLE
 	if(state == SS_PAUSING)
+		fire_sleep_count++
 		var/QT = queued_time
 		enqueue()
 		state = SS_PAUSED
@@ -350,5 +355,6 @@
 	var/list/out = list()
 	out["cost"] = cost
 	out["tick_usage"] = tick_usage
+	out["sleep_count"] = fire_sleep_count
 	out["custom"] = list() // Override as needed on child
 	return out
