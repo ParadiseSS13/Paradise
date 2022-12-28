@@ -42,16 +42,18 @@
 				data["accounts"] = list()
 				for(var/datum/money_account/account as anything in GLOB.station_money_database.user_accounts)
 					var/list/account_data = list(
-						"account_number" = account.account_number,
+						"account_number" = "[account.account_number]",
 						"owner_name" = account.account_name,
-						"suspended" = account.suspended ? "SUSPENDED" : "Active")
+						"suspended" = account.suspended ? "SUSPENDED" : "Active",
+						"money" = "[account.credit_balance]") // needs to be strings because of TGUI localeCompare
 					data["accounts"] += list(account_data)
 				data["department_accounts"] = list()
 				for(var/datum/money_account/account as anything in GLOB.station_money_database.get_all_department_accounts())
 					var/list/account_data = list(
 						"account_number" = account.account_number,
 						"name" = account.account_name,
-						"suspended" = account.suspended ? "SUSPENDED" : "Active")
+						"suspended" = account.suspended ? "SUSPENDED" : "Active",
+						"money" = account.credit_balance)
 					data["department_accounts"] += list(account_data)
 			if(AUT_ACCINF)
 				data["account_number"] = detailed_account_view.account_number

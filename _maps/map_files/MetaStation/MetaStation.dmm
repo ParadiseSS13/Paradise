@@ -43450,6 +43450,7 @@
 	pixel_y = 10
 	},
 /obj/item/stamp/rd,
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

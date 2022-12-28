@@ -53,6 +53,26 @@
 		return 1
 	return 0
 
+/obj/item/organ/internal/body_egg/terror_eggs/Initialize(mapload)
+	. = ..()
+	GLOB.ts_infected_list += src
+
+/obj/item/organ/internal/body_egg/terror_eggs/insert(mob/living/carbon/M, special)
+	. = ..()
+	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(readd_infected))
+
+/obj/item/organ/internal/body_egg/terror_eggs/proc/readd_infected(mob/infected, new_stat, old_stat)
+	SIGNAL_HANDLER
+	if(new_stat != DEAD)
+		GLOB.ts_infected_list |= src
+
+/obj/item/organ/internal/body_egg/terror_eggs/Destroy()
+	GLOB.ts_infected_list -= src
+	return ..()
+
+/obj/item/organ/internal/body_egg/terror_eggs/on_owner_death()
+	GLOB.ts_infected_list -= src
+	return ..()
 
 /obj/structure/spider/terrorweb/white
 	name = "infested web"

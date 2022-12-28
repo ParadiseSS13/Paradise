@@ -1,9 +1,9 @@
 GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets)
 
 /datum/controller/subsystem/tickets/mentor_tickets/New()
-    NEW_SS_GLOBAL(SSmentor_tickets)
-    PreInit()
-    ss_id = "mentor_tickets"
+	NEW_SS_GLOBAL(SSmentor_tickets)
+	PreInit()
+	ss_id = "mentor_tickets"
 
 /datum/controller/subsystem/tickets/mentor_tickets
 	name = "Mentor Tickets"
@@ -18,6 +18,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	other_ticket_permission = R_ADMIN
 	close_rights = R_MENTOR | R_ADMIN
 	rights_needed = R_MENTOR | R_ADMIN | R_MOD
+	db_save_id = "MENTOR"
 
 /datum/controller/subsystem/tickets/mentor_tickets/Initialize()
 	close_messages = list("<font color='red' size='3'><b>- [ticket_name] Closed -</b></font>",
@@ -29,7 +30,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	message_mentorTicket(msg, important)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
-	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.content, T.raw_title)
+	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.first_raw_response, T.raw_title)
 
 /datum/controller/subsystem/tickets/mentor_tickets/autoRespond(N)
 	return

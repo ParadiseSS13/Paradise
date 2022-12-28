@@ -408,8 +408,8 @@
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
-	icon_state = "reinforced_window-0"
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "rwindow"
 	desc = "A window."
 	density = TRUE
 	layer = 3.2//Just above doors

@@ -1,3 +1,5 @@
+/// We really would rather not have admins altering this, this is the cooldown for the preview/shuttle spawning on the shuttle manipulator
+#define PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN 2 SECONDS
 
 /obj/machinery/shuttle_manipulator
 	name = "shuttle manipulator"
@@ -9,9 +11,9 @@
 
 	icon = 'icons/obj/machines/shuttle_manipulator.dmi'
 	icon_state = "holograph_on"
-
-	var/busy
-	// UI state variables
+	/// Used for cooldown, very obvious name, required due to shuttles spawning in the same location and causing the server to implode
+	var/shuttle_and_preview_cooldown = 0
+	/// UI state variables
 	var/datum/map_template/shuttle/selected
 
 	var/obj/docking_port/mobile/existing_shuttle
@@ -57,6 +59,11 @@
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user)
 	ui_interact(user)
 
+/obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if("shuttle_and_preview_cooldown")
+			log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
+			return FALSE // Extremely important that this doesn't get varedited by mistake, otherwise horrible, horrible things can happen to the server.
 
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -127,7 +134,9 @@
 /obj/machinery/shuttle_manipulator/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
-
+	if(shuttle_and_preview_cooldown > world.time)
+		to_chat(usr, "<span class='warning'>Please wait until the desired shuttle has finished being loaded.</span>")
+		return		
 	. = TRUE
 
 	switch(action)
@@ -160,6 +169,7 @@
 					break
 
 		if("preview")
+			shuttle_and_preview_cooldown = world.time + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
 			if(S)
 				unload_preview()
@@ -169,6 +179,7 @@
 					usr.forceMove(get_turf(preview_shuttle))
 
 		if("load")
+			shuttle_and_preview_cooldown = world.time + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
 			if(existing_shuttle == SSshuttle.backup_shuttle)
 				// TODO make the load button disabled
@@ -293,3 +304,5 @@
 	if(preview_shuttle)
 		preview_shuttle.jumpToNullSpace()
 	preview_shuttle = null
+
+#undef PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN
