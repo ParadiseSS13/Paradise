@@ -179,19 +179,26 @@
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
-	set category = "Object"
-	set desc = "Activate to convert your plants into plantable seeds."
+/obj/item/storage/bag/plants/portaseeder/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Click</b> to convert the plants inside to seeds.</span>"
 
-	if(usr.incapacitated())
+/obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
+	if(user.incapacitated())
 		return
+	if(!length(contents))
+		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
+		return
+	to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
 	for(var/obj/item/O in contents)
 		seedify(O, 1)
-	for(var/mob/M in range(1))
-		if(M.s_active == src)
-			close(M)
+	hide_from_all()
+	playsound(user, "sound/machines/ding.ogg", 25)
 
+/obj/item/storage/bag/plants/portaseeder/AltClick(mob/user)
+	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
+		process_plants(user)
 
 // -----------------------------
 //        Sheet Snatcher
