@@ -8,4 +8,4 @@ GLOBAL_VAR(create_turf_html)
 		GLOB.create_turf_html = replacetext(GLOB.create_turf_html, "$ATOM$", "Turf")
 		GLOB.create_turf_html = replacetext(GLOB.create_turf_html, "null /* object types */", "\"[turfjs]\"")
 
-	user << browse(replacetext(GLOB.create_turf_html, "/* ref src */", UID()), "window=create_turf;size=425x475")
+	user << browse(replacetext(GLOB.create_turf_html, "/* ref src */", UID()), "window=create_turf;size=480x650;can_resize=1;can_minimize=0")

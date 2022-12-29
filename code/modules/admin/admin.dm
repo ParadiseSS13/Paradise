@@ -316,22 +316,21 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/dat = {"
-		<center><B>Game Panel</B></center><hr>\n
-		<A href='?src=[UID()];c_mode=1'>Change Game Mode</A><br>
-		"}
+	var/dat = "<center>"
+	dat += "<p><A href='?src=[UID()];c_mode=1'>Change Game Mode</A><br></p>"
 	if(GLOB.master_mode == "secret")
-		dat += "<A href='?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br>"
+		dat += "<p><A href='?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br></p>"
+	dat += "<hr><br>"
+	dat += "<p><A href='?src=[UID()];create_object=1'>Create Object</A><br></p>"
+	dat += "<p><A href='?src=[UID()];quick_create_object=1'>Quick Create Object</A><br></p>"
+	dat += "<p><A href='?src=[UID()];create_turf=1'>Create Turf</A><br></p>"
+	dat += "<p><A href='?src=[UID()];create_mob=1'>Create Mob</A></p>"
 
-	dat += {"
-		<BR>
-		<A href='?src=[UID()];create_object=1'>Create Object</A><br>
-		<A href='?src=[UID()];quick_create_object=1'>Quick Create Object</A><br>
-		<A href='?src=[UID()];create_turf=1'>Create Turf</A><br>
-		<A href='?src=[UID()];create_mob=1'>Create Mob</A><br>
-		"}
-
-	usr << browse(dat, "window=admin2;size=210x280")
+	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 210, 280)
+	popup.set_content(dat)
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "game_panel")
 	return
 
 /////////////////////////////////////////////////////////////////////////////////////////////////admins2.dm merge

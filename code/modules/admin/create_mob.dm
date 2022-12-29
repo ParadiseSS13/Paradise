@@ -8,4 +8,4 @@ GLOBAL_VAR(create_mob_html)
 		GLOB.create_mob_html = replacetext(GLOB.create_mob_html, "$ATOM$", "Mob")
 		GLOB.create_mob_html = replacetext(GLOB.create_mob_html, "null /* object types */", "\"[mobjs]\"")
 
-	user << browse(replacetext(GLOB.create_mob_html, "/* ref src */", UID()), "window=create_mob;size=425x475")
+	user << browse(replacetext(GLOB.create_mob_html, "/* ref src */", UID()), "window=create_mob;size=480x650;can_resize=1;can_minimize=0")
