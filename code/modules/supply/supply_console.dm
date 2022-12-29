@@ -38,7 +38,7 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/supplycomp/proc/has_qm_access(list/access)
+/obj/machinery/computer/supplycomp/proc/has_ct_access(list/access)
 	return (ACCESS_CARGO in access) ? TRUE : FALSE
 
 /obj/machinery/computer/supplycomp/proc/is_authorized(mob/user)
@@ -89,14 +89,14 @@
 			can_approve = TRUE
 			can_deny = TRUE
 		if(order.requires_qm_approval)
-			if(C && has_qm_access(C.access)) //if the crate needs QM approval and you have QM access, you get app and deny rights
+			if(C && has_ct_access(C.access)) //if the crate needs QM approval and you have QM access, you get app and deny rights
 				can_approve = TRUE
 				can_deny = TRUE
 		else if(order.requires_head_approval)
 			if(C && order.ordered_by_department.has_account_access(C.access, GLOB.station_money_database.find_user_account(C.associated_account_number)))
 				can_approve = TRUE //if the crate DOESN'T need QM approval (or QM already approved it), you get app and deny rights
 				can_deny = TRUE
-			if(C && has_qm_access(C.access))
+			if(C && has_ct_access(C.access))
 				can_deny = TRUE //QM can deny any order at any time
 
 		var/list/request_data = list(
@@ -351,7 +351,7 @@
 		var/datum/money_account/account = order.orderedbyaccount
 
 		if(order.requires_qm_approval)
-			if(!has_qm_access(user.get_access()))
+			if(!has_ct_access(user.get_access()))
 				return FALSE
 			order.requires_qm_approval = FALSE
 			if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
