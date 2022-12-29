@@ -115,7 +115,7 @@
 	if(old_stat != stat)
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/smartfridge/extinguish_light()
+/obj/machinery/smartfridge/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
 

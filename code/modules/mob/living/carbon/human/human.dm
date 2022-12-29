@@ -1966,7 +1966,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
 	return TRUE
 
-/mob/living/carbon/human/extinguish_light()
+/mob/living/carbon/human/extinguish_light(force = FALSE)
 	// Parent function handles stuff the human may be holding
 	..()
 
