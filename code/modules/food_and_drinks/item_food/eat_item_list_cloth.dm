@@ -47,6 +47,7 @@
 /obj/item/clothing/accessory
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 1
+	is_only_grab_intent = TRUE
 
 /obj/item/clothing/accessory/holobadge
 	material_type = MATERIAL_CLASS_NONE
@@ -55,6 +56,8 @@
 /obj/item/clothing/accessory/necklace
 	material_type = MATERIAL_CLASS_NONE
 /obj/item/clothing/accessory/medal
+	material_type = MATERIAL_CLASS_NONE
+/obj/item/clothing/accessory/stethoscope
 	material_type = MATERIAL_CLASS_NONE
 
 
