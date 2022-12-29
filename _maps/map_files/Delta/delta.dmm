@@ -28155,7 +28155,7 @@
 	id_tag = "Chemistry2";
 	name = "Chemistry Privacy Shutter"
 	},
-/obj/machinery/smartfridge/secure/chemistry,
+/obj/machinery/smartfridge/medbay,
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
 "cKM" = (
@@ -31397,7 +31397,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/smartfridge/medbay,
+/obj/machinery/smartfridge/secure/chemistry,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellow"
 	},
@@ -54195,8 +54195,6 @@
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -54208,8 +54206,7 @@
 /obj/machinery/door_control{
 	id = "Virology";
 	name = "Virology Shutters";
-	pixel_x = -24;
-	req_access_txt = "39"
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -66288,7 +66285,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Medical Officer";
-	req_access = "40"
+	req_access_txt = "40"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -94853,7 +94850,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/closet/secure_closet/medical1,
+/obj/structure/closet/secure_closet/medical1{
+    req_access = null;
+    req_access_txt = "5;62"
+    },
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/gateway)
@@ -103237,7 +103237,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id = "cloninglab";
 	name = "Cloning Lab";
-	req_access_txt = "5;9"
+	req_access_txt = "5"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/unres,

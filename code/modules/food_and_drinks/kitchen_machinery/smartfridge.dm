@@ -416,6 +416,7 @@
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
+	req_one_access = list(ACCESS_RESEARCH)
 
 /obj/machinery/smartfridge/secure/extract/syndie
 	name = "\improper Suspicious Slime Extract Storage"
@@ -424,7 +425,6 @@
 
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
-	req_one_access = list(ACCESS_RESEARCH)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
 		req_one_access = list(ACCESS_SYNDICATE)
 	accepted_items_typecache = typecacheof(list(
@@ -440,7 +440,7 @@
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	req_one_access_txt = "5;33"
+	req_one_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
 	. = ..()
@@ -454,7 +454,8 @@
 
 /obj/machinery/smartfridge/secure/medbay/syndie
 	icon_state = "syndi_smartfridge"
-	req_one_access_txt = "150"
+	req_one_access = list(ACCESS_SYNDICATE)
+
 /**
   * # Smart Chemical Storage
   *
@@ -464,12 +465,13 @@
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
+	req_access = list(ACCESS_CHEMISTRY)
+
 	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
 	var/list/spawn_meds
 
 /obj/machinery/smartfridge/secure/chemistry/Initialize(mapload)
 	. = ..()
-	req_access_txt = "[ACCESS_CHEMISTRY]"
 	// Spawn initial chemicals
 	if(mapload)
 		LAZYINITLIST(spawn_meds)
@@ -508,12 +510,11 @@
   * A [Smart Chemical Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/preloaded] but with exclusive access to Syndicate.
   */
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
-	req_access_txt = null
+	req_access = list(ACCESS_SYNDICATE)
 	icon_state = "syndi_smartfridge"
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate/Initialize(mapload)
 	. = ..()
-	req_access = list(ACCESS_SYNDICATE)
 
 /**
   * # Disk Compartmentalizer
@@ -542,6 +543,7 @@
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "\improper Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
+	req_access = list(ACCESS_VIROLOGY)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
 	spawn_meds = list(
@@ -553,7 +555,6 @@
 		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
 	)
 	. = ..()
-	req_access_txt = "[ACCESS_VIROLOGY]"
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/glass/bottle,
@@ -587,11 +588,10 @@
   */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
 	icon_state = "syndi_smartfridge"
-	req_access_txt = null
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
 	. = ..()
-	req_access = list(ACCESS_SYNDICATE)
 
 /**
   * # Drink Showcase
