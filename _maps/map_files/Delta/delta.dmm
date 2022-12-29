@@ -88171,19 +88171,6 @@
 "kFb" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	icon_state = "pipe-j2s";
-	name = "Research Junction";
-	sort_type_txt = "12"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plasteel/white,
 /area/medical/research)
@@ -91073,27 +91060,6 @@
 /area/maintenance/electrical)
 "oCL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	name = "RD Junction 2";
-	sort_type_txt = "13"
-	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -92582,7 +92548,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "Research Junction";
-	sortType = 12
+	sort_type_txt = "12"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -92957,7 +92923,6 @@
 /area/maintenance/fore2)
 "qWH" = (
 /obj/machinery/newscaster{
-	dir = 2;
 	name = "north bump";
 	pixel_y = 28
 	},
@@ -92965,21 +92930,6 @@
 	dir = 4;
 	name = "Chapel Junction";
 	sort_type_txt = "17"
-	},
-/obj/effect/decal/warning_stripes/north,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	name = "Chapel Junction";
-	sortType = 17
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
