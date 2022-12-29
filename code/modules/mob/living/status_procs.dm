@@ -128,6 +128,7 @@
 	var/stuttering = 0
 	var/weakened = 0
 	var/disgust = 0
+	var/last_emote = null
 
 // RESTING
 
