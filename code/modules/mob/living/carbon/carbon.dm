@@ -11,9 +11,9 @@
 	for(var/obj/item in get_all_slots())
 		unEquip(item)
 		qdel(item)
-	QDEL_LIST(internal_organs)
-	QDEL_LIST(stomach_contents)
-	QDEL_LIST(processing_patches)
+	QDEL_LIST_CONTENTS(internal_organs)
+	QDEL_LIST_CONTENTS(stomach_contents)
+	QDEL_LIST_CONTENTS(processing_patches)
 	GLOB.carbon_list -= src
 	return ..()
 

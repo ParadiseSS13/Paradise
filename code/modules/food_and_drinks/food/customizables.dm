@@ -419,7 +419,7 @@ do {\
 
 
 /obj/item/reagent_containers/food/snacks/customizable/Destroy()
-	QDEL_LIST(ingredients)
+	QDEL_LIST_CONTENTS(ingredients)
 	qdel(top_image)
 	return ..()
 

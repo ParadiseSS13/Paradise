@@ -38,7 +38,7 @@
 		var/obj/O = target
 		if(istype(target, /obj/machinery/atmospherics/supermatter_crystal)) //No, you can't pick up the SM with this you moron, did you think you were clever?
 			var/obj/mecha/working/ripley/R = chassis
-			QDEL_LIST(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
+			QDEL_LIST_CONTENTS(R.cargo) //We don't want to drop cargo that just spam hits the SM, let's delete it
 			occupant_message("<span class='userdanger'>You realise in horror what you have done as [chassis] starts warping around you!</span>")
 			chassis.occupant.dust()
 			target.Bumped(chassis)

@@ -810,7 +810,7 @@
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
 	// Remove components, this is wood duh
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts = null
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(

@@ -351,7 +351,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	current_app = null
 	scanmode = null
 	QDEL_NULL(held_pen)
-	QDEL_LIST(programs)
+	QDEL_LIST_CONTENTS(programs)
 	QDEL_NULL(cartridge)
 	return ..()
 

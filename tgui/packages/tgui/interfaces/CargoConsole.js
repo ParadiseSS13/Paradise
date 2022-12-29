@@ -287,7 +287,7 @@ const GetRequestNotice = (_properties, context) => {
       head_color = 'purple';
       break;
     case "Supply":
-      head_name = 'QM';
+      head_name = 'CT'; // cargo tech
       head_color = 'brown';
       break;
     case "Service":
@@ -313,7 +313,7 @@ const GetRequestNotice = (_properties, context) => {
       <FlexItem mr={1}>
         Approval Required:
       </FlexItem>
-      {Boolean(request.req_qm_approval) &&
+      {Boolean(request.req_cargo_approval) &&
         <FlexItem mr={1}>
           <Button
             color='brown'
@@ -328,9 +328,9 @@ const GetRequestNotice = (_properties, context) => {
           <Button
             color={head_color}
             content={head_name}
-            disabled={request.req_qm_approval}
+            disabled={request.req_cargo_approval}
             icon='user-tie'
-            tooltip={request.req_qm_approval
+            tooltip={request.req_cargo_approval
               ? `This Order first requires approval from the QM before the ${head_name} can approve it`
               : `This Order requires approval from the ${head_name} still`}
             />

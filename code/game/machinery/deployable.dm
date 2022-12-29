@@ -309,7 +309,7 @@
 		deploy(direction, uptime)
 
 /obj/structure/dropwall_generator/Destroy()
-	QDEL_LIST(connected_shields)
+	QDEL_LIST_CONTENTS(connected_shields)
 	core_shield = null
 	return ..()
 
