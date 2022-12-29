@@ -185,8 +185,6 @@
 		. += "<span class='notice'>You can <b>Alt-Click</b> to convert the plants inside to seeds.</span>"
 
 /obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
-	if(user.incapacitated())
-		return
 	if(!length(contents))
 		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
 		return
