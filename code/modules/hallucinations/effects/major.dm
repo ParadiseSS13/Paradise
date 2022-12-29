@@ -43,7 +43,7 @@
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/on_knockdown()
 	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						   "<span class='userdanger'>[name] bites you!</span>")
+						"<span class='userdanger'>[name] bites you!</span>")
 
 /**
   * # Hallucination - Spider Web
@@ -66,7 +66,7 @@
 
 /obj/effect/hallucination/tripper/spider_web/on_crossed()
 	target.visible_message("<span class='warning'>[target] trips over nothing.</span>",
-					  	   "<span class='userdanger'>You get stuck in [src]!</span>")
+						"<span class='userdanger'>You get stuck in [src]!</span>")
 
 /obj/effect/hallucination/tripper/spider_web/attackby(obj/item/I, mob/user, params)
 	if(user != target)
@@ -75,7 +75,7 @@
 	step_towards(target, get_turf(src))
 	target.Weaken(4 SECONDS)
 	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [I.name] as if striking something, only to trip!</span>",
-					  	   "<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
+						"<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
 	qdel(src)
 
 /**
@@ -183,7 +183,7 @@
 
 /obj/effect/hallucination/chaser/attacker/abductor/on_knockdown()
 	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						   "<span class='userdanger'>[name] has stunned you with the advanced baton!</span>")
+						"<span class='userdanger'>[name] has stunned you with the advanced baton!</span>")
 	if(!QDELETED(owning_hallucination))
 		owning_hallucination.spawn_scientist()
 	else
@@ -327,7 +327,7 @@
 
 /obj/effect/hallucination/chaser/attacker/assaulter/on_knockdown()
 	target.visible_message("<span class='warning'>[target] recoils as if hit by something, before suddenly collapsing!</span>",
-						   "<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
+						"<span class='userdanger'>[name] has [attack_verb] [target]!</span>")
 	QDEL_IN(src, 3 SECONDS)
 
 /**
@@ -383,7 +383,7 @@
 		forceMove(get_turf(target))
 		target.Weaken(10 SECONDS)
 		target.visible_message("<span class='danger'>[target] recoils backwards and falls flat!</span>",
-							   "<span class='userdanger'>[name] pounces on you!</span>")
+							"<span class='userdanger'>[name] pounces on you!</span>")
 
 		to_chat(target, "<span class='notice'>[name] begins climbing into the ventilation system...</span>")
 		QDEL_IN(src, 2 SECONDS)

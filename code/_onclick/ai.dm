@@ -140,7 +140,7 @@
 /mob/living/silicon/ai/AltClickOn(atom/A)
 	A.AIAltClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
-    A.AIMiddleClick(src)
+	A.AIMiddleClick(src)
 
 
 // DEFAULT PROCS TO OVERRIDE
