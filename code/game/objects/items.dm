@@ -172,7 +172,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	QDEL_LIST(actions)
+	QDEL_LIST_CONTENTS(actions)
 	master = null
 	return ..()
 

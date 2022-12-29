@@ -270,6 +270,6 @@ SUBSYSTEM_DEF(shuttle)
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/C = V
 		C.update_hidden_docking_ports(remove_images, add_images)
 
-	QDEL_LIST(remove_images)
+	QDEL_LIST_CONTENTS(remove_images)
 
 #undef CALL_SHUTTLE_REASON_LENGTH
