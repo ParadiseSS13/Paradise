@@ -454,8 +454,8 @@
 	lying_prev = 0
 
 /obj/machinery/disco/proc/dance_over()
-	QDEL_LIST(spotlights)
-	QDEL_LIST(sparkles)
+	QDEL_LIST_CONTENTS(spotlights)
+	QDEL_LIST_CONTENTS(sparkles)
 	for(var/mob/living/L in rangers)
 		if(!L || !L.client)
 			continue

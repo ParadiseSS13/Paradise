@@ -348,7 +348,7 @@
 
 /obj/machinery/chem_dispenser/soda/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -360,7 +360,7 @@
 
 /obj/machinery/chem_dispenser/soda/upgraded/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -384,7 +384,7 @@
 
 /obj/machinery/chem_dispenser/beer/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -396,7 +396,7 @@
 
 /obj/machinery/chem_dispenser/beer/upgraded/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)

@@ -98,7 +98,7 @@
 		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
-	QDEL_LIST(blueprint_data)
+	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	..()
 
