@@ -190,10 +190,14 @@
 	if(!length(contents))
 		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
 		return
-	to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
+	var/had_anything = FALSE
 	for(var/obj/item/O in contents)
-		seedify(O, 1)
+		had_anything |= seedify(O, 1)
 	hide_from_all()
+	if(had_anything)
+		to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
+	else
+		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
 	playsound(user, "sound/machines/ding.ogg", 25)
 
 /obj/item/storage/bag/plants/portaseeder/AltClick(mob/user)
