@@ -208,7 +208,7 @@ SUBSYSTEM_DEF(economy)
 		request_list += order //submit a request but do not finalize it
 		return TRUE
 
-	if(order.requires_head_approval || order.requires_qm_approval)
+	if(order.requires_head_approval || order.requires_cargo_approval)
 		return TRUE
 
 	//if purchaser has already paid it means it's fully approved, finalize order
