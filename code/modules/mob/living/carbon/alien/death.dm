@@ -50,6 +50,14 @@
 /mob/living/carbon/alien/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
+
+	if(stat == DEAD && gibbed)
+		for(var/mob/living/mob_in_stomach in stomach_contents)
+			mob_in_stomach.forceMove(loc)
+			LAZYREMOVE(stomach_contents, mob_in_stomach)
+			if(prob(90))
+				step(mob_in_stomach, pick(GLOB.alldirs))
+
 	if(!.)
 		return FALSE
 	if(healths)

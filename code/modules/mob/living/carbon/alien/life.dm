@@ -40,3 +40,13 @@
 	if(!.) //if the mob isn't on fire anymore
 		return
 	adjust_bodytemperature(BODYTEMP_HEATING_MAX) //If you're on fire, you heat up!
+
+/mob/living/carbon/alien/handle_stomach(times_fired)
+	for(var/thing in stomach_contents)
+		var/mob/living/M = thing
+		if(M.loc != src)
+			LAZYREMOVE(stomach_contents, M)
+			continue
+		if(stat != DEAD && times_fired % 3 == 1)
+			M.adjustBruteLoss(5)
+			adjust_nutrition(10)
