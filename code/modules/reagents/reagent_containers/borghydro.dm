@@ -14,13 +14,23 @@
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
-
+	var/choosen_reagent = "salglu_solution"
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone")
-	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin", "hydrocodone")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "spaceacillin", "charcoal")
+	var/static/list/reagent_icons = list("salglu_solution" = image(icon = 'icons/goonstation/objects/iv.dmi', icon_state = "ivbag"),
+							"epinephrine" = image(icon = 'icons/obj/hypo.dmi', icon_state = "autoinjector"),
+							"spaceacillin" = image(icon = 'icons/obj/decals.dmi', icon_state = "bio"),
+							"charcoal" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill11"),
+							"hydrocodone" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bottle19"),
+							"styptic_powder" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bandaid_brute"),
+							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
+							"sal_acid" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill4"),
+							"syndicate_nanites" = image(icon = 'icons/obj/decals.dmi', icon_state = "greencross"),
+							"potass_iodide" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill17"))
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
+	choosen_reagent = "styptic_powder"
 
 /obj/item/reagent_containers/borghypo/crisis
 	reagent_ids = list("salglu_solution", "epinephrine", "sal_acid")
@@ -33,6 +43,7 @@
 	recharge_time = 2
 	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone")
 	bypass_protection = 1
+	choosen_reagent = "syndicate_nanites"
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	. = ..()
@@ -93,21 +104,45 @@
 
 		R.add_reagent(M)
 		if(M.reagents)
-			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagent_ids[mode]]
+			var/datum/reagent/injected = GLOB.chemical_reagents_list[choosen_reagent]
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 
-/obj/item/reagent_containers/borghypo/attack_self(mob/user)
-	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
-	mode++
-	if(mode > reagent_list.len)
-		mode = 1
+/obj/item/reagent_containers/borghypo/proc/get_radial_contents()
+	return reagent_icons & reagent_ids
+
+/obj/item/reagent_containers/borghypo/attack_self(mob/user) // This is the only way I could get this working, for the love of god don't let this be merged while THIS exists
+	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
+	var/selected_reagent = show_radial_menu(user, src, get_radial_contents())
+	if(!selected_reagent)
+		return
+	to_chat(user, "<span class='notice'>Synthesizer is now producing [selected_reagent].</span>")
+	switch(selected_reagent)
+		if("salglu_solution")
+			mode = 1
+		if("epinephrine")
+			mode = 2
+		if("hydrocodone")
+			mode = 3
+		if("spaceacillin")
+			mode = 4
+		if("charcoal")
+			mode = 5
+		if("styptic_powder")
+			mode = 1
+		if("sal_acid")
+			mode = 3
+		if("syndicate_nanites")
+			mode = 1
+		if("potass_iodide")
+			mode = 2
 
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
-	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
+	var/datum/reagent/R = GLOB.chemical_reagents_list[selected_reagent]
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
+	choosen_reagent = selected_reagent
 	return
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)

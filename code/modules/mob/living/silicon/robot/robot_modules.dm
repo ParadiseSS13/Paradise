@@ -487,7 +487,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/reagent_scanner/adv,
-		/obj/item/rsf/cyborg,
+		/obj/item/rsf,
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
@@ -499,8 +499,6 @@
 		/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
 	)
 
-/obj/item/rsf/cyborg
-	matter = 30
 
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
 /obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
