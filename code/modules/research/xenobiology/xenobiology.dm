@@ -184,35 +184,31 @@
 	if(being_used || !ismob(M))
 		return
 	if(!isanimal(M) && !ismonkeybasic(M)) //работает только на животных и низших формах карбонов
-		to_chat(user, "<span class='warning'>[M] is not animal and lesser life form!</span>")
+		to_chat(user, "<span class='warning'>[M] is not animal nor lesser life form!</span>")
 		return ..()
 	if(M.stat)
 		to_chat(user, "<span class='warning'>[M] is dead!</span>")
 		return ..()
 
-	if (M.ckey)		//даем возможность получить разум симпл мобам
-		if (!isanimal(M))
-			to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
-			return
-		var/response = alert(M, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
+	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
+		var/mob/living/simple_animal/SM = M
+		if(SM.sentience_type != sentience_type)
+			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+			return ..()
+
+		var/response = alert(SM, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
 
 		if (response == "Нет")
-			to_chat(user, "<span class='warning'>[M.name] отказался от зелья!</span>")
+			to_chat(user, "<span class='warning'>[SM.name] отказался от зелья!</span>")
 			return
 		else
 			if(!src)
 				return
 			being_used = TRUE
 
-			var/mob/living/simple_animal/SM = M
-
-			if (SM.master_commander)
+			if(SM.master_commander)
 				to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
 				return
-
-			if(SM.sentience_type != sentience_type)
-				to_chat(user, "<span class='warning'>[SM] не разумное животное!.</span>")
-				return ..()
 
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
