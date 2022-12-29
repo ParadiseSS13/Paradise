@@ -112,8 +112,25 @@
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
-	desc = "BLAM!-brand non-foaming space cleaner!"
+	desc = "Your standard spritz cleaner bottle designed to keep ALL of your workplaces spotless."
+	spray_maxrange = 2
+	spray_currentrange = 2
+	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
+
+/obj/item/reagent_containers/spray/cleaner/attack_self(mob/user)
+	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
+	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
+	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+
+/obj/item/reagent_containers/spray/cleaner/advanced
+	name = "advanced space cleaner"
+	desc = "BLAM!-brand non-foaming space cleaner!"
+	icon_state = "adv_cleaner"
+	item_state = "adv_cleaner"
+	volume = 500
+	spray_maxrange = 3
+	spray_currentrange = 3
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
