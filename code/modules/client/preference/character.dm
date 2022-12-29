@@ -1828,8 +1828,7 @@
 		W.buckle_mob(character, TRUE)
 	else
 		if(!l_foot || !r_foot)
-			var/obj/item/cane/C = new /obj/item/cane
-			character.put_in_r_hand(C)
+			character.put_in_r_hand(new /obj/item/cane)
 
 	character.underwear = underwear
 	character.undershirt = undershirt
