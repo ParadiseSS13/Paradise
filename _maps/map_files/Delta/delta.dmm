@@ -365,12 +365,6 @@
 /area/medical/reception)
 "aaC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/crayon{
-	desc = "Crayon art.";
-	icon_state = "shitcuritys";
-	name = "Graffiti";
-	pixel_x = 32
-	},
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12981,9 +12975,9 @@
 /area/hallway/secondary/exit)
 "bAl" = (
 /obj/machinery/vending/sustenance{
-	contraband = list(/obj/item/kitchen/knife = 2);
+	contraband = list(/obj/item/kitchen/knife=2);
 	desc = "Какого этот автомат тут оказался?!";
-	products = list(/obj/item/reagent_containers/food/snacks/tofu = 12, /obj/item/reagent_containers/food/drinks/ice = 6, /obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
+	products = list(/obj/item/reagent_containers/food/snacks/tofu=12,/obj/item/reagent_containers/food/drinks/ice=6,/obj/item/reagent_containers/food/snacks/candy/candy_corn=6)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15480,12 +15474,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
-/obj/effect/decal/cleanable/crayon{
-	desc = "Crayon art.";
-	icon_state = "squish";
-	name = "Graffiti";
-	pixel_y = 32
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "bLo" = (
@@ -19643,7 +19631,7 @@
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
-	sensors = list("co2_sensor" = "Tank")
+	sensors = list("co2_sensor"="Tank")
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -34033,7 +34021,7 @@
 	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -39809,7 +39797,7 @@
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
-	sensors = list("o2_sensor" = "Tank")
+	sensors = list("o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -43047,7 +43035,7 @@
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
-	sensors = list("n2_sensor" = "Tank")
+	sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -44334,13 +44322,14 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/disposalpipe/junction{
+	dir = 4;
+	icon_state = "pipe-j2";
+	tag = "icon-pipe-j2 (EAST)"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "dVB" = (
@@ -47433,10 +47422,9 @@
 /area/medical/sleeper)
 "err" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/mineral_door/wood,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "erJ" = (
@@ -48521,13 +48509,13 @@
 "eEb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
-	armor = list("melee" = 60, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100);
+	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"rad"=100,"fire"=70,"acid"=100);
 	dir = 2;
 	name = "Secure Armory";
 	req_access_txt = "1"
 	},
 /obj/machinery/door/window/brigdoor{
-	armor = list("melee" = 60, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100);
+	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"rad"=100,"fire"=70,"acid"=100);
 	dir = 1;
 	name = "Secure Armory";
 	req_access_txt = "3"
@@ -49304,7 +49292,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor" = "Tank")
+	sensors = list("air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -55793,18 +55781,6 @@
 	tag = "icon-whitepurple (NORTH)"
 	},
 /area/toxins/lab)
-"gjW" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	name = "north bump";
-	pixel_y = 26
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/tourist)
 "gkk" = (
 /obj/structure/transit_tube{
 	icon_state = "D-NW";
@@ -64943,7 +64919,7 @@
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
-	sensors = list("tox_sensor" = "Tank")
+	sensors = list("tox_sensor"="Tank")
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -71384,7 +71360,7 @@
 /area/security/lobby)
 "jIc" = (
 /obj/machinery/camera{
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50);
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber North";
 	network = list("Toxins","Research","SS13")
 	},
@@ -73007,7 +72983,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "mix_sensor" = "Gas Mix Tank")
+	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","mix_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -73056,6 +73032,19 @@
 	icon_state = "dark"
 	},
 /area/toxins/lab)
+"kcW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 26
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
 "kdd" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -74644,6 +74633,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -78078,7 +78072,7 @@
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
-	sensors = list("n2o_sensor" = "Tank")
+	sensors = list("n2o_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -85581,7 +85575,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/door/window/brigdoor/northleft{
-	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100);
+	armor = list("melee"=85,"bullet"=20,"laser"=0,"energy"=0,"bomb"=60,"bio"=100,"rad"=100,"fire"=99,"acid"=100);
 	damage_deflection = 21
 	},
 /obj/machinery/atmospherics/pipe/simple/insulated{
@@ -89823,7 +89817,7 @@
 /area/crew_quarters/locker)
 "nRD" = (
 /obj/machinery/vending/dinnerware{
-	products = list(/obj/item/storage/bag/tray = 1, /obj/item/kitchen/utensil/fork = 2, /obj/item/kitchen/knife = 0, /obj/item/kitchen/rollingpin = 0, /obj/item/kitchen/sushimat = 1, /obj/item/reagent_containers/food/drinks/drinkingglass = 2, /obj/item/clothing/suit/chef/classic = 1, /obj/item/storage/belt/chef = 0, /obj/item/reagent_containers/food/condiment/pack/ketchup = 1, /obj/item/reagent_containers/food/condiment/pack/hotsauce = 0, /obj/item/reagent_containers/food/condiment/saltshaker = 1, /obj/item/reagent_containers/food/condiment/peppermill = 2, /obj/item/whetstone = 1, /obj/item/mixing_bowl = 3, /obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 0, /obj/item/kitchen/mould/bean = 0, /obj/item/kitchen/mould/ball = 1, /obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 0, /obj/item/kitchen/mould/coin = 0, /obj/item/kitchen/mould/loli = 1, /obj/item/kitchen/cutter = 0, /obj/item/eftpos = 1)
+	products = list(/obj/item/storage/bag/tray=1,/obj/item/kitchen/utensil/fork=2,/obj/item/kitchen/knife=0,/obj/item/kitchen/rollingpin=0,/obj/item/kitchen/sushimat=1,/obj/item/reagent_containers/food/drinks/drinkingglass=2,/obj/item/clothing/suit/chef/classic=1,/obj/item/storage/belt/chef=0,/obj/item/reagent_containers/food/condiment/pack/ketchup=1,/obj/item/reagent_containers/food/condiment/pack/hotsauce=0,/obj/item/reagent_containers/food/condiment/saltshaker=1,/obj/item/reagent_containers/food/condiment/peppermill=2,/obj/item/whetstone=1,/obj/item/mixing_bowl=3,/obj/item/kitchen/mould/bear=1,/obj/item/kitchen/mould/worm=0,/obj/item/kitchen/mould/bean=0,/obj/item/kitchen/mould/ball=1,/obj/item/kitchen/mould/cane=1,/obj/item/kitchen/mould/cash=0,/obj/item/kitchen/mould/coin=0,/obj/item/kitchen/mould/loli=1,/obj/item/kitchen/cutter=0,/obj/item/eftpos=1)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
@@ -89834,7 +89828,7 @@
 	input_tag = "mix_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
-	sensors = list("mix_sensor" = "Tank")
+	sensors = list("mix_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -93384,7 +93378,7 @@
 "oFK" = (
 /obj/item/radio/beacon,
 /obj/machinery/camera{
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50);
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber East";
 	dir = 4;
 	network = list("Toxins","Research","SS13")
@@ -107724,7 +107718,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50);
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber West";
 	dir = 4;
 	network = list("Toxins","Research","SS13")
@@ -109330,29 +109324,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
-"rYz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/crayon{
-	desc = "Crayon art.";
-	icon_state = "skrek";
-	name = "Graffiti";
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
-/area/maintenance/tourist)
 "rYG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -116219,9 +116190,6 @@
 	icon_state = "neutralfull"
 	},
 /area/engine/engineering)
-"tzQ" = (
-/turf/space,
-/area/maintenance/asmaint)
 "tzR" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -123790,7 +123758,7 @@
 /obj/machinery/computer/general_air_control{
 	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor" = "Burn Mix")
+	sensors = list("burn_sensor"="Burn Mix")
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -126859,7 +126827,7 @@
 /area/maintenance/consarea_virology)
 "vOV" = (
 /obj/machinery/camera{
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50);
+	armor = list("melee"=50,"bullet"=20,"laser"=20,"energy"=20,"bomb"=100,"bio"=0,"rad"=0,"fire"=90,"acid"=50);
 	c_tag = "Research Toxins Test Chamber South";
 	dir = 1;
 	network = list("Toxins","Research","SS13")
@@ -131075,19 +131043,6 @@
 	icon_state = "neutralfull"
 	},
 /area/security/checkpoint/south)
-"wKo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/crayon{
-	desc = "Crayon art.";
-	icon_state = "brokenheart";
-	name = "Graffiti";
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
-	},
-/area/maintenance/tourist)
 "wKp" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -155130,7 +155085,7 @@ uFo
 jBv
 wUr
 cHe
-wKo
+utb
 bKT
 hDQ
 wUr
@@ -155899,7 +155854,7 @@ xMC
 geX
 uFo
 qan
-rYz
+fSK
 deL
 wqc
 bTg
@@ -157440,7 +157395,7 @@ xrC
 nWY
 tjr
 cTi
-gjW
+kcW
 okh
 wLd
 hLZ
@@ -167267,7 +167222,7 @@ aaq
 aaq
 aaq
 aaq
-tzQ
+aaq
 aaq
 aaq
 aaq
