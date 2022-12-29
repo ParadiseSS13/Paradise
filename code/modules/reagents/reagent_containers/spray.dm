@@ -148,6 +148,9 @@
 /obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
+	spray_maxrange = 3
+	spray_currentrange = 3
+	amount_per_transfer_from_this = 5
 	volume = 50
 	list_reagents = list("cleaner" = 50)
 
