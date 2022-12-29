@@ -648,6 +648,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
 		playsound(owner, "bonebreak", 150, 1)
+		if(owner.reagents.has_reagent("morphine"))
+			return
+		if(owner.reagents.has_reagent("hydrocodone"))
+			return
+		if(owner.stat == UNCONSCIOUS)
+			return
 		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
 			owner.emote("scream")
 
