@@ -41,13 +41,13 @@
 		else if (href_list["interaction"] == "scratch")
 			if(((!istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && H.Adjacent(P))
 				if(H.zone_selected == "head" && !((P.dna.species.name == "Machine") || (P.dna.species.name == "Grey") || (P.dna.species.name == "Unathi")))
-					H.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ют")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ют")] голову")] [P].")
+					H.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ут")] голову")] [P].")
 					if (istype(P.loc, /obj/structure/closet))
-						P.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ют")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ют")] голову")] [P].")
+						P.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")] за ухом", "чеш[pluralize_ru(H.gender,"ет","ут")] голову")] [P].")
 				else
-					H.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ют")]")] [P].")
+					H.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")]")] [P].")
 					if (istype(P.loc, /obj/structure/closet))
-						P.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ют")]")] [P].")
+						P.custom_emote(message = "[pick("чеш[pluralize_ru(H.gender,"ет","ут")]")] [P].")
 
 		else if (href_list["interaction"] == "give")
 			if(H.Adjacent(P))
