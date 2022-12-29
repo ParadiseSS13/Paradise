@@ -20,7 +20,7 @@
 
 
 /obj/item/camera_assembly/Destroy()
-	QDEL_LIST(upgrades)
+	QDEL_LIST_CONTENTS(upgrades)
 	return ..()
 
 /obj/item/camera_assembly/examine(mob/user)

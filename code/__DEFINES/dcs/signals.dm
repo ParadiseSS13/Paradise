@@ -344,6 +344,8 @@
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
 ///from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_THROW "mob_throw"
+///called when a user willingly drops something (i.e. keybind, or UI action)
+#define COMSIG_MOB_WILLINGLY_DROP "mob_willingly_drop"
 ///from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_EXAMINATE "mob_examinate"
 ///from base of /mob/update_sight(): ()

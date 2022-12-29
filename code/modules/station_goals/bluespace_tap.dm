@@ -255,7 +255,7 @@
 		connect_to_network()
 
 /obj/machinery/power/bluespace_tap/Destroy()
-	QDEL_LIST(fillers)
+	QDEL_LIST_CONTENTS(fillers)
 	return ..()
 
 /**

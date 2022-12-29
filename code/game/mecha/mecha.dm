@@ -640,7 +640,7 @@
 	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
+	QDEL_LIST_CONTENTS(trackers)
 	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()

@@ -34,7 +34,7 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	QDEL_LIST(beakers)
+	QDEL_LIST_CONTENTS(beakers)
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)

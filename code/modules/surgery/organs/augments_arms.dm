@@ -45,6 +45,9 @@
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	RegisterSignal(M, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_to_linked_implant))
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -61,6 +64,16 @@
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
+
+/obj/item/organ/internal/cyberimp/arm/proc/retract_to_linked_implant()
+	SIGNAL_HANDLER
+	if(holder && holder == owner.get_active_hand())
+		INVOKE_ASYNC(src, PROC_REF(retract_and_show_radial))
+
+/obj/item/organ/internal/cyberimp/arm/proc/retract_and_show_radial()
+	Retract()
+	if(length(items_list) != 1)
+		radial_menu(owner)
 
 /obj/item/organ/internal/cyberimp/arm/proc/check_cuffs()
 	if(owner.handcuffed)
@@ -253,7 +266,7 @@
 	..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
-		F.I = src
+		F.implant = src
 
 /obj/item/organ/internal/cyberimp/arm/baton
 	name = "arm electrification implant"
@@ -271,7 +284,7 @@
 	..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
-		F.I = src
+		F.implant = src
 
 /obj/item/organ/internal/cyberimp/arm/combat/centcom
 	name = "NT specops cybernetics implant"
