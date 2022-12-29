@@ -83,7 +83,7 @@
 /datum/antagonist/changeling/Destroy()
 	SSticker.mode.changelings -= owner
 	chosen_sting = null
-	QDEL_LIST(acquired_powers)
+	QDEL_LIST_CONTENTS(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 

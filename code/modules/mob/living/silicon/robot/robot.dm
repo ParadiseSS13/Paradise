@@ -1473,7 +1473,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		overlays += "[base_icon]-shield"
 
 
-/mob/living/silicon/robot/extinguish_light()
+/mob/living/silicon/robot/extinguish_light(force = FALSE)
 	update_headlamp(1, 150)
 
 /mob/living/silicon/robot/rejuvenate()
