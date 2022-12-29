@@ -1826,6 +1826,10 @@
 	if(!l_foot && !r_foot)
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
+	else
+		if(!l_foot || !r_foot)
+			var/obj/item/cane/C = new /obj/item/cane
+			character.put_in_r_hand(C)
 
 	character.underwear = underwear
 	character.undershirt = undershirt
