@@ -267,7 +267,7 @@
 		V.on = power
 		V.releasing = direction
 		V.external_pressure_bound = pressure
-		V.update_icon()
+		V.update_icon(UPDATE_ICON_STATE)
 
 
 //this is called to set the appropriate door state at the end of a cycling process, or for the exterior buttons

@@ -408,7 +408,7 @@
 				S.scrub_N2O = FALSE
 				S.scrubbing = TRUE
 				S.widenet = TRUE
-				S.update_icon()
+				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 				if(P.stat & (NOPOWER|BROKEN))
@@ -416,7 +416,7 @@
 				P.on = TRUE
 				P.pressure_checks = TRUE
 				P.internal_pressure_bound = ONE_ATMOSPHERE
-				P.update_icon()
+				P.update_icon(UPDATE_ICON_STATE)
 
 
 		if(AALARM_MODE_CONTAMINATED)
@@ -429,7 +429,7 @@
 				S.scrub_N2O = TRUE
 				S.scrubbing = TRUE
 				S.widenet = TRUE
-				S.update_icon()
+				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 				if(P.stat & (NOPOWER|BROKEN))
@@ -437,7 +437,7 @@
 				P.on = TRUE
 				P.pressure_checks = TRUE
 				P.external_pressure_bound = ONE_ATMOSPHERE
-				P.update_icon()
+				P.update_icon(UPDATE_ICON_STATE)
 
 
 		if(AALARM_MODE_VENTING)
@@ -447,7 +447,7 @@
 				S.on = TRUE
 				S.widenet = FALSE
 				S.scrubbing = FALSE
-				S.update_icon()
+				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 				if(P.stat & (NOPOWER|BROKEN))
@@ -455,7 +455,7 @@
 				P.on = TRUE
 				P.pressure_checks = TRUE
 				P.external_pressure_bound = ONE_ATMOSPHERE * 2
-				P.update_icon()
+				P.update_icon(UPDATE_ICON_STATE)
 
 
 		if(AALARM_MODE_REFILL)
@@ -468,7 +468,7 @@
 				S.scrub_N2O = FALSE
 				S.scrubbing = TRUE
 				S.widenet = FALSE
-				S.update_icon()
+				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 				if(P.stat & (NOPOWER|BROKEN))
@@ -476,7 +476,7 @@
 				P.on = TRUE
 				P.pressure_checks = TRUE
 				P.external_pressure_bound = ONE_ATMOSPHERE * 3
-				P.update_icon()
+				P.update_icon(UPDATE_ICON_STATE)
 
 
 		if(AALARM_MODE_PANIC, AALARM_MODE_REPLACEMENT)
@@ -486,13 +486,13 @@
 				S.on = TRUE
 				S.widenet = TRUE
 				S.scrubbing = FALSE
-				S.update_icon()
+				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = FALSE
-				P.update_icon()
+				P.update_icon(UPDATE_ICON_STATE)
 
 
 		if(AALARM_MODE_SIPHON)
@@ -502,13 +502,13 @@
 				S.on = TRUE
 				S.widenet = FALSE
 				S.scrubbing = FALSE
-				S.update_icon()
+				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = FALSE
-				P.update_icon()
+				P.update_icon(UPDATE_ICON_STATE)
 
 
 		if(AALARM_MODE_OFF)
@@ -516,13 +516,13 @@
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
 				S.on = FALSE
-				S.update_icon()
+				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 				if(P.stat & (NOPOWER|BROKEN))
 					continue
 				P.on = FALSE
-				P.update_icon()
+				P.update_icon(UPDATE_ICON_STATE)
 
 
 		if(AALARM_MODE_FLOOD)
@@ -530,7 +530,7 @@
 				if(S.stat & (NOPOWER|BROKEN))
 					continue
 				S.on = FALSE
-				S.update_icon()
+				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
 				if(P.stat & (NOPOWER|BROKEN))
@@ -538,7 +538,7 @@
 				P.on = TRUE
 				P.pressure_checks = 2
 				P.internal_pressure_bound = 0
-				P.update_icon()
+				P.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/alarm/proc/apply_danger_level()
 	var/new_area_danger_level = ATMOS_ALARM_NONE
@@ -880,7 +880,7 @@
 							if("direction")
 								V.releasing = val
 
-						V.update_icon()
+						V.update_icon(UPDATE_ICON_STATE)
 
 					// Its a scrubber. Do the same but ever so slightly similar.
 					else if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
@@ -907,7 +907,7 @@
 							if("scrubbing")
 								S.scrubbing = val
 
-						S.update_icon()
+						S.update_icon(UPDATE_ICON_STATE)
 
 				if("set_threshold")
 					var/env = params["env"]
