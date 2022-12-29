@@ -236,3 +236,40 @@
 	. = ..()
 	if(magpulse)
 		. += "<span class='notice'>It would be hard to take these off without relaxing your grip first.</span>"//theoretically this message should only be seen by the wearer when the claws are equipped.
+
+/obj/item/storage/backpack/alien
+	name = "alien backpack"
+	desc = "Alien backpack, made from synthetic fiber."
+	icon_state = "backpack_gold_vox"
+	item_state = "backpack_gold_vox"
+	var/list/species_restricted = list("Vox")
+
+/obj/item/storage/backpack/alien/satchel
+	name = "alien satchel"
+	icon_state = "satchel_gold_vox"
+	item_state = "satchel_gold_vox"
+
+/obj/item/storage/backpack/alien/duffel
+	name = "alien duffelbag"
+	icon_state = "duffel_gold_vox"
+	item_state = "duffel_gold_vox"
+	max_combined_w_class = 30
+	slowdown = 1
+
+/obj/item/storage/backpack/alien/mob_can_equip(M as mob, slot)
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
+	if(!..())
+		return 0
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
+		return 1
+
+	if(species_restricted && istype(M,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+
+		if(H.dna.species)
+			if(!(H.dna.species.name in species_restricted))
+				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
+				return 0
+	return 1

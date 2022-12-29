@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(vox_raiders_radio_freq, PUBLIC_LOW_FREQ + rand(0, 8) * 2) //Rand
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/vox(src), slot_shoes)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow/vox(src), slot_gloves)
 	equip_to_slot_or_del(new /obj/item/storage/belt/utility/full(src), slot_belt)
-	equip_to_slot_or_del(new /obj/item/storage/backpack(src), slot_back)
+	equip_to_slot_or_del(new /obj/item/storage/backpack/alien/satchel(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/flashlight(src), slot_r_store)
 	equip_to_slot_or_del(new /obj/item/melee/classic_baton/telescopic(src), slot_l_store)
 	equip_to_slot_or_del(new /obj/item/tank/internals/nitrogen(src), slot_in_backpack)
