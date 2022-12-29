@@ -152,8 +152,8 @@
 	id = /obj/item/card/id/bartender
 	pda = /obj/item/pda/bar
 	backpack_contents = list(
-		/obj/item/toy/russian_revolver = 1
-	)
+		/obj/item/toy/russian_revolver = 1,
+		/obj/item/eftpos=1)
 
 /datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
