@@ -40,6 +40,12 @@
 				overcharged = TRUE
 				add_overlay("overcharge")
 
+//Check if the user is blind
+/obj/item/flash/proc/blind_check(mob/user)
+	if(user && !user.hasTrait("blind")) {
+		to_chat(user, "<span class='notice'>You do not feel anything from the [src] as you are blind.</span>")
+	}
+
 /obj/item/flash/screwdriver_act(mob/living/user, obj/item/I)
 	if(!can_overcharge)
 		return
