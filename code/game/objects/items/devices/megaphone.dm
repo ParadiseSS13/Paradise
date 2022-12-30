@@ -70,7 +70,7 @@
 	var/message_tts = message
 	message = replace_characters(message, list("+"))
 	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
-	for(var/obj/O in oview(14, get_turf(src)))
+	for(var/obj/O in range(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
 
 	for(var/mob/M in get_mobs_in_view(7, src))
