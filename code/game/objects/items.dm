@@ -613,7 +613,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
-		if(affecting?.receive_damage(7))
+		if(istype(affecting) && affecting.receive_damage(7))
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)

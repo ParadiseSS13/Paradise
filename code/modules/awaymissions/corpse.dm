@@ -225,7 +225,7 @@
 	H.undershirt = "Nude"
 	H.socks = "Nude"
 	var/obj/item/organ/external/head/D = H.get_organ("head")
-	if(D && istype(D))
+	if(istype(D))
 		if(hair_style)
 			D.h_style = hair_style
 		else

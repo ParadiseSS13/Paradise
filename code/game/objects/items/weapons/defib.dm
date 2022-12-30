@@ -505,7 +505,7 @@
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Subject is husked.</span>")
 						else if (H.blood_volume < BLOOD_VOLUME_SURVIVE)
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: Patient blood volume critically low.</span>")
-						else if (!brain)  // so things like headless clings don't get outed
+						else if(!brain)  // so things like headless clings don't get outed
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed: No brain detected within patient.</span>")
 						else if(ghost)
 							if(!ghost.can_reenter_corpse) // DNR or AntagHUD
@@ -649,7 +649,7 @@
 							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed: Heart tissue damage beyond point of no return for defibrillation.</span>")
 						else if(total_burn >= 180 || total_brute >= 180)
 							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed: Severe tissue damage detected.</span>")
-						else if (!brain)  // so things like headless clings don't get outed
+						else if(!brain)  // so things like headless clings don't get outed
 							user.visible_message("<span class='boldnotice'>[user] buzzes: Resuscitation failed: No brain detected within patient.</span>")
 						else if(ghost)
 							user.visible_message("<span class='notice'>[user] buzzes: Resuscitation failed: Patient's brain is unresponsive. Further attempts may succeed.</span>")
