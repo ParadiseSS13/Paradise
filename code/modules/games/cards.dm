@@ -462,8 +462,7 @@
 		return
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
-	var/picked_card_loc = src.loc
-	if(picked_card_loc != user) // Don't want people teleporting cards
+	if(loc != user) // Don't want people teleporting cards
 		return
 	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
 	pickedcard = null
@@ -502,8 +501,7 @@
 		if(!discarding)
 			continue
 
-		var/picked_card_loc = src.loc
-		if(picked_card_loc != user) // Don't want people teleporting cards
+		if(loc != user) // Don't want people teleporting cards
 			return
 
 		if(QDELETED(src))
