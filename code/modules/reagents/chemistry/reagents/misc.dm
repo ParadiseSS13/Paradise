@@ -355,7 +355,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(!head_organ)
+		if(!istype(head_organ))
 			return ..()
 		head_organ.facial_colour = rand_hex_color()
 		head_organ.sec_facial_colour = rand_hex_color()
@@ -378,7 +378,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(!head_organ)
+		if(!istype(head_organ))
 			return ..()
 		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
 		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
@@ -399,7 +399,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(!head_organ)
+		if(!istype(head_organ))
 			return ..()
 		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
 		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]

@@ -31,7 +31,7 @@ BONUS
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-			if(!head_organ)
+			if(!istype(head_organ))
 				return
 			switch(A.stage)
 				if(1, 2)

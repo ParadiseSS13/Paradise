@@ -108,7 +108,7 @@
 
 		var/obj/item/organ/external/head/head = H.get_organ("head")
 
-		if(QDELETED(head))
+		if(QDELETED(head) || !istype(head))
 			blade_status = GUILLOTINE_BLADE_DROPPED
 			icon_state = "guillotine"
 			return

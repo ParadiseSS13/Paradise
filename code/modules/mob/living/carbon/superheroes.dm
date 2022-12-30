@@ -220,7 +220,7 @@
 	SSticker.mode.greyshirts += target.mind
 	target.set_species(/datum/species/human)
 	var/obj/item/organ/external/head/head_organ = target.get_organ("head")
-	if(head_organ)
+	if(istype(head_organ))
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
 	target.s_tone = 35
