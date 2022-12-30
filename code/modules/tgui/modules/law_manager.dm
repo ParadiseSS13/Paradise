@@ -129,7 +129,7 @@
 				var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (is_admin(usr) ? admin_laws : player_laws)
 				if(ALs)
 					log_and_message_admins("has transfered the [ALs.name] laws to [owner].")
-					ALs.sync(owner, 0)
+					ALs.sync(owner, 0, TRUE)
 					current_view = 0
 
 		if("notify_laws")
