@@ -198,7 +198,7 @@
 		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
 	playsound(user, "sound/machines/ding.ogg", 25)
 
-/obj/item/storage/bag/plants/portaseeder/AltClick(mob/user)
+/obj/item/storage/bag/plants/portaseeder/AltShiftClick(mob/user)
 	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
 		process_plants(user)
 
