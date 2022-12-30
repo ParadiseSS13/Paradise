@@ -59,7 +59,7 @@
 	grow.Grant(H)
 	var/datum/action/innate/slimecolor/recolor = new()
 	recolor.Grant(H)
-	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
+	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
 
 
@@ -151,8 +151,8 @@
 	var/chosen_limb = missing_limbs[limb_select]
 
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
-	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
-		if(H.incapacitated(extra_checks = list(CALLBACK(H, /mob/living.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+		if(H.incapacitated(extra_checks = list(CALLBACK(H, TYPE_PROC_REF(/mob/living, IsStunned))), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
 			return
 
@@ -181,7 +181,7 @@
 		// Grah this line will leave a "not used" warning, in spite of the fact that the new() proc WILL do the thing.
 		// Bothersome.
 		var/obj/item/organ/external/new_limb = new limb_path(H)
-		new_limb.open = 0 // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
+		new_limb.open = ORGAN_CLOSED // This is just so that the compiler won't think that new_limb is unused, because the compiler is horribly stupid.
 		H.adjustBruteLoss(stored_brute)
 		H.adjustFireLoss(stored_burn)
 		H.update_body()

@@ -69,7 +69,7 @@
 /datum/theft_objective/ai/check_special_completion(obj/item/aicard/C)
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
-			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.
+			if(isAI(A) && A.stat != 2) //See if any AI's are alive inside that card.
 				return 1
 	return 0
 
@@ -129,12 +129,6 @@
 	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
-
-/datum/theft_objective/ablative
-	name = "an ablative trenchcoat"
-	typepath = /obj/item/clothing/suit/hooded/ablative
-	protected_jobs = list("Head of Security", "Warden")
-	location_override = "the Armory"
 
 /datum/theft_objective/krav
 	name = "the warden's krav maga martial arts gloves"

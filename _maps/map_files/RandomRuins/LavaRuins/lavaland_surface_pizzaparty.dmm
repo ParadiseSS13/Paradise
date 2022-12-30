@@ -98,7 +98,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "n" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
 	nitrogen = 23;
@@ -163,7 +163,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "u" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
@@ -204,7 +204,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "z" = (
 /obj/structure/table/wood,
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /obj/item/a_gift,
 /turf/simulated/floor/wood{
 	nitrogen = 23;
@@ -295,7 +295,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "J" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	nitrogen = 23;

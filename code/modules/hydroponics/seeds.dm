@@ -70,7 +70,7 @@
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
 
 /obj/item/seeds/Destroy()
-	QDEL_LIST(genes)
+	QDEL_LIST_CONTENTS(genes)
 	return ..()
 
 /obj/item/seeds/proc/Copy()
@@ -327,7 +327,7 @@
 			to_chat(user, "<span class='notice'>[text]</span>")
 
 		return
-	if(istype(O, /obj/item/pen))
+	if(is_pen(O))
 		variant_prompt(user)
 		return
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up

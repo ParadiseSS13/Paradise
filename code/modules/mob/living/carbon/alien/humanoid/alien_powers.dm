@@ -13,7 +13,7 @@ Doesn't work on other aliens/AI.*/
 	else if(X && getPlasma() < X)
 		to_chat(src, "<span class='noticealien'>Not enough plasma stored.</span>")
 		return 0
-	else if(Y && (!isturf(src.loc) || istype(src.loc, /turf/space)))
+	else if(Y && (!isturf(src.loc) || isspaceturf(src.loc)))
 		to_chat(src, "<span class='noticealien'>You can't place that here!</span>")
 		return 0
 	else	return 1
@@ -152,17 +152,17 @@ Doesn't work on other aliens/AI.*/
 			visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
 
 /mob/living/carbon/proc/getPlasma()
- 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
- 	if(!vessel) return 0
- 	return vessel.stored_plasma
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	if(!vessel) return 0
+	return vessel.stored_plasma
 
 
 /mob/living/carbon/proc/adjustPlasma(amount)
- 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
- 	if(!vessel) return
- 	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
- 	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
- 	return 1
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	if(!vessel) return
+	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
+	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
+	return 1
 
 /mob/living/carbon/alien/adjustPlasma(amount)
 	. = ..()

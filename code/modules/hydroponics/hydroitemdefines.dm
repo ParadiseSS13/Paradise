@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
-	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
 
 // *************************************
 // Hydroponics Tools
@@ -65,7 +65,7 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50)
+	materials = list(MAT_METAL = 200)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -200,7 +200,7 @@
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
-	sharp = extend
+	set_sharpness(extend)
 	update_icon(UPDATE_ICON_STATE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

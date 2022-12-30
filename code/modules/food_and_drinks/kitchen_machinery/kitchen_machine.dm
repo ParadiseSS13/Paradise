@@ -1,3 +1,5 @@
+#define NO_DIRT 0
+#define MAX_DIRT 100
 
 /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
@@ -10,8 +12,7 @@
 	active_power_usage = 100
 	container_type = OPENCONTAINER
 	var/operating = FALSE // Is it on?
-	var/dirty = 0 // = {0..100} Does it need cleaning?
-	var/broken = 0 // ={0,1,2} How broken is it???
+	var/dirty = NO_DIRT // = {0..100} Does it need cleaning?
 	var/efficiency = 0
 	var/list/cook_verbs = list("Cooking")
 	//Recipe & Item vars
@@ -20,9 +21,11 @@
 	//Icon states
 	var/off_icon
 	var/on_icon
-	var/broken_icon
 	var/dirty_icon
 	var/open_icon
+	///Sound used when starting and ending cooking
+	var/datum/looping_sound/kitchen/soundloop
+	var/soundloop_type
 
 /*******************
 *   Initialising
@@ -30,9 +33,15 @@
 
 /obj/machinery/kitchen_machine/Initialize(mapload)
 	. = ..()
+	if(soundloop_type)
+		soundloop = new soundloop_type(list(src), FALSE)
 	create_reagents(100)
 	reagents.set_reacting(FALSE)
 	init_lists()
+
+/obj/machinery/kitchen_machine/Destroy()
+	QDEL_NULL(soundloop)
+	return ..()
 
 /obj/machinery/kitchen_machine/proc/init_lists()
 	if(!GLOB.cooking_recipes[recipe_type])
@@ -62,57 +71,30 @@
 /obj/machinery/kitchen_machine/attackby(obj/item/O, mob/user, params)
 	if(operating)
 		return
-	if(!broken && dirty < 100)
+	if(dirty < MAX_DIRT)
 		if(default_deconstruction_screwdriver(user, open_icon, off_icon, O))
 			return
 		if(exchange_parts(user, O))
 			return
-	if(!broken && istype(O, /obj/item/wrench))
-		playsound(src, O.usesound, 50, 1)
-		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
-			return
-		else if(!anchored)
-			anchored = TRUE
-			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
-			return
 
 	default_deconstruction_crowbar(user, O)
 
-	if(broken > 0)
-		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
-			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
-				broken = 1 // Fix it a bit
-		else if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
-			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
-				icon_state = off_icon
-				broken = 0 // Fix it!
-				dirty = 0 // just to be sure
-				container_type = OPENCONTAINER
-		else
-			to_chat(user, "<span class='alert'>It's broken!</span>")
-			return 1
-	else if(dirty==100) // The machine is all dirty so can't be used!
+	if(dirty == MAX_DIRT) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
 			if(do_after(user, 20 * O.toolspeed, target = src))
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
-				dirty = 0 // It's clean!
-				broken = 0 // just to be sure
-				icon_state = off_icon
+				dirty = NO_DIRT
+				update_icon(UPDATE_ICON_STATE)
 				container_type = OPENCONTAINER
+				return TRUE
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
-			return 1
+			return TRUE
 	else if(is_type_in_list(O, GLOB.cooking_ingredients[recipe_type]) || istype(O, /obj/item/mixing_bowl))
-		if(contents.len>=max_n_of_items)
+		if(length(contents) >= max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
-			return 1
+			return TRUE
 		if(istype(O,/obj/item/stack))
 			var/obj/item/stack/S = O
 			if(S.get_amount() > 1)
@@ -125,37 +107,44 @@
 			add_item(O, user)
 	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
 		if(!O.reagents)
-			return 1
+			return TRUE
 		for(var/datum/reagent/R in O.reagents.reagent_list)
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
-				return 1
-		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
+				return TRUE
 	else if(istype(O,/obj/item/grab))
 		return special_attack(O, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
-		return 1
-	updateUsrDialog()
+		return TRUE
+
+/obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
+	if(operating)
+		return
+
+	I.play_tool_sound(src)
+	if(anchored)
+		to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
+	else
+		to_chat(user, "<span class='alert'>[src] is now secured.</span>")
+	anchored = !anchored
+	return TRUE
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_item())
-		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
-		//return 0
-	else
-		I.forceMove(src)
-		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+		to_chat(user, "<span class='notice'>[I] is stuck to your hand, you cannot put it in [src]</span>")
+		return
+
+	I.forceMove(src)
+	user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
-	return 0
-
-/obj/machinery/kitchen_machine/attack_hand(mob/user)
-	user.set_machine(src)
-	interact(user)
+	return FALSE
 
 /obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
 	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
-	return 0
+	return FALSE
 
 /********************
 *   Machine Menu	*
@@ -163,38 +152,34 @@
 
 /obj/machinery/kitchen_machine/proc/format_content_descs()
 	. = ""
-	var/list/items_counts = new
-	var/list/items_measures = new
-	var/list/items_measures_p = new
+	var/list/items_counts = list()
+	var/list/name_overrides = list()
 	for(var/obj/O in contents)
 		var/display_name = O.name
-		if(istype(O,/obj/item/reagent_containers/food/snacks/egg))
-			items_measures[display_name] = "egg"
-			items_measures_p[display_name] = "eggs"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/tofu))
-			items_measures[display_name] = "tofu chunk"
-			items_measures_p[display_name] = "tofu chunks"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/meat)) //any meat
-			items_measures[display_name] = "slab of meat"
-			items_measures_p[display_name] = "slabs of meat"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/donkpocket))
-			display_name = "Turnovers"
-			items_measures[display_name] = "turnover"
-			items_measures_p[display_name] = "turnovers"
-		if(istype(O,/obj/item/reagent_containers/food/snacks/carpmeat))
-			items_measures[display_name] = "fillet of meat"
-			items_measures_p[display_name] = "fillets of meat"
+		if(istype(O, /obj/item/reagent_containers/food))
+			var/obj/item/reagent_containers/food/food = O
+			if(!items_counts[display_name])
+				if(food.ingredient_name)
+					name_overrides[display_name] = food.ingredient_name
+				else
+					name_overrides[display_name] = display_name
+			else
+				if(food.ingredient_name_plural)
+					name_overrides[display_name] = food.ingredient_name_plural
+				else if(items_counts[display_name] == 1) // Must only add "s" once or you get stuff like "eggsssss"
+					name_overrides[display_name] = "[name_overrides[display_name]]s" //name_overrides[display_name] Will be set on the first time as the singular form
+
 		items_counts[display_name]++
 
 	for(var/O in items_counts)
 		var/N = items_counts[O]
-		if(!(O in items_measures))
-			. += {"<B>[capitalize(O)]:</B> [N] [lowertext(O)]\s<BR>"}
+		if(!(O in name_overrides))
+			. += {"<b>[capitalize(O)]:</b> [N] [lowertext(O)]\s<br>"}
 		else
 			if(N==1)
-				. += {"<B>[capitalize(O)]:</B> [N] [items_measures[O]]<BR>"}
+				. += {"<b>[capitalize(O)]:</b> [N] [name_overrides[O]]<br>"}
 			else
-				. += {"<B>[capitalize(O)]:</B> [N] [items_measures_p[O]]<BR>"}
+				. += {"<b>[capitalize(O)]:</b> [N] [name_overrides[O]]<br>"}
 
 	for(var/datum/reagent/R in reagents.reagent_list)
 		var/display_name = R.name
@@ -203,38 +188,7 @@
 		if(R.id == "frostoil")
 			display_name = "Coldsauce"
 
-		. += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
-
-
-/obj/machinery/kitchen_machine/interact(mob/user) // The microwave Menu
-	if(panel_open || !anchored)
-		return
-	var/dat = ""
-	if(broken > 0)
-		dat = {"<code>Bzzzzttttt</code>"}
-	else if(operating)
-		dat = {"<code>[pick(cook_verbs)] in progress!<BR>Please wait...!</code>"}
-	else if(dirty==100)
-		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
-	else
-		dat += format_content_descs()
-		if(dat)
-			dat = {"<b>Ingredients:</b><br>[dat]"}
-		else
-			dat = {"<B>[src] is empty</B><BR>"}
-
-		dat += {"<HR><BR>\
-<A href='?src=[UID()];action=cook'>Turn on!</A><BR>\
-<A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>\
-"}
-
-	var/datum/browser/popup = new(user, name, name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "[name]")
-	return
-
-
+		. += {"<b>[display_name]:</b> [R.volume] unit\s<br>"}
 
 /************************************
 *   Machine Menu Handling/Cooking	*
@@ -244,7 +198,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	start()
-	if(reagents.total_volume==0 && !(locate(/obj) in contents)) //dry run
+	if(!has_cookables()) //dry run
 		if(!wzhzhzh(10))
 			abort()
 			return
@@ -257,7 +211,7 @@
 		//This only runs if there is a single recipe source to be made and it is a failure (the machine was loaded with only 1 mixing bowl that results in failure OR was directly loaded with ingredients that results in failure).
 		//If there are multiple sources, this bit gets skipped.
 		dirty += 1
-		if(prob(max(10,dirty*5)))	//chance to get so dirty we require cleaning before next use
+		if(prob(max(10, dirty * 5) || has_extra_item()))	// 5% failure per failed recipee, maxed at 10%, or it has an extra item
 			if(!wzhzhzh(4))
 				abort()
 				return
@@ -266,14 +220,7 @@
 			muck_finish()
 			fail()
 			return
-		else if(has_extra_item())	//if extra items present, break down and require repair before next use
-			if(!wzhzhzh(4))
-				abort()
-				return
-			broke()
-			fail()
-			return
-		else	//otherwise just stop without requiring cleaning/repair
+		else	//otherwise just stop without requiring cleaning
 			if(!wzhzhzh(10))
 				abort()
 				return
@@ -289,6 +236,15 @@
 			fail()
 			return
 		make_recipes(recipes_to_make)
+
+/obj/machinery/kitchen_machine/proc/dispose(mob/user)
+	for(var/obj/O in contents)
+		O.forceMove(loc)
+	if(reagents.total_volume)
+		dirty++
+	reagents.clear_reagents()
+	to_chat(user, "<span class='notice'>You eject the contents of [src].</span>")
+	SStgui.update_uis(src)
 
 //choose_recipes(): picks out recipes for the machine and any mixing bowls it may contain.
 	//builds a list of the selected recipes to be made in a later proc by associating the "source" of the ingredients (mixing bowl, machine) with the recipe for that source
@@ -312,100 +268,93 @@
 /obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)
 	if(!recipes_to_make)
 		return
+
 	var/datum/reagents/temp_reagents = new(500)
-	for(var/i=1 to recipes_to_make.len)		//cycle through each entry on the recipes_to_make list for processing
-		var/list/L = recipes_to_make[i]
-		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
-		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
-		if(recipe == RECIPE_FAIL)		//we have a failure and create a burned mess
-			//failed recipe
+	for(var/list/L as anything in recipes_to_make)
+		var/obj/source = L[1] // The machine or a mixing bowl
+		var/datum/recipe/recipe = L[2] // Valid recipe or RECIPE_FAIL
+
+		if(recipe == RECIPE_FAIL)
 			fail()
-		else	//we have a valid recipe to begin making
-			for(var/obj/O in source.contents)	//begin processing the ingredients supplied
-				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
-					continue
-				if(O.reagents)
-					O.reagents.del_reagent("nutriment")
-					O.reagents.update_total()
-					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
-				qdel(O)
-			source.reagents.clear_reagents()
-			for(var/e=1 to efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
-				var/obj/cooked = new recipe.result()
-				temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency, no_react = TRUE) // Don't react with the abstract holder please
-				cooked.forceMove(loc)
-			temp_reagents.clear_reagents()
-			var/obj/byproduct = recipe.get_byproduct()	//if the recipe has a byproduct, handle returning that (such as re-usable candy moulds)
-			if(byproduct)
-				new byproduct(loc)
-			if(istype(source, /obj/item/mixing_bowl))	//if the recipe's source was a mixing bowl, make it a little dirtier and return that for re-use.
-				var/obj/item/mixing_bowl/mb = source
-				mb.make_dirty(5 * efficiency)
-				mb.forceMove(loc)
+			continue
+
+		for(var/obj/O in source.contents) // Process supplied ingredients
+			if(istype(O, /obj/item/mixing_bowl)) // Mixing bowls are not ingredients, ignore
+				continue
+
+			if(O.reagents)
+				O.reagents.del_reagent("nutriment")
+				O.reagents.update_total()
+				O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
+
+			qdel(O)
+		source.reagents.clear_reagents()
+
+		var/reagents_per_serving = temp_reagents.total_volume / efficiency
+		for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
+			var/obj/cooked = new recipe.result(loc)
+			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
+		temp_reagents.clear_reagents()
+
+		var/obj/byproduct = recipe.get_byproduct()
+		if(byproduct)
+			new byproduct(loc)
+
+		if(istype(source, /obj/item/mixing_bowl)) // Cooking in mixing bowls returns them dirtier
+			var/obj/item/mixing_bowl/mb = source
+			mb.make_dirty(5 * efficiency)
+			mb.forceMove(loc)
+
 	stop()
-	return
 
 /obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
 		if(stat & (NOPOWER|BROKEN))
-			return 0
+			return FALSE
 		use_power(500)
 		sleep(10)
-	return 1
+	return TRUE
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
 	for(var/obj/O in contents)
 		if(!is_type_in_list(O, list(/obj/item/reagent_containers/food, /obj/item/grown, /obj/item/mixing_bowl)))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/machinery/kitchen_machine/proc/start()
-	visible_message("<span class='notice'>\The [src] turns on.</span>", "<span class='notice'>You hear \a [src].</span>")
+	visible_message("<span class='notice'>[src] turns on.</span>", blind_message = "<span class='notice'>You hear \a [src].</span>")
+	if(soundloop)
+		soundloop.start()
+	else
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	operating = TRUE
-	icon_state = on_icon
-	updateUsrDialog()
+	update_icon(UPDATE_ICON_STATE)
+	SStgui.update_uis(src)
+
+/obj/machinery/kitchen_machine/proc/finish_sound()
+	if(soundloop)
+		soundloop.stop()
+	else
+		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 
 /obj/machinery/kitchen_machine/proc/abort()
 	operating = FALSE // Turn it off again aferwards
-	icon_state = off_icon
-	updateUsrDialog()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/kitchen_machine/proc/stop()
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	finish_sound()
 	operating = FALSE // Turn it off again aferwards
-	icon_state = off_icon
-	updateUsrDialog()
-
-/obj/machinery/kitchen_machine/proc/dispose()
-	for(var/obj/O in contents)
-		O.forceMove(loc)
-	if(reagents.total_volume)
-		dirty++
-	reagents.clear_reagents()
-	to_chat(usr, "<span class='notice'>You dispose of \the [src]'s contents.</span>")
-	updateUsrDialog()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/kitchen_machine/proc/muck_start()
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1) // Play a splat sound
-	icon_state = dirty_icon // Make it look dirty!!
+	dirty = MAX_DIRT // Make it dirty so it can't be used until cleaned
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	visible_message("<span class='alert'>\The [src] gets covered in muck!</span>")
-	dirty = 100 // Make it dirty so it can't be used util cleaned
+	visible_message("<span class='alert'>[src] gets covered in muck!</span>")
 	flags = null //So you can't add condiments
-	icon_state = dirty_icon // Make it look dirty too
-	operating = FALSE // Turn it off again aferwards
-	updateUsrDialog()
-
-/obj/machinery/kitchen_machine/proc/broke()
-	do_sparks(2, 1, src)
-	icon_state = broken_icon // Make it look all busted up and shit
-	visible_message("<span class='alert'>[src] breaks!</span>") //Let them know they're stupid
-	broken = 2 // Make it broken so it can't be used util fixed
-	flags = null //So you can't add condiments
-	operating = FALSE // Turn it off again aferwards
-	updateUsrDialog()
+	stop()
 
 /obj/machinery/kitchen_machine/proc/fail()
 	var/amount = 0
@@ -413,45 +362,172 @@
 		mb.fail(src)
 		mb.forceMove(get_turf(src))
 	for(var/obj/O in contents)
-		amount++
-		if(O.reagents)	//this is reagents in inserted objects (like chems in produce)
-			var/id = O.reagents.get_master_reagent_id()
-			if(id)
-				amount+=O.reagents.get_reagent_amount(id)
+		if(O.reagents?.total_volume)
+			amount += O.reagents.total_volume
 		qdel(O)
-	if(reagents && reagents.total_volume)	//this is directly-added reagents (like water added directly into the machine)
-		var/id = reagents.get_master_reagent_id()
-		if(id)
-			amount += reagents.get_reagent_amount(id)
+	if(reagents?.total_volume)
+		amount += reagents.total_volume
 	reagents.clear_reagents()
 	if(amount)
-		var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
-		ffuu.reagents.add_reagent("carbon", amount)
-		ffuu.reagents.add_reagent("????", amount/10)
-		ffuu.forceMove(get_turf(src))
+		var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(src)
+		mysteryfood.reagents.add_reagent("carbon", amount / 2)
+		mysteryfood.reagents.add_reagent("????", amount / 15)
+		mysteryfood.forceMove(get_turf(src))
 
-/obj/machinery/kitchen_machine/Topic(href, href_list)
-	if(..() || panel_open)
+/obj/machinery/kitchen_machine/update_icon_state()
+	. = ..()
+	if(dirty == MAX_DIRT)
+		icon_state = dirty_icon
 		return
-
-	usr.set_machine(src)
 	if(operating)
-		updateUsrDialog()
-		return
-
-	switch(href_list["action"])
-		if("cook")
-			cook()
-
-		if("dispose")
-			dispose()
-	return
+		icon_state = on_icon
+	else
+		icon_state = off_icon
 
 /obj/machinery/kitchen_machine/build_reagent_description(mob/user)
 	return
 
-/obj/machinery/kitchen_machine/examine(mob/user, infix = "", suffix = "")
+/obj/machinery/kitchen_machine/examine(mob/user)
 	. = ..()
 	var/dat = format_content_descs()
 	if(dat)
-		. += "It contains: <BR>[dat]"
+		. += "It contains: <br>[dat]"
+
+/obj/machinery/kitchen_machine/attack_hand(mob/user)
+	if(stat & (BROKEN|NOPOWER) || panel_open || !anchored)
+		return
+
+	ui_interact(user)
+
+/obj/machinery/kitchen_machine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "KitchenMachine",  name, 400, 300, master_ui, state)
+		ui.open()
+
+/obj/machinery/kitchen_machine/ui_data(mob/user)
+	var/list/data = list()
+	data["operating"] = operating
+	data["inactive"] = FALSE
+	data["no_eject"] = FALSE
+	data["tooltip"] = ""
+	if(dirty >= MAX_DIRT)
+		data["inactive"] = TRUE
+		data["tooltip"] = "It's too dirty."
+	else if(!has_cookables())
+		data["inactive"] = TRUE
+		data["no_eject"] = TRUE
+		data["tooltip"] = "There are no contents."
+
+	var/list/items_counts = list()
+	var/list/name_overrides = list()
+	for(var/obj/O in contents)
+		var/display_name = O.name
+		if(istype(O, /obj/item/reagent_containers/food))
+			var/obj/item/reagent_containers/food/food = O
+			if(!items_counts[display_name])
+				if(food.ingredient_name)
+					name_overrides[display_name] = food.ingredient_name
+				else
+					name_overrides[display_name] = display_name
+			else
+				if(food.ingredient_name_plural)
+					name_overrides[display_name] = food.ingredient_name_plural
+				else
+					name_overrides[display_name] = "[name_overrides[display_name]]\s" //name_overrides[display_name] Will be set on the first time as the singular form
+
+		items_counts[display_name]++
+
+	data["ingredients"] = list()
+	for(var/food in items_counts)
+		var/N = items_counts[food]
+		var/units
+		if(!(food in name_overrides))
+			units = "[lowertext(food)]"
+		else
+			units = "[name_overrides[food]]"
+
+		var/list/data_pr = list(
+			"name" = capitalize(food),
+			"amount" = N,
+			"units" = units
+		)
+
+		data["ingredients"] += list(data_pr)
+
+	for(var/datum/reagent/R in reagents.reagent_list)
+		var/display_name = R.name
+		if(R.id == "capsaicin")
+			display_name = "Hotsauce"
+		if(R.id == "frostoil")
+			display_name = "Coldsauce"
+
+		var/unitamt = "unit"
+		if(R.volume > 1)
+			unitamt = "units"
+
+		var/list/data_pr = list(
+			"name" = display_name,
+			"amount" = R.volume,
+			"units" = unitamt
+		)
+
+		data["ingredients"] += list(data_pr)
+
+	return data
+
+/obj/machinery/kitchen_machine/ui_static_data(mob/user)
+	var/list/data = list()
+	data["name"] = name
+	return data
+
+/obj/machinery/kitchen_machine/ui_act(action, params, datum/tgui/ui)
+	. = ..()
+	if(.)
+		return
+
+	switch(action)
+		if("cook")
+			if(!check_useable(ui.user))
+				return
+
+			cook()
+		if("eject")
+			dispose(ui.user)
+
+/obj/machinery/kitchen_machine/AltClick(mob/user)
+	if(!check_useable(user))
+		return
+
+	cook()
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
+
+/obj/machinery/kitchen_machine/proc/has_cookables()
+	return reagents.total_volume > 0 || length(contents)
+
+/obj/machinery/kitchen_machine/proc/check_useable(mob/user)
+	if(dirty >= MAX_DIRT)
+		to_chat(user, "<span class='warning'>It's too dirty.</span>")
+		return FALSE
+	if(!has_cookables())
+		to_chat(user, "<span class='warning'>It's empty!</span>")
+		return FALSE
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>It's broken!</span>")
+		return FALSE
+	if(stat & NOPOWER)
+		to_chat(user, "<span class='warning'>It's depowered!</span>")
+		return FALSE
+	if(panel_open)
+		to_chat(user, "<span class='warning'>Its panel is open!</span>")
+		return FALSE
+	if(!anchored)
+		to_chat(user, "<span class='warning'>It's unanchored!</span>")
+		return FALSE
+	if(operating)
+		to_chat(user, "<span class='warning'>Its already cooking!</span>")
+		return FALSE
+	return TRUE
+
+#undef NO_DIRT
+#undef MAX_DIRT

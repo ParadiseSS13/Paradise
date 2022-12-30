@@ -49,7 +49,7 @@
 
 /obj/item/reagent_containers/food/snacks/meatballspaghetti
 	name = "spaghetti & meatballs"
-	desc = "Now thats a nice'a meatball!"
+	desc = "Now that's a nice'a meatball!"
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "meatballspaghetti"
 	trash = /obj/item/trash/plate

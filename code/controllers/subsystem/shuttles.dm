@@ -5,12 +5,12 @@ SUBSYSTEM_DEF(shuttle)
 	init_order = INIT_ORDER_SHUTTLE
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
-	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
+	offline_implications = "Shuttles will no longer function. Immediate server restart recommended."
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
 
-		//emergency shuttle stuff
+	//emergency shuttle stuff
 	var/obj/docking_port/mobile/emergency/emergency
 	var/obj/docking_port/mobile/emergency/backup/backup_shuttle
 	var/emergencyCallTime = SHUTTLE_CALLTIME	//time taken for emergency shuttle to reach the station when called (in deciseconds)
@@ -20,32 +20,15 @@ SUBSYSTEM_DEF(shuttle)
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 
-		//supply shuttle stuff
+	//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
-	var/ordernum = 1					//order number given to next order
-	var/points = 50						//number of trade-points we have
-	var/points_per_decisecond = 0.005	//points gained every decisecond
-	var/points_per_slip = 2				//points gained per slip returned
-	var/points_per_crate = 5			//points gained per crate returned
-	var/points_per_intel = 250			//points gained per intel returned
-	var/points_per_plasma = 5			//points gained per plasma returned
-	var/points_per_design = 25			//points gained per research design returned
-	var/centcom_message = null			//Remarks from Centcom on how well you checked the last order.
-	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
-	var/list/techLevels = list()
-	var/list/researchDesigns = list()
-	var/list/shoppinglist = list()
-	var/list/requestlist = list()
-	var/list/supply_packs = list()
-	var/sold_atoms = ""
+
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 	/// Default refuel delay
 	var/refuel_delay = 20 MINUTES
 
 /datum/controller/subsystem/shuttle/Initialize(start_timeofday)
-	ordernum = rand(1,9000)
-
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
 	if(!backup_shuttle)
@@ -54,14 +37,7 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
 
 	initial_load()
-
-	for(var/typepath in subtypesof(/datum/supply_packs))
-		var/datum/supply_packs/P = new typepath()
-		if(P.name == "HEADER") continue		// To filter out group headers
-		supply_packs["[P.type]"] = P
 	initial_move()
-
-	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	return ..()
 
@@ -74,7 +50,6 @@ SUBSYSTEM_DEF(shuttle)
 		CHECK_TICK
 
 /datum/controller/subsystem/shuttle/fire(resumed = FALSE)
-	points += points_per_decisecond * wait
 	for(var/thing in mobile)
 		if(thing)
 			var/obj/docking_port/mobile/P = thing
@@ -187,7 +162,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/callShuttle = 1
 
 	for(var/thing in GLOB.shuttle_caller_list)
-		if(istype(thing, /mob/living/silicon/ai))
+		if(isAI(thing))
 			var/mob/living/silicon/ai/AI = thing
 			if(AI.stat || !AI.client)
 				continue
@@ -247,25 +222,6 @@ SUBSYSTEM_DEF(shuttle)
 			continue
 		M.dockRoundstart()
 
-/datum/controller/subsystem/shuttle/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
-	if(!packId)
-		return
-	var/datum/supply_packs/P = locateUID(packId)
-	if(!P)
-		return
-
-	var/datum/supply_order/O = new()
-	O.ordernum = ordernum++
-	O.object = P
-	O.orderedby = _orderedby
-	O.orderedbyRank = _orderedbyRank
-	O.comment = _comment
-	O.crates = _crates
-
-	requestlist += O
-
-	return O
-
 /datum/controller/subsystem/shuttle/proc/get_dock_overlap(x0, y0, x1, y1, z)
 	. = list()
 	var/list/stationary_cache = stationary
@@ -314,6 +270,6 @@ SUBSYSTEM_DEF(shuttle)
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/C = V
 		C.update_hidden_docking_ports(remove_images, add_images)
 
-	QDEL_LIST(remove_images)
+	QDEL_LIST_CONTENTS(remove_images)
 
 #undef CALL_SHUTTLE_REASON_LENGTH

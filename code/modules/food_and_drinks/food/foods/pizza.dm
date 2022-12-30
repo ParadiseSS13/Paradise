@@ -362,7 +362,7 @@
 			to_chat(user, "<span class='warning'>You try to push [I] through the lid but it doesn't work!</span>")
 		return
 
-	if(istype(I, /obj/item/pen/))
+	if(is_pen(I))
 		if(open)
 			return
 		var/t = clean_input("Enter what you want to add to the tag:", "Write", null)

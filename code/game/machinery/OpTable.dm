@@ -8,7 +8,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 1
 	active_power_usage = 5
-	var/mob/living/carbon/human/patient
+	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
 	buckle_lying = -1
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
@@ -64,13 +64,13 @@
   * Updates the `patient` var to be the mob occupying the table
   */
 /obj/machinery/optable/proc/update_patient()
-	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && IS_HORIZONTAL(M))
-		patient = M
+	var/mob/living/carbon/C = locate(/mob/living/carbon, loc)
+	if(C && IS_HORIZONTAL(C))
+		patient = C
 	else
 		patient = null
 	if(!no_icon_updates)
-		if(patient && patient.pulse)
+		if(C && C.pulse)
 			icon_state = "table2-active"
 		else
 			icon_state = "table2-idle"
@@ -107,7 +107,7 @@
 	set name = "Climb On Table"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table())
+	if(usr.stat || !iscarbon(usr) || usr.restrained() || !check_table())
 		return
 	take_patient(usr, usr)
 

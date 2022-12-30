@@ -520,7 +520,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(AA.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
 			continue
 
-		if(istype(A, /obj/mecha))
+		if(ismecha(A))
 			var/obj/mecha/ME = A
 			assess_and_assign(ME.occupant, targets, secondarytargets)
 
@@ -736,6 +736,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		A.current = T
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
+		A.starting = loc
 		A.fire()
 	else
 		A.throw_at(target, scan_range, 1)
@@ -900,12 +901,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//attack_hand() removes the gun
 
 		if(5)
-			if(istype(I, /obj/item/screwdriver))
-				playsound(loc, I.usesound, 100, 1)
-				build_step = 6
-				to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
-				return
-
+			return
+			//screwdriver_act() handles screwing the panel closed
 			//attack_hand() removes the prox sensor
 
 		if(6)
@@ -918,19 +915,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
 				return
 
-			else if(istype(I, /obj/item/screwdriver))
-				playsound(loc, I.usesound, 100, 1)
-				build_step = 5
-				to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
-				return
-			else if(istype(I, /obj/item/crowbar))
+		if(7)
+			if(istype(I, /obj/item/crowbar))
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)
 				build_step = 6
 				return
 
-	if(istype(I, /obj/item/pen))	//you can rename turrets like bots!
+	if(is_pen(I))	//you can rename turrets like bots!
 		var/t = input(user, "Enter new turret name", name, finish_name) as text
 		t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 		if(!t)
@@ -941,6 +934,20 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		finish_name = t
 		return
 	..()
+
+/obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
+	if(build_step != 6 && build_step != 5)
+		return
+
+	if(build_step == 5)
+		build_step = 6
+		to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
+	else
+		build_step = 5
+		to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
+
+	I.play_tool_sound(src)
+	return TRUE
 
 /obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1034,6 +1041,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_synth	= TRUE
 	ailock = TRUE
 	var/area/syndicate_depot/core/depotarea
+
+/obj/machinery/porta_turret/syndicate/CanPass(atom/A)
+	return ((stat & BROKEN) || !isliving(A))
+
+/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((stat & BROKEN) || !isliving(caller))
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()

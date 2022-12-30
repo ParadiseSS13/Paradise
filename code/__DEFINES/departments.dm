@@ -1,0 +1,10 @@
+
+#define DEPARTMENT_ENGINEERING	"Engineering"
+#define DEPARTMENT_MEDICAL		"Medical"
+#define DEPARTMENT_SCIENCE		"Science"
+#define DEPARTMENT_SUPPLY		"Supply"
+#define DEPARTMENT_SERVICE		"Service"
+#define DEPARTMENT_SECURITY		"Security"
+#define DEPARTMENT_ASSISTANT	"Assistant"
+#define DEPARTMENT_SILICON		"Silicon"
+#define DEPARTMENT_COMMAND		"Command"

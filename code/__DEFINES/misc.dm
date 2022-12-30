@@ -25,7 +25,7 @@
 #define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_TKSTRANGLE 10
 #define CLICK_CD_POINT 10
-#define CLICK_CD_RESIST 20
+#define CLICK_CD_RESIST 8
 #define CLICK_CD_CLICK_ABILITY 6
 #define CLICK_CD_RAPID 2
 
@@ -112,10 +112,19 @@
 #define in_range(source, user)		(get_dist(source, user) <= 1)
 
 #define RANGE_TURFS(RADIUS, CENTER) \
-  block( \
-	locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
-	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
-  )
+	block( \
+		locate(max(CENTER.x-(RADIUS),1),		  max(CENTER.y-(RADIUS),1),		  CENTER.z), \
+		locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
+	)
+
+/// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
+// order of the additions: top edge + bottom edge + left edge + right edge
+#define RANGE_EDGE_TURFS(RADIUS, CENTER)\
+	(CENTER.y + RADIUS < world.maxy ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z)) : list()) +\
+	(CENTER.y - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z)) : list()) +\
+	(CENTER.x - RADIUS > 1 ? block(locate(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list()) +\
+	(CENTER.x + RADIUS < world.maxx ? block(locate(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z), locate(min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z)) : list())
+
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
@@ -143,9 +152,7 @@
 
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
-#define MANIFEST_ERROR_NAME		1
-#define MANIFEST_ERROR_COUNT	2
-#define MANIFEST_ERROR_ITEM		4
+
 
 //Turf wet states
 #define TURF_DRY		0
@@ -163,18 +170,18 @@
 
 //Human Overlays Indexes/////////
 #define WING_LAYER				41
-#define WING_UNDERLIMBS_LAYER		40
-#define BODY_LAYER				39
-#define MUTANTRACE_LAYER		38
-#define TAIL_UNDERLIMBS_LAYER	37	//Tail split-rendering.
-#define LIMBS_LAYER				36
-#define INTORGAN_LAYER			35
-#define MARKINGS_LAYER			34
-#define UNDERWEAR_LAYER			33
-#define MUTATIONS_LAYER			32
-#define H_DAMAGE_LAYER			31
-#define UNIFORM_LAYER			30
-#define ID_LAYER				29
+#define WING_UNDERLIMBS_LAYER	40
+#define MUTANTRACE_LAYER		39
+#define TAIL_UNDERLIMBS_LAYER	38	//Tail split-rendering.
+#define LIMBS_LAYER				37
+#define INTORGAN_LAYER			36
+#define MARKINGS_LAYER			35
+#define UNDERWEAR_LAYER			34
+#define MUTATIONS_LAYER			33
+#define H_DAMAGE_LAYER			32
+#define UNIFORM_LAYER			31
+#define ID_LAYER				30
+#define HANDS_LAYER				29	//Exists to overlay hands over jumpsuits
 #define SHOES_LAYER				28
 #define GLOVES_LAYER			27
 #define EARS_LAYER				26
@@ -229,16 +236,16 @@
 
 //Matricies
 #define MATRIX_GREYSCALE list(0.33, 0.33, 0.33,\
-                              0.33, 0.33, 0.33,\
-                              0.33, 0.33, 0.33)
+							0.33, 0.33, 0.33,\
+							0.33, 0.33, 0.33)
 
 #define MATRIX_VULP_CBLIND list(0.5,0.4,0.1,\
-                                0.5,0.4,0.1,\
-                                0.0,0.2,0.8)
+								0.5,0.4,0.1,\
+								0.0,0.2,0.8)
 
 #define MATRIX_TAJ_CBLIND list(0.4,0.2,0.4,\
-                               0.4,0.6,0.0,\
-                               0.2,0.2,0.6)
+							0.4,0.6,0.0,\
+							0.2,0.2,0.6)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
@@ -371,7 +378,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 44
+#define SQL_VERSION 45
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -439,6 +446,7 @@
 
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
 #define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
+#define MAPTEXT_CENTER(text) {"<span class='maptext' style='text-align: center'>[##text]</span>"}
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
@@ -485,6 +493,12 @@
 #define LINDA_SPAWN_N2O 64
 #define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256
+
+// Throwing these defines here for the TM to minimise conflicts
+#define MAPROTATION_MODE_NORMAL_VOTE "Vote"
+#define MAPROTATION_MODE_NO_DUPLICATES "Nodupes"
+#define MAPROTATION_MODE_FULL_RANDOM "Random"
+
 
 /// Send to the primary Discord webhook
 #define DISCORD_WEBHOOK_PRIMARY "PRIMARY"

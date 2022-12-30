@@ -98,15 +98,20 @@
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 
-	if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
-
 	update_icon(UPDATE_OVERLAYS)
 	return
+
+/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
+	if(!cell)
+		to_chat(user, "<span class='notice'>[src] doesn't have a cell.</span>")
+		return
+
+	cell.update_icon()
+	cell.forceMove(get_turf(loc))
+	cell = null
+	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
+	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/defibrillator/emag_act(user as mob)
 	if(safety)
@@ -488,6 +493,7 @@
 						H.med_hud_set_status()
 						defib.deductcharge(revivecost)
 						add_attack_logs(user, M, "Revived with [src]")
+						SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 					else
 						if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
@@ -632,6 +638,7 @@
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)
 						add_attack_logs(user, M, "Revived with [src]")
+						SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
 					else
 						if(tplus > tlimit)
 							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")

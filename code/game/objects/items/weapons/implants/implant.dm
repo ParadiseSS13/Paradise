@@ -1,21 +1,21 @@
 /// If used, an implant will trigger when an emote is intentionally used.
-#define IMPLANT_EMOTE_TRIGGER_INTENTIONAL (1<<0)
+#define BIOCHIP_EMOTE_TRIGGER_INTENTIONAL (1<<0)
 /// If used, an implant will trigger when an emote is forced/unintentionally used.
-#define IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL (1<<1)
+#define BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL (1<<1)
 /// If used, an implant will always trigger when the user makes an emote.
-#define IMPLANT_EMOTE_TRIGGER_ALWAYS (IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL | IMPLANT_EMOTE_TRIGGER_INTENTIONAL)
+#define BIOCHIP_EMOTE_TRIGGER_ALWAYS (BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL | BIOCHIP_EMOTE_TRIGGER_INTENTIONAL)
 /// If used, an implant will trigger on the user's first death.
-#define IMPLANT_TRIGGER_DEATH_ONCE (1<<2)
+#define BIOCHIP_TRIGGER_DEATH_ONCE (1<<2)
 /// If used, an implant will trigger any time a user dies.
-#define IMPLANT_TRIGGER_DEATH_ANY (1<<3)
+#define BIOCHIP_TRIGGER_DEATH_ANY (1<<3)
 /// If used, an implant will NOT trigger on death when a user is gibbed.
-#define IMPLANT_TRIGGER_NOT_WHEN_GIBBED (1<<4)
+#define BIOCHIP_TRIGGER_NOT_WHEN_GIBBED (1<<4)
 
 // Defines related to the way that the implant is activated. This is the value for implant.activated
 /// The implant is passively active (like a mindshield)
-#define IMPLANT_ACTIVATED_PASSIVE 0
+#define BIOCHIP_ACTIVATED_PASSIVE 0
 /// The implant is activated manually by a trigger
-#define IMPLANT_ACTIVATED_ACTIVE 1
+#define BIOCHIP_ACTIVATED_ACTIVE 1
 
 /**
  * # Implants
@@ -24,7 +24,7 @@
  *
  */
 /obj/item/implant
-	name = "implant"
+	name = "bio-chip"
 	icon = 'icons/obj/implants.dmi'
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
@@ -35,7 +35,7 @@
 	///which implant overlay should be used for implant cases. This should point to a state in implants.dmi
 	var/implant_state = "implant-default"
 	/// How the implant is activated.
-	var/activated = IMPLANT_ACTIVATED_ACTIVE
+	var/activated = BIOCHIP_ACTIVATED_ACTIVE
 	/// Whether the implant is implanted. Null if it's never been inserted, TRUE if it's currently inside someone, or FALSE if it's been removed.
 	var/implanted
 	/// Who the implant is inside of.
@@ -62,6 +62,8 @@
 		implant_data = new implant_data
 
 /obj/item/implant/Destroy()
+	if(imp_in)
+		removed(imp_in)
 	QDEL_NULL(implant_data)
 	return ..()
 
@@ -94,16 +96,16 @@
 			to_chat(user, "<span class='warning'> You can't trigger [src] with a custom emote.")
 		return FALSE
 
-	if(!(emote_key in user.usable_emote_keys(trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL)))
+	if(!(emote_key in user.usable_emote_keys(trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL)))
 		if(!silent)
 			to_chat(user, "<span class='warning'> You can't trigger [src] with that emote! Try *help to see emotes you can use.</span>")
 		return FALSE
 
-	if(!(emote_key in user.usable_emote_keys(trigger_causes & IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL)))
-		CRASH("User was given an implant for an unintentional emote that they can't use.")
+	if(!(emote_key in user.usable_emote_keys(trigger_causes & BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL)))
+		CRASH("User was given an bio-chip for an unintentional emote that they can't use.")
 
 	LAZYADD(trigger_emotes, emote_key)
-	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), .proc/on_emote)
+	RegisterSignal(user, COMSIG_MOB_EMOTED(emote_key), PROC_REF(on_emote))
 
 /obj/item/implant/proc/on_emote(mob/living/user, datum/emote/fired_emote, key, emote_type, message, intentional)
 	SIGNAL_HANDLER
@@ -111,7 +113,7 @@
 	if(!implanted || !imp_in)
 		return
 
-	if(!(intentional && (trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL)) && !(!intentional && (trigger_causes & IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL)))
+	if(!(intentional && (trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL)) && !(!intentional && (trigger_causes & BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL)))
 		return
 
 	add_attack_logs(user, user, "[intentional ? "intentionally" : "unintentionally"] [src] was [intentional ? "intentionally" : "unintentionally"] triggered with the emote [fired_emote].")
@@ -123,16 +125,16 @@
 	if(!implanted || !imp_in)
 		return
 
-	if(gibbed && (trigger_causes & IMPLANT_TRIGGER_NOT_WHEN_GIBBED))
+	if(gibbed && (trigger_causes & BIOCHIP_TRIGGER_NOT_WHEN_GIBBED))
 		return
 
 	// This should help avoid infinite recursion for things like dust that call death()
-	if(has_triggered_on_death && (trigger_causes & IMPLANT_TRIGGER_DEATH_ONCE))
+	if(has_triggered_on_death && (trigger_causes & BIOCHIP_TRIGGER_DEATH_ONCE))
 		return
 
 	has_triggered_on_death = TRUE
 
-	add_attack_logs(source, source, "had their [src] implant triggered on [gibbed ? "gib" : "death"].")
+	add_attack_logs(source, source, "had their [src] bio-chip triggered on [gibbed ? "gib" : "death"].")
 	death_trigger(source, gibbed)
 
 /obj/item/implant/proc/emote_trigger(emote, mob/source, force)
@@ -176,10 +178,10 @@
 	imp_in = source
 	implanted = TRUE
 	if(trigger_emotes)
-		if(!(trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL | IMPLANT_EMOTE_TRIGGER_UNINTENTIONAL))
-			CRASH("Implant [src] has trigger emotes defined but no trigger cause with which to use them!")
-		if(!activated && (trigger_causes & IMPLANT_EMOTE_TRIGGER_INTENTIONAL))
-			CRASH("Implant [src] has intentional emote triggers on a passive implant")
+		if(!(trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL | BIOCHIP_EMOTE_TRIGGER_UNINTENTIONAL))
+			CRASH("Bio-chip [src] has trigger emotes defined but no trigger cause with which to use them!")
+		if(!activated && (trigger_causes & BIOCHIP_EMOTE_TRIGGER_INTENTIONAL))
+			CRASH("Bio-chip [src] has intentional emote triggers on a passive bio-chip")
 		// If you can't activate the implant manually, you shouldn't be able to deliberately activate it with an emote
 		for(var/emote in trigger_emotes)
 			set_trigger(source, emote, TRUE, TRUE)
@@ -187,14 +189,14 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.Grant(source)
-	if(trigger_causes & (IMPLANT_TRIGGER_DEATH_ONCE | IMPLANT_TRIGGER_DEATH_ANY))
-		RegisterSignal(source, COMSIG_MOB_DEATH, .proc/on_death)
+	if(trigger_causes & (BIOCHIP_TRIGGER_DEATH_ONCE | BIOCHIP_TRIGGER_DEATH_ANY))
+		RegisterSignal(source, COMSIG_MOB_DEATH, PROC_REF(on_death))
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
 
 	if(user)
-		add_attack_logs(user, source, "Implanted with [src]")
+		add_attack_logs(user, source, "Chipped with [src]")
 
 	return 1
 
@@ -215,17 +217,12 @@
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
 
-	if(trigger_causes & (IMPLANT_TRIGGER_DEATH_ONCE | IMPLANT_TRIGGER_DEATH_ANY))
+	if(trigger_causes & (BIOCHIP_TRIGGER_DEATH_ONCE | BIOCHIP_TRIGGER_DEATH_ANY))
 		UnregisterSignal(source, COMSIG_MOB_DEATH)
 
 	unregister_emotes()
 
 	return TRUE
-
-/obj/item/implant/Destroy()
-	if(imp_in)
-		removed(imp_in)
-	return ..()
 
 /obj/item/implant/dropped(mob/user)
 	. = TRUE

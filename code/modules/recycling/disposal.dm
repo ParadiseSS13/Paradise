@@ -96,8 +96,10 @@
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
+		if(!S.removal_allowed_check(user))
+			return
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
@@ -169,9 +171,10 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
-	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
+	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user))
 		return
-	if(isanimal(user) && target != user) return //animals cannot put mobs other than themselves into disposal
+	if(isanimal(user) && target != user)
+		return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
 	var/target_loc = target.loc
 	var/msg
@@ -286,7 +289,7 @@
 	if(src.flushing)
 		return
 
-	if(istype(src.loc, /turf))
+	if(isturf(src.loc))
 		if(action == "pumpOn")
 			mode = 1
 			update()
@@ -352,7 +355,6 @@
 			. += "dispover-unscrewed"
 		if(1)
 			. += "dispover-charge"
-			. += "dispover-panel"
 			underlays += emissive_appearance(icon, "dispover-charge")
 		if(2)
 			. += "dispover-ready"
@@ -473,7 +475,7 @@
 
 			AM.forceMove(loc)
 			AM.pipe_eject(0)
-			if(!istype(AM, /mob/living/silicon/robot/drone) && !istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
+			if(!isdrone(AM) && !istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)
@@ -482,7 +484,7 @@
 		qdel(H)
 
 /obj/machinery/disposal/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
+	if(isitem(mover) && mover.throwing)
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
@@ -493,7 +495,7 @@
 			update()
 		else
 			for(var/mob/M in viewers(src))
-				M.show_message("\the [I] bounces off of \the [src]'s rim!.", 3)
+				M.show_message("\the [I] bounces off of \the [src]'s rim!", 3)
 		return 0
 	else
 		return ..(mover, target, height)
@@ -540,7 +542,7 @@
 	//Check for any living mobs trigger hasmob.
 	//hasmob effects whether the package goes to cargo or its tagged destination.
 	for(var/mob/living/M in D)
-		if(M && M.stat != 2 && !istype(M, /mob/living/silicon/robot/drone) && !istype(M, /mob/living/silicon/robot/syndicate/saboteur))
+		if(M && M.stat != 2 && !isdrone(M) && !istype(M, /mob/living/silicon/robot/syndicate/saboteur))
 			hasmob = 1
 
 	//Checks 1 contents level deep. This means that players can be sent through disposals...
@@ -548,7 +550,7 @@
 	for(var/obj/O in D)
 		if(O.contents)
 			for(var/mob/living/M in O.contents)
-				if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone) && !istype(M, /mob/living/silicon/robot/syndicate/saboteur))
+				if(M && M.stat != 2 && !isdrone(M) && !istype(M, /mob/living/silicon/robot/syndicate/saboteur))
 					hasmob = 1
 
 	// now everything inside the disposal gets put into the holder
@@ -556,7 +558,7 @@
 	for(var/atom/movable/AM in D)
 		AM.forceMove(src)
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_DISPOSING, src, D)
-		if(istype(AM, /mob/living/carbon/human))
+		if(ishuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(HAS_TRAIT(H, TRAIT_FAT))		// is a human and fat?
 				has_fat_guy = 1			// set flag on holder
@@ -567,7 +569,7 @@
 			var/obj/item/smallDelivery/T = AM
 			destinationTag = T.sortTag
 		//Drones can mail themselves through maint.
-		if(istype(AM, /mob/living/silicon/robot/drone))
+		if(isdrone(AM))
 			var/mob/living/silicon/robot/drone/drone = AM
 			destinationTag = drone.mail_destination
 		if(istype(AM, /mob/living/silicon/robot/syndicate/saboteur))
@@ -655,7 +657,7 @@
 
 	// called when player tries to move while in a pipe
 /obj/structure/disposalholder/relaymove(mob/user)
-	if(!istype(user, /mob/living))
+	if(!isliving(user))
 		return
 
 	var/mob/living/U = user
@@ -760,31 +762,25 @@
 	return P
 
 
-// update the icon_state to reflect hidden status
+// update the icon_state to reflect hidden status and change icon when welded
 /obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
-	if(T.transparent_floor)
-		update_icon(UPDATE_ICON_STATE)
-		return
-	hide(T.intact && !istype(T, /turf/space))	// space never hides pipes
+	hide(T.intact && !isspaceturf(T) && !T.transparent_floor)	// space and transparent floors never hide pipes
 	update_icon(UPDATE_ICON_STATE)
 
 // hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
+// change visibility status
 /obj/structure/disposalpipe/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
-	update_icon(UPDATE_ICON_STATE)
+	if(intact)
+		invisibility = INVISIBILITY_MAXIMUM
+		alpha = 128
+		return
+	invisibility = INVISIBILITY_MINIMUM
+	alpha = 255
 
-// update actual icon_state depending on visibility
-// if invisible, append "f" to icon_state to show faded version
-// this will be revealed if a T-scanner is used
-// if visible, use regular icon_state
+// makes sure we are using the right icon state when we secure the disposals
 /obj/structure/disposalpipe/update_icon_state()
-	if(invisibility)
-		icon_state = "[base_icon_state]f"
-	else
-		icon_state = base_icon_state
-
+	icon_state = base_icon_state
 
 // expel the held objects into a turf
 // called when there is a break in the pipe
@@ -801,14 +797,14 @@
 		H.active = FALSE
 		H.forceMove(src)
 		return
-	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
+	if(T.intact && isfloorturf(T)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
 		var/turf_typecache = F.floor_tile
 		if(F.remove_tile(null, TRUE, FALSE))
 			new turf_typecache(T)
 
 	if(direction)		// direction is specified
-		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
+		if(isspaceturf(T)) // if ended in space, then range is unlimited
 			target = get_edge_target_turf(T, direction)
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)
@@ -964,11 +960,18 @@
 		dpdir = dir | turn(dir, -90)
 	update()
 
-
+/obj/structure/disposalpipe/segment/corner
+	icon_state = "pipe-c"
 
 //a three-way junction with dir being the dominant direction
 /obj/structure/disposalpipe/junction
 	icon_state = "pipe-j1"
+
+/obj/structure/disposalpipe/junction/reversed
+	icon_state = "pipe-j2"
+
+/obj/structure/disposalpipe/junction/y
+	icon_state = "pipe-y"
 
 /obj/structure/disposalpipe/junction/Initialize(mapload)
 	. = ..()
@@ -1011,12 +1014,14 @@
 
 //a three-way junction that sorts objects
 /obj/structure/disposalpipe/sortjunction
-
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm
+	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
+
+/obj/structure/disposalpipe/sortjunction/reversed
+	icon_state = "pipe-j2s"
 
 /obj/structure/disposalpipe/sortjunction/proc/updatedesc()
 	desc = "An underfloor disposal pipe with a package sorting mechanism."
@@ -1103,6 +1108,9 @@
 	var/negdir = 0
 	var/sortdir = 0
 
+/obj/structure/disposalpipe/wrapsortjunction/reversed
+	icon_state = "pipe-j2s"
+
 /obj/structure/disposalpipe/wrapsortjunction/Initialize(mapload)
 	. = ..()
 	posdir = dir
@@ -1161,7 +1169,7 @@
 /obj/structure/disposalpipe/trunk/Initialize(mapload)
 	. = ..()
 	dpdir = dir
-	addtimer(CALLBACK(src, .proc/getlinked), 0) // This has a delay of 0, but wont actually start until the MC is done
+	addtimer(CALLBACK(src, PROC_REF(getlinked)), 0) // This has a delay of 0, but wont actually start until the MC is done
 
 	update()
 	return
@@ -1289,11 +1297,11 @@
 	var/active = FALSE
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
-	var/mode = 0
+	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/setup), 0) // Wait of 0, but this wont actually do anything until the MC is firing
+	addtimer(CALLBACK(src, PROC_REF(setup)), 0) // Wait of 0, but this wont actually do anything until the MC is firing
 
 
 /obj/structure/disposaloutlet/proc/setup()
@@ -1319,29 +1327,23 @@
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)
-		if(istype(AM,/mob/living/silicon/robot/drone) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+		if(isdrone(AM) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 			return
 		spawn(5)
 			if(QDELETED(AM))
 				return
 			AM.throw_at(target, 3, 1)
 
+/obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
+	add_fingerprint(user)
 
-/obj/structure/disposaloutlet/attackby(obj/item/I, mob/user, params)
-	if(!I || !user)
-		return
-	src.add_fingerprint(user)
-	if(istype(I, /obj/item/screwdriver))
-		if(mode==0)
-			mode=1
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(mode==1)
-			mode=0
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
+	if(mode == FALSE)
+		to_chat(user, "<span class='notice'>You remove the screws around the power connection</span>.")
+	else if(mode == TRUE)
+		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
+	I.play_tool_sound(src)
+	mode = !mode
+	return TRUE
 
 /obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
 	. = TRUE

@@ -308,7 +308,7 @@
 				return FALSE		//to avoid spamming with insulated glvoes on
 
 	var/area/source_area
-	if(istype(power_source, /area))
+	if(isarea(power_source))
 		source_area = power_source
 		power_source = source_area.get_apc()
 	if(istype(power_source, /obj/structure/cable))

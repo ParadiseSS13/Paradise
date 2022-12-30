@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
-	var/datum/announcement/announcement = new
+	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
@@ -106,8 +106,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	Radio.follow_target = src
 	. = ..()
 
-	announcement.title = "[department] announcement"
-	announcement.newscast = FALSE
+	announcer.config.default_title = "[department] announcement"
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src
@@ -219,7 +218,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcement.Announce(message)
+			announcer.Announce(message)
 			reset_message(TRUE)
 
 		if("department")
@@ -310,7 +309,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			var/obj/item/card/id/ID = I
 			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
 				announceAuth = 1
-				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
+				announcer.author = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 			else
 				reset_message()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
@@ -336,7 +335,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	msgVerified = ""
 	msgStamped = ""
 	announceAuth = FALSE
-	announcement.announcer = ""
+	announcer.author = ""
 	ship_tag_name = ""
 	ship_tag_index = FALSE
 	if(mainmenu)

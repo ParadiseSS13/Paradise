@@ -22,6 +22,8 @@
 
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
 
+#define STATUS_EFFECT_THRALL_NET /datum/status_effect/thrall_net
+
 //#define STATUS_EFFECT_VANGUARD /datum/status_effect/vanguard_shield //Grants temporary stun absorption, but will stun the user based on how many stuns they absorbed.
 //#define STATUS_EFFECT_INATHNEQS_ENDOWMENT /datum/status_effect/inathneqs_endowment //A 15-second invulnerability and stun absorption, granted by Inath-neq.
 //#define STATUS_EFFECT_WRAITHSPECS /datum/status_effect/wraith_spectacles
@@ -38,6 +40,8 @@
 #define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few secodns
 
 #define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs //Handles cling speed boost and chemical cost.
+
+#define STATUS_EFFECT_PANACEA /datum/status_effect/panacea
 
 #define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halved damage for gargantua vampires
 
@@ -80,6 +84,8 @@
 #define STATUS_EFFECT_PACIFIED /datum/status_effect/pacifism //forces the pacifism trait
 
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
+
+#define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -140,3 +146,5 @@
 #define STATUS_EFFECT_ADAPTIVELEARNING /datum/status_effect/adaptive_learning //tracks the total bonus damage needed to be done to target
 /// Status effect given when someone uses the Give Item command to offer an item to another player.
 #define STATUS_EFFECT_OFFERING_ITEM /datum/status_effect/offering_item
+
+#define STATUS_EFFECT_BLOB_BURST /datum/status_effect/blob_burst

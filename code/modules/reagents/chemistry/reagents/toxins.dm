@@ -154,6 +154,7 @@
 	name = "Radium"
 	id = "radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
+	process_flags = ORGANIC | SYNTHETIC
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
@@ -347,15 +348,13 @@
 				else
 					var/melted_something = FALSE
 					if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
+						to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
 						qdel(H.wear_mask)
-						H.update_inv_wear_mask()
-						to_chat(H, "<span class='danger'>Your [H.wear_mask] melts away!</span>")
 						melted_something = TRUE
 
 					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
+						to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
 						qdel(H.head)
-						H.update_inv_head()
-						to_chat(H, "<span class='danger'>Your [H.head] melts away!</span>")
 						melted_something = TRUE
 					if(melted_something)
 						return
@@ -454,10 +453,20 @@
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
-		if(1 to 50)
-			M.Sleeping(4 SECONDS)
+		if(1 to 5)
+			if(prob(25))
+				M.emote("yawn")
+		if(6 to 9)
+			M.AdjustEyeBlurry(10 SECONDS)
+			if(prob(35))
+				M.emote("yawn")
+		if(10)
+			M.emote("faint")
+			M.Weaken(4 SECONDS)
+		if(11 to 50)
+			M.Paralyse(4 SECONDS)
 		if(51 to INFINITY)
-			M.Sleeping(4 SECONDS)
+			M.Paralyse(4 SECONDS)
 			update_flags |= M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
@@ -1050,7 +1059,7 @@
 			var/mob/living/carbon/C = M
 			if(!C.wear_mask) // If not wearing a mask
 				C.adjustToxLoss(lethality)
-		if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
+		if(isnymph(M)) //nymphs take EVEN MORE damage
 			var/mob/living/simple_animal/diona/D = M
 			D.adjustHealth(100)
 	..()

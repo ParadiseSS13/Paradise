@@ -30,7 +30,7 @@
 /obj/machinery/computer/shuttle/syndicate/drop_pod
 	name = "syndicate assault pod control"
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "dorm_available"
+	icon_state = "syndie_assault_pod"
 	req_access = list(ACCESS_SYNDICATE)
 	circuit = /obj/item/circuitboard/shuttle/syndicate/drop_pod
 	shuttleId = "steel_rain"

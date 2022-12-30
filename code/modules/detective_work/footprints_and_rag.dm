@@ -33,11 +33,10 @@
 	else
 		..()
 
-/obj/item/reagent_containers/glass/rag/afterattack(atom/A as obj|turf|area, mob/user as mob,proximity)
-	if(!proximity) return
-	if(istype(A) && (src in user))
-		user.visible_message("<span class='notice'>[user] starts to wipe down [A] with [src]!</span>")
-		if(do_after(user, wipespeed, target = A))
-			user.visible_message("<span class='notice'>[user] finishes wiping off [A]!</span>")
-			A.clean_blood()
-	return
+/obj/item/reagent_containers/glass/rag/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || ishuman(target)) //Human check so we don't clean the person we're trying to ether
+		return
+	target.cleaning_act(user, src, wipespeed)
+
+/obj/item/reagent_containers/glass/rag/can_clean()
+	return TRUE

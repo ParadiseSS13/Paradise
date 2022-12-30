@@ -59,32 +59,34 @@
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
-/obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
-	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
-		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		if(direction == "Cancel")
-			return
-		if(QDELETED(src))
-			return
-		var/obj/structure/sign/S = new(user.loc)
-		switch(direction)
-			if("North")
-				S.pixel_y = 32
-			if("East")
-				S.pixel_x = 32
-			if("South")
-				S.pixel_y = -32
-			if("West")
-				S.pixel_x = -32
-			else
-				return
-		S.name = name
-		S.desc = desc
-		S.icon_state = sign_state
-		to_chat(user, "You fasten \the [S] with your [tool].")
-		qdel(src)
-	else
-		return ..()
+/obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
+	if(!isturf(user.loc)) // Why does this use user? This should just be loc.
+		return
+
+	var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
+	if(direction == "Cancel")
+		return TRUE // These gotta be true or we stab the sign
+	if(QDELETED(src))
+		return TRUE // Unsure about this, but stabbing something that doesnt exist seems like a bad idea
+
+	var/obj/structure/sign/S = new(user.loc) //This is really awkward to use user.loc
+	switch(direction)
+		if("North")
+			S.pixel_y = 32
+		if("East")
+			S.pixel_x = 32
+		if("South")
+			S.pixel_y = -32
+		if("West")
+			S.pixel_x = -32
+		else
+			return TRUE // We dont want to stab it or place it, so we return
+	S.name = name
+	S.desc = desc
+	S.icon_state = sign_state
+	to_chat(user, "<span class='notice'>You fasten [S] with your [I].</span>")
+	qdel(src)
+	return TRUE
 
 /obj/structure/sign/double/map
 	name = "station map"
@@ -334,7 +336,7 @@
 	icon_state = "direction_evac"
 
 /obj/structure/sign/directions/cargo
-	desc = "A direction sign, pointing out which way the Cargo Department is."
+	desc = "A direction sign, pointing out which way the Supply Department is."
 	icon_state = "direction_supply"
 
 /obj/structure/sign/explosives

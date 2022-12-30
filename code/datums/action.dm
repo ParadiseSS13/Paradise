@@ -335,6 +335,9 @@
 /datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
 	name = "YEAH!"
 
+/datum/action/item_action/laugh_track
+	name = "Laugh Track"
+
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)
@@ -388,6 +391,10 @@
 	if(istype(H))
 		H.toggle_geiger_counter()
 
+/datum/action/item_action/toggle_radio_jammer
+	name = "Toggle Radio Jammer"
+	desc = "Turns your jammer on or off. Hush, you."
+
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -395,7 +402,7 @@
 	name = "Activate"
 
 /datum/action/item_action/hands_free/activate/always
-    check_flags = null
+	check_flags = null
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
@@ -434,6 +441,8 @@
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"
 
+/datum/action/item_action/drop_gripped_item
+	name = "Drop gripped item"
 
 // Clown Acrobat Shoes
 /datum/action/item_action/slipping

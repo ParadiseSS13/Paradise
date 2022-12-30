@@ -250,7 +250,7 @@
 
 /obj/machinery/particle_accelerator/control_box/interact(mob/user)
 	if(((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)))
-		if(!istype(user, /mob/living/silicon))
+		if(!issilicon(user))
 			user.unset_machine()
 			user << browse(null, "window=pacontrol")
 			return

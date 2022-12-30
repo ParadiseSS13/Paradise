@@ -56,14 +56,14 @@
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
-	else if(istype(W, /obj/item/screwdriver))
-		if(diode)
-			to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
-			diode.loc = get_turf(src.loc)
-			diode = null
-			return
-		..()
-	return
+/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
+	if(!diode)
+		return
+
+	to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
+	diode.forceMove(get_turf(loc))
+	diode = null
+	return TRUE
 
 /obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack

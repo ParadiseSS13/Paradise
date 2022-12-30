@@ -529,7 +529,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Wizard's Den"
 	icon_state = "yellow"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ninja
 	name = "\improper Ninja Area Parent"
@@ -565,16 +565,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 //STATION13
 
 /area/atmos
- 	name = "Atmospherics"
- 	icon_state = "atmos"
+	name = "Atmospherics"
+	icon_state = "atmos"
 
 /area/atmos/control
- 	name = "Atmospherics Control Room"
- 	icon_state = "atmosctrl"
+	name = "Atmospherics Control Room"
+	icon_state = "atmosctrl"
 
 /area/atmos/distribution
- 	name = "Atmospherics Distribution Loop"
- 	icon_state = "atmos"
+	name = "Atmospherics Distribution Loop"
+	icon_state = "atmos"
 
 //Maintenance
 /area/maintenance
@@ -695,6 +695,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_equip = 0
 	power_light = 0
 	power_environ = 0
+
+/area/maintenance/library
+	name = "Abandoned Library"
+	icon_state = "library"
 
 /area/maintenance/spacehut
 	name = "Space Hut"
@@ -960,10 +964,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Library"
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
-
-/area/library/abandoned
-	name = "\improper Abandoned Library"
-	icon_state = "library"
 
 /area/chapel
 	icon_state = "chapel"
@@ -1870,6 +1870,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/turret_protected/ai
 	name = "\improper AI Chamber"
 	icon_state = "ai_chamber"
+	ambientsounds = list('sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
 
 /area/turret_protected/aisat
 	name = "\improper AI Satellite"

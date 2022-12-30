@@ -252,12 +252,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	else
 		for(var/mob/living/L in AM.contents)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in contained lifeform.")
+				atom_say("Rejecting [AM]: Exile bio-chip detected in contained lifeform.")
 				return
 	if(AM.has_buckled_mobs())
 		for(var/mob/living/L in AM.buckled_mobs)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in close proximity lifeform.")
+				atom_say("Rejecting [AM]: Exile bio-chip detected in close proximity lifeform.")
 				return
 	AM.forceMove(get_step(stationgate.loc, SOUTH))
 	AM.setDir(SOUTH)
@@ -267,9 +267,9 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
 /obj/machinery/gateway/centeraway/proc/exilecheck(mob/living/carbon/M)
-	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
+	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile bio-chip in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
-			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
+			to_chat(M, "<span class='notice'>The station gate has detected your exile bio-chip and is blocking your entry.</span>")
 			return 1
 	return 0
 

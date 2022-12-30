@@ -23,17 +23,17 @@
 		// Give ghosts some time to jump there before it begins.
 		var/image/alert_overlay = image('icons/mob/animal.dmi', notify_image)
 		notify_ghosts("\A [src] is about to open in [get_area(T)].", title = notify_title, source = T, alert_overlay = alert_overlay, action = NOTIFY_FOLLOW)
-		addtimer(CALLBACK(src, .proc/spawn_tear, T), 4 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(spawn_tear), T), 4 SECONDS)
 
 		// Energy overload; we mess with machines as an early warning and for extra spookiness.
 		for(var/obj/machinery/M in range(8, T))
-			INVOKE_ASYNC(M, /atom/.proc/get_spooked)
+			INVOKE_ASYNC(M, TYPE_PROC_REF(/atom, get_spooked))
 
 /datum/event/tear/proc/spawn_tear(location)
 	TE = new /obj/effect/tear(location)
 
 /datum/event/tear/announce()
-	GLOB.event_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
+	GLOB.minor_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
 
 /datum/event/tear/end()
 	if(TE)
@@ -62,8 +62,8 @@
 	playsound(get_turf(src), 'sound/magic/drum_heartbeat.ogg', 100)
 
 	// We spawn the minions first, then the boss.
-	addtimer(CALLBACK(src, .proc/spawn_mobs), 2 SECONDS)
-	addtimer(CALLBACK(src, .proc/spawn_leader), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(spawn_mobs)), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(spawn_leader)), 5 SECONDS)
 
 /obj/effect/tear/proc/spawn_mobs()
 	// We break some of those flickering consoles from earlier.

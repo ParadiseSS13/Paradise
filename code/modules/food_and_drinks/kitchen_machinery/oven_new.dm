@@ -8,9 +8,9 @@
 	recipe_type = RECIPE_OVEN
 	off_icon = "oven_off"
 	on_icon = "oven_on"
-	broken_icon = "oven_broke"
 	dirty_icon = "oven_dirty"
 	open_icon = "oven_open"
+	soundloop_type = /datum/looping_sound/kitchen/oven
 
 // see code/modules/food/recipes_oven.dm for recipes
 

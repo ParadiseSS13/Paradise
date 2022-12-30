@@ -1,7 +1,6 @@
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Used to access the various cameras networks on the station."
-
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
 	light_color = LIGHT_COLOR_RED
@@ -52,7 +51,7 @@
 
 /obj/machinery/computer/security/Destroy()
 	qdel(cam_screen)
-	QDEL_LIST(cam_plane_masters)
+	QDEL_LIST_CONTENTS(cam_plane_masters)
 	qdel(cam_background)
 	return ..()
 
@@ -170,7 +169,7 @@
 
 /obj/machinery/computer/security/attack_ai(mob/user)
 	if(isAI(user))
-		to_chat(user, "<span class='notice'>You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips</span>")
+		to_chat(user, "<span class='notice'>You realise it's kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips.</span>")
 		return
 
 	ui_interact(user)
@@ -220,7 +219,7 @@
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
-	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
+	circuit = null
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
@@ -232,6 +231,19 @@
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
+
+/obj/machinery/computer/security/telescreen/entertainment/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0 SECONDS))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct()
+
+/obj/machinery/computer/security/telescreen/entertainment/on_deconstruction()
+	. = ..()
+	new /obj/item/mounted/frame/display/entertainment_frame(drop_location())
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
@@ -261,3 +273,57 @@
 	light_color = "#FAC54B"
 	network = list("Power Alarms","Atmosphere Alarms","Fire Alarms")
 	circuit = /obj/item/circuitboard/camera/engineering
+
+/obj/machinery/computer/security/telescreen/engine
+	name = "engine monitor"
+	desc = "A telescreen that connects to the engine's camera network.";
+	network = list("engine")
+	circuit = /obj/item/circuitboard/camera/engine
+
+/obj/machinery/computer/security/telescreen/research
+	name = "research monitor"
+	desc = "Used for watching the horrors within the test chamber.";
+	network = list("TestChamber")
+	circuit = /obj/item/circuitboard/camera/research
+
+/obj/machinery/computer/security/telescreen/rd
+	name = "research director monitor"
+	desc = "Used for watching the RD's goons from the safety of his office.";
+	network = list("Research","Research Outpost","RD","MiniSat")
+	circuit = /obj/item/circuitboard/camera/rd
+
+/obj/machinery/computer/security/telescreen/prison
+	name = "prison monitor"
+	desc = "Used for watching Prison Wing holding areas.";
+	network = list("Prison")
+	circuit = /obj/item/circuitboard/camera/prison
+
+/obj/machinery/computer/security/telescreen/interrogation
+	name = "interrogation monitor"
+	desc = "Used for watching interrogations.";
+	network = list("Interrogation")
+	circuit = /obj/item/circuitboard/camera/interrogation
+
+/obj/machinery/computer/security/telescreen/minisat
+	name = "minisat monitor"
+	desc = "Used for watching areas on the MiniSat.";
+	network = list("MiniSat","tcomm")
+	circuit = /obj/item/circuitboard/camera/minisat
+
+/obj/machinery/computer/security/telescreen/upload
+	name = "ai upload monitor"
+	desc = "Used for watching the AI Upload.";
+	network = list("AIUpload")
+	circuit = /obj/item/circuitboard/camera/upload
+
+/obj/machinery/computer/security/telescreen/vault
+	name = "vault monitor"
+	desc = "Used for watching the vault.";
+	network = list("vault")
+	circuit = /obj/item/circuitboard/camera/vault
+
+/obj/machinery/computer/security/telescreen/turbine
+	name = "turbine vent monitor"
+	desc = "Used for watching the turbine vent.";
+	network = list("Turbine")
+	circuit = /obj/item/circuitboard/camera/turbine

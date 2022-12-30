@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(istype(O, /obj/item/grab))
 		var/obj/item/grab/G = O
 		var/grabbed = G.affecting
-		if(istype(grabbed, /mob/living/carbon/human))
+		if(ishuman(grabbed))
 			var/mob/living/carbon/human/target = grabbed
 			if(issmall(target))
 				if(target.stat == 0)

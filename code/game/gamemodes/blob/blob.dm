@@ -23,6 +23,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	var/blobwincount = 350
 
+	/// Lower bound on time before messages, bursts and intercepts happen
+	var/const/wait_time_low = 60 SECONDS
+	/// Upper bound on time before messages, bursts and intercepts happen
+	var/const/wait_time_high = 180 SECONDS
+
 	var/list/infected_crew = list()
 
 /datum/game_mode/blob/pre_setup()
@@ -73,8 +78,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	log_game("[key_name(blob)] has been selected as a Blob")
 	greet_blob(blobmind)
-	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
-	addtimer(CALLBACK(src, .proc/burst_blob, blobmind), 60 SECONDS)
+	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated! You don't have long before you burst!</span>")
+	blob.apply_status_effect(STATUS_EFFECT_BLOB_BURST, 60 SECONDS, CALLBACK(src, PROC_REF(burst_blob)))
 	return 1
 
 /datum/game_mode/blob/proc/make_blobs(count)
@@ -122,11 +127,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		if(GLOB.directory[ckey(blob.key)])
 			blob_client = GLOB.directory[ckey(blob.key)]
 			location = get_turf(C)
-			if(!is_station_level(location.z) || istype(location, /turf/space))
+			if(!is_station_level(location.z) || isspaceturf(location))
 				if(!warned)
 					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
 					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if [C.p_they()] [C.p_do()] not return to the station.")
-					addtimer(CALLBACK(src, .proc/burst_blob, blob, 1), 30 SECONDS)
+					addtimer(CALLBACK(src, PROC_REF(burst_blob), blob, 1), 30 SECONDS)
 				else
 					burst++
 					log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
@@ -147,43 +152,30 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /datum/game_mode/blob/post_setup()
 
+	var/wait_time = rand(wait_time_low, wait_time_high)
 	for(var/datum/mind/blob in infected_crew)
 		greet_blob(blob)
 		update_blob_icons_added(blob)
+		blob.current.apply_status_effect(STATUS_EFFECT_BLOB_BURST, wait_time * 2.5, CALLBACK(src, PROC_REF(burst_blob), blob))
 
 	if(SSshuttle)
-		SSshuttle.emergencyNoEscape = 1
+		SSshuttle.emergencyNoEscape = TRUE
 
-	spawn(0)
+	addtimer(CALLBACK(src, PROC_REF(show_message), "<span class='userdanger'>You feel tired and bloated.</span>"), wait_time)
+	addtimer(CALLBACK(src, PROC_REF(show_message), "<span class='userdanger'>You feel like you are about to burst.</span>"), wait_time * 2)
 
-		var/wait_time = rand(waittime_l, waittime_h)
+	// Stage 1
+	addtimer(CALLBACK(src, PROC_REF(stage), 1), (wait_time * 4.5))
 
-		sleep(wait_time)
-
-		send_intercept(0)
-
-		sleep(100)
-
-		show_message("<span class='userdanger'>You feel tired and bloated.</span>")
-
-		sleep(wait_time)
-
-		show_message("<span class='userdanger'>You feel like you are about to burst.</span>")
-
-		addtimer(CALLBACK(src, .proc/burst_blobs), (wait_time / 2))
-
-		// Stage 1
-		addtimer(CALLBACK(src, .proc/stage, 1), (wait_time * 2 + wait_time / 2))
-
-		// Stage 2
-		addtimer(CALLBACK(src, .proc/stage, 2), 50 MINUTES)
+	// Stage 2
+	addtimer(CALLBACK(src, PROC_REF(stage), 2), 50 MINUTES + wait_time * 2)
 
 	return ..()
 
 /datum/game_mode/blob/proc/stage(stage)
 	switch(stage)
 		if(1)
-			GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+			GLOB.major_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 		if(2)
 			send_intercept(1)
 

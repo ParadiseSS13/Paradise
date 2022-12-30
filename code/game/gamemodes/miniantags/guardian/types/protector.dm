@@ -26,6 +26,7 @@
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
 		obj_damage = initial(obj_damage)
+		move_resist = initial(move_resist)
 		speed = initial(speed)
 		damage_transfer = 0.4
 		to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
@@ -37,6 +38,7 @@
 		melee_damage_lower = 2
 		melee_damage_upper = 2
 		obj_damage = 6 //40/7.5 rounded up, we don't want a protector guardian 2 shotting blob tiles while taking 5% damage, thats just silly.
+		move_resist = MOVE_FORCE_STRONG
 		speed = 1
 		damage_transfer = 0.05 //damage? what's damage?
 		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
@@ -48,7 +50,7 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			if(istype(summoner.loc, /obj/effect))
+			if(iseffect(summoner.loc))
 				to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
 				visible_message("<span class='danger'>[src] jumps back to its user.</span>")
 				Recall(TRUE)

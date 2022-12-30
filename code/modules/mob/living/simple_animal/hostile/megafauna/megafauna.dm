@@ -42,7 +42,7 @@
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
 	if(internal_gps && true_spawn)
-		internal = new internal_gps(src)
+		internal_gps = new internal_gps(src)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
@@ -150,7 +150,7 @@
 	var/chosen_attack_num = 0
 
 /datum/action/innate/megafauna_attack/Grant(mob/living/L)
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+	if(ismegafauna(L))
 		M = L
 		return ..()
 	return FALSE

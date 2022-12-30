@@ -181,7 +181,7 @@
 			var/mob/living/M = A
 			if(!("terrorspiders" in M.faction))
 				enemies |= M
-		else if(istype(A, /obj/mecha))
+		else if(ismecha(A))
 			var/obj/mecha/M = A
 			if(M.occupant)
 				enemies |= M
@@ -225,7 +225,7 @@
 	for(var/obj/O in can_see)
 		if(O.anchored)
 			continue
-		if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
+		if(isitem(O) || isstructure(O) || ismachinery(O))
 			if(!istype(O, /obj/item/paper))
 				cocoon_target = O
 				stop_automated_movement = TRUE

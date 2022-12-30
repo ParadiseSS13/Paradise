@@ -32,6 +32,8 @@
 	var/drying = FALSE
 	/// Whether the fridge's contents are visible on the world icon.
 	var/visible_contents = TRUE
+	/// Whether the fridge is electric and thus silicon controllable.
+	var/silicon_controllable = TRUE
 	/// The wires controlling the fridge.
 	var/datum/wires/smartfridge/wires
 	/// Typecache of accepted item types, init it in [/obj/machinery/smartfridge/Initialize].
@@ -113,7 +115,7 @@
 	if(old_stat != stat)
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/smartfridge/extinguish_light()
+/obj/machinery/smartfridge/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
 
@@ -206,7 +208,9 @@
 		return TRUE
 
 /obj/machinery/smartfridge/attack_ai(mob/user)
-	return FALSE
+	if(!silicon_controllable)
+		return FALSE
+	return attack_hand(user)
 
 /obj/machinery/smartfridge/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -220,6 +224,8 @@
 
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user)
+	if(issilicon(user))
+		return
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
 		return
 	if(stat & (BROKEN|NOPOWER))
@@ -328,8 +334,11 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(istype(I.loc, /obj/item/storage))
+			if(isstorage(I.loc))
 				var/obj/item/storage/S = I.loc
+				if(!S.removal_allowed_check(user))
+					return
+
 				S.remove_from_storage(I, src)
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
@@ -369,7 +378,7 @@
 	if(!throw_item)
 		return FALSE
 
-	INVOKE_ASYNC(throw_item, /atom/movable.proc/throw_at, target, 16, 3, src)
+	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
 	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
 	return TRUE
 
@@ -426,7 +435,7 @@
   * # Seed Storage
   *
   * Seeds variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
+  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/economy/vending/hydroseeds].
   */
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
@@ -447,14 +456,15 @@
   * Variant of the [Smart Fridge][/obj/machinery/smartfridge] that holds food and drinks in a mobile form
   */
 /obj/machinery/smartfridge/foodcart
-	name = "\improper Food and Drink Cart"
+	name = "food and drink cart"
 	desc = "A portable cart for hawking your food and drink wares around the station"
-	icon = 'icons/obj/foodcart.dmi'
-	icon_state = "cart"
+	icon = 'icons/obj/kitchen.dmi'
+	icon_state = "foodcart"
 	anchored = FALSE
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
 	face_while_pulling = FALSE
+	silicon_controllable = FALSE
 
 
 /obj/machinery/smartfridge/foodcart/Initialize(mapload)
@@ -681,6 +691,22 @@
 		/obj/item/disk,
 	))
 
+/obj/machinery/smartfridge/id
+	name = "identification card compartmentalizer"
+	desc = "A machine capable of storing identification cards and PDAs. It's great for lost and terminated cards."
+	icon_state = "idbox"
+	icon_lightmask = FALSE
+	pass_flags = PASSTABLE
+	visible_contents = FALSE
+	board_type = /obj/machinery/smartfridge/id
+
+/obj/machinery/smartfridge/id/Initialize(mapload)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/card/id,
+		/obj/item/pda,
+	))
+
 /**
   * # Smart Virus Storage
   *
@@ -778,12 +804,13 @@
 	visible_contents = FALSE
 	light_range_on = null
 	light_power_on = null
+	silicon_controllable = FALSE
 
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
 	// Remove components, this is wood duh
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts = null
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(

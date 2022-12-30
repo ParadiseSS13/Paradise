@@ -2,11 +2,13 @@
 	var/name = "Reagent"
 	var/id = "reagent"
 	var/description = ""
+	/// A reference to the holder the chemical is 'in'.
 	var/datum/reagents/holder = null
 	var/reagent_state = SOLID
 	var/list/data = null
 	var/volume = 0
 	var/metabolization_rate = REAGENTS_METABOLISM
+	/// The color of the agent outside of containers.
 	var/color = "#000000" // rgb: 0, 0, 0 (does not support alpha channels - yet!)
 	var/shock_reduction = 0
 	var/heart_rate_increase = 0
@@ -45,7 +47,15 @@
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
 	return
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
+/**
+ * React with a mob.
+ *
+ * The method var can be either `REAGENT_TOUCH` or `REAGENT_INGEST`. Some
+ * reagents transfer on touch, others don't; dependent on if they penetrate the
+ * skin or not. You'll want to put stuff like acid-facemelting in here. Should
+ * only ever be called, directly, on living mobs.
+ */
+/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
 	if(!holder)  //for catching rare runtimes
 		return
 	if(method == REAGENT_TOUCH && penetrates_skin)
@@ -73,15 +83,23 @@
 		// This one only matters if the mob is dead.
 		M.absorb_blood()
 
+/**
+ * React with an object.
+ */
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return
 
+/**
+ * React with a turf.
+ *
+ * You'll want to put stuff like extra slippery floors for lube or something in here.
+ */
 /datum/reagent/proc/reaction_turf(turf/T, volume, color)
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
 	current_cycle++
-	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency * M.digestion_ratio // Cache it
+	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency // Cache it
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)

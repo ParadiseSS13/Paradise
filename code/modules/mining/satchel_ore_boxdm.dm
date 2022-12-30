@@ -14,7 +14,7 @@
 		if(!user.drop_item())
 			return
 		W.forceMove(src)
-	else if(istype(W, /obj/item/storage))
+	else if(isstorage(W))
 		var/obj/item/storage/S = W
 		S.hide_from(usr)
 		for(var/obj/item/stack/ore/O in S.contents)

@@ -40,7 +40,7 @@
 		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
 		EQUIPMENT("Mining Hardsuit", /obj/item/clothing/suit/space/hardsuit/mining, 2000),
-		EQUIPMENT("Tracking Implant Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", /obj/item/stack/marker_beacon/ten, 100),
@@ -88,7 +88,7 @@
 		EQUIPMENT("Laser Pointer", /obj/item/laser_pointer, 300),
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
-		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c1000, 2000),
+		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
 	)
 	prize_list["Extra"] = list() // Used in child vendors

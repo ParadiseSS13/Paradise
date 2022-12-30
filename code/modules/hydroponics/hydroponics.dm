@@ -756,7 +756,7 @@
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
-		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/food/pill))
+		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
 			transfer_amount = reagent_source.reagents.total_volume
 		else
@@ -794,7 +794,7 @@
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split)
-			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/food/pill))
+			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
 				qdel(reagent_source)
 
 			H.applyChemicals(S, user)
@@ -877,7 +877,7 @@
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_state()
-	else if(istype(O, /obj/item/pen) && myseed)
+	else if(is_pen(O) && myseed)
 		myseed.variant_prompt(user, src)
 	else
 		return ..()
@@ -1004,7 +1004,7 @@
 		return ..()
 
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
-	if(istype(user, /mob/living/simple_animal/diona))
+	if(isnymph(user))
 		if(weedlevel > 0)
 			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)

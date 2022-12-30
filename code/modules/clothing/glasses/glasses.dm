@@ -21,16 +21,20 @@
 		name = "prescription [initial(name)]"
 
 	// Removing prescription glasses
-	else if(prescription && istype(I, /obj/item/screwdriver))
-		var/obj/item/clothing/glasses/regular/G = locate() in src
-		if(!G)
-			G = new(src)
-		to_chat(H, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
-		prescription = FALSE
-		name = initial(name)
-		H.put_in_hands(G)
-
 	H.update_nearsighted_effects()
+
+/obj/item/clothing/glasses/screwdriver_act(mob/living/user, obj/item/I)
+	if(!prescription)
+		return
+	var/obj/item/clothing/glasses/regular/G = locate() in src
+	if(!G)
+		G = new(src)
+	to_chat(user, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+	prescription = FALSE
+	name = initial(name)
+	user.put_in_hands(G)
+	user.update_nearsighted_effects()
+	return TRUE
 
 /obj/item/clothing/glasses/update_icon_state()
 	if(..())

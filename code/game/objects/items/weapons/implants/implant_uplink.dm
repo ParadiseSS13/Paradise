@@ -1,5 +1,5 @@
 /obj/item/implant/uplink
-	name = "uplink implant"
+	name = "uplink bio-chip"
 	desc = "Summon things."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
@@ -45,18 +45,18 @@
 		hidden_uplink.check_trigger(imp_in)
 
 /obj/item/implanter/uplink
-	name = "implanter (uplink)"
+	name = "bio-chip implanter (uplink)"
 	implant_type = /obj/item/implant/uplink
 
 /obj/item/implantcase/uplink
-	name = "implant case - 'Syndicate Uplink'"
-	desc = "A glass case containing an uplink implant."
+	name = "bio-chip case - 'Syndicate Uplink'"
+	desc = "A glass case containing an uplink bio-chip."
 	implant_type = /obj/item/implant/uplink
 
 /obj/item/implanter/nuclear
-	name = "implanter (Nuclear Agent Uplink)"
+	name = "bio-chip implanter (Nuclear Agent Uplink)"
 	implant_type = /obj/item/implant/uplink/nuclear
 
 /obj/item/implantcase/nuclear
-	name = "implant case - 'Nuclear Agent Uplink'"
+	name = "bio-chip case - 'Nuclear Agent Uplink'"
 	implant_type = /obj/item/implant/uplink/nuclear

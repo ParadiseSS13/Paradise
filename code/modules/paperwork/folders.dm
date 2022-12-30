@@ -40,7 +40,7 @@
 		W.loc = src
 		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		rename_interactive(user, W)
 	else
 		return ..()

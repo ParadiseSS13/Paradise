@@ -32,6 +32,7 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = FALSE
 	can_hide = TRUE
+	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -79,6 +80,10 @@
 	icon_living = "mouse_[mouse_color]"
 	icon_dead = "mouse_[mouse_color]_dead"
 	icon_resting = "mouse_[mouse_color]_sleep"
+	update_appearance(UPDATE_DESC)
+
+/mob/living/simple_animal/mouse/update_desc()
+	. = ..()
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
@@ -129,7 +134,6 @@
 
 /mob/living/simple_animal/mouse/gray
 	mouse_color = "gray"
-	icon_state = "mouse_gray"
 
 /mob/living/simple_animal/mouse/brown
 	mouse_color = "brown"
@@ -139,12 +143,15 @@
 /mob/living/simple_animal/mouse/brown/Tom
 	name = "Tom"
 	real_name = "Tom"
-	desc = "Jerry the cat is not amused."
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/mouse/brown/Tom/update_desc()
+	. = ..()
+	desc = "Jerry the cat is not amused."
 
 /mob/living/simple_animal/mouse/brown/Tom/Initialize(mapload)
 	. = ..()
@@ -157,33 +164,31 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
-	var/cycles_alive = 0
-	var/cycles_limit = 60
-	var/has_burst = FALSE
+	var/bursted = FALSE
+
+/mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
+	. = ..()
+	apply_status_effect(STATUS_EFFECT_BLOB_BURST, 120 SECONDS, CALLBACK(src, PROC_REF(burst), FALSE))
 
 /mob/living/simple_animal/mouse/blobinfected/Life()
-	cycles_alive++
-	var/timeleft = (cycles_limit - cycles_alive) * 2
 	if(ismob(loc)) // if someone ate it, burst immediately
 		burst(FALSE)
-	else if(timeleft < 1) // if timer expired, burst.
-		burst(FALSE)
-	else if(cycles_alive % 2 == 0) // give the mouse/player a countdown reminder every 2 cycles
-		to_chat(src, "<span class='warning'>[timeleft] seconds until you burst, and become a blob...</span>")
 	return ..()
 
 /mob/living/simple_animal/mouse/blobinfected/death(gibbed)
-	burst(gibbed)
-	return ..(gibbed)
+	. = ..(gibbed)
+	if(.) // Only burst if they actually died
+		burst(gibbed)
 
 /mob/living/simple_animal/mouse/blobinfected/proc/burst(gibbed)
-	if(has_burst)
-		return FALSE
+	if(bursted)
+		return // Avoids double bursting in some situations
+	bursted = TRUE
 	var/turf/T = get_turf(src)
 	if(!is_station_level(T.z) || isspaceturf(T))
 		to_chat(src, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
+		apply_status_effect(STATUS_EFFECT_BLOB_BURST, 5 SECONDS, CALLBACK(src, PROC_REF(burst), FALSE))
 		return FALSE
-	has_burst = TRUE
 	var/datum/mind/blobmind = mind
 	var/client/C = client
 	if(istype(blobmind) && istype(C))
@@ -203,7 +208,7 @@
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
 
 /mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!(istype(user, /mob/living/silicon/robot/drone)))
+	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))

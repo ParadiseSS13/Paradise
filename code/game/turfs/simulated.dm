@@ -16,6 +16,18 @@
 /turf/simulated/proc/burn_tile()
 	return
 
+/turf/simulated/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text_verb = "clean", text_description = " with [cleaner].", text_targetname = name)
+	if(!..())
+		return
+
+	if(!cleaner.can_clean())
+		return
+
+	clean_blood()
+	for(var/obj/effect/O in src)
+		if(O.is_cleanable())
+			qdel(O)
+
 /turf/simulated/water_act(volume, temperature, source)
 	. = ..()
 
@@ -60,7 +72,7 @@
 		return
 	if(!time)
 		time =	rand(790, 820)
-	addtimer(CALLBACK(src, .proc/MakeDry, wet_setting), time)
+	addtimer(CALLBACK(src, PROC_REF(MakeDry), wet_setting), time)
 
 /turf/simulated/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)

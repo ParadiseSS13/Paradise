@@ -151,7 +151,7 @@
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi'
 		)
 
 /obj/item/clothing/under/vox/vox_casual
@@ -170,7 +170,7 @@
 	item_state = "vox-casual-2"
 	species_restricted = list("Vox","Vox Armalis")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
 		"Vox Armalis" = 'icons/mob/clothing/species/armalis/suit.dmi'
 		)
 

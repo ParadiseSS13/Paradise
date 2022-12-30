@@ -1,9 +1,33 @@
+// Tool tools
 #define TOOL_CROWBAR 		"crowbar"
 #define TOOL_MULTITOOL		"multitool"
 #define TOOL_SCREWDRIVER 	"screwdriver"
 #define TOOL_WIRECUTTER 	"wirecutter"
 #define TOOL_WRENCH 		"wrench"
 #define TOOL_WELDER 		"welder"
+
+// Surgery tools
+#define TOOL_RETRACTOR "retractor"
+#define TOOL_HEMOSTAT "hemostat"
+#define TOOL_CAUTERY "cautery"
+#define TOOL_DRILL "drill"
+#define TOOL_SCALPEL "scalpel"
+#define TOOL_SAW "saw"
+#define TOOL_BONESET "bonesetter"
+#define TOOL_BONEGEL "bonegel"
+#define TOOL_FIXOVEIN "fixovein"
+
+GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
+	TOOL_RETRACTOR,
+	TOOL_HEMOSTAT,
+	TOOL_CAUTERY,
+	TOOL_DRILL,
+	TOOL_SCALPEL,
+	TOOL_SAW,
+	TOOL_BONESET,
+	TOOL_BONEGEL,
+	TOOL_FIXOVEIN
+))
 
 #define MIN_TOOL_SOUND_DELAY 20
 

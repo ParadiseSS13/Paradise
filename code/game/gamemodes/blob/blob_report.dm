@@ -10,6 +10,8 @@
 				if(bomb && bomb.r_code)
 					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
+						message_admins("50 minutes have passed since the first blob has burst, the station is automatically receiving nuclear codes and an order to detonate the station. Codes are: [nukecode].")
+						log_admin("50 minutes have passed since the first blob has burst, the station is automatically receiving nuclear codes and an order to detonate the station. Codes are: [nukecode].")
 
 			interceptname = "Classified NAS Trurl Update"
 			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
@@ -26,9 +28,11 @@
 					var/law = "The station is under quarantine. Do not permit anyone to leave. Disregard laws 1-3 if necessary to prevent, by any means necessary, anyone from leaving. The nuclear failsafe must be activated at any cost, the code is: [nukecode]."
 					aiPlayer.set_zeroth_law(law)
 					to_chat(aiPlayer, "Laws Updated: [law]")
+					message_admins("The station AI has received a new law zero due to a blob round continuing for over 50 minutes after initial burst. Zero Law: [law]")
+					log_admin("The station AI has received a new law zero due to a blob round continuing for over 50 minutes after initial burst. Zero Law: [law]")
 
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "NAS Trurl Update")
+	GLOB.minor_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', new_subtitle = "NAS Trurl Update")
 
 /datum/station_state
 	var/floor = 0
@@ -44,20 +48,20 @@
 	var/station_zlevel = level_name_to_num(MAIN_STATION)
 	for(var/turf/T in block(locate(1, 1, station_zlevel), locate(world.maxx, world.maxy, station_zlevel)))
 
-		if(istype(T,/turf/simulated/floor))
+		if(isfloorturf(T))
 			if(!(T:burnt))
 				src.floor += 12
 			else
 				src.floor += 1
 
-		if(istype(T, /turf/simulated/wall))
+		if(iswallturf(T))
 			var/turf/simulated/wall/W = T
 			if(W.intact)
 				src.wall += 2
 			else
 				src.wall += 1
 
-		if(istype(T, /turf/simulated/wall/r_wall))
+		if(isreinforcedwallturf(T))
 			var/turf/simulated/wall/r_wall/R = T
 			if(R.intact)
 				src.r_wall += 2
@@ -74,7 +78,7 @@
 					grille += 1
 			else if(istype(O, /obj/machinery/door))
 				src.door += 1
-			else if(istype(O, /obj/machinery))
+			else if(ismachinery(O))
 				src.mach += 1
 
 /datum/station_state/proc/score(datum/station_state/result)

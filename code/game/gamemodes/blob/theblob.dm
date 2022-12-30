@@ -51,7 +51,7 @@
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
 
-/obj/structure/blob/CanAStarPass(ID, dir, caller)
+/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = 0
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
@@ -135,7 +135,7 @@
 /obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color, _overmind = null)
 	if(prob && !prob(obj_integrity))
 		return
-	if(istype(T, /turf/space) && prob(75)) 	return
+	if(isspaceturf(T) && prob(75)) 	return
 	if(!T)
 		var/list/dirs = list(1,2,4,8)
 		for(var/i = 1 to 4)

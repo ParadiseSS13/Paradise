@@ -9,6 +9,10 @@
 	if(layer != TURF_LAYER+0.2)
 		layer = TURF_LAYER+0.2
 		visible_message("<B>[src] scurries to the ground!</B>", "<span class=notice'>You are now hiding.</span>")
+		if(pass_door_while_hidden)
+			pass_flags |= PASSDOOR
 	else
 		layer = MOB_LAYER
 		visible_message("[src] slowly peeks up from the ground...", "<span class=notice'>You have stopped hiding.</span>")
+		if(pass_door_while_hidden)
+			pass_flags &= ~PASSDOOR

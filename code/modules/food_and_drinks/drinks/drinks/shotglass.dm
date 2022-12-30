@@ -5,7 +5,7 @@
 	custom_fire_overlay = "shotglass_fire"
 	amount_per_transfer_from_this = 15
 	volume = 15
-	materials = list(MAT_GLASS=100)
+	materials = list(MAT_GLASS = 50)
 	var/light_intensity = 2
 	light_color = LIGHT_COLOR_LIGHTBLUE
 	resistance_flags = FLAMMABLE

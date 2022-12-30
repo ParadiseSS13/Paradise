@@ -38,7 +38,7 @@
 	if(target.invisibility != 0)
 		return
 	if(!active_dummy)
-		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
+		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>Scanned [target].</span>")
 			saved_item = target.type
@@ -148,7 +148,7 @@
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/relaymove(mob/user, direction)
-	if(!isturf(loc) || istype(loc, /turf/space) || !direction)
+	if(!isturf(loc) || isspaceturf(loc) || !direction)
 		return // No magical movement!
 
 	if(can_move)

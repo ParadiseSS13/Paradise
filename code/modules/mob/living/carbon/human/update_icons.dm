@@ -165,7 +165,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body(rebuild_base = FALSE)
-	remove_overlay(BODY_LAYER)
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
 
@@ -273,8 +272,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
-	overlays_standing[BODY_LAYER] = standing
-	apply_overlay(BODY_LAYER)
 	//tail
 	update_tail_layer()
 	update_wing_layer()
@@ -283,6 +280,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_head_accessory()
 	//markings
 	update_markings()
+	update_hands_layer()
 	//hair
 	update_hair()
 	update_fhair()
@@ -344,7 +342,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
 				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
-														   //Having it this way preserves animations. Useful for animated antennae.
+														//Having it this way preserves animations. Useful for animated antennae.
 
 				if(head_accessory_style.over_hair) //Select which layer to use based on the properties of the head accessory style.
 					overlays_standing[HEAD_ACC_OVER_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACC_OVER_LAYER)
@@ -406,6 +404,39 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[HAIR_LAYER] = MA
 	apply_overlay(HAIR_LAYER)
+
+//HANDS OVERLAY
+//Exists to stop the need to cut holes in jumpsuit sprites
+/mob/living/carbon/human/proc/update_hands_layer()
+	remove_overlay(HANDS_LAYER)
+
+	if(w_uniform?.body_parts_covered & HANDS)
+		return
+
+	var/species_name = ""
+	if(dna.species.name in list("Drask", "Grey", "Vox"))
+		species_name = "_[lowertext(dna.species.name)]"
+
+	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
+
+	if(get_limb_by_name("l_hand"))
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask[species_name]"), ICON_OVERLAY)
+	if(get_limb_by_name("r_hand"))
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "r_hand_mask[species_name]"), ICON_OVERLAY)
+
+	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1]
+	var/icon/body_hands = icon(body_layer.icon)
+	body_hands.Blend(hands_mask, ICON_MULTIPLY)
+
+	var/mutable_appearance/markings_layer = overlays_standing[MARKINGS_LAYER]
+	var/icon/markings_hands = icon(markings_layer.icon)
+	markings_hands.Blend(hands_mask, ICON_MULTIPLY)
+
+	var/mutable_appearance/final_sprite = mutable_appearance(body_hands, layer = -HANDS_LAYER)
+	final_sprite.overlays += markings_hands
+
+	overlays_standing[HANDS_LAYER] = final_sprite
+	apply_overlay(HANDS_LAYER)
 
 //FACIAL HAIR OVERLAY
 /mob/living/carbon/human/proc/update_fhair()
@@ -559,12 +590,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_color)
 			t_color = icon_state
 
-		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/uniform.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
+		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/under/misc.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
 
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override
-		else if(w_uniform.sprite_sheets && w_uniform.sprite_sheets[dna.species.name])
-			standing.icon = w_uniform.sprite_sheets[dna.species.name]
+		if(w_uniform.sprite_sheets)
+			standing.icon = w_uniform.sprite_sheets["Human"]
+			if(w_uniform.sprite_sheets[dna.species.name] && icon_exists(w_uniform.sprite_sheets[dna.species.name], "[t_color]_s"))
+				standing.icon = w_uniform.sprite_sheets[dna.species.name]
 
 		if(w_uniform.blood_DNA)
 			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")
@@ -612,6 +645,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)
 	apply_overlay(UNIFORM_LAYER)
+	update_hands_layer()
 
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)

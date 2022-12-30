@@ -11,6 +11,8 @@
 #define GAME_PLANE -1
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
+#define AREA_PLANE 1
+
 #define SPACE_LAYER 1.8
 #define GRASS_UNDER_LAYER 1.9
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
@@ -90,6 +92,8 @@
 #define EMISSIVE_PLANE 13
 /// The render target used by the emissive.
 #define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
+
+#define POINT_PLANE 14
 
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15

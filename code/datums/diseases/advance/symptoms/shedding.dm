@@ -29,7 +29,7 @@ BONUS
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
 		to_chat(M, "<span class='warning'>[pick("Your scalp itches.", "Your skin feels flakey.")]</span>")
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(NO_HAIR in H.dna.species.species_traits)
 				return // Hair can't fall out if you don't have any
@@ -38,11 +38,11 @@ BONUS
 				if(3, 4)
 					if(!(head_organ.h_style == "Bald") && !(head_organ.h_style == "Balding Hair"))
 						to_chat(H, "<span class='warning'>Your hair starts to fall out in clumps...</span>")
-						addtimer(CALLBACK(src, .proc/change_hair, H, head_organ, null, "Balding Hair"), 5 SECONDS)
+						addtimer(CALLBACK(src, PROC_REF(change_hair), H, head_organ, null, "Balding Hair"), 5 SECONDS)
 				if(5)
 					if(!(head_organ.f_style == "Shaved") || !(head_organ.h_style == "Bald"))
 						to_chat(H, "<span class='warning'>Your hair starts to fall out in clumps...</span>")
-						addtimer(CALLBACK(src, .proc/change_hair, H, head_organ, "Shaved", "Bald"), 5 SECONDS)
+						addtimer(CALLBACK(src, PROC_REF(change_hair), H, head_organ, "Shaved", "Bald"), 5 SECONDS)
 
 /datum/symptom/shedding/proc/change_hair(mob/living/carbon/human/H, obj/item/organ/external/head/head_organ, f_style, h_style)
 	if(!H || !head_organ)

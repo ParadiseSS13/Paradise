@@ -13,6 +13,9 @@
 	name = "Red Terror spider"
 	desc = "An ominous-looking red spider, it has eight beady red eyes, and nasty, big, pointy fangs! It looks like it has a vicious streak a mile wide."
 	spider_role_summary = "High health, high damage, very slow, melee juggernaut"
+	spider_intro_text = "As a Red Terror Spider, your role is to directly attack the crew and defend weaker spiders. You have high health and deal high damage which increases the more injured you are. \
+	Your brute strength also allows you to force open powered doors and your webs are stronger and take longer for the crew to destroy. \
+	However, you move much slower than most other spiders."
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_red"
 	icon_living = "terror_red"

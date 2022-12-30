@@ -29,7 +29,7 @@
 	M.internal_organs |= src
 	M.internal_organs_slot[slot] = src
 	var/obj/item/organ/external/parent
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
@@ -59,7 +59,7 @@
 			if(M.stat != DEAD)//safety check!
 				M.death()
 
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
 		if(!istype(parent))
@@ -100,7 +100,7 @@
 
 //abstract proc called by carbon/death()
 /obj/item/organ/internal/proc/on_owner_death()
- 	return
+	return
 
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())
@@ -299,7 +299,7 @@
 	if(!owner)
 		return
 
-	if(istype(owner, /mob/living/carbon/human))
+	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))

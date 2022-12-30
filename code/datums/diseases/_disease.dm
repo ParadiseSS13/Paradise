@@ -150,6 +150,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			if(!(type in affected_mob.resistances))
 				affected_mob.resistances += type
 		remove_virus()
+		affected_mob.create_log(MISC_LOG, "has been cured from the virus \"[src]\"")
 	qdel(src)
 
 /datum/disease/proc/IsSame(datum/disease/D)

@@ -399,7 +399,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/challenge/main)
 "bu" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
 "bv" = (

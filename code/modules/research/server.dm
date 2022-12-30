@@ -140,10 +140,6 @@
 				air_update_turf()
 
 /obj/machinery/r_n_d/server/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", O)
-		return 1
-
 	if(exchange_parts(user, O))
 		return 1
 
@@ -154,6 +150,10 @@
 			return 1
 	else
 		return ..()
+
+/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	default_deconstruction_screwdriver(user, "RD-server-on_t", "RD-server-on", I)
+	return TRUE
 
 /obj/machinery/r_n_d/server/centcom
 	name = "CentComm. Central R&D Database"

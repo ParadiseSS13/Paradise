@@ -55,7 +55,7 @@
 		var/atom/movable/AM = A
 		if(AM.anchored)
 			continue
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/M = A
 			var/last_move
 			// get/update old step count

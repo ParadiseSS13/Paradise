@@ -1,6 +1,7 @@
 /datum/disease/cold
 	name = "The Cold"
 	max_stages = 3
+	spread_text = "Airborne"
 	spread_flags = AIRBORNE
 	cure_text = "Rest & Spaceacillin"
 	cures = list("spaceacillin")

@@ -69,8 +69,6 @@
 		return
 	if(isliving(user))
 		var/mob/living/M = user
-		if(world.time - user.last_bumped <= 60)
-			return //NOTE do we really need that?
 		if(M.client)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
@@ -78,7 +76,7 @@
 					operate()
 			else
 				operate()
-	else if(istype(user, /obj/mecha))
+	else if(ismecha(user))
 		operate()
 
 /obj/structure/mineral_door/proc/operate()
@@ -101,7 +99,7 @@
 	is_operating = FALSE
 
 	if(state_open && close_delay != -1)
-		addtimer(CALLBACK(src, .proc/operate), close_delay)
+		addtimer(CALLBACK(src, PROC_REF(operate)), close_delay)
 
 /obj/structure/mineral_door/update_icon_state()
 	if(state_open)

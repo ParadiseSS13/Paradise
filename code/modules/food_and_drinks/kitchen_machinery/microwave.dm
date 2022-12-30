@@ -8,10 +8,10 @@
 	recipe_type = RECIPE_MICROWAVE
 	off_icon = "mw"
 	on_icon = "mw1"
-	broken_icon = "mwb"
 	dirty_icon = "mwbloody"
 	open_icon = "mw-o"
 	pass_flags = PASSTABLE
+	soundloop_type = /datum/looping_sound/kitchen/microwave
 
 // see code/modules/food/recipes_microwave.dm for recipes
 

@@ -70,10 +70,10 @@
 /obj/item/dnainjector/proc/inject(mob/living/M, mob/user)
 	if(used)
 		return
-	if(istype(M,/mob/living))
+	if(isliving(M))
 		M.apply_effect(rand(20 / (damage_coeff ** 2), 50 / (damage_coeff ** 2)), IRRADIATE)
 	var/mob/living/carbon/human/H
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		H = M
 
 	if(!buf)

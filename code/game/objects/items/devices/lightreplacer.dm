@@ -112,7 +112,7 @@
 			qdel(L)
 		return
 
-	if(istype(I, /obj/item/storage))
+	if(isstorage(I))
 		var/obj/item/storage/S = I
 		var/found_lightbulbs = FALSE
 		var/replaced_something = TRUE

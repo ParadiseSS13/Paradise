@@ -264,7 +264,7 @@
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
 	// We have a holder. Inform the relevant places
-	INVOKE_ASYNC(src, .proc/announce_join)
+	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
 	pai_save = new(src)
 
@@ -337,7 +337,7 @@
 			on_holder_add()
 			add_admin_verbs()
 			// Must be async because any sleeps (happen in sql queries) will break connectings clients
-			INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
+			INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
 
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
@@ -574,7 +574,7 @@
 
 		qdel(query_update)
 		// After the regular update
-		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	else
 		//New player!! Need to insert all the stuff
@@ -590,10 +590,10 @@
 		qdel(query_insert)
 		// This is their first connection instance, so TRUE here to notify admins
 		// This needs to happen here to ensure they actually have a row to update
-		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
@@ -1229,6 +1229,13 @@
 	else
 		src << link(GLOB.configuration.system.region_map[choice])
 
+
+/client/verb/reload_graphics()
+	set category = "Special Verbs"
+	set name = "Reload Graphics"
+
+	winset(src, null, "command=\".configure graphics-hwmode off\"")
+	winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

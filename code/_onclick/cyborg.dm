@@ -111,7 +111,7 @@
 
 //Middle click points
 /mob/living/silicon/robot/MiddleClickOn(atom/A)
-	if(istype(src, /mob/living/silicon/robot/drone))
+	if(isdrone(src))
 		// Drones cannot point.
 		return
 	pointed(A)

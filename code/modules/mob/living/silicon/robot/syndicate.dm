@@ -64,7 +64,6 @@
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
 	burn_mod = 0.8
-	var/mail_destination = 0
 	var/obj/item/borg_chameleon/cham_proj = null
 	playstyle_string = "<span class='userdanger'>You are a Syndicate saboteur cyborg!</span><br>\
 						<b>You are equipped with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -108,28 +107,6 @@
 			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
 			return
 	cham_proj.attack_self(src)
-
-/mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
-	set name = "Set Mail Tag"
-	set desc = "Tag yourself for delivery through the disposals system."
-	set category = "Saboteur"
-
-	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
-
-	if(!tag || GLOB.TAGGERLOCATIONS[tag])
-		mail_destination = 0
-		return
-
-	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
-	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
-
-	//Auto flush if we use this verb inside a disposal chute.
-	var/obj/machinery/disposal/D = src.loc
-	if(istype(D))
-		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
-		D.flush_count = D.flush_every_ticks
-
-	return
 
 /mob/living/silicon/robot/syndicate/saboteur/attackby()
 	if(cham_proj)

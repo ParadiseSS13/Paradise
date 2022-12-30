@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/last_paper_seen = null
 	var/can_shunt = TRUE
 	var/last_announcement = ""
-	var/datum/announcement/priority/announcement
+	var/datum/announcer/announcer
 	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = FALSE //Waypoint mode is for selecting a turf via clicking.
@@ -126,11 +126,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	verbs -= silicon_subsystems
 
 /mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
-	announcement = new()
-	announcement.title = "A.I. Announcement"
-	announcement.announcement_type = "A.I. Announcement"
-	announcement.announcer = name
-	announcement.newscast = 0
+	announcer = new(config_type = /datum/announcement_configuration/ai)
+	announcer.author = name
 
 	var/list/possibleNames = GLOB.ai_names
 
@@ -331,7 +328,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return FALSE
 
 	if(oldname != real_name)
-		announcement.announcer = name
+		announcer.author = name
 
 		if(eyeobj)
 			eyeobj.name = "[newname] (AI Eye)"
@@ -571,7 +568,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	announcement.Announce(input)
+	announcer.Announce(input)
 	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
@@ -987,8 +984,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in GLOB.data_core.locked)//Look in data core locked.
-				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
 				input = input("Select a crew member:") as null|anything in personnel_list

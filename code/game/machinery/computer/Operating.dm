@@ -64,7 +64,7 @@
 
 /obj/machinery/computer/operating/ui_data(mob/user)
 	var/list/data = list()
-	var/mob/living/carbon/human/occupant
+	var/mob/living/carbon/occupant
 	if(table)
 		occupant = table.patient
 	data["hasOccupant"] = occupant ? 1 : 0
@@ -100,7 +100,7 @@
 				occupantData["temperatureSuitability"] = 2
 			else if(occupant.bodytemperature > sp.heat_level_1)
 				occupantData["temperatureSuitability"] = 1
-		else if(istype(occupant, /mob/living/simple_animal))
+		else if(isanimal(occupant))
 			var/mob/living/simple_animal/silly = occupant
 			if(silly.bodytemperature < silly.minbodytemp)
 				occupantData["temperatureSuitability"] = -3
@@ -111,28 +111,34 @@
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
+			var/mob/living/carbon/human/H = occupant
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
-			occupantData["bloodMax"] = occupant.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01) //copy pasta ends here
+			occupantData["bloodMax"] = H.max_blood
+			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/H.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"] = occupant.dna.blood_type
-		if(occupant.surgeries.len)
+		if(length(occupant.surgeries))
 			occupantData["inSurgery"] = 1
 			for(var/datum/surgery/procedure in occupant.surgeries)
 				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
 				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
+				var/surgery_desc = "[capitalize(surgery_step.get_step_information(procedure))]"
+				if(surgery_step.repeatable)
+					var/datum/surgery_step/next = procedure.get_surgery_next_step()
+					if(next)
+						surgery_desc += " or [capitalize(next.get_step_information(procedure))]"
+				occupantData["stepName"] = surgery_desc
 
 	data["occupant"] = occupantData
-	data["verbose"]=verbose
-	data["oxyAlarm"]=oxyAlarm
-	data["choice"]=choice
-	data["health"]=healthAnnounce
-	data["crit"]=crit
-	data["healthAlarm"]=healthAlarm
-	data["oxy"]=oxy
+	data["verbose"] = verbose
+	data["oxyAlarm"] = oxyAlarm
+	data["choice"] = choice
+	data["health"] = healthAnnounce
+	data["crit"] = crit
+	data["healthAlarm"] = healthAlarm
+	data["oxy"] = oxy
 
 	return data
 
@@ -193,7 +199,12 @@
 
 	if(isNewPatient)
 		atom_say("New patient detected, loading stats")
-		atom_say("[table.patient], [table.patient.dna.blood_type] blood, [patientStatus]")
+		var/blood_type_msg
+		if(ishuman(table.patient))
+			blood_type_msg = table.patient.dna.blood_type
+		else
+			blood_type_msg = "\[ERROR: UNKNOWN\]"
+		atom_say("[table.patient], [blood_type_msg] blood, [patientStatus]")
 		SStgui.update_uis(src)
 		patientStatusHolder = table.patient.stat
 		currentPatient = table.patient

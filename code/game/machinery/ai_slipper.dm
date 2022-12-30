@@ -54,7 +54,7 @@
 		uses--
 		cooldown_on = TRUE
 		power_change()
-		addtimer(CALLBACK(src, .proc/recharge), cooldown_time)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown_time)
 
 /obj/machinery/ai_slipper/update_icon_state()
 	if(stat & (NOPOWER|BROKEN) || cooldown_on || !uses)

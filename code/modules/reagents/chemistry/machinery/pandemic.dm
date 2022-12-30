@@ -338,9 +338,11 @@
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		updateUsrDialog()
 		icon_state = "pandemic1"
-
-	else if(istype(I, /obj/item/screwdriver))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
 	else
 		return ..()
+
+/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+	if(beaker)
+		eject_beaker()
+		return TRUE
+	return ..()

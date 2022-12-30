@@ -154,9 +154,9 @@
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
 		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
-	else if(istype(copymob,/mob/living/silicon/robot/drone))
+	else if(isdrone(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
-	else if(istype(copymob,/mob/living/simple_animal/diona))
+	else if(isnymph(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "nymph")
 	else if(isalien(copymob) || istype(copymob,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
@@ -495,7 +495,7 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target.move_resist > user.pull_force)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user) || target.move_resist > user.pull_force)
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return
@@ -517,7 +517,7 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/Destroy()
-	QDEL_LIST(saved_documents)
+	QDEL_LIST_CONTENTS(saved_documents)
 	return ..()
 
 /**

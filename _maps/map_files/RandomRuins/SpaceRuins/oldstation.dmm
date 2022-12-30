@@ -2695,7 +2695,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/engi)
 "gE" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"

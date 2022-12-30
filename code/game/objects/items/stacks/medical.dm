@@ -66,21 +66,21 @@
 
 		critter.heal_organ_damage(heal_brute, heal_burn)
 		user.visible_message("<span class='green'>[user] applies [src] on [critter].</span>", \
-							 "<span class='green'>You apply [src] on [critter].</span>")
+							"<span class='green'>You apply [src] on [critter].</span>")
 
 		use(1)
 
 	else
 		M.heal_organ_damage(heal_brute, heal_burn)
 		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", \
-							 "<span class='green'>You apply [src] on [M].</span>")
+							"<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
-						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
+						"<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
 
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
@@ -110,7 +110,7 @@
 		rembrute = nrembrute
 		remburn = nremburn
 		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
-							 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+							"<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
 
 //Bruise Packs//
 
@@ -131,8 +131,8 @@
 			return
 		new /obj/item/stack/sheet/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
-					 "<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
-					 "<span class='italics'>You hear cutting.</span>")
+					"<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
+					"<span class='italics'>You hear cutting.</span>")
 		use(2)
 	else
 		return ..()
@@ -145,7 +145,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == FALSE)
+		if(affecting.open == ORGAN_CLOSED)
 			affecting.germ_level = 0
 
 			if(stop_bleeding)
@@ -204,7 +204,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == FALSE)
+		if(affecting.open == ORGAN_CLOSED)
 			affecting.germ_level = 0
 
 			heal(H, user)

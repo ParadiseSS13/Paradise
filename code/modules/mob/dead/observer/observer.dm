@@ -11,6 +11,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
 	layer = GHOST_LAYER
+	plane = GAME_PLANE
 	stat = DEAD
 	density = FALSE
 	alpha = 127
@@ -88,8 +89,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	toggle_all_huds_on(body)
-	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, .proc/set_ghost_darkness_level) //something something don't call this until we have a HUD
+	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	..()
+	plane = GAME_PLANE
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
@@ -146,7 +148,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		MA.icon = initial(icon)
 		MA.icon_state = initial(icon_state)
 	MA.underlays = COPY.underlays
-
+	MA.layer = GHOST_LAYER
+	MA.plane = GAME_PLANE
 	. = MA
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
@@ -491,7 +494,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(isobserver(usr)) //Make sure they're an observer!
 		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
 		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
-		A.on_close(CALLBACK(src, .proc/jump_to_mob))
+		A.on_close(CALLBACK(src, PROC_REF(jump_to_mob)))
 
 /mob/dead/observer/proc/jump_to_mob(mob/M)
 	if(!M || !isobserver(usr))
@@ -545,10 +548,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Analyze Air"
 	set category = "Ghost"
 
-	if(!istype(usr, /mob/dead/observer)) return
+	if(!isobserver(usr))
+		return
 
 	// Shamelessly copied from the Gas Analyzers
-	if(!( istype(usr.loc, /turf) ))
+	if(!isturf(usr.loc))
 		return
 
 	var/datum/gas_mixture/environment = usr.loc.return_air()
@@ -614,7 +618,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			. += "|<a href='byond://?src=[ghost.UID()];follow=[A.eyeobj.UID()]'>eye</a>"
 		return
-	else if(istype(target, /mob/dead/observer))
+	else if(isobserver(target))
 		var/mob/dead/observer/O = target
 		. = "<a href='byond://?src=[ghost.UID()];follow=[target.UID()]'>follow</a>"
 		if(O.mind && O.mind.current)

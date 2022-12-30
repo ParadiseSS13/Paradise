@@ -5,7 +5,7 @@
 	name = "\improper Cream-Master Deluxe"
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "icecream_vat"
 	use_power = IDLE_POWER_USE
 	max_integrity = 300
@@ -15,8 +15,8 @@
 
 
 /obj/machinery/icemachine/proc/generate_name(reagent_name)
-	var/name_prefix = pick("Mr.","Mrs.","Super","Happy","Whippy")
-	var/name_suffix = pick(" Whippy "," Slappy "," Creamy "," Dippy "," Swirly "," Swirl ")
+	var/name_prefix = pick("Mr.","Mrs.","Mx.","Dr.","Super","Happy","Whippy", "Sugary", "Sweet", "Lawful", "Chaotic", "Neutral", "Drippy","Sicknasty","Tubular","Radical")
+	var/name_suffix = pick(" Whippy "," Slappy "," Creamy "," Dippy "," Swirly "," Swirl ", " Rootin'Tootin "," Frosty ", " Chilly "," Neutral ", " Good ", " Evil ", " Smooth ", " Chunky ", " Flaming ")
 	var/cone_name = null	//Heart failure prevention.
 	cone_name += name_prefix
 	cone_name += name_suffix
@@ -55,13 +55,13 @@
 
 
 /obj/machinery/icemachine/proc/validexchange(reag)
-	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "water")
-		return 1
-	else
-		if(reagents.total_volume < 500)
-			to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
-			playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
-		return 1
+	var/list/static/invalid_reagents = list("sprinkles", "cola", "kahlua", "dr_gibb", "vodka", "space-up", "rum", "spacemountainwind", "gin", "cream", "vanilla")
+	if(reag in invalid_reagents)
+		return
+	if(reagents.total_volume < 500)
+		to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
+		playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
+	return TRUE
 
 
 /obj/machinery/icemachine/Topic(href, href_list)
@@ -141,25 +141,18 @@
 					else
 						reagents.add_reagent("gin",5)
 			else if(ID == 4)
-				if(reagents.total_volume <= 500 & reagents.total_volume >= 15)
-					reagents.add_reagent("cream",(30 - reagents.total_volume))
-				else if(reagents.total_volume <= 15)
-					reagents.add_reagent("cream",(15 - reagents.total_volume))
+				reagents.add_reagent("cream", 5)
 			else if(ID == 5)
-				if(reagents.total_volume <= 500 & reagents.total_volume >= 15)
-					reagents.add_reagent("water",(30 - reagents.total_volume))
-				else if(reagents.total_volume <= 15)
-					reagents.add_reagent("water",(15 - reagents.total_volume))
+				reagents.add_reagent("vanilla", 5)
 
-	else if(href_list["createcup"])
+	else if(href_list["createchoco"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Chocolate Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
-		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcup(loc)
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
-		reagents.trans_to(C,30)
+		reagents.trans_to(C, 50)
 		if(reagents)
 			reagents.clear_reagents()
 		C.update_icon()
@@ -167,12 +160,23 @@
 	else if(href_list["createcone"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Cone"
-		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
-		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C = new(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
-		reagents.trans_to(C,15)
+		reagents.trans_to(C, 30)
+		if(reagents)
+			reagents.clear_reagents()
+		C.update_icon()
+
+	else if(href_list["createwaffle"])
+		var/name = generate_name(reagents.get_master_reagent_name())
+		name += " Waffle Cone"
+		var/obj/item/reagent_containers/food/snacks/icecream/wafflecone/C = new(loc)
+		C.name = "[name]"
+		C.pixel_x = rand(-8, 8)
+		C.pixel_y = -16
+		reagents.trans_to(C, 20)
 		if(reagents)
 			reagents.clear_reagents()
 		C.update_icon()
@@ -192,10 +196,11 @@
 		dat += "<A href='?src=[UID()];synthcond=1;type=3'>Alcohol</A><BR>"
 		dat += "<strong>Finish With:</strong><BR>"
 		dat += "<A href='?src=[UID()];synthcond=1;type=4'>Cream</A><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=5'>Water</A><BR>"
+		dat += "<A href='?src=[UID()];synthcond=1;type=5'>Vanilla</A><BR>"
 		dat += "<strong>Dispense in:</strong><BR>"
-		dat += "<A href='?src=[UID()];createcup=1'>Chocolate Cone</A><BR>"
+		dat += "<A href='?src=[UID()];createchoco=1'>Chocolate Cone</A><BR>"
 		dat += "<A href='?src=[UID()];createcone=1'>Cone</A><BR>"
+		dat += "<A href='?src=[UID()];createwaffle=1'>Waffle Cone</A><BR>"
 	dat += "</center>"
 	return dat
 

@@ -1,5 +1,5 @@
 /obj/item/implant/emp
-	name = "emp implant"
+	name = "emp bio-chip"
 	desc = "Triggers an EMP."
 	icon_state = "emp"
 	origin_tech = "biotech=3;magnets=4;syndicate=1"
@@ -9,15 +9,15 @@
 
 /obj/item/implant/emp/activate()
 	uses--
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/empulse, get_turf(imp_in), 3, 5, 1)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(empulse), get_turf(imp_in), 3, 5, 1)
 	if(!uses)
 		qdel(src)
 
 /obj/item/implanter/emp
-	name = "implanter (EMP)"
+	name = "bio-chip implanter (EMP)"
 	implant_type = /obj/item/implant/emp
 
 /obj/item/implantcase/emp
-	name = "implant case - 'EMP'"
-	desc = "A glass case containing an EMP implant."
+	name = "bio-chip case - 'EMP'"
+	desc = "A glass case containing an EMP bio-chip."
 	implant_type = /obj/item/implant/emp

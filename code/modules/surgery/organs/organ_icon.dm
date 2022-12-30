@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	for(var/child_i in child_icons)
 		overlays -= child_i
 	child_icons.Cut()
-	 // This is a kludge, only one icon has more than one generation of children though.
+	// This is a kludge, only one icon has more than one generation of children though.
 	for(var/obj/item/organ/external/organ in contents)
 		if(organ.children && organ.children.len)
 			for(var/obj/item/organ/external/child in organ.children)

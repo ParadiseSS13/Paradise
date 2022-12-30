@@ -15,10 +15,12 @@
 	end_duration = 10 // wind_down() does not do anything for this event, so we just trigger end() semi-immediately
 	end_message = null
 	area_type = /area/space // read generate_area_list() as well below
-	protected_areas = list(/area/shuttle/arrival/station, /area/hallway/secondary/entry)
+	protected_areas = list(/area/shuttle/arrival/station)
 	target_trait = STATION_LEVEL
 	immunity_type = "burn"
 	var/damage = 4
+	/// Areas which are "semi-protected". Mobs inside these areas take reduced burn damage from the solar flare.
+	var/list/semi_protected_areas = list(/area/hallway/secondary/entry)
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
@@ -40,9 +42,9 @@
 	. = ..()
 	if(.) //If true the mob is already affected, no need to keep processing
 		return TRUE
-	if(istype(L, /mob/living/simple_animal)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
+	if(isanimal(L)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
 		return FALSE
-	if(istype(L, /mob/living/silicon/robot/drone)) //same with poor maint drones who just wanna have fun
+	if(isdrone(L)) //same with poor maint drones who just wanna have fun
 		return FALSE
 	for(var/turf/T in oview(get_turf(L)))
 		if(isspaceturf(T) || istransparentturf(T))
@@ -50,8 +52,11 @@
 	return FALSE
 
 /datum/weather/solar_flare/weather_act(mob/living/L)
+	var/target_area = get_area(L)
+	if(target_area in protected_areas) // We do wanna protect new arrivals from horrible death.
+		return
 	var/adjusted_damage = damage
-	if(get_area(L) in protected_areas) //we do wanna protect new arrivals from horrible death
+	if(target_area in semi_protected_areas)
 		adjusted_damage = 1
 	L.adjustFireLoss(adjusted_damage)
 	L.flash_eyes()
@@ -61,6 +66,6 @@
 /datum/weather/solar_flare/end()
 	if(..())
 		return
-	GLOB.event_announcement.Announce("The solar flare has passed.", "Solar Flare Advisory")
+	GLOB.minor_announcement.Announce("The solar flare has passed.", "Solar Flare Advisory")
 	// Ends the temporary 40x increase that happened during the weather event
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate)

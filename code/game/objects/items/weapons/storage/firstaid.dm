@@ -297,7 +297,7 @@
 	return ..()
 
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I))
 		rename_interactive(user, I)
 	else
 		return ..()

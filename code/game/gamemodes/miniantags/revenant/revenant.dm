@@ -137,7 +137,7 @@
 	remove_from_all_data_huds()
 	random_revenant_name()
 
-	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
+	addtimer(CALLBACK(src, PROC_REF(firstSetupAttempt)), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
 	var/built_name = ""
@@ -153,7 +153,7 @@
 		giveSpells()
 	else
 		message_admins("Revenant was created but has no mind. Put a ghost inside, or a poll will be made in one minute.")
-		addtimer(CALLBACK(src, .proc/setupOrDelete), 1 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(setupOrDelete)), 1 MINUTES)
 
 /mob/living/simple_animal/revenant/proc/setupOrDelete()
 	if(mind)
@@ -196,9 +196,11 @@
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
 	return TRUE
 
 
@@ -249,7 +251,7 @@
 	if(holy_check(src))
 		return
 	var/turf/T = get_turf(src)
-	if(istype(T, /turf/simulated/wall))
+	if(iswallturf(T))
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
 		return 0
 	if(inhibited)
@@ -320,33 +322,33 @@
 	..()
 
 /datum/objective/revenant/check_completion()
-	if(!owner || !istype(owner.current, /mob/living/simple_animal/revenant))
-		return 0
-	var/mob/living/simple_animal/revenant/R = owner.current
-	if(!R || R.stat == DEAD)
-		return 0
-	var/essence_stolen  = R.essence_accumulated
-	if(essence_stolen  < targetAmount)
-		return 0
-	return 1
+	var/total_essence = 0
+	for(var/datum/mind/M in get_owners())
+		if(!istype(M.current, /mob/living/simple_animal/revenant) || QDELETED(M.current))
+			continue
+		var/mob/living/simple_animal/revenant/R = M.current
+		total_essence += R.essence_accumulated
+	if(total_essence < targetAmount)
+		return FALSE
+	return TRUE
 
 /datum/objective/revenantFluff
 
 /datum/objective/revenantFluff/New()
 	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
-									 "Cause as much chaos and anger as you can without being killed.", \
-									 "Damage and render as much of the station rusted and unusable as possible.", \
-									 "Disable and cause malfunctions in as many machines as possible.", \
-									 "Ensure that any holy weapons are rendered unusable.", \
-									 "Hinder the crew while attempting to avoid being noticed.", \
-									 "Make the crew as miserable as possible.", \
-									 "Make the clown as miserable as possible.", \
-									 "Make the captain as miserable as possible.", \
-									 "Make the AI as miserable as possible.", \
-									 "Annoy the ones that insult you the most.", \
-									 "Whisper ghost jokes into peoples heads.", \
-									 "Help the crew in critical situations, but take your payments in souls.", \
-									 "Prevent the use of energy weapons where possible.")
+									"Cause as much chaos and anger as you can without being killed.", \
+									"Damage and render as much of the station rusted and unusable as possible.", \
+									"Disable and cause malfunctions in as many machines as possible.", \
+									"Ensure that any holy weapons are rendered unusable.", \
+									"Hinder the crew while attempting to avoid being noticed.", \
+									"Make the crew as miserable as possible.", \
+									"Make the clown as miserable as possible.", \
+									"Make the captain as miserable as possible.", \
+									"Make the AI as miserable as possible.", \
+									"Annoy the ones that insult you the most.", \
+									"Whisper ghost jokes into peoples heads.", \
+									"Help the crew in critical situations, but take your payments in souls.", \
+									"Prevent the use of energy weapons where possible.")
 	explanation_text = pick(explanationTexts)
 	..()
 
@@ -379,7 +381,7 @@
 	if(!reforming || inert)
 		return ..()
 	user.visible_message("<span class='notice'>[user] scatters [src] in all directions.</span>", \
-						 "<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
+						"<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
 	user.drop_item()
 	qdel(src)
 

@@ -22,15 +22,15 @@
 	. = ..()
 	if(!.)
 		return
-	INVOKE_ASYNC(src, .proc/close, 0, 1)
+	INVOKE_ASYNC(src, PROC_REF(close), 0, 1)
 	// Close any nearby airlocks as well
 	for(var/obj/machinery/door/airlock/D in orange(1, src))
-		INVOKE_ASYNC(D, .proc/close, 0, 1)
+		INVOKE_ASYNC(D, PROC_REF(close), 0, 1)
 
 /obj/machinery/door/airlock/onShuttleMove()
 	. = ..()
 	if(id_tag == "s_docking_airlock")
-		INVOKE_ASYNC(src, .proc/lock)
+		INVOKE_ASYNC(src, PROC_REF(lock))
 
 /mob/onShuttleMove(turf/oldT, turf/T1, rotation)
     if(!move_on_shuttle)
@@ -66,7 +66,7 @@
 /obj/machinery/door/airlock/postDock(obj/docking_port/stationary/S1)
 	. = ..()
 	if(!S1.lock_shuttle_doors && id_tag == "s_docking_airlock")
-		INVOKE_ASYNC(src, .proc/unlock)
+		INVOKE_ASYNC(src, PROC_REF(unlock))
 
 /obj/structure/ladder/onShuttleMove()
 	if(resistance_flags & INDESTRUCTIBLE)

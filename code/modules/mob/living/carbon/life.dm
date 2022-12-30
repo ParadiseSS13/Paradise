@@ -44,7 +44,7 @@
 	if(times_fired % 2 == 1)
 		breathe() //Breathe every other tick, unless suffocating
 	else
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/location_as_object = loc
 			location_as_object.handle_internal_lifeform(src, 0)
 
@@ -68,7 +68,7 @@
 	if(AmountLoseBreath())
 		if(prob(75))
 			emote("gasp")
-		if(istype(loc, /obj/))
+		if(isobj(loc))
 			var/obj/loc_as_obj = loc
 			loc_as_obj.handle_internal_lifeform(src, 0)
 	else
@@ -88,7 +88,7 @@
 
 				breath = loc.remove_air(breath_moles)
 		else //Breathe from loc as obj again
-			if(istype(loc, /obj/))
+			if(isobj(loc))
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src, 0)
 

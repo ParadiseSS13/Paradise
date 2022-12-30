@@ -41,11 +41,10 @@
 /datum/disease/gbs/curable
 	name = "Non-Contagious GBS"
 	stage_prob = 5
-	spread_text = "Non-Contagious"
-	spread_flags = SPECIAL
+	spread_text = "Non-contagious"
+	spread_flags = NON_CONTAGIOUS
 	cure_text = "Cryoxadone"
 	cures = list("cryoxadone")
 	cure_chance = 10
 	agent = "gibbis"
-	spread_flags = NON_CONTAGIOUS
 	disease_flags = CURABLE

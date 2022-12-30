@@ -182,7 +182,7 @@ GLOBAL_PROTECT(log_end)
 /proc/datum_info_line(datum/d)
 	if(!istype(d))
 		return
-	if(!istype(d, /mob))
+	if(!ismob(d))
 		return "[d] ([d.type])"
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"

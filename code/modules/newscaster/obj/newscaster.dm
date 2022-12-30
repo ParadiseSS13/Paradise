@@ -18,7 +18,7 @@
 	name = "newscaster"
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "newscaster_normal"
+	icon_state = "newscaster_off"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 50
@@ -61,7 +61,7 @@
 
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
-	update_icon() //for any custom ones on the map...
+	update_icon(UPDATE_OVERLAYS) //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
 
@@ -92,24 +92,23 @@
 	QDEL_NULL(photo)
 	return ..()
 
-/obj/machinery/newscaster/update_icon_state()
-	if(inoperable())
-		icon_state = "newscaster_off"
-		return
-	if(GLOB.news_network.wanted_issue)
-		icon_state = "newscaster_wanted"
-	else
-		icon_state = "newscaster_normal"
-
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
 	underlays.Cut()
+	if(inoperable())
+		return
 
 	if(!(stat & NOPOWER))
 		underlays += emissive_appearance(icon, "newscaster_lightmask")
 
 	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
 		. += "newscaster_alert"
+
+	if(GLOB.news_network.wanted_issue)
+		. += "newscaster_wanted"
+	else
+		. += "newscaster_normal"
+
 	var/hp_percent = obj_integrity * 100 / max_integrity
 	switch(hp_percent)
 		if(75 to 200)
@@ -127,18 +126,18 @@
 		set_light(0)
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
-	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
@@ -148,7 +147,7 @@
 		new /obj/item/shard(loc)
 	else
 		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
-		new /obj/item/mounted/frame/newscaster_frame(loc)
+		new /obj/item/mounted/frame/display/newscaster_frame(loc)
 	qdel(src)
 
 /obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
@@ -178,7 +177,7 @@
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
 	ui_interact(user)
@@ -433,7 +432,7 @@
 			GLOB.news_network.wanted_issue = null
 			set_temp("Wanted notice cleared.", update_now = TRUE)
 			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
-				NC.update_icon()
+				NC.update_icon(UPDATE_OVERLAYS)
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
@@ -667,7 +666,7 @@
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
-	addtimer(CALLBACK(src, .proc/print_newspaper_finish), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
@@ -704,15 +703,15 @@
 	else
 		return
 	alert = TRUE
-	addtimer(CALLBACK(src, .proc/alert_timer_finish), 30 SECONDS)
-	update_icon()
+	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
+	update_icon(UPDATE_OVERLAYS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/alert_news] finishes.
   */
 /obj/machinery/newscaster/proc/alert_timer_finish()
 	alert = FALSE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /**
   * Ejects the currently loaded photo if there is one.

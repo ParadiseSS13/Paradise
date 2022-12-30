@@ -128,7 +128,7 @@
 
 // Simpler. Don't specify UI in order for the mob to use its own.
 /mob/proc/UpdateAppearance(list/UI = null)
-	if(istype(src, /mob/living/carbon/human)) // WHY?!
+	if(ishuman(src)) // WHY?!
 		if(UI!=null)
 			dna.UI = UI
 			dna.UpdateUI()

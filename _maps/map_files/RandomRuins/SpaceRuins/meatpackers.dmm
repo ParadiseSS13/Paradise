@@ -190,7 +190,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "aP" = (
-/obj/item/stack/spacecash/c500,
+/obj/item/stack/spacecash/c50,
 /obj/item/stack/spacecash/c100,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/BMPship/Fore)
@@ -300,7 +300,7 @@
 /area/ruin/powered)
 "bp" = (
 /obj/structure/closet/crate,
-/obj/item/stack/spacecash/c1000,
+/obj/item/stack/spacecash/c100,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
@@ -389,8 +389,8 @@
 /area/ruin/unpowered/BMPship/Delta)
 "bM" = (
 /obj/structure/closet/crate,
-/obj/item/stack/spacecash/c1000,
-/obj/item/stack/spacecash/c500,
+/obj/item/stack/spacecash/c100,
+/obj/item/stack/spacecash/c50,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
@@ -477,7 +477,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "bX" = (
-/obj/machinery/vending/hydroseeds{
+/obj/machinery/economy/vending/hydroseeds{
 	slogan_delay = 700
 	},
 /turf/simulated/floor/plasteel{
@@ -486,7 +486,7 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "bY" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -1991,7 +1991,7 @@
 /area/ruin/unpowered/BMPship/Aft)
 "gn" = (
 /obj/structure/closet,
-/obj/item/clothing/under/overalls,
+/obj/item/clothing/under/misc/overalls,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "go" = (
@@ -2181,7 +2181,7 @@
 /area/ruin/unpowered/BMPship/Aft)
 "gT" = (
 /obj/structure/closet,
-/obj/item/clothing/under/lawyer/bluesuit,
+/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
 /obj/item/clothing/suit/apron,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)

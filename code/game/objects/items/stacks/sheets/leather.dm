@@ -10,9 +10,9 @@
 	icon_state = "sheet-hide"
 	item_state = "sheet-leather"
 
-GLOBAL_LIST_INIT(human_recipes, list( \
-	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = TRUE), \
-	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE), \
+GLOBAL_LIST_INIT(human_recipes, list(
+	new /datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = TRUE),
+	new /datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE),
 	))
 
 /obj/item/stack/sheet/animalhide/human/New(loc, amount=null)
@@ -50,8 +50,8 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	singular_name = "lizard skin piece"
 	icon_state = "sheet-lizard"
 
-GLOBAL_LIST_INIT(lizard_recipes, list( \
-	new/datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel/lizard, 5, on_floor = TRUE), \
+GLOBAL_LIST_INIT(lizard_recipes, list(
+	new /datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel/lizard, 5, on_floor = TRUE),
 	))
 
 /obj/item/stack/sheet/animalhide/lizard/Initialize(mapload, new_amount, merge = TRUE)
@@ -73,8 +73,8 @@ GLOBAL_LIST_INIT(lizard_recipes, list( \
 	icon_state = "sheet-xeno"
 
 GLOBAL_LIST_INIT(xeno_recipes, list (
-	new/datum/stack_recipe("alien helmet", /obj/item/clothing/head/xenos, 1),
-	new/datum/stack_recipe("alien suit", /obj/item/clothing/suit/xenos, 2)))
+	new /datum/stack_recipe("alien helmet", /obj/item/clothing/head/xenos, 1),
+	new /datum/stack_recipe("alien suit", /obj/item/clothing/suit/xenos, 2)))
 
 /obj/item/stack/sheet/animalhide/xeno/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.xeno_recipes
@@ -130,16 +130,21 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	origin_tech = "materials=2"
 
 GLOBAL_LIST_INIT(leather_recipes, list (
-	new/datum/stack_recipe("wallet", /obj/item/storage/wallet, 1),
-	new/datum/stack_recipe("muzzle", /obj/item/clothing/mask/muzzle, 2),
-	new/datum/stack_recipe("botany gloves", /obj/item/clothing/gloves/botanic_leather, 3),
-	new/datum/stack_recipe("toolbelt", /obj/item/storage/belt/utility, 4),
-	new/datum/stack_recipe("leather satchel", /obj/item/storage/backpack/satchel, 5),
-	new/datum/stack_recipe("bandolier", /obj/item/storage/belt/bandolier, 5),
-	new/datum/stack_recipe("leather jacket", /obj/item/clothing/suit/jacket/leather, 7),
-	new/datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
-	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
-	new/datum/stack_recipe("hide mantle", /obj/item/clothing/suit/unathi/mantle, 4)))
+	new /datum/stack_recipe_list("leather storages", list(
+		new /datum/stack_recipe("wallet", /obj/item/storage/wallet, 1),
+		new /datum/stack_recipe("toolbelt", /obj/item/storage/belt/utility, 4),
+		new /datum/stack_recipe("leather satchel", /obj/item/storage/backpack/satchel, 5),
+		new /datum/stack_recipe("briefcase", /obj/item/storage/briefcase, 4),
+		new /datum/stack_recipe("bandolier", /obj/item/storage/belt/bandolier, 5),
+		)),
+	null,
+	new /datum/stack_recipe("card box", /obj/item/deck/holder, 1),
+	new /datum/stack_recipe("muzzle", /obj/item/clothing/mask/muzzle, 2),
+	new /datum/stack_recipe("botany gloves", /obj/item/clothing/gloves/botanic_leather, 3),
+	new /datum/stack_recipe("leather jacket", /obj/item/clothing/suit/jacket/leather, 7),
+	new /datum/stack_recipe("leather shoes", /obj/item/clothing/shoes/leather, 2),
+	new /datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
+	new /datum/stack_recipe("hide mantle", /obj/item/clothing/suit/unathi/mantle, 4)))
 
 /obj/item/stack/sheet/leather/New(loc, new_amount, merge = TRUE)
 	recipes = GLOB.leather_recipes
@@ -154,8 +159,8 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	item_state = "sinew"
 	origin_tech = "biotech=4"
 
-GLOBAL_LIST_INIT(sinew_recipes, list ( \
-	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
+GLOBAL_LIST_INIT(sinew_recipes, list (
+	new /datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1),
 	))
 
 /obj/item/stack/sheet/sinew/New(loc, amount=null)

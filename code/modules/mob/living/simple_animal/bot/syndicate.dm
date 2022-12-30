@@ -82,12 +82,14 @@
 	switch(mode)
 		if(BOT_IDLE)
 			walk_to(src,0)
+			set_path(null)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			if(frustration >= 8)
 				walk_to(src,0)
+				set_path(null)
 				back_to_idle()
 			if(target)
 				if(isliving(target))
@@ -173,7 +175,7 @@
 		return
 	shootAt(A)
 
-/mob/living/simple_animal/bot/ed209/syndicate/cuff(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)
 	shootAt(C)
 
 /mob/living/simple_animal/bot/ed209/syndicate/stun_attack(mob/living/carbon/C)

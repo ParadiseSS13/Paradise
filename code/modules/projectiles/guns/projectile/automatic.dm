@@ -116,6 +116,7 @@
 	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
 	icon_state = "wt550"
 	item_state = "wt550"
+	w_class = WEIGHT_CLASS_BULKY
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -289,7 +290,7 @@
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/A as obj, mob/user as mob, params)
 	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
-		if(istype(loc, /obj/item/storage))	// To prevent inventory exploits
+		if(isstorage(loc))	// To prevent inventory exploits
 			var/obj/item/storage/Strg = loc
 			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
 				to_chat(user, "<span class='warning'>You can't reload [src], with a XL mag, while it's in a normal bag.</span>")
@@ -302,10 +303,10 @@
 
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 Laser Carbine"
-	desc = "A short, compact carbine like rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
+	name = "\improper IK-60 laser carbine"
+	desc = "A compact, twin barrelled carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lasercarbine"
-	item_state = "laser"
+	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
@@ -317,3 +318,4 @@
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"

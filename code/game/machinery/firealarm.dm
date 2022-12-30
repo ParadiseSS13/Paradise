@@ -55,7 +55,7 @@ FIRE ALARM
 	if(stat & NOPOWER)
 		icon_state = "firealarm_off"
 		return
-	
+
 	var/area/area = get_area(src)
 	if(area.fire)
 		icon_state = "firealarm_alarming"
@@ -272,6 +272,16 @@ FIRE ALARM
 
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..()
+	switch(buildstage)
+		if(FIRE_ALARM_FRAME)
+			. += "<span class='notice'>It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.</span>"
+		if(FIRE_ALARM_UNWIRED)
+			. += "<span class='notice'>The control board needs <i>wiring</i> and can be <b>pried out</b>.</span>"
+		if(FIRE_ALARM_READY)
+			if(wiresexposed)
+				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
+				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
+
 	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
 
 /obj/machinery/firealarm/proc/reset()
@@ -319,7 +329,7 @@ Just a object used in constructing fire alarms
 	icon_state = "door_electronics"
 	desc = "A circuit. It has a label on it, it says \"Can handle heat levels up to 40 degrees celsius!\""
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50, MAT_GLASS=50)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'

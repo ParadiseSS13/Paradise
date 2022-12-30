@@ -18,7 +18,7 @@
 /obj/machinery/atmospherics/pipe/Initialize(mapload)
 	. = ..()
 	//so pipes under walls are hidden
-	if(istype(get_turf(src), /turf/simulated/wall))
+	if(iswallturf(get_turf(src)))
 		level = 1
 
 /obj/machinery/atmospherics/pipe/Destroy()
@@ -37,6 +37,9 @@
 	if(parent && !QDELETED(parent) && parent.members.len == 1 && parent.members[1] == src)
 		qdel(parent)
 	parent = null
+
+/obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
+	return parent
 
 /obj/machinery/atmospherics/pipe/detailed_examine()
 	return "This pipe, and all other pipes, can be connected or disconnected by a wrench. The internal pressure of the pipe must \

@@ -6,18 +6,21 @@
 	log_access_in(client)
 	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
 	create_log(MISC_LOG, "Logged in")
-	if(GLOB.configuration.logging.access_logging)
+	if(GLOB.configuration.logging.access_logging && !(client.computer_id in GLOB.configuration.admin.common_cid_map))
 		for(var/mob/M in GLOB.player_list)
-			if(M == src)	continue
-			if( M.key && (M.key != key) )
+			if(M == src)
+				continue
+			if(M.key && (M.key != key))
 				var/matches
-				if( (M.lastKnownIP == client.address) )
+				if(M.lastKnownIP == client.address)
 					matches += "IP ([client.address])"
-				if( (M.computer_id == client.computer_id) )
-					if(matches)	matches += " and "
+				if(M.computer_id == client.computer_id)
+					if(matches)
+						matches += " and "
 					matches += "ID ([client.computer_id])"
 					if(!GLOB.configuration.general.disable_cid_warning_popup)
-						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
+						spawn()
+							alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)
 						message_admins("<font color='red'><B>Notice: </B><font color='#EB4E00'><A href='?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=[M.client.ckey]'>[key_name_admin(M)]</A>.</font>", 1)

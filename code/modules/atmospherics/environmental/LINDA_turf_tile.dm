@@ -162,7 +162,7 @@
 	for(var/t in adjacent_turfs)
 		var/turf/enemy_tile = t
 
-		if(istype(enemy_tile, /turf/simulated))
+		if(issimulatedturf(enemy_tile))
 			var/turf/simulated/enemy_simulated = enemy_tile
 
 			if(fire_count > enemy_simulated.current_cycle)
@@ -441,7 +441,7 @@
 				if(!neighbor.thermal_conductivity)
 					continue
 
-				if(istype(neighbor, /turf/simulated)) //anything under this subtype will share in the exchange
+				if(issimulatedturf(neighbor)) //anything under this subtype will share in the exchange
 					var/turf/simulated/T = neighbor
 
 					if(T.archived_cycle < SSair.times_fired)
@@ -517,7 +517,7 @@
 	update_visuals()
 	for(var/tile in atmos_adjacent_turfs)
 		var/turf/enemy_tile = tile
-		if(istype(enemy_tile, /turf/simulated))
+		if(issimulatedturf(enemy_tile))
 			var/turf/simulated/enemy_simulated = enemy_tile
 			if(!air.compare(enemy_simulated.air))
 				excited = 1

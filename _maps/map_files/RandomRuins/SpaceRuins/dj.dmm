@@ -309,10 +309,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/storage/box/lights/mixed,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -390,9 +387,9 @@
 "aX" = (
 /obj/machinery/newscaster{
 	name = "north bump";
-	pixel_y = 32
+	pixel_y = 28
 	},
-/obj/machinery/vending/cigarette/free{
+/obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -423,7 +420,7 @@
 	},
 /area/ruin/space/djstation)
 "ba" = (
-/obj/machinery/vending/sovietsoda,
+/obj/machinery/economy/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -777,8 +774,7 @@
 	icon_state = "door_locked";
 	id_tag = "dj_station_inner";
 	locked = 1;
-	name = "DJ Station Interior Access";
-	req_access = null
+	name = "DJ Station Interior Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
@@ -815,8 +811,7 @@
 	icon_state = "door_locked";
 	id_tag = "dj_station_outer";
 	locked = 1;
-	name = "DJ Station External Access";
-	req_access = null
+	name = "DJ Station External Access"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)

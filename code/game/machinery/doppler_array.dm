@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
 	atom_say("Printing explosive log. Standby...")
-	addtimer(CALLBACK(src, .proc/print), 50)
+	addtimer(CALLBACK(src, PROC_REF(print)), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	<em>Printed at [station_time_timestamp()].</em>"
 
 /obj/machinery/doppler_array/proc/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,
-												  var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
+												var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
 	if(stat & NOPOWER)
 		return
 	if(z != z0)
@@ -141,8 +141,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		return
 
 	var/list/messages = list("Explosive disturbance detected.", \
-							 "Epicenter at: grid ([x0],[y0]). Temporal displacement of tachyons: [took] seconds.", \
-							 "Actual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
+							"Epicenter at: grid ([x0],[y0]). Temporal displacement of tachyons: [took] seconds.", \
+							"Actual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
 
 	// If the bomb was capped, say its theoretical size.
 	if(devastation_range < orig_dev_range || heavy_impact_range < orig_heavy_range || light_impact_range < orig_light_range)
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		return
 	switch(action)
 		if("delete_logs")
-			QDEL_LIST(logged_explosions)
+			QDEL_LIST_CONTENTS(logged_explosions)
 			to_chat(usr, "<span class='notice'>All logs deleted successfully.</span>")
 		if("delete_record")
 			var/index = text2num(params["index"])
