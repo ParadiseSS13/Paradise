@@ -511,12 +511,17 @@
 	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
 		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
 	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
 	C.name = "fireproofed [C.name]"
 	C.add_atom_colour("#000080", WASHABLE_COLOUR_PRIORITY)
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
 	C.resistance_flags |= FIRE_PROOF
+	C.is_improoved_by_potion = TRUE
 	uses --
 	if(!uses)
 		qdel(src)
@@ -526,6 +531,44 @@
 		return
 	if(loc == usr && loc.Adjacent(over_object))
 		afterattack(over_object, usr, TRUE)
+
+/obj/item/slimepotion/acidproof
+	name = "slime acidproof potion"
+	desc = "A potent chemical mix that will acidproof any article of clothing."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle16"
+	origin_tech = "biotech=5"
+	resistance_flags = ACID_PROOF
+
+/obj/item/slimepotion/acidproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+	..()
+	if(!proximity_flag)
+		return
+	if(!istype(C))
+		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		return
+	if(C.resistance_flags & ACID_PROOF && istype(C.armor) && C.armor.acid == 100)
+		to_chat(user, "<span class='warning'>[C] is already acidproof!</span>")
+		return ..()
+	if(C.is_improoved_by_potion)
+		to_chat(user, "<span class='warning'>[C] is already improoved by some potion!</span>")
+		return ..()
+
+	C.name = "acidproofed [C.name]"
+	C.add_atom_colour("#008000", WASHABLE_COLOUR_PRIORITY)
+	C.resistance_flags |= ACID_PROOF
+	C.is_improoved_by_potion = TRUE
+	if(istype(C.armor))
+		C.armor.acid = 100
+	to_chat(user, "<span class='notice'>You slather the green gunk over [C], acidproofing it.</span>")
+	qdel(src)
+
+/obj/item/slimepotion/acidproof/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
+
 
 /obj/effect/timestop
 	anchored = 1

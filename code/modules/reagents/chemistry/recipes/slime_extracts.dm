@@ -54,6 +54,20 @@
 /datum/chemical_reaction/slimemutate/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
+/datum/chemical_reaction/slimeacidproof
+	name = "Slime Acidproof"
+	id = "m_acidproof"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/green
+	required_other = 1
+
+/datum/chemical_reaction/slimeacidproof/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/acidproof/P = new /obj/item/slimepotion/acidproof
+	P.forceMove(get_turf(holder.my_atom))
+
 //Metal
 /datum/chemical_reaction/slimemetal
 	name = "Slime Metal"
