@@ -77,12 +77,12 @@
 
 /obj/item/robot_module/Destroy()
 	// These can all contain actual objects, so we need to null them out.
-	QDEL_LIST(modules)
-	QDEL_LIST(basic_modules)
-	QDEL_LIST(emag_modules)
-	QDEL_LIST(malf_modules)
-	QDEL_LIST(storages)
-	QDEL_LIST(special_rechargables)
+	QDEL_LIST_CONTENTS(modules)
+	QDEL_LIST_CONTENTS(basic_modules)
+	QDEL_LIST_CONTENTS(emag_modules)
+	QDEL_LIST_CONTENTS(malf_modules)
+	QDEL_LIST_CONTENTS(storages)
+	QDEL_LIST_CONTENTS(special_rechargables)
 	return ..()
 
 
