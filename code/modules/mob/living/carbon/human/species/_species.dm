@@ -150,8 +150,8 @@
 	//Defining lists of icon skin tones for species that have them.
 	var/list/icon_skin_tones = list()
 
-                              // Determines the organs that the species spawns with and
-	var/list/has_organ = list(    // which required-organ checks are conducted.
+								// Determines the organs that the species spawns with and
+	var/list/has_organ = list(  // which required-organ checks are conducted.
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
 		"liver" =    /obj/item/organ/internal/liver,
@@ -191,8 +191,8 @@
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
-	QDEL_LIST(H.internal_organs)
-	QDEL_LIST(H.bodyparts)
+	QDEL_LIST_CONTENTS(H.internal_organs)
+	QDEL_LIST_CONTENTS(H.bodyparts)
 
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)

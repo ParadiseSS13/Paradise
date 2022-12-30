@@ -98,7 +98,7 @@
 		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
-	QDEL_LIST(blueprint_data)
+	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	..()
 
@@ -603,3 +603,18 @@
 		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID, no_id = no_id))
 			continue
 		. += turf_to_check
+
+// Makes an image of up to 20 things on a turf + the turf
+/turf/proc/photograph(limit = 20)
+	var/image/I = new()
+	I.add_overlay(src)
+	for(var/V in contents)
+		var/atom/A = V
+		if(A.invisibility)
+			continue
+		I.add_overlay(A)
+		if(limit)
+			limit--
+		else
+			return I
+	return I

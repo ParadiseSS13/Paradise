@@ -428,7 +428,7 @@
 
 		if(C.reagents)
 			C.reagents.clear_reagents()
-			QDEL_LIST(C.reagents.addiction_list)
+			QDEL_LIST_CONTENTS(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
 		if(iscultist(src))
 			if(SSticker.mode.cult_risen)
@@ -436,7 +436,7 @@
 			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(src)
 
-		QDEL_LIST(C.processing_patches)
+		QDEL_LIST_CONTENTS(C.processing_patches)
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
@@ -1092,10 +1092,10 @@
 /mob/living/proc/fakefire()
 	return
 
-/mob/living/extinguish_light()
+/mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
-			A.extinguish_light()
+			A.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)

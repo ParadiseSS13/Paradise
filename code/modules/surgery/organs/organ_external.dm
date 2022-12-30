@@ -91,9 +91,9 @@
 		owner.bodyparts_by_name[limb_name] = null
 		owner.splinted_limbs -= src
 
-	QDEL_LIST(children)
+	QDEL_LIST_CONTENTS(children)
 
-	QDEL_LIST(embedded_objects)
+	QDEL_LIST_CONTENTS(embedded_objects)
 
 	QDEL_NULL(hidden)
 
@@ -172,7 +172,7 @@
 	return TRUE
 
 /****************************************************
-			   DAMAGE PROCS
+			DAMAGE PROCS
 ****************************************************/
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
@@ -347,7 +347,7 @@ This function completely restores a damaged organ to perfect condition.
 		START_PROCESSING(SSobj, src)
 
 /****************************************************
-			   PROCESSING & UPDATING
+			PROCESSING & UPDATING
 ****************************************************/
 
 //Determines if we even need to process this organ.
@@ -482,7 +482,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /****************************************************
-			   DISMEMBERMENT
+			DISMEMBERMENT
 ****************************************************/
 
 //Handles dismemberment
@@ -616,7 +616,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		I.forceMove(T)
 
 /****************************************************
-			   HELPERS
+			HELPERS
 ****************************************************/
 /obj/item/organ/external/proc/release_restraints(mob/living/carbon/human/holder)
 	if(!holder)
@@ -795,8 +795,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		owner.visible_message("<span class='warning'>\The [owner]'s [name] turns into a mangled mess!</span>",	\
-							  "<span class='userdanger'>Your [name] becomes a mangled mess!</span>",	\
-							  "<span class='warning'>You hear a sickening sound.</span>")
+							"<span class='userdanger'>Your [name] becomes a mangled mess!</span>",	\
+							"<span class='warning'>You hear a sickening sound.</span>")
 
 	status |= ORGAN_DISFIGURED
 

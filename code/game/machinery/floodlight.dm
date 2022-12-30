@@ -145,7 +145,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/machinery/floodlight/extinguish_light()
+/obj/machinery/floodlight/extinguish_light(force = FALSE)
 	on = FALSE
 	set_light(0)
 	update_icon(UPDATE_ICON_STATE)

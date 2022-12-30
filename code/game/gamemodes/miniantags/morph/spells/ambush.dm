@@ -3,7 +3,7 @@
 /obj/effect/proc_holder/spell/morph_spell/ambush
 	name = "Prepare Ambush"
 	desc = "Prepare an ambush. Dealing significantly more damage on the first hit and you will weaken the target. Only works while morphed. If the target tries to use you with their hands then you will do even more damage. \
-	 		Keeping still for another 15 seconds will perfect your disguise."
+			Keeping still for another 15 seconds will perfect your disguise."
 	action_icon_state = "morph_ambush"
 	base_cooldown = 8 SECONDS
 

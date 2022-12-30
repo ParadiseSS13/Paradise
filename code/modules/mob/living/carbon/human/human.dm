@@ -64,7 +64,7 @@
 /mob/living/carbon/human/Destroy()
 	. = ..()
 	SSmobs.cubemonkeys -= src
-	QDEL_LIST(bodyparts)
+	QDEL_LIST_CONTENTS(bodyparts)
 	splinted_limbs.Cut()
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
@@ -1123,7 +1123,7 @@
 			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
 				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nucleation eyes, since,
-										 //while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
+										//while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
@@ -1966,7 +1966,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
 	return TRUE
 
-/mob/living/carbon/human/extinguish_light()
+/mob/living/carbon/human/extinguish_light(force = FALSE)
 	// Parent function handles stuff the human may be holding
 	..()
 

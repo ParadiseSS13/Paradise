@@ -38,7 +38,7 @@
 					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 30,
 					/obj/item/reagent_containers/food/drinks/ice = 9)
 	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
-					  /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
+					/obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 	vend_delay = 15
 	slogan_list = list("I hope nobody asks me for a bloody cup o' tea...","Alcohol is humanity's friend. Would you abandon a friend?","Quite delighted to serve you!","Is nobody thirsty on this station?")
 	ads_list = list("Drink up!","Booze is good for you!","Alcohol is humanity's best friend.","Quite delighted to serve you!","Care for a nice, cold beer?","Nothing cures you like booze!","Have a sip!","Have a drink!","Have a beer!","Beer is good for you!","Only the finest alcohol!","Best quality booze since 2053!","Award-winning wine!","Maximum alcohol!","Man loves beer.","A toast for progress!")
@@ -64,7 +64,7 @@
 	contraband = list(/obj/item/reagent_containers/food/drinks/ice = 10)
 	premium = list(/obj/item/reagent_containers/food/drinks/mug/novelty = 5)
 	prices = list(/obj/item/reagent_containers/food/drinks/coffee = 80, /obj/item/reagent_containers/food/drinks/tea = 80, /obj/item/reagent_containers/food/drinks/h_chocolate = 64, /obj/item/reagent_containers/food/drinks/chocolate = 120,
-				  /obj/item/reagent_containers/food/drinks/chicken_soup = 100, /obj/item/reagent_containers/food/drinks/weightloss = 50, /obj/item/reagent_containers/food/drinks/mug = 75)
+				/obj/item/reagent_containers/food/drinks/chicken_soup = 100, /obj/item/reagent_containers/food/drinks/weightloss = 50, /obj/item/reagent_containers/food/drinks/mug = 75)
 	refill_canister = /obj/item/vending_refill/coffee
 
 /obj/machinery/economy/vending/coffee/free
@@ -253,16 +253,16 @@
 					/obj/item/clothing/suit/mantle/regal = 2)
 
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
-					  /obj/item/clothing/mask/balaclava = 1,
-					  /obj/item/clothing/head/ushanka = 1,
-					  /obj/item/clothing/under/costume/soviet = 1,
-					  /obj/item/storage/belt/fannypack/black = 1)
+					/obj/item/clothing/mask/balaclava = 1,
+					/obj/item/clothing/head/ushanka = 1,
+					/obj/item/clothing/under/costume/soviet = 1,
+					/obj/item/storage/belt/fannypack/black = 1)
 
 	premium = list(/obj/item/clothing/under/suit/checkered = 1,
-				   /obj/item/clothing/head/mailman = 1,
-				   /obj/item/clothing/under/misc/mailman = 1,
-				   /obj/item/clothing/suit/jacket/leather = 1,
-				   /obj/item/clothing/under/pants/mustangjeans = 1)
+				/obj/item/clothing/head/mailman = 1,
+				/obj/item/clothing/under/misc/mailman = 1,
+				/obj/item/clothing/suit/jacket/leather = 1,
+				/obj/item/clothing/under/pants/mustangjeans = 1)
 
 	prices = list(/obj/item/clothing/head/that = 20,
 				/obj/item/clothing/head/fedora = 20,
@@ -486,19 +486,19 @@
 					/obj/item/clothing/under/misc/bluehawaiianshirt = 1,
 					/obj/item/clothing/under/misc/orangehawaiianshirt = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
-					  /obj/item/clothing/head/powdered_wig = 1,
-					  /obj/item/gun/magic/wand = 1,
-					  /obj/item/clothing/mask/balaclava=1,
-					  /obj/item/clothing/mask/horsehead = 2)
+					/obj/item/clothing/head/powdered_wig = 1,
+					/obj/item/gun/magic/wand = 1,
+					/obj/item/clothing/mask/balaclava=1,
+					/obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
-				   /obj/item/clothing/head/hgpiratecap = 1,
-				   /obj/item/clothing/head/helmet/roman/fake = 1,
-				   /obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
-				   /obj/item/clothing/under/costume/roman = 1,
-				   /obj/item/clothing/shoes/roman = 1,
-				   /obj/item/shield/riot/roman/fake = 1,
-				   /obj/item/clothing/under/costume/cuban_suit = 1,
-				   /obj/item/clothing/head/cuban_hat = 1)
+				/obj/item/clothing/head/hgpiratecap = 1,
+				/obj/item/clothing/head/helmet/roman/fake = 1,
+				/obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
+				/obj/item/clothing/under/costume/roman = 1,
+				/obj/item/clothing/shoes/roman = 1,
+				/obj/item/shield/riot/roman/fake = 1,
+				/obj/item/clothing/under/costume/cuban_suit = 1,
+				/obj/item/clothing/head/cuban_hat = 1)
 
 	prices = list(/obj/item/clothing/suit/chickensuit = 100,
 					/obj/item/clothing/head/chicken = 50,
@@ -629,9 +629,9 @@
 					/obj/item/reagent_containers/food/drinks/ice = 12,
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
 	contraband = list(/obj/item/kitchen/knife = 6,
-					  /obj/item/reagent_containers/food/drinks/coffee = 12,
-					  /obj/item/tank/internals/emergency_oxygen = 6,
-					  /obj/item/clothing/mask/breath = 6)
+					/obj/item/reagent_containers/food/drinks/coffee = 12,
+					/obj/item/tank/internals/emergency_oxygen = 6,
+					/obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
 
 /obj/machinery/economy/vending/sovietsoda
@@ -830,8 +830,8 @@
 					/obj/item/lighter/random = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-				   /obj/item/lighter/zippo = 3)
+				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+				/obj/item/lighter/zippo = 3)
 	prices = list()
 
 /obj/machinery/economy/vending/wallmed

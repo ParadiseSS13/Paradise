@@ -35,9 +35,9 @@
 					/obj/item/clothing/gloves/color/black = 4,
 					/obj/item/clothing/accessory/armband/sec = 6)
 	premium = list(/obj/item/clothing/mask/balaclava = 1,
-				   /obj/item/clothing/mask/gas/sechailer/swat = 2)
+				/obj/item/clothing/mask/gas/sechailer/swat = 2)
 	contraband = list(/obj/item/toy/figure/crew/hos = 1,
-					  /obj/item/toy/figure/crew/secofficer = 1)
+					/obj/item/toy/figure/crew/secofficer = 1)
 
 	prices = list(/obj/item/clothing/under/rank/security/officer/corporate = 50,
 					/obj/item/clothing/under/rank/security/officer/skirt/corporate = 50,
@@ -296,7 +296,7 @@
 					/obj/item/storage/backpack/satchel_tox = 2,
 					/obj/item/storage/backpack/duffel/science = 2,)
 	contraband = list(/obj/item/toy/figure/crew/rd = 1,
-				      /obj/item/toy/figure/crew/scientist = 1)
+					/obj/item/toy/figure/crew/scientist = 1)
 	prices = list(/obj/item/clothing/under/rank/rnd/scientist = 50,
 					/obj/item/clothing/under/rank/rnd/scientist/skirt = 50,
 					/obj/item/clothing/suit/hooded/wintercoat/science = 75,
@@ -366,7 +366,7 @@
 					/obj/item/storage/belt/utility = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 2)
 	contraband = list(/obj/item/toy/figure/crew/ce = 1,
-				      /obj/item/toy/figure/crew/engineer = 1)
+					/obj/item/toy/figure/crew/engineer = 1)
 	prices = list(/obj/item/clothing/under/rank/engineering/engineer = 50,
 					/obj/item/clothing/under/rank/engineering/engineer/skirt = 50,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 75,
@@ -454,7 +454,7 @@
 					/obj/item/clothing/shoes/black = 3,
 					/obj/item/clothing/shoes/workboots = 3)
 	contraband = list(/obj/item/toy/figure/crew/qm = 1,
-					  /obj/item/toy/figure/crew/cargotech = 1)
+					/obj/item/toy/figure/crew/cargotech = 1)
 	prices = list(/obj/item/clothing/under/rank/cargo/tech = 50,
 					/obj/item/clothing/under/rank/cargo/tech/skirt = 50,
 					/obj/item/clothing/suit/hooded/wintercoat/cargo = 75,

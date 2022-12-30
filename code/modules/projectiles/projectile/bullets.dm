@@ -86,12 +86,12 @@
 	armour_penetration_flat = -10
 
 /obj/item/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
-    . = ..()
-    if(!ishuman(target))
-        return
-    var/mob/living/carbon/human/H = target
-    if(H.getStaminaLoss() >= 60)
-        H.KnockDown(8 SECONDS)
+	. = ..()
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	if(H.getStaminaLoss() >= 60)
+		H.KnockDown(8 SECONDS)
 
 /obj/item/projectile/bullet/pellet/weak
 	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
@@ -102,8 +102,8 @@
 	..()
 
 /obj/item/projectile/bullet/pellet/weak/on_range()
- 	do_sparks(1, 1, src)
- 	..()
+	do_sparks(1, 1, src)
+	..()
 
 /obj/item/projectile/bullet/pellet/overload
 	damage = 3
@@ -122,13 +122,13 @@
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
- 	..()
- 	explosion(target, 0, 0, 2)
+	..()
+	explosion(target, 0, 0, 2)
 
 /obj/item/projectile/bullet/pellet/overload/on_range()
- 	explosion(src, 0, 0, 2)
- 	do_sparks(3, 3, src)
- 	..()
+	explosion(src, 0, 0, 2)
+	do_sparks(3, 3, src)
+	..()
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20

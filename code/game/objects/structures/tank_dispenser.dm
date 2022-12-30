@@ -24,8 +24,8 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/dispenser/Destroy()
-	QDEL_LIST(stored_plasma_tanks)
-	QDEL_LIST(stored_oxygen_tanks)
+	QDEL_LIST_CONTENTS(stored_plasma_tanks)
+	QDEL_LIST_CONTENTS(stored_oxygen_tanks)
 	return ..()
 
 /obj/structure/dispenser/proc/initialize_tanks()

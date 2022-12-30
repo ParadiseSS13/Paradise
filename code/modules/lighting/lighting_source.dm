@@ -104,7 +104,6 @@
 	. *= light_power;                        \
 	var/OLD = effect_str[C];                 \
 	effect_str[C] = .;                       \
-                                             \
 	C.update_lumcount                        \
 	(                                        \
 		(. * lum_r) - (OLD * applied_lum_r), \
