@@ -151,7 +151,7 @@
 	armour_penetration_flat = 20
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
-	if(on && user.dir == M.dir && !HAS_TRAIT(src, TRAIT_FLOORED) && user != M)
+	if(on && user.dir == M.dir && !HAS_TRAIT(user, TRAIT_FLOORED) && user != M)
 		M.apply_damage(12, BRUTE, def_zone)
 		M.apply_damage(40, STAMINA) //Just enough to slow
 		M.KnockDown(2 SECONDS)
