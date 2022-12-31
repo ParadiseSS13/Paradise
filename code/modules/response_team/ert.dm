@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		A.close()
 	var/list/ert_species_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
-		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")))
+		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Random")))
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 100)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
@@ -160,6 +160,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	if(!new_species)
 		new_species = "Human"
+	if(new_species == "Random")
+		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Random")
 	var/datum/species/S = GLOB.all_species[new_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
