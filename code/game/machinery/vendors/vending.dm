@@ -172,6 +172,13 @@
 	QDEL_NULL(inserted_item)
 	return ..()
 
+/obj/machinery/economy/vending/examine(mob/user)
+	. = ..()
+	if(tilted)
+		. += "<span class='warning'>It's been tipped over and won't be usable unless it's righted.</span>"
+		if(Adjacent(user))
+			. += "<span class='notice'>You can <b>Alt-Click</b> it to right it.</span>"
+
 /obj/machinery/economy/vending/RefreshParts()         //Better would be to make constructable child
 	if(!component_parts)
 		return
@@ -324,7 +331,19 @@
 	else
 		..()
 
+/obj/machinery/economy/vending/AltClick(mob/user)
+	if(!tilted || !Adjacent(user) || user.incapacitated())
+		return
+
+	untilt(user)
+
 /obj/machinery/economy/vending/attackby(obj/item/I, mob/user, params)
+	if(tilted)
+		if(user.a_intent == INTENT_HELP)
+			to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
+			return
+		return ..()
+
 	if(isspacecash(I))
 		insert_cash(I, user)
 		return
@@ -361,9 +380,38 @@
 	if(item_slot_check(user, I))
 		insert_item(user, I)
 		return
-	return ..()
+	. = ..()
+	if(tiltable && !tilted && I.force)
+		switch(rand(1, 100))
+			if(1 to 5)
+				freebie(user, 3)
+			if(6 to 15)
+				freebie(user, 2)
+			if(16 to 25)
+				freebie(user, 1)
+			if(26 to 75)
+				return
+			if(76 to 90)
+				tilt(user)
+			if(91 to 100)
+				tilt(user, crit = TRUE)
 
 
+/obj/machinery/economy/vending/proc/freebie(mob/user, num_freebies)
+	visible_message("<span class='notice'>[num_freebies] free goodie\s tumble\s out of [src]!</span>")
+
+	for(var/i in 1 to num_freebies)
+		for(var/datum/data/vending_product/R in shuffle(product_records))
+
+			if(R.amount <= 0)
+				continue
+
+			var/dump_path = R.product_path
+			if(!dump_path)
+				continue
+			new dump_path(get_turf(src))
+			R.amount--
+			break
 
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -485,6 +533,10 @@
 
 /obj/machinery/economy/vending/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))
+		return
+
+	if(tilted)
+		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
 		return
 
 	if(seconds_electrified != 0 && shock(user, 100))
@@ -901,15 +953,63 @@
 
 	if(in_range(victim, src))
 		for(var/mob/living/L in get_turf(victim))
-			var/was_alive = (L.stat != DEAD)
 			var/mob/living/carbon/C = L
 
 			if(istype(C))
 				var/crit_rebate = 0  // amount of damage a crit dealt, lessen the normal damage dealt
 				switch(crit_case)
-					if(1)
-						C.gib()
-						// TODO
+					if(VENDOR_TIP_CRIT_EFFECT_SHATTER)
+						var/obj/item/organ/external/leg/right = C.get_organ(BODY_ZONE_R_LEG)
+						var/obj/item/organ/external/leg/left = C.get_organ(BODY_ZONE_L_LEG)
+						if(istype(left))
+							left.receive_damage(200)
+						if(istype(right))
+							right.receive_damage(200)
+
+						if(left || right)
+							C.visible_message(
+								"<span class='danger'>[C]'s legs shatter with a sickening crunch!</span>",
+								"<span class='userdanger'>Your legs shatter with a sickening crunch!</span>",
+								"<span class='danger'>You hear a sickening crunch!</span>"
+							)
+
+					if(VENDOR_TIP_CRIT_EFFECT_PIN)
+						forceMove(get_turf(C))
+						buckle_mob(C, force=TRUE)
+						C.visible_message(
+							"<span class='danger'>[C] gets pinned underneath [src]!</span>",
+							"<span class='userdanger'>You are pinned down by [src]!</span>"
+						)
+
+					if(VENDOR_TIP_CRIT_EFFECT_EMBED)
+						if(num_shards > 0)
+							C.visible_message(
+								"<span class='danger'>[src]'s panel shatters against [C]!</span>",
+								"<span class='userdanger>[src] lands on you, its panel shattering!</span>")
+							crit_rebate = 50  // since this is a nasty one
+							for(var/i in 1 to num_shards)
+								var/obj/item/shard/shard = new /obj/item/shard(get_turf(C))
+								shard.embed_chance = 100
+								shard.embedded_pain_chance = 5
+								shard.embedded_impact_pain_multiplier = 1
+								shard.embedded_ignore_throwspeed_threshold = TRUE
+								C.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
+								shard.embed_chance = initial(shard.embed_chance)
+								shard.embedded_pain_chance = initial(shard.embedded_pain_chance)
+								shard.embedded_impact_pain_multiplier = initial(shard.embedded_pain_multiplier)
+								shard.embedded_ignore_throwspeed_threshold = initial(shard.embedded_ignore_throwspeed_threshold)
+
+					if(VENDOR_TIP_CRIT_EFFECT_HEAD_ASPLODE)
+						// pop!
+						var/obj/item/organ/external/head/O = C.get_organ("head")
+						var/obj/item/organ/internal/brain/B = C.get_int_organ_tag("brain")
+						if(O)
+							C.visible_message("<span class='danger'>[O] gets crushed under [src]!</span>", "<span class='userdanger'>Oh f-</span>")
+							O.disfigure()
+							playsound
+							C.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
+						if(B in O)
+							B.damage += 80
 					else
 						C.visible_message(
 							"<span class='danger'>[C] is crushed by [src]!</span>",
@@ -937,9 +1037,11 @@
 					L.apply_damage(squish_damage, BRUTE)
 
 			L.Paralyse(6 SECONDS)
+			L.KnockDown(12 SECONDS)
 			L.emote("scream")
 			. = TRUE
 			playsound(L, 'sound/effects/blobattack.ogg', 40, TRUE)
+			playsound(L, "sound/effects/splat.ogg", 50, TRUE)
 
 	var/matrix/M = matrix()
 	M.Turn(pick(90, 270))
@@ -953,12 +1055,18 @@
 		return
 
 	if(user)
+		user.visible_message(
+			"[user] begins to right [src].",
+			"You begin to right [src]."
+		)
 		if(!do_after(user, 7 SECONDS, TRUE, src))
 			return
 		user.visible_message(
 			"<span class='notice'>[user] rights [src].</span>",
-			"<span class='notice'>You right [src]</span>"
+			"<span class='notice'>You right [src].</span>",
+			"<span class='notice'>You hear a loud clang.</span>"
 		)
+
 	unbuckle_all_mobs(TRUE)
 
 	tilted = FALSE
