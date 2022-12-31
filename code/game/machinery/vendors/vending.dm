@@ -118,6 +118,18 @@
 	///the money account that is tethered to this vendor
 	var/datum/money_account/vendor_account
 
+	/// If this vending machine can be tipped or not
+	var/tiltable = TRUE
+	/// If this vendor is currently tipped
+	var/tilted = FALSE
+	/// Amount of damage to deal when tipped
+	var/squish_damage = 70  // yowch
+	/// If this vendor gets tipped, apply only this specific crit effect.
+	var/force_tip_crit = VENDOR_TIP_CRIT_EFFECT_RANDOM
+	/// number of shards to apply when a crit embeds
+	var/num_shards = 7
+
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -862,6 +874,105 @@
 
 /obj/machinery/economy/vending/onTransitZ()
 	return
+
+/**
+ * Tilts the machine onto the atom passed in.
+ *
+ * Arguments:
+ * * victim - The thing the machine is falling on top of
+ * * crit - if true, some special damage effects might happen.
+ */
+/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE)
+	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
+		return
+
+	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
+	tilted = TRUE
+	layer = ABOVE_MOB_LAYER
+
+	var/crit_case
+	if(crit)
+		crit_case = rand(1, 6)
+
+	if(force_tip_crit != VENDOR_TIP_CRIT_EFFECT_RANDOM)
+		crit_case = force_tip_crit
+
+	. = FALSE
+
+	if(in_range(victim, src))
+		for(var/mob/living/L in get_turf(victim))
+			var/was_alive = (L.stat != DEAD)
+			var/mob/living/carbon/C = L
+
+			if(istype(C))
+				var/crit_rebate = 0  // amount of damage a crit dealt, lessen the normal damage dealt
+				switch(crit_case)
+					if(1)
+						C.gib()
+						// TODO
+					else
+						C.visible_message(
+							"<span class='danger'>[C] is crushed by [src]!</span>",
+							"<span class='userdanger'>[src] crushes you!</span>",
+							"<span class='warning'>You hear a loud crunch!</span>"
+						)
+
+				// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
+				if(prob(30))
+					C.apply_damage(max(0, squish_damage - crit_rebate), BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
+				else
+					var/picked_zone
+					var/num_parts_to_pick = 2
+					for(var/i = 1 to num_parts_to_pick)
+						picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
+						C.apply_damage(max(0, squish_damage - crit_rebate) * (1 / num_parts_to_pick), BRUTE, picked_zone)
+
+			else
+				L.visible_message(
+					"<span class='danger'>[L] is crushed by [src]!</span>",
+					"<span class='userdanger'>[src] falls on top of you, crushing you!</span>"
+				)
+				L.apply_damage(squish_damage, BRUTE)
+				if(crit_case)
+					L.apply_damage(squish_damage, BRUTE)
+
+			L.Paralyse(6 SECONDS)
+			L.emote("scream")
+			. = TRUE
+			playsound(L, 'sound/effects/blobattack.ogg', 40, TRUE)
+
+	var/matrix/M = matrix()
+	M.Turn(pick(90, 270))
+	transform = M
+
+	if(get_turf(victim) != get_turf(src))
+		throw_at(get_turf(victim), 1, 1, spin = FALSE)
+
+/obj/machinery/economy/vending/proc/untilt(mob/user)
+	if(!tilted)
+		return
+
+	if(user)
+		if(!do_after(user, 7 SECONDS, TRUE, src))
+			return
+		user.visible_message(
+			"<span class='notice'>[user] rights [src].</span>",
+			"<span class='notice'>You right [src]</span>"
+		)
+	unbuckle_all_mobs(TRUE)
+
+	tilted = FALSE
+	layer = initial(layer)
+	plane = initial(plane)
+
+	var/matrix/M = matrix()
+	M.Turn(0)
+	transform = M
+
+/obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
+	tilt(target)
+	return TRUE
+
 /*
  * Vending machine types
  */
