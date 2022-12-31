@@ -120,13 +120,19 @@
 					/obj/item/clothing/head/beaverhat = 10,
 					/obj/item/clothing/head/boaterhat = 10,
 					/obj/item/clothing/head/fedora = 10,
+					/obj/item/clothing/head/cowboyhat = 10,
+					/obj/item/clothing/head/cowboyhat/black  = 10,
 					/obj/item/clothing/head/fez = 10,
-					/obj/item/clothing/head/beret = 10)
+					/obj/item/clothing/head/soft/solgov = 10,
+					/obj/item/clothing/head/beret = 10,
+					/obj/item/clothing/head/beret/black = 10,
+					/obj/item/clothing/head/hairflower = 10)
 	contraband = list(/obj/item/clothing/head/bearpelt = 5)
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
 	prices = list(/obj/item/clothing/head/bowlerhat = 20, /obj/item/clothing/head/beaverhat = 20, /obj/item/clothing/head/boaterhat = 20,
-				/obj/item/clothing/head/fedora = 20, /obj/item/clothing/head/beret = 20, /obj/item/clothing/head/fez = 20,
-				/obj/item/clothing/head/bearpelt = 30)
+				/obj/item/clothing/head/fedora = 20, /obj/item/clothing/head/beret = 20, /obj/item/clothing/head/beret/black = 20, /obj/item/clothing/head/fez = 20,
+				/obj/item/clothing/head/hairflower = 20, /obj/item/clothing/head/cowboyhat = 20, /obj/item/clothing/head/cowboyhat/black  = 20,
+				/obj/item/clothing/head/soft/solgov = 20,/obj/item/clothing/head/bearpelt = 30)
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
 /obj/machinery/economy/vending/suitdispenser
@@ -161,13 +167,15 @@
 	products = list(/obj/item/clothing/shoes/black = 10, /obj/item/clothing/shoes/brown = 10, /obj/item/clothing/shoes/blue = 10,
 					/obj/item/clothing/shoes/green = 10, /obj/item/clothing/shoes/yellow = 10, /obj/item/clothing/shoes/purple = 10,
 					/obj/item/clothing/shoes/red = 10, /obj/item/clothing/shoes/white = 10, /obj/item/clothing/shoes/laceup = 10,
-					/obj/item/clothing/shoes/sandal = 10, /obj/item/clothing/shoes/jackboots = 10)
+					/obj/item/clothing/shoes/sandal = 10, /obj/item/clothing/shoes/jackboots = 10, /obj/item/clothing/shoes/winterboots = 10,
+					/obj/item/clothing/shoes/cowboy = 10, /obj/item/clothing/shoes/cowboy/black = 10)
 	contraband = list(/obj/item/clothing/shoes/orange = 5)
 	premium = list(/obj/item/clothing/shoes/rainbow = 1)
 	prices= list(/obj/item/clothing/shoes/black = 20, /obj/item/clothing/shoes/brown = 20, /obj/item/clothing/shoes/blue = 20,
 				/obj/item/clothing/shoes/green = 20, /obj/item/clothing/shoes/yellow = 20, /obj/item/clothing/shoes/purple = 20,
 				/obj/item/clothing/shoes/red = 20, /obj/item/clothing/shoes/white = 20, /obj/item/clothing/shoes/sandal = 20,
-				/obj/item/clothing/shoes/laceup = 40, /obj/item/clothing/shoes/jackboots = 20, /obj/item/clothing/shoes/orange = 40)
+				/obj/item/clothing/shoes/laceup = 40, /obj/item/clothing/shoes/jackboots = 20, /obj/item/clothing/shoes/winterboots = 20,
+				/obj/item/clothing/shoes/cowboy = 20, /obj/item/clothing/shoes/cowboy/black = 20,  /obj/item/clothing/shoes/orange = 40)
 	refill_canister = /obj/item/vending_refill/shoedispenser
 
 //don't forget to change the refill size if you change the machine's contents!
@@ -239,6 +247,7 @@
 					/obj/item/clothing/under/dress/sailordress = 2,
 					/obj/item/clothing/under/dress/redeveninggown = 2,
 					/obj/item/clothing/under/dress/blacktango = 2,
+					/obj/item/clothing/suit/hooded/wintercoat = 3,
 					/obj/item/clothing/suit/jacket = 3,
 					/obj/item/clothing/suit/hooded/hoodie = 3,
 					/obj/item/clothing/suit/hooded/hoodie/blue = 3,
@@ -329,6 +338,7 @@
 				/obj/item/clothing/under/dress/sailordress = 75,
 				/obj/item/clothing/under/dress/redeveninggown = 100,
 				/obj/item/clothing/under/dress/blacktango = 100,
+				/obj/item/clothing/suit/hooded/wintercoat = 75,
 				/obj/item/clothing/suit/jacket = 75,
 				/obj/item/clothing/suit/hooded/hoodie = 75,
 				/obj/item/clothing/suit/hooded/hoodie/blue = 75,
@@ -414,6 +424,8 @@
 					/obj/item/clothing/mask/gas/plaguedoctor = 1,
 					/obj/item/clothing/suit/apron = 1,
 					/obj/item/clothing/under/misc/waiter = 1,
+					/obj/item/clothing/accessory/cowboyshirt = 1,
+					/obj/item/clothing/accessory/cowboyshirt/navy = 1,
 					/obj/item/clothing/under/costume/pirate = 1,
 					/obj/item/clothing/suit/pirate_brown = 1,
 					/obj/item/clothing/suit/pirate_black =1,
@@ -525,6 +537,8 @@
 					/obj/item/clothing/mask/gas/plaguedoctor = 50,
 					/obj/item/clothing/suit/apron = 75,
 					/obj/item/clothing/under/misc/waiter = 75,
+					/obj/item/clothing/accessory/cowboyshirt = 75,
+					/obj/item/clothing/accessory/cowboyshirt/navy = 75,
 					/obj/item/clothing/under/costume/pirate = 100,
 					/obj/item/clothing/suit/pirate_brown = 100,
 					/obj/item/clothing/suit/pirate_black = 100,
