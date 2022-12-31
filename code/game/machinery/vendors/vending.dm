@@ -417,16 +417,25 @@
 	if(!component_parts)
 		return
 	. = TRUE
+	if(tilted)
+		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	wires.Interact(user)
 
 /obj/machinery/economy/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!anchored)
@@ -443,11 +452,17 @@
 
 /obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
 
 /obj/machinery/economy/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat("<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	default_unfasten_wrench(user, I, time = 6 SECONDS)
@@ -954,11 +969,12 @@
 	if(in_range(victim, src))
 		for(var/mob/living/L in get_turf(victim))
 			var/mob/living/carbon/C = L
-
 			if(istype(C))
 				var/crit_rebate = 0  // amount of damage a crit dealt, lessen the normal damage dealt
 				switch(crit_case)
 					if(VENDOR_TIP_CRIT_EFFECT_SHATTER)
+						crit_rebate = 60  // that's a lot of damage
+						C.bleed(150)
 						var/obj/item/organ/external/leg/right = C.get_organ(BODY_ZONE_R_LEG)
 						var/obj/item/organ/external/leg/left = C.get_organ(BODY_ZONE_L_LEG)
 						if(istype(left))
@@ -1006,7 +1022,6 @@
 						if(O)
 							C.visible_message("<span class='danger'>[O] gets crushed under [src]!</span>", "<span class='userdanger'>Oh f-</span>")
 							O.disfigure()
-							playsound
 							C.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
 						if(B in O)
 							B.damage += 80
@@ -1071,7 +1086,6 @@
 
 	tilted = FALSE
 	layer = initial(layer)
-	plane = initial(plane)
 
 	var/matrix/M = matrix()
 	M.Turn(0)
