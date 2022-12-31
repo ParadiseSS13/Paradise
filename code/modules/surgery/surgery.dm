@@ -162,6 +162,12 @@
 	var/silicons_obey_prob = FALSE
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
+	/// Sound played when the step is started. Lists or single value can be used for this var
+	var/preop_sound
+	/// Sound played if the step succeeded. Single value only
+	var/success_sound
+	/// Sound played if the step fails. Single value only
+	var/failure_sound
 
 	// evil infection stuff that will make everyone hate me
 
@@ -169,12 +175,6 @@
 	var/can_infect = FALSE
 	/// How much blood this step can get on surgeon. See SURGERY_BLOODSPREAD_* defines
 	var/blood_level = SURGERY_BLOODSPREAD_NONE
-	//Sound played when the step is started
-	var/preop_sound
-	//Sound played if the step succeeded
-	var/success_sound
-	//Sound played if the step fails
-	var/failure_sound
 
 /**
  * Whether or not the tool being used is usable for the surgery.
