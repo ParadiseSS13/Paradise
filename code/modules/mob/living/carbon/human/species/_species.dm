@@ -190,6 +190,7 @@
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
+
 /**
  * Handles creation of mob organs.
  *
@@ -198,8 +199,8 @@
  * * bodyparts_to_omit: Any bodyparts in this list (and organs within them) should not be added.
  */
 /datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit) //Handles creation of mob organs.
-	QDEL_LIST(H.internal_organs)
-	QDEL_LIST(H.bodyparts)
+	QDEL_LIST_CONTENTS(H.internal_organs)
+	QDEL_LIST_CONTENTS(H.bodyparts)
 
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)

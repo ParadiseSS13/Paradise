@@ -96,8 +96,8 @@
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 
 	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with [src]!</span>", \
-				  "<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
-				  "You hear struggling and wire strain against flesh!")
+				"<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
+				"You hear struggling and wire strain against flesh!")
 
 	return
 
@@ -126,7 +126,7 @@
 
 	else
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
-				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
+				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)

@@ -6,7 +6,7 @@
 
 
 /datum/buildmode_mode/link/proc/clear_lines()
-	QDEL_LIST(link_lines)
+	QDEL_LIST_CONTENTS(link_lines)
 
 /datum/buildmode_mode/link/proc/form_connection(atom/source, atom/dest, valid)
 	var/obj/effect/buildmode_line/L = new(BM.holder, source, dest, "[source.name] to [dest.name]")

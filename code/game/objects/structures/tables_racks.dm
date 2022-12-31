@@ -875,7 +875,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
-							 "<span class='danger'>You kick [src].</span>")
+							"<span class='danger'>You kick [src].</span>")
 	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

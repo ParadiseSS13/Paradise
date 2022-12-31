@@ -21,9 +21,9 @@
 						[JS_BYJAX]
 						[JS_DROPDOWNS]
 						function ticker() {
-						    setInterval(function(){
-						        window.location='byond://?src=[UID()]&update_content=1';
-						    }, 1000);
+							setInterval(function(){
+								window.location='byond://?src=[UID()]&update_content=1';
+							}, 1000);
 						}
 
 						window.onload = function() {
@@ -45,7 +45,7 @@
 						</div>
 						</body>
 						</html>
-					 "}
+					"}
 	return output
 
 
