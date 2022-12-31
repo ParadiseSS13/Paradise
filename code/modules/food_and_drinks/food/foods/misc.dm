@@ -101,6 +101,39 @@
 	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
 	tastes = list("fried potato" = 1, "lettuce" = 1, "meat" = 1, "valids" = 1)
 	foodtype = VEGETABLES
+	
+/obj/item/reagent_containers/food/snacks/oliviersalad
+	name = "olivier salad"
+	desc = "Не трогай, это на новый год!"
+	icon_state = "oliviersalad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#C2CFAB"
+	bitesize = 3
+	list_reagents = list("nutriment" = 10, "kelotane" = 2, "vitamin" = 3)
+	tastes = list("fried potato" = 1, "cucumber" = 1, "carrots" = 1, "egg" = 1, "New Year" = 1)
+	foodtype = VEGETABLES
+	
+/obj/item/reagent_containers/food/snacks/vegisalad
+	name = "vegetable salad"
+	desc = "Идеальная комбинация томатов и огурцов."
+	icon_state = "validsalad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#C2CFAB"
+	bitesize = 3
+	list_reagents = list("nutriment" = 4, "kelotane" = 1, "vitamin" = 1)
+	tastes = list("tomato" = 1, "cucumber" = 1)
+	foodtype = VEGETABLES
+	
+/obj/item/reagent_containers/food/snacks/weirdoliviersalad
+	name = "weird olivier salad"
+	desc = "Что ты сделал с этим оливье, чудовище?"
+	icon_state = "oliviersalad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#C2CFAB"
+	bitesize = 3
+	list_reagents = list("nutriment" = 12, "kelotane" = 2, "vitamin" = 3)
+	tastes = list("fried potato" = 1, "cucumber" = 1, "carrots" = 1, "egg" = 1, "weirdness" = 1, "New Year" = 1)
+	foodtype = VEGETABLES
 
 //////////////////////
 //	Donk Pockets	//
