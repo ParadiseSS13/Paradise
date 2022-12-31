@@ -79,6 +79,10 @@
 				R.check_and_add(chemical,reagent_target_amount,inject_amount)
 
 /obj/machinery/optable/proc/take_patient(mob/living/carbon/new_patient, mob/living/carbon/user)
+	var/turf/table_turf = get_turf(src)
+	if(!table_turf.CanPass(new_patient, table_turf))
+		return FALSE
+
 	if(new_patient == user)
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
