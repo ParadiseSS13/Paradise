@@ -1072,6 +1072,11 @@
 	occupant_message("Toggled lights [lights ? "on" : "off"].")
 	log_message("Toggled lights [lights ? "on" : "off"].")
 
+/obj/mecha/extinguish_light(force)
+	if(!lights)
+		return
+	toggle_lights()
+
 /obj/mecha/proc/toggle_internal_tank()
 	use_internal_tank = !use_internal_tank
 	occupant_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
