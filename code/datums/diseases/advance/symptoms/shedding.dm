@@ -32,7 +32,7 @@ BONUS
 
 		if(!ishuman(M))
 			return
-		var/obj/item/organ/internal/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!istype(head_organ))
 			return
 		to_chat(M, "<span class='warning'>[pick("Your scalp itches.", "Your skin feels flakey.")]</span>")
