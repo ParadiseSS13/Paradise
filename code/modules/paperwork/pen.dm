@@ -151,32 +151,21 @@
 	armour_penetration_flat = 20
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
-	if(on && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
-		return
-	if(!on)
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
+	force = 18
+	if(user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
+		force += 12
+		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
+		M.apply_damage(40, STAMINA) //Just enough to slow
+		M.KnockDown(2 SECONDS)
+		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
 	else
-		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
-		force = 18
-		if(user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
-			force += 12
-			add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
-			M.apply_damage(40, STAMINA) //Just enough to slow
-			M.KnockDown(2 SECONDS)
-			M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
-			playsound(loc, backstab_sound, 5, TRUE, ignore_walls = TRUE, falloff_distance = 0)
-		else
-			add_attack_logs(user, M, "Attacked with [src]", ATKLOG_ALL)
-			playsound(loc, hitsound, 5, TRUE, ignore_walls = TRUE, falloff_distance = 0)
+		playsound(loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	. = ..()
 
-	M.lastattacker = user.real_name
-	M.lastattackerckey = user.ckey
+/obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
+	return 0
 
-	user.do_attack_animation(M)
-	. = M.attacked_by(src, user, def_zone)
-
-	add_fingerprint(user)
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
