@@ -1028,3 +1028,12 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/desk_bell
 	category = list("initial", "Miscellaneous")
+
+/datum/design/cap_ammo
+	name = "Speed Loader(caps)"
+	desc = "Capgun speedloader"
+	id = "cap_ammo"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100)
+	build_path = /obj/item/ammo_box/caps
+	category = list("initial", "Miscellaneous")
