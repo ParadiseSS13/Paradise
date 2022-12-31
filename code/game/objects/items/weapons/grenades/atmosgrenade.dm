@@ -26,6 +26,7 @@
 /obj/item/grenade/gas/oxygen
 	name = "oxygen grenade"
 	desc = "A grenade that releases pure O2 gas."
+	origin_tech = "materials=3;magnets=4"
 	icon_state = "oxygen"
 	spawn_contents = LINDA_SPAWN_20C | LINDA_SPAWN_OXYGEN
 	spawn_amount = 500
