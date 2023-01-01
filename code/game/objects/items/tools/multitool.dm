@@ -100,7 +100,7 @@
 						break
 
 /obj/item/multitool/red
-	name = "Suspicious Multitool"
+	name = "suspicious multitool"
 	desc = "A sinister-looking multitool, used for pulsing wires to test which to cut."
 	icon_state = "multitool_syndi"
 	belt_icon = "multitool_syndi"
