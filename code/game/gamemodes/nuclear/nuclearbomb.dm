@@ -193,7 +193,7 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
+	if(auth || ((istype(I, /obj/item/screwdriver/nuke)) && !is_syndicate))
 		if(!panel_open)
 			panel_open = TRUE
 			to_chat(user, "You unscrew the control panel of [src].")
