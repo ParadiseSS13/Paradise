@@ -956,10 +956,11 @@
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
+	var/list/possible_crits = list(VENDOR_TIP_CRIT_EFFECT_EMBED, VENDOR_TIP_CRIT_EFFECT_HEAD_ASPLODE, VENDOR_TIP_CRIT_EFFECT_MAIM_LIMB, VENDOR_TIP_CRIT_EFFECT_PIN, VENDOR_TIP_CRIT_EFFECT_SHATTER)
 
 	var/crit_case
 	if(crit)
-		crit_case = rand(1, 6)
+		crit_case = pick(possible_crits)
 
 	if(force_tip_crit != VENDOR_TIP_CRIT_EFFECT_RANDOM)
 		crit_case = force_tip_crit
@@ -1055,7 +1056,7 @@
 			L.KnockDown(12 SECONDS)
 			L.emote("scream")
 			. = TRUE
-			playsound(L, 'sound/effects/blobattack.ogg', 40, TRUE)
+			playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
 			playsound(L, "sound/effects/splat.ogg", 50, TRUE)
 
 	var/matrix/M = matrix()
