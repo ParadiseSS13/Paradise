@@ -5958,11 +5958,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"uI" = (
-/obj/effect/landmark/spawner/nuclear_bomb,
-/obj/machinery/light/spot,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "uJ" = (
 /obj/machinery/optable,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -9333,6 +9328,9 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"JT" = (
+/turf/simulated/wall/indestructible/opsglass/limited_smooth,
+/area/syndicate_mothership)
 "JU" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -9691,6 +9689,11 @@
 "Ln" = (
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
+"Lq" = (
+/obj/effect/landmark/spawner/nuclear_bomb/syndicate,
+/obj/machinery/light/spot,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Ls" = (
 /obj/machinery/door_control/no_emag{
 	id = "ASSAULT";
@@ -11971,9 +11974,6 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
-"UO" = (
-/turf/simulated/wall/indestructible/opsglass/limited_smooth,
-/area/syndicate_mothership)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -13257,6 +13257,13 @@
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
+	},
+/area/centcom/specops)
+"ZK" = (
+/obj/effect/landmark/spawner/nuclear_bomb/death_squad,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "ZL" = (
@@ -33024,7 +33031,7 @@ Ji
 Ra
 Xz
 Zr
-Ji
+ZK
 MG
 Ev
 Xu
@@ -59698,7 +59705,7 @@ KX
 KX
 KX
 uq
-uI
+Lq
 uL
 uV
 ab
@@ -60457,9 +60464,9 @@ KR
 mI
 KY
 nB
-UO
-UO
-UO
+JT
+JT
+JT
 KY
 rU
 sn
@@ -60973,7 +60980,7 @@ ab
 ab
 BZ
 hG
-UO
+JT
 iT
 rU
 sx
@@ -61230,7 +61237,7 @@ ab
 ab
 BZ
 BY
-UO
+JT
 lB
 KY
 KY

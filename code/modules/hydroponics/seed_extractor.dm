@@ -65,7 +65,7 @@
 	RefreshParts()
 
 /obj/machinery/seed_extractor/Destroy()
-	QDEL_LIST(piles)
+	QDEL_LIST_CONTENTS(piles)
 	return ..()
 
 /obj/machinery/seed_extractor/RefreshParts()

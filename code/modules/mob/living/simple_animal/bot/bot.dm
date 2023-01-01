@@ -1039,7 +1039,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	clear_path_image()
 
 	var/list/path_images = hud_list[DIAG_PATH_HUD]
-	QDEL_LIST(path_images)
+	QDEL_LIST_CONTENTS(path_images)
 	if(newpath)
 		for(var/i in 1 to newpath.len)
 			var/turf/T = newpath[i]

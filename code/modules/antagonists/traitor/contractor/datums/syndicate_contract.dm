@@ -570,7 +570,7 @@
 	var/obj/item/implant/uplink/uplink_implant = locate() in M
 	uplink_implant?.hidden_uplink?.is_jammed = FALSE
 
-	QDEL_LIST(temp_objs)
+	QDEL_LIST_CONTENTS(temp_objs)
 
 	// Injuries due to questioning and souvenirs
 	injure_target(M)
