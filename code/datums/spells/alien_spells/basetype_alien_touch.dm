@@ -17,10 +17,13 @@
 /obj/effect/proc_holder/spell/touch/alien_spell/Click(mob/user = usr)
 	if(attached_hand)
 		qdel(attached_hand)
-		custom_handler.revert_cast(user)
 		attached_hand = null
 		to_chat(user, "<span class='noticealien'>You withdraw your [src].</span>")
 		return FALSE
+	..()
+
+/obj/effect/proc_holder/spell/touch/alien_spell/cast(list/targets, mob/living/carbon/user)
+	user.add_plasma(plasma_cost, user)
 	..()
 
 /obj/effect/proc_holder/spell/touch/alien_spell/create_new_handler()
@@ -33,6 +36,16 @@
 	desc = "You should not see this in game, if you do file a github report!"
 	has_catchphrase = FALSE // SHUT
 	needs_permit = FALSE // No, beepsky WILL NOT arrest you for this
+	var/continue_cast = TRUE
 
-/obj/item/melee/touch_attack/alien/attack_alien(mob/user) // Can be picked up by aliens
+/obj/item/melee/touch_attack/alien/attack_alien(mob/user) // Can be picked up by aliens... if it got on the ground somehow
 	return attack_hand(user)
+
+/obj/item/melee/touch_attack/alien/proc/plasma_check(plasma, mob/living/carbon/user)
+	var/plasma_current = user.getPlasma()
+	if(plasma_current < plasma)
+		attached_spell.attached_hand = null
+		qdel(src)
+		continue_cast = FALSE
+		return
+	return

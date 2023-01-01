@@ -2,7 +2,7 @@
 	name = "Neurotoxin spit"
 	desc = "This ability allows you to fire some neurotoxin, lets you knockdown anyone you hit."
 	base_cooldown = 5 SECONDS
-	plasma_cost = 200
+	plasma_cost = 50
 	selection_activated_message		= "<span class='notice'>Your prepare some neurotoxin!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You swallow your prepared neurotoxin.</span>"
 	var/neurotoxin_type = /obj/item/projectile/bullet/neurotoxin

@@ -13,16 +13,18 @@
 
 /obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(target == user)
-		user.add_plasma(200, user)
 		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
 		..()
 		return
 	if(!proximity || isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
-
+	plasma_check(200, user)
+	if(!continue_cast)
+		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
+		return
 	if(target.acid_act(200, 100))
 		visible_message("<span class='alertalien'>[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+		user.add_plasma(-200, user)
 	else
 		to_chat(user, "<span class='noticealien'>You cannot dissolve this object.</span>")
-		user.add_plasma(200, user)
 	..()

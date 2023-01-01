@@ -24,6 +24,26 @@ In all, this is a lot like the monkey code. /N
 			grabbedby(M)
 
 		else
+			if(islarva(M))
+				var/mob/living/carbon/alien/target = src
+				var/mob/living/carbon/alien/larva/transfering_larva = M
+				transfering_larva.plasma_check_larva(50)
+				if(!transfering_larva.continue_cast)
+					to_chat(transfering_larva, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
+					transfering_larva.already_transfering = FALSE
+					transfering_larva.continue_cast = TRUE
+					return
+				if(!transfering_larva.already_transfering)
+					to_chat(transfering_larva, "<span class='noticealien'>You struggle to bite through the thick skin of an alien.</span>")
+					return
+				transfering_larva.do_attack_animation(src, ATTACK_EFFECT_BOOP)
+				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				visible_message("<span class='danger'>[transfering_larva.name] transfers some plasma to [target]!</span>", \
+						"<span class='userdanger'>[transfering_larva.name] transfers some plasma to [target]!</span>")
+				transfering_larva.add_plasma(-50, transfering_larva)
+				target.add_plasma(50, target)
+				transfering_larva.already_transfering = FALSE
+				return
 			if(health > 0)
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)

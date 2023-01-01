@@ -12,6 +12,8 @@
 	var/amount_grown = 0
 	var/max_grown = 200
 	var/time_of_birth
+	var/already_transfering = FALSE
+	var/continue_cast = TRUE
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
 
@@ -31,7 +33,6 @@
 	. += /obj/item/organ/internal/alien/plasmavessel/larva
 
 
-//This needs to be fixed
 /mob/living/carbon/alien/larva/Stat()
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
@@ -41,33 +42,40 @@
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount, user)
 
+/mob/living/carbon/alien/larva/proc/cast_larva()
+	if(already_transfering)
+		to_chat(src, "<span class='noticealien'>You stop transfering plasma.</span>" )
+		already_transfering = FALSE
+		return
+	to_chat(src, "<span class='noticealien'>You prepare to transfer plasma.</span>")
+	already_transfering = TRUE
+
+/mob/living/carbon/alien/larva/proc/plasma_check_larva(plasma)
+	var/plasma_total = getPlasma()
+	if(plasma_total < plasma)
+		continue_cast = FALSE
+
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()
 
-	var/b_loss = null
-	var/f_loss = null
+	var/brute_loss = null
+	var/fire_loss = null
 	switch(severity)
 		if(1.0)
 			gib()
 			return
-
 		if(2.0)
-
-			b_loss += 60
-
-			f_loss += 60
-
+			brute_loss += 60
+			fire_loss += 60
 			AdjustEarDamage(30, 120)
-
 		if(3.0)
-			b_loss += 30
+			brute_loss += 30
 			if(prob(50))
 				Paralyse(2 SECONDS)
 			AdjustEarDamage(15, 60)
 
-	adjustBruteLoss(b_loss)
-	adjustFireLoss(f_loss)
-
+	adjustBruteLoss(brute_loss)
+	adjustFireLoss(fire_loss)
 	updatehealth()
 
 //can't equip anything
