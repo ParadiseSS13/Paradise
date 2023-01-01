@@ -7,7 +7,7 @@
 /area/lavaland/surface/outdoors)
 "c" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "seed_vault_inner";
+	id_tag = "seedvault_door_int";
 	locked = 1
 	},
 /obj/structure/fans/tiny,
