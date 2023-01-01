@@ -367,21 +367,21 @@
 /obj/effect/temp_visual/rcd_effect
 	icon = 'icons/effects/effects_rcd.dmi'
 	icon_state = "rcd"
-	duration = 50
+	duration = 5 SECONDS
 	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/effect/temp_visual/rcd_effect/short
 	icon_state = "rcd_short"
-	duration = 20
+	duration = 2 SECONDS
 
 /obj/effect/temp_visual/rcd_effect/end
 	icon_state = "rcd_end"
-	duration = 11
+	duration = 1.1 SECONDS
 
 /obj/effect/temp_visual/rcd_effect/reverse
 	icon_state = "rcd_reverse"
-	duration = 61
+	duration = 6.1 SECONDS
 
 /obj/effect/temp_visual/rcd_effect/reverse_short
 	icon_state = "rcd_short_reverse"
-	duration = 31
+	duration = 3.1 SECONDS

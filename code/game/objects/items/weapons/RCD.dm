@@ -386,7 +386,7 @@
 			to_chat(user, "Building Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			var/obj/effect/temp_visual/rcd_effect/short/E = new(get_turf(A))
-			if(do_after(user, 20 * toolspeed, target = A))
+			if(do_after(user, 2 SECONDS * toolspeed, target = A))
 				if(!isfloorturf(A))
 					return FALSE
 				if(!useResource(3, user))
@@ -419,7 +419,7 @@
 			to_chat(user, "Building Airlock...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			var/obj/effect/temp_visual/rcd_effect/E = new(get_turf(A))
-			if(do_after(user, 50 * toolspeed, target = A))
+			if(do_after(user, 5 SECONDS * toolspeed, target = A))
 				if(locate(/obj/machinery/door/airlock) in A.contents)
 					return FALSE
 				if(!useResource(10, user))
@@ -464,7 +464,7 @@
 			to_chat(user, "Deconstructing Wall...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
-			if(do_after(user, 50 * toolspeed, target = A))
+			if(do_after(user, 5 SECONDS * toolspeed, target = A))
 				if(!useResource(5, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
@@ -481,7 +481,7 @@
 			to_chat(user, "Deconstructing Floor...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
-			if(do_after(user, 50 * toolspeed, target = A))
+			if(do_after(user, 5 SECONDS * toolspeed, target = A))
 				if(!useResource(5, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
@@ -498,7 +498,7 @@
 			to_chat(user, "Deconstructing Airlock...")
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
-			if(do_after(user, 50 * toolspeed, target = A))
+			if(do_after(user, 5 SECONDS * toolspeed, target = A))
 				if(!useResource(20, user))
 					return FALSE
 				playsound(loc, usesound, 50, 1)
