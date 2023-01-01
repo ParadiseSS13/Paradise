@@ -82368,7 +82368,7 @@
 	req_access_txt = "13";
 	vent_link_id = "scimaint_vent";
 	ext_door_link_id = "scimaint_door_ext";
-	int_door_link_id = "scimaint_door_ext";
+	int_door_link_id = "scimaint_door_int";
 	ext_button_link_id = "scimaint_btn_ext";
 	int_button_link_id = "scimaint_btn_int"
 	},
