@@ -709,9 +709,9 @@
 		return ..()
 
 /obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	. = TRUE
 	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
