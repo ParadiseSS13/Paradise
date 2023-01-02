@@ -8,7 +8,7 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button on obj/mob = Select destination</span>")
 	to_chat(user, "<span class='notice'>Right Mouse Button on obj/mob = Select atom to move</span>")
-	to_chat(user, "<span class='notice'><b>Notice:</b> You need to select the movable atom first, then double-click its destination.</span>")
+	to_chat(user, "<span class='notice'><b>Notice:</b> You need to select the movable atom first, then left-click its destination.</span>")
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/forcemove/handle_click(user, params, atom/A)
