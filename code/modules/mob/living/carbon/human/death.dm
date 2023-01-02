@@ -17,7 +17,7 @@
 				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 	for(var/obj/item/I in get_equipped_items(include_pockets = TRUE))
-		unEquip(I)
+		unEquip(I, TRUE)
 		I.forceMove(get_turf(src))
 		I.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 

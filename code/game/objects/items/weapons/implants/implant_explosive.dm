@@ -46,24 +46,22 @@
 	// self-destruct
 	var/current_location = get_turf(imp_in)
 
-	var/destructed_items = list()
+	var/list/destructed_items = list()
 
 	// Iterate over the implantee's contents and take out indestructible
 	// things to avoid having to worry about containers and recursion
 	for(var/obj/item/I in imp_in.get_contents())
-		if(I)
-			if(I == src) // Don't delete ourselves prematurely
-				continue
-			// Drop indestructible items on the ground first, to avoid them
-			// getting deleted when destroying the rest of the items, which we
-			// track in a list to qdel afterwards
-			if(I.resistance_flags & INDESTRUCTIBLE)
-				I.forceMove(current_location)
-			else
-				destructed_items += I
+		if(I == src) // Don't delete ourselves prematurely
+			continue
+		// Drop indestructible items on the ground first, to avoid them
+		// getting deleted when destroying the rest of the items, which we
+		// track in a list to qdel afterwards
+		if(I.resistance_flags & INDESTRUCTIBLE)
+			I.forceMove(current_location)
+		else
+			destructed_items += I
 
-	for(var/I in destructed_items)
-		qdel(I)
+	QDEL_LIST(destructed_items)
 
 	imp_in.gib()
 
