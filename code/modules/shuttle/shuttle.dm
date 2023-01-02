@@ -228,6 +228,10 @@
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
+	/// Does this shuttle use the lockdown system?
+	var/uses_lockdown = FALSE
+	/// If this variable is true, shuttle is on lockdown, and other requests can not be processed
+	var/lockeddown = FALSE
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -832,8 +836,10 @@
 				return TRUE
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
-			else
+			if(2)
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+			if(3)
+				atom_say("Shuttle has already received a pending movement request. Please wait until.")
 
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)

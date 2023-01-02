@@ -750,7 +750,8 @@
 	id = "laborcamp";
 	name = "labor camp shuttle";
 	rebuildable = 1;
-	width = 9
+	width = 9;
+	uses_lockdown = 1
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
@@ -2888,7 +2889,8 @@
 	id = "mining";
 	name = "mining shuttle";
 	rebuildable = 1;
-	width = 7
+	width = 7;
+	uses_lockdown = 1
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
