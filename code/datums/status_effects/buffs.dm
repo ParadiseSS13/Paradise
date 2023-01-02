@@ -376,7 +376,7 @@
 	..()
 
 /datum/status_effect/fleshmend/tick()
-	if (active_instances.len >= 1)
+	if(active_instances.len >= 1)
 		var/heal_amount = 10 * active_instances.len / tolerance
 		var/blood_restore = 30 * active_instances.len
 		owner.heal_overall_damage((heal_amount), (heal_amount), updating_health = FALSE)
@@ -386,10 +386,10 @@
 		var/i
 		for(i=1, i <= active_instances.len, i++)
 			active_instances[i] -= 1
-			if (active_instances[i] <= 0)
+			if(active_instances[i] <= 0)
 				active_instances -= active_instances[i]
 	tolerance = max(tolerance - 0.05, 1)
-	if (tolerance <= 1 && active_instances.len == 0)
+	if(tolerance <= 1 && active_instances.len == 0)
 		qdel(src)
 
 /datum/status_effect/speedlegs
