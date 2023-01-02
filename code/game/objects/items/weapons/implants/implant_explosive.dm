@@ -61,7 +61,7 @@
 		else
 			destructed_items += I
 
-	QDEL_LIST(destructed_items)
+	QDEL_LIST_CONTENTS(destructed_items)
 
 	imp_in.gib()
 
