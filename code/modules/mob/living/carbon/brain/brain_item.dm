@@ -49,9 +49,20 @@
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
-		. += "You can feel the small spark of life still left in this one."
-	else
-		. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
+		. += "You can feel a bright spark of life in this one!"
+	else if(brainmob && brainmob.mind)
+		var/foundghost = FALSE
+		for(var/mob/dead/observer/G in GLOB.player_list)
+			if(G.mind == brainmob.mind)
+				foundghost = TRUE
+				if(G.can_reenter_corpse == 0)
+					foundghost = FALSE
+				break
+		if(foundghost)
+			. += "You can feel the small spark of life still left in this one."
+			return
+
+	else . += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
 /obj/item/organ/internal/brain/remove(mob/living/user,special = 0)
 	if(dna)
@@ -67,7 +78,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair()
-	
+
 	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
