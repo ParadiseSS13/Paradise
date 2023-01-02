@@ -100,7 +100,7 @@
 	var/shoot_chance = 2
 
 	/// If true, enforce access checks on customers. Disabled by messing with wires.
-	var/scan_id
+	var/scan_id = TRUE
 	/// Holder for a coin inserted into the vendor
 	var/obj/item/coin/coin
 	var/datum/wires/vending/wires
@@ -785,7 +785,7 @@
 	if(shoot_inventory && prob(shoot_chance))
 		throw_item()
 
-/obj/machinery/economy/vending/extinguish_light()
+/obj/machinery/economy/vending/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
 

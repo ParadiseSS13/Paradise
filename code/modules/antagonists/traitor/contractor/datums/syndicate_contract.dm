@@ -270,7 +270,7 @@
 		return "You and the target must be standing in the extraction area to start the extraction process."
 
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
-					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
+					"<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
 	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
@@ -278,7 +278,7 @@
 		extraction_flare = F
 		extraction_deadline = world.time + extraction_cooldown
 		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
-						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
+						"<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
 		addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), U, M, F), EXTRACTION_PHASE_PORTAL)
 		extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
 
@@ -301,7 +301,7 @@
 		invalidate()
 		return
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
-			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
+				+ "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
@@ -336,7 +336,7 @@
 	if(target_dead)
 		penalty_text = " (penalty applied as the target was extracted dead)"
 	owning_hub.contractor_uplink?.message_holder("Well done, agent. The package has been received and will be processed shortly before being returned. "\
-									 + "As agreed, you have been credited with [tc] telecrystals[penalty_text] and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
+									+ "As agreed, you have been credited with [tc] telecrystals[penalty_text] and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
 
 /**
   * Handles the target's experience from extraction.
@@ -570,7 +570,7 @@
 	var/obj/item/implant/uplink/uplink_implant = locate() in M
 	uplink_implant?.hidden_uplink?.is_jammed = FALSE
 
-	QDEL_LIST(temp_objs)
+	QDEL_LIST_CONTENTS(temp_objs)
 
 	// Injuries due to questioning and souvenirs
 	injure_target(M)

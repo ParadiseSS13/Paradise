@@ -6,15 +6,15 @@
 	var/list/obj/machinery/economy/vending/infectedMachines = list()
 	var/obj/machinery/economy/vending/originMachine
 	var/list/rampant_speeches = list("Try our aggressive new marketing strategies!", \
-									 "You should buy products to feed your lifestyle obession!", \
-									 "Consume!", \
-									 "Your money can buy happiness!", \
-									 "Engage direct marketing!", \
-									 "Advertising is legalized lying! But don't let that put you off our great deals!", \
-									 "You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
+									"You should buy products to feed your lifestyle obession!", \
+									"Consume!", \
+									"Your money can buy happiness!", \
+									"Engage direct marketing!", \
+									"Advertising is legalized lying! But don't let that put you off our great deals!", \
+									"You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.event_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
+	GLOB.minor_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg')
 
 /datum/event/brand_intelligence/start()
 	for(var/obj/machinery/economy/vending/V in GLOB.machines)

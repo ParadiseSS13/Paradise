@@ -941,7 +941,7 @@
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
 
-/obj/machinery/light/extinguish_light()
+/obj/machinery/light/extinguish_light(force = FALSE)
 	on = FALSE
 	extinguished = TRUE
 	emergency_mode = FALSE

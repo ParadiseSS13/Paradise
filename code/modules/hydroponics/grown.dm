@@ -206,3 +206,9 @@
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
 
+/obj/item/reagent_containers/food/snacks/grown/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
+		return
+	set_light(0)

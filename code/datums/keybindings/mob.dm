@@ -25,8 +25,9 @@
 /datum/keybinding/mob/drop_held_object/down(client/C)
 	. = ..()
 	var/obj/item/I = C.mob.get_active_hand()
+	SEND_SIGNAL(C.mob, COMSIG_MOB_WILLINGLY_DROP)
 	if(I)
-		C.mob.drop_item(I)
+		C.mob.drop_item()
 	else
 		to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
 

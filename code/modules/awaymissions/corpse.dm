@@ -473,7 +473,7 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/supply
+	id = /obj/item/card/id/shaftminer
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
@@ -500,8 +500,8 @@
 	assignedrole = "Space Bartender"
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
-	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell.\
-	 You aren't trained for this, but you'll still keep your guests alive!"
+	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell. \
+	You aren't trained for this, but you'll still keep your guests alive!"
 	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
 	mob_gender = "female"
 	name = "lifeguard sleeper"
