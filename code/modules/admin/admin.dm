@@ -317,14 +317,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	var/dat = "<center>"
-	dat += "<p><A href='?src=[UID()];c_mode=1'>Change Game Mode</A><br></p>"
+	dat += "<p><a href='?src=[UID()];c_mode=1'>Change Game Mode</a><br></p>"
 	if(GLOB.master_mode == "secret")
-		dat += "<p><A href='?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br></p>"
+		dat += "<p><a href='?src=[UID()];f_secret=1'>(Force Secret Mode)</a><br></p>"
 	dat += "<hr><br>"
-	dat += "<p><A href='?src=[UID()];create_object=1'>Create Object</A><br></p>"
-	dat += "<p><A href='?src=[UID()];quick_create_object=1'>Quick Create Object</A><br></p>"
-	dat += "<p><A href='?src=[UID()];create_turf=1'>Create Turf</A><br></p>"
-	dat += "<p><A href='?src=[UID()];create_mob=1'>Create Mob</A></p>"
+	dat += "<p><a href='?src=[UID()];create_object=1'>Create Object</a><br></p>"
+	dat += "<p><a href='?src=[UID()];quick_create_object=1'>Quick Create Object</a><br></p>"
+	dat += "<p><a href='?src=[UID()];create_turf=1'>Create Turf</a><br></p>"
+	dat += "<p><a href='?src=[UID()];create_mob=1'>Create Mob</a></p>"
 
 	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 210, 280)
 	popup.set_content(dat)
