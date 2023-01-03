@@ -71,8 +71,8 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	unavailable_at_chargen = null
 	is_monitor = null
 	selectable = 0
-	has_subtypes = 2 //Edge case. We want to be able to pick this one, and if we had it left as null for has_subtypes we'd be assuming it'll be chosen as a child model,
-					 //and since the parent is unavailable at chargen, we wouldn't be able to see it in the list anyway. Now, we'll be able to select the Morpheus Ckt. Alt. head as a solo-model.
+	has_subtypes = 2	//Edge case. We want to be able to pick this one, and if we had it left as null for has_subtypes we'd be assuming it'll be chosen as a child model,
+						//and since the parent is unavailable at chargen, we wouldn't be able to see it in the list anyway. Now, we'll be able to select the Morpheus Ckt. Alt. head as a solo-model.
 
 /datum/robolimb/wardtakahashi
 	company = "Ward-Takahashi"

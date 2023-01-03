@@ -69,8 +69,6 @@
 		return
 	if(isliving(user))
 		var/mob/living/M = user
-		if(world.time - user.last_bumped <= 60)
-			return //NOTE do we really need that?
 		if(M.client)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M

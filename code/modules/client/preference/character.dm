@@ -1646,10 +1646,10 @@
 	popup.open(0)
 
 /datum/character_save/proc/GetPlayerAltTitle(datum/job/job)
-    if(player_alt_titles.Find(job.title) > 0) // Does it exist in the list
-        if(player_alt_titles[job.title] in job.alt_titles) // Is it valid
-            return player_alt_titles[job.title]
-    return job.title // Use default
+	if(player_alt_titles.Find(job.title) > 0) // Does it exist in the list
+		if(player_alt_titles[job.title] in job.alt_titles) // Is it valid
+			return player_alt_titles[job.title]
+	return job.title // Use default
 
 /datum/character_save/proc/SetPlayerAltTitle(datum/job/job, new_title)
 	// remove existing entry

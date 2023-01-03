@@ -98,6 +98,12 @@
 				new /obj/item/stack/sheet/metal(src, 2)
 			return TRUE
 
+	else if(istype(C, /obj/item/storage/backpack/satchel_flat)) //if you click plating with a smuggler satchel, place it on the plating please
+		if(user.drop_item())
+			C.forceMove(src)
+
+		return TRUE
+
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))
 		return

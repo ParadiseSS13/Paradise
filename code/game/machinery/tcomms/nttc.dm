@@ -47,6 +47,8 @@
 		"Emergency Response Team Medic" = "dsquadradio",
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
+		"Emergency Response Team Inquisitor" = "dsquadradio",
+		"Emergency Response Team Janitor" = "dsquadradio",
 		"Intel Officer" = "dsquadradio",
 		"Medical Officer" = "dsquadradio",
 		"Nanotrasen Navy Captain" = "dsquadradio",
@@ -129,7 +131,7 @@
 	/// List of Command jobs
 	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
 	/// List of ERT jobs
-	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
+	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Inquisitor", "Emergency Response Team Janitor", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
 	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Intel Officer", "Medical Officer", "Nanotrasen Navy Captain", "Nanotrasen Navy Representative", "Research Officer", "Supreme Commander", "Thunderdome Overseer")
 	/// List of SolGov Marine jobs

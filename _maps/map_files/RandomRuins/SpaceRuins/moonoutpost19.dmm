@@ -892,9 +892,7 @@
 "bK" = (
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	frequency = 1441;
-	id = "waste_in"
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
