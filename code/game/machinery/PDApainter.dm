@@ -52,7 +52,6 @@
 		colorlist[initial(P.icon_state)] = list(pda_icon_state, initial(P.desc))
 
 /obj/machinery/pdapainter/Destroy()
-	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
 	on_pda_qdel()
 	QDEL_NULL(storedpda)
 	return ..()
