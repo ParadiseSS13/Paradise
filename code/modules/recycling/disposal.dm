@@ -1057,7 +1057,7 @@
 	if(istype(I, /obj/item/destTagger))
 		var/obj/item/destTagger/O = I
 		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
-		playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
+		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
 		if(O.currTag in sort_type)
 			sort_type -= O.currTag
 			to_chat(user, "<span class='notice'>Removed [tag] from filter.</span>")
