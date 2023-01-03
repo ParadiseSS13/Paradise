@@ -1,4 +1,4 @@
-  import { useBackend } from '../backend';
+import { useBackend } from '../backend';
 import {
   Button,
   Flex,
@@ -19,7 +19,6 @@ export const PdaPainter = (props, context) => {
         ) : (
           <PdaMenu />
         )}
-
       </Window.Content>
     </Window>
   );
@@ -38,9 +37,9 @@ const PdaInsert = (props, context) => {
           color="silver"
           >
           <Icon
-          name="download"
-          size={5}
-          mb="10px"
+            name="download"
+            size={5}
+            mb="10px"
           />
           <br/>
           <Button

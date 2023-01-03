@@ -52,6 +52,7 @@
 		colorlist[initial(P.icon_state)] = list(pda_icon_state, initial(P.desc))
 
 /obj/machinery/pdapainter/Destroy()
+	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
 	QDEL_NULL(storedpda)
 	return ..()
 
@@ -150,6 +151,7 @@
 	if(istype(P))
 		if(user.drop_item())
 			storedpda = P
+			RegisterSignal(P, COMSIG_PARENT_QDELETING, PROC_REF(on_pda_qdel))
 			P.forceMove(src)
 			P.add_fingerprint(usr)
 			update_icon()
@@ -164,6 +166,7 @@
 		var/mob/living/carbon/human/H = user
 		H.put_in_hands(storedpda)
 
+	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
 	storedpda = null
 	update_icon()
 
@@ -181,6 +184,11 @@
 	var/icon/pda_sprite = icon(storedpda.icon, storedpda.icon_state, frame = 1)
 	cached_icon_state = icon2base64(pda_sprite)
 	SStgui.update_uis(src)
+
+/obj/machinery/pdapainter/proc/on_pda_qdel()
+	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
+	storedpda = null
+	update_icon()
 
 /obj/machinery/pdapainter/power_change()
 	..()
