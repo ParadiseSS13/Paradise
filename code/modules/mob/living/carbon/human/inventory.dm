@@ -433,34 +433,23 @@
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
 
-/mob/living/carbon/human/proc/quick_equip_bag() // puts things in bag
-	var/obj/item/thing = get_active_hand()
-	var/obj/item/storage/equipped_backpack = get_item_by_slot(slot_back)
-	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		return
-	if(!istype(equipped_backpack)) // We also let you equip a backpack like this
-		equip_to_slot_if_possible(thing, slot_back)
-		return
-	if(thing && equipped_backpack.can_be_inserted(thing)) // put thing in backpack
-		equipped_backpack.handle_item_insertion(thing)
-		playsound(loc, "rustle", 50, 1, -5)
+/mob/living/carbon/human/proc/quick_equip_item(slot_item) // puts things in belt or bag
+    var/obj/item/thing = get_active_hand()
+    var/obj/item/storage/equipped_item = get_item_by_slot(slot_item)
+    if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+        return
+    if(!istype(equipped_item)) // We also let you equip things like this
+        equip_to_slot_if_possible(thing, slot_item)
+        return
+    if(thing && equipped_item.can_be_inserted(thing)) // put thing in belt or bag
+        equipped_item.handle_item_insertion(thing)
+        playsound(loc, "rustle", 50, 1, -5)
 
-/mob/living/carbon/human/proc/quick_equip_belt() // puts things in belt
-	var/obj/item/thing = get_active_hand()
-	var/obj/item/storage/equipped_belt = get_item_by_slot(slot_belt)
-	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		return
-	if(!istype(equipped_belt)) // We also let you equip a belt like this
-		equip_to_slot_if_possible(thing, slot_belt)
-		return
-	if(thing && equipped_belt.can_be_inserted(thing)) // put thing in belt
-		equipped_belt.handle_item_insertion(thing)
-		playsound(loc, "rustle", 50, 1, -5)
+/mob/living/carbon/human/proc/quick_equip_bag()
+    quick_equip_item(slot_back)
 
-/mob/living/carbon/human/proc/quick_equip_suit() // puts things in the suitslot
-	var/obj/item/thing = get_active_hand()
-	var/obj/item/equipped_suit = get_item_by_slot(slot_s_store)
-	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		return
-	if(!equipped_suit)
-		equip_to_slot_if_possible(thing, slot_s_store)
+/mob/living/carbon/human/proc/quick_equip_belt()
+    quick_equip_item(slot_belt)
+
+/mob/living/carbon/human/proc/quick_equip_suit()
+	quick_equip_item(slot_s_store)
