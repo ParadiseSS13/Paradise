@@ -297,9 +297,9 @@
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
 								return TRUE
 							to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
-							add_attack_logs(H, C, "[src] tried to grab [I] out of their hand with a tentacle, but failed")
+							add_attack_logs(H, C, "[H] tried to grab [I] out of their hand with a tentacle, but failed")
 						C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>", "<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
-						add_attack_logs(H, C, "[src] knocked over with a tentacle")
+						add_attack_logs(H, C, "[H] knocked over with a tentacle")
 						C.KnockDown(2 SECONDS) //Not useless with antidrop.
 						return TRUE
 
