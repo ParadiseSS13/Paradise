@@ -293,7 +293,7 @@
 						if(I)
 							if(C.drop_item())
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
-								add_attack_logs(H, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
+								add_attack_logs(H, C, "[H] has grabbed [I] out of [C]'s hand with a tentacle")
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
 								return TRUE
 							to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
