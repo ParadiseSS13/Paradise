@@ -44,6 +44,9 @@ Pipelines + Other Objects -> Pipe network
 	/// Pipe image, not used for all subtypes
 	var/image/pipe_image
 
+	/// ID for automatic linkage of stuff. This is used to assist in connections at mapload. Dont try use it for other stuff
+	var/autolink_id = null
+
 
 /obj/machinery/atmospherics/Initialize(mapload)
 	. = ..()
@@ -73,12 +76,6 @@ Pipelines + Other Objects -> Pipe network
 		L.forceMove(get_turf(src))
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
-
-/obj/machinery/atmospherics/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
