@@ -212,7 +212,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/share_damage
 	name = "Blood Bond"
-	desc = "Creates a net between you and your nearby thralls that evenly shares all damage recieved."
+	desc = "Creates a net between you and your nearby thralls that evenly shares all damage received."
 	gain_desc = "You have gained the ability to share damage between you and your thralls."
 	action_icon_state = "blood_bond"
 	required_blood = 5
