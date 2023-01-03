@@ -53,6 +53,7 @@
 
 /obj/machinery/pdapainter/Destroy()
 	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
+	on_pda_qdel()
 	QDEL_NULL(storedpda)
 	return ..()
 
@@ -186,6 +187,8 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/pdapainter/proc/on_pda_qdel()
+	if(!storedpda)
+		return
 	UnregisterSignal(storedpda, COMSIG_PARENT_QDELETING)
 	storedpda = null
 	update_icon()
