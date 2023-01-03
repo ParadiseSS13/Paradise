@@ -52,7 +52,7 @@
 	var/list/internal_log = list()
 	var/mode = FALSE  // FALSE - making pass, TRUE - viewing logs
 
-/obj/machinery/computer/guestpass/Initialize()
+/obj/machinery/computer/guestpass/Initialize(mapload)
 	. = ..()
 	my_terminal_id = ++global_terminal_id
 

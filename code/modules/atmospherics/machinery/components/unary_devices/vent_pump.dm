@@ -187,17 +187,17 @@
 				to_chat(user, "You can't shove that down there when it is closed")
 		else
 			to_chat(user, "The vent is welded.")
-		return 1
+		return TRUE
 
-	if(istype(W, /obj/item/wrench))
+	if(iswrench(W))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
-			return 1
+			return TRUE
 
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return
 
 	var/obj/item/multitool/M = I

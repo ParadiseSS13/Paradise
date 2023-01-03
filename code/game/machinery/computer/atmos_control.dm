@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				if(SENSOR_N2O)
 					output ^= SENSOR_N2O
 				if("multitool")
-					if(!istype(I, /obj/item/multitool)) // should never happen
+					if(!ismultitool(I)) // Should never happen
 						return
 
 					var/obj/item/multitool/M = I
@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	return data
 
 /obj/machinery/computer/general_air_control/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool)) // Should never happen
+	if(!ismultitool(I)) // Should never happen
 		return
 
 	configure_sensors(user, I)
@@ -331,7 +331,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				break
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool)) // Should never happen
+	if(!ismultitool(I)) // Should never happen
 		return
 
 	var/choice = input(user, "Configure what", "Configuration") in list("Inlet", "Outlet", "Sensors", "Cancel")

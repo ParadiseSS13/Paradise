@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 /obj/machinery/atmospherics/meter
 	name = "gas flow meter"
-	desc = "It measures something."
+	desc = "A gas flow meter"
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
 	layer = GAS_PUMP_LAYER
@@ -70,47 +70,32 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	else
 		icon_state = "meter4"
 
-/obj/machinery/atmospherics/meter/proc/status()
-	var/t = ""
-	if(target)
-		var/datum/gas_mixture/environment = target.return_air()
-		if(environment)
-			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]&deg;K ([round(environment.temperature-T0C,0.01)]&deg;C)"
-		else
-			t += "The sensor error light is blinking."
-	else
-		t += "The connect error light is blinking."
-	return t
-
 /obj/machinery/atmospherics/meter/examine(mob/user)
-	var/t = "A gas flow meter. "
-
+	. = ..()
 	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
-		t += "<span class='boldnotice'>You are too far away to read it.</span>"
+		. += "<span class='boldnotice'>You are too far away to read it.</span>"
 
 	else if(stat & (NOPOWER|BROKEN))
-		t += "<span class='danger'>The display is off.</span>"
+		. += "<span class='danger'>The display is off.</span>"
 
 	else if(target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
-			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
+			. += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
 		else
-			t += "The sensor error light is blinking."
+			. += "The sensor error light is blinking."
 	else
-		t += "The connect error light is blinking."
-
-	. = list(t)
+		. += "The connect error light is blinking."
 
 /obj/machinery/atmospherics/meter/Click()
 	if(isAI(usr)) // ghosts can call ..() for examine
 		usr.examinate(src)
-		return 1
+		return TRUE
 
 	return ..()
 
 /obj/machinery/atmospherics/meter/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(!istype(W, /obj/item/wrench))
+	if(!iswrench(W))
 		return ..()
 	playsound(loc, W.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
@@ -133,7 +118,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 
 /obj/machinery/atmospherics/meter/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return
 
 	var/obj/item/multitool/M = I

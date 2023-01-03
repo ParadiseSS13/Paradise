@@ -576,7 +576,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_meter/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/wrench))
+	if(!iswrench(W))
 		return ..()
 
 	if(!locate(/obj/machinery/atmospherics/pipe, loc))

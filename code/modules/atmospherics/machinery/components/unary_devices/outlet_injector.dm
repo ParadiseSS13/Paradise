@@ -68,12 +68,12 @@ GLOBAL_LIST_EMPTY(air_injectors)
 		loc.assume_air(removed)
 		air_update_turf()
 
-		parent.update = 1
+		parent.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/living/user, obj/item/I)
-	if(!istype(I, /obj/item/multitool))
+	if(!ismultitool(I))
 		return
 
 	var/obj/item/multitool/M = I
@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(air_injectors)
 	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 
 /obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/wrench))
+	if(iswrench(W))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
 			return TRUE
