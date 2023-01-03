@@ -151,9 +151,15 @@
 			var/new_sec_level = clamp(text2num(params["new_security_level"]), ACCOUNT_SECURITY_ID, ACCOUNT_SECURITY_PIN)
 			if(!new_sec_level)
 				return
-			var/attempt_pin = input_account_pin(user)
+			var/attempt_pin = 0
+			if(user_account.security_level >= ACCOUNT_SECURITY_PIN)
+				attempt_pin = input_account_pin(user)
 			if(account_database.try_authenticate_login(user_account, attempt_pin, FALSE, FALSE, FALSE))
 				user_account.security_level = new_sec_level
+				to_chat(user, "<span class='notice'>Nanobank: account security set to [new_sec_level == ACCOUNT_SECURITY_ID ? "*Account Number Only*" : "*Require Pin Entry*"]</span>")
+			else
+				to_chat(user, "<span class='warning'>Authentification Failure: incorrect pin.</span>")
+
 		if("toggle_member_approval")
 			for(var/datum/station_department/department as anything in SSjobs.station_departments)
 				if(department.department_account == user_account)
