@@ -76,7 +76,7 @@
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='warning'>ERROR: No Connection Established!</span>")
 			return
-		to_chat(user, "<span class='notice'>Barcode Scanner Succesfully Connected to Computer.</span>")
+		to_chat(user, "<span class='notice'>Barcode Scanner Successfully Connected to Computer.</span>")
 		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		playsound(B, 'sound/machines/terminal_select.ogg', 10, TRUE)
 		return

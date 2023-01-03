@@ -25,7 +25,7 @@
 	dangerously low on firewood and I fear for our safety. I followed the road out of here and tried getting to our truck so I could get an emergency signal out \
 	but upon reaching the perimeter of the property I ran into a massive steel wall. I followed the circumference of it a little but found no ext as it seems to go all the way in \
 	a circle. The blizzard only seems to be getting stronger and I'm certain that our windows will soon give way to the wind; Me and Thana have decided to \
-	take shelter in our back room, it's a bit colder there but its protected from the wind and snow atleast. \
+	take shelter in our back room, it's a bit colder there but its protected from the wind and snow at least. \
 	<br><br>Signed, <i>Pana Toklo</i>"
 
 /obj/item/paper/crumpled/bloody/fluff/ruins/snowbiodome/cabin3
