@@ -143,7 +143,7 @@ Doesn't work on other aliens/AI.*/
 				built = TRUE
 			if("Resin Door (80)")
 				if(powerc(25, TRUE))
-					var/obj/structure/alien/resin/door/door = new (loc)
+					var/obj/structure/alien/resin/door/door = new(loc)
 					door.dir = dir
 					adjustPlasma(-25)
 					built = TRUE
