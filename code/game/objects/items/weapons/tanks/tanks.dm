@@ -209,6 +209,7 @@
 	return air_contents.remove(amount)
 
 /obj/item/tank/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/item/tank/assume_air(datum/gas_mixture/giver)
