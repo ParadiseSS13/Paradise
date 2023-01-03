@@ -53,14 +53,14 @@
 	max_integrity = 200
 	var/resintype = null
 
-/obj/structure/alien/resin/Initialize()
+/obj/structure/alien/resin/Initialize(mapload)
 	air_update_turf(1)
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
 	if(locate(/obj/structure/alien/weeds) in get_turf(src))
 		return ..()
 	new /obj/structure/alien/weeds(loc)
-	..()
+	return ..()
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
@@ -124,16 +124,10 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
-/obj/structure/alien/resin/door/Initialize()
+/obj/structure/alien/resin/door/Initialize(mapload)
 	. = ..()
 	initial_state = icon_state
 	QUEUE_SMOOTH_NEIGHBORS(src)
-	air_update_turf(1)
-	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
-		qdel(W)
-	if(locate(/obj/structure/alien/weeds) in get_turf(src))
-		return
-	new /obj/structure/alien/weeds(loc)
 
 /obj/structure/alien/resin/door/Destroy()
 	density = FALSE
@@ -263,6 +257,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
 	var/obj/structure/alien/weeds/node/linked_node = null
+	var/obj/structure/alien/wallweed/wall_weed
 	var/static/list/weedImageCache
 	var/check_counter
 
@@ -272,13 +267,7 @@
 	if(isspaceturf(loc))
 		qdel(src)
 		return
-	for(var/turf/simulated/wall/W in orange(1, src))
-		var/wall_dir = get_dir(W, src)
-		switch(wall_dir)
-			if(NORTH, WEST, EAST, SOUTH)
-				new /obj/structure/alien/wallweed(loc, wall_dir)
-			if(NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST)
-				continue
+	check_surroundings()
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/alien/weeds/Destroy()
@@ -286,6 +275,7 @@
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
 	linked_node = null
+	clear_wall_weed()
 	return ..()
 
 /obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -298,6 +288,50 @@
     if(check_counter >= 5)
         spread()
         check_counter = 0
+
+/obj/structure/alien/weeds/proc/clear_wall_weed()
+	if(wall_weed)
+		qdel(wall_weed)
+		wall_weed = null
+
+/obj/structure/alien/weeds/proc/check_surroundings()
+	var/turf/T = get_turf(src)
+	var/list/nearby_dense_turfs = T.AdjacentTurfs(cardinal_only = FALSE, dense_only = TRUE)
+	if(!length(nearby_dense_turfs)) // There is no dense turfs around it
+		clear_wall_weed()
+		return
+
+	var/list/wall_dirs = list()
+	for(var/turf/W in nearby_dense_turfs)
+		if(iswallturf(W))
+			wall_dirs.Add(get_dir(W, T))
+	if(!length(wall_dirs)) // There is no walls around it
+		clear_wall_weed()
+		return
+
+	var/list/nearby_open_turfs = T.AdjacentTurfs(open_only = TRUE, cardinal_only = TRUE)
+
+	for(var/turf/W in nearby_open_turfs)
+		if(locate(/obj/structure/alien/weeds, W))
+			var/dirs = get_dir(W, T)
+			switch(dirs)
+				if(NORTH)
+					wall_dirs.Remove(NORTHEAST, NORTHWEST)
+				if(SOUTH)
+					wall_dirs.Remove(SOUTHEAST, SOUTHWEST)
+				if(EAST)
+					wall_dirs.Remove(NORTHEAST, SOUTHEAST)
+				if(WEST)
+					wall_dirs.Remove(NORTHWEST, SOUTHWEST)
+
+	if(!length(wall_dirs)) // No weeds will be applied, better off deleting it
+		clear_wall_weed()
+		return
+
+	if(!wall_weed || QDELETED(wall_weed))
+		wall_weed = new(get_turf(src))
+
+	wall_weed.compare_overlays(wall_dirs)
 
 /obj/structure/alien/weeds/proc/spread()
 	var/turf/U = get_turf(src)
@@ -313,6 +347,7 @@
 		if(locate(/obj/structure/alien/weeds) in T || isspaceturf(T))
 			continue
 		new /obj/structure/alien/weeds(T, linked_node)
+		check_surroundings()
 
 /obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -327,35 +362,45 @@
 	name = "resin overgrowth"
 	desc = "A thick resin surface covers the wall."
 	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
-	icon_state = "wallweed"
-	base_icon_state = "wallweed"
+	icon_state = null
 	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
 
 	max_integrity = 15
-
-/obj/structure/alien/wallweed/Initialize(mapload, wall_dir)
-	switch(wall_dir)
-		if(NORTH, NORTHEAST, NORTHWEST)
-			pixel_y = -32
-		if(SOUTH, SOUTHEAST, SOUTHWEST)
-			pixel_y = 32
-	switch(wall_dir)
-		if(EAST, NORTHEAST, SOUTHEAST)
-			pixel_x = -32
-		if(WEST, NORTHWEST, SOUTHWEST)
-			pixel_x = 32
-		if(WEST, EAST)
-			layer = ABOVE_MOB_LAYER
-		if(NORTH, SOUTH)
-			layer = WALL_OBJ_LAYER
-	icon_state = "wallweed-[wall_dir]"
-	..()
+	var/list/overlay_list = list()
 
 /obj/structure/alien/wallweed/Destroy()
 	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
 	return ..()
+
+/obj/structure/alien/wallweed/proc/compare_overlays(list/wall_dirs)
+	if(overlay_list != wall_dirs)
+		overlay_list = wall_dirs
+		update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/alien/wallweed/update_overlays()
+	. = ..()
+	if(!length(overlay_list))
+		return
+	for(var/dirs in overlay_list)
+		var/image/I = image(icon, icon_state = "wallweed-[dirs]")
+		switch(dirs)
+			if(NORTH, NORTHEAST, NORTHWEST)
+				I.pixel_y = -32
+			if(SOUTH, SOUTHEAST, SOUTHWEST)
+				I.pixel_y = 32
+		switch(dirs)
+			if(EAST, NORTHEAST, SOUTHEAST)
+				I.pixel_x = -32
+			if(WEST, NORTHWEST, SOUTHWEST)
+				I.pixel_x = 32
+		switch(dirs)
+			if(WEST, EAST)
+				I.layer = ABOVE_MOB_LAYER
+			if(NORTH, SOUTH)
+				I.layer = WALL_OBJ_LAYER
+		. += I
 
 /obj/structure/alien/wallweed/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
