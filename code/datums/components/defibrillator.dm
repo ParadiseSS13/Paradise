@@ -12,7 +12,7 @@
 	var/safety
 	/// If the defib is actively performing a defib cycle
 	var/busy = FALSE
-	/// Cooldown length for this defib in seconds
+	/// Cooldown length for this defib in deciseconds
 	var/cooldown
 	/// Whether or not we're currently on cooldown
 	var/on_cooldown = FALSE
@@ -88,14 +88,9 @@
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMAG_ACT
 	if(emag_proof)
 		return
-	if(safety)
-		safety = FALSE
-		if(user && !robotic)
-			to_chat(user, "<span class='warning'>You silently disable [unit]'s safety protocols with the card.")
-	else
-		safety = TRUE
-		if(user && !robotic)
-			to_chat(user, "<span class='notice'>You silently enable [unit]'s safety protocols with the card.")
+	safety = !safety
+	if(user && !robotic)
+		to_chat(user, "<span class='warning'>You silently [safety ? "disable" : "enable"] [unit]'s safety protocols with the card.")
 
 /datum/component/defib/proc/set_cooldown()
 	on_cooldown = TRUE
@@ -110,7 +105,7 @@
  */
 /datum/component/defib/proc/trigger_defib(obj/item/paddles, mob/living/carbon/human/target, mob/living/user)
 	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
-	// This is directly referenced in the attack chain, so it can't sleep or do-after. Pass the work off asynchronously.
+	// This includes some do-afters, so we have to pass it off asynchronously
 	INVOKE_ASYNC(src, PROC_REF(defibrillate), user, target)
 	return TRUE
 
@@ -213,27 +208,27 @@
 			busy = FALSE
 			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 			return
+
 	if(signal_result & COMPONENT_DEFIB_OVERRIDE)
 		// let our signal handle it
 		busy = FALSE
 		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
+
 	if(target.undergoing_cardiac_arrest())
 		if(!target.get_int_organ(/obj/item/organ/internal/heart) && !target.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 			busy = FALSE
-			SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, FALSE)
-			set_cooldown()
 			return
 
 		var/obj/item/organ/internal/heart/heart = target.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart.status & ORGAN_DEAD)
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 			busy = FALSE
-			SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, FALSE)
-			set_cooldown()
 			return
 
 		target.set_heartattack(FALSE)
@@ -247,12 +242,14 @@
 		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
 		busy = FALSE
 		return
+
 	if(target.stat != DEAD)
 		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient is not in a valid state. Operation aborted.</span>")
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		busy = FALSE
 		return
+
 	var/health = target.health
 	target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>")
 	playsound(get_turf(defib_ref), "bodyfall", 50, 1)
@@ -262,16 +259,36 @@
 		total_burn	+= O.burn_dam
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
 
-	if(
-		total_burn <= 180 && total_brute <= 180 && \
-		!target.suiciding && !ghost && tplus < tlimit && \
-		!HAS_TRAIT(target, TRAIT_HUSK) && !HAS_TRAIT(target, TRAIT_BADDNA) && \
-		target.blood_volume > BLOOD_VOLUME_SURVIVE && \
-		(target.get_int_organ(/obj/item/organ/internal/heart) || target.get_int_organ(/obj/item/organ/internal/brain/slime)) && \
-		!(signal_result & COMPONENT_BLOCK_DEFIB)
-	)
+	var/defib_success = TRUE
 
-		tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statement, let me tell you
+	// run through some quick failure states after shocking.
+
+	if(tplus > tlimit || (!target.get_int_organ(/obj/item/organ/internal/heart || !target.get_int_organ(/obj/item/organ/internal/brain/slime))))
+		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
+		defib_success = FALSE
+	else if(total_burn >= 180 || total_brute >= 180)
+		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
+		defib_success = FALSE
+	else if(HAS_TRAIT(target, TRAIT_HUSK))
+		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Subject is husked.</span>")
+		defib_success = FALSE
+	else if (target.blood_volume < BLOOD_VOLUME_SURVIVE)
+		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>")
+		defib_success = FALSE
+	else if(ghost)
+		if(!ghost.can_reenter_corpse) // DNR or AntagHUD
+			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>")
+		else
+			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>")
+		defib_success = FALSE
+	else if(HAS_TRAIT(target, TRAIT_BADDNA) || (signal_result & COMPONENT_BLOCK_DEFIB))  // these are a bit more arbitrary
+		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>")
+		defib_success = FALSE
+
+	if(!defib_success)
+		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+	else
+		tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statqement, let me tell you
 		tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 		target.adjustOxyLoss(tobehealed)
 		target.adjustToxLoss(tobehealed)
@@ -289,7 +306,7 @@
 		target.Paralyse(10 SECONDS)
 		target.emote("gasp")
 		if(tplus > tloss)
-			target.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+			target.setBrainLoss(max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
@@ -303,24 +320,7 @@
 		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		add_attack_logs(user, target, "Revived with [defib_ref]")
 		SSblackbox.record_feedback("tally", "players_revived", 1, "defibrillator")
-	else
-		if(tplus > tlimit|| !target.get_int_organ(/obj/item/organ/internal/heart))
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
-		else if(total_burn >= 180 || total_brute >= 180)
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
-		else if(HAS_TRAIT(target, TRAIT_HUSK))
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Subject is husked.</span>")
-		else if (target.blood_volume < BLOOD_VOLUME_SURVIVE)
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>")
-		else if(ghost)
-			if(!ghost.can_reenter_corpse) // DNR or AntagHUD
-				user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>")
-			else
-				user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>")
-		else
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>")
-		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
-		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, FALSE)
+	SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, defib_success)
 	set_cooldown()
 	busy = FALSE
 
