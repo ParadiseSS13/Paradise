@@ -358,7 +358,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return TRUE
 	if(!I.tool_use_check(user, 0))
 		return TRUE
-	if(!repairstate == CREMATOR_IN_REPAIR)
+	if(repairstate != CREMATOR_IN_REPAIR)
 		to_chat(user, "<span class='notice'>[src] needs a new igniter before you weld the paneling closed.</span>")
 		return TRUE
 	WELDER_ATTEMPT_REPAIR_MESSAGE
