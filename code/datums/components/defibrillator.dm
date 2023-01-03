@@ -169,7 +169,7 @@
 
 	busy = TRUE
 	var/mob/dead/observer/ghost = target.get_ghost(TRUE)
-	if(ghost && ghost.can_reenter_corpse)
+	if(ghost?.can_reenter_corpse)
 		to_chat(ghost, "<span class='ghostalert'>Your heart is being defibrillated. Return to your body if you want to be revived!</span> (Verbs -> Ghost -> Re-enter corpse)")
 		window_flash(ghost.client)
 		notify_ghosts()
@@ -201,13 +201,12 @@
 		return
 
 	signal_result |= SEND_SIGNAL(target, COMSIG_LIVING_DEFIBBED, user, parent, ghost)
-	if(istype(target.wear_suit, /obj/item/clothing/suit/space))
-		if(!combat)
-			user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient's chest is obscured. Operation aborted.</span>")
-			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
-			busy = FALSE
-			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
-			return
+	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !combat)
+		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient's chest is obscured. Operation aborted.</span>")
+		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+		busy = FALSE
+		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
+		return
 
 	if(signal_result & COMPONENT_DEFIB_OVERRIDE)
 		// let our signal handle it
