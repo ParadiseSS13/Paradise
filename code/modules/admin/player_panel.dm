@@ -363,6 +363,8 @@
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		dat += "<br><b>Antagonist Teams</b><br>"
+		dat += "<a href='?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)

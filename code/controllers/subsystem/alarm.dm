@@ -1,3 +1,6 @@
+// why is this an SS if it has no fire or init
+// this should be a global datum for piss sake
+// AND YES I KNOW AN SS IS A GLOBAL DATUM, THATS NOT THE POINT
 SUBSYSTEM_DEF(alarm)
 	name = "Alarm"
 	flags = SS_NO_INIT | SS_NO_FIRE

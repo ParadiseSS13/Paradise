@@ -379,13 +379,19 @@
 	handle_zipping(user)
 
 /obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
+	if(!Adjacent(user))
+		return
+
 	if(!zip_time || do_after(user, zip_time, target = src))
 		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
 		zipped = !zipped
 
-		if(!zipped && zip_time) // Handle slowdown and stuff now that we just zipped it
-			slowdown = 1
+		if(!zipped) // Handle slowdown and stuff now that we just zipped it
 			show_to(user)
+
+			if(zip_time)
+				slowdown = 1
+
 			return
 
 		slowdown = 0
@@ -395,14 +401,24 @@
 
 // The following three procs handle refusing access to contents if the duffel is zipped
 
-/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning)
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning, bypass_zip = FALSE)
+	if(bypass_zip)
+		return ..()
+
 	if(zipped)
 		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE
 
 	return ..()
 
-/obj/item/storage/backpack/duffel/remove_from_storage(obj/item/I, atom/new_location)
+/obj/item/storage/backpack/duffel/removal_allowed_check(mob/user)
+	if(zipped)
+		to_chat(user, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return TRUE
+
+/obj/item/storage/backpack/duffel/drop_inventory(user)
 	if(zipped)
 		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE
@@ -410,6 +426,9 @@
 	return ..()
 
 /obj/item/storage/backpack/duffel/show_to(mob/user)
+	if(isobserver(user))
+		return ..()
+
 	if(zipped)
 		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE

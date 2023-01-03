@@ -550,7 +550,7 @@
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)

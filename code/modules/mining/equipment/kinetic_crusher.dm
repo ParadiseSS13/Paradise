@@ -29,7 +29,7 @@
 	var/adaptive_damage_bonus = 0
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
-	QDEL_LIST(trophies)
+	QDEL_LIST_CONTENTS(trophies)
 	return ..()
 
 /obj/item/twohanded/kinetic_crusher/examine(mob/living/user)

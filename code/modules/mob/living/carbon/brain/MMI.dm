@@ -113,13 +113,13 @@
 		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
 		return
 	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-							 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+							"<span class='notice'>You start to uninstall the radio from [src]...</span>")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
 	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-						 "<span class='notice'>You uninstall the radio from [src].</span>")
+						"<span class='notice'>You uninstall the radio from [src].</span>")
 
 
 /obj/item/mmi/attack_self(mob/user as mob)
@@ -175,7 +175,7 @@
 /obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
-		radio_action.ApplyIcon()
+		radio_action.UpdateButtonIcon()
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
@@ -209,17 +209,9 @@
 	return ..()
 
 /datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
-	// A copy/paste of the item action icon code
-	current_button.overlays.Cut()
-	if(target)
-		var/obj/item/I = mmi
-		var/old_layer = I.layer
-		var/old_plane = I.plane
-		I.layer = 21
-		I.plane = HUD_PLANE
-		current_button.overlays += I
-		I.layer = old_layer
-		I.plane = old_plane
+	icon_icon = mmi.icon
+	button_icon_state = mmi.icon_state
+	..()
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)

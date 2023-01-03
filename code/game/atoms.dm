@@ -258,6 +258,7 @@
 	return null
 
 /atom/proc/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(loc)
 		return loc.return_air()
 	else
@@ -1168,7 +1169,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /** Call this when you want to present a renaming prompt to the user.
 
-    It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
+	It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
 	or being able to rename stuff remotely.
 
 	Arguments:

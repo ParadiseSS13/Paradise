@@ -640,7 +640,7 @@
 	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
+	QDEL_LIST_CONTENTS(trackers)
 	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
@@ -1013,6 +1013,7 @@
 			return T.remove_air(amount)
 
 /obj/mecha/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(use_internal_tank)
 		return cabin_air
 	return get_turf_air()

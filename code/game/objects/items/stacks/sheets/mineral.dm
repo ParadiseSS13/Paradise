@@ -16,9 +16,9 @@ Mineral Sheets
 */
 
 GLOBAL_LIST_INIT(sandstone_recipes, list (
-	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("sandstone door", /obj/structure/mineral_door/sandstone, 10, one_per_turf = TRUE, on_floor = TRUE),
-  	new /datum/stack_recipe("sandstone airlock assembly", /obj/structure/door_assembly/door_assembly_sandstone, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("sandstone door", /obj/structure/mineral_door/sandstone, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("sandstone airlock assembly", /obj/structure/door_assembly/door_assembly_sandstone, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("sarcophagus", /obj/structure/closet/coffin/sarcophagus, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -27,8 +27,8 @@ GLOBAL_LIST_INIT(sandstone_recipes, list (
 	))
 
 GLOBAL_LIST_INIT(silver_recipes, list (
-	new /datum/stack_recipe("silver door", /obj/structure/mineral_door/silver, 10, one_per_turf = TRUE, on_floor = TRUE),
- 	new /datum/stack_recipe("silver airlock assembly", /obj/structure/door_assembly/door_assembly_silver, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("silver door", /obj/structure/mineral_door/silver, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("silver airlock assembly", /obj/structure/door_assembly/door_assembly_silver, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("silver tile", /obj/item/stack/tile/mineral/silver, 1, 4, 20),
 	null,
@@ -44,8 +44,8 @@ GLOBAL_LIST_INIT(silver_recipes, list (
 	))
 
 GLOBAL_LIST_INIT(diamond_recipes, list (
-	new /datum/stack_recipe("diamond door", /obj/structure/mineral_door/transparent/diamond, 10, one_per_turf = TRUE, on_floor = TRUE),
-  	new /datum/stack_recipe("diamond airlock assembly", /obj/structure/door_assembly/door_assembly_diamond, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("diamond door", /obj/structure/mineral_door/transparent/diamond, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("diamond airlock assembly", /obj/structure/door_assembly/door_assembly_diamond, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("diamond tile", /obj/item/stack/tile/mineral/diamond, 1, 4, 20),
 	null,
@@ -57,8 +57,8 @@ GLOBAL_LIST_INIT(diamond_recipes, list (
 	))
 
 GLOBAL_LIST_INIT(uranium_recipes, list (
-	new /datum/stack_recipe("uranium door", /obj/structure/mineral_door/uranium, 10, one_per_turf = TRUE, on_floor = TRUE),
-  	new /datum/stack_recipe("uranium airlock assembly", /obj/structure/door_assembly/door_assembly_uranium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("uranium door", /obj/structure/mineral_door/uranium, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("uranium airlock assembly", /obj/structure/door_assembly/door_assembly_uranium, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("uranium tile", /obj/item/stack/tile/mineral/uranium, 1, 4, 20),
 	null,
@@ -69,8 +69,8 @@ GLOBAL_LIST_INIT(uranium_recipes, list (
 	))
 
 GLOBAL_LIST_INIT(gold_recipes, list (
-	new /datum/stack_recipe("golden door", /obj/structure/mineral_door/gold, 10, one_per_turf = TRUE, on_floor = TRUE),
-  	new /datum/stack_recipe("golden airlock assembly", /obj/structure/door_assembly/door_assembly_gold, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("golden door", /obj/structure/mineral_door/gold, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("golden airlock assembly", /obj/structure/door_assembly/door_assembly_gold, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("gold tile", /obj/item/stack/tile/mineral/gold, 1, 4, 20),
 	null,
@@ -86,8 +86,8 @@ GLOBAL_LIST_INIT(gold_recipes, list (
 	))
 
 GLOBAL_LIST_INIT(plasma_recipes, list (
-	new /datum/stack_recipe/dangerous("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = TRUE, on_floor = TRUE),
-  	new /datum/stack_recipe/dangerous("plasma airlock assembly", /obj/structure/door_assembly/door_assembly_plasma, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe/dangerous("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe/dangerous("plasma airlock assembly", /obj/structure/door_assembly/door_assembly_plasma, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe/dangerous("plasma tile", /obj/item/stack/tile/mineral/plasma, 1, 4, 20),
 	null,
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(plasma_recipes, list (
 	))
 
 GLOBAL_LIST_INIT(bananium_recipes, list (
-  	new /datum/stack_recipe("bananium airlock assembly", /obj/structure/door_assembly/door_assembly_bananium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("bananium airlock assembly", /obj/structure/door_assembly/door_assembly_bananium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("bananium tile", /obj/item/stack/tile/mineral/bananium, 1, 4, 20),
 	null,
@@ -109,7 +109,7 @@ GLOBAL_LIST_INIT(bananium_recipes, list (
 
 GLOBAL_LIST_INIT(tranquillite_recipes, list (
 	new /datum/stack_recipe("tranquillite airlock assembly", /obj/structure/door_assembly/door_assembly_tranquillite, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
-  	null,
+	null,
 	new /datum/stack_recipe("invisible wall", /obj/structure/barricade/mime, 5, one_per_turf = TRUE, on_floor = TRUE, time = 50),
 	null,
 	new /datum/stack_recipe("silent tile", /obj/item/stack/tile/mineral/tranquillite, 1, 4, 20),
@@ -154,7 +154,10 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	throw_range = 5
 	origin_tech = "materials=1"
 	sheettype = "sandstone"
-	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/sheet/mineral/sandstone/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/sandstone/New()
 	..()
@@ -206,7 +209,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	origin_tech = "materials=6"
 	sheettype = "diamond"
 	merge_type = /obj/item/stack/sheet/mineral/diamond
-	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_DIAMOND = MINERAL_MATERIAL_AMOUNT)
 	point_value = 25
 
 /obj/item/stack/sheet/mineral/diamond/New()
@@ -224,8 +227,11 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	origin_tech = "materials=5"
 	sheettype = "uranium"
 	merge_type = /obj/item/stack/sheet/mineral/uranium
-	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_URANIUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/uranium/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/uranium/New()
 	..()
@@ -239,7 +245,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
 	merge_type = /obj/item/stack/sheet/mineral/plasma
-	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	point_value = 20
@@ -283,8 +289,11 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	origin_tech = "materials=4"
 	sheettype = "gold"
 	merge_type = /obj/item/stack/sheet/mineral/gold
-	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_GOLD = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/gold/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/gold/New()
 	..()
@@ -298,8 +307,11 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	origin_tech = "materials=4"
 	sheettype = "silver"
 	merge_type = /obj/item/stack/sheet/mineral/silver
-	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_SILVER = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/silver/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/silver/New()
 	..()
@@ -313,7 +325,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	origin_tech = "materials=4"
 	sheettype = "bananium"
 	merge_type = /obj/item/stack/sheet/mineral/bananium
-	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_BANANIUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 50
 
 /obj/item/stack/sheet/mineral/bananium/fifty
@@ -331,7 +343,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	origin_tech = "materials=4"
 	sheettype = "tranquillite"
 	merge_type = /obj/item/stack/sheet/mineral/tranquillite
-	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_TRANQUILLITE = MINERAL_MATERIAL_AMOUNT)
 	wall_allowed = FALSE	//no tranquilite walls in code
 	point_value = 50
 
@@ -357,11 +369,11 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	throw_range = 3
 	sheettype = "titanium"
 	merge_type = /obj/item/stack/sheet/mineral/titanium
-	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
 GLOBAL_LIST_INIT(titanium_recipes, list(
-  	new /datum/stack_recipe("titanium airlock assembly", /obj/structure/door_assembly/door_assembly_titanium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("titanium airlock assembly", /obj/structure/door_assembly/door_assembly_titanium, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
 	new /datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = TRUE, on_floor = TRUE),
@@ -390,8 +402,12 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	throw_range = 3
 	sheettype = "plastitanium"
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
-	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
+	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	point_value = 45
+
+/obj/item/stack/sheet/mineral/plastitanium/fifty
+	amount = 50
+
 
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new /datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
@@ -402,11 +418,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	recipes = GLOB.plastitanium_recipes
 	..()
 
-/obj/item/stack/sheet/mineral/enruranium
-	name = "enriched uranium"
-	icon_state = "sheet-enruranium"
-	origin_tech = "materials=6"
-	materials = list(MAT_URANIUM=3000)
 
 //Alien Alloy
 /obj/item/stack/sheet/mineral/abductor
@@ -443,6 +454,10 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/adamantine/New(loc, amount = null)
 	recipes = GLOB.adamantine_recipes
 	..()
+
+
+/obj/item/stack/sheet/mineral/adamantine/fifty
+	amount = 50
 
 /*
  * Snow
