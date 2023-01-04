@@ -2783,12 +2783,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
 "apM" = (
-/obj/structure/closet/secure_closet/chemical,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -17632,7 +17632,7 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/obj/structure/closet/secure_closet/chemical,
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellow"
