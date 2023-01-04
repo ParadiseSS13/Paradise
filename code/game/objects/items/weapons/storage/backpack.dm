@@ -426,6 +426,9 @@
 	return ..()
 
 /obj/item/storage/backpack/duffel/show_to(mob/user)
+	if(isobserver(user))
+		return ..()
+
 	if(zipped)
 		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE

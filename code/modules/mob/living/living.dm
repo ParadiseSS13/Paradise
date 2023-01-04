@@ -1092,10 +1092,10 @@
 /mob/living/proc/fakefire()
 	return
 
-/mob/living/extinguish_light()
+/mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
-			A.extinguish_light()
+			A.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
