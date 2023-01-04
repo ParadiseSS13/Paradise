@@ -14,15 +14,16 @@
 	alien_disarm_damage = 60 //Queens do higher disarm stamina damage than normal aliens
 	alien_slash_damage = 30 //Queens do higher slashing damage to people
 	alien_movement_delay = 1 //This represents a movement delay of 1, or roughly 80% the movement speed of a normal carbon mob
-	queen_strength = TRUE
 
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	. = ..()
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)
 		if(Q == src)
+			ADD_TRAIT(Q, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 			continue
 		if(Q.stat == DEAD)
+			ADD_TRAIT(Q, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 			continue
 		if(Q.client)
 			name = "alien princess ([rand(1, 999)])"	//if this is too cutesy feel free to change it/remove it.

@@ -1387,7 +1387,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(!arePowerSystemsOn())
 			close(TRUE)
 			return
-		if(user.queen_strength == 1)
+		if(HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 			close(TRUE)
 			return
 		return
@@ -1399,7 +1399,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	prying_so_hard = TRUE
 	var/time_to_open = 0
 	if(arePowerSystemsOn())
-		if(user.queen_strength == 1)
+		if(HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 			open(TRUE)
 			visible_message("<span class='danger'>[user] forces the door!</span>")
 			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
