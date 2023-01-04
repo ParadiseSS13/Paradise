@@ -7288,6 +7288,7 @@
 	random_basetype = /obj/structure/sign/poster/official
 	},
 /obj/machinery/cell_charger,
+/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkbrown"
@@ -9777,8 +9778,6 @@
 /area/hydroponics)
 "bbk" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/beebox,
-/obj/item/queen_bee/bought,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -10488,7 +10487,6 @@
 /area/security/main)
 "bdZ" = (
 /obj/structure/beebox,
-/obj/item/queen_bee/bought,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "beb" = (
@@ -16382,6 +16380,7 @@
 	pixel_x = 28;
 	name = "custom placement"
 	},
+/obj/item/storage/briefcase/inflatable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16490,7 +16489,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "medmain";
 	name = "Medbay Entrance";
-	req_access_txt = "5"
+	req_one_access_txt = "5;9"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -16851,7 +16850,7 @@
 /obj/machinery/door/window/southleft{
 	dir = 4;
 	name = "Morgue Delivery Chute";
-	req_access_txt = "45"
+	req_access_txt = "6"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -29510,6 +29509,15 @@
 	icon_state = "darkbrown"
 	},
 /area/quartermaster/office)
+"cAl" = (
+/obj/machinery/camera{
+	c_tag = "Research Eastern Wing";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/toxins/hallway)
 "cAn" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
@@ -47613,10 +47621,7 @@
 	name = "Bee-keeping suits"
 	},
 /obj/item/melee/flyswatter,
-/obj/item/melee/flyswatter,
 /obj/item/clothing/suit/beekeeper_suit,
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/item/clothing/head/beekeeper_head,
 /obj/item/clothing/head/beekeeper_head,
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
@@ -47700,9 +47705,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/gambling_den)
 "gtz" = (
-/obj/structure/table,
-/obj/item/storage/box/cups,
-/obj/item/storage/briefcase/inflatable,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47899,6 +47902,11 @@
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/carpet/cyan,
 /area/crew_quarters/fitness)
+"gww" = (
+/obj/structure/table/wood,
+/obj/item/eftpos,
+/turf/simulated/floor/carpet/black,
+/area/chapel/office)
 "gwy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -62390,10 +62398,6 @@
 	},
 /area/hallway/spacebridge/comeng)
 "mof" = (
-/obj/machinery/camera{
-	c_tag = "Research Eastern Wing";
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -62860,7 +62864,7 @@
 "mCe" = (
 /obj/machinery/door/airlock/medical{
 	name = "Morgue";
-	req_one_access_txt = "5;9"
+	req_access_txt = "6"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -68574,11 +68578,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
 "oQS" = (
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
 /obj/item/honey_frame,
 /obj/item/honey_frame,
 /obj/item/shovel/spade,
@@ -74877,6 +74876,7 @@
 "rkr" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/mint,
+/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -87994,7 +87994,6 @@
 /area/chapel/main)
 "wvJ" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = "CloningDoor";
 	name = "Genetics Cloning";
 	req_one_access_txt = "5;9"
 	},
@@ -88803,7 +88802,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "medmain";
 	name = "Medbay Entrance";
-	req_access_txt = "5"
+	req_one_access_txt = "5;9"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -91702,6 +91701,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel{
 	pixel_y = 6
 	},
+/obj/item/eftpos,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "xUh" = (
@@ -92514,7 +92514,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
 	name = "Morgue";
-	req_access_txt = "5"
+	req_access_txt = "6"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -111797,7 +111797,7 @@ bXj
 bZm
 tfK
 bGL
-gQv
+gww
 ihR
 bXj
 bXj
@@ -112606,7 +112606,7 @@ mNi
 uMr
 ubA
 boW
-wmq
+cAl
 uwd
 uwd
 uwd
