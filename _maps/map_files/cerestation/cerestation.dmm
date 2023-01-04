@@ -1934,9 +1934,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "alA" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Custodials";
 	sort_type_txt = "22"
 	},
@@ -1946,27 +1945,24 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "alB" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - CE Office";
 	sort_type_txt = "5"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "alC" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - RD Office";
 	sort_type_txt = "13"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "alE" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - QM Office";
 	sort_type_txt = "3"
 	},
@@ -1982,18 +1978,16 @@
 	},
 /area/turret_protected/ai)
 "alK" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - CMO Office";
 	sort_type_txt = "10"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "alL" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - HoS Office";
 	sort_type_txt = "8"
 	},
@@ -2002,9 +1996,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "alM" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - HoP Office";
 	sort_type_txt = "15"
 	},
@@ -21609,9 +21602,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Atmospherics";
 	sort_type_txt = "6"
 	},
@@ -41148,9 +41140,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "dGr" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Library";
 	sort_type_txt = "16"
 	},
@@ -42219,9 +42210,8 @@
 	},
 /area/hallway/spacebridge/cargocom)
 "eag" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Atmospherics";
 	sort_type_txt = "6"
 	},
@@ -42838,11 +42828,10 @@
 /turf/simulated/wall,
 /area/assembly/robotics)
 "eqq" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
 	name = "disposal pipe - Bar";
-	sort_type_txt = "19";
-	icon_state = "pipe-j2s"
+	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43195,9 +43184,8 @@
 /turf/simulated/wall,
 /area/security/processing)
 "exL" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Medbay";
 	sort_type_txt = "9"
 	},
@@ -45763,9 +45751,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/west)
 "fDL" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Security";
 	sort_type_txt = "7"
 	},
@@ -49468,9 +49455,8 @@
 	},
 /area/toxins/misc_lab)
 "gZc" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Chemistry";
 	sort_type_txt = "11"
 	},
@@ -52663,9 +52649,8 @@
 	},
 /area/storage/primary)
 "ira" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Research";
 	sort_type_txt = "12"
 	},
@@ -57417,9 +57402,8 @@
 	},
 /area/medical/genetics)
 "klh" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Hydroponics";
 	sort_type_txt = "21"
 	},
@@ -59408,11 +59392,10 @@
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
 	name = "disposal pipe - Morgue";
-	sort_type_txt = "25";
-	icon_state = "pipe-j2s"
+	sort_type_txt = "25"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
@@ -66230,9 +66213,8 @@
 	},
 /area/hallway/spacebridge/serveng)
 "nPH" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Kitchen";
 	sort_type_txt = "20"
 	},
@@ -70536,9 +70518,8 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "pBh" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 4;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Robotics";
 	sort_type_txt = "14"
 	},
@@ -70653,9 +70634,8 @@
 	},
 /area/assembly/chargebay)
 "pEA" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Bar";
 	sort_type_txt = "19"
 	},
@@ -75235,9 +75215,8 @@
 	},
 /area/medical/genetics_cloning)
 "rpk" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 2;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Chapel";
 	sort_type_txt = "17"
 	},
@@ -75850,9 +75829,8 @@
 /turf/simulated/floor/plating,
 /area/security/main)
 "rCJ" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Genetics";
 	sort_type_txt = "23"
 	},
@@ -76849,9 +76827,8 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "rXV" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 1;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Engineering";
 	sort_type_txt = "4"
 	},
@@ -80475,9 +80452,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
-	icon_state = "pipe-j2s";
 	name = "disposal pipe - Engineering";
 	sort_type_txt = "4"
 	},
