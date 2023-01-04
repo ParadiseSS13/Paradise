@@ -124,6 +124,8 @@
 
 ///ensures proper GC of money account
 /obj/machinery/economy/atm/proc/clear_account()
+	if(!authenticated_account) // In some situations there will be no authenticated account, such as removing your ID without inputting account information
+		return
 	UnregisterSignal(authenticated_account, COMSIG_PARENT_QDELETING)
 	authenticated_account = null
 

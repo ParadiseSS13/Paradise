@@ -65,9 +65,9 @@ Difficulty: Hard
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
-							   /datum/action/innate/megafauna_attack/hallucination_charge,
-							   /datum/action/innate/megafauna_attack/hallucination_surround,
-							   /datum/action/innate/megafauna_attack/blood_warp)
+							/datum/action/innate/megafauna_attack/hallucination_charge,
+							/datum/action/innate/megafauna_attack/hallucination_surround,
+							/datum/action/innate/megafauna_attack/blood_warp)
 
 /obj/item/gps/internal/bubblegum
 	icon_state = null
@@ -296,6 +296,9 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(3)
 	qdel(DA)
 
+	if(target.z != z)
+		return FALSE
+	
 	var/obj/effect/decal/cleanable/blood/found_bloodpool
 	pools = get_pools(get_turf(target), 5)
 	pools_to_remove = get_pools(get_turf(target), 4)
