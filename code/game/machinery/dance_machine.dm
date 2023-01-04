@@ -328,8 +328,9 @@
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
-	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
+	if(M.client?.prefs.sound & PREFTOGGLE_2_DANCE_DISCO) //We have a client that doesn't want to dance but listen to audio.
 		rangers -= M //Doing that here as it'll be checked less often than in processing.
+	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
 		return
 	switch(rand(0,9))
 		if(0 to 1)
