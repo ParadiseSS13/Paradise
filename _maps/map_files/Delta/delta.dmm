@@ -93808,8 +93808,6 @@
 	dir = 4
 	},
 /area/maintenance/apmaint)
-"sJB" = (
-)
 "sMj" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -130297,8 +130295,8 @@ cZt
 vHD
 cZt
 dkI
-dEi
-sJB
+dkI
+dkI
 dkI
 dkI
 dkI
