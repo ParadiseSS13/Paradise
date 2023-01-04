@@ -226,8 +226,8 @@
 
 /obj/effect/proc_holder/spell/vampire/hysteria
 	name = "Mass Hysteria (70)"
-	desc = "Casts a powerful illusion to make everyone nearby percieve others to looks like random animals after briefly blinding them."
-	gain_desc = "You have gained the ability to make everyone nearby percieve others to looks like random animals after briefly blinding them."
+	desc = "Casts a powerful illusion to make everyone nearby perceive others to looks like random animals after briefly blinding them."
+	gain_desc = "You have gained the ability to make everyone nearby perceive others to looks like random animals after briefly blinding them."
 	action_icon_state = "hysteria"
 	required_blood = 70
 	base_cooldown = 180 SECONDS
