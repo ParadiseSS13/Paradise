@@ -1938,7 +1938,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Custodials";
-	sortType = 22
+	sort_type_txt = "22"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -1950,7 +1950,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - CE Office";
-	sortType = 5
+	sort_type_txt = "5"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
@@ -1959,7 +1959,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - RD Office";
-	sortType = 13
+	sort_type_txt = "13"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
@@ -1968,7 +1968,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - QM Office";
-	sortType = 3
+	sort_type_txt = "3"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
@@ -1986,7 +1986,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - CMO Office";
-	sortType = 10
+	sort_type_txt = "10"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
@@ -1995,7 +1995,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - HoS Office";
-	sortType = 8
+	sort_type_txt = "8"
 	},
 /obj/structure/girder,
 /obj/structure/grille,
@@ -2006,7 +2006,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - HoP Office";
-	sortType = 15
+	sort_type_txt = "15"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -21613,7 +21613,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Atmospherics";
-	sortType = 6
+	sort_type_txt = "6"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
@@ -41152,7 +41152,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Library";
-	sortType = 16
+	sort_type_txt = "16"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
@@ -42223,7 +42223,7 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Atmospherics";
-	sortType = 6
+	sort_type_txt = "6"
 	},
 /obj/structure/grille/broken,
 /obj/structure/cable/orange{
@@ -42841,7 +42841,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	name = "disposal pipe - Bar";
-	sortType = 19;
+	sort_type_txt = "19";
 	icon_state = "pipe-j2s"
 	},
 /turf/simulated/floor/plasteel{
@@ -43199,7 +43199,7 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Medbay";
-	sortType = 9
+	sort_type_txt = "9"
 	},
 /obj/item/wrench,
 /turf/simulated/floor/plating,
@@ -45767,7 +45767,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Security";
-	sortType = 7
+	sort_type_txt = "7"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/west)
@@ -49472,7 +49472,7 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Chemistry";
-	sortType = 11
+	sort_type_txt = "11"
 	},
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -52667,7 +52667,7 @@
 	dir = 4;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Research";
-	sortType = 12
+	sort_type_txt = "12"
 	},
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -57421,7 +57421,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Hydroponics";
-	sortType = 21
+	sort_type_txt = "21"
 	},
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -59411,7 +59411,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	name = "disposal pipe - Morgue";
-	sortType = 25;
+	sort_type_txt = "25";
 	icon_state = "pipe-j2s"
 	},
 /turf/simulated/floor/plating,
@@ -60664,7 +60664,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	name = "disposal pipe - Morgue";
-	sortType = 25
+	sort_type_txt = "25"
 	},
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -65379,7 +65379,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	name = "disposal pipe - Hydroponics";
-	sortType = 21
+	sort_type_txt = "21"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -65412,7 +65412,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	name = "disposal pipe - Library";
-	sortType = 16
+	sort_type_txt = "16"
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -66234,7 +66234,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Kitchen";
-	sortType = 20
+	sort_type_txt = "20"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
@@ -70540,7 +70540,7 @@
 	dir = 4;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Robotics";
-	sortType = 14
+	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
@@ -70657,7 +70657,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Bar";
-	sortType = 19
+	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
@@ -70688,7 +70688,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	name = "disposal pipe - Custodials";
-	sortType = 22;
+	sort_type_txt = "22";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -75239,7 +75239,7 @@
 	dir = 2;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Chapel";
-	sortType = 17
+	sort_type_txt = "17"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
@@ -75854,7 +75854,7 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Genetics";
-	sortType = 23
+	sort_type_txt = "23"
 	},
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -76853,7 +76853,7 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Engineering";
-	sortType = 4
+	sort_type_txt = "4"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
@@ -80479,7 +80479,7 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "disposal pipe - Engineering";
-	sortType = 4
+	sort_type_txt = "4"
 	},
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating,
@@ -80679,7 +80679,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	name = "disposal pipe - Kitchen";
-	sortType = 20
+	sort_type_txt = "20"
 	},
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -82031,7 +82031,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	name = "disposal pipe - Bar";
-	sortType = 19
+	sort_type_txt = "19"
 	},
 /obj/structure/cable/orange{
 	d1 = 1;
