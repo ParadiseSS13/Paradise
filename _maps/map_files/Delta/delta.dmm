@@ -85663,7 +85663,7 @@
 "iUg" = (
 /obj/structure/closet/lasertag/red,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "neutral"
 	},
 /area/crew_quarters/fitness)
 "iUO" = (
@@ -87891,7 +87891,7 @@
 "lVP" = (
 /obj/structure/closet/lasertag/blue,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "neutral"
 	},
 /area/crew_quarters/fitness)
 "lXM" = (
