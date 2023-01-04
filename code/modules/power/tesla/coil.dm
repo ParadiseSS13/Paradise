@@ -97,7 +97,7 @@
 		if(zap_flags & ZAP_GENERATES_POWER) //I don't want no tesla revolver making 8GW you hear
 			return power / 2
 		var/power_produced = powernet ? power * input_power_multiplier : power
-		add_avail(power_produced)
+		produce_direct_power(power_produced)
 		flick("coilhit", src)
 		playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 		return power - power_produced //You get back the amount we didn't use
@@ -109,8 +109,8 @@
 		return FALSE
 	last_zap = world.time
 	var/power = (powernet.available_power) * 0.2 * input_power_multiplier  //Always always always use more then you output for the love of god
-	power = min(surplus(), power) //Take the smaller of the two
-	add_load(power)
+	power = min(get_surplus(), power) //Take the smaller of the two
+	consume_direct_power(power)
 	playsound(loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
 	tesla_zap(src, 10, power, zap_flags)
 	zap_buckle_check(power)

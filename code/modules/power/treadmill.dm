@@ -82,7 +82,7 @@
 
 	var/output = get_power_output()
 	if(output)
-		add_avail(output)
+		produce_direct_power(output)
 	update_icon()
 
 /obj/machinery/power/treadmill/proc/get_power_output()

@@ -1,90 +1,7 @@
 #define SHEET_VOLUME 1000 //cm3
-
-//Baseline portable generator. Has all the default handling. Not intended to be used on it's own (since it generates unlimited power).
-/obj/machinery/power/port_gen
-	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
-	desc = "A portable generator for emergency backup power"
-	icon = 'icons/obj/power.dmi'
-	icon_state = "portgen0_0"
-	density = TRUE
-	anchored = FALSE
-	use_power = NO_POWER_USE
-
-	var/active = FALSE
-	var/power_gen = 5000
-	var/power_output = 1
-	var/base_icon = "portgen0"
-
-/obj/machinery/power/port_gen/proc/IsBroken()
-	return (stat & (BROKEN|EMPED))
-
-/obj/machinery/power/port_gen/proc/HasFuel() //Placeholder for fuel check.
-	return 1
-
-/obj/machinery/power/port_gen/proc/UseFuel() //Placeholder for fuel use.
-	return
-
-/obj/machinery/power/port_gen/proc/DropFuel()
-	return
-
-/obj/machinery/power/port_gen/proc/handleInactive()
-	return
-
-/obj/machinery/power/port_gen/update_icon_state()
-	icon_state = "[base_icon]_[active]"
-
-/obj/machinery/power/port_gen/process()
-	if(active && HasFuel() && !IsBroken() && anchored && powernet)
-		add_avail(power_gen * power_output)
-		UseFuel()
-	else
-		active = FALSE
-		handleInactive()
-		update_icon()
-
-/obj/machinery/power/powered()
-	return 1 //doesn't require an external power source
-
-/obj/machinery/power/port_gen/attack_hand(mob/user as mob)
-	if(..())
-		return
-	if(!anchored)
-		return
-
-/obj/machinery/power/port_gen/examine(mob/user)
-	. = ..()
-	if(!in_range(user, src))
-		if(active)
-			. += "<span class='notice'>The generator is on.</span>"
-		else
-			. += "<span class='notice'>The generator is off.</span>"
-
-/obj/machinery/power/port_gen/emp_act(severity)
-	var/duration = 6000 //ten minutes
-	switch(severity)
-		if(1)
-			stat &= BROKEN
-			if(prob(75)) explode()
-		if(2)
-			if(prob(25)) stat &= BROKEN
-			if(prob(10)) explode()
-		if(3)
-			if(prob(10)) stat &= BROKEN
-			duration = 300
-
-	stat |= EMPED
-	if(duration)
-		spawn(duration)
-			stat &= ~EMPED
-
-/obj/machinery/power/port_gen/proc/explode()
-	explosion(src.loc, -1, 3, 5, -1)
-	qdel(src)
-
 #define TEMPERATURE_DIVISOR 40
 #define TEMPERATURE_CHANGE_MAX 20
 
-//A power generator that runs on solid plasma sheets.
 /obj/machinery/power/port_gen/pacman
 	name = "\improper P.A.C.M.A.N.-type Portable Generator"
 	desc = "A power generator that runs on solid plasma sheets. Rated for 80 kW max safe output."
@@ -99,18 +16,28 @@
 		temperature_gain and max_temperature are set so that the max safe power level is 4.
 		Setting to 5 or higher can only be done temporarily before the generator overheats.
 	*/
-	power_gen = 20000			//Watts output per power_output level
-	var/max_power_output = 5	//The maximum power setting without emagging.
-	var/max_safe_output = 4		// For UI use, maximal output that won't cause overheat.
-	var/time_per_sheet = 96		//fuel efficiency - how long 1 sheet lasts at power level 1
-	var/max_sheets = 100 		//max capacity of the hopper
-	var/max_temperature = 300	//max temperature before overheating increases
-	var/temperature_gain = 50	//how much the temperature increases per power output level, in degrees per level
+	power_gen = 20000	//Watts output per power_output level
+	///The maximum power setting without emagging.
+	var/max_power_output = 5
+	/// For UI use, maximal output that won't cause overheat.
+	var/max_safe_output = 4
+	/// fuel efficiency - how long 1 sheet lasts at power level 1
+	var/time_per_sheet = 96
+	/// max capacity of the hopper
+	var/max_sheets = 100
+	/// max temperature before overheating increases
+	var/max_temperature = 300
+	/// how much the temperature increases per power output level, in degrees per level
+	var/temperature_gain = 50
 
-	var/sheets = 0			//How many sheets of material are loaded in the generator
-	var/sheet_left = 0		//How much is left of the current sheet
-	var/temperature = 0		//The current temperature
-	var/overheating = 0		//if this gets high enough the generator explodes
+	/// How many sheets of material are loaded in the generator
+	var/sheets = 0
+	/// How much is left of the current sheet
+	var/sheet_left = 0
+	/// The current temperature
+	var/temperature = 0
+	/// if this gets high enough the generator explodes
+	var/overheating = 0
 
 /obj/machinery/power/port_gen/pacman/Initialize(mapload)
 	. = ..()
@@ -138,7 +65,7 @@
 	RefreshParts()
 
 /obj/machinery/power/port_gen/pacman/Destroy()
-	DropFuel()
+	drop_fuel()
 	return ..()
 
 /obj/machinery/power/port_gen/pacman/RefreshParts()
@@ -155,31 +82,31 @@
 	. = ..()
 	. += "\The [src] appears to be producing [power_gen*power_output] W."
 	. += "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper."
-	if(IsBroken())
+	if(is_broken())
 		. += "<span class='warning'>\The [src] seems to have broken down.</span>"
 	if(overheating)
 		. += "<span class='danger'>\The [src] is overheating!</span>"
 
-/obj/machinery/power/port_gen/pacman/HasFuel()
+/obj/machinery/power/port_gen/pacman/has_fuel()
 	var/needed_sheets = power_output / time_per_sheet
 	if(sheets >= needed_sheets - sheet_left)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 //Removes one stack's worth of material from the generator.
-/obj/machinery/power/port_gen/pacman/DropFuel()
-	if(sheets)
-		var/obj/item/stack/sheet/mineral/S = new sheet_path(loc)
-		var/amount = min(sheets, S.max_amount)
-		S.amount = amount
-		sheets -= amount
+/obj/machinery/power/port_gen/pacman/drop_fuel()
+	if(!sheets)
+		return
+	var/obj/item/stack/sheet/mineral/S = new sheet_path(loc)
+	var/amount = min(sheets, S.max_amount)
+	S.amount = amount
+	sheets -= amount
 
-/obj/machinery/power/port_gen/pacman/UseFuel()
-
+/obj/machinery/power/port_gen/pacman/use_fuel()
 	//how much material are we using this iteration?
 	var/needed_sheets = power_output / time_per_sheet
 
-	//HasFuel() should guarantee us that there is enough fuel left, so no need to check that
+	//has_fuel() should guarantee us that there is enough fuel left, so no need to check that
 	//the only thing we need to worry about is if we are going to rollover to the next sheet
 	if(needed_sheets > sheet_left)
 		sheets--
@@ -200,19 +127,19 @@
 	*/
 	var/datum/gas_mixture/environment = loc.return_air()
 	if(environment)
-		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
+		var/ratio = min(environment.return_pressure() / ONE_ATMOSPHERE, 1)
 		var/ambient = environment.temperature - T20C
-		lower_limit += ambient*ratio
-		upper_limit += ambient*ratio
+		lower_limit += ambient * ratio
+		upper_limit += ambient * ratio
 
-	var/average = (upper_limit + lower_limit)/2
+	var/average = (upper_limit + lower_limit) / 2
 
 	//calculate the temperature increase
 	var/bias = 0
 	if(temperature < lower_limit)
-		bias = min(round((average - temperature)/TEMPERATURE_DIVISOR, 1), TEMPERATURE_CHANGE_MAX)
+		bias = min(round((average - temperature) / TEMPERATURE_DIVISOR, 1), TEMPERATURE_CHANGE_MAX)
 	else if(temperature > upper_limit)
-		bias = max(round((temperature - average)/TEMPERATURE_DIVISOR, 1), -TEMPERATURE_CHANGE_MAX)
+		bias = max(round((temperature - average) / TEMPERATURE_DIVISOR, 1), -TEMPERATURE_CHANGE_MAX)
 
 	//limit temperature increase so that it cannot raise temperature above upper_limit,
 	//or if it is already above upper_limit, limit the increase to 0.
@@ -225,7 +152,7 @@
 	else if(overheating > 0)
 		overheating--
 
-/obj/machinery/power/port_gen/pacman/handleInactive()
+/obj/machinery/power/port_gen/pacman/handle_inactive()
 	var/cooling_temperature = 20
 	var/datum/gas_mixture/environment = loc.return_air()
 	if(environment)
@@ -250,14 +177,6 @@
 		explode()
 
 /obj/machinery/power/port_gen/pacman/explode()
-	//Vapourize all the plasma
-	//When ground up in a grinder, 1 sheet produces 20 u of plasma -- Chemistry-Machinery.dm
-	//1 mol = 10 u? I dunno. 1 mol of carbon is definitely bigger than a pill
-	/*var/plasma = (sheets+sheet_left)*20
-	var/datum/gas_mixture/environment = loc.return_air()
-	if(environment)
-		environment.adjust_gas("plasma", plasma/10, temperature + T0C)*/
-
 	sheets = 0
 	sheet_left = 0
 	..()
@@ -268,7 +187,7 @@
 
 	if(!emagged)
 		emagged = TRUE
-		return 1
+		return TRUE
 
 /obj/machinery/power/port_gen/pacman/attackby(obj/item/O as obj, mob/user as mob)
 	if(istype(O, sheet_path))
@@ -344,7 +263,7 @@
 		data["is_ai"] = FALSE
 
 	data["anchored"] = anchored
-	data["broken"] = IsBroken()
+	data["broken"] = is_broken()
 	data["output_set"] = power_output
 	data["output_max"] = max_power_output
 	data["output_safe"] = max_safe_output
@@ -356,7 +275,7 @@
 	data["fuel_cap"] = round(max_sheets * SHEET_VOLUME, 0.1)
 	data["fuel_usage"] = active ? round((power_output / time_per_sheet) * SHEET_VOLUME) : 0
 	data["fuel_type"] = sheet_name
-	data["has_fuel"] = HasFuel()
+	data["has_fuel"] = has_fuel()
 
 	return data
 
@@ -375,7 +294,7 @@
 			active = !active
 			update_icon()
 		if("eject_fuel")
-			DropFuel()
+			drop_fuel()
 		if("change_power")
 			var/newPower = text2num(params["change_power"])
 			if(newPower)
@@ -402,7 +321,7 @@
 	component_parts += new board_path(null)
 	RefreshParts()
 
-/obj/machinery/power/port_gen/pacman/super/UseFuel()
+/obj/machinery/power/port_gen/pacman/super/use_fuel()
 	//produces a tiny amount of radiation when in use
 	if(prob(2 * power_output))
 		radiation_pulse(get_turf(src), 50)
@@ -411,7 +330,7 @@
 /obj/machinery/power/port_gen/pacman/super/explode()
 	//a nice burst of radiation
 	radiation_pulse(get_turf(src), 500, 2)
-	explosion(src.loc, 3, 3, 5, 3)
+	explosion(loc, 3, 3, 5, 3)
 	qdel(src)
 
 /obj/machinery/power/port_gen/pacman/mrs
@@ -422,7 +341,6 @@
 	sheet_path = /obj/item/stack/sheet/mineral/diamond
 	sheet_name = "Diamond Sheets"
 
-	//I don't think tritium has any other use, so we might as well make this rewarding for players
 	//max safe power output (power level = 8) is 200 kW and lasts for 1 hour - 3 or 4 of these could power the station
 	power_gen = 25000 //watts
 	max_power_output = 10
@@ -445,5 +363,5 @@
 
 /obj/machinery/power/port_gen/pacman/mrs/explode()
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).
-	explosion(src.loc, 3, 6, 12, 16, 1)
+	explosion(loc, 3, 6, 12, 16, 1)
 	qdel(src)

@@ -1,11 +1,6 @@
 //////////////////////////////
 // POWER MACHINERY BASE CLASS
 //////////////////////////////
-
-/////////////////////////////
-// Definitions
-/////////////////////////////
-
 /obj/machinery/power
 	name = null
 	icon = 'icons/obj/power.dmi'
@@ -20,53 +15,35 @@
 	disconnect_from_network()
 	return ..()
 
-///////////////////////////////
-// General procedures
-//////////////////////////////
-
-// common helper procs for all power machines
-// All power generation handled in add_avail()
-// Machines should use add_load(), surplus(), avail()
-// Non-machines should use add_queued_power_demand(), delayed_surplus(), newavail()
-
-/obj/machinery/power/proc/add_avail(amount)
+/obj/machinery/power/proc/produce_direct_power(amount)
 	if(powernet)
 		powernet.queued_power_production += amount
 		return TRUE
-	else
-		return FALSE
+	return FALSE
 
-/obj/machinery/power/proc/add_load(amount)
-	if(powernet)
-		powernet.power_demand += amount
+/// Adds power demand to the powernet, machines should use this
+/obj/machinery/power/proc/consume_direct_power(amount)
+	powernet?.power_demand += amount
 
-/obj/machinery/power/proc/surplus()
-	if(powernet)
-		return clamp(powernet.available_power -powernet.power_demand, 0, powernet.available_power)
-	else
-		return 0
+/// Gets surplus power available on this machines powernet, machines should use this proc
+/obj/machinery/power/proc/get_surplus()
+	return powernet ? powernet.calculate_surplus() : 0
 
-/obj/machinery/power/proc/avail()
-	if(powernet)
-		return powernet.available_power
-	else
-		return 0
+/// Gets power available (NOT EXTRA) on this cables powernet, machines should use this
+/obj/machinery/power/proc/get_available_power()
+	return powernet ? powernet.available_power : 0
 
+/// Adds queued power demand to be met next process cycle
 /obj/machinery/power/proc/add_queued_power_demand(amount)
-	if(powernet)
-		powernet.queued_power_demand += amount
+	powernet?.queued_power_demand += amount
 
-/obj/machinery/power/proc/delayed_surplus()
-	if(powernet)
-		return clamp(powernet.queued_power_production - powernet.queued_power_demand, 0, powernet.queued_power_production)
-	else
-		return 0
+/// Gets surplus power queued for next process cycle on this cables powernet
+/obj/machinery/power/proc/get_queued_surplus()
+	return powernet?.calculate_queued_surplus()
 
-/obj/machinery/power/proc/newavail()
-	if(powernet)
-		return powernet.queued_power_production
-	else
-		return 0
+/// Gets available (NOT EXTRA) power queued for next process cycle on this machines powernet
+/obj/machinery/power/proc/get_queued_available_power()
+	return powernet?.queued_power_production
 
 /obj/machinery/power/proc/disconnect_terminal() // machines without a terminal will just return, no harm no fowl.
 	return
@@ -116,7 +93,7 @@
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network()
-	var/turf/T = src.loc
+	var/turf/T = loc
 	if(!T || !istype(T))
 		return FALSE
 
@@ -148,90 +125,9 @@
 	else
 		return ..()
 
-
-///////////////////////////////////////////
-// Powernet handling helpers
-//////////////////////////////////////////
-
-//returns all the cables WITHOUT a powernet in neighbors turfs,
-//pointing towards the turf the machine is located at
-/obj/machinery/power/proc/get_connections()
-
-	. = list()
-
-	var/cdir
-	var/turf/T
-
-	for(var/card in GLOB.cardinal)
-		T = get_step(loc,card)
-		cdir = get_dir(T,loc)
-
-		for(var/obj/structure/cable/C in T)
-			if(C.powernet)
-				continue
-			if(C.d1 == cdir || C.d2 == cdir)
-				. += C
-	return .
-
-//returns all the cables in neighbors turfs,
-//pointing towards the turf the machine is located at
-/obj/machinery/power/proc/get_marked_connections()
-
-	. = list()
-
-	var/cdir
-	var/turf/T
-
-	for(var/card in GLOB.cardinal)
-		T = get_step(loc,card)
-		cdir = get_dir(T,loc)
-
-		for(var/obj/structure/cable/C in T)
-			if(C.d1 == cdir || C.d2 == cdir)
-				. += C
-	return .
-
-//returns all the NODES (O-X) cables WITHOUT a powernet in the turf the machine is located at
-/obj/machinery/power/proc/get_indirect_connections()
-	. = list()
-	for(var/obj/structure/cable/C in loc)
-		if(C.powernet)
-			continue
-		if(C.d1 == 0) // the cable is a node cable
-			. += C
-	return .
-
 ///////////////////////////////////////////
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////
-
-
-// returns a list of all power-related objects (nodes, cable, junctions) in turf,
-// excluding source, that match the direction d
-// if unmarked==1, only return those with no powernet
-/proc/power_list(turf/T, source, d, unmarked=0, cable_only = 0)
-	. = list()
-
-	for(var/AM in T)
-		if(AM == source)
-			continue			//we don't want to return source
-
-		if(!cable_only && istype(AM, /obj/machinery/power))
-			var/obj/machinery/power/P = AM
-			if(P.powernet == 0)
-				continue		// exclude APCs which have powernet=0
-
-			if(!unmarked || !P.powernet)		//if unmarked=1 we only return things with no powernet
-				if(d == 0)
-					. += P
-
-		else if(istype(AM, /obj/structure/cable))
-			var/obj/structure/cable/C = AM
-
-			if(!unmarked || !C.powernet)
-				if(C.d1 == d || C.d2 == d)
-					. += C
-	return .
 
 //remove the old powernet and replace it with a new one throughout the network.
 /proc/propagate_network(obj/O, datum/regional_powernet/PN)
@@ -240,9 +136,9 @@
 	var/index = 1
 	var/obj/P = null
 
-	worklist+=O //start propagating from the passed object
+	worklist += O //start propagating from the passed object
 
-	while(index<=worklist.len) //until we've exhausted all power objects
+	while(index <= length(worklist)) //until we've exhausted all power objects
 		P = worklist[index] //get the next power object found
 		index++
 
@@ -255,9 +151,6 @@
 		else if(P.anchored && istype(P, /obj/machinery/power))
 			var/obj/machinery/power/M = P
 			found_machines |= M //we wait until the powernet is fully propagates to connect the machines
-
-		else
-			continue
 
 	//now that the powernet is set, connect found machines to it
 	for(var/obj/machinery/power/PM in found_machines)

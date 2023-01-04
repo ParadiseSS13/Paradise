@@ -312,16 +312,16 @@
 
 /obj/machinery/power/bluespace_tap/process()
 	actual_power_usage = get_power_use(input_level)
-	if(surplus() < actual_power_usage)	//not enough power, so turn down a level
+	if(get_surplus() < actual_power_usage)	//not enough power, so turn down a level
 		input_level--
 		return	// and no mining gets done
 	if(actual_power_usage)
-		add_load(actual_power_usage)
+		consume_direct_power(actual_power_usage)
 		var/points_to_add = (input_level + emagged) * base_points
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 	// actual input level changes slowly
-	if(input_level < desired_level && (surplus() >= get_power_use(input_level + 1)))
+	if(input_level < desired_level && (get_surplus() >= get_power_use(input_level + 1)))
 		input_level++
 	else if(input_level > desired_level)
 		input_level--
@@ -344,7 +344,7 @@
 	data["points"] = points
 	data["totalPoints"] = total_points
 	data["powerUse"] = actual_power_usage
-	data["availablePower"] = surplus()
+	data["availablePower"] = get_surplus()
 	data["maxLevel"] = max_level
 	data["emagged"] = emagged
 	data["safeLevels"] = safe_levels

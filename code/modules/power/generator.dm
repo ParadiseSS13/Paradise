@@ -136,7 +136,7 @@
 
 				//log_debug("POWER: [lastgen] W generated at [efficiency * 100]% efficiency and sinks sizes [cold_air_heat_capacity], [hot_air_heat_capacity]")
 
-				add_avail(lastgen)
+				produce_direct_power(lastgen)
 		// update icon overlays only if displayed level has changed
 
 		if(hot_air)

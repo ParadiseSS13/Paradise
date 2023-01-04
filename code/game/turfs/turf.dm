@@ -540,6 +540,31 @@
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
 
+/*
+	* # power_list()
+	* returns a list power machinery on the turf and cables on the truf that have a direction equal to the one supplied in params
+	*
+	* Arguments:
+	* source - the atom that is calling this proc
+	* direction - the direction that a cable must have in order to be returned in this proc i.e. d1 or d2 must equal direction
+	* cable_only - if TRUE, power_list will only return cables, if FALSE it will also return power machinery
+*/
+/turf/proc/power_list(atom/source, direction, cable_only = FALSE)
+	. = list()
+	for(var/obj/AM in src)
+		if(AM == source)
+			continue	//we don't want to return source
+		if(istype(AM, /obj/structure/cable))
+			var/obj/structure/cable/C = AM
+			if(!C.powernet && (C.d1 == direction || C.d2 == direction))
+				. += C // one of the cables ends matches the supplied direction, add it to connnections
+		if(cable_only || direction)
+			continue
+		if(istype(AM, /obj/machinery/power) && !istype(AM, /obj/machinery/power/apc))
+			var/obj/machinery/power/P = AM
+			if(!P.powernet)
+				. += P
+
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
 	underlay_appearance.icon_state = icon_state

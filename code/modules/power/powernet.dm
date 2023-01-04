@@ -81,8 +81,14 @@
 	M.powernet = src
 	nodes += M
 
+/// Returns the difference between available power on the net and the demanded power, i.e. the surplus power available
+/datum/regional_powernet/proc/calculate_surplus()
+	return clamp(available_power - power_demand, 0, available_power)
+
+/datum/regional_powernet/proc/calculate_queued_surplus()
+	return clamp(queued_power_production - queued_power_demand, 0, queued_power_production)
 /*
-	* # reset()
+	* # process_power()
 	*
 	* Bread and butter of the regional powernet datum, handles calculatting excess power in the net
 	* and returns that excess to connected batteries. Furthermore, will clear/apply the previous usage and take
@@ -92,7 +98,7 @@
 */
 /datum/regional_powernet/proc/process_power()
 	//Calculate excess power in the net, so the difference between how much is used vs. how much is sent into the powernet
-	excess_power = available_power - power_demand
+	excess_power = calculate_surplus()
 
 	if(excess_power > 100 && length(nodes))
 		for(var/obj/machinery/power/smes/S in nodes)	// find the SMESes in the network

@@ -451,7 +451,7 @@
 		PN = new()
 	NC.powernet = PN
 	PN.cables += NC
-	NC.mergeConnectedNetworks(NC.d2)
+	NC.merge_connected_networks(NC.d2)
 
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC

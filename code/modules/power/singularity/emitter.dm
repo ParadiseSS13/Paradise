@@ -98,7 +98,7 @@
 	return ..()
 
 /obj/machinery/power/emitter/update_icon_state()
-	if(active && powernet && avail(active_power_usage))
+	if(active && powernet && get_available_power())
 		icon_state = "emitter_+a"
 	else
 		icon_state = "emitter"
@@ -251,8 +251,8 @@
 		update_icon()
 		return
 
-	if(!active_power_usage || surplus() >= active_power_usage)
-		add_load(active_power_usage)
+	if(!active_power_usage || get_surplus() >= active_power_usage)
+		consume_direct_power(active_power_usage)
 		if(!powered)
 			powered = TRUE
 			update_icon()

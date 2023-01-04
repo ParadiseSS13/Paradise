@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		loaded_tank.air_contents.toxins -= gasdrained
 
 		var/power_produced = RAD_COLLECTOR_OUTPUT
-		add_avail(power_produced)
+		produce_direct_power(power_produced)
 		stored_energy -= power_produced
 
 

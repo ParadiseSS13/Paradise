@@ -257,7 +257,7 @@
 
 	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity
 
-	add_avail(lastgen)
+	produce_direct_power(lastgen)
 
 	// Weird function but it works. Should be something else...
 
