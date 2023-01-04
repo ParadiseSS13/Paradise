@@ -85660,6 +85660,12 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"iUg" = (
+/obj/structure/closet/lasertag/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
 "iUO" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -87882,6 +87888,12 @@
 "lTi" = (
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedbar)
+"lVP" = (
+/obj/structure/closet/lasertag/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
 "lXM" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sol_door_int";
@@ -130283,8 +130295,8 @@ cZt
 vHD
 cZt
 dkI
-dEi
-dDX
+dkI
+dkI
 dkI
 dkI
 dkI
@@ -152605,7 +152617,7 @@ cty
 cFK
 quv
 cxy
-vvA
+iUg
 cEw
 dTi
 cFz
@@ -153633,7 +153645,7 @@ cFK
 cFK
 nuq
 cGW
-sZO
+lVP
 cEy
 cGZ
 bIB
