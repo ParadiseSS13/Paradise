@@ -73932,6 +73932,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/box/rxglasses,
+/obj/item/storage/box/iv_bags,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -80177,6 +80178,7 @@
 	pixel_x = 7;
 	pixel_y = -3
 	},
+/obj/item/storage/box/iv_bags,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -83074,6 +83076,7 @@
 /obj/structure/sign/poster/official/safety_report{
 	pixel_x = -32
 	},
+/obj/item/storage/box/iv_bags,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -87196,6 +87199,7 @@
 	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
 	name = "Chemistry Cleaner"
 	},
+/obj/item/storage/box/iv_bags,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
