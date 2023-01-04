@@ -280,6 +280,7 @@
 			dat+="<img src=large_[W.icon_state].png>"
 			stamped = 1
 			to_chat(user, "You stamp the ID card!")
+			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		else
 			to_chat(user, "This ID has already been stamped!")
 
