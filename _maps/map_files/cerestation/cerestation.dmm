@@ -8113,6 +8113,11 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/requests_console{
+	department = "Internal Affairs Office";
+	name = "Internal Affairs Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "aUo" = (
@@ -11755,6 +11760,11 @@
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
+	},
+/obj/machinery/requests_console{
+	department = "EVA";
+	name = "EVA Requests Console";
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -21954,6 +21964,11 @@
 /area/crew_quarters/sleep/secondary)
 "bRd" = (
 /obj/machinery/economy/vending/snack,
+/obj/machinery/requests_console{
+	department = "Locker Room";
+	name = "Locker Room Requests Console";
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -30042,6 +30057,11 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/machinery/requests_console{
+	department = "Crew Quarters";
+	name = "Crew Quarters Requests Console";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -35503,6 +35523,20 @@
 	icon_state = "browncorner"
 	},
 /area/quartermaster/office)
+"cYl" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/requests_console{
+	department = "Tool Storage";
+	name = "Tool Storage Requests Console";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/storage/primary)
 "cYn" = (
 /obj/machinery/light{
 	dir = 8
@@ -35942,6 +35976,12 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
+/obj/machinery/requests_console{
+	department = "Bar";
+	departmentType = 2;
+	name = "Bar Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "ddb" = (
@@ -48834,6 +48874,12 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/requests_console{
+	department = "Janitorial";
+	departmentType = 1;
+	name = "Janitor Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "gNb" = (
@@ -55000,11 +55046,6 @@
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
-/obj/machinery/requests_console{
-	department = "Janitorial";
-	departmentType = 1;
-	pixel_y = -29
-	},
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
@@ -63347,6 +63388,11 @@
 /area/chapel/main)
 "mNv" = (
 /obj/structure/closet/wardrobe/black,
+/obj/machinery/requests_console{
+	department = "Arrival Shuttle";
+	name = "Arrival Shuttle Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "mNw" = (
@@ -64172,6 +64218,12 @@
 "nfb" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/syringes,
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Medbay Requests Console";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -73519,6 +73571,12 @@
 /area/maintenance/disposal/southwest)
 "qFX" = (
 /obj/machinery/kitchen_machine/grill,
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	name = "Kitchen Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -75776,6 +75834,17 @@
 	icon_state = "asteroidplating"
 	},
 /area/hallway/spacebridge/scidock)
+"rCC" = (
+/obj/machinery/requests_console{
+	department = "Morgue";
+	departmentType = 5;
+	name = "Morgue Requests Console";
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/morgue)
 "rCG" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -80784,6 +80853,12 @@
 /area/toxins/lab)
 "tyR" = (
 /obj/machinery/biogenerator,
+/obj/machinery/requests_console{
+	department = "Hydroponics";
+	departmentType = 2;
+	name = "Hydroponics Requests Console";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
@@ -84206,6 +84281,12 @@
 /obj/item/storage/box/monkeycubes/neaeracubes,
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Genetics Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -107643,7 +107724,7 @@ cMT
 bjm
 yfx
 pXy
-iqZ
+cYl
 bnG
 boH
 bRf
@@ -145686,7 +145767,7 @@ dAf
 bil
 bil
 bvJ
-bkH
+rCC
 ilV
 kVP
 kDr
