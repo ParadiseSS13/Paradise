@@ -31,19 +31,32 @@
 	var/obj/item/card/id/front_id = null
 
 
-/obj/item/storage/wallet/remove_from_storage(obj/item/W as obj, atom/new_location)
-	. = ..(W, new_location)
+/obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
 	if(.)
-		if(W == front_id)
-			front_id = null
-			update_icon(UPDATE_ICON_STATE)
+		if(istype(I, /obj/item/card/id))
+			refresh_ID()
 
-/obj/item/storage/wallet/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
-	. = ..(W, prevent_warning)
+/obj/item/storage/wallet/handle_item_insertion(obj/item/I, prevent_warning = FALSE)
+	. = ..()
 	if(.)
-		if(!front_id && istype(W, /obj/item/card/id))
-			front_id = W
-			update_icon(UPDATE_ICON_STATE)
+		if(istype(I, /obj/item/card/id))
+			refresh_ID()
+
+/obj/item/storage/wallet/orient2hud(mob/user)
+	. = ..()
+	refresh_ID()
+
+/obj/item/storage/wallet/proc/refresh_ID()
+	// Locate the first ID in the wallet
+	front_id = (locate(/obj/item/card/id) in contents)
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID()
+
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/wallet/update_icon_state()
 	if(front_id)

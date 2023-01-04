@@ -430,39 +430,45 @@
 		else
 			return if_no_id
 
-//gets assignment from ID or ID inside PDA or PDA itself
-//Useful when player do something with computers
+//gets assignment from ID, PDA, Wallet, etc.
+//This should not be relied on for authentication, because PDAs show their owner's job, even if an ID is not inserted
 /mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	if(istype(pda))
-		if(pda.id && istype(pda.id, /obj/item/card/id))
-			. = pda.id.assignment
-		else
-			. = pda.ownjob
-	else if(istype(id))
-		. = id.assignment
-	else
+	if(!wear_id)
 		return if_no_id
-	if(!.)
-		. = if_no_job
-	return
+	var/obj/item/card/id/id = wear_id.GetID()
+	if(istype(id)) // Make sure its actually an ID
+		if(!id.assignment)
+			return if_no_job
+		return id.assignment
 
-//gets name from ID or ID inside PDA or PDA itself
-//Useful when player do something with computers
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda = wear_id
+		return pda.ownjob
+
+	return if_no_id
+
+//gets name from ID, PDA, Wallet, etc.
+//This should not be relied on for authentication, because PDAs show their owner's name, even if an ID is not inserted
 /mob/living/carbon/human/proc/get_authentification_name(if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	if(istype(pda))
-		if(pda.id)
-			. = pda.id.registered_name
-		else
-			. = pda.owner
-	else if(istype(id))
-		. = id.registered_name
-	else
+	if(!wear_id)
 		return if_no_id
-	return
+	var/obj/item/card/id/id = wear_id.GetID()
+	if(istype(id) && id.registered_name)
+		return id.registered_name
+
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda = wear_id
+		return pda.owner
+
+	return if_no_id
+
+/mob/living/carbon/human/proc/GetIdCard(mob/living/carbon/human/H)
+	var/obj/item/card/id/id = wear_id.GetID()
+	if(istype(id)) // Make sure its actually an ID
+		return id
+	if(H.get_active_hand())
+		var/obj/item/I = H.get_active_hand()
+		return I.GetID()
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(id_override = FALSE)

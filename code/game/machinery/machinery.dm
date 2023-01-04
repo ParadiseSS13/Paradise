@@ -376,7 +376,7 @@
 		return threatcount
 
 	//Agent cards lower threatlevel.
-	var/obj/item/card/id/id = GetIdCard(perp)
+	var/obj/item/card/id/id = perp.GetIdCard()
 	if(id && istype(id, /obj/item/card/id/syndicate))
 		threatcount -= 2
 	// A proper	CentCom id is hard currency.
