@@ -444,12 +444,3 @@
     if(thing && equipped_item.can_be_inserted(thing)) // put thing in belt or bag
         equipped_item.handle_item_insertion(thing)
         playsound(loc, "rustle", 50, 1, -5)
-
-/mob/living/carbon/human/proc/quick_equip_bag()
-    quick_equip_item(slot_back)
-
-/mob/living/carbon/human/proc/quick_equip_belt()
-    quick_equip_item(slot_belt)
-
-/mob/living/carbon/human/proc/quick_equip_suit()
-	quick_equip_item(slot_s_store)
