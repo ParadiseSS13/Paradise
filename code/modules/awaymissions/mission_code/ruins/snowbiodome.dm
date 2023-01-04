@@ -4,7 +4,7 @@
 	info = "<b>Day 11 Entry</b><br><br> Thana and I have finally arrived at our cabin and are getting settled in. Thana seemed troubled upon our arrival, \
 	she claims that something feels off but I'm just writing it off as nervousness. I, on the otherhand, am very excited. It has been our dream to \
 	be closer to the harshness and beauty of nature and I believe this property, this new home will bring us closer to accomplishing that goal. \
-	It was Thana's idea in the first place to choose a tundra of all places, something about it being the epitome of a 'transcendentalist' enviroment. \
+	It was Thana's idea in the first place to choose a tundra of all places, something about it being the epitome of a 'transcendentalist' environment. \
 	Even if this landscape appears to be cruel and unforgiving one can't deny the formidable beauty and power of it. While I could marvel at our surroundings \
 	all day, we still have much work to do <br> <ul><li><s>Chop Firewood</s></li><li><s>Refuel ATV</s></li><li><s>unpack</s></li></ul> \
 	<br><br>Signed, <i>Pana Toklo</i>"

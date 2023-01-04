@@ -74,7 +74,7 @@ As an Engineer, you can cool a supermatter shard by spraying it with a fire exti
 As an Engineer, you can repair windows by using a welding tool on them while on help intent.
 As an Engineer, you can lock APCs, fire alarms, emitters, and radiation collectors using your ID card to prevent others from disabling them.
 As an Engineer, don't underestimate the humble P.A.C.M.A.N. generators. With upgraded parts, a couple units working in tandem are sufficient to take over for an exploded engine or shattered solars.
-As an Engineer, you can pry open secure storage blast doors by turning off the secure storage APC's enviroment power channel.
+As an Engineer, you can pry open secure storage blast doors by turning off the secure storage APC's environment power channel.
 As an Atmospheric Technician, look into replacing your gas pumps with volumetric gas pumps, as those move air in flat numerical amounts, rather than percentages which leave trace gases.
 As an Atmospheric Technician, you are better suited to fighting fires than anyone else. As such, you have access to better firesuits, backpack firefighter tanks, and a completely heat and fire proof hardsuit.
 As an Atmospheric Technician, your backpack firefighter tank can launch cryofrost. This resin will extinguish fires and very quickly; it's ideal for plasma fires!
