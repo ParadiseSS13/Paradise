@@ -83,8 +83,9 @@
 	if(area_sound)
 		for(var/area/sound_outputs in atoms_cache)
 			for(var/mob/listener in mobs_in_area(sound_outputs, TRUE))
-				S.volume = volume * (USER_VOLUME(listener, channel) || 1)
+				S.volume = volume * (USER_VOLUME(listener, channel))
 				SEND_SOUND(listener, S)
+		return
 	if(direct)
 		S.channel = channel || SSsounds.random_available_channel()
 	for(var/atom/thing in atoms_cache)
