@@ -90718,6 +90718,12 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"pbw" = (
+/obj/structure/closet/lasertag/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
 "pcm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
@@ -91809,6 +91815,12 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
+"qts" = (
+/obj/structure/closet/lasertag/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
 "qul" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -93796,6 +93808,8 @@
 	dir = 4
 	},
 /area/maintenance/apmaint)
+"sJB" = (
+)
 "sMj" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -130284,7 +130298,7 @@ vHD
 cZt
 dkI
 dEi
-dDX
+sJB
 dkI
 dkI
 dkI
@@ -152605,7 +152619,7 @@ cty
 cFK
 quv
 cxy
-vvA
+pbw
 cEw
 dTi
 cFz
@@ -153633,7 +153647,7 @@ cFK
 cFK
 nuq
 cGW
-sZO
+qts
 cEy
 cGZ
 bIB
