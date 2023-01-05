@@ -52171,7 +52171,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/incinerator)
 "cDY" = (
-/obj/machinery/economy/vending/assist,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cDZ" = (

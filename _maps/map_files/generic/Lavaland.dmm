@@ -2947,7 +2947,11 @@
 /turf/simulated/floor/plating,
 /area/lavaland/surface/outdoors)
 "fY" = (
+<<<<<<< HEAD
 /obj/effect/spawner/window,
+=======
+/obj/machinery/economy/vending/assist/free,
+>>>>>>> master
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
 "fZ" = (

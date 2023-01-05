@@ -4290,6 +4290,10 @@
 /area/maintenance/fore2)
 "atT" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/mineral/stacking_machine{
+	stack_amt = 10;
+	output_dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -85656,6 +85660,12 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"iUg" = (
+/obj/structure/closet/lasertag/red,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/crew_quarters/fitness)
 "iUO" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -87878,6 +87888,12 @@
 "lTi" = (
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedbar)
+"lVP" = (
+/obj/structure/closet/lasertag/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/crew_quarters/fitness)
 "lXM" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sol_door_int";
@@ -94295,6 +94311,12 @@
 /obj/item/pen,
 /turf/simulated/floor/plasteel/dark,
 /area/medical/morgue)
+"tAI" = (
+/obj/machinery/mineral/stacking_unit_console{
+	machinedir = 5
+	},
+/turf/simulated/wall,
+/area/maintenance/disposal)
 "tAO" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -144041,7 +144063,7 @@ abj
 asc
 asc
 asc
-asd
+tAI
 avs
 awB
 axz
@@ -152595,7 +152617,7 @@ cty
 cFK
 quv
 cxy
-cAu
+iUg
 cEw
 dTi
 cFz
@@ -153623,7 +153645,7 @@ cFK
 cFK
 nuq
 cGW
-cAu
+lVP
 cEy
 cGZ
 bIB
