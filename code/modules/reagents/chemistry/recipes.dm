@@ -68,3 +68,19 @@
 				X.throw_at(T, 20 + round(volume * 2), 1 + round(volume / 10))
 			else
 				X.throw_at(get_edge_target_turf(T, get_dir(T, X)), 20 + round(volume * 2), 1 + round(volume / 10))
+
+/proc/goonchem_vortex_weak(turf/T, setting_type, volume)
+	if(setting_type)
+		new /obj/effect/temp_visual/implosion(T)
+		playsound(T, 'sound/effects/whoosh.ogg', 25, 1) //credit to Robinhood76 of Freesound.org for this.
+	else
+		new /obj/effect/temp_visual/shockwave(T)
+		playsound(T, 'sound/effects/bang.ogg', 25, 1)
+	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
+		if(istype(X, /obj/effect))
+			continue  //stop pulling smoke and hotspots please
+		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
+			if(setting_type)
+				X.throw_at(T, 1 + round(volume / 20), 1 + round(volume / 10))
+			else
+				X.throw_at(get_edge_target_turf(T, get_dir(T, X)), 1 + round(volume / 20), 1 + round(volume / 10))
