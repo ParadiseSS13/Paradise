@@ -1,7 +1,6 @@
 /obj/effect/proc_holder/spell/alien_spell/whisper
 	name = "Whisper"
 	desc = "Whisper into a target's mind."
-	base_cooldown = 1 // No cooldown, but needs A LOT of plasma
 	plasma_cost = 10
 	action_icon_state = "alien_whisper"
 	var/target

@@ -1,6 +1,7 @@
 /obj/effect/proc_holder/spell/touch
 	var/hand_path = /obj/item/melee/touch_attack
 	var/obj/item/melee/touch_attack/attached_hand = null
+	var/on_remove_message = TRUE
 	invocation_type = "none" //you scream on connecting, not summoning
 
 /obj/effect/proc_holder/spell/touch/create_new_targeting()
@@ -11,7 +12,8 @@
 		qdel(attached_hand)
 		cooldown_handler.revert_cast()
 		attached_hand = null
-		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
+		if(on_remove_message)
+			to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
 		return FALSE
 	..()
 

@@ -1,9 +1,8 @@
-// Todo: Make the recharge reflect the amount_grown
+// Make this reflect amount grown, can't do that currently
 /obj/effect/proc_holder/spell/alien_spell/evolve_larva
 	name = "Evolve."
 	desc = "Evolve into a fully grown Alien."
-	base_cooldown = 1 // No cooldown, but requires... other things
-	action_icon_state = "alien_evolve_drone"
+	action_icon_state = "alien_evolve_larva"
 
 /obj/effect/proc_holder/spell/alien_spell/evolve_larva/create_new_targeting()
 	return new /datum/spell_targeting/self

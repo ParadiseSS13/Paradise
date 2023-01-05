@@ -1,7 +1,6 @@
 /obj/effect/proc_holder/spell/alien_spell/regurgitate
 	name = "Regurgitate"
 	desc = "Empties the contents of your stomach onto the ground."
-	base_cooldown = 3 SECONDS // short cooldown but I dunno how you could rapid fire toss up people
 	action_icon_state = "alien_barf"
 
 /obj/effect/proc_holder/spell/alien_spell/regurgitate/create_new_targeting()

@@ -11,11 +11,15 @@
 	if(vessel.stored_plasma > vessel.max_plasma)
 		vessel.stored_plasma = vessel.max_plasma
 	user.updatePlasmaDisplay()
+	for(var/datum/action/spell_action/action in user.actions)
+		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/alien_spell
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
 	base_cooldown = 1 // Very fast
+	create_attack_logs = FALSE
+	create_only_logs = TRUE
 	/// How much plasma it costs to use this
 	var/plasma_cost = 0
 

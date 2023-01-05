@@ -223,9 +223,10 @@ Des: Removes all infected images from the alien.
 	return TRUE
 
 /mob/living/carbon/proc/updatePlasmaDisplay()
-	if(hud_used) //clientless aliens
-		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[getPlasma()]</font></div>"
-		hud_used.alien_plasma_display.maptext_x = -3
+	if(!hud_used) //clientless aliens
+		return
+	hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[getPlasma()]</font></div>"
+	hud_used.alien_plasma_display.maptext_x = -3
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return

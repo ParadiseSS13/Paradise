@@ -5,6 +5,9 @@
 	base_cooldown = 1
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
+	create_attack_logs = FALSE
+	create_only_logs = TRUE
+	on_remove_message = FALSE
 	/// How much plasma it costs to use this
 	var/plasma_cost = 0
 	action_icon_state = "gib"
@@ -16,10 +19,7 @@
 
 /obj/effect/proc_holder/spell/touch/alien_spell/Click(mob/user = usr)
 	if(attached_hand)
-		qdel(attached_hand)
-		attached_hand = null
 		to_chat(user, "<span class='noticealien'>You withdraw your [src].</span>")
-		return FALSE
 	..()
 
 /obj/effect/proc_holder/spell/touch/alien_spell/cast(list/targets, mob/living/carbon/user)
