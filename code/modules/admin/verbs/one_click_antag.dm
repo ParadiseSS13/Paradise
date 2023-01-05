@@ -294,7 +294,7 @@
 	message_admins("[key_name_admin(owner)] tried making Thunderdome Teams with One-Click-Antag")
 
 	//Generates a list of candidates from active ghosts.
-	var/list/thunderdome_candidates = shuffle(SSghost_spawns.poll_candidates("Participate in a Thunderdome match?",,, 30 SECONDS, TRUE,, TRUE, FALSE))
+	var/list/thunderdome_candidates = shuffle(SSghost_spawns.poll_candidates("Participate in a Thunderdome match?", poll_time = 30 SECONDS, ignore_respawnability = TRUE, flash_window = TRUE, check_antaghud = FALSE))
 	if(length(thunderdome_candidates) < 2) // One person thunderdome ain't great
 		log_admin("[key_name(owner)] tried making Thunderdome Teams with One-Click-Antag, but not enough people signed up.")
 		message_admins("[key_name_admin(owner)] tried making Thunderdome Teams with One-Click-Antag, but not enough people signed up.")
@@ -310,20 +310,20 @@
 		switch(team_to_assign_to)
 			if("Green")
 				var/turf/possible_spawn_loc_red = pick_n_take(red_spawn_locations)
-				var/mob/living/carbon/human/newMember = new(get_turf(possible_spawn_loc_red))
-				S.copy_to(newMember)
-				newMember.dna.ready_dna(newMember)
+				var/mob/living/carbon/human/new_thunderdome_member = new(get_turf(possible_spawn_loc_red))
+				S.copy_to(new_thunderdome_member)
+				new_thunderdome_member.dna.ready_dna(new_thunderdome_member)
 				thunderdome_candidates.Remove(candidate_to_spawn)
-				newMember.key = candidate_to_spawn.key
-				to_chat(newMember, "You are a member of the <font color='green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
-				newMember.mind.offstation_role = TRUE
+				new_thunderdome_member.key = candidate_to_spawn.key
+				to_chat(new_thunderdome_member, "You are a member of the <font color='green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
+				new_thunderdome_member.mind.offstation_role = TRUE
 				team_to_assign_to = "Red"
 			if("Red")
 				var/turf/possible_spawn_loc_blue = pick_n_take(blue_spawn_locations)
-				var/mob/living/carbon/human/newMember = new(get_turf(possible_spawn_loc_blue))
-				S.copy_to(newMember)
-				newMember.dna.ready_dna(newMember)
-				newMember.key = candidate_to_spawn.key
-				to_chat(newMember, "You are a member of the <font color='red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
-				newMember.mind.offstation_role = TRUE
+				var/mob/living/carbon/human/new_thunderdome_member = new(get_turf(possible_spawn_loc_blue))
+				S.copy_to(new_thunderdome_member)
+				new_thunderdome_member.dna.ready_dna(new_thunderdome_member)
+				new_thunderdome_member.key = candidate_to_spawn.key
+				to_chat(new_thunderdome_member, "You are a member of the <font color='red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
+				new_thunderdome_member.mind.offstation_role = TRUE
 				team_to_assign_to = "Green"
