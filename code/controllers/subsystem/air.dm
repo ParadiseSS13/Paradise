@@ -346,12 +346,6 @@ SUBSYSTEM_DEF(air)
 	for(var/obj/machinery/atmospherics/A in machines_to_init)
 		A.atmos_init()
 		count++
-		if(istype(A, /obj/machinery/atmospherics/unary/vent_pump))
-			var/obj/machinery/atmospherics/unary/vent_pump/T = A
-			T.broadcast_status()
-		else if(istype(A, /obj/machinery/atmospherics/unary/vent_scrubber))
-			var/obj/machinery/atmospherics/unary/vent_scrubber/T = A
-			T.broadcast_status()
 	return count
 
 //this can't be done with setup_atmos_machinery() because

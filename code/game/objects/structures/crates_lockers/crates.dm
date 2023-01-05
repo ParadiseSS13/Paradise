@@ -346,6 +346,7 @@
 	var/cooling_power = 40
 
 /obj/structure/closet/crate/freezer/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/gas = (..())
 	if(!gas)	return null
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()

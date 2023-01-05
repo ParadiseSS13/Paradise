@@ -7,6 +7,7 @@
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
+	item_state = "rsf"
 	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
@@ -78,6 +79,7 @@
 		var/mob/living/silicon/robot/energy_check = user
 		if(!energy_check.cell.use(power_mode))
 			to_chat(user, "<span class='warning'>Insufficient energy.</span>")
+			flick("[icon_state]_empty", src)
 			return
 	var/turf/T = get_turf(A)
 	if(!istype(T) || T.density)
@@ -89,3 +91,9 @@
 #undef POWER_NONE
 #undef POWER_LOW
 #undef POWER_HIGH
+
+/obj/item/rsf/update_overlays()
+	..()
+	var/ratio = CEILING((matter / 30) * 10, 1)
+	cut_overlays()
+	add_overlay("[icon_state]_charge[ratio]")

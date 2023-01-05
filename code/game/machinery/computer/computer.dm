@@ -30,7 +30,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/extinguish_light()
+/obj/machinery/computer/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
 	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
