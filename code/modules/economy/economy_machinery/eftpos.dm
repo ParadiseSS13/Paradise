@@ -112,10 +112,10 @@
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 			var/datum/money_account/target_account = locateUID(params["account"])
 			if(!istype(target_account))
-				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to inputed account.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to inputted account.</span>")
 			// in this case we don't care about authenticating login because we're sending money into the account
 			linked_account = target_account
-			to_chat(user, "[bicon(src)]<span class='warning'>Linked account succesfully set to [target_account.account_name]</span>")
+			to_chat(user, "[bicon(src)]<span class='warning'>Linked account successfully set to [target_account.account_name]</span>")
 		if("trans_purpose")
 			var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
 			if(!Adjacent(user))
