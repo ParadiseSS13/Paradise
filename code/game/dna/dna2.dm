@@ -445,7 +445,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 
 	// We manually set the species to ensure all proper species change procs are called.
-	destination.set_species(species.type, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
+	destination.set_species(species.type, retain_damage = TRUE)
 	var/datum/dna/new_dna = Clone()
 	new_dna.species = destination.dna.species
 	destination.dna = new_dna
