@@ -171,3 +171,16 @@
 		return
 	if(can_be_rotated(user))
 		setDir(turn(dir, 45))
+
+/obj/structure/railing/mining
+	name = "reinforced railing"
+	desc = "A super strong railing meant to protect idiots like you from falling into lakes of lava."
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/railing/mining/corner
+	icon_state = "railing_corner"
+	density = FALSE
+	climbable = FALSE
+
+/obj/structure/railing/mining/wrench_act(mob/user)
+	return
