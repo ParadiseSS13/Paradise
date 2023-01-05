@@ -529,6 +529,8 @@
 	modules += new /obj/item/gun/energy/pulse/cyborg(src)
 	modules += new /obj/item/crowbar(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 
 	fix_modules()
@@ -546,6 +548,8 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/gps/cyborg(src)
 	emag = null
 
@@ -582,6 +586,8 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
@@ -611,6 +617,8 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/borg_chameleon(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/pinpointer/nukeop(src)
+	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
@@ -643,6 +651,8 @@
 	modules += new /obj/item/borg/destroyer/mobility(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/syndiecyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 	fix_modules()
 
@@ -667,6 +677,8 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/pinpointer(src)
 	emag = null
 	fix_modules()
 

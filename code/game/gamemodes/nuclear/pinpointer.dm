@@ -301,6 +301,13 @@
 /obj/item/pinpointer/operative
 	name = "operative pinpointer"
 	desc = "A pinpointer that leads to the first Syndicate operative detected."
+	icon_state = "pinoff_contractor"
+	icon_off = "pinoff_contractor"
+	icon_null = "pinonnull_contractor"
+	icon_direct = "pinondirect_contractor"
+	icon_close = "pinonclose_contractor"
+	icon_medium = "pinonmedium_contractor"
+	icon_far = "pinonfar_contractor"
 	var/mob/living/carbon/nearest_op = null
 	modes = list(MODE_OPERATIVE)
 

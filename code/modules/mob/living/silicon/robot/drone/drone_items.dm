@@ -86,6 +86,11 @@
 	)
 	..()
 
+/obj/item/gripper/nuclear
+	name = "Nuclear gripper"
+	desc = "Designed for all your nuclear needs."
+	icon_state = "diskgripper"
+	can_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/gripper/New()
 	..()
