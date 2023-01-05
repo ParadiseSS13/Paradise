@@ -27,7 +27,7 @@
 			continue
 		if(T.z != M.z)
 			continue
-		if(T.z =! M.z && !R.syndicate)
+		if(T.z != M.z && R.syndicate)
 			continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
