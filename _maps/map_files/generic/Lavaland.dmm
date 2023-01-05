@@ -211,20 +211,9 @@
 	},
 /area/mine/laborcamp)
 "aI" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/living_quarters)
+/obj/structure/railing/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "aJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -972,11 +961,6 @@
 /area/mine/eva)
 "cl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1589,16 +1573,6 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"dy" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/production)
 "dz" = (
 /obj/item/radio/beacon,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -1838,9 +1812,15 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dV" = (
-/obj/structure/railing/mining,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/production)
 "dW" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical,
@@ -1954,15 +1934,10 @@
 	},
 /area/mine/production)
 "ej" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/machinery/light/small{
+	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
+/turf/simulated/floor/plating,
 /area/mine/production)
 "ek" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2066,6 +2041,13 @@
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
+"er" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellowcorners"
+	},
+/area/mine/production)
 "es" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -2219,9 +2201,20 @@
 	},
 /area/mine/production)
 "eG" = (
-/obj/structure/sign/greencross,
-/turf/simulated/wall,
-/area/mine/sleeper)
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/living_quarters)
 "eH" = (
 /obj/machinery/firealarm{
 	name = "north bump";
@@ -2466,13 +2459,15 @@
 	},
 /area/mine/cafeteria)
 "fc" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/emergency{
-	pixel_x = 1;
-	pixel_y = 8
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/mining)
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/living_quarters)
 "fd" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -4678,19 +4673,16 @@
 	},
 /area/mine/laborcamp)
 "rV" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
 	},
-/area/mine/production)
+/area/mine/cafeteria)
 "sv" = (
 /obj/machinery/light{
 	dir = 4
@@ -4702,6 +4694,14 @@
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
+"sL" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/emergency{
+	pixel_x = 1;
+	pixel_y = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
 "sM" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4776,11 +4776,9 @@
 	},
 /area/mine/laborcamp)
 "tI" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/mine/production)
+/obj/structure/sign/greencross,
+/turf/simulated/wall,
+/area/mine/sleeper)
 "tJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5063,16 +5061,16 @@
 	},
 /area/mine/laborcamp)
 "xS" = (
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+	dir = 1;
+	icon_state = "darkfull"
 	},
-/area/mine/cafeteria)
+/area/mine/production)
 "ym" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5293,6 +5291,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"CF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	name = "East Switch";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/living_quarters)
 "CI" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/bot/secbot/beepsky{
@@ -5416,25 +5427,19 @@
 	},
 /area/mine/laborcamp/security)
 "EG" = (
-/obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowcorners"
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
-/area/mine/production)
-"Fe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	name = "East Switch";
-	dir = 8
+/obj/structure/cable{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
 	},
-/area/mine/living_quarters)
+/area/mine/production)
 "Fp" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
@@ -17513,7 +17518,7 @@ eb
 fk
 vZ
 eR
-xS
+rV
 bC
 ga
 gi
@@ -18803,7 +18808,7 @@ bC
 bC
 JD
 Lr
-eG
+tI
 bC
 ab
 aj
@@ -19311,7 +19316,7 @@ dI
 cM
 BT
 eA
-Fe
+CF
 ea
 eZ
 eg
@@ -19566,7 +19571,7 @@ mp
 dr
 dr
 cM
-aI
+eG
 ge
 eU
 eU
@@ -19823,7 +19828,7 @@ mp
 mp
 mp
 cM
-yq
+fc
 bI
 eU
 Ta
@@ -20066,7 +20071,7 @@ aj
 aj
 aj
 aj
-dV
+aI
 cP
 gH
 aj
@@ -21100,7 +21105,7 @@ gH
 aj
 ab
 xC
-fc
+sL
 Wo
 Cf
 Vu
@@ -22131,7 +22136,7 @@ bN
 cw
 cF
 bU
-EG
+er
 VD
 bN
 bq
@@ -22646,10 +22651,10 @@ co
 dz
 PQ
 fv
-ej
+xS
 Ww
 fx
-dy
+dV
 eF
 bU
 LK
@@ -22903,7 +22908,7 @@ dX
 cL
 fK
 bU
-rV
+EG
 bq
 bq
 bq
@@ -23162,7 +23167,7 @@ da
 da
 bq
 bq
-tI
+ej
 dM
 dM
 Qq
