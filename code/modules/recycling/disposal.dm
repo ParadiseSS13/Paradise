@@ -1042,12 +1042,15 @@
 	. = ..()
 	updatedir()
 	if(sort_type_txt && sort_type_txt != "1")
-		sort_type = list()
 		var/list/sort_type_str = splittext(sort_type_txt, ";")
-		for(var/x in sort_type_str)
-			var/n = text2num(x)
-			if(n)
-				sort_type += n
+		if(!("1" in sort_type_str)) // Default to disposals if mapped with it along other destinations
+			var/new_sort_type = list()
+			for(var/x in sort_type_str)
+				var/n = text2num(x)
+				if(n)
+					new_sort_type |= n
+			if(length(new_sort_type))
+				sort_type = new_sort_type
 	update_appearance(UPDATE_DESC)
 	update()
 	return
