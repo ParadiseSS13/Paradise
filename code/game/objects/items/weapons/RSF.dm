@@ -91,9 +91,3 @@
 #undef POWER_NONE
 #undef POWER_LOW
 #undef POWER_HIGH
-
-/obj/item/rsf/update_overlays()
-	..()
-	var/ratio = CEILING((matter / 30) * 10, 1)
-	cut_overlays()
-	add_overlay("[icon_state]_charge[ratio]")
