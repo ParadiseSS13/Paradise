@@ -20,11 +20,14 @@
 
 	for(var/obj/item/radio/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
+		var/turf/M = get_turf(user)
 		if(!T)
 			continue
 		if(!is_teleport_allowed(T.z))
 			continue
-		if(R.syndicate)
+		if(T.z == M.z)
+			continue
+		if(T.z != M.z && R.syndicate)
 			continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
