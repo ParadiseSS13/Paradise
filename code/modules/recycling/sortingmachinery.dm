@@ -237,8 +237,8 @@
 	slot_flags = SLOT_BELT
 	///Value of the tag
 	var/currTag = 1
-	//The whole system for the sorttype var is determined based on the order of this list,
-	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
+	//The whole system for the sort_type var is determined based on the order of this list,
+	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sort_type = list(1) --Superxpdude
 	var/datum/ui_module/destination_tagger/destination_tagger
 
 /obj/item/destTagger/Initialize(mapload)
