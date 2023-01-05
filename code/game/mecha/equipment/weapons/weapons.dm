@@ -273,7 +273,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
-	name = "FNX-66 Carbine"
+	name = "FNX-99 \"Hades\" Carbine"
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
