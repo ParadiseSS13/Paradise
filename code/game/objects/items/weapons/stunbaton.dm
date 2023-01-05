@@ -35,8 +35,8 @@
 
 /obj/item/melee/baton/Destroy()
 	if(cell?.loc == src)
-		STOP_PROCESSING(SSobj, src)
 		QDEL_NULL(cell)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /**
@@ -133,6 +133,7 @@
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
+	STOP_PROCESSING(SSobj, src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/attack_self(mob/user)
