@@ -1009,17 +1009,24 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				W.plane = initial(W.plane)
 
 
-/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+/mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
 		return FALSE
 
 	if((lying) && (!(tilesSlipped)))
 		return FALSE
 
-	if(!(slipAny))
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		var/turf/simulated/T = get_turf(H)
+		if(!(slipAny) && isobj(H.shoes) && (H.shoes.flags & NOSLIP))
+			return FALSE
+		if(!has_gravity(H) && !grav_ignore)
+			if(istype(H.shoes, /obj/item/clothing/shoes/magboots)) //Only for magboots and lube slip
+				var/obj/item/clothing/shoes/magboots/humanmagboots = H.shoes
+				if(!((T.wet == TURF_WET_LUBE||TURF_WET_PERMAFROST) && humanmagboots.magpulse))
+					return FALSE
+			else
 				return FALSE
 
 	if(tilesSlipped)

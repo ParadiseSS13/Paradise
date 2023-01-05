@@ -24,7 +24,7 @@
 	. = ..(mapload, /datum/species/monkey/unathi)
 	tts_seed = "Witchdoctor"
 
-/mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "поскользнулись")
+/mob/living/carbon/human/lesser/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, grav_ignore = FALSE, slipVerb = "поскользнулись")
 	. = ..()
-	if(prob(50))
+	if(prob(50) && (has_gravity(src) || grav_ignore))
 		unEquip(shoes, 1)
