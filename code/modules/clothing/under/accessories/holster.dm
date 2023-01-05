@@ -57,7 +57,11 @@
 	playsound(user.loc, 'sound/weapons/gun_interactions/1holster.ogg', 50, 1)
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user as mob)
-	if(!holstered)
+	if(!holstered || user.stat == DEAD)
+		return
+
+	if(user.stat == UNCONSCIOUS)
+		to_chat(user, "<span class='warning'>Вы не можете достать [holstered] сейчас!")
 		return
 
 	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
