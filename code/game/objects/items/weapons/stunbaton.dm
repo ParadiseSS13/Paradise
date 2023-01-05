@@ -133,8 +133,8 @@
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
-	STOP_PROCESSING(SSobj, src)
 	update_icon(UPDATE_ICON_STATE)
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell?.charge >= hitcost)
