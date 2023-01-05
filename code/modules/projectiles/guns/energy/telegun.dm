@@ -2,7 +2,7 @@
 
 /obj/item/gun/energy/telegun
 	name = "teleporter gun"
-	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
+	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to Bluespace Beacons."
 	icon_state = "telegun"
 	item_state = "ionrifle"
 	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
@@ -25,9 +25,7 @@
 			continue
 		if(!is_teleport_allowed(T.z))
 			continue
-		if(T.z != M.z)
-			continue
-		if(T.z != M.z && R.syndicate)
+		if(T.z != M.z && !R.emagged)
 			continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
