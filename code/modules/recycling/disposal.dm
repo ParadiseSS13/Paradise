@@ -1041,16 +1041,15 @@
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload)
 	. = ..()
 	updatedir()
-	if(sort_type_txt && sort_type_txt != "1")
-		var/list/sort_type_str = splittext(sort_type_txt, ";")
-		if(!("1" in sort_type_str)) // Default to disposals if mapped with it along other destinations
-			var/new_sort_type = list()
-			for(var/x in sort_type_str)
-				var/n = text2num(x)
-				if(n)
-					new_sort_type |= n
-			if(length(new_sort_type))
-				sort_type = new_sort_type
+	var/list/sort_type_str = splittext(sort_type_txt, ";")
+	if(length(sort_type_str) && !("1" in sort_type_str)) // Default to disposals if mapped with it along other destinations
+		var/new_sort_type = list()
+		for(var/x in sort_type_str)
+			var/n = text2num(x)
+			if(n)
+				new_sort_type |= n
+		if(length(new_sort_type))
+			sort_type = new_sort_type
 	update_appearance(UPDATE_DESC)
 	update()
 	return
