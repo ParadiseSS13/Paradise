@@ -566,11 +566,13 @@
 // returns if the light has power /but/ is manually turned off
 // if a light is turned off, it won't activate emergency power
 /obj/machinery/light/proc/turned_off()
+	var/area/machine_area = get_area(src)
 	return !machine_area.lightswitch && machine_area.powernet.lighting_powered
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/has_power()
+	var/area/machine_area = get_area(src)
 	return machine_area.lightswitch && machine_area.powernet.lighting_powered
 
 // attempts to set emergency lights
@@ -939,7 +941,7 @@
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
 
-/obj/machinery/light/extinguish_light()
+/obj/machinery/light/extinguish_light(force = FALSE)
 	on = FALSE
 	extinguished = TRUE
 	emergency_mode = FALSE

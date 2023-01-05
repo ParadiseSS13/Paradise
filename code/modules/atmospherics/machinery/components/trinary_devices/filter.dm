@@ -50,12 +50,6 @@
 /obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
 	set_max(user)
 
-/obj/machinery/atmospherics/trinary/filter/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
 	flipped = TRUE
@@ -161,10 +155,6 @@
 	parent1.update = 1
 
 	return 1
-
-/obj/machinery/atmospherics/trinary/filter/atmos_init()
-	set_frequency(frequency)
-	..()
 
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
 	ui_interact(user)

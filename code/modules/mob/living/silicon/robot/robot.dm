@@ -493,6 +493,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	modtype = selected_module
 	designation = selected_module
 	module.add_languages(src)
+	module.add_armor(src)
 	module.add_subsystems_and_actions(src)
 	if(!static_radio_channels)
 		radio.config(module.channels)
@@ -541,6 +542,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
+	armor = getArmor(arglist(initial(armor)))
 
 	status_flags |= CANPUSH
 
@@ -1473,7 +1475,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		overlays += "[base_icon]-shield"
 
 
-/mob/living/silicon/robot/extinguish_light()
+/mob/living/silicon/robot/extinguish_light(force = FALSE)
 	update_headlamp(1, 150)
 
 /mob/living/silicon/robot/rejuvenate()

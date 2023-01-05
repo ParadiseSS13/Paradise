@@ -110,12 +110,6 @@
 
 	var/id = null
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
 /obj/machinery/atmospherics/trinary/tvalve/digital/bypass
 	icon_state = "map_tvalve1"
 	state = TVALVE_STATE_SIDE
@@ -148,25 +142,6 @@
 		to_chat(user, "<span class='alert'>Access denied.</span>")
 		return
 	..()
-
-/obj/machinery/atmospherics/trinary/tvalve/digital/atmos_init()
-	..()
-	if(frequency)
-		set_frequency(frequency)
-
-/obj/machinery/atmospherics/trinary/tvalve/digital/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id))
-		return 0
-
-	switch(signal.data["command"])
-		if("valve_open")
-			go_to_side()
-
-		if("valve_close")
-			go_straight()
-
-		if("valve_toggle")
-			switch_side()
 
 #undef TVALVE_STATE_STRAIGHT
 #undef TVALVE_STATE_SIDE

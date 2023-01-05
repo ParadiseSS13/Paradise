@@ -758,7 +758,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bZ" = (
-/obj/machinery/economy/vending/assist,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ca" = (

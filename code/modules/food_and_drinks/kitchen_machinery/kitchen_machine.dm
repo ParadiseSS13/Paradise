@@ -523,6 +523,9 @@
 	if(!anchored)
 		to_chat(user, "<span class='warning'>It's unanchored!</span>")
 		return FALSE
+	if(operating)
+		to_chat(user, "<span class='warning'>Its already cooking!</span>")
+		return FALSE
 	return TRUE
 
 #undef NO_DIRT

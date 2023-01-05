@@ -497,7 +497,7 @@
 			update()
 		else
 			for(var/mob/M in viewers(src))
-				M.show_message("\the [I] bounces off of \the [src]'s rim!.", 3)
+				M.show_message("\the [I] bounces off of \the [src]'s rim!", 3)
 		return 0
 	else
 		return ..(mover, target, height)
@@ -1016,20 +1016,16 @@
 
 //a three-way junction that sorts objects
 /obj/structure/disposalpipe/sortjunction
+	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
-	var/sortType = 0	//Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
+	var/sort_type = list()	
+	var/sort_type_txt //Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
 	var/sortdir = 0
 
 /obj/structure/disposalpipe/sortjunction/reversed
 	icon_state = "pipe-j2s"
-
-/obj/structure/disposalpipe/sortjunction/proc/updatedesc()
-	desc = "An underfloor disposal pipe with a package sorting mechanism."
-	if(sortType>0)
-		var/tag = uppertext(GLOB.TAGGERLOCATIONS[sortType])
-		desc += "\nIt's tagged with [tag]"
 
 /obj/structure/disposalpipe/sortjunction/proc/updatedir()
 	posdir = dir
@@ -1046,7 +1042,13 @@
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload)
 	. = ..()
 	updatedir()
-	updatedesc()
+	if(sort_type_txt)
+		var/list/sort_type_str = splittext(sort_type_txt, ";")
+		for(var/x in sort_type_str)
+			var/n = text2num(x)
+			if(n)
+				sort_type += n
+	update_appearance(UPDATE_DESC)
 	update()
 	return
 
@@ -1056,15 +1058,34 @@
 
 	if(istype(I, /obj/item/destTagger))
 		var/obj/item/destTagger/O = I
+		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
+		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
+		if(O.currTag in sort_type)
+			sort_type -= O.currTag
+			to_chat(user, "<span class='notice'>Removed [tag] from filter.</span>")
+		else
+			sort_type |= O.currTag
+			to_chat(user, "<span class='notice'>Added [tag] to filter.</span>")
+		update_appearance(UPDATE_NAME|UPDATE_DESC)
 
-		if(O.currTag > 0)// Tag set
-			sortType = O.currTag
-			name = GLOB.TAGGERLOCATIONS[O.currTag]
-			playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
-			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
-			to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
-			updatedesc()
+/obj/structure/disposalpipe/sortjunction/update_name()
+	. = ..()
+	name = initial(name)
+	if(!length(sort_type))
+		return
+	if(length(sort_type) == 1)
+		name += " - [GLOB.TAGGERLOCATIONS[sort_type[1]]]"
+		return
+	name = "multi disposal sort junction"
 
+/obj/structure/disposalpipe/sortjunction/update_desc()
+	. = ..()
+	desc = "An underfloor disposal pipe with a package sorting mechanism."
+	if(length(sort_type))
+		var/tags = list()
+		for(var/destinations in sort_type)
+			tags += GLOB.TAGGERLOCATIONS[destinations]
+		desc += "\nIt's tagged with [english_list(tags)]."
 
 	// next direction to move
 	// if coming in from negdir, then next is primary dir or sortdir
@@ -1075,7 +1096,7 @@
 	//var/flipdir = turn(fromdir, 180)
 	if(fromdir != sortdir)	// probably came from the negdir
 
-		if(src.sortType == sortTag) //if destination matches filtered type...
+		if(sortTag in sort_type) //if destination matches filtered types...
 			return sortdir		// exit through sortdirection
 		else
 			return posdir

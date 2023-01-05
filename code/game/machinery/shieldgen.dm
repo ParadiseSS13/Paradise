@@ -142,7 +142,7 @@
 	var/locked = FALSE
 
 /obj/machinery/shieldgen/Destroy()
-	QDEL_LIST(deployed_shields)
+	QDEL_LIST_CONTENTS(deployed_shields)
 	deployed_shields = null
 	return ..()
 
@@ -172,7 +172,7 @@
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-	QDEL_LIST(deployed_shields)
+	QDEL_LIST_CONTENTS(deployed_shields)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
@@ -412,7 +412,7 @@
 	STOP_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
 		var/list/L = active_shields["[direction]"]
-		QDEL_LIST(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
+		QDEL_LIST_CONTENTS(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
 
 /obj/machinery/shieldwallgen/proc/remove_active_shield(obj/machinery/shieldwall/SW, direction)
 	var/list/L = active_shields["[direction]"]

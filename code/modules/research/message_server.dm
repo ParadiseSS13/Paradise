@@ -67,8 +67,8 @@ GLOBAL_LIST_EMPTY(message_servers)
 
 /obj/machinery/message_server/Destroy()
 	GLOB.message_servers -= src
-	QDEL_LIST(pda_msgs)
-	QDEL_LIST(rc_msgs)
+	QDEL_LIST_CONTENTS(pda_msgs)
+	QDEL_LIST_CONTENTS(rc_msgs)
 	return ..()
 
 /obj/machinery/message_server/process()

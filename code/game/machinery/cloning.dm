@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
-	QDEL_LIST(missing_organs)
+	QDEL_LIST_CONTENTS(missing_organs)
 	return ..()
 
 /obj/machinery/clonepod/RefreshParts()
@@ -196,6 +196,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		. +=  "Current clone cycle is [round(get_completion())]% complete."
 
 /obj/machinery/clonepod/return_air() //non-reactive air
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/GM = new
 	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
 	GM.temperature = T20C
@@ -497,7 +498,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		clonemind = null
 
 
-	QDEL_LIST(missing_organs)
+	QDEL_LIST_CONTENTS(missing_organs)
 	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
 	occupant.setOxyLoss(0)
 	for(var/datum/disease/critical/crit in occupant.viruses)
@@ -524,7 +525,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			message += "<i>Is this what dying is like? Yes it is.</i>"
 			to_chat(occupant, "<span class='warning'>[message]</span>")
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
-		QDEL_LIST(missing_organs)
+		QDEL_LIST_CONTENTS(missing_organs)
 		clonemind = null
 		spawn(40)
 			qdel(occupant)
@@ -575,7 +576,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
-	QDEL_LIST(missing_organs)
+	QDEL_LIST_CONTENTS(missing_organs)
 
 	H.setCloneLoss(CLONE_INITIAL_DAMAGE, FALSE)
 	H.setBrainLoss(BRAIN_INITIAL_DAMAGE)

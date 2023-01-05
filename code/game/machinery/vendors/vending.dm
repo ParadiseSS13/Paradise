@@ -784,7 +784,7 @@
 	if(shoot_inventory && prob(shoot_chance))
 		throw_item()
 
-/obj/machinery/economy/vending/extinguish_light()
+/obj/machinery/economy/vending/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
 

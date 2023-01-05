@@ -209,7 +209,7 @@ FIRE ALARM
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
-		LAZYREMOVE(machine_area.firealarms, src)
+		LAZYREMOVE(get_area(src).firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -302,8 +302,7 @@ FIRE ALARM
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
-	machine_area = get_area(src)
-	LAZYADD(machine_area.firealarms, src)
+	LAZYADD(get_area(src).firealarms, src)
 
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
@@ -313,7 +312,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
-	LAZYREMOVE(machine_area.firealarms, src)
+	LAZYREMOVE(get_area(src).firealarms, src)
 	return ..()
 
 /*

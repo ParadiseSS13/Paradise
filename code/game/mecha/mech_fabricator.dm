@@ -462,7 +462,7 @@
 /obj/machinery/mecha_part_fabricator/upgraded/Initialize(mapload)
 	. = ..()
 	// Upgraded components
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mechfab(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)

@@ -270,6 +270,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		can_label = FALSE
 
 /obj/machinery/atmospherics/portable/canister/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/machinery/atmospherics/portable/canister/proc/return_temperature()
