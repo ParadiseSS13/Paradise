@@ -3,6 +3,7 @@
 	if(ranged_ability && client)
 		ranged_ability.remove_mousepointer(client)
 	..()
+	update_pipe_vision()
 	if(mind)
 		if(!key) //key and mind have become seperated. I believe this is for when a staff member aghosts.
 			mind.active = 0	//This is to stop say, a mind.transfer_to call on a corpse causing a ghost to re-enter its body.

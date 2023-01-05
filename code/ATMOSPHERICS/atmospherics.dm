@@ -156,6 +156,13 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/replacePipenet()
 	return
 
+/**
+ * Whether or not this atmos machine has multiple pipenets attached to it
+ * Used to determine if a ventcrawler should update their vision or not
+ */
+/obj/machinery/atmospherics/proc/is_pipenet_split()
+	return FALSE
+
 /obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
 	if(remove_deferral)
@@ -299,7 +306,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(returnPipenet() != target_move.returnPipenet())
+			if(is_pipenet_split()) // Going away from a split means we want to update the view of the pipenet
 				user.update_pipe_vision(target_move)
 			user.loc = target_move
 			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement

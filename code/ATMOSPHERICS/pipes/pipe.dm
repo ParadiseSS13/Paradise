@@ -37,6 +37,9 @@
 		qdel(parent)
 	parent = null
 
+/obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
+	return parent
+
 /obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))
 		atmosanalyzer_scan(parent.air, user)
