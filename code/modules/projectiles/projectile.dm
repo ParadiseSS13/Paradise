@@ -8,7 +8,7 @@
 	flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	hitsound = ""
+	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
@@ -138,12 +138,12 @@
 		if(L.has_limbs)
 			organ_hit_text = " in \the [parse_zone(def_zone)]"
 		if(suppressed)
-			playsound(loc, hitsound, 20, 1)
+			playsound(loc, hitsound, 5, 1, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1)
+				playsound(loc, hitsound, volume, 1, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
@@ -168,7 +168,7 @@
 
 /obj/item/projectile/proc/vol_by_damage()
 	if(damage)
-		return clamp((damage) * 0.67, 50, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
+		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
