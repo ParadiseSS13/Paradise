@@ -735,7 +735,24 @@
 			dst = destination
 		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
 
-/obj/docking_port/mobile/lockdown
+/obj/docking_port/mobile/labour
+	dir = 8
+	dwidth = 2
+	height = 5
+	id = "laborcamp"
+	name = "labor camp shuttle"
+	rebuildable = TRUE
+	width = 9
+	uses_lockdown = TRUE
+
+/obj/docking_port/mobile/mining
+	dir = 8
+	dwidth = 3
+	height = 5
+	id = "mining"
+	name = "mining shuttle"
+	rebuildable = TRUE
+	width = 7
 	uses_lockdown = TRUE
 
 /obj/machinery/computer/shuttle
