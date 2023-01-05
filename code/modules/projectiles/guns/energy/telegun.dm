@@ -25,7 +25,7 @@
 			continue
 		if(!is_teleport_allowed(T.z))
 			continue
-		if(T.z == M.z)
+		if(T.z != M.z)
 			continue
 		if(t.z =! M.z && !R.syndicate)
 			continue
