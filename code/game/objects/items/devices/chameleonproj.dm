@@ -207,14 +207,12 @@
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, -6)
 		to_chat(user, "<span class='notice'>You reconfigure [src].</span>")
 		activate(user)
 	else
 		to_chat(user, "<span class='notice'>You activate [src].</span>")
 		apply_wibbly_filters(user)
 		if(do_after(user, 50, target = user) && user.cell.use(activationCost))
-			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
 			activate(user)
 		else
 			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
@@ -270,6 +268,7 @@
 	user.bubble_icon = "robot"
 	active = TRUE
 	user.update_icons()
+	playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
 	to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen [selected_module] cyborg.</span>")
 
 /obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
