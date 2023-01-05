@@ -395,11 +395,7 @@
 				I.pixel_x = -32
 			if(WEST, NORTHWEST, SOUTHWEST)
 				I.pixel_x = 32
-		switch(dirs)
-			if(WEST, EAST)
-				I.layer = ABOVE_MOB_LAYER
-			if(NORTH, SOUTH)
-				I.layer = WALL_OBJ_LAYER
+		I.layer = BELOW_MOB_LAYER
 		. += I
 
 /obj/structure/alien/wallweed/attack_alien(mob/living/carbon/alien/humanoid/user)
