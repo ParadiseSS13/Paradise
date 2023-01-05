@@ -508,7 +508,6 @@
 /area/syndicate_mothership/control)
 "ald" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -531,7 +530,6 @@
 	req_access_txt = "153"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "syndFB_base"
 	},
 /turf/simulated/floor/wood{
@@ -654,7 +652,7 @@
 /area/vox_station)
 "anK" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	id_tag = "CC_supply_internal";
 	layer = 5;
@@ -1512,7 +1510,6 @@
 /area/ninja/outside)
 "aII" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -1752,7 +1749,7 @@
 /area/syndicate_mothership)
 "aQn" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8;
 	id_tag = "CC_supply_internal";
 	layer = 5;
@@ -1911,7 +1908,7 @@
 	name = "table"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/fakespace,
@@ -2191,7 +2188,7 @@
 /area/centcom/zone1)
 "bdB" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/storage/box/centcomofficer,
 /obj/item/radio/headset/centcom{
@@ -3689,7 +3686,7 @@
 "bUd" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access = null;
@@ -3842,7 +3839,6 @@
 	req_access_txt = "153"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -4288,7 +4284,6 @@
 	icon_state = "logo18"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -4594,7 +4589,6 @@
 	},
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/machinery/door/poddoor/multi_tile/four_tile_hor{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -5281,7 +5275,6 @@
 	icon_state = "logo17"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -7853,7 +7846,6 @@
 /area/syndicate_mothership/outside)
 "edZ" = (
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 4;
 	name = "ERT shuttle"
 	},
@@ -9547,7 +9539,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -10261,7 +10252,6 @@
 /area/centcom/jail)
 "fwf" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -10562,7 +10552,7 @@
 /area/ninja/outpost)
 "fCV" = (
 /obj/mecha/combat/marauder/seraph{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 80, "bomb" = 80, "bio" = 80, "rad" = 80, "fire" = 100, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"rad"=80,"fire"=100,"acid"=100);
 	color = "#006666";
 	name = "Rocinante"
 	},
@@ -10714,7 +10704,7 @@
 /area/ninja/outpost)
 "fGc" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/clothing/gloves/combat,
 /obj/item/radio/headset/syndicate/alt/syndteam,
@@ -11626,7 +11616,6 @@
 	icon_state = "logo2"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -11850,7 +11839,7 @@
 /area/centcom/evac)
 "gjn" = (
 /obj/machinery/computer/shuttle/ert{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
@@ -12741,7 +12730,7 @@
 /area/centcom/zone1)
 "gMj" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -13472,9 +13461,7 @@
 	},
 /area/ninja/outpost)
 "hmm" = (
-/obj/machinery/door/airlock{
-	id_tag = null
-	},
+/obj/machinery/door/airlock,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
 "hmH" = (
@@ -13483,7 +13470,7 @@
 /area/ninja/outside)
 "hmX" = (
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -13623,7 +13610,7 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/reagent_containers/food/snacks/candy/donor{
 	apply_type = 3;
-	list_reagents = list("nutriment" = 30, "sugar" = 3);
+	list_reagents = list("nutriment"=30,"sugar"=3);
 	name = "MRE"
 	},
 /obj/item/reagent_containers/hypospray/autoinjector/survival,
@@ -14040,7 +14027,6 @@
 /area/shuttle/ussp)
 "hCL" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -14862,7 +14848,7 @@
 /area/syndicate_mothership/elite_squad)
 "ifB" = (
 /obj/machinery/porta_turret/centcom/pulse{
-	armor = list("melee" = 90, "bullet" = 90, "laser" = 95, "energy" = 95, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=90,"bullet"=90,"laser"=95,"energy"=95,"bomb"=80,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	check_borgs = 1;
 	check_synth = 1;
 	color = "#666666";
@@ -15973,7 +15959,6 @@
 /area/syndicate_mothership/outside)
 "iIo" = (
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 1;
 	name = "Canteen, Shooting range, Zone 2, Medical block"
 	},
@@ -16502,7 +16487,7 @@
 "jbD" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
 	req_access = null;
@@ -17064,7 +17049,7 @@
 /area/centcom/zone1)
 "jmR" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	req_access_txt = "114"
 	},
 /obj/item/clothing/suit/judgerobe{
@@ -17538,7 +17523,6 @@
 "jAC" = (
 /obj/structure/spacepoddoor/invincible,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	color = null;
 	id_tag = "Aspid_poddor_left"
 	},
 /turf/simulated/floor/plasteel{
@@ -17654,7 +17638,6 @@
 "jEv" = (
 /obj/structure/fans/tiny/invisible,
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -17738,7 +17721,6 @@
 	icon_state = "logo3"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -17852,7 +17834,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SIT_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -18511,7 +18492,6 @@
 	dir = 8
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SyndFB_prison_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -18771,7 +18751,6 @@
 "kln" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -19305,7 +19284,7 @@
 "kAd" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
 	req_access = null;
@@ -21901,7 +21880,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/simulated/floor/plating,
@@ -22157,7 +22136,7 @@
 	name = "table"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
 /turf/simulated/floor/fakespace,
@@ -22543,7 +22522,7 @@
 /area/centcom/specops)
 "mcz" = (
 /obj/structure/closet/cabinet{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /obj/item/clothing/gloves/combat,
 /obj/item/radio/headset/syndicate/alt/syndteam,
@@ -23372,7 +23351,7 @@
 "mvM" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
 	req_access = null;
@@ -25068,7 +25047,7 @@
 /area/centcom/supply)
 "naM" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/simulated/floor/plating,
@@ -25149,7 +25128,7 @@
 	req_access_txt = "114"
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 1;
 	id_tag = "ERT_director_office_shutters";
 	layer = 5;
@@ -25499,12 +25478,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -27708,7 +27685,6 @@
 "oky" = (
 /obj/structure/spacepoddoor/invincible,
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	color = null;
 	id_tag = "Aspid_poddor_right"
 	},
 /turf/simulated/floor/plasteel{
@@ -27728,7 +27704,7 @@
 /obj/machinery/vending/hydronutrients{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20, /obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13, /obj/item/reagent_containers/glass/bottle/nutrient/rh = 6, /obj/item/reagent_containers/spray/pestspray = 20, /obj/item/reagent_containers/syringe = 5, /obj/item/storage/bag/plants = 5, /obj/item/cultivator = 3, /obj/item/shovel/spade = 3, /obj/item/plant_analyzer = 4, /obj/item/reagent_containers/glass/bottle/ammonia = 10, /obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez=20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z=13,/obj/item/reagent_containers/glass/bottle/nutrient/rh=6,/obj/item/reagent_containers/spray/pestspray=20,/obj/item/reagent_containers/syringe=5,/obj/item/storage/bag/plants=5,/obj/item/cultivator=3,/obj/item/shovel/spade=3,/obj/item/plant_analyzer=4,/obj/item/reagent_containers/glass/bottle/ammonia=10,/obj/item/reagent_containers/glass/bottle/diethylamine=5)
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
@@ -28952,7 +28928,7 @@
 	name = "ERT Turret"
 	},
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /turf/simulated/floor/plating,
@@ -29156,7 +29132,6 @@
 /area/syndicate_mothership/infteam)
 "oRQ" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -29204,7 +29179,6 @@
 /area/syndicate_mothership/infteam)
 "oTb" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -29213,7 +29187,6 @@
 /area/syndicate_mothership/outside)
 "oTy" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -29252,7 +29225,6 @@
 /area/syndicate_mothership/jail)
 "oUj" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -29513,7 +29485,7 @@
 "pdl" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/toy/cards/deck/syndicate = 10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/toy/cards/deck/syndicate=10)
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -29971,7 +29943,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	lootcount = 20;
 	name = "Food CC Spawner #2"
 	},
@@ -30025,7 +29997,7 @@
 "pte" = (
 /obj/structure/table/wood/fancy/black,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/wood,
@@ -30738,6 +30710,11 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r"
 	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	layer = 2.9;
+	invisibility = 1
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/pod_3)
 "pIg" = (
@@ -31087,6 +31064,11 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_r";
 	tag = "icon-burst_r"
+	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	layer = 2.9;
+	invisibility = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pod_4)
@@ -32300,7 +32282,7 @@
 "qxb" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Pulse ANNIHILATOR";
 	req_access = null;
@@ -32843,6 +32825,11 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l"
 	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 2.9;
+	invisibility = 1
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/pod_3)
 "qJW" = (
@@ -32876,12 +32863,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -32934,7 +32919,6 @@
 /area/centcom/specops)
 "qLW" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_pod_ready"
 	},
 /turf/simulated/floor/plasteel{
@@ -33040,7 +33024,6 @@
 /area/centcom/zone3)
 "qOg" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -33099,7 +33082,6 @@
 /area/centcom/zone1)
 "qPu" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
@@ -33134,7 +33116,7 @@
 /obj/machinery/vending/hydroseeds{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/seeds/aloe = 3, /obj/item/seeds/ambrosia = 3, /obj/item/seeds/apple = 3, /obj/item/seeds/banana = 3, /obj/item/seeds/berry = 3, /obj/item/seeds/cabbage = 3, /obj/item/seeds/carrot = 3, /obj/item/seeds/cherry = 3, /obj/item/seeds/chanter = 3, /obj/item/seeds/chili = 3, /obj/item/seeds/cocoapod = 3, /obj/item/seeds/coffee = 3, /obj/item/seeds/comfrey = 3, /obj/item/seeds/corn = 3, /obj/item/seeds/cotton = 3, /obj/item/seeds/nymph = 3, /obj/item/seeds/eggplant = 3, /obj/item/seeds/garlic = 3, /obj/item/seeds/grape = 3, /obj/item/seeds/grass = 3, /obj/item/seeds/lemon = 3, /obj/item/seeds/lime = 3, /obj/item/seeds/onion = 3, /obj/item/seeds/orange = 3, /obj/item/seeds/peanuts = 3, /obj/item/seeds/pineapple = 3, /obj/item/seeds/poppy = 3, /obj/item/seeds/potato = 3, /obj/item/seeds/pumpkin = 3, /obj/item/seeds/replicapod = 3, /obj/item/seeds/wheat/rice = 3, /obj/item/seeds/soya = 3, /obj/item/seeds/sugarcane = 3, /obj/item/seeds/sunflower = 3, /obj/item/seeds/tea = 3, /obj/item/seeds/tobacco = 3, /obj/item/seeds/tomato = 3, /obj/item/seeds/tower = 3, /obj/item/seeds/watermelon = 3, /obj/item/seeds/wheat = 3, /obj/item/seeds/whitebeet = 3, /obj/item/seeds/cannabis = 3, /obj/item/seeds/amanita = 2, /obj/item/seeds/fungus = 3, /obj/item/seeds/glowshroom = 2, /obj/item/seeds/liberty = 2, /obj/item/seeds/nettle = 2, /obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/starthistle = 2, /obj/item/seeds/random = 2)
+	products = list(/obj/item/seeds/aloe=3,/obj/item/seeds/ambrosia=3,/obj/item/seeds/apple=3,/obj/item/seeds/banana=3,/obj/item/seeds/berry=3,/obj/item/seeds/cabbage=3,/obj/item/seeds/carrot=3,/obj/item/seeds/cherry=3,/obj/item/seeds/chanter=3,/obj/item/seeds/chili=3,/obj/item/seeds/cocoapod=3,/obj/item/seeds/coffee=3,/obj/item/seeds/comfrey=3,/obj/item/seeds/corn=3,/obj/item/seeds/cotton=3,/obj/item/seeds/nymph=3,/obj/item/seeds/eggplant=3,/obj/item/seeds/garlic=3,/obj/item/seeds/grape=3,/obj/item/seeds/grass=3,/obj/item/seeds/lemon=3,/obj/item/seeds/lime=3,/obj/item/seeds/onion=3,/obj/item/seeds/orange=3,/obj/item/seeds/peanuts=3,/obj/item/seeds/pineapple=3,/obj/item/seeds/poppy=3,/obj/item/seeds/potato=3,/obj/item/seeds/pumpkin=3,/obj/item/seeds/replicapod=3,/obj/item/seeds/wheat/rice=3,/obj/item/seeds/soya=3,/obj/item/seeds/sugarcane=3,/obj/item/seeds/sunflower=3,/obj/item/seeds/tea=3,/obj/item/seeds/tobacco=3,/obj/item/seeds/tomato=3,/obj/item/seeds/tower=3,/obj/item/seeds/watermelon=3,/obj/item/seeds/wheat=3,/obj/item/seeds/whitebeet=3,/obj/item/seeds/cannabis=3,/obj/item/seeds/amanita=2,/obj/item/seeds/fungus=3,/obj/item/seeds/glowshroom=2,/obj/item/seeds/liberty=2,/obj/item/seeds/nettle=2,/obj/item/seeds/plump=2,/obj/item/seeds/reishi=2,/obj/item/seeds/starthistle=2,/obj/item/seeds/random=2)
 	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
@@ -33352,6 +33334,11 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_l";
 	tag = "icon-burst_l"
+	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 2.9;
+	invisibility = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pod_4)
@@ -33872,7 +33859,7 @@
 "rhx" = (
 /obj/structure/table/wood/fancy,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/wood,
@@ -34028,7 +34015,6 @@
 /area/syndicate_mothership/elite_squad)
 "rlQ" = (
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -34083,7 +34069,6 @@
 /area/syndicate_mothership/control)
 "rmG" = (
 /obj/machinery/door/airlock/syndicate/extmai/glass{
-	id = null;
 	id_tag = "syndicate_jail_cell";
 	name = "Cell";
 	req_access_txt = "153"
@@ -35244,7 +35229,6 @@
 /area/centcom/supply)
 "rNF" = (
 /obj/structure/fence/corner{
-	color = null;
 	invulnerable = 1
 	},
 /turf/simulated/floor/indestructible/grass,
@@ -35288,7 +35272,6 @@
 /area/shuttle/supply)
 "rOV" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_to_ATOM"
 	},
 /turf/simulated/floor/plasteel{
@@ -35316,7 +35299,6 @@
 /area/centcom/specops)
 "rQr" = (
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_to_ATOM"
 	},
 /turf/simulated/floor/plasteel{
@@ -35580,9 +35562,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "rWE" = (
-/obj/machinery/vending/medical{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35803,6 +35783,11 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r"
 	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	layer = 2.9;
+	invisibility = 1
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/pod_1)
 "sdG" = (
@@ -35824,6 +35809,11 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_r";
 	tag = "icon-burst_r"
+	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	layer = 2.9;
+	invisibility = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pod_2)
@@ -36250,7 +36240,7 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/reagent_containers/food/snacks/candy/donor{
 	apply_type = 3;
-	list_reagents = list("nutriment" = 30, "sugar" = 3);
+	list_reagents = list("nutriment"=30,"sugar"=3);
 	name = "MRE"
 	},
 /obj/item/reagent_containers/hypospray/autoinjector/survival,
@@ -37940,12 +37930,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -38256,7 +38244,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/lasagna = 10, /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza = 10, /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 10, /obj/item/reagent_containers/food/snacks/bigbiteburger = 10, /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	lootcount = 20;
 	name = "Food CC Spawner #2"
 	},
@@ -38951,7 +38939,7 @@
 /area/syndicate_mothership/infteam)
 "tBG" = (
 /obj/structure/window/full/reinforced{
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 0, "energy" = 0, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100);
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	layer = 2
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -39052,12 +39040,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -39817,7 +39803,7 @@
 	color = "#996633"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask = 10, /obj/item/reagent_containers/food/drinks/cans/tonic = 10, /obj/item/reagent_containers/food/drinks/cans/thirteenloko = 10, /obj/item/reagent_containers/food/drinks/cans/synthanol = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10, /obj/item/reagent_containers/food/drinks/cans/lemon_lime = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/simulated/floor/wood,
@@ -40035,7 +40021,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SIT_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -40115,12 +40100,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -40908,7 +40891,6 @@
 /area/shuttle/escape)
 "uvw" = (
 /obj/effect/turf_decal/arrows/white{
-	color = null;
 	dir = 4;
 	name = "ERT shuttle"
 	},
@@ -41028,12 +41010,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -41710,7 +41690,7 @@
 	color = "#996633"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/applepie = 10, /obj/item/reagent_containers/food/snacks/soup/bloodsoup = 10, /obj/item/reagent_containers/food/snacks/boiledrice = 10, /obj/item/reagent_containers/food/snacks/carrotfries = 10, /obj/item/reagent_containers/food/drinks/cans/cola = 10, "" = 70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /obj/machinery/light/small{
@@ -43245,12 +43225,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -43484,7 +43462,6 @@
 	icon_state = "siding8"
 	},
 /obj/machinery/door/poddoor/impassable{
-	color = null;
 	id_tag = "SST_outside"
 	},
 /turf/simulated/floor/plasteel{
@@ -44538,12 +44515,10 @@
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	color = null;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
@@ -45492,7 +45467,7 @@
 "wJo" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100);
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "X-ray laser";
 	req_access = null;
@@ -45760,9 +45735,7 @@
 	},
 /area/syndicate_mothership/jail)
 "wUL" = (
-/obj/machinery/vending/medical{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -47028,6 +47001,11 @@
 	icon_state = "burst_l";
 	tag = "icon-burst_l"
 	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 2.9;
+	invisibility = 1
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/pod_1)
 "xAd" = (
@@ -48192,6 +48170,11 @@
 /obj/structure/shuttle/engine/propulsion{
 	icon_state = "burst_l";
 	tag = "icon-burst_l"
+	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	layer = 2.9;
+	invisibility = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pod_2)
