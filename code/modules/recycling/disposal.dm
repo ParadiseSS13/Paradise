@@ -526,7 +526,8 @@
 	dir = 0
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
 	var/has_fat_guy = 0	// true if contains a fat person
-	var/destinationTag = 0 // changes if contains a delivery container
+	/// Destination the holder is set to, defaulting to disposals and changes if the contents have a mail/sort tag.
+	var/destinationTag = 1
 	var/tomail = 0 //changes if contains wrapped package
 	var/hasmob = 0 //If it contains a mob
 
@@ -1016,7 +1017,7 @@
 /obj/structure/disposalpipe/sortjunction
 	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
-	var/sort_type = list()	
+	var/list/sort_type = list(1)	
 	var/sort_type_txt //Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
@@ -1040,7 +1041,8 @@
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload)
 	. = ..()
 	updatedir()
-	if(sort_type_txt)
+	if(sort_type_txt && sort_type_txt != "1")
+		sort_type = list()
 		var/list/sort_type_str = splittext(sort_type_txt, ";")
 		for(var/x in sort_type_str)
 			var/n = text2num(x)
@@ -1058,19 +1060,25 @@
 		var/obj/item/destTagger/O = I
 		var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 		playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
-		if(O.currTag in sort_type)
-			sort_type -= O.currTag
+		if(O.currTag == 1)
+			sort_type = list(1)
+			to_chat(user, "<span class='notice'>Filter set to [tag] only.</span>")
+		else if(O.currTag in sort_type)
+			sort_type.Remove(O.currTag)
 			to_chat(user, "<span class='notice'>Removed [tag] from filter.</span>")
+			if(!length(sort_type))
+				sort_type.Add(1) // Default to Disposals if everything is removed.
+				to_chat(user, "<span class='notice'>Filter defaulting to [uppertext(GLOB.TAGGERLOCATIONS[1])].</span>")
 		else
-			sort_type |= O.currTag
+			if(1 in sort_type) // Remove Disposals if a destination is added.
+				sort_type.Remove(1)
+			sort_type.Add(O.currTag)
 			to_chat(user, "<span class='notice'>Added [tag] to filter.</span>")
 		update_appearance(UPDATE_NAME|UPDATE_DESC)
 
 /obj/structure/disposalpipe/sortjunction/update_name()
 	. = ..()
 	name = initial(name)
-	if(!length(sort_type))
-		return
 	if(length(sort_type) == 1)
 		name += " - [GLOB.TAGGERLOCATIONS[sort_type[1]]]"
 		return
