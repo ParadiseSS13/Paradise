@@ -110,12 +110,14 @@
 				return
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
-		user.adjust_nutrition(5)
+		if(!user.mind.vampire)
+			user.adjust_nutrition(5)
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
 				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
 				qdel(src)
+
 	else
 		..()
 
