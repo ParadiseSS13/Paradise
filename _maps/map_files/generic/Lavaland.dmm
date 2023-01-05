@@ -777,9 +777,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock{
-	name = "Catwalk Airlock"
-	},
+/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -2947,11 +2945,7 @@
 /turf/simulated/floor/plating,
 /area/lavaland/surface/outdoors)
 "fY" = (
-<<<<<<< HEAD
 /obj/effect/spawner/window,
-=======
-/obj/machinery/economy/vending/assist/free,
->>>>>>> master
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
 "fZ" = (
@@ -5702,10 +5696,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp)
-"KD" = (
-/obj/structure/barricade/wooden,
-/turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "KE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
@@ -6044,11 +6034,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/barricade/wooden,
-/obj/machinery/door/airlock{
-	name = "Catwalk Airlock"
-	},
+/obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "Ss" = (
@@ -19077,7 +19065,7 @@ dF
 bg
 br
 cR
-ab
+aj
 aj
 aj
 AE
@@ -20620,7 +20608,7 @@ cK
 cV
 cV
 mp
-KD
+AE
 AE
 AE
 Oq
@@ -21135,7 +21123,7 @@ cM
 cM
 AE
 AE
-ab
+AE
 AE
 Oq
 Oq
