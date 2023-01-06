@@ -99,17 +99,6 @@
 	cost = 100
 	containername = "bureaucracy crate"
 
-/datum/supply_packs/misc/toner
-	name = "Toner Cartridges Crate"
-	contains = list(/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner)
-	cost = 100
-	containername = "toner cartridges crate"
-
 /datum/supply_packs/misc/artscrafts
 	name = "Arts and Crafts Supplies Crate"
 	contains = list(/obj/item/storage/fancy/crayons,
