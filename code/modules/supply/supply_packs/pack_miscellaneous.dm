@@ -10,13 +10,6 @@
 	containername = "\improper MULEbot crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
 
-/datum/supply_packs/misc/watertank
-	name = "Water Tank Crate"
-	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 50
-	containertype = /obj/structure/largecrate
-	containername = "water tank crate"
-
 /datum/supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank/high)
