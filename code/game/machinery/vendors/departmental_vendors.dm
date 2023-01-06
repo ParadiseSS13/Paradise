@@ -7,7 +7,6 @@
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson/engine = 2, /obj/item/multitool = 4, /obj/item/geiger_counter = 5,  /obj/item/airlock_electronics = 10, /obj/item/firelock_electronics = 10, /obj/item/firealarm_electronics = 10, /obj/item/apc_electronics = 10, /obj/item/airalarm_electronics = 10, /obj/item/stock_parts/cell/high = 10, /obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
-	premium = list(/obj/item/storage/belt/utility = 3)
 	refill_canister = /obj/item/vending_refill/engivend
 
 /obj/machinery/economy/vending/engineering
@@ -128,6 +127,7 @@
 					/obj/item/seeds/tobacco = 3,
 					/obj/item/seeds/tomato = 3,
 					/obj/item/seeds/tower = 3,
+					/obj/item/reagent_containers/spray/waterflower = 1,
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
 					/obj/item/seeds/whitebeet = 3)
@@ -141,7 +141,6 @@
 					/obj/item/seeds/reishi = 2,
 					/obj/item/seeds/starthistle = 2,
 					/obj/item/seeds/random = 2)
-	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
 /obj/machinery/economy/vending/medical
