@@ -3005,20 +3005,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
-"aqL" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "CargoWaste"
-	},
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal)
 "aqM" = (
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 8
@@ -3176,9 +3162,7 @@
 	dir = 6;
 	id = "CargoWaste"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "arD" = (
@@ -3190,17 +3174,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/hallway)
-"arK" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "CargoWaste"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/disposal)
 "arN" = (
 /obj/item/trash/candy,
 /obj/structure/sign/poster/contraband/kss13{
@@ -3219,7 +3192,7 @@
 /area/bridge)
 "arS" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8
+	dir = 2
 	},
 /obj/structure/disposaloutlet{
 	dir = 8
@@ -3378,18 +3351,7 @@
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/maintenance/disposal)
-"asK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment/corner{
+/obj/structure/disposalpipe/junction/y{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -3400,8 +3362,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/disposalpipe/wrapsortjunction{
-	dir = 8
+/obj/structure/disposalpipe/sortjunction{
+	dir = 8;
+	sort_type_txt = "1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3423,7 +3386,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
 "asU" = (
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/segment,
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "CargoWaste"
@@ -19411,8 +19374,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/north)
 "bJo" = (
@@ -19624,8 +19587,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/north)
 "bKd" = (
@@ -26151,11 +26114,11 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "chG" = (
-/obj/machinery/computer/card,
 /obj/machinery/camera{
 	c_tag = "Docking Security Checkpoint";
 	dir = 6
@@ -26164,8 +26127,10 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
+/obj/structure/chair/office/light,
 /turf/simulated/floor/plasteel{
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "chI" = (
@@ -26295,7 +26260,9 @@
 /area/teleporter)
 "cih" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/security/checkpoint2)
 "cij" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -26366,7 +26333,16 @@
 	},
 /area/hallway/primary/aft/east)
 "ciN" = (
-/turf/simulated/floor/plasteel,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
 /area/security/checkpoint2)
 "ciR" = (
 /obj/machinery/door/airlock/mining{
@@ -26557,7 +26533,9 @@
 	dir = 10
 	},
 /obj/effect/landmark/start/security_officer,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
 /area/security/checkpoint2)
 "cjA" = (
 /mob/living/simple_animal/bot/secbot/armsky{
@@ -26727,8 +26705,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluered"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/south)
 "ckp" = (
@@ -31667,8 +31645,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluered"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/south)
 "cJy" = (
@@ -33720,8 +33698,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluered"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/south)
 "cRQ" = (
@@ -38595,7 +38573,9 @@
 	dir = 4
 	},
 /obj/structure/closet/wardrobe/red,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
 /area/security/checkpoint2)
 "drG" = (
 /obj/structure/cable/orange{
@@ -39363,6 +39343,9 @@
 "dvN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42347,9 +42330,6 @@
 	id = "CargoWaste"
 	},
 /obj/machinery/recycler,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "eeI" = (
@@ -42561,9 +42541,12 @@
 	name = "Criminal Deposit";
 	req_access_txt = "2"
 	},
-/obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/stripes/full,
+/obj/effect/turf_decal/stripes/red/full,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/security/checkpoint2)
 "ekt" = (
 /obj/structure/table/wood,
@@ -44992,8 +44975,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluered"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/south)
 "flS" = (
@@ -46273,6 +46256,26 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"fNi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "redcorner"
+	},
+/area/hallway/secondary/entry/south)
 "fNq" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1;
@@ -47605,8 +47608,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluered"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/south)
 "grJ" = (
@@ -49102,7 +49105,8 @@
 	name = "south bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "gRu" = (
@@ -50190,15 +50194,19 @@
 	},
 /area/maintenance/fsmaint)
 "hpg" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment/corner,
-/turf/simulated/floor/plasteel{
+/obj/machinery/computer/card{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
 	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "hpD" = (
@@ -52146,7 +52154,8 @@
 	name = "east bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6
+	dir = 6;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "idY" = (
@@ -52500,6 +52509,11 @@
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"ioE" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/checkpoint2)
 "ioJ" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -54428,7 +54442,8 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 1
+	dir = 1;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry)
 "jdN" = (
@@ -55164,7 +55179,7 @@
 	},
 /area/medical/cmostore)
 "jsi" = (
-/obj/structure/reagent_dispensers/watertank/high,
+/obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "jsB" = (
@@ -55829,6 +55844,9 @@
 	dir = 1
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56089,8 +56107,8 @@
 	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluered"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/south)
 "jJr" = (
@@ -56578,7 +56596,8 @@
 	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "jUA" = (
@@ -59116,8 +59135,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/north)
 "kUO" = (
@@ -59363,8 +59382,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/north)
 "kYJ" = (
@@ -66986,7 +67005,8 @@
 /area/maintenance/port)
 "ohr" = (
 /turf/simulated/floor/plasteel{
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "ohN" = (
@@ -67315,8 +67335,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluered"
+	dir = 4;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/south)
 "omG" = (
@@ -67333,7 +67353,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "ony" = (
@@ -67999,7 +68020,8 @@
 "oDP" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
-	dir = 8
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "oDU" = (
@@ -72170,7 +72192,8 @@
 	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5
+	dir = 5;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "qgu" = (
@@ -75940,7 +75963,12 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
 /area/security/checkpoint2)
 "rFJ" = (
 /obj/structure/chair/comfy/corp{
@@ -76845,8 +76873,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/hallway/secondary/entry/north)
 "rYs" = (
@@ -80487,7 +80515,9 @@
 /obj/structure/table,
 /obj/item/crowbar,
 /obj/item/radio,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
 /area/security/checkpoint2)
 "tsV" = (
 /obj/machinery/chem_dispenser,
@@ -83530,9 +83560,6 @@
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "CargoWaste"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -86921,6 +86948,9 @@
 /obj/machinery/conveyor_switch/oneway{
 	id = "CargoWaste"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86934,7 +86964,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredfull"
+	},
 /area/security/checkpoint2)
 "wag" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
@@ -87129,13 +87161,19 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "wfJ" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
 /obj/machinery/newscaster/security_unit{
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
 "wfR" = (
@@ -135785,10 +135823,10 @@ yep
 xSo
 ekk
 chE
-ciN
+ioE
 drE
 xSo
-kuZ
+fNi
 cjs
 vjb
 sHm
@@ -136299,7 +136337,7 @@ ihT
 cgr
 xSo
 chG
-ciN
+ioE
 cjy
 fvb
 flM
@@ -136556,7 +136594,7 @@ pXf
 yep
 xSo
 wfJ
-ciN
+ioE
 ciN
 wAh
 cRN
@@ -136813,7 +136851,7 @@ wIS
 vqi
 xSo
 omT
-ciN
+ioE
 tsS
 xSo
 jJn
@@ -141559,9 +141597,9 @@ rNK
 rNK
 rNK
 rIu
-aqL
-arK
-asK
+aqJ
+uHP
+dvN
 pjx
 waj
 waj
