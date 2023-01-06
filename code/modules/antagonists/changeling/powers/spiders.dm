@@ -12,11 +12,10 @@
 
 //Makes some spiderlings. Good for setting traps and causing general trouble.
 /datum/action/changeling/spiders/sting_action(mob/user)
-	var/datum/action/changeling/spiders/C = locate() in owner.actions
 	if(is_operating == TRUE) // To stop spawning multiple at once
 		return FALSE
 	is_operating = TRUE
-	if(C.spider_counter > 4)
+	if(spider_counter > 4)
 		to_chat(user, "<span class='warning'>We cannot sustain more than five spiders!</span>")
 		is_operating = FALSE
 		return FALSE
