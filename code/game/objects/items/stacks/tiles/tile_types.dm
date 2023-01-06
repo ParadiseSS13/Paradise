@@ -267,7 +267,7 @@
 	desc = "A sheet of disco light tile."
 	icon_state = "tile_disco"
 	turf_type = /turf/simulated/floor/light/disco
-	merge_type = /turf/simulated/floor/light/disco
+	merge_type = /obj/item/stack/tile/disco_light
 
 /obj/item/stack/tile/disco_light/thirty
 	amount = 30
