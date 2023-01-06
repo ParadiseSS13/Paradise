@@ -31076,7 +31076,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/structure/disposalpipe/junction{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -75511,11 +75511,7 @@
 	},
 /area/toxins/hallway)
 "kCk" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 1;
-	icon_state = "pipe-j2s";
-	name = "Cargo Disposals"
-	},
+/obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "kDl" = (
@@ -80651,6 +80647,19 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/misc_lab)
+"oFy" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "oFK" = (
 /obj/machinery/light{
 	dir = 8
@@ -143015,7 +143024,7 @@ ciY
 ciY
 eaT
 kmA
-hyf
+oFy
 ldn
 ldn
 dIQ
