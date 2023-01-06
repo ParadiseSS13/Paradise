@@ -173,7 +173,7 @@
 					/obj/item/storage/backpack/medic = 50,
 					/obj/item/storage/backpack/satchel_med = 50,
 					/obj/item/storage/backpack/duffel/medical = 50,
-					/obj/item/clothing/gloves/color/latex/nitrile = 75)
+					/obj/item/clothing/gloves/color/latex/nitrile = 50)
 	refill_canister = /obj/item/vending_refill/medidrobe
 
 /obj/machinery/economy/vending/virodrobe

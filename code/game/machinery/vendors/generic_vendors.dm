@@ -340,9 +340,9 @@
 				/obj/item/clothing/suit/mantle/regal = 30,
 				/obj/item/clothing/under/suit/checkered = 125,
 				/obj/item/clothing/head/mailman = 60,
-				/obj/item/clothing/under/misc/mailman = 125,
-				/obj/item/clothing/suit/jacket/leather = 125,
-				/obj/item/clothing/under/pants/mustangjeans = 125)
+				/obj/item/clothing/under/misc/mailman = 100,
+				/obj/item/clothing/suit/jacket/leather = 100,
+				/obj/item/clothing/under/pants/mustangjeans = 100)
 
 	refill_canister = /obj/item/vending_refill/clothing
 
