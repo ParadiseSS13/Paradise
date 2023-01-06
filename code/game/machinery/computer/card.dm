@@ -240,7 +240,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	if(!targetjob || !targetjob.title)
 		return FALSE
-	if(targetjob.title in get_subordinates(scan.assignment, include_assistants))
+	if(targetjob.title in get_subordinates(scan.rank, include_assistants))
 		return TRUE
 	return FALSE
 
@@ -329,7 +329,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(!scan)
 					return data
 				else if(target_dept)
-					data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
+					data["jobs_dept"] = get_subordinates(scan.rank, FALSE)
 					data["canterminate"] = has_idchange_access()
 				else
 					data["account_number"] = modify ? modify.associated_account_number : null
@@ -369,7 +369,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
 		if(IDCOMPUTER_SCREEN_DEPT) // DEPARTMENT EMPLOYEE LIST
 			if(is_authenticated(user) && scan) // .requires both (aghosts don't count)
-				data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
+				data["jobs_dept"] = get_subordinates(scan.rank, FALSE)
 				data["people_dept"] = get_employees(data["jobs_dept"])
 	return data
 
