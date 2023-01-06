@@ -186,16 +186,15 @@
 	is_operating = TRUE
 	if(!state_open)
 		playsound(loc, open_sound, 100, 1)
-		flick("[initial_state]opening",src)
+		flick("[initial_state]opening", src)
 	else
-		var/turf/T = get_turf(src)
-		for(var/mob/living/L in T)
+		for(var/mob/living/L in get_turf(src))
 			is_operating = FALSE
 			if(state_open)
 				addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
 			return
 		playsound(loc, close_sound, 100, 1)
-		flick("[initial_state]closing",src)
+		flick("[initial_state]closing", src)
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
@@ -290,9 +289,7 @@
         check_counter = 0
 
 /obj/structure/alien/weeds/proc/clear_wall_weed()
-	if(wall_weed)
-		qdel(wall_weed)
-		wall_weed = null
+	QDEL_NULL(wall_weed)
 
 /obj/structure/alien/weeds/proc/check_surroundings()
 	var/turf/T = get_turf(src)
