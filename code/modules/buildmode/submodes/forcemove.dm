@@ -24,6 +24,7 @@
 
 		selected_atom = A
 		to_chat(user, "<span class='notice'>'[selected_atom]' is selected to be moved.</span>")
+		return
 
 	// Selecting the destination to move to
 	if(left_click)
@@ -49,4 +50,3 @@
 		log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
 
 		selected_atom = null
-		return
