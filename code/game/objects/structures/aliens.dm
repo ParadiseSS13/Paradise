@@ -217,11 +217,11 @@
 /obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
 		try_to_operate(user)
-	else
-		to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
-		if(!do_after(user, 40, target = src) || QDELETED(src))
-			return
-		qdel(src)
+		return
+	to_chat(user, "<span class='noticealien'>We begin tearing down this resin structure.</span>")
+	if(!do_after(user, 40, target = src) || QDELETED(src))
+		return
+	qdel(src)
 
 /obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
 	if(iscarbon(mover))
@@ -256,9 +256,9 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
 	var/obj/structure/alien/weeds/node/linked_node = null
-	var/obj/structure/alien/wallweed/wall_weed
+	var/obj/structure/alien/wallweed/wall_weed // This var is used to handle wall-weed interactions for when they need to be deleted
 	var/static/list/weedImageCache
-	var/check_counter
+	var/check_counter // This var is how many process() procs it takes for a weed to spread
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
 	..()
@@ -308,7 +308,7 @@
 
 	var/list/nearby_open_turfs = T.AdjacentTurfs(open_only = TRUE, cardinal_only = TRUE)
 
-	for(var/turf/W in nearby_open_turfs)
+	for(var/turf/W in nearby_open_turfs) // This handles removal of corner-weeds when they are to be replaced with a full side-weed instead
 		if(locate(/obj/structure/alien/weeds, W))
 			var/dirs = get_dir(W, T)
 			switch(dirs)

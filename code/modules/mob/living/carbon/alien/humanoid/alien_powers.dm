@@ -129,7 +129,7 @@ Doesn't work on other aliens/AI.*/
 	var/choice = show_radial_menu(src, src, resin_buildings, src, radius = 40)
 	if(powerc(55, TRUE))
 		var/built = FALSE
-		for(var/obj/structure/alien/resin/S in get_turf(src))
+		if(locate(/obj/structure/alien/resin) in get_turf(src))
 			to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
 			return
 		adjustPlasma(-55)
