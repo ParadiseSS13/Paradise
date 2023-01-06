@@ -111,3 +111,44 @@
 	var/color_save = color
 	..()
 	color = color_save
+
+// These tiles change color every now and then
+/turf/simulated/floor/light/disco
+	floor_tile = /obj/item/stack/tile/disco_light
+	can_modify_colour = FALSE	// This tile has a set of colours, thus no interfering
+	var/list/available_colors = list("#d41e3c", "#ed7b39", "#fff540", "#77b02a", "#488bd4", "#b0fff1", "#94007a", "#ff417d")	// These are all the colors we can ever become
+	var/current_color	// This is our current color, don't pick it again (integer for faster list accessing)
+
+// We pick a random color when we are spawned
+/turf/simulated/floor/light/disco/Initialize()
+	START_PROCESSING(SSobj, src)
+	current_color = rand(1, length(available_colors))
+	..()
+
+// The animation happens in this proc
+/turf/simulated/floor/light/disco/proc/change_color()
+	animate_fade_to_color_fill(src, pick_color(), 2)
+
+// We choose a different color here than what we have now
+/turf/simulated/floor/light/disco/proc/pick_color()
+	current_color = pick_different_from_list(available_colors, current_color)
+	return available_colors[current_color]
+
+// We change colors every now and then
+/turf/simulated/floor/light/disco/process()
+	if(on)
+		change_color()
+
+// Admins can toggle its color with advanced admin interaction
+/turf/simulated/floor/light/disco/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		change_color()
+
+// One is able to restart it, if power runs out. However, it cannot be turned off!
+/turf/simulated/floor/light/disco/attack_hand(mob/user)
+	if(!on)
+		toggle_light(TRUE)
+
+/turf/simulated/floor/light/disco/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	..()

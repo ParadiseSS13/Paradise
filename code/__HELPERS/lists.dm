@@ -855,3 +855,21 @@
 			return FALSE
 
 	return TRUE
+
+// Pick something else from a list than we last picked
+/proc/pick_different_from_list(list/l, current_index, var/next_index)
+	if(!islist(l))
+		return FALSE
+
+	next_index = rand(1, length(l))
+
+	if(next_index == current_index)
+		next_index += pick(-1, 1)
+
+		if(next_index > length(l))
+			next_index = 1
+
+		else if(next_index < 1)
+			next_index = length(l)
+
+	return next_index
