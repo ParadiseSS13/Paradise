@@ -190,15 +190,7 @@
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
-
-/**
- * Handles creation of mob organs.
- *
- * Arguments:
- * * H: The human to create organs inside of
- * * bodyparts_to_omit: Any bodyparts in this list (and organs within them) should not be added.
- */
-/datum/species/proc/create_organs(mob/living/carbon/human/H, list/bodyparts_to_omit) //Handles creation of mob organs.
+/datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
 	QDEL_LIST_CONTENTS(H.internal_organs)
 	QDEL_LIST_CONTENTS(H.bodyparts)
 
@@ -206,29 +198,21 @@
 	LAZYREINITLIST(H.bodyparts_by_name)
 	LAZYREINITLIST(H.internal_organs)
 
-	for(var/limb_name in has_limbs)
-		if(bodyparts_to_omit && (limb_name in bodyparts_to_omit))
-			H.bodyparts_by_name[limb_name] = null  // Null it out, but leave the name here so it's still "there"
-			continue
-		var/list/organ_data = has_limbs[limb_name]
+	for(var/limb_type in has_limbs)
+		var/list/organ_data = has_limbs[limb_type]
 		var/limb_path = organ_data["path"]
 		var/obj/item/organ/O = new limb_path(H)
 		organ_data["descriptor"] = O.name
 
 	for(var/index in has_organ)
-		var/obj/item/organ/internal/organ_path = has_organ[index]
-		if(initial(organ_path.parent_organ) in bodyparts_to_omit)
-			continue
-
-		var/obj/item/organ/internal/org = new organ_path()
-		org.insert(H)
+		var/organ = has_organ[index]
+		// organ new code calls `insert` on its own
+		new organ(H)
 
 	create_mutant_organs(H)
 
 	for(var/name in H.bodyparts_by_name)
-		var/part_type = H.bodyparts_by_name[name]
-		if(!isnull(part_type))
-			H.bodyparts |= part_type  // we do not want nulls here, even though it's alright to have them in bodyparts_by_name
+		H.bodyparts |= H.bodyparts_by_name[name]
 
 	for(var/obj/item/organ/external/E as anything in H.bodyparts)
 		E.owner = H
@@ -237,15 +221,10 @@
 /datum/species/proc/create_mutant_organs(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(ears)
-		if(istype(ears, mutantears))
-			// if they're the same, just heal them and don't bother replacing them
-			ears.rejuvenate()
-			return
 		qdel(ears)
 
-	if(mutantears && !isnull(H.bodyparts_by_name[initial(mutantears.parent_organ)]))
-		var/obj/item/organ/internal/ears/new_ears = new mutantears()
-		new_ears.insert(H)
+	if(mutantears)
+		ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
