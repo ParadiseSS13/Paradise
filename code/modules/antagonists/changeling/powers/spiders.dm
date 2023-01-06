@@ -20,6 +20,7 @@
 		to_chat(user, "<span class='warning'>We cannot sustain more than five spiders!</span>")
 		is_operating = FALSE
 		return FALSE
+	user.visible_message("<span class='danger'>[user] begins vomiting an arachnid!</span>")
 	if(do_after(user, 5 SECONDS, FALSE, target = user)) // Takes 5 seconds to spawn a spider
 		spider_counter++
 		var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/S = new(user.loc)
