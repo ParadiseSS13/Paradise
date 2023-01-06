@@ -857,7 +857,9 @@
 	return TRUE
 
 // Pick something else from a list than we last picked
-/proc/pick_different_from_list(list/l, current_index, var/next_index)
+/proc/pick_different_from_list(list/l, current_index)
+	var/next_index
+
 	if(!islist(l))
 		return FALSE
 
