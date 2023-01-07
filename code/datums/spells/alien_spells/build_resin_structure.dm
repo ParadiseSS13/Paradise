@@ -20,6 +20,11 @@
 		to_chat(user, "<span class='alertalien'>You cannot build the [choice] while in space!")
 		revert_cast(user)
 		return
+	var/obj/structure/alien/resin/resin_on_turf = locate() in T
+	if(resin_on_turf)
+		to_chat(user, "<span class='danger'>There is already a resin construction here.</span>")
+		revert_cast(user)
+		return
 	visible_message("<span class='alertalien'>[user] vomits up a thick purple substance and shapes it!</span>")
 	switch(choice)
 		if("Resin Wall (55)")

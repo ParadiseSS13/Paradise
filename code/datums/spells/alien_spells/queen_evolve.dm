@@ -10,7 +10,7 @@
 /obj/effect/proc_holder/spell/alien_spell/evolve_queen/cast(list/targets, mob/living/carbon/user)
 	/// First we check if there is a living queen
 	for(var/mob/living/carbon/alien/humanoid/queen/living_queen in GLOB.alive_mob_list)
-		if(living_queen.key && !living_queen.get_int_organ(/obj/item/organ/internal/brain)) // We do a once over to check the queen didn't end up going away into the magic land of semi-dead
+		if(living_queen.key || !living_queen.get_int_organ(/obj/item/organ/internal/brain)) // We do a once over to check the queen didn't end up going away into the magic land of semi-dead
 			to_chat(user, "<span class='notice'>We already have an alive queen.</span>")
 			revert_cast(user)
 			return
