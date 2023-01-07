@@ -10,8 +10,8 @@
 					return FALSE
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
-			if(!mind?.martial_art?.deflection_chance) //No turning off carp throwing rods at them
-				throw_mode_off()
+			throw_mode_off()
+			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 			return TRUE
 	return ..()
 
