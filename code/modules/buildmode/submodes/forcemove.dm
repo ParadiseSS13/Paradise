@@ -37,12 +37,8 @@
 		return
 
 	// Block these as they can only lead to issues
-	if(iseffect(destination))
-		to_chat(user, "<span class='danger'>You should not move atoms into effects.</span>")
-		return
-
-	if(isobserver(destination))
-		to_chat(user, "<span class='danger'>You should not move atoms into ghosts.</span>")
+	if(iseffect(destination) || isobserver(destination))
+		to_chat(user, "<span class='danger'>You should not move atoms into effects or ghosts.</span>")
 		return
 
 	// Typecasting for the right forceMove()
