@@ -553,15 +553,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/trader_station/sol
 	name = "Jupiter Station 6"
 
-//Labor camp
-/area/mine/laborcamp
-	name = "Labor Camp"
-	icon_state = "brig"
-
-/area/mine/laborcamp/security
-	name = "Labor Camp Security"
-	icon_state = "security"
-
 //STATION13
 
 /area/atmos
