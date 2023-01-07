@@ -5,7 +5,7 @@
 	action_icon_state = "alien_whisper"
 	var/target
 
-/obj/effect/proc_holder/spell/alien_spell/whisper/create_new_targeting() // Yeah this is copy and pasted code from cryoken and I HATE IT and will come back to it later -GDN
+/obj/effect/proc_holder/spell/alien_spell/whisper/create_new_targeting() // Yeah this is copy and pasted code from cryoken and it's good enough
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
 	T.click_radius = 0

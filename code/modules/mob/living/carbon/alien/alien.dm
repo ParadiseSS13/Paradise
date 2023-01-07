@@ -222,13 +222,15 @@ Des: Removes all infected images from the alien.
 /mob/living/carbon/alien/canBeHandcuffed()
 	return TRUE
 
-/mob/living/carbon/proc/updatePlasmaDisplay()
+/* Although this is on the carbon level, we only want this proc'ing for aliens that do have this hud. Only humanoid aliens do at the moment, so on pretty much every
+time we end up calling this proc, we also end up checking if they're an alien or not beforehand */
+/mob/living/carbon/proc/updateplasmadisplay()
 	if(!hud_used) //clientless aliens
 		return
-	hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[getPlasma()]</font></div>"
+	hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font face='Small Fonts' color='magenta'>[get_plasma()]</font></div>"
 	hud_used.alien_plasma_display.maptext_x = -3
 
-/mob/living/carbon/alien/larva/updatePlasmaDisplay()
+/mob/living/carbon/alien/larva/updateplasmadisplay()
 	return
 
 /mob/living/carbon/alien/can_use_vents()

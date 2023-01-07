@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin
 	name = "Neurotoxin spit"
-	desc = "This ability allows you to fire some neurotoxin, lets you knockdown anyone you hit."
+	desc = "This ability allows you to fire some neurotoxin. Knocks down anyone you hit, applies a small amount of stamina damage as well."
 	base_cooldown = 5 SECONDS
 	plasma_cost = 50
 	selection_activated_message		= "<span class='notice'>Your prepare some neurotoxin!</B></span>"
@@ -15,7 +15,7 @@
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
 	var/target = targets[1]
 	var/turf/T = user.loc
-	var/turf/U = get_step(user, user.dir) // Aimbot takes all
+	var/turf/U = get_step(user, user.dir) // A little aimbot is fine
 	if(!isturf(U) || !isturf(T))
 		return FALSE
 

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/alien_spell/evolve_queen
 	name = "Evolve into an alien queen"
-	desc = "Allows you to evolve into an alien queen."
-	plasma_cost = 500 // yea
+	desc = "Evolve into an alien queen."
+	plasma_cost = 500
 	action_icon_state = "alien_evolve_drone"
 
 /obj/effect/proc_holder/spell/alien_spell/evolve_queen/create_new_targeting()
@@ -14,7 +14,7 @@
 			to_chat(user, "<span class='notice'>We already have an alive queen.</span>")
 			revert_cast(user)
 			return
-	/// If there is none, that means we can evolve
+	// If there is no queen, that means we can evolve
 	to_chat(user, "<span class='noticealien'>You begin to evolve!</span>")
 	for(var/mob/O in viewers(user, null))
 		O.show_message(text("<span class='alertalien'>[user] begins to twist and contort!</span>"), 1)

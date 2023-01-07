@@ -1,3 +1,9 @@
+/* This is the handler for alien spells
+This relies on a lot of different procs on the spell and carbon level, so if you are editing this, remember to check that the other procs aren't editied in a way that
+could change behavior.
+You're gonna see a lot of plasmavessel checks and alien checks, as a lot of things need to work a certain way when used by an alien, and a different way when used by a human.
+This was also the case with the verb implementation, it's just much more obvious now.
+ */
 /datum/spell_handler/alien
 	/// Amount of plasma required to use this ability
 	var/plasma_cost = 0
@@ -16,15 +22,17 @@
 	user.use_plasma_spell(plasma_cost, user)
 
 /datum/spell_handler/alien/before_cast(list/targets, mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
-	to_chat(user, "<span class='boldnotice'>You have [user.getPlasma()] plasma left to use.</span>")
-	user.updatePlasmaDisplay()
+	to_chat(user, "<span class='boldnotice'>You have [user.get_plasma()] plasma left to use.</span>")
+	if(isalien(user))
+		user.updateplasmadisplay()
 
 /datum/spell_handler/alien/revert_cast(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
 	user.add_plasma(plasma_cost, user)
-	to_chat(user, "<span class='boldnotice'>You have [user.getPlasma()] plasma left to use.</span>")
-	user.updatePlasmaDisplay()
+	to_chat(user, "<span class='boldnotice'>You have [user.get_plasma()] plasma left to use.</span>")
+	if(isalien(user))
+		user.updateplasmadisplay()
 
-/mob/living/carbon/proc/getPlasma()
+/mob/living/carbon/proc/get_plasma()
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	if(!vessel)
 		return FALSE

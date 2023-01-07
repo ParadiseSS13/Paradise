@@ -13,7 +13,6 @@
 	var/max_grown = 200
 	var/time_of_birth
 	var/already_transfering = FALSE
-	var/continue_cast = TRUE
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
 
@@ -50,10 +49,6 @@
 	to_chat(src, "<span class='noticealien'>You prepare to transfer plasma.</span>")
 	already_transfering = TRUE
 
-/mob/living/carbon/alien/larva/proc/plasma_check_larva(plasma)
-	var/plasma_total = getPlasma()
-	if(plasma_total < plasma)
-		continue_cast = FALSE
 
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()

@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/alien_spell/build_resin
 	name = "Build Resin Structure"
-	desc = "Allows you to create resin structures, does not work while in space."
+	desc = "Allows you to create resin structures. Does not work while in space."
 	plasma_cost = 55
 	action_icon_state = "alien_resin"
 

@@ -3,13 +3,13 @@
 
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
-In all, this is a lot like the monkey code. /N
+In all, this is a lot like the monkey code.
+This code could certainly use with a touch of TLC, but it functions alright. Bit odd aliens attacking other aliens are like, full logged though
 */
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
 	if(isturf(loc) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
-
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			AdjustSleeping(-10 SECONDS)
@@ -24,26 +24,6 @@ In all, this is a lot like the monkey code. /N
 			grabbedby(M)
 
 		else
-			if(islarva(M))
-				var/mob/living/carbon/alien/target = src
-				var/mob/living/carbon/alien/larva/transfering_larva = M
-				transfering_larva.plasma_check_larva(50)
-				if(!transfering_larva.continue_cast)
-					to_chat(transfering_larva, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
-					transfering_larva.already_transfering = FALSE
-					transfering_larva.continue_cast = TRUE
-					return
-				if(!transfering_larva.already_transfering)
-					to_chat(transfering_larva, "<span class='noticealien'>You struggle to bite through the thick skin of an alien.</span>")
-					return
-				transfering_larva.do_attack_animation(src, ATTACK_EFFECT_BOOP)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[transfering_larva.name] transfers some plasma to [target]!</span>", \
-						"<span class='userdanger'>[transfering_larva.name] transfers some plasma to [target]!</span>")
-				transfering_larva.add_plasma(-50, transfering_larva)
-				target.add_plasma(50, target)
-				transfering_larva.already_transfering = FALSE
-				return
 			if(health > 0)
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
@@ -53,13 +33,32 @@ In all, this is a lot like the monkey code. /N
 				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
 			else
 				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
+	if(islarva(M))
+		var/mob/living/carbon/alien/target = src
+		var/mob/living/carbon/alien/larva/transfering_larva = M
+		if(!transfering_larva.already_transfering)
+			return
+		if(target == transfering_larva)
+			to_chat(M, "<span class='notice'>You cannot transfer plasma to yourself.</span>")
+			return
+		if(transfering_larva.get_plasma() < 50) // If you don't have enough plasma, you shouldn't be able to transfer plasma you don't have
+			transfering_larva.already_transfering = FALSE
+			return
+		transfering_larva.do_attack_animation(src, ATTACK_EFFECT_BOOP)
+		playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+		visible_message("<span class='danger'>[transfering_larva.name] transfers some plasma to [target]!</span>", \
+			"<span class='userdanger'>[transfering_larva.name] transfers some plasma to [target]!</span>")
+		transfering_larva.add_plasma(-50, transfering_larva)
+		target.add_plasma(50, target)
+		transfering_larva.already_transfering = FALSE
+		return
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
-		return 0
+		return FALSE
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
@@ -73,8 +72,8 @@ In all, this is a lot like the monkey code. /N
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -95,9 +94,9 @@ In all, this is a lot like the monkey code. /N
 				adjustStaminaLoss(damage)
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
-	return 0 //aliens are immune to acid.
+	return FALSE //aliens are immune to acid.
 
-/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M) // This is very RNG based, maybe come back to this later - GDN
 	if(..()) //successful slime attack
 		var/damage = rand(5, 35)
 		if(M.is_adult)

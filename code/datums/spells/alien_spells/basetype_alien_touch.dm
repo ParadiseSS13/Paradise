@@ -2,11 +2,14 @@
 	name = "Basetype Alien spell"
 	desc = "You should not see this in game, if you do file a github report!"
 	hand_path = "/obj/item/melee/touch_attack/alien"
+	/// Extremely fast cooldown, only present so the cooldown system doesn't explode
 	base_cooldown = 1
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
 	create_attack_logs = FALSE
+	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
 	create_only_logs = TRUE
+	/// We want a special on remove message, so we got this variable to do so
 	on_remove_message = FALSE
 	/// How much plasma it costs to use this
 	var/plasma_cost = 0
@@ -34,15 +37,17 @@
 /obj/item/melee/touch_attack/alien
 	name = "Basetype Alien touch_attack"
 	desc = "You should not see this in game, if you do file a github report!"
-	has_catchphrase = FALSE // SHUT
-	needs_permit = FALSE // No, beepsky WILL NOT arrest you for this
+	/// Alien spells don't have catchphrases
+	has_catchphrase = FALSE
+	/// Beepsky shouldn't be arresting you over this
+	needs_permit = FALSE
 	var/continue_cast = TRUE
 
 /obj/item/melee/touch_attack/alien/attack_alien(mob/user) // Can be picked up by aliens... if it got on the ground somehow
 	return attack_hand(user)
 
 /obj/item/melee/touch_attack/alien/proc/plasma_check(plasma, mob/living/carbon/user)
-	var/plasma_current = user.getPlasma()
+	var/plasma_current = user.get_plasma()
 	if(plasma_current < plasma)
 		attached_spell.attached_hand = null
 		qdel(src)

@@ -5,7 +5,7 @@
 	tough = TRUE
 	sterile = TRUE
 
-///can be changed if aliens get an update..
+/// This adds and removes alien spells upon addition, if a noncarbon tries to do this well... I blame adminbus
 /obj/item/organ/internal/alien/insert(mob/living/carbon/M, special = 0)
 	..()
 	for(var/powers_to_add in alien_powers)
@@ -91,14 +91,12 @@
 /obj/item/organ/internal/alien/plasmavessel/insert(mob/living/carbon/M, special = 0)
 	..()
 	if(isalien(M))
-		var/mob/living/carbon/alien/A = M
-		A.updatePlasmaDisplay()
+		M.updateplasmadisplay()
 
 /obj/item/organ/internal/alien/plasmavessel/remove(mob/living/carbon/M, special = 0)
 	. =..()
 	if(isalien(M))
-		var/mob/living/carbon/alien/A = M
-		A.updatePlasmaDisplay()
+		M.updateplasmadisplay()
 
 
 /obj/item/organ/internal/alien/acidgland
