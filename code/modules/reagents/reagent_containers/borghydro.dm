@@ -103,6 +103,7 @@
 	mode++
 	if(mode > reagent_list.len)
 		mode = 1
+	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
 	return
