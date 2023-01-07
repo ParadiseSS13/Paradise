@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid
 	name = "Corrosive acid"
-	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking propery safety equipment."
+	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment."
 	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid"
 	action_icon_state = "alien_acid"
 	plasma_cost = 200
