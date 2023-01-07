@@ -5,7 +5,6 @@
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/chokehold_active = FALSE //Then uses this to determine if the restrain actually goes anywhere
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
-														/area/crew_quarters/cafeteria,
 														/area/crew_quarters/bar))
 
 /datum/martial_art/cqc/under_siege
