@@ -54,8 +54,8 @@
 
 	preop_sound = list(
 		TOOL_BONEGEL =  'sound/surgery/organ1.ogg',
-		/obj/item/screwdriver = 'sound/items/screwdriver.ogg',
-		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg'
+		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
 	)
 
 	can_infect = TRUE
@@ -166,8 +166,8 @@
 
 	preop_sound = list(
 		TOOL_BONEGEL =  'sound/surgery/organ1.ogg',
-		/obj/item/screwdriver = 'sound/items/screwdriver.ogg',
-		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg'
+		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
 	)
 
 	can_infect = TRUE
