@@ -861,7 +861,7 @@
 	var/next_index
 
 	if(!islist(l))
-		return FALSE
+		return null
 
 	next_index = rand(1, length(l))
 
