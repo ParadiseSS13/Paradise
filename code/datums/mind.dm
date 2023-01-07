@@ -1541,10 +1541,10 @@
 /**
  * Removes all antag datums from the src mind.
  *
- * Use this over doing `QDEL_LIST(antag_datums)`.
+ * Use this over doing `QDEL_LIST_CONTENTS(antag_datums)`.
  */
 /datum/mind/proc/remove_all_antag_datums()
-	// This is not `QDEL_LIST(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
+	// This is not `QDEL_LIST_CONTENTS(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
 	// Then `QDEL_LIST` would runtime because it would be doing `null.Cut()`.
 	for(var/datum/antagonist/A as anything in antag_datums)
 		qdel(A)

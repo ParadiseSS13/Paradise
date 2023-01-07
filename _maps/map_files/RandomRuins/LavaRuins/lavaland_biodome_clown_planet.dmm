@@ -82,7 +82,7 @@
 /turf/simulated/floor/lubed,
 /area/ruin/powered/clownplanet)
 "ai" = (
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/junction{
 	dir = 1
 	},
 /turf/simulated/wall/r_wall,
