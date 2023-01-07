@@ -151,4 +151,4 @@
 
 /turf/simulated/floor/light/disco/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	..()
+	return ..()
