@@ -121,9 +121,9 @@
 
 // We pick a random color when we are spawned
 /turf/simulated/floor/light/disco/Initialize()
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	current_color = rand(1, length(available_colors))
-	..()
 
 // The animation happens in this proc
 /turf/simulated/floor/light/disco/proc/change_color()
