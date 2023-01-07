@@ -151,9 +151,10 @@
 	)
 
 	preop_sound = list(
-		/obj/item/surgicaldrill = 'sound/items/drill_hit.ogg',
+		TOOL_DRILL = 'sound/items/drill_hit.ogg',
 		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
-		/obj/item = 'sound/surgery/organ2.ogg',
+		/obj/item/pen = 'sound/surgery/organ2.ogg',
+		/obj/item/stack/rods = 'sound/surgery/organ2.ogg'
 	)
 	time = 5.4 SECONDS
 

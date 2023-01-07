@@ -686,13 +686,14 @@
 	name = "saw carapace"
 	allowed_tools = list(
 		TOOL_SAW = 100,
-		/obj/item/melee/energy/sword/cyborg/saw = 100,
-		/obj/item/hatchet = 90
+		/obj/item/hatchet = 90,
+		/obj/item/melee/arm_blade = 75
 	)
 
 	preop_sound = list(
-		/obj/item/circular_saw = 'sound/surgery/saw.ogg',
-		/obj/item = 'sound/surgery/scalpel1.ogg',
+		TOOL_SAW = 'sound/surgery/saw.ogg',
+		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
+		/obj/item/melee/arm_blade = 'sound/surgery/scalpel1.ogg'
 	)
 
 	success_sound = 'sound/surgery/organ2.ogg'

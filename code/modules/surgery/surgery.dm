@@ -525,24 +525,29 @@
 				return TRUE
 
 /datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!preop_sound)
+	if(!preop_sound || ismachineperson(target))
 		return
 	var/sound_file_use
 	if(islist(preop_sound))
-		for(var/typepath in preop_sound)//iterate and assign subtype to a list, works best if list is arranged from subtype first and parent last
-			if(istype(tool, typepath))
+		if(istype(tool))
+			for(var/typepath in preop_sound)
+				if(!ispath(typepath) && (typepath in GLOB.surgery_tool_behaviors))
+					sound_file_use = preop_sound[typepath]
+					break
+
+		for(var/typepath in preop_sound)
+			if(ispath(typepath) && istype(tool, typepath))
 				sound_file_use = preop_sound[typepath]
-				break
 	else
 		sound_file_use = preop_sound
-	playsound(get_turf(target), sound_file_use, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
+	playsound(get_turf(target), sound_file_use, 65, TRUE, falloff_exponent = 12, falloff_distance = 1)
 
 /datum/surgery_step/proc/play_success_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!success_sound)
+	if(!success_sound || ismachineperson(target))
 		return
-	playsound(get_turf(target), success_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
+	playsound(get_turf(target), success_sound, 65, TRUE, falloff_exponent = 12, falloff_distance = 1)
 
 /datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!failure_sound)
+	if(!failure_sound || ismachineperson(target))
 		return
-	playsound(get_turf(target), failure_sound, 75, TRUE, falloff_exponent = 12, falloff_distance = 1)
+	playsound(get_turf(target), failure_sound, 65, TRUE, falloff_exponent = 12, falloff_distance = 1)

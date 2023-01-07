@@ -222,11 +222,11 @@
 	)
 
 	preop_sound = list(
+		TOOL_DRILL = 'sound/items/drill_hit.ogg',
 		/obj/item/screwdriver/power = 'sound/items/drill_hit.ogg',
-		/obj/item/screwdriver = 'sound/items/screwdriver.ogg',
 		/obj/item/pickaxe/drill = 'sound/weapons/drill.ogg',
 		/obj/item/mecha_parts/mecha_equipment/drill = 'sound/weapons/drill.ogg',
-		/obj/item = 'sound/items/drill_hit.ogg',
+		/obj/item/screwdriver = 'sound/items/screwdriver.ogg'
 	)
 
 	time = 3 SECONDS
@@ -263,8 +263,9 @@
 	)
 
 	preop_sound = list(
-		/obj/item/circular_saw = 'sound/surgery/saw.ogg',
-		/obj/item = 'sound/surgery/scalpel1.ogg',
+		TOOL_SAW = 'sound/surgery/saw.ogg',
+		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
+		/obj/item/melee/arm_blade = 'sound/surgery/scalpel1.ogg'
 	)
 
 	success_sound = 'sound/surgery/organ2.ogg'
