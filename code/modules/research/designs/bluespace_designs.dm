@@ -12,23 +12,13 @@
 	category = list("Bluespace")
 
 /datum/design/bag_holding
-	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Blue Space."
+	name = "Inert Bag of Holding"
+	desc = "A block of metal ready to be transformed into a bag of holding with a bluespace anomaly core."
 	id = "bag_holding"
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 7, "plasmatech" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250, MAT_BLUESPACE = 2000)
-	build_path = /obj/item/storage/backpack/holding
-	category = list("Bluespace")
-
-/datum/design/bluespace_belt
-	name = "Belt of Holding"
-	desc = "An astonishingly complex belt popularized by a rich blue-space technology magnate."
-	id = "bluespace_belt"
-	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 6, "plasmatech" = 6)
-	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 1500, MAT_DIAMOND = 3000, MAT_URANIUM = 1000)
-	build_path = /obj/item/storage/belt/bluespace
+	build_path = /obj/item/bag_of_holding_inert
 	category = list("Bluespace")
 
 /datum/design/telesci_gps

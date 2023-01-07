@@ -172,3 +172,11 @@
 				/obj/item/assembly/voice = 1,
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/boh
+	name = "Bag of Holding"
+	result = list(/obj/item/storage/backpack/holding)
+	reqs = list(
+            /obj/item/bag_of_holding_inert = 1,
+            /obj/item/assembly/signaler/anomaly/bluespace = 1)
+	category = CAT_CLOTHING

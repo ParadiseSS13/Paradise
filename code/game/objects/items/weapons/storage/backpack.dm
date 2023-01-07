@@ -49,6 +49,18 @@
  * Backpack Types
  */
 
+/obj/item/bag_of_holding_inert
+	name = "inert bag of holding"
+	desc = "What is currently a just an unwieldly block of metal with a slot ready to accept a bluespace anomaly core."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "brokenpack"
+	item_state = "brokenpack"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
+	resistance_flags = FIRE_PROOF
+	flags_2 = NO_MAT_REDEMPTION_2
+
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
 	desc = "A backpack that opens into a localized pocket of Blue Space."
