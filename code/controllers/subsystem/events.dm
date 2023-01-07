@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(events)
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
 
-    // UI vars
+	// UI vars
 	var/window_x = 700
 	var/window_y = 600
 	var/table_options = " align='center'"
@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(events)
 	var/row_options2 = " width='260px'"
 	var/row_options3 = " width='150px'"
 
-    // Event vars
+	// Event vars
 	var/datum/event_container/selected_event_container = null
 	var/list/active_events = list()
 	var/list/finished_events = list()

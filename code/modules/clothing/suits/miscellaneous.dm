@@ -535,12 +535,19 @@
 	put_on_delay = 4 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 						"Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
-	var/hit_reflect_chance = 50
+	var/last_reflect_time
+	var/reflect_cooldown = 4 SECONDS
 
 /obj/item/clothing/suit/hooded/ablative/IsReflect()
 	var/mob/living/carbon/human/user = loc
-	if(prob(hit_reflect_chance) && (user.wear_suit == src))
+	if(user.wear_suit != src)
+		return 0
+	if(world.time - last_reflect_time >= reflect_cooldown)
+		last_reflect_time = world.time
 		return 1
+	if(world.time - last_reflect_time <= 1) // This is so if multiple energy projectiles hit at once, they're all reflected
+		return 1
+	return 0
 
 /*
  * Misc
