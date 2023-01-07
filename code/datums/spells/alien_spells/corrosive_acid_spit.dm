@@ -25,7 +25,7 @@
 	if(target.acid_act(200, 100))
 		visible_message("<span class='alertalien'>[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
 		add_attack_logs(user, target, "Applied corrosive acid") // Want this logged
-		user.add_plasma(-200, user)
+		user.add_plasma(-200)
 	else
 		to_chat(user, "<span class='noticealien'>You cannot dissolve this object.</span>")
 	..()

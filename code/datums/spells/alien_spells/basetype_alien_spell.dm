@@ -2,22 +2,20 @@
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	if(amount > vessel.stored_plasma)
 		return FALSE
-	add_plasma(-amount, user)
+	add_plasma(-amount)
 	return TRUE
 
-/* add_plasma requires a few things to properly work.
-1. The user, because we need to add the plasma to the organ itself and check vessel maxplasma stuff
-2. The actual amount of plasma, gotta add that too
+/* add_plasma just requires the plasma amount, so admins can easily varedit it and stuff
 Updates the spell's actions on use as well, so they know when they can or can't use their powers*/
 
-/mob/living/carbon/proc/add_plasma(amount, mob/living/carbon/user)
+/mob/living/carbon/proc/add_plasma(amount)
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	vessel.stored_plasma += amount
 	if(vessel.stored_plasma > vessel.max_plasma)
 		vessel.stored_plasma = vessel.max_plasma
-	if(isalien(user))
-		user.updateplasmadisplay()
-	for(var/datum/action/spell_action/action in user.actions)
+	if(isalien(src))
+		src.updateplasmadisplay()
+	for(var/datum/action/spell_action/action in src.actions)
 		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/alien_spell

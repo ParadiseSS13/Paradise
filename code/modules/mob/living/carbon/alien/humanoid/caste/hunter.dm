@@ -21,7 +21,7 @@
 	if(m_intent == MOVE_INTENT_RUN || IS_HORIZONTAL(src))
 		..()
 	else
-		add_plasma(-heal_rate, src)
+		add_plasma(-heal_rate)
 
 
 //Hunter verbs

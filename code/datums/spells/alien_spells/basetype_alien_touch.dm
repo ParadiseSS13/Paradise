@@ -26,7 +26,7 @@
 	..()
 
 /obj/effect/proc_holder/spell/touch/alien_spell/cast(list/targets, mob/living/carbon/user)
-	user.add_plasma(plasma_cost, user)
+	user.add_plasma(plasma_cost)
 	..()
 
 /obj/effect/proc_holder/spell/touch/alien_spell/create_new_handler()

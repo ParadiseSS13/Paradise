@@ -48,8 +48,8 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 		playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 		visible_message("<span class='danger'>[transfering_larva.name] transfers some plasma to [target]!</span>", \
 			"<span class='userdanger'>[transfering_larva.name] transfers some plasma to [target]!</span>")
-		transfering_larva.add_plasma(-50, transfering_larva)
-		target.add_plasma(50, target)
+		transfering_larva.add_plasma(-50)
+		target.add_plasma(50)
 		transfering_larva.already_transfering = FALSE
 		return
 

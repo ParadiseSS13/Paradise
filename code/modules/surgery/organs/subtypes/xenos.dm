@@ -77,12 +77,12 @@
 	//If there are alien weeds on the ground then heal if needed or give some plasma
 	if(locate(/obj/structure/alien/weeds) in owner.loc)
 		if(owner.health >= owner.maxHealth)
-			owner.add_plasma(plasma_rate, owner)
+			owner.add_plasma(plasma_rate)
 		else
 			var/heal_amt = heal_rate
 			if(!isalien(owner))
 				heal_amt *= 0.2
-			owner.add_plasma((plasma_rate*0.5), owner)
+			owner.add_plasma((plasma_rate*0.5))
 			owner.adjustBruteLoss(-heal_amt)
 			owner.adjustFireLoss(-heal_amt)
 			owner.adjustOxyLoss(-heal_amt)

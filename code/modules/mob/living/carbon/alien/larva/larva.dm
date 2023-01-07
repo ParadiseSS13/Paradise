@@ -36,10 +36,10 @@
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/add_plasma(amount, user)
+/mob/living/carbon/alien/larva/add_plasma(amount)
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
-	..(amount, user)
+	..(amount)
 
 /mob/living/carbon/alien/larva/proc/cast_larva()
 	if(already_transfering)
