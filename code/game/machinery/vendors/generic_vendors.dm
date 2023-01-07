@@ -843,12 +843,10 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
-					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 					/obj/item/storage/box/matches = 10,
 					/obj/item/lighter/random = 4,
-					/obj/item/lighter/zippo = 3,
 					/obj/item/storage/fancy/rollingpapers = 5)
+	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1, /obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/lighter/zippo = 3)
 	prices = list()
 
 /obj/machinery/economy/vending/wallmed
