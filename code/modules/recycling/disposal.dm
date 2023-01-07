@@ -1041,18 +1041,33 @@
 /obj/structure/disposalpipe/sortjunction/Initialize(mapload)
 	. = ..()
 	updatedir()
-	var/list/sort_type_str = splittext(sort_type_txt, ";")
-	if(length(sort_type_str) && !("1" in sort_type_str)) // Default to disposals if mapped with it along other destinations
-		var/new_sort_type = list()
-		for(var/x in sort_type_str)
-			var/n = text2num(x)
-			if(n)
-				new_sort_type |= n
-		if(length(new_sort_type))
-			sort_type = new_sort_type
+	if(mapload)
+		parse_sort_destinations()
 	update_appearance(UPDATE_DESC)
 	update()
 	return
+
+/obj/structure/disposalpipe/sortjunction/proc/parse_sort_destinations()
+	var/list/sort_type_str = splittext(sort_type_txt, ";")
+	var/mapping_fail
+	if(sort_type_txt != "1")
+		if(length(sort_type_str)) // Default to disposals if mapped with it along other destinations
+			if("1" in sort_type_str)
+				mapping_fail = "Mutually exclusive sort types in sort_type_txt"
+			else
+				var/new_sort_type = list()
+				for(var/x in sort_type_str)
+					var/n = text2num(x)
+					if(n)
+						new_sort_type |= n
+				if(length(new_sort_type))
+					sort_type = new_sort_type
+				else
+					mapping_fail = "No sort types after parsing sort_type_txt"
+		else
+			mapping_fail = "Sort_type_txt is empty"
+		if(mapping_fail)
+			stack_trace("[src] mapped incorrectly at [x],[y],[z] - [mapping_fail]")
 
 /obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
 	if(..())
