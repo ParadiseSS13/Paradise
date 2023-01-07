@@ -6,11 +6,17 @@
 	selection_activated_message		= "<span class='notice'>Your prepare some neurotoxin!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You swallow your prepared neurotoxin.</span>"
 	var/neurotoxin_type = /obj/item/projectile/bullet/neurotoxin
-	action_icon_state = "alien_neurotoxin"
+	action_icon_state = "alien_neurotoxin_0"
 	active = FALSE
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
+
+/obj/effect/proc_holder/spell/alien_spell/neurotoxin/update_icon_state()
+	if(!action)
+		return
+	action.button_icon_state = "alien_neurotoxin_[active]"
+	action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
 	var/target = targets[1]

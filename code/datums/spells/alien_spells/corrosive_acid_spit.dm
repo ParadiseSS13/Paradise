@@ -8,8 +8,7 @@
 /obj/item/melee/touch_attack/alien/corrosive_acid
 	name = "Corrosive acid"
 	desc = "A fistfull of death."
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
+	icon_state = "alien_acid"
 
 /obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(target == user)

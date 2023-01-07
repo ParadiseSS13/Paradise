@@ -16,9 +16,7 @@
 /obj/item/melee/touch_attack/alien/transfer_plasma
 	name = "plasma transfer"
 	desc = "Transfers 50 plasma to another alien."
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
-
+	icon_state = "alien_transfer"
 
 /obj/item/melee/touch_attack/alien/transfer_plasma/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(target == user)
