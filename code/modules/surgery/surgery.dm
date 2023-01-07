@@ -162,7 +162,7 @@
 	var/silicons_obey_prob = FALSE
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
-	/// Sound played when the step is started. Lists or single value can be used for this var
+	/// Sound played when the step is started. Lists or single value can be used for this var as well as tool defines
 	var/preop_sound
 	/// Sound played if the step succeeded. Single value only
 	var/success_sound
