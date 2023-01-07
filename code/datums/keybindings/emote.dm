@@ -609,6 +609,10 @@
 	linked_emote = /datum/emote/living/simple_animal/pet/cat/purr
 	name = "Purr (Cat)"
 
+/datum/keybinding/emote/simple_animal/pet/cat/sit
+	linked_emote = /datum/emote/living/sit/cat
+	name = "Sit/Stand (Cat)"
+
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM
 	var/default_emote_text = "Insert custom me emote text."
