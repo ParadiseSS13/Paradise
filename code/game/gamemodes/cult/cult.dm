@@ -39,8 +39,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE //can't convert machines, that's ratvar's thing
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
-		if(!iscultist(G.summoner))
-			return FALSE //can't convert it unless the owner is converted
+		if(iscultist(G.summoner))
+			return TRUE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
 		return FALSE
 	if(isanimal(mind.current))
