@@ -27,26 +27,33 @@
 		return
 
 	// Selecting the destination to move to
-	if(left_click)
-		var/atom/destination = A
+	if(!left_click)
+		return
 
-		if(!selected_atom)
-			to_chat(user, "<span class='danger'>Select an atom to move first (with right-click).</span>")
-			return
+	var/atom/destination = A
 
-		if(iseffect(destination))	// Cannot imagine a single scenario where this is a good idea
-			to_chat(user, "<span class='danger'>You should not move atoms into effects.</span>")
-			return
+	if(!selected_atom)
+		to_chat(user, "<span class='danger'>Select an atom to move first (with right-click).</span>")
+		return
 
-		// Typecasting for the right forceMove()
-		if(ismob(selected_atom))
-			var/mob/M = selected_atom
-			M.forceMove(destination)
-		else
-			var/atom/movable/AM = selected_atom
-			AM.forceMove(destination)
+	// Block these as they can only lead to issues
+	if(iseffect(destination))
+		to_chat(user, "<span class='danger'>You should not move atoms into effects.</span>")
+		return
 
-		to_chat(user, "<span class='notice'>'[selected_atom]' is moved to '[destination]'.</span>")
-		log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
+	if(isobserver(destination))
+		to_chat(user, "<span class='danger'>You should not move atoms into ghosts.</span>")
+		return
 
-		selected_atom = null
+	// Typecasting for the right forceMove()
+	if(ismob(selected_atom))
+		var/mob/M = selected_atom
+		M.forceMove(destination)
+	else
+		var/atom/movable/AM = selected_atom
+		AM.forceMove(destination)
+
+	to_chat(user, "<span class='notice'>'[selected_atom]' is moved to '[destination]'.</span>")
+	log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
+
+	selected_atom = null
