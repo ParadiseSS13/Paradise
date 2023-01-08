@@ -82,14 +82,14 @@
 /obj/structure/mineral_door/proc/operate()
 	is_operating = TRUE
 	if(!state_open)
-		playsound(loc, open_sound, 100, 1)
+		playsound(loc, open_sound, 100, TRUE)
 		flick("[initial_state]opening",src)
 	else
 		var/turf/T = get_turf(src)
 		for(var/mob/living/L in T)
 			is_operating = FALSE
 			return
-		playsound(loc, close_sound, 100, 1)
+		playsound(loc, close_sound, 100, TRUE)
 		flick("[initial_state]closing",src)
 	addtimer(CALLBACK(src, PROC_REF(operate_update)), 1 SECONDS)
 

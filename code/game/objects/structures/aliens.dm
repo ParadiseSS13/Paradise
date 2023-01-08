@@ -169,8 +169,8 @@
 			return
 		if(!C.handcuffed)
 			operate()
-	else
-		to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
+		return
+	to_chat(user, "<span class='noticealien'>Your lack of connection to the hive prevents the resin door from opening</span>")
 /*
   * This 2nd try_to_operate() is needed so that CALLBACK can close the door without having to either call operate() and get bugged when clicked much or
   * call try_to_operate(atom/user) and not be able to use it due to not having a mob using it
@@ -185,7 +185,7 @@
 /obj/structure/alien/resin/door/proc/operate()
 	is_operating = TRUE
 	if(!state_open)
-		playsound(loc, open_sound, 100, 1)
+		playsound(loc, open_sound, 100, TRUE)
 		flick("[initial_state]opening", src)
 	else
 		for(var/mob/living/L in get_turf(src))
@@ -209,10 +209,7 @@
 		addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
 
 /obj/structure/alien/resin/door/update_icon_state()
-	if(state_open)
-		icon_state = "[initial_state]open"
-	else
-		icon_state = initial_state
+	icon_state = state_open ? "[initial_state]open" : initial_state
 
 /obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)

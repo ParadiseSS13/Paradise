@@ -88,7 +88,7 @@
 /obj/structure/bed/nest/attack_alien(mob/living/carbon/alien/user)
 	if(user.a_intent != INTENT_HARM)
 		return attack_hand(user)
-	if(!do_after(user, 40, target = src) || QDELETED(src))
+	if(!do_after(user, 4 SECONDS, target = src) || QDELETED(src))
 		return
 	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
 	qdel(src)
