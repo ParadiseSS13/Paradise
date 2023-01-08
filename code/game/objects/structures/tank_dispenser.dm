@@ -24,8 +24,8 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/dispenser/Destroy()
-	QDEL_LIST(stored_plasma_tanks)
-	QDEL_LIST(stored_oxygen_tanks)
+	QDEL_LIST_CONTENTS(stored_plasma_tanks)
+	QDEL_LIST_CONTENTS(stored_oxygen_tanks)
 	return ..()
 
 /obj/structure/dispenser/proc/initialize_tanks()
@@ -137,7 +137,7 @@
 	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
 	SStgui.update_uis(src)
 
-/obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
+/obj/structure/dispenser/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		for(var/X in src)
 			var/obj/item/I = X

@@ -53,6 +53,8 @@
 
 #define isstorage(A) (istype(A, /obj/item/storage))
 
+#define isstack(I) (istype(I, /obj/item/stack))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,

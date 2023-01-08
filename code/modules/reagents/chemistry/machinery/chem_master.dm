@@ -143,7 +143,7 @@
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
 	if(panel_open)
 		return
-	if(default_unfasten_wrench(user, I))
+	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		power_change()
 		return TRUE
 
@@ -550,7 +550,7 @@
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)

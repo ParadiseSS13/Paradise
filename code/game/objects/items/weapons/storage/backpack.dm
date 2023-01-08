@@ -379,6 +379,9 @@
 	handle_zipping(user)
 
 /obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
+	if(!Adjacent(user))
+		return
+
 	if(!zip_time || do_after(user, zip_time, target = src))
 		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
 		zipped = !zipped
@@ -423,6 +426,9 @@
 	return ..()
 
 /obj/item/storage/backpack/duffel/show_to(mob/user)
+	if(isobserver(user))
+		return ..()
+
 	if(zipped)
 		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE
