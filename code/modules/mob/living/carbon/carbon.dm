@@ -727,6 +727,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		toggle_move_intent()
 		update_inv_legcuffed()
 
+/mob/living/carbon/update_inv_legcuffed()
+	clear_alert("legcuffed")
+	if(!legcuffed)
+		return
+	throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
+	if(m_intent != MOVE_INTENT_WALK)
+		m_intent = MOVE_INTENT_WALK
+		if(hud_used && hud_used.move_intent)
+			hud_used.move_intent.icon_state = "walking"
+
 /mob/living/carbon/show_inv(mob/user)
 	user.set_machine(src)
 

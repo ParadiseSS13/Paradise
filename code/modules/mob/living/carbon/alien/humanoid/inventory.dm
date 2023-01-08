@@ -12,16 +12,6 @@
 		l_store = null
 		update_inv_pockets()
 
-/mob/living/carbon/alien/humanoid/update_inv_legcuffed()
-	clear_alert("legcuffed")
-	if(!legcuffed)
-		return
-	throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
-	if(m_intent != MOVE_INTENT_WALK)
-		m_intent = MOVE_INTENT_WALK
-		if(hud_used && hud_used.move_intent)
-			hud_used.move_intent.icon_state = "walking"
-
 /mob/living/carbon/alien/humanoid/attack_ui(slot_id)
 	var/obj/item/W = get_active_hand()
 	if(W)
