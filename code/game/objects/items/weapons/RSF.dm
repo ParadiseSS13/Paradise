@@ -17,12 +17,12 @@
 	var/power_mode = POWER_NONE
 
 /obj/item/rsf/attack_self(mob/user)
-	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
+	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
 	if(!currently_dispensing)
 		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
 	else
 		to_chat(user, "<span class='notice'>You are currently dispensing a [initial(currently_dispensing.name)].</span>")
-	var/list/rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/food/drinks/drinkingglass,
+	var/static/list/rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/food/drinks/drinkingglass,
 							"Paper" = /obj/item/paper,
 							"Pen" = /obj/item/pen,
 							"Dice Pack" = /obj/item/storage/pill_bottle/dice,
@@ -31,7 +31,7 @@
 							"Donut" = /obj/item/reagent_containers/food/snacks/donut,
 							"Chicken Soup" = /obj/item/reagent_containers/food/drinks/chicken_soup,
 							"Tofu Burger" = /obj/item/reagent_containers/food/snacks/tofuburger)
-	var/list/rsf_icons = list("Drinking Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
+	var/static/list/rsf_icons = list("Drinking Glass" = image(icon = 'icons/obj/drinks.dmi', icon_state = "glass_empty"),
 							"Paper" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 							"Pen" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"),
 							"Dice Pack" = image(icon = 'icons/obj/dice.dmi', icon_state = "dicebag"),
@@ -41,6 +41,8 @@
 							"Chicken Soup" = image(icon = 'icons/obj/drinks.dmi', icon_state = "soupcan"),
 							"Tofu Burger" = image(icon = 'icons/obj/food/food.dmi', icon_state = "tofuburger"))
 	var/rsf_radial_choice = show_radial_menu(user, src, rsf_icons)
+	if(user.stat || !in_range(user, src))
+		return
 	currently_dispensing = rsf_items[rsf_radial_choice]
 	switch(rsf_radial_choice)
 		if("Drinking Glass")
@@ -61,8 +63,6 @@
 			power_mode = POWER_HIGH
 		if("Tofu Burger")
 			power_mode = POWER_HIGH
-	if(user.stat || !in_range(user, src))
-		return
 	if(currently_dispensing)
 		to_chat(user, "<span class='notice'>Your RSF has been configured to now dispense a [initial(currently_dispensing.name)]!</span>")
 	return TRUE
@@ -73,7 +73,7 @@
 		return
 	if(!proximity)
 		return
-	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
+	if(!istype(A, /obj/structure/table) && !isfloorturf(A))
 		return
 	if(isrobot(user))
 		var/mob/living/silicon/robot/energy_check = user

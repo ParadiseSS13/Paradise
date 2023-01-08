@@ -97,7 +97,6 @@
 			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 
-
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 	mode++

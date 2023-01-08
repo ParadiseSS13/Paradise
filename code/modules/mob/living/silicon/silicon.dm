@@ -365,7 +365,7 @@
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	to_chat(src, "<span class='notice'>Please select sensor type.</span>")
-	var/list/sensor_choices = list("Security" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "securityhud"),
+	var/static/list/sensor_choices = list("Security" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "securityhud"),
 							"Medical" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "healthhud"),
 							"Diagnostic" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "diagnostichud"),
 							"None" = image(icon = 'icons/mob/screen_gen.dmi', icon_state = "x"))
