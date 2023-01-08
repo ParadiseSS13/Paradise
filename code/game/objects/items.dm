@@ -821,7 +821,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 // Access and Job stuff
 
-/obj/item/proc/GetJobName() //Used in secHUD icon generation
+/obj/item/proc/get_job_name() //Used in secHUD icon generation
 	var/assignmentName = get_ID_assignment(if_no_id = "Unknown")
 	var/rankName = get_ID_rank(if_no_id = "Unknown")
 

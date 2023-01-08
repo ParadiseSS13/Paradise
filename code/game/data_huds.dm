@@ -223,7 +223,7 @@
 	var/image/holder = hud_list[ID_HUD]
 	holder.icon_state = "hudunknown"
 	if(wear_id)
-		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
+		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
 	sec_hud_set_security_status()
 
 

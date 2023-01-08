@@ -33,15 +33,13 @@
 
 /obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
 	. = ..()
-	if(.)
-		if(istype(I, /obj/item/card/id))
-			refresh_ID()
+	if(. && istype(I, /obj/item/card/id))
+		refresh_ID()
 
 /obj/item/storage/wallet/handle_item_insertion(obj/item/I, prevent_warning = FALSE)
 	. = ..()
-	if(.)
-		if(istype(I, /obj/item/card/id))
-			refresh_ID()
+	if(. && istype(I, /obj/item/card/id))
+		refresh_ID()
 
 /obj/item/storage/wallet/orient2hud(mob/user)
 	. = ..()
