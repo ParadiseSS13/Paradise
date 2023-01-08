@@ -13,8 +13,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	vessel.stored_plasma += amount
 	if(vessel.stored_plasma > vessel.max_plasma)
 		vessel.stored_plasma = vessel.max_plasma
-	if(isalien(src))
-		src.updateplasmadisplay()
+	src.updateplasmadisplay(src)
 	for(var/datum/action/spell_action/action in src.actions)
 		action.UpdateButtonIcon()
 

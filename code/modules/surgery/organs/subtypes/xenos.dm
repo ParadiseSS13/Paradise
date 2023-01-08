@@ -90,13 +90,11 @@
 
 /obj/item/organ/internal/alien/plasmavessel/insert(mob/living/carbon/M, special = 0)
 	..()
-	if(isalien(M))
-		M.updateplasmadisplay()
+	M.updateplasmadisplay(M)
 
 /obj/item/organ/internal/alien/plasmavessel/remove(mob/living/carbon/M, special = 0)
 	. =..()
-	if(isalien(M))
-		M.updateplasmadisplay()
+	M.updateplasmadisplay(M)
 
 
 /obj/item/organ/internal/alien/acidgland

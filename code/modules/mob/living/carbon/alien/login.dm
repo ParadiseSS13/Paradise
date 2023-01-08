@@ -1,5 +1,5 @@
 /mob/living/carbon/alien/Login()
 	..()
 	AddInfectionImages()
-	updateplasmadisplay()
+	updateplasmadisplay(src)
 	return

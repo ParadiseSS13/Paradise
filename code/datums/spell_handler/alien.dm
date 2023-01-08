@@ -23,14 +23,12 @@ This was also the case with the verb implementation, it's just much more obvious
 
 /datum/spell_handler/alien/before_cast(list/targets, mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
 	to_chat(user, "<span class='boldnotice'>You have [user.get_plasma()] plasma left to use.</span>")
-	if(isalien(user))
-		user.updateplasmadisplay()
+	user.updateplasmadisplay(user)
 
 /datum/spell_handler/alien/revert_cast(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
 	user.add_plasma(plasma_cost, user)
 	to_chat(user, "<span class='boldnotice'>You have [user.get_plasma()] plasma left to use.</span>")
-	if(isalien(user))
-		user.updateplasmadisplay()
+	user.updateplasmadisplay(user)
 
 /mob/living/carbon/proc/get_plasma()
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
