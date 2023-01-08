@@ -17,8 +17,7 @@
 		return
 	if(!proximity || isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
-	plasma_check(200, user)
-	if(!continue_cast)
+	if(!plasma_check(200, user))
 		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
 	if(target.acid_act(200, 100))

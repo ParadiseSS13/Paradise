@@ -24,7 +24,7 @@
 	to_chat(user, "<B>Hunters</B> <span class='notice'>are strong and agile, able to hunt away from the hive and rapidly move through ventilation shafts. Hunters generate plasma slowly and have low reserves.</span>")
 	to_chat(user, "<B>Sentinels</B> <span class='notice'>are tasked with protecting the hive and are deadly up close and at a range. They are not as physically imposing nor fast as the hunters.</span>")
 	to_chat(user, "<B>Drones</B> <span class='notice'>are the working class, offering the largest plasma storage and generation. They are the only caste which may evolve again, turning into the dreaded alien queen.</span>")
-	var/list/to_evolve = list("Hunter" = image(icon = 'icons/mob/alien.dmi', icon_state = "alienh_s"),
+	var/static/list/to_evolve = list("Hunter" = image(icon = 'icons/mob/alien.dmi', icon_state = "alienh_s"),
 								"Sentinel" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliend_s"),
 								"Drone" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliend_s"))
 	var/new_xeno = show_radial_menu(user, user, to_evolve, src, radius = 40)
@@ -42,4 +42,3 @@
 		user.mind.transfer_to(new_xeno)
 	SSblackbox.record_feedback("tally", "alien_growth", 1, "[lowertext(new_xeno)]")
 	qdel(user)
-	return

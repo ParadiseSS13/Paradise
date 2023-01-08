@@ -138,9 +138,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// If this spell creates custom logs using the write_custom_logs() proc. Will ignore create_attack_logs
 	var/create_custom_logs = FALSE
 
-	/// Does this spell only create logs and doesn't message admins upon use?
-	var/create_only_logs = FALSE
-
 	/// Which targeting system is used. Set this in create_new_targeting
 	var/datum/spell_targeting/targeting
 	/// List with the targeting datums per spell type. Key = src.type, value = the targeting datum created by create_new_targeting()
@@ -352,8 +349,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(user && user.ckey)
 		if(create_custom_logs)
 			write_custom_logs(targets, user)
-		if(create_only_logs)
-			user.create_log(ATTACK_LOG, "Cast the spell [name]")
 		if(create_attack_logs)
 			add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
 	if(recharge)

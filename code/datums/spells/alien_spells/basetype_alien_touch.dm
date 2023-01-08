@@ -8,7 +8,7 @@
 	clothes_req = FALSE
 	create_attack_logs = FALSE
 	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
-	create_only_logs = TRUE
+	create_custom_logs = TRUE
 	/// We want a special on remove message, so we got this variable to do so
 	on_remove_message = FALSE
 	/// How much plasma it costs to use this
@@ -29,6 +29,9 @@
 	user.add_plasma(plasma_cost)
 	..()
 
+/obj/effect/proc_holder/spell/touch/alien_spell/write_custom_logs(list/targets, mob/user)
+	user.create_log(ATTACK_LOG, "Cast the spell [name]")
+
 /obj/effect/proc_holder/spell/touch/alien_spell/create_new_handler()
 	var/datum/spell_handler/alien/H = new
 	H.plasma_cost = plasma_cost
@@ -41,16 +44,10 @@
 	has_catchphrase = FALSE
 	/// Beepsky shouldn't be arresting you over this
 	needs_permit = FALSE
-	var/continue_cast = TRUE
-
-/obj/item/melee/touch_attack/alien/attack_alien(mob/user) // Can be picked up by aliens... if it got on the ground somehow
-	return attack_hand(user)
 
 /obj/item/melee/touch_attack/alien/proc/plasma_check(plasma, mob/living/carbon/user)
 	var/plasma_current = user.get_plasma()
 	if(plasma_current < plasma)
-		attached_spell.attached_hand = null
 		qdel(src)
-		continue_cast = FALSE
-		return
-	return
+		return FALSE
+	return TRUE

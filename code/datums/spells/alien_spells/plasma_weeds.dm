@@ -24,4 +24,3 @@
 	for(var/mob/O in viewers(user, null))
 		O.show_message(text("<span class='alertalien'>[user] has planted a [weed_name]!</span>"), 1)
 	new weed_type(T)
-	return

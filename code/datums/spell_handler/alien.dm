@@ -11,7 +11,7 @@ This was also the case with the verb implementation, it's just much more obvious
 /datum/spell_handler/alien/can_cast(mob/living/carbon/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	if(!vessel)
-		return FALSE
+		return 0
 	if(vessel.stored_plasma < plasma_cost)
 		if(show_message)
 			to_chat(user, "<span class='warning'>You require at least [plasma_cost] plasma to use this ability!</span>")
@@ -35,5 +35,5 @@ This was also the case with the verb implementation, it's just much more obvious
 /mob/living/carbon/proc/get_plasma()
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	if(!vessel)
-		return FALSE
+		return 0
 	return vessel.stored_plasma

@@ -25,7 +25,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	base_cooldown = 1
 	create_attack_logs = FALSE
 	/// Every alien spell creates only logs, no attack messages on someone placing weeds, but you DO get attack messages on neurotoxin and corrosive acid
-	create_only_logs = TRUE
+	create_custom_logs = TRUE
 	/// How much plasma it costs to use this
 	var/plasma_cost = 0
 
@@ -34,6 +34,9 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	. = ..()
 	if(plasma_cost)
 		name = "[name] ([plasma_cost])"
+
+/obj/effect/proc_holder/spell/alien_spell/write_custom_logs(list/targets, mob/user)
+	user.create_log(ATTACK_LOG, "Cast the spell [name]")
 
 /obj/effect/proc_holder/spell/alien_spell/create_new_handler()
 	var/datum/spell_handler/alien/handler = new
