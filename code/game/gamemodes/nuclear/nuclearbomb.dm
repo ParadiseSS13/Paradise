@@ -599,7 +599,7 @@ GLOBAL_VAR(bomb_set)
 			return current_spawn
 		// Someone built a wall over it, check the surroundings
 		var/list/open_turfs = current_spawn.AdjacentTurfs(open_only = TRUE)
-		if(open_turfs)
+		if(length(open_turfs))
 			return pick(open_turfs)
 		possible_spawns.Remove(current_spawn)
 
