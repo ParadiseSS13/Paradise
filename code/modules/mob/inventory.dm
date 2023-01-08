@@ -261,8 +261,8 @@
 
 /mob/proc/get_id_card()
 	for(var/obj/item/I in get_all_slots())
-		. = I.GetID()
-		if(istype(.)) // Make sure its an ID card
+		var/obj/item/card/id/id = I.GetID()
+		if(istype(id)) // Make sure its an ID card
 			break
 
 /mob/proc/get_item_by_slot(slot_id)
