@@ -223,8 +223,8 @@
 	if(S)
 		if(!S.cell || !S.cell.use(activationUpkeep))
 			disrupt(S)
-	else
-		return PROCESS_KILL
+		return
+	return PROCESS_KILL
 
 /obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user)
 	var/static/list/module_options = list(
@@ -268,7 +268,7 @@
 	user.bubble_icon = "robot"
 	active = TRUE
 	user.update_icons()
-	playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
+	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE, -6)
 	to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen [selected_module] cyborg.</span>")
 
 /obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
