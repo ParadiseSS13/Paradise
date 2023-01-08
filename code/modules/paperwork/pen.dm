@@ -148,20 +148,26 @@
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
 	var/backstab_sound = 'sound/items/unsheath.ogg'
+	var/backstab_damage = 12
+	var/extra_force_applied = FALSE
 	armour_penetration_flat = 20
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
-	force = 18
-	if(user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
-		force += 12
+	if(on && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
+		force += backstab_damage
+		extra_force_applied = TRUE
 		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
 		M.apply_damage(40, STAMINA) //Just enough to slow
 		M.KnockDown(2 SECONDS)
 		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
 	else
 		playsound(loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
 	. = ..()
+	if(extra_force_applied)
+		force -= backstab_damage
+		extra_force_applied = FALSE
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return 0
