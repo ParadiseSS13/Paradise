@@ -876,8 +876,6 @@
 
 /// set APC stat as broken and set it to be non operational, kick out an AI if there's a malf one in it
 /obj/machinery/power/apc/proc/set_broken()
-	if(malfai && operating)
-		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10, 0, 1000)
 	stat |= BROKEN
 	operating = FALSE
 	if(occupier)

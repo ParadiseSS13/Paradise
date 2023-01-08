@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(exchange_parts(user, O))
 		return
 
-	if(default_unfasten_wrench(user, O))
+	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		power_change()
 		return
 

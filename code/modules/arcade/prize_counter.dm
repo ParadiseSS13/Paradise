@@ -41,7 +41,7 @@
 		return
 	if(panel_open)
 		if(istype(O, /obj/item/wrench))
-			default_unfasten_wrench(user, O)
+			default_unfasten_wrench(user, O, time = 6 SECONDS)
 		if(component_parts && istype(O, /obj/item/crowbar))
 			if(tickets)		//save the tickets!
 				print_tickets()

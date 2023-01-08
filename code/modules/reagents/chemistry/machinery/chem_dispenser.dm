@@ -290,7 +290,7 @@
 
 /obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 		return
 	if(anchored)
 		anchored = FALSE

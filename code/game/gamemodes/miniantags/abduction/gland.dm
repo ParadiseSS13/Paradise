@@ -179,7 +179,7 @@
 /obj/item/organ/internal/heart/gland/pop/activate()
 	to_chat(owner, "<span class='notice'>You feel unlike yourself.</span>")
 	var/species = pick(/datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
-	owner.set_species(species, keep_missing_bodyparts = TRUE)
+	owner.set_species(species)
 
 /obj/item/organ/internal/heart/gland/ventcrawling
 	origin_tech = "materials=4;biotech=5;bluespace=4;abductor=3"

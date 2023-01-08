@@ -34,7 +34,7 @@
 			M.wet_mop(src, user)
 			return
 		if(!stored_mop)
-			M.janicart_insert(user, src)
+			M.mopbucket_insert(user, src)
 			return
 		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
 		return
@@ -45,6 +45,10 @@
 	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
 	return
+
+/obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/J)
+	J.stored_mop = src
+	J.put_in_cart(src, user)
 
 /obj/structure/mopbucket/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)

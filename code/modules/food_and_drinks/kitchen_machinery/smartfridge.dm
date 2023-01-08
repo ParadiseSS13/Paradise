@@ -157,7 +157,9 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
-	. = default_unfasten_wrench(user, I)
+	. = default_unfasten_wrench(user, I, time = 4 SECONDS)
+	if(.)
+		power_change()
 
 /obj/machinery/smartfridge/crowbar_act(mob/living/user, obj/item/I)
 	. = default_deconstruction_crowbar(user, I)
