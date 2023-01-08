@@ -933,6 +933,12 @@
 		M.AdjustLoseBreath(2 SECONDS)
 	return list(0, update_flags)
 
+/datum/reagent/medicine/stimulative_agent/changeling
+	id = "stimulative_cling"
+
+/datum/reagent/medicine/stimulative_agent/changeling/on_mob_add(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+
 /datum/reagent/medicine/insulin
 	name = "Insulin"
 	id = "insulin"
