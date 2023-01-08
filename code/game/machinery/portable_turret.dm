@@ -1021,8 +1021,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	always_up = TRUE
 	requires_power = FALSE
 	power_state = NO_POWER_USE
-	idle_power_consumption = 0
-	active_power_consumption = 0
 	has_cover = FALSE
 	raised = TRUE
 	scan_range = 9
