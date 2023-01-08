@@ -24,7 +24,7 @@
 ///queue wrapper for TRY_QUEUE_VERB() when you want to call the proc if the server isnt overloaded enough to queue
 #define QUEUE_OR_CALL_VERB(_verb_callback, _tick_check, _subsystem_to_use, _verification_args...) \
 	if(!TRY_QUEUE_VERB(_verb_callback, _tick_check, _subsystem_to_use, _verification_args)) {\
-		_verb_callback:InvokeAsync() \
+		_verb_callback.InvokeAsync() \
 		};
 
 //goes straight to SSverb_manager with default tick threshold

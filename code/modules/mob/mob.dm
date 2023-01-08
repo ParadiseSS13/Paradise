@@ -1547,7 +1547,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
 
 ///Makes a call in the context of a different usr. Use sparingly
-/world/proc/push_usr(mob/user_mob, datum/callback/invoked_callback, ...)
+/world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
 	usr = user_mob
 	if (length(args) > 2)

@@ -79,7 +79,7 @@ SUBSYSTEM_DEF(verb_manager)
 	if(QDELETED(usr) && ismob(incoming_callback.object))
 		incoming_callback.uid = incoming_callback.object.UID()
 		var/datum/callback/new_us = CALLBACK(arglist(list(GLOBAL_PROC, GLOBAL_PROC_REF(_queue_verb)) + args.Copy()))
-		return world.push_usr(incoming_callback.object, new_us)
+		return world.invoke_callback_with_usr(incoming_callback.object, new_us)
 #endif
 
 	//debatable whether this is needed, this is just to try and ensure that you dont use this to queue stuff that isnt from player input.
