@@ -397,9 +397,9 @@
 			SSeconomy.request_list -= order
 			return
 		// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
-		if(order.requires_cargo_approval && (ACCESS_CARGO in C.access))
+		if(order.requires_cargo_approval && (issilicon(user) || (ACCESS_CARGO in C?.access)))
 			SSeconomy.request_list -= order
-		else if(order.requires_head_approval && (order.ordered_by_department.has_account_access(C.access)))
+		else if(order.requires_head_approval && (issilicon(user) || order.ordered_by_department.has_account_access(C?.access)))
 			SSeconomy.request_list -= order
 		else
 			return //how did we get here?
