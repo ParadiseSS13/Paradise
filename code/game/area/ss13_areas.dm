@@ -1883,11 +1883,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/aisat/entrance
 	name = "\improper AI Satellite Entrance"
-	icon_state = "ai"
 
 /area/aisat/maintenance
 	name = "\improper AI Satellite Maintenance"
-	icon_state = "ai"
+
+/area/aisat/atmos
+	name = "\improper AI Satellite Atmospherics"
+
+/area/aisat/hall
+	name = "\improper AI Satellite Hallway"
+
+/area/aisat/service
+	name = "\improper AI Satellite Service"
 
 /area/turret_protected/aisat_interior
 	name = "\improper AI Satellite Antechamber"
