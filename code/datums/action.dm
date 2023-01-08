@@ -338,6 +338,10 @@
 /datum/action/item_action/laugh_track
 	name = "Laugh Track"
 
+/datum/action/item_action/floor_buffer
+	name = "Toggle Floor Buffer"
+	desc = "Movement speed is decreased while active."
+
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)
