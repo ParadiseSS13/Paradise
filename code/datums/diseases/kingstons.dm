@@ -43,7 +43,7 @@
 					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
 					var/mob/living/carbon/human/catface = affected_mob
-					catface.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
+					catface.set_species(/datum/species/tajaran, retain_damage = TRUE)
 
 
 /datum/disease/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
@@ -90,7 +90,7 @@
 					if(!istype(twisted.dna.species, chosentype))
 						twisted.visible_message("<span class='danger'>[twisted]'s skin splits and form contorts!</span>", \
 														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
-						twisted.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
+						twisted.set_species(chosentype, retain_damage = TRUE)
 					else
 						twisted.visible_message("<span class='danger'>[twisted] scratches at their skin!</span>", \
 														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
