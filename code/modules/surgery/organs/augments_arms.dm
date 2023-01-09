@@ -464,7 +464,7 @@
 	item_state = "v1_arm"
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
-	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted", "gored")
+	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
 	hitsound = 'sound/effects/bang.ogg'
 	light_power = 3
 	light_range = 0
