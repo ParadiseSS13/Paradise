@@ -271,9 +271,7 @@
 	if(!..())
 		return FALSE
 	var/user_loc = get_dir(src, user)
-	if(!user_loc) // User is sitting right on top of it
-		return TRUE
-	if(dir == user_loc) // User is standing directly behind it, don't check the corners
+	if(!user_loc || dir == user_loc) // User is sitting right on top of it or standing directly behind it, don't check the corners
 		return TRUE
 	var/valid_loc = FALSE
 	switch(dir)
