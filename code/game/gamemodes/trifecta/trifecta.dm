@@ -30,49 +30,39 @@
 	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
-	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_vampires) && (player.client.prefs.active_character.species in secondary_protected_species))
-			possible_vampires -= player.mind
 
 	if(!length(possible_vampires))
 		return FALSE
 
-	if(possible_vampires.len > 0)
+	if(length(possible_vampires))
 		for(var/I in possible_vampires)
 			if(length(pre_vampires) >= amount_vamp)
 				break
 			var/datum/mind/vampire = pick_n_take(possible_vampires)
+			if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
+				continue
 			pre_vampires += vampire
 			vampire.special_role = SPECIAL_ROLE_VAMPIRE
 			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 
 	//Vampires made, off to changelings
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
-	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_changelings) && (player.client.prefs.active_character.species in secondary_protected_species))
-			possible_changelings -= player.mind
 
 	if(!length(possible_changelings))
 		return FALSE
-
-	for(var/datum/mind/candidate in possible_changelings)
-		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE) // no vampire changelings security does not deserve that hell
-			possible_changelings.Remove(candidate)
 
 	for(var/I in possible_changelings)
 		if(length(pre_changelings) >= amount_cling)
 			break
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
+		if((changeling.current.client.prefs.active_character.species in secondary_protected_species) || (changeling.special_role == SPECIAL_ROLE_VAMPIRE))
+			continue
 		pre_changelings += changeling
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 	//And now traitors
 	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
-
-	for(var/datum/mind/candidate in possible_traitors)
-		if(candidate.special_role == SPECIAL_ROLE_VAMPIRE || candidate.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
-			possible_traitors.Remove(candidate)
 
 	// stop setup if no possible traitors
 	if(!length(possible_traitors))
@@ -82,6 +72,8 @@
 		if(!length(possible_traitors))
 			break
 		var/datum/mind/traitor = pick_n_take(possible_traitors)
+		if(traitor.special_role == SPECIAL_ROLE_VAMPIRE || traitor.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
+			continue
 		pre_traitors += traitor
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
@@ -109,12 +101,11 @@
 				points -= CLING_COST
 
 /datum/game_mode/trifecta/post_setup()
-	for(var/datum/mind/vampire in pre_vampires)
+	for(var/datum/mind/vampire as anything in pre_vampires)
 		vampire.add_antag_datum(/datum/antagonist/vampire)
 	for(var/datum/mind/changeling as anything in pre_changelings)
 		changeling.add_antag_datum(/datum/antagonist/changeling)
-	for(var/t in pre_traitors)
-		var/datum/mind/traitor = t
+	for(var/datum/mind/traitor as anything in pre_traitors)
 		traitor.add_antag_datum(/datum/antagonist/traitor)
 	..()
 
