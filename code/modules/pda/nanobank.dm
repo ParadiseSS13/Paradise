@@ -114,7 +114,7 @@
 			if(!istype(transfer_to) || transfer_to == src)
 				return //account no longer exists or something fucked is going on
 			if(transfer_funds(user, transfer_amount, transfer_to))
-				to_chat(user, "<span class='notice'>NanoBank: Transfer Succesful</span>")
+				to_chat(user, "<span class='notice'>NanoBank: Transfer Successful</span>")
 				last_transaction = world.time
 				if(!pda.silent)
 					playsound(pda, 'sound/machines/ping.ogg', 50, 0)

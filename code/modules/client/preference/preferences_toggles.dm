@@ -49,7 +49,7 @@
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Admin Bwoinks"
 	set category = "Preferences"
-	set desc = "Toggle hearing a notification when admin PMs are recieved"
+	set desc = "Toggle hearing a notification when admin PMs are received"
 	if(!check_rights(R_ADMIN))
 		return
 	prefs.sound ^= SOUND_ADMINHELP
@@ -60,7 +60,7 @@
 /client/proc/togglementorhelpsound()
 	set name = "Hear/Silence Mentorhelp Bwoinks"
 	set category = "Preferences"
-	set desc = "Toggle hearing a notification when mentorhelps are recieved"
+	set desc = "Toggle hearing a notification when mentorhelps are received"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	prefs.sound ^= SOUND_MENTORHELP
