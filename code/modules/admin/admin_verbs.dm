@@ -741,8 +741,8 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	else
 		to_chat(src, "You are already an admin.")
 		verbs -= /client/proc/readmin
-		GLOB.de_admins.Remove(ckey)
-		GLOB.de_mentors.Remove(ckey)
+		GLOB.de_admins -= ckey
+		GLOB.de_mentors -= ckey
 		return
 
 /client/proc/toggle_log_hrefs()
