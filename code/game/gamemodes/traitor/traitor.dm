@@ -18,6 +18,9 @@
 	var/traitors_possible = 4
 	/// How much the amount of players get divided by to determine the number of traitors.
 	var/const/traitor_scaling_coeff = 5
+	/// How much the traitor_scaling_coeff is multiplied by the gamemode as the above is a config global and I am not touching that
+	var/traitor_scaling_coeff_adjustment = 1
+
 
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<B>The current game mode is - Traitor!</B>")
@@ -42,7 +45,7 @@
 	var/num_traitors = 1
 
 	if(GLOB.configuration.gamemode.traitor_scaling)
-		num_traitors = max(1, round((num_players())/(traitor_scaling_coeff)))
+		num_traitors = max(1, round((num_players())/(traitor_scaling_coeff * traitor_scaling_coeff_adjustment)))
 	else
 		num_traitors = max(1, min(num_players(), traitors_possible))
 

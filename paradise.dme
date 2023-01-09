@@ -647,6 +647,7 @@
 #include "code\game\gamemodes\nuclear\pinpointer.dm"
 #include "code\game\gamemodes\revolution\revolution.dm"
 #include "code\game\gamemodes\traitor\traitor.dm"
+#include "code\game\gamemodes\traitor\trifecta.dm"
 #include "code\game\gamemodes\vampire\traitor_vamp.dm"
 #include "code\game\gamemodes\vampire\vampire_gamemode.dm"
 #include "code\game\gamemodes\wizard\artefact.dm"
