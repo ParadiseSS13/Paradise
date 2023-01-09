@@ -564,7 +564,7 @@ UI STUFF
  * msg - The message being send
  * alt - If an alternative prefix should be used or not. Defaults to TICKET_STAFF_MESSAGE_PREFIX
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ *             send a sound and flash the window. Defaults to FALSE
  */
 /datum/controller/subsystem/tickets/proc/message_staff(msg, prefix_type = TICKET_STAFF_MESSAGE_PREFIX, important = FALSE)
 	switch(prefix_type)

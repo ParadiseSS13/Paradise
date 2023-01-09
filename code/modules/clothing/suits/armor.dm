@@ -315,12 +315,19 @@
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 75, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
-	var/hit_reflect_chance = 40
+	var/last_reflect_time
+	var/reflect_cooldown = 5 SECONDS
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	var/mob/living/carbon/human/user = loc
-	if(prob(hit_reflect_chance) && (user.wear_suit == src))
+	if(user.wear_suit != src)
+		return 0
+	if(world.time - last_reflect_time >= reflect_cooldown)
+		last_reflect_time = world.time
 		return 1
+	if(world.time - last_reflect_time <= 1) // This is so if multiple energy projectiles hit at once, they're all reflected
+		return 1
+	return 0
 
 /obj/item/clothing/suit/armor/vest/det_suit
 	name = "armor"
@@ -438,7 +445,7 @@
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"
-	desc = "Someone seperated our Research Director from his own head!"
+	desc = "Someone separated our Research Director from his own head!"
 	energy_cost = 200
 	var/tele_range = 6
 

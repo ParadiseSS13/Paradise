@@ -351,7 +351,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	current_app = null
 	scanmode = null
 	QDEL_NULL(held_pen)
-	QDEL_LIST(programs)
+	QDEL_LIST_CONTENTS(programs)
 	QDEL_NULL(cartridge)
 	return ..()
 
@@ -390,7 +390,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(current_app)
 		current_app.program_process()
 
-/obj/item/pda/extinguish_light()
+/obj/item/pda/extinguish_light(force = FALSE)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()

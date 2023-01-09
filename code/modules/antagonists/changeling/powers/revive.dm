@@ -2,6 +2,7 @@
 	name = "Regenerate"
 	desc = "We regenerate, healing all damage from our form."
 	button_icon_state = "revive"
+	req_dna = 1
 	req_stat = DEAD
 	bypass_fake_death = TRUE
 

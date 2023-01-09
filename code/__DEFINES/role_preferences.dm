@@ -28,7 +28,7 @@
 #define ROLE_TRADER				"trader"
 #define ROLE_VAMPIRE			"vampire"
 // Role tags for EVERYONE!
-#define ROLE_DEMON				"slaughter demon"
+#define ROLE_DEMON				"demon"
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"

@@ -136,7 +136,7 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/Destroy()
-	QDEL_LIST(stored_ammo)
+	QDEL_LIST_CONTENTS(stored_ammo)
 	stored_ammo = null
 	return ..()
 

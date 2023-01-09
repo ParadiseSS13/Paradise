@@ -713,7 +713,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			to_chat(src, "<span class='warning big'>RETURN HOME!</span>")
 		if("ejectpai")
 		else
-			to_chat(src, "<span class='warning'>Unidentified control sequence recieved: [command]</span>")
+			to_chat(src, "<span class='warning'>Unidentified control sequence received: [command]</span>")
 
 /mob/living/simple_animal/bot/proc/handle_command(mob/user, command, list/params)
 	// We aint even on, why bother
@@ -1039,7 +1039,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	clear_path_image()
 
 	var/list/path_images = hud_list[DIAG_PATH_HUD]
-	QDEL_LIST(path_images)
+	QDEL_LIST_CONTENTS(path_images)
 	if(newpath)
 		for(var/i in 1 to newpath.len)
 			var/turf/T = newpath[i]

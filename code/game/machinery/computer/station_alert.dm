@@ -12,13 +12,9 @@
 
 /obj/machinery/computer/station_alert/Initialize(mapload)
 	. = ..()
-	GLOB.alert_consoles += src
 	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
-/obj/machinery/computer/station_alert/Destroy()
-	GLOB.alert_consoles -= src
-	return ..()
 
 /obj/machinery/computer/station_alert/attack_ai(mob/user)
 	add_fingerprint(user)

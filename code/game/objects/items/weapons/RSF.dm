@@ -8,6 +8,7 @@ RSF
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
+	item_state = "rsf"
 	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
@@ -31,6 +32,8 @@ RSF
 	configured_items[++configured_items.len] = list("Snack - Chicken Soup", 4000, /obj/item/reagent_containers/food/drinks/chicken_soup)
 	configured_items[++configured_items.len] = list("Snack - Tofu Burger", 4000, /obj/item/reagent_containers/food/snacks/tofuburger)
 
+	update_icon(UPDATE_OVERLAYS)
+
 /obj/item/rsf/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/rcd_ammo))
@@ -42,6 +45,7 @@ RSF
 		playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
 		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
 		desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 /obj/item/rsf/attack_self(mob/user as mob)
@@ -68,10 +72,12 @@ RSF
 		var/mob/living/silicon/robot/engy = user
 		if(!engy.cell.use(configured_items[mode][2]))
 			to_chat(user, "<span class='warning'>Insufficient energy.</span>")
+			flick("[icon_state]_empty", src)
 			return
 	else
 		if(!matter)
 			to_chat(user, "<span class='warning'>Insufficient matter.</span>")
+			flick("[icon_state]_empty", src)
 			return
 		matter--
 		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
@@ -79,5 +85,12 @@ RSF
 
 	to_chat(user, "Dispensing " + configured_items[mode][1] + "...")
 	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	update_icon(UPDATE_OVERLAYS)
 	var/type_path = configured_items[mode][3]
 	new type_path(spawn_location)
+
+/obj/item/rsf/update_overlays()
+	..()
+	var/ratio = CEILING((matter / 30) * 10, 1)
+	cut_overlays()
+	add_overlay("[icon_state]_charge[ratio]")

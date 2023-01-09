@@ -79,7 +79,7 @@ SUBSYSTEM_DEF(redis)
 			continue
 		// Check its an actual channel
 		if(!(channel in subbed_channels))
-			stack_trace("Recieved a message on the channel '[channel]' when we arent subscribed to it. What the heck?")
+			stack_trace("Received a message on the channel '[channel]' when we arent subscribed to it. What the heck?")
 			continue
 
 		var/datum/redis_callback/RCB = subbed_channels[channel]
