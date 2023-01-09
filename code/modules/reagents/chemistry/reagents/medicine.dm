@@ -937,7 +937,10 @@
 	id = "stimulative_cling"
 
 /datum/reagent/medicine/stimulative_agent/changeling/on_mob_add(mob/living/L)
-	return 
+	return
+
+/datum/reagent/medicine/stimulative_agent/changeling/on_mob_delete(mob/living/L)
+	return
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"
