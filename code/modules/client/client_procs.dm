@@ -331,7 +331,7 @@
 			// This also has to be manually done since no mob to use check_rights() on
 			deadmin()
 			verbs += /client/proc/readmin
-			GLOB.de_admins.Add(ckey)
+			GLOB.de_admins += ckey
 
 		else
 			on_holder_add()

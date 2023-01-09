@@ -15,7 +15,7 @@
 
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
-			admins_to_ping.Add(C)
+			admins_to_ping += C
 
 	var/de_admin_also = alert(usr, "Do you want to ping admins that have used de-admin?","Ping all admins", "Yes", "No")
 	if(de_admin_also == "Yes")
@@ -23,7 +23,7 @@
 			var/client/C = GLOB.directory[ckey]
 			if(!C)
 				continue
-			admins_to_ping.Add(C)
+			admins_to_ping += C
 
 	if(length(admins_to_ping) < 2) // All by yourself?
 		to_chat(usr, "<span class='boldannounce'>No other admins online to ping[de_admin_also == "Yes" ? ", including those that have used de-admin" : ""]!</span>")
