@@ -34,16 +34,15 @@
 	if(!length(possible_vampires))
 		return FALSE
 
-	if(length(possible_vampires))
-		for(var/I in possible_vampires)
-			if(length(pre_vampires) >= amount_vamp)
-				break
-			var/datum/mind/vampire = pick_n_take(possible_vampires)
-			if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
-				continue
-			pre_vampires += vampire
-			vampire.special_role = SPECIAL_ROLE_VAMPIRE
-			vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+	for(var/I in possible_vampires)
+		if(length(pre_vampires) >= amount_vamp)
+			break
+		var/datum/mind/vampire = pick_n_take(possible_vampires)
+		if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
+			continue
+		pre_vampires += vampire
+		vampire.special_role = SPECIAL_ROLE_VAMPIRE
+		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
 
 	//Vampires made, off to changelings
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
@@ -88,6 +87,7 @@
 		if(points < TOT_COST)
 			amount_tot++
 			points = 0
+			return
 
 		switch(rand(1, 4))
 			if(1 to 2)
