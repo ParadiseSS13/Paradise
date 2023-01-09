@@ -31063,6 +31063,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/item/eftpos/register{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
