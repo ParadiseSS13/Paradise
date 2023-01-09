@@ -30,5 +30,4 @@
   *
   * Updates the area icon
   */
-/area/proc/power_change()
-	update_icon(UPDATE_ICON_STATE)
+

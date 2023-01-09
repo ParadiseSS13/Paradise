@@ -123,10 +123,6 @@
 
 	return INITIALIZE_HINT_LATELOAD
 
-/area/LateInitialize()
-	. = ..()
-	power_change()		// all machines set to current power level, also updates lighting icon
-
 /area/proc/create_powernet()
 	powernet = new()
 	powernet.powernet_area = src

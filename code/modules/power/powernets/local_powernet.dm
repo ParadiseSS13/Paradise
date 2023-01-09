@@ -72,12 +72,11 @@
   * # power_change
   *
   * Called when the area power status changes
-  * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_POWERNET_POWER_CHANGE` signal.
+  * calls power change on all machines in the area, and sends the `COMSIG_POWERNET_POWER_CHANGE` signal.
 */
 /datum/local_powernet/proc/power_change()
 	for(var/obj/machinery/M as anything in registered_machines)	// for each machine in the area
 		M.power_change()			// reverify power status (to update icons etc.)
-	powernet_area.power_change()
 	SEND_SIGNAL(src, COMSIG_POWERNET_POWER_CHANGE)
 
 /// sets a power channel on or off and adjusts total power usage accordingly
