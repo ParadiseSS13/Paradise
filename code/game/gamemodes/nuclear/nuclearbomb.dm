@@ -594,14 +594,13 @@ GLOBAL_VAR(bomb_set)
 /obj/item/disk/nuclear/proc/find_respawn()
 	var/list/possible_spawns = GLOB.nukedisc_respawn
 	while(length(possible_spawns))
-		var/turf/current_spawn = pick(possible_spawns)
+		var/turf/current_spawn = pick_n_take(possible_spawns)
 		if(!current_spawn.density)
 			return current_spawn
 		// Someone built a wall over it, check the surroundings
 		var/list/open_turfs = current_spawn.AdjacentTurfs(open_only = TRUE)
 		if(length(open_turfs))
 			return pick(open_turfs)
-		possible_spawns.Remove(current_spawn)
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF
