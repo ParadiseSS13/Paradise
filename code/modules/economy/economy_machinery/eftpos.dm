@@ -264,6 +264,9 @@
 		return TRUE
 	return ..()
 
+/obj/item/eftpos/register/attack_self(mob/user)
+	to_chat(user, "<span class='notice'>\The [src] has to be set down and secured to be used.</span>")
+
 /obj/item/eftpos/register/check_user_position(mob/user)
 	if(!..())
 		return FALSE
