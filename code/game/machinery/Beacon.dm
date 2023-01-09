@@ -7,7 +7,6 @@
 	layer = WIRE_LAYER
 	plane = FLOOR_PLANE
 	anchored = TRUE
-	idle_power_consumption = 0
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
 	var/obj/item/radio/beacon/Beacon
