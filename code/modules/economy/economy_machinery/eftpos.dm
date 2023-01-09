@@ -297,3 +297,4 @@
 		WRENCH_ANCHOR_MESSAGE
 	else
 		WRENCH_UNANCHOR_MESSAGE
+	SStgui.close_uis(src)

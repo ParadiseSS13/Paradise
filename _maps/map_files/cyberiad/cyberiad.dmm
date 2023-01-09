@@ -52732,7 +52732,9 @@
 /area/maintenance/apmaint2)
 "cFL" = (
 /obj/structure/table/reinforced,
-/obj/item/eftpos/register,
+/obj/item/eftpos/register{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint2)
 "cFM" = (
@@ -63017,7 +63019,9 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/eftpos/register,
+/obj/item/eftpos/register{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
