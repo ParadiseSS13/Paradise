@@ -29480,11 +29480,15 @@
 	},
 /area/crew_quarters/kitchen)
 "bwo" = (
-/obj/structure/cable,
 /obj/machinery/light,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/table,
+/obj/item/eftpos/register{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -29494,6 +29498,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
+	},
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -79389,6 +79401,16 @@
 	icon_state = "purple"
 	},
 /area/toxins/lab)
+"nGl" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/crew_quarters/kitchen)
 "nGV" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -131664,7 +131686,7 @@ btJ
 bus
 bsS
 bof
-bof
+nGl
 bxH
 bzf
 bAk
@@ -131921,7 +131943,7 @@ btN
 buu
 bsV
 buJ
-bof
+nGl
 bxJ
 bzf
 bAk
@@ -132178,7 +132200,7 @@ btM
 brm
 bsU
 bof
-bof
+nGl
 bxI
 bzf
 bAk
@@ -132435,7 +132457,7 @@ btP
 buv
 bof
 bof
-bof
+nGl
 bxJ
 bzf
 nuq

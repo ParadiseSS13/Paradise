@@ -11364,6 +11364,13 @@
 	dir = 4;
 	pixel_y = -22
 	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/eftpos/register{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aKs" = (
@@ -13731,9 +13738,6 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "aQt" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
 /obj/machinery/newscaster{
 	dir = 4;
 	name = "west bump";
@@ -19871,33 +19875,35 @@
 	},
 /area/crew_quarters/kitchen)
 "bdN" = (
+/obj/machinery/disposal,
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/alarm{
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/structure/rack,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
-/obj/item/book/manual/wiki/chef_recipes,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/crew_quarters/kitchen)
 "bdO" = (
+/obj/structure/rack,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
+/obj/item/book/manual/wiki/chef_recipes,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/requests_console{
 	department = "Kitchen";
 	departmentType = 2;
 	name = "Kitchen Requests Console";
 	pixel_x = 30
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -19929,8 +19935,7 @@
 /area/crew_quarters/kitchen)
 "bdS" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -84082,6 +84087,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/launch)
+"gYB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/crew_quarters/kitchen)
 "haD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -86333,6 +86346,12 @@
 	icon_state = "redcorner"
 	},
 /area/security/permabrig)
+"jLL" = (
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/crew_quarters/kitchen)
 "jMg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -91736,6 +91755,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
+"qkJ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/crew_quarters/kitchen)
 "qkM" = (
 /obj/structure/table/wood,
 /obj/item/toy/russian_revolver,
@@ -93686,6 +93714,19 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/scibreak)
+"sEf" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/item/eftpos/register,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/crew_quarters/kitchen)
 "sEi" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -135610,7 +135651,7 @@ aUj
 aOG
 aOG
 bcx
-bdP
+bdS
 bdQ
 bdP
 bdQ
@@ -135867,7 +135908,7 @@ aUo
 aOG
 aTp
 bdT
-bdQ
+gYB
 bfk
 bgA
 bhQ
@@ -136124,7 +136165,7 @@ aUw
 aOG
 aTp
 bdR
-bdP
+bdS
 bgv
 bgB
 bhR
@@ -136381,7 +136422,7 @@ aUB
 aOG
 aVQ
 bfl
-bdQ
+gYB
 bfm
 bhN
 bli
@@ -136638,8 +136679,8 @@ aXI
 aOG
 aTp
 bfo
-bdP
-bdQ
+jLL
+qkJ
 bdP
 bdQ
 bdP
@@ -136894,7 +136935,7 @@ aWk
 aWk
 aZc
 baT
-aZa
+sEf
 bdO
 bdS
 bdQ
