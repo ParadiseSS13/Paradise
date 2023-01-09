@@ -41534,7 +41534,7 @@
 	pixel_y = 7;
 	pixel_x = -8
 	},
-/obj/item/phone/pos,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "caq" = (
@@ -52732,7 +52732,7 @@
 /area/maintenance/apmaint2)
 "cFL" = (
 /obj/structure/table/reinforced,
-/obj/item/phone/pos,
+/obj/item/eftpos/register,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint2)
 "cFM" = (
@@ -63017,7 +63017,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/phone/pos,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -67352,7 +67352,7 @@
 "eIN" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/phone/pos,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "eJo" = (
