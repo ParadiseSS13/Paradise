@@ -275,23 +275,9 @@
 	if(!..())
 		return FALSE
 	var/user_loc = get_dir(src, user)
-	if(!user_loc || dir == user_loc) // User is sitting right on top of it or standing directly behind it, don't check the corners
+	if(!user_loc || user_loc & dir)
 		return TRUE
-	var/valid_loc = FALSE
-	switch(dir)
-		if(NORTH)
-			if(user_loc == NORTHEAST || user_loc == NORTHWEST)
-				valid_loc = TRUE
-		if(SOUTH)
-			if(user_loc == SOUTHEAST || user_loc == SOUTHWEST)
-				valid_loc = TRUE
-		if(EAST)
-			if(user_loc == NORTHEAST || user_loc == SOUTHEAST)
-				valid_loc = TRUE
-		if(WEST)
-			if(user_loc == NORTHWEST || user_loc == SOUTHWEST)
-				valid_loc = TRUE
-	return valid_loc
+	return FALSE
 
 /obj/item/eftpos/register/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -299,7 +285,7 @@
 		WRENCH_ATTEMPT_UNANCHOR_MESSAGE
 	else
 		WRENCH_ATTEMPT_ANCHOR_MESSAGE
-	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return
 	anchored = !anchored
 	if(anchored)
