@@ -6,13 +6,14 @@
 /datum/game_mode/trifecta
 	name = "Trifecta"
 	config_tag = "trifecta"
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Solar Federation General")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Solar Federation General")
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI")
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	secondary_protected_species = list("Machine")
+	var/vampire_restricted_jobs = list("Chaplain")
 	var/list/datum/mind/pre_traitors = list()
 	var/list/datum/mind/pre_changelings = list()
 	var/list/datum/mind/pre_vampires = list()
@@ -42,7 +43,7 @@
 			continue
 		pre_vampires += vampire
 		vampire.special_role = SPECIAL_ROLE_VAMPIRE
-		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
+		vampire.restricted_roles = (restricted_jobs + secondary_restricted_jobs + vampire_restricted_jobs)
 
 	//Vampires made, off to changelings
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
