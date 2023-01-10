@@ -360,7 +360,7 @@
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
 	charge_failure = FALSE
-	addtimer(CALLBACK(src, PROC_REF(overload)), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(overload)), 2.5 SECONDS)
 
 /obj/item/gun/energy/plasma_pistol/proc/overload()
 	if(ishuman(loc) && !charge_failure)
