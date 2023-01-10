@@ -234,6 +234,8 @@
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	hitsound = 'sound/weapons/ringslam.ogg'
+	drop_sound = 'sound/items/handling/register_drop.ogg'
+	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
 	attack_verb = list("bounced a check off", "checked-out", "tipped")
 
 /obj/item/eftpos/register/examine(mob/user)
