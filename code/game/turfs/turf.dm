@@ -279,10 +279,15 @@
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
-	for(var/I in turfs_to_check)
-		var/turf/T = I
+	for(var/turf/T in turfs_to_check)
 		for(var/obj/machinery/door/firedoor/FD in T)
 			FD.CalculateAffectingAreas()
+
+	// Check for weeds and either update, create or delete wall weeds
+	turfs_to_check = AdjacentTurfs(open_only = TRUE, cardinal_only = FALSE)
+	for(var/turf/T in turfs_to_check)
+		for(var/obj/structure/alien/weeds/W in T)
+			W.check_surroundings()
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
