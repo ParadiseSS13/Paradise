@@ -24754,6 +24754,10 @@
 "bkP" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
+/obj/item/eftpos/register{
+	dir = 1;
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -28151,6 +28155,7 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_service,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -29480,15 +29485,11 @@
 	},
 /area/crew_quarters/kitchen)
 "bwo" = (
+/obj/structure/cable,
 /obj/machinery/light,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/table,
-/obj/item/eftpos/register{
-	dir = 4
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -29498,14 +29499,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
-	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -63031,9 +63024,6 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/eftpos/register{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -79401,16 +79391,6 @@
 	icon_state = "purple"
 	},
 /area/toxins/lab)
-"nGl" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
 "nGV" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -131686,7 +131666,7 @@ btJ
 bus
 bsS
 bof
-nGl
+bof
 bxH
 bzf
 bAk
@@ -131943,7 +131923,7 @@ btN
 buu
 bsV
 buJ
-nGl
+bof
 bxJ
 bzf
 bAk
@@ -132200,7 +132180,7 @@ btM
 brm
 bsU
 bof
-nGl
+bof
 bxI
 bzf
 bAk
@@ -132457,7 +132437,7 @@ btP
 buv
 bof
 bof
-nGl
+bof
 bxJ
 bzf
 nuq

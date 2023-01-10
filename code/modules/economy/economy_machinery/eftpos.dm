@@ -295,7 +295,11 @@
 
 /obj/item/eftpos/register/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(anchored)
+		WRENCH_ATTEMPT_UNANCHOR_MESSAGE
+	else
+		WRENCH_ATTEMPT_ANCHOR_MESSAGE
+	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 		return
 	anchored = !anchored
 	if(anchored)

@@ -19994,15 +19994,6 @@
 "bmF" = (
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
-"bmJ" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/crew_quarters/bar)
 "bmK" = (
 /obj/structure/rack{
 	dir = 1
@@ -74197,6 +74188,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
+"nMf" = (
+/obj/structure/table/wood,
+/obj/item/eftpos/register{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/maintenance/apmaint)
 "nMk" = (
 /obj/item/wrench,
 /turf/simulated/floor/plating,
@@ -85115,6 +85113,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "tmt" = (
+/obj/machinery/disposal,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
 	dir = 8
@@ -85122,11 +85121,9 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/obj/item/eftpos/register{
-	dir = 4
+/obj/structure/disposalpipe/trunk{
+	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -86634,6 +86631,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"udl" = (
+/obj/structure/table/reinforced,
+/obj/item/eftpos/register,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "udB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -108802,7 +108806,7 @@ cQb
 bZP
 bcO
 bQy
-bQy
+nMf
 bNf
 bPB
 bPB
@@ -127803,7 +127807,7 @@ bGc
 bID
 snq
 tmt
-bmJ
+bCy
 hLX
 bQC
 bsp
@@ -128058,7 +128062,7 @@ mZL
 bCv
 bEv
 bHO
-bGd
+udl
 bJH
 bLx
 lUc
