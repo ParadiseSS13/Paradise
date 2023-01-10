@@ -249,7 +249,7 @@
 
 /obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
 	if(isliving(target))
-		if(teleport_target)
+		if(teleport_target.z == target.z)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
