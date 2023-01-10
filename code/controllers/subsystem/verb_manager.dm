@@ -159,6 +159,9 @@ SUBSYSTEM_DEF(verb_manager)
 /datum/controller/subsystem/verb_manager/get_stat_details()
 	return "V/S: [round(verbs_executed_per_second, 0.01)]"
 
+/datum/controller/subsystem/verb_manager/Recover()
+	verb_queue = SSverb_manager.verb_queue
+
 /client/proc/force_verb_bypass()
 	set category = "Debug"
 	set name = "Enable Forced Verb Execution"
