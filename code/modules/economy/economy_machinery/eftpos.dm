@@ -12,6 +12,7 @@
 	var/transaction_amount = 0
 	var/transaction_purpose = "Default charge"
 	var/access_code
+	var/transaction_sound = 'sound/machines/chime.ogg'
 
 	///linked money account database to this EFTPOS
 	var/datum/money_account_database/account_database
@@ -175,7 +176,7 @@
 	var/attempt_pin
 	if(D.security_level != ACCOUNT_SECURITY_ID)
 		attempt_pin = input("Enter pin code", "EFTPOS transaction") as num
-		if(!attempt_pin || !check_user_position(user))
+		if(!attempt_pin || !Adjacent(user))
 			return
 	//given the credentials, can the associated account be accessed right now?
 	if(!D || !GLOB.station_money_database.try_authenticate_login(D, attempt_pin, restricted_bypass = FALSE))
@@ -183,14 +184,14 @@
 		return
 	if(alert("Are you sure you want to pay $[transaction_amount] to Account: [linked_account.account_name] ", "Confirm transaction", "Yes", "No") != "Yes")
 		return
-	if(!check_user_position(user))
+	if(!Adjacent(user))
 		return
 	//attempt to charge account money
 	if(!GLOB.station_money_database.charge_account(D, transaction_amount, transaction_purpose, machine_name, FALSE, FALSE))
 		to_chat(user, "[bicon(src)]<span class='warning'>Insufficient credits in your account!</span>")
 		return
 	GLOB.station_money_database.credit_account(linked_account, transaction_amount, transaction_purpose, machine_name, FALSE)
-	playsound(src, 'sound/machines/chime.ogg', 50, 1)
+	playsound(src, transaction_sound, 50, 1)
 	visible_message("<span class='notice'>[src] chimes!</span>")
 	transaction_paid = TRUE
 
@@ -236,6 +237,7 @@
 	hitsound = 'sound/weapons/ringslam.ogg'
 	drop_sound = 'sound/items/handling/register_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	transaction_sound = 'sound/machines/checkout.ogg'
 	attack_verb = list("bounced a check off", "checked-out", "tipped")
 
 /obj/item/eftpos/register/examine(mob/user)
