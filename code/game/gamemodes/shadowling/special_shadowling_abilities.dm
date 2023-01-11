@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				charge_counter = charge_max
 				return
 			if("Yes")
-				H.Stun(INFINITY) //This is bad but notransform won't work.
+				H.canmove = FALSE
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.name = user.real_name
 				H.SetStunned(0)
 				to_chat(H, "<i><b><font size=3>YOU LIVE!!!</i></b></font>")
-
+				H.canmove = TRUE
 				for(var/obj/structure/alien/resin/wall/shadowling/W in orange(H, 1))
 					playsound(W, 'sound/effects/splat.ogg', 50, 1)
 					qdel(W)
