@@ -217,6 +217,7 @@
 					menu = MENU_RECORDS
 				else
 					set_temp("Access denied.", "danger")
+					playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return
 
 	switch(action)

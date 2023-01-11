@@ -21,6 +21,7 @@
 
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	interact(user)
@@ -55,6 +56,7 @@
 
 	if(!allowed(usr) && !usr.can_admin_interact())
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))

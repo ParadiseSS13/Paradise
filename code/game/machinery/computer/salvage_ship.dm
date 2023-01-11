@@ -44,6 +44,7 @@
 /obj/machinery/computer/salvage_ship/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access Denied</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	user.set_machine(src)

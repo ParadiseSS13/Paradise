@@ -54,6 +54,7 @@
 	else
 		if(message)
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return COMM_AUTHENTICATION_NONE
 
 /obj/machinery/computer/communications/proc/change_security_level(var/new_level)
@@ -81,6 +82,7 @@
 	if(action == "auth")
 		if(!ishuman(usr))
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return FALSE
 		// Logout function.
 		if(authenticated != COMM_AUTHENTICATION_NONE)

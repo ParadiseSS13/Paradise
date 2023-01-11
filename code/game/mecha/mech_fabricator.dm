@@ -307,6 +307,7 @@
 		return
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	ui_interact(user)
 

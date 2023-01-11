@@ -813,6 +813,7 @@
 		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE

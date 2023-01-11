@@ -103,6 +103,7 @@
 	else if(href_list["item"])
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return
 		if(!allow_items) return
 
@@ -125,6 +126,7 @@
 	else if(href_list["allitems"])
 		if(!allowed(user))
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
+			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return
 		if(!allow_items)
 			return

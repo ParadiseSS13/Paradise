@@ -258,6 +258,7 @@
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 
 	else if(radio_connection)
 		var/datum/signal/signal = new

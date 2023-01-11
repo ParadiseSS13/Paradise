@@ -260,6 +260,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 /obj/machinery/computer/specops_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
+		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 //Commented out so admins can do shenanigans at their leisure. Also makes the force-spawned admin ERTs able to use the shuttle.
