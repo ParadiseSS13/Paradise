@@ -132,6 +132,11 @@
 			stack_trace("[wth.type] has the same topic key as [GLOB.world_topic_handlers[wth.topic_key]]! ([wth.topic_key])")
 			continue
 		GLOB.world_topic_handlers[wth.topic_key] = topic_handler_type
+	// Keybindings
+	for(var/path in subtypesof(/datum/keybinding))
+		var/datum/keybinding/D = path
+		if(initial(D.name))
+			GLOB.keybindings += new path()
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()

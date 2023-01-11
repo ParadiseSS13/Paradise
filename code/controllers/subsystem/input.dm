@@ -1,125 +1,41 @@
+///Culling occurs when a client has not pressed a key in over 60 seconds. We stop processing their inputs until they press another key down.
+#define AUTO_CULL_TIME 60 SECONDS
+
+
 SUBSYSTEM_DEF(input)
 	name = "Input"
 	wait = 1 //SS_TICKER means this runs every tick
-	init_order = INIT_ORDER_INPUT
 	flags = SS_TICKER
+	init_order = INIT_ORDER_INPUT
 	priority = FIRE_PRIORITY_INPUT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	offline_implications = "Player input will no longer be recognised. Immediate server restart recommended."
 
-	var/list/macro_sets
-	var/list/movement_keys
-	var/list/alt_movement_keys
+	/// List of clients whose input to process in loop.
+	var/list/client/processing = list()
 
 /datum/controller/subsystem/input/Initialize()
-	setup_default_macro_sets()
-
-	setup_default_movement_keys()
-
 	initialized = TRUE
-
 	refresh_client_macro_sets()
-
 	return ..()
 
-// This is for when macro sets are eventualy datumized
-/datum/controller/subsystem/input/proc/setup_default_macro_sets()
-	var/list/static/default_macro_sets
+/datum/controller/subsystem/input/fire(resumed = FALSE)
+	var/list/to_cull
+	for(var/client/C in processing)
+		if(processing[C] + AUTO_CULL_TIME < world.time)
+			if(!length(C.input_data.keys_held))
+				LAZYADD(to_cull, C)
+			else
+				continue // they fell asleep on their keyboard or w/e, let them
+		C.key_loop()
 
-	if(default_macro_sets)
-		macro_sets = default_macro_sets
-		return
+	if(to_cull)
+		processing -= to_cull
 
-	default_macro_sets = list(
-		"default" = list(
-			"Tab" = "\".winset \\\"input.focus=true?map.focus=true input.background-color=[COLOR_INPUT_DISABLED]:input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
-			"Back" = "\".winset \\\"input.focus=true input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
-			"Any" = "\"KeyDown \[\[*\]\]\"",
-			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
-			),
-		"old_default" = list(
-			"Tab" = "\".winset \\\"mainwindow.macro=old_hotkeys map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",
-			),
-		"old_hotkeys" = list(
-			"Tab" = "\".winset \\\"mainwindow.macro=old_default input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
-			"Back" = "\".winset \\\"input.focus=true input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
-			"Any" = "\"KeyDown \[\[*\]\]\"",
-			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
-			),
-		)
-
-	// Because i'm lazy and don't want to type all these out twice
-	var/list/old_default = default_macro_sets["old_default"]
-
-	var/list/static/oldmode_keys = list(
-		"North", "East", "South", "West",
-		"Northeast", "Southeast", "Northwest", "Southwest",
-		"Insert", "Delete", "Ctrl", "Alt", "Shift",
-		"F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
-		)
-
-	for(var/i in 1 to oldmode_keys.len)
-		var/key = oldmode_keys[i]
-		old_default[key] = "\"KeyDown [key]\""
-		old_default["[key]+UP"] = "\"KeyUp [key]\""
-
-	var/list/static/oldmode_ctrl_override_keys = list(
-		"W" = "W", "A" = "A", "S" = "S", "D" = "D", // movement
-		"1" = "1", "2" = "2", "3" = "3", "4" = "4", // intent
-		"B" = "B", // resist, rest
-		"E" = "E", // quick equip
-		"F" = "F", // intent left
-		"G" = "G", // intent right
-		"H" = "H", // stop pulling
-		"Q" = "Q", // drop
-		"R" = "R", // throw
-		"X" = "X", // switch hands
-		"Y" = "Y", // activate item
-		"Z" = "Z", // activate item
-		"T" = "T", // say, whisper
-		"M" = "M", // me
-		"O" = "O", // ooc
-		"L" = "L", // looc
-		"C" = "C", // stop pulling
-	)
-
-	for(var/i in 1 to oldmode_ctrl_override_keys.len)
-		var/key = oldmode_ctrl_override_keys[i]
-		var/override = oldmode_ctrl_override_keys[key]
-		old_default["Ctrl+[key]"] = "\"KeyDown [override]\""
-		old_default["Ctrl+[key]+UP"] = "\"KeyUp [override]\""
-
-	macro_sets = default_macro_sets
-
-// For initially setting up or resetting to default the movement keys
-/datum/controller/subsystem/input/proc/setup_default_movement_keys()
-	var/static/list/default_movement_keys = list(
-		"W" = NORTH, "A" = WEST, "S" = SOUTH, "D" = EAST,				// WASD
-		"North" = NORTH, "West" = WEST, "South" = SOUTH, "East" = EAST,	// Arrow keys & Numpad
-		)
-	var/static/list/azerty_movement_keys = list(
-		"Z" = NORTH, "Q" = WEST, "S" = SOUTH, "D" = EAST,				// WASD
-		"North" = NORTH, "West" = WEST, "South" = SOUTH, "East" = EAST,	// Arrow keys & Numpad
-	)
-	movement_keys = default_movement_keys.Copy()
-	alt_movement_keys = azerty_movement_keys.Copy()
-
-// Badmins just wanna have fun ♪
 /datum/controller/subsystem/input/proc/refresh_client_macro_sets()
 	var/list/clients = GLOB.clients
-	for(var/i in 1 to clients.len)
+	for(var/i in 1 to length(clients))
 		var/client/user = clients[i]
 		user.set_macros()
 
-/datum/controller/subsystem/input/fire()
-	var/list/clients = GLOB.clients // Let's sing the list cache song
-	if(listclearnulls(clients)) // clear nulls before we run keyloop
-		log_world("Found a null in clients list!")
-	for(var/i in 1 to clients.len)
-		var/client/C = clients[i]
-		C.keyLoop()
-
-/datum/controller/subsystem/input/Recover()
-	macro_sets = SSinput.macro_sets
-	movement_keys = SSinput.movement_keys
-	alt_movement_keys = SSinput.alt_movement_keys
+#undef AUTO_CULL_TIME

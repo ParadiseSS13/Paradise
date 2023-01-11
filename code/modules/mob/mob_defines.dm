@@ -210,3 +210,6 @@
 	var/atom/runechat_msg_location
 
 	var/tts_seed = null
+
+	/// The datum receiving keyboard input. parent mob by default.
+	var/datum/input_focus = null

@@ -1377,6 +1377,32 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
 
+/mob/living/silicon/ai/var/current_camera = 0
+
+/mob/living/silicon/ai/proc/check_for_binded_cameras(client/user)
+	if(!length(stored_locations))
+		to_chat(user, "<span class='warning'>You have no stored camera positions</span>")
+		return FALSE
+	return TRUE
+
+/mob/living/silicon/ai/proc/update_binded_camera(client/user)
+	var/camname
+	camname = stored_locations[current_camera]
+	ai_goto_location(camname)
+	to_chat(user, "<span class='notice'>Now you on camera position: [camname]</span>")
+
+/mob/living/silicon/ai/proc/current_camera_next(client/user)
+	if(current_camera >= length(stored_locations))
+		current_camera = 1
+	else
+		current_camera += 1
+
+/mob/living/silicon/ai/proc/current_camera_back(client/user)
+	if(current_camera <= 1)
+		current_camera = length(stored_locations)
+	else
+		current_camera -= 1
+
 /mob/living/silicon/ai/handle_fire()
 	return
 

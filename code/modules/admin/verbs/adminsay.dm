@@ -61,8 +61,9 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_mentor_say()
-	var/msg = input(src, null, "msay \"text\"") as text|null
-	cmd_mentor_say(msg)
+	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
+		var/msg = input(src, null, "msay \"text\"") as text|null
+		cmd_mentor_say(msg)
 
 /client/proc/toggle_mentor_chat()
 	set category = "Server"

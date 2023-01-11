@@ -11,6 +11,11 @@
 		return text
 	return default
 
+/proc/sanitize_json(json_input)
+	if(length(json_input) && istext(json_input))
+		return json_decode(json_input)
+	return list()
+
 /proc/sanitize_inlist(value, list/List, default)
 	if(value in List)	return value
 	if(default)			return default

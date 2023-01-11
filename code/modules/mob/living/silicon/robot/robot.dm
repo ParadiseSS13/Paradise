@@ -1684,7 +1684,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
-/// Used in `robot_bindings.dm` when the user presses "A" if on AZERTY mode, or "Q" on QWERTY mode.
+/// Used in `robot.dm` when the user presses "Q" by default.
 /mob/living/silicon/robot/proc/on_drop_hotkey_press()
 	var/obj/item/gripper/G = get_active_hand()
 	if(istype(G) && G.gripped_item)

@@ -57,6 +57,8 @@
 	if(abilities)
 		client.verbs |= abilities
 
+	client.update_active_keybindings()
+
 	//HUD updates (antag hud, etc)
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()

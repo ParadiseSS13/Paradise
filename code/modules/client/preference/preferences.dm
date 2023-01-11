@@ -62,6 +62,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 #define TAB_CHAR 0
 #define TAB_GAME 1
 #define TAB_GEAR 2
+#define TAB_KEYS 3
 
 /datum/preferences
 	var/client/parent
@@ -132,6 +133,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
 
 	var/tts_seed = null
+
+	var/custom_emotes_tmp = null
+
+	/// Custom emote text ("name" = "emote text")
+	var/list/custom_emotes = list()
 
 	var/body_accessory = null
 
@@ -219,10 +225,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/discord_id = null
 	var/discord_name = null
 
+	/// Active keybinds (currently useable by the mob/client)
+	var/list/datum/keybindings = list()
+	/// Keybinding overrides ("name" => ["key"...])
+	var/list/keybindings_overrides = null
+
 /datum/preferences/New(client/C)
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
-
+	parent?.set_macros()
 	max_gear_slots = config.max_loadout_points
 	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
@@ -234,14 +245,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
 			if(load_character(C))
+				C.prefs?.init_custom_emotes(C.prefs.custom_emotes)
 				return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	real_name = random_name(gender)
+	if(!SSdbcore.IsConnected())
+		init_keybindings() //we want default keybinds, even if DB is not connected
+		return
 	if(istype(C))
 		if(!loaded_preferences_successfully)
 			save_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		save_character(C)		// Do not call this with no client/C, it generates a runtime / SQL error
+		C.prefs?.init_custom_emotes(C.prefs.custom_emotes)
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"
@@ -254,11 +270,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	user << browse_rsc(preview_icon_front, "previewicon.png")
 	user << browse_rsc(preview_icon_side, "previewicon2.png")
 
-	var/dat = {"<meta charset="UTF-8">"}
+	var/list/dat = list()
+	dat += {"<meta charset="UTF-8">"}
 	dat += "<center>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -586,6 +604,66 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						. += " <a href='?_src_=prefs;preference=gear;gear=[G.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(G, tweak))]</a>"
 					. += "</td></tr>"
 			dat += "</table>"
+		if(TAB_KEYS)
+			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
+			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Пожалуйста, обратите внимание, что некоторые привязки клавиш переопределяются другими категориями.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Убедитесь, что вы привязали их все или тот конкретный, который вам нужен.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><hr></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Пользователи старого режима могут только повторно привязать и использовать следующие ключи:</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Стрелки, Функциональные (буквы (за исключением х и ъ) и т.п.), Insert, Del, Home, End, PageUp, PageDn.</b></div></td></tr>"
+			dat += "<table align='center' width='100%'>"
+
+			// Lookup lists to make our life easier
+			var/static/list/keybindings_by_cat
+			if(!keybindings_by_cat)
+				keybindings_by_cat = list()
+				for(var/kb in GLOB.keybindings)
+					var/datum/keybinding/KB = kb
+					keybindings_by_cat["[KB.category]"] += list(KB)
+
+			for(var/cat in GLOB.keybindings_groups)
+				dat += "<tr><td colspan=4><hr></td></tr>"
+				dat += "<tr><td colspan=3><h2>[cat]</h2></td></tr>"
+				for(var/kb in keybindings_by_cat["[GLOB.keybindings_groups[cat]]"])
+					var/datum/keybinding/KB = kb
+					var/kb_uid = KB.UID() // Cache this to reduce proc jumps
+					var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
+					var/list/keys = override_keys || KB.keys
+					var/keys_buttons = ""
+					for(var/key in keys)
+						var/disp_key = key
+						if(override_keys)
+							disp_key = "<b>[disp_key]</b>"
+						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
+					dat += "<tr>"
+					dat += "<td style='width: 25%'>[KB.name]</td>"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Clear</a></td>"
+					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
+						var/datum/keybinding/custom/custom_emote_keybind = kb
+						if(custom_emote_keybind.donor_exclusive && !((user.client.donator_level >= 2) || user.client.holder || unlock_content))
+							dat += "</tr>"
+							dat += "<tr>"
+							dat += "<td><b>Использование этой эмоции ограничено для поддержавших проект и членов byond.</b></td>"
+							dat += "</tr>"
+							continue
+						dat += "</tr>"
+						dat += "<tr>"
+						var/emote_text = user.client.prefs.custom_emotes[custom_emote_keybind.name] //check if this emote keybind has an associated value on the character save
+						if(!emote_text)
+							dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
+						else
+							dat += "<td style='width: 25%'><i>\"[user.client.prefs.real_name] [emote_text]\"</i></td>"
+						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[kb_uid];'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[kb_uid];'>Reset to Default</a></td>"
+						dat += "<tr><td colspan=4><br></td></tr>"
+					dat += "</tr>"
+				dat += "<tr><td colspan=4><br></td></tr>"
+
+			dat += "</table>"
 
 	dat += "<hr><center>"
 	if(!IsGuestKey(user.key))
@@ -596,8 +674,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "</center>"
 
 	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 660)
-	popup.set_content(dat)
-	popup.open(0)
+	popup.set_content(dat.Join(""))
+	popup.open(FALSE)
 
 
 /datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
@@ -784,6 +862,48 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.set_content(html_string)
 	popup.open(0)
 	return
+
+/datum/preferences/proc/init_keybindings(overrides, raw)
+	if(raw)
+		try
+			overrides = json_decode(raw)
+		catch
+			overrides = list()
+	keybindings = list()
+	keybindings_overrides = overrides
+	for(var/kb in GLOB.keybindings)
+		var/datum/keybinding/KB = kb
+		var/list/keys = (overrides && overrides[KB.name]) || KB.keys
+		for(var/key in keys)
+			LAZYADD(keybindings[key], kb)
+
+	parent?.update_active_keybindings()
+	return keybindings
+
+/datum/preferences/proc/capture_keybinding(mob/user, datum/keybinding/KB, old)
+	var/HTML = {"
+	<div id='focus' style="outline: 0;" tabindex=0>Keybinding: [KB.name]<br><br><b>Press any key to change<br>Press ESC to clear</b></div>
+	<script>
+	var deedDone = false;
+	document.onkeyup = function(e) {
+		if(deedDone){ return; }
+		var alt = e.altKey ? 1 : 0;
+		var ctrl = e.ctrlKey ? 1 : 0;
+		var shift = e.shiftKey ? 1 : 0;
+		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
+		var escPressed = e.keyCode == 27 ? 1 : 0;
+		var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		window.location=url;
+		deedDone = true;
+	}
+	document.getElementById('focus').focus();
+	</script>
+	"}
+	winshow(user, "capturekeypress", TRUE)
+	var/datum/browser/popup = new(user, "capturekeypress", "<div align='center'>Keybindings</div>", 350, 300)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	onclose(user, "capturekeypress", src)
 
 /datum/preferences/proc/SetJobPreferenceLevel(var/datum/job/job, var/level)
 	if(!job)
@@ -2197,6 +2317,142 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+				if("keybindings")
+					if(!keybindings_overrides)
+						keybindings_overrides = list()
+
+					if(href_list["set"])
+						var/datum/keybinding/KB = locateUID(href_list["set"])
+						if(KB)
+							if(href_list["key"])
+								var/old_key = href_list["old"]
+								var/new_key = copytext(url_decode(href_list["key"]), 1, 16)
+								var/alt_mod = text2num(href_list["alt"]) ? "Alt" : ""
+								var/ctrl_mod = text2num(href_list["ctrl"]) ? "Ctrl" : ""
+								var/shift_mod = text2num(href_list["shift"]) ? "Shift" : ""
+								var/numpad = (text2num(href_list["numpad"]) && text2num(new_key)) ? "Numpad" : ""
+								var/clear = text2num(href_list["clear_key"])
+
+								if(new_key == "Unidentified") //There doesn't seem to be any any key!
+									capture_keybinding(user, KB, href_list["old"])
+									return
+
+								if(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80) // Don't uppercase unicode stuff
+									new_key = sanitize_russian_key_to_english(new_key)
+								else
+									new_key = uppertext(new_key)
+
+								// Map for JS keys
+								var/static/list/key_map = list(
+									"UP" = "North",
+									"RIGHT" = "East",
+									"DOWN" = "South",
+									"LEFT" = "West",
+									"INSERT" = "Insert",
+									"HOME" = "Northwest",
+									"PAGEUP" = "Northeast",
+									"DEL" = "Delete",
+									"END" = "Southwest",
+									"PAGEDOWN" = "Southeast",
+									"SPACEBAR" = "Space",
+									"ALT" = "Alt",
+									"SHIFT" = "Shift",
+									"CONTROL" = "Ctrl",
+									"DIVIDE" = "Divide",
+									"MULTIPLY" = "Multiply",
+									"ADD" = "Add",
+									"SUBTRACT" = "Subtract",
+									"DECIMAL" = "Decimal",
+									"CLEAR" = "Center"
+								)
+
+								new_key = key_map[new_key] || new_key
+
+								var/full_key
+								switch(new_key)
+									if("ALT")
+										full_key = "Alt[ctrl_mod][shift_mod]"
+									if("CONTROL")
+										full_key = "[alt_mod]Ctrl[shift_mod]"
+									if("SHIFT")
+										full_key = "[alt_mod][ctrl_mod]Shift"
+									else
+										full_key = "[alt_mod][ctrl_mod][shift_mod][numpad][new_key]"
+
+								// Update overrides
+								var/list/key_overrides = keybindings_overrides[KB.name] || KB.keys?.Copy() || list()
+								var/index = key_overrides.Find(old_key)
+								var/changed = FALSE
+								if(clear) // Clear
+									key_overrides -= old_key
+									changed = TRUE
+								else if(old_key != full_key)
+									if(index) // Replace
+										var/cur_index = key_overrides.Find(full_key)
+										if(cur_index)
+											key_overrides[cur_index] = old_key
+										key_overrides[index] = full_key
+										changed = TRUE
+									else // Add
+										key_overrides -= (old_key || full_key) // Defaults to the new key itself, as to reorder it
+										key_overrides += full_key
+										changed = TRUE
+								else
+									changed = isnull(keybindings_overrides[KB.name]) // Sets it in the JSON
+
+								if(changed)
+									if(!length(key_overrides) && !length(KB.keys))
+										keybindings_overrides -= KB.name
+									else
+										keybindings_overrides[KB.name] = key_overrides
+
+								user << browse(null, "window=capturekeypress")
+							else
+								capture_keybinding(user, KB, href_list["old"])
+								return
+
+					else if(href_list["reset"])
+						var/datum/keybinding/KB = locateUID(href_list["reset"])
+						if(KB)
+							keybindings_overrides -= KB.name
+
+					else if(href_list["clear"])
+						var/datum/keybinding/KB = locateUID(href_list["clear"])
+						if(KB)
+							if(length(KB.keys))
+								keybindings_overrides[KB.name] = list()
+							else
+								keybindings_overrides -= KB.name
+
+					else if(href_list["all"])
+						var/yes = alert(user, "Really [href_list["all"]] all key bindings?", "Confirm", "Yes", "No") == "Yes"
+						if(yes)
+							switch(href_list["all"])
+								if("reset")
+									keybindings_overrides = list()
+								if("clear")
+									for(var/kb in GLOB.keybindings)
+										var/datum/keybinding/KB = kb
+										keybindings_overrides[KB.name] = list()
+
+					else if(href_list["custom_emote_set"])
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_set"])
+						if(custom_emote_keybind)
+							var/emote_text = user.client.prefs.custom_emotes[custom_emote_keybind.name]
+							var/desired_emote = stripped_input(user, "Введите текст вашей эмоции, лимит: 128 символов.", "Custom Emote Setter", emote_text, max_length = 128)
+							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
+								user.client.prefs.custom_emotes[custom_emote_keybind.name] = desired_emote
+							save_character(user)
+
+					else if(href_list["custom_emote_reset"])
+						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_reset"])
+						if(custom_emote_keybind)
+							user.client.prefs.custom_emotes.Remove(custom_emote_keybind.name)
+							save_character(user)
+
+					init_keybindings(keybindings_overrides)
+					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
+
 
 
 	ShowChoices(user)

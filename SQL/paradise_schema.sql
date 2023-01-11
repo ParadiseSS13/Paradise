@@ -77,6 +77,7 @@ CREATE TABLE `characters` (
   `autohiss` tinyint(1) NOT NULL,
   `uplink_pref` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tts_seed` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `custom_emotes` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -279,6 +280,7 @@ CREATE TABLE `player` (
   `byond_date` DATE DEFAULT NULL,
   `discord_id` varchar(32) NULL DEFAULT NULL,
   `discord_name` varchar(32) NULL DEFAULT NULL,
+  `keybindings` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),

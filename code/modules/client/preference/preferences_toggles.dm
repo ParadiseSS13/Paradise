@@ -284,29 +284,6 @@
 		to_chat(usr, "<span class='notice'>You have disabled text popup limiting.")
 	return
 
-/client/verb/numpad_target()
-	set name = "Toggle Numpad targetting"
-	set category = "Preferences"
-	set desc = "This button will allow you to enable or disable Numpad Targetting"
-	prefs.toggles ^= PREFTOGGLE_NUMPAD_TARGET
-	prefs.save_preferences(src)
-	if (prefs.toggles & PREFTOGGLE_NUMPAD_TARGET)
-		to_chat(usr, "<span class='notice'>You have enabled Numpad Targetting.")
-	else
-		to_chat(usr, "<span class='notice'>You have disabled Numpad Targetting.")
-	return
-
-/client/verb/azerty_toggle()
-	set name = "Toggle QWERTY/AZERTY"
-	set category = "Preferences"
-	set desc = "This button will switch you between QWERTY and AZERTY control sets"
-	prefs.toggles ^= PREFTOGGLE_AZERTY
-	prefs.save_preferences(src)
-	if (prefs.toggles & PREFTOGGLE_AZERTY)
-		to_chat(usr, "<span class='notice'>You are now in AZERTY mode.")
-	else
-		to_chat(usr, "<span class='notice'>You are now in QWERTY mode.")
-	return
 /client/verb/toggle_ghost_pda()
 	set name = "Show/Hide GhostPDA"
 	set category = "Preferences"
