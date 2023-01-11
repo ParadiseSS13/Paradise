@@ -75,8 +75,7 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
 	if(P.armour_penetration_flat + P.armour_penetration_percentage >= 100)
 		return ..()
-	else
-		visible_message("<span class='danger'>[P.name] was repelled by [name]'s girth!</span>")
+	visible_message("<span class='danger'>[P.name] was repelled by [name]'s girth!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
 	vision_range = 9
