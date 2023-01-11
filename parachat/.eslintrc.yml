@@ -1,0 +1,40 @@
+env:
+  browser: true
+  node: true
+extends:
+  - eslint:recommended
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:prettier/recommended
+  - plugin:react/recommended
+  - plugin:react/jsx-runtime
+  - plugin:react-hooks/recommended
+  - plugin:@typescript-eslint/recommended
+  - prettier
+overrides: []
+parser: "@typescript-eslint/parser"
+parserOptions:
+  ecmaVersion: latest
+  ecmaFeatures:
+    jsx: true
+  sourceType: module
+  project: ['./tsconfig.json', './tsconfig.node.json']
+plugins:
+  - "@typescript-eslint"
+  - import
+  - prettier
+  - react
+root: true
+rules:
+  import/no-unresolved: error
+  prettier/prettier: error
+  prefer-const: error
+settings:
+  import/parsers:
+    "@typescript-eslint/parser": [.ts, .js, .tsx, .jsx]
+  import/resolver:
+    alias:
+      map: [['~', './src']]
+      extensions: [.ts, .js, .tsx, .jsx]
+  react:
+    version: '18.2'

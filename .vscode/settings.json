@@ -4,6 +4,7 @@
 	],
 	// ESLint settings:
 	"eslint.workingDirectories": [
+    "parachat/",
 		"tgui/"
 	],
 	"eslint.rules.customizations": [

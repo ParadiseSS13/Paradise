@@ -18,6 +18,11 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set name = "Play Global Sound"
 	if(!check_rights(R_SOUNDS))	return
 
+	for(var/client/C in GLOB.clients)
+		C << browse_rsc(S)
+		C << output(url_encode("[S]"), "browseroutput:playAudio")
+
+  /*
 	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
 	uploaded_sound.priority = 250
 
@@ -47,6 +52,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			SEND_SOUND(M, uploaded_sound)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+  */
 
 
 /client/proc/play_local_sound(S as sound)

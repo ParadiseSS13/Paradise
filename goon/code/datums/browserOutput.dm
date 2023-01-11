@@ -76,6 +76,24 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			if(!owner || loaded)
 				return
 
+/datum/chatOutput/proc/loadme()
+	set waitfor = FALSE
+	if(!owner)
+		return
+
+	var/static/list/file_manifest = json_decode(file2text("parachat/dist/manifest.json"))
+	for(var/name in file_manifest)
+		var/list/chunk = file_manifest[name]
+		owner << browse_rsc(file("parachat/dist/" + chunk["file"]), chunk["file"])
+
+	owner << browse(file2text("parachat/dist/index.html"), "window=browseroutput")
+
+/client/verb/parachat_dev()
+	set name = "Reload"
+	set category = "Parachat"
+
+	chatOutput.loadme()
+
 /datum/chatOutput/Topic(href, list/href_list)
 	if(usr.client != owner)
 		return 1
@@ -206,20 +224,20 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	return "pong"
 
 /**
-  * Sends the lists of code phrases and responses to Goonchat for clientside highlighting
-  *
-  * Arguments:
-  * * phrases - List of code phrases
-  * * responses - List of code responses
-  */
+	* Sends the lists of code phrases and responses to Goonchat for clientside highlighting
+	*
+	* Arguments:
+	* * phrases - List of code phrases
+	* * responses - List of code responses
+	*/
 /datum/chatOutput/proc/notify_syndicate_codes(phrases = GLOB.syndicate_code_phrase, responses = GLOB.syndicate_code_response)
 	var/urlphrases = url_encode(copytext(phrases, 1, length(phrases)))
 	var/urlresponses = url_encode(copytext(responses, 1, length(responses)))
 	owner << output("[urlphrases]&[urlresponses]", "browseroutput:codewords")
 
 /**
-  * Clears any locally stored code phrases to highlight
-  */
+	* Clears any locally stored code phrases to highlight
+	*/
 /datum/chatOutput/proc/clear_syndicate_codes()
 	owner << output(null, "browseroutput:codewordsClear")
 
@@ -276,7 +294,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 /proc/is_valid_tochat_target(target)
 	return !istype(target, /savefile) && (ismob(target) || islist(target) || isclient(target) || target == world)
 
-/proc/to_chat(target, message, flag)
+/proc/to_chat(target, message, flag, tab)
 	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message
 
@@ -310,6 +328,10 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		if(findtext(message, "\proper"))
 			message = replacetext(message, "\proper", "")
 
+		if(tab)
+			message = "pchat:[tab]:[message]"
+
+/*
 		var/client/C
 		if(isclient(target))
 			C = target
@@ -324,6 +346,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			if(!C.chatOutput.loaded && C.chatOutput.messageQueue && islist(C.chatOutput.messageQueue))
 				C.chatOutput.messageQueue.Add(message)
 				return
+        */
 
 		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the javascript.
 		var/output_message = "[url_encode(url_encode(message))]"
