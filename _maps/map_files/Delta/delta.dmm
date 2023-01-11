@@ -50594,6 +50594,16 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
+"eZC" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/closet/walllocker{
+	pixel_y = -28;
+	layer = 2.8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/medical/morgue)
 "eZH" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
@@ -128819,18 +128829,18 @@
 	},
 /area/security/permabrig)
 "wkt" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/south,
 /obj/structure/morgue{
 	dir = 8
 	},
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
+/obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 32
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
@@ -178548,11 +178558,11 @@ dnD
 aaH
 aaJ
 duk
-wkt
+mcf
 swV
 ylJ
 mcf
-xWx
+wkt
 duk
 iUx
 oIw
@@ -178809,7 +178819,7 @@ pem
 dCc
 ylJ
 xGL
-jxO
+eZC
 duk
 flw
 jIo
