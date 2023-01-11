@@ -123,7 +123,7 @@
 	/// If this vendor is currently tipped
 	var/tilted = FALSE
 	/// Amount of damage to deal when tipped
-	var/squish_damage = 70  // yowch
+	var/squish_damage = 40  // yowch
 	/// If this vendor gets tipped, apply only this specific crit effect.
 	var/force_tip_crit = VENDOR_TIP_CRIT_EFFECT_RANDOM
 	/// number of shards to apply when a crit embeds
@@ -1043,6 +1043,7 @@
 						picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
 						C.apply_damage(max(0, squish_damage - crit_rebate) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
+				C.AddElement(/datum/element/squish, 18 SECONDS)
 			else
 				L.visible_message(
 					"<span class='danger'>[L] is crushed by [src]!</span>",

@@ -371,6 +371,7 @@
 #include "code\datums\components\spawner.dm"
 #include "code\datums\components\spooky.dm"
 #include "code\datums\components\squeak.dm"
+#include "code\datums\components\squish.dm"
 #include "code\datums\components\surgery_initiator.dm"
 #include "code\datums\components\swarming.dm"
 #include "code\datums\diseases\_disease.dm"
