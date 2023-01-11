@@ -62,10 +62,12 @@
 		if(!linkedparts)
 			to_chat(user, "<span class='rose'>You cannot assemble a pod frame because you do not have the necessary assembly.</span>")
 			return
+		if(!R.use(10))
+			to_chat(user, "<span class='warning'>Вам не хватает арматуры! Нужно минимум десять!</span>")
+			return
 		var/obj/structure/spacepod_frame/pod = new /obj/structure/spacepod_frame(src.loc)
 		pod.dir = src.dir
 		to_chat(user, "<span class='notice'>You strut the pod frame together.</span>")
-		R.use(10)
 		for(var/obj/item/pod_parts/pod_frame/F in linkedparts)
 			if(1 == turn(F.dir, -F.link_angle)) //if the part links north during construction, as the bottom left part always does
 				//log_admin("Repositioning")
