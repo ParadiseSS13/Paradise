@@ -1043,7 +1043,7 @@
 						picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
 						C.apply_damage(max(0, squish_damage - crit_rebate) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
-				C.AddElement(/datum/element/squish, 18 SECONDS)
+				C.AddElement(/datum/element/squish, 80 SECONDS)
 			else
 				L.visible_message(
 					"<span class='danger'>[L] is crushed by [src]!</span>",
