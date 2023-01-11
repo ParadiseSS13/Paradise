@@ -83,7 +83,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/crayons
 	name = "Box of Crayons"
-	desc = "A six-pack of crayons, just like back in kindergarten."
+	desc = "An eight-pack of crayons, just like back in kindergarten."
 	typepath = /obj/item/storage/fancy/crayons
 	cost = 35
 

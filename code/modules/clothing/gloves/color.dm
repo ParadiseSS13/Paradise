@@ -80,7 +80,7 @@
 	name = "black gloves"
 	icon_state = "black"
 	item_state = "bgloves"
-	item_color="brown"
+	item_color="black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS

@@ -346,7 +346,7 @@
 	result = /obj/item/stack/tile/carpet/black
 	time = 10
 	reqs = list(/obj/item/stack/tile/carpet = 1)
-	pathtools = list(/obj/item/toy/crayon)
+	pathtools = list(/obj/item/toy/crayon/black)
 	category = CAT_MISC
 
 /datum/crafting_recipe/bluecarpet
