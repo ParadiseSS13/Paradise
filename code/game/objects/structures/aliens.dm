@@ -59,7 +59,7 @@
 		qdel(W)
 	if(locate(/obj/structure/alien/weeds) in get_turf(src))
 		return ..()
-	new /obj/structure/alien/weeds(loc)
+	new /obj/structure/alien/weeds(loc, src)
 	return ..()
 
 /obj/structure/alien/resin/Destroy()
@@ -250,7 +250,7 @@
 	var/obj/structure/alien/wallweed/wall_weed // This var is used to handle wall-weed interactions for when they need to be deleted
 	var/static/list/weedImageCache
 	var/check_counter // This var is how many process() procs it takes for a weed to spread
-	var/silent_removal = FALSE // Needed for automatic removal
+	var/silent_removal = FALSE // This var is used for making automatic weed removals silent instead of making them produce the breaking sound
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
 	..()
@@ -284,8 +284,7 @@
 /obj/structure/alien/weeds/proc/clear_wall_weed()
 	if(wall_weed)
 		wall_weed.silent_removal = TRUE
-		qdel(wall_weed)
-		wall_weed = null
+		QDEL_NULL(wall_weed)
 
 /obj/structure/alien/weeds/proc/check_surroundings()
 	var/turf/T = get_turf(src)
@@ -339,6 +338,9 @@
 			qdel(src)
 		return
 
+	if((istype(linked_node, /obj/structure/alien/resin/door)) || (istype(linked_node, /obj/structure/alien/resin/wall)))
+		return
+
 	if(get_dist(linked_node, src) > linked_node.node_range) /*!linked_node || */
 		return
 
@@ -368,7 +370,7 @@
 
 	max_integrity = 15
 	var/list/overlay_list = list()
-	var/silent_removal = FALSE // Needed for automatic removal
+	var/silent_removal = FALSE // This var is used for making automatic weed removals silent instead of making them produce the breaking sound
 
 /obj/structure/alien/wallweed/Destroy()
 	if(!silent_removal)
