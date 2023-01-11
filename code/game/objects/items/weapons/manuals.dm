@@ -719,12 +719,12 @@
 
 		"}
 
-
 /obj/item/book/manual/chef_recipes
-	name = "Рецепты от шеф-повара"
+	name = "Рецепты от шеф-повара: Введение"
+	desc = "Одна из частей сборника рецептов шеф-повара."
 	icon_state = "cooked_book"
 	author = "NanoTrasen"
-	title = "Рецепты от шеф-повара"
+	title = "Рецепты от шеф-повара: Введение"
 	dat = {"
 
 		<html><head>
@@ -737,11 +737,162 @@
 
 		"}
 
+/obj/item/book/manual/chef_recipes/part_one
+	name = "Рецепты от шеф-повара: Основные ингредиенты и приправы"
+	title = "Рецепты от шеф-повара: Основные ингредиенты и приправы"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Основные_ингредиенты_и_приправы" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_two
+	name = "Рецепты от шеф-повара: Тесто и хлеб"
+	title = "Рецепты от шеф-повара: Тесто и хлеб"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Тесто_и_базовый_хлеб" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_three
+	name = "Рецепты от шеф-повара: Мясные блюда"
+	title = "Рецепты от шеф-повара: Мясные блюда"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Мясные_блюда" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_four
+	name = "Рецепты от шеф-повара: Рыба, морепродукты, суши"
+	title = "Рецепты от шеф-повара: Рыба, морепродукты, суши"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Рыба,_морепродукты,_суши" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_five
+	name = "Рецепты от шеф-повара: Бутерброды"
+	title = "Рецепты от шеф-повара: Бутерброды"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Бутерброды" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_six
+	name = "Рецепты от шеф-повара: Паста и пицца"
+	title = "Рецепты от шеф-повара: Паста и пицца"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Паста_и_пицца" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_seven
+	name = "Рецепты от шеф-повара: Супы, салаты и гарниры"
+	title = "Рецепты от шеф-повара: Супы, салаты и гарниры"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Супы,_салаты_и_гарниры" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_eight
+	name = "Рецепты от шеф-повара: Хлебобулочные изделия и десерты"
+	title = "Рецепты от шеф-повара: Хлебобулочные изделия и десерты"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Хлебобулочные_изделия_и_десерты" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_nine
+	name = "Рецепты от шеф-повара: Шоколадки и конфеты"
+	title = "Рецепты от шеф-повара: Шоколадки и конфеты"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Шоколадки_и_конфеты" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/chef_recipes/part_ten
+	name = "Рецепты от шеф-повара: Остальные рецепты"
+	title = "Рецепты от шеф-повара: Остальные рецепты"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Остальные_рецепты" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
 /obj/item/book/manual/barman_recipes
-	name = "Рецепты Бармена"
+	name = "Рецепты Бармена: Введение"
+	desc = "Одна из частей сборника рецептов бармена."
 	icon_state = "barbook"
 	author = "Сэр Джон Роуз"
-	title = "Рецепты Бармена"
+	title = "Рецепты Бармена: Введение"
 	dat = {"
 
 		<html><head>
@@ -749,6 +900,126 @@
 
 		<body>
 		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам#.D0.9D.D0.B0.D0.BF.D0.B8.D1.82.D0.BA.D0.B8" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/barman_recipes/part_one
+	name = "Рецепты Бармена: Ассортимент бухломата"
+	title = "Рецепты Бармена: Ассортимент бухломата"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Ассортимент_бухломата" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/barman_recipes/part_two
+	name = "Рецепты Бармена: Раздатчик выпивки"
+	title = "Рецепты Бармена: Раздатчик выпивки"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Раздатчик_выпивки" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/barman_recipes/part_three
+	name = "Рецепты Бармена: Фонтан газировки"
+	title = "Рецепты Бармена: Фонтан газировки"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Фонтан_газировки" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/barman_recipes/part_four
+	name = "Рецепты Бармена: Рецепты бутылочницы"
+	title = "Рецепты Бармена: Рецепты бутылочницы"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Рецепты_Бутылочницы" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/barman_recipes/part_five
+	name = "Рецепты Бармена: Алкогольные напитки и коктейли"
+	title = "Рецепты Бармена: Алкогольные напитки и коктейли"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Алкогольные_напитки_и_коктейли" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/barman_recipes/part_six
+	name = "Рецепты Бармена: Напитки на основе синтанола"
+	title = "Рецепты Бармена: Напитки на основе синтанола"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Напитки_на_основе_синтанола" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/barman_recipes/part_seven
+	name = "Рецепты Бармена: Безалкогольные напитки"
+	title = "Рецепты Бармена: Безалкогольные напитки"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Безалкогольные_напитки" frameborder="0" id="main_frame"></iframe>        </body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/barman_recipes/part_eight
+	name = "Рецепты Бармена: Напитки из ингредиентов с кухни"
+	title = "Рецепты Бармена: Напитки из ингредиентов с кухни"
+	dat = {"
+
+		<html><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам/Напитки_из_ингредиентов_с_кухни" frameborder="0" id="main_frame"></iframe>        </body>
 
 		</html>
 
