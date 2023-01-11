@@ -107,7 +107,7 @@
 	overdose_threshold = 30
 	dizzy_adj = 5
 	alcohol_perc = 0.7
-	drink_icon = "absinthebottle"
+	drink_icon = "absintheglass"
 	drink_name = "Glass of Absinthe"
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "fucking pain"
