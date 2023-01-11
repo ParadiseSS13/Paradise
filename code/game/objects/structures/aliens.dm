@@ -250,7 +250,8 @@
 	var/obj/structure/alien/wallweed/wall_weed // This var is used to handle wall-weed interactions for when they need to be deleted
 	var/static/list/weedImageCache
 	var/check_counter // This var is how many process() procs it takes for a weed to spread
-	var/silent_removal = FALSE // This var is used for making automatic weed removals silent instead of making them produce the breaking sound
+	/// This var is used for making automatic weed removals silent instead of making them produce the breaking sound
+	var/silent_removal = FALSE
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
 	..()
@@ -370,7 +371,8 @@
 
 	max_integrity = 15
 	var/list/overlay_list = list()
-	var/silent_removal = FALSE // This var is used for making automatic weed removals silent instead of making them produce the breaking sound
+	/// This var is used for making automatic weed removals silent instead of making them produce the breaking sound
+	var/silent_removal = FALSE
 
 /obj/structure/alien/wallweed/Destroy()
 	if(!silent_removal)
