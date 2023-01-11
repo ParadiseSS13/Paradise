@@ -791,6 +791,7 @@
 #include "code\game\machinery\vendors\departmental_vendors.dm"
 #include "code\game\machinery\vendors\generic_vendors.dm"
 #include "code\game\machinery\vendors\vending.dm"
+#include "code\game\machinery\vendors\vendor_crits.dm"
 #include "code\game\machinery\vendors\wardrobe_vendors.dm"
 #include "code\game\magic\Uristrunes.dm"
 #include "code\game\mecha\mech_bay.dm"

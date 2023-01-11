@@ -124,6 +124,14 @@
 	var/tilted = FALSE
 	/// Amount of damage to deal when tipped
 	var/squish_damage = 40  // yowch
+	/// Possible crit effects from this vending machine tipping.
+	var/possible_crits = list(
+		/datum/vendor_crit/lucky,
+		/datum/vendor_crit/pop_head,
+		/datum/vendor_crit/embed,
+		/datum/vendor_crit/pin,
+		/datum/vendor_crit/shatter
+	)
 	/// If this vendor gets tipped, apply only this specific crit effect.
 	var/force_tip_crit = VENDOR_TIP_CRIT_EFFECT_RANDOM
 	/// number of shards to apply when a crit embeds
