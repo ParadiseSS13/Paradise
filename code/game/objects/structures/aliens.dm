@@ -164,7 +164,7 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/C = user
-	if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+	if(C.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		if(world.time - C.last_bumped <= 60)
 			return
 		if(!C.handcuffed)
@@ -223,11 +223,11 @@
 /obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
-		if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		if(C.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 			return TRUE
 	if(iscarbon(mover.pulledby))
 		var/mob/living/carbon/L = mover.pulledby
-		if(L.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		if(L.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 			return TRUE
 	return !density
 
@@ -444,7 +444,6 @@
 	/*can be GROWING, GROWN or BURST; all mutually exclusive. GROWING has the egg in the grown state, and it will take 180-300 seconds for it to advance to the hatched state
 	*In the GROWN state, an alien egg can be destroyed or attacked by a xenomorph to force it to be burst, going near an egg in this state will also cause it to burst if you can be infected by a face hugger
 	*In the BURST/BURSTING state, the alien egg can be removed by being attacked by a alien or any other weapon
-	**/
 	**/
 	var/status = GROWING
 
