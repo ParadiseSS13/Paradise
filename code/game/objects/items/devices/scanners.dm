@@ -735,6 +735,7 @@ REAGENT SCANNER
 	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/reagent_scanner/afterattack(obj/O, mob/user as mob)
+	try_item_eat(O, user)
 	if(user.stat)
 		return
 	if(!user.IsAdvancedToolUser())
