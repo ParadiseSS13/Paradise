@@ -315,6 +315,10 @@
 		return
 
 	var/atom/movable/the_item = targets[1]
+	if(!user.Adjacent(the_item))
+		to_chat(user, "<span class = 'warning'>Вы не можете есть на расстоянии!</span>")
+		revert_cast()
+		return FALSE
 	if(ishuman(the_item))
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
