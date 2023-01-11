@@ -1,11 +1,26 @@
 /proc/num_in_words(n)
+	return get_num_in_words(n)
+
+/proc/dec_in_words(n)
+	return get_num_in_words(n, TRUE)
+
+/proc/get_num_in_words(n, decimal = FALSE)
 	var/static/datum/number/num
 	if(!num)
 		num = new /datum/number
-	n = text2num(n, 10)
-	if(ISINTEGER(n))
-		return " [num.int2words(n)] "
-	return ""
+
+	if(num.cache["[n]"])
+		return num.cache["[n]"]
+
+	var/result
+	if(decimal)
+		result = num.decimal2words(n)
+	else
+		result = num.int2words(n)
+
+	result = " [result] "
+	num.cache["[n]"] = result
+	return result
 
 /datum/number
 	var/static/list/units = list(
@@ -49,6 +64,14 @@
 		list(list("триллион", "триллиона", "триллионов"), "m"),
 		list(list("квадриллион", "квадриллиона", "квадриллионов"), "m"),
 		list(list("квинтиллион", "квинтиллиона", "квинтиллионов"), "m"),
+	)
+
+	var/static/list/decimal_int_units = list(list("целая", "целых", "целых"), "f")
+
+	var/static/list/decimal_exp_units = list(
+		list(list("десятая", "десятых", "десятых"), "f"),
+		list(list("сотая", "сотых", "сотых"), "f"),
+		list(list("тысячная", "тысячных", "тысячных"), "f"),
 	)
 
 	var/static/minus = "минус"
@@ -96,22 +119,26 @@
 
 	return list(plural, name)
 
-/datum/number/proc/int2words(num, list/main_units = list(list("", "", ""), "m"))
+/datum/number/proc/int2words(textnum, list/main_units = list(list("", "", ""), "m"))
 //	http://ru.wikipedia.org/wiki/Gettext#.D0.9C.D0.BD.D0.BE.D0.B6.D0.B5.D1.81.D1.82.D0.B2.D0.B5.D0.BD.D0.BD.D1.8B.D0.B5_.D1.87.D0.B8.D1.81.D0.BB.D0.B0_2
 
-	if(cache["[num]"])
-		return cache["[num]"]
-
 	var/list/_orders = list(main_units) + orders
+
+	var/num = text2num(textnum)
 	if(num == 0)
 		return trim(jointext(list(units[1], _orders[1][1][3]), " "))
 
-	var/rest = abs(num)
+	var/negative = FALSE
+	if(num < 0)
+		negative = TRUE
+		textnum = copytext_char(textnum, 2, 0)
+
 	var/ord = 1
 	var/list/name = list()
 
-	while(rest > 0)
-		var/list/thousand_result = thousand((rest % 1000), _orders[ord][2])
+	while(textnum)
+		var/next_thousand = text2num(copytext_char(textnum, -3, 0))
+		var/list/thousand_result = thousand(next_thousand, _orders[ord][2])
 		var/plural = thousand_result[1]
 		var/list/nme = thousand_result[2]
 
@@ -119,9 +146,10 @@
 			name += _orders[ord][1][plural]
 
 		name += nme
-		rest = round(rest / 1000)
+		textnum = copytext_char(textnum, 1, -3)
 		ord += 1
-	if(num < 0)
+
+	if(negative)
 		name += minus
 
 	var/temp_name = name
@@ -130,19 +158,13 @@
 		name += temp_name[i]
 
 	var/result = trim(jointext(name, " "))
-	cache["[num]"] = result
 	return result
 
-/datum/number/proc/decimal2words(value, places = 2, int_units=list(list("целых", "целых", "целых"), "m"), exp_units=list(list("", "", ""), "m"))
-	if(cache["[value]"])
-		return cache["[value]"]
-
-	var/q = 10 ** -places
-
-	var/pieces = splittext("[round(value, q)]", ".")
+/datum/number/proc/decimal2words(textvalue, places = 3)
+	var/pieces = splittext_char(textvalue, ".")
 	var/integral = pieces[1]
-	var/exp = pieces[2]
+	var/exp = copytext_char(pieces[2], 1, places + 1)
+	var/list/exp_units = decimal_exp_units[length_char(exp)]
 
-	var/result = trim("[int2words(integral, int_units)] [int2words(exp, exp_units)]")
-	cache["[value]"] = result
+	var/result = trim("[int2words(integral, decimal_int_units)] [int2words(exp, exp_units)]")
 	return result
