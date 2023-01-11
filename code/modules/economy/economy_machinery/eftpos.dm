@@ -161,10 +161,10 @@
 				to_chat(user, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
 
-/obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user)
+/obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user, secured = TRUE)
 	visible_message("<span class='info'>[user] swipes a card through [src].</span>")
 
-	if(!transaction_locked || transaction_paid)
+	if(!transaction_locked || transaction_paid || !secured)
 		return
 
 	if(!linked_account)
@@ -278,6 +278,9 @@
 	if(!user_loc || user_loc & dir)
 		return TRUE
 	return FALSE
+
+/obj/item/eftpos/register/scan_card(obj/item/card/id/C, mob/user, secured = anchored)
+	..()
 
 /obj/item/eftpos/register/wrench_act(mob/user, obj/item/I)
 	. = TRUE
