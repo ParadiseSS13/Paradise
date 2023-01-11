@@ -79,7 +79,7 @@ What are the archived variables for?
 //Procedures used for very specific events
 
 
-/datum/gas_mixture/proc/react(atom/dump_location)
+/datum/gas_mixture/proc/react()
 	var/reacting = 0 //set to 1 if a notable reaction occured (used by pipe_network)
 
 	if(agent_b && temperature > 900)
