@@ -47,7 +47,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot
 	name = "\improper Vetus Speculator"
-	desc = "An ancient robot from a long forgotten civilization. Adapts to the enviroment, and what it finds, to be the ideal combatant."
+	desc = "An ancient robot from a long forgotten civilization. Adapts to the environment, and what it finds, to be the ideal combatant."
 	health = 2500
 	maxHealth = 2500
 	attacktext = "shocks"
