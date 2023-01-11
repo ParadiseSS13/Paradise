@@ -261,7 +261,7 @@
 /obj/item/eftpos/register/attack_hand(mob/user)
 	if(anchored)
 		if(!check_user_position(user))
-			to_chat(user, "<span class='warning'>You need to be behind \the [src] to use it!</span>")
+			to_chat(user, "<span class='warning'>You need to be behind [src] to use it!</span>")
 			return
 		add_fingerprint(user)
 		ui_interact(user, state = GLOB.human_adjacent_state)
@@ -269,7 +269,7 @@
 	return ..()
 
 /obj/item/eftpos/register/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>\The [src] has to be set down and secured to be used.</span>")
+	to_chat(user, "<span class='notice'>[src] has to be set down and secured to be used.</span>")
 
 /obj/item/eftpos/register/check_user_position(mob/user)
 	if(!..())
