@@ -620,7 +620,7 @@
 	name = "Bottle of Ectoplasm"
 	desc = "A magically infused bottle of ectoplasm, effectivly pure salt from the spectral realm. Be careful though, these salty spirits are indiscriminate in their harvesting, and you yourself may become a victim."
 	item_path = /obj/item/antag_spawner/revenant
-	log_name = "SB"
+	log_name = "RB"
 	category = "Summons"
 	limit = 3
 	cost = 1 //Needs essence to live. Needs crew to die for essence, doubt xenobio will be making many monkeys. As such, weaker. Also can hardstun the wizard.

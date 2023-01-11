@@ -196,24 +196,27 @@
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
-	var/mob/living/simple_animal/demon/slaughter/S = new demon_type(holder)
-	S.vialspawned = TRUE
-	S.key = C.key
-	S.mind.assigned_role = S.name
-	S.mind.special_role = S.name
-	SSticker.mode.traitors += S.mind
+	var/mob/living/simple_animal/demon/D = new demon_type(holder)
+	if(istype(D, /mob/living/simple_animal/demon/slaughter))
+		var/mob/living/simple_animal/demon/slaughter/S = D
+		S.vialspawned = TRUE
+
+	D.key = C.key
+	D.mind.assigned_role = D.name
+	D.mind.special_role = D.name
+	SSticker.mode.traitors += D.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = S.mind
+	KillDaWiz.owner = D.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
-	S.mind.objectives += KillDaWiz
+	D.mind.objectives += KillDaWiz
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = S.mind
+	KillDaCrew.owner = D.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
-	S.mind.objectives += KillDaCrew
-	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	D.mind.objectives += KillDaCrew
+	to_chat(D, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
+	to_chat(D, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -233,8 +236,7 @@
 		ground up shadowling bones. Used in dark rituals to attract \
 		dark creatures."
 	icon = 'icons/obj/wizard.dmi'
-	icon_state = "vialblood"
-	color = "#000000"
+	icon_state = "vialshadows"
 	veil_msg = "<span class='warning'>You sense an dark presence \
 		lurking in the shadows...</span>"
 	objective_verb = "Kill"
@@ -301,7 +303,7 @@
 	name = "vial of ectoplasm"
 	desc = "A magically infused bottle of ectoplasm, effectivly pure salt from the spectral realm."
 	icon = 'icons/obj/wizard.dmi'
-	icon_state = "vialooze"
+	icon_state = "vialectoplasm"
 	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
 		turning back now!</span>"
 	var/veil_msg = "<span class='warning'>The ectoplasm is awake and seeps \
@@ -345,4 +347,6 @@
 	KillDaCrew.owner = M.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
-	M.mind.objectives += KillDaCrew //They are going to get revenant objectives after that will annouce it.
+	M.mind.objectives += KillDaCrew
+	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
+	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
