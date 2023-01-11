@@ -283,9 +283,9 @@
         check_counter = 0
 
 /obj/structure/alien/weeds/proc/clear_wall_weed()
-	if(wall_weed)
+	if(wall_weed && !QDELETED(wall_weed))
 		wall_weed.silent_removal = TRUE
-		QDEL_NULL(wall_weed)
+	QDEL_NULL(wall_weed)
 
 /obj/structure/alien/weeds/proc/check_surroundings()
 	var/turf/T = get_turf(src)
