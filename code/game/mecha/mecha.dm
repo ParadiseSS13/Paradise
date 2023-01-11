@@ -354,7 +354,7 @@
 		if(phasing && get_charge() >= phasing_energy_drain)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
-				flick("phazon-phase", src)
+				flick("[initial_icon]-phase", src)
 				if(direction & (direction - 1))	//moved diagonally
 					glide_for(step_in * 4.23)
 				else
@@ -931,7 +931,7 @@
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = initial(icon_state)+"-open"
+			icon_state = reset_icon(icon_state)+"-open"
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -965,7 +965,7 @@
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
-	icon_state = initial(icon_state)
+	icon_state = reset_icon(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
@@ -1268,7 +1268,7 @@
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
 					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
-		icon_state = initial(icon_state)+"-open"
+		icon_state = reset_icon(icon_state)+"-open"
 		dir = dir_in
 
 	if(L && L.client)
@@ -1499,6 +1499,7 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		WR.icon_state = "[src.reset_icon(loc, AI)]-broken"
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E
