@@ -625,7 +625,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		rename_character(oldname, newname)
 
 /mob/proc/select_voice(mob/user, silent_target = FALSE)
-	var/tts_test_str = "Съешь же ещё этих мягких французских булок, да выпей чаю."
+	var/tts_test_str = "Так звучит мой голос."
 	var/list/tts_seeds = list()
 	for(var/_seed in SStts.tts_seeds)
 		var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
