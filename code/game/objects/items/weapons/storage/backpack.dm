@@ -356,6 +356,11 @@
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
 
+/obj/item/storage/backpack/satchel_blueshield/srt
+	name = "SRT satchel"
+	desc = "A robust satchel issued to Nanotrasen's special force."
+	max_combined_w_class = 30
+
 //make sure to not inherit backpack/satchel if you want to create a new satchel
 /obj/item/storage/backpack/satchel
 	name = "leather satchel"
