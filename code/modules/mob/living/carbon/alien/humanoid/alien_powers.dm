@@ -221,6 +221,10 @@ Doesn't work on other aliens/AI.*/
 		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
 
 		if(!choice || !plasmacheck(55))	return
+		var/turf/T = get_turf(host.loc)
+		if(locate(/obj/structure/alien/resin) in T.contents || locate(/obj/structure/bed/nest) in T.contents)
+			to_chat(host, "<span class ='warning'>Это место уже занято!</span>")
+			return
 		host.adjustPlasma(-55)
 		for(var/mob/O in viewers(host, null))
 			O.show_message(text("<span class='alertalien'>[host] vomits up a thick purple substance and shapes it!</span>"), 1)
