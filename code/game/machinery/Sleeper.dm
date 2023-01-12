@@ -468,6 +468,7 @@
 /obj/machinery/sleeper/AltClick(mob/user)
 	if(issilicon(user))
 		eject()
+		return
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	eject()
