@@ -93,8 +93,6 @@
 	uniform = /obj/item/clothing/under/plasmaman/security/security/clown
 
 /datum/outfit/admin/clown_security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-
 	if(visualsOnly)
 		return
 
@@ -128,19 +126,12 @@
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
-		apply_to_card(I, H, new_access, name, "security_clown")
+		apply_to_card(I, H, new_access, name, "Clown Security")
 		I.access.Add(ACCESS_CLOWN, ACCESS_MIME, ACCESS_THEATRE)
+		I.rank = "Clown Security"
+		I.icon_state = "clownsecurity"
+		H.sec_hud_set_ID()
 
-	var/image/holder = H.hud_list[ID_HUD]
-	if(I)
-		holder.icon_state = "hudsecurityclown"
-	H.sec_hud_set_security_status()
-
-/datum/outfit/admin/clown_security/warden/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-
-/datum/outfit/admin/clown_security/physician/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
 
 //=========== security clown equipment ===========
 /obj/item/pda/clown/security

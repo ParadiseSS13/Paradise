@@ -478,7 +478,7 @@
 	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral")
 
 /proc/get_all_special_jobs()
-	return list("Special Reaction Team Member")
+	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
@@ -599,7 +599,14 @@
 		return "soviet"
 
 	if(rankName in special)
-		return "srt"
+		switch(rankName)
+			if("Special Reaction Team Member")
+				return "srt"
+			if("HONKsquad")
+				return "honksquad"
+			if("Clown Security")
+				return "clownsecurity"
+		return rankName
 
 	if(assignmentName in job_icons) //Check if the job has a hud icon
 		return assignmentName

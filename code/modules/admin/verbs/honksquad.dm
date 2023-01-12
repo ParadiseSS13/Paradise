@@ -2,6 +2,7 @@
 
 #define HONKSQUAD_POSSIBLE 6 //if more Commandos are needed in the future
 GLOBAL_VAR_INIT(sent_honksquad, 0)
+GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 /client/proc/honksquad()
 	if(!SSticker)
@@ -10,14 +11,18 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 	if(world.time < 6000)
 		to_chat(usr, "<font color='red'>There are [(6000-world.time)/10] seconds remaining before it may be called.</font>")
 		return
-	if(GLOB.sent_honksquad == 1)
-		to_chat(usr, "<font color='red'>Clown Planet has already dispatched a HONKsquad.</font>")
-		return
 	if(alert("Do you want to send in the HONKsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
 	var/is_security_clowns = FALSE
 	if(alert("Какую группу вы хотите послать?",,"ХОНК-сквад","ХОНК-смотрители")=="ХОНК-смотрители")
 		is_security_clowns = TRUE
+		GLOB.sent_clownsequritysquad += 1
+	else
+		GLOB.sent_honksquad += 1
+
+	if(GLOB.sent_honksquad > 1 && !is_security_clowns || GLOB.sent_clownsequritysquad > 1 && is_security_clowns)
+		to_chat(usr, "<font color='red'>Clown Planet has already dispatched that HONKsquad.</font>")
+		return
 	alert("This 'mode' will go on until proper levels of HONK have been restored. You may also admin-call the evac shuttle when appropriate. Assigning the team's detailed task is recommended from there. While you will be able to manually pick the candidates from active ghosts, their assignment in the squad will be random.")
 
 	var/input = null
@@ -26,12 +31,6 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		if(!input)
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
-
-	if(GLOB.sent_honksquad)
-		to_chat(usr, "Looks like someone beat you to it. HONK.")
-		return
-
-	GLOB.sent_honksquad = 1
 
 
 	var/honksquad_number = HONKSQUAD_POSSIBLE //for selecting a leader
@@ -55,7 +54,7 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		var/obj/effect/landmark/L = thing
 		if(honksquad_number<=0)	break
 		if(L.name == "HONKsquad")
-			honk_leader_selected = honksquad_number == 1?1:0
+			honk_leader_selected = (honksquad_number == HONKSQUAD_POSSIBLE ? 1 : 0)
 
 			var/mob/living/carbon/human/new_honksquad = is_security_clowns ? create_honksquad_security(L, honk_leader_selected) : create_honksquad(L, honk_leader_selected)
 
@@ -88,6 +87,7 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		A.real_name = "[honksquad_leader_rank] [honksquad_name]"
 	else
 		A.real_name = "[honksquad_rank] [honksquad_name]"
+	var/rankName = honk_leader_selected ? honksquad_leader_rank : honksquad_rank
 	A.copy_to(new_honksquad)
 
 	new_honksquad.dna.ready_dna(new_honksquad)//Creates DNA.
@@ -99,10 +99,10 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 	new_honksquad.mind.offstation_role = TRUE
 	new_honksquad.add_language("Clownish")
 	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
-	new_honksquad.equip_honksquad(honk_leader_selected)
+	new_honksquad.equip_honksquad(honk_leader_selected, rankName)
 	return new_honksquad
 
-/mob/living/carbon/human/proc/equip_honksquad(honk_leader_selected = 0)
+/mob/living/carbon/human/proc/equip_honksquad(honk_leader_selected = 0, var/rankName)
 
 	var/obj/item/radio/R = new /obj/item/radio/headset(src)
 	R.set_frequency(1442)
@@ -131,14 +131,11 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 	src.mutations.Add(CLUMSY)
 
 
-
-	var/obj/item/card/id/W = new(src)
-	W.name = "[real_name]'s ID Card"
-	W.icon_state = "centcom_old"
-	W.access = list(ACCESS_CLOWN)//They get full station access.
-	W.assignment = "HONKsquad"
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
+	var/obj/item/card/id/I = new(src)
+	apply_to_card(I, src, list(ACCESS_CLOWN), "[rankName] ХОНК-отряда", "HONKsquad", "clownsquad")
+	I.rank = "HONKsquad"
+	I.icon_state = "clownsquad"
+	equip_to_slot_or_del(I, slot_wear_id)
 
 	return 1
 

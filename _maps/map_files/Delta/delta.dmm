@@ -8522,6 +8522,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/landmark{
+	name = "HONKsquad"
+	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "bfQ" = (
@@ -175604,7 +175607,7 @@ ahC
 ahC
 ahC
 ahC
-ahC
+ugW
 bjM
 bqf
 bqf
@@ -175861,7 +175864,7 @@ jeA
 jeA
 jeA
 aYd
-ahC
+ugW
 aMr
 boG
 aRH
@@ -176375,7 +176378,7 @@ nlE
 nlE
 nlE
 aYH
-ahC
+ugW
 aMr
 bqd
 bvf
@@ -176632,7 +176635,7 @@ ahC
 ahC
 ahC
 ahC
-ahC
+ugW
 bjM
 bqf
 bqf
