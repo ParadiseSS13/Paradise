@@ -1,4 +1,4 @@
-/obj/structure/closet/secure_closet
+/obj/structure/closet/secure_closete
 	name = "secure locker"
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'

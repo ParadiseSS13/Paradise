@@ -149,6 +149,9 @@
 		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
 
+/obj/structure/closet/crate/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
+
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)
 	var/list/msg = list("[capitalize(name)] has arrived at [destination].")
