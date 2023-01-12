@@ -296,7 +296,7 @@
 		//Emotes
 		custom_emotes_tmp = query.item[55]
 
-		// Gradient 
+		// Gradient
 		h_grad_style = query.item[56]
 		h_grad_offset_x = query.item[57] // parsed down below
 		h_grad_colour = query.item[58]
