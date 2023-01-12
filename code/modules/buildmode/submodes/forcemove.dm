@@ -72,8 +72,6 @@
 	selected_overlay = null
 
 // If it gets deleted mid-movement, remove the overlay and its attachment to the forcemove tool
-/datum/buildmode_mode/forcemove/proc/on_selected_atom_deleted(mob/user)
+/datum/buildmode_mode/forcemove/proc/on_selected_atom_deleted()
 	UnregisterSignal(selected_atom, COMSIG_PARENT_QDELETING)
-	remove_selected_overlay(user)
 	selected_atom = null
-
