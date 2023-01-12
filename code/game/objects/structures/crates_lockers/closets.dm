@@ -386,6 +386,7 @@
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)
 	if(opened)
 		target.forceMove(src)
+		visible_message("<span class='danger'>[attacker] shoves [target] into [src]!</span>", "<span class='warning'>You hear a thud, and something clangs shut.</span>")
 		close()
 		return TRUE
 	return ..()
