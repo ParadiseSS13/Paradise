@@ -14,7 +14,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	if(vessel.stored_plasma > vessel.max_plasma)
 		vessel.stored_plasma = vessel.max_plasma
 	src.updateplasmadisplay(src)
-	for(var/datum/action/spell_action/action in src.actions)
+	for(var/datum/action/spell_action/action in actions)
 		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/alien_spell
