@@ -149,10 +149,10 @@
 	light_color = LIGHT_COLOR_RED
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
-	var/extra_force_applied = FALSE
 	armour_penetration_flat = 20
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+	var/extra_force_applied = FALSE
 	if(on && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
 		force += backstab_damage
 		extra_force_applied = TRUE
@@ -167,7 +167,6 @@
 	. = ..()
 	if(extra_force_applied)
 		force -= backstab_damage
-		extra_force_applied = FALSE
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	return 0
