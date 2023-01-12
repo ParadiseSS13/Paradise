@@ -20,7 +20,7 @@
 		is_operating = FALSE
 		return FALSE
 	user.visible_message("<span class='danger'>[user] begins vomiting an arachnid!</span>")
-	if(do_after(user, 5 SECONDS, FALSE, target = user)) // Takes 5 seconds to spawn a spider
+	if(do_after(user, 4 SECONDS, FALSE, target = user)) // Takes 5 seconds to spawn a spider
 		spider_counter++
 		var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/S = new(user.loc)
 		S.owner_UID = user.UID()
@@ -34,9 +34,17 @@
 // Child of giant_spider because this should do everything the spider does and more
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider
 	var/mob/owner_UID // References to the owner changeling
+	var/gibbed = FALSE // To check if the spider died via gib or if it still needs to be gibbed, to prevent post-death revival
 	venom_per_bite = 3
 
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/gib()
+	gibbed = TRUE
+	return ..()
+
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/death()
+	if(!gibbed)
+		gib()
+		return
 	var/mob/owner_mob = locateUID(owner_UID)
 	var/datum/action/changeling/spiders/S = locate() in owner_mob.actions
 	S.spider_counter--
