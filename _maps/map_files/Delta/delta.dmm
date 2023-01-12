@@ -43421,12 +43421,6 @@
 /turf/simulated/floor/carpet/purple,
 /area/hallway/secondary/exit)
 "dSk" = (
-/obj/machinery/button/windowtint{
-	id = "departureprivate";
-	pixel_x = 23;
-	pixel_y = 6;
-	range = 4
-	},
 /obj/machinery/door_control{
 	desiredstate = 1;
 	id = "departureprivate";
@@ -43442,6 +43436,13 @@
 	on = 1;
 	scrub_N2O = 1;
 	scrub_Toxins = 1
+	},
+/obj/machinery/button/windowtint{
+	id = "departureprivate";
+	pixel_x = 23;
+	pixel_y = 6;
+	range = 4;
+	anchored = 1
 	},
 /turf/simulated/floor/carpet/purple,
 /area/hallway/secondary/exit)
@@ -51036,7 +51037,8 @@
 /obj/machinery/button/windowtint{
 	id = "vir2";
 	pixel_x = 4;
-	pixel_y = -24
+	pixel_y = -24;
+	anchored = 1
 	},
 /obj/machinery/light_switch{
 	pixel_x = -4;
@@ -64259,7 +64261,8 @@
 /obj/machinery/button/windowtint{
 	dir = 8;
 	id = "psychoffice";
-	pixel_x = 25
+	pixel_x = 25;
+	anchored = 1
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
@@ -108733,7 +108736,8 @@
 /obj/machinery/button/windowtint{
 	id = "execution";
 	pixel_x = -8;
-	pixel_y = 24
+	pixel_y = 24;
+	anchored = 1
 	},
 /obj/machinery/light_switch{
 	pixel_y = 24
