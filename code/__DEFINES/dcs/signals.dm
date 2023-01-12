@@ -661,6 +661,8 @@
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
 /// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
+//sent from living mobs when they parry
+#define COMSIG_HUMAN_PARRY "human_parry"
 
 // /datum/species signals
 
