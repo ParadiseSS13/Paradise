@@ -139,7 +139,7 @@
  */
 /mob/living/simple_animal/hostile/morph/proc/add_food(amount)
 	gathered_food += amount
-	for(var/datum/action/spell_action/action in src.actions)
+	for(var/datum/action/spell_action/action in actions)
 		action.UpdateButtonIcon()
 
 
