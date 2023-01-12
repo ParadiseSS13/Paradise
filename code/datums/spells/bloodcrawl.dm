@@ -149,9 +149,13 @@
 		var/mob/living/simple_animal/demon/slaughter/demon = L
 		demon.devoured++
 		to_chat(victim, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
+		var/obj/item/organ/internal/regenerative_core/legion/core = victim.get_int_organ(/obj/item/organ/internal/regenerative_core/legion)
+		if(core)
+			core.remove(victim)
 		victim.adjustBruteLoss(1000)
 		victim.forceMove(demon)
 		demon.consumed_mobs.Add(victim)
+		ADD_TRAIT(victim, TRAIT_UNREVIVABLE, "unrevivable")
 		if(ishuman(victim))
 			var/mob/living/carbon/human/H = victim
 			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))

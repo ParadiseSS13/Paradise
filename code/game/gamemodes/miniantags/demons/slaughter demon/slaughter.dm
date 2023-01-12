@@ -72,6 +72,7 @@
 /mob/living/simple_animal/demon/slaughter/Destroy()
 	// Only execute the below if we successfully died
 	for(var/mob/living/M in consumed_mobs)
+		REMOVE_TRAIT(M, TRAIT_UNREVIVABLE, "unrevivable")
 		release_consumed(M)
 	. = ..()
 
