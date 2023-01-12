@@ -124,16 +124,16 @@
 	var/tilted = FALSE
 	/// Amount of damage to deal when tipped
 	var/squish_damage = 40  // yowch
+	/// Factor of extra damage to deal when knocking over on oneself
+	var/crit_damage_factor = 2
 	/// Possible crit effects from this vending machine tipping.
 	var/possible_crits = list(
-		/datum/vendor_crit/lucky,
 		/datum/vendor_crit/pop_head,
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
-		/datum/vendor_crit/shatter
+		/datum/vendor_crit/shatter,
+		/datum/vendor_crit/lucky
 	)
-	/// If this vendor gets tipped, apply only this specific crit effect.
-	var/force_tip_crit = VENDOR_TIP_CRIT_EFFECT_RANDOM
 	/// number of shards to apply when a crit embeds
 	var/num_shards = 7
 
@@ -950,106 +950,70 @@
 /obj/machinery/economy/vending/onTransitZ()
 	return
 
+/obj/machinery/economy/vending/proc/choose_crit()
+	if(!length(possible_crits))
+		return
+	var/crit_path_selected = pick(possible_crits)
+	return GLOB.vendor_crits[crit_path_selected]
+
 /**
  * Tilts the machine onto the atom passed in.
  *
  * Arguments:
  * * victim - The thing the machine is falling on top of
  * * crit - if true, some special damage effects might happen.
+ * * from_combat - If true, hold off on some of the additional damage and extra effects.
  */
-/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE)
+/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
 		return
 
 	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
-	var/list/possible_crits = list(VENDOR_TIP_CRIT_EFFECT_EMBED, VENDOR_TIP_CRIT_EFFECT_HEAD_ASPLODE, VENDOR_TIP_CRIT_EFFECT_MAIM_LIMB, VENDOR_TIP_CRIT_EFFECT_PIN, VENDOR_TIP_CRIT_EFFECT_SHATTER)
 
-	var/crit_case
-	if(crit)
-		crit_case = pick(possible_crits)
-
-	if(force_tip_crit != VENDOR_TIP_CRIT_EFFECT_RANDOM)
-		crit_case = force_tip_crit
+	var/should_throw_at_target = TRUE
 
 	. = FALSE
 
 	if(in_range(victim, src))
 		for(var/mob/living/L in get_turf(victim))
 			var/mob/living/carbon/C = L
+
+			var/crit_rebate = 0
+			var/damage_to_deal = squish_damage
+			if(crit || !from_combat)
+				// double the damage on a crit
+				damage_to_deal *= crit_damage_factor
 			if(istype(C))
-				var/crit_rebate = 0  // amount of damage a crit dealt, lessen the normal damage dealt
-				switch(crit_case)
-					if(VENDOR_TIP_CRIT_EFFECT_SHATTER)
-						crit_rebate = 60  // that's a lot of damage
-						C.bleed(150)
-						var/obj/item/organ/external/leg/right = C.get_organ(BODY_ZONE_R_LEG)
-						var/obj/item/organ/external/leg/left = C.get_organ(BODY_ZONE_L_LEG)
-						if(istype(left))
-							left.receive_damage(200)
-						if(istype(right))
-							right.receive_damage(200)
+				var/datum/vendor_crit/critical_attack = choose_crit()
+				if(crit && critical_attack && critical_attack.is_valid(src, C))
+					crit_rebate = critical_attack.tip_crit_effect(src, C)
+					if(critical_attack.harmless)
+						tilt_over(critical_attack.fall_towards_mob ? victim : null)
+						return TRUE
 
-						if(left || right)
-							C.visible_message(
-								"<span class='danger'>[C]'s legs shatter with a sickening crunch!</span>",
-								"<span class='userdanger'>Your legs shatter with a sickening crunch!</span>",
-								"<span class='danger'>You hear a sickening crunch!</span>"
-							)
-
-					if(VENDOR_TIP_CRIT_EFFECT_PIN)
-						forceMove(get_turf(C))
-						buckle_mob(C, force=TRUE)
-						C.visible_message(
-							"<span class='danger'>[C] gets pinned underneath [src]!</span>",
-							"<span class='userdanger'>You are pinned down by [src]!</span>"
-						)
-
-					if(VENDOR_TIP_CRIT_EFFECT_EMBED)
-						if(num_shards > 0)
-							C.visible_message(
-								"<span class='danger'>[src]'s panel shatters against [C]!</span>",
-								"<span class='userdanger>[src] lands on you, its panel shattering!</span>")
-							crit_rebate = 50  // since this is a nasty one
-							for(var/i in 1 to num_shards)
-								var/obj/item/shard/shard = new /obj/item/shard(get_turf(C))
-								shard.embed_chance = 100
-								shard.embedded_pain_chance = 5
-								shard.embedded_impact_pain_multiplier = 1
-								shard.embedded_ignore_throwspeed_threshold = TRUE
-								C.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-								shard.embed_chance = initial(shard.embed_chance)
-								shard.embedded_pain_chance = initial(shard.embedded_pain_chance)
-								shard.embedded_impact_pain_multiplier = initial(shard.embedded_pain_multiplier)
-								shard.embedded_ignore_throwspeed_threshold = initial(shard.embedded_ignore_throwspeed_threshold)
-
-					if(VENDOR_TIP_CRIT_EFFECT_HEAD_ASPLODE)
-						// pop!
-						var/obj/item/organ/external/head/O = C.get_organ("head")
-						var/obj/item/organ/internal/brain/B = C.get_int_organ_tag("brain")
-						if(O)
-							C.visible_message("<span class='danger'>[O] gets crushed under [src]!</span>", "<span class='userdanger'>Oh f-</span>")
-							O.disfigure()
-							C.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
-						if(B in O)
-							B.damage += 80
-					else
-						C.visible_message(
-							"<span class='danger'>[C] is crushed by [src]!</span>",
-							"<span class='userdanger'>[src] crushes you!</span>",
-							"<span class='warning'>You hear a loud crunch!</span>"
-						)
+					should_throw_at_target = critical_attack.fall_towards_mob
+					add_attack_logs(null, C, "critically crushed by [src] causing [critical_attack]")
+				else
+					// we'll still apply double damage
+					C.visible_message(
+						"<span class='danger'>[C] is crushed by [src]!</span>",
+						"<span class='userdanger'>[src] crushes you!</span>",
+						"<span class='warning'>You hear a loud crunch!</span>"
+					)
+					add_attack_logs(null, C, "crushed by [src]")
 
 				// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
+				damage_to_deal -= crit_rebate
 				if(prob(30))
-					C.apply_damage(max(0, squish_damage - crit_rebate), BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
+					C.apply_damage(max(0, damage_to_deal), BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
 				else
 					var/picked_zone
 					var/num_parts_to_pick = 2
 					for(var/i = 1 to num_parts_to_pick)
 						picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
-						C.apply_damage(max(0, squish_damage - crit_rebate) * (1 / num_parts_to_pick), BRUTE, picked_zone)
+						C.apply_damage(max(0, damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
 				C.AddElement(/datum/element/squish, 80 SECONDS)
 			else
@@ -1058,21 +1022,26 @@
 					"<span class='userdanger'>[src] falls on top of you, crushing you!</span>"
 				)
 				L.apply_damage(squish_damage, BRUTE)
-				if(crit_case)
-					L.apply_damage(squish_damage, BRUTE)
+				if(crit)
+					L.apply_damage(squish_damage, BRUTE)  // 3x damage
 
-			L.Paralyse(6 SECONDS)
+				add_attack_logs(null, C, "crushed by [src]")
+
+			. = TRUE
+			L.Weaken(6 SECONDS)
 			L.KnockDown(12 SECONDS)
 			L.emote("scream")
-			. = TRUE
+
 			playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
 			playsound(L, "sound/effects/splat.ogg", 50, TRUE)
 
+	tilt_over(should_throw_at_target ? victim : null)
+
+/obj/machinery/economy/vending/proc/tilt_over(mob/victim)
 	var/matrix/M = matrix()
 	M.Turn(pick(90, 270))
 	transform = M
-
-	if(get_turf(victim) != get_turf(src))
+	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
 
 /obj/machinery/economy/vending/proc/untilt(mob/user)
@@ -1102,7 +1071,7 @@
 	transform = M
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
-	tilt(target)
+	tilt(target, from_combat = TRUE)
 	return TRUE
 
 /*

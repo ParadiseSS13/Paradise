@@ -3,10 +3,18 @@
  */
 
 /datum/vendor_crit
-	/// Whether or not this should apply any damage at all.
+	/// If it'll deal damage or not
 	var/harmless = FALSE
-	/// Types of vendors that this can be applied to.
-	var/vendor_type_whitelist = list(/obj/machinery/economy/vending/machine)
+	/// If we should be thrown against the mob or not.
+	var/fall_towards_mob = TRUE
+
+	var/key
+
+/**
+ * Return whether or not the crit selected is valid.
+ */
+/datum/vendor_crit/proc/is_valid(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
+	return TRUE
 
 /***
  * Perform the tip crit effect on a victim.
@@ -19,6 +27,7 @@
 	return 0
 
 /datum/vendor_crit/shatter
+	key = "shatter"
 
 /datum/vendor_crit/shatter/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	victim.bleed(150)
@@ -36,7 +45,7 @@
 			"<span class='danger'>You hear a sickening crunch!</span>"
 		)
 
-	return 60
+	return machine.squish_damage - 10
 
 /datum/vendor_crit/pin
 
@@ -51,9 +60,14 @@
 	return 0
 
 /datum/vendor_crit/embed
+	key = "embed"
+
+/datum/vendor_crit/embed/is_valid(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
+	. = ..()
+	if(machine.num_shards <= 0)
+		return FALSE
 
 /datum/vendor_crit/embed/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
-	if(machine.num_shards > 0)
 	victim.visible_message(
 		"<span class='danger'>[src]'s panel shatters against [victim]!</span>",
 		"<span class='userdanger>[src] lands on you, its panel shattering!</span>"
@@ -71,7 +85,7 @@
 		shard.embedded_impact_pain_multiplier = initial(shard.embedded_pain_multiplier)
 		shard.embedded_ignore_throwspeed_threshold = initial(shard.embedded_ignore_throwspeed_threshold)
 
-	return 50
+	return machine.squish_damage - 20
 
 /datum/vendor_crit/pop_head
 
@@ -95,9 +109,8 @@
 
 /datum/vendor_crit/lucky/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	victim.visible_message(
-		"<span class='danger'>[victim] quickly jumps out of the way as [src] falls!</span>",
-		"<span class='userdanger'>You quickly jump out of [src]'s way as it falls!</span>",
-		"<span class='warning'>You hear a loud crash!</span>"
+		"<span class='danger'>[src] crashes around [victim], but doesn't seem to crush them!</span>",
+		"<span class='userdanger'>[src] crashes around you, but only around you!</span>"
 	)
 
 	return 1000
