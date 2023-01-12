@@ -554,7 +554,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
-	var/video_cooldown
+	var/video_cooldown = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
@@ -575,9 +575,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
 	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
 		if(on)
-			TV.feeds_on += 1
+			TV.feeds_on++
 		else
-			TV.feeds_on -= 1
+			TV.feeds_on--
 		TV.update_icon(UPDATE_OVERLAYS)
 	video_cooldown = world.time + CAMERA_STATE_COOLDOWN
 
