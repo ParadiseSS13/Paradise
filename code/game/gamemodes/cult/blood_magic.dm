@@ -515,6 +515,10 @@
 		return
 	uses--
 
+	if(IS_HORIZONTAL(user))
+		to_chat(user, "<span class='cultitalic'>You cannot cast this spell while on the floor!</span>")
+		return
+
 	var/turf/origin = get_turf(teleportee)
 	var/turf/destination = get_turf(actual_selected_rune)
 	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), teleportee, origin, destination)
