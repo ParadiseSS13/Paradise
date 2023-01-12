@@ -326,12 +326,12 @@
 /obj/item/robot_module/medical/emag_act(mob/user)
 	. = ..()
 	for(var/obj/item/borg_defib/F in modules)
-		SEND_SIGNAL(F, COMSIG_ATOM_EMAG_ACT, user)
+		F.emag_act()
 
 // Enable safeties on the borg's defib.
 /obj/item/robot_module/medical/unemag()
 	for(var/obj/item/borg_defib/F in modules)
-		SEND_SIGNAL(F, COMSIG_ATOM_EMAG_ACT)  // if they've been emagged, just call it again to reverse it.
+		F.emag_act()
 	return ..()
 
 // Fluorosulphuric acid spray bottle.
