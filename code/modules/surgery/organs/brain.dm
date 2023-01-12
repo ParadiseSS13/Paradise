@@ -141,21 +141,3 @@
 	if(ishuman(target) && make_cluwne)
 		var/mob/living/carbon/human/H = target
 		H.makeCluwne() //No matter where you go, no matter what you do, you cannot escape
-
-/// TODO DEBUG REMOVE THIS JUST BEFORE PUTTING IN THE PR
-/obj/item/melee/energy/sword/saber/decap
-	name = "debug delimbing sword"
-	desc = "It says \"property of Issac Clarke\". Wonder who that is."
-
-
-/obj/item/melee/energy/sword/saber/decap/afterattack(atom/target, mob/user, proximity, params)
-	. = ..()
-	var/mob/living/carbon/human/H = target
-	if(!istype(H))
-		return
-	var/obj/item/organ/external/organ = H.get_organ(user.zone_selected)
-	if(!organ)
-		return
-
-	organ.droplimb()
-	H.regenerate_icons()
