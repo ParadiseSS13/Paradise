@@ -207,3 +207,117 @@
 
 /obj/item/organ/internal/eyes/cybernetic/shield/emp_act(severity)
 	return
+
+#define INTACT 0
+#define ONE_SHATTERED 1
+#define BOTH_SHATTERED 2
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod
+	name = "\improper Eyes of god"
+	desc = "Two eyes said to belong to the gods. But such vision comes at a price"
+	eye_color = "#58a5ec"
+	see_in_dark = 8
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	emp_proof = TRUE //They are crystal artifacts, not metal
+	//vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	min_bruised_damage = 30
+	min_broken_damage = 60
+	actions_types = list(/datum/action/item_action/organ_action/use)
+	var/active = FALSE
+	var/shatter_state = INTACT
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/on_life()
+	. = ..()
+	if(is_mining_level(owner.z)) //More lavaland use cause magic or something. Don't worry about the ash in peoples eyes.
+		heal_internal_damage(1, 1)
+	if(!active)
+		switch(damage)
+			if(0 to 10)
+				heal_internal_damage(1, 1)
+				if(prob(25))
+					owner.cure_nearsighted(EYE_DAMAGE, FALSE)
+					owner.cure_blind(EYE_DAMAGE, FALSE)
+					unshatter()
+			if(10 to 30)
+				heal_internal_damage(0.5, 1)
+				if(prob(10))
+					owner.cure_blind(EYE_DAMAGE, FALSE)
+					unshatter()
+			if(30 to 60)
+				heal_internal_damage(0.33, 1)
+			if(60 to INFINITY)
+				heal_internal_damage(0.25, 1)
+	else
+		receive_damage(2, 1)
+		for(var/mob/M in range(7, owner))
+			var/turf/T = get_turf(M)
+			var/lockerpeaking = FALSE
+			receive_damage(0.1, 1)
+			if(M.loc != T)
+				new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(get_turf(M)) //Change to the eye effect
+			if(prob(25) && lockerpeaking)
+				to_chat(M, "<span class='warning'>You feel like you are being watched...</span>")
+		switch(damage)
+			if(25 to 30)
+				if(prob(50))
+					to_chat(owner, "<span class='warning'>Your eyes are hurting a lot!</span>")
+			if(30 to 54)
+				receive_damage(0.5, 1)
+			if(55 to 60)
+				if(prob(50))
+					to_chat(owner, "<span class='warning'>Your eyes feel like they are going to explode!</span>")
+
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/unshatter()
+	if(shatter_state == INTACT)
+		return
+	if(damage <= 10)
+		shatter_state = INTACT
+	else
+		if(shatter_state == ONE_SHATTERED)
+			return
+		shatter_state = ONE_SHATTERED
+	to_chat(owner, "<span class='notice'>Your eyes feel better as your [shatter_state ? "left eye" : "right eye"] fixes itself!</span>")
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/receive_damage(amount, silent)
+	. = ..()
+	if(damage >= 30 && shatter_state == INTACT || damage >= 60 && shatter_state == ONE_SHATTERED)
+		shatter()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/shatter()
+	var/msg = "no eye?"
+	switch(shatter_state)
+		if(ONE_SHATTERED)
+			shatter_state = BOTH_SHATTERED
+			msg = "left eye"
+		if(INTACT)
+			shatter_state = ONE_SHATTERED
+			msg = "right eye"
+	to_chat(owner, "<span class='userdanger'>You scream out in pain as your [msg] shatters!</span>")
+	owner.emote("scream")
+	owner.bleed(5)
+	deactivate()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/activate()
+	active = TRUE
+	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
+	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	flash_protect = FLASH_PROTECTION_VERYVUNERABLE
+	owner?.client?.color = LIGHT_COLOR_PURE_CYAN
+	owner.update_sight()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/deactivate()
+	active = FALSE
+	see_invisible = initial(see_invisible)
+	vision_flags = initial(vision_flags)
+	lighting_alpha = initial(lighting_alpha)
+	flash_protect = initial(flash_protect)
+	owner?.client?.color = null
+	owner.update_sight()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/ui_action_click()
+	if(!active && shatter_state < BOTH_SHATTERED)
+		activate()
+		return
+	deactivate()
