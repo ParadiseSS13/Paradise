@@ -77,6 +77,10 @@ CREATE TABLE `characters` (
   `autohiss` tinyint(1) NOT NULL,
   `uplink_pref` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tts_seed` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hair_gradient` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hair_gradient_offset` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0,0',
+  `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
+  `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '200',
   `custom_emotes` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)

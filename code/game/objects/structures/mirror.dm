@@ -23,6 +23,10 @@
 			if(WEST)
 				pixel_x = 32
 
+/obj/structure/mirror/Destroy()
+	QDEL_LIST_ASSOC_VAL(ui_users)
+	return ..()
+
 /obj/structure/mirror/attack_hand(mob/user)
 	if(broken)
 		return

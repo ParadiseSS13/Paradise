@@ -213,6 +213,11 @@
 	var/hair_colour = "#000000"
 	var/sec_hair_colour = "#000000"
 	var/h_style = "Bald"
+	var/h_grad_style = "None"
+	var/h_grad_offset_x = 0
+	var/h_grad_offset_y = 0
+	var/h_grad_colour = "#000000"
+	var/h_grad_alpha = 200
 
 	//Head accessory colour and style
 	var/headacc_colour = "#000000"

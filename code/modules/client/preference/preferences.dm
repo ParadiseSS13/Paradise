@@ -121,6 +121,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/h_style = "Bald"				//Hair type
 	var/h_colour = "#000000"			//Hair color
 	var/h_sec_colour = "#000000"		//Secondary hair color
+	var/h_grad_style = "None"
+	var/h_grad_colour = "#000000"
+	var/h_grad_alpha = 200
+	var/h_grad_offset_x = 0
+	var/h_grad_offset_y = 0
 	var/f_style = "Shaved"				//Facial hair type
 	var/f_colour = "#000000"			//Facial hair color
 	var/f_sec_colour = "#000000"		//Secondary facial hair color
@@ -360,6 +365,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[h_style]
 			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(h_sec_colour)]"
+				// Hair gradient
+			dat += "<br>"
+			dat += "- <b>Gradient:</b>"
+			dat += " <a href='?_src_=prefs;preference=h_grad_style;task=input'>[h_grad_style]</a>"
+			dat += " <a href='?_src_=prefs;preference=h_grad_colour;task=input'>Color</a> [color_square(h_grad_colour)]"
+			dat += " <a href='?_src_=prefs;preference=h_grad_alpha;task=input'>[h_grad_alpha]</a>"
+			dat += "<br>"
+			dat += "- <b>Gradient Offset:</b> <a href='?_src_=prefs;preference=h_grad_offset;task=input'>[h_grad_offset_x],[h_grad_offset_y]</a>"
 			dat += "<br>"
 
 			dat += "<b>Facial Hair:</b> "
@@ -1637,6 +1650,29 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(new_h_style)
 						h_style = new_h_style
 
+				if("h_grad_style")
+					var/result = input(user, "Choose your character's hair gradient style:", "Character Preference") as null|anything in GLOB.hair_gradients_list
+					if(result)
+						h_grad_style = result
+
+				if("h_grad_offset")
+					var/result = input(user, "Enter your character's hair gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Character Preference") as null|text
+					if(result)
+						var/list/expl = splittext(result, ",")
+						if(length(expl) == 2)
+							h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+							h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+
+				if("h_grad_colour")
+					var/result = input(user, "Choose your character's hair gradient colour:", "Character Preference", h_grad_colour) as color|null
+					if(result)
+						h_grad_colour = result
+
+				if("h_grad_alpha")
+					var/result = input(user, "Choose your character's hair gradient alpha (0-200):", "Character Preference", h_grad_alpha) as num|null
+					if(!isnull(result))
+						h_grad_alpha = clamp(result, 0, 200)
+
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
 						var/input = "Choose the colour of your your character's head accessory:"
@@ -2504,6 +2540,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	H.f_style = f_style
 
 	H.alt_head = alt_head
+
+	H.h_grad_style = h_grad_style
+	H.h_grad_offset_x = h_grad_offset_x
+	H.h_grad_offset_y = h_grad_offset_y
+	H.h_grad_colour = h_grad_colour
+	H.h_grad_alpha = h_grad_alpha
 	//End of head-specific.
 
 	character.skin_colour = s_colour

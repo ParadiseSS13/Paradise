@@ -353,6 +353,18 @@
 		else if(hair_style.do_colouration)
 			hair_s.Blend(h_colour, ICON_ADD)
 
+		var/datum/sprite_accessory/hair_gradient/gradient = GLOB.hair_gradients_list[h_grad_style]
+		if(gradient)
+			var/icon/grad_s = new/icon("icon" = gradient.icon, "icon_state" = gradient.icon_state)
+			if(h_grad_offset_x)
+				grad_s.Shift(EAST, h_grad_offset_x)
+			if(h_grad_offset_y)
+				grad_s.Shift(NORTH, h_grad_offset_y)
+			grad_s.Blend(hair_s, ICON_ADD)
+			grad_s.MapColors(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, h_grad_colour)
+			grad_s.ChangeOpacity(h_grad_alpha / 200)
+			hair_s.Blend(grad_s, ICON_OVERLAY)
+
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
 			if(!hair_style.no_sec_colour && hair_style.do_colouration )

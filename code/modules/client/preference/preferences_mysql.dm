@@ -204,7 +204,11 @@
 					autohiss,
 					uplink_pref,
 					tts_seed,
-					custom_emotes
+					custom_emotes,
+					hair_gradient,
+					hair_gradient_offset,
+					hair_gradient_colour,
+					hair_gradient_alpha,
 				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
@@ -289,7 +293,14 @@
 		// TTS
 		tts_seed = query.item[54]
 
+		//Emotes
 		custom_emotes_tmp = query.item[55]
+
+		// Gradient 
+		h_grad_style = query.item[56]
+		h_grad_offset_x = query.item[57] // parsed down below
+		h_grad_colour = query.item[58]
+		h_grad_alpha = query.item[59]
 
 		saved = TRUE
 
@@ -349,6 +360,13 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
+	h_grad_style = sanitize_text(length(h_grad_style) ? h_grad_style : null, "None")
+	var/list/expl = splittext(h_grad_offset_x, ",")
+	if(length(expl) == 2)
+		h_grad_offset_x = text2num(expl[1]) || 0
+		h_grad_offset_y = text2num(expl[2]) || 0
+	h_grad_colour = sanitize_hexcolor(h_grad_colour)
+	h_grad_alpha = sanitize_integer(h_grad_alpha, 0, 200, initial(h_grad_alpha))
 
 //	if(isnull(disabilities)) disabilities = 0
 	if(!player_alt_titles) player_alt_titles = new()
@@ -441,6 +459,10 @@
 												body_accessory=:body_accessory,
 												gear=:gearlist,
 												autohiss=:autohiss_mode,
+												hair_gradient=:h_grad_style,
+												hair_gradient_offset=:h_grad_offset,
+												hair_gradient_colour=:h_grad_colour,
+												hair_gradient_alpha=:h_grad_alpha
 												uplink_pref=:uplink_pref,
 												tts_seed=:tts_seed,
 												custom_emotes=:custom_emotes
@@ -499,6 +521,10 @@
 													"body_accessory" = (body_accessory ? body_accessory : ""),
 													"gearlist" = (gearlist ? gearlist : ""),
 													"autohiss_mode" = autohiss_mode,
+													"h_grad_style" = h_grad_style,
+													"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+													"h_grad_colour" = h_grad_colour,
+													"h_grad_alpha" = h_grad_alpha,
 													"uplink_pref" = uplink_pref,
 													"tts_seed" = tts_seed,
 													"custom_emotes" = json_encode(custom_emotes),
@@ -543,7 +569,7 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, uplink_pref, tts_seed, custom_emotes)
+											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -571,7 +597,7 @@
 											:gen_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :uplink_pref, :tts_seed, :custom_emotes)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -629,6 +655,10 @@
 		"body_accessory" = (body_accessory ? body_accessory : ""),
 		"gearlist" = (gearlist ? gearlist : ""),
 		"autohiss_mode" = autohiss_mode,
+		"h_grad_style" = h_grad_style,
+		"h_grad_offset" = "[h_grad_offset_x],[h_grad_offset_y]",
+		"h_grad_colour" = h_grad_colour,
+		"h_grad_alpha" = h_grad_alpha,
 		"uplink_pref" = uplink_pref,
 		"tts_seed" = tts_seed,
 		"custom_emotes" = json_encode(custom_emotes)

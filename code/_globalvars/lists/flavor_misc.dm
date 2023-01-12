@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(facial_hair_styles_list, list())	//stores /datum/sprite_accesso
 GLOBAL_LIST_INIT(facial_hair_styles_male_list, list())
 GLOBAL_LIST_INIT(facial_hair_styles_female_list, list())
 GLOBAL_LIST_INIT(skin_styles_female_list, list())		//unused
+GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
 	//Underwear
 GLOBAL_LIST_INIT(underwear_list, list())		//stores /datum/sprite_accessory/underwear indexed by name
 GLOBAL_LIST_INIT(underwear_m, list())	//stores only underwear name

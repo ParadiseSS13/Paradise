@@ -162,6 +162,12 @@
 	else
 		//this shouldn't happen
 		H.h_style = "Bald"
+		// Gradient
+	H.h_grad_style = "None"
+	H.h_grad_offset_x = 0
+	H.h_grad_offset_y = 0
+	H.h_grad_colour = "#000000"
+	H.h_grad_alpha = 200
 
 	update_hair()
 
@@ -320,6 +326,25 @@
 	force_update_limbs()
 	update_body()
 	return 1
+
+/mob/living/carbon/human/proc/change_hair_gradient(style, offset_raw, color, alpha)
+	var/obj/item/organ/external/head/H = get_organ("head")
+	if(!H)
+		return
+
+	if(!isnull(style))
+		H.h_grad_style = style
+	if(!isnull(offset_raw))
+		var/list/expl = splittext(offset_raw, ",")
+		if(length(expl) == 2)
+			H.h_grad_offset_x = clamp(text2num(expl[1]) || 0, -16, 16)
+			H.h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
+	if(!isnull(color))
+		H.h_grad_colour = color
+	if(!isnull(alpha))
+		H.h_grad_alpha = clamp(alpha, 0, 200)
+
+	update_hair()
 
 /mob/living/carbon/human/proc/update_dna()
 	check_dna()

@@ -93,6 +93,30 @@
 				if(new_hair && (!..()) && owner.change_hair_color(new_hair, 1))
 					update_dna()
 
+		if("hair_gradient")
+			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
+				var/new_style = input("Please select gradient style.", "Hair Gradient", head_organ.h_grad_style) as null|anything in GLOB.hair_gradients_list
+				if(new_style)
+					owner.change_hair_gradient(style = new_style)
+
+		if("hair_gradient_offset")
+			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
+				var/new_offset = input("Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]") as null|text
+				if(new_offset)
+					owner.change_hair_gradient(offset_raw = new_offset)
+
+		if("hair_gradient_colour")
+			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
+				var/new_color = input("Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour) as null|color
+				if(new_color)
+					owner.change_hair_gradient(color = new_color)
+
+		if("hair_gradient_alpha")
+			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
+				var/new_alpha = input("Please enter gradient alpha (0-200).", "Hair Gradient", head_organ.h_grad_alpha) as null|num
+				if(!isnull(new_alpha))
+					owner.change_hair_gradient(alpha = new_alpha)
+
 		if("facial_hair")
 			if(can_change(APPEARANCE_FACIAL_HAIR) && (params["facial_hair"] in valid_facial_hairstyles))
 				if(owner.change_facial_hair(params["facial_hair"]))
@@ -277,6 +301,7 @@
 	data["change_head_marking_color"] = can_change_markings("head")
 	data["change_body_marking_color"] = can_change_markings("body")
 	data["change_tail_marking_color"] = can_change_markings("tail")
+	data["change_hair_gradient"] = can_change(APPEARANCE_HAIR) && length(valid_hairstyles)
 
 	return data
 
