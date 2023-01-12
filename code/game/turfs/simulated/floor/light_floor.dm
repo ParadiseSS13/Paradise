@@ -131,8 +131,7 @@
 
 // We choose a different color here than what we have now
 /turf/simulated/floor/light/disco/proc/pick_color()
-	current_color = pick_different_from_list(available_colors, current_color)
-	return available_colors[current_color]
+	return pick_different_from_list(available_colors, current_color)
 
 // We change colors every now and then
 /turf/simulated/floor/light/disco/process()
