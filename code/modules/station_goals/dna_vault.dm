@@ -46,9 +46,11 @@
 /datum/station_goal/dna_vault/on_report()
 	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_probes]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/dna_vault/check_completion()
 	if(..())

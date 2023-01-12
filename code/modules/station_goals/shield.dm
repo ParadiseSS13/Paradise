@@ -15,9 +15,11 @@
 	//Unlock
 	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/station_shield/check_completion()
 	if(..())

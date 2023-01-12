@@ -10,11 +10,13 @@
 	var/list/gamemode_blacklist = list()
 	var/completed = FALSE
 	var/report_message = "Complete this goal."
+	var/list/obj/item/paper/papers_list = list()
+	var/list/datum/supply_packs/supply_list = list()
 
 /datum/station_goal/proc/send_report()
 	var/directive = "Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
 	GLOB.priority_announcement.Announce("Priority Nanotrasen directive received. Project \"[name]\" details inbound.", "Incoming Priority Message", 'sound/AI/commandreport.ogg')
-	print_command_report("<div style='text-align:center;'><img src='ntlogo.png'>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE)
+	print_command_report("<div style='text-align:center;'><img src='ntlogo.png'>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE, src)
 	on_report()
 
 /datum/station_goal/proc/on_report()
@@ -35,6 +37,9 @@
 
 /datum/station_goal/Destroy()
 	SSticker.mode.station_goals -= src
+	QDEL_LIST(papers_list)
+	for(var/datum/supply_packs/P in supply_list)
+		P.special_enabled = FALSE
 	. = ..()
 
 /datum/station_goal/Topic(href, href_list)

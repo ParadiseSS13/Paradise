@@ -17,6 +17,7 @@
 /datum/station_goal/bluespace_tap/on_report()
 	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/bluespace_tap/check_completion()
 	if(..())

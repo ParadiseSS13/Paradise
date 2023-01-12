@@ -16,12 +16,15 @@
 	//Unlock BFL related things
 	var/datum/supply_packs/misc/station_goal/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 	P =  SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_lens]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 	P =  SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bfl_goal]"]
 	P.special_enabled = TRUE
+	supply_list.Add(P)
 
 /datum/station_goal/bfl/check_completion()
 	if(..())
