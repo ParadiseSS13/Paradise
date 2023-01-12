@@ -212,14 +212,14 @@
 #define ONE_SHATTERED 1
 #define BOTH_SHATTERED 2
 
-/obj/item/organ/internal/eyes/cybernetic/eyesofgod
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod //no occuline allowed ///FLASH SIGNAL MUST BE ADDED ///Ensure laser pointer isn't rock falls you die, sec should have to get close / flashbang, not instant click
 	name = "\improper Eyes of god"
 	desc = "Two eyes said to belong to the gods. But such vision comes at a price"
+	icon_state = "eyesofgod"
 	eye_color = "#58a5ec"
 	see_in_dark = 8
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	emp_proof = TRUE //They are crystal artifacts, not metal
-	//vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	min_bruised_damage = 30
 	min_broken_damage = 60
 	actions_types = list(/datum/action/item_action/organ_action/use)
@@ -235,7 +235,7 @@
 			if(0 to 10)
 				heal_internal_damage(1, 1)
 				if(prob(25))
-					owner.cure_nearsighted(EYE_DAMAGE, FALSE)
+					owner.cure_nearsighted()
 					owner.cure_blind(EYE_DAMAGE, FALSE)
 					unshatter()
 			if(10 to 30)
@@ -249,20 +249,19 @@
 				heal_internal_damage(0.25, 1)
 	else
 		receive_damage(2, 1)
-		for(var/mob/M in range(7, owner))
-			var/turf/T = get_turf(M)
-			var/lockerpeaking = FALSE
-			receive_damage(0.1, 1)
-			if(M.loc != T)
-				new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(get_turf(M)) //Change to the eye effect
-			if(prob(25) && lockerpeaking)
-				to_chat(M, "<span class='warning'>You feel like you are being watched...</span>")
+		for(var/obj/O in range(7, owner))
+			var/turf/T = get_turf(O)
+			for(var/mob/M in O.contents)
+				receive_damage(0.1, 1)
+				new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(T) //Change to the eye effect
+				if(prob(25))
+					to_chat(M, "<span class='warning'>You feel like you are being watched...</span>")
 		switch(damage)
 			if(25 to 30)
 				if(prob(50))
 					to_chat(owner, "<span class='warning'>Your eyes are hurting a lot!</span>")
 			if(30 to 54)
-				receive_damage(0.5, 1)
+				receive_damage(0.5, 1)//more pain when damaged
 			if(55 to 60)
 				if(prob(50))
 					to_chat(owner, "<span class='warning'>Your eyes feel like they are going to explode!</span>")
@@ -293,6 +292,7 @@
 		if(INTACT)
 			shatter_state = ONE_SHATTERED
 			msg = "right eye"
+			owner.become_nearsighted(EYE_DAMAGE)
 	to_chat(owner, "<span class='userdanger'>You scream out in pain as your [msg] shatters!</span>")
 	owner.emote("scream")
 	owner.bleed(5)
@@ -303,7 +303,7 @@
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	flash_protect = FLASH_PROTECTION_VERYVUNERABLE
+	flash_protect = FLASH_PROTECTION_VERYVUNERABLE //Flashing is it's weakness. I don't care how many protecions you have up
 	owner?.client?.color = LIGHT_COLOR_PURE_CYAN
 	owner.update_sight()
 
