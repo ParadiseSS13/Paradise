@@ -2,8 +2,8 @@
 // Once the atom is moved, its selection is cleared to avoid any further moves by accident.
 /datum/buildmode_mode/forcemove
 	key = "forcemove"
-	var/atom/selected_atom		// The atom we want to move
-	var/image/selected_overlay	// Overlay for the selected atom only visible for the build mode user
+	var/atom/movable/selected_atom		// The atom we want to move
+	var/image/selected_overlay			// Overlay for the selected atom only visible for the build mode user
 
 /datum/buildmode_mode/forcemove/show_help(mob/user)
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
@@ -57,13 +57,7 @@
 		to_chat(user, "<span class='danger'>You should not move atoms into effects or ghosts.</span>")
 		return
 
-	// Typecasting for the right forceMove()
-	if(ismob(selected_atom))
-		var/mob/M = selected_atom
-		M.forceMove(destination)
-	else
-		var/atom/movable/AM = selected_atom
-		AM.forceMove(destination)
+	selected_atom.forceMove(destination)
 
 	to_chat(user, "<span class='notice'>'[selected_atom]' is moved to '[destination]'.</span>")
 	log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
