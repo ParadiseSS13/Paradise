@@ -151,6 +151,26 @@
 			if(hoers.voicechange)
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
 
+		if(HAS_TRAIT(src, TRAIT_SOAPY_MOUTH))
+			var/static/list/soaplinks = list(
+			"shit" = "snap",
+			"fuck" = "phooey",
+			"ass" = "backside",
+			"bastard" = "individual born out of wedlock",
+			"bitch" = "female dog",
+			"cock" = "chicken",
+			"cunt" = "countryman",
+			"damn" = "beaver-constructed river-blockade",
+			"dick" = "detective",
+			"hell" = "HFIL",
+			"jesus" = "jesús",
+			"pussy" = "pusillanimous",
+			"twat" = "honorable and esteemed individual",
+			"wanker" = "sanguine individual"
+			)
+			var/static/regex/R = regex("\\b([soaplinks.Join("|")])\\b", "gi")
+			S.message = R.Replace(S.message, /mob/living/carbon/human/proc/replace_speech)
+
 		if(dna)
 			for(var/mutation_type in active_mutations)
 				var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
@@ -174,6 +194,25 @@
 			verb = speech_verb_when_masked
 
 	return list("verb" = verb)
+
+/mob/living/carbon/human/proc/replace_speech(matched)
+	var/static/list/soaplinks = list(
+			"shit" = "snap",
+			"fuck" = "phooey",
+			"ass" = "backside",
+			"bastard" = "individual born out of wedlock",
+			"bitch" = "female dog",
+			"cock" = "chicken",
+			"cunt" = "countryman",
+			"damn" = "beaver-constructed river-blockade",
+			"dick" = "detective",
+			"hell" = "HFIL",
+			"jesus" = "jesús",
+			"pussy" = "pusillanimous",
+			"twat" = "honorable and esteemed individual",
+			"wanker" = "sanguine individual"
+			)
+	return soaplinks[matched]
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
