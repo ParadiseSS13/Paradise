@@ -8,8 +8,6 @@
 	/// If we should be thrown against the mob or not.
 	var/fall_towards_mob = TRUE
 
-	var/key
-
 /**
  * Return whether or not the crit selected is valid.
  */
