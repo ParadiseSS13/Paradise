@@ -112,8 +112,9 @@
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return TRUE
-	else if(istype(O,/obj/item/grab))
-		return special_attack(O, user)
+	else if(istype(O, /obj/item/grab))
+		var/obj/item/grab/G = O
+		return special_attack_grab(G, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return TRUE
@@ -142,8 +143,23 @@
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return FALSE
 
-/obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
-	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
+/obj/machinery/kitchen_machine/proc/special_attack_grab(obj/item/grab/G, mob/user)
+	if(!G)
+		return FALSE
+	if(!iscarbon(G.affecting))
+		to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
+		return FALSE
+	if(G.state < GRAB_AGGRESSIVE)
+		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		return FALSE
+	special_attack(user, G.affecting, TRUE)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(!isnull(G) && !QDELETED(G))
+		qdel(G)
+
+/obj/machinery/kitchen_machine/proc/special_attack(mob/user, mob/living/carbon/target, from_grab = FALSE)
+	if(from_grab)
+		to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
 	return FALSE
 
 /********************

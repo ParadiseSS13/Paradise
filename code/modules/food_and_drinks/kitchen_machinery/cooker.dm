@@ -46,13 +46,32 @@
 /obj/machinery/cooker/proc/setRegents(obj/item/reagent_containers/OldReg, obj/item/reagent_containers/NewReg)
 	OldReg.reagents.trans_to(NewReg, OldReg.reagents.total_volume)
 
+/obj/machinery/cooker/proc/special_attack_grab(obj/item/grab/G, mob/user)
+	if(!G)
+		return FALSE
+	if(!iscarbon(G.affecting))
+		to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
+		return FALSE
+	if(G.state < GRAB_AGGRESSIVE)
+		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		return FALSE
+	special_attack(user, G.affecting, TRUE)
+	user.changeNext_move(CLICK_CD_MELEE)
+	if(!isnull(G) && !QDELETED(G))
+		qdel(G)
+
+/obj/machinery/cooker/proc/special_attack(mob/user, mob/living/carbon/target, from_grab = FALSE)
+	if(from_grab)
+		to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
+	return FALSE
+
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
 		return FALSE
 	if(istype(check, /obj/item/grab))
-		return special_attack(check, user)
+		return special_attack_grab(user, check)
 	if(has_specials && checkSpecials(check))
 		return TRUE
 	if(istype(check, /obj/item/reagent_containers/food/snacks) || emagged)
@@ -190,11 +209,6 @@
 		return
 	if(default_deconstruction_screwdriver(user, openicon, officon, I))
 		return TRUE
-
-
-
-/obj/machinery/cooker/proc/special_attack(obj/item/grab/G, mob/user)
-	return 0
 
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!
 // FAILURE TO OVERRIDE WILL RESULT IN FAILURE TO PROPERLY HANDLE SPECIAL INTERACTIONS!		--FalseIncarnate

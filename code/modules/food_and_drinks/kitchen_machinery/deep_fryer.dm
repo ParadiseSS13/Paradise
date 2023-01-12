@@ -84,26 +84,30 @@
 		emagged = TRUE
 		return
 
-/obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
-	if(ishuman(G.affecting))
-		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 0
-		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ("head")
-		if(!head)
+/obj/machinery/cooker/deepfryer/special_attack(mob/user, mob/living/carbon/target, from_grab)
+
+	var/obj/item/organ/external/head/head = target.get_organ("head")
+	if(!head)
+		if(from_grab)
 			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
-			return 0
-		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
-						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
-		C.emote("scream")
-		user.changeNext_move(CLICK_CD_MELEE)
-		C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
-		head.disfigure()
-		add_attack_logs(user, G.affecting, "Deep-fried with [src]")
-		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
-		return 0
-	return 0
+		return FALSE  // you'll probably get smacked against it
+	if(from_grab)
+		target.visible_message(
+			"<span class='danger'>[user] dunks [target]'s face into [src]!</span>",
+			"<span class='userdanger'>[user] dunks your face into [src]!</span>",
+			"<span class='danger'>You hear a splash and a loud sizzle.</span>"
+		)
+	else
+		target.visible_message(
+			"<span class='danger'>[user] shoves [target] into [src], sizzling their head!</span>",
+			"<span class='userdanger'>[user] shoves you into [src], and your head burns as it's coated in hot cooking oil!</span>",
+			"<span class='danger'>You hear a splash and a loud sizzle.</span>"
+		)
+	target.emote("scream")
+	target.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
+	head.disfigure()
+	add_attack_logs(user, target, "Deep-fried with [src]")
+	return TRUE
 
 /// Make foam consisting of burning oil.
 /obj/machinery/cooker/deepfryer/proc/make_foam(ice_amount)
