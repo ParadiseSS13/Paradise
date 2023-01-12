@@ -1879,9 +1879,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)
 	var/list/living_players = list()
 
-	for(var/mob/M in GLOB.player_list)
-		if(isobserver(M))
-			continue
+	for(var/mob/living/M in GLOB.player_list)
 		if(exclude_nonhuman && !ishuman(M))
 			continue
 		if(exclude_offstation && M.mind?.offstation_role)
