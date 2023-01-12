@@ -461,7 +461,7 @@
 
 /datum/action/item_action/gravity_jump
 	name = "Gravity jump"
-	desc = "Directs a pulse of gravity in front of the user, pulling them foward rapidly."
+	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
 
 /datum/action/item_action/gravity_jump/Trigger()
 	if(!IsAvailable())
