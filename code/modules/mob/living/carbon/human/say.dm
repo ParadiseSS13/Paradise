@@ -120,6 +120,31 @@
 /mob/living/carbon/human/proc/GetSpecialVoice()
 	return special_voice
 
+GLOBAL_LIST_INIT(soapy_words, list(
+	"shit" = "snap",
+	"shitter" = "toilet",
+	"fuck" = "phooey",
+	"fucking" = "flipping",
+	"fucker" = "individual dedicated to the continuation of their species",
+	"motherfucker" = "family time enjoyer",
+	"crap" = "crud",
+	"balls" = "baloney",
+	"whore" = "overly experienced individual",
+	"dumbass" = "sweet, misunderstood person",
+	"ass" = "backside",
+	"bastard" = "individual born out of wedlock",
+	"bitch" = "female dog",
+	"cock" = "chicken",
+	"cunt" = "countryman",
+	"damn" = "beaver-constructed river-blockade",
+	"dick" = "detective",
+	"hell" = "HFIL",
+	"jesus" = "jesús",
+	"pussy" = "pusillanimous",
+	"twat" = "honorable and esteemed individual",
+	"wanker" = "sanguine individual"
+	))
+
 /mob/living/carbon/human/handle_speech_problems(list/message_pieces, verb)
 	var/span = ""
 	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
@@ -152,23 +177,7 @@
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
 
 		if(HAS_TRAIT(src, TRAIT_SOAPY_MOUTH))
-			var/static/list/soaplinks = list(
-			"shit" = "snap",
-			"fuck" = "phooey",
-			"ass" = "backside",
-			"bastard" = "individual born out of wedlock",
-			"bitch" = "female dog",
-			"cock" = "chicken",
-			"cunt" = "countryman",
-			"damn" = "beaver-constructed river-blockade",
-			"dick" = "detective",
-			"hell" = "HFIL",
-			"jesus" = "jesús",
-			"pussy" = "pusillanimous",
-			"twat" = "honorable and esteemed individual",
-			"wanker" = "sanguine individual"
-			)
-			var/static/regex/R = regex("\\b([soaplinks.Join("|")])\\b", "gi")
+			var/static/regex/R = regex("\\b([GLOB.soapy_words.Join("|")])\\b", "gi")
 			S.message = R.Replace(S.message, /mob/living/carbon/human/proc/replace_speech)
 
 		if(dna)
@@ -196,23 +205,7 @@
 	return list("verb" = verb)
 
 /mob/living/carbon/human/proc/replace_speech(matched)
-	var/static/list/soaplinks = list(
-			"shit" = "snap",
-			"fuck" = "phooey",
-			"ass" = "backside",
-			"bastard" = "individual born out of wedlock",
-			"bitch" = "female dog",
-			"cock" = "chicken",
-			"cunt" = "countryman",
-			"damn" = "beaver-constructed river-blockade",
-			"dick" = "detective",
-			"hell" = "HFIL",
-			"jesus" = "jesús",
-			"pussy" = "pusillanimous",
-			"twat" = "honorable and esteemed individual",
-			"wanker" = "sanguine individual"
-			)
-	return soaplinks[matched]
+	return GLOB.soapy_words[lowertext(matched)]
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
