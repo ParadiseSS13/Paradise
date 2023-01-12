@@ -139,8 +139,8 @@
  */
 /mob/living/simple_animal/hostile/morph/proc/add_food(amount)
 	gathered_food += amount
-	for(var/obj/effect/proc_holder/spell/morph_spell/MS in mind.spell_list)
-		MS.updateButtonIcon()
+	for(var/datum/action/spell_action/action in src.actions)
+		action.UpdateButtonIcon()
 
 
 /mob/living/simple_animal/hostile/morph/proc/assume()
