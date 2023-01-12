@@ -99,6 +99,15 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/boltUp = 'sound/machines/boltsup.ogg'
 	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = FALSE
+	/// Our ID tag for map-based linking shenanigans
+	var/id_tag
+	/// List of people who have shocked this door for logging purposes
+	var/shockedby = list()
+	/// Command currently being executed
+	var/cur_command
+	/// Is a command actually running
+	var/command_running = FALSE
+
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE
@@ -168,9 +177,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(electrified_timer)
 		deltimer(electrified_timer)
 		electrified_timer = null
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.remove_from_hud(src)
 	return ..()
@@ -1378,6 +1384,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		shock(user, 100) //Mmm, fried xeno!
 		return
 	if(!density) //Already open
+		if(!arePowerSystemsOn())
+			close(TRUE)
+			return
+		if(HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+			close(TRUE)
+			return
 		return
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
@@ -1385,14 +1397,22 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(prying_so_hard)
 		return
 	prying_so_hard = TRUE
-	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
-						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
-						"<span class='warning'>You hear groaning metal...</span>")
-	var/time_to_open = 5
+	var/time_to_open = 0
 	if(arePowerSystemsOn())
+		if(HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+			open(TRUE)
+			visible_message("<span class='danger'>[user] forces the door!</span>")
+			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			prying_so_hard = FALSE
+			return
+		user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
+							"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
+							"<span class='warning'>You hear groaning metal...</span>")
 		time_to_open = 50 //Powered airlocks take longer to open, and are loud.
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-
+	else
+		visible_message("<span class='danger'>[user] forces the door!</span>")
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	if(do_after(user, time_to_open, TRUE, src))
 		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
@@ -1547,6 +1567,85 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		aiControlDisabled = AICONTROLDISABLED_OFF
 	else if(aiControlDisabled == AICONTROLDISABLED_BYPASS)
 		aiControlDisabled = AICONTROLDISABLED_PERMA
+
+/obj/machinery/door/airlock/proc/airlock_cycle_callback(cmd)
+	cur_command = cmd
+	INVOKE_ASYNC(src, PROC_REF(execute_current_command))
+
+/obj/machinery/door/airlock/proc/execute_current_command()
+	if(operating || emagged)
+		return //emagged or busy doing something else
+
+	if(!cur_command)
+		return
+
+	do_command(cur_command)
+	if(command_completed(cur_command))
+		cur_command = null
+	else
+		START_PROCESSING(SSmachines, src)
+
+/obj/machinery/door/airlock/proc/do_command(command)
+	if(command_running)
+		return
+
+	command_running = TRUE
+	switch(command)
+		if("open")
+			open()
+
+		if("close")
+			close()
+
+		if("unlock")
+			unlock()
+
+		if("lock")
+			lock()
+
+		if("secure_open")
+			unlock()
+
+			sleep(2)
+			open()
+
+			lock()
+
+		if("secure_close")
+			unlock()
+			close()
+
+			lock()
+			sleep(2)
+	command_running = FALSE
+
+/obj/machinery/door/airlock/proc/command_completed(command)
+	switch(command)
+		if("open")
+			return (!density)
+
+		if("close")
+			return density
+
+		if("unlock")
+			return !locked
+
+		if("lock")
+			return locked
+
+		if("secure_open")
+			return (locked && !density)
+
+		if("secure_close")
+			return (locked && density)
+
+	return TRUE //Unknown command. Just assume it's completed.
+
+/obj/machinery/door/airlock/process()
+	if(arePowerSystemsOn() && cur_command)
+		execute_current_command()
+	else
+		return PROCESS_KILL
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING

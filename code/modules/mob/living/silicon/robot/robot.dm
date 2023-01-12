@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 
 	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
-	var/mail_destination = 0
+	var/mail_destination = 1
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -493,6 +493,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	modtype = selected_module
 	designation = selected_module
 	module.add_languages(src)
+	module.add_armor(src)
 	module.add_subsystems_and_actions(src)
 	if(!static_radio_channels)
 		radio.config(module.channels)
@@ -541,6 +542,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_language("Robot Talk", TRUE)
 	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
 		weather_immunities -= "lava"
+	armor = getArmor(arglist(initial(armor)))
 
 	status_flags |= CANPUSH
 
