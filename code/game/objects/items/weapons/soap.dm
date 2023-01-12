@@ -33,6 +33,7 @@
 	times_eaten++
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 	user.adjust_nutrition(5)
+	user.reagents.add_reagent("soapreagent", 3)
 	if(times_eaten < max_bites)
 		to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
 	else
@@ -55,6 +56,7 @@
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
 		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [name]!</span>")
+		target.reagents.add_reagent("soapreagent", 6)
 		return
 	..()
 
