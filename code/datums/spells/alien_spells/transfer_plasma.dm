@@ -23,9 +23,9 @@
 		to_chat(user, "<span class='noticealien'>You withdraw your readied plasma.</span>")
 		..()
 		return
-	if(!proximity || !isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
+	if(!proximity || !isalien(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(!plasma_check(200, user))
+	if(!plasma_check(50, user))
 		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
 	user.add_plasma(-50)

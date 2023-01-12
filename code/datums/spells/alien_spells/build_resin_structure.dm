@@ -17,7 +17,7 @@
 		revert_cast(user)
 		return
 	if(isspaceturf(turf_to_spawn_at))
-		to_chat(user, "<span class='alertalien'>You cannot build the [choice] while in space!")
+		to_chat(user, "<span class='alertalien'>You cannot build the [choice] while in space!</span>")
 		revert_cast(user)
 		return
 	var/obj/structure/alien/resin/resin_on_turf = locate() in turf_to_spawn_at

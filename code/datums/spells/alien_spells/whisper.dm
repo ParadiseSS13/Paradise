@@ -26,4 +26,3 @@
 	to_chat(user, "<span class='noticealien'>You said: [msg] to [target]</span>")
 	for(var/mob/dead/observer/ghosts in GLOB.player_list)
 		ghosts.show_message("<i>Alien message from <b>[user]</b> ([ghost_follow_link(user, ghost=ghosts)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=ghosts)]): [msg]</i>")
-	return

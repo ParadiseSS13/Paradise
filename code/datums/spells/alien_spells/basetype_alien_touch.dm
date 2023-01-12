@@ -41,7 +41,7 @@
 	name = "Basetype Alien touch_attack"
 	desc = "You should not see this in game, if you do file a github report!"
 	/// Alien spells don't have catchphrases
-	has_catchphrase = FALSE
+	catchphrase = null
 	/// Beepsky shouldn't be arresting you over this
 	needs_permit = FALSE
 

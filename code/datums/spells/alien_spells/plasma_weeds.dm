@@ -21,6 +21,5 @@
 		revert_cast()
 		return
 
-	for(var/mob/O in viewers(user, null))
-		O.show_message(text("<span class='alertalien'>[user] has planted a [weed_name]!</span>"), 1)
+	user.visible_message("<span class='alertalien'>[user] has planted a [weed_name]!</span>")
 	new weed_type(T)
