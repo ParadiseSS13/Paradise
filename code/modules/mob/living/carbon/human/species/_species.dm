@@ -220,7 +220,7 @@
 		if(initial(organ_path.parent_organ) in bodyparts_to_omit)
 			continue
 
-		var/obj/item/organ/internal/org = new organ_path(H)
+		new organ_path(H)
 
 	create_mutant_organs(H)
 
@@ -243,7 +243,7 @@
 		qdel(ears)
 
 	if(mutantears && !isnull(H.bodyparts_by_name[initial(mutantears.parent_organ)]))
-		var/obj/item/organ/internal/ears/new_ears = new mutantears(H)
+		new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
