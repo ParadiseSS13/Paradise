@@ -1268,6 +1268,7 @@
 #include "code\modules\admin\verbs\one_click_antag.dm"
 #include "code\modules\admin\verbs\onlyone.dm"
 #include "code\modules\admin\verbs\onlyoneteam.dm"
+#include "code\modules\admin\verbs\ping_all_admins.dm"
 #include "code\modules\admin\verbs\playsound.dm"
 #include "code\modules\admin\verbs\possess.dm"
 #include "code\modules\admin\verbs\pray.dm"
