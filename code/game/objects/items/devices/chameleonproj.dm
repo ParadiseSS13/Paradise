@@ -212,7 +212,7 @@
 		return
 	to_chat(user, "<span class='notice'>You activate [src].</span>")
 	apply_wibbly_filters(user)
-	if(do_after(user, 50, target = user) && user.cell.use(activationCost))
+	if(do_after(user, 5 SECONDS, target = user) && user.cell.use(activationCost))
 		activate(user)
 	else
 		to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
