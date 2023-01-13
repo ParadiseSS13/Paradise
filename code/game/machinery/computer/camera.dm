@@ -214,16 +214,25 @@
 	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
 	icon_state = "entertainment_console"
-	icon_screen = "entertainment"
+	icon_screen = "entertainment_off"
 	light_color = "#FFEEDB"
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
 	circuit = null
+	/// Used to detect how many video cameras are active
+	var/feeds_on = 0
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
 	set_light(1, LIGHTING_MINIMUM_POWER) //so byond doesnt cull, and we get an emissive appearance
+
+/obj/machinery/computer/security/telescreen/entertainment/update_overlays()
+	if(feeds_on)
+		icon_screen = "entertainment"
+	else
+		icon_screen = "entertainment_off"
+	return ..()
 
 /obj/machinery/computer/security/telescreen/entertainment/power_change()
 	..()

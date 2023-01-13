@@ -3732,6 +3732,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"mV" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/trophy/bronze_cup/toolbox_win,
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "mW" = (
 /obj/machinery/abductor/pad{
 	team = 1
@@ -39008,7 +39013,7 @@ aN
 aN
 ZT
 gb
-om
+mV
 WO
 ZT
 If

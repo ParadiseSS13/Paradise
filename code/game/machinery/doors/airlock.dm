@@ -1384,6 +1384,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		shock(user, 100) //Mmm, fried xeno!
 		return
 	if(!density) //Already open
+		if(!arePowerSystemsOn())
+			close(TRUE)
+			return
+		if(HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+			close(TRUE)
+			return
 		return
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
@@ -1391,14 +1397,22 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(prying_so_hard)
 		return
 	prying_so_hard = TRUE
-	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
-						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
-						"<span class='warning'>You hear groaning metal...</span>")
-	var/time_to_open = 5
+	var/time_to_open = 0
 	if(arePowerSystemsOn())
+		if(HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+			open(TRUE)
+			visible_message("<span class='danger'>[user] forces the door!</span>")
+			playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			prying_so_hard = FALSE
+			return
+		user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
+							"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
+							"<span class='warning'>You hear groaning metal...</span>")
 		time_to_open = 50 //Powered airlocks take longer to open, and are loud.
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-
+	else
+		visible_message("<span class='danger'>[user] forces the door!</span>")
+		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	if(do_after(user, time_to_open, TRUE, src))
 		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)

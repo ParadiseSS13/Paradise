@@ -472,6 +472,8 @@
 #define COMSIG_CARBON_SWAP_HANDS "carbon_swap_hands"
 /// From /mob/living/carbon/toggle_throw_mode()
 #define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
+/// From /mob/living/carbon/human/hitby()
+#define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
 
 
 // /mob/living/simple_animal/hostile signals
