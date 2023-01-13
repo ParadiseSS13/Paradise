@@ -121,13 +121,12 @@
 	return special_voice
 
 GLOBAL_LIST_INIT(soapy_words, list(
-	"shit" = "snap",
+	"shit" = "shoot",
 	"shitter" = "toilet",
 	"fuck" = "phooey",
 	"fucking" = "flipping",
 	"fucker" = "individual dedicated to the continuation of their species",
 	"motherfucker" = "family time enjoyer",
-	"crap" = "crud",
 	"balls" = "baloney",
 	"whore" = "overly experienced individual",
 	"dumbass" = "sweet, misunderstood person",
