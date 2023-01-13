@@ -103,8 +103,10 @@
 			"<span class='userdanger'>[user] shoves you into [src], and your head burns as it's coated in hot cooking oil!</span>",
 			"<span class='danger'>You hear a splash and a loud sizzle.</span>"
 		)
+
+	playsound(src, "sound/machines/kitchen/deep_fryer_emerge.ogg", 100)
 	target.emote("scream")
-	target.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
+	target.apply_damage(from_grab ? 25 : 20, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
 	head.disfigure()
 	add_attack_logs(user, target, "Deep-fried with [src]")
 	return TRUE

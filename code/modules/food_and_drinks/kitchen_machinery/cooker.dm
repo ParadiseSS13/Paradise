@@ -21,6 +21,10 @@
 	///Set to TRUE if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
 	var/upgradeable = FALSE
 	var/datum/looping_sound/kitchen/deep_fryer/soundloop
+	/// Time between special attacks
+	var/special_attack_cooldown_time = 7 SECONDS
+	/// Whether or not a special attack can be performed right now
+	var/special_attack_on_cooldown = FALSE
 
 /obj/machinery/cooker/Initialize(mapload)
 	. = ..()
@@ -47,6 +51,8 @@
 	OldReg.reagents.trans_to(NewReg, OldReg.reagents.total_volume)
 
 /obj/machinery/cooker/proc/special_attack_grab(obj/item/grab/G, mob/user)
+	if(special_attack_on_cooldown)
+		return FALSE
 	if(!G)
 		return FALSE
 	if(!iscarbon(G.affecting))
@@ -55,10 +61,22 @@
 	if(G.state < GRAB_AGGRESSIVE)
 		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 		return FALSE
-	special_attack(user, G.affecting, TRUE)
+	. = special_attack(user, G.affecting, TRUE)
 	user.changeNext_move(CLICK_CD_MELEE)
+	special_attack_on_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
 	if(!isnull(G) && !QDELETED(G))
 		qdel(G)
+
+/obj/machinery/cooker/proc/special_attack_shove(mob/user, mob/living/carbon/target)
+	if(special_attack_on_cooldown)
+		return
+	special_attack(user, target, FALSE)
+	special_attack_on_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
+
+/obj/machinery/cooker/shove_impact(mob/living/target, mob/living/attacker)
+	return special_attack_shove(attacker, target)
 
 /obj/machinery/cooker/proc/special_attack(mob/user, mob/living/carbon/target, from_grab = FALSE)
 	if(from_grab)

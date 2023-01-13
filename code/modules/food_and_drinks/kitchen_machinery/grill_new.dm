@@ -51,6 +51,7 @@
 	)
 
 	target.emote("scream")
-	target.adjustFireLoss(30)
+	playsound(src, "sound/machines/kitchen/grill_mid.ogg", 100)
+	target.adjustFireLoss(from_grab ? 30 : 20)
 	add_attack_logs(user, target, "Burned with [src]")
 	return TRUE
