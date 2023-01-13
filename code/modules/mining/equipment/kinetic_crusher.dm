@@ -28,6 +28,10 @@
 	var/brightness_on = 5
 	var/adaptive_damage_bonus = 0
 
+/obj/item/twohanded/kinetic_crusher/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (7 / 3) SECONDS ) // 2.3333 seconds of cooldown for 30% uptime
+
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST_CONTENTS(trophies)
 	return ..()
