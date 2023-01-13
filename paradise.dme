@@ -1803,6 +1803,7 @@
 #include "code\modules\mapping\merge_conflicts.dm"
 #include "code\modules\mapping\metastation.dm"
 #include "code\modules\mapping\test_tiny.dm"
+#include "code\modules\maptext_alerts\text_blurbs.dm"
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\brawling.dm"
 #include "code\modules\martial_arts\cqc.dm"
