@@ -344,10 +344,13 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		for(var/thing in H.bodyparts)
-			var/obj/item/organ/external/E = thing
-			E.fix_internal_bleeding()
-			E.mend_fracture()
+		if(is_mining_level(H.z))
+			for(var/thing in H.bodyparts)
+				var/obj/item/organ/external/E = thing
+				E.fix_internal_bleeding()
+				E.mend_fracture()
+		else
+			to_chat(owner, "<span class='warning'>...But the core was weakened, as it was not close enough to the rest of the legions of the necropolis.</span>")
 	else
 		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
