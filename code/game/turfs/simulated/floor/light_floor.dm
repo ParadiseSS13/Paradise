@@ -118,21 +118,16 @@
 	can_modify_colour = FALSE	// This tile has a set of colours, thus no interfering
 	var/list/available_colors = list("#d41e3c", "#ed7b39", "#fff540", "#77b02a", "#488bd4", "#b0fff1", "#94007a", "#ff417d")	// These are all the colors we can ever become
 	/// This is our current color, don't pick it again (integer for faster list accessing)
-	var/current_color	
+	var/current_color
 
 // We pick a random color when we are spawned
 /turf/simulated/floor/light/disco/Initialize()
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	current_color = pick(available_colors)
 
 // The animation happens in this proc
 /turf/simulated/floor/light/disco/proc/change_color()
-	animate_fade_to_color_fill(src, pick_color(), 2)
-
-// We choose a different color here than what we have now
-/turf/simulated/floor/light/disco/proc/pick_color()
-	return pick_different_from_list(available_colors, current_color)
+	animate_fade_to_color_fill(src, pick_excluding(available_colors, current_color), 2)
 
 // We change colors every now and then
 /turf/simulated/floor/light/disco/process()
