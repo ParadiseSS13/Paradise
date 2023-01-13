@@ -80,5 +80,5 @@
 	return 1
 
 /obj/structure/spirit_board/wrench_act(mob/living/user, obj/item/I)
-	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
-		return TRUE
+	. = TRUE
+	default_unfasten_wrench(user, I, time = 4 SECONDS)
