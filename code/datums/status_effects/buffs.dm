@@ -360,9 +360,11 @@
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 1 SECONDS
 	alert_type = null
-	var/tolerance = 1 // This diminishes the healing of fleshmend the higher it is.
+	/// This diminishes the healing of fleshmend the higher it is.
+	var/tolerance = 1
 	var/instance_duration = 10 // in ticks
-	var/active_instances[0] // a list of integers, one for each remaining instance of fleshmend.
+	/// a list of integers, one for each remaining instance of fleshmend.
+	var/active_instances[0]
 	var/ticks = 0
 
 /datum/status_effect/fleshmend/on_apply()
@@ -376,20 +378,19 @@
 	..()
 
 /datum/status_effect/fleshmend/tick()
-	if(active_instances.len >= 1)
-		var/heal_amount = 10 * active_instances.len / tolerance
-		var/blood_restore = 30 * active_instances.len
-		owner.heal_overall_damage((heal_amount), (heal_amount), updating_health = FALSE)
+	if(length(active_instances) >= 1)
+		var/heal_amount = 10 * length(active_instances) / tolerance
+		var/blood_restore = 30 * length(active_instances)
+		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		owner.adjustOxyLoss(-heal_amount, FALSE)
 		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
 		owner.updatehealth()
-		var/i
-		for(i=1, i <= active_instances.len, i++)
+		for(var/i in 1 to length(active_instances))
 			active_instances[i] -= 1
 			if(active_instances[i] <= 0)
 				active_instances -= active_instances[i]
 	tolerance = max(tolerance - 0.05, 1)
-	if(tolerance <= 1 && active_instances.len == 0)
+	if(tolerance <= 1 && length(active_instances) == 0)
 		qdel(src)
 
 /datum/status_effect/speedlegs
