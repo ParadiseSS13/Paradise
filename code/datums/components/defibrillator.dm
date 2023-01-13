@@ -7,7 +7,7 @@
 	/// If it should penetrate space suits
 	var/combat
 	/// If combat is true, this determines whether or not it should always cause a heart attack.
-	var/combat_defib_chance
+	var/heart_attack_chance
 	/// Whether the safeties are enabled or not
 	var/safety
 	/// If the defib is actively performing a defib cycle
@@ -33,13 +33,13 @@
  * * cooldown - Minimum time possible between shocks.
  * * speed_multiplier - Speed multiplier for defib do-afters.
  * * combat - If true, the defib can zap through hardsuits.
- * * combat_defib_chance - If combat and safeties are off, the % chance for this to cause a heart attack on harm intent.
+ * * heart_attack_chance - If combat and safeties are off, the % chance for this to cause a heart attack on harm intent.
  * * safe_by_default - If true, safety will be enabled by default.
  * * emp_proof - If true, safety won't be switched by emp. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * emag_proof - If true, safety won't be switched by emag. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * actual_unit - Unit which the component's parent is based from, such as a large defib unit or a borg. The actual_unit will make the sounds and be the "origin" of visible messages, among other things.
  */
-/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, combat = FALSE, combat_defib_chance = 100, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
+/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, combat = FALSE, heart_attack_chance = 100, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -47,7 +47,7 @@
 	src.speed_multiplier = speed_multiplier
 	src.cooldown = cooldown
 	src.combat = combat
-	src.combat_defib_chance = combat_defib_chance
+	src.heart_attack_chance = heart_attack_chance
 	safety = safe_by_default
 	src.emp_proof = emp_proof
 	src.emag_proof = emag_proof
@@ -340,7 +340,7 @@
 	target.KnockDown(10 SECONDS)
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	target.emote("gasp")
-	if(combat && prob(combat_defib_chance)) // If the victim is not having a heart attack, and a 10% chance passes, or the defib has heart attack variable to TRUE while being a combat defib, or if another 10% chance passes with combat being TRUE
+	if(combat && prob(heart_attack_chance)) // If the victim is not having a heart attack, and a 10% chance passes, or the defib has heart attack variable to TRUE while being a combat defib, or if another 10% chance passes with combat being TRUE
 		target.set_heartattack(TRUE)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
