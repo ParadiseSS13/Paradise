@@ -115,9 +115,11 @@
 // These tiles change color every now and then
 /turf/simulated/floor/light/disco
 	floor_tile = /obj/item/stack/tile/disco_light
-	can_modify_colour = FALSE	// This tile has a set of colours, thus no interfering
-	var/list/available_colors = list("#d41e3c", "#ed7b39", "#fff540", "#77b02a", "#488bd4", "#b0fff1", "#94007a", "#ff417d")	// These are all the colors we can ever become
-	/// This is our current color, don't pick it again (integer for faster list accessing)
+	/// Cannot change its color with a multitool
+	can_modify_colour = FALSE
+	/// The tile can change into these colors
+	var/list/available_colors = list("#d41e3c", "#ed7b39", "#fff540", "#77b02a", "#488bd4", "#b0fff1", "#94007a", "#ff417d")
+	/// This is our current color, don't pick it again
 	var/current_color
 
 // We pick a random color when we are spawned
