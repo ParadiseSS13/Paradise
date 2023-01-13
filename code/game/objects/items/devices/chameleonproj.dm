@@ -209,15 +209,15 @@
 	if(active)
 		to_chat(user, "<span class='notice'>You reconfigure [src].</span>")
 		activate(user)
+		return
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	apply_wibbly_filters(user)
+	if(do_after(user, 50, target = user) && user.cell.use(activationCost))
+		activate(user)
 	else
-		to_chat(user, "<span class='notice'>You activate [src].</span>")
-		apply_wibbly_filters(user)
-		if(do_after(user, 50, target = user) && user.cell.use(activationCost))
-			activate(user)
-		else
-			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
-			do_sparks(3, FALSE, user)
-		remove_wibbly_filters(user)
+		to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
+		do_sparks(3, FALSE, user)
+	remove_wibbly_filters(user)
 
 /obj/item/borg_chameleon/process()
 	if(S)
