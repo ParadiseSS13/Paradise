@@ -543,7 +543,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon_state = "crema_switch"
 	resistance_flags = INDESTRUCTIBLE // could use a more elegant solution like being able to be rebuilt, broken and repaired, or by directly attaching the switch to the crematorium
 	power_channel = PW_CHANNEL_EQUIPMENT
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 	idle_power_consumption = 100
 	active_power_consumption = 5000
 	anchored = TRUE
