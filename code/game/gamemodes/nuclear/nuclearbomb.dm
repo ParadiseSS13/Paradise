@@ -33,7 +33,8 @@ GLOBAL_VAR(bomb_set)
 	var/obj/item/nuke_core/plutonium/core = null
 	var/lastentered
 	var/is_syndicate = FALSE
-	var/requires_NAD_to_unbolt = FALSE // if this is true you cannot unbolt the NAD with tools, only the NAD
+	/// If this is true you cannot unbolt the NAD with tools, only the NAD
+	var/requires_NAD_to_unbolt = FALSE
 	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
@@ -229,7 +230,7 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(requires_NAD_to_unbolt == TRUE)
+	if(requires_NAD_to_unbolt)
 		to_chat(user, "<span class='warning'>This device seems to have additional safeguards, and cannot be forcibly moved without using the NAD!</span>")
 		return
 	if(removal_stage == NUKE_INTACT)
