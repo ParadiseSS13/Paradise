@@ -117,7 +117,8 @@
 	floor_tile = /obj/item/stack/tile/disco_light
 	can_modify_colour = FALSE	// This tile has a set of colours, thus no interfering
 	var/list/available_colors = list("#d41e3c", "#ed7b39", "#fff540", "#77b02a", "#488bd4", "#b0fff1", "#94007a", "#ff417d")	// These are all the colors we can ever become
-	var/current_color	// This is our current color, don't pick it again (integer for faster list accessing)
+	/// This is our current color, don't pick it again (integer for faster list accessing)
+	var/current_color	
 
 // We pick a random color when we are spawned
 /turf/simulated/floor/light/disco/Initialize()
