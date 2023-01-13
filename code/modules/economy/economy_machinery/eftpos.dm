@@ -191,7 +191,7 @@
 		to_chat(user, "[bicon(src)]<span class='warning'>Insufficient credits in your account!</span>")
 		return
 	GLOB.station_money_database.credit_account(linked_account, transaction_amount, transaction_purpose, machine_name, FALSE)
-	playsound(src, transaction_sound, 50, 1)
+	playsound(src, transaction_sound, 50, TRUE)
 	visible_message("<span class='notice'>[src] chimes!</span>")
 	transaction_paid = TRUE
 
