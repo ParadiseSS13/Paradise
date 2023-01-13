@@ -28,7 +28,7 @@
 	set_occupied(FALSE)
 	if(parent)
 		parent.children -= src
-	QDEL_LIST(children)
+	QDEL_LIST_CONTENTS(children)
 	parent = null
 	. = ..()
 

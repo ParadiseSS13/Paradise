@@ -77,14 +77,14 @@
 
 
 /obj/item/flash/proc/try_use_flash(mob/user = null)
+	if(broken)
+		return FALSE
+
 	if(cooldown >= world.time)
 		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
 	cooldown = world.time + cooldown_duration
 	flash_recharge(user)
-
-	if(broken)
-		return FALSE
 
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
@@ -248,15 +248,15 @@
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
 	cooldown_duration = 2 SECONDS
-	var/obj/item/organ/internal/cyberimp/arm/flash/I = null
+	var/obj/item/organ/internal/cyberimp/arm/implant = null
 
 /obj/item/flash/armimplant/burn_out()
-	if(I && I.owner)
-		to_chat(I.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
-		I.Retract()
+	if(implant?.owner)
+		to_chat(implant.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
+		implant.Retract()
 
 /obj/item/flash/armimplant/Destroy()
-	I = null
+	implant = null
 	return ..()
 
 /obj/item/flash/synthetic //just a regular flash now

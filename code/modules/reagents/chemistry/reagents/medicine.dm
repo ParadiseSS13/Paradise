@@ -120,24 +120,28 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+
 	var/external_temp
 	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
-		external_temp = C.temperature_archived
+		external_temp = C.air_contents.temperature
 	else
 		var/turf/T = get_turf(M)
 		external_temp = T.temperature
+
 	if(external_temp < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
 		update_flags |= M.adjustBruteLoss(-12, FALSE)
 		update_flags |= M.adjustFireLoss(-12, FALSE)
+
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
 			if(head)
 				head.status &= ~ORGAN_DISFIGURED
+
 	return ..() | update_flags
 
 /datum/reagent/medicine/rezadone
@@ -928,6 +932,15 @@
 		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		M.AdjustLoseBreath(2 SECONDS)
 	return list(0, update_flags)
+
+/datum/reagent/medicine/stimulative_agent/changeling
+	id = "stimulative_cling"
+
+/datum/reagent/medicine/stimulative_agent/changeling/on_mob_add(mob/living/L)
+	return
+
+/datum/reagent/medicine/stimulative_agent/changeling/on_mob_delete(mob/living/L)
+	return
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"

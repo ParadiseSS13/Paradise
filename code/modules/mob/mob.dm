@@ -7,8 +7,8 @@
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
-	QDEL_LIST(viruses)
-	QDEL_LIST(actions)
+	QDEL_LIST_CONTENTS(viruses)
+	QDEL_LIST_CONTENTS(actions)
 	for(var/alert in alerts)
 		clear_alert(alert)
 	ghostize()
@@ -249,8 +249,8 @@
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
 		if(isstorage(back))
 			var/obj/item/storage/S = back
-			//Now, B represents a container we can insert W into.
-			S.handle_item_insertion(W,1)
+			//Now, S represents a container we can insert W into.
+			S.handle_item_insertion(W, TRUE, TRUE)
 			return S
 
 		var/turf/T = get_turf(src)

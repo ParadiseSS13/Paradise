@@ -10,13 +10,6 @@
 	containername = "\improper MULEbot crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
 
-/datum/supply_packs/misc/watertank
-	name = "Water Tank Crate"
-	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 50
-	containertype = /obj/structure/largecrate
-	containername = "water tank crate"
-
 /datum/supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank/high)
@@ -105,17 +98,6 @@
 					/obj/item/clipboard)
 	cost = 100
 	containername = "bureaucracy crate"
-
-/datum/supply_packs/misc/toner
-	name = "Toner Cartridges Crate"
-	contains = list(/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner)
-	cost = 100
-	containername = "toner cartridges crate"
 
 /datum/supply_packs/misc/artscrafts
 	name = "Arts and Crafts Supplies Crate"
@@ -358,6 +340,14 @@
 	name = "Contraband Crate"
 	cost = 250
 	containername = "crate"	//let's keep it subtle, eh?
+	contraband = TRUE
+
+/datum/supply_packs/misc/flags
+	name = "Unapproved flags Crate"
+	contains = list(/obj/item/flag/ussp,
+					/obj/item/flag/syndi)
+	cost = 200
+	containername = "flags crate"
 	contraband = TRUE
 
 /datum/supply_packs/misc/formalwear //This is a very classy crate.

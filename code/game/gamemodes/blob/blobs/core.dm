@@ -106,9 +106,9 @@
 	if(!new_overmind)
 		// sendit
 		if(is_offspring)
-			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, source = src)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, 10 SECONDS, source = src)
 		else
-			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, source = src)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, 10 SECONDS, source = src)
 
 		if(length(candidates))
 			C = pick(candidates)

@@ -79,10 +79,10 @@
 	if(!on || !up)
 		set_light(0)
 		return
-	
+
 	set_light(brightness_on)
 
-/obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
+/obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
 
@@ -91,19 +91,21 @@
 	desc = "A plasmaman containment helmet designed for security officers, protecting them from being flashed and burning alive, alongside other undesirables."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 0, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 0, FIRE = INFINITY, ACID = 150)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for the warden, a pair of white stripes being added to differentiate them from other members of security."
 	icon_state = "warden_envirohelm"
 	item_state = "warden_envirohelm"
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 0, FIRE = INFINITY, ACID = 150)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos
 	name = "security plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for the head of security."
 	icon_state = "hos_envirohelm"
 	item_state = "hos_envirohelm"
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 0, FIRE = INFINITY, ACID = 150)
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical
 	name = "medical plasma envirosuit helmet"

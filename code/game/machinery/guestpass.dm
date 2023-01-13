@@ -46,8 +46,15 @@
 	var/duration = 5
 	var/print_cooldown = 0
 
+	var/static/global_terminal_id = 0
+	var/my_terminal_id
+
 	var/list/internal_log = list()
 	var/mode = FALSE  // FALSE - making pass, TRUE - viewing logs
+
+/obj/machinery/computer/guestpass/Initialize(mapload)
+	. = ..()
+	my_terminal_id = ++global_terminal_id
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id))
@@ -111,7 +118,7 @@
 	data["regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
 	return data
 
-/obj/machinery/computer/guestpass/ui_act(action, params)
+/obj/machinery/computer/guestpass/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	. = TRUE
@@ -153,7 +160,7 @@
 				else
 					to_chat(usr, "<span class='warning'>Invalid duration.</span>")
 		if("print")
-			var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
+			var/dat = "<h3>Activity log of guest pass terminal #[global_terminal_id]</h3><br>"
 			for(var/entry in internal_log)
 				dat += "[entry]<br><hr>"
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -173,6 +180,8 @@
 					var/area = get_access_desc(A)
 					entry += "[i > 1 ? ", [area]" : "[area]"]"
 			var/obj/item/card/id/guest/pass = new(get_turf(src))
+			if(Adjacent(ui.user))
+				ui.user.put_in_hands(pass)
 			pass.temp_access = accesses.Copy()
 			pass.registered_name = giv_name
 			pass.expiration_time = world.time + duration MINUTES

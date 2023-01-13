@@ -210,6 +210,13 @@
 	sharp = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 
+/obj/item/projectile/plasma/prehit(atom/target)
+	. = ..()
+	if(!lavaland_equipment_pressure_check(get_turf(target)))
+		name = "weakened [name]"
+		dismemberment = 0
+		sharp = FALSE
+
 /obj/item/projectile/plasma/on_hit(atom/target)
 	. = ..()
 	if(ismineralturf(target))

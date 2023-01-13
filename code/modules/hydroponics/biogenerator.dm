@@ -45,7 +45,7 @@
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(container)
 	QDEL_NULL(files)
-	QDEL_LIST(stored_plants)
+	QDEL_LIST_CONTENTS(stored_plants)
 	return ..()
 
 /obj/machinery/biogenerator/ex_act(severity)

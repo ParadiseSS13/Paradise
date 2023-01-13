@@ -18,7 +18,7 @@
 
 /datum/event/ion_storm/announce()
 	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
-		GLOB.event_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ions.ogg')
+		GLOB.minor_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ions.ogg')
 
 /datum/event/ion_storm/start()
 	//AI laws
@@ -32,7 +32,7 @@
 				to_chat(M, "<br>")
 
 				for(var/player in GLOB.dead_mob_list)
-					to_chat(player, "<span class='deadsay'><b>[M] ([ghost_follow_link(M, player)])</b> has recieved an ion law:\n<b>'[message]'</b></span>")
+					to_chat(player, "<span class='deadsay'><b>[M] ([ghost_follow_link(M, player)])</b> has received an ion law:\n<b>'[message]'</b></span>")
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot in GLOB.machines)

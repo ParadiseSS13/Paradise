@@ -73,5 +73,5 @@
 		// simply don't be moved
 		return FALSE
 	disconnect()
-	LateInitialize()
+	LateInitialize() // who the fuck did this
 	return ..()
