@@ -69,7 +69,7 @@
 		create_log(DEADCHAT_LOG, message)
 		return
 
-	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts", "copes", "seethes")], <span class='message'>\"[message]\"</span>", src)
+	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts", "copes", "seethes", "malds")], <span class='message'>\"[message]\"</span>", src)
 	create_log(DEADCHAT_LOG, message)
 	log_ghostsay(message, src)
 
