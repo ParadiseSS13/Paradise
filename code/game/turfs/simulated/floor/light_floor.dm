@@ -127,7 +127,8 @@
 
 // The animation happens in this proc
 /turf/simulated/floor/light/disco/proc/change_color()
-	animate_fade_to_color_fill(src, pick_excluding(available_colors, current_color), 2)
+	current_color = pick_excluding(available_colors, current_color)
+	animate_fade_to_color_fill(src, current_color, 2)
 
 // We change colors every now and then
 /turf/simulated/floor/light/disco/process()
