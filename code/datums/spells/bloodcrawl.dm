@@ -155,7 +155,7 @@
 		victim.adjustBruteLoss(1000)
 		victim.forceMove(demon)
 		demon.consumed_mobs.Add(victim)
-		ADD_TRAIT(victim, TRAIT_UNREVIVABLE, "unrevivable")
+		ADD_TRAIT(victim, TRAIT_UNREVIVABLE, "demon")
 		if(ishuman(victim))
 			var/mob/living/carbon/human/H = victim
 			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
