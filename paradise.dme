@@ -1442,6 +1442,7 @@
 #include "code\modules\buildmode\submodes\boom.dm"
 #include "code\modules\buildmode\submodes\copy.dm"
 #include "code\modules\buildmode\submodes\fill.dm"
+#include "code\modules\buildmode\submodes\forcemove.dm"
 #include "code\modules\buildmode\submodes\link.dm"
 #include "code\modules\buildmode\submodes\mapgen.dm"
 #include "code\modules\buildmode\submodes\save.dm"
