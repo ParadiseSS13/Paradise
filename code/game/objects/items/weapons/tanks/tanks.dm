@@ -122,8 +122,7 @@
 
 	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
 		var/obj/item/organ/external/head/head = H.get_organ("head")
-		if(head)
-			head.disfigure()
+		head?.disfigure()
 		H.inflate_gib()
 		return OBLITERATION
 
