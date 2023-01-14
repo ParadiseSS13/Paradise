@@ -719,14 +719,14 @@
 	icon_state = "artvend"
 	icon_lightmask = "artvend"
 	icon_panel = "screen_vendor"
-	products = list(/obj/item/stack/cable_coil/random = 10, /obj/item/camera = 4, /obj/item/camera_film = 6,
+	products = list(/obj/item/stack/cable_coil/random = 10, /obj/item/toner = 4, /obj/item/camera = 4, /obj/item/camera_film = 6,
 	/obj/item/storage/photo_album = 2, /obj/item/stack/wrapping_paper = 4, /obj/item/stack/tape_roll = 5, /obj/item/stack/packageWrap = 4,
 	/obj/item/storage/fancy/crayons = 4, /obj/item/hand_labeler = 4, /obj/item/paper = 10,
 	/obj/item/c_tube = 10, /obj/item/pen = 5, /obj/item/pen/blue = 5,
 	/obj/item/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
 	premium = list(/obj/item/poster/random_contraband = 5, /obj/item/pen/fancy = 2)
-	prices = list(/obj/item/stack/cable_coil/random = 20)
+	prices = list(/obj/item/stack/cable_coil/random = 20, /obj/item/toner = 40)
 
 /obj/machinery/economy/vending/tool
 	name = "\improper YouTool"
