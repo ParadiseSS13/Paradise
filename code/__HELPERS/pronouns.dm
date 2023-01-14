@@ -85,12 +85,12 @@
 /client/p_themselves(capitalized, temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
-	. = p_them(temp_gender)
+	. = p_them(capitalized, temp_gender)
 	switch(temp_gender)
-	if(MALE, FEMALE)
-		. += "self"
-	if(NEUTER, PLURAL)
-		. += "selves"
+		if(MALE, FEMALE)
+			. += "self"
+		if(NEUTER, PLURAL)
+			. += "selves"
 	if(capitalized)
 		. = capitalize(.)
 
@@ -174,7 +174,7 @@
 /mob/p_themselves(capitalized, temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
-	. = p_them(temp_gender)
+	. = p_them(capitalized, temp_gender)
 	switch(temp_gender)
 		if(MALE, FEMALE, NEUTER)
 			. += "self"
