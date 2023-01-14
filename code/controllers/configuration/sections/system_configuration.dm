@@ -18,6 +18,8 @@
 	var/list/topic_ip_ratelimit_bypass = list()
 	/// Server instance ID
 	var/instance_id = "paradise_main"
+	/// Do we want to enable instancing stuff at all?
+	var/enable_multi_instance_support = FALSE
 	/// Server internal IP
 	var/internal_ip = "127.0.0.1"
 	/// Are we using an external handler for TOS
@@ -32,6 +34,7 @@
 	CONFIG_LOAD_BOOL(shutdown_on_reboot, data["shutdown_on_reboot"])
 	CONFIG_LOAD_BOOL(is_production, data["is_production"])
 	CONFIG_LOAD_BOOL(external_tos_handler, data["external_tos_handler"])
+	CONFIG_LOAD_BOOL(enable_multi_instance_support, data["enable_multi_instance_support"])
 
 	CONFIG_LOAD_STR(topic_key, data["communications_password"])
 	CONFIG_LOAD_STR(shutdown_shell_command, data["shutdown_shell_command"])

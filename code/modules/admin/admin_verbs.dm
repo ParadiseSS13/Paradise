@@ -71,6 +71,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/start_vote,
 	/client/proc/toggle_mctabs,
 	/client/proc/ping_all_admins,
+	/client/proc/show_watchlist
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -996,3 +997,12 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+
+/client/proc/show_watchlist()
+	set name = "Show Watchlist"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	watchlist_show()
