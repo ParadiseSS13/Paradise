@@ -280,3 +280,14 @@
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/weaponcrafting/gunkit/u_ionsilencer
 	category = list("Weapons")
+
+/datum/design/v1_arm
+	name = "Vortex arm implant shell"
+	desc = "A shell to make an arm able to parry, reflect, and boost the power of incoming projectiles."
+	id = "v1_arm"
+	req_tech = list("combat" = 7, "magnets" = 6, "engineering" = 6, "biotech" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+	reagents_list = list("blood" = 50)
+	build_path = /obj/item/v1_arm_shell
+	category = list("Weapons")

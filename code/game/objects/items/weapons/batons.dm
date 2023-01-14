@@ -69,7 +69,7 @@
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
-							 "<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
 		on_silicon_stun(target, user)
 	else
 		// Check for shield/countering
@@ -78,7 +78,7 @@
 			if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 				return FALSE
 		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
-							 "<span class='danger'>You knock down [target] with [src]!</span>")
+							"<span class='danger'>You knock down [target] with [src]!</span>")
 		on_non_silicon_stun(target, user)
 	// Visuals and sound
 	user.do_attack_animation(target)
