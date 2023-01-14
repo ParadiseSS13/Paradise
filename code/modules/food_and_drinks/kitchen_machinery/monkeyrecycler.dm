@@ -93,6 +93,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 				else
 					user.drop_item()
 					qdel(target)
+					target = null //we sleep in this proc, clear reference NOW
 					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
 					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 					var/offset = prob(50) ? -2 : 2

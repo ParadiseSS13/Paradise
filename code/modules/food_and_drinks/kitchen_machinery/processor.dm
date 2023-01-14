@@ -53,6 +53,7 @@
 	var/output
 	var/time = 40
 
+/// WHO NAME A PARAMETER FOR A PROC "what" holy hell
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)
