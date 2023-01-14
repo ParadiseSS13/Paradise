@@ -44,6 +44,8 @@
 	return type
 
 /obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/grab))
+		return special_attack_grab(I, user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/ice))
 		var/ice_amount = I.reagents.get_reagent_amount("ice")
 		if(ice_amount)
@@ -84,29 +86,31 @@
 		emagged = TRUE
 		return
 
-/obj/machinery/cooker/deepfryer/special_attack(mob/user, mob/living/carbon/target, from_grab)
+/obj/machinery/cooker/deepfryer/special_attack_shove(mob/living/target, mob/living/attacker)
+	. = ..()
+	target.visible_message(
+		"<span class='danger'>[attacker] shoves [target] against [src], and [target] reaches into the hot oil trying to catch [target.p_their()] fall!</span>",
+		"<span class='userdanger'>[attacker] shoves you into [src], your hands landing in hot oil!</span>",
+		"<span class='danger'>You hear a splash and a loud sizzle.</span>"
+	)
+	target.apply_damage(2, BURN, BODY_ZONE_PRECISE_L_HAND)
+	target.apply_damage(2, BURN, BODY_ZONE_PRECISE_R_HAND)
+	playsound(src, 'sound/goonstation/misc/drinkfizz.ogg', 25)
+	return FALSE
 
+/obj/machinery/cooker/deepfryer/special_attack(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/external/head/head = target.get_organ("head")
 	if(!head)
-		if(from_grab)
-			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
+		to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
 		return FALSE  // you'll probably get smacked against it
-	if(from_grab)
-		target.visible_message(
-			"<span class='danger'>[user] dunks [target]'s face into [src]!</span>",
-			"<span class='userdanger'>[user] dunks your face into [src]!</span>",
-			"<span class='danger'>You hear a splash and a loud sizzle.</span>"
-		)
-	else
-		target.visible_message(
-			"<span class='danger'>[user] shoves [target] into [src], sizzling their head!</span>",
-			"<span class='userdanger'>[user] shoves you into [src], and your head burns as it's coated in hot cooking oil!</span>",
-			"<span class='danger'>You hear a splash and a loud sizzle.</span>"
-		)
-
+	target.visible_message(
+		"<span class='danger'>[user] dunks [target]'s face into [src]!</span>",
+		"<span class='userdanger'>[user] dunks your face into [src]!</span>",
+		"<span class='danger'>You hear a splash and a loud sizzle.</span>"
+	)
 	playsound(src, "sound/machines/kitchen/deep_fryer_emerge.ogg", 100)
 	target.emote("scream")
-	target.apply_damage(from_grab ? 25 : 20, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
+	target.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
 	head.disfigure()
 	add_attack_logs(user, target, "Deep-fried with [src]")
 	return TRUE

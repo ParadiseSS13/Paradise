@@ -44,14 +44,26 @@
 		E += M.rating
 	efficiency = round((E/2), 1) // There's 2 lasers, so halve the effect on the efficiency to keep it balanced
 
+/obj/machinery/kitchen_machine/grill/special_attack_shove(mob/user, mob/living/carbon/target)
+	. = ..()
+	target.visible_message(
+		"<span class='danger'>[user] shoves [target] onto [src], the active grill surface searing [user.p_them()]!</span>",
+		"<span class='userdanger'>[user] shoves you onto [src], and the hot surface sears you!</span>",
+
+	)
+	target.adjustFireLoss(5)
+
 /obj/machinery/kitchen_machine/grill/special_attack(mob/user, mob/living/carbon/target, from_grab)
 	target.visible_message(
-		"<span class='danger'>[user] [from_grab ? "forces" : "shoves"] [target] onto [src], searing [target]'s body!</span>",
-		"<span class='userdanger'>[user] [from_grab ? "forces" : "shoves"] you onto [src]! It burns!</span>"
+		"<span class='danger'>[user] forces [target] onto [src]'S hot cooking surface, searing [target]'s body!</span>",
+		"<span class='userdanger'>[user] forces you onto [src]! HOT HOT HOT!</span>",
+		"<span class='warning'>You hear some meat being put on to cook.</span>"
 	)
 
 	target.emote("scream")
 	playsound(src, "sound/machines/kitchen/grill_mid.ogg", 100)
-	target.adjustFireLoss(from_grab ? 30 : 20)
+	target.adjustFireLoss(30)
+	target.forceMove(get_turf(src))
+	target.Weaken(2 SECONDS)
 	add_attack_logs(user, target, "Burned with [src]")
 	return TRUE

@@ -123,9 +123,6 @@
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return TRUE
 
-/obj/machinery/kitchen_machine/shove_impact(mob/living/target, mob/living/attacker)
-	return special_attack_shove(attacker, target)
-
 /obj/machinery/kitchen_machine/wrench_act(mob/living/user, obj/item/I)
 	if(operating)
 		return
@@ -161,23 +158,34 @@
 	if(G.state < GRAB_AGGRESSIVE)
 		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 		return FALSE
-	. = special_attack(user, G.affecting, TRUE)
+	var/result = special_attack(user, G.affecting, TRUE)
 	user.changeNext_move(CLICK_CD_MELEE)
 	special_attack_on_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
-	if(!isnull(G) && !QDELETED(G))
+	if(result && !isnull(G) && !QDELETED(G))
 		qdel(G)
 
-/obj/machinery/kitchen_machine/proc/special_attack_shove(mob/user, mob/living/carbon/target)
-	if(special_attack_on_cooldown)
-		return
-	special_attack(user, target, FALSE)
-	special_attack_on_cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
+	return TRUE
 
-/obj/machinery/kitchen_machine/proc/special_attack(mob/user, mob/living/carbon/target, from_grab = FALSE)
-	if(from_grab)
-		to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
+/**
+ * Perform the special grab interaction.
+ * Return TRUE to drop the grab or FALSE to keep the grab afterwards.
+ */
+/obj/machinery/kitchen_machine/proc/special_attack(mob/user, mob/living/carbon/target, obj/item/grab/G)
+	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
+	return FALSE
+
+/obj/machinery/kitchen_machine/shove_impact(mob/living/target, mob/living/attacker)
+	if(special_attack_on_cooldown)
+		return FALSE
+
+	if(!operating)
+		// only do a special interaction if it's actually cooking something
+		return FALSE
+
+	return special_attack_shove(target, attacker)
+
+/obj/machinery/kitchen_machine/proc/special_attack_shove(mob/living/target, mob/living/attacker)
 	return FALSE
 
 /********************

@@ -22,7 +22,7 @@
 	var/upgradeable = FALSE
 	var/datum/looping_sound/kitchen/deep_fryer/soundloop
 	/// Time between special attacks
-	var/special_attack_cooldown_time = 7 SECONDS
+	var/special_attack_cooldown_time = 5 SECONDS
 	/// Whether or not a special attack can be performed right now
 	var/special_attack_on_cooldown = FALSE
 
@@ -50,6 +50,28 @@
 /obj/machinery/cooker/proc/setRegents(obj/item/reagent_containers/OldReg, obj/item/reagent_containers/NewReg)
 	OldReg.reagents.trans_to(NewReg, OldReg.reagents.total_volume)
 
+/**
+ * Perform the special grab interaction.
+ * Return TRUE to drop the grab or FALSE to keep the grab afterwards.
+ */
+/obj/machinery/cooker/proc/special_attack(mob/user, mob/living/carbon/target, obj/item/grab/G)
+	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
+	return FALSE
+
+/obj/machinery/cooker/shove_impact(mob/living/target, mob/living/attacker)
+	if(special_attack_on_cooldown)
+		return FALSE
+
+	if(!on)
+		// only do a special interaction if it's actually cooking something
+		return FALSE
+
+	. = special_attack_shove(target, attacker)
+	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
+
+/obj/machinery/cooker/proc/special_attack_shove(mob/living/target, mob/living/attacker)
+	return FALSE
+
 /obj/machinery/cooker/proc/special_attack_grab(obj/item/grab/G, mob/user)
 	if(special_attack_on_cooldown)
 		return FALSE
@@ -61,27 +83,14 @@
 	if(G.state < GRAB_AGGRESSIVE)
 		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 		return FALSE
-	. = special_attack(user, G.affecting, TRUE)
+	var/result = special_attack(user, G.affecting, G)
 	user.changeNext_move(CLICK_CD_MELEE)
 	special_attack_on_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
-	if(!isnull(G) && !QDELETED(G))
+	if(result && !isnull(G) && !QDELETED(G))
 		qdel(G)
 
-/obj/machinery/cooker/proc/special_attack_shove(mob/user, mob/living/carbon/target)
-	if(special_attack_on_cooldown)
-		return
-	special_attack(user, target, FALSE)
-	special_attack_on_cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
-
-/obj/machinery/cooker/shove_impact(mob/living/target, mob/living/attacker)
-	return special_attack_shove(attacker, target)
-
-/obj/machinery/cooker/proc/special_attack(mob/user, mob/living/carbon/target, from_grab = FALSE)
-	if(from_grab)
-		to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
-	return FALSE
+	return TRUE  // end the attack chain
 
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
@@ -185,6 +194,8 @@
 			else
 				L.death()
 		break
+	if(istype(I, /obj/item/grab))
+		return special_attack_grab(I, user)
 	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
 
 /obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
