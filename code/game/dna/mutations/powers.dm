@@ -790,7 +790,7 @@
 		if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 			new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
 			if(new_hair)
-				M.change_hair_color(new_hair, 1)
+				M.change_hair_color(new_hair, TRUE)
 
 		// facial hair
 		var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
@@ -807,7 +807,7 @@
 		if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 			new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
 			if(new_facial)
-				M.change_facial_hair_color(new_facial, 1)
+				M.change_facial_hair_color(new_facial, TRUE)
 
 		//Head accessory.
 		if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)

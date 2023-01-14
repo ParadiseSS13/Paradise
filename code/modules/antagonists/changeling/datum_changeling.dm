@@ -120,8 +120,7 @@
 
 	// Brains are optional for changelings.
 	var/obj/item/organ/internal/brain/ling_brain = C.get_organ_slot("brain")
-	if(ling_brain)
-		ling_brain.decoy_brain = TRUE
+	ling_brain?.decoy_brain = TRUE
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
