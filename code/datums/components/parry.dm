@@ -120,4 +120,5 @@
 		return (COMPONENT_BLOCK_SUCCESSFUL | COMPONENT_BLOCK_PERFECT)
 
 /datum/component/parry/proc/on_parent_examined(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
 	examine_list += examine_text
