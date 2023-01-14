@@ -25,7 +25,6 @@
 	return 0
 
 /datum/vendor_crit/shatter
-	key = "shatter"
 
 /datum/vendor_crit/shatter/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	victim.bleed(150)
@@ -58,7 +57,6 @@
 	return 0
 
 /datum/vendor_crit/embed
-	key = "embed"
 
 /datum/vendor_crit/embed/is_valid(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	. = ..()
