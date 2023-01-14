@@ -33,6 +33,8 @@ GLOBAL_VAR(bomb_set)
 	var/obj/item/nuke_core/plutonium/core = null
 	var/lastentered
 	var/is_syndicate = FALSE
+	/// If this is true you cannot unbolt the NAD with tools, only the NAD
+	var/requires_NAD_to_unbolt = FALSE
 	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
@@ -44,6 +46,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
+	requires_NAD_to_unbolt = TRUE
 
 /obj/machinery/nuclearbomb/undeployed
 	extended = FALSE
@@ -193,7 +196,7 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
+	if(auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate))
 		if(!panel_open)
 			panel_open = TRUE
 			to_chat(user, "You unscrew the control panel of [src].")
@@ -226,6 +229,9 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
+		return
+	if(requires_NAD_to_unbolt)
+		to_chat(user, "<span class='warning'>This device seems to have additional safeguards, and cannot be forcibly moved without using the NAD!</span>")
 		return
 	if(removal_stage == NUKE_INTACT)
 		visible_message("<span class='notice'>[user] starts cutting loose the anchoring bolt covers on [src].</span>",\
@@ -380,6 +386,7 @@ GLOBAL_VAR(bomb_set)
 				if(anchored)
 					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
 				else
+					requires_NAD_to_unbolt = FALSE
 					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 			return
 
