@@ -424,9 +424,9 @@
 //////////////////////////
 /obj/item/pizzabox/pizza_bomb
 	var/timer = 10 //Adjustable timer
-	var/timer_set = 0
-	var/primed = 0
-	var/disarmed = 0
+	var/timer_set = FALSE
+	var/primed = FALSE
+	var/disarmed = FALSE
 	var/wires = list("orange", "green", "blue", "yellow", "aqua", "purple")
 	var/correct_wire
 	var/armer //Used for admin purposes
@@ -450,10 +450,10 @@
 		name = "pizza bomb"
 		desc = "It seems inactive."
 		icon_state = "pizzabox_bomb"
-		timer_set = 1
+		timer_set = TRUE
 		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) SECONDS
 		if(!in_range(src, user) || issilicon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
-			timer_set = 0
+			timer_set = FALSE
 			name = "pizza box"
 			desc = "A box suited for pizzas."
 			icon_state = "pizzabox1"
@@ -479,7 +479,7 @@
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [key_name_admin(armer)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has triggered a pizza bomb armed by [key_name(armer)] ([loc.x],[loc.y],[loc.z]).")
 		opener = user
-		primed = 1
+		primed = TRUE
 		sleep(timer)
 		return go_boom()
 
@@ -516,8 +516,8 @@
 			icon_state = "pizzabox_bomb_[correct_wire]"
 			name = "pizza bomb"
 			desc = "A devious contraption, made of a small explosive payload hooked up to pressure-sensitive wires. It's disarmed."
-			disarmed = 1
-			primed = 0
+			disarmed = TRUE
+			primed = FALSE
 			return
 		else
 			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
@@ -546,5 +546,5 @@
 	box_tag = "classic pepperoni"
 
 /obj/item/pizzabox/pizza_bomb/autoarm
-	timer_set = 1
+	timer_set = TRUE
 	timer = 30 // 3 seconds
