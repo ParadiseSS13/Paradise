@@ -222,7 +222,7 @@
 	emp_proof = TRUE //They are crystal artifacts, not metal
 	min_bruised_damage = 30
 	min_broken_damage = 60
-	actions_types = list(/datum/action/item_action/organ_action/use)
+	actions_types = list(/datum/action/item_action/organ_action/use/eyesofgod)
 	var/active = FALSE
 	var/shatter_state = INTACT
 
@@ -248,12 +248,13 @@
 			if(60 to INFINITY)
 				heal_internal_damage(0.25, 1)
 	else
+		owner.mob_light("#58a5ec", 3, _duration = 2 SECONDS)
 		receive_damage(2, 1)
 		for(var/obj/O in range(7, owner))
 			var/turf/T = get_turf(O)
 			for(var/mob/M in O.contents)
 				receive_damage(0.1, 1)
-				new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(T) //Change to the eye effect
+				new /obj/effect/temp_visual/eyesofgod(T)
 				if(prob(25))
 					to_chat(M, "<span class='warning'>You feel like you are being watched...</span>")
 		switch(damage)
@@ -303,9 +304,10 @@
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	flash_protect = FLASH_PROTECTION_VERYVUNERABLE //Flashing is it's weakness. I don't care how many protecions you have up
+	flash_protect = FLASH_PROTECTION_VERYVUNERABLE //Flashing is it's weakness. I don't care how many protections you have up
 	owner?.client?.color = LIGHT_COLOR_PURE_CYAN
 	owner.update_sight()
+	owner.update_eyes_overlay_layer()
 
 /obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/deactivate()
 	active = FALSE
@@ -315,9 +317,16 @@
 	flash_protect = initial(flash_protect)
 	owner?.client?.color = null
 	owner.update_sight()
+	owner.update_eyes_overlay_layer()
 
 /obj/item/organ/internal/eyes/cybernetic/eyesofgod/ui_action_click()
 	if(!active && shatter_state < BOTH_SHATTERED)
 		activate()
 		return
 	deactivate()
+
+/obj/effect/temp_visual/eyesofgod
+	name = "eye mark"
+	icon_state = "shield_reversed"
+	duration = 2 SECONDS
+	invisibility = INVISIBILITY_OBSERVER

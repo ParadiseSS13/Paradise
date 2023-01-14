@@ -493,6 +493,10 @@
 	name = "Use [target.name]"
 	button.name = name
 
+/datum/action/item_action/organ_action/use/eyesofgod/New(target)
+	..()
+	name = "See with the Eyes of God"
+	button.name = name
 /datum/action/item_action/voice_changer/toggle
 	name = "Toggle Voice Changer"
 
