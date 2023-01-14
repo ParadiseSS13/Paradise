@@ -2,13 +2,16 @@
 // Once the atom is moved, its selection is cleared to avoid any further moves by accident.
 /datum/buildmode_mode/forcemove
 	key = "forcemove"
-	var/atom/movable/selected_atom		// The atom we want to move
-	var/image/selected_overlay			// Overlay for the selected atom only visible for the build mode user
+	/// The atom we want to move
+	var/atom/movable/selected_atom
+	/// Overlay for the selected atom, only visible for the build mode user
+	var/image/selected_overlay
 
 /datum/buildmode_mode/forcemove/show_help(mob/user)
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 	to_chat(user, "<span class='notice'>Left Mouse Button on obj/mob = Select destination</span>")
 	to_chat(user, "<span class='notice'>Right Mouse Button on obj/mob = Select atom to move</span>")
+	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Clear the current selection</span>")
 	to_chat(user, "<span class='notice'><b>Notice:</b> You need to select the movable atom first, then left-click its destination.</span>")
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
@@ -24,22 +27,18 @@
 			return
 
 		// If we had something previously selected, handle its signal and overlay
-		if(selected_atom)
-			UnregisterSignal(selected_atom, COMSIG_PARENT_QDELETING)
-
-		if(selected_overlay)
-			remove_selected_overlay(user)
+		clear_selection()
 
 		// We ensure it properly gets GC'd
 		selected_atom = A
 		RegisterSignal(selected_atom, COMSIG_PARENT_QDELETING, PROC_REF(on_selected_atom_deleted))
 
 		// Green overlay for selection
-		selected_overlay = image(icon = selected_atom.icon, loc = A, icon_state = selected_atom.icon_state)
+		selected_overlay = image(icon = selected_atom.icon, loc = A, icon_state = selected_atom.icon_state, layer = HUD_PLANE_BUILDMODE)
 		selected_overlay.color = "#15d12d"
 		user.client.images += selected_overlay
 
-		to_chat(user, "<span class='notice'>'[selected_atom]' is selected to be moved.</span>")
+		to_chat(user, "<span class='notice'>'<b>[selected_atom]</b>' is selected to be moved.</span>")
 		return
 
 	// Selecting the destination to move to
@@ -59,17 +58,31 @@
 
 	selected_atom.forceMove(destination)
 
-	to_chat(user, "<span class='notice'>'[selected_atom]' is moved to '[destination]'.</span>")
+	to_chat(user, "<span class='notice'>'<b>[selected_atom]</b>' is moved to '[destination]'.</span>")
 	log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
+	clear_selection()
 
-	UnregisterSignal(selected_atom, COMSIG_PARENT_QDELETING)
-	selected_atom = null
-	remove_selected_overlay(user)
+/datum/buildmode_mode/forcemove/proc/clear_selection()
+	if(selected_atom)
+		UnregisterSignal(selected_atom, COMSIG_PARENT_QDELETING)
+		selected_atom = null
 
-// Remove the green selection (only visible for the user)
-/datum/buildmode_mode/forcemove/proc/remove_selected_overlay(mob/user)
-	user.client.images -= selected_overlay
-	selected_overlay = null
+	if(selected_overlay)
+		BM.holder.images -= selected_overlay
+		selected_overlay = null
+
+// Right-clicking the build mode icon will clear all selections
+/datum/buildmode_mode/forcemove/change_settings(mob/user)
+	to_chat(user, "<span class='notice'>Selection cancelled.</span>")
+	clear_selection()
+
+// Exiting forcemove mode will clear all selections too
+/datum/buildmode_mode/forcemove/exit_mode(datum/click_intercept/buildmode/BM)
+	clear_selection()
+
+/datum/buildmode_mode/forcemove/Destroy()
+	clear_selection()
+	..()
 
 // If it gets deleted mid-movement, remove the overlay and its attachment to the forcemove tool
 /datum/buildmode_mode/forcemove/proc/on_selected_atom_deleted()
