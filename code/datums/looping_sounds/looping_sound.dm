@@ -82,7 +82,7 @@
 	var/sound/S = sound(soundfile)
 	if(area_sound)
 		for(var/area/sound_outputs in atoms_cache)
-			for(var/mob/listener in mobs_in_area(sound_outputs, TRUE))
+			for(var/mob/listener in mobs_in_area(sound_outputs, TRUE) || 1)
 				S.volume = volume * (USER_VOLUME(listener, channel))
 				SEND_SOUND(listener, S)
 		return
