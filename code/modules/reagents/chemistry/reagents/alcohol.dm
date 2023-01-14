@@ -1652,12 +1652,12 @@
 /datum/reagent/consumable/ethanol/acid_dreams
 	name = "Acid Dreams"
 	id = "aciddreams"
-	description = "This one looks just wierd and reeks of acid."
+	description = "This one looks just weird and reeks of acid."
 	color = "#B7FF6A" // rgb: 183, 255, 106
 	alcohol_perc = 0.7
 	drink_icon = "aciddreams"
 	drink_name = "Acid Dreams"
-	drink_desc = "This one looks just wierd and reeks of acid."
+	drink_desc = "This one looks just weird and reeks of acid."
 	taste_description = "acid"
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)

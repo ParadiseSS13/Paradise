@@ -706,7 +706,7 @@
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
 
 /obj/item/clothing/under/Destroy()
-	QDEL_LIST(accessories)
+	QDEL_LIST_CONTENTS(accessories)
 	return ..()
 
 

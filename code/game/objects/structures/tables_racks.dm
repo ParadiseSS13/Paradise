@@ -515,19 +515,19 @@
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_REINFORCED_TABLES)
 
-/obj/structure/table/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 3 procs, or copy paste all of the glass stuff
+/obj/structure/table/glass/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 4 procs, or copy paste all of the glass stuff
 	if(deconstruction_ready)
 		to_chat(user, "<span class='notice'>The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.</span>")
 	else
 		to_chat(user, "<span class='notice'>The top cover is firmly <b>welded</b> on.</span>")
 
-/obj/structure/table/reinforced/flip(direction)
+/obj/structure/table/glass/reinforced/flip(direction)
 	if(!deconstruction_ready)
 		return FALSE
 	else
 		return ..()
 
-/obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
+/obj/structure/table/glass/reinforced/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
@@ -535,6 +535,19 @@
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
 		deconstruction_ready = !deconstruction_ready
+
+/obj/structure/table/glass/reinforced/shove_impact(mob/living/target, mob/living/attacker)
+	if(locate(/obj/structure/table) in get_turf(target))
+		return FALSE
+	var/pass_flags_cache = target.pass_flags
+	target.pass_flags |= PASSTABLE
+	if(target.Move(loc))
+		. = TRUE
+		target.Weaken(4 SECONDS)
+		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	else
+		. = FALSE
+	target.pass_flags = pass_flags_cache
 
 /obj/structure/table/glass/reinforced/check_break(mob/living/M)
 	if(has_gravity(M) && M.mob_size > MOB_SIZE_SMALL && (obj_integrity < (max_integrity / 2))) //big tables for big boys, only breaks under 50% hp
@@ -709,9 +722,9 @@
 		return ..()
 
 /obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	. = TRUE
 	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
@@ -875,7 +888,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
-							 "<span class='danger'>You kick [src].</span>")
+							"<span class='danger'>You kick [src].</span>")
 	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
