@@ -228,6 +228,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"
 #define BERSERK_TRAIT "berserk"
+#define EYES_OF_GOD "eyes_of_god"
 
 // unique trait sources
 #define STATUE_MUTE "statue"

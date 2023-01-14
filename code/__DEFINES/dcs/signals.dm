@@ -473,6 +473,8 @@
 #define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
 /// From /mob/living/carbon/human/hitby()
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
+/// From /mob/living/carbon/flash_eyes()
+#define COMSIG_CARBON_FLASH_EYES "carbon_flash_eyes"
 
 
 // /mob/living/simple_animal/hostile signals
