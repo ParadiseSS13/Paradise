@@ -1116,7 +1116,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Pizza Bomb"
 	desc = "A pizza box with a bomb taped inside of it. The timer needs to be set by opening the box; afterwards, opening the box again will trigger the detonation."
 	reference = "PB"
-	item = /obj/item/pizza_bomb
+	item = /obj/item/pizzabox/pizza_bomb
 	cost = 6
 	surplus = 80
 
