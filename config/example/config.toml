@@ -737,6 +737,9 @@ is_production = false
 # Server instance ID. This is used for tagging the server in the database
 # You do NOT want to change this once you are running in production
 instance_id = "paradise_main"
+# Enable the below setting if you plan to run multiple instances of the server
+# Enabling this if you dont run multiple instances wont cause problems, but will add a **TINY** amount more lag at times
+enable_multi_instance_support = false
 # Server internal IP. Used if you are splitting instances over multiple internal IPs.
 # In most cases this is just 127.0.0.1
 internal_ip = "127.0.0.1"
@@ -752,7 +755,6 @@ external_tos_handler = false
 regional_servers = [
 	#{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
 ]
-
 
 ################################################################
 
