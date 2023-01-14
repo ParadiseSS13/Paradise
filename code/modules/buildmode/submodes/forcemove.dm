@@ -34,7 +34,7 @@
 		RegisterSignal(selected_atom, COMSIG_PARENT_QDELETING, PROC_REF(on_selected_atom_deleted))
 
 		// Green overlay for selection
-		selected_overlay = image(icon = selected_atom.icon, loc = A, icon_state = selected_atom.icon_state, layer = HUD_PLANE_BUILDMODE)
+		selected_overlay = image(icon = selected_atom.icon, loc = A, icon_state = selected_atom.icon_state)
 		selected_overlay.color = "#15d12d"
 		user.client.images += selected_overlay
 
