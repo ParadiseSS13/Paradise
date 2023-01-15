@@ -3,9 +3,9 @@
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend."
 	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 5 stored DNA."
 	button_icon_state = "spread_infestation"
-	chemical_cost = 45
+	chemical_cost = 5//45
 	dna_cost = 1
-	req_dna = 5
+	req_dna = 0//5
 	var/spider_counter = 0 // This var keeps track of the changeling's spider count
 	var/is_operating = FALSE // Checks if changeling is already spawning a spider
 	power_type = CHANGELING_PURCHASABLE_POWER
@@ -35,7 +35,10 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider
 	var/mob/owner_UID // References to the owner changeling
 	var/gibbed = FALSE // To check if the spider died via gib or if it still needs to be gibbed, to prevent post-death revival
+	var/currentOrder = 0
+	var/list/enemies = list() // BIG AAAA TEST FOR RETALIATE
 	venom_per_bite = 3
+	speak_chance = 0
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/gib()
 	gibbed = TRUE
@@ -49,3 +52,154 @@
 	var/datum/action/changeling/spiders/S = locate() in owner_mob.actions
 	S.spider_counter--
 	return ..()
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/examine(mob/user)
+	. = ..()
+	if(user.UID() == owner_UID)
+		. += "<span class='notice'>It is currently angy!</span>"
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/AltShiftClick(mob/user)
+	. = ..()
+	if(user.UID() == owner_UID)
+		spider_order(user)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/spider_order(mob/user)
+	switch(currentOrder)
+		if(0)
+			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anything on sight.</span>")
+			currentOrder = 1
+			AIStatus = AI_IDLE
+
+		if(1)
+			to_chat(user, "<span class='notice'>We order the giant spider to follow us and stay calm, only attacking if we or it are attacked.</span>")
+			currentOrder = 2
+			AIStatus = AI_OFF
+		if(2)
+			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if we or it are attacked.</span>")
+			currentOrder = 3
+			AIStatus = AI_OFF
+
+		if(3)
+			to_chat(user, "<span class='notice'>We order the giant spider to remain idle but attack anything on sight.</span>")
+			currentOrder = 0
+			AIStatus = AI_IDLE
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/handle_automated_movement() //Hacky and ugly.
+	. = ..()
+	var/list/around = view(src, vision_range)
+	switch(currentOrder)
+		if(0)
+			Find_Enemies()
+			return TRUE
+		if(1)
+			Find_Enemies()
+			if(!busy)
+				for(var/mob/living/carbon/C in around)
+					if(faction_check_mob(C))
+						if(Adjacent(C))
+							return TRUE
+						stop_automated_movement = TRUE
+						Goto(C.loc, 0.5 SECONDS)
+						spawn(50)
+							stop_automated_movement = FALSE
+							walk(src,0)
+			return TRUE
+		if(2)
+			if(!busy)
+				for(var/mob/living/carbon/C in around)
+					if(faction_check_mob(C))
+						if(Adjacent(C))
+							return TRUE
+						stop_automated_movement = TRUE
+						Goto(C.loc, 0.5 SECONDS)
+						spawn(50)
+							stop_automated_movement = FALSE
+							walk(src,0)
+			return TRUE
+		if(3)
+			return TRUE
+
+	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
+		if(faction_check_mob(H) && !attack_same && !H.attack_same)
+			H.enemies |= enemies
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/ListTargets()
+	if(!enemies.len)
+		return list()
+	var/list/see = ..()
+	see &= enemies // Remove all entries that aren't in enemies
+	return see
+
+// Aaaaaaaaaaaaaaaaaaaaaaa
+/*
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/Found(atom/A)
+	if(isliving(A))
+		var/mob/living/L = A
+		if(!L.stat)
+			return L
+		else
+			enemies -= L
+	else if(ismecha(A))
+		var/obj/mecha/M = A
+		if(M.occupant)
+			return A
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/Retaliate()
+	var/list/around = view(src, vision_range)
+
+	for(var/atom/movable/A in around)
+		if(A == src)
+			continue
+		if(isliving(A))
+			var/mob/living/M = A
+			if(faction_check_mob(M) && attack_same || !faction_check_mob(M))
+				enemies |= M
+		else if(ismecha(A))
+			var/obj/mecha/M = A
+			if(M.occupant)
+				enemies |= M
+				enemies |= M.occupant
+
+	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
+		if(faction_check_mob(H) && !attack_same && !H.attack_same)
+			H.enemies |= enemies
+	return 0
+*/
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/Find_Enemies()
+	var/list/around = view(src, vision_range)
+	enemies -= enemies // Reset enemies list, only focus on the ones around you, spiders don't have grudges
+	for(var/atom/movable/A in around)
+		if(A == src)
+			continue
+		if(isliving(A))
+			var/mob/living/M = A
+			if(!faction_check_mob(M))
+				enemies |= M
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/adjustHealth(amount, updating_health = TRUE)
+	. = ..()
+	switch(currentOrder)
+		if(2)
+			currentOrder = 1
+		if(3)
+			currentOrder = 0
+			AIStatus = AI_IDLE
+
+/*
+	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
+
+
+	if(!zip_time || do_after(user, zip_time, target = src))
+		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
+		zipped = !zipped
+
+		if(!zipped && zip_time) // Handle slowdown and stuff now that we just zipped it
+			slowdown = 1
+			show_to(user)
+			return
+
+		slowdown = 0
+		hide_from_all()
+		for(var/obj/item/storage/container in src)
+			container.hide_from_all() // Hide everything inside the bag too
+*/
