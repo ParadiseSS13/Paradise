@@ -35706,13 +35706,6 @@
 	},
 /area/bridge)
 "cca" = (
-/obj/item/clothing/accessory/stethoscope,
-/obj/item/clothing/accessory/stethoscope{
-	pixel_y = 6
-	},
-/obj/item/clothing/accessory/stethoscope{
-	pixel_y = 3
-	},
 /obj/item/flashlight/pen{
 	pixel_x = 2;
 	pixel_y = 2
@@ -37932,13 +37925,22 @@
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "ciB" = (
-/obj/machinery/economy/vending/medical,
 /obj/machinery/camera{
 	c_tag = "Medbay Foyer Reception"
 	},
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
+	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/accessory/stethoscope{
+	pixel_y = 6
+	},
+/obj/item/clothing/accessory/stethoscope{
+	pixel_y = 6
+	},
+/obj/item/clothing/accessory/stethoscope{
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -50952,7 +50954,7 @@
 	},
 /area/medical/medbreak)
 "daM" = (
-/obj/machinery/economy/vending/medical,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -51554,7 +51556,9 @@
 	},
 /area/chapel/main)
 "deq" = (
-/obj/machinery/economy/vending/coffee,
+/obj/structure/table,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -60816,9 +60820,6 @@
 	},
 /area/security/warden)
 "hzA" = (
-/obj/structure/table,
-/obj/item/soap/nanotrasen,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/light{
 	dir = 1
 	},

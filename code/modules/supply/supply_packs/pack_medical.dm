@@ -25,7 +25,7 @@
 				    /obj/item/storage/box/bodybags,
 				    /obj/item/storage/box/iv_bags,
 				    /obj/item/vending_refill/medical)
-	cost = 400
+	cost = 450
 	containertype = /obj/structure/closet/crate/medical
 	containername = "medical supplies crate"
 
@@ -112,7 +112,7 @@
 
 /datum/supply_packs/medical/vending
 	name = "Medical Vending Crate"
-	cost = 100
+	cost = 200
 	contains = list(/obj/item/vending_refill/medical,
 					/obj/item/vending_refill/wallmed)
 	containername = "medical vending crate"

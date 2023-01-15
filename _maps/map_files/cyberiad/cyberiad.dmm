@@ -38226,13 +38226,6 @@
 /area/medical/reception)
 "bSy" = (
 /obj/structure/table,
-/obj/item/clothing/accessory/stethoscope,
-/obj/item/clothing/accessory/stethoscope{
-	pixel_y = 6
-	},
-/obj/item/clothing/accessory/stethoscope{
-	pixel_y = 3
-	},
 /obj/item/flashlight/pen{
 	pixel_x = 2;
 	pixel_y = 2
@@ -41658,12 +41651,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/toxins/hallway)
-"caE" = (
-/obj/machinery/economy/vending/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/medbay2)
 "caF" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -73157,7 +73144,10 @@
 	},
 /area/toxins/mixing)
 "iFR" = (
-/obj/machinery/economy/vending/medical,
+/obj/structure/table,
+/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -84661,12 +84651,6 @@
 	icon_state = "red"
 	},
 /area/security/brig)
-"rDI" = (
-/obj/machinery/economy/vending/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
-	},
-/area/medical/medbay2)
 "rDM" = (
 /obj/structure/grille,
 /obj/structure/barricade/wooden,
@@ -128855,7 +128839,7 @@ cbO
 bWu
 bXF
 bZh
-caE
+coa
 bWa
 bWa
 mem
@@ -135027,7 +135011,7 @@ pAi
 vmr
 cer
 kBr
-rDI
+chD
 cQk
 ckL
 rcf

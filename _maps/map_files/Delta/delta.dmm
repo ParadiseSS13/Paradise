@@ -64172,13 +64172,6 @@
 /obj/structure/cable,
 /turf/space,
 /area/maintenance/starboardsolar)
-"dbn" = (
-/obj/machinery/economy/vending/medical,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/medbay)
 "dbp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -68503,7 +68496,6 @@
 	},
 /area/medical/surgeryobs)
 "dmC" = (
-/obj/machinery/economy/vending/medical,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -95388,13 +95380,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/mixing)
-"uQA" = (
-/obj/machinery/economy/vending/medical,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/reception)
 "uQK" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -140547,7 +140532,7 @@ cFa
 bqu
 cHK
 ppu
-uQA
+nCu
 npp
 oyG
 oAd
@@ -147754,7 +147739,7 @@ cXH
 cZa
 cZX
 cWd
-dbn
+cKV
 dcz
 jdF
 cKY
