@@ -152,6 +152,7 @@
 
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
+#define CAMERA_VIEW_DISTANCE 7
 
 
 //Turf wet states

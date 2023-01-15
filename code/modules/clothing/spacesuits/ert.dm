@@ -37,9 +37,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)
 		return
-	camera = new /obj/machinery/camera/portable(src)
+	camera = new /obj/machinery/camera/portable(src, FALSE)
 	camera.network = list("ERT")
-	GLOB.cameranet.removeCamera(camera)
 	camera.c_tag = wearer.name
 	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 

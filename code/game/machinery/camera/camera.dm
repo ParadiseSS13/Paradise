@@ -24,7 +24,7 @@
 
 	//OTHER
 
-	var/view_range = 7
+	var/view_range = CAMERA_VIEW_DISTANCE
 	var/short_range = 2
 
 	var/alarm_on = FALSE
@@ -34,7 +34,7 @@
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-/obj/machinery/camera/Initialize(mapload)
+/obj/machinery/camera/Initialize(mapload, should_add_to_cameranet = TRUE)
 	. = ..()
 	wires = new(src)
 	assembly = new(src)
@@ -43,11 +43,12 @@
 	assembly.update_icon()
 
 	GLOB.cameranet.cameras += src
-	GLOB.cameranet.addCamera(src)
+	if(should_add_to_cameranet)
+		GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
 		LAZYADD(get_area(src).cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
-		toggle_cam(null, FALSE)
+		turn_off(null, FALSE)
 		wires.cut_all()
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
@@ -55,7 +56,7 @@
 
 /obj/machinery/camera/Destroy()
 	SStgui.close_uis(wires)
-	toggle_cam(null, FALSE) //kick anyone viewing out
+	kick_out_watchers()
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
@@ -88,11 +89,9 @@
 			update_icon(UPDATE_ICON_STATE)
 			var/list/previous_network = network
 			network = list()
-			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
-			set_light(0)
+			turn_off(null, FALSE, TRUE)
 			emped = emped+1  //Increase the number of consecutive EMP's
-			update_icon(UPDATE_ICON_STATE)
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
 				if(!QDELETED(src))
@@ -103,10 +102,7 @@
 						if(can_use())
 							GLOB.cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
-			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.client.eye == src)
-					M.reset_perspective(null)
-					to_chat(M, "The screen bursts into static.")
+
 			..()
 
 /obj/machinery/camera/ex_act(severity)
@@ -261,34 +257,55 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
-	status = !status
-	if(can_use())
-		GLOB.cameranet.addCamera(src)
-		if(isturf(loc))
-			LAZYADD(get_area(src).cameras, UID())
-	else
-		set_light(0)
-		GLOB.cameranet.removeCamera(src)
-		if(isarea(get_area(src)))
-			LAZYREMOVE(get_area(src).cameras, UID())
-	GLOB.cameranet.updateChunk(x, y, z)
-	var/change_msg = "deactivates"
+/obj/machinery/camera/proc/toggle_cam(mob/user, display_message = TRUE)
 	if(status)
-		change_msg = "reactivates"
-	if(displaymessage)
+		turn_off(user, display_message)
+	else
+		turn_on(user, display_message)
+
+/obj/machinery/camera/proc/turn_on(mob/user, display_message = TRUE)
+	if(status)
+		return
+	status = TRUE
+	if(isturf(loc))
+		LAZYADD(get_area(src).cameras, UID())
+
+	if(display_message)
 		if(user)
-			visible_message("<span class='danger'>[user] [change_msg] [src]!</span>")
+			visible_message("<span class='danger'>[user] reactivates [src]!</span>")
 			add_hiddenprint(user)
 		else
-			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
-
+			visible_message("<span class='danger'>\The [src] reactivates!</span>")
 		playsound(loc, toggle_sound, 100, 1)
 	update_icon(UPDATE_ICON_STATE)
+	SEND_SIGNAL(src, COMSIG_CAMERA_ON, user, display_message)
 
-	// now disconnect anyone using the camera
-	//Apparently, this will disconnect anyone even if the camera was re-activated.
-	//I guess that doesn't matter since they can't use it anyway?
+/obj/machinery/camera/proc/turn_off(mob/user, display_message = TRUE, emped = FALSE)
+	if(!status && !emped)
+		return
+
+	if(!emped)
+		status = FALSE
+		if(isarea(get_area(src)))
+			LAZYREMOVE(get_area(src).cameras, UID())
+
+	set_light(0)
+
+	if(display_message)
+		if(user)
+			visible_message("<span class='danger'>[user] deactivates [src]!</span>")
+			add_hiddenprint(user)
+		else
+			visible_message("<span class='danger'>\The [src] deactivates!</span>")
+		playsound(loc, toggle_sound, 100, 1)
+
+	update_icon(UPDATE_ICON_STATE)
+
+	kick_out_watchers()
+
+	SEND_SIGNAL(src, COMSIG_CAMERA_OFF, user, display_message, emped)
+
+/obj/machinery/camera/proc/kick_out_watchers()
 	for(var/mob/O in GLOB.player_list)
 		if(O.client && O.client.eye == src)
 			O.reset_perspective(null)
