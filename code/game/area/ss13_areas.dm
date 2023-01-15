@@ -898,8 +898,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/crew_quarters/toilet/aux
 	name = "\improper Auxiliary Toilets"
-	icon_state = "toilet"
-	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/sleep
 	name = "\improper Dormitories"
