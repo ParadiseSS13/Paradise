@@ -140,7 +140,7 @@
 	return ..()
 
 /datum/game_mode/nuclear/proc/scale_telecrystals()
-	var/list/living_crew = get_living_players()
+	var/list/living_crew = get_living_players(exclude_nonhuman = FALSE, exclude_offstation = TRUE)
 	var/danger = length(living_crew)
 	while(!ISMULTIPLE(++danger, 10)) //Increments danger up to the nearest multiple of ten
 

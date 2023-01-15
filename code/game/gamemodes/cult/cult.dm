@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(all_cults)
   * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
   */
 /datum/game_mode/proc/cult_threshold_check()
-	var/list/living_players = get_living_players(TRUE)
+	var/list/living_players = get_living_players(exclude_nonhuman = TRUE, exclude_offstation = TRUE)
 	var/players = length(living_players)
 	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
 	if(players >= CULT_POPULATION_THRESHOLD)
