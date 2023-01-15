@@ -104,7 +104,11 @@
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
-		if(!owner.unEquip(arm_item))
+		if(istype(arm_item, /obj/item/twohanded/offhand))
+			var/obj/item/offhand_arm_item = owner.get_active_hand()
+			to_chat(owner, "<span class='warning'>Your hands are too busy wielding [offhand_arm_item] to deploy [src]!</span>")
+			return
+		else if(!owner.unEquip(arm_item))
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else
