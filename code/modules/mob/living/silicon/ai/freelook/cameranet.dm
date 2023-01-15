@@ -144,10 +144,12 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	var/turf/T = get_turf(c)
 	if(!T)
 		return
-	var/x1 = T.x & ~(CHUNK_SIZE - 1)
-	var/y1 = T.y & ~(CHUNK_SIZE - 1)
-	var/x2 = min(world.maxx, T.x + (CHUNK_SIZE)) & ~(CHUNK_SIZE - 1)
-	var/y2 = min(world.maxy, T.y + (CHUNK_SIZE)) & ~(CHUNK_SIZE - 1)
+
+	// Use camera view distance here to actually know how far a camera can max watch
+	var/x1 = max(0, T.x - CAMERA_VIEW_DISTANCE) & ~(CHUNK_SIZE - 1)
+	var/y1 = max(0, T.y - CAMERA_VIEW_DISTANCE) & ~(CHUNK_SIZE - 1)
+	var/x2 = min(world.maxx, T.x + CAMERA_VIEW_DISTANCE) & ~(CHUNK_SIZE - 1)
+	var/y2 = min(world.maxy, T.y + CAMERA_VIEW_DISTANCE) & ~(CHUNK_SIZE - 1)
 
 	for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 		for(var/y = y1; y <= y2; y += CHUNK_SIZE)

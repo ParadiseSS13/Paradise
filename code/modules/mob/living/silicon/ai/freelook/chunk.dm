@@ -105,7 +105,7 @@
 			continue
 
 		var/turf/point = locate(src.x + (CHUNK_SIZE / 2), src.y + (CHUNK_SIZE / 2), src.z)
-		if(get_dist(point, c) > CHUNK_SIZE + (CHUNK_SIZE / 2))
+		if(get_dist(point, c) > CAMERA_VIEW_DISTANCE + (CHUNK_SIZE / 2)) // Out of range? How?! TODO check if still required
 			continue
 
 		for(var/turf/t in c.can_see())
