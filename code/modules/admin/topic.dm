@@ -3093,12 +3093,7 @@
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
 				if(confirmation == "No")
 					return
-				if(makeThunderdomeTeams())
-					log_admin("[key_name(usr)] started a Thunderdome match!", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started a Thunderdome match!</span>")
-				else
-					log_admin("[key_name(usr)] attempted to start a Thunderdome match, but no ghosts signed up.", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] tried starting a Thunderdome match, but no ghosts signed up.</span>")
+				makeThunderdomeTeams()
 			if("securitylevel0")
 				set_security_level(0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
