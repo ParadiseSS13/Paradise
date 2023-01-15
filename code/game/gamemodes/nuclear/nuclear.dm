@@ -140,9 +140,8 @@
 	return ..()
 
 /datum/game_mode/nuclear/proc/scale_telecrystals()
-	var/danger
 	var/list/living_crew = get_living_players()
-	danger = length(living_crew)
+	var/danger = length(living_crew)
 	while(!ISMULTIPLE(++danger, 10)) //Increments danger up to the nearest multiple of ten
 
 	total_tc += danger * NUKESCALINGMODIFIER
