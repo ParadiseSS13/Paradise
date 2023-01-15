@@ -30,7 +30,7 @@
 	visible++
 	seenby += eye
 	if(changed)
-		update()
+		SScamera.queue(src)
 
 // Remove an AI eye from the chunk, then update if changed.
 
@@ -55,12 +55,12 @@
 // instead be flagged to update the next time an AI Eye moves near it.
 
 /datum/camerachunk/proc/hasChanged(update_now = 0)
-	if(visible || update_now)
-		if(!updating)
-			updating = TRUE
-			spawn(UPDATE_BUFFER) // Batch large changes, such as many doors opening or closing at once
-				update()
-				updating = FALSE
+	if(update_now)
+		update()
+		SScamera.remove_from_queue(src)
+
+	if(visible)
+		SScamera.queue(src)
 	else
 		changed = TRUE
 
@@ -125,6 +125,8 @@
 				var/client/client = m.GetViewerClient()
 				if(client)
 					client.images += t.obscured
+
+	changed = FALSE
 
 // Create a new camera chunk, since the chunks are made as they are needed.
 
