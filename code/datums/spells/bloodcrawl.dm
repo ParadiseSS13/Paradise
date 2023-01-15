@@ -152,6 +152,7 @@
 		var/obj/item/organ/internal/regenerative_core/legion/core = victim.get_int_organ(/obj/item/organ/internal/regenerative_core/legion)
 		if(core)
 			core.remove(victim)
+			qdel(core)
 		victim.adjustBruteLoss(1000)
 		victim.forceMove(demon)
 		demon.consumed_mobs.Add(victim)
