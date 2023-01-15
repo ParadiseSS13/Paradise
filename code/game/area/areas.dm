@@ -526,9 +526,11 @@
 			thunk(M)
 
 /area/proc/thunk(mob/living/carbon/human/M)
-	if(ishuman(M))  // Only humans can wear magboots, so we give them a chance to.
-		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
-			return
+	if(!istype(M)) // Rather not have non-humans get hit with a THUNK
+		return
+
+	if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP)) // Only humans can wear magboots, so we give them a chance to.
+		return
 
 	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
 		return
