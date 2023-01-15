@@ -1,31 +1,22 @@
-
 #!/usr/bin/env python3
+from collections import defaultdict
+from pathlib import Path
 
-import glob
+file_name_map = defaultdict(list)
 
-all_dm_files = glob.glob(r"**/*.dm", recursive=True)
-
-file_name_map = {}
+for file in Path(".").glob("**/*.dm"):
+  file_name_map[file.name].append(file)
 
 def main():
-    for file in all_dm_files:
-        newname = file.replace("\\", "/") # OS normalisation
-        end_name = newname.split("/")[-1] # Get last split
-
-        if end_name not in file_name_map:
-            file_name_map[end_name] = []
-
-        file_name_map[end_name].append(newname) # Take the full thing
-
     alert_sent = False
-    for filename in file_name_map:
-        if len(file_name_map[filename]) > 2:
+    for filename, fullpaths in file_name_map.items():
+        if len(fullpaths) > 2:
             if not alert_sent:
                 print("The following files have the same name in multiple places in the codebase. Please fix!")
                 alert_sent = True
 
             print(f">>> {filename}")
-            for fullpath in file_name_map[filename]:
+            for fullpath in fullpaths:
                 print(fullpath)
 
     if alert_sent:
