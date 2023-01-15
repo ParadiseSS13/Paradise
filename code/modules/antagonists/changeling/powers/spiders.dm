@@ -1,3 +1,8 @@
+#define IDLE_AGGRESSIVE "0"
+#define FOLLOW_AGGRESSIVE "1"
+#define FOLLOW_RETALIATE "2"
+#define IDLE_RETALIATE "3"
+
 /datum/action/changeling/spiders
 	name = "Spread Infestation"
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend."
@@ -36,7 +41,7 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider
 	var/mob/owner_UID // References to the owner changeling
 	var/gibbed = FALSE // To check if the spider died via gib or if it still needs to be gibbed, to prevent post-death revival
-	var/currentOrder = 0
+	var/current_order = IDLE_AGGRESSIVE
 	var/list/enemies = list() // BIG AAAA TEST FOR RETALIATE
 	venom_per_bite = 3
 	speak_chance = 0
@@ -66,52 +71,47 @@
 		spider_order(user)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/spider_order(mob/user)
-	switch(currentOrder)
-		if(0)
+	switch(current_order)
+		if(IDLE_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anything on sight.</span>")
-			currentOrder = 1
-		if(1)
+			current_order = FOLLOW_AGGRESSIVE
+		if(FOLLOW_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us and stay calm, only attacking if we or it are attacked.</span>")
-			currentOrder = 2
-		if(2)
+			current_order = FOLLOW_RETALIATE
+		if(FOLLOW_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if we or it are attacked.</span>")
-			currentOrder = 3
-		if(3)
+			current_order = IDLE_RETALIATE
+		if(IDLE_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle but attack anything on sight.</span>")
-			currentOrder = 0
+			current_order = IDLE_AGGRESSIVE
 	handle_automated_movement()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/handle_automated_movement() //Hacky and ugly.
 	. = ..()
 	var/list/around = view(src, vision_range)
-	switch(currentOrder)
-		if(0)
-			Find_Enemies()
+	switch(current_order)
+		if(IDLE_AGGRESSIVE)
+			Find_Enemies(around)
 			walk(src,0)
 			return TRUE
-		if(1)
-			Find_Enemies()
+		if(FOLLOW_AGGRESSIVE)
+			Find_Enemies(around)
 			if(!busy)
 				for(var/mob/living/carbon/C in around)
 					if(faction_check_mob(C))
 						if(Adjacent(C))
 							return TRUE
-						//stop_automated_movement = TRUE
 						Goto(C, 0.5 SECONDS, 1)
-						//stop_automated_movement = FALSE
 				return TRUE
-		if(2)
+		if(FOLLOW_RETALIATE)
 			if(!busy)
 				for(var/mob/living/carbon/C in around)
 					if(faction_check_mob(C))
 						if(Adjacent(C))
 							return TRUE
-						//stop_automated_movement = TRUE
 						Goto(C, 0.5 SECONDS, 1)
-						//stop_automated_movement = FALSE
-				//walk(src,0)
 				return TRUE
-		if(3)
+		if(IDLE_RETALIATE)
 			walk(src,0)
 			return TRUE
 
@@ -120,7 +120,7 @@
 			H.enemies |= enemies
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/ListTargets()
-	if(!enemies.len)
+	if(!length(enemies))
 		return list()
 	var/list/see = ..()
 	see &= enemies // Remove all entries that aren't in enemies
@@ -128,9 +128,8 @@
 
 // Aaaaaaaaaaaaaaaaaaaaaaa
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/Find_Enemies()
-	var/list/around = view(src, vision_range)
-	enemies -= enemies // Reset enemies list, only focus on the ones around you, spiders don't have grudges
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/Find_Enemies(around)
+	enemies = list() // Reset enemies list, only focus on the ones around you, spiders don't have grudges
 	for(var/atom/movable/A in around)
 		if(A == src)
 			continue
@@ -141,5 +140,33 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attackby(obj/item/W, mob/user, params)
 	..()
+	if(W.force == 0)
+		return
 	if(!faction_check_mob(user))
 		enemies |= user
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/bullet_act(obj/item/projectile/P)
+	..()
+	if(!faction_check_mob(P.firer))
+		enemies |= P.firer
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_alien(mob/living/carbon/alien/user)
+	..()
+	if(user.a_intent == INTENT_HELP)
+		return
+	if(!faction_check_mob(user))
+		enemies |= user
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_animal(mob/living/simple_animal/M)
+	..()
+	if(M.a_intent == INTENT_HELP)
+		return
+	if(!faction_check_mob(M))
+		enemies |= M
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_hand(mob/living/carbon/human/H)
+	..()
+	if(H.a_intent == INTENT_HELP)
+		return
+	if(!faction_check_mob(H))
+		enemies |= H
