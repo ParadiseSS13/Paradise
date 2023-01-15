@@ -41,7 +41,7 @@ const LockedView = (props, context) => {
   } = data;
   return (
     <>
-      <Box mt={2} bold width="100%" fontSize="3rem" color={transaction_paid ? 'green' : 'red'} align="center" justify="center">Payment Due: ${transaction_amount}</Box>
+      <Box mt={2} bold width="100%" fontSize="3rem" color={transaction_paid ? 'green' : 'red'} align="center" justify="center">Payment {transaction_paid ? "Accepted" : "Due"}: ${transaction_amount}</Box>
       <Box mt={.5} fontSize="1.25rem" align="center" justify="center">
         {transaction_paid
           ? 'This transaction has been processed successfully '
@@ -76,16 +76,16 @@ const UnlockedView = (props, context) => {
       </LabeledList.Item>
       <LabeledList.Item label="Value">
         <Button
-          // Ternary required otherwise the 0 is offset weirdly
-          content={transaction_amount ? transaction_amount : '0'}
+          content={transaction_amount ? '$' + transaction_amount : '$0'}
           icon="edit"
           onClick={() => act('trans_value')}
         />
       </LabeledList.Item>
       <LabeledList.Item label="Linked Account">
-        <Box>{linked_account.name}</Box>
+        <Box mb={.5}>{linked_account.name}</Box>
         <Input
-          placeholder="Search by account name"
+          width="190px"
+          placeholder="Search by name"
           onInput={(e, value) => setSearchText(value)}
         />
         <Dropdown

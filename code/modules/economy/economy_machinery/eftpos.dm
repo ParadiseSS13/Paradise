@@ -24,7 +24,7 @@
 	var/datum/money_account/linked_account
 
 /obj/item/eftpos/Initialize(mapload)
-	machine_name = "EFTPOS #[rand(101,999)]"
+	machine_name = "EFTPOS #[rand(101, 999)]"
 	access_code = rand(1000, 9999)
 	reconnect_database()
 	//linked account starts as service account by default
