@@ -9,7 +9,8 @@
 	var/list/obscuredTurfs = list()
 	var/list/visibleTurfs = list()
 	var/list/obscured = list()
-	var/list/cameras = list()
+	var/list/active_cameras = list()
+	var/list/inactive_cameras = list()
 	var/list/turfs = list()
 	var/list/seenby = list()
 	var/visible = FALSE
@@ -19,8 +20,33 @@
 	var/y = 0
 	var/z = 0
 
-// Add an AI eye to the chunk, then update if changed.
+/datum/camerachunk/proc/add_camera(obj/machinery/camera/cam)
+	// Register all even though it is active/inactive. Won't get called incorrectly
+	RegisterSignal(cam, COMSIG_CAMERA_OFF, PROC_REF(deactivate_camera))
+	RegisterSignal(cam, COMSIG_CAMERA_ON, PROC_REF(activate_camera))
+	RegisterSignal(cam, COMSIG_PARENT_QDELETING, PROC_REF(remove_camera))
+	if(cam.can_use())
+		active_cameras += cam
+	else
+		inactive_cameras += cam
 
+/datum/camerachunk/proc/remove_camera(obj/machinery/camera/cam)
+	UnregisterSignal(cam, list(COMSIG_CAMERA_OFF, COMSIG_CAMERA_ON, COMSIG_PARENT_QDELETING))
+	active_cameras -= cam
+	inactive_cameras -= cam
+	SScamera.queue(src)
+
+/datum/camerachunk/proc/activate_camera(obj/machinery/camera/cam)
+	inactive_cameras -= cam
+	active_cameras += cam
+	SScamera.queue(src)
+
+/datum/camerachunk/proc/deactivate_camera(obj/machinery/camera/cam)
+	inactive_cameras += cam
+	active_cameras -= cam
+	SScamera.queue(src)
+
+// Add an AI eye to the chunk, then update if changed.
 /datum/camerachunk/proc/add(mob/camera/aiEye/eye, add_images = TRUE)
 	if(add_images)
 		var/client/client = eye.GetViewerClient()
@@ -69,7 +95,7 @@
 /datum/camerachunk/proc/update()
 	var/list/newVisibleTurfs = list()
 
-	for(var/camera in cameras)
+	for(var/camera in active_cameras)
 		var/obj/machinery/camera/c = camera
 
 		if(!c)
@@ -129,7 +155,6 @@
 	changed = FALSE
 
 // Create a new camera chunk, since the chunks are made as they are needed.
-
 /datum/camerachunk/New(loc, x, y, z)
 
 	// 0xf = 15
@@ -140,21 +165,14 @@
 	src.y = y
 	src.z = z
 
-	for(var/obj/machinery/camera/c in urange(CHUNK_SIZE, locate(x + (CHUNK_SIZE / 2), y + (CHUNK_SIZE / 2), z)))
-		if(c.can_use())
-			cameras += c
+	var/half_chunk = CHUNK_SIZE / 2
+	for(var/obj/machinery/camera/c in urange(half_chunk + CAMERA_VIEW_DISTANCE, locate(x + half_chunk, y + half_chunk, z)))
+		add_camera(c)
 
 	for(var/turf/t in block(locate(max(x, 1), max(y, 1), max(z, 1)), locate(min(x + CHUNK_SIZE - 1, world.maxx), min(y + CHUNK_SIZE - 1, world.maxy), z)))
 		turfs[t] = t
 
-	for(var/camera in cameras)
-		var/obj/machinery/camera/c = camera
-		if(!c)
-			continue
-
-		if(!c.can_use())
-			continue
-
+	for(var/obj/machinery/camera/c as anything in active_cameras)
 		for(var/turf/t in c.can_see())
 			// Possible optimization: if(turfs[t]) here, rather than &= turfs afterwards.
 			// List associations use a tree or hashmap of some sort (alongside the list itself)

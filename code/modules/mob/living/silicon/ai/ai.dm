@@ -1223,7 +1223,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
 	for(var/datum/camerachunk/CC in eyeobj.visibleCameraChunks)
-		for(var/obj/machinery/camera/C in CC.cameras)
+		for(var/obj/machinery/camera/C in CC.active_cameras)
 			if(!C.can_use() || get_dist(C, eyeobj) > 7)
 				continue
 			visible |= C

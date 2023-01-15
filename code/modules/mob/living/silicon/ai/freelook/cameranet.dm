@@ -115,19 +115,17 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 // Removes a camera from a chunk.
 
 /datum/cameranet/proc/removeCamera(obj/machinery/camera/c)
-	if(c.can_use())
-		majorChunkChange(c, 0)
+	majorChunkChange(c, 0)
 
 // Add a camera to a chunk.
 
 /datum/cameranet/proc/addCamera(obj/machinery/camera/c)
-	if(c.can_use())
-		majorChunkChange(c, 1)
+	majorChunkChange(c, 1)
 
 // Used for Cyborg cameras. Since portable cameras can be in ANY chunk.
 
 /datum/cameranet/proc/updatePortableCamera(obj/machinery/camera/c)
-	if(c.can_use())
+	if(c.can_use()) // TODO fix this shit
 		majorChunkChange(c, 1)
 	//else
 	//	majorChunkChange(c, 0)
@@ -144,25 +142,24 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 		return
 
 	var/turf/T = get_turf(c)
-	if(T)
-		var/x1 = max(0, T.x - (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
-		var/y1 = max(0, T.y - (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
-		var/x2 = min(world.maxx, T.x + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
-		var/y2 = min(world.maxy, T.y + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
+	if(!T)
+		return
+	var/x1 = T.x & ~(CHUNK_SIZE - 1)
+	var/y1 = T.y & ~(CHUNK_SIZE - 1)
+	var/x2 = min(world.maxx, T.x + (CHUNK_SIZE)) & ~(CHUNK_SIZE - 1)
+	var/y2 = min(world.maxy, T.y + (CHUNK_SIZE)) & ~(CHUNK_SIZE - 1)
 
-//		to_chat(world, "X1: [x1] - Y1: [y1] - X2: [x2] - Y2: [y2]")
-
-		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
-			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-				if(chunkGenerated(x, y, T.z))
-					var/datum/camerachunk/chunk = getCameraChunk(x, y, T.z)
-					if(choice == 0)
-						// Remove the camera.
-						chunk.cameras -= c
-					else if(choice == 1)
-						// You can't have the same camera in the list twice.
-						chunk.cameras |= c
-					chunk.hasChanged()
+	for(var/x = x1; x <= x2; x += CHUNK_SIZE)
+		for(var/y = y1; y <= y2; y += CHUNK_SIZE)
+			if(chunkGenerated(x, y, T.z))
+				var/datum/camerachunk/chunk = getCameraChunk(x, y, T.z)
+				if(choice == 0)
+					// Remove the camera.
+					chunk.remove_camera(c)
+				else if(choice == 1)
+					// You can't have the same camera in the list twice.
+					chunk.add_camera(c)
+				chunk.hasChanged()
 
 // Will check if a mob is on a viewable turf. Returns 1 if it is, otherwise returns 0.
 

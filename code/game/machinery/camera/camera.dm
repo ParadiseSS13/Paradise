@@ -59,7 +59,6 @@
 	kick_out_watchers()
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
-	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
 	if(isarea(get_area(src)))
 		LAZYREMOVE(get_area(src).cameras, UID())
