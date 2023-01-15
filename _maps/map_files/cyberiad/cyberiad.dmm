@@ -2883,7 +2883,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/economy/vending/security,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

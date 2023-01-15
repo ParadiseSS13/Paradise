@@ -25582,7 +25582,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/economy/vending/security,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;

@@ -18,7 +18,7 @@
 
 /datum/supply_packs/security/vending/security
 	name = "SecTech Supply Crate"
-	cost = 600
+	cost = 400
 	contains = list(/obj/item/vending_refill/security)
 	containername = "SecTech supply crate"
 
