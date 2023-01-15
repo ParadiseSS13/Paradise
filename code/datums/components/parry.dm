@@ -46,13 +46,12 @@
 	else
 		parryable_attack_types = list(_parryable_attack_types)
 
-	// From the attack type defines in `code\__DEFINES\combat.dm`.
 	var/static/list/attack_types_english = list(
-		1 = "melee attacks",
-		2 = "unarmed attacks",
-		3 = "projectiles",
-		4 = "thrown projectiles",
-		5 = "leap attacks"
+		MELEE_ATTACK = "melee attacks",
+		UNARMED_ATTACK = "unarmed attacks",
+		PROJECTILE_ATTACK = "projectiles",
+		THROWN_PROJECTILE_ATTACK = "thrown projectiles",
+		LEAP_ATTACK = "leap attacks"
 	)
 	var/list/attack_list = list()
 	for(var/attack_type in parryable_attack_types)
