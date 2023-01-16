@@ -1698,6 +1698,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Evidence Room"
 	icon_state = "evidence"
 
+/area/security/visiting_room
+	name = "\improper Visiting Room"
+	icon_state = "visiting-room"
+
 /area/security/prisonlockers
 	name = "\improper Prisoner Lockers"
 	icon_state = "sec_prison_lockers"
