@@ -2992,6 +2992,13 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
+"ayc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/grille_often,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
 "aye" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
@@ -159013,7 +159020,7 @@ ohF
 nBj
 ocy
 lvs
-kUR
+ayc
 fXD
 lsG
 lvs
