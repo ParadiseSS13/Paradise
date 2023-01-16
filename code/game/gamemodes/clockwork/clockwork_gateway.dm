@@ -11,6 +11,7 @@
 	pixel_y = -32
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
+	move_resist = INFINITY
 
 	var/seconds_until_activation = 0
 	var/first_sound_played = FALSE
@@ -60,6 +61,12 @@
 /obj/structure/clockwork/functional/celestial_gateway/ex_act(severity)
 	var/damage = max((obj_integrity * 0.7) / severity, 100)
 	take_damage(damage, BRUTE, "bomb", 0)
+
+/obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
+		to_chat(user, "<span class='warning'>You can't unsecure this large set of parts! It would be even dangerous to do!</span>")
+		return FALSE
+	..()
 
 /obj/structure/clockwork/functional/celestial_gateway/examine(mob/user)
 	. = ..()
