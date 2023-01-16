@@ -71,12 +71,8 @@
 /datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
 	H.sec_hud_set_ID()
-
-/datum/outfit/admin/syndicate_infiltrator/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-	H.faction += "syndicate"
+	if(!visualsOnly)
+		H.faction += "syndicate"
 
 /datum/outfit/admin/syndicate/operative
 	name = "Syndicate Nuclear Operative"
@@ -120,13 +116,9 @@
 	name = "Syndicate Strike Team"
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_syndicate_commando(FALSE, TRUE)
-
-/datum/outfit/admin/syndicate_strike_team/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-	H.faction += "syndicate"
+	. = H.equip_syndicate_commando(FALSE, TRUE)
+	if(!visualsOnly)
+		H.faction += "syndicate"
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
