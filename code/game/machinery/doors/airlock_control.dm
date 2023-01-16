@@ -235,12 +235,23 @@
 	frequency = AIRLOCK_FREQ
 	var/command = "cycle"
 	var/on = 1
+	var/wires = 3
+	/*
+	Bitflag,	1=checkID
+				2=Network Access
+	*/
 
 /obj/machinery/access_button/update_icon()
 	if(on)
 		icon_state = "access_button_standby"
 	else
 		icon_state = "access_button_off"
+
+/obj/machinery/access_button/attack_ai(mob/user as mob)
+	if(wires & 2)
+		return ..(user)
+	else
+		to_chat(user, "Error, no route to host.")
 
 /obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
 	//Swiping ID on the access button
@@ -256,7 +267,7 @@
 /obj/machinery/access_button/attack_hand(mob/user)
 	add_fingerprint(usr)
 
-	if(!allowed(user) && !user.can_advanced_admin_interact())
+	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 

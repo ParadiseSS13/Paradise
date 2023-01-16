@@ -7013,6 +7013,7 @@
 /obj/machinery/door/airlock/hatch{
 	req_access_txt = "152"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -7032,6 +7033,7 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 3.1
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -16465,7 +16467,8 @@
 /obj/machinery/door_control{
 	id = "voxshutters";
 	name = "remote shutter control";
-	req_access_txt = "152"
+	req_access_txt = "152";
+	wires = 1
 	},
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
@@ -24972,14 +24975,17 @@
 	frequency = 1331;
 	id_tag = "vox_northeast_lock";
 	locked = 1;
-	req_access_txt = "152"
+	req_access_txt = "152";
+	aiControlDisabled = 1;
+	hackProof = 1
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1331;
 	master_tag = "vox_east_control";
 	pixel_x = 28;
-	req_access_txt = "152"
+	req_access_txt = "152";
+	wires = 1
 	},
 /obj/docking_port/mobile{
 	dir = 2;
@@ -25000,6 +25006,7 @@
 	turf_type = /turf/space/transit/north;
 	width = 19
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
 "nak" = (
@@ -43186,7 +43193,9 @@
 /area/shuttle/syndicate_elite)
 "vzo" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152"
+	req_access_txt = "152";
+	aiControlDisabled = 1;
+	hackProof = 1
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -44436,15 +44445,19 @@
 	frequency = 1331;
 	id_tag = "vox_northwest_lock";
 	locked = 1;
-	req_access_txt = "152"
+	req_access_txt = "152";
+	hackProof = 1;
+	aiControlDisabled = 1
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1331;
 	master_tag = "vox_west_control";
 	pixel_x = -29;
-	req_one_access_txt = "152"
+	req_one_access_txt = "152";
+	wires = 1
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
 "wiF" = (
@@ -46299,14 +46312,17 @@
 	frequency = 1331;
 	id_tag = "vox_southwest_lock";
 	locked = 1;
-	req_access_txt = "152"
+	req_access_txt = "152";
+	aiControlDisabled = 1;
+	hackProof = 1
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1331;
 	master_tag = "vox_west_control";
 	pixel_x = 28;
-	req_one_access_txt = "152"
+	req_one_access_txt = "152";
+	wires = 1
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -46472,14 +46488,17 @@
 	frequency = 1331;
 	id_tag = "vox_southeast_lock";
 	locked = 1;
-	req_access_txt = "152"
+	req_access_txt = "152";
+	aiControlDisabled = 1;
+	hackProof = 1
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1331;
 	master_tag = "vox_east_control";
 	pixel_x = -30;
-	req_one_access_txt = "152"
+	req_one_access_txt = "152";
+	wires = 1
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -47208,7 +47227,9 @@
 /area/shuttle/syndicate)
 "xFI" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152"
+	req_access_txt = "152";
+	aiControlDisabled = 1;
+	hackProof = 1
 	},
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
