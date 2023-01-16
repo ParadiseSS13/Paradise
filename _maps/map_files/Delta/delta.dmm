@@ -88237,7 +88237,8 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "supply_home";
 	name = "Cargo Docking Hatch";
-	req_access_txt = "31"
+	req_access_txt = "31";
+	locked = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
