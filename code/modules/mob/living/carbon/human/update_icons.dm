@@ -381,7 +381,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/mutable_appearance/MA = new()
 	MA.appearance_flags = KEEP_TOGETHER
 	MA.layer = -HAIR_LAYER
-	if(head_organ.h_style && !(head?.flags & BLOCKHEADHAIR) && !ismachineperson(src))
+	if(head_organ.h_style && !(head?.flags & BLOCKHEADHAIR))
 		var/datum/sprite_accessory/hair/hair = GLOB.hair_styles_full_list[head_organ.h_style]
 		if(hair?.species_allowed && ((dna.species.name in hair.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
 			// Base hair
