@@ -52,6 +52,7 @@
 		if(WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
 			if(!R.emagged && !isclocker(R))
 				R.connect_to_ai(select_active_ai())
+				R.show_laws()
 
 		if(WIRE_BORG_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)
