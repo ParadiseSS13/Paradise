@@ -103,3 +103,4 @@
 		return
 	playsound(src, ring_sound, 70, vary = broken_ringer, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	flick("desk_bell_ring", src)
+	return TRUE
