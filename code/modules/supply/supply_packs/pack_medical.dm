@@ -114,7 +114,7 @@
 	name = "NanoMed Plus Vendor Crate"
 	cost = 150
 	contains = list(/obj/item/vending_refill/medical)
-	containername = "medical vending crate"
+	containername = "nanomed plus vendor crate"
 
 /datum/supply_packs/medical/vending
 	name = "NanoMed Vendor Crate"
