@@ -414,6 +414,9 @@ SUBSYSTEM_DEF(garbage)
 	log_gc("Finished searching clients")
 
 	log_gc("Completed search for references to a [type].")
+	#ifdef FIND_REF_NOTIFY_ON_COMPLETE
+	rustg_create_toast("ParadiseSS13", "GC search complete for [type]")
+	#endif
 	if(usr && usr.client)
 		usr.client.running_find_references = null
 	running_find_references = null
