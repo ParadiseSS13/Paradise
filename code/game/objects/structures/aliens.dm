@@ -265,6 +265,7 @@
 		return
 	check_surroundings()
 	START_PROCESSING(SSobj, src)
+	RegisterSignal(linked_node, COMSIG_PARENT_QDELETING, PROC_REF(clear_linked_node))
 
 /obj/structure/alien/weeds/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -273,6 +274,11 @@
 	linked_node = null
 	clear_wall_weed()
 	return ..()
+
+/obj/structure/alien/weeds/proc/clear_linked_node()
+	SIGNAL_HANDLER
+	UnregisterSignal(linked_node, COMSIG_PARENT_QDELETING)
+	linked_node = null
 
 /obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
