@@ -13,17 +13,22 @@
 	luminosity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
-	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
-	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
+
+	/// used for cult summoning areas on station zlevel
+	var/valid_territory = TRUE
+	/// Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
+	var/map_name
+	/// Is the lightswitching in this area on? Controls weather or not lights are on and off
 	var/lightswitch = TRUE
-
-	var/debug = FALSE
-
+	/// If TRUE, the local powernet in this area will have all its power channels switched off
 	var/apc_starts_off = FALSE
+	/// If TRUE, this area's local powernet will require power to properly operate machines
 	var/requires_power = TRUE
+	/// If TRUE, machines that require power in this area will never be powered
 	var/always_unpowered = FALSE
-
+	/// The local powernet of this area, this is where all machine/apc/object power related operations are handled
 	var/datum/local_powernet/powernet = null
+	/// All APCs currently constructed in this area
 	var/list/apc = list()
 
 	var/has_gravity = TRUE
@@ -86,24 +91,11 @@
 	uid = ++global_uid
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
-	if(!powernet)
-		create_powernet()
 
-	if(requires_power)
-		luminosity = 0
-		if(apc_starts_off)
-			powernet.lighting_powered = FALSE
-			powernet.equipment_powered = FALSE
-			powernet.environment_powered = FALSE
-	else //if area doesn't require power, lets find out why
-		if(always_unpowered) //area will never be powered, set all power channels to off
-			powernet.lighting_powered = FALSE
-			powernet.equipment_powered = FALSE
-			powernet.environment_powered = FALSE
-			powernet.power_flags |= PW_ALWAYS_UNPOWERED  //ensures all power checks will return FALSE
-		else //area doesn't require power so it will always be powered
-			powernet.power_flags |= PW_ALWAYS_POWERED //ensures all power checks will return TRUE
+	create_powernet()
 
+	//setting lighting
+	if(!requires_power)
 		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
 			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 			luminosity = 0
@@ -126,6 +118,22 @@
 /area/proc/create_powernet()
 	powernet = new()
 	powernet.powernet_area = src
+
+	//setting power flags and channel breakers
+	if(always_unpowered) //area will never be powered, set all power channels to off
+		powernet.lighting_powered = FALSE
+		powernet.equipment_powered = FALSE
+		powernet.environment_powered = FALSE
+		powernet.power_flags |= PW_ALWAYS_UNPOWERED  //ensures all power checks will return FALSE
+	else if(requires_power) //area does require power
+		luminosity = 0
+		if(apc_starts_off) //flip all the channels off if apc starts off
+			powernet.lighting_powered = FALSE
+			powernet.equipment_powered = FALSE
+			powernet.environment_powered = FALSE
+	else // area doesn't require power
+		powernet.power_flags |= PW_ALWAYS_POWERED //ensures all power checks will return TRUE
+
 	return powernet
 
 /area/proc/reg_in_areas_in_z()

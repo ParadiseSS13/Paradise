@@ -9,7 +9,7 @@
 	if(state == poweralm)
 		return
 	poweralm = state
-	if(!istype(source))	//Only report power alarms on the z-level where the source is located.
+	if(!istype(source))
 		return
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
