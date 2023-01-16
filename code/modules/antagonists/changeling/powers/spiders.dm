@@ -8,14 +8,14 @@
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend."
 	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 5 stored DNA."
 	button_icon_state = "spread_infestation"
-	chemical_cost = 5//45
-	dna_cost = 1
-	req_dna = 0//5
+	chemical_cost = 45
+	dna_cost = 2
+	req_dna = 7
 	var/spider_counter = 0 // This var keeps track of the changeling's spider count
 	var/is_operating = FALSE // Checks if changeling is already spawning a spider
 	power_type = CHANGELING_PURCHASABLE_POWER
 
-//Makes some spiderlings. Good for setting traps and causing general trouble.
+//Makes a spider. Good for setting traps and combat.
 /datum/action/changeling/spiders/sting_action(mob/user)
 	if(is_operating == TRUE) // To stop spawning multiple at once
 		return FALSE
@@ -25,7 +25,7 @@
 		is_operating = FALSE
 		return FALSE
 	user.visible_message("<span class='danger'>[user] begins vomiting an arachnid!</span>")
-	if(do_after(user, 4 SECONDS, FALSE, target = user)) // Takes 5 seconds to spawn a spider
+	if(do_after(user, 4 SECONDS, FALSE, target = user)) // Takes 4 seconds to spawn a spider
 		spider_counter++
 		user.visible_message("<span class='danger'>[user] vomits an arachnid!</span>")
 		var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/S = new(user.loc)
@@ -41,8 +41,8 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider
 	var/mob/owner_UID // References to the owner changeling
 	var/gibbed = FALSE // To check if the spider died via gib or if it still needs to be gibbed, to prevent post-death revival
-	var/current_order = IDLE_AGGRESSIVE
-	var/list/enemies = list() // BIG AAAA TEST FOR RETALIATE
+	var/current_order = IDLE_AGGRESSIVE // Handles the spider's behavior
+	var/list/enemies = list()
 	venom_per_bite = 3
 	speak_chance = 0
 	wander = 0
@@ -63,7 +63,15 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/examine(mob/user)
 	. = ..()
 	if(user.UID() == owner_UID)
-		. += "<span class='notice'>It is currently angy!</span>"
+		switch(current_order)
+			if(IDLE_AGGRESSIVE)
+				. += "<span class='notice'>The giant spider will remain idle but will attack anyone on sight.</span>"
+			if(FOLLOW_AGGRESSIVE)
+				. += "<span class='notice'>The giant spider is following us, but will attack anyone on sight.</span>"
+			if(FOLLOW_RETALIATE)
+				. += "<span class='notice'>The giant spider is following us and staying calm, only attacking it is attacked.</span>"
+			if(IDLE_RETALIATE)
+				. += "<span class='notice'>The giant spider will remain idle and calm, only attacking if it is attacked.</span>"
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/AltShiftClick(mob/user)
 	. = ..()
@@ -71,18 +79,19 @@
 		spider_order(user)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/spider_order(mob/user)
+	enemies = list()
 	switch(current_order)
 		if(IDLE_AGGRESSIVE)
-			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anything on sight.</span>")
+			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anyone on sight.</span>")
 			current_order = FOLLOW_AGGRESSIVE
 		if(FOLLOW_AGGRESSIVE)
-			to_chat(user, "<span class='notice'>We order the giant spider to follow us and stay calm, only attacking if we or it are attacked.</span>")
+			to_chat(user, "<span class='notice'>We order the giant spider to follow us and stay calm, only attacking if it is attacked.</span>")
 			current_order = FOLLOW_RETALIATE
 		if(FOLLOW_RETALIATE)
-			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if we or it are attacked.</span>")
+			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if it is attacked.</span>")
 			current_order = IDLE_RETALIATE
 		if(IDLE_RETALIATE)
-			to_chat(user, "<span class='notice'>We order the giant spider to remain idle but attack anything on sight.</span>")
+			to_chat(user, "<span class='notice'>We order the giant spider to remain idle but attack anyone on sight.</span>")
 			current_order = IDLE_AGGRESSIVE
 	handle_automated_movement()
 
@@ -119,14 +128,14 @@
 		if(faction_check_mob(H) && !attack_same && !H.attack_same)
 			H.enemies |= enemies
 
+// Bellow is the way the spiders react and retaliate when in an idle mode.
+
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/ListTargets()
 	if(!length(enemies))
 		return list()
 	var/list/see = ..()
 	see &= enemies // Remove all entries that aren't in enemies
 	return see
-
-// Aaaaaaaaaaaaaaaaaaaaaaa
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/Find_Enemies(around)
 	enemies = list() // Reset enemies list, only focus on the ones around you, spiders don't have grudges
