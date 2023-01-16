@@ -111,11 +111,16 @@
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
 
 /datum/supply_packs/medical/vending
-	name = "Medical Vending Crate"
-	cost = 200
-	contains = list(/obj/item/vending_refill/medical,
-					/obj/item/vending_refill/wallmed)
+	name = "NanoMed Plus Vendor Crate"
+	cost = 150
+	contains = list(/obj/item/vending_refill/medical)
 	containername = "medical vending crate"
+
+/datum/supply_packs/medical/vending
+	name = "NanoMed Vendor Crate"
+	cost = 50
+	contains = list(/obj/item/vending_refill/wallmed)
+	containername = "nanomed vendor crate"
 
 /datum/supply_packs/medical/vending/clothingvendor
 	name = "Medical Clothing Vendors Crate"
