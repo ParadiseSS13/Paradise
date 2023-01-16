@@ -22,7 +22,7 @@
 	var/current_move_delay = 0
 	var/moving			= null
 	var/area			= null
-	var/time_died_as_mouse = null //when the client last died as a mouse
+	var/time_joined_as_mouse = null //when the client last spawned as a mouse
 
 	var/typing = FALSE // Prevents typing window stacking
 

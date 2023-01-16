@@ -120,8 +120,6 @@
 	if(!.)
 		return FALSE
 	layer = MOB_LAYER
-	if(client)
-		client.time_died_as_mouse = world.time
 
 /mob/living/simple_animal/mouse/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
