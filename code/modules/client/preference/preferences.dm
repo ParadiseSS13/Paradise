@@ -2373,10 +2373,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									capture_keybinding(user, KB, href_list["old"])
 									return
 
-								if(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80) // Don't uppercase unicode stuff
-									new_key = sanitize_russian_key_to_english(new_key)
-								else
+								if(!(length_char(new_key) == 1 && text2ascii(new_key) >= 0x80)) // Don't uppercase unicode stuff
 									new_key = uppertext(new_key)
+								new_key = sanitize_russian_key_to_english(uppertext(new_key))
+								new_key = sanitize_specsymbols_key_to_numbers(new_key)
 
 								// Map for JS keys
 								var/static/list/key_map = list(

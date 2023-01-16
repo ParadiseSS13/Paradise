@@ -28,3 +28,14 @@ GLOBAL_LIST_INIT(rukeys, list(
 	. = ""
 	for(var/i in 1 to length_char(text))
 		. += sanitize_english_key_to_russian(copytext_char(text, i, i+1))
+
+GLOBAL_LIST_INIT(specsymbols, list(
+	"!" = "1", "@" = "2", "№" = "3", "#" = "3",
+	";" = "4", "$" = "4", "%" = "5", "^" = "6", ":" = "6",
+	"&" = "7", "?" = "7", "*" = "8", "(" = "9", ")" = "0", "_" = "-",
+	"+" = "=",
+))
+
+/proc/sanitize_specsymbols_key_to_numbers(char) // for keybindings
+	var/new_char = GLOB.specsymbols[uppertext(char)]
+	return (new_char != null) ? new_char : char
