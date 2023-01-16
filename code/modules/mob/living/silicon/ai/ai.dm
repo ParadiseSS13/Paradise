@@ -1379,6 +1379,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/var/current_camera = 0
 
+/mob/living/silicon/ai/proc/set_camera_by_index(client/user, var/camnum)
+	var/camnum_length = length(stored_locations)
+	if(camnum > camnum_length || (camnum == 0 && camnum_length < 10))
+		to_chat(user, "<span class='warning'>You have no stored camera on [camnum] position</span>")
+		return FALSE
+	if(camnum == 0)
+		camnum = 10
+	current_camera = camnum
+	return TRUE
+
 /mob/living/silicon/ai/proc/check_for_binded_cameras(client/user)
 	if(!length(stored_locations))
 		to_chat(user, "<span class='warning'>You have no stored camera positions</span>")

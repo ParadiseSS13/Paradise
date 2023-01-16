@@ -27,6 +27,7 @@
 	var/obj/item/I = C.mob.get_active_hand()
 	if(I)
 		C.mob.drop_item(I)
+		SEND_SIGNAL(C.mob, COMSIG_MOB_DROP_ITEM, keys, C)
 	else
 		to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
 
