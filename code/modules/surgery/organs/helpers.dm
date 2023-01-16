@@ -82,7 +82,7 @@
 	var/obj/item/organ/external/arm/l_arm = get_organ("l_arm")
 	if(!l_hand || !l_arm)
 		return FALSE //Ну, не сломано ведь
-	if(l_hand.status & ORGAN_BROKEN || l_arm.status & ORGAN_BROKEN)
+	if(l_hand.is_broken() || l_arm.is_broken())
 		return TRUE
 	return FALSE
 
@@ -94,7 +94,7 @@
 	var/obj/item/organ/external/arm/right/r_arm = get_organ("r_arm")
 	if(!r_hand || !r_arm)
 		return FALSE
-	if(r_hand.status & ORGAN_BROKEN || r_arm.status & ORGAN_BROKEN)
+	if(r_hand.is_broken() || r_arm.is_broken())
 		return TRUE
 	return FALSE
 
