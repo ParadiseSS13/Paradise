@@ -5,6 +5,8 @@
 #define SLIMEPERSON_HUNGERCOST 50
 #define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
+#define SLIMEPERSON_HAIRGROWTHDELAY 50
+#define SLIMEPERSON_HAIRGROWTHCOST 10
 
 /datum/species/slime
 	name = "Slime People"
@@ -79,6 +81,14 @@
 	if(!recolor)
 		recolor = new
 		recolor.Grant(H)
+	var/datum/action/innate/slimehair/changehair = locate() in H.actions
+	if(!changehair)
+		changehair = new
+		changehair.Grant(H)
+	var/datum/action/innate/slimebeard/changebeard = locate() in H.actions
+	if(!changebeard)
+		changebeard = new
+		changebeard.Grant(H)
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
 	blend(H)
@@ -93,6 +103,12 @@
 	var/datum/action/innate/slimecolor/recolor = locate() in H.actions
 	if(recolor)
 		recolor.Remove(H)
+	var/datum/action/innate/slimehair/changehair = locate() in H.actions
+	if(changehair)
+		changehair.Remove(H)
+	var/datum/action/innate/slimebeard/changebeard = locate() in H.actions
+	if(changebeard)
+		changebeard.Remove(H)
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 	H.verbs -= /mob/living/carbon/human/proc/emote_squish
@@ -243,6 +259,49 @@
 	else
 		to_chat(H, "<span class='warning'>Для отращивания конечности вам нужно стоять на месте!</span>")
 
+/datum/action/innate/slimehair
+	name = "Change Hairstyle"
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
+
+/datum/action/innate/slimehair/Activate()
+	var/mob/living/carbon/human/H = owner
+	var/list/valid_hairstyles = H.generate_valid_hairstyles()
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
+	if(new_style)
+		H.visible_message("<span class='notice'>Волосы на голове [H] начинают шевелиться!.</span>", "<span class='notice'>Вы концентрируетесь на своей прическе.</span>")
+		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, target = H))
+			H.change_hair(new_style)
+			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
+			H.visible_message("<span class='notice'>[H] изменил свою прическу.</span>", "<span class='notice'>Вы изменили свою прическу.</span>")
+		else
+			to_chat(H, "<span class='warning'>Вы теряете концентрацию.</span>")
+
+/datum/action/innate/slimebeard
+	name = "Change Beard"
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
+
+/datum/action/innate/slimebeard/Activate()
+	var/mob/living/carbon/human/H = owner
+	var/list/valid_facial_hairstyles = H.generate_valid_facial_hairstyles()
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	if(H.gender == FEMALE)
+		to_chat(H, "<span class='warning'> Вы не можете изменить бороду.</span>")
+		return
+	var/new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
+	if(new_style)
+		H.visible_message("<span class='notice'>Волосы на лице [H] начинают шевелиться!.</span>", "<span class='notice'>Вы концентрируетесь на своей бороде.</span>")
+		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, target = H))
+			H.change_facial_hair(new_style)
+			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
+			H.visible_message("<span class='notice'>[H] изменил свою бороду.</span>", "<span class='notice'>Вы изменили свою бороду.</span>")
+		else
+			to_chat(H, "<span class='warning'>Вы теряете концентрацию.</span>")
+
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
 #undef SLIMEPERSON_BLOOD_SCALING_FACTOR
@@ -250,3 +309,5 @@
 #undef SLIMEPERSON_HUNGERCOST
 #undef SLIMEPERSON_MINHUNGER
 #undef SLIMEPERSON_REGROWTHDELAY
+#undef SLIMEPERSON_HAIRGROWTHDELAY
+#undef SLIMEPERSON_HAIRGROWTHCOST
