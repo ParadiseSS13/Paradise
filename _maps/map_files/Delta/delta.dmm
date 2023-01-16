@@ -88746,7 +88746,9 @@
 /turf/simulated/wall,
 /area/maintenance/library)
 "nFf" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
