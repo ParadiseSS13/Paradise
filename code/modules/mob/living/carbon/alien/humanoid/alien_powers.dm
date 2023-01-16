@@ -134,12 +134,6 @@ Doesn't work on other aliens/AI.*/
 				to_chat(host, "<span class='noticealien'>You need to be closer.</span>")
 	return
 
-/mob/living/carbon/alien/humanoid/proc/corrosive_acid(atom/target) //If they right click to corrode, an error will flash if its an invalid target./N
-	set name = "Corrossive Acid (200)"
-	set desc = "Drench an object in acid, destroying it over time."
-
-	corrosive_acid_action.Activate(target)
-
 /datum/action/innate/xeno_action/corrosive_acid
 	name = "Corrossive Acid (200)"
 	desc = "Drench an object in acid, destroying it over time."

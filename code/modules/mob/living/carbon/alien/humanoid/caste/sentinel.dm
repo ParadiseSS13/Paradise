@@ -4,14 +4,11 @@
 	maxHealth = 250
 	health = 250
 	icon_state = "aliens_s"
+	var/datum/action/innate/xeno_action/plant/plant_action = new
 
 /mob/living/carbon/alien/humanoid/sentinel/GrantAlienActions()
+	. = ..()
 	plant_action.Grant(src)
-	whisper_action.Grant(src)
-	transfer_plasma_action.Grant(src)
-	neurotoxin_action.Grant(src)
-	regurgitate_action.Grant(src)
-	corrosive_acid_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/sentinel/large
 	name = "alien praetorian"

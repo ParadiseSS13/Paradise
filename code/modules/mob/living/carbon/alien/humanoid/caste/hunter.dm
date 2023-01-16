@@ -5,11 +5,11 @@
 	health = 205
 	icon_state = "alienh_s"
 
+	var/datum/action/innate/xeno_action/plant/plant_action = new
+
 /mob/living/carbon/alien/humanoid/hunter/GrantAlienActions()
+	. = ..()
 	plant_action.Grant(src)
-	whisper_action.Grant(src)
-	transfer_plasma_action.Grant(src)
-	regurgitate_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/hunter/New()
 	if(name == "alien hunter")

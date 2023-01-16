@@ -27,21 +27,14 @@
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
-	var/datum/action/innate/xeno_action/plant/plant_action = new
 	var/datum/action/innate/xeno_action/whisper/whisper_action = new
 	var/datum/action/innate/xeno_action/transfer_plasma/transfer_plasma_action = new
-	var/datum/action/innate/xeno_action/corrosive_acid/corrosive_acid_action = new
-	var/datum/action/innate/xeno_action/neurotoxin/neurotoxin_action = new
-	var/datum/action/innate/xeno_action/resin/resin_action = new
 	var/datum/action/innate/xeno_action/regurgitate/regurgitate_action = new
 	var/datum/action/innate/xeno_action/nightvisiontoggle/nigtvisiontoggle_action = new
 
 /mob/living/carbon/alien/proc/GrantAlienActions()
-	plant_action.Grant(src)
 	whisper_action.Grant(src)
 	transfer_plasma_action.Grant(src)
-	corrosive_acid_action.Grant(src)
-	resin_action.Grant(src)
 	regurgitate_action.Grant(src)
 	nigtvisiontoggle_action.Grant(src)
 

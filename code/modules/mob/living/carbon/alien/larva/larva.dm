@@ -23,6 +23,7 @@
 /mob/living/carbon/alien/larva/GrantAlienActions()
 	hide_action.Grant(src)
 	evolve_action.Grant(src)
+	nigtvisiontoggle_action.Grant(src)
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()

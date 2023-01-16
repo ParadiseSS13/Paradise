@@ -6,6 +6,7 @@
 	icon_state = "aliend_s"
 
 	var/datum/action/innate/xeno_action/evolve_to_queen/evolve_to_queen_action = new
+
 /mob/living/carbon/alien/humanoid/drone/New()
 	if(src.name == "alien drone")
 		src.name = text("alien drone ([rand(1, 1000)])")
@@ -14,6 +15,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	..()
+
 /mob/living/carbon/alien/humanoid/drone/GrantAlienActions()
 	. = ..()
 	evolve_to_queen_action.Grant(src)

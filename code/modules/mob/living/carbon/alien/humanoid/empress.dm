@@ -9,12 +9,6 @@
 	bubble_icon = "alienroyal"
 	large = 1
 	ventcrawler = 0
-	var/datum/action/innate/xeno_action/lay_egg/lay_egg_action
-
-/mob/living/carbon/alien/humanoid/empress/GrantAlienActions()
-	..()
-	lay_egg_action.Grant(src)
-	neurotoxin_action.Grant(src)
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
