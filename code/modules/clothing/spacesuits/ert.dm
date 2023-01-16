@@ -218,9 +218,7 @@
 	icon_state = "hardsuit0-ert_paranormal"
 	item_color = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	actions_types = list()
 	resistance_flags = FIRE_PROOF
-	has_camera = FALSE
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
