@@ -76,8 +76,6 @@ for file in orderedSqlFiles:
         scriptLines.append("mysql -u root -proot < tools/ci/sql_tmp/" + str(file) + "\n")
 
 scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
-scriptLines.append("mysql -u root -proot < SQL/paradise_schema_prefixed.sql\n")
-scriptLines.append("mysql -u root -proot -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root -proot < SQL/paradise_schema.sql\n")
 scriptLines.append("mysql -u root -proot -e \"CREATE USER 'ci_sql' IDENTIFIED BY 'not_a_strong_password';\"\n")
 scriptLines.append("mysql -u root -proot -e \"GRANT ALL PRIVILEGES ON *.* TO 'ci_sql';\"\n")
