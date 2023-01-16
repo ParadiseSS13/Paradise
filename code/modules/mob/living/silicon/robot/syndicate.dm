@@ -70,6 +70,7 @@
 
 /mob/living/silicon/robot/syndicate/medical/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
+	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_medical(src)
 
 /mob/living/silicon/robot/syndicate/saboteur
@@ -94,6 +95,7 @@
 
 /mob/living/silicon/robot/syndicate/saboteur/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
+	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
 	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)

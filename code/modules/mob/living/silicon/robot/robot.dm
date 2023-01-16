@@ -683,7 +683,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(client.statpanel == "Status")
 		show_cell_power()
 	var/total_user_contents = GetAllContents()
-	if(locate(/obj/item/gps/cyborg) in total_user_contents)
+	if(locate(/obj/item/gps) in total_user_contents)
 		var/turf/T = get_turf(src)
 		stat(null, "GPS: [COORD(T)]")
 	if(module)

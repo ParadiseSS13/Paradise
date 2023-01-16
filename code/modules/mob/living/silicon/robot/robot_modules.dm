@@ -550,7 +550,7 @@
 	modules += new /obj/item/pinpointer/operative(src)
 	modules += new /obj/item/pinpointer/nukeop(src)
 	modules += new /obj/item/gripper/nuclear(src)
-	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
 	fix_modules()
