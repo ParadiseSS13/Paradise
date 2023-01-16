@@ -103,7 +103,6 @@
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
-	randomise()
 	real_name = random_name(gender, species)
 
 /datum/character_save/proc/save(client/C)
@@ -1826,6 +1825,8 @@
 	if(!l_foot && !r_foot)
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
+	else if(!l_foot || !r_foot)
+		character.put_in_r_hand(new /obj/item/cane)
 
 	character.underwear = underwear
 	character.undershirt = undershirt

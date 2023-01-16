@@ -637,6 +637,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		throw_icon.icon_state = "act_throw_off"
 
 /mob/living/carbon/proc/throw_mode_on()
+	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"

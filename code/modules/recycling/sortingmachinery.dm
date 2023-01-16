@@ -8,7 +8,7 @@
 	var/obj/wrapped = null
 	var/init_welded = FALSE
 	var/giftwrapped = FALSE
-	var/sortTag = 0
+	var/sortTag = 1
 
 /obj/structure/bigDelivery/Destroy()
 	var/turf/T = get_turf(src)
@@ -81,7 +81,7 @@
 	icon_state = "deliverycrate2"
 	var/obj/item/wrapped = null
 	var/giftwrapped = FALSE
-	var/sortTag = 0
+	var/sortTag = 1
 
 /obj/item/smallDelivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -307,15 +307,11 @@
 													// travels through the pipes.
 	for(var/obj/structure/bigDelivery/O in src)
 		deliveryCheck = 1
-		if(O.sortTag == 0)
-			O.sortTag = 1
 	for(var/obj/item/smallDelivery/O in src)
 		deliveryCheck = 1
-		if(O.sortTag == 0)
-			O.sortTag = 1
 	for(var/obj/item/shippingPackage/O in src)
 		deliveryCheck = 1
-		if(!O.sealed || O.sortTag == 0)		//unsealed or untagged shipping packages will default to disposals
+		if(!O.sealed)		//unsealed shipping packages will default to disposals
 			O.sortTag = 1
 	if(deliveryCheck == 0)
 		H.destinationTag = 1
@@ -367,7 +363,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "shippack"
 	var/obj/item/wrapped = null
-	var/sortTag = 0
+	var/sortTag = 1
 	var/sealed = 0
 
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)

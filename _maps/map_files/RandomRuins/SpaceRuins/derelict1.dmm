@@ -11,7 +11,7 @@
 /area/ruin/space/unpowered)
 "d" = (
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin/membrane,
+/obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "e" = (
@@ -45,10 +45,6 @@
 /area/ruin/space/unpowered)
 "k" = (
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"l" = (
-/obj/structure/alien/resin/membrane,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "m" = (
@@ -819,7 +815,7 @@ f
 c
 f
 f
-l
+k
 b
 b
 a
@@ -862,7 +858,7 @@ f
 f
 f
 f
-l
+k
 q
 b
 a
@@ -1229,8 +1225,8 @@ a
 a
 b
 b
-l
-l
+k
+k
 p
 p
 a
