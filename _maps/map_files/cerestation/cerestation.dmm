@@ -30924,6 +30924,7 @@
 /area/crew_quarters/locker)
 "cGJ" = (
 /obj/machinery/drone_fabricator,
+/obj/machinery/camera/autoname,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
 "cGL" = (
@@ -32118,6 +32119,13 @@
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"cLM" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central)
 "cLN" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -45324,6 +45332,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -51586,6 +51595,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -62987,6 +62997,12 @@
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/medcargo)
+"mxW" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/transparent/glass/reinforced{
+	slowdown = -0.3
+	},
+/area/hallway/spacebridge/engmed)
 "mys" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -64940,9 +64956,6 @@
 "npV" = (
 /turf/simulated/mineral/ancient,
 /area/hallway/primary/fore)
-"npW" = (
-/turf/simulated/mineral/ancient/outer,
-/area/hallway/primary/aft/east)
 "nqf" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -70235,6 +70248,14 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"pqi" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/fore)
 "pqm" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/pillbottles,
@@ -72331,6 +72352,9 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"qeq" = (
+/turf/simulated/mineral/ancient/outer,
+/area/assembly/robotics)
 "qet" = (
 /obj/structure/plasticflaps{
 	name = "Officer Pipsqueak's Home"
@@ -75625,6 +75649,12 @@
 	},
 /turf/simulated/floor/noslip,
 /area/medical/surgery)
+"rrr" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/transparent/glass/reinforced{
+	slowdown = -0.3
+	},
+/area/hallway/spacebridge/serveng)
 "rrs" = (
 /turf/simulated/mineral/ancient/outer,
 /area/maintenance/disposal/westalt)
@@ -76871,6 +76901,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /mob/living/simple_animal/mouse/brown/Tom,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -90323,6 +90354,10 @@
 	icon_state = "white"
 	},
 /area/medical/medbay)
+"xdU" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/wood,
+/area/security/vacantoffice)
 "xee" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Detective";
@@ -116429,13 +116464,13 @@ rWw
 ccW
 ccW
 ccW
-jJc
-jJc
-jJc
-jJc
-jJc
-jJc
-jJc
+qeq
+qeq
+qeq
+qeq
+qeq
+qeq
+qeq
 npb
 cia
 ciG
@@ -116693,7 +116728,7 @@ ccW
 ccW
 ccW
 ccW
-npW
+izC
 chX
 ciG
 tuF
@@ -116950,7 +116985,7 @@ ccW
 ccW
 ccW
 ccW
-npW
+izC
 chY
 ciG
 jms
@@ -117207,7 +117242,7 @@ ccW
 ccW
 ccW
 ccW
-npW
+izC
 cia
 ciG
 tuF
@@ -118685,7 +118720,7 @@ euP
 cPN
 jrs
 duo
-uay
+rrr
 eZS
 jrs
 lhT
@@ -123568,7 +123603,7 @@ bli
 aYJ
 aYJ
 rLW
-bgf
+cLM
 brU
 aYJ
 aYJ
@@ -127133,7 +127168,7 @@ gRT
 uQH
 uQH
 uQH
-uQH
+pqi
 uQH
 uQH
 loq
@@ -130764,7 +130799,7 @@ blw
 aYJ
 aYJ
 bpm
-bgf
+cLM
 bsi
 aYJ
 aYJ
@@ -130981,7 +131016,7 @@ cWs
 rUq
 dmH
 dyX
-uQH
+pqi
 eYr
 gcu
 hec
@@ -132222,9 +132257,9 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
-wIp
+aaf
+aaf
+aaf
 ahF
 ahF
 ahF
@@ -132477,17 +132512,17 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
-wIp
 aaf
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
 ahF
 ahF
 pFc
@@ -132731,10 +132766,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -132743,7 +132774,11 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
+aaf
+aaf
+aaf
+aaf
 ahF
 ahF
 ahF
@@ -132759,7 +132794,7 @@ aaf
 aaf
 aaf
 cRv
-cRv
+abW
 cRv
 abW
 cRv
@@ -132985,10 +133020,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -133000,10 +133031,14 @@ aaf
 aaf
 aaf
 aaf
-wIp
-wIp
-wIp
-wIp
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
 pFc
 juL
 rNK
@@ -133238,11 +133273,10 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 lzH
 aay
 lzH
-wIp
 aaf
 aaf
 aaf
@@ -133259,7 +133293,8 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
+aaf
 ahF
 pFc
 juL
@@ -133495,11 +133530,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
-wIp
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -133516,9 +133546,14 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
 ahF
-wIp
+aaf
 juL
 rNK
 wIp
@@ -133751,8 +133786,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -133773,9 +133806,11 @@ aaf
 aaf
 aaf
 aaf
-wIp
-wIp
-wIp
+aaf
+aaf
+aaf
+aaf
+aaf
 juL
 rNK
 wIp
@@ -134007,8 +134042,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -134032,7 +134065,9 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
+aaf
+aaf
 juL
 rNK
 wIp
@@ -134105,7 +134140,7 @@ euP
 cPO
 tRo
 our
-nSn
+mxW
 dAd
 tRo
 oKJ
@@ -134264,7 +134299,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
 aaf
 aaf
 aaf
@@ -134289,7 +134323,8 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
+aaf
 juL
 wIp
 wIp
@@ -134521,7 +134556,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
 aaf
 aaf
 aaf
@@ -134546,7 +134580,8 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
+aaf
 juL
 wIp
 wIp
@@ -134778,7 +134813,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -134803,7 +134838,7 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
 apY
 wIp
 aaf
@@ -135034,8 +135069,8 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
+aaf
+aaf
 aaf
 aaf
 aaf
@@ -135291,7 +135326,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -135548,7 +135583,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -135805,7 +135840,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -136062,7 +136097,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -136319,7 +136354,7 @@ rNK
 rNK
 rNK
 lzH
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -136576,7 +136611,7 @@ rNK
 rNK
 rNK
 acb
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -136833,7 +136868,7 @@ rNK
 rNK
 rNK
 lzH
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -137090,7 +137125,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -137347,7 +137382,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -137604,7 +137639,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -137861,8 +137896,8 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
+aaf
+aaf
 aaf
 aaf
 aaf
@@ -138119,7 +138154,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -138376,7 +138411,7 @@ rNK
 rNK
 rNK
 rNK
-wIp
+aaf
 aaf
 aaf
 aaf
@@ -138401,9 +138436,9 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
 aqm
-wIp
+aaf
 aaf
 mmW
 avu
@@ -138416,7 +138451,7 @@ bke
 bke
 bke
 bke
-lCC
+alc
 rNK
 lzH
 rNK
@@ -138633,8 +138668,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -138655,9 +138688,11 @@ aaf
 aaf
 aaf
 aaf
-wIp
-wIp
-wIp
+aaf
+aaf
+aaf
+aaf
+aaf
 pFc
 juL
 rNK
@@ -138670,10 +138705,10 @@ aQS
 aYA
 mmW
 alc
-lCC
-lCC
-lCC
-lCC
+alc
+alc
+alc
+alc
 lzH
 rzh
 rNK
@@ -138891,7 +138926,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
 aaf
 aaf
 aaf
@@ -138912,9 +138946,10 @@ aaf
 aaf
 aaf
 aaf
-wIp
-wIp
-wIp
+aaf
+aaf
+aaf
+aaf
 pFc
 juL
 rNK
@@ -138926,8 +138961,8 @@ mmW
 mmW
 mmW
 mmW
-lCC
-lCC
+alc
+alc
 rzh
 rzh
 rzh
@@ -139148,7 +139183,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
 aaf
 aaf
 aaf
@@ -139168,22 +139202,23 @@ aaf
 aaf
 aaf
 aaf
-wIp
-wIp
+aaf
+aaf
+aaf
 ahF
 ahF
 euP
 juL
 rNK
 ahF
-wIp
-wIp
-wIp
-lCC
-lCC
-lCC
-lCC
-lCC
+aaf
+aaf
+aaf
+alc
+alc
+alc
+alc
+alc
 rzh
 rzh
 ftx
@@ -139405,8 +139440,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -139424,8 +139457,10 @@ aaf
 aaf
 aaf
 aaf
-wIp
-wIp
+aaf
+aaf
+aaf
+aaf
 ahF
 aaf
 ahF
@@ -139434,7 +139469,7 @@ juL
 rNK
 ahF
 ahF
-lCC
+alc
 rzh
 rzh
 rzh
@@ -139663,11 +139698,6 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
-wIp
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -139681,7 +139711,12 @@ aaf
 aaf
 aaf
 aaf
-wIp
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
 ahF
 ahF
 ahF
@@ -139924,8 +139959,6 @@ rNK
 lzH
 aaE
 lzH
-wIp
-wIp
 aaf
 aaf
 aaf
@@ -139937,8 +139970,10 @@ aaf
 aaf
 aaf
 aaf
-wIp
-wIp
+aaf
+aaf
+aaf
+aaf
 rNK
 ahF
 rNK
@@ -140182,19 +140217,19 @@ rNK
 rNK
 rNK
 rNK
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
-wIp
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
+aaf
 lzH
 lzH
 ahF
@@ -140593,7 +140628,7 @@ chI
 xau
 lYt
 rdl
-fcw
+xdU
 vHw
 vHw
 gbV

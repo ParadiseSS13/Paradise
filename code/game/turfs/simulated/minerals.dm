@@ -172,7 +172,7 @@
 
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"
-	desc = "This ancient and pickaxe vulnerable rock seems colder and smoother than usual due to being exposed to space and space dust!"
+	desc = "A rare and dense asteroid rock that appears to be resistant to all mining tools except diamond pickaxes! Can not be used to create portals to hell."
 	mine_time = 15 SECONDS
 	color = COLOR_COLD_ANCIENT_ROCK
 
