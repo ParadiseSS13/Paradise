@@ -10,10 +10,12 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 
 /mob/living/carbon/proc/add_plasma(amount)
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
+	if(!vessel)
+		return
 	vessel.stored_plasma += amount
 	if(vessel.stored_plasma > vessel.max_plasma)
 		vessel.stored_plasma = vessel.max_plasma
-	src.updateplasmadisplay(src)
+	updateplasmadisplay(src)
 	for(var/datum/action/spell_action/action in actions)
 		action.UpdateButtonIcon()
 
