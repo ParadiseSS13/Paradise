@@ -89,6 +89,7 @@ export const Vending = (props, context) => {
   } = data;
   let inventory;
 
+  inventory = [...product_records];
   if (data.extended_inventory) {
     inventory = [...inventory, ...hidden_records];
   }
