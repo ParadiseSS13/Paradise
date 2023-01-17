@@ -220,6 +220,11 @@
 		if(initial(organ_path.parent_organ) in bodyparts_to_omit)
 			continue
 
+		// heads up for any brave future coders:
+		// it's essential that a species' internal organs are intialized with the mob, instead of just creating them and calling insert() separately.
+		// not doing so (as of now) causes weird issues for some organs like posibrains, which need a mob on init or they'll qdel themselves.
+		// for the record: this caused every single IPC's brain to be deleted randomly throughout a round, killing them instantly.
+
 		new organ_path(H)
 
 	create_mutant_organs(H)
