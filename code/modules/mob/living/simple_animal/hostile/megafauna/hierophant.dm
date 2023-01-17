@@ -405,6 +405,8 @@ Difficulty: Hard
 			stored_nearby += L // store the people to grant the achievements to once we die
 		hierophant_burst(null, get_turf(src), 10)
 		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
+		for(var/turf/simulated/wall/indestructible/hierophant/T in GLOB.hierophant_walls)
+			T.collapse()
 		..(/* force_grant = stored_nearby */)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
