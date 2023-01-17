@@ -331,15 +331,15 @@
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
 
 // Disable safeties on the borg's defib.
-/obj/item/robot_module/medical/emag_act()
+/obj/item/robot_module/medical/emag_act(mob/user)
 	. = ..()
 	for(var/obj/item/borg_defib/F in modules)
-		F.safety = FALSE
+		F.emag_act()
 
 // Enable safeties on the borg's defib.
 /obj/item/robot_module/medical/unemag()
 	for(var/obj/item/borg_defib/F in modules)
-		F.safety = TRUE
+		F.emag_act()
 	return ..()
 
 // Fluorosulphuric acid spray bottle.
@@ -651,7 +651,7 @@
 
 // Sydicate engineer/sabotuer cyborg module.
 /obj/item/robot_module/syndicate_saboteur
-	name = "engineering robot module" //to disguise in examine
+	name = "saboteur robot module" // Disguises are handled in the actual cyborg projector
 	module_type = "Malf"
 	basic_modules = list(
 		/obj/item/flash/cyborg,
