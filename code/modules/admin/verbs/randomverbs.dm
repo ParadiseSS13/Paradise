@@ -1236,8 +1236,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	var/datum/supply_packs/the_pack = new chosen(get_turf(usr))
-	if(!istype(the_pack))
-		to_chat(usr, "<span class='userdanger'>Something went wrong with spawning [the_pack], it wasnt a supply_packs path it was [the_pack.type].</span>")
 	var/obj/structure/closet/crate/crate = the_pack.create_package(get_turf(usr))
 	crate.admin_spawned = TRUE
 	for(var/atom/A in crate.contents)
