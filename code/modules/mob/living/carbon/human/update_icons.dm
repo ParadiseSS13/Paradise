@@ -1369,8 +1369,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/proc/update_eyes_overlay_layer()
 	remove_overlay(EYES_OVERLAY_LAYER)
 
-	var/obj/item/organ/internal/eyes/eyes_organ = src.get_int_organ(/obj/item/organ/internal/eyes)
-	if(eyes_organ && istype(eyes_organ, /obj/item/organ/internal/eyes/cybernetic/eyesofgod))
+	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
+	if(istype(eyes_organ, /obj/item/organ/internal/eyes/cybernetic/eyesofgod))
 		var/obj/item/organ/internal/eyes/cybernetic/eyesofgod/E = eyes_organ
 		if(E.active)
 			var/mutable_appearance/new_eye_overlay = mutable_appearance('icons/effects/32x64.dmi', "eyesofgod", -EYES_OVERLAY_LAYER)

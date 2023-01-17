@@ -272,7 +272,7 @@
 				if(prob(50))
 					to_chat(owner, "<span class='warning'>Your eyes are hurting a lot!</span>")
 			if(30 to 54)
-				receive_damage(0.5, 1)//more pain when damaged
+				receive_damage(0.5, 1) //more pain when damaged
 			if(55 to 60)
 				if(prob(50))
 					to_chat(owner, "<span class='warning'>Your eyes feel like they are going to explode!</span>")
