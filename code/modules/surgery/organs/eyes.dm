@@ -212,7 +212,7 @@
 #define ONE_SHATTERED 1
 #define BOTH_SHATTERED 2
 
-/obj/item/organ/internal/eyes/cybernetic/eyesofgod //no occuline allowed ///FLASH SIGNAL MUST BE ADDED ///Ensure laser pointer isn't rock falls you die, sec should have to get close / flashbang, not instant click
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod //no occuline allowed
 	name = "\improper Eyes of god"
 	desc = "Two eyes said to belong to the gods. But such vision comes at a price"
 	icon_state = "eyesofgod"
