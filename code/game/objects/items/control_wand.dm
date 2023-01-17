@@ -2,6 +2,7 @@
 #define WAND_BOLT "Toggle Bolts"
 #define WAND_EMERGENCY "Toggle Emergency Access"
 #define WAND_SPEED "Change Closing Speed"
+#define WAND_ELECTRIFY "Electrify Door"
 
 /obj/item/door_remote
 	icon_state = "gangtool-white"
@@ -15,6 +16,7 @@
 	var/region_access = list()
 	var/additional_access = list()
 	var/obj/item/card/id/ID
+	var/emagged = FALSE
 
 /obj/item/door_remote/New()
 	..()
@@ -28,16 +30,36 @@
 	QDEL_NULL(ID)
 	return ..()
 
+/obj/item/door_remote/emag_act(mob/user)
+	if(!emagged)
+		add_attack_logs(user, src, "emagged")
+		emagged = TRUE
+		if(user)
+			to_chat(user, "<span class='warning'>you short out the safeties on [src]</span>")
+
 /obj/item/door_remote/attack_self(mob/user)
-	switch(mode)
-		if(WAND_OPEN)
-			mode = WAND_BOLT
-		if(WAND_BOLT)
-			mode = WAND_EMERGENCY
-		if(WAND_EMERGENCY)
-			mode = WAND_SPEED
-		if(WAND_SPEED)
-			mode = WAND_OPEN
+	if(emagged)
+		switch(mode)
+			if(WAND_OPEN)
+				mode = WAND_BOLT
+			if(WAND_BOLT)
+				mode = WAND_EMERGENCY
+			if(WAND_EMERGENCY)
+				mode = WAND_SPEED
+			if(WAND_SPEED)
+				mode = WAND_ELECTRIFY
+			if(WAND_ELECTRIFY)
+				mode = WAND_OPEN
+	else
+		switch(mode)
+			if(WAND_OPEN)
+				mode = WAND_BOLT
+			if(WAND_BOLT)
+				mode = WAND_EMERGENCY
+			if(WAND_EMERGENCY)
+				mode = WAND_SPEED
+			if(WAND_SPEED)
+				mode = WAND_OPEN
 
 	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
 
@@ -55,26 +77,71 @@
 		return
 	if(D.check_access(src.ID))
 		D.add_hiddenprint(user)
-		switch(mode)
-			if(WAND_OPEN)
-				if(D.density)
-					D.open()
-				else
-					D.close()
-			if(WAND_BOLT)
-				if(D.locked)
-					D.unlock()
-				else
-					D.lock()
-			if(WAND_EMERGENCY)
-				if(D.emergency)
-					D.emergency = FALSE
-				else
-					D.emergency = TRUE
-				D.update_icon()
-			if(WAND_SPEED)
-				D.normalspeed = !D.normalspeed
-				to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
+		if(emagged)
+			switch(mode)
+				if(WAND_OPEN)
+					if(D.density)
+						D.open()
+						add_attack_logs(user, D, "opened")
+					else
+						D.close()
+						add_attack_logs(user, D, "closed")
+				if(WAND_BOLT)
+					if(D.locked)
+						D.unlock()
+						add_attack_logs(user, D, "unlocked")
+					else
+						D.lock()
+						add_attack_logs(user, D, "locked")
+				if(WAND_EMERGENCY)
+					if(D.emergency)
+						D.emergency = FALSE
+						add_attack_logs(user, D, "toggled off emergency access")
+					else
+						D.emergency = TRUE
+						add_attack_logs(user, D, "toggled on emergency access")
+					D.update_icon()
+				if(WAND_SPEED)
+					D.normalspeed = !D.normalspeed
+					to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
+					add_attack_logs(user, D, "changed speed mode")
+				if(WAND_ELECTRIFY)
+					if(D.electrified_until == -1)
+						D.electrified_until = 0
+						to_chat(user, "<span class='notice'>[D] is no longer electrified.</span>")
+						add_attack_logs(user, D, "un-electrified")
+					else
+						D.electrified_until = -1
+						to_chat(user, "<span class='notice'>You electrify [D].</span>")
+						add_attack_logs(user, D, "electrified")
+		if(emagged == FALSE)
+			switch(mode)
+				if(WAND_OPEN)
+					if(D.density)
+						D.open()
+						add_attack_logs(user, D, "opened")
+					else
+						D.close()
+						add_attack_logs(user, D, "closed")
+				if(WAND_BOLT)
+					if(D.locked)
+						D.unlock()
+						add_attack_logs(user, D, "unlocked")
+					else
+						D.lock()
+						add_attack_logs(user, D, "locked")
+				if(WAND_EMERGENCY)
+					if(D.emergency)
+						D.emergency = FALSE
+						add_attack_logs(user, D, "toggled off emergency access")
+					else
+						D.emergency = TRUE
+						add_attack_logs(user, D, "toggled on emergency access")
+					D.update_icon()
+				if(WAND_SPEED)
+					D.normalspeed = !D.normalspeed
+					to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
+					add_attack_logs(user, D, "changed speed mode")
 	else
 		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
 
@@ -137,6 +204,7 @@
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
 	item_state = "hacktool"
+	emagged = TRUE
 	var/hack_speed = 30
 	var/busy = FALSE
 
