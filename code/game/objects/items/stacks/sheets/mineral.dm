@@ -156,6 +156,9 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	sheettype = "sandstone"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/sheet/mineral/sandstone/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/sandstone/New()
 	..()
 	recipes = GLOB.sandstone_recipes
@@ -227,6 +230,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
+/obj/item/stack/sheet/mineral/uranium/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/uranium/New()
 	..()
 	recipes = GLOB.uranium_recipes
@@ -286,6 +292,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
+/obj/item/stack/sheet/mineral/gold/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/gold/New()
 	..()
 	recipes = GLOB.gold_recipes
@@ -300,6 +309,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/silver/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/silver/New()
 	..()
@@ -393,6 +405,10 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
 	point_value = 45
 
+/obj/item/stack/sheet/mineral/plastitanium/fifty
+	amount = 50
+
+
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new /datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
 	new /datum/stack_recipe("Kidan Warrior Statue", /obj/structure/statue/plastitanium/kidanstatue, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -402,11 +418,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	recipes = GLOB.plastitanium_recipes
 	..()
 
-/obj/item/stack/sheet/mineral/enruranium
-	name = "enriched uranium"
-	icon_state = "sheet-enruranium"
-	origin_tech = "materials=6"
-	materials = list(MAT_URANIUM=3000)
 
 //Alien Alloy
 /obj/item/stack/sheet/mineral/abductor
@@ -443,6 +454,10 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/adamantine/New(loc, amount = null)
 	recipes = GLOB.adamantine_recipes
 	..()
+
+
+/obj/item/stack/sheet/mineral/adamantine/fifty
+	amount = 50
 
 /*
  * Snow

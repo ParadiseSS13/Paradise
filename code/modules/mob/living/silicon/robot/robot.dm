@@ -113,6 +113,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 
+	/// Integer used to determine self-mailing location, used only by drones and saboteur borgs
+	var/mail_destination = 0
+
 /mob/living/silicon/robot/get_cell()
 	return cell
 
