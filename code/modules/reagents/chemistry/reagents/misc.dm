@@ -333,9 +333,9 @@
 	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)
-    if(isanimal(M))
-        M.color = pick(GLOB.random_color_list)
-    ..()
+	if(isanimal(M))
+		M.color = pick(GLOB.random_color_list)
+	..()
 
 /datum/reagent/colorful_reagent/reaction_obj(obj/O, volume)
 	O.color = pick(GLOB.random_color_list)
