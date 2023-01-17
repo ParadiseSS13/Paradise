@@ -123,7 +123,7 @@
 				if(A.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two [A] to create a false wall!</span>")
 					return
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 2 SECONDS, target = src))
 					if(!loc || !A || A.get_amount() < 2)
 						return
 					A.use(2)
@@ -136,7 +136,7 @@
 					to_chat(user, "<span class='warning'>You need at least two [A] to add plating!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding [A]...</span>")
-				if(do_after(user,40, target = src))
+				if(do_after(user, 4 SECONDS, target = src))
 					if(!src || !A || A.get_amount() < 2)
 						return
 					A.use(2)
