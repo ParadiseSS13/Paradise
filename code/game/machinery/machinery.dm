@@ -13,7 +13,7 @@
 	var/power_state = IDLE_POWER_USE
 	/// Does this machine require power?
 	var/requires_power = TRUE
-	/// How much power does this machine consume when it is idleing
+	/// How much power does this machine consume when it is idling
 	var/idle_power_consumption = 0
 	/// How much power does this machine consume when it is in use
 	var/active_power_consumption = 0
@@ -30,8 +30,6 @@
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
-
-
 
 /obj/machinery/Initialize(mapload)
 	. = ..()

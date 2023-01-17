@@ -56,30 +56,6 @@
 	if(welded)
 		. += "It seems welded shut."
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/adjust_power_consumption()
-	if(stat & (NOPOWER|BROKEN))
-		return 0
-	if(!on || welded)
-		return 0
-
-	if(scrubbing)
-		var/amount = idle_power_consumption
-		if(scrub_CO2)
-			amount += idle_power_consumption
-		if(scrub_Toxins)
-			amount += idle_power_consumption
-		if(scrub_N2)
-			amount += idle_power_consumption
-		if(scrub_N2O)
-			amount += idle_power_consumption
-		if(widenet)
-			amount += amount * (length(adjacent_turfs) * (length(adjacent_turfs) / 2))
-		change_power_mode(ACTIVE_POWER_USE)
-		add_static_power(power_channel, (amount - active_power_consumption))
-		active_power_consumption = amount
-	else
-		change_power_mode(IDLE_POWER_USE)
-
 /obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
 	. = ..()
 	plane = FLOOR_PLANE

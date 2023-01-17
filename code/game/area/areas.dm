@@ -18,7 +18,7 @@
 	var/valid_territory = TRUE
 	/// Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/map_name
-	/// Is the lightswitching in this area on? Controls weather or not lights are on and off
+	/// Is the lightswitch in this area on? Controls whether or not lights are on and off
 	var/lightswitch = TRUE
 	/// If TRUE, the local powernet in this area will have all its power channels switched off
 	var/apc_starts_off = FALSE
@@ -92,7 +92,8 @@
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
-	create_powernet()
+	if(!powernet) // we may already have a powernet due to machine init, better to be safe than sorry
+		create_powernet() // no powernet yet, create one
 
 	//setting lighting
 	if(!requires_power)
