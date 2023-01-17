@@ -102,7 +102,7 @@
 	do_sparks(5, 1, get_turf(src))
 
 /obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
-	if(linked_pad)
+	if(linked_pad && !QDELETED(linked_pad))
 		ghost.forceMove(get_turf(linked_pad))
 
 /obj/machinery/quantumpad/proc/doteleport(mob/user)
