@@ -1020,7 +1020,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 			SetLockdown(0)
 			if(module)
-				module.emag_act()
+				module.emag_act(user)
 				module.module_type = "Malf" // For the cool factor
 				update_module_icon()
 				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
