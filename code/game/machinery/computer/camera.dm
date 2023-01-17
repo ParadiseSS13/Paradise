@@ -220,6 +220,8 @@
 	network = list("news")
 	luminosity = 0
 	circuit = null
+	/// Icon utilised when feeds_on is true
+	var/icon_screen_on = "entertainment"
 	/// Used to detect how many video cameras are active
 	var/feeds_on = 0
 
@@ -229,9 +231,9 @@
 
 /obj/machinery/computer/security/telescreen/entertainment/update_overlays()
 	if(feeds_on)
-		icon_screen = "entertainment"
+		icon_screen = icon_screen_on
 	else
-		icon_screen = "entertainment_off"
+		icon_screen = initial(icon_screen)
 	return ..()
 
 /obj/machinery/computer/security/telescreen/entertainment/power_change()
@@ -253,6 +255,17 @@
 /obj/machinery/computer/security/telescreen/entertainment/on_deconstruction()
 	. = ..()
 	new /obj/item/mounted/frame/display/entertainment_frame(drop_location())
+
+/obj/machinery/computer/security/telescreen/entertainment/television
+	name = "television"
+	desc = "A relic of a bygone age."
+	icon_state = "television"
+	icon_screen = null
+	icon_screen_on = "detective_tv"
+	density = TRUE
+
+/obj/machinery/computer/security/telescreen/entertainment/television/on_deconstruction()
+	return
 
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
