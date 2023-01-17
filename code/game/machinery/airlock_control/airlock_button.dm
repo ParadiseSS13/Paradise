@@ -45,16 +45,17 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 /obj/machinery/access_button/attack_hand(mob/user)
 	add_fingerprint(user)
 
-	if(!powered(power_channel))
+	var/obj/machinery/airlock_controller/C = locateUID(controller_uid)
+	if(!C)
+		to_chat(user, "<span class='warning'>Could not communicate with controller.</span>")
+		return
+
+	if(!C.powered(C.power_channel))
+		to_chat(user, "<span class='warning'>No response from controller, possibly offline.</span>")
 		return
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
-
-	var/obj/machinery/airlock_controller/C = locateUID(controller_uid)
-	if(!C)
-		to_chat(user, "<span class='warning'>Could not communicate with controller.</span>")
 		return
 
 	C.handle_button(assigned_command)
