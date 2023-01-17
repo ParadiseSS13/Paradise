@@ -25642,11 +25642,11 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_2)
 "cfy" = (
-/obj/machinery/door/airlock/engineering{
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining{
 	name = "Cargo Warehouse";
 	req_access_txt = "31"
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbrownfull"
