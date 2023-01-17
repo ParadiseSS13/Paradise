@@ -32,3 +32,29 @@
 		//Add the name to the UI manifest
 		ui_manifest += "[initial(AM.name)]"
 	manifest += "</ul>"
+
+/datum/supply_packs/proc/create_package(spawn_location)
+	var/obj/structure/closet/crate/crate = new containertype(spawn_location)
+
+	crate.name = containername
+	if(access)
+		crate.req_access = list(text2num(access))
+
+	//we now create the actual contents
+	for(var/typepath in generate_items())
+		if(!typepath)
+			continue
+		var/atom/A = new typepath(crate)
+		if(amount && A.vars.Find("amount") && A:amount) // This is sketchy as hell
+			A:amount = amount
+
+	return crate
+
+/datum/supply_packs/proc/generate_items()
+	return contains
+
+/datum/supply_packs/misc/randomised/generate_items()
+	. = list()
+	if(length(contains))
+		for(var/j in 1 to num_contained)
+			. += pick(contains)

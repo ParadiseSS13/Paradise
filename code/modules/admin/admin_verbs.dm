@@ -115,7 +115,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
-	/client/proc/admin_deserialize
+	/client/proc/admin_deserialize,
+	/datum/admins/proc/create_crate
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
