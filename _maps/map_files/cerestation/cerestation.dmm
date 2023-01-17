@@ -9519,6 +9519,7 @@
 "baw" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
+/obj/item/flashlight,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/port)
 "bax" = (
@@ -16331,6 +16332,7 @@
 	name = "custom placement"
 	},
 /obj/item/storage/briefcase/inflatable,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18097,6 +18099,8 @@
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
+/obj/item/flashlight,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33686,6 +33690,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
+/obj/item/flashlight,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fore)
 "cRL" = (
@@ -37083,6 +37088,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
+/obj/item/flashlight,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fpmaint)
 "djt" = (
@@ -56550,6 +56556,7 @@
 /obj/structure/table,
 /obj/item/twohanded/rcl/pre_loaded,
 /obj/item/twohanded/rcl/pre_loaded,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60223,6 +60230,7 @@
 "lmA" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
+/obj/item/flashlight,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/apmaint)
 "lmE" = (
@@ -60961,6 +60969,15 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fsmaint)
+"lAp" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay)
 "lAv" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -62196,6 +62213,7 @@
 "mee" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -68260,6 +68278,7 @@
 "oCZ" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/flashlight,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/hallway/primary/starboard/north)
 "oDb" = (
@@ -80502,9 +80521,6 @@
 	},
 /area/medical/medbay)
 "tly" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -85206,6 +85222,7 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -85873,6 +85890,7 @@
 /obj/structure/table,
 /obj/item/assembly/igniter,
 /obj/item/assembly/igniter,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -86984,6 +87002,7 @@
 	c_tag = "Arrivals SMES";
 	dir = 6
 	},
+/obj/item/flashlight,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/asmaint)
 "vSC" = (
@@ -144933,7 +144952,7 @@ hXi
 tQa
 cPm
 sTy
-nqG
+lAp
 tLf
 bJf
 nZp
