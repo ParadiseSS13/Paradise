@@ -369,7 +369,7 @@
 	if(is_pen(I))
 		if(open)
 			return
-		var/t = clean_input("Enter what you want to set the tag to tag:", "Write", null)
+		var/t = clean_input("Enter what you want to set the tag to:", "Write", null)
 		var/obj/item/pizzabox/boxtotagto = src
 		if(boxes.len > 0)
 			boxtotagto = boxes[boxes.len]
@@ -423,7 +423,8 @@
 //		Pizza bombs		//
 //////////////////////////
 /obj/item/pizzabox/pizza_bomb
-	var/timer = 10 //Adjustable timer
+	/// Adjustable timer
+	var/timer = 1 SECONDS
 	var/timer_set = FALSE
 	var/primed = FALSE
 	var/disarmed = FALSE
@@ -458,11 +459,11 @@
 			desc = "A box suited for pizzas."
 			icon_state = "pizzabox1"
 			return
-		timer = clamp(timer, 10, 100)
+		timer = clamp(timer, 1 SECONDS, 10 SECONDS)
 		icon_state = "pizzabox1"
 		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing [src].")
 		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
-		log_game("[key_name(usr)] has set the timer on a pizza bomb to [timer/10] seconds ([loc.x],[loc.y],[loc.z]).")
+		log_game("[key_name(usr)] has set the timer on a pizza bomb to [timer / 10] seconds ([loc.x],[loc.y],[loc.z]).")
 		armer = user
 		name = "pizza box"
 		desc = "A box suited for pizzas."
@@ -491,7 +492,7 @@
 	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
 	message_admins("A pizza bomb set by [key_name_admin(armer)] and opened by [key_name_admin(opener)] has detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 	log_game("Pizza bomb set by [key_name(armer)] and opened by [key_name(opener)]) detonated at ([loc.x],[loc.y],[loc.z]).")
-	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
+	explosion(loc, 1, 2, 4, flame_range = 2) //Identical to a minibomb
 	armer = null
 	opener = null
 	qdel(src)
@@ -511,7 +512,7 @@
 		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
 		sleep(5)
 		if(chosen_wire == correct_wire)
-			src.audible_message("<span class='warning'>[bicon(src)] [src] suddenly stops beeping and seems lifeless.</span>")
+			audible_message("<span class='warning'>[bicon(src)] [src] suddenly stops beeping and seems lifeless.</span>")
 			to_chat(user, "<span class='notice'>You did it!</span>")
 			icon_state = "pizzabox_bomb_[correct_wire]"
 			name = "pizza bomb"
@@ -534,8 +535,8 @@
 			user.visible_message("<span class='notice'>[user] removes the insides of [src]!</span>")
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
 			C.amount = 3
-			new /obj/item/bombcore/miniature(src.loc)
-			new /obj/item/pizzabox(src.loc)
+			new /obj/item/bombcore/miniature(loc)
+			new /obj/item/pizzabox(loc)
 			qdel(src)
 		return
 	..()
@@ -547,4 +548,4 @@
 
 /obj/item/pizzabox/pizza_bomb/autoarm
 	timer_set = TRUE
-	timer = 30 // 3 seconds
+	timer = 3 SECONDS
