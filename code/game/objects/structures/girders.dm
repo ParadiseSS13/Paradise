@@ -141,9 +141,9 @@
 						return
 					A.use(2)
 					to_chat(user, "<span class='notice'>You add [A].</span>")
-					var/turf/Tsrc = get_turf(src)
-					Tsrc.ChangeTurf(/turf/simulated/mineral/ancient)
-					for(var/turf/simulated/mineral/X in Tsrc.loc)
+					var/turf/parent_turf = get_turf(src)
+					parent_turf.ChangeTurf(/turf/simulated/mineral/ancient)
+					for(var/turf/simulated/mineral/X in parent_turf.loc)
 						X.add_hiddenprint(usr)
 					qdel(src)
 				return
