@@ -38,7 +38,7 @@
 	if(owner.reagents)
 		owner.reagents.del_reagent("holywater") //can't be deconverted
 	var/mob/living/summoner = locateUID(source_UID)
-	if(summoner in range(owner, 21))
+	if(get_dist_euclidian(summoner, owner) < 21)
 		return
 	owner.adjustBruteLoss(damage)
 	to_chat(owner, "<span class='userdanger'>You are too far away from the summoner!</span>")
