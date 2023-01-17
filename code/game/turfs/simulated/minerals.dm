@@ -197,7 +197,7 @@
 
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"
-	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond tools! Can not be used to create portals to hell."
+	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
 	mine_time = 15 SECONDS
 	color = COLOR_COLD_ANCIENT_ROCK
 	var/static/list/allowed_picks_typecache
