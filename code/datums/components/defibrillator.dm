@@ -262,6 +262,8 @@
 
 	// run through some quick failure states after shocking.
 
+	var/obj/item/organ/internal/brain/brain_org = target.get_organ_slot("brain")
+
 	if(tplus > tlimit || (!target.get_int_organ(/obj/item/organ/internal/heart || !target.get_int_organ(/obj/item/organ/internal/brain/slime))))
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 		defib_success = FALSE
@@ -274,8 +276,8 @@
 	else if (target.blood_volume < BLOOD_VOLUME_SURVIVE)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>")
 		defib_success = FALSE
-	else if(!brain)  // so things like headless clings don't get outed
-		user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - No brain detected within patient.</span>")
+	else if(!istype(brain_org))  // so things like headless clings don't get outed
+		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>")
 		defib_success = FALSE
 	else if(ghost)
 		if(!ghost.can_reenter_corpse) // DNR or AntagHUD
