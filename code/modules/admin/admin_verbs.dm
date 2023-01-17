@@ -1021,7 +1021,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 	switch(alert_type)
 		if("Yes")
-			var/message = "An admin is trying to talk to you!<br>Check your chat window and click their name to respond or you may be banned!"
+			var/message = "An admin is trying to talk to you!\nCheck your chat window and click their name to respond or you may be banned!"
 			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
 			log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
 			message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
