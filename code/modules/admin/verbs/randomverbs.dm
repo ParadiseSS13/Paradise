@@ -1193,7 +1193,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/create_crate(object as text)
 	set name = "Create Crate"
-	set desc = "Spawn an crate from a supplypack datum. Append a period to the text in order to exclude subtypes of paths matching the input."
+	set desc = "Spawn a crate from a supplypack datum. Append a period to the text in order to exclude subtypes of paths matching the input."
 	set category = "Event"
 
 	if(!check_rights(R_SPAWN))

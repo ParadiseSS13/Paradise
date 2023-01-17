@@ -33,7 +33,7 @@
 		ui_manifest += "[initial(AM.name)]"
 	manifest += "</ul>"
 
-/datum/supply_packs/proc/create_package(spawn_location)
+/datum/supply_packs/proc/create_package(/atom/spawn_location)
 	var/obj/structure/closet/crate/crate = new containertype(spawn_location)
 
 	crate.name = containername
