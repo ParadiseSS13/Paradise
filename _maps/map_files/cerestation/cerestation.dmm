@@ -29451,6 +29451,15 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/apmaint)
+"czV" = (
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/central)
 "czZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -43418,6 +43427,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -46179,6 +46191,16 @@
 	icon_state = "white"
 	},
 /area/medical/cmostore)
+"fJD" = (
+/obj/structure/table,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "escape"
+	},
+/area/hallway/secondary/exit)
 "fJJ" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -50487,6 +50509,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -52124,6 +52149,9 @@
 /obj/machinery/camera{
 	c_tag = "Bridge West";
 	dir = 1
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -60700,6 +60728,16 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/starboard)
+"luL" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/aft/west)
 "lva" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -61921,6 +61959,22 @@
 /obj/machinery/computer/drone_control,
 /turf/simulated/floor/plating,
 /area/maintenance/storage)
+"lXp" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "lXM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -69477,6 +69531,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
+"pay" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplecorner"
+	},
+/area/hallway/primary/aft/east)
 "paK" = (
 /obj/machinery/disposal/deliveryChute{
 	dir = 4
@@ -73113,6 +73179,21 @@
 	icon_state = "whitepurplefull"
 	},
 /area/toxins/xenobiology)
+"qqb" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/starboard/south)
 "qqd" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -73789,6 +73870,16 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
+"qCB" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/fore/west)
 "qCD" = (
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -79236,6 +79327,16 @@
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/sercom)
+"sLi" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/port/south)
 "sLH" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
@@ -79784,6 +79885,15 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
+"sXD" = (
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "sXR" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -80849,6 +80959,9 @@
 /area/maintenance/starboard)
 "trx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -91890,7 +92003,6 @@
 	dir = 10
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = null;
 	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment/corner{
@@ -109451,7 +109563,7 @@ dKQ
 ewR
 fOA
 gAT
-fOA
+qCB
 ipv
 iZi
 fOA
@@ -109513,7 +109625,7 @@ bRj
 bSf
 gqA
 gqA
-gqA
+sLi
 bUM
 rhT
 gqA
@@ -109546,7 +109658,7 @@ dqK
 uoi
 pmH
 uoi
-uoi
+luL
 tYY
 kcx
 uoi
@@ -118682,7 +118794,7 @@ qSK
 btY
 aHa
 cGn
-aJe
+sXD
 bWo
 aKP
 rGm
@@ -120091,7 +120203,7 @@ ccW
 izC
 cia
 ciG
-tuF
+pay
 pQN
 wsR
 vru
@@ -127724,7 +127836,7 @@ aYJ
 aYJ
 uKX
 bfa
-buQ
+czV
 aYJ
 bhQ
 dcG
@@ -138531,7 +138643,7 @@ tjS
 tGN
 bxN
 dDG
-bxN
+qqb
 bxN
 bxN
 bxN
@@ -139883,7 +139995,7 @@ vHw
 chI
 ckr
 ckW
-wby
+lXp
 xMQ
 rNK
 rNK
@@ -143213,7 +143325,7 @@ ciV
 aQj
 lwE
 uKT
-cQp
+fJD
 cQp
 oNg
 iTC
