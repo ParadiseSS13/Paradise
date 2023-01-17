@@ -1190,3 +1190,59 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					if(!source)
 						return
 			REMOVE_TRAIT(D, chosen_trait, source)
+
+/client/proc/create_crate(object as text)
+	set name = "Create Crate"
+	set desc = "Spawn an crate from a supplypack datum. Append a period to the text in order to exclude subtypes of paths matching the input."
+	set category = "Event"
+
+	if(!check_rights(R_SPAWN))
+		return
+
+	var/list/types = list()
+	for(var/typepath in subtypesof(/datum/supply_packs))
+		var/datum/supply_packs/P = typepath
+		if(initial(P.name) == "HEADER")
+			continue // To filter out group headers
+		types += P
+
+	var/list/matches = list()
+
+	var/include_subtypes = TRUE
+	if(copytext(object, -1) == ".")
+		include_subtypes = FALSE
+		object = copytext(object, 1, -1)
+
+	if(include_subtypes)
+		for(var/path in types)
+			if(findtext("[path]", object))
+				matches += path
+	else
+		var/needle_length = length(object)
+		for(var/path in types)
+			if(copytext("[path]", -needle_length) == object)
+				matches += path
+
+	if(!length(matches))
+		return
+
+	var/chosen
+	if(length(matches) == 1)
+		chosen = matches[1]
+	else
+		chosen = input("Select a supply crate type", "Create Crate", matches[1]) as null|anything in matches
+
+	if(!chosen)
+		return
+
+	var/datum/supply_packs/the_pack = new chosen(get_turf(usr))
+	if(!istype(the_pack))
+		to_chat(usr, "<span class='userdanger'>Something went wrong with spawning [the_pack], it wasnt a supply_packs path it was [the_pack.type].</span>")
+	var/obj/structure/closet/crate/crate = the_pack.create_package(get_turf(usr))
+	crate.admin_spawned = TRUE
+	for(var/atom/A in crate.contents)
+		A.admin_spawned = TRUE
+	qdel(the_pack)
+
+	log_admin("[key_name(usr)] created a '[chosen]' crate at ([usr.x],[usr.y],[usr.z])")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Crate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
