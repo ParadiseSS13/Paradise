@@ -497,6 +497,7 @@
 	..()
 	name = "See with the Eyes of God"
 	button.name = name
+
 /datum/action/item_action/voice_changer/toggle
 	name = "Toggle Voice Changer"
 
