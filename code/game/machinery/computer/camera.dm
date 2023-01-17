@@ -270,6 +270,7 @@
 
 /obj/machinery/computer/security/telescreen/entertainment/television/on_deconstruction()
 	return
+
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
 	desc = "An old TV hooked into the station's camera network."
