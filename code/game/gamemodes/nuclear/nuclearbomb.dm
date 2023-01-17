@@ -198,7 +198,7 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(auth || (istype(I, /obj/item/screwdriver/nuke)))
+	if(auth || (istype(I, /obj/item/screwdriver/nuke) && !is_syndicate))
 		if(!panel_open)
 			panel_open = TRUE
 			to_chat(user, "You unscrew the control panel of [src].")
@@ -588,16 +588,28 @@ GLOBAL_VAR(bomb_set)
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
-	if(length(GLOB.nukedisc_respawn))
+	var/turf/new_spawn = find_respawn()
+	if(new_spawn)
 		GLOB.poi_list.Remove(src)
-		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.nukedisc_respawn))
+		var/obj/item/disk/nuclear/NEWDISK = new(new_spawn)
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")
 		return QDEL_HINT_HARDDEL_NOW
 	else
-		error("[src] was supposed to be destroyed, but we were unable to locate a nukedisc_respawn landmark to spawn a new one.")
+		error("[src] was supposed to be destroyed, but we were unable to locate a nukedisc_respawn landmark or open surroundings to spawn a new one.")
 	return QDEL_HINT_LETMELIVE // Cancel destruction unless forced.
+
+/obj/item/disk/nuclear/proc/find_respawn()
+	var/list/possible_spawns = GLOB.nukedisc_respawn
+	while(length(possible_spawns))
+		var/turf/current_spawn = pick_n_take(possible_spawns)
+		if(!current_spawn.density)
+			return current_spawn
+		// Someone built a wall over it, check the surroundings
+		var/list/open_turfs = current_spawn.AdjacentTurfs(open_only = TRUE)
+		if(length(open_turfs))
+			return pick(open_turfs)
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF

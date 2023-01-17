@@ -355,6 +355,7 @@
 #include "code\datums\components\_component.dm"
 #include "code\datums\components\caltrop.dm"
 #include "code\datums\components\decal.dm"
+#include "code\datums\components\defibrillator.dm"
 #include "code\datums\components\ducttape.dm"
 #include "code\datums\components\edit_complainer.dm"
 #include "code\datums\components\emissive_blocker.dm"
