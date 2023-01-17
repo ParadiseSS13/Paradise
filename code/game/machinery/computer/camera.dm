@@ -264,9 +264,12 @@
 	icon_screen_on = "detective_tv"
 	density = TRUE
 
+/obj/machinery/computer/security/telescreen/entertainment/television/wrench_act(mob/living/user, obj/item/I)
+	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
+		return TRUE
+
 /obj/machinery/computer/security/telescreen/entertainment/television/on_deconstruction()
 	return
-
 /obj/machinery/computer/security/wooden_tv
 	name = "security camera monitor"
 	desc = "An old TV hooked into the station's camera network."
