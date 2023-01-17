@@ -265,6 +265,7 @@
 		return
 	check_surroundings()
 	START_PROCESSING(SSobj, src)
+	RegisterSignal(linked_node, COMSIG_PARENT_QDELETING, PROC_REF(clear_linked_node))
 
 /obj/structure/alien/weeds/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -273,6 +274,11 @@
 	linked_node = null
 	clear_wall_weed()
 	return ..()
+
+/obj/structure/alien/weeds/proc/clear_linked_node()
+	SIGNAL_HANDLER
+	UnregisterSignal(linked_node, COMSIG_PARENT_QDELETING)
+	linked_node = null
 
 /obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
@@ -286,6 +292,8 @@
         check_counter = 0
 
 /obj/structure/alien/weeds/proc/clear_wall_weed()
+	if(wall_weed)
+		wall_weed.weed = null
 	QDEL_NULL(wall_weed)
 
 /obj/structure/alien/weeds/proc/check_surroundings()
@@ -323,7 +331,7 @@
 		return
 
 	if(!wall_weed || QDELETED(wall_weed))
-		wall_weed = new(get_turf(src))
+		wall_weed = new /obj/structure/alien/wallweed(T, src)
 
 	wall_weed.compare_overlays(wall_dirs)
 
@@ -362,10 +370,17 @@
 	plane = GAME_PLANE
 
 	max_integrity = 15
+	var/obj/structure/alien/weeds/weed
 	var/list/overlay_list = list()
+
+/obj/structure/alien/wallweed/Initialize(mapload, weed_owner)
+	. = ..()
+	weed = weed_owner
 
 /obj/structure/alien/wallweed/Destroy()
 	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	if(weed)
+		weed.wall_weed = null
 	return ..()
 
 /obj/structure/alien/wallweed/proc/compare_overlays(list/wall_dirs)

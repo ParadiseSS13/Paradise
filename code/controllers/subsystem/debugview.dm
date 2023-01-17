@@ -7,6 +7,10 @@ SUBSYSTEM_DEF(debugview)
 	var/list/client/processing = list()
 
 /datum/controller/subsystem/debugview/fire(resumed)
+	// Dont generate text if no one is there to look at it
+	if(!length(processing))
+		return
+
 	// Generate debug text
 	var/list/entries = list()
 	entries += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"

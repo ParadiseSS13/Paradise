@@ -38,17 +38,21 @@
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
 	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
