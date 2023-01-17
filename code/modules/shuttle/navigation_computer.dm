@@ -147,7 +147,7 @@
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
 
-	QDEL_LIST(the_eye.placed_images)
+	QDEL_LIST_CONTENTS(the_eye.placed_images)
 
 	for(var/V in the_eye.placement_images)
 		var/image/I = V

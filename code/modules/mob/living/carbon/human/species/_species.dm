@@ -191,8 +191,8 @@
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
-	QDEL_LIST(H.internal_organs)
-	QDEL_LIST(H.bodyparts)
+	QDEL_LIST_CONTENTS(H.internal_organs)
+	QDEL_LIST_CONTENTS(H.bodyparts)
 
 	LAZYREINITLIST(H.bodyparts)
 	LAZYREINITLIST(H.bodyparts_by_name)

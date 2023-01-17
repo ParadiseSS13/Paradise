@@ -70,6 +70,7 @@ SUBSYSTEM_DEF(atoms)
 		for(var/I in late_loaders)
 			var/atom/A = I
 			A.LateInitialize()
+			CHECK_TICK
 		if(noisy)
 			log_startup_progress("Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
 		else

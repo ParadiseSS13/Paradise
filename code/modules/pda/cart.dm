@@ -16,8 +16,8 @@
 	var/list/messenger_plugins = list()
 
 /obj/item/cartridge/Destroy()
-	QDEL_LIST(programs)
-	QDEL_LIST(messenger_plugins)
+	QDEL_LIST_CONTENTS(programs)
+	QDEL_LIST_CONTENTS(messenger_plugins)
 	return ..()
 
 /obj/item/cartridge/proc/update_programs(obj/item/pda/pda)
