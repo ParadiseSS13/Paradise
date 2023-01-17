@@ -170,15 +170,50 @@
 	mineralType = /obj/item/stack/ore/glass/basalt/ancient
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
+/turf/simulated/mineral/ancient/attackby(obj/item/I, mob/user, params)
+	if(!user.IsAdvancedToolUser())
+		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		return
+
+	if(istype(I, /obj/item/pickaxe))
+		var/obj/item/pickaxe/P = I
+		var/turf/T = user.loc
+		if(!isturf(T))
+			return
+
+		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
+			return
+		last_act = world.time
+		to_chat(user, "<span class='notice'>You start picking...</span>")
+		P.playDigSound()
+
+		if(do_after(user, mine_time * P.toolspeed, target = src))
+			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
+				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
+				gets_drilled(user)
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
+	else
+		return attack_hand(user)
+
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"
-	desc = "A rare and dense asteroid rock that appears to be resistant to all mining tools except diamond pickaxes! Can not be used to create portals to hell."
+	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond tools! Can not be used to create portals to hell."
 	mine_time = 15 SECONDS
 	color = COLOR_COLD_ANCIENT_ROCK
+	var/static/list/allowed_picks_typecache
+
+/turf/simulated/mineral/ancient/outer/Initialize(mapload)
+	. = ..()
+	allowed_picks_typecache = typecacheof(list(
+			/obj/item/pickaxe/drill/jackhammer,
+			/obj/item/pickaxe/diamond,
+			/obj/item/pickaxe/drill/cyborg/diamond,
+			/obj/item/pickaxe/drill/diamonddrill,
+			))
 
 /turf/simulated/mineral/ancient/outer/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe) && !istype(I, /obj/item/pickaxe/diamond))
-		to_chat(user, "<span class='notice'>Only a diamond pickaxe can break this rock.</span>")
+	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
+		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
 		return
 	return ..()
 

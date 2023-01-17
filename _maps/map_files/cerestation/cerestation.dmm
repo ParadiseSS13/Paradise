@@ -13925,6 +13925,12 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
+"bqG" = (
+/mob/living/simple_animal/mouse/white,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/starboard)
 "bqK" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -52602,7 +52608,6 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/mob/living/simple_animal/mouse/white,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -61031,6 +61036,19 @@
 "lBh" = (
 /turf/simulated/mineral/ancient/outer,
 /area/maintenance/auxsolarport)
+"lBr" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/starboard)
 "lBB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -90117,9 +90135,6 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
-	},
-/obj/machinery/light/small{
-	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -144836,7 +144851,7 @@ xyF
 sVv
 yfZ
 gFg
-gFg
+bqG
 mqf
 aZN
 aZM
@@ -146125,7 +146140,7 @@ fed
 ahc
 aZD
 vFQ
-vFQ
+lBr
 wYO
 aZM
 fMl
