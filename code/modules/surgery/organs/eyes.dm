@@ -213,7 +213,7 @@
 #define BOTH_SHATTERED 2
 
 /obj/item/organ/internal/eyes/cybernetic/eyesofgod //no occuline allowed
-	name = "\improper Eyes of god"
+	name = "\improper Eyes of the Gods"
 	desc = "Two eyes said to belong to the gods. But such vision comes at a price"
 	icon_state = "eyesofgod"
 	eye_color = "#58a5ec"
@@ -259,7 +259,7 @@
 				heal_internal_damage(0.25, 1)
 	else
 		owner.mob_light("#58a5ec", 3, _duration = 2 SECONDS)
-		receive_damage(2, 1)
+		receive_damage(1.5, 1)
 		for(var/obj/O in range(7, owner))
 			var/turf/T = get_turf(O)
 			for(var/mob/M in O.contents)
@@ -272,7 +272,7 @@
 				if(prob(50))
 					to_chat(owner, "<span class='warning'>Your eyes are hurting a lot!</span>")
 			if(30 to 54)
-				receive_damage(0.5, 1) //more pain when damaged
+				receive_damage(0.75, 1) //more pain when damaged
 			if(55 to 60)
 				if(prob(50))
 					to_chat(owner, "<span class='warning'>Your eyes feel like they are going to explode!</span>")

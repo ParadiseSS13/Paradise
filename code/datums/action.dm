@@ -495,7 +495,7 @@
 
 /datum/action/item_action/organ_action/use/eyesofgod/New(target)
 	..()
-	name = "See with the Eyes of God"
+	name = "See with the Eyes of the Gods"
 	button.name = name
 
 /datum/action/item_action/voice_changer/toggle
