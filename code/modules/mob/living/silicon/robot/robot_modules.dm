@@ -651,7 +651,7 @@
 
 // Sydicate engineer/sabotuer cyborg module.
 /obj/item/robot_module/syndicate_saboteur
-	name = "engineering robot module" //to disguise in examine
+	name = "saboteur robot module" // Disguises are handled in the actual cyborg projector
 	module_type = "Malf"
 	basic_modules = list(
 		/obj/item/flash/cyborg,
