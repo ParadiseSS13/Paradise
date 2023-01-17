@@ -41,7 +41,7 @@
 	if(summoner in range(owner, 21))
 		return
 	owner.adjustBruteLoss(damage)
-	to_chat(owner, "<span class='warning'>You are too far away from the summoner!</span>")
+	to_chat(owner, "<span class='userdanger'>You are too far away from the summoner!</span>")
 
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
