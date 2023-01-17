@@ -7,16 +7,20 @@ html, body {
 	padding: 0;
 	margin: 0;
 	height: 100%;
-	color: #fff;
+	color: #a4bad6;
 }
 body {
-	background: #151515;
+	background: #171717;
 	font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 9pt;
+	color: #a4bad6;
 	line-height: 1.2;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	word-wrap: break-word;
+	scrollbar-face-color:#1A1A1A;
+	scrollbar-track-color:#171717;
+	scrollbar-highlight-color:#171717;
 }
 h1, h2, h3, h4, h5, h6 {color: #06f; font-family: Georgia, Verdana, sans-serif;}
 
@@ -68,22 +72,21 @@ font-size: 14px;
 	bottom: 0;
 	right: 0;
 	padding: 8px;
-	background: #ddd;
+	background: #202020;
 	text-decoration: none;
 	font-variant: small-caps;
 	font-size: 1.1em;
 	font-weight: bold;
-	color: #333;
+	color: #a4bad6;
 }
-#newMessages:hover {background: #ccc;}
+#newMessages:hover {background: #171717;}
 #newMessages i {vertical-align: middle; padding-left: 3px;}
 #ping {
 	position: fixed;
 	top: 0;
 	right: 40px;
 	width: 45px;
-	background: #ddd;
-	color: #000;
+	background: #202020;
 	height: 30px;
 	padding: 8px 0 2px 0;
 }
@@ -92,7 +95,6 @@ font-size: 14px;
 	display: block;
 	text-align: center;
 	font-size: 8pt;
-	color: #000;
 	padding-top: 2px;
 }
 #options {
@@ -101,19 +103,19 @@ font-size: 14px;
 	right: 0;
 }
 #options a {
-	background: #ddd;
+	background: #202020;
 	height: 30px;
 	padding: 5px 0;
 	display: block;
-	color: #333;
+	color: #a4bad6;
 	text-decoration: none;
 	line-height: 28px;
 	border-top: 1px solid #b4b4b4;
 }
-#options a:hover {background: #ccc;}
+#options a:hover {background: #202020;}
 #options .toggle {
 	width: 40px;
-	background: #ccc;
+	background: #202020;
 	border-top: 0;
 	float: right;
 	text-align: center;
@@ -264,7 +266,7 @@ em				{font-style: normal;font-weight: bold;}
 .playerreply			{color: #8800bb;font-weight: bold;}
 .pmsend				{color: #6685f5;}
 .name				{font-weight: bold;}
-.say				{color: #E8EBED}
+.say				{color: #a4bad6}
 .yell				{font-weight: bold;}
 .siliconsay			{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #e2c1ff;}
@@ -284,16 +286,17 @@ em				{font-style: normal;font-weight: bold;}
 .srvradio				{color: #bbd164;}
 .proradio				{color: #b84f92;}
 .admin_channel			{color: #03fc9d;font-weight: bold;}
+.all_admin_ping			{color: #12A5F4;	font-weight: bold; font-size: 120%; text-align: center;}
 .mentor_channel			{color: #775BFF;font-weight: bold;}
 .mentor_channel_admin  		{color: #A35CFF;font-weight: bold;}
 .djradio				{color: #996600;}
 .binaryradio			{color: #1B00FB;font-family: 'Courier New', Courier, monospace;}
 .mommiradio			{color: #6685f5;}
 .alert				{color: #d82020;}
-h1.alert, h2.alert			{color: #FFF;}
+h1.alert, h2.alert			{color: #a4bad6;}
 .ghostalert			{color: #cc00c6;font-style: italic; font-weight: bold;}
 .emote				{font-style: italic;}
-.selecteddna			{color: #FFFFFF; 	background-color: #001B1B}
+.selecteddna			{color: #a4bad6; 	background-color: #001B1B}
 
 .attack				{color: #ff0000;}
 .moderate			{color: #CC0000;}
@@ -428,7 +431,7 @@ h1.alert, h2.alert			{color: #FFF;}
 span.body .codephrases 		{color: #5555FF;}
 span.body .coderesponses 		{color: #FF3333;}
 
-.announcement h1, .announcement h2 { color: #fff; margin: 8pt 0; line-height: 1.2; }
+.announcement h1, .announcement h2 { color: #a4bad6; margin: 8pt 0; line-height: 1.2; }
 .announcement p { color: #d82020; line-height: 1.3; }
 .announcement.minor h1 { font-size: 180%; }
 .announcement.minor h2 { font-size: 170%; }

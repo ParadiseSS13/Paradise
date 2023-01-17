@@ -197,6 +197,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EDIBLE_BUG		"edible_bug" // Lets lizards and other animals that can eat bugs eat ya
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
 #define TRAIT_SOAPY_MOUTH		"soapy_mouth"
+#define TRAIT_UNREVIVABLE 		"unrevivable" // Prevents changeling revival
+
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.

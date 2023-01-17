@@ -331,7 +331,7 @@
 			// This also has to be manually done since no mob to use check_rights() on
 			deadmin()
 			verbs += /client/proc/readmin
-			GLOB.deadmins += ckey
+			GLOB.de_admins += ckey
 
 		else
 			on_holder_add()
@@ -924,33 +924,33 @@
 	///// BUTTONS /////
 	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
-	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.wikib", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.webmap", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.forumb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
 	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "outputwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#272727")
-	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
-	winset(src, "mainwindow.tooltip", "background-color=#272727")
+	winset(src, "mainwindow", "background-color=#171717")
+	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
+	winset(src, "mainwindow.tooltip", "background-color=#171717")
 	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=#1d1d1d")
-	winset(src, "outputwindow.browseroutput", "background-color=#272727")
+	winset(src, "outputwindow", "background-color=#202020")
+	winset(src, "outputwindow.browseroutput", "background-color=#202020")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#1d1d1d")
-	winset(src, "rpane.rpanewindow", "background-color=#1d1d1d")
+	winset(src, "rpane", "background-color=#202020")
+	winset(src, "rpane.rpanewindow", "background-color=#202020")
 	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#272727")
-	winset(src, "browserwindow.browser", "background-color=#272727")
+	winset(src, "browserwindow", "background-color=#171717")
+	winset(src, "browserwindow.browser", "background-color=#171717")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#1d1d1d;text-color=#FFFFFF")
-	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#1d1d1d")
+	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
+	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 

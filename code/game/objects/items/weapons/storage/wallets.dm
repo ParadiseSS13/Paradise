@@ -26,6 +26,9 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver,
 		/obj/item/stamp)
+	cant_hold = list(
+		/obj/item/screwdriver/power
+	)
 	slot_flags = SLOT_ID
 
 	var/obj/item/card/id/front_id = null
