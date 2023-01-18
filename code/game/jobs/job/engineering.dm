@@ -93,6 +93,8 @@
 	department_head = list("Chief Engineer", "Station Engineer")
 	selection_color = "#fff5cc"
 	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/engineer/trainee
 
 /datum/outfit/job/engineer/trainee

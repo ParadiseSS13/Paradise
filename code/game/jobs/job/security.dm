@@ -206,6 +206,8 @@
 	department_head = list("Head of Security", "Security Officer")
 	selection_color = "#ffeeee"
 	alt_titles = list("Security Assistant", "Security Graduate")
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer/cadet
 
 /datum/outfit/job/officer/cadet

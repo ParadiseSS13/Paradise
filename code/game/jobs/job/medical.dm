@@ -87,6 +87,8 @@
 	department_head = list("Chief Medical Officer", "Medical Doctor")
 	selection_color = "#ffeef0"
 	alt_titles = list("Student Medical Doctor", "Medical Assistant")
+	exp_requirements = 180
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/doctor/intern
 
 /datum/outfit/job/doctor/intern
