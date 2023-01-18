@@ -75,3 +75,4 @@
 		stored_mop = null
 		update_icon(UPDATE_OVERLAYS)
 		return
+
