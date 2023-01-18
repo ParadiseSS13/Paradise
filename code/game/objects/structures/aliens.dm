@@ -289,8 +289,9 @@
         check_counter = 0
 
 /obj/structure/alien/weeds/proc/clear_wall_weed()
-	if(wall_weed)
+	if(wall_weed && !QDELETED(wall_weed))
 		wall_weed.weed = null
+		wall_weed.silent_removal = TRUE
 	QDEL_NULL(wall_weed)
 
 /obj/structure/alien/weeds/proc/check_surroundings()
@@ -386,7 +387,10 @@
 	weed = weed_owner
 
 /obj/structure/alien/wallweed/Destroy()
-	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	if(!silent_removal)
+		playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	if(weed)
+		weed.wall_weed = null
 	return ..()
 
 /obj/structure/alien/wallweed/proc/compare_overlays(list/wall_dirs)
