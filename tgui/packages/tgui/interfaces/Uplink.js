@@ -62,13 +62,40 @@ export const Uplink = (props, context) => {
 
 const ItemsPage = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { crystals, cats } = data;
+  const { crystals, cats, sort_mode } = data;
   // Default to first
-  const [uplinkCat, setUplinkCat] = useLocalState(
+  const [uplinkItems, setUplinkItems] = useLocalState(
     context,
-    'uplinkTab',
-    cats[0]
+    'uplinkItems',
+    cats[0].items
   );
+
+  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
+  const SelectEquipment = (cat, searchText = "") => {
+    const EquipmentSearch = createSearch(searchText, item => {
+      let is_hijack = item.hijack_only === 1 ? "|" + "hijack" : ""
+      return (
+        item.name +
+        '|' +
+        item.desc +
+        '|' +
+        item.cost + "tc" +
+        is_hijack);
+    });
+    return flow([
+      filter(item => item?.name), // Make sure it has a name
+      searchText && filter(EquipmentSearch), // Search for anything
+      sortBy(item => item?.name), // Sort by name
+    ])(cat);
+  };
+  const handleSearch = (value) => {
+    if(value === ""){
+      return setUplinkItems(cats[0].items);
+    }
+    setSearchText(value);
+    setUplinkItems(SelectEquipment(cats.map(category => category.items).flat(), value));
+  };
+
   return (
     <Section
       title={'Current Balance: ' + crystals + 'TC'}
@@ -87,14 +114,26 @@ const ItemsPage = (_properties, context) => {
         </Fragment>
       }
     >
+      <Input
+        fluid
+        mb={1.5}
+        placeholder="Search Equipment"
+        onInput={(e, value) => {
+          handleSearch(value);
+        }}
+        value={searchText}
+      />
       <Flex>
         <FlexItem>
           <Tabs vertical>
             {cats.map((c) => (
               <Tabs.Tab
                 key={c}
-                selected={c === uplinkCat}
-                onClick={() => setUplinkCat(c)}
+                selected={searchText !== "" ? false : c.items === uplinkItems}
+                onClick={() => {
+                  setUplinkItems(c.items);
+                  setSearchText("");
+                  }}
               >
                 {c.cat}
               </Tabs.Tab>
@@ -102,7 +141,7 @@ const ItemsPage = (_properties, context) => {
           </Tabs>
         </FlexItem>
         <Flex.Item grow={1} basis={0}>
-          {uplinkCat.items.map((i) => (
+          {uplinkItems.map((i) => (
             <Section
               key={decodeHtmlEntities(i.name)}
               title={decodeHtmlEntities(i.name)}
