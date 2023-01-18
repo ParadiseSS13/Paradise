@@ -243,7 +243,9 @@
 	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
+	armour_penetration = 0
 	var/chain
+	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
 /obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
@@ -253,6 +255,9 @@
 /obj/item/projectile/tentacle/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		intent = firer.a_intent
+		if (intent == INTENT_DISARM)
+			armour_penetration = 100   //ignore block_chance
 	..()
 
 /obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/H)
@@ -320,7 +325,7 @@
 		if(!L.anchored && !L.throwing)//avoid double hits
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
-				switch(firer.a_intent)
+				switch(intent)
 					if(INTENT_HELP)
 						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
@@ -329,9 +334,15 @@
 						return 1
 
 					if(INTENT_DISARM)
-						var/obj/item/I = C.get_active_hand()
+						var/obj/item/I = C.l_hand
+						if(!istype(I, /obj/item/shield))  //shield is priotity target
+							I = C.r_hand
+							if(!istype(I, /obj/item/shield))
+								I = C.get_active_hand()
+								if(!I)
+									I = C.get_inactive_hand()
 						if(I)
-							if(C.drop_item())
+							if(C.unEquip(I))
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
 								add_attack_logs(src, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
