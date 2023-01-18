@@ -69,7 +69,7 @@ export const Uplink = (props, context) => {
 
 const ItemsPage = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { crystals, cats, sort_mode } = data;
+  const { crystals, cats } = data;
   // Default to first
   const [uplinkItems, setUplinkItems] = useLocalState(
     context,
