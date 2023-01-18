@@ -80,7 +80,6 @@
 	name = "advanced mop"
 	mopcap = 10
 	icon_state = "advmop"
-	item_state = "mop"
 	origin_tech = "materials=3;engineering=3"
 	force = 6
 	throwforce = 8
