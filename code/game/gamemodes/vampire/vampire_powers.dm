@@ -40,7 +40,7 @@
 		to_chat(user, "<span class='warning'>Для этого вам потребуется не менее [required_blood] единиц крови!</span>")
 		return 0
 	//chapel check
-	if(istype(loc.loc, /area/chapel) && !fullpower)
+	if(istype(loc.loc, /area/chapel) || istype(loc.loc, /area/maintenance/chapel) && !fullpower)
 		to_chat(user, "<span class='warning'>Ваши силы не действуют на этой святой земле.</span>")
 		return 0
 	return ..()
@@ -65,7 +65,7 @@
 		return 0
 	if(vampire.bloodusable < required_blood)
 		return 0
-	if(istype(loc.loc, /area/chapel) && !fullpower)
+	if(istype(loc.loc, /area/chapel) || istype(loc.loc, /area/maintenance/chapel) && !fullpower)
 		return 0
 	return ..()
 
