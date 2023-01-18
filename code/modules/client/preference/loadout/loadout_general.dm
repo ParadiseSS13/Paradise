@@ -75,7 +75,7 @@
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
 
 /datum/gear/cryaonbox
 	display_name = "a box of crayons"
@@ -213,25 +213,25 @@
 /datum/gear/mug/department/eng
 	display_name = "engineer coffee mug"
 	description = "An engineer's coffee mug, emblazoned in the colors of the Engineering department."
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist")
 	path = /obj/item/reagent_containers/food/drinks/mug/eng
 
 /datum/gear/mug/department/med
 	display_name = "doctor coffee mug"
 	description = "A doctor's coffee mug, emblazoned in the colors of the Medical department."
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
 	path = /obj/item/reagent_containers/food/drinks/mug/med
 
 /datum/gear/mug/department/sci
 	display_name = "scientist coffee mug"
 	description = "A scientist's coffee mug, emblazoned in the colors of the Science department."
-	allowed_roles = list("Research Director", "Scientist", "Roboticist")
+	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Student Scientist", "Roboticist")
 	path = /obj/item/reagent_containers/food/drinks/mug/sci
 
 /datum/gear/mug/department/sec
 	display_name = "officer coffee mug"
 	description = "An officer's coffee mug, emblazoned in the colors of the Security department."
-	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Pod Pilot", "Brig Physician", "Internal Affairs Agent")
+	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer", "Security Cadet", "Security Pod Pilot", "Brig Physician", "Internal Affairs Agent")
 	path = /obj/item/reagent_containers/food/drinks/mug/sec
 
 /datum/gear/mug/department/serv

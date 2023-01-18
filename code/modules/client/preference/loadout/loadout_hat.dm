@@ -6,17 +6,17 @@
 /datum/gear/hat/hhat_yellow
 	display_name = "hardhat, yellow"
 	path = /obj/item/clothing/head/hardhat
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist")
 
 /datum/gear/hat/hhat_orange
 	display_name = "hardhat, orange"
 	path = /obj/item/clothing/head/hardhat/orange
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist")
 
 /datum/gear/hat/hhat_blue
 	display_name = "hardhat, blue"
 	path = /obj/item/clothing/head/hardhat/dblue
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer", "Mechanic", "Life Support Specialist")
 
 /datum/gear/hat/that
 	display_name = "top hat"
@@ -57,12 +57,12 @@
 /datum/gear/hat/capcsec
 	display_name = "security corporate cap"
 	path = /obj/item/clothing/head/soft/sec/corp
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
 
 /datum/gear/hat/capsec
 	display_name = "security cap"
 	path = /obj/item/clothing/head/soft/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
 
 /datum/gear/hat/capred
 	display_name = "cap, red"
@@ -143,12 +143,12 @@
 /datum/gear/hat/beret_job/sec
 	display_name = "security beret"
 	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
 
 /datum/gear/hat/beret_job/sec_black
 	display_name = "black security beret"
 	path = /obj/item/clothing/head/beret/sec/black
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Cadet", "Security Pod Pilot")
 
 /datum/gear/hat/beret_job/marine
 	display_name = "royal marines commando beret"
@@ -163,17 +163,17 @@
 /datum/gear/hat/beret_job/sci
 	display_name = "science beret"
 	path = /obj/item/clothing/head/beret/sci
-	allowed_roles = list("Research Director", "Scientist", "Roboticist", "Geneticist")
+	allowed_roles = list("Research Director", "Scientist", "Student Scientist", "Roboticist", "Geneticist")
 
 /datum/gear/hat/beret_job/med
 	display_name = "medical beret"
 	path = /obj/item/clothing/head/beret/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner", "Paramedic", "Chemist", "Geneticist", "Psychiatrist")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Virologist", "Brig Physician" , "Coroner", "Paramedic", "Chemist", "Geneticist", "Psychiatrist")
 
 /datum/gear/hat/beret_job/eng
 	display_name = "engineering beret"
 	path = /obj/item/clothing/head/beret/eng
-	allowed_roles = list("Chief Engineer", "Station Engineer")
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Trainee Engineer")
 
 /datum/gear/hat/beret_job/atmos
 	display_name = "atmospherics beret"
@@ -183,12 +183,17 @@
 /datum/gear/hat/surgicalcap_purple
 	display_name = "surgical cap, purple"
 	path = /obj/item/clothing/head/surgery/purple
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern")
 
 /datum/gear/hat/surgicalcap_green
 	display_name = "surgical cap, green"
+	path = /obj/item/clothing/head/surgery/lightgreen
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern")
+
+/datum/gear/hat/surgicalcap_dark_green
+	display_name = "surgical cap, dark green"
 	path = /obj/item/clothing/head/surgery/green
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern")
 
 /datum/gear/hat/flowerpin
 	display_name = "hair flower"

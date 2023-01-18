@@ -19,6 +19,8 @@
 #define JOB_CYBORG			(1<<9)
 #define JOB_CENTCOM			(1<<10)
 #define JOB_SYNDICATE			(1<<11)
+#define JOB_ENGINEER_TRAINEE	(1<<12)
+#define JOB_CADET		(1<<13)
 
 #define JOBCAT_MEDSCI			(1<<1)
 
@@ -33,6 +35,8 @@
 #define JOB_ROBOTICIST		(1<<8)
 #define JOB_PARAMEDIC			(1<<9)
 #define JOB_CORONER			(1<<10)
+#define JOB_SCIENTIST_STUDENT	(1<<11)
+#define JOB_INTERN			(1<<12)
 
 
 #define JOBCAT_SUPPORT			(1<<2)

@@ -459,6 +459,8 @@ SUBSYSTEM_DEF(jobs)
 		to_chat(H, "<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
 		to_chat(H, "<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
+	if(job.is_novice)
+		to_chat(H, "<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства.</b>")
 
 	return H
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area

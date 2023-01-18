@@ -3331,7 +3331,11 @@
 				if(!J) return
 				J.total_positions = -1
 				J.spawn_positions = -1
-				message_admins("[key_name_admin(usr)] has removed the cap on security officers.")
+				J = SSjobs.GetJob("Security Cadet")
+				if(!J) return
+				J.total_positions = -1
+				J.spawn_positions = -1
+				message_admins("[key_name_admin(usr)] has removed the cap on security officers and cadets.")
 
 	if(href_list["secretsmenu"])
 		switch(href_list["secretsmenu"])

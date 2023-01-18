@@ -1902,6 +1902,15 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
+"aqe" = (
+/obj/effect/landmark/start{
+	name = "Trainee Engineer"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/engine/engineering)
 "aqf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -6602,6 +6611,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/fpmaint)
+"aTs" = (
+/obj/structure/chair,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/security/main)
 "aTu" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
@@ -12049,6 +12073,9 @@
 /area/hallway/secondary/entry/commercial)
 "bwV" = (
 /obj/structure/chair/office/dark,
+/obj/effect/landmark/start{
+	name = "Life Support Specialist"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -14243,6 +14270,9 @@
 /area/medical/virology/lab)
 "bER" = (
 /obj/structure/chair/stool,
+/obj/effect/landmark/start{
+	name = "Trainee Engineer"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -16375,6 +16405,16 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery/north)
+"bPk" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/landmark/start{
+	name = "Trainee Engineer"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/engine/hardsuitstorage)
 "bPr" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -31663,6 +31703,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/landmark/start{
+	name = "Intern"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -33281,6 +33324,9 @@
 "deK" = (
 /obj/structure/chair/comfy/purp{
 	dir = 1
+	},
+/obj/effect/landmark/start{
+	name = "Student Scientist"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -35008,9 +35054,7 @@
 	},
 /area/maintenance/starboard)
 "dle" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/item/hand_labeler,
+/obj/structure/closet/wardrobe/cadet,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -35160,6 +35204,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/chair/office/dark,
+/obj/effect/landmark/start{
+	name = "Station Engineer"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -36413,6 +36460,9 @@
 /area/assembly/chargebay)
 "dpZ" = (
 /obj/structure/chair/comfy/purp,
+/obj/effect/landmark/start{
+	name = "Student Scientist"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -37080,6 +37130,9 @@
 "dsY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/effect/landmark/start{
+	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -42928,7 +42981,7 @@
 /area/hallway/primary/fore)
 "dQC" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/wardrobe/engineering_yellow,
+/obj/structure/closet/wardrobe/trainee_yellow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "dQD" = (
@@ -52690,6 +52743,7 @@
 	dir = 1;
 	on = 1
 	},
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -54141,6 +54195,9 @@
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -55217,6 +55274,9 @@
 "gay" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/effect/landmark/start{
+	name = "Intern"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -65012,7 +65072,7 @@
 	name = "north bump";
 	pixel_y = 25
 	},
-/obj/machinery/computer/med_data,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -68651,6 +68711,9 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
+/obj/effect/landmark/start{
+	name = "Intern"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -70303,6 +70366,9 @@
 	},
 /obj/structure/chair/office/light{
 	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Scientist"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
@@ -73051,9 +73117,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/hologram/holopad,
-/obj/effect/landmark/start{
-	name = "Life Support Specialist"
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -76230,11 +76293,11 @@
 	},
 /area/medical/cmo)
 "kQU" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/structure/closet/wardrobe/student,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -76790,6 +76853,9 @@
 	},
 /obj/structure/chair/office/light{
 	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Scientist"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -79498,12 +79564,20 @@
 "lGJ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger{
-	pixel_x = -1;
+	pixel_x = -2;
 	pixel_y = 2
 	},
 /obj/item/stock_parts/cell,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/paper_bin{
+	pixel_y = 12;
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -80128,6 +80202,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -83580,6 +83655,20 @@
 	tag = "icon-whitepurple (NORTH)"
 	},
 /area/toxins/lab)
+"mAS" = (
+/obj/structure/mirror{
+	pixel_y = 32
+	},
+/obj/structure/sink{
+	pixel_y = 21
+	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/security/brigstaff)
 "mAV" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -85064,6 +85153,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
+"mPg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/landmark/start{
+	name = "Trainee Engineer"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "mPs" = (
 /obj/machinery/power/rad_collector{
 	anchored = 1
@@ -85628,6 +85727,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
 /area/chapel/main)
+"mVd" = (
+/obj/structure/chair,
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/landmark/start{
+	name = "Security Cadet"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/security/main)
 "mVH" = (
 /obj/item/radio/intercom{
 	pixel_x = 30
@@ -90914,6 +91023,9 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/effect/landmark/start{
+	name = "Scientist"
+	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "odX" = (
@@ -91670,12 +91782,11 @@
 	},
 /area/security/permabrig)
 "olb" = (
-/obj/structure/table,
 /obj/machinery/ai_status_display{
 	pixel_y = 32;
 	step_size = 0
 	},
-/obj/machinery/computer/med_data/laptop,
+/obj/machinery/computer/med_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -93851,11 +93962,6 @@
 /area/toxins/test_chamber)
 "oJX" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 4
-	},
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -93865,9 +93971,13 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/computer/med_data/laptop{
+	pixel_y = 3;
+	pixel_x = -4
+	},
 /obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
+	pixel_x = 12;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -94175,6 +94285,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
+"oNg" = (
+/obj/structure/chair/comfy/teal{
+	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Intern"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay2)
 "oNr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -101354,6 +101476,9 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
+/obj/effect/landmark/start{
+	name = "Life Support Specialist"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -101805,6 +101930,9 @@
 /area/maintenance/asmaint4)
 "qrR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/landmark/start{
+	name = "Medical Doctor"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -105671,6 +105799,9 @@
 /obj/structure/chair/comfy/purp{
 	dir = 8
 	},
+/obj/effect/landmark/start{
+	name = "Scientist"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -108085,6 +108216,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start{
+	name = "Scientist"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple";
@@ -108974,6 +109108,9 @@
 	pixel_x = 30
 	},
 /obj/structure/curtain/open/shower/security,
+/obj/effect/landmark/start{
+	name = "Security Officer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -113871,6 +114008,15 @@
 	icon_state = "darkred"
 	},
 /area/security/visiting_room)
+"sXr" = (
+/obj/effect/landmark/start{
+	name = "Station Engineer"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/engine/break_room)
 "sXQ" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/morphine{
@@ -114842,6 +114988,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -117748,6 +117897,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -124480,6 +124632,23 @@
 	icon_state = "neutral"
 	},
 /area/toxins/launch)
+"vnv" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/security/reception)
 "vnH" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -127471,10 +127640,10 @@
 	},
 /area/security/detectives_office)
 "vUh" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
+/obj/structure/closet/wardrobe/intern_white,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -128938,6 +129107,9 @@
 "wlE" = (
 /obj/effect/decal/warning_stripes/eastnorthwest,
 /obj/structure/chair/comfy/purp,
+/obj/effect/landmark/start{
+	name = "Scientist"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -129779,6 +129951,18 @@
 	icon_state = "grimy"
 	},
 /area/security/hos)
+"wuM" = (
+/obj/structure/chair/comfy/teal{
+	dir = 4
+	},
+/obj/effect/landmark/start{
+	name = "Intern"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay2)
 "wuP" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -161822,7 +162006,7 @@ dhc
 ddR
 dor
 bUg
-xLU
+mPg
 cCp
 dBp
 dCv
@@ -162084,7 +162268,7 @@ eIu
 dUI
 dCy
 tzM
-tzM
+aqe
 dQD
 bXU
 bXU
@@ -162327,7 +162511,7 @@ cKe
 cIA
 bER
 bDm
-oPZ
+sXr
 psk
 bIr
 bGz
@@ -162839,7 +163023,7 @@ jVz
 bwS
 byo
 cIA
-oPZ
+sXr
 cRf
 bER
 psk
@@ -164665,7 +164849,7 @@ cso
 mDe
 vDd
 mAZ
-ejf
+bPk
 eJH
 mAl
 kAe
@@ -182922,7 +183106,7 @@ xzg
 xzg
 dMy
 dOF
-dXM
+dXO
 kwr
 cVH
 cNX
@@ -183179,7 +183363,7 @@ fxY
 lsh
 lyo
 cJq
-dXO
+dXM
 kss
 fUr
 cYT
@@ -183701,7 +183885,7 @@ cPN
 dqz
 qEX
 mBm
-mBm
+wuM
 mBm
 gHp
 wVd
@@ -184214,7 +184398,7 @@ cOa
 pTx
 cPO
 mCW
-nkN
+oNg
 nkN
 nkN
 cYN
@@ -187765,7 +187949,7 @@ gVB
 pKE
 xpW
 qEZ
-tNL
+vnv
 rHV
 tmp
 xpW
@@ -192661,7 +192845,7 @@ lhS
 vcX
 iHp
 uZU
-xFL
+mVd
 xFL
 syB
 vnH
@@ -192918,7 +193102,7 @@ xXC
 vcX
 nHu
 xFL
-xFL
+mVd
 xFL
 syB
 mIk
@@ -193175,7 +193359,7 @@ xXZ
 oNP
 icp
 kzP
-kzP
+aTs
 fDB
 uEV
 ply
@@ -193432,7 +193616,7 @@ eEb
 vcX
 nHu
 xFL
-xFL
+mVd
 xFL
 syB
 aaL
@@ -193689,7 +193873,7 @@ lhS
 oHJ
 unN
 hbT
-xFL
+mVd
 xFL
 syB
 vnH
@@ -195996,7 +196180,7 @@ gyp
 uyr
 iJN
 tWn
-tSn
+mAS
 uFZ
 qKm
 umy

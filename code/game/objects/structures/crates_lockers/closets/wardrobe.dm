@@ -24,7 +24,7 @@
 	icon_state = "red"
 	icon_closed = "red"
 
-/obj/structure/closet/wardrobe/populate_contents()
+/obj/structure/closet/wardrobe/red/populate_contents()
 	new /obj/item/storage/backpack/duffel/security(src)
 	new /obj/item/storage/backpack/duffel/security(src)
 	new /obj/item/clothing/mask/bandana/red(src)
@@ -32,14 +32,11 @@
 	new /obj/item/clothing/mask/bandana/red(src)
 	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/under/rank/security(src)
-	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/under/rank/security/formal(src)
 	new /obj/item/clothing/under/rank/security/formal(src)
 	new /obj/item/clothing/under/rank/security/formal(src)
 	new /obj/item/clothing/under/rank/security/skirt(src)
 	new /obj/item/clothing/under/rank/security/skirt(src)
-	new /obj/item/clothing/under/rank/security/skirt(src)
-	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
@@ -54,6 +51,35 @@
 	new /obj/item/clothing/head/officer(src)
 	new /obj/item/clothing/head/officer(src)
 	new /obj/item/clothing/head/officer(src)
+
+/obj/structure/closet/wardrobe/cadet
+	name = "cadets wardrobe"
+	icon_state = "red"
+	icon_closed = "red"
+
+/obj/structure/closet/wardrobe/cadet/populate_contents()
+	new /obj/item/clothing/under/rank/security/cadet(src)
+	new /obj/item/clothing/under/rank/security/cadet(src)
+	new /obj/item/clothing/under/rank/security/cadet(src)
+	new /obj/item/clothing/under/rank/security/cadet(src)
+	new /obj/item/clothing/under/rank/security/cadet/skirt(src)
+	new /obj/item/clothing/under/rank/security/cadet/skirt(src)
+	new /obj/item/clothing/under/rank/security/cadet/assistant(src)
+	new /obj/item/clothing/under/rank/security/cadet/assistant(src)
+	new /obj/item/clothing/under/rank/security/cadet/assistant/skirt(src)
+	new /obj/item/clothing/under/rank/security/cadet/assistant/skirt(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/head/soft/sec(src)
+	new /obj/item/clothing/head/soft/sec(src)
+	new /obj/item/clothing/head/soft/sec(src)
+	new /obj/item/clothing/head/soft/sec(src)
+	new /obj/item/storage/backpack/satchel_sec(src)
+	new /obj/item/storage/backpack/satchel_sec(src)
+	new /obj/item/storage/backpack/satchel_sec(src)
+	new /obj/item/storage/backpack/satchel_sec(src)
 
 /obj/structure/closet/redcorp
 	name = "corporate security wardrobe"
@@ -209,6 +235,36 @@
 	new /obj/item/clothing/head/beret/eng(src)
 	new /obj/item/clothing/head/beret/eng(src)
 
+/obj/structure/closet/wardrobe/trainee_yellow
+	name = "trainee wardrobe"
+	icon_state = "engineer"
+	icon_closed = "engineer"
+
+/obj/structure/closet/wardrobe/trainee_yellow/populate_contents()
+	new /obj/item/clothing/under/rank/engineer(src)
+	new /obj/item/clothing/under/rank/engineer(src)
+	new /obj/item/clothing/under/rank/engineer/skirt(src)
+	new /obj/item/clothing/under/rank/engineer/skirt(src)
+	new /obj/item/clothing/under/rank/engineer/trainee/assistant(src)
+	new /obj/item/clothing/under/rank/engineer/trainee/assistant(src)
+	new /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt(src)
+	new /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt(src)
+	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/head/hardhat/orange(src)
+	new /obj/item/clothing/head/hardhat/orange(src)
+	new /obj/item/clothing/head/hardhat/orange(src)
+	new /obj/item/clothing/head/hardhat/orange(src)
+	new /obj/item/storage/backpack/satchel_eng(src)
+	new /obj/item/storage/backpack/satchel_eng(src)
+	new /obj/item/storage/backpack/satchel_eng(src)
+	new /obj/item/storage/backpack/satchel_eng(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
+	new /obj/item/clothing/shoes/workboots(src)
 
 /obj/structure/closet/wardrobe/white
 	name = "white wardrobe"
@@ -251,6 +307,10 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/under/rank/medical/intern(src)
+	new /obj/item/clothing/under/rank/medical/intern(src)
+	new /obj/item/clothing/under/rank/medical/intern/skirt(src)
+	new /obj/item/clothing/under/rank/medical/intern/skirt(src)
 
 /obj/structure/closet/wardrobe/pjs
 	name = "Pajama wardrobe"
@@ -290,6 +350,32 @@
 	new /obj/item/clothing/shoes/slippers
 	new /obj/item/clothing/shoes/slippers
 
+/obj/structure/closet/wardrobe/student
+	name = "students wardrobe"
+	icon_state = "pink"
+	icon_closed = "pink"
+
+/obj/structure/closet/wardrobe/student/populate_contents()
+	new /obj/item/clothing/under/rank/scientist/student(src)
+	new /obj/item/clothing/under/rank/scientist/student(src)
+	new /obj/item/clothing/under/rank/scientist/student/skirt(src)
+	new /obj/item/clothing/under/rank/scientist/student/skirt(src)
+	new /obj/item/clothing/under/rank/scientist/student/assistant(src)
+	new /obj/item/clothing/under/rank/scientist/student/assistant(src)
+	new /obj/item/clothing/under/rank/scientist/student/assistant/skirt(src)
+	new /obj/item/clothing/under/rank/scientist/student/assistant/skirt(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/storage/backpack/satchel_tox(src)
+	new /obj/item/storage/backpack/satchel_tox(src)
+	new /obj/item/storage/backpack/satchel_tox(src)
+	new /obj/item/storage/backpack/satchel_tox(src)
 
 /obj/structure/closet/wardrobe/robotics_black
 	name = "robotics wardrobe"
@@ -399,6 +485,34 @@
 	new /obj/item/clothing/head/headmirror(src)
 	new /obj/item/clothing/head/headmirror(src)
 
+/obj/structure/closet/wardrobe/intern_white
+	name = "intern wardrobe"
+	icon_state = "white"
+	icon_closed = "white"
+
+/obj/structure/closet/wardrobe/intern_white/populate_contents()
+	new /obj/item/clothing/under/rank/medical/intern(src)
+	new /obj/item/clothing/under/rank/medical/intern(src)
+	new /obj/item/clothing/under/rank/medical/intern/skirt(src)
+	new /obj/item/clothing/under/rank/medical/intern/skirt(src)
+	new /obj/item/clothing/under/rank/medical/intern/assistant(src)
+	new /obj/item/clothing/under/rank/medical/intern/assistant(src)
+	new /obj/item/clothing/under/rank/medical/intern/assistant/skirt(src)
+	new /obj/item/clothing/under/rank/medical/intern/assistant/skirt(src)
+	new /obj/item/clothing/under/rank/medical/lightgreen
+	new /obj/item/clothing/under/rank/medical/lightgreen
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/storage/backpack/satchel_med(src)
+	new /obj/item/storage/backpack/satchel_med(src)
+	new /obj/item/storage/backpack/satchel_med(src)
+	new /obj/item/storage/backpack/satchel_med(src)
 
 /obj/structure/closet/wardrobe/grey
 	name = "grey wardrobe"

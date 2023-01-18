@@ -365,7 +365,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
+	if(ishuman(M) && (M.job in list("Security Officer", "Security Cadet", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags

@@ -389,6 +389,12 @@
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
+/obj/effect/mob_spawn/human/intern
+	name = "Intern"
+	mob_name = "Intern"
+	id_job = "Intern"
+	outfit = /datum/outfit/job/doctor/intern
+
 /obj/effect/mob_spawn/human/doctor/alive
 	death = FALSE
 	roundstart = FALSE
@@ -412,6 +418,12 @@
 	mob_name = "Engineer"
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
+
+/obj/effect/mob_spawn/human/trainee
+	name = "Trainee Engineer"
+	mob_name = "Trainee Engineer"
+	id_job = "Trainee Engineer"
+	outfit = /datum/outfit/job/engineer/trainee
 
 /obj/effect/mob_spawn/human/engineer/hardsuit
 	outfit = /datum/outfit/job/engineer/suit
@@ -495,11 +507,23 @@
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
+/obj/effect/mob_spawn/human/student
+	name = "Student Scientist"
+	mob_name = "Student Scientist"
+	id_job = "Student Scientist"
+	outfit = /datum/outfit/job/scientist/student
+
 /obj/effect/mob_spawn/human/securty
 	name = "Security Officer"
 	mob_name = "Security Officer"
 	id_job = "Security Officer"
 	outfit = /datum/outfit/job/officer
+
+/obj/effect/mob_spawn/human/cadet
+	name = "Security Cadet"
+	mob_name = "Security Cadet"
+	id_job = "Security Cadet"
+	outfit = /datum/outfit/job/officer/cadet
 
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"

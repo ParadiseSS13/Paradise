@@ -72,6 +72,8 @@
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
+	new /obj/item/clothing/head/surgery/lightgreen(src)
+	new /obj/item/clothing/under/rank/medical/lightgreen(src)
 
 
 //Exam Room

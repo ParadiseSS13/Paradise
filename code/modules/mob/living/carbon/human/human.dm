@@ -1547,6 +1547,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(mind)
 		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
 			. = 100
+		if(mind.assigned_role == "Trainee Engineer")	//Чем глупее, тем вкуснее
+			. = 300
 		if(mind.assigned_role == "Clown")
 			. = rand(-1000, 1000)
 	..() //Called afterwards because getting the mind after getting gibbed is sketchy

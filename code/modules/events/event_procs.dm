@@ -91,16 +91,16 @@
 			if(R.module && (R.module.name == "security robot module"))
 				active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer"))
+		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer", "Trainee Engineer"))
 			active_with_role["Engineer"]++
 
-		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
+		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor", "Intern"))
 			active_with_role["Medical"]++
 
 		if(M.mind.assigned_role in GLOB.security_positions)
 			active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list("Research Director", "Scientist"))
+		if(M.mind.assigned_role in list("Research Director", "Scientist", "Student Scientist"))
 			active_with_role["Scientist"]++
 
 		if(M.mind.assigned_role == "AI")

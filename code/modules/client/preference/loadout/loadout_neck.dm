@@ -62,7 +62,7 @@
 /datum/gear/neck/cloak/job/healer
 	display_name = "cloak, healer"
 	path = /obj/item/clothing/neck/cloak/healer
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Paramedic", "Brig Physician")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Intern", "Paramedic", "Brig Physician")
 
 /datum/gear/neck/cloak/job/captain
 	display_name = "cloak, captain"

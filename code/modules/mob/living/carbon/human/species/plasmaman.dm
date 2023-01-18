@@ -77,7 +77,7 @@
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Pod Pilot", "Special Operations Officer")
+		if("Security Officer", "Security Cadet", "Security Pod Pilot", "Special Operations Officer")
 			O = new /datum/outfit/plasmaman/security
 
 		if("Detective")
@@ -95,7 +95,7 @@
 		if("Shaft Miner")
 			O = new /datum/outfit/plasmaman/mining
 
-		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner")
+		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner", "Intern")
 			O = new /datum/outfit/plasmaman/medical
 
 		if("Chief Medical Officer")
@@ -113,13 +113,13 @@
 		if("Virologist")
 			O = new /datum/outfit/plasmaman/viro
 
-		if("Scientist")
+		if("Scientist", "Student Scientist")
 			O = new /datum/outfit/plasmaman/science
 
 		if("Research Director")
 			O = new /datum/outfit/plasmaman/rd
 
-		if("Station Engineer", "Mechanic")
+		if("Station Engineer", "Trainee Engineer", "Mechanic")
 			O = new /datum/outfit/plasmaman/engineering
 
 		if("Chief Engineer")

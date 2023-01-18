@@ -59,10 +59,10 @@
 	selection_color = "#fff5cc"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Trainee Engineer","Maintenance Technician","Engine Technician","Electrician")
+	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
@@ -70,9 +70,10 @@
 	jobtype = /datum/job/engineer
 
 	uniform = /obj/item/clothing/under/rank/engineer
+	suit = /obj/item/clothing/suit/storage/hazardvest
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
-	head = /obj/item/clothing/head/hardhat
+	head = /obj/item/clothing/head/hardhat/orange
 	l_ear = /obj/item/radio/headset/headset_eng
 	id = /obj/item/card/id/engineering
 	l_pocket = /obj/item/t_scanner
@@ -83,6 +84,44 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
 
+
+/datum/job/engineer/trainee
+	title = "Trainee Engineer"
+	flag = JOB_ENGINEER_TRAINEE
+	total_positions = 5
+	spawn_positions = 3
+	department_head = list("Chief Engineer", "Station Engineer")
+	selection_color = "#fff5cc"
+	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
+	outfit = /datum/outfit/job/engineer/trainee
+
+/datum/outfit/job/engineer/trainee
+	name = "Trainee Engineer"
+	jobtype = /datum/job/engineer/trainee
+
+	uniform = /obj/item/clothing/under/rank/engineer/trainee
+	id = /obj/item/card/id/engineering/trainee
+	gloves = /obj/item/clothing/gloves/color/orange
+
+/datum/outfit/job/engineer/trainee/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Engineer Assistant")
+				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
+			if("Technical Assistant")
+				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
+				if(H.gender == FEMALE)
+					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
+				head = /obj/item/clothing/head/soft/orange
+			if("Technical Student", "Technical Trainee")
+				head = /obj/item/clothing/head/soft/orange
+			if("Engineer Student")
+				head = /obj/item/clothing/head/beret/eng
 
 
 /datum/job/atmos
@@ -99,8 +138,8 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos
@@ -119,6 +158,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/engineer
 
+
 /datum/job/mechanic
 	title = "Mechanic"
 	flag = JOB_MECHANIC
@@ -131,6 +171,8 @@
 	selection_color = "#fff5cc"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
+	exp_requirements = 900
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/mechanic
 
 /datum/outfit/job/mechanic

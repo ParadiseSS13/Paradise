@@ -36,7 +36,7 @@
 		if(U.job in list("Chaplain")) // the librarian is both faster, and more accurate than normal crew members at research
 			speed = 300
 			correctness = 100
-		if(U.job in list("Captain", "Security Officer", "Head of Security", "Detective", "Warden"))
+		if(U.job in list("Captain", "Security Officer", "Security Cadet", "Head of Security", "Detective", "Warden"))
 			willpower = 99
 		if(U.job in list("Clown")) // WHO GAVE THE CLOWN A DEMONOMICON?  BAD THINGS WILL HAPPEN!
 			willpower = 25

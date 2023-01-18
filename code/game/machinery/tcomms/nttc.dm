@@ -35,6 +35,7 @@
 		"Life Support Specialist" = "engradio",
 		"Mechanic" = "engradio",
 		"Station Engineer" = "engradio",
+		"Trainee Engineer" = "engradio",
 		// Central Command
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Emergency Response Team Leader" = "dsquadradio",
@@ -51,6 +52,7 @@
 		"Chief Medical Officer" = "medradio",
 		"Coroner" = "medradio",
 		"Medical Doctor" = "medradio",
+		"Intern" = "medradio",
 		"Paramedic" = "medradio",
 		"Psychiatrist" = "medradio",
 		"Virologist" = "medradio",
@@ -59,6 +61,7 @@
 		"Research Director" = "sciradio",
 		"Roboticist" = "sciradio",
 		"Scientist" = "sciradio",
+		"Student Scientist" = "sciradio",
 		// Security
 		"Brig Physician" = "secradio",
 		"Detective" = "secradio",
@@ -66,6 +69,7 @@
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
+		"Security Cadet" = "secradio",
 		"Security Pod Pilot" = "secradio",
 		"Warden" = "secradio",
 		// Supply

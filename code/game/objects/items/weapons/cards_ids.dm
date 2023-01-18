@@ -826,6 +826,12 @@
 	item_state = "medical-id"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/medical/intern
+	name = "Intern ID"
+	registered_name = "Intern"
+	icon_state = "intern"
+	item_state = "intern-id"
+
 /obj/item/card/id/security
 	name = "Security ID"
 	registered_name = "Officer"
@@ -833,12 +839,24 @@
 	item_state = "security-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
+/obj/item/card/id/security/cadet
+	name = "Cadet ID"
+	registered_name = "Cadet"
+	icon_state = "cadet"
+	item_state = "cadet-id"
+
 /obj/item/card/id/research
 	name = "Research ID"
 	registered_name = "Scientist"
 	icon_state = "research"
 	item_state = "research-id"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/research/student
+	name = "Student ID"
+	registered_name = "Student"
+	icon_state = "student"
+	item_state = "student-id"
 
 /obj/item/card/id/supply
 	name = "Supply ID"
@@ -853,6 +871,12 @@
 	icon_state = "engineering"
 	item_state = "engineer-id"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
+
+/obj/item/card/id/engineering/trainee
+	name = "Trainee ID"
+	registered_name = "Trainee"
+	icon_state = "trainee"
+	item_state = "trainee-id"
 
 /obj/item/card/id/hos
 	name = "Head of Security ID"
@@ -1049,7 +1073,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","medical","research","cargo","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
