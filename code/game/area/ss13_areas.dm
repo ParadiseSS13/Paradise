@@ -806,6 +806,40 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
+/area/maintenance/quarters
+	name = "\improper Abandoned Living Quarters"
+	icon_state = "Sleep"
+
+/area/maintenance/secpost
+	name = "\improper Abandoned Security Post"
+	icon_state = "security"
+
+/area/maintenance/banya
+	name = "\improper Abandoned Banya"
+	icon_state = "yellow"
+
+/area/maintenance/medroom
+	name = "\improper Abandoned Medical Emergency Ward"
+	icon_state = "medbay3"
+
+/area/maintenance/chapel
+	name = "\improper Abandoned Chapel"
+	icon_state = "chapel"
+	ambientsounds = HOLY_SOUNDS
+	is_haunted = TRUE
+
+/area/maintenance/livingcomplex
+	name = "\improper Abandoned Living Complex Lobby"
+	icon_state = "quart"
+
+/area/maintenance/livingcomplex/hall
+	name = "\improper Abandoned Living Complex Hall"
+	icon_state = "quart"
+
+/area/maintenance/cafeteria
+	name = "\improper Abandoned Cafeteria"
+	icon_state = "cafeteria"
+
 /area/maintenance/xenozoo
 	name = "Maintenance Xeno Zoo"
 	icon_state = "yellow"
