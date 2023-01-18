@@ -167,7 +167,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 4;
 	name = "Beta Engineering APC";
-	pixel_x = 24;
+	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
@@ -1019,7 +1019,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 1;
 	name = "Theta Prototype Lab APC";
-	pixel_y = 24;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
@@ -1075,7 +1075,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 4;
 	name = "Charlie Main Corridor APC";
-	pixel_x = 24;
+	pixel_x = 24
 	},
 /obj/structure/closet/crate,
 /obj/item/storage/backpack/old,
@@ -1423,7 +1423,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 4;
 	name = "Charlie Command APC";
-	pixel_x = 24;
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/comm)
@@ -2505,7 +2505,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 8;
 	name = "Charlie Security APC";
-	pixel_x = -24;
+	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3420,7 +3420,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 1;
 	name = "Theta Main Corridor APC";
-	pixel_y = 24;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
@@ -3813,7 +3813,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 1;
 	name = "Charlie Hydroponics APC";
-	pixel_y = 24;
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -4095,7 +4095,7 @@
 	},
 /obj/machinery/power/apc/off_station/empty_charge{
 	name = "Charlie Kitchen APC";
-	pixel_y = -24;
+	pixel_y = -24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -4125,7 +4125,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 4;
 	name = "Theta RnD APC";
-	pixel_x = 24;
+	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -4674,7 +4674,7 @@
 /obj/machinery/power/apc/off_station/empty_charge{
 	dir = 4;
 	name = "Charlie Engineering APC";
-	pixel_x = 24;
+	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
