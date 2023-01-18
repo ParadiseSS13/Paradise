@@ -17,7 +17,6 @@
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
-	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin", "hydrocodone", "mannitol")
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
