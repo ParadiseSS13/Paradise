@@ -5,6 +5,7 @@
 	scrambledcodes = TRUE
 	has_camera = FALSE
 	pdahide = TRUE
+	eye_protection = 2 // Protects from flashes
 	faction = list("syndicate")
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
@@ -137,3 +138,6 @@
 	if(cham_proj)
 		cham_proj.disrupt(src)
 	..()
+
+/mob/living/silicon/robot/syndicate/death(gibbed)
+	. = ..()

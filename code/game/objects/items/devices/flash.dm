@@ -134,7 +134,9 @@
 		if(M.flash_eyes(affect_silicon = 1))
 			M.Weaken(rand(8 SECONDS, 12 SECONDS))
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with [src]!</span>", "<span class='danger'>You overload [M]'s sensors with [src]!</span>")
-		return 1
+			return 1
+		user.visible_message("<span class='disarm'>[user] fails to overload [M]'s sensors with [src]!</span>", "<span class='warning'>You fail to overload [M]'s sensors with [src]!</span>")
+		return
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>", "<span class='warning'>You fail to blind [M] with [src]!</span>")
 
 
