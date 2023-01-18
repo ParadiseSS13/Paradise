@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(queue)
 	/// Last world.time we let a ckey in. 3 second delay between each letin to avoid a mass bubble
 	var/last_letin_time = 0
 
-/datum/controller/subsystem/queue/Initialize(start_timeofday)
+/datum/controller/subsystem/queue/Initialize()
 	if(fexists(QUEUE_DATA_FILE))
 		try
 			var/F = file2text(QUEUE_DATA_FILE)
@@ -30,7 +30,6 @@ SUBSYSTEM_DEF(queue)
 		catch
 			stack_trace("Failed to load [QUEUE_DATA_FILE] from disk due to malformed JSON. You may need to setup the queue again.")
 
-	return ..()
 
 /datum/controller/subsystem/queue/Shutdown()
 	// Save if persistent

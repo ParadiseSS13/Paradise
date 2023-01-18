@@ -4,10 +4,6 @@
 	protection_state = PROTECTION_PRIVATE
 	/// Password for authorising world/Topic requests
 	var/topic_key = null
-	/// Medal hub address for lavaland stats
-	var/medal_hub_address = null
-	/// Medal hub password for lavaland stats
-	var/medal_hub_password = null
 	/// Do we want the server to kill on reboot instead of keeping the same DD session
 	var/shutdown_on_reboot = FALSE
 	/// Is this server a production server (Has higher security and requires 2FA)
@@ -41,8 +37,6 @@
 	CONFIG_LOAD_BOOL(enable_multi_instance_support, data["enable_multi_instance_support"])
 
 	CONFIG_LOAD_STR(topic_key, data["communications_password"])
-	CONFIG_LOAD_STR(medal_hub_address, data["medal_hub_address"])
-	CONFIG_LOAD_STR(medal_hub_password, data["medal_hub_password"])
 	CONFIG_LOAD_STR(shutdown_shell_command, data["shutdown_shell_command"])
 	CONFIG_LOAD_STR(api_host, data["api_host"])
 	CONFIG_LOAD_STR(api_key, data["api_key"])

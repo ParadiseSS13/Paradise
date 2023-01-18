@@ -482,4 +482,12 @@
 	name = "Cell 6"
 	id = "Cell 6"
 
+/obj/machinery/door_timer/cell_7
+	name = "Cell 7"
+	id = "Cell 7"
+
+/obj/machinery/door_timer/cell_8
+	name = "Cell 8"
+	id = "Cell 8"
+
 #undef CELL_NONE

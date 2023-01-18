@@ -30,9 +30,37 @@
 	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
+	sound_environment = SOUND_AREA_ASTEROID
 	flags = NONE
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+
+/area/mine/unexplored/cere/ai
+	name = "AI Asteroid"
+
+/area/mine/unexplored/cere/cargo
+	name = "Cargo Asteroid"
+
+/area/mine/unexplored/cere/civilian
+	name = "Civilian Asteroid"
+
+/area/mine/unexplored/cere/command
+	name = "Command Asteroid"
+
+/area/mine/unexplored/cere/docking
+	name = "Docking Asteroid"
+
+/area/mine/unexplored/cere/engineering
+	name = "Engineering Asteroid"
+
+/area/mine/unexplored/cere/medical
+	name = "Medical Asteroid"
+
+/area/mine/unexplored/cere/research
+	name = "Research Asteroid"
+
+/area/mine/unexplored/cere/orbiting
+	name = "Near Station Asteroids"
 
 /area/mine/lobby
 	name = "Mining Station"
