@@ -48,11 +48,12 @@
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/mop))
 			var/obj/item/mop/m=I
-			if(m.reagents.total_volume < m.reagents.maximum_volume)
+			if(m.reagents.total_volume < m.reagents.maximum_volume && reagents.total_volume)
 				m.wet_mop(src, user)
 				return
 			if(!mymop)
 				m.janicart_insert(user, src)
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 
@@ -60,6 +61,7 @@
 			if(!mybag)
 				var/obj/item/storage/bag/trash/t=I
 				t.janicart_insert(user, src)
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
@@ -73,6 +75,7 @@
 			if(!myreplacer)
 				var/obj/item/lightreplacer/l=I
 				l.janicart_insert(user,src)
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/caution))
