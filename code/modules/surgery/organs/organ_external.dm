@@ -91,9 +91,9 @@
 		owner.bodyparts_by_name[limb_name] = null
 		owner.splinted_limbs -= src
 
-	QDEL_LIST(children)
+	QDEL_LIST_CONTENTS(children)
 
-	QDEL_LIST(embedded_objects)
+	QDEL_LIST_CONTENTS(embedded_objects)
 
 	QDEL_NULL(hidden)
 
@@ -172,7 +172,7 @@
 	return TRUE
 
 /****************************************************
-			   DAMAGE PROCS
+			DAMAGE PROCS
 ****************************************************/
 
 /obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
@@ -262,10 +262,11 @@
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
-		if(!(limb_flags & CANNOT_DISMEMBER) && brute_dam >= max_damage)
-			if(prob(brute / 2))
-				if(sharp)
-					droplimb(0, DROPLIMB_SHARP)
+		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
+			if(brute_dam >= max_damage && prob(brute / 2))
+				droplimb(0, DROPLIMB_SHARP)
+			if(burn_dam >= max_damage && prob(burn / 2))
+				droplimb(0, DROPLIMB_BURN)
 
 	if(owner_old)
 		owner_old.updatehealth("limb receive damage")
@@ -347,7 +348,7 @@ This function completely restores a damaged organ to perfect condition.
 		START_PROCESSING(SSobj, src)
 
 /****************************************************
-			   PROCESSING & UPDATING
+			PROCESSING & UPDATING
 ****************************************************/
 
 //Determines if we even need to process this organ.
@@ -482,7 +483,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /****************************************************
-			   DISMEMBERMENT
+			DISMEMBERMENT
 ****************************************************/
 
 //Handles dismemberment
@@ -493,6 +494,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
+	if(disintegrate == DROPLIMB_BURN && istype(src, /obj/item/organ/external/head))
+		disintegrate = DROPLIMB_SHARP //Lets not make sharp burn weapons delete brains.
 
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)
@@ -616,7 +619,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		I.forceMove(T)
 
 /****************************************************
-			   HELPERS
+			HELPERS
 ****************************************************/
 /obj/item/organ/external/proc/release_restraints(mob/living/carbon/human/holder)
 	if(!holder)
@@ -795,8 +798,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(owner)
 		owner.visible_message("<span class='warning'>\The [owner]'s [name] turns into a mangled mess!</span>",	\
-							  "<span class='userdanger'>Your [name] becomes a mangled mess!</span>",	\
-							  "<span class='warning'>You hear a sickening sound.</span>")
+							"<span class='userdanger'>Your [name] becomes a mangled mess!</span>",	\
+							"<span class='warning'>You hear a sickening sound.</span>")
 
 	status |= ORGAN_DISFIGURED
 

@@ -151,7 +151,7 @@
 			to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
 		else
 			user.visible_message("<span class='warning'>[user] begins to wipe [H]'s face clean with \the [src].</span>",
-							 	 "<span class='notice'>You begin to wipe off [H]'s face.</span>")
+								"<span class='notice'>You begin to wipe off [H]'s face.</span>")
 			if(!do_after(user, 1 SECONDS, target = H) || !do_after(H, 1 SECONDS, FALSE)) // user needs to keep their active hand, H does not.
 				return
 			user.visible_message("<span class='notice'>[user] wipes [H]'s face clean with \the [src].</span>",
@@ -434,6 +434,7 @@
 		stamp(P)
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 
 	if(is_hot(P))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))

@@ -488,16 +488,15 @@
 
 	switch(action)
 		if("cook")
+			if(!check_useable(ui.user))
+				return
+
 			cook()
 		if("eject")
 			dispose(ui.user)
 
 /obj/machinery/kitchen_machine/AltClick(mob/user)
-	if(dirty >= MAX_DIRT)
-		to_chat(user, "<span class='warning'>It's too dirty.</span>")
-		return
-	if(!has_cookables())
-		to_chat(user, "<span class='warning'>It's empty!</span>")
+	if(!check_useable(user))
 		return
 
 	cook()
@@ -505,6 +504,30 @@
 
 /obj/machinery/kitchen_machine/proc/has_cookables()
 	return reagents.total_volume > 0 || length(contents)
+
+/obj/machinery/kitchen_machine/proc/check_useable(mob/user)
+	if(dirty >= MAX_DIRT)
+		to_chat(user, "<span class='warning'>It's too dirty.</span>")
+		return FALSE
+	if(!has_cookables())
+		to_chat(user, "<span class='warning'>It's empty!</span>")
+		return FALSE
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>It's broken!</span>")
+		return FALSE
+	if(stat & NOPOWER)
+		to_chat(user, "<span class='warning'>It's depowered!</span>")
+		return FALSE
+	if(panel_open)
+		to_chat(user, "<span class='warning'>Its panel is open!</span>")
+		return FALSE
+	if(!anchored)
+		to_chat(user, "<span class='warning'>It's unanchored!</span>")
+		return FALSE
+	if(operating)
+		to_chat(user, "<span class='warning'>Its already cooking!</span>")
+		return FALSE
+	return TRUE
 
 #undef NO_DIRT
 #undef MAX_DIRT

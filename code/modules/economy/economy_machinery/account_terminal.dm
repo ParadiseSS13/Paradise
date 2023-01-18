@@ -17,6 +17,13 @@
 	///station account database
 	var/datum/money_account_database/account_db
 
+/obj/machinery/computer/account_database/Initialize()
+	. = ..()
+	reconnect_database()
+
+/obj/machinery/computer/account_database/proc/reconnect_database()
+	account_db = GLOB.station_money_database
+
 /obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
 	if(ui_login_attackby(O, user))
 		return
@@ -35,17 +42,16 @@
 	var/list/data = list()
 	data["currentPage"] = current_page
 	ui_login_data(data, user)
-
 	if(data["loginState"]["logged_in"])
 		switch(current_page)
 			if(AUT_ACCLST)
 				data["accounts"] = list()
 				for(var/datum/money_account/account as anything in GLOB.station_money_database.user_accounts)
 					var/list/account_data = list(
-						"account_number" = account.account_number,
+						"account_number" = "[account.account_number]",
 						"owner_name" = account.account_name,
 						"suspended" = account.suspended ? "SUSPENDED" : "Active",
-						"money" = account.credit_balance)
+						"money" = "[account.credit_balance]") // needs to be strings because of TGUI localeCompare
 					data["accounts"] += list(account_data)
 				data["department_accounts"] = list()
 				for(var/datum/money_account/account as anything in GLOB.station_money_database.get_all_department_accounts())
@@ -76,7 +82,7 @@
 	return data
 
 
-/obj/machinery/computer/account_database/ui_act(action, list/params)
+/obj/machinery/computer/account_database/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -88,6 +94,9 @@
 	if(!ui_login_get().logged_in)
 		return
 
+	if(!account_db)
+		reconnect_database()
+
 	switch(action)
 		if("view_account_detail")
 			var/account_num = text2num(params["account_num"])
@@ -97,6 +106,24 @@
 				current_page = AUT_ACCINF
 		if("back")
 			clear_viewed_account()
+		if("set_account_pin")
+			var/account_num = text2num(params["account_number"])
+			if(!account_num || !detailed_account_view)
+				return
+			var/attempt_pin = input("Enter this accounts current pin code", "Account Auth") as num
+			if(!attempt_pin || !Adjacent(ui.user))
+				return
+			if(!account_db.try_authenticate_login(detailed_account_view, attempt_pin, FALSE, FALSE, FALSE) || detailed_account_view.account_pin != attempt_pin)
+				to_chat(ui.user, "<span class='warning'>Authentification Failure: Incorrect Pin or insufficient access.</span>")
+				return
+			var/new_pin = input("Enter the new pin for this account", "New Account Pin") as num
+			if(!new_pin || !Adjacent(ui.user))
+				return
+			if(new_pin < 1 || new_pin >= 1000000)
+				to_chat(ui.user, "<span class='warning'>Account Error: New pin must be a number between 000001 and 999999.</span>")
+				return
+			detailed_account_view.account_pin = new_pin
+			to_chat(ui.user, "<span class='notice'>The [detailed_account_view.account_name] account pin has been set to [new_pin] successfully.</span>")
 		if("toggle_suspension")
 			if(detailed_account_view)
 				detailed_account_view.suspended = !detailed_account_view.suspended

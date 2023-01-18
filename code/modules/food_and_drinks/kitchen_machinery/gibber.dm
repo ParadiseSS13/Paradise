@@ -100,7 +100,7 @@
 	if(exchange_parts(user, P))
 		return
 
-	if(default_unfasten_wrench(user, P))
+	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
 		return
 
 	if(default_deconstruction_crowbar(user, P))

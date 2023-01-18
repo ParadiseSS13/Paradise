@@ -444,9 +444,9 @@
 		var/jobs = ""
 
 		/***********************************WARNING!************************************
-					      The jobban stuff looks mangled and disgusting
-							      But it looks beautiful in-game
-							                -Nodrak
+						The jobban stuff looks mangled and disgusting
+								But it looks beautiful in-game
+											-Nodrak
 		************************************WARNING!***********************************/
 		var/counter = 0
 //Regular jobs
@@ -1608,6 +1608,49 @@
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
+
+	else if(href_list["check_teams"])
+		if(!check_rights(R_ADMIN))
+			return
+		check_teams()
+
+	else if(href_list["team_command"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/team/team
+		var/datum/mind/member
+		if(href_list["team"])
+			team = locateUID(href_list["team"])
+			if(QDELETED(team))
+				to_chat(usr, "<span class='warning'>This team doesn't exist anymore!</span>")
+				return
+		if(href_list["member"])
+			member = locateUID(href_list["member"])
+			if(QDELETED(member))
+				to_chat(usr, "<span class='warning'>This team member doesn't exist anymore!</span>")
+				return
+		switch(href_list["team_command"])
+			if("communicate")
+				team.admin_communicate(usr)
+			if("delete_team")
+				message_admins("[key_name_admin(usr)] has deleted the '[team.name]' team.")
+				log_admin("[key_name_admin(usr)] has deleted the '[team.name]' team.")
+				qdel(team)
+			if("rename_team")
+				team.admin_rename_team(usr)
+			if("admin_add_member")
+				team.admin_add_member(usr)
+			if("remove_member")
+				team.admin_remove_member(usr, member)
+			if("view_member")
+				show_player_panel(member.current)
+			if("add_objective")
+				team.admin_add_objective(usr)
+			if("remove_objective")
+				var/datum/objective/O = locateUID(href_list["objective"])
+				if(O)
+					team.admin_remove_objective(usr, O)
+		check_teams()
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
@@ -3050,12 +3093,7 @@
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
 				if(confirmation == "No")
 					return
-				if(makeThunderdomeTeams())
-					log_admin("[key_name(usr)] started a Thunderdome match!", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started a Thunderdome match!</span>")
-				else
-					log_admin("[key_name(usr)] attempted to start a Thunderdome match, but no ghosts signed up.", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] tried starting a Thunderdome match, but no ghosts signed up.</span>")
+				makeThunderdomeTeams()
 			if("securitylevel0")
 				set_security_level(0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)

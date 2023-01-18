@@ -108,7 +108,7 @@
 
 	if(!angle)
 		angle = 1
-  //to_chat(world, "adjusted [angle]")
+	//to_chat(world, "adjusted [angle]")
 	icon_state = "[angle]"
 	//to_chat(world, "[angle] [(get_dist(user, A) - 1)]")
 	user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)

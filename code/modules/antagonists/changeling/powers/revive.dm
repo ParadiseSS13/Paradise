@@ -2,11 +2,15 @@
 	name = "Regenerate"
 	desc = "We regenerate, healing all damage from our form."
 	button_icon_state = "revive"
+	req_dna = 1
 	req_stat = DEAD
 	bypass_fake_death = TRUE
 
 //Revive from regenerative stasis
 /datum/action/changeling/revive/sting_action(mob/living/carbon/user)
+	if(HAS_TRAIT(user, TRAIT_UNREVIVABLE))
+		to_chat(user, "<span class='notice'>Something is preventing us from regenerating, we will need to revive at another point.</span>")
+		return FALSE
 	REMOVE_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)
 	for(var/obj/item/grab/G in user.grabbed_by)
 		var/mob/living/carbon/M = G.assailant

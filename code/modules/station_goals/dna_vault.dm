@@ -36,9 +36,9 @@
 	<br><br>
 	The DNA Vault needs to contain samples of:
 	<ul style='margin-top: 10px; margin-bottom: 10px;'>
-	 <li>[animal_count] unique animal data.</li>
-	 <li>[plant_count] unique non-standard plant data.</li>
-	 <li>[human_count] unique sapient humanoid DNA data.</li>
+	<li>[animal_count] unique animal data.</li>
+	<li>[plant_count] unique non-standard plant data.</li>
+	<li>[human_count] unique sapient humanoid DNA data.</li>
 	</ul>
 	The base vault parts should be available for shipping by your cargo shuttle."}
 
@@ -203,7 +203,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 
 /obj/machinery/dna_vault/Destroy()
-	QDEL_LIST(fillers)
+	QDEL_LIST_CONTENTS(fillers)
 	return ..()
 
 /obj/machinery/dna_vault/attack_ghost(mob/user)

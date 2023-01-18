@@ -20,7 +20,7 @@
 
 
 /obj/item/camera_assembly/Destroy()
-	QDEL_LIST(upgrades)
+	QDEL_LIST_CONTENTS(upgrades)
 	return ..()
 
 /obj/item/camera_assembly/examine(mob/user)
@@ -80,7 +80,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	state = HEY_IM_WORKING_HERE
-	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Seperate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
+	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
 	if(!input)
 		state = ASSEMBLY_WIRED
 		to_chat(usr, "<span class='warning'>No input found please hang up and try your call again.</span>")

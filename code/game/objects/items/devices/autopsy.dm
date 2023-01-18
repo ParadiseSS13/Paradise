@@ -4,7 +4,8 @@
 	icon = 'icons/obj/autopsy_scanner.dmi'
 	icon_state = ""
 	flags = CONDUCT
-	w_class = WEIGHT_CLASS_TINY
+	slot_flags = SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1;biotech=1"
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/chemtraces = list()
@@ -18,8 +19,8 @@
 
 /datum/autopsy_data_scanner
 	var/weapon = null // this is the DEFINITE weapon type that was used
-	var/list/organs_scanned = list() // this maps a number of scanned organs to
-									 // the wounds to those organs with this data's weapon type
+	var/list/organs_scanned = list()	// this maps a number of scanned organs to
+										// the wounds to those organs with this data's weapon type
 	var/organ_names = ""
 
 /datum/autopsy_data_scanner/Destroy()

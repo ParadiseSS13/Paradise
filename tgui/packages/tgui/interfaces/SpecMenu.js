@@ -213,7 +213,7 @@ const DantMenu = (props, context) => {
           <b>Full Power</b>
           <Divider />
           <b>Mass Hysteria</b>: Casts a powerful illusion that, blinds then make
-          everyone nearby percieve others to looks like random animals.
+          everyone nearby perceive others to looks like random animals.
         </p>
         <Button content="Dantalion" onClick={() => act('dantalion')} />
       </Section>

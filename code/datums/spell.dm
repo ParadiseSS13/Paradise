@@ -282,6 +282,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return
 	targeting.InterceptClickOn(user, params, A, src)
 
+///Lets the spell have a special effect applied to it when upgraded. By default, does nothing.
+/obj/effect/proc_holder/spell/proc/on_purchase_upgrade()
+	return
+
 /**
  * Will try to choose targets using the targeting variable and perform the spell if it can
  * Do not override this! Override create_new_targeting instead

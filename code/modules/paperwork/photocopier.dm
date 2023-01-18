@@ -350,7 +350,7 @@
 	LAZYADD(saved_documents, O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-	atom_say("Document succesfully scanned!")
+	atom_say("Document successfully scanned!")
 
 /obj/machinery/photocopier/proc/delete_file(uid)
 	var/document = locateUID(uid)
@@ -517,7 +517,7 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/Destroy()
-	QDEL_LIST(saved_documents)
+	QDEL_LIST_CONTENTS(saved_documents)
 	return ..()
 
 /**

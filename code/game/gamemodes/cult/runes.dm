@@ -638,7 +638,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
 	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
-								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
+								"<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
 	rune_in_use = FALSE
 
 /obj/effect/rune/raise_dead/proc/validness_checks(mob/living/target_mob, mob/living/user)
@@ -745,7 +745,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
-									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
+									"<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
 	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message("<span class='warning'>[src] begins to bubble and rises into the form of [cultist_to_summon]!</span>")
@@ -948,7 +948,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	ghosts--
 	if(new_human)
 		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>",
-								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
+								"<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/item/I in new_human.get_all_slots())
 			new_human.unEquip(I)
 		SSticker.mode.remove_cultist(new_human.mind, FALSE)

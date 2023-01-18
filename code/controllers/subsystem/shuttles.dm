@@ -205,6 +205,12 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
+	//check if the shuttle is on lockdown
+	if(M.lockeddown)
+		return 3
+	if(M.uses_lockdown)
+		M.lockeddown = TRUE
+		addtimer(VARSET_CALLBACK(M, lockeddown, FALSE), 15 SECONDS)
 	if(!M)
 		return 1
 	M.last_caller = user // Save the caller of the shuttle for later logging
@@ -270,6 +276,6 @@ SUBSYSTEM_DEF(shuttle)
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/C = V
 		C.update_hidden_docking_ports(remove_images, add_images)
 
-	QDEL_LIST(remove_images)
+	QDEL_LIST_CONTENTS(remove_images)
 
 #undef CALL_SHUTTLE_REASON_LENGTH

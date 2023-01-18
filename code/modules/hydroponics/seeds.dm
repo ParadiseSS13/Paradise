@@ -70,7 +70,7 @@
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
 
 /obj/item/seeds/Destroy()
-	QDEL_LIST(genes)
+	QDEL_LIST_CONTENTS(genes)
 	return ..()
 
 /obj/item/seeds/proc/Copy()

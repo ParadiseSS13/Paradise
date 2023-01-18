@@ -103,7 +103,6 @@
 
 // Fuckery to prevent null characters
 /datum/character_save/New()
-	randomise()
 	real_name = random_name(gender, species)
 
 /datum/character_save/proc/save(client/C)
@@ -1646,10 +1645,10 @@
 	popup.open(0)
 
 /datum/character_save/proc/GetPlayerAltTitle(datum/job/job)
-    if(player_alt_titles.Find(job.title) > 0) // Does it exist in the list
-        if(player_alt_titles[job.title] in job.alt_titles) // Is it valid
-            return player_alt_titles[job.title]
-    return job.title // Use default
+	if(player_alt_titles.Find(job.title) > 0) // Does it exist in the list
+		if(player_alt_titles[job.title] in job.alt_titles) // Is it valid
+			return player_alt_titles[job.title]
+	return job.title // Use default
 
 /datum/character_save/proc/SetPlayerAltTitle(datum/job/job, new_title)
 	// remove existing entry
@@ -1826,6 +1825,8 @@
 	if(!l_foot && !r_foot)
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
+	else if(!l_foot || !r_foot)
+		character.put_in_r_hand(new /obj/item/cane)
 
 	character.underwear = underwear
 	character.undershirt = undershirt

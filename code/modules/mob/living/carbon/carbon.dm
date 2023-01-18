@@ -11,9 +11,9 @@
 	for(var/obj/item in get_all_slots())
 		unEquip(item)
 		qdel(item)
-	QDEL_LIST(internal_organs)
-	QDEL_LIST(stomach_contents)
-	QDEL_LIST(processing_patches)
+	QDEL_LIST_CONTENTS(internal_organs)
+	QDEL_LIST_CONTENTS(stomach_contents)
+	QDEL_LIST_CONTENTS(processing_patches)
 	GLOB.carbon_list -= src
 	return ..()
 
@@ -637,6 +637,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		throw_icon.icon_state = "act_throw_off"
 
 /mob/living/carbon/proc/throw_mode_on()
+	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
@@ -883,6 +884,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return TRUE
 	return FALSE
 
+/mob/living/carbon/proc/muzzle_check()
+	if(!is_muzzled()) // No longer muzzled
+		return TRUE
+	return FALSE
+
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
 	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
@@ -916,7 +922,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else
 		visible_message("<span class='warning'>[src] gnaws on [I], trying to remove it!</span>")
 		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [time/10] seconds and you need to stand still.)</span>")
-		if(do_after(src, time, 0, target = src))
+		if(do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(muzzle_check)))))
 			visible_message("<span class='warning'>[src] removes [I]!</span>")
 			to_chat(src, "<span class='notice'>You get rid of [I]!</span>")
 			if(I.security_lock)

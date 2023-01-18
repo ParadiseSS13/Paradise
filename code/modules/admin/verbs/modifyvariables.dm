@@ -149,7 +149,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, seperated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
+			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, separated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
 			if(.["value"] == null)
 				.["class"] = null
 				return
