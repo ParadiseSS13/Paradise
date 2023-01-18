@@ -303,9 +303,9 @@
 	name = "escape pod"
 	id = "pod"
 
-	dwidth = 1
-	width = 3
-	height = 4
+	dwidth = 2
+	width = 5
+	height = 6
 
 /obj/docking_port/mobile/pod/New()
 	..()
