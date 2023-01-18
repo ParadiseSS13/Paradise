@@ -26,7 +26,7 @@
 /obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/mop))
 		var/obj/item/mop/M = W
-		if(M.reagents.total_volume < maximum_volume)
+		if(M.reagents.total_volume < M.reagents.maximum_volume)
 			M.wet_mop(src, user)
 			return
 		if(!stored_mop)

@@ -48,7 +48,7 @@
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/mop))
 			var/obj/item/mop/m=I
-			if(m.reagents.total_volume < maximum_volume)
+			if(m.reagents.total_volume < m.reagents.maximum_volume)
 				m.wet_mop(src, user)
 				return
 			if(!mymop)
