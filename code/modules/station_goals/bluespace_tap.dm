@@ -133,7 +133,7 @@
 		/mob/living/simple_animal/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
 		/mob/living/simple_animal/pet/dog/fox/ = 5,
-		/mob/living/simple_animal/pet/penguin = 5,
+		/mob/living/simple_animal/pet/penguin/baby = 5,
 		/mob/living/simple_animal/pig = 5,
 		/obj/item/slimepotion/sentience = 5,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 3,
