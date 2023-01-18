@@ -17,6 +17,7 @@
 				"<span class='userdanger'>[user] shoked you!</span>")
 		playsound(get_turf(user), 'sound/weapons/egloves.ogg', 50, 1, -1)
 		target.apply_damage(10, BURN)
+		objective_damage(user, target, 10, BURN)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : defib", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
 	else

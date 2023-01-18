@@ -34,3 +34,9 @@
 	if(!final_combo_text)
 		final_combo_text = english_list(steps, and_text = " ", comma_text = " ")
 	to_chat(user, "<span class='notice'>[name]</span>: [final_combo_text]. [explaination_text]")
+
+/datum/martial_combo/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
+	if(target.mind && user?.mind?.objectives)
+		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+			if(target.mind == objective.target)
+				objective.take_damage(damage, damage_type)

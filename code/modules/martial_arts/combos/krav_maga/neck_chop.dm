@@ -7,6 +7,7 @@
 		"<span class='userdanger'>[user] karate chops your neck, rendering you unable to speak for a short time!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	target.apply_damage(5, BRUTE)
+	objective_damage(user, target, 5, BRUTE)
 	target.AdjustSilence(10)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Neck Chop", ATKLOG_ALL)
 	user.mind.martial_art.in_stance = FALSE

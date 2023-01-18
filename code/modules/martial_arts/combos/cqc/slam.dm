@@ -10,6 +10,7 @@
 						  	"<span class='userdanger'>[user] slams you into the ground!</span>")
 		playsound(get_turf(user), 'sound/weapons/slam.ogg', 50, 1, -1)
 		target.apply_damage(10, BRUTE)
+		objective_damage(user, target, 10, BRUTE)
 		target.Weaken(2)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Slam", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE

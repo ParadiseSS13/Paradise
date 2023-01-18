@@ -92,7 +92,10 @@
 	if(D.IsWeakened() || D.resting || D.lying)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
+
 	D.apply_damage(bonus_damage, BRUTE)
+	objective_damage(A, D, bonus_damage, BRUTE)
+
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		playsound(get_turf(D), 'sound/effects/hit_kick.ogg', 50, 1, -1)

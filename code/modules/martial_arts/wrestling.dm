@@ -27,6 +27,7 @@
 	D.forceMove(A.loc)
 	var/armor_block = D.run_armor_check(null, "melee")
 	D.apply_damage(30, BRUTE, null, armor_block)
+	objective_damage(A, D, 30, BRUTE)
 	D.apply_effect(6, WEAKEN, armor_block)
 	add_attack_logs(A, D, "Melee attacked with [src] (SUPLEX)")
 

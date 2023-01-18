@@ -15,6 +15,7 @@
 		target.emote("scream")
 		target.drop_item()
 		target.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
+		objective_damage(user, target, 5, BRUTE)
 		target.Weaken(2)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT

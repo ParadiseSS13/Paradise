@@ -11,6 +11,7 @@
 		if(target.health <= HEALTH_THRESHOLD_CRIT)
 			target.death() //FINISH HIM!
 		target.apply_damage(50, BRUTE, "chest")
+		objective_damage(user, target, 50, BRUTE)
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Elbow Drop", ATKLOG_ALL)
 		if(prob(80))

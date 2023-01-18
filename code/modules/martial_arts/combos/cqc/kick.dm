@@ -13,6 +13,7 @@
 		RegisterSignal(target, COMSIG_MOVABLE_IMPACT, .proc/bump_impact)
 		target.throw_at(throw_target, 1, 14, user, callback = CALLBACK(src, .proc/unregister_bump_impact, target))
 		target.apply_damage(10, BRUTE)
+		objective_damage(user, target, 10, BRUTE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
 	if(target.IsWeakened() && !target.stat)

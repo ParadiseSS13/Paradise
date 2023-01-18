@@ -41,7 +41,10 @@
 	if(D.IsWeakened() || D.resting || D.lying)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
+
 	D.apply_damage(bonus_damage, BRUTE)
+	objective_damage(A, D, bonus_damage, BRUTE)
+
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 	else
@@ -54,6 +57,7 @@
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
+		objective_damage(A, D, 10, BRUTE)
 		D.Weaken(1)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
@@ -84,6 +88,7 @@
 				A.put_in_hands(I)
 			D.Jitter(2)
 			D.apply_damage(5, BRUTE)
+			objective_damage(A, D, 5, BRUTE)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)

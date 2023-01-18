@@ -14,7 +14,9 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
 	D.apply_damage(5, BURN)
+	objective_damage(A, D, 5, BURN)
 	D.apply_damage(5, BRUTE)
+	objective_damage(A, D, 5, BRUTE)
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] electrocuted [D]!</span>", \

@@ -91,6 +91,8 @@
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
 
 	D.apply_damage(damage, BRUTE, null, armor_block)
+	objective_damage(A, D, damage, BRUTE)
+
 	D.apply_effect(damage, STAMINA, armor_block)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)

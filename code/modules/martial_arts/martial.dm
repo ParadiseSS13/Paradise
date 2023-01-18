@@ -111,6 +111,7 @@
 								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
+	objective_damage(A, D, damage, BRUTE)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
@@ -122,6 +123,12 @@
 	else if(D.lying)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
+
+/datum/martial_art/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
+	if(target.mind && user?.mind?.objectives)
+		for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+			if(target.mind == objective.target)
+				objective.take_damage(damage, damage_type)
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)
