@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(machines)
 	init_order = INIT_ORDER_MACHINES
 	flags = SS_KEEP_TIMING
 	offline_implications = "Machinery will no longer process. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	var/list/processing = list()
 	var/list/currentrun = list()
@@ -18,7 +19,6 @@ SUBSYSTEM_DEF(machines)
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
 	fire()
-	return ..()
 
 /datum/controller/subsystem/machines/get_metrics()
 	. = ..()
