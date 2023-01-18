@@ -4,9 +4,9 @@ SUBSYSTEM_DEF(holiday)
 	flags = SS_NO_FIRE
 	var/list/holidays
 
-/datum/controller/subsystem/holiday/Initialize(start_timeofday)
+/datum/controller/subsystem/holiday/Initialize()
 	if(!GLOB.configuration.general.allow_holidays)
-		return ..() //Holiday stuff was not enabled in the config!
+		return //Holiday stuff was not enabled in the config!
 
 	var/YY = text2num(time2text(world.timeofday, "YY")) 	// get the current year
 	var/MM = text2num(time2text(world.timeofday, "MM")) 	// get the current month
@@ -27,5 +27,3 @@ SUBSYSTEM_DEF(holiday)
 			if(H.eventChance)
 				if(prob(H.eventChance))
 					H.handle_event()
-
-	return ..()
