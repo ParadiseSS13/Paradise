@@ -56,5 +56,12 @@
 
 
 /obj/item/assembly/igniter/attack_self(mob/user)
-	activate()
+	if(cooldown > 0)
+		return FALSE
+	cooldown = 2
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
+	var/turf/location = get_turf(loc)
+	if(location)
+		location.hotspot_expose(1000, 1000)
+	sparks.start()
 	add_fingerprint(user)
