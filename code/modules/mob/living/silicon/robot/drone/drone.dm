@@ -188,6 +188,14 @@
 
 	..()
 
+/mob/living/silicon/robot/drone/Destroy()
+	. = ..()
+	QDEL_NULL(stack_glass)
+	QDEL_NULL(stack_metal)
+	QDEL_NULL(stack_wood)
+	QDEL_NULL(stack_plastic)
+	QDEL_NULL(decompiler)
+
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
 		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")

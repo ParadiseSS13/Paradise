@@ -23,6 +23,7 @@ export const Uplink = (props, context) => {
   const { act, data } = useBackend(context);
 
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
 
   return (
     <Window theme="syndicate">
@@ -32,7 +33,10 @@ export const Uplink = (props, context) => {
           <Tabs.Tab
             key="PurchasePage"
             selected={tabIndex === 0}
-            onClick={() => setTabIndex(0)}
+            onClick={() => {
+                setTabIndex(0);
+                setSearchText("");
+                }}
             icon="shopping-cart"
           >
             Purchase Equipment
@@ -40,7 +44,10 @@ export const Uplink = (props, context) => {
           <Tabs.Tab
             key="ExploitableInfo"
             selected={tabIndex === 1}
-            onClick={() => setTabIndex(1)}
+            onClick={() => {
+              setTabIndex(1);
+              setSearchText("");
+              }}
             icon="user"
           >
             Exploitable Information
