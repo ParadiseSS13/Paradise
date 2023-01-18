@@ -13889,8 +13889,7 @@
 /area/maintenance/bar)
 "aDZ" = (
 /obj/structure/chair/wood/wings{
-	dir = 8;
-	tag = "icon-wooden_chair_wings (WEST)"
+	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -17665,6 +17664,7 @@
 "aML" = (
 /obj/machinery/door/airlock/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "aMM" = (
@@ -18527,8 +18527,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/maintenance/quarters)
 "aOL" = (
@@ -19470,8 +19469,7 @@
 /area/maintenance/livingcomplex)
 "aQU" = (
 /obj/structure/chair/wood/wings{
-	dir = 8;
-	tag = "icon-wooden_chair_wings (WEST)"
+	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -20975,8 +20973,7 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/maintenance/quarters)
 "aUj" = (
@@ -20988,8 +20985,7 @@
 	},
 /obj/item/lighter/zippo/engraved,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/quarters)
 "aUk" = (
@@ -84556,8 +84552,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -86201,8 +86195,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/maintenance/quarters)
 "gEW" = (
@@ -95658,6 +95651,12 @@
 "rpU" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/mineral_door/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -96617,14 +96616,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
-"sDu" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/barricade/wooden,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/engrooms)
 "sDN" = (
 /obj/structure/morgue{
 	dir = 8
@@ -99296,8 +99287,6 @@
 "vHR" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -101050,7 +101039,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/engrooms)
 "xsM" = (
@@ -153224,7 +153212,7 @@ dsJ
 dsJ
 dQn
 mca
-sDu
+mca
 dsJ
 dQn
 dQn
