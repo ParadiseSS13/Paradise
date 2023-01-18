@@ -138,6 +138,3 @@
 	if(cham_proj)
 		cham_proj.disrupt(src)
 	..()
-
-/mob/living/silicon/robot/syndicate/death(gibbed)
-	. = ..()
