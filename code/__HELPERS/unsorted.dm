@@ -1875,7 +1875,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
-// This proc returns every player with a client who is not a ghost or a new_player
+/// This proc returns every player with a client who is not a ghost or a new_player
 /proc/get_living_players(exclude_nonhuman = FALSE, exclude_offstation = FALSE)
 	var/list/living_players = list()
 
