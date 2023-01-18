@@ -248,8 +248,9 @@
 		teleport_target = tele_target
 
 /obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
+	var/turf/target_turf = get_turf(teleport_target)
 	if(isliving(target))
-		if(get_turf(teleport_target) == target.z || teleport_target.emagged)
+		if(target_turf.z == target.z || teleport_target.emagged)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
