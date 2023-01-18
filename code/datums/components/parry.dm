@@ -14,16 +14,20 @@
 	var/parry_cooldown
 	///Do we wish to mute the parry sound?
 	var/no_parry_sound
+	/// Text to be shown to users who examine the parent. Will list which type of attacks it can parry.
+	var/examine_text
 
 /datum/component/parry/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(equipped))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(dropped))
 	RegisterSignal(parent, COMSIG_ITEM_HIT_REACT, PROC_REF(attempt_parry))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_parent_examined))
 
 /datum/component/parry/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED)
 	UnregisterSignal(parent, COMSIG_ITEM_DROPPED)
 	UnregisterSignal(parent, COMSIG_ITEM_HIT_REACT)
+	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
 	var/obj/item/I = parent
 	if(ismob(I.loc))
 		UnregisterSignal(I.loc, COMSIG_LIVING_RESIST)
@@ -41,6 +45,19 @@
 		parryable_attack_types = _parryable_attack_types
 	else
 		parryable_attack_types = list(_parryable_attack_types)
+
+	var/static/list/attack_types_english = list(
+		MELEE_ATTACK = "melee attacks",
+		UNARMED_ATTACK = "unarmed attacks",
+		PROJECTILE_ATTACK = "projectiles",
+		THROWN_PROJECTILE_ATTACK = "thrown projectiles",
+		LEAP_ATTACK = "leap attacks"
+	)
+	var/list/attack_list = list()
+	for(var/attack_type in parryable_attack_types)
+		attack_list += attack_types_english[attack_type]
+
+	examine_text = "<span class='notice'>It's able to <b>parry</b> [english_list(attack_list)].</span>"
 
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
@@ -101,5 +118,6 @@
 			return COMPONENT_BLOCK_SUCCESSFUL
 		return (COMPONENT_BLOCK_SUCCESSFUL | COMPONENT_BLOCK_PERFECT)
 
-
-
+/datum/component/parry/proc/on_parent_examined(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	examine_list += examine_text
