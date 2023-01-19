@@ -35,7 +35,6 @@
 			return
 		if(!stored_mop)
 			M.mopbucket_insert(user, src)
-			update_icon(UPDATE_OVERLAYS)
 			return
 		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
 		return
@@ -45,6 +44,7 @@
 	user.drop_item()
 	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/J)

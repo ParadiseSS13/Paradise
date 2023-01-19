@@ -37,6 +37,7 @@
 	I.forceMove(src)
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/structure/janitorialcart/on_reagent_change()
@@ -48,12 +49,11 @@
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/mop))
 			var/obj/item/mop/m=I
-			if(m.reagents.total_volume < m.reagents.maximum_volume && reagents.total_volume)
+			if(m.reagents.total_volume < m.reagents.maximum_volume)
 				m.wet_mop(src, user)
 				return
 			if(!mymop)
 				m.janicart_insert(user, src)
-				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 
@@ -61,28 +61,24 @@
 			if(!mybag)
 				var/obj/item/storage/bag/trash/t=I
 				t.janicart_insert(user, src)
-				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 			if(!myspray)
+				myspray = I
 				put_in_cart(I, user)
-				myspray=I
-				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/lightreplacer))
 			if(!myreplacer)
 				var/obj/item/lightreplacer/l=I
 				l.janicart_insert(user,src)
-				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/caution))
 			if(signs < max_signs)
-				put_in_cart(I, user)
 				signs++
-				update_icon(UPDATE_OVERLAYS)
+				put_in_cart(I, user)
 			else
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(istype(I, /obj/item/crowbar))
