@@ -367,7 +367,7 @@
 		var/mob/living/carbon/C = loc
 		select_fire(C)
 		overloaded = TRUE
-		cell.charge -= 125
+		cell.use(125)
 		playsound(C.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
 		atom_say("Overloading successful.")
 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
