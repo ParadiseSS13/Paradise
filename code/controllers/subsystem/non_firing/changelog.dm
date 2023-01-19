@@ -21,13 +21,13 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/Initialize()
 	// This entire subsystem relies on SQL being here.
 	if(!SSdbcore.IsConnected())
-		return ..()
+		return
 
 	var/datum/db_query/latest_cl_date = SSdbcore.NewQuery("SELECT CAST(UNIX_TIMESTAMP(date_merged) AS CHAR) AS ut FROM changelog ORDER BY date_merged DESC LIMIT 1")
 	if(!latest_cl_date.warn_execute())
 		qdel(latest_cl_date)
 		// Abort if we cant do this
-		return ..()
+		return
 
 	while(latest_cl_date.NextRow())
 		current_cl_timestamp = latest_cl_date.item[1]
@@ -47,8 +47,6 @@ SUBSYSTEM_DEF(changelog)
 	// Now we can alert anyone who wanted to check the changelog
 	for(var/client/C as anything in startup_clients_open)
 		OpenChangelog(C)
-
-	return ..()
 
 
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogDate(client/C)

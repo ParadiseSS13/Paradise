@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(mapping)
 		var/F = file("data/next_map.txt")
 		F << next_map.type
 
-/datum/controller/subsystem/mapping/Initialize(timeofday)
+/datum/controller/subsystem/mapping/Initialize()
 	// Load all Z level templates
 	preloadTemplates()
 
@@ -110,8 +110,6 @@ SUBSYSTEM_DEF(mapping)
 		world.name = "[GLOB.configuration.general.server_name]: [station_name()]"
 	else
 		world.name = station_name()
-
-	return ..()
 
 // Do not confuse with seedRuins()
 /datum/controller/subsystem/mapping/proc/handleRuins()

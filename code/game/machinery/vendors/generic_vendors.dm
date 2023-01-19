@@ -363,6 +363,8 @@
 					/obj/item/clothing/head/wizard/clown = 1,
 					/obj/item/clothing/mask/gas/clownwiz = 1,
 					/obj/item/clothing/shoes/clown_shoes/magical = 1,
+					/obj/item/dnainjector/comic = 1,
+					/obj/item/implanter/sad_trombone = 1,
 					/obj/item/clothing/suit/wizrobe/mime = 1,
 					/obj/item/clothing/head/wizard/mime = 1,
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
