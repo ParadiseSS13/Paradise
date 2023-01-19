@@ -105,7 +105,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		A.close()
 	for(var/mob/M in response_team_members)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_species_prefs, ert_role_prefs), 200)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_species_prefs, ert_role_prefs), 20 SECONDS)
 
 /proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_species_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
@@ -161,7 +161,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	if(!new_species)
 		new_species = "Human"
 	if(new_species == "Random")
-		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Random")
+		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
 	var/datum/species/S = GLOB.all_species[new_species]
 	var/species = S.type
 	M.set_species(species, TRUE)
@@ -169,19 +169,19 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
 	M.overeatduration = 0
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
-	var/eye_c = pick("#000000","#8B4513","#1E90FF") // Black, brown, blue
+	var/eye_c = pick("#000000", "#8B4513", "#1E90FF") // Black, brown, blue
 	var/skin_tone = rand(-120, 20) // A range of skin colors
 
 	switch(new_species) //Diona not included as they don't use the hair colours
 		if("Human", "Tajaran", "Vulpkanin", "Nian")
-			var/hair_c_htvn = pick("#8B4513","#000000","#FF4500","#FFD700", "#d4d1bf") // Brown, black, red, blonde, grey
+			var/hair_c_htvn = pick("#8B4513", "#000000", "#FF4500", "#FFD700", "#d4d1bf") // Brown, black, red, blonde, grey
 			head_organ.facial_colour = hair_c_htvn
 			head_organ.sec_facial_colour = hair_c_htvn
 			head_organ.hair_colour = hair_c_htvn
 			head_organ.sec_hair_colour = hair_c_htvn
 			M.skin_colour = hair_c_htvn
 		if("Skrell", "Unathi") //Some common skrell / unathi colours
-			var/list/su = list("#1f138b","#272525","#07a035","#8c00ff", "#a80c0c")
+			var/list/su = list("#1f138b", "#272525", "#07a035", "#8c00ff", "#a80c0c")
 			var/hair_c_su = pick_n_take(su)
 			head_organ.facial_colour = hair_c_su
 			head_organ.sec_facial_colour = hair_c_su
