@@ -89,12 +89,13 @@
 
 /obj/effect/temp_visual/dir_setting/bloodcrawl
 	icon = 'icons/mob/mob.dmi'
+	icon_state = "blank" // Flicks are used instead
 	duration = 0.6 SECONDS
 	layer = MOB_LAYER - 0.1
 
 /obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, set_icon_state)
 	. = ..()
-	icon_state = set_icon_state
+	flick(set_icon_state, src)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
@@ -258,8 +259,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/sink_animation(atom/A, mob/living/L)
 	A.visible_message("<span class='danger'>[L] sinks into the shadows...</span>")
-	var/obj/effect/temp_visual/dir_setting/bloodcrawl/shadow_crawl = new(get_turf(L), L.dir, "shadow_demon")
-	flick("shadowwalk_disappear", shadow_crawl) // Flicks are more reliable and this specific animation needs to be timed properly
+	new /obj/effect/temp_visual/dir_setting/bloodcrawl(get_turf(L), L.dir, "shadowwalk_disappear")
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
 	..()
