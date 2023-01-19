@@ -33432,12 +33432,12 @@
 "dfd" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/item/radio/intercom{
-	pixel_y = -42
-	},
 /obj/machinery/flasher{
 	id = "Cell 2";
 	pixel_y = -28
+	},
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = -42
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -36855,13 +36855,13 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/item/radio/intercom{
-	pixel_x = -30
-	},
 /obj/machinery/flasher{
 	id = "Perma1";
 	pixel_x = -24;
 	pixel_y = -12
+	},
+/obj/item/radio/intercom/locked/prison{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -43312,8 +43312,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/radio/intercom{
-	pixel_x = -32
+/obj/item/radio/intercom/locked/prison{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53292,8 +53292,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/item/radio/intercom{
-	pixel_x = 30
+/obj/item/radio/intercom/locked/prison{
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -56180,6 +56180,9 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58220,9 +58223,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "gKa" = (
-/obj/item/radio/intercom{
-	pixel_x = -32
-	},
 /obj/machinery/newscaster{
 	pixel_y = -28
 	},
@@ -59062,8 +59062,8 @@
 /obj/item/seeds/banana,
 /obj/item/seeds/banana,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/radio/intercom{
-	pixel_x = 30
+/obj/item/radio/intercom/locked/prison{
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -63528,12 +63528,12 @@
 /area/civilian/vacantoffice)
 "hRD" = (
 /obj/structure/bed,
-/obj/item/radio/intercom{
-	pixel_y = -42
-	},
 /obj/machinery/flasher{
 	id = "Cell 5";
 	pixel_y = -28
+	},
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = -42
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -66468,12 +66468,10 @@
 	pixel_x = 7;
 	pixel_y = 14
 	},
-/obj/item/radio/intercom/locked/confessional{
-	frequency = 1470;
-	pixel_y = -4;
-	req_access_txt = "63"
-	},
 /obj/structure/table/reinforced,
+/obj/item/radio/intercom/department/security{
+	pixel_y = -4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67785,13 +67783,11 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "iPH" = (
-/obj/item/radio/intercom/locked/confessional{
-	frequency = 1470;
-	pixel_y = 4;
-	req_access_txt = "63"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
+/obj/item/radio/intercom/department/security{
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -69943,13 +69939,13 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/item/radio/intercom{
-	pixel_x = 30
-	},
 /obj/machinery/flasher{
 	id = "Perma2";
 	pixel_x = 24;
 	pixel_y = -12
+	},
+/obj/item/radio/intercom/locked/prison{
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -88233,12 +88229,12 @@
 "nxM" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/item/radio/intercom{
-	pixel_y = 36
-	},
 /obj/machinery/flasher{
 	id = "Cell 1";
 	pixel_y = 28
+	},
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = 36
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -88601,12 +88597,12 @@
 /area/crew_quarters/bar/atrium)
 "nCX" = (
 /obj/structure/bed,
-/obj/item/radio/intercom{
-	pixel_y = 36
-	},
 /obj/machinery/flasher{
 	id = "Cell 1";
 	pixel_y = 28
+	},
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = 36
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -88852,7 +88848,7 @@
 	id = "Cell 5";
 	pixel_y = 28
 	},
-/obj/item/radio/intercom{
+/obj/item/radio/intercom/locked/prison{
 	pixel_y = 36
 	},
 /turf/simulated/floor/plasteel{
@@ -120918,7 +120914,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/item/radio/intercom{
+/obj/item/radio/intercom/locked/confessional{
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -124005,7 +124001,7 @@
 /area/crew_quarters/locker)
 "vhp" = (
 /obj/structure/bed,
-/obj/item/radio/intercom{
+/obj/item/radio/intercom/locked/prison{
 	pixel_y = -28
 	},
 /turf/simulated/floor/plating,
@@ -125201,8 +125197,8 @@
 /area/security/securearmory)
 "vvh" = (
 /obj/structure/bed,
-/obj/item/radio/intercom{
-	pixel_y = 24
+/obj/item/radio/intercom/locked/prison{
+	pixel_y = 28
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
@@ -136772,10 +136768,8 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	dir = 8;
-	frequency = 1465;
-	pixel_y = 22
+/obj/item/radio/intercom/locked/confessional{
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
