@@ -50,7 +50,8 @@
 	. = ..()
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
 		. += "You can feel a bright spark of life in this one!"
-	else if(brainmob && brainmob.mind)
+		return
+	if(brainmob && brainmob.mind)
 		var/foundghost = FALSE
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.mind == brainmob.mind)
@@ -62,7 +63,7 @@
 			. += "You can feel the small spark of life still left in this one."
 			return
 
-	else . += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
+	. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
 /obj/item/organ/internal/brain/remove(mob/living/user,special = 0)
 	if(dna)
