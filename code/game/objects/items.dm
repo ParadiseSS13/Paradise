@@ -825,18 +825,14 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/assignmentName = get_ID_assignment(if_no_id = "Unknown")
 	var/rankName = get_ID_rank(if_no_id = "Unknown")
 
-	var/job_icons = get_all_job_icons()
-	var/centcom = get_all_centcom_jobs()
-	var/solgov = get_all_solgov_jobs()
+	var/static/list/job_icons = get_all_job_icons()
+	var/static/list/centcom = get_all_centcom_jobs()
+	var/static/list/solgov = get_all_solgov_jobs()
 
-	if(assignmentName in centcom) //Return with the NT logo if it is a Centcom job
-		return "Centcom"
-	if(rankName in centcom)
+	if((assignmentName in centcom) || (rankName in centcom)) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
 
-	if(assignmentName in solgov) //Return with the SolGov logo if it is a SolGov job
-		return "solgov"
-	if(rankName in solgov)
+	if((assignmentName in solgov) || (rankName in solgov)) //Return with the SolGov logo if it is a SolGov job
 		return "solgov"
 
 	if(assignmentName in job_icons) //Check if the job has a hud icon
