@@ -846,7 +846,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 												"Vomit" = "warm chunky vomit")
 
 	var/choice = show_radial_menu(user, src, options)
-	if(!choice)
+	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
 	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
 	magic_fill(options_to_reagent[choice])
