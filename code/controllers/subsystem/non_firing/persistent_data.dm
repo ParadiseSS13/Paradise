@@ -18,7 +18,6 @@ SUBSYSTEM_DEF(persistent_data)
 	// Load all the data of registered atoms
 	for(var/atom/A in registered_atoms)
 		A.persistent_load()
-	return ..()
 
 /datum/controller/subsystem/persistent_data/Shutdown()
 	// Save all the data of registered atoms

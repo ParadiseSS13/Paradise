@@ -9,10 +9,9 @@ SUBSYSTEM_DEF(late_mapping)
 	/// List of all maze generators to process
 	var/list/obj/effect/mazegen/generator/maze_generators = list()
 
-/datum/controller/subsystem/late_mapping/Initialize(start_timeofday)
+/datum/controller/subsystem/late_mapping/Initialize()
 	if(length(maze_generators))
 		log_startup_progress("Generating mazes...")
 		for(var/i in maze_generators)
 			var/obj/effect/mazegen/generator/MG = i
 			MG.run_generator()
-	return ..()
