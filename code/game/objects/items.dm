@@ -818,3 +818,44 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
 /obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)
 	return
+
+// Access and Job stuff
+
+/obj/item/proc/get_job_name() //Used in secHUD icon generation
+	var/assignmentName = get_ID_assignment(if_no_id = "Unknown")
+	var/rankName = get_ID_rank(if_no_id = "Unknown")
+
+	var/static/list/job_icons = get_all_job_icons()
+	var/static/list/centcom = get_all_centcom_jobs()
+	var/static/list/solgov = get_all_solgov_jobs()
+
+	if((assignmentName in centcom) || (rankName in centcom)) //Return with the NT logo if it is a Centcom job
+		return "Centcom"
+
+	if((assignmentName in solgov) || (rankName in solgov)) //Return with the SolGov logo if it is a SolGov job
+		return "solgov"
+
+	if(assignmentName in job_icons) //Check if the job has a hud icon
+		return assignmentName
+	if(rankName in job_icons)
+		return rankName
+
+	return "Unknown" //Return unknown if none of the above apply
+
+/obj/item/proc/get_ID_assignment(if_no_id = "No id")
+	var/obj/item/card/id/id = GetID()
+	if(istype(id)) // Make sure its actually an ID
+		return id.assignment
+	return if_no_id
+
+/obj/item/proc/get_ID_rank(if_no_id = "No id")
+	var/obj/item/card/id/id = GetID()
+	if(istype(id)) // Make sure its actually an ID
+		return id.rank
+	return if_no_id
+
+/obj/item/proc/GetAccess()
+	return list()
+
+/obj/item/proc/GetID()
+	return null
