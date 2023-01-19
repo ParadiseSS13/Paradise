@@ -42,3 +42,10 @@
 		return
 	var/obj/item/clothing/accessory/holster/H = locate() in M.w_uniform
 	H?.holster_verb()
+
+/datum/keybinding/human/parry
+	name = "Parry"
+
+/datum/keybinding/human/parry/down(client/C)
+	. = ..()
+	SEND_SIGNAL(C.mob, COMSIG_HUMAN_PARRY)

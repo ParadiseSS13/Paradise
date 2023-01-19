@@ -49,6 +49,8 @@
 
 #define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
 
+#define is_pda(W) (istype(W, /obj/item/pda))
+
 #define isspacecash(W) (istype(W, /obj/item/stack/spacecash))
 
 #define isstorage(A) (istype(A, /obj/item/storage))
