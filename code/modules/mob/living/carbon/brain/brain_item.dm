@@ -51,12 +51,12 @@
 	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
 		. += "You can feel a bright spark of life in this one!"
 		return
-	if(brainmob && brainmob.mind)
+	if(brainmob?.mind)
 		var/foundghost = FALSE
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.mind == brainmob.mind)
 				foundghost = TRUE
-				if(G.can_reenter_corpse == 0)
+				if(G.can_reenter_corpse == FALSE)
 					foundghost = FALSE
 				break
 		if(foundghost)
