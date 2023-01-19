@@ -237,7 +237,7 @@
 		dark creatures."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialshadows"
-	veil_msg = "<span class='warning'>You sense an dark presence \
+	veil_msg = "<span class='warning'>You sense a dark presence \
 		lurking in the shadows...</span>"
 	objective_verb = "Kill"
 	demon_type = /mob/living/simple_animal/demon/shadow
@@ -324,16 +324,17 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant awakened by [user.real_name]?", ROLE_REVENANT, 1, 10 SECONDS, source = revenant)
 
-	if(candidates.len > 0)
-		var/mob/C = pick(candidates)
-		spawn_antag(C, get_turf(src.loc), initial(revenant.name), user)
-		to_chat(user, "[shatter_msg]")
-		to_chat(user, "[veil_msg]")
-		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
-		qdel(src)
-	else
+	if(!candidates.len)
 		used = FALSE
 		to_chat(user, "<span class='notice'>The ectoplasm does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
+		return
+		
+	var/mob/C = pick(candidates)
+	spawn_antag(C, get_turf(src.loc), initial(revenant.name), user)
+	to_chat(user, "[shatter_msg]")
+	to_chat(user, "[veil_msg]")
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
+	qdel(src)
 
 /obj/item/antag_spawner/revenant/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/mob/living/simple_animal/revenant/M = new /mob/living/simple_animal/revenant(pick(GLOB.xeno_spawn))
