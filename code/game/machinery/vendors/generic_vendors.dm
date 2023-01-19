@@ -121,7 +121,7 @@
 					/obj/item/clothing/head/boaterhat = 10,
 					/obj/item/clothing/head/fedora = 10,
 					/obj/item/clothing/head/cowboyhat = 10,
-					/obj/item/clothing/head/cowboyhat/black  = 10,
+					/obj/item/clothing/head/cowboyhat/black = 10,
 					/obj/item/clothing/head/fez = 10,
 					/obj/item/clothing/head/soft/solgov = 10,
 					/obj/item/clothing/head/beret = 10,
@@ -131,8 +131,8 @@
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
 	prices = list(/obj/item/clothing/head/bowlerhat = 20, /obj/item/clothing/head/beaverhat = 20, /obj/item/clothing/head/boaterhat = 20,
 				/obj/item/clothing/head/fedora = 20, /obj/item/clothing/head/beret = 20, /obj/item/clothing/head/beret/black = 20, /obj/item/clothing/head/fez = 20,
-				/obj/item/clothing/head/hairflower = 20, /obj/item/clothing/head/cowboyhat = 20, /obj/item/clothing/head/cowboyhat/black  = 20,
-				/obj/item/clothing/head/soft/solgov = 20,/obj/item/clothing/head/bearpelt = 30)
+				/obj/item/clothing/head/hairflower = 20, /obj/item/clothing/head/cowboyhat = 20, /obj/item/clothing/head/cowboyhat/black = 20,
+				/obj/item/clothing/head/soft/solgov = 20, /obj/item/clothing/head/bearpelt = 30)
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
 /obj/machinery/economy/vending/suitdispenser
