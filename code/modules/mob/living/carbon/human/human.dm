@@ -494,12 +494,13 @@
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	if(istype(pda))		. = pda.owner
-	else if(istype(id))	. = id.registered_name
-	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
-	return
+	var/obj/item/card/id/id = wear_id?.GetID()
+	if(istype(id))
+		return id.registered_name
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda
+		return pda.owner
+	return if_no_id	//to prevent null-names making the mob unclickable
 
 //gets ID card object from special clothes slot or, if applicable, hands as well
 /mob/living/carbon/human/proc/get_idcard(check_hands = FALSE)
@@ -1771,15 +1772,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/can_track(mob/living/user)
 	if(wear_id)
-		var/obj/item/card/id/id = wear_id
+		var/obj/item/card/id/id = wear_id.GetID()
 		if(istype(id) && id.is_untrackable())
 			return 0
 	if(wear_pda)
-		var/obj/item/pda/pda = wear_pda
-		if(istype(pda))
-			var/obj/item/card/id/id = pda.id
-			if(istype(id) && id.is_untrackable())
-				return 0
+		var/obj/item/card/id/id = wear_pda.GetID()
+		if(istype(id) && id.is_untrackable())
+			return 0
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
