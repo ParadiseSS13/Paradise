@@ -705,6 +705,7 @@
 	item_state = "orange-id"
 	assignment = "Prisoner"
 	registered_name = "Scum"
+	access = list(ACCESS_LIBRARY)
 	var/goal = 0 //How far from freedom?
 
 /obj/item/card/id/prisoner/examine(mob/user)
