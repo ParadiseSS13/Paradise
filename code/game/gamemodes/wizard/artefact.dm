@@ -826,24 +826,24 @@ GLOBAL_LIST_EMPTY(multiverse)
 	icon_state = "evermug"
 
 /obj/item/reagent_containers/food/drinks/everfull/attack_self(mob/user)
-	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),/// todo add icons for these
+	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
 							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
 							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
 							"Holy Water" = image(icon = 'icons/obj/drinks.dmi', icon_state = "holyflask"),
 							"Welder Fuel" = image(icon = 'icons/obj/objects.dmi', icon_state = "fuel"),
-							"Vomit" = image(icon = 'icons/effects/blood.dmi', icon_state = "vomit_1"),)
+							"Vomit" = image(icon = 'icons/effects/blood.dmi', icon_state = "vomit_1"))
 	var/static/list/options_to_reagent = list("Omnizine" = "omnizine",
 									"Ale" = "ale",
 									"Wine" = "wine",
 									"Holy Water" = "holywater",
 									"Welder Fuel" = "fuel",
-									"Vomit" = "vomit",)
+									"Vomit" = "vomit")
 	var/static/list/options_to_descriptions = list("Omnizine" = "a strange pink-white liquid",
 												"Ale" = "foamy amber ale",
 												"Wine" = "deep red wine",
 												"Holy Water" = "sparkling clear water",
 												"Welder Fuel" = "a dark, pungent, oily substance",
-												"Vomit" = "warm chunky vomit",)
+												"Vomit" = "warm chunky vomit")
 
 	var/choice = show_radial_menu(user, src, options)
 	if(!choice)
