@@ -24,7 +24,8 @@ STI KALY - blind
 */
 
 /datum/disease/wizarditis/stage_act()
-	..()
+	if(!..())
+		return FALSE
 
 	switch(stage)
 		if(2)
