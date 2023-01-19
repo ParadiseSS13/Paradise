@@ -87,20 +87,20 @@
 	C.regenerate_icons()
 	return TRUE
 
+/obj/effect/temp_visual/dir_setting/bloodcrawl
+	icon = 'icons/mob/mob.dmi'
+	duration = 0.6 SECONDS
+	layer = MOB_LAYER - 0.1
+
+/obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, set_icon_state)
+	. = ..()
+	icon_state = set_icon_state
+
 /obj/effect/proc_holder/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
 	visible_message("<span class='danger'>[L] sinks into [A].</span>")
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, 1, -1)
-	var/atom/movable/overlay/animation = new(mob_loc)
-	animation.name = "odd blood"
-	animation.density = FALSE
-	animation.anchored = TRUE
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.icon_state = "jaunt"
-	animation.layer = 5
-	animation.master = mob_loc
-	animation.dir = L.dir
-	QDEL_IN(animation, 0.6 SECONDS)
+	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, L.dir, "jaunt")
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
 	if(!HAS_TRAIT(L, TRAIT_BLOODCRAWL_EAT))
@@ -188,21 +188,12 @@
 	post_phase_in(L, holder)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/rise_animation(turf/tele_loc, mob/living/L, atom/A)
-	var/atom/movable/overlay/animation = new(tele_loc)
-	animation.name = "odd blood"
-	animation.density = FALSE
-	animation.anchored = TRUE
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
-	animation.layer = 5
-	animation.master = tele_loc
-	animation.dir = L.dir
+	new /obj/effect/temp_visual/dir_setting/bloodcrawl(tele_loc, L.dir, "jauntup")
 	if(prob(25) && isdemon(L))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice),50, 1, -1)
 	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b>")
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, 1, -1)
-	QDEL_IN(animation, 0.6 SECONDS)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/unblock_hands(mob/living/carbon/C)
 	if(!istype(C))
@@ -260,13 +251,15 @@
 	return
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/rise_animation(turf/tele_loc, mob/living/L, atom/A)
-	return
+	new /obj/effect/temp_visual/dir_setting/bloodcrawl(get_turf(L), L.dir, "shadowwalk_appear")
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/handle_consumption(mob/living/L, mob/living/victim, atom/A, obj/effect/dummy/slaughter/holder)
 	return
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/sink_animation(atom/A, mob/living/L)
 	A.visible_message("<span class='danger'>[L] sinks into the shadows...</span>")
+	var/obj/effect/temp_visual/dir_setting/bloodcrawl/shadow_crawl = new(get_turf(L), L.dir, "shadow_demon")
+	flick("shadowwalk_disappear", shadow_crawl) // Flicks are more reliable and this specific animation needs to be timed properly
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/post_phase_in(mob/living/L, obj/effect/dummy/slaughter/holder)
 	..()
