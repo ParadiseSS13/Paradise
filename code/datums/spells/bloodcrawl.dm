@@ -93,9 +93,9 @@
 	duration = 0.6 SECONDS
 	layer = MOB_LAYER - 0.1
 
-/obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, set_icon_state)
+/obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, animation_state)
 	. = ..()
-	flick(set_icon_state, src)
+	flick(animation_state, src)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
@@ -267,4 +267,3 @@
 		return
 	var/mob/living/simple_animal/demon/shadow/S = L
 	S.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
-
