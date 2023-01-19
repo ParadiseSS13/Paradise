@@ -6,7 +6,7 @@
 /datum/action/changeling/spiders
 	name = "Spread Infestation"
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend."
-	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 5 stored DNA."
+	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 5 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)"
 	button_icon_state = "spread_infestation"
 	chemical_cost = 45
 	dna_cost = 2
