@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(hierophant_walls, list())
 	if(prob(15))
 		visible_message("<span class='warning'>[src] starts to rumble and groan as the lights fade on it, and it begins to collapse to rubble!</span>",\
 		"<span class='warning'>You hear metal groaning and tearing!</span>")
-		new /turf/simulated/floor/indestructible/hierophant/two(src)
+		ChangeTurf(/turf/simulated/floor/indestructible/hierophant/two)
 		return
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 10 SECONDS)
 
