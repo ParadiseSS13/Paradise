@@ -91,11 +91,11 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "blank" // Flicks are used instead
 	duration = 0.6 SECONDS
-	layer = MOB_LAYER - 0.1
+	layer = MOB_LAYER + 0.1
 
 /obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, animation_state)
 	. = ..()
-	flick(animation_state, src)
+	flick(animation_state, src) // Setting the icon_state to the animation has timing issues and can cause frame skips
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/sink_animation(atom/A, mob/living/L)
 	var/turf/mob_loc = get_turf(L)
