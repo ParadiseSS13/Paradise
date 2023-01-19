@@ -375,8 +375,7 @@
 	var/mob/living/silicon/robot/cyborg
 
 /obj/item/borg/upgrade/floorbuffer/do_install(mob/living/silicon/robot/R)
-	var/obj/item/borg/upgrade/floorbuffer/U = locate() in R
-	if(U)
+	for(var/obj/item/borg/upgrade/floorbuffer/U in R)
 		to_chat(R, "<span class='notice'>A floor buffer unit is already installed!</span>")
 		to_chat(usr, "<span class='notice'>There's no room for another floor buffer unit!</span>")
 		return
