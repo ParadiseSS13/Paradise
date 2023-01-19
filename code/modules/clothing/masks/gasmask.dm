@@ -72,7 +72,18 @@
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize()
 	. = ..()
-	adjustmask()
+	forceadjustmask()
+
+/obj/item/clothing/mask/gas/explorer/folded/proc/forceadjustmask()
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	gas_transfer_coefficient = null
+	permeability_coefficient = null
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDEFACE
+	flags &= ~AIRTIGHT
+	w_class = WEIGHT_CLASS_SMALL
+
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
