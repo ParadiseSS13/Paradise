@@ -487,6 +487,13 @@ Difficulty: Hard
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
 
+/mob/living/simple_animal/hostile/megafauna/hierophant/bullet_act(obj/item/projectile/P)
+	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
+		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
+			FindTarget(list(P.firer), 1)
+		Goto(P.starting, move_to_delay, 3)
+	..()
+
 //Hierophant overlays
 /obj/effect/temp_visual/hierophant
 	name = "vortex energy"
