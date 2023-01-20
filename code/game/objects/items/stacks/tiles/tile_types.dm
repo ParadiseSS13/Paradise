@@ -32,8 +32,8 @@
 	if (mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
 		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-					 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
-					 "<span class='italics'>You hear welding.</span>")
+					"<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
+					"<span class='italics'>You hear welding.</span>")
 		var/obj/item/stack/rods/R = src
 		src = null
 		var/replace = (user.get_inactive_hand()==R)
@@ -260,3 +260,14 @@
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20
+
+/obj/item/stack/tile/disco_light
+	name = "disco light tiles"
+	singular_name = "disco light tile"
+	desc = "A sheet of disco light tile."
+	icon_state = "tile_disco"
+	turf_type = /turf/simulated/floor/light/disco
+	merge_type = /obj/item/stack/tile/disco_light
+
+/obj/item/stack/tile/disco_light/thirty
+	amount = 30

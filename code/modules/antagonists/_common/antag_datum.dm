@@ -44,7 +44,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	assigned_targets = list()
 
 /datum/antagonist/Destroy(force, ...)
-	QDEL_LIST(objectives)
+	for(var/datum/objective/O as anything in objectives)
+		objectives -= O
+		if(!O.team)
+			qdel(O)
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
 	if(!silent)
@@ -212,39 +215,42 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/datum/objective/O = new objective_type(explanation_text)
 	O.owner = owner
 
-	if(target_override)
-		O.target = target_override
-		objectives += O
-		return
-
 	if(!O.needs_target)
 		objectives += O
-		return
+		return O
 
-	O.find_target()
-	var/duplicate = FALSE
+	var/found_valid_target = FALSE
 
-	// Steal objectives need snowflake handling here unfortunately.
-	if(istype(O, /datum/objective/steal))
-		var/datum/objective/steal/S = O
-		// Check if it's a duplicate.
-		if("[S.steal_target]" in assigned_targets)
-			S.find_target() // Try again.
-			if("[S.steal_target]" in assigned_targets)
-				S.steal_target = null
-				S.explanation_text = "Free Objective" // Still a duplicate, so just make it a free objective.
-				duplicate = TRUE
-		if(S.steal_target && !duplicate)
-			assigned_targets += "[S.steal_target]"
+	if(target_override)
+		O.target = target_override
+		found_valid_target = TRUE
 	else
-		if("[O.target]" in assigned_targets)
-			O.find_target()
-			if("[O.target]" in assigned_targets)
-				O.target = null
-				O.explanation_text = "Free Objective"
-				duplicate = TRUE
-		if(O.target && !duplicate)
-			assigned_targets += "[O.target]"
+		var/loops = 5
+		// Steal objectives need snowflake handling here unfortunately.
+		if(istype(O, /datum/objective/steal))
+			var/datum/objective/steal/S = O
+			while(loops--)
+				S.find_target()
+				if(S.steal_target && !("[S.steal_target.name]" in assigned_targets))
+					found_valid_target = TRUE
+					break
+		else
+			while(loops--)
+				O.find_target()
+				if(O.target && !("[O.target]" in assigned_targets))
+					found_valid_target = TRUE
+					break
+
+	if(found_valid_target)
+		// This is its own seperate section in case someone passes a `target_override`.
+		if(istype(O, /datum/objective/steal))
+			var/datum/objective/steal/S = O
+			assigned_targets |= "[S.steal_target.name]"
+		else
+			assigned_targets |= "[O.target]"
+	else
+		O.explanation_text = "Free Objective"
+		O.target = null
 
 	objectives += O
 	return O

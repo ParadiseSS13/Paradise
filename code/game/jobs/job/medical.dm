@@ -99,7 +99,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat/mortician
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
-	id = /obj/item/card/id/medical
+	id = /obj/item/card/id/coroner
 	suit_store = /obj/item/flashlight/pen
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/medical
@@ -162,7 +162,7 @@
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
 	glasses = /obj/item/clothing/glasses/science
-	id = /obj/item/card/id/medical
+	id = /obj/item/card/id/chemist
 	pda = /obj/item/pda/chemist
 
 	backpack = /obj/item/storage/backpack/chemistry
@@ -193,7 +193,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_medsci
-	id = /obj/item/card/id/medical
+	id = /obj/item/card/id/geneticist
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/geneticist
 
@@ -228,7 +228,7 @@
 	shoes = /obj/item/clothing/shoes/white
 	mask = /obj/item/clothing/mask/surgical
 	l_ear = /obj/item/radio/headset/headset_med
-	id = /obj/item/card/id/medical
+	id = /obj/item/card/id/virologist
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/viro
 
@@ -259,7 +259,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/laceup
 	l_ear = /obj/item/radio/headset/headset_med
-	id = /obj/item/card/id/medical
+	id = /obj/item/card/id/psychiatrist
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 
@@ -299,7 +299,7 @@
 	head = /obj/item/clothing/head/soft/blue
 	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med
-	id = /obj/item/card/id/medical
+	id = /obj/item/card/id/paramedic
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	backpack_contents = list(

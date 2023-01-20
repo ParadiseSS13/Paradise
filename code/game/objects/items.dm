@@ -81,7 +81,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/breakouttime = 0
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
 
-	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
+	/// Used to give a reaction chance on hit that is not a block. If less than 0, will remove the block message, allowing overides.
+	var/hit_reaction_chance = 0
 
 	// Needs to be in /obj/item because corgis can wear a lot of
 	// non-clothing items
@@ -171,7 +172,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	QDEL_LIST(actions)
+	QDEL_LIST_CONTENTS(actions)
 	master = null
 	return ..()
 
@@ -398,9 +399,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if((SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) || prob(final_block_chance))
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
-		return TRUE
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) + prob(final_block_chance)
+	if(signal_result != 0)
+		if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
+			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		return signal_result
 	return FALSE
 
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
@@ -815,3 +818,44 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
 /obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)
 	return
+
+// Access and Job stuff
+
+/obj/item/proc/get_job_name() //Used in secHUD icon generation
+	var/assignmentName = get_ID_assignment(if_no_id = "Unknown")
+	var/rankName = get_ID_rank(if_no_id = "Unknown")
+
+	var/job_icons = get_all_job_icons()
+	var/centcom = get_all_centcom_jobs()
+	var/solgov = get_all_solgov_jobs()
+
+	if((assignmentName in centcom) || (rankName in centcom)) //Return with the NT logo if it is a Centcom job
+		return "Centcom"
+
+	if((assignmentName in solgov) || (rankName in solgov)) //Return with the SolGov logo if it is a SolGov job
+		return "solgov"
+
+	if(assignmentName in job_icons) //Check if the job has a hud icon
+		return assignmentName
+	if(rankName in job_icons)
+		return rankName
+
+	return "Unknown" //Return unknown if none of the above apply
+
+/obj/item/proc/get_ID_assignment(if_no_id = "No id")
+	var/obj/item/card/id/id = GetID()
+	if(istype(id)) // Make sure its actually an ID
+		return id.assignment
+	return if_no_id
+
+/obj/item/proc/get_ID_rank(if_no_id = "No id")
+	var/obj/item/card/id/id = GetID()
+	if(istype(id)) // Make sure its actually an ID
+		return id.rank
+	return if_no_id
+
+/obj/item/proc/GetAccess()
+	return list()
+
+/obj/item/proc/GetID()
+	return null

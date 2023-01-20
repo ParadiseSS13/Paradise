@@ -80,7 +80,6 @@
 		if(M.reagents)
 			applying = TRUE
 			update_icon(UPDATE_ICON_STATE)
-			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
 			while(do_after(user, 10, target = M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)

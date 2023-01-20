@@ -22,6 +22,8 @@
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
+	if(user.zone_selected == "mouth") // cleaning out someone's mouth is a different act
+		return
 	if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && isdrask(muncher))
@@ -33,6 +35,7 @@
 	times_eaten++
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 	user.adjust_nutrition(5)
+	user.reagents.add_reagent("soapreagent", 3)
 	if(times_eaten < max_bites)
 		to_chat(user, "<span class='notice'>You take a bite of [src]. Delicious!</span>")
 	else
@@ -54,7 +57,10 @@
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
-		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [name]!</span>")
+		user.visible_message("<span class='warning'>[user] starts washing [target]'s mouth out with [name]!</span>")
+		if(do_after(user, cleanspeed, target = target))
+			user.visible_message("<span class='warning'>[user] washes [target]'s mouth out with [name]!</span>")
+			target.reagents.add_reagent("soapreagent", 6)
 		return
 	..()
 

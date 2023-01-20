@@ -6,6 +6,12 @@
 	weather_immunities = list("ash")
 	mob_biotypes = MOB_ROBOTIC
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+
+	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
+	// which would be converted to armor datum during initialization.
+	// Setting `armor` to a list on an *existing* object would inevitably runtime. Use `getArmor()` instead.
+	var/datum/armor/armor
+
 	var/syndicate = FALSE
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
@@ -40,8 +46,8 @@
 	..()
 	add_language("Galactic Common")
 	init_subsystems()
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
@@ -49,6 +55,12 @@
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
+	if(islist(armor))
+		armor = getArmor(arglist(armor))
+	else if(!armor)
+		armor = getArmor()
+	else if(!istype(armor, /datum/armor))
+		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 
 
 /mob/living/silicon/med_hud_set_health()
@@ -211,18 +223,38 @@
 
 
 /mob/living/silicon/bullet_act(obj/item/projectile/Proj)
-
-
 	if(!Proj.nodamage)
+		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armour_penetration_flat, Proj.armour_penetration_percentage)
 		switch(Proj.damage_type)
 			if(BRUTE)
-				adjustBruteLoss(Proj.damage)
+				adjustBruteLoss(damage)
 			if(BURN)
-				adjustFireLoss(Proj.damage)
+				adjustFireLoss(damage)
 
 	Proj.on_hit(src,2)
 
 	return 2
+
+/mob/living/silicon/attacked_by(obj/item/I, mob/living/user, def_zone)
+	send_item_attack_message(I, user)
+	if(I.force)
+		var/bonus_damage = 0
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			bonus_damage = H.physiology.melee_bonus
+		var/damage = run_armor(I.force + bonus_damage, I.damtype, MELEE, 0, I.armour_penetration_flat, I.armour_penetration_percentage)
+		apply_damage(damage, I.damtype, def_zone)
+
+///returns the damage value of the attack after processing the silicons's various armor protections
+/mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+	if(damage_type != BRUTE && damage_type != BURN)
+		return 0
+	var/armor_protection = 0
+	if(damage_flag)
+		armor_protection = armor.getRating(damage_flag)
+	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
+	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
 
 /mob/living/silicon/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
 	return FALSE //The only effect that can hit them atm is flashes and they still directly edit so this works for now

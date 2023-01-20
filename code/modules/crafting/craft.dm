@@ -278,7 +278,7 @@
 				stack_trace("Part [part_path] went missing")
 			parts_returned += part
 			parts_used -= part
-	QDEL_LIST(parts_used)
+	QDEL_LIST_CONTENTS(parts_used)
 
 	return parts_returned
 

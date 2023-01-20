@@ -21,6 +21,7 @@
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
+	id = /obj/item/card/id/chaplain
 	pda = /obj/item/pda/chaplain
 	backpack_contents = list(
 		/obj/item/camera/spooky = 1,

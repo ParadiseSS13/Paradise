@@ -26,7 +26,7 @@
 		set_light(0)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/dye_generator/extinguish_light()
+/obj/machinery/dye_generator/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
 

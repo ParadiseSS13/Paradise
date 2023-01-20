@@ -8,7 +8,7 @@
 	var/obj/wrapped = null
 	var/init_welded = FALSE
 	var/giftwrapped = FALSE
-	var/sortTag = 0
+	var/sortTag = 1
 
 /obj/structure/bigDelivery/Destroy()
 	var/turf/T = get_turf(src)
@@ -81,7 +81,7 @@
 	icon_state = "deliverycrate2"
 	var/obj/item/wrapped = null
 	var/giftwrapped = FALSE
-	var/sortTag = 0
+	var/sortTag = 1
 
 /obj/item/smallDelivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -237,47 +237,27 @@
 	slot_flags = SLOT_BELT
 	///Value of the tag
 	var/currTag = 1
-	//The whole system for the sorttype var is determined based on the order of this list,
-	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
+	//The whole system for the sort_type var is determined based on the order of this list,
+	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sort_type = list(1) --Superxpdude
+	var/datum/ui_module/destination_tagger/destination_tagger
+
+/obj/item/destTagger/Initialize(mapload)
+	. = ..()
+	destination_tagger = new(src)
+
+/obj/item/destTagger/Destroy()
+	QDEL_NULL(destination_tagger)
+	return ..()
 
 /obj/item/destTagger/attack_self(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/item/destTagger/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "DestinationTagger", name, 395, 350, master_ui, state)
-		ui.open()
-
-/obj/item/destTagger/ui_data(mob/user)
-	var/list/data = list()
-	data["selected_destination_id"] = clamp(currTag, 1, length(GLOB.TAGGERLOCATIONS))
-	return data
-
-/obj/item/destTagger/ui_static_data(mob/user)
-	var/list/static_data = list()
-	static_data["destinations"] = list()
-	for(var/destination_index in 1 to length(GLOB.TAGGERLOCATIONS))
-		var/list/destination_data = list(
-			"name" = GLOB.TAGGERLOCATIONS[destination_index],
-			"id"   = destination_index,
-		)
-		static_data["destinations"] += list(destination_data)
-	return static_data
-
-/obj/item/destTagger/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(..())
-		return
-
-	if(action == "select_destination")
-		var/destination_id = clamp(text2num(params["destination"]), 1, length(GLOB.TAGGERLOCATIONS))
-		if(currTag != destination_id)
-			currTag = destination_id
-			playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-			add_fingerprint(usr)
+/obj/item/destTagger/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	destination_tagger.ui_interact(user)
 
 /obj/machinery/disposal/deliveryChute
-	name = "Delivery chute"
+	name = "delivery chute"
 	desc = "A chute for big and small packages alike!"
 	density = TRUE
 	icon_state = "intake"
@@ -299,7 +279,8 @@
 	return
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
-	if(istype(AM, /obj/item/projectile)	|| isAI(AM))  return
+	if(istype(AM, /obj/item/projectile)	|| isAI(AM) || QDELETED(AM))
+		return
 	switch(dir)
 		if(NORTH)
 			if(AM.loc.y != loc.y + 1) return
@@ -326,15 +307,11 @@
 													// travels through the pipes.
 	for(var/obj/structure/bigDelivery/O in src)
 		deliveryCheck = 1
-		if(O.sortTag == 0)
-			O.sortTag = 1
 	for(var/obj/item/smallDelivery/O in src)
 		deliveryCheck = 1
-		if(O.sortTag == 0)
-			O.sortTag = 1
 	for(var/obj/item/shippingPackage/O in src)
 		deliveryCheck = 1
-		if(!O.sealed || O.sortTag == 0)		//unsealed or untagged shipping packages will default to disposals
+		if(!O.sealed)		//unsealed shipping packages will default to disposals
 			O.sortTag = 1
 	if(deliveryCheck == 0)
 		H.destinationTag = 1
@@ -386,7 +363,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "shippack"
 	var/obj/item/wrapped = null
-	var/sortTag = 0
+	var/sortTag = 1
 	var/sealed = 0
 
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)

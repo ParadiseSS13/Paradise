@@ -91,6 +91,7 @@
 // Should I return a copy here? If the caller edits or qdel()s the returned
 //  datum, there might be problems if I don't...
 /obj/structure/transit_tube_pod/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/GM = new()
 	GM.copy_from(air_contents)
 	return GM

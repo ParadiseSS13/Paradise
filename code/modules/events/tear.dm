@@ -33,7 +33,7 @@
 	TE = new /obj/effect/tear(location)
 
 /datum/event/tear/announce()
-	GLOB.event_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
+	GLOB.minor_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
 
 /datum/event/tear/end()
 	if(TE)

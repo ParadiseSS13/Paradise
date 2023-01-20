@@ -91,6 +91,14 @@
 		C.deconstruct()
 	..()
 
+/obj/structure/lattice/catwalk/mining
+	name = "reinforced catwalk"
+	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
+	return
+
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'

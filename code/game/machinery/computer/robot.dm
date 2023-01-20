@@ -142,7 +142,7 @@
 			cell_capacity = R.cell ? R.cell.maxcharge : null,
 			module = R.module ? R.module.name : "No Module Detected",
 			synchronization = R.connected_ai,
-			is_hacked =  R.connected_ai && R.emagged,
+			is_hacked =  R.connected_ai && R.emagged && can_hack_any(user),
 			hackable = can_hack(user, R),
 		)
 		data["cyborgs"] += list(cyborg_data)
@@ -155,6 +155,9 @@
 	. = FALSE
 	if(!is_authenticated(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		to_chat(usr, "<span class='warning'>Access denied, borgs are no longer your station's property.</span>")
 		return
 	switch(action)
 		if("arm") // Arms the emergency self-destruct system

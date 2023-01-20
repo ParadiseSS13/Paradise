@@ -7,7 +7,6 @@
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson/engine = 2, /obj/item/multitool = 4, /obj/item/geiger_counter = 5,  /obj/item/airlock_electronics = 10, /obj/item/firelock_electronics = 10, /obj/item/firealarm_electronics = 10, /obj/item/apc_electronics = 10, /obj/item/airalarm_electronics = 10, /obj/item/stock_parts/cell/high = 10, /obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
-	premium = list(/obj/item/storage/belt/utility = 3)
 	refill_canister = /obj/item/vending_refill/engivend
 
 /obj/machinery/economy/vending/engineering
@@ -128,20 +127,20 @@
 					/obj/item/seeds/tobacco = 3,
 					/obj/item/seeds/tomato = 3,
 					/obj/item/seeds/tower = 3,
+					/obj/item/reagent_containers/spray/waterflower = 1,
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
 					/obj/item/seeds/whitebeet = 3)
 	contraband = list(/obj/item/seeds/cannabis = 3,
-					  /obj/item/seeds/amanita = 2,
-					  /obj/item/seeds/fungus = 3,
-					  /obj/item/seeds/glowshroom = 2,
-					  /obj/item/seeds/liberty = 2,
-					  /obj/item/seeds/nettle = 2,
-					  /obj/item/seeds/plump = 2,
-					  /obj/item/seeds/reishi = 2,
-					  /obj/item/seeds/starthistle = 2,
-					  /obj/item/seeds/random = 2)
-	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
+					/obj/item/seeds/amanita = 2,
+					/obj/item/seeds/fungus = 3,
+					/obj/item/seeds/glowshroom = 2,
+					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/nettle = 2,
+					/obj/item/seeds/plump = 2,
+					/obj/item/seeds/reishi = 2,
+					/obj/item/seeds/starthistle = 2,
+					/obj/item/seeds/random = 2)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
 /obj/machinery/economy/vending/medical
@@ -210,8 +209,15 @@
 	icon_deny = "sec_deny"
 	icon_panel = "wide_vendor"
 	req_access_txt = "1"
-	products = list(/obj/item/restraints/handcuffs = 8, /obj/item/restraints/handcuffs/cable/zipties = 8, /obj/item/grenade/flashbang = 4, /obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12, /obj/item/storage/box/evidence = 6, /obj/item/flashlight/seclite = 4, /obj/item/restraints/legcuffs/bola/energy = 7,
+	products = list(/obj/item/restraints/handcuffs = 8,
+					/obj/item/restraints/handcuffs/cable/zipties = 8,
+					/obj/item/grenade/flashbang = 4,
+					/obj/item/flash = 5,
+					/obj/item/reagent_containers/spray/pepper = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,
+					/obj/item/storage/box/evidence = 6,
+					/obj/item/flashlight/seclite = 4,
+					/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/clothing/mask/muzzle/safety = 4)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2, /obj/item/storage/fancy/donut_box = 2, /obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security

@@ -593,65 +593,6 @@
 		else
 			min = mid+1
 
-/*
-proc/dd_sortedObjectList(list/incoming)
-	/*
-	   Use binary search to order by dd_SortValue().
-	   This works by going to the half-point of the list, seeing if the node in
-	   question is higher or lower cost, then going halfway up or down the list
-	   and checking again. This is a very fast way to sort an item into a list.
-	*/
-	var/list/sorted_list = new()
-	var/low_index
-	var/high_index
-	var/insert_index
-	var/midway_calc
-	var/current_index
-	var/current_item
-	var/current_item_value
-	var/current_sort_object_value
-	var/list/list_bottom
-
-	var/current_sort_object
-	for(current_sort_object in incoming)
-		low_index = 1
-		high_index = sorted_list.len
-		while(low_index <= high_index)
-			// Figure out the midpoint, rounding up for fractions.  (BYOND rounds down, so add 1 if necessary.)
-			midway_calc = (low_index + high_index) / 2
-			current_index = round(midway_calc)
-			if(midway_calc > current_index)
-				current_index++
-			current_item = sorted_list[current_index]
-
-			current_item_value = current_item:dd_SortValue()
-			current_sort_object_value = current_sort_object:dd_SortValue()
-			if(current_sort_object_value < current_item_value)
-				high_index = current_index - 1
-			else if(current_sort_object_value > current_item_value)
-				low_index = current_index + 1
-			else
-				// current_sort_object == current_item
-				low_index = current_index
-				break
-
-		// Insert before low_index.
-		insert_index = low_index
-
-		// Special case adding to end of list.
-		if(insert_index > sorted_list.len)
-			sorted_list += current_sort_object
-			continue
-
-		// Because BYOND lists don't support insert, have to do it by:
-		// 1) taking out bottom of list, 2) adding item, 3) putting back bottom of list.
-		list_bottom = sorted_list.Copy(insert_index)
-		sorted_list.Cut(insert_index)
-		sorted_list += current_sort_object
-		sorted_list += list_bottom
-	return sorted_list
-*/
-
 /proc/dd_sortedtextlist(list/incoming, case_sensitive = 0)
 	// Returns a new list with the text values sorted.
 	// Use binary search to order by sortValue.
@@ -914,3 +855,7 @@ proc/dd_sortedObjectList(list/incoming)
 			return FALSE
 
 	return TRUE
+
+// Pick something else from a list than we last picked
+/proc/pick_excluding(list/l, exclude)
+	return pick(l - exclude)

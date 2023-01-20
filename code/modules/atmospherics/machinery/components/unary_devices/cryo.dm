@@ -16,13 +16,14 @@
 	max_integrity = 350
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
 	var/temperature_archived
+	var/current_heat_capacity = 50
+
 	var/mob/living/carbon/occupant = null
-	var/obj/item/reagent_containers/glass/beaker = null
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely healthy patients.
 	var/auto_eject_prefs = AUTO_EJECT_HEALTHY | AUTO_EJECT_DEAD
-
-	var/next_trans = 0
-	var/current_heat_capacity = 50
+	var/obj/item/reagent_containers/glass/beaker = null
+	var/last_injection
+	var/injection_cooldown = 34 SECONDS
 	var/efficiency
 
 	var/running_bob_animation = FALSE // This is used to prevent threads from building up if update_icons is called multiple times
@@ -46,7 +47,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(stat & (BROKEN | NOPOWER)))
 		set_light(2)
 	else
 		set_light(0)
@@ -161,13 +162,13 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(!occupant)
+	if(!on || !occupant)
 		return
 
 	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
 		auto_eject(AUTO_EJECT_DEAD)
 		return
-	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !(occupant.has_organic_damage() || occupant.has_mutated_organs()))
 		auto_eject(AUTO_EJECT_HEALTHY)
 		return
 
@@ -178,9 +179,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
 	..()
-	if(!node)
-		return
-	if(!on)
+	if(!node || !on)
 		return
 
 	if(air_contents)
@@ -262,7 +261,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/ui_act(action, params)
 	if(..() || usr == occupant)
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (NOPOWER | BROKEN))
 		return
 
 	. = TRUE
@@ -393,30 +392,28 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
 		return
-	if(occupant)
-		if(occupant.stat == 2 || (occupant.health >= 100 && !occupant.has_mutated_organs()))  //Why waste energy on dead or healthy people
-			occupant.bodytemperature = T0C
-			return
-		occupant.bodytemperature += 2*(air_contents.temperature - occupant.bodytemperature)*current_heat_capacity/(current_heat_capacity + air_contents.heat_capacity())
-		occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
-		if(occupant.bodytemperature < T0C)
-			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
-			occupant.Sleeping(stun_time)
-			occupant.Paralyse(stun_time)
-			if(air_contents.oxygen > 2)
-				if(occupant.getOxyLoss())
-					occupant.adjustOxyLoss(-6)
-			else
-				occupant.adjustOxyLoss(-1.2)
-		if(beaker && next_trans == 0)
-			var/proportion = 10 * min(1/beaker.volume, 1)
-			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
-			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
-			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
-			beaker.reagents.trans_to(occupant, 1, 10)
-	next_trans++
-	if(next_trans == 17)
-		next_trans = 0
+
+	if(occupant.stat == DEAD || !(occupant.has_organic_damage() || occupant.has_mutated_organs())) // Why waste energy on dead or healthy people
+		occupant.bodytemperature = T0C
+		return
+
+	occupant.bodytemperature += 2 * (air_contents.temperature - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
+	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature) // this is so ugly i'm sorry for doing it i'll fix it later i promise
+
+	if(occupant.bodytemperature < T0C)
+		var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000 / efficiency)) STATUS_EFFECT_CONSTANT
+		occupant.Sleeping(stun_time)
+
+		var/heal_mod = air_contents.oxygen < 2 ? 0.2 : 1
+		occupant.adjustOxyLoss(-6 * heal_mod)
+
+	if(beaker && world.time >= last_injection + injection_cooldown)
+		// Take 1u from the beaker mix, react and inject 10x the amount
+		var/proportion = 10 * min(1 / beaker.volume, 1)
+		beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
+		beaker.reagents.trans_to(occupant, 1, 10)
+
+		last_injection = world.time
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
 	if(air_contents.total_moles() < 1)
@@ -430,14 +427,14 @@
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)
 		return
-	occupant.forceMove(get_step(loc, SOUTH))	//this doesn't account for walls or anything, but i don't forsee that being a problem.
-	if(occupant.bodytemperature < 261 && occupant.bodytemperature >= 70) //Patch by Aranclanos to stop people from taking burn damage after being ejected
-		occupant.bodytemperature = 261
+
+	occupant.forceMove(get_step(loc, SOUTH)) // Doesn't account for walls
+
+	if(occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected
+		occupant.bodytemperature = occupant.dna.species.cold_level_1
+
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
-	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts - list(beaker))
-		A.forceMove(get_step(loc, SOUTH))
 
 /obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant(mob/target)
 	go_out()
@@ -515,7 +512,7 @@
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
 		return
 
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (NOPOWER | BROKEN))
 		return
 
 	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other

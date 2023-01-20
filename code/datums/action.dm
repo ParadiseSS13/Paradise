@@ -402,7 +402,7 @@
 	name = "Activate"
 
 /datum/action/item_action/hands_free/activate/always
-    check_flags = null
+	check_flags = null
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
@@ -441,6 +441,8 @@
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"
 
+/datum/action/item_action/drop_gripped_item
+	name = "Drop gripped item"
 
 // Clown Acrobat Shoes
 /datum/action/item_action/slipping
@@ -459,7 +461,7 @@
 
 /datum/action/item_action/gravity_jump
 	name = "Gravity jump"
-	desc = "Directs a pulse of gravity in front of the user, pulling them foward rapidly."
+	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
 
 /datum/action/item_action/gravity_jump/Trigger()
 	if(!IsAvailable())

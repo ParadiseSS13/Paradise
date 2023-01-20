@@ -197,9 +197,9 @@
 						C.network |= "Power Alarms"
 
 			if(state)
-				SSalarm.cancelAlarm("Power", src, source)
+				GLOB.alarm_manager.cancel_alarm("Power", src, source)
 			else
-				SSalarm.triggerAlarm("Power", src, cameras, source)
+				GLOB.alarm_manager.trigger_alarm("Power", src, cameras, source)
 
 /**
   * Generate an atmospheric alert for this area
@@ -216,7 +216,7 @@
 					C.network |= "Atmosphere Alarms"
 
 
-			SSalarm.triggerAlarm("Atmosphere", src, cameras, source)
+			GLOB.alarm_manager.trigger_alarm("Atmosphere", src, cameras, source)
 
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
@@ -224,7 +224,7 @@
 				if(!QDELETED(C) && is_station_level(C.z))
 					C.network -= "Atmosphere Alarms"
 
-			SSalarm.cancelAlarm("Atmosphere", src, source)
+			GLOB.alarm_manager.cancel_alarm("Atmosphere", src, source)
 
 		atmosalm = danger_level
 		return TRUE
@@ -287,7 +287,7 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network |= "Fire Alarms"
 
-	SSalarm.triggerAlarm("Fire", src, cameras, source)
+	GLOB.alarm_manager.trigger_alarm("Fire", src, cameras, source)
 
 	START_PROCESSING(SSobj, src)
 
@@ -313,7 +313,7 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network -= "Fire Alarms"
 
-	SSalarm.cancelAlarm("Fire", src, source)
+	GLOB.alarm_manager.cancel_alarm("Fire", src, source)
 
 	STOP_PROCESSING(SSobj, src)
 
@@ -352,9 +352,9 @@
 	for(var/obj/machinery/door/DOOR in src)
 		close_and_lock_door(DOOR)
 
-	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
+	if(GLOB.alarm_manager.trigger_alarm("Burglar", src, cameras, trigger))
 		//Cancel silicon alert after 1 minute
-		addtimer(CALLBACK(SSalarm, TYPE_PROC_REF(/datum/controller/subsystem/alarm, cancelAlarm), "Burglar", src, trigger), 600)
+		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Burglar", src, trigger), 1 MINUTES)
 
 /**
   * Trigger the fire alarm visual affects in an area
@@ -526,9 +526,11 @@
 			thunk(M)
 
 /area/proc/thunk(mob/living/carbon/human/M)
-	if(ishuman(M))  // Only humans can wear magboots, so we give them a chance to.
-		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
-			return
+	if(!istype(M)) // Rather not have non-humans get hit with a THUNK
+		return
+
+	if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP)) // Only humans can wear magboots, so we give them a chance to.
+		return
 
 	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
 		return

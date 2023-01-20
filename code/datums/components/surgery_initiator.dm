@@ -138,16 +138,15 @@
 
 /datum/component/surgery_initiator/proc/get_available_surgeries(mob/user, mob/living/target)
 	var/list/available_surgeries = list()
-
 	for(var/datum/surgery/surgery in GLOB.surgeries_list)
 		if(surgery.abstract && !istype(surgery, forced_surgery))  // no choosing abstract surgeries, though they can be forced
 			continue
+		if(!is_type_in_list(target, surgery.target_mobtypes))
+			continue
 		if(!target.can_run_surgery(surgery, user))
 			continue
-		for(var/path in surgery.target_mobtypes)
-			if(istype(target, path))
-				available_surgeries += surgery
-				break
+
+		available_surgeries |= surgery
 
 	return available_surgeries
 
