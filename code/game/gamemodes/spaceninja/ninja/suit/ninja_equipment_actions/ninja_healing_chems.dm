@@ -1,10 +1,12 @@
 
 
-/datum/action/item_action/ninjaheal
-	check_flags = NONE
+/datum/action/item_action/advanced/ninja/ninjaheal
 	name = "Restorative Cocktail"
 	desc = "Injects a series of chemicals that will heal most of the user's injuries, cure internal damage and bones. \
 			But healing comes with a price of sleeping while your body regenerates!"
+	check_flags = NONE
+	charge_type = ADV_ACTION_TYPE_CHARGES
+	charge_max = 1
 	use_itemicon = FALSE
 	button_icon_state = "chem_injector"
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -56,10 +58,12 @@
 
 	to_chat(ninja, span_notice("Реагенты успешно введены в пользователя."))
 	add_attack_logs(ninja, null, "Activated healing chems.")
-	s_coold = 3 SECONDS
-	heal_available = FALSE
-	for(var/datum/action/item_action/ninjaheal/ninja_action in actions)
-		toggle_ninja_action_active(ninja_action, FALSE)
+	for(var/datum/action/item_action/advanced/ninja/ninjaheal/ninja_action in actions)
+		ninja_action.use_action()
+		if(!ninja_action.charge_counter)
+			ninja_action.action_ready = FALSE
+			ninja_action.toggle_button_on_off()
+		break
 	addtimer(CALLBACK(src, .proc/ninjaheal_after), 50)
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaheal_after()

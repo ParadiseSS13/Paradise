@@ -92,10 +92,10 @@
 	n_suit.preferred_scarf_over_hood = ninja_suit_data.preferred_scarf_over_hood
 	n_suit.style_preview_icon_state = ninja_suit_data.style_preview_icon_state
 	//Выдача купленных ранее абилок
-	var/list/ability_blacklist = list(	/datum/action/item_action/SpiderOS,
-										/datum/action/item_action/ninja_autodust,
+	var/list/ability_blacklist = list(	/datum/action/item_action/advanced/ninja/SpiderOS,
+										/datum/action/item_action/advanced/ninja/ninja_autodust,
 										/datum/action/item_action/ninjastatus,
-										/datum/action/item_action/ninja_sword_recall)
+										/datum/action/item_action/advanced/ninja/ninja_sword_recall)
 	var/action_path
 	for(action_path in n_suit.actions_types)
 		if(action_path in ability_blacklist)

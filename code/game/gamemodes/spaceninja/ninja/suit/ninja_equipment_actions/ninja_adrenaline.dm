@@ -1,10 +1,12 @@
 //Wakes the user so they are able to do their thing. Also injects a decent dose of radium.
 //Movement impairing would indicate drugs and the like.
 
-/datum/action/item_action/ninjaboost
-	check_flags = NONE
+/datum/action/item_action/advanced/ninja/ninjaboost
 	name = "Adrenaline Boost"
 	desc = "Inject a secret chemical that will counteract all movement-impairing effect."
+	check_flags = NONE
+	charge_type = ADV_ACTION_TYPE_CHARGES
+	charge_max = 1
 	use_itemicon = FALSE
 	button_icon_state = "adrenal"
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -36,11 +38,13 @@
 	add_attack_logs(ninja, null, "Activated ninja-boost(adrenaline).")
 	//Никакого омнизина как в трейторском адренале. Наш адренал не хилит!
 	ninja.say(pick(boost_phrases))
-	a_boost = FALSE
 	to_chat(ninja, span_notice("Вы чувствуете мощный прилив адреналина!"))
-	s_coold = 3 SECONDS
-	for(var/datum/action/item_action/ninjaboost/ninja_action in actions)
-		toggle_ninja_action_active(ninja_action, FALSE)
+	for(var/datum/action/item_action/advanced/ninja/ninjaboost/ninja_action in actions)
+		ninja_action.use_action()
+		if(!ninja_action.charge_counter)
+			ninja_action.action_ready = FALSE
+			ninja_action.toggle_button_on_off()
+		break
 	addtimer(CALLBACK(src, .proc/ninjaboost_after), 70)
 
 /**

@@ -17,7 +17,7 @@
  * as the target moves around, forcing a finish or flee scenario.
  */
 /obj/item/clothing/suit/space/space_ninja/proc/ninjastar()
-	if(ninjacost(10))
+	if(ninjacost(100))
 		return
 	var/mob/living/carbon/human/ninja = affecting
 	var/obj/item/throwing_star/stamina/ninja/ninja_star = new(ninja)

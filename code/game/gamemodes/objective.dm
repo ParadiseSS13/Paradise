@@ -1104,7 +1104,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			if(ismindshielded(player.current))
 				possible_changelings -= player
 	if(possible_changelings.len)
-		var/changeling_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling*2))+1)
+		var/changeling_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling))+1)
 		for(var/j = 0, j < changeling_num, j++)
 			var/datum/mind/new_changeling_mind = pick(possible_changelings)
 			new_changeling_mind.make_Changeling()

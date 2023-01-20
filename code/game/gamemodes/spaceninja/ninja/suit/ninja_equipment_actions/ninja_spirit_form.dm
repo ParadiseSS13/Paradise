@@ -1,10 +1,12 @@
-/datum/action/item_action/ninja_spirit_form
-	check_flags = AB_CHECK_CONSCIOUS
+/datum/action/item_action/advanced/ninja/ninja_spirit_form
 	name = "Toggle Spirit Form"
 	desc = "Toggles a powerfull experimental technology that transforms the user into a more unstable form. \
 	Which allows passing almost through anything, at the cost of a big passive increase to energy consumption. \
 	Also all restraining effects like handcuffs will drop off from you! \
 	Remember that this module is still a prototipe and won't make you invincible! Passively encrease suit energy consumption."
+	check_flags = AB_CHECK_CONSCIOUS
+	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
+	charge_max = 25 SECONDS
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "ninja_spirit_form"
@@ -44,8 +46,11 @@
 			to_chat(ninja, span_notice("You now can pass almost through everything."))	// Если же невидимы - пишем только себе
 		ninja.pass_flags |= PASS_EVERYTHING
 		drop_restraints()
-		for(var/datum/action/item_action/ninja_spirit_form/ninja_action in actions)
-			toggle_ninja_action_active(ninja_action, TRUE)
+		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
+			ninja_action.use_action()
+			ninja_action.action_ready = TRUE
+			ninja_action.toggle_button_on_off()
+			break
 
 /**
  * Proc called to cancel spirit form.
@@ -68,8 +73,9 @@
 		else
 			to_chat(ninja, span_notice("You lose your ability to pass the corporeal...")) // Если же невидимы - пишем только себе
 		ninja.pass_flags = 0 	//Отнимать этот флаг - "PASS_EVERYTHING" по нормальному он не хочет, значит сделаем полный сброс.
-		for(var/datum/action/item_action/ninja_spirit_form/ninja_action in actions)
-			toggle_ninja_action_active(ninja_action, FALSE)
+		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
+			ninja_action.action_ready = FALSE
+			ninja_action.toggle_button_on_off()
 		return TRUE
 	return FALSE
 

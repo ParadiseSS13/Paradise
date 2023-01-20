@@ -1,7 +1,8 @@
-/datum/action/item_action/ninjanet
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+/datum/action/item_action/advanced/ninja/ninjanet
 	name = "Energy Net"
 	desc = "Captures an opponent in a net of energy. Energy cost: 4000"
+	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	button_icon_state = "energynet"
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -17,6 +18,11 @@
 	else
 		net_emitter = new
 		net_emitter.my_suit = src
+		for(var/datum/action/item_action/advanced/ninja/ninjanet/ninja_action in actions)
+			net_emitter.my_action = ninja_action
+			ninja_action.action_ready = TRUE
+			ninja_action.use_action()
+			break
 		ninja.put_in_hands(net_emitter)
 /obj/item/ninja_net_emitter
 	name = "Energy Net Emitter"
@@ -28,12 +34,15 @@
 	slot_flags = 0
 	flags = DROPDEL | ABSTRACT
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
+	var/datum/action/item_action/advanced/ninja/ninjanet/my_action = null
 
 /obj/item/ninja_net_emitter/Destroy()
 	. = ..()
 	my_suit.net_emitter = null
 	my_suit = null
-
+	my_action.action_ready = FALSE
+	my_action.use_action()
+	my_action = null
 
 /obj/item/ninja_net_emitter/equip_to_best_slot(mob/M)
 	qdel(src)
@@ -61,7 +70,7 @@
 	if(locate(/obj/structure/energy_net) in get_turf(target))//Check if they are already being affected by an energy net.
 		to_chat(ninja, span_warning("[target] is already trapped inside an energy net!"))
 		return
-	if(!my_suit.ninjacost(400, N_STEALTH_CANCEL))
+	if(!my_suit.ninjacost(4000, N_STEALTH_CANCEL))
 		ninja.Beam(target, "n_beam", time = 15)
 		var/obj/structure/energy_net/net = new /obj/structure/energy_net(target.drop_location())
 		net.affected_mob = target

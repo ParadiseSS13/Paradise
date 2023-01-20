@@ -5,19 +5,17 @@
  * It can also cancel stealth if the ability requested it.
  * Arguments:
  * * cost - the energy cost of the ability
- * * specificCheck - Determines if the check is a normal one, an adrenaline one, or a stealth cancel check.
- * * Returns TRUE or the current cooldown timer if we can't perform the ability, and FALSE if we can.
+ * * extraCheckFlag - Determines if the check is a normal one, an adrenaline one, heal one or a stealth cancel check.
+ * * Returns TRUE if we can't perform the ability, and FALSE if we can.
  */
-/obj/item/clothing/suit/space/space_ninja/proc/ninjacost(cost = 0, specificCheck = 0)
+/obj/item/clothing/suit/space/space_ninja/proc/ninjacost(cost = 0, extraCheckFlag = 0)
 	var/mob/living/carbon/human/ninja = affecting
-	var/actualCost = cost*10
-	if(cost && cell.charge < actualCost)
+	if(cost && cell.charge < cost)
 		to_chat(ninja, span_warning("Not enough energy!"))
 		return TRUE
 	else
-		cell.use(actualCost)
-
-	switch(specificCheck)
+		cell.use(cost)
+	switch(extraCheckFlag)
 		if(N_STEALTH_CANCEL)
 			if(stealth)
 				cancel_stealth()		//Get rid of it.
@@ -26,11 +24,13 @@
 			if(spirited)
 				cancel_spirit_form() 	//And another one!
 		if(N_ADRENALINE)
-			if(!a_boost)
+			if(!a_boost.charge_counter)
 				to_chat(ninja, span_warning("You do not have any more adrenaline boosters!"))
 				return TRUE
 		if(N_HEAL)
-			if(!heal_available)
+			if(!heal_chems.charge_counter)
 				to_chat(ninja, span_warning("You do not have any more chemicals to heal yourself!"))
 				return TRUE
-	return (s_coold)//Returns the value of the variable which counts down to zero.
+	// 'return' below is no longer used to check the suit cooldown,
+	// cause it was abolished and replaced by the cooldown per action system
+	return FALSE

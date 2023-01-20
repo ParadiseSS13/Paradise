@@ -179,7 +179,7 @@
 				if(ismindshielded(player.current))
 					possible_traitors -= player
 		if(possible_traitors.len)
-			var/traitor_num = max(1, round((num_players_started())/(config.traitor_scaling*2))+1)
+			var/traitor_num = max(1, round((num_players_started())/(config.traitor_scaling))+1)
 			for(var/j = 0, j < traitor_num, j++)
 				var/datum/mind/newtraitormind = pick(possible_traitors)
 				var/datum/antagonist/traitor/killer = new()

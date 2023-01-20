@@ -1,6 +1,8 @@
-/datum/action/item_action/ninja_stealth
+/datum/action/item_action/advanced/ninja/ninja_stealth
 	name = "Toggle Stealth"
 	desc = "Toggles stealth mode on and off. Passively encrease suit energy consumption."
+	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
+	charge_max = 15 SECONDS
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "ninja_cloak"
@@ -33,8 +35,14 @@
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(ninja), ninja.dir)
 		ninja.visible_message(span_warning("[ninja.name] расстворил[genderize_ru(ninja.gender, "ся", "ась", "ось", "ись") ] в воздухе!"), span_notice("Теперь вас невозможно увидеть невооружённым глазом. Ровно как и стандартными оптическими приборами. Нагрузка костюма начала увеличиваться..."))
 		ninja.AddComponent(/datum/component/ninja_states_breaker, src)
-		for(var/datum/action/item_action/ninja_stealth/ninja_action in actions)
-			toggle_ninja_action_active(ninja_action, TRUE)
+		if(auto_smoke)
+			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+				prime_smoke(lowcost = TRUE)
+		for(var/datum/action/item_action/advanced/ninja/ninja_stealth/ninja_action in actions)
+			ninja_action.use_action()
+			ninja_action.action_ready = TRUE
+			ninja_action.toggle_button_on_off()
+			break
 
 /**
  * Proc called to cancel stealth.
@@ -57,7 +65,8 @@
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(ninja), ninja.dir)
 		ninja.visible_message(span_warning("[ninja.name] появ[genderize_ru(ninja.gender, "ляется", "илась", "илось", "ились") ] из воздуха!"), span_notice("Теперь вас снова видно невооружённым глазом."))
 		qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
-		for(var/datum/action/item_action/ninja_stealth/ninja_action in actions)
-			toggle_ninja_action_active(ninja_action, FALSE)
+		for(var/datum/action/item_action/advanced/ninja/ninja_stealth/ninja_action in actions)
+			ninja_action.action_ready = FALSE
+			ninja_action.toggle_button_on_off()
 		return TRUE
 	return FALSE

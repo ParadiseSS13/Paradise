@@ -17,31 +17,19 @@
 	if(ninja!=affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
 		return ..()
 
-/*
- * Раньше адреналин регенился посредством наполнения костюма Радием.
- * Позже я решила, что это не лучший метод в наших реалиях и радий для ниндзя слишком легко достать
- * Потому заменила на уран. Но старый код оставлю тут, на всякий случай
-
-	if(istype(I, /obj/item/reagent_containers/glass) && I.reagents.has_reagent("radium", a_transfer) && a_boost != TRUE)//If it's a glass beaker, and what we're transferring is radium.
-		I.reagents.remove_reagent("radium", a_transfer)
-		a_boost = TRUE;
-		to_chat(ninja, span_notice("The suit's adrenaline boost is now reloaded."))
-		return
-*/
-
 	if(istype(I, /obj/item/stack/sheet/mineral/uranium))
 		var/obj/item/stack/sheet/mineral/uranium/uranium_stack = I
-		if(uranium_stack.amount >= a_transfer && !a_boost)
-			a_boost = TRUE
+		if(uranium_stack.amount >= a_transfer && a_boost.charge_counter < a_boost.charge_max)
 			uranium_stack.use(a_transfer)
-			for(var/datum/action/item_action/ninjaboost/ninja_action in actions)
-				toggle_ninja_action_active(ninja_action, TRUE)
+			a_boost.action_ready = TRUE
+			a_boost.toggle_button_on_off()
+			a_boost.recharge_action()
 			to_chat(ninja, span_notice("The suit's adrenaline boost is now reloaded."))
-		else if(uranium_stack.amount >= a_transfer && !heal_available)
-			heal_available = TRUE
+		else if(uranium_stack.amount >= a_transfer && heal_chems.charge_counter < heal_chems.charge_max)
 			uranium_stack.use(a_transfer)
-			for(var/datum/action/item_action/ninjaheal/ninja_action in actions)
-				toggle_ninja_action_active(ninja_action, TRUE)
+			heal_chems.action_ready = TRUE
+			heal_chems.toggle_button_on_off()
+			heal_chems.recharge_action()
 			to_chat(ninja, span_notice("The suit's restorative cocktail is now reloaded."))
 		return
 
@@ -50,6 +38,9 @@
 		var/obj/item/stock_parts/cell/old_cell = cell
 		if(cell.maxcharge == 100000)
 			to_chat(ninja, span_danger("Upgrade limit reached! Further cell upgrade's aren't possible."))
+			return
+		if(new_cell.rigged)
+			to_chat(ninja, span_danger("This cell is hazardous and can explode! Suit's safety system doesn't allow you to put it inside self."))
 			return
 		if(new_cell.maxcharge > old_cell.maxcharge)
 			to_chat(ninja, span_notice("Higher maximum capacity detected.\nUpgrading..."))
@@ -62,8 +53,8 @@
 				// На случай если вдруг, как то, игроки умудрятся запихать туда самозарядную батарейку
 				new_cell.self_recharge = FALSE
 				// Ограничиваем возможный максимальный заряд батареи
-				new_cell.maxcharge = min(new_cell.maxcharge, 100000)
-				if(new_cell.maxcharge == 100000)
+				new_cell.maxcharge = min(new_cell.maxcharge, 80000)
+				if(new_cell.maxcharge == 80000)
 					to_chat(ninja, span_danger("Upgrade limit reached! Further cell upgrade's won't be possible."))
 				// Складываем новый заряд со старым не превышая лимита
 				new_cell.charge = min(new_cell.charge+old_cell.charge, new_cell.maxcharge)

@@ -1,11 +1,3 @@
-#define AB_CHECK_RESTRAINED 1
-#define AB_CHECK_STUNNED 2
-#define AB_CHECK_LYING 4
-#define AB_CHECK_CONSCIOUS 8
-#define AB_TRANSFER_MIND 16
-#define AB_CHECK_TURF 32
-
-
 /datum/action
 	var/name = "Generic Action"
 	var/desc = null
@@ -673,3 +665,197 @@
 	if(target && procname)
 		call(target,procname)(usr)
 	return TRUE
+
+// This item actions have their own charges/cooldown system like spell procholders, but without all the unnecessary magic stuff
+/datum/action/item_action/advanced
+	check_flags = 0
+	var/recharge_text_color = "#FFFFFF"
+	var/charge_type = ADV_ACTION_TYPE_RECHARGE //can be recharge, toggle, toggle_recharge or charges, see description in the defines file
+	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or "toggle_recharge", alternatively counts as starting charges if charge_type = "charges"
+	var/charge_counter = 0 //can only use if it equals "recharge" or "toggle_recharge", ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
+	var/starts_charged = TRUE //Does this action start ready to go?
+	var/still_recharging_msg = "<span class='notice'> action is still recharging.</span>"
+	//toggle and toggle_recharge stuff
+	var/action_ready = TRUE //Only for toggle and toggle_recharge charge_type. Toggle it via code yourself. Haha 'toggle', get it?
+	var/icon_state_active = "bg_default_on"	//What icon_state we switch to when we toggle action active in "toggle" actions
+	var/icon_state_disabled = "bg_default"	//Old icon_state we switch to when we toggle action back in "toggle" actions
+	//cooldown overlay stuff
+	var/coold_overlay_icon = 'icons/mob/screen_white.dmi'
+	var/coold_overlay_icon_state = "template"
+	var/no_count = FALSE  // This means that the action is charged but unavailable due to something else
+
+/datum/action/item_action/advanced/New()
+	. = ..()
+	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
+	icon_state_disabled = background_icon_state
+	if(charge_type == ADV_ACTION_TYPE_CHARGES)
+		UpdateButtonIcon()
+		add_charges_overlay()
+	if(starts_charged)
+		charge_counter = charge_max
+	else
+		start_recharge()
+
+/datum/action/item_action/advanced/proc/start_recharge()
+	UpdateButtonIcon()
+	START_PROCESSING(SSfastprocess, src)
+
+/datum/action/item_action/advanced/process()
+	charge_counter += 2
+	UpdateButtonIcon()
+	if(charge_counter < charge_max)
+		return
+	STOP_PROCESSING(SSfastprocess, src)
+	action_ready = TRUE
+	charge_counter = charge_max
+
+/datum/action/item_action/advanced/proc/recharge_action() //resets charge_counter or readds one charge
+	switch(charge_type)
+		if(ADV_ACTION_TYPE_RECHARGE)
+			charge_counter = charge_max
+		if(ADV_ACTION_TYPE_TOGGLE)	//this type doesn't use those var's, but why not
+			charge_counter = charge_max
+		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
+			charge_counter = charge_max
+		if(ADV_ACTION_TYPE_CHARGES)
+			charge_counter++
+			UpdateButtonIcon()
+			add_charges_overlay()
+
+/datum/action/item_action/advanced/proc/use_action()
+	if(!IsAvailable(show_message = TRUE))
+		return
+	switch(charge_type)
+		if(ADV_ACTION_TYPE_RECHARGE)
+			charge_counter = 0
+			start_recharge()
+		if(ADV_ACTION_TYPE_TOGGLE)
+			toggle_button_on_off()
+			action_ready = !action_ready
+		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
+			charge_counter = 0
+			start_recharge()
+		if(ADV_ACTION_TYPE_CHARGES)
+			charge_counter--
+			UpdateButtonIcon()
+			add_charges_overlay()
+
+/* Basic availability checks in this proc.
+ * Arguments:
+ * show_message - Do we show recharging message to the caller?
+ * ignore_ready - Are we ignoring the "action_ready" flag? Usefull when u call this check indirrectly.
+ */
+/datum/action/item_action/advanced/IsAvailable(show_message = FALSE, ignore_ready = FALSE)
+	. = ..()
+	switch(charge_type)
+		if(ADV_ACTION_TYPE_RECHARGE)
+			if(charge_counter < charge_max)
+				if(show_message)
+					to_chat(owner, still_recharging_msg)
+				return FALSE
+		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
+			if(charge_counter < charge_max)
+				if(action_ready && !ignore_ready)
+					return TRUE
+				if(show_message)
+					to_chat(owner, still_recharging_msg)
+				return FALSE
+		if(ADV_ACTION_TYPE_CHARGES)
+			if(!charge_counter)
+				if(show_message)
+					to_chat(owner, "<span class='notice'>[name] has no charges left.</span>")
+				return FALSE
+	return TRUE
+
+/datum/action/item_action/advanced/proc/get_availability_percentage()
+	switch(charge_type)
+		if(ADV_ACTION_TYPE_RECHARGE)
+			if(charge_counter == 0)
+				return 0
+			if(charge_max == 0)
+				return 1
+			return charge_counter / charge_max
+		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
+			if(action_ready)
+				return 1
+			if(charge_counter == 0)
+				return 0
+			if(charge_max == 0)
+				return 1
+			return charge_counter / charge_max
+		if(ADV_ACTION_TYPE_CHARGES)
+			if(charge_counter)
+				return 1
+			return 0
+
+/datum/action/item_action/advanced/apply_unavailable_effect()
+	var/progress = get_availability_percentage()
+	if(progress == 1)
+		no_count = TRUE
+	var/alpha = no_count ? 80 : 220 - 140 * progress
+	var/image/img = image(coold_overlay_icon, icon_state = coold_overlay_icon_state)
+	img.alpha = alpha
+	img.appearance_flags = RESET_COLOR | RESET_ALPHA
+	img.color = "#000000"
+	img.plane = FLOAT_PLANE + 1
+	button.add_overlay(img)
+	if(!no_count && charge_type != ADV_ACTION_TYPE_CHARGES)
+		add_percentage_overlay(progress)
+	else if(charge_type == ADV_ACTION_TYPE_CHARGES)
+		add_charges_overlay()
+	no_count = FALSE //reset
+
+/datum/action/item_action/advanced/proc/add_percentage_overlay(progress)
+	// Make a holder for the charge text
+	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
+	count_down_holder.plane = FLOAT_PLANE + 1.1
+	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
+	button.add_overlay(count_down_holder)
+
+/datum/action/item_action/advanced/proc/add_charges_overlay()
+	// Make a holder for the charge text
+	var/image/charges_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
+	charges_holder.plane = FLOAT_PLANE + 1.1
+	charges_holder.maptext = "<div style=\"font-size:6pt;color:#ffffff;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[charge_counter]/[charge_max]</div>"
+	button.add_overlay(charges_holder)
+
+	//visuals only
+/datum/action/item_action/advanced/proc/toggle_button_on_off()
+	if(!action_ready)
+		icon_state_disabled = background_icon_state
+		background_icon_state = "[background_icon_state]_on"
+	else
+		background_icon_state = icon_state_disabled
+	UpdateButtonIcon()
+
+//Ninja action type
+/datum/action/item_action/advanced/ninja
+	coold_overlay_icon = 'icons/mob/actions/actions_ninja.dmi'
+	coold_overlay_icon_state = "background_green"
+	icon_state_active = "background_green_active"
+	icon_state_disabled = "background_green"
+
+/datum/action/item_action/advanced/ninja/New(Target)
+	. = ..()
+	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target
+	if(istype(ninja_suit))
+		recharge_text_color = ninja_suit.color_choice
+		coold_overlay_icon_state = "background_[ninja_suit.color_choice]"
+
+/datum/action/item_action/advanced/ninja/IsAvailable(show_message = FALSE, ignore_ready = FALSE)
+	if(!target && !istype(target, /obj/item/clothing/suit/space/space_ninja))
+		return FALSE
+	return ..()
+
+/datum/action/item_action/advanced/ninja/apply_unavailable_effect()
+	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target
+	if(!istype(ninja_suit))
+		no_count = TRUE
+	. = ..()
+
+/datum/action/item_action/advanced/ninja/toggle_button_on_off()
+	if(action_ready)
+		background_icon_state = icon_state_active
+	else
+		background_icon_state = icon_state_disabled
+	UpdateButtonIcon()

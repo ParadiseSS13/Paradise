@@ -2,10 +2,11 @@
 /*
 * Chameleon ability, that allows you to change your appearance to the appearance of a crewmember
 */
-/datum/action/item_action/ninja_chameleon
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+/datum/action/item_action/advanced/ninja/ninja_chameleon
 	name = "Chameleon Disguise"
 	desc = "Toggles Chameleon mode on and off. Passively encrease suit energy consumption."
+	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "chameleon"
@@ -21,6 +22,9 @@
 	else
 		chameleon_scanner = new
 		chameleon_scanner.my_suit = src
+		for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
+			chameleon_scanner.my_action = ninja_action
+			break
 		if(disguise_active)
 			chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
 		ninja.put_in_hands(chameleon_scanner)
@@ -40,11 +44,13 @@
 	flags =  DROPDEL | ABSTRACT
 	var/effect_color = "#ffaa00"
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
+	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
 
 /obj/item/ninja_chameleon_scanner/Destroy()
 	. = ..()
 	my_suit.chameleon_scanner = null
 	my_suit = null
+	my_action = null
 
 /obj/item/ninja_chameleon_scanner/equip_to_best_slot(mob/M)
 	qdel(src)
@@ -173,9 +179,10 @@
 		//Chameleon_scanner icon reloading
 		if(chameleon_scanner)
 			chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]_act"
-		//Action icon reloading
-		for(var/datum/action/item_action/ninja_chameleon/ninja_action in actions)
-			toggle_ninja_action_active(ninja_action, TRUE)
+		//Action icon
+		for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
+			ninja_action.action_ready = TRUE
+			ninja_action.use_action()
 
 	//Disguise
 	ninja.name_override = disguise.name
@@ -186,6 +193,7 @@
 	ninja.update_inv_l_hand()
 	//Disguise flag
 	disguise_active = TRUE
+
 
 /*
 * Proc восстанавливающий внешность ниндзя и отрубающий хамелион.
@@ -220,9 +228,10 @@
 	//Chameleon_scanner icon reloading
 	if(chameleon_scanner)
 		chameleon_scanner.icon_state = "[initial(chameleon_scanner.icon_state)]"
-	//Action icon reloading
-	for(var/datum/action/item_action/ninja_chameleon/ninja_action in actions)
-		toggle_ninja_action_active(ninja_action, FALSE)
+	//Action icon
+	for(var/datum/action/item_action/advanced/ninja/ninja_chameleon/ninja_action in actions)
+		ninja_action.action_ready = FALSE
+		ninja_action.use_action()
 	//Components
 	qdel(ninja.GetComponent(/datum/component/examine_override))
 	qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))

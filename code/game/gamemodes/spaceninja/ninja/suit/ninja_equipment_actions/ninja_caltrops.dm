@@ -1,7 +1,10 @@
-/datum/action/item_action/ninja_caltrops
-	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+/datum/action/item_action/advanced/ninja/ninja_caltrops
+
 	name = "Energy Caltrops"
 	desc = "Scatters deadly caltrops behind the user. Great to slow enemies down. Don't step on them. Even metal legs will be damaged. Energy cost: 1500"
+	check_flags = AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	charge_type = ADV_ACTION_TYPE_RECHARGE
+	charge_max = 1 SECONDS
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "caltrop"
@@ -14,7 +17,7 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(!ninja)
 		return
-	if(!ninjacost(150))
+	if(!ninjacost(1500))
 		var/list/possible_turfs = list()
 		var/direct
 		if(ninja.dir == NORTH)
@@ -44,8 +47,13 @@
 		for(var/turf/spawn_turf in possible_turfs)
 			if(!istype(spawn_turf, /turf/simulated/wall) && !locate(/obj/structure/grille) in spawn_turf)
 				new /obj/structure/energy_caltrops(spawn_turf)
-		s_coold = 1 SECONDS
+		for(var/datum/action/item_action/advanced/ninja/ninja_caltrops/ninja_action in actions)
+			ninja_action.use_action()
+			break
 		playsound(ninja, 'sound/effects/glass_step_sm.ogg', 50, TRUE)
+		if(auto_smoke)
+			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+				prime_smoke(lowcost = TRUE)
 
 
 ///The caltrops object

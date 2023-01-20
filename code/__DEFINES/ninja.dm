@@ -1,4 +1,4 @@
-//ninjacost() specificCheck defines
+//ninjacost() extraCheckFlag defines
 #define N_STEALTH_CANCEL 1
 #define N_ADRENALINE 2
 #define N_HEAL 3

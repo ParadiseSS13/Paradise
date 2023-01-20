@@ -1,9 +1,10 @@
 //Automatically dusts ninja if enabled!
 
-/datum/action/item_action/ninja_autodust
-	check_flags = NONE
+/datum/action/item_action/advanced/ninja/ninja_autodust
 	name = "Auto-Dust"
 	desc = "Automatically dusts user if turned on!"
+	check_flags = NONE
+	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	button_icon_state = "dust"
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -17,6 +18,9 @@
  */
 /obj/item/clothing/suit/space/space_ninja/proc/ninja_toggle_autodust()
 	var/mob/living/carbon/human/user = src.loc
+	if(s_busy)
+		return
+	s_busy = TRUE
 	if(!auto_dust)
 		auto_dust = TRUE
 		user.show_message("Вы включили программу [span_warning("\"Автораспыления\"")] текущий режим \
@@ -32,8 +36,9 @@
 	else if(auto_dust)
 		auto_dust = FALSE
 		user.show_message("Вы выключили программу [span_warning("\"Автораспыления\"")]")
-	for(var/datum/action/item_action/ninja_autodust/ninja_action in actions)
-		toggle_ninja_action_active(ninja_action, auto_dust)
+	for(var/datum/action/item_action/advanced/ninja/ninja_autodust/ninja_action in actions)
+		ninja_action.use_action()
+	s_busy = FALSE
 /**
  * Proc called to dust the ninja!
  */

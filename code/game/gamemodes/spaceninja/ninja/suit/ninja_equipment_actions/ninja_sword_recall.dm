@@ -1,8 +1,10 @@
-/datum/action/item_action/ninja_sword_recall
+/datum/action/item_action/advanced/ninja/ninja_sword_recall
 	name = "Recall Energy Katana"
 	desc = "Teleports the Energy Katana linked to this suit to its wearer. Energy cost: 200"
 	use_itemicon = FALSE
 	check_flags = FALSE
+	charge_type = ADV_ACTION_TYPE_RECHARGE
+	charge_max = 0.5 SECONDS
 	button_icon_state = "energy_katana_green"
 	icon_icon = 'icons/obj/ninjaobjects.dmi'
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -32,8 +34,10 @@
 	if(!(energyKatana in view(ninja)))
 		inview = FALSE
 
-	if(!ninjacost(20))	//Статичная цена в 200 энергии
-		s_coold = 0.5 SECONDS	//0.5 секунд задержки, чтобы избежать спама возврата
+	if(!ninjacost(200))	//Статичная цена в 200 энергии
+		for(var/datum/action/item_action/advanced/ninja/ninja_sword_recall/ninja_action in actions)
+			ninja_action.use_action()
+			break
 		if(iscarbon(energyKatana.loc))
 			var/mob/living/carbon/sword_holder = energyKatana.loc
 			sword_holder.unEquip(energyKatana, TRUE)
