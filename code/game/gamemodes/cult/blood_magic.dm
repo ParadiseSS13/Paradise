@@ -513,11 +513,12 @@
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
-	uses--
 
-	if(IS_HORIZONTAL(user))
-		to_chat(user, "<span class='cultitalic'>You cannot cast this spell while on the floor!</span>")
+	if(HAS_TRAIT(user, TRAIT_FLOORED))
+		to_chat(user, "<span class='cultitalic'>You cannot cast this spell while knocked down!</span>")
 		return
+
+	uses--
 
 	var/turf/origin = get_turf(teleportee)
 	var/turf/destination = get_turf(actual_selected_rune)
