@@ -908,6 +908,20 @@
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/reagent_containers/food/snacks/breadslice(T)
 
+/datum/reagent/soap
+	name = "Soap"
+	id = "soapreagent"
+	description = "Soap, fit to clean the mouth of a sailor."
+	reagent_state = SOLID
+	color = "#FFFFFF"
+	taste_description = "soap"
+
+/datum/reagent/soap/on_mob_add(mob/living/L)
+	ADD_TRAIT(L, TRAIT_SOAPY_MOUTH, id)
+
+/datum/reagent/soap/on_mob_delete(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_SOAPY_MOUTH, id)
+
 		///Vomit///
 
 /datum/reagent/vomit

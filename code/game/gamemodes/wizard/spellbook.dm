@@ -190,7 +190,7 @@
 	spell_type = /obj/effect/proc_holder/spell/rathens
 	log_name = "RS"
 	category = "Defensive"
-	cost = 1
+	cost = 2
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"

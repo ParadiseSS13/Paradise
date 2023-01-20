@@ -383,6 +383,21 @@
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
 
+/obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)
+	if(opened)
+		target.forceMove(src)
+		visible_message("<span class='danger'>[attacker] shoves [target] inside [src]!</span>", "<span class='warning'>You hear a thud, and something clangs shut.</span>")
+		close()
+		add_attack_logs(attacker, target, "shoved into [src]")
+		return TRUE
+
+	if(can_open())
+		open()
+		visible_message("<span class='danger'>[attacker] shoves [target] against [src], knocking it open!</span>")
+		target.KnockDown(3 SECONDS)
+		return TRUE
+
+	return ..()
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"

@@ -8,7 +8,6 @@ SUBSYSTEM_DEF(pathfinder)
 /datum/controller/subsystem/pathfinder/Initialize()
 	space_type_cache = typecacheof(/turf/space)
 	mobs = new(10)
-	return ..()
 
 /datum/flowcache
 	var/lcount
