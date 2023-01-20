@@ -10,6 +10,7 @@
  *		Mjolnnir
  *		Knighthammer
  *		Pyro Claws
+ *		Captains Rapier
  */
 
 /*##################################################################
@@ -952,3 +953,101 @@
 	on_cooldown = FALSE
 	flags &= ~NODROP
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
+
+// CAPTAINS RAPIER
+
+/obj/item/twohanded/rapier
+	name = "captain's rapier"
+	desc = "An elegant weapon, for a more civilized age."
+	icon_state = "rapier"
+	item_state = "rapier"
+	flags = CONDUCT
+	force = 15
+	throwforce = 10
+	force_unwielded = 15
+	force_wielded = 15
+	sharp_when_wielded = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	armour_penetration_percentage = 75
+	sharp = TRUE
+	origin_tech = "combat=5"
+	attack_verb = list("lunged at", "stabbed")
+	hitsound = 'sound/weapons/rapierhit.ogg'
+	wieldsound = 'sound/weapons/rapierhit.ogg'
+	unwieldsound = 'sound/weapons/rapierhit.ogg'
+	materials = list(MAT_METAL = 1000)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+
+/obj/item/twohanded/rapier/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!wielded || attack_type == PROJECTILE_ATTACK)
+		return FALSE
+	var/pushback = 25
+	var/pushforward = 25
+	var/stabchance = 40
+	var/grazechance = 25
+	final_block_chance = 75 //hear me out
+	switch(owner.a_intent)
+		if(INTENT_HELP)
+			pushback = 33 //More likely as a price
+			pushforward = 0
+			stabchance = 0
+			grazechance = 33 // same price
+			final_block_chance = 85
+		if(INTENT_DISARM)
+			pushback = 12.5
+			pushforward = 50
+			stabchance = 20
+			grazechance = 30
+			final_block_chance = 60
+		if(INTENT_HARM) //Grab is balanced stance, so no need to put it down
+			pushback = 30
+			pushforward = 30
+			stabchance = 80
+			grazechance = 50
+			final_block_chance = 50
+
+	. = ..()
+
+	if(!HAS_TRAIT(owner, TRAIT_FLOORED)) //No doing it if you get knocked down
+		if(ishuman(hitby.loc))
+			var/mob/living/carbon/human/H = hitby.loc
+			if(prob(pushforward)) //Disarm the human!
+				owner.dna.species.disarm(owner, H, null, TRUE)
+				step_towards(owner, H)
+			else if(prob(pushback))
+				var/attacker_style = null
+				if(H.mind)
+					attacker_style = H.mind.martial_art
+				H.dna.species.disarm(H, owner, attacker_style, TRUE)
+				step_towards(H, owner)
+		if(prob(stabchance))
+			var/hittype = rand(1, 3)
+			var/mob/living/output = hitby
+			if(ishuman(hitby.loc))
+				output = hitby.loc
+			var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+			switch(hittype)
+				if(1)
+					owner.visible_message("<span class='danger'>[output] is grazed lightly by [src]!</span>")
+					output.apply_damage(force / 3 , BRUTE, output.run_armor_check(dam_zone, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
+				if(2)
+					owner.visible_message("<span class='danger'>[output] is grazed heavily by [src]!</span>")
+					output.apply_damage(force * 0.66, BRUTE, output.run_armor_check(dam_zone, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
+				if(3)
+					melee_attack_chain(owner, output)
+	if(.) //We do have them retaliate if block failed, or take stamina if block failed. Graze chance will be ignored if so.
+		if(prob(grazechance))
+			var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+			var/obj/item/organ/external/affecting = owner.get_organ(dam_zone)
+			if(!affecting)
+				affecting = owner.get_organ("chest")
+			if(prob(50))
+				owner.visible_message("<span class='danger'>[owner] is grazed lightly by [hitby]!</span>")
+				owner.apply_damage(damage / 3 , BRUTE, dam_zone) //No armor check as a bonus to the person attacking. Can be changed.
+			else
+				owner.visible_message("<span class='danger'>[owner] is grazed heavily by [hitby]!</span>")
+				owner.apply_damage(damage * 0.66 , BRUTE, dam_zone)
+		owner.adjustStaminaLoss(5 + damage / 1.75)
+		return TRUE
+
+	return FALSE

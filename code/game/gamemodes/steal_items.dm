@@ -45,7 +45,7 @@
 
 /datum/theft_objective/captains_rapier
 	name = "the captain's rapier"
-	typepath = /obj/item/melee/rapier
+	typepath = /obj/item/twohanded/rapier
 	protected_jobs = list("Captain")
 	location_override = "the Captain's Office"
 

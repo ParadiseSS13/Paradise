@@ -608,10 +608,10 @@
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/melee/rapier)
+	can_hold = list(/obj/item/twohanded/rapier)
 
 /obj/item/storage/belt/rapier/populate_contents()
-	new /obj/item/melee/rapier(src)
+	new /obj/item/twohanded/rapier(src)
 	update_icon()
 
 /obj/item/storage/belt/rapier/attack_hand(mob/user)
