@@ -225,7 +225,7 @@
 	name = "Magistrate"
 	jobtype = /datum/job/judge
 	uniform = /obj/item/clothing/under/rank/centcom/magistrate
-	suit = /obj/item/clothing/suit/judgerobe
+	suit = /obj/item/clothing/suit/magirobe
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	l_ear = /obj/item/radio/headset/heads/magistrate/alt

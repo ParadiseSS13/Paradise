@@ -160,7 +160,7 @@
 	new /obj/item/clothing/under/rank/centcom/magistrate(src)
 	new /obj/item/clothing/under/rank/centcom/magistrate/skirt(src)
 	new /obj/item/clothing/under/rank/centcom/magistrate/formal(src)
-	new /obj/item/clothing/suit/judgerobe(src)
+	new /obj/item/clothing/suit/magirobe(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
