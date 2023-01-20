@@ -582,10 +582,10 @@
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
 	else
-		if(target.IsSlowed() && target.get_active_hand())
+		if(target.IsSlowed() && target.get_active_hand() && !forced)
 			target.drop_item()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
-		else
+		else if(!forced)
 			target.Slowed(2.5 SECONDS, 1)
 			var/obj/item/I = target.get_active_hand()
 			if(I)

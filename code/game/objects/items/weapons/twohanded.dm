@@ -973,10 +973,9 @@
 	origin_tech = "combat=5"
 	attack_verb = list("lunged at", "stabbed")
 	hitsound = 'sound/weapons/rapierhit.ogg'
-	wieldsound = 'sound/weapons/rapierhit.ogg'
-	unwieldsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+	flags_2 = RANDOM_BLOCKER_2
 
 /obj/item/twohanded/rapier/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!wielded || attack_type == PROJECTILE_ATTACK)
@@ -1030,9 +1029,11 @@
 				if(1)
 					owner.visible_message("<span class='danger'>[output] is grazed lightly by [src]!</span>")
 					output.apply_damage(force / 3 , BRUTE, output.run_armor_check(dam_zone, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
+					playsound(get_turf(src), 'sound/weapons/rapierhit.ogg', 100, 1)
 				if(2)
 					owner.visible_message("<span class='danger'>[output] is grazed heavily by [src]!</span>")
 					output.apply_damage(force * 0.66, BRUTE, output.run_armor_check(dam_zone, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
+					playsound(get_turf(src), 'sound/weapons/rapierhit.ogg', 100, 1)
 				if(3)
 					melee_attack_chain(owner, output)
 	if(.) //We do have them retaliate if block failed, or take stamina if block failed. Graze chance will be ignored if so.
@@ -1048,6 +1049,7 @@
 				owner.visible_message("<span class='danger'>[owner] is grazed heavily by [hitby]!</span>")
 				owner.apply_damage(damage * 0.66 , BRUTE, dam_zone)
 		owner.adjustStaminaLoss(5 + damage / 1.75)
+		playsound(owner, 'sound/weapons/parry.ogg', clamp(damage / 1.75, 40, 120))
 		return TRUE
 
 	return FALSE
