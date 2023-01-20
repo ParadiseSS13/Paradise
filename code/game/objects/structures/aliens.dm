@@ -59,7 +59,7 @@
 		qdel(W)
 	if(locate(/obj/structure/alien/weeds) in get_turf(src))
 		return ..()
-	new /obj/structure/alien/weeds(loc)
+	new /obj/structure/alien/weeds(loc, src)
 	return ..()
 
 /obj/structure/alien/resin/Destroy()
@@ -108,7 +108,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
 	base_icon_state = "resin"
-	max_integrity = 150
+	max_integrity = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
@@ -116,7 +116,7 @@
 	var/initial_state
 	var/state_open = FALSE
 	var/is_operating = FALSE
-	var/close_delay = 1.5 SECONDS
+	var/close_delay = 3 SECONDS
 	smoothing_flags = null
 	var/open_sound = 'sound/machines/alien_airlock.ogg'
 	var/close_sound = 'sound/machines/alien_airlock.ogg'
@@ -185,7 +185,7 @@
 /obj/structure/alien/resin/door/proc/operate()
 	is_operating = TRUE
 	if(!state_open)
-		playsound(loc, open_sound, 100, TRUE)
+		playsound(loc, open_sound, 50, TRUE)
 		flick("[initial_state]opening", src)
 	else
 		for(var/mob/living/L in get_turf(src))
@@ -193,7 +193,7 @@
 			if(state_open)
 				addtimer(CALLBACK(src, PROC_REF(mobless_try_to_operate)), close_delay)
 			return
-		playsound(loc, close_sound, 100, 1)
+		playsound(loc, close_sound, 50, 1)
 		flick("[initial_state]closing", src)
 	density = !density
 	opacity = !opacity
@@ -220,16 +220,10 @@
 		return
 	qdel(src)
 
-/obj/structure/alien/resin/door/CanPass(atom/movable/mover, turf/target)
-	if(iscarbon(mover))
-		var/mob/living/carbon/C = mover
-		if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-			return TRUE
-	if(iscarbon(mover.pulledby))
-		var/mob/living/carbon/L = mover.pulledby
-		if(L.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-			return TRUE
-	return !density
+/obj/structure/alien/resin/door/Bumped(atom/user)
+	..()
+	if(!state_open)
+		return try_to_operate(user)
 
 /*
  * Weeds
@@ -256,6 +250,8 @@
 	var/obj/structure/alien/wallweed/wall_weed // This var is used to handle wall-weed interactions for when they need to be deleted
 	var/static/list/weedImageCache
 	var/check_counter // This var is how many process() procs it takes for a weed to spread
+	/// This var is used for making automatic weed removals silent instead of making them produce the breaking sound
+	var/silent_removal = FALSE
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
 	..()
@@ -270,7 +266,8 @@
 /obj/structure/alien/weeds/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	QUEUE_SMOOTH_NEIGHBORS(src)
-	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	if(!silent_removal)
+		playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
 	linked_node = null
 	clear_wall_weed()
 	return ..()
@@ -292,6 +289,9 @@
         check_counter = 0
 
 /obj/structure/alien/weeds/proc/clear_wall_weed()
+	if(wall_weed && !QDELETED(wall_weed))
+		wall_weed.weed = null
+		wall_weed.silent_removal = TRUE
 	QDEL_NULL(wall_weed)
 
 /obj/structure/alien/weeds/proc/check_surroundings()
@@ -329,7 +329,7 @@
 		return
 
 	if(!wall_weed || QDELETED(wall_weed))
-		wall_weed = new(get_turf(src))
+		wall_weed = new /obj/structure/alien/wallweed(T, src)
 
 	wall_weed.compare_overlays(wall_dirs)
 
@@ -340,7 +340,16 @@
 		qdel(src)
 		return
 
-	if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
+	if(!linked_node)
+		if(prob(20))
+			silent_removal = TRUE
+			qdel(src)
+		return
+
+	if((istype(linked_node, /obj/structure/alien/resin/door)) || (istype(linked_node, /obj/structure/alien/resin/wall)))
+		return
+
+	if(get_dist(linked_node, src) > linked_node.node_range) /*!linked_node || */
 		return
 
 	for(var/turf/T in U.GetAtmosAdjacentTurfs())
@@ -368,10 +377,20 @@
 	plane = GAME_PLANE
 
 	max_integrity = 15
+	var/obj/structure/alien/weeds/weed
 	var/list/overlay_list = list()
+	/// This var is used for making automatic weed removals silent instead of making them produce the breaking sound
+	var/silent_removal = FALSE
+
+/obj/structure/alien/wallweed/Initialize(mapload, weed_owner)
+	. = ..()
+	weed = weed_owner
 
 /obj/structure/alien/wallweed/Destroy()
-	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	if(!silent_removal)
+		playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	if(weed)
+		weed.wall_weed = null
 	return ..()
 
 /obj/structure/alien/wallweed/proc/compare_overlays(list/wall_dirs)

@@ -59,6 +59,10 @@
 	icon_state = "green"
 	there_can_be_many = TRUE
 
+// Space Bar
+/area/ruin/space/powered/bar
+	name = "\improper Space Bar"
+
 //DERELICT (USSP station and USSP Teleporter)
 /area/ruin/space/derelict
 	name = "\improper Derelict Station"
