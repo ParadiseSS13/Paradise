@@ -1018,7 +1018,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		return FALSE
 
-/atom/proc/handle_fall()
+/atom/proc/handle_fall(atom/falling)
 	return
 
 /atom/proc/singularity_act()
