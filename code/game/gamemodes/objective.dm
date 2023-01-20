@@ -162,6 +162,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return 1
 		if(isbrain(target.current))
 			return 1
+		if(isalien(target.current))
+			return 1
 		var/turf/T = get_turf(target.current)
 		if(is_admin_level(T.z))
 			return 0
