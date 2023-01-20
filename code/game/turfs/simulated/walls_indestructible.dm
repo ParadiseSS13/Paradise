@@ -89,7 +89,6 @@
 	GLOB.hierophant_walls -= src
 	return ..()
 
-GLOBAL_LIST_INIT(hierophant_walls, list())
 
 /turf/simulated/wall/indestructible/hierophant/proc/collapse()
 	if(prob(15))
