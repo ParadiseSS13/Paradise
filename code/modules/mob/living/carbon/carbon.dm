@@ -357,12 +357,12 @@
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
 
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(!E || (E && E.weld_proof) || (E.status & ORGAN_DEAD))
 		return
-    
+
 	. = ..()
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
