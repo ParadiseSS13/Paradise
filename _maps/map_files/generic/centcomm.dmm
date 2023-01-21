@@ -3804,7 +3804,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "nj" = (
-/obj/structure/mirror{
+/obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
 /obj/structure/sink{
@@ -3841,7 +3841,7 @@
 /area/admin)
 "no" = (
 /obj/item/mop,
-/obj/structure/mirror{
+/obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
 /obj/item/twohanded/required/kirbyplants,

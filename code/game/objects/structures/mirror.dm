@@ -95,13 +95,16 @@
 /obj/structure/mirror/magic
 	name = "magic mirror"
 	icon_state = "magic_mirror"
+	var/options = list("Name", "Body", "Voice")
+	var/use_whitelist = TRUE
+	var/organ_warn = FALSE
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
 	if(!ishuman(user) || broken)
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in options
 
 	switch(choice)
 		if("Name")
@@ -120,10 +123,13 @@
 				curse(user)
 
 		if("Body")
+			if(organ_warn)
+				to_chat(user, "<span class='boldwarning'>Using the mirror will destroy any non biochip implants in you!</span>")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
-			for(var/species in GLOB.whitelisted_species)
-				if(can_use_species(H, species))
-					race_list += species
+			if(use_whitelist)
+				for(var/species in GLOB.whitelisted_species)
+					if(can_use_species(H, species))
+						race_list += species
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
@@ -167,3 +173,11 @@
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
+
+/obj/structure/mirror/magic/nuclear
+	name = "M.A.G.I.C mirror"
+	desc = "The M.A.G.I.C mirror will let you change your species in a flash! Be careful, any implants (not biochips) in you will be destroyed on use."
+	options = list("Body")
+	use_whitelist = FALSE
+	organ_warn = TRUE
+
