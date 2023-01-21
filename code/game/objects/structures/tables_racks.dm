@@ -806,7 +806,7 @@
 		held_items += item.UID()
 		if(isliving(item))
 			var/mob/living/M = item
-			if(M.pulling && M.pulling == src)
+			if(M.pulling == src)
 				M.stop_pulling()
 			
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
