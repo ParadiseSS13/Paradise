@@ -785,15 +785,9 @@
 		held.forceMove(NewLoc)
 
 /obj/structure/table/tray/can_be_pulled(user, grab_state, force, show_message)
-	var/atom/movable/held
-	for(var/held_uid in held_items)
-		held = locateUID(held_uid)
-		if(!held)
-			held_items -= held_uid
-			continue
-		if(loc != held.loc)
-			held_items -= held_uid
-			continue
+	var/atom/movable/puller = user
+	if(loc != puller.loc)
+		held_items -= puller.UID()
 	if(isliving(user))
 		var/mob/living/M = user
 		if(M.UID() in held_items)
