@@ -371,7 +371,8 @@
 	icon_state = "upgrade"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
-	var/buffer_speed = 1 // How much speed the cyborg loses while the buffer is active
+	/// How much speed the cyborg loses while the buffer is active
+	var/buffer_speed = 1
 	var/mob/living/silicon/robot/cyborg
 
 /obj/item/borg/upgrade/floorbuffer/do_install(mob/living/silicon/robot/R)

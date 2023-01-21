@@ -107,7 +107,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/magpulse = FALSE
 	var/ionpulse = FALSE // Jetpack-like effect.
 	var/ionpulse_on = FALSE // Jetpack-like effect.
-	var/floorbuffer = FALSE //Does it clean the tile under it?
+	/// Does it clean the tile under it?
+	var/floorbuffer = FALSE
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
