@@ -1226,17 +1226,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!length(matches))
 		return
 
-	var/chosen
-	if(length(matches) == 1)
-		chosen = matches[1]
-	else
-		chosen = input("Select a supply crate type", "Create Crate", matches[1]) as null|anything in matches
-
+	var/chosen = input("Select a supply crate type", "Create Crate", matches[1]) as null|anything in matches
 	if(!chosen)
 		return
+	var/datum/supply_packs/the_pack = new chosen()
 
-	var/datum/supply_packs/the_pack = new chosen(get_turf(usr))
-	var/obj/structure/closet/crate/crate = the_pack.create_package(get_turf(usr))
+	var/spawn_location = get_turf(usr)
+	if(!spawn_location)
+		return
+	var/obj/structure/closet/crate/crate = the_pack.create_package(spawn_location)
 	crate.admin_spawned = TRUE
 	for(var/atom/A in crate.contents)
 		A.admin_spawned = TRUE

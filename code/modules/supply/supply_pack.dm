@@ -45,8 +45,9 @@
 		if(!typepath)
 			continue
 		var/atom/A = new typepath(crate)
-		if(amount && A.vars.Find("amount") && A:amount) // This is sketchy as hell
-			A:amount = amount
+		if(isstack(A))
+			var/obj/item/stack/mats = A
+			mats.amount = amount
 
 	return crate
 

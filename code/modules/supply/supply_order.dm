@@ -29,11 +29,8 @@
 	//create the crate
 	var/obj/structure/closet/crate/crate = object.create_package(_loc)
 
-	// var/obj/structure/closet/crate/crate = new object.containertype(_loc)
 	if(comment)
 		crate.name = "[crate.name] ([comment])"
-	// if(object.access)
-	// 	crate.req_access = list(text2num(object.access))
 
 	//create the manifest slip
 	var/obj/item/paper/manifest/slip = new
