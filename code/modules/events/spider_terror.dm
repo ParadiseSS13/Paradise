@@ -5,6 +5,8 @@
 #define PRINCESS_SPIDER 4
 #define QUEEN_SPIDER 5
 
+#define CLOWN_SPIDERS "clown_spiders"
+
 /datum/event/spider_terror
 	announceWhen = 240
 	var/spawncount = 1
@@ -27,6 +29,10 @@
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
 	var/infestation_type
+
+	if(prob(10)) // Uh oh
+		SSevents.special_events |= CLOWN_SPIDERS
+
 	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
 		infestation_type = pick(GREEN_SPIDER, PRINCE_SPIDER, WHITE_SPIDER, PRINCESS_SPIDER)
 	else

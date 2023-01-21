@@ -30,6 +30,9 @@ SUBSYSTEM_DEF(events)
 
 	var/datum/event_meta/new_event = new
 
+	/// Current special events, handled like traits
+	var/list/special_events = list()
+
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
 

@@ -27,6 +27,7 @@
 	spider_tier = TS_TIER_5
 	projectiletype = /obj/item/projectile/terrorqueenspit/empress
 	icon = 'icons/mob/terrorspider64.dmi'
+	clown_icon = 'icons/mob/clownterrorspider64.dmi'
 	pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
 	icon_state = "terror_empress"

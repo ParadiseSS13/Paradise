@@ -88,6 +88,10 @@
 	icon_icon = 'icons/mob/terrorspider.dmi'
 	button_icon_state = "terror_queen"
 
+/datum/action/innate/terrorspider/queen/queennest/New()
+	if(CLOWN_SPIDERS in SSevents.special_events)
+		icon_icon = 'icons/mob/clownterrorspider.dmi'
+
 /datum/action/innate/terrorspider/queen/queennest/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/user = owner
 	user.NestPrompt()

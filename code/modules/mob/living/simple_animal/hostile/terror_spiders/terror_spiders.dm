@@ -22,6 +22,8 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 
 	// Icons
 	icon = 'icons/mob/terrorspider.dmi'
+	/// Fear this
+	var/clown_icon = 'icons/mob/clownterrorspider.dmi'
 	icon_state = "terror_red"
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
@@ -262,6 +264,11 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
 	. = ..()
+	if(CLOWN_SPIDERS in SSevents.special_events) // This is where the fun begins
+		icon = clown_icon
+		attacktext = "honks"
+		attack_sound = 'sound/weapons/bitehonk.ogg'
+
 	GLOB.ts_spiderlist += src
 	add_language("Spider Hivemind")
 	if(spider_tier >= TS_TIER_2)
