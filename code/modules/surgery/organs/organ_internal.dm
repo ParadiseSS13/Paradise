@@ -87,7 +87,7 @@
 			receive_damage(7, 1)
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
-    insert(target)
+	insert(target)
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
 	return
