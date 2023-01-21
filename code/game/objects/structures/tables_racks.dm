@@ -798,7 +798,7 @@
 		var/mob/living/M = user
 		if(M.UID() in held_items)
 			return FALSE
-	. = ..()	
+	return ..()	
 	
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
