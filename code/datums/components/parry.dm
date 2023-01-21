@@ -77,6 +77,7 @@
 		return
 
 	time_parried = world.time
+	L.changeNext_move(CLICK_CD_PARRY)
 	L.do_attack_animation(L, used_item = parent)
 
 /datum/component/parry/proc/attempt_parry(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_type = MELEE_ATTACK)
