@@ -11,7 +11,7 @@
  * * category - a text string corresponding to what type of alert it is
  * * type - a type path of the actual alert type to throw
  * * severity - is an optional number that will be placed at the end of the icon_state for this alert
-	 For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
+ *   For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
  * * obj/new_master - optional argument. Sets the alert's icon state to "template" in the ui_style icons with the master as an overlay. Clicks are forwarded to master
  * * no_anim - whether the alert should play a small sliding animation when created on the player's screen
  * * icon_override - makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
@@ -132,14 +132,14 @@
 	icon_state = "too_much_oxy"
 
 /obj/screen/alert/not_enough_nitro
-    name = "Choking (No N2)"
-    desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
-    icon_state = "not_enough_nitro"
+	name = "Choking (No N2)"
+	desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
+	icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
-    name = "Choking (N2)"
-    desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
-    icon_state = "too_much_nitro"
+	name = "Choking (N2)"
+	desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
+	icon_state = "too_much_nitro"
 
 /obj/screen/alert/not_enough_co2
 	name = "Choking (No CO2)"
@@ -252,7 +252,7 @@
 	icon_state = "hot"
 
 /obj/screen/alert/hot/robot
-    desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this enviroment."
+	desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this environment."
 
 /obj/screen/alert/cold
 	name = "Too Cold"
@@ -260,11 +260,11 @@
 	icon_state = "cold"
 
 /obj/screen/alert/cold/drask
-    name = "Cold"
-    desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
+	name = "Cold"
+	desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
 
 /obj/screen/alert/cold/robot
-    desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this enviroment."
+	desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this environment."
 
 /obj/screen/alert/lowpressure
 	name = "Low Pressure"

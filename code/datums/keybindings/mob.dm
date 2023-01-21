@@ -26,7 +26,7 @@
 	. = ..()
 	var/obj/item/I = C.mob.get_active_hand()
 	if(I)
-		C.mob.drop_item(I)
+		C.mob.drop_item_v()
 	else
 		to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
 

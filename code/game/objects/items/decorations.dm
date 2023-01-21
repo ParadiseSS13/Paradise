@@ -214,13 +214,19 @@
 //Decorative structures
 ///////
 
-
 /obj/structure/decorative_structures
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
+
+/obj/structure/decorative_structures/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I)
 
 /obj/structure/decorative_structures/metal
 	flags = CONDUCT

@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(ambience)
 	priority = FIRE_PRIORITY_AMBIENCE
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 1 SECONDS
+	cpu_display = SS_CPUDISPLAY_LOW
 	///Assoc list of listening client - next ambience time
 	var/list/ambience_listening_clients = list()
 

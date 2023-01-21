@@ -93,6 +93,9 @@
 				continue
 			hide_from(player)
 
+/obj/item/storage/proc/removal_allowed_check(mob/user)
+	return TRUE
+
 /obj/item/storage/MouseDrop(obj/over_object)
 	if(!ismob(usr)) //so monkeys can take off their backpacks -- Urist
 		return
@@ -110,6 +113,9 @@
 	if((istype(over_object, /obj/structure/table) || isfloorturf(over_object)) && length(contents) \
 		&& loc == M && !M.stat && !M.restrained() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && over_object.Adjacent(M) && !istype(src, /obj/item/storage/lockbox)) // Worlds longest `if()`
 		var/turf/T = get_turf(over_object)
+		if(!removal_allowed_check(M))
+			return
+
 		if(isfloorturf(over_object))
 			if(get_turf(M) != T)
 				return // Can only empty containers onto the floor under you
@@ -211,6 +217,13 @@
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
+
+/**
+  * Hides the current container interface from all viewers.
+  */
+/obj/item/storage/proc/hide_from_all()
+	for(var/mob/M in mobs_viewing)
+		hide_from(M)
 
 /**
   * Checks all mobs currently viewing the storage inventory, and hides it if they shouldn't be able to see it.
@@ -572,6 +585,8 @@
 	set category = "Object"
 
 	if((!ishuman(usr) && (loc != usr)) || usr.stat || usr.restrained())
+		return
+	if(!removal_allowed_check(usr))
 		return
 
 	drop_inventory(usr)

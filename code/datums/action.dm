@@ -338,6 +338,10 @@
 /datum/action/item_action/laugh_track
 	name = "Laugh Track"
 
+/datum/action/item_action/floor_buffer
+	name = "Toggle Floor Buffer"
+	desc = "Movement speed is decreased while active."
+
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)
@@ -402,7 +406,7 @@
 	name = "Activate"
 
 /datum/action/item_action/hands_free/activate/always
-    check_flags = null
+	check_flags = null
 
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
@@ -441,6 +445,8 @@
 /datum/action/item_action/remove_badge
 	name = "Remove Holobadge"
 
+/datum/action/item_action/drop_gripped_item
+	name = "Drop gripped item"
 
 // Clown Acrobat Shoes
 /datum/action/item_action/slipping
@@ -459,7 +465,7 @@
 
 /datum/action/item_action/gravity_jump
 	name = "Gravity jump"
-	desc = "Directs a pulse of gravity in front of the user, pulling them foward rapidly."
+	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
 
 /datum/action/item_action/gravity_jump/Trigger()
 	if(!IsAvailable())
@@ -489,6 +495,11 @@
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
 	name = "Use [target.name]"
+	button.name = name
+
+/datum/action/item_action/organ_action/use/eyesofgod/New(target)
+	..()
+	name = "See with the Eyes of the Gods"
 	button.name = name
 
 /datum/action/item_action/voice_changer/toggle

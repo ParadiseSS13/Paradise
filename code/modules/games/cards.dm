@@ -230,7 +230,7 @@
 		H.concealed = TRUE
 		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to \himself.</span>")
+		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>")
 	else
 		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [target].</span>")
 	H.throw_at(get_step(target,target.dir),3,1,H)
@@ -415,9 +415,6 @@
 	var/obj/item/cardhand/C = target
 	if(length(C.cards) <= 1)
 		return FALSE
-	var/mob/living/carbon/human/O = owner
-	if(O.l_hand && O.r_hand)
-		return FALSE
 	return ..()
 
 /datum/action/item_action/remove_card/Trigger()
@@ -465,6 +462,8 @@
 		return
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
+	if(loc != user) // Don't want people teleporting cards
+		return
 	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
 	pickedcard = null
 
@@ -498,10 +497,13 @@
 		for(var/datum/playingcard/P in cards)
 			to_discard[P.name] = P
 		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
-		
+
 		if(!discarding)
 			continue
-		
+
+		if(loc != user) // Don't want people teleporting cards
+			return
+
 		if(QDELETED(src))
 			return
 

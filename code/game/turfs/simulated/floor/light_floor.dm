@@ -103,8 +103,7 @@
 		A.addStaticPower(100, STATIC_LIGHT)
 	update_icon()
 
-
-/turf/simulated/floor/light/extinguish_light()
+/turf/simulated/floor/light/extinguish_light(force = FALSE)
 	toggle_light(FALSE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 
@@ -112,3 +111,42 @@
 	var/color_save = color
 	..()
 	color = color_save
+
+// These tiles change color every now and then
+/turf/simulated/floor/light/disco
+	floor_tile = /obj/item/stack/tile/disco_light
+	/// Cannot change its color with a multitool
+	can_modify_colour = FALSE
+	/// The tile can change into these colors
+	var/list/available_colors = list("#d41e3c", "#ed7b39", "#fff540", "#77b02a", "#488bd4", "#b0fff1", "#94007a", "#ff417d")
+	/// This is our current color, don't pick it again
+	var/current_color
+
+// We pick a random color when we are spawned
+/turf/simulated/floor/light/disco/Initialize()
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+// The animation happens in this proc
+/turf/simulated/floor/light/disco/proc/change_color()
+	current_color = pick_excluding(available_colors, current_color)
+	animate_fade_to_color_fill(src, current_color, 2)
+
+// We change colors every now and then
+/turf/simulated/floor/light/disco/process()
+	if(on)
+		change_color()
+
+// Admins can toggle its color with advanced admin interaction
+/turf/simulated/floor/light/disco/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		change_color()
+
+// One is able to restart it, if power runs out. However, it cannot be turned off!
+/turf/simulated/floor/light/disco/attack_hand(mob/user)
+	if(!on)
+		toggle_light(TRUE)
+
+/turf/simulated/floor/light/disco/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()

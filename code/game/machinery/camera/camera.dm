@@ -45,7 +45,7 @@
 	GLOB.cameranet.cameras += src
 	GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
-		LAZYADD(myArea.cameras, UID())
+		LAZYADD(get_area(src).cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.cut_all()
@@ -60,8 +60,8 @@
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
-	if(isarea(myArea))
-		LAZYREMOVE(myArea.cameras, UID())
+	if(isarea(get_area(src)))
+		LAZYREMOVE(get_area(src).cameras, UID())
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
@@ -266,15 +266,12 @@
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
 		if(isturf(loc))
-			myArea = get_area(src)
-			LAZYADD(myArea.cameras, UID())
-		else
-			myArea = null
+			LAZYADD(get_area(src).cameras, UID())
 	else
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
-		if(isarea(myArea))
-			LAZYREMOVE(myArea.cameras, UID())
+		if(isarea(get_area(src)))
+			LAZYREMOVE(get_area(src).cameras, UID())
 	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
 	if(status)

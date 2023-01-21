@@ -6,8 +6,9 @@
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
-	put_on_delay = 20
-	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
+	put_on_delay = 2 SECONDS
+	/// How long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
+	var/resist_time = 0 SECONDS
 	var/mute = MUZZLE_MUTE_ALL
 	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
@@ -86,7 +87,7 @@
 	icon_state = "tapegag"
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
-	resist_time = 150
+	resist_time = 30 SECONDS
 	mute = MUZZLE_MUTE_MUFFLE
 	flags = DROPDEL
 
@@ -112,7 +113,7 @@
 	desc = "A muzzle designed to prevent biting."
 	icon_state = "muzzle_secure"
 	item_state = "muzzle_secure"
-	resist_time = 0
+	resist_time = 0 SECONDS
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
 	locked = FALSE
@@ -498,6 +499,18 @@
 	name = "durathread bandana"
 	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
 	icon_state = "banddurathread"
+
+/obj/item/clothing/mask/false_cluwne_mask
+	name = "cursed clown mask"
+	desc = "This is a very, very odd looking mask."
+	icon = 'icons/goonstation/objects/clothing/mask.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_hat"
+	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	flags =	BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_cover = MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"

@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	GLOB.active_team.cyborg_security_permitted = cyborg_security
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!ert_candidates.len)
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -89,17 +89,25 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/list/ert_gender_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs), 100)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_species_prefs), GLOB.response_team_members, ert_gender_prefs), 10 SECONDS)
 
-/proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
-	var/list/ert_role_prefs = list()
+/proc/get_ert_species_prefs(list/response_team_members, list/ert_gender_prefs)
 	for(var/datum/async_input/A in ert_gender_prefs)
+		A.close()
+	var/list/ert_species_prefs = list()
+	for(var/mob/M in GLOB.response_team_members)
+		ert_species_prefs.Add(input_async(M, "Please select a species (10 seconds):", list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Random")))
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_role_prefs), GLOB.response_team_members, ert_gender_prefs, ert_species_prefs), 10 SECONDS)
+
+/proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs, list/ert_species_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
+	var/list/ert_role_prefs = list()
+	for(var/datum/async_input/A in ert_species_prefs)
 		A.close()
 	for(var/mob/M in response_team_members)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_role_prefs), 200)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), response_team_members, ert_gender_prefs, ert_species_prefs, ert_role_prefs), 20 SECONDS)
 
-/proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs)
+/proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_species_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
 
 	for(var/i = 1, i <= response_team_members.len, i++)
@@ -108,6 +116,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		if(!GLOB.active_team.get_slot_list().len)
 			break
 		var/gender_pref = ert_gender_prefs[i].result
+		var/species_pref = ert_species_prefs[i].result
 		var/role_pref = ert_role_prefs[i].close()
 		var/mob/M = response_team_members[i]
 		if(!M || !M.client)
@@ -117,7 +126,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			continue
 		for(var/role in role_pref)
 			if(GLOB.active_team.check_slot_available(role))
-				var/mob/living/new_commando = M.client.create_response_team(gender_pref, role, GLOB.emergencyresponseteamspawn[spawn_index])
+				var/mob/living/new_commando = M.client.create_response_team_part_1(gender_pref, species_pref, role, GLOB.emergencyresponseteamspawn[spawn_index])
 				GLOB.active_team.reduceSlots(role)
 				spawn_index++
 				if(!M || !new_commando)
@@ -134,7 +143,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	// Everyone who said yes was afk
 	GLOB.active_team.cannot_send_team()
 
-/client/proc/create_response_team(new_gender, role, turf/spawn_location)
+/client/proc/create_response_team_part_1(new_gender, new_species, role, turf/spawn_location)
 	if(role == "Cyborg")
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		if(GLOB.active_team.cyborg_security_permitted)
@@ -142,7 +151,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
 	if(new_gender)
 		if(new_gender == "Male")
@@ -150,19 +158,40 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		else
 			M.change_gender(FEMALE)
 
-	M.set_species(/datum/species/human, TRUE)
+	if(!new_species)
+		new_species = "Human"
+	if(new_species == "Random")
+		new_species = pick("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
+	var/datum/species/S = GLOB.all_species[new_species]
+	var/species = S.type
+	M.set_species(species, TRUE)
 	M.dna.ready_dna(M)
 	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
 	M.overeatduration = 0
-
-	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
-	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
+	var/eye_c = pick("#000000", "#8B4513", "#1E90FF") // Black, brown, blue
 	var/skin_tone = rand(-120, 20) // A range of skin colors
 
-	head_organ.facial_colour = hair_c
-	head_organ.sec_facial_colour = hair_c
-	head_organ.hair_colour = hair_c
-	head_organ.sec_hair_colour = hair_c
+	switch(new_species) //Diona not included as they don't use the hair colours
+		if("Human", "Tajaran", "Vulpkanin", "Nian")
+			var/hair_c_htvn = pick("#8B4513", "#000000", "#FF4500", "#FFD700", "#d4d1bf") // Brown, black, red, blonde, grey
+			head_organ.facial_colour = hair_c_htvn
+			head_organ.sec_facial_colour = hair_c_htvn
+			head_organ.hair_colour = hair_c_htvn
+			head_organ.sec_hair_colour = hair_c_htvn
+			M.skin_colour = hair_c_htvn
+		if("Skrell", "Unathi") //Some common skrell / unathi colours
+			var/list/su = list("#1f138b", "#272525", "#07a035", "#8c00ff", "#a80c0c")
+			var/hair_c_su = pick_n_take(su)
+			head_organ.facial_colour = hair_c_su
+			head_organ.sec_facial_colour = hair_c_su
+			head_organ.hair_colour = hair_c_su
+			head_organ.sec_hair_colour = hair_c_su
+			if(new_species == "Skrell")
+				M.skin_colour = hair_c_su
+			else
+				M.skin_colour = pick(su) //Pick a diffrent colour for body.
+
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
 	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
@@ -258,10 +287,10 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
-	GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
+	GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
 
 /datum/response_team/proc/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
+	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
 
 // -- AMBER TEAM --
 
@@ -274,7 +303,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
 
 // -- RED TEAM --
 
@@ -288,7 +317,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
 
 // -- GAMMA TEAM --
 
@@ -302,7 +331,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"

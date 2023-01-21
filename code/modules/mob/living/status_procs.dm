@@ -129,13 +129,13 @@ STATUS EFFECTS
 	pixel_y = 0
 
 /* makes sure the crawlers head is pointing in the direction they crawl
-* effectively splits dirs down the middle.
+ * effectively splits dirs down the middle.
 
-									 # | #
-moving this way points the head left # | # moving this way points the head right
-									 # | #
+ *										# | #
+ * moving this way points the head left # | # moving this way points the head right
+ *										# | #
 
-moving up or down retains their old lying angle
+ * moving up or down retains their old lying angle
 
 */
 /mob/living/proc/orient_crawling(datum/source, old_dir, new_dir)
@@ -741,7 +741,7 @@ moving up or down retains their old lying angle
 	if(F)
 		F.duration += amount
 	else if(amount > 0)
-		F = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+		F = apply_status_effect(STATUS_EFFECT_FLOORED, amount)
 	return F
 
 

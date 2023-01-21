@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(jobs)
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -20,13 +21,12 @@ SUBSYSTEM_DEF(jobs)
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
-	if(!occupations.len)
+/datum/controller/subsystem/jobs/Initialize()
+	if(!length(occupations))
 		SetupOccupations()
 	for(var/department_type in subtypesof(/datum/station_department))
 		station_departments += new department_type()
 	LoadJobs(FALSE)
-	return ..()
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
@@ -589,6 +589,12 @@ SUBSYSTEM_DEF(jobs)
 	H.mind.store_memory(remembered_info)
 	H.mind.set_initial_account(account)
 
+	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
+	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
+
+	if(!job) //if their job datum is null (looking at you ERTs...), we don't need to do anything past this point
+		return
+
 	//add them to their department datum, (this relates a lot to money account I promise)
 	var/list/users_departments = get_departments_from_job(job.title)
 	for(var/datum/station_department/department as anything in users_departments)
@@ -599,11 +605,8 @@ SUBSYSTEM_DEF(jobs)
 		member.can_approve_crates = job?.department_account_access
 		department.members += member
 
-	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
-	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
-
 	// If they're head, give them the account info for their department
-	if(!job?.department_account_access)
+	if(!job.department_account_access)
 		return
 
 	announce_department_accounts(users_departments, H, job)

@@ -51,11 +51,9 @@ SUBSYSTEM_DEF(tickets)
 	.["custom"] = cust
 
 /datum/controller/subsystem/tickets/Initialize()
-	if(!close_messages)
-		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
-				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
-	return ..()
+	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
+			"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
+			"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()
@@ -566,7 +564,7 @@ UI STUFF
  * msg - The message being send
  * alt - If an alternative prefix should be used or not. Defaults to TICKET_STAFF_MESSAGE_PREFIX
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ *             send a sound and flash the window. Defaults to FALSE
  */
 /datum/controller/subsystem/tickets/proc/message_staff(msg, prefix_type = TICKET_STAFF_MESSAGE_PREFIX, important = FALSE)
 	switch(prefix_type)

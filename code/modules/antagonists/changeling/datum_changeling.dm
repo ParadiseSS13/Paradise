@@ -25,9 +25,9 @@
 	/// Number of victims the changeling has absorbed.
 	var/absorbed_count = 1
 	/// The current amount of chemicals the changeling has stored.
-	var/chem_charges = 20
+	var/chem_charges = 75
 	/// The amount of chemicals that recharges per `Life()` call.
-	var/chem_recharge_rate = 1
+	var/chem_recharge_rate = 3
 	/// Amount of chemical recharge slowdown, calculated as `chem_recharge_rate - chem_recharge_slowdown`
 	var/chem_recharge_slowdown = 0
 	/// The total amount of chemicals able to be stored.
@@ -83,7 +83,7 @@
 /datum/antagonist/changeling/Destroy()
 	SSticker.mode.changelings -= owner
 	chosen_sting = null
-	QDEL_LIST(acquired_powers)
+	QDEL_LIST_CONTENTS(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -111,6 +111,17 @@
 		for(var/power_type in innate_powers)
 			give_power(new power_type, L)
 
+	RegisterSignal(L, COMSIG_MOB_DEATH, PROC_REF(on_death))
+
+	var/mob/living/carbon/C = L
+
+	if(!istype(C))
+		return
+
+	// Brains are optional for changelings.
+	var/obj/item/organ/internal/brain/ling_brain = C.get_organ_slot("brain")
+	ling_brain?.decoy_brain = TRUE
+
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
 	if(!ishuman(L))
@@ -120,6 +131,7 @@
 		L.hud_used.lingchemdisplay.invisibility = 101
 	L.remove_language("Changeling")
 	remove_unnatural_languages(L)
+	UnregisterSignal(L, COMSIG_MOB_DEATH)
 	// If there's a mob_override, this is a body transfer, and therefore we should only remove their powers from the old body.
 	if(mob_override)
 		for(var/datum/action/changeling/power in acquired_powers)
@@ -127,6 +139,16 @@
 	// Else, they're losing the datum.
 	else
 		respec(FALSE)
+
+	var/mob/living/carbon/C = L
+
+	if(!istype(C))
+		return
+
+	// If they get de-clinged, make sure they can't just chop their own head off for the hell of it
+	var/obj/item/organ/internal/brain/former_ling_brain = C.get_organ_slot("brain")
+	if(former_ling_brain && former_ling_brain.decoy_brain != initial(former_ling_brain.decoy_brain))
+		former_ling_brain.decoy_brain = FALSE
 
 /*
  * Always absorb X amount of genomes, plus random traitor objectives.
@@ -399,6 +421,19 @@
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
 		return FALSE
 	return TRUE
+
+/datum/antagonist/changeling/proc/on_death(mob/living/L, gibbed)
+	SIGNAL_HANDLER
+	if(QDELETED(L) || gibbed)  // they were probably incinerated or gibbed, no coming back from that.
+		return
+	var/mob/living/carbon/human/H = L
+	if(!istype(H))
+		return
+
+	if(!H.get_organ_slot("brain"))
+		to_chat(L, "<span class='notice'>The brain is a useless organ to us, we are able to regenerate!</span>")
+	else
+		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
 
 /proc/ischangeling(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/changeling)

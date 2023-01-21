@@ -1,14 +1,13 @@
 
-#define ATMOS_FIRE_FREQ 1437 //air alarms
-#define ENGINE_FREQ 1438 //engine components
-#define ATMOS_VENTSCRUB 1439 //vents, scrubbers, atmos control
-#define ATMOS_DISTRO_FREQ 1443 //distro loop
-#define ATMOS_TANKS_FREQ 1441 //atmos supply tanks
-#define BOT_BEACON_FREQ 1445 //bot navigation beacons
-#define AIRLOCK_FREQ 1449 //airlock controls, electropack, magnets
+//#define ATMOS_FIRE_FREQ 1437 //air alarms
+//#define ENGINE_FREQ 1438 //engine components
+//#define ATMOS_DISTRO_FREQ 1443 //distro loop
+//#define ATMOS_TANKS_FREQ 1441 //atmos supply tanks
+//#define BOT_BEACON_FREQ 1445 //bot navigation beacons
+#define AIRLOCK_FREQ 1449 //airlock controls, electropack, magnets // THIS MUST DIE
 
-#define RSD_FREQ 1457 //radio signal device
-#define IMPL_FREQ 1451 //tracking implant
+#define RSD_FREQ 1457 //radio signal device - Not a real signal
+
 
 #define RADIO_LOW_FREQ 1200 //minimum radio freq
 #define PUBLIC_LOW_FREQ 1441 //minimum radio chat freq

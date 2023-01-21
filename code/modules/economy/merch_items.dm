@@ -222,6 +222,13 @@
 	cost = 750
 	category = MERCH_CAT_DECORATION
 
+/datum/merch_item/flag_solgov
+	name = "SolGov Flag"
+	desc = "The banner of Trans-Solar Federation, allied government."
+	typepath = /obj/item/flag/solgov
+	cost = 750
+	category = MERCH_CAT_DECORATION
+
 /datum/merch_item/banhammer
 	name = "Banhammer"
 	desc = "A Banhammer."

@@ -441,7 +441,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		enough_materials = FALSE
 	else
 		for(var/R in being_built.reagents_list)
-			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
+			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R] * coeff))
 				atom_say("Not enough reagents to complete prototype.")
 				enough_materials = FALSE
 

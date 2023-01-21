@@ -19,8 +19,8 @@
 	var/hardness = 1
 	var/sheetType = /obj/item/stack/sheet/metal
 	var/sheetAmount = 7
-	var/openSound = 'sound/effects/stonedoor_openclose.ogg'
-	var/closeSound = 'sound/effects/stonedoor_openclose.ogg'
+	var/open_sound = 'sound/effects/stonedoor_openclose.ogg'
+	var/close_sound = 'sound/effects/stonedoor_openclose.ogg'
 	var/damageSound = null
 
 /obj/structure/mineral_door/Initialize()
@@ -69,8 +69,6 @@
 		return
 	if(isliving(user))
 		var/mob/living/M = user
-		if(world.time - user.last_bumped <= 60)
-			return //NOTE do we really need that?
 		if(M.client)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
@@ -84,15 +82,18 @@
 /obj/structure/mineral_door/proc/operate()
 	is_operating = TRUE
 	if(!state_open)
-		playsound(loc, openSound, 100, 1)
+		playsound(loc, open_sound, 100, TRUE)
 		flick("[initial_state]opening",src)
 	else
 		var/turf/T = get_turf(src)
 		for(var/mob/living/L in T)
+			is_operating = FALSE
 			return
-		playsound(loc, closeSound, 100, 1)
+		playsound(loc, close_sound, 100, TRUE)
 		flick("[initial_state]closing",src)
-	sleep(10)
+	addtimer(CALLBACK(src, PROC_REF(operate_update)), 1 SECONDS)
+
+/obj/structure/mineral_door/proc/operate_update()
 	density = !density
 	opacity = !opacity
 	state_open = !state_open
@@ -200,24 +201,10 @@
 /obj/structure/mineral_door/wood
 	name = "wood door"
 	icon_state = "wood"
-	openSound = 'sound/effects/doorcreaky.ogg'
-	closeSound = 'sound/effects/doorcreaky.ogg'
+	open_sound = 'sound/effects/doorcreaky.ogg'
+	close_sound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
 	hardness = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
-
-/obj/structure/mineral_door/resin
-	name = "resin door"
-	icon_state = "resin"
-	hardness = 1.5
-	close_delay = 100
-	openSound = 'sound/effects/attackblob.ogg'
-	closeSound = 'sound/effects/attackblob.ogg'
-	damageSound = 'sound/effects/attackblob.ogg'
-	sheetType = null
-
-/obj/structure/mineral_door/resin/try_to_operate(atom/user)
-	if(isalien(user))
-		return ..()

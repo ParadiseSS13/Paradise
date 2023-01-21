@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	desc = "Sheets made out of metal."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
-	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
@@ -170,7 +170,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-plasteel"
-	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
+	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10.0
@@ -179,6 +179,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
 	table_type = /obj/structure/table/reinforced
+
+/obj/item/stack/sheet/plasteel/fifty
+	amount = 50
 
 /obj/item/stack/sheet/plasteel/New(loc, amount=null)
 	recipes = GLOB.plasteel_recipes
@@ -209,7 +212,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dog bed", /obj/structure/bed/dogbed, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-    	new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe_list("pews", list(
@@ -454,14 +457,14 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	return ..()
 
 /datum/stack_recipe/cult
-   one_per_turf = TRUE
-   on_floor = TRUE
+	one_per_turf = TRUE
+	on_floor = TRUE
 
 /datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
-   if(ishuman(S.loc))
-      var/mob/living/carbon/human/H = S.loc
-      H.bleed(5)
-   ..()
+	if(ishuman(S.loc))
+		var/mob/living/carbon/human/H = S.loc
+		H.bleed(5)
+	..()
 
 /obj/item/stack/sheet/runed_metal/ten
 	amount = 10

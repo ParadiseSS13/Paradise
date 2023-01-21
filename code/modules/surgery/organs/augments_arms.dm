@@ -45,6 +45,9 @@
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	RegisterSignal(M, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_to_linked_implant))
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -61,6 +64,16 @@
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
+
+/obj/item/organ/internal/cyberimp/arm/proc/retract_to_linked_implant()
+	SIGNAL_HANDLER
+	if(holder && holder == owner.get_active_hand())
+		INVOKE_ASYNC(src, PROC_REF(retract_and_show_radial))
+
+/obj/item/organ/internal/cyberimp/arm/proc/retract_and_show_radial()
+	Retract()
+	if(length(items_list) != 1)
+		radial_menu(owner)
 
 /obj/item/organ/internal/cyberimp/arm/proc/check_cuffs()
 	if(owner.handcuffed)
@@ -104,7 +117,11 @@
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
-		if(!owner.unEquip(arm_item))
+		if(istype(arm_item, /obj/item/twohanded/offhand))
+			var/obj/item/offhand_arm_item = owner.get_active_hand()
+			to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!</span>")
+			return
+		else if(!owner.unEquip(arm_item))
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else
@@ -253,7 +270,7 @@
 	..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
-		F.I = src
+		F.implant = src
 
 /obj/item/organ/internal/cyberimp/arm/baton
 	name = "arm electrification implant"
@@ -271,7 +288,7 @@
 	..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
-		F.I = src
+		F.implant = src
 
 /obj/item/organ/internal/cyberimp/arm/combat/centcom
 	name = "NT specops cybernetics implant"
@@ -411,3 +428,132 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm
+	name = "vortex feedback arm implant"
+	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles with feedback from the vortex anomaly core."
+	origin_tech = "combat=6;magnets=6;biotech=6;engineering=6"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "v1_arm"
+	parent_organ = "l_arm" //Left arm by default
+	slot = "l_arm_device"
+
+	contents = newlist(/obj/item/shield/v1_arm)
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "v1_arm")
+	var/disabled = FALSE
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/emp_act(severity)
+	if(emp_proof && !disabled)
+		return
+	disabled = TRUE
+	addtimer(VARSET_CALLBACK(src, disabled, FALSE), 10 SECONDS)
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/Extend(obj/item/item)
+	if(disabled)
+		to_chat(owner, "<span class='warning'>Your arm fails to extend!</span>")
+		return FALSE
+	..()
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/Retract()
+	if(disabled)
+		to_chat(owner, "<span class='warning'>Your arm fails to retract!</span>")
+		return FALSE
+	..()
+
+/obj/item/shield/v1_arm
+	name = "vortex feedback arm" //format is they are holding x
+	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attack. Rumors that it runs on the users blood are unconfirmed"
+	icon_state = "v1_arm"
+	item_state = "v1_arm"
+	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
+	force = 20 //bonk, not sharp
+	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
+	hitsound = 'sound/effects/bang.ogg'
+	light_power = 3
+	light_range = 0
+	light_color = "#9933ff"
+	hit_reaction_chance = -1
+	/// The damage the reflected projectile will be increased by
+	var/reflect_damage_boost = 10
+	/// The cap of the reflected damage. Damage will not be increased above 50, however it will not be reduced to 50 either.
+	var/reflect_damage_cap = 50
+	var/disabled = FALSE
+	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
+
+
+/obj/item/shield/v1_arm/emp_act(severity)
+	if(disabled)
+		return
+	to_chat(loc, "<span class='warning'>Your arm seises up!</span>")
+	disabled = TRUE
+	force = force_when_disabled
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 10 SECONDS)
+
+/obj/item/shield/v1_arm/proc/reboot()
+	disabled = FALSE
+	force = initial(force)
+
+/obj/item/shield/v1_arm/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
+
+/obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(disabled)
+		return FALSE
+	// Hit by a melee weapon or blocked a projectile
+	. = ..()
+	if(!.) // they did not block the attack
+		return
+	if(. == 1) // a normal block
+		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+		return TRUE
+
+	set_light(3)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
+
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.shield_buster || istype(P, /obj/item/projectile/ion)) //EMP's and unpariable attacks, after all.
+			return FALSE
+		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
+			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+			return TRUE
+
+		P.damage = clamp((P.damage + 10), P.damage, reflect_damage_cap)
+		var/sound = pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg', 'sound/effects/meteorimpact.ogg')
+		P.hitsound = sound
+		P.hitsound_wall = sound
+		P.add_overlay("parry")
+		playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
+		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
+		return -1
+
+	owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		if(!isitem(hitby))
+			return TRUE
+		var/obj/item/TT = hitby
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
+		return TRUE
+	if(isitem(hitby))
+		melee_attack_chain(owner, hitby.loc)
+	else
+		melee_attack_chain(owner, hitby)
+	return TRUE
+
+/obj/item/v1_arm_shell
+	name = "vortex feedback arm implant frame"
+	desc = "An implant awaiting installation of a vortex anomaly core"
+	icon_state = "v1_arm"
+
+/obj/item/v1_arm_shell/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/assembly/signaler/anomaly/vortex))
+		to_chat(user, "<span class='notice'>You insert [I] into the back of the hand, and the implant begins to boot up.</span>")
+		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
+		qdel(src)
+		qdel(I)
+	return ..()

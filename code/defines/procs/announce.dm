@@ -1,6 +1,5 @@
 GLOBAL_DATUM_INIT(minor_announcement, /datum/announcer, new(config_type = /datum/announcement_configuration/minor))
 GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum/announcement_configuration/major))
-GLOBAL_DATUM_INIT(event_announcement, /datum/announcer, new(config_type = /datum/announcement_configuration/event))
 
 /datum/announcement_configuration
 	var/default_title = "Attention"
@@ -154,15 +153,18 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcement_configuration/requests_console
 	style = "minor"
+	add_log = TRUE
 
 /datum/announcement_configuration/comms_console
 	default_title = "Priority Announcement"
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_PRIORITY
 	sound = sound('sound/misc/notice2.ogg')
+	style = "major"
 
 /datum/announcement_configuration/ai
 	default_title = ANNOUNCE_KIND_AI
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_AI
 	sound = sound('sound/misc/notice2.ogg')
+	style = "major"

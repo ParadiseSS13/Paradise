@@ -1,6 +1,6 @@
 /*
-  Tiny babby plant critter plus procs.
-*/
+ * Tiny babby plant critter plus procs.
+ */
 
 //Mob defines.
 /mob/living/simple_animal/diona

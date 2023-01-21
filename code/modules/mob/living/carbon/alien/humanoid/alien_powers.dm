@@ -28,9 +28,14 @@ Doesn't work on other aliens/AI.*/
 		return
 
 	if(powerc(50,1))
+		for(var/obj/structure/alien/resin in get_turf(src))
+			to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
+			return
 		adjustPlasma(-50)
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("<span class='alertalien'>[src] has planted some alien weeds!</span>"), 1)
+		for(var/obj/structure/alien/weeds/W in get_turf(src))
+			qdel(W)
 		new /obj/structure/alien/weeds/node(loc)
 	return
 
@@ -114,29 +119,39 @@ Doesn't work on other aliens/AI.*/
 	return
 
 /mob/living/carbon/alien/humanoid/proc/resin() // -- TLE
-	set name = "Secrete Resin (55)"
+	set name = "Secrete Resin"
 	set desc = "Secrete tough malleable resin."
 	set category = "Alien"
 
+	var/list/resin_buildings = list("Resin Wall (55)" = image(icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi', icon_state = "resin_wall-0"),
+								"Resin Nest (55)" = image(icon = 'icons/mob/alien.dmi', icon_state = "nest"),
+								"Resin Door (80)" = image(icon = 'icons/obj/smooth_structures/alien/resin_door.dmi', icon_state = "resin"))
+	var/choice = show_radial_menu(src, src, resin_buildings, src, radius = 40)
 	if(powerc(55, TRUE))
-		var/choice = input("Choose what you wish to shape.","Resin building") as null|anything in list("resin wall","resin membrane","resin nest") //would do it through typesof but then the player choice would have the type path and we don't want the internal workings to be exposed ICly - Urist
-
-		if(!choice || !powerc(55, TRUE))
-			return
-		var/obj/structure/alien/resin/T = locate() in get_turf(src)
-		if(T)
+		var/built = FALSE
+		if(locate(/obj/structure/alien/resin) in get_turf(src))
 			to_chat(src, "<span class='danger'>There is already a resin construction here.</span>")
 			return
 		adjustPlasma(-55)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>"), 1)
+
 		switch(choice)
-			if("resin wall")
+			if("Resin Wall (55)")
 				new /obj/structure/alien/resin/wall(loc)
-			if("resin membrane")
-				new /obj/structure/alien/resin/membrane(loc)
-			if("resin nest")
+				built = TRUE
+			if("Resin Nest (55)")
 				new /obj/structure/bed/nest(loc)
+				built = TRUE
+			if("Resin Door (80)")
+				if(powerc(25, TRUE))
+					var/obj/structure/alien/resin/door/door = new(loc)
+					door.dir = dir
+					adjustPlasma(-25)
+					built = TRUE
+				else
+					to_chat(src, "<span class='noticealien'>Not enough plasma stored.</span>")
+					adjustPlasma(55)
+		if(built)
+			visible_message("<span class='alertalien'>[src] vomits up a thick purple substance and shapes it!</span>")
 	return
 
 /mob/living/carbon/alien/humanoid/verb/regurgitate()
@@ -152,17 +167,17 @@ Doesn't work on other aliens/AI.*/
 			visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
 
 /mob/living/carbon/proc/getPlasma()
- 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
- 	if(!vessel) return 0
- 	return vessel.stored_plasma
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	if(!vessel) return 0
+	return vessel.stored_plasma
 
 
 /mob/living/carbon/proc/adjustPlasma(amount)
- 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
- 	if(!vessel) return
- 	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
- 	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
- 	return 1
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	if(!vessel) return
+	vessel.stored_plasma = max(vessel.stored_plasma + amount,0)
+	vessel.stored_plasma = min(vessel.stored_plasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
+	return 1
 
 /mob/living/carbon/alien/adjustPlasma(amount)
 	. = ..()

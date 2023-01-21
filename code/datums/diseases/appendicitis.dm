@@ -17,7 +17,8 @@
 	virus_heal_resistant = TRUE
 
 /datum/disease/appendicitis/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(5))

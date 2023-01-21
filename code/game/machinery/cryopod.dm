@@ -110,7 +110,7 @@
 				return
 
 			var/obj/item/item = locateUID(params["item"])
-			if(!item)
+			if(!item || item.loc != src)
 				to_chat(user, "<span class='notice'>[item] is no longer in storage.</span>")
 				return
 
@@ -120,7 +120,8 @@
 		if("all_items")
 			visible_message("<span class='notice'>[src] beeps happily as it dispenses the desired objects.</span>")
 
-			for(var/obj/item/item in frozen_items)
+			for(var/list/frozen_item in frozen_items)
+				var/obj/item/item = locateUID(frozen_item["uid"])
 				dispense_item(item)
 
 	return TRUE
