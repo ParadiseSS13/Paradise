@@ -180,7 +180,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 		if(config.tts_enabled)
 			var/volume = M.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
 			if(volume > 0)
-				return
+				continue
 		SEND_SOUND(M, message_sound)
 
 /datum/announcement/proc/Log(message as text, message_title as text)
