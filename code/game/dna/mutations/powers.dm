@@ -929,7 +929,11 @@
 	return new /datum/spell_targeting/telepathic
 
 /obj/effect/proc_holder/spell/remotetalk/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))	return
+	if(!ishuman(user))
+		return
+	if(user.mind?.miming) // Dont let mimes telepathically talk
+		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
+		return
 	var/say = input("What do you wish to say") as text|null
 	if(!say || usr.stat)
 		return
