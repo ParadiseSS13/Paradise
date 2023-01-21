@@ -783,7 +783,7 @@
 
 /datum/tts_seed/silero/sniper_tf
 	name = "Sniper"
-	value = "sniper"
+	value = "sniper_tf"
 	category = TTS_CATEGORY_TEAMFORTRESS2
 	gender = TTS_GENDER_MALE
 
