@@ -230,7 +230,7 @@
 		H.concealed = TRUE
 		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to \himself.</span>")
+		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>")
 	else
 		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [target].</span>")
 	H.throw_at(get_step(target,target.dir),3,1,H)

@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
+	if(istype(head_organ) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
@@ -325,7 +325,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(HEAD_ACC_OVER_LAYER)
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ)
+	if(!istype(head_organ))
 		return
 
 	//masks and helmets can obscure our head accessory
@@ -360,7 +360,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(HAIR_LAYER)
 
 	var/obj/item/organ/external/head/O = get_organ("head")
-	if(!O)
+	if(!istype(O))
 		return
 
 	if((head?.flags & BLOCKHAIR) || (wear_mask?.flags & BLOCKHAIR))
@@ -445,7 +445,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(FHAIR_OVER_LAYER)
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ)
+	if(!istype(head_organ))
 		return
 
 	//masks and helmets can obscure our facial hair, unless we're a synthetic
@@ -565,6 +565,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_tail_layer()
 	update_wing_layer()
 	update_halo_layer()
+	update_eyes_overlay_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
@@ -987,7 +988,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		if(!(slot_wear_mask in check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
-			if(!head_organ)
+			if(!istype(head_organ))
 				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
@@ -1365,6 +1366,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(HALO_LAYER)
 
+/mob/living/carbon/human/proc/update_eyes_overlay_layer()
+	remove_overlay(EYES_OVERLAY_LAYER)
+
+	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
+	if(istype(eyes_organ, /obj/item/organ/internal/eyes/cybernetic/eyesofgod))
+		var/obj/item/organ/internal/eyes/cybernetic/eyesofgod/E = eyes_organ
+		if(E.active)
+			var/mutable_appearance/new_eye_overlay = mutable_appearance('icons/effects/32x64.dmi', "eyesofgod", -EYES_OVERLAY_LAYER)
+			overlays_standing[EYES_OVERLAY_LAYER] = new_eye_overlay
+
+	apply_overlay(EYES_OVERLAY_LAYER)
 
 /mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
 	if(..())

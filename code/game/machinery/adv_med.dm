@@ -229,7 +229,7 @@
 	var/occupantData[0]
 	if(occupant)
 		occupantData["name"] = occupant.name
-		occupantData["stat"] = occupant.stat
+		occupantData["stat"] = HAS_TRAIT(occupant, TRAIT_FAKEDEATH) ? DEAD : occupant.stat
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
 

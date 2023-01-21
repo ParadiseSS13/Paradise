@@ -298,7 +298,7 @@
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
-	visible_message("<span class='notice'>[src] examines [H.p_them()]self.</span>", \
+	visible_message("<span class='notice'>[src] examines [H.p_themselves()].</span>", \
 		"<span class='notice'>You check yourself for injuries.</span>" \
 		)
 	var/list/status_list = list()
@@ -357,8 +357,10 @@
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
 	. = ..()
+	SIGNAL_HANDLER
+	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
 	var/damage = intensity - check_eye_prot()
 	var/extra_damage = 0
 	if(.)
@@ -869,7 +871,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	var/time = I.breakouttime
-	visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>",
+	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
 				"<span class='notice'>You attempt to unbuckle yourself... (This will take around [time / 10] seconds and you need to stay still.)</span>")
 	if(!do_after(src, time, FALSE, src, extra_checks = list(CALLBACK(src, PROC_REF(buckle_check)))))
 		if(src && buckled)
@@ -893,11 +895,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	fire_stacks -= 5
 	Weaken(6 SECONDS, TRUE) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	spin(32, 2)
-	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>",
+	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_themselves()] out!</span>",
 		"<span class='notice'>You stop, drop, and roll!</span>")
 	sleep(3 SECONDS)
 	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>",
+		visible_message("<span class='danger'>[src] has successfully extinguished [p_themselves()]!</span>",
 			"<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
 

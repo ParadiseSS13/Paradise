@@ -1,21 +1,14 @@
-SUBSYSTEM_DEF(discord)
-	name = "Discord"
-	flags = SS_NO_FIRE
-	/// Is the SS enabled
-	var/enabled = FALSE
+GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
+
+/datum/discord_manager
 	/// Last time the administrator ping was dropped. This ensures administrators cannot be mass pinged if a large chunk of ahelps go off at once (IE: tesloose)
 	var/last_administration_ping = 0
 	/// Last time the mentor ping was dropped. This ensures mentors cannot be mass pinged if a large chunk of mhelps go off at once.
 	var/last_mentor_ping = 0
 
-/datum/controller/subsystem/discord/Initialize(start_timeofday)
-	if(GLOB.configuration.discord.webhooks_enabled)
-		enabled = TRUE
-	return ..()
-
 // This is designed for ease of simplicity for sending quick messages from parts of the code
-/datum/controller/subsystem/discord/proc/send2discord_simple(destination, content)
-	if(!enabled)
+/datum/discord_manager/proc/send2discord_simple(destination, content)
+	if(!GLOB.configuration.discord.webhooks_enabled)
 		return
 	var/list/webhook_urls
 	switch(destination)
@@ -32,8 +25,8 @@ SUBSYSTEM_DEF(discord)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // This one is designed to take in a [/datum/discord_webhook_payload] which was prepared beforehand
-/datum/controller/subsystem/discord/proc/send2discord_complex(destination, datum/discord_webhook_payload/dwp)
-	if(!enabled)
+/datum/discord_manager/proc/send2discord_complex(destination, datum/discord_webhook_payload/dwp)
+	if(!GLOB.configuration.discord.webhooks_enabled)
 		return
 	var/list/webhook_urls
 	switch(destination)
@@ -47,8 +40,8 @@ SUBSYSTEM_DEF(discord)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // This one is for sending messages to the admin channel if no admins are active, complete with a ping to the game admins role
-/datum/controller/subsystem/discord/proc/send2discord_simple_noadmins(content, check_send_always = FALSE)
-	if(!enabled)
+/datum/discord_manager/proc/send2discord_simple_noadmins(content, check_send_always = FALSE)
+	if(!GLOB.configuration.discord.webhooks_enabled)
 		return
 	// Setup some stuff
 	var/alerttext
@@ -77,7 +70,7 @@ SUBSYSTEM_DEF(discord)
 	for(var/url in GLOB.configuration.discord.admin_webhook_urls)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
-/datum/controller/subsystem/discord/proc/send2discord_simple_mentor(content)
+/datum/discord_manager/proc/send2discord_simple_mentor(content)
 	var/alerttext
 	var/list/mentorcounter = staff_countup(R_MENTOR)
 	var/active_mentors = mentorcounter[1]
@@ -99,7 +92,7 @@ SUBSYSTEM_DEF(discord)
 		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // Helper to make administrator ping easier
-/datum/controller/subsystem/discord/proc/handle_administrator_ping()
+/datum/discord_manager/proc/handle_administrator_ping()
 	// Check if a role is even set
 	if(GLOB.configuration.discord.admin_role_id)
 		if(last_administration_ping > world.time)
@@ -110,7 +103,7 @@ SUBSYSTEM_DEF(discord)
 
 	return ""
 
-/datum/controller/subsystem/discord/proc/handle_mentor_ping()
+/datum/discord_manager/proc/handle_mentor_ping()
 	if(GLOB.configuration.discord.mentor_role_id)
 		if(last_mentor_ping > world.time)
 			return " *(Role pinged recently)*"

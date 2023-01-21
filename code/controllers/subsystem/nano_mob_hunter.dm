@@ -1,9 +1,9 @@
 SUBSYSTEM_DEF(mob_hunt)
 	name = "Nano-Mob Hunter GO Server"
-	init_order = INIT_ORDER_NANOMOB
 	priority = FIRE_PRIORITY_NANOMOB // Low priority, no need for MC_TICK_CHECK due to extremely low performance impact.
 	flags = SS_NO_INIT
 	offline_implications = "Nano-Mob Hunter will no longer spawn mobs. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 	var/max_normal_spawns = 15		//change this to adjust the number of normal spawns that can exist at one time. trapped spawns (from traitors) don't count towards this
 	var/list/normal_spawns = list()
 	var/max_trap_spawns = 15		//change this to adjust the number of trap spawns that can exist at one time. traps spawned beyond this point clear the oldest traps

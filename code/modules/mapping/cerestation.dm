@@ -1,3 +1,5 @@
-// This file exists so that this PR cannot be testmerged at the same time as 19951
-// If it were to be TM'd at the same time, a lot of things would break
-// Remove this file before full merge
+/datum/map/cerestation
+	fluff_name = "NSS Farragus"
+	technical_name = "CereStation"
+	map_path = "_maps/map_files/cerestation/cerestation.dmm"
+	webmap_url = "https://affectedarc07.co.uk/cere.html"

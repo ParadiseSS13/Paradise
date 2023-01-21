@@ -107,6 +107,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/magpulse = FALSE
 	var/ionpulse = FALSE // Jetpack-like effect.
 	var/ionpulse_on = FALSE // Jetpack-like effect.
+	/// Does it clean the tile under it?
+	var/floorbuffer = FALSE
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
@@ -607,7 +609,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/robot_alerts()
 	var/list/dat = list()
-	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue

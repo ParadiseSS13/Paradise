@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(chat_pings)
 	flags = SS_NO_INIT
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME // ALL OF THEM
 	wait = 30 SECONDS // Chat pings every 30 seconds
+	cpu_display = SS_CPUDISPLAY_LOW
 	/// List of all held chat datums
 	var/list/datum/chatOutput/chat_datums = list() // Do NOT put this in Initialize(). You will cause issues.
 

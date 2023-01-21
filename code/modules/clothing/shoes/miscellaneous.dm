@@ -290,6 +290,17 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
+
+/obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes
+	name = "cursed clown shoes"
+	desc = "Moldering clown flip flops. They're neon green for some reason."
+	icon = 'icons/goonstation/objects/clothing/feet.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_shoes"
+	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"
 	desc = "These boots were made for dancing."
