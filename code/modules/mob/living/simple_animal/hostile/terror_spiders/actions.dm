@@ -89,7 +89,7 @@
 	button_icon_state = "terror_queen"
 
 /datum/action/innate/terrorspider/queen/queennest/New()
-	if(CLOWN_SPIDERS in SSevents.special_events)
+	if(CLOWN_SPIDERS in SSevents.shared_special_event_modifiers)
 		icon_icon = 'icons/mob/clownterrorspider.dmi'
 
 /datum/action/innate/terrorspider/queen/queennest/Activate()

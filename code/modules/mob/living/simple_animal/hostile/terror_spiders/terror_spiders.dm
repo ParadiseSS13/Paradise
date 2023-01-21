@@ -264,7 +264,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
 	. = ..()
-	if(CLOWN_SPIDERS in SSevents.special_events) // This is where the fun begins
+	if(CLOWN_SPIDERS in SSevents.shared_special_event_modifiers) // This is where the fun begins
 		icon = clown_icon
 		attacktext = "honks"
 		attack_sound = 'sound/weapons/bitehonk.ogg'
