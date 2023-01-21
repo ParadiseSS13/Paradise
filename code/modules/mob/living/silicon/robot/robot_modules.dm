@@ -451,7 +451,7 @@
 /obj/item/robot_module/janitor/proc/on_cyborg_move(mob/living/silicon/robot/R)
 	SIGNAL_HANDLER
 
-	if(R.stat == DEAD || !isturf(R.loc))
+	if(R.stat == DEAD || !isturf(R.loc) || !R.floorbuffer)
 		return
 	var/turf/tile = R.loc
 	for(var/A in tile)

@@ -363,3 +363,38 @@
 			msg_cooldown = world.time
 	else
 		deactivate()
+
+/obj/item/borg/upgrade/floorbuffer
+	name = "janitor cyborg floor buffer upgrade"
+	desc = "A floor buffer upgrade kit that can be attached to janitor cyborgs."
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "upgrade"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/janitor
+	/// How much speed the cyborg loses while the buffer is active
+	var/buffer_speed = 1
+	var/mob/living/silicon/robot/cyborg
+
+/obj/item/borg/upgrade/floorbuffer/do_install(mob/living/silicon/robot/R)
+	for(var/obj/item/borg/upgrade/floorbuffer/U in R)
+		to_chat(R, "<span class='notice'>A floor buffer unit is already installed!</span>")
+		to_chat(usr, "<span class='notice'>There's no room for another floor buffer unit!</span>")
+		return
+	cyborg = R
+	var/datum/action/A = new /datum/action/item_action/floor_buffer(src)
+	A.Grant(R)
+	return TRUE
+
+/obj/item/borg/upgrade/floorbuffer/ui_action_click()
+	if(!cyborg.floorbuffer)
+		cyborg.floorbuffer = TRUE
+		cyborg.speed += buffer_speed
+	else
+		cyborg.floorbuffer = FALSE
+		cyborg.speed -= buffer_speed
+	to_chat(cyborg, "<span class='notice'>The floor buffer is now [cyborg.floorbuffer ? "active" : "deactivated"].</span>")
+
+/obj/item/borg/upgrade/floorbuffer/Destroy()
+	cyborg.floorbuffer = FALSE
+	cyborg = null
+	return ..()
