@@ -52,7 +52,7 @@
 	attack_verb = list("scrubbed", "brushed", "scraped")
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_them()]self raw with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish
