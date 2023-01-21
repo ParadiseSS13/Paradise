@@ -8,9 +8,9 @@
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend."
 	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 5 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)."
 	button_icon_state = "spread_infestation"
-	chemical_cost = 45
+	chemical_cost = 5//45
 	dna_cost = 2
-	req_dna = 7
+	req_dna = 0//7
 	/// This var keeps track of the changeling's spider count
 	var/spider_counter = 0
 	/// Checks if changeling is already spawning a spider
@@ -62,7 +62,8 @@
 		return
 	var/mob/owner_mob = locateUID(owner_UID)
 	var/datum/action/changeling/spiders/S = locate() in owner_mob.actions
-	S.spider_counter--
+	if(!isnull(S))
+		S.spider_counter--
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/examine(mob/user)
