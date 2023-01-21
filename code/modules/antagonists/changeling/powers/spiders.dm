@@ -1,21 +1,23 @@
-#define IDLE_AGGRESSIVE "0"
-#define FOLLOW_AGGRESSIVE "1"
-#define FOLLOW_RETALIATE "2"
-#define IDLE_RETALIATE "3"
+#define IDLE_AGGRESSIVE 0
+#define FOLLOW_AGGRESSIVE 1
+#define FOLLOW_RETALIATE 2
+#define IDLE_RETALIATE 3
 
 /datum/action/changeling/spiders
 	name = "Spread Infestation"
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend."
-	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 5 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)"
+	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 5 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)."
 	button_icon_state = "spread_infestation"
 	chemical_cost = 45
 	dna_cost = 2
 	req_dna = 7
-	var/spider_counter = 0 // This var keeps track of the changeling's spider count
-	var/is_operating = FALSE // Checks if changeling is already spawning a spider
+	/// This var keeps track of the changeling's spider count
+	var/spider_counter = 0
+	/// Checks if changeling is already spawning a spider
+	var/is_operating = FALSE
 	power_type = CHANGELING_PURCHASABLE_POWER
 
-//Makes a spider. Good for setting traps and combat.
+/// Makes a spider. Good for setting traps and combat.
 /datum/action/changeling/spiders/sting_action(mob/user)
 	if(is_operating == TRUE) // To stop spawning multiple at once
 		return FALSE
@@ -27,7 +29,7 @@
 	user.visible_message("<span class='danger'>[user] begins vomiting an arachnid!</span>")
 	if(do_after(user, 4 SECONDS, FALSE, target = user)) // Takes 4 seconds to spawn a spider
 		spider_counter++
-		user.visible_message("<span class='danger'>[user] vomits an arachnid!</span>")
+		user.visible_message("<span class='danger'>[user] vomits up an arachnid!</span>")
 		var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/S = new(user.loc)
 		S.owner_UID = user.UID()
 		S.faction |= list("spiders", "\ref[owner]") // Makes them friendly only to the owner & other spiders
@@ -37,11 +39,14 @@
 	is_operating = FALSE
 	return FALSE
 
-// Child of giant_spider because this should do everything the spider does and more
+/// Child of giant_spider because this should do everything the spider does and more
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider
-	var/mob/owner_UID // References to the owner changeling
-	var/gibbed = FALSE // To check if the spider died via gib or if it still needs to be gibbed, to prevent post-death revival
-	var/current_order = IDLE_AGGRESSIVE // Handles the spider's behavior
+	/// References to the owner changeling
+	var/mob/owner_UID
+	/// To check if the spider died via gib or if it still needs to be gibbed, to prevent post-death revival
+	var/gibbed = FALSE
+	/// Handles the spider's behavior
+	var/current_order = IDLE_AGGRESSIVE
 	var/list/enemies = list()
 	venom_per_bite = 3
 	speak_chance = 0
@@ -101,7 +106,7 @@
 	switch(current_order)
 		if(IDLE_AGGRESSIVE)
 			Find_Enemies(around)
-			walk(src,0)
+			walk(src, 0)
 			return TRUE
 		if(FOLLOW_AGGRESSIVE)
 			Find_Enemies(around)
@@ -121,7 +126,7 @@
 						Goto(C, 0.5 SECONDS, 1)
 				return TRUE
 		if(IDLE_RETALIATE)
-			walk(src,0)
+			walk(src, 0)
 			return TRUE
 
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
@@ -139,7 +144,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/Find_Enemies(around)
 	enemies = list() // Reset enemies list, only focus on the ones around you, spiders don't have grudges
-	for(var/atom/movable/A in around)
+	for(var/mob/living/A in around)
 		if(A == src)
 			continue
 		if(isliving(A))
