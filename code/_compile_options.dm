@@ -6,7 +6,7 @@
 
 // Uncomment the following line to enable Tracy profiling.
 // DO NOT DO THIS UNLESS YOU UNDERSTAND THE IMPLICATIONS
-// Your data directory will grow by about a gigabyte every time you launch the server, as well as introducing potential instabilities over multiple BYOND versions. 
+// Your data directory will grow by about a gigabyte every time you launch the server, as well as introducing potential instabilities over multiple BYOND versions.
 // #define ENABLE_BYOND_TRACY
 
 
@@ -34,6 +34,3 @@
 #error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
 #error You need version 514.1554 or higher
 #endif
-
-// Macros that must exist before world.dm
-// #define to_chat to_chat_filename=__FILE__;to_chat_line=__LINE__;to_chat_src=src;__to_chat

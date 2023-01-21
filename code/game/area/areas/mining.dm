@@ -79,6 +79,9 @@
 /area/mine/abandoned
 	name = "Abandoned Mining Station"
 
+/area/mine/comms
+	name = "Mining Station Communications"
+
 /area/mine/living_quarters
 	name = "Mining Station Port Wing"
 	icon_state = "mining_living"
@@ -107,6 +110,7 @@
 
 /area/mine/laborcamp
 	name = "Labor Camp"
+	icon_state = "brig"
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"

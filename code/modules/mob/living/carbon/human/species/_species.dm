@@ -847,7 +847,7 @@
 
 	if(radiation > RAD_MOB_HAIRLOSS)
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(!head_organ || (NO_HAIR in species_traits))
+		if(!istype(head_organ) || (NO_HAIR in species_traits))
 			return
 		if(prob(15) && head_organ.h_style != "Bald")
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
@@ -1019,4 +1019,4 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return H.skin_colour
 	else
 		var/obj/item/organ/external/head/HD = H.get_organ("head")
-		return HD.hair_colour
+		return HD?.hair_colour

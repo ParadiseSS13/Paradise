@@ -283,10 +283,10 @@
 	return ..()
 
 /obj/structure/alien/weeds/process()
-    check_counter++
-    if(check_counter >= 5)
-        spread()
-        check_counter = 0
+	check_counter++
+	if(check_counter >= 5)
+		spread()
+		check_counter = 0
 
 /obj/structure/alien/weeds/proc/clear_wall_weed()
 	if(wall_weed && !QDELETED(wall_weed))
