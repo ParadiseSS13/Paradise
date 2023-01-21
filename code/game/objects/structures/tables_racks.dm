@@ -792,7 +792,7 @@
 		var/mob/living/M = user
 		if(M.UID() in held_items)
 			return FALSE
-	. = ..()	
+	return ..()	
 	
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
@@ -800,7 +800,7 @@
 		held_items += item.UID()
 		if(isliving(item))
 			var/mob/living/M = item
-			if(M.pulling && M.pulling == src)
+			if(M.pulling == src)
 				M.stop_pulling()
 			
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
