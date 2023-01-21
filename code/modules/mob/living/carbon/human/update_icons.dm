@@ -565,6 +565,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_tail_layer()
 	update_wing_layer()
 	update_halo_layer()
+	update_eyes_overlay_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
@@ -1365,6 +1366,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(HALO_LAYER)
 
+/mob/living/carbon/human/proc/update_eyes_overlay_layer()
+	remove_overlay(EYES_OVERLAY_LAYER)
+
+	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
+	if(istype(eyes_organ, /obj/item/organ/internal/eyes/cybernetic/eyesofgod))
+		var/obj/item/organ/internal/eyes/cybernetic/eyesofgod/E = eyes_organ
+		if(E.active)
+			var/mutable_appearance/new_eye_overlay = mutable_appearance('icons/effects/32x64.dmi', "eyesofgod", -EYES_OVERLAY_LAYER)
+			overlays_standing[EYES_OVERLAY_LAYER] = new_eye_overlay
+
+	apply_overlay(EYES_OVERLAY_LAYER)
 
 /mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
 	if(..())
