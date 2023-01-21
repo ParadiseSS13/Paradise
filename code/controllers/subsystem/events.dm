@@ -27,11 +27,10 @@ SUBSYSTEM_DEF(events)
 			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
 			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major
 		)
+	/// Current special events, handled like traits
+	var/list/shared_special_event_modifiers = list()
 
 	var/datum/event_meta/new_event = new
-
-	/// Current special events, handled like traits
-	var/list/special_events = list()
 
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)

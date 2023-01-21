@@ -31,7 +31,7 @@
 	var/infestation_type
 
 	if(prob(10)) // Uh oh
-		SSevents.special_events |= CLOWN_SPIDERS
+		SSevents.special_events |= CLOWN_SPIDERS // Should it fail to spawn the spiders, any subsequent spider events or admemed ones will be clowns still unless removed from the special events
 
 	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
 		infestation_type = pick(GREEN_SPIDER, PRINCE_SPIDER, WHITE_SPIDER, PRINCESS_SPIDER)
@@ -73,7 +73,12 @@
 		if(infestation_type != PRINCE_SPIDER)
 			S.forceMove(vent)
 			S.add_ventcrawl(vent)
-		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
+		var/spawn_sound
+		if(CLOWN_SPIDERS in SSevents.special_events)
+			spawn_sound = 'sound/ambience/antag/clownterrorspider.ogg'
+		else
+			spawn_sound = 'sound/ambience/antag/terrorspider.ogg'
+		SEND_SOUND(S, sound(spawn_sound))
 		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE

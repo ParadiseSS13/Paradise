@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 
 	// Icons
 	icon = 'icons/mob/terrorspider.dmi'
-	/// Fear this
+	/// The icon used the clown_spiders modifier is in events
 	var/clown_icon = 'icons/mob/clownterrorspider.dmi'
 	icon_state = "terror_red"
 	icon_living = "terror_red"
