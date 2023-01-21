@@ -301,7 +301,7 @@
 
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		var/obj/item/organ/external/head/head_organ = H.get_organ("head")  // damn well better have a head if you have a beard
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))
 			if(prob(10))
 				head_organ.h_style = "Mohawk"
