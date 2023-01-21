@@ -244,7 +244,7 @@
 	damage = 0
 	nodamage = 1
 	alwayslog = TRUE
-	var/teleport_target = null
+	var/obj/item/radio/beacon/teleport_target = null
 
 /obj/item/projectile/energy/teleport/New(loc, tele_target)
 	..(loc)
@@ -252,8 +252,9 @@
 		teleport_target = tele_target
 
 /obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
-	if(isliving(target))
-		if(teleport_target)
+	var/turf/target_turf = get_turf(teleport_target)
+	if(isliving(target) && istype(target_turf))
+		if(target_turf.z == target.z || teleport_target.emagged)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.

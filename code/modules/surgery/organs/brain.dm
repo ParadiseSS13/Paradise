@@ -18,6 +18,9 @@
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"
 
+	/// If it's a fake brain without a mob assigned that should still be treated like a real brain.
+	var/decoy_brain = FALSE
+
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
@@ -48,12 +51,12 @@
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
-	if(brainmob && brainmob.client)//if thar be a brain inside... the brain.
+	if(brainmob && brainmob.client)  //if thar be a brain inside... the brain
 		. += "You can feel the small spark of life still left in this one."
 	else
 		. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
 
-/obj/item/organ/internal/brain/remove(mob/living/user,special = 0)
+/obj/item/organ/internal/brain/remove(mob/living/user, special = 0)
 	if(dna)
 		name = "[dna.real_name]'s [initial(name)]"
 
@@ -61,26 +64,29 @@
 
 	var/obj/item/organ/internal/brain/B = src
 	if(!special)
-		if(owner.mind && !non_primary)//don't transfer if the owner does not have a mind.
+		if(owner.mind && !non_primary && !decoy_brain)//don't transfer if the owner does not have a mind.
 			B.transfer_identity(user)
 
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.update_hair()
-	
+
 	owner.thought_bubble_image = initial(owner.thought_bubble_image)
 	. = ..()
 
-/obj/item/organ/internal/brain/insert(mob/living/target,special = 0)
+/obj/item/organ/internal/brain/insert(mob/living/target, special = 0)
 
 	name = "[initial(name)]"
-	var/brain_already_exists = 0
+	var/brain_already_exists = FALSE
 	if(ishuman(target)) // No more IPC multibrain shenanigans
 		if(target.get_int_organ(/obj/item/organ/internal/brain))
-			brain_already_exists = 1
+			brain_already_exists = TRUE
 
 		var/mob/living/carbon/human/H = target
 		H.update_hair()
+
+	if(ischangeling(target))
+		decoy_brain = TRUE
 
 	if(!brain_already_exists)
 		if(brainmob)

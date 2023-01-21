@@ -32,10 +32,13 @@
 	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
 	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
+	whisper_action.button_icon_state = "shadow_whisper"
+	whisper_action.background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
+	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay"))
 
 /mob/living/simple_animal/demon/shadow/proc/check_darkness()
 	var/turf/T = get_turf(src)
