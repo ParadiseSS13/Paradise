@@ -96,7 +96,7 @@ const ItemsPage = (_properties, context) => {
     ])(cat);
   };
   const handleSearch = (value) => {
-    if(value === ""){
+    if(value === "") {
       return setUplinkItems(cats[0].items);
     }
     setSearchText(value);
