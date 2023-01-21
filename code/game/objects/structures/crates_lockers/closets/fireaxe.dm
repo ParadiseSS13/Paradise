@@ -29,6 +29,9 @@
 	else
 		. += "<span class='notice'>It is damaged beyond repair.</span>"
 
+/obj/structure/closet/fireaxecabinet/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
+
 /obj/structure/closet/fireaxecabinet/attackby(obj/item/O as obj, mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)
 		if(istype(O, /obj/item/multitool))

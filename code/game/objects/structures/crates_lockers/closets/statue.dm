@@ -72,6 +72,10 @@
 
 	..()
 
+/obj/structure/closet/statue/shove_impact(mob/living/target, mob/living/attacker)
+	// This one shouldn't exist in the first place...
+	return FALSE
+
 /obj/structure/closet/statue/open()
 	return
 
