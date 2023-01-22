@@ -860,3 +860,7 @@
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
+
+// /datum/controller/subsystem/events / SSevents signals
+///from datum/controller/subsystem/events/proc/update_modifiers()
+#define COMSIG_EVENTS_UPDATE_MODIFIERS "updated_event_modifiers"

@@ -100,6 +100,16 @@ SUBSYSTEM_DEF(events)
 
 		to_chat(world, message)
 
+/// Updates the list of modifiers, and sends a signal with the added/removed modifier. Event datums or independant atoms that want to either change immediately or retroactively will want to listen to that signal post setup. Event datums are unregistered automatically when kill() is called.
+/datum/controller/subsystem/events/proc/update_modifiers(modifier, remove = FALSE)
+	if(modifier in shared_special_event_modifiers && !remove)
+		return // Don't spam signals if you end up adding a dupe
+	if(remove)
+		shared_special_event_modifiers.Remove(modifier)
+	else
+		shared_special_event_modifiers |= modifier
+	SEND_SIGNAL(src, COMSIG_EVENTS_UPDATE_MODIFIERS, modifier)
+
 /datum/controller/subsystem/events/proc/GetInteractWindow()
 	var/html = "<A align='right' href='?src=[UID()];refresh=1'>Refresh</A>"
 
@@ -264,12 +274,12 @@ SUBSYSTEM_DEF(events)
 	else if(href_list["add_modifier"])
 		var/modifier = clean_input("Enter event modifier. Modifiers can affect the general behavior of the game outside of events.", "Add Event Modifier")
 		if(modifier)
-			shared_special_event_modifiers |= modifier
+			update_modifiers(modifier)
 			log_and_message_admins("has added the event modifier '[modifier]'.")
 	else if(href_list["remove_modifier"])
 		if(alert("Removing an event modifier may have unintended side-effects. Continue?","Remove Event Modifier!","Yes","No") != "Yes")
 			return
-		shared_special_event_modifiers.Remove("[href_list["remove_modifier"]]")
+		update_modifiers("[href_list["remove_modifier"]]", remove = TRUE)
 		log_and_message_admins("has removed the event modifier '[href_list["remove_modifier"]]'.")
 	else if(href_list["view_events"])
 		selected_event_container = locate(href_list["view_events"])

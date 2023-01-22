@@ -168,6 +168,7 @@
 		isRunning = FALSE
 		end()
 
+	UnregisterSignal(SSevents, COMSIG_EVENTS_UPDATE_MODIFIERS)
 	endedAt = world.time
 	SSevents.active_events -= src
 	SSevents.event_complete(src)

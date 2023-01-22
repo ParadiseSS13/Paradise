@@ -31,7 +31,7 @@
 	var/infestation_type
 
 	if(prob(10)) // Uh oh
-		SSevents.shared_special_event_modifiers |= CLOWN_SPIDERS // Should it fail to spawn the spiders, any subsequent spider events or admemed ones will be clowns still unless removed from the special events
+		SSevents.update_modifiers(CLOWN_SPIDERS) // Should it fail to spawn the spiders, any subsequent spider events or admemed ones will be clowns still unless removed from the special events
 
 	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
 		infestation_type = pick(GREEN_SPIDER, PRINCE_SPIDER, WHITE_SPIDER, PRINCESS_SPIDER)
