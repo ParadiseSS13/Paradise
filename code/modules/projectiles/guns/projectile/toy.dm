@@ -75,6 +75,10 @@
 	if(chambered && !chambered.BB)
 		qdel(chambered)
 
+/obj/item/gun/projectile/shotgun/toy/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+	. = ..()
+	chambered = null
+
 /obj/item/gun/projectile/shotgun/toy/crossbow
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
