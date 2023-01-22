@@ -111,11 +111,12 @@ SUBSYSTEM_DEF(events)
 	SEND_SIGNAL(src, COMSIG_EVENTS_UPDATE_MODIFIERS, modifier)
 
 /datum/controller/subsystem/events/proc/GetInteractWindow()
-	var/html = "<A align='right' href='?src=[UID()];refresh=1'>Refresh</A>"
+	var/uid_cache = UID()
+	var/html = "<A align='right' href='?src=[uid_cache];refresh=1'>Refresh</A>"
 
 	if(selected_event_container)
 		var/event_time = max(0, selected_event_container.next_event_time - world.time)
-		html += "<A align='right' href='?src=[UID()];back=1'>Back</A><br>"
+		html += "<A align='right' href='?src=[uid_cache];back=1'>Back</A><br>"
 		html += "Time till start: [round(event_time / 600, 0.1)]<br>"
 		html += "<div class='block'>"
 		html += "<h2>Available [GLOB.severity_to_string[selected_event_container.severity]] Events (queued & running events will not be displayed)</h2>"
@@ -124,13 +125,13 @@ SUBSYSTEM_DEF(events)
 		for(var/datum/event_meta/EM in selected_event_container.available_events)
 			html += "<tr>"
 			html += "<td>[EM.name]</td>"
-			html += "<td><A align='right' href='?src=[UID()];set_weight=\ref[EM]'>[EM.weight]</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];set_weight=\ref[EM]'>[EM.weight]</A></td>"
 			html += "<td>[EM.min_weight]</td>"
 			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
-			html += "<td><A align='right' href='?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</A></td>"
-			html += "<td><A align='right' href='?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];toggle_oneshot=\ref[EM]'>[EM.one_shot]</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];toggle_enabled=\ref[EM]'>[EM.enabled]</A></td>"
 			html += "<td><span class='alert'>[EM.get_weight(number_active_with_role())]</span></td>"
-			html += "<td><A align='right' href='?src=[UID()];remove=\ref[EM];EC=\ref[selected_event_container]'>Remove</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];remove=\ref[EM];EC=\ref[selected_event_container]'>Remove</A></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -140,16 +141,16 @@ SUBSYSTEM_DEF(events)
 		html += "<table[table_options]>"
 		html += "<tr [head_options]><td[row_options2]>Name</td><td[row_options2]>Type</td><td[row_options1]>Weight</td><td[row_options1]>OneShot</td></tr>"
 		html += "<tr>"
-		html += "<td><A align='right' href='?src=[UID()];set_name=\ref[new_event]'>[new_event.name ? new_event.name : "Enter Event"]</A></td>"
-		html += "<td><A align='right' href='?src=[UID()];set_type=\ref[new_event]'>[new_event.event_type ? new_event.event_type : "Select Type"]</A></td>"
-		html += "<td><A align='right' href='?src=[UID()];set_weight=\ref[new_event]'>[new_event.weight ? new_event.weight : 0]</A></td>"
-		html += "<td><A align='right' href='?src=[UID()];toggle_oneshot=\ref[new_event]'>[new_event.one_shot]</A></td>"
+		html += "<td><A align='right' href='?src=[uid_cache];set_name=\ref[new_event]'>[new_event.name ? new_event.name : "Enter Event"]</A></td>"
+		html += "<td><A align='right' href='?src=[uid_cache];set_type=\ref[new_event]'>[new_event.event_type ? new_event.event_type : "Select Type"]</A></td>"
+		html += "<td><A align='right' href='?src=[uid_cache];set_weight=\ref[new_event]'>[new_event.weight ? new_event.weight : 0]</A></td>"
+		html += "<td><A align='right' href='?src=[uid_cache];toggle_oneshot=\ref[new_event]'>[new_event.one_shot]</A></td>"
 		html += "</tr>"
 		html += "</table>"
-		html += "<A align='right' href='?src=[UID()];add=\ref[selected_event_container]'>Add</A><br>"
+		html += "<A align='right' href='?src=[uid_cache];add=\ref[selected_event_container]'>Add</A><br>"
 		html += "</div>"
 	else
-		html += "<A align='right' href='?src=[UID()];toggle_report=1'>Round End Report: [report_at_round_end ? "On": "Off"]</A><br>"
+		html += "<A align='right' href='?src=[uid_cache];toggle_report=1'>Round End Report: [report_at_round_end ? "On": "Off"]</A><br>"
 		html += "<div class='block'>"
 		html += "<h2>Event Start</h2>"
 
@@ -163,16 +164,16 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[station_time_timestamp("hh:mm:ss", max(EC.next_event_time, world.time))]</td>"
 			html += "<td>[round(next_event_at / 600, 0.1)]</td>"
 			html += "<td>"
-			html +=   "<A align='right' href='?src=[UID()];dec_timer=2;event=\ref[EC]'>--</A>"
-			html +=   "<A align='right' href='?src=[UID()];dec_timer=1;event=\ref[EC]'>-</A>"
-			html +=   "<A align='right' href='?src=[UID()];inc_timer=1;event=\ref[EC]'>+</A>"
-			html +=   "<A align='right' href='?src=[UID()];inc_timer=2;event=\ref[EC]'>++</A>"
+			html +=   "<A align='right' href='?src=[uid_cache];dec_timer=2;event=\ref[EC]'>--</A>"
+			html +=   "<A align='right' href='?src=[uid_cache];dec_timer=1;event=\ref[EC]'>-</A>"
+			html +=   "<A align='right' href='?src=[uid_cache];inc_timer=1;event=\ref[EC]'>+</A>"
+			html +=   "<A align='right' href='?src=[uid_cache];inc_timer=2;event=\ref[EC]'>++</A>"
 			html += "</td>"
 			html += "<td>"
-			html +=   "<A align='right' href='?src=[UID()];pause=\ref[EC]'>[EC.delayed ? "Resume" : "Pause"]</A>"
+			html +=   "<A align='right' href='?src=[uid_cache];pause=\ref[EC]'>[EC.delayed ? "Resume" : "Pause"]</A>"
 			html += "</td>"
 			html += "<td>"
-			html +=   "<A align='right' href='?src=[UID()];interval=\ref[EC]'>[EC.delay_modifier]</A>"
+			html +=   "<A align='right' href='?src=[uid_cache];interval=\ref[EC]'>[EC.delay_modifier]</A>"
 			html += "</td>"
 			html += "</tr>"
 		html += "</table>"
@@ -187,9 +188,9 @@ SUBSYSTEM_DEF(events)
 			var/datum/event_meta/EM = EC.next_event
 			html += "<tr>"
 			html += "<td>[GLOB.severity_to_string[severity]]</td>"
-			html += "<td><A align='right' href='?src=[UID()];select_event=\ref[EC]'>[EM ? EM.name : "Random"]</A></td>"
-			html += "<td><A align='right' href='?src=[UID()];view_events=\ref[EC]'>View</A></td>"
-			html += "<td><A align='right' href='?src=[UID()];clear=\ref[EC]'>Clear</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];select_event=\ref[EC]'>[EM ? EM.name : "Random"]</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];view_events=\ref[EC]'>View</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];clear=\ref[EC]'>Clear</A></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -211,7 +212,7 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[EM.name]</td>"
 			html += "<td>[no_end ? "N/A" : station_time_timestamp("hh:mm:ss", ends_at)]</td>"
 			html += "<td>[no_end ? "N/A" : ends_in]</td>"
-			html += "<td><A align='right' href='?src=[UID()];stop=\ref[E]'>Stop</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];stop=\ref[E]'>Stop</A></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -220,11 +221,11 @@ SUBSYSTEM_DEF(events)
 		html += "<h2>Event Modifiers</h2>"
 		html += "Currently applied event modifiers."
 		html += "<table[table_options]>"
-		html += "<tr[head_options]><td[row_options1]>Modifier</td><td[row_options3]></td><td><A align='right' href='?src=[UID()];add_modifier=1'>Add</A></td></tr>"
+		html += "<tr[head_options]><td[row_options1]>Modifier</td><td[row_options3]></td><td><A align='right' href='?src=[uid_cache];add_modifier=1'>Add</A></td></tr>"
 		for(var/SP in shared_special_event_modifiers)
 			html += "<tr>"
 			html += "<td>[SP]</td>"
-			html += "<td><A align='right' href='?src=[UID()];remove_modifier=[SP]'>Remove</A></td>"
+			html += "<td><A align='right' href='?src=[uid_cache];remove_modifier=[SP]'>Remove</A></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -232,7 +233,7 @@ SUBSYSTEM_DEF(events)
 	return html
 
 /datum/controller/subsystem/events/Topic(href, href_list)
-	if(..())
+	if(..() || !check_rights(R_EVENT))
 		return
 
 
