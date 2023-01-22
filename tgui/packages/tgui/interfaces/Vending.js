@@ -108,7 +108,7 @@ export const Vending = (props, context) => {
                 <br />
               </Box>
                 ))}
-                <Box>
+              <Box>
                 There is <b>{inserted_cash} credits </b> of space cash inserted.
                 <br />
                 <Button
@@ -118,7 +118,7 @@ export const Vending = (props, context) => {
                   textAlign="left"
                   onClick={() => act('change')}
                 />
-                </Box>
+              </Box>
           </Section>
         )}
         {!!inserted_item_name && (
