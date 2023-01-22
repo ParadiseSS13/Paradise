@@ -107,8 +107,8 @@ export const Vending = (props, context) => {
                 Your balance is <b>{usermoney} credits</b>.
                 <br />
               </Box>
-                ))}
-              <Box>
+            ))}
+            <Box>
                 There is <b>{inserted_cash} credits </b> of space cash inserted.
                 <br />
                 <Button
