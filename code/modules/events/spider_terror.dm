@@ -27,11 +27,17 @@
 	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
 
 /datum/event/spider_terror/proc/wrappedstart()
-	var/spider_type
-	var/infestation_type
-
 	if(prob(10)) // Uh oh
 		SSevents.update_modifiers(CLOWN_SPIDERS) // Should it fail to spawn the spiders, any subsequent spider events or admemed ones will be clowns still unless removed from the special events
+
+	var/spider_type
+	var/infestation_type
+	var/spawn_sound
+
+	if(CLOWN_SPIDERS in SSevents.shared_special_event_modifiers)
+		spawn_sound = 'sound/ambience/antag/clownterrorspider.ogg'
+	else
+		spawn_sound = 'sound/ambience/antag/terrorspider.ogg'
 
 	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
 		infestation_type = pick(GREEN_SPIDER, PRINCE_SPIDER, WHITE_SPIDER, PRINCESS_SPIDER)
@@ -73,11 +79,6 @@
 		if(infestation_type != PRINCE_SPIDER)
 			S.forceMove(vent)
 			S.add_ventcrawl(vent)
-		var/spawn_sound
-		if(CLOWN_SPIDERS in SSevents.shared_special_event_modifiers)
-			spawn_sound = 'sound/ambience/antag/clownterrorspider.ogg'
-		else
-			spawn_sound = 'sound/ambience/antag/terrorspider.ogg'
 		SEND_SOUND(S, sound(spawn_sound))
 		S.give_intro_text()
 		spawncount--
