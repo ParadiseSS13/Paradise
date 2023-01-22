@@ -76,6 +76,7 @@
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	name = "medical hypospray (Omnizine)"
+	icon_state = "ert_hypo"
 	list_reagents = list("omnizine" = 30)
 
 /obj/item/reagent_containers/hypospray/CMO
@@ -94,6 +95,7 @@
 
 /obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
+	icon_state = "nanites_hypo"
 	volume = 100
 	list_reagents = list("nanites" = 100)
 
@@ -149,7 +151,7 @@
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
 	desc = "Rapidly stimulates and regenerates the body's organ system."
-	icon_state = "stimpen"
+	icon_state = "stimulantspen"
 	amount_per_transfer_from_this = 50
 	volume = 50
 	list_reagents = list("stimulants" = 50)
@@ -157,7 +159,7 @@
 /obj/item/reagent_containers/hypospray/autoinjector/survival
 	name = "survival medipen"
 	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards. <br><span class='boldwarning'>WARNING: Do not inject more than one pen in quick succession.</span>"
-	icon_state = "stimpen"
+	icon_state = "survepen"
 	volume = 42
 	amount_per_transfer_from_this = 42
 	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
