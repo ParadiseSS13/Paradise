@@ -206,6 +206,19 @@ SUBSYSTEM_DEF(events)
 		html += "</table>"
 		html += "</div>"
 
+		html += "<div class='block'>"
+		html += "<h2>Events Modifiers</h2>"
+		html += "Currently applied event modifiers."
+		html += "<table[table_options]>"
+		html += "<tr[head_options]><td[row_options1]>Modifier</td><td[row_options3]></td><td><A align='right' href='?src=[UID()];add_modifier=1'>Add</A></td></tr>"
+		for(var/SP in shared_special_event_modifiers)
+			html += "<tr>"
+			html += "<td>[SP]</td>"
+			html += "<td><A align='right' href='?src=[UID()];remove_modifier=[SP]'>Remove</A></td>"
+			html += "</tr>"
+		html += "</table>"
+		html += "</div>"
+
 	return html
 
 /datum/controller/subsystem/events/Topic(href, href_list)
@@ -248,6 +261,16 @@ SUBSYSTEM_DEF(events)
 		var/datum/event_meta/EM = E.event_meta
 		log_and_message_admins("has stopped the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 		E.kill()
+	else if(href_list["add_modifier"])
+		var/modifier = clean_input("Enter event modifier. Modifiers can affect the general behavior of the game outside of events.", "Add Event Modifier")
+		if(modifier)
+			shared_special_event_modifiers |= modifier
+			log_and_message_admins("has added the event modifier '[modifier]'.")
+	else if(href_list["remove_modifier"])
+		if(alert("Removing an event modifier may have unintended side-effects. Continue?","Remove Event Modifier!","Yes","No") != "Yes")
+			return
+		shared_special_event_modifiers.Remove("[href_list["remove_modifier"]]")
+		log_and_message_admins("has removed the event modifier '[href_list["remove_modifier"]]'.")
 	else if(href_list["view_events"])
 		selected_event_container = locate(href_list["view_events"])
 	else if(href_list["back"])
