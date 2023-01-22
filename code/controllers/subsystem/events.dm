@@ -207,7 +207,7 @@ SUBSYSTEM_DEF(events)
 		html += "</div>"
 
 		html += "<div class='block'>"
-		html += "<h2>Events Modifiers</h2>"
+		html += "<h2>Event Modifiers</h2>"
 		html += "Currently applied event modifiers."
 		html += "<table[table_options]>"
 		html += "<tr[head_options]><td[row_options1]>Modifier</td><td[row_options3]></td><td><A align='right' href='?src=[UID()];add_modifier=1'>Add</A></td></tr>"
