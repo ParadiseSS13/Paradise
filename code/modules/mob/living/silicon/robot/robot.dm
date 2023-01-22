@@ -924,12 +924,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!remove || !Adjacent(user) || !opened)
 		return
 
+	if(module && (remove in module.custom_removals))
+		module.handle_custom_removal(remove, user, I)
+		return
+
 	var/datum/robot_component/C = components[remove]
 	if(C.is_missing()) // Somebody else removed it during the input
 		return
 
-	if(module && module.handle_custom_removal(remove, user, I))
-		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/obj/item/robot_parts/robot_component/thing = C.wrapped
