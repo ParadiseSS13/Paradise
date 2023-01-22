@@ -150,7 +150,6 @@
 	power_change()
 
 /obj/machinery/economy/vending/Destroy()
-	new /obj/item/stack/spacecash(get_turf(src), cash_transaction)
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(inserted_item)
@@ -751,6 +750,8 @@
 	stat |= BROKEN
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
+
+	new /obj/item/stack/spacecash(get_turf(src), cash_transaction)
 
 	var/dump_amount = 0
 	var/found_anything = TRUE
