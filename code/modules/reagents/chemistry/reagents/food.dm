@@ -567,7 +567,7 @@
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(isvulpkanin(M) || istajaran(M)) // chocolate is bad for dogs and cats, ya know
+	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M)) // chocolate is bad for dogs and cats, ya know
 		update_flags |= M.adjustToxLoss(2, FALSE)
 	return ..() | update_flags
 
