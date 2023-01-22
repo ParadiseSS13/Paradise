@@ -84,7 +84,6 @@
 	opened = FALSE
 	return TRUE
 
-
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
 	if(!opened && try_rig(W, user))
 		return
