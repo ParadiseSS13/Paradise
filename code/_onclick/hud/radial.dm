@@ -254,6 +254,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /datum/radial_menu/proc/hide()
 	if(current_user)
+		for(var/obj/screen/radial/slice/slice_to_remove in elements)
+			slice_to_remove.parent = null
+		close_button.parent = null
 		current_user.images -= menu_holder
 
 /datum/radial_menu/proc/wait(mob/user, atom/anchor, require_near = FALSE)
