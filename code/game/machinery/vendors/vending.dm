@@ -985,7 +985,7 @@
 			if(crit || !from_combat)
 				// double the damage on a crit
 				damage_to_deal *= crit_damage_factor
-			if(HAS_TRAIT(target, TRAIT_DWARF))
+			if(HAS_TRAIT(C, TRAIT_DWARF))
 				damage_to_deal *= 2
 			if(istype(C))
 				var/datum/vendor_crit/critical_attack = choose_crit()
