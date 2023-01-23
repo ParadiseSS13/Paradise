@@ -21,6 +21,7 @@
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
+	var/part_of_camera_network
 
 	//OTHER
 
@@ -43,7 +44,8 @@
 	assembly.update_icon()
 
 	GLOB.cameranet.cameras += src
-	if(should_add_to_cameranet)
+	part_of_camera_network = should_add_to_cameranet
+	if(part_of_camera_network)
 		GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
 		LAZYADD(get_area(src).cameras, UID())
@@ -53,6 +55,10 @@
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
 	area_motion = A
+
+/obj/machinery/camera/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, OldLoc)
 
 /obj/machinery/camera/Destroy()
 	SStgui.close_uis(wires)
@@ -99,7 +105,7 @@
 						stat &= ~EMPED
 						update_icon(UPDATE_ICON_STATE)
 						if(can_use())
-							GLOB.cameranet.addCamera(src)
+							GLOB.cameranet.addCamera(src) // TODO Fix EMP
 						emped = 0 //Resets the consecutive EMP count
 
 			..()
@@ -411,6 +417,10 @@
 	assembly.update_icon()
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.
-	if(GLOB.cameranet && get_turf(src) != prev_turf)
-		GLOB.cameranet.updatePortableCamera(src)
+	if(!part_of_camera_network)
+		return PROCESS_KILL // Stop wasting performance
+
+	if(part_of_camera_network && get_turf(src) != prev_turf)
+		SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
+		GLOB.cameranet.updatePortableCamera(src, prev_turf)
 		prev_turf = get_turf(src)

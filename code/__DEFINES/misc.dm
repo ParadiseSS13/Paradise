@@ -153,6 +153,7 @@
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
 #define CAMERA_VIEW_DISTANCE 7
+#define CAMERA_CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 
 
 //Turf wet states

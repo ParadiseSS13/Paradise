@@ -21,17 +21,27 @@
 	var/z = 0
 
 /datum/camerachunk/proc/add_camera(obj/machinery/camera/cam)
+	if(active_cameras[cam] || inactive_cameras[cam])
+		return
 	// Register all even though it is active/inactive. Won't get called incorrectly
 	RegisterSignal(cam, COMSIG_CAMERA_OFF, PROC_REF(deactivate_camera))
 	RegisterSignal(cam, COMSIG_CAMERA_ON, PROC_REF(activate_camera))
 	RegisterSignal(cam, COMSIG_PARENT_QDELETING, PROC_REF(remove_camera))
+	RegisterSignal(cam, COMSIG_CAMERA_MOVED, PROC_REF(camera_moved))
 	if(cam.can_use())
-		active_cameras += cam
+		active_cameras[cam] = cam
 	else
-		inactive_cameras += cam
+		inactive_cameras[cam] = cam
+
+/datum/camerachunk/proc/camera_moved(obj/machinery/camera/cam, atom/old_loc)
+	var/turf/T = get_turf(cam)
+
+	// Falls outside of the chunk view distance
+	if(T.x + CAMERA_VIEW_DISTANCE < x || T.x - CAMERA_VIEW_DISTANCE >= x + CAMERA_CHUNK_SIZE || T.y + CAMERA_VIEW_DISTANCE < y || T.y - CAMERA_VIEW_DISTANCE >= y + CAMERA_CHUNK_SIZE)
+		remove_camera(cam)
 
 /datum/camerachunk/proc/remove_camera(obj/machinery/camera/cam)
-	UnregisterSignal(cam, list(COMSIG_CAMERA_OFF, COMSIG_CAMERA_ON, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(cam, list(COMSIG_CAMERA_OFF, COMSIG_CAMERA_ON, COMSIG_PARENT_QDELETING, COMSIG_CAMERA_MOVED))
 	active_cameras -= cam
 	inactive_cameras -= cam
 	SScamera.queue(src)
@@ -95,18 +105,11 @@
 /datum/camerachunk/proc/update()
 	var/list/newVisibleTurfs = list()
 
-	for(var/camera in active_cameras)
-		var/obj/machinery/camera/c = camera
-
-		if(!c)
-			continue
-
-		if(!c.can_use())
-			continue
-
-		var/turf/point = locate(src.x + (CHUNK_SIZE / 2), src.y + (CHUNK_SIZE / 2), src.z)
-		if(get_dist(point, c) > CAMERA_VIEW_DISTANCE + (CHUNK_SIZE / 2)) // Out of range? How?! TODO check if still required
-			continue
+	for(var/obj/machinery/camera/c as anything in active_cameras)
+		var/turf/point = locate(src.x + (CAMERA_CHUNK_SIZE / 2), src.y + (CAMERA_CHUNK_SIZE / 2), src.z)
+		var/turf/T = get_turf(c)
+		if(get_dist(point, T) > CAMERA_VIEW_DISTANCE + (CAMERA_CHUNK_SIZE / 2)) // Out of range? How?! TODO check if still required
+			continue // Still needed for Ais who get created on Z level 1 on the spot of the new player
 
 		for(var/turf/t in c.can_see())
 			// Possible optimization: if(turfs[t]) here, rather than &= turfs afterwards.
@@ -158,18 +161,18 @@
 /datum/camerachunk/New(loc, x, y, z)
 
 	// 0xf = 15
-	x &= ~(CHUNK_SIZE - 1)
-	y &= ~(CHUNK_SIZE - 1)
+	x &= ~(CAMERA_CHUNK_SIZE - 1)
+	y &= ~(CAMERA_CHUNK_SIZE - 1)
 
 	src.x = x
 	src.y = y
 	src.z = z
 
-	var/half_chunk = CHUNK_SIZE / 2
+	var/half_chunk = CAMERA_CHUNK_SIZE / 2
 	for(var/obj/machinery/camera/c in urange(half_chunk + CAMERA_VIEW_DISTANCE, locate(x + half_chunk, y + half_chunk, z)))
 		add_camera(c)
 
-	for(var/turf/t in block(locate(max(x, 1), max(y, 1), max(z, 1)), locate(min(x + CHUNK_SIZE - 1, world.maxx), min(y + CHUNK_SIZE - 1, world.maxy), z)))
+	for(var/turf/t in block(locate(max(x, 1), max(y, 1), max(z, 1)), locate(min(x + CAMERA_CHUNK_SIZE - 1, world.maxx), min(y + CAMERA_CHUNK_SIZE - 1, world.maxy), z)))
 		turfs[t] = t
 
 	for(var/obj/machinery/camera/c as anything in active_cameras)

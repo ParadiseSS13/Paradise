@@ -504,6 +504,7 @@
 // /obj/machinery/camera signals
 #define COMSIG_CAMERA_ON "camera_on"
 #define COMSIG_CAMERA_OFF "camera_off"
+#define COMSIG_CAMERA_MOVED "camera_moved"
 
 // /obj/item signals
 
