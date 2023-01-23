@@ -136,7 +136,10 @@
 	)
 	/// number of shards to apply when a crit embeds
 	var/num_shards = 7
-
+	/// Last time the machine was punched
+	var/last_hit_time = 0
+	/// How long to wait before resetting the warning cooldown
+	var/hit_warning_cooldown_length = 10 SECONDS
 
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
@@ -390,6 +393,15 @@
 		return
 	. = ..()
 	if(tiltable && !tilted && I.force)
+		var/should_warn = world.time > last_hit_time + hit_warning_cooldown_length
+		last_hit_time = world.time
+		if(should_warn)
+			visible_message(
+				"<span class='warning'>[src] seems to sway a bit!</span>"
+			)
+			to_chat(user, "<span class='danger'>You might want to think twice about doing that again, [src] looks like it could come crashing down!</span>")
+			return
+
 		switch(rand(1, 100))
 			if(1 to 5)
 				freebie(user, 3)
@@ -406,7 +418,7 @@
 
 
 /obj/machinery/economy/vending/proc/freebie(mob/user, num_freebies)
-	visible_message("<span class='notice'>[num_freebies] free goodie\s tumble\s out of [src]!</span>")
+	visible_message("<span class='notice'>[num_freebies] free goodie\s tumble[num_freebies > 1 ? "" : "s"] out of [src]!</span>")
 
 	for(var/i in 1 to num_freebies)
 		for(var/datum/data/vending_product/R in shuffle(product_records))
