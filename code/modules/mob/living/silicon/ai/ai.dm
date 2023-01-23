@@ -228,6 +228,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		deltimer(malfhacking)
 		malfhacking = null
 	QDEL_NULL(eyeobj) // No AI, no Eye
+	QDEL_NULL(builtInCamera)
 	QDEL_NULL(aiPDA)
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(aiRadio)
