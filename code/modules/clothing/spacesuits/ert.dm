@@ -50,7 +50,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Destroy()
 	QDEL_NULL(camera)
-	. = ..()
+	return ..()
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team suit"
