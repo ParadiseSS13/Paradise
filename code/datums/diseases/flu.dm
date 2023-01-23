@@ -12,7 +12,8 @@
 	severity = MEDIUM
 
 /datum/disease/flu/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(2)
 			if(IS_HORIZONTAL(affected_mob) && prob(20))

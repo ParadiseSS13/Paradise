@@ -39,6 +39,7 @@
 	user.drop_item()
 	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/J)
