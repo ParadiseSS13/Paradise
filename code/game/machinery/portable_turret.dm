@@ -726,7 +726,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+	use_power(power_channel, reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
 	if(istype(A))
 		A.original = target

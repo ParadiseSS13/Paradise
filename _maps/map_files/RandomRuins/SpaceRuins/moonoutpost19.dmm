@@ -1441,7 +1441,7 @@
 	locked = 0;
 	name = "Research APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{

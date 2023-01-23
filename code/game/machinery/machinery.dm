@@ -35,8 +35,8 @@
 	. = ..()
 	GLOB.machines += src
 
-	if(requires_power)
-		var/area/machine_area = get_area(src)
+	var/area/machine_area = get_area(src)
+	if(machine_area)
 		// areas don't always initialize before machines so we need to check to see if the powernet exists first
 		if(machine_area.powernet)
 			machine_powernet = machine_area.powernet
