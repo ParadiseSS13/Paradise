@@ -215,8 +215,8 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
 	D.mind.objectives += KillDaCrew
-	to_chat(D, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-	to_chat(D, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	to_chat(D, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
+	to_chat(D, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -312,7 +312,7 @@
 	var/mob/living/revenant = /mob/living/simple_animal/revenant
 
 /obj/item/antag_spawner/revenant/attack_self(mob/user)
-	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a revenant from the Den..
+	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a revenant from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
 
@@ -324,16 +324,16 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant awakened by [user.real_name]?", ROLE_REVENANT, 1, 10 SECONDS, source = revenant)
 
-	if(!candidates.len)
+	if(!length(candidates))
 		used = FALSE
 		to_chat(user, "<span class='notice'>The ectoplasm does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 		return
 		
 	var/mob/C = pick(candidates)
-	spawn_antag(C, get_turf(src.loc), initial(revenant.name), user)
+	spawn_antag(C, get_turf(src), initial(revenant.name), user)
 	to_chat(user, "[shatter_msg]")
 	to_chat(user, "[veil_msg]")
-	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
 	qdel(src)
 
 /obj/item/antag_spawner/revenant/spawn_antag(client/C, turf/T, type = "", mob/user)
@@ -349,5 +349,5 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
 	M.mind.objectives += KillDaCrew
-	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	to_chat(M, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
+	to_chat(M, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")
