@@ -31,9 +31,9 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 
 /obj/item/weaponcrafting/gunkit/tesla
-	name = "\improper tesla revolver parts kit"
-	desc = "A suitcase containing the necessary gun parts to construct a tesla revolver around a laser rifle. Handle with care."
-	origin_tech = "combat=4;materials=4;powerstorage=4"
+	name = "\improper arc revolver parts kit"
+	desc = "A suitcase containing the necessary gun parts to construct a arc revolver around a laser rifle. Handle with care."
+	origin_tech = "combat=5;materials=5;powerstorage=5"
 
 /obj/item/weaponcrafting/gunkit/xray
 	name = "\improper x-ray laser gun parts kit"
