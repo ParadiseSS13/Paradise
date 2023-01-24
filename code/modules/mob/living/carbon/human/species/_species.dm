@@ -918,7 +918,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(G.invis_override)
 			H.see_invisible = G.invis_override
 		else
-			H.see_invisible = min(G.invis_view, H.see_invisible)
+			H.see_invisible = max(G.invis_view, H.see_invisible) //Max, whichever is better
 
 		if(!isnull(G.lighting_alpha))
 			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
