@@ -214,10 +214,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 0
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
-	if(..() || !possible_target.current.client)
-		return TRUE
+	if(..())
+		return ..()
 	// If the target is a changeling, then it's an invalid target. Since changelings can not be debrained.
-	return ischangeling(possible_target.current)
+	if(ischangeling(possible_target.current))
+		return TARGET_INVALID_CHANGELING
+	return
 
 /datum/objective/debrain/find_target(list/target_blacklist)
 	..()
