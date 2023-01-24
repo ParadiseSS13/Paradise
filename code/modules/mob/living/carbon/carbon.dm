@@ -360,10 +360,20 @@
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
 
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-	if(!E || E.weld_proof || (E.status & ORGAN_DEAD))
+
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if((!E && !(H.dna.species.bodyflags & NO_EYES)))
+			return
+
+	if(E && (E.weld_proof || (E.status & ORGAN_DEAD)))
 		return
 
 	. = ..()
+
+	if(!E)
+		return
+
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
 	var/damage = intensity - check_eye_prot()
