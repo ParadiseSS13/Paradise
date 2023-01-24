@@ -498,7 +498,7 @@
 	if(istype(id))
 		return id.registered_name
 	if(is_pda(wear_id))
-		var/obj/item/pda/pda
+		var/obj/item/pda/pda = wear_id
 		return pda.owner
 	return if_no_id	//to prevent null-names making the mob unclickable
 
