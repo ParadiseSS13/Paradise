@@ -19,7 +19,7 @@
 
 /// Makes a spider. Good for setting traps and combat.
 /datum/action/changeling/spiders/sting_action(mob/user)
-	if(is_operating == TRUE) // To stop spawning multiple at once
+	if(is_operating) // To stop spawning multiple at once
 		return FALSE
 	is_operating = TRUE
 	if(spider_counter >= 3)
@@ -68,21 +68,23 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/examine(mob/user)
 	. = ..()
-	if(user.UID() == owner_UID)
-		switch(current_order)
-			if(IDLE_AGGRESSIVE)
-				. += "<span class='notice'>The giant spider will remain idle but will attack anyone on sight.</span>"
-			if(FOLLOW_AGGRESSIVE)
-				. += "<span class='notice'>The giant spider is following us, but will attack anyone on sight.</span>"
-			if(FOLLOW_RETALIATE)
-				. += "<span class='notice'>The giant spider is following us and staying calm, only attacking it is attacked.</span>"
-			if(IDLE_RETALIATE)
-				. += "<span class='notice'>The giant spider will remain idle and calm, only attacking if it is attacked.</span>"
+	if(user.UID() != owner_UID)
+		return
+	switch(current_order)
+		if(IDLE_AGGRESSIVE)
+			. += "<span class='notice'>The giant spider will remain idle but will attack anyone on sight.</span>"
+		if(FOLLOW_AGGRESSIVE)
+			. += "<span class='notice'>The giant spider is following us, but will attack anyone on sight.</span>"
+		if(FOLLOW_RETALIATE)
+			. += "<span class='notice'>The giant spider is following us and staying calm, only attacking it is attacked.</span>"
+		if(IDLE_RETALIATE)
+			. += "<span class='notice'>The giant spider will remain idle and calm, only attacking if it is attacked.</span>"
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/AltShiftClick(mob/user)
 	. = ..()
-	if(user.UID() == owner_UID)
-		spider_order(user)
+	if(user.UID() != owner_UID)
+		return
+	spider_order(user)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/spider_order(mob/user)
 	enemies = list()
@@ -108,27 +110,27 @@
 		if(IDLE_AGGRESSIVE)
 			Find_Enemies(around)
 			walk(src, 0)
-			return TRUE
 		if(FOLLOW_AGGRESSIVE)
 			Find_Enemies(around)
 			if(!busy)
 				for(var/mob/living/carbon/C in around)
-					if(faction_check_mob(C))
-						if(Adjacent(C))
-							return TRUE
-						Goto(C, 0.5 SECONDS, 1)
-				return TRUE
+					if(!faction_check_mob(C))
+						continue
+					if(Adjacent(C))
+						return TRUE
+					Goto(C, 0.5 SECONDS, 1)
 		if(FOLLOW_RETALIATE)
 			if(!busy)
 				for(var/mob/living/carbon/C in around)
-					if(faction_check_mob(C))
-						if(Adjacent(C))
-							return TRUE
-						Goto(C, 0.5 SECONDS, 1)
-				return TRUE
+					if(!faction_check_mob(C))
+						continue
+					if(Adjacent(C))
+						return TRUE
+					Goto(C, 0.5 SECONDS, 1)
 		if(IDLE_RETALIATE)
 			walk(src, 0)
-			return TRUE
+
+		return TRUE
 
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
 		if(faction_check_mob(H) && !attack_same && !H.attack_same)
@@ -148,10 +150,11 @@
 	for(var/mob/living/A in around)
 		if(A == src)
 			continue
-		if(isliving(A))
-			var/mob/living/M = A
-			if(!faction_check_mob(M))
-				enemies |= M
+		if(!isliving(A))
+			continue
+		var/mob/living/M = A
+		if(!faction_check_mob(M))
+			enemies |= M
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attackby(obj/item/W, mob/user, params)
 	..()
