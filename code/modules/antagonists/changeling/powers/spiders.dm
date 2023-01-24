@@ -130,7 +130,7 @@
 		if(IDLE_RETALIATE)
 			walk(src, 0)
 
-		return TRUE
+	return TRUE
 
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
 		if(faction_check_mob(H) && !attack_same && !H.attack_same)
