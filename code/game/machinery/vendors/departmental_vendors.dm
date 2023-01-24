@@ -125,7 +125,6 @@
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/peanuts = 3,
 					/obj/item/seeds/pineapple = 3,
-					/obj/item/seeds/plump = 3,
 					/obj/item/seeds/poppy = 3,
 					/obj/item/seeds/potato = 3,
 					/obj/item/seeds/pumpkin = 3,
@@ -146,6 +145,7 @@
 					/obj/item/seeds/amanita = 2,
 					/obj/item/seeds/fungus = 3,
 					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/plump = 2,
 					/obj/item/seeds/reishi = 2,
 					/obj/item/seeds/starthistle = 2,
 					/obj/item/seeds/random = 2)
