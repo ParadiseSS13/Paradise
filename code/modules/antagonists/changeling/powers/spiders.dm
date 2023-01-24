@@ -8,9 +8,9 @@
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend."
 	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 5 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)."
 	button_icon_state = "spread_infestation"
-	chemical_cost = 5//45
+	chemical_cost = 45
 	dna_cost = 2
-	req_dna = 0//7
+	req_dna = 7
 	/// This var keeps track of the changeling's spider count
 	var/spider_counter = 0
 	/// Checks if changeling is already spawning a spider
@@ -130,11 +130,11 @@
 		if(IDLE_RETALIATE)
 			walk(src, 0)
 
-	return TRUE
-
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
 		if(faction_check_mob(H) && !attack_same && !H.attack_same)
 			H.enemies |= enemies
+
+	return TRUE
 
 // Bellow is the way the spiders react and retaliate when in an idle mode.
 
