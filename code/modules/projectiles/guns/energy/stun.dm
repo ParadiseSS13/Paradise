@@ -8,13 +8,13 @@
 	ammo_x_offset = 3
 	can_holster = TRUE  // Pistol size
 
-/obj/item/gun/energy/shock_revolver
-	name = "tesla revolver"
-	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
+/obj/item/gun/energy/arc_revolver
+	name = "arc revolver"
+	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	icon_state = "stunrevolver"
 	item_state = "gun"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
-	ammo_type = list(/obj/item/ammo_casing/energy/shock_revolver)
+	ammo_type = list(/obj/item/ammo_casing/energy/arc_revolver)
 	can_flashlight = FALSE
 	shaded_charge = FALSE
 	can_holster = TRUE

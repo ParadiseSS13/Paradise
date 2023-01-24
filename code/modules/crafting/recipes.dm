@@ -189,9 +189,9 @@
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
 /datum/crafting_recipe/teslarevolver
-	name = "Tesla Revolver"
+	name = "Arc Revolver"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = list(/obj/item/gun/energy/shock_revolver)
+	result = list(/obj/item/gun/energy/arc_revolver)
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/tesla = 1)
