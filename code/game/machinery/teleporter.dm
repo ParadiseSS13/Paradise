@@ -588,9 +588,12 @@
 	if(exchange_parts(user, I))
 		return
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		if(!teleporter_console)
+			to_chat(user, "<span class='caution'>[src] is not linked to a teleporter console.</span>")
+			return
 		var/obj/item/circuitboard/teleporter_perma/C = I
 		C.target = teleporter_console.target
-		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
+		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C].</span>")
 		return
 	return ..()
 
