@@ -93,7 +93,7 @@
 		container = null
 	return TRUE
 
-/obj/machinery/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
 /obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)

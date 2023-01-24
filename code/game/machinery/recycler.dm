@@ -67,7 +67,7 @@
 		return TRUE
 
 /obj/machinery/recycler/wrench_act(mob/user, obj/item/I)
-	if(default_unfasten_wrench(user, I))
+	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		return TRUE
 
 

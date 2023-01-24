@@ -20,6 +20,7 @@
 
 		servers_outer[dbq1.item[1]][dbq1.item[2]] = dbq1.item[3] // This should assoc load our data
 
+	qdel(dbq1) //clear our query
 	// Format the server names into an assoc list of K: name V: port
 	var/list/formatted_servers = list()
 	for(var/server in servers_outer)

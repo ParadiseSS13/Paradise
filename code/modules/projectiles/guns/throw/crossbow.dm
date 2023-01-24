@@ -118,6 +118,15 @@
 	to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [I].</span>")
 	cell = null
 
+/obj/item/gun/throw/crossbow/notify_ammo_count()
+	if(get_ammocount() >= 1)
+		return "<span class='notice'>[src] is loaded.</span>"
+	return "<span class='notice'>[src] is not loaded.</span>"
+
+/obj/item/gun/throw/crossbow/Destroy()
+	. = ..()
+	QDEL_NULL(cell)
+
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Adjust Tension"
 	set category = "Object"
