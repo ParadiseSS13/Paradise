@@ -47,6 +47,21 @@ SUBSYSTEM_DEF(air)
 	var/list/currentrun = list()
 	var/currentpart = SSAIR_DEFERREDPIPENETS
 
+/datum/controller/subsystem/air/Recover()
+	excited_groups |= SSair.excited_groups
+	active_turfs |= SSair.active_turfs
+	hotspots |= SSair.hotspots
+	deferred_pipenet_rebuilds |= SSair.deferred_pipenet_rebuilds
+	networks |= SSair.networks
+	atmos_machinery |= SSair.atmos_machinery
+	pipe_init_dirs_cache |= SSair.pipe_init_dirs_cache
+	machinery_to_construct |= SSair.machinery_to_construct
+	active_super_conductivity |= SSair.active_super_conductivity
+	high_pressure_delta |= SSair.high_pressure_delta
+	icon_manager = icon_manager
+	currentrun |= SSair.currentrun
+	currentpart = SSair.currentpart
+
 /datum/controller/subsystem/air/get_stat_details()
 	var/list/msg = list()
 	msg += "C:{"
