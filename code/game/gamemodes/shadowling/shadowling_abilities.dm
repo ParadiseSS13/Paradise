@@ -414,7 +414,7 @@
 		reagents_list.add_reagent("blindness_smoke", 810)
 		var/datum/effect_system/smoke_spread/chem/S = new
 		S.set_up(reagents_list, target.loc, TRUE)
-		S.start(4, apply_once = TRUE)
+		S.start(4)
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
 	name = "odd black liquid"
