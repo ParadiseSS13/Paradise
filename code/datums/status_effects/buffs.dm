@@ -386,7 +386,7 @@
 		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
 		owner.updatehealth()
 		for(var/i in 1 to length(active_instances))
-			active_instances[i] -= 1
+			active_instances[i]--
 			if(active_instances[i] <= 0)
 				active_instances -= active_instances[i]
 	tolerance = max(tolerance - 0.05, 1)
