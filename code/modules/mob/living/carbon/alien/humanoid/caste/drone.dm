@@ -54,3 +54,10 @@
 		else
 			to_chat(drone_host, "<span class='notice'>We already have an alive queen.</span>")
 	return
+
+/mob/living/carbon/alien/humanoid/drone/no_queen
+	name = "alien drone"
+
+/mob/living/carbon/alien/humanoid/drone/no_queen/GrantAlienActions()
+	. = ..()
+	evolve_to_queen_action.Remove(src)
