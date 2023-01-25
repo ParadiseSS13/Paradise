@@ -357,23 +357,21 @@
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
+/mob/living/carbon/can_be_flashed()
 
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-
-	//Checks that should stop flashing entirely
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if((!E && !(H.dna.species.bodyflags & NO_EYES)))
-			return
-
-	if(E && E.status & ORGAN_DEAD)
-		return
-
-	//Parent proc checks eye protection, eye protection trait, + blind trait
 	. = ..()
 
-	//Checks that shouldn't stop flashing, but should stop eye damage
+	if((E && E.status & ORGAN_DEAD) || !.)
+		return FALSE
+
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
+
+	//Parent proc checks if a mob can_be_flashed()
+	. = ..()
+
+	//Checks that shouldn't stop flashing, but should stop eye damage, so they go here instead of in can_be_flashed()
+	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	if(!E || E.weld_proof)
 		return
 
