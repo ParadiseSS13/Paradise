@@ -96,6 +96,7 @@
 	jobtype = /datum/job/doctor/intern
 
 	uniform = /obj/item/clothing/under/rank/medical/intern
+	l_pocket = /obj/item/paper/deltainfo
 	id = /obj/item/card/id/medical/intern
 	l_hand = /obj/item/storage/firstaid/o2
 	backpack_contents = list(

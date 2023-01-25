@@ -107,6 +107,7 @@
 	jobtype = /datum/job/scientist/student
 
 	uniform = /obj/item/clothing/under/rank/scientist/student
+	l_pocket = /obj/item/paper/deltainfo
 	id = /obj/item/card/id/research/student
 
 /datum/outfit/job/scientist/student/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
