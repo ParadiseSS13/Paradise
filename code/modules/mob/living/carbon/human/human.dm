@@ -935,7 +935,7 @@
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
 
-/mob/living/carbon/human/can_be_flashed()
+/mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)
 
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	. = ..()

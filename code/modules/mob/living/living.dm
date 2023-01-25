@@ -831,15 +831,15 @@
 	return "You can't fit into that vent."
 
 //Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
-/mob/living/proc/can_be_flashed()
-	if(HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
+/mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
+	if(check_eye_prot() > intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
 		return FALSE
 
 	return TRUE
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || can_be_flashed()))
+	if(can_be_flashed(intensity, override_blindness_check))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return 1
