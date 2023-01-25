@@ -116924,6 +116924,7 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "tGs" = (
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreencorner"
