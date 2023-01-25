@@ -2846,7 +2846,7 @@
 /area/tdome/arena_source)
 "GF" = (
 /obj/item/clothing/under/rainbow,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/glasses/sunglasses_fake/holo,
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
 "GQ" = (

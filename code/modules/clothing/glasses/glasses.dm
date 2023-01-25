@@ -348,6 +348,10 @@
 		"Stok" = 'icons/mob/species/monkey/eyes.dmi'
 		)
 
+/obj/item/clothing/glasses/sunglasses_fake/holo
+	desc = "Protects against the holographic UV rays of the holographic sun."
+	name = "holographic sunglasses"
+
 /obj/item/clothing/glasses/thermal_fake
 	desc = "Cheap plastic sunglasses. Wear thoze if yu are kool."
 	name = "Phirmel Soonglesas"
