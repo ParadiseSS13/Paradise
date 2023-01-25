@@ -361,17 +361,20 @@
 
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 
+	//Checks that should stop flashing entirely
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if((!E && !(H.dna.species.bodyflags & NO_EYES)))
 			return
 
-	if(E && (E.weld_proof || (E.status & ORGAN_DEAD)))
+	if(E && E.status & ORGAN_DEAD)
 		return
 
+	//Parent proc checks eye protection, eye protection trait, + blind trait
 	. = ..()
 
-	if(!E)
+	//Checks that shouldn't stop flashing, but should stop eye damage
+	if(!E || E.weld_proof)
 		return
 
 	SIGNAL_HANDLER
