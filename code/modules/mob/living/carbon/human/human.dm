@@ -463,6 +463,8 @@
 	return if_no_id
 
 /mob/living/carbon/human/get_id_card(mob/living/carbon/human/H)
+	if(!wear_id)
+		return
 	var/obj/item/card/id/id = wear_id.GetID()
 	if(istype(id)) // Make sure its actually an ID
 		return id
