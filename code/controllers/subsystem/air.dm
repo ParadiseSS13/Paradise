@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(air)
 	machinery_to_construct |= SSair.machinery_to_construct
 	active_super_conductivity |= SSair.active_super_conductivity
 	high_pressure_delta |= SSair.high_pressure_delta
-	icon_manager = icon_manager
+	icon_manager = SSair.icon_manager
 	currentrun |= SSair.currentrun
 	currentpart = SSair.currentpart
 
