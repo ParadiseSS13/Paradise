@@ -175,6 +175,10 @@
 		to_chat(src, "You cannot do that in your current state.")
 		return
 
+	if(host.stat == DEAD)
+		to_chat(src, "<span class='warning'>Мозг носителя не способен воспринимать вас сейчас!</span>")
+		return
+
 	var/input = stripped_input(src, "Please enter a message to tell your host.", "Borer", "")
 	if(!input)
 		return
@@ -208,6 +212,8 @@
 	set category = "Borer"
 	set desc = "Communicate mentally with your borer."
 
+	if(src.stat == DEAD) // This shouldn't appear if host is not alive, but double-check
+		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(!B)
@@ -230,6 +236,9 @@
 	set category = "Borer"
 	set desc = "Communicate mentally with the trapped mind of your host."
 
+	if(src.stat == DEAD)
+		to_chat(src, "<span class='warning'>Мозг жертвы не способен воспринимать вас в этом состоянии!</span>")
+		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(!B || !B.host_brain)
