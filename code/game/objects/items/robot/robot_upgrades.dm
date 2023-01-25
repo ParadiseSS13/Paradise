@@ -263,7 +263,7 @@
 	name = "medical cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces a medical cyborgs tools with the abductor version."
 	icon_state = "abductor_mod"
-	origin_tech = "biotech=6;materials=6;abductor=3"
+	origin_tech = "biotech=6;materials=6;abductor=2"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
