@@ -202,13 +202,18 @@
 				new_mob.invisibility = 0
 				new_mob.job = "Cyborg"
 				var/mob/living/silicon/robot/Robot = new_mob
-				Robot.mmi = new /obj/item/mmi(new_mob)
+				if(ishuman(M))
+					Robot.mmi = new /obj/item/mmi(new_mob)
+					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
+				else
+					Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
+					Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
+					Robot.mmi.brainmob.stat = CONSCIOUS
+					Robot.mmi.become_occupied("boris")
 				Robot.lawupdate = FALSE
 				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
-				if(ishuman(M))
-					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("СЛАЙМ")
 				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
