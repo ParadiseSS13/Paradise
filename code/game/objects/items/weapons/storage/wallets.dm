@@ -26,7 +26,8 @@
 		/obj/item/photo,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver,
-		/obj/item/stamp)
+		/obj/item/stamp,
+		/obj/item/encryptionkey)
 	slot_flags = SLOT_ID
 
 	var/obj/item/card/id/front_id = null
@@ -137,7 +138,8 @@
 		/obj/item/photo,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver,
-		/obj/item/stamp)
+		/obj/item/stamp,
+		/obj/item/encryptionkey)
 	slot_flags = SLOT_ID
 
 
