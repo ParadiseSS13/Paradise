@@ -329,7 +329,7 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 	select_name = "lethal-eliminator"
 	alt_select_name = "lethal"
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	e_cost = 160
 
 /obj/item/ammo_casing/energy/dominator/slaughter
