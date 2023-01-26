@@ -75,7 +75,7 @@
 	if(chambered && !chambered.BB)
 		qdel(chambered)
 
-/obj/item/gun/projectile/shotgun/toy/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/projectile/shotgun/toy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	. = ..()
 	chambered = null
 
