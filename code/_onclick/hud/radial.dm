@@ -10,6 +10,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	plane = ABOVE_HUD_PLANE
 	var/datum/radial_menu/parent
 
+/obj/screen/radial/Destroy()
+	parent = null
+	return ..()
+
 /obj/screen/radial/slice
 	icon_state = "radial_slice"
 	var/choice
@@ -270,11 +274,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/Destroy()
 	Reset()
 	hide()
-	for(var/obj/screen/radial/slice/slice_to_remove in elements)
-		slice_to_remove.parent = null
-		qdel(slice_to_remove)
-	close_button.parent = null
-	qdel(close_button)
+	QDEL_LIST_CONTENTS(elements)
+	QDEL_NULL(close_button)
 	anchor = null
 	. = ..()
 
