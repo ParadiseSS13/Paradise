@@ -1199,12 +1199,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SPAWN))
 		return
 
-	var/list/types = list()
-	for(var/typepath in subtypesof(/datum/supply_packs))
-		var/datum/supply_packs/P = typepath
-		if(initial(P.name) == "HEADER")
-			continue // To filter out group headers
-		types += P
+	var/list/types = SSeconomy.supply_packs
 
 	var/list/matches = list()
 
