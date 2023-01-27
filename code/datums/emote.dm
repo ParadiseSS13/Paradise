@@ -368,6 +368,8 @@
 		msg = replacetext(msg, "them", user.p_them())
 	if(findtext(msg, "they"))
 		msg = replacetext(msg, "they", user.p_they())
+	if(findtext(msg, "themselves"))
+		msg = replacetext(msg, "themselves", user.p_themselves())
 	if(findtext(msg, "%s"))
 		msg = replacetext(msg, "%s", user.p_s())
 	return msg

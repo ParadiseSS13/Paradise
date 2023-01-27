@@ -100,6 +100,10 @@
 		"Research Director",
 		"Scientist",
 		"Xenobiologist",
+		"Xenoarcheologist",
+		"Anomalist",
+		"Plasma Researcher",
+		"Chemical Researcher",
 		"Geneticist",	//Part of both medical and science
 		"Roboticist",
 	)
@@ -143,7 +147,8 @@
 		"Head of Personnel",
 		"Quartermaster",
 		"Cargo Technician",
-		"Shaft Miner"
+		"Shaft Miner",
+		"Spelunker"
 	)
 	head_of_staff = "Head of Personnel"
 
@@ -157,6 +162,10 @@
 		"Chief Engineer",
 		"Station Engineer",
 		"Life Support Specialist",
+		"Atmospheric Technician",
+		"Maintenance Technician",
+		"Engine Technician",
+		"Electrician",
 	)
 	head_of_staff = "Chief Engineer"
 
@@ -169,6 +178,8 @@
 	department_roles = list(
 		"Chief Medical Officer",
 		"Medical Doctor",
+		"Surgeon",
+		"Nurse",
 		"Geneticist",
 		"Psychiatrist",
 		"Chemist",

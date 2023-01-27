@@ -1,4 +1,7 @@
-var/list/chatResources = list(
+//Should match the value set in the browser js
+#define MAX_COOKIE_LENGTH 5
+
+GLOBAL_LIST_INIT(chatResources, list(
 	"goon/browserassets/js/jquery.min.js",
 	"goon/browserassets/js/json2.min.js",
 	"goon/browserassets/js/twemoji.min.js",
@@ -13,12 +16,11 @@ var/list/chatResources = list(
 	"goon/browserassets/css/browserOutput.css",
 	"goon/browserassets/css/browserOutput-dark.css",
 	"goon/browserassets/html/saveInstructions.html"
-)
+))
 
-//Should match the value set in the browser js
-#define MAX_COOKIE_LENGTH 5
+GLOBAL_DATUM_INIT(iconCache, /savefile, new /savefile("data/iconCache.sav"))
 
-/var/savefile/iconCache = new /savefile("data/iconCache.sav")
+GLOBAL_LIST_EMPTY(bicon_cache)
 
 /datum/chatOutput
 	var/client/owner = null
@@ -65,7 +67,7 @@ var/list/chatResources = list(
 		return
 
 	for(var/attempts in 1 to 5)
-		for(var/asset in global.chatResources)
+		for(var/asset in GLOB.chatResources)
 			owner << browse_rsc(wrap_file(asset))
 
 		for(var/subattempts in 1 to 3)
@@ -231,16 +233,14 @@ var/list/chatResources = list(
 	chatOutput.ehjax_send(data = list("firebug" = 1))
 
 
-/var/list/bicon_cache = list()
-
 //Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
 // exporting it as text, and then parsing the base64 from that.
 // (This relies on byond automatically storing icons in savefiles as base64)
 /proc/icon2base64(icon/icon, iconKey = "misc")
 	if (!isicon(icon)) return 0
 
-	iconCache[iconKey] << icon
-	var/iconData = iconCache.ExportText(iconKey)
+	GLOB.iconCache[iconKey] << icon
+	var/iconData = GLOB.iconCache.ExportText(iconKey)
 	var/list/partial = splittext(iconData, "{")
 	return replacetext(copytext(partial[2], 3, -5), "\n", "")
 
@@ -250,35 +250,31 @@ var/list/chatResources = list(
 		return
 
 	if (isicon(obj))
-		if (!bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
-			bicon_cache["\ref[obj]"] = icon2base64(obj)
+		if (!GLOB.bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
+			GLOB.bicon_cache["\ref[obj]"] = icon2base64(obj)
 
-		return "<img [class] src='data:image/png;base64,[bicon_cache["\ref[obj]"]]'>"
+		return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache["\ref[obj]"]]'>"
 
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
 	var/atom/A = obj
 	var/key = "[istype(A.icon, /icon) ? "\ref[A.icon]" : A.icon]:[A.icon_state]"
-	if (!bicon_cache[key]) // Doesn't exist, make it.
+	if (!GLOB.bicon_cache[key]) // Doesn't exist, make it.
 		var/icon/I = icon(A.icon, A.icon_state, SOUTH, 1)
 		if (ishuman(obj)) // Shitty workaround for a BYOND issue.
 			var/icon/temp = I
 			I = icon()
 			I.Insert(temp, dir = SOUTH)
-		bicon_cache[key] = icon2base64(I, key)
+		GLOB.bicon_cache[key] = icon2base64(I, key)
 	if(use_class)
 		class = "class='icon [A.icon_state]'"
 
-	return "<img [class] src='data:image/png;base64,[bicon_cache[key]]'>"
+	return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache[key]]'>"
 
 /proc/is_valid_tochat_message(message)
 	return istext(message)
 
 /proc/is_valid_tochat_target(target)
 	return !istype(target, /savefile) && (ismob(target) || islist(target) || isclient(target) || target == world)
-
-var/to_chat_filename
-var/to_chat_line
-var/to_chat_src
 
 /proc/to_chat(target, message, flag)
 	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
