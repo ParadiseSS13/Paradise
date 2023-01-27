@@ -532,7 +532,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	origin_tech = "combat=4;magnets=4"
 
-	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator, /obj/item/ammo_casing/energy/dominator/slaughter)
+	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator)
 	var/sound_voice = list(null, 'sound/voice/dominator/nonlethal-paralyzer.ogg','sound/voice/dominator/lethal-eliminator.ogg','sound/voice/dominator/execution-slaughter.ogg')
 	var/sound_cd = null
 	cell_type = /obj/item/stock_parts/cell/dominator
