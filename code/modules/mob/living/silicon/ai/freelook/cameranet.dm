@@ -122,7 +122,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 // Used for Cyborg cameras. Since portable cameras can be in ANY chunk.
 
 /datum/cameranet/proc/updatePortableCamera(obj/machinery/camera/c, turf/old_loc)
-	// TODO fix this shit
 	majorChunkChange(c, 1, old_loc)
 
 // Never access this proc directly!!!!

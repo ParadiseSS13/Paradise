@@ -106,7 +106,7 @@
 	for(var/obj/machinery/camera/c as anything in active_cameras)
 		var/turf/point = locate(src.x + (CAMERA_CHUNK_SIZE / 2), src.y + (CAMERA_CHUNK_SIZE / 2), src.z)
 		var/turf/T = get_turf(c)
-		if(get_dist(point, T) > CAMERA_VIEW_DISTANCE + (CAMERA_CHUNK_SIZE / 2)) // Out of range? How?! TODO check if still required
+		if(get_dist(point, T) > CAMERA_VIEW_DISTANCE + (CAMERA_CHUNK_SIZE / 2))
 			continue // Still needed for Ais who get created on Z level 1 on the spot of the new player
 
 		for(var/turf/t in c.can_see())
