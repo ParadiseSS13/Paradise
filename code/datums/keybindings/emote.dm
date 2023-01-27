@@ -238,6 +238,10 @@
 	linked_emote ="cry"
 	name = "Плакать"
 
+/datum/keybinding/emote/carbon/human/whistle
+	linked_emote ="whistle"
+	name = "Свистеть"
+
 /*/datum/keybinding/emote/carbon/human/dap //commented in emote_panel_ru.dm
 	linked_emote ="dap
 	name = "Dap"

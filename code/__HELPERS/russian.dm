@@ -30,10 +30,9 @@ GLOBAL_LIST_INIT(rukeys, list(
 		. += sanitize_english_key_to_russian(copytext_char(text, i, i+1))
 
 GLOBAL_LIST_INIT(specsymbols, list(
-	"!" = "1", "@" = "2", "№" = "3", "#" = "3",
+	"!" = "1", "\"" = "2", "@" = "2", "№" = "3", "#" = "3",
 	";" = "4", "$" = "4", "%" = "5", "^" = "6", ":" = "6",
 	"&" = "7", "?" = "7", "*" = "8", "(" = "9", ")" = "0", "_" = "-",
-	"+" = "=",
 ))
 
 /proc/sanitize_specsymbols_key_to_numbers(char) // for keybindings
