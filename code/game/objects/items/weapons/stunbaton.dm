@@ -24,6 +24,8 @@
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
+	/// how big the baton is while on
+	var/w_class_on = WEIGHT_CLASS_BULKY
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -58,6 +60,8 @@
 /obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return FIRELOSS
+
+/obj/item/melee/baton
 
 /obj/item/melee/baton/update_icon_state()
 	if(turned_on)
@@ -147,6 +151,12 @@
 			to_chat(user, "<span class='warning'>[src] is out of charge.</span>")
 	update_icon()
 	add_fingerprint(user)
+	if(turned_on)
+		w_class = w_class_on
+		slot_flags = null
+	else
+		w_class = initial(w_class)
+		slot_flags = initial(slot_flags)
 
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
