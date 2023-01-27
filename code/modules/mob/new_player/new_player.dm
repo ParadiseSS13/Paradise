@@ -299,6 +299,8 @@
 	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
 	if(job.available_in_playtime(client))
 		return 0
+	if(!job.can_novice_play(client))
+		return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")

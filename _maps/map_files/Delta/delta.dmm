@@ -113922,6 +113922,16 @@
 /obj/item/clothing/head/fedora,
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
+"sWX" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/start{
+	name = "Station Engineer"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/engine/break_room)
 "sXk" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -115305,6 +115315,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -162665,7 +162678,7 @@ lAc
 cIA
 bER
 bDn
-bER
+sWX
 psk
 whh
 bGz
@@ -192742,7 +192755,7 @@ lhS
 vcX
 iHp
 uZU
-mVd
+xFL
 xFL
 syB
 vnH
@@ -192998,8 +193011,8 @@ pNI
 xXC
 vcX
 nHu
-xFL
 mVd
+xFL
 xFL
 syB
 mIk
@@ -193255,8 +193268,8 @@ myZ
 xXZ
 oNP
 icp
-kzP
 aTs
+kzP
 fDB
 uEV
 ply
@@ -193512,8 +193525,8 @@ jBm
 eEb
 vcX
 nHu
-xFL
 mVd
+xFL
 xFL
 syB
 aaL
@@ -193770,7 +193783,7 @@ lhS
 oHJ
 unN
 hbT
-mVd
+xFL
 xFL
 syB
 vnH

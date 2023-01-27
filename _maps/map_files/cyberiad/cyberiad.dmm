@@ -5850,6 +5850,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkredfull"
@@ -7104,6 +7107,9 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8196,6 +8202,9 @@
 	pixel_x = -5;
 	pixel_y = -25;
 	req_access_txt = "63"
+	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -20889,6 +20898,9 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
+/obj/effect/landmark/start{
+	name = "Intern"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -31733,6 +31745,9 @@
 	name = "north newscaster";
 	pixel_y = 34
 	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -40042,7 +40057,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Chemist"
+	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40896,7 +40911,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Chemist"
+	name = "Medical Doctor"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -52538,6 +52553,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start{
+	name = "Intern"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -57686,6 +57704,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/landmark/start{
+	name = "Intern"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -66341,6 +66362,9 @@
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/effect/landmark/start{
+	name = "Trainee Engineer"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cHw" = (
@@ -66367,6 +66391,9 @@
 "cHy" = (
 /obj/structure/chair/office/dark{
 	dir = 1
+	},
+/obj/effect/landmark/start{
+	name = "Life Support Specialist"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -67233,6 +67260,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/landmark/start{
+	name = "Trainee Engineer"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cIY" = (
@@ -68346,6 +68376,9 @@
 	dir = 4;
 	name = "east fire alarm";
 	pixel_x = 24
+	},
+/obj/effect/landmark/start{
+	name = "Trainee Engineer"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
@@ -74404,6 +74437,9 @@
 "cWT" = (
 /obj/structure/chair/office/dark{
 	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Life Support Specialist"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -83446,6 +83482,9 @@
 "dEO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
+/obj/effect/landmark/start{
+	name = "Scientist"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -84428,6 +84467,9 @@
 	name = "north newscaster";
 	pixel_y = 34
 	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -85069,6 +85111,9 @@
 /obj/machinery/shower{
 	pixel_y = 20
 	},
+/obj/effect/landmark/start{
+	name = "Security Cadet"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -85150,6 +85195,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
+"fwd" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/effect/landmark/start{
+	name = "Intern"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/sleeper)
 "fxl" = (
 /obj/structure/sign/restroom{
 	pixel_y = 31
@@ -86960,6 +87016,14 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
+"hxG" = (
+/obj/effect/landmark/start{
+	name = "Student Scientist"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/lab)
 "hyc" = (
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/lootdrop{
@@ -88198,6 +88262,14 @@
 "iVV" = (
 /turf/simulated/wall/r_wall,
 /area/server)
+"iVX" = (
+/obj/effect/landmark/start{
+	name = "Student Scientist"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/explab)
 "iVY" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/glass,
@@ -90509,6 +90581,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/effect/landmark/start{
+	name = "Security Cadet"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90654,6 +90729,9 @@
 /obj/item/radio/intercom{
 	name = "south station intercom (General)";
 	pixel_y = -28
+	},
+/obj/effect/landmark/start{
+	name = "Student Scientist"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -92065,6 +92143,9 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/shower{
 	pixel_y = 20
+	},
+/obj/effect/landmark/start{
+	name = "Security Officer"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -95370,6 +95451,9 @@
 /obj/structure/chair/stool,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
+	},
+/obj/effect/landmark/start{
+	name = "Student Scientist"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -136564,7 +136648,7 @@ bZI
 cbN
 bWs
 bXD
-bYs
+fwd
 bZk
 bUM
 caA
@@ -145053,7 +145137,7 @@ clo
 cow
 coi
 cpV
-crL
+iVX
 ctw
 cuK
 cvT
@@ -149661,7 +149745,7 @@ bGC
 bIp
 bKi
 bLW
-bIp
+hxG
 bPB
 bIp
 bTe

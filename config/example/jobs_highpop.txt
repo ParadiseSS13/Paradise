@@ -28,7 +28,7 @@ Shaft Miner=6
 Warden=1
 Detective=1
 Security Officer=7
-Security Cadet=5
+Security Cadet=3
 
 Assistant=-1
 Atmospheric Technician=4

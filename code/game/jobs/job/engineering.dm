@@ -61,7 +61,7 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	exp_requirements = 900
+	exp_requirements = 600
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/engineer
 
@@ -95,6 +95,9 @@
 	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
+	exp_max	= 600
+	exp_type_max = EXP_TYPE_ENGINEERING
+	is_novice = TRUE
 	outfit = /datum/outfit/job/engineer/trainee
 
 /datum/outfit/job/engineer/trainee

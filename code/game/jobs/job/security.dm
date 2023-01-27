@@ -172,7 +172,7 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	alt_titles = list("Security Trainer")
 	minimal_player_age = 14
-	exp_requirements = 900
+	exp_requirements = 600
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/officer
 
@@ -201,13 +201,16 @@
 /datum/job/officer/cadet
 	title = "Security Cadet"
 	flag = JOB_CADET
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 3
+	spawn_positions = 3
 	department_head = list("Head of Security", "Security Officer")
 	selection_color = "#ffeeee"
 	alt_titles = list("Security Assistant", "Security Graduate")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
+	exp_max	= 600
+	exp_type_max = EXP_TYPE_SECURITY
+	is_novice = TRUE
 	outfit = /datum/outfit/job/officer/cadet
 
 /datum/outfit/job/officer/cadet
