@@ -1856,6 +1856,12 @@
 	icon_state = "warden"
 	toysay = "Execute him for breaking in!"
 
+/obj/item/toy/figure/magistrate
+	name = "Magistrate action figure"
+	desc = "The relevant magistrate, from Space Life's SS12 figurine collection."
+	icon_state = "magistrate"
+	toysay = "To execute, or not to execute, that is the question."
+
 //////////////////////////////////////////////////////
 //				Magic 8-Ball / Conch				//
 //////////////////////////////////////////////////////
