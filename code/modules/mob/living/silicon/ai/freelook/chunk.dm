@@ -1,5 +1,3 @@
-#define UPDATE_BUFFER 25 // 2.5 seconds
-
 // CAMERA CHUNK
 //
 // A 16x16 grid of the map with a list of turfs that can be seen, are visible and are dimmed.
@@ -161,21 +159,13 @@
 
 	for(var/obj/machinery/camera/c as anything in active_cameras)
 		for(var/turf/t in c.can_see())
-			// Possible optimization: if(turfs[t]) here, rather than &= turfs afterwards.
-			// List associations use a tree or hashmap of some sort (alongside the list itself)
-			//  so are surprisingly fast. (significantly faster than var/thingy/x in list, in testing)
-			visibleTurfs[t] = t
-
-	// Removes turf that isn't in turfs.
-	visibleTurfs &= turfs
+			if(turfs[t])
+				visibleTurfs[t] = t
 
 	obscuredTurfs = turfs - visibleTurfs
 
-	for(var/turf in obscuredTurfs)
-		var/turf/t = turf
+	for(var/turf/t as anything in obscuredTurfs)
 		if(!t.obscured)
 			t.obscured = image('icons/effects/cameravis.dmi', t, "black", BYOND_LIGHTING_LAYER + 0.1)
 			t.obscured.plane = BYOND_LIGHTING_PLANE + 1
 		obscured += t.obscured
-
-#undef UPDATE_BUFFER
