@@ -104,6 +104,8 @@
 		update_icon(UPDATE_ICON_STATE)
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
+		w_class = initial(w_class)
+		slot_flags = initial(slot_flags)
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
 
@@ -135,6 +137,8 @@
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
+	w_class = initial(w_class)
+	slot_flags = initial(slot_flags)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/attack_self(mob/user)
