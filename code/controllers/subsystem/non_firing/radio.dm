@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(radio)
 	name = "Radio"
-	flags = SS_NO_INIT | SS_NO_FIRE
+	flags = SS_NO_FIRE
 
 	var/list/radiochannels = list(
 	"Common"		= PUB_FREQ,
@@ -24,6 +24,10 @@ SUBSYSTEM_DEF(radio)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ)
 	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
 	var/list/datum/radio_frequency/frequencies = list()
+
+// This is a disgusting hack to stop this tripping CI when this thing needs to FUCKING DIE
+/datum/controller/subsystem/radio/Initialize()
+	return
 
 // This is fucking disgusting and needs to die
 /datum/controller/subsystem/radio/proc/frequency_span_class(frequency)

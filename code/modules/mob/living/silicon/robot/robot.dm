@@ -108,6 +108,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/magpulse = FALSE
 	var/ionpulse = FALSE // Jetpack-like effect.
 	var/ionpulse_on = FALSE // Jetpack-like effect.
+	/// Does it clean the tile under it?
+	var/floorbuffer = FALSE
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
@@ -302,6 +304,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(robot_suit)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(self_diagnosis)
+	QDEL_NULL(mail_setter)
 	QDEL_LIST_ASSOC_VAL(components)
 	QDEL_NULL(rbPDA)
 	QDEL_NULL(radio)
@@ -608,7 +611,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/robot_alerts()
 	var/list/dat = list()
-	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
@@ -1021,7 +1024,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 			SetLockdown(0)
 			if(module)
-				module.emag_act()
+				module.emag_act(user)
 				module.module_type = "Malf" // For the cool factor
 				update_module_icon()
 				module.rebuild_modules() // This will add the emagged items to the borgs inventory.

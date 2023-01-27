@@ -12,9 +12,9 @@ SUBSYSTEM_DEF(maprotate)
 
 	. = ..()
 
-/datum/controller/subsystem/maprotate/Initialize(start_timeofday)
+/datum/controller/subsystem/maprotate/Initialize()
 	if(!SSdbcore.IsConnected())
-		return ..()
+		return
 
 	// Make a quick list for number to date lookups
 	var/list/days = list("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(maprotate)
 	var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT WEEKDAY(NOW()) AS d")
 	if(!dbq.warn_execute())
 		log_startup_progress("Somehow, we failed to extract a numerical day from the DB. ?????????????")
-		return ..()
+		return
 
 	var/day_index = 0
 
@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(maprotate)
 
 	if(!day_index)
 		log_startup_progress("Somehow, we failed to extract a valid numerical day from the DB. ?????????????")
-		return ..()
+		return
 
 
 	// String interpolation is faster than num2text() for some reason
@@ -73,6 +73,4 @@ SUBSYSTEM_DEF(maprotate)
 	else
 		log_startup_progress("There is no special rotation defined for this day")
 
-
-	return ..()
 

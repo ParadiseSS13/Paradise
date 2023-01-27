@@ -333,9 +333,9 @@
 	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)
-    if(isanimal(M))
-        M.color = pick(GLOB.random_color_list)
-    ..()
+	if(isanimal(M))
+		M.color = pick(GLOB.random_color_list)
+	..()
 
 /datum/reagent/colorful_reagent/reaction_obj(obj/O, volume)
 	O.color = pick(GLOB.random_color_list)
@@ -355,6 +355,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(!istype(head_organ))
+			return ..()
 		head_organ.facial_colour = rand_hex_color()
 		head_organ.sec_facial_colour = rand_hex_color()
 		head_organ.hair_colour = rand_hex_color()
@@ -376,6 +378,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(!istype(head_organ))
+			return ..()
 		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
 		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
@@ -395,6 +399,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+		if(!istype(head_organ))
+			return ..()
 		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
 		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
