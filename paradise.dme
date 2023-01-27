@@ -462,7 +462,7 @@
 #include "code\datums\ruins\space.dm"
 #include "code\datums\spell_cooldown\spell_charges.dm"
 #include "code\datums\spell_cooldown\spell_cooldown.dm"
-#include "code\datums\spell_handler\alien.dm"
+#include "code\datums\spell_handler\alien_spell_handler.dm"
 #include "code\datums\spell_handler\morph.dm"
 #include "code\datums\spell_handler\spell_handler.dm"
 #include "code\datums\spell_handler\vampire.dm"
