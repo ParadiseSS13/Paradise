@@ -67,6 +67,7 @@ emp_act
 	return (..(P , def_zone))
 
 /mob/living/carbon/human/welder_act(mob/user, obj/item/I)
+	var/mob/living/carbon/human/H = user
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(!I.tool_use_check(user, 1))
@@ -114,6 +115,7 @@ emp_act
 		nrembrute = max(rembrute - E.brute_dam, 0)
 		E.heal_damage(rembrute,0,0,1)
 		rembrute = nrembrute
+		H.UpdateDamageIcon()
 		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
 	if(bleed_rate && ismachineperson(src))
 		bleed_rate = 0

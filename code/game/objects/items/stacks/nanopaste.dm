@@ -17,7 +17,7 @@
 	if(!get_amount())
 		to_chat(user, "<span class='danger'>Not enough nanopaste!</span>")
 		return
-	else 
+	else
 		. = ..()
 
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
@@ -66,6 +66,7 @@
 					E.heal_damage(remheal, 0, 0, 1) //Healing Brute
 					E.heal_damage(0, remheal, 0, 1) //Healing Burn
 					remheal = nremheal
+					H.UpdateDamageIcon()
 					user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M]'s [E.name] with \the [src].</span>")
 				if(H.bleed_rate && ismachineperson(H))
 					H.bleed_rate = 0

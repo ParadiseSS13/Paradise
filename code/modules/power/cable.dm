@@ -568,6 +568,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 				use(1)
 				cable_used += 1
 				E.heal_damage(0, HEALPERCABLE, 0, 1)
+				H.UpdateDamageIcon()
 			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
 		return 1
 
