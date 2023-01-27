@@ -16,7 +16,6 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/storage/backpack/cargo(src)
-//		new /obj/item/cartridge/quartermaster(src)
 
 
 /obj/structure/closet/secure_closet/quartermaster
@@ -44,3 +43,4 @@
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/door_remote/quartermaster(src)
 	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
+	new /obj/item/cartridge/quartermaster(src)

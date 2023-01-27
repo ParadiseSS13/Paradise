@@ -87,6 +87,24 @@
 	machine_name = "ClothesMate"
 	icon_state = "refill_clothes"
 
+/obj/item/vending_refill/clothing/security
+	machine_name = "Security Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/medical
+	machine_name = "Medical Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/science
+	machine_name = "Science Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/engineering
+	machine_name = "Engineering Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/cargo
+	machine_name = "Cargo Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/law
+	machine_name = "Law Departament ClothesMate"
+
 /obj/item/vending_refill/crittercare
 	machine_name = "CritterCare"
 	icon_state = "refill_pet"
