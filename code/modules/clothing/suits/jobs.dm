@@ -419,3 +419,19 @@
 	icon_state = "surgical"
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
+
+/obj/item/clothing/suit/hop_jacket
+	name = "head of personnel's jacket"
+	desc = "This is the head of personnel jacket"
+	icon_state = "suitjacket_hop_open"
+	item_state = "suitjacket_hop_open"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|ARMS
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/hop_jacket/female
+	icon_state = "suitjacket_hop_fem_open"
+	item_state = "suitjacket_hop_fem_open"

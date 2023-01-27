@@ -100,6 +100,19 @@
 	item_state = "hopwhimsy"
 	item_color = "hopwhimsy"
 
+/obj/item/clothing/under/rank/head_of_personnel_alt
+	name = "head of personnel's suit"
+	desc = "It's a suit worn by someone who works in the position of \"Head of Personnel\"."
+	icon_state = "hop_alt"
+	item_state = "hop_alt"
+	item_color = "hop_alt"
+
+/obj/item/clothing/under/rank/head_of_personnel_f
+	name = "head of personnel's skirt"
+	desc = "It's a skirt worn by someone who works in the position of \"Head of Personnel\"."
+	icon_state = "hop_skirt"
+	item_state = "hop_skirt"
+	item_color = "hop_skirt"
 
 /obj/item/clothing/under/rank/hydroponics
 	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."

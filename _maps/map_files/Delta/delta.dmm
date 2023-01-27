@@ -65034,7 +65034,6 @@
 	dir = 1
 	},
 /obj/item/clothing/shoes/leather,
-/obj/item/clothing/under/dress/dress_hop,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -115227,7 +115226,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/filingcabinet,
+/obj/structure/closet/secure_closet/hop2,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

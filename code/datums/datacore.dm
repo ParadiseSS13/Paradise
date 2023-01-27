@@ -363,7 +363,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		job_clothes = H.mind.assigned_role
 	switch(job_clothes)
 		if("Head of Personnel")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "hop_s")
+			clothes_s = new /icon('icons/mob/uniform.dmi', "hop_alt")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)
 		if("Nanotrasen Representative")
 			clothes_s = new /icon('icons/mob/uniform.dmi', "officer_s")
