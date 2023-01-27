@@ -13,7 +13,6 @@
 	var/list/inactive_cameras = list()
 	var/list/turfs = list()
 	var/list/seenby = list()
-	var/visible = FALSE
 	var/changed = FALSE
 	var/updating = FALSE
 	var/x = 0
@@ -63,13 +62,15 @@
 		if(client)
 			client.images += obscured
 	eye.visibleCameraChunks += src
-	visible++
 	seenby += eye
+	RegisterSignal(eye, COMSIG_PARENT_QDELETING, PROC_REF(aiEye_destroyed))
 	if(changed)
 		SScamera.queue(src)
 
-// Remove an AI eye from the chunk, then update if changed.
+/datum/camerachunk/proc/aiEye_destroyed(mob/camera/aiEye/eye)
+	remove(eye, FALSE)
 
+// Remove an AI eye from the chunk, then update if changed.
 /datum/camerachunk/proc/remove(mob/camera/aiEye/eye, remove_images = TRUE)
 	if(remove_images)
 		var/client/client = eye.GetViewerClient()
@@ -77,8 +78,7 @@
 			client.images -= obscured
 	eye.visibleCameraChunks -= src
 	seenby -= eye
-	if(visible > 0)
-		visible--
+	UnregisterSignal(eye, COMSIG_PARENT_QDELETING)
 
 // Called when a chunk has changed. I.E: A wall was deleted.
 
@@ -95,7 +95,7 @@
 		update()
 		SScamera.remove_from_queue(src)
 
-	if(visible)
+	if(length(seenby))
 		SScamera.queue(src)
 	else
 		changed = TRUE
@@ -134,12 +134,8 @@
 		obscured += t.obscured
 		images_to_add += t.obscured
 
-	for(var/eye in seenby)
-		var/mob/camera/aiEye/m = eye
-		if(!m)
-			seenby -= m // TODO remove and fix cause as this will fuck shit up
-			continue
-		var/client/client = m.GetViewerClient()
+	for(var/mob/camera/aiEye/eye as anything in seenby)
+		var/client/client = eye.GetViewerClient()
 		if(client)
 			client.images -= images_to_remove
 			client.images += images_to_add
