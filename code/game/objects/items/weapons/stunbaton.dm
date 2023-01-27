@@ -25,7 +25,7 @@
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
 	/// how big the baton is while on
-	var/w_class_on = WEIGHT_CLASS_BULKY
+	var/w_class_on = WEIGHT_CLASS_HUGE
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
