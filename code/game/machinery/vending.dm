@@ -1786,7 +1786,6 @@
 		/obj/item/clothing/under/rank/security2 		= 5,
 		/obj/item/clothing/under/rank/dispatch 			= 5,
 
-		/obj/item/clothing/suit/storage/suragi_jacket/sec 	= 5,
 		/obj/item/clothing/suit/tracksuit/red				= 5,
 
 		/obj/item/clothing/mask/balaclava 		= 10,
@@ -1810,37 +1809,14 @@
 		/obj/item/storage/backpack/duffel/security 	= 5,
 
 		//For trainings
-		/obj/item/clothing/under/pants/blackjeans	= 10,
 		/obj/item/clothing/under/shorts/red			= 10,
 		/obj/item/clothing/under/shorts/black		= 5,
 		/obj/item/clothing/under/pants/red 			= 10,
-		/obj/item/clothing/under/pants/black 		= 5,
 		/obj/item/clothing/under/pants/track 		= 5,
 
 		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 3,
-		/obj/item/clothing/suit/storage/suragi_jacket/medsec = 3,
 		)
 
-	contraband = list(
-		/obj/item/clothing/under/pants/camo		= 5,	//Pants contraband...
-		/obj/item/clothing/suit/jacket 			= 2,
-		/obj/item/clothing/suit/jacket/leather	= 2,
-		/obj/item/clothing/suit/jacket/leather/overcoat	= 1,
-		/obj/item/clothing/suit/jacket/motojacket	= 1,
-		/obj/item/clothing/mask/gas/clown_hat 			= 5,
-		/obj/item/clothing/under/rank/security/clown 	= 5,	//Honktraband
-		/obj/item/clothing/shoes/clown_shoes 			= 5,
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/security = 5,
-		/obj/item/radio/headset/headset_sec/alt	= 3,
-		/obj/item/clothing/mask/gas/sechailer	= 3,
-		/obj/item/clothing/glasses/hud/security = 3,
-		/obj/item/clothing/accessory/holster = 3,
-		/obj/item/clothing/gloves/combat = 1,
-		/obj/item/clothing/accessory/storage/black_vest = 1,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/security
 
@@ -1877,7 +1853,6 @@
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
 		/obj/item/clothing/suit/apron/surgical 		= 10,
 		/obj/item/clothing/suit/storage/fr_jacket 	= 5,
-		/obj/item/clothing/suit/storage/suragi_jacket/medic = 5,
 
 		/obj/item/clothing/mask/surgical 		= 10,
 
@@ -1930,23 +1905,6 @@
 		/obj/item/clothing/under/rank/medical/mortician  	= 2,
 		)
 
-	contraband = list(
-		/obj/item/clothing/suit/jacket/miljacket/white 	= 1,
-		/obj/item/clothing/suit/jacket/miljacket/patch 	= 1,
-		/obj/item/clothing/shoes/cowboy/white			= 1,
-		/obj/item/clothing/accessory/cowboyshirt/white	= 1,
-		/obj/item/clothing/head/cowboyhat/white			= 1,
-		/obj/item/clothing/mask/bandana/skull 			= 1,
-		/obj/item/clothing/head/cone  = 10,		//WHAT HOW?!
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/medical = 5,
-		/obj/item/clothing/glasses/hud/health 	= 3,
-		/obj/item/storage/belt/medical 			= 3,
-		/obj/item/clothing/under/rank/security/brigphys/skirt 	= 1,
-		/obj/item/clothing/suit/storage/suragi_jacket/medsec	= 1,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/medical
 
@@ -1993,23 +1951,10 @@
 
 		/obj/item/clothing/under/rank/atmospheric_technician = 3,
 		/obj/item/clothing/under/rank/atmospheric_technician/skirt = 3,
-		/obj/item/clothing/suit/storage/suragi_jacket/atmos = 3,
 		/obj/item/clothing/head/beret/atmos = 3,
 		/obj/item/storage/backpack/duffel/atmos = 3.
 		)
 
-	contraband = list(
-		/obj/item/clothing/head/hardhat/white 	= 1,
-		/obj/item/clothing/head/beret/ce		= 1,
-		/obj/item/clothing/neck/mantle/chief_engineer = 1,
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/engineering = 5,
-		/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 5,
-		/obj/item/clothing/glasses/meson = 3,
-		/obj/item/storage/belt/utility = 3,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/engineering
 
@@ -2057,16 +2002,6 @@
 		/obj/item/clothing/shoes/black 			= 10,
 		)
 
-	contraband = list(
-		/obj/item/relic = 1,
-		/obj/item/clothing/suit/storage/labcoat/mad = 3,
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/science = 5,
-		/obj/item/clothing/glasses/hud/diagnostic = 3,
-		/obj/item/clothing/glasses/science = 3,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/science
 
@@ -2084,7 +2019,6 @@
 		/obj/item/clothing/under/rank/miner/lavaland 	= 10,
 		/obj/item/clothing/under/overalls 				= 10,
 
-		/obj/item/clothing/suit/storage/suragi_jacket/cargo = 5,
 
 		/obj/item/clothing/mask/bandana/black 	= 10,
 		/obj/item/clothing/mask/bandana/orange 	= 10,
@@ -2112,22 +2046,6 @@
 		/obj/item/clothing/under/pants/track 	= 10,
 		)
 
-	contraband = list(
-		/obj/item/clothing/head/fedora/brownfedora 	= 5,
-		/obj/item/clothing/suit/browntrenchcoat  	= 5,
-		/obj/item/clothing/mask/bandana/skull  		= 5,
-		/obj/item/clothing/mask/bandana/gold  		= 2,
-		/obj/item/clothing/under/soviet 		= 10,
-		/obj/item/clothing/under/sovietofficer 	= 2,
-		/obj/item/clothing/under/sovietadmiral 	= 1,
-		)
-
-	premium = list(
-		/obj/item/clothing/suit/hooded/wintercoat/cargo = 5,
-		/obj/item/clothing/suit/hooded/wintercoat/miner = 5,
-		/obj/item/clothing/glasses/meson = 3,
-		/obj/item/clothing/accessory/storage/brown_vest = 1,
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/cargo
 
@@ -2171,9 +2089,7 @@
 
 		/obj/item/radio/headset/headset_iaa  	= 10,
 
-		/obj/item/clothing/glasses/sunglasses/big = 5,
 
-		/obj/item/clothing/accessory/lawyers_badge = 10,
 		/obj/item/clothing/accessory/blue 		= 10,
 		/obj/item/clothing/accessory/red 		= 10,
 		/obj/item/clothing/accessory/black 		= 10,
@@ -2182,16 +2098,5 @@
 		/obj/item/storage/briefcase			= 5,
 		)
 
-	contraband = list(
-		/obj/item/clothing/under/schoolgirl = 5,
-		/obj/item/clothing/suit/judgerobe = 3,
-		/obj/item/clothing/under/rank/ntrep = 3,
-		/obj/item/clothing/accessory/horrible = 5,
-		/obj/item/clothing/accessory/necklace/dope = 1,
-		)
-
-	premium = list(
-		/obj/item/storage/secure/briefcase	= 2
-		)
 
 	refill_canister = /obj/item/vending_refill/clothing/law
