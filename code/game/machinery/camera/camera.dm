@@ -14,6 +14,7 @@
 	max_integrity = 100
 	integrity_failure = 50
 	var/list/network = list("SS13")
+	var/list/previous_network
 	var/c_tag = null
 	var/c_tag_order = 999
 	var/status = TRUE
@@ -91,31 +92,26 @@
 		return
 	if(!isEmpProof())
 		if(prob(150/severity))
-			update_icon(UPDATE_ICON_STATE)
-			var/list/previous_network = network
-			network = list()
-			stat |= EMPED
-			turn_off(null, FALSE, TRUE)
-			emped = emped+1  //Increase the number of consecutive EMP's
-			var/thisemp = emped //Take note of which EMP this proc is for
-			spawn(900)
-				if(!QDELETED(src))
-					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
-						network = previous_network
-						stat &= ~EMPED
-						update_icon(UPDATE_ICON_STATE)
-						if(can_use())
-							GLOB.cameranet.addCamera(src) // TODO Fix EMP
-						emped = 0 //Resets the consecutive EMP count
-
+			if(!(stat & EMPED))
+				previous_network = network
+				network = list()
+				stat |= EMPED
+				turn_off(null, FALSE, TRUE)
+			addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 			..()
+
+/obj/machinery/camera/proc/reactivate_after_emp()
+	network = previous_network
+	previous_network = null
+	stat &= ~EMPED
+	turn_on(null, FALSE, TRUE)
 
 /obj/machinery/camera/ex_act(severity)
 	if(invuln)
 		return
 	..()
 
-/obj/machinery/camera/proc/setViewRange(num = 7)
+/obj/machinery/camera/proc/setViewRange(num = CAMERA_VIEW_DISTANCE)
 	view_range = num
 	GLOB.cameranet.updateVisibility(src, 0)
 
@@ -268,12 +264,13 @@
 	else
 		turn_on(user, display_message)
 
-/obj/machinery/camera/proc/turn_on(mob/user, display_message = TRUE)
-	if(status)
+/obj/machinery/camera/proc/turn_on(mob/user, display_message = TRUE, emp_recover = FALSE)
+	if(status && !emp_recover)
 		return
 	status = TRUE
-	if(isturf(loc))
-		LAZYADD(get_area(src).cameras, UID())
+	if(!emp_recover)
+		if(isturf(loc))
+			LAZYADD(get_area(src).cameras, UID())
 
 	if(display_message)
 		if(user)
