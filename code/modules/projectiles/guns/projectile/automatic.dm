@@ -46,8 +46,10 @@
 			update_icon()
 			return 1
 
-/obj/item/gun/projectile/automatic/ui_action_click()
-	burst_select()
+/obj/item/gun/projectile/automatic/ui_action_click(var/owner, var/action_type)
+    if (ispath(action_type, /datum/action/item_action/toggle_firemode))
+        burst_select()
+        return TRUE
 
 /obj/item/gun/projectile/automatic/proc/burst_select()
 	var/mob/living/carbon/human/user = usr
@@ -124,6 +126,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
 	can_suppress = 0
+	can_flashlight = 1
 	burst_size = 1
 	actions_types = list()
 	can_bayonet = TRUE
@@ -133,6 +136,18 @@
 /obj/item/gun/projectile/automatic/wt550/update_icon()
 	..()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
+
+	if(gun_light)
+		var/iconF = "wt-light"
+		if(gun_light.on)
+			iconF = "wt-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/wt550/ui_action_click(var/owner, var/action_type)
+    if(..()) return TRUE
+    if (action_type == /datum/action/item_action/toggle_gunlight)
+        toggle_gunlight()
+        return TRUE
 
 //Type-U3 Uzi//
 /obj/item/gun/projectile/automatic/mini_uzi
