@@ -112,49 +112,37 @@
 			continue // Still needed for Ais who get created on Z level 1 on the spot of the new player
 
 		for(var/turf/t in c.can_see())
-			// Possible optimization: if(turfs[t]) here, rather than &= turfs afterwards.
-			// List associations use a tree or hashmap of some sort (alongside the list itself)
-			//  so are surprisingly fast. (significantly faster than var/thingy/x in list, in testing)
-			newVisibleTurfs[t] = t
-
-	// Removes turf that isn't in turfs.
-	newVisibleTurfs &= turfs
+			if(turfs[t])
+				newVisibleTurfs[t] = t
 
 	var/list/visAdded = newVisibleTurfs - visibleTurfs
 	var/list/visRemoved = visibleTurfs - newVisibleTurfs
 
 	visibleTurfs = newVisibleTurfs
 	obscuredTurfs = turfs - newVisibleTurfs
-
-	for(var/turf in visAdded)
-		var/turf/t = turf
+	var/list/images_to_remove = list()
+	var/list/images_to_add = list()
+	for(var/turf/t as anything in visAdded)
 		if(t.obscured)
 			obscured -= t.obscured
-			for(var/eye in seenby)
-				var/mob/camera/aiEye/m = eye
-				if(!m)
-					continue
-				var/client/client = m.GetViewerClient()
-				if(client)
-					client.images -= t.obscured
+			images_to_remove += t.obscured
 
-	for(var/turf in visRemoved)
-		var/turf/t = turf
-		if(obscuredTurfs[t])
-			if(!t.obscured)
-				t.obscured = image('icons/effects/cameravis.dmi', t, null, BYOND_LIGHTING_LAYER + 0.1)
-				t.obscured.plane = BYOND_LIGHTING_PLANE + 1
+	for(var/turf/t as anything in visRemoved)
+		if(!t.obscured)
+			t.obscured = image('icons/effects/cameravis.dmi', t, null, BYOND_LIGHTING_LAYER + 0.1)
+			t.obscured.plane = BYOND_LIGHTING_PLANE + 1
+		obscured += t.obscured
+		images_to_add += t.obscured
 
-			obscured += t.obscured
-			for(var/eye in seenby)
-				var/mob/camera/aiEye/m = eye
-				if(!m)
-					seenby -= m
-					continue
-				var/client/client = m.GetViewerClient()
-				if(client)
-					client.images += t.obscured
-
+	for(var/eye in seenby)
+		var/mob/camera/aiEye/m = eye
+		if(!m)
+			seenby -= m // TODO remove and fix cause as this will fuck shit up
+			continue
+		var/client/client = m.GetViewerClient()
+		if(client)
+			client.images -= images_to_remove
+			client.images += images_to_add
 	changed = FALSE
 
 // Create a new camera chunk, since the chunks are made as they are needed.
