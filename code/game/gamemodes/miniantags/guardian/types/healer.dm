@@ -101,8 +101,8 @@
 		to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place another beacon.</span>")
 
 /obj/effect/bluespace_beacon
-	name = "bluespace recieving pad"
-	desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
+	name = "bluespace receiving pad"
+	desc = "A receiving zone for bluespace teleportations. Building a wall over it should disable it."
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "light_on"
 	plane = FLOOR_PLANE
