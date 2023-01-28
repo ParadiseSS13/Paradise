@@ -462,12 +462,12 @@
 
 	return if_no_id
 
-/mob/living/carbon/human/get_id_card(mob/living/carbon/human/H)
+/mob/living/carbon/human/get_id_card()
 	var/obj/item/card/id/id = wear_id?.GetID()
 	if(istype(id)) // Make sure its actually an ID
 		return id
-	if(H.get_active_hand())
-		var/obj/item/I = H.get_active_hand()
+	if(get_active_hand())
+		var/obj/item/I = get_active_hand()
 		return I.GetID()
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
