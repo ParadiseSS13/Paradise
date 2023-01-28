@@ -358,15 +358,13 @@
 		H.play_xylophone()
 
 /mob/living/carbon/can_be_flashed(intensity = 1, override_blindness_check = 0)
-
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	. = ..()
 
-	if((E && E.status & ORGAN_DEAD) || !.)
+	if((E && (E.status & ORGAN_DEAD)) || !.)
 		return FALSE
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
-
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 

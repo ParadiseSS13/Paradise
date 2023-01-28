@@ -940,7 +940,7 @@
 	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	. = ..()
 
-	if((!. || (!E && !(src.dna.species.bodyflags & NO_EYES))))
+	if((!. || (!E && !(dna.species.bodyflags & NO_EYES))))
 		return FALSE
 
 	return TRUE
