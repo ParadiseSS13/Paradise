@@ -610,6 +610,7 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
+	flags_2 = RANDOM_BLOCKER_2
 
 /obj/item/twohanded/chainsaw/update_icon_state()
 	if(wielded)
