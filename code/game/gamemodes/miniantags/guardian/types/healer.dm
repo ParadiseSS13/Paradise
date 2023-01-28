@@ -103,8 +103,8 @@
 /obj/effect/bluespace_beacon
 	name = "bluespace recieving pad"
 	desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "beacon"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "light_on"
 	plane = FLOOR_PLANE
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
