@@ -463,7 +463,7 @@
 	return if_no_id
 
 /mob/living/carbon/human/get_id_card(mob/living/carbon/human/H)
-	var/obj/item/card/id/id = wear_id.GetID()
+	var/obj/item/card/id/id = wear_id?.GetID()
 	if(istype(id)) // Make sure its actually an ID
 		return id
 	if(H.get_active_hand())
@@ -503,16 +503,10 @@
 	return if_no_id	//to prevent null-names making the mob unclickable
 
 //gets ID card object from special clothes slot or, if applicable, hands as well
-/mob/living/carbon/human/proc/get_idcard(check_hands = FALSE)
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/pda/pda = wear_id
+/mob/living/carbon/human/proc/get_idcard(check_hands = FALSE) // here
+	var/obj/item/card/id/id = wear_id?.GetID()
 	if(!istype(id)) //We only check for PDAs if there isn't an ID in the ID slot. IDs take priority.
-		if(istype(pda) && pda.id)
-			id = pda.id
-		else
-			pda = wear_pda
-			if(istype(pda) && pda.id)
-				id = pda.id
+		id = wear_pda?.GetID()
 
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
