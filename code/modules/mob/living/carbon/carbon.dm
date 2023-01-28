@@ -368,17 +368,17 @@
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
-	//Checks that shouldn't stop flashing, but should stop eye damage, so they go here instead of in can_be_flashed()
-	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-	if(!E || E.weld_proof)
-		return
-
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
 	var/damage = intensity - check_eye_prot()
 	var/extra_damage = 0
 	if(.)
 		if(visual)
+			return
+
+		//Checks that shouldn't stop flashing, but should stop eye damage, so they go here instead of in can_be_flashed()
+		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+		if(!E || E.weld_proof)
 			return
 
 		var/extra_darkview = 0
