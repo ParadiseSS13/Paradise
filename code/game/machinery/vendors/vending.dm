@@ -751,7 +751,6 @@
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
 
-
 	if(cash_transaction)
 		new /obj/item/stack/spacecash(get_turf(src), cash_transaction)
 		cash_transaction = 0
