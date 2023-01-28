@@ -30,7 +30,7 @@
 	admin_spawned = TRUE
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
-	beacon = null
+	qdel(beacon)
 	return ..()
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
