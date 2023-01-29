@@ -930,6 +930,15 @@
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
 
+/mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)
+
+	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+	. = ..()
+
+	if((!. || (!E && !(dna.species.bodyflags & NO_EYES))))
+		return FALSE
+
+	return TRUE
 
 ///check_eye_prot()
 ///Returns a number between -1 to 2
