@@ -205,6 +205,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
+/// Forces open doors after a delay specific to the item
+#define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
