@@ -26,9 +26,6 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	GLOB.gas_meters -= src
 	return ..()
 
-/obj/machinery/atmospherics/meter/detailed_examine()
-	return "Measures the volume and temperature of the pipe under the meter."
-
 /obj/machinery/atmospherics/meter/process_atmos()
 	if(!target || (stat & (BROKEN|NOPOWER)))
 		update_icon(UPDATE_ICON_STATE)
@@ -72,6 +69,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
+	. += "<span class='notice'>Measures the volume and temperature of the pipe under the meter.</span>"
 	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
 		. += "<span class='boldnotice'>You are too far away to read it.</span>"
 

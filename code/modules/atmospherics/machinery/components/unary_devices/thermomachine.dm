@@ -37,10 +37,9 @@
 	RefreshParts()
 	update_icon()
 
-/obj/machinery/atmospherics/unary/thermomachine/detailed_examine()
-	return "Cools or heats the gas of the pipe it is connected to. It uses massive amounts of electricity while on. \
-			It can be upgraded by replacing the capacitors, manipulators, and matter bins. It can be deconstructed by screwing the maintenance panel open with a \
-			screwdriver, and then using a crowbar."
+/obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.</span>"
 
 /obj/machinery/atmospherics/unary/thermomachine/proc/swap_function()
 	cooling = !cooling

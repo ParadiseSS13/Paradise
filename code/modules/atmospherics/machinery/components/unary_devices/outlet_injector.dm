@@ -28,9 +28,10 @@ GLOBAL_LIST_EMPTY(air_injectors)
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = TRUE
 
-/obj/machinery/atmospherics/unary/outlet_injector/detailed_examine()
-	return "Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
-			A green light on it means it is on."
+/obj/machinery/atmospherics/unary/outlet_injector/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
+			A green light on it means it is on.</span>"
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
 	if(!powered())

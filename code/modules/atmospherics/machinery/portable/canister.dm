@@ -119,13 +119,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	update_icon()
 
-/obj/machinery/atmospherics/portable/canister/detailed_examine()
-	return "The canister can be connected to a connector port with a wrench. Tanks of gas (the kind you can hold in your hand) \
+/obj/machinery/atmospherics/portable/canister/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The canister can be connected to a connector port with a wrench. Tanks of gas (the kind you can hold in your hand) \
 			can be filled by the canister, by using the tank on the canister, increasing the release pressure, then opening the valve until it is full, and then close it. \
-			*DO NOT* remove the tank until the valve is closed. A gas analyzer can be used to check the contents of the canister."
-
-/obj/machinery/atmospherics/portable/canister/detailed_examine_antag()
-	return "Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open."
+			*DO NOT* remove the tank until the valve is closed. A gas analyzer can be used to check the contents of the canister.</span>"
+	if(isAntag(user))
+		. += "<span class='notice'>Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open.</span>"
 
 /obj/machinery/atmospherics/portable/canister/proc/check_change()
 	var/old_flag = update_flag

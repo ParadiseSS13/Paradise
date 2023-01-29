@@ -19,9 +19,11 @@
 	var/light_range_on = 1
 	var/light_power_on = 0.1 //just dont want it to be culled by byond.
 
-/obj/machinery/atmospherics/binary/circulator/detailed_examine()
-	return "This generates electricity, depending on the difference in temperature between each side of the machine. The meter in \
-			the center of the machine gives an indicator of how much electricity is being generated."
+/obj/machinery/atmospherics/binary/circulator/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This generates electricity, depending on the difference in temperature between each side of the machine. The meter in \
+		the center of the machine gives an indicator of how much electricity is being generated.</span>"
+
 
 // Creating a custom circulator pipe subtype to be delivered through cargo
 /obj/item/pipe/circulator

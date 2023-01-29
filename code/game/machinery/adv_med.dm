@@ -15,14 +15,7 @@
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant.</span>"
-
-/obj/machinery/bodyscanner/detailed_examine()
-	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
-			This is useful if you are about to perform surgery.<br>\
-			<br>\
-			Click your target and drag them onto the scanner to place them inside. Click the body scanner in order to operate it. \
-			Alt-Click to remove them, or use the eject button in the interface."
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. Click-drag someone to the scanner to place them inside.</span>"
 
 
 /obj/machinery/bodyscanner/Destroy()
