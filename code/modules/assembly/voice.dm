@@ -28,7 +28,10 @@
 		return
 
 	if(listening)
-		recorded = msg
+		if(findtext(msg, "</span>"))
+			recorded = strip_html_properly("[msg]")
+		else
+			recorded = msg
 		recorded_type = type
 		listening = FALSE
 		var/turf/T = get_turf(src)	//otherwise it won't work in hand
