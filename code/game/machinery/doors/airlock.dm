@@ -1166,13 +1166,19 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		var/obj/item/twohanded/twohanded_item = I
 		/// Time it takes to open an airlock with an item with the TRAIT_FORCES_OPEN_DOORS_ITEM trait, 5 seconds for wielded items, 10 seconds for nonwielded items
 		var/time_to_open_airlock = 10 SECONDS
+		/// Can we open the airlock while unpowered? Wielded item's can't, but unwielded items can
+		var/can_force_open_while_unpowered = TRUE
 		if(istype(twohanded_item))
+			can_force_open_while_unpowered = FALSE
 			time_to_open_airlock = 5 SECONDS
 			if(!twohanded_item.wielded)
 				to_chat(user, "<span class='warning'>You need to be wielding [I] to do that!</span>")
 				return
 		if(density && !prying_so_hard)
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+			if(!arePowerSystemsOn() && can_force_open_while_unpowered)
+				open(2)
+				return
 			prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
 			var/result = do_after(user, time_to_open_airlock, target = src)
 			prying_so_hard = FALSE
