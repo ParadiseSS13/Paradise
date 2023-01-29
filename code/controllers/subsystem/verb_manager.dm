@@ -73,19 +73,12 @@ SUBSYSTEM_DEF(verb_manager)
 		stack_trace("_queue_verb() returned false because it was given a callback acting on a qdeleted object! [destroyed_string]")
 		return FALSE
 
-	//we want unit tests to be able to directly call verbs that attempt to queue, and since unit tests should test internal behavior, we want the queue
+	//we want unit tests and NPCs to be able to directly call verbs that attempt to queue, and since unit tests should test internal behavior, we want the queue
 	//to happen as if it was actually from player input if its called on a mob.
-#ifdef UNIT_TESTS
 	if(QDELETED(usr) && ismob(incoming_callback.object))
 		incoming_callback.usr_uid = incoming_callback.object.UID()
 		var/datum/callback/new_us = CALLBACK(arglist(list(GLOBAL_PROC, GLOBAL_PROC_REF(_queue_verb)) + args.Copy()))
 		return world.invoke_callback_with_usr(incoming_callback.object, new_us)
-#endif
-
-	//debatable whether this is needed, this is just to try and ensure that you dont use this to queue stuff that isnt from player input.
-	if(QDELETED(usr))
-		stack_trace("_queue_verb() returned false because it wasnt called from player input!")
-		return FALSE
 
 	if(!istype(subsystem_to_use))
 		stack_trace("_queue_verb() returned false because it was given an invalid subsystem to queue for!")
