@@ -462,12 +462,12 @@
 
 	return if_no_id
 
-/mob/living/carbon/human/get_id_card(mob/living/carbon/human/H)
-	var/obj/item/card/id/id = wear_id.GetID()
+/mob/living/carbon/human/get_id_card()
+	var/obj/item/card/id/id = wear_id?.GetID()
 	if(istype(id)) // Make sure its actually an ID
 		return id
-	if(H.get_active_hand())
-		var/obj/item/I = H.get_active_hand()
+	if(get_active_hand())
+		var/obj/item/I = get_active_hand()
 		return I.GetID()
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
@@ -494,24 +494,19 @@
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	if(istype(pda))		. = pda.owner
-	else if(istype(id))	. = id.registered_name
-	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
-	return
+	var/obj/item/card/id/id = wear_id?.GetID()
+	if(istype(id))
+		return id.registered_name
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda = wear_id
+		return pda.owner
+	return if_no_id	//to prevent null-names making the mob unclickable
 
 //gets ID card object from special clothes slot or, if applicable, hands as well
-/mob/living/carbon/human/proc/get_idcard(check_hands = FALSE)
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/pda/pda = wear_id
+/mob/living/carbon/human/proc/get_idcard(check_hands = FALSE) // here
+	var/obj/item/card/id/id = wear_id?.GetID()
 	if(!istype(id)) //We only check for PDAs if there isn't an ID in the ID slot. IDs take priority.
-		if(istype(pda) && pda.id)
-			id = pda.id
-		else
-			pda = wear_pda
-			if(istype(pda) && pda.id)
-				id = pda.id
+		id = wear_pda?.GetID()
 
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
@@ -935,6 +930,15 @@
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
 
+/mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)
+
+	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+	. = ..()
+
+	if((!. || (!E && !(dna.species.bodyflags & NO_EYES))))
+		return FALSE
+
+	return TRUE
 
 ///check_eye_prot()
 ///Returns a number between -1 to 2
@@ -1774,15 +1778,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/can_track(mob/living/user)
 	if(wear_id)
-		var/obj/item/card/id/id = wear_id
+		var/obj/item/card/id/id = wear_id.GetID()
 		if(istype(id) && id.is_untrackable())
 			return 0
 	if(wear_pda)
-		var/obj/item/pda/pda = wear_pda
-		if(istype(pda))
-			var/obj/item/card/id/id = pda.id
-			if(istype(id) && id.is_untrackable())
-				return 0
+		var/obj/item/card/id/id = wear_pda.GetID()
+		if(istype(id) && id.is_untrackable())
+			return 0
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
