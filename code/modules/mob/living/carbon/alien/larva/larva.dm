@@ -12,7 +12,6 @@
 	var/amount_grown = 0
 	var/max_grown = 200
 	var/time_of_birth
-	var/already_transfering = FALSE
 	death_message = "lets out a waning high-pitched cry."
 	death_sound = null
 
@@ -40,15 +39,6 @@
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
-
-/mob/living/carbon/alien/larva/proc/cast_larva()
-	if(already_transfering)
-		to_chat(src, "<span class='noticealien'>You stop transfering plasma.</span>" )
-		already_transfering = FALSE
-		return
-	to_chat(src, "<span class='noticealien'>You prepare to transfer plasma.</span>")
-	already_transfering = TRUE
-
 
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()

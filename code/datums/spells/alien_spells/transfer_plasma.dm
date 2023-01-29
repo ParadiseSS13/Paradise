@@ -5,14 +5,6 @@
 	action_icon_state = "alien_transfer"
 	plasma_cost = 50
 
-/obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma/cast(list/targets, mob/living/carbon/user = usr)
-	if(!islarva(user))
-		. = ..()
-		return
-	user.add_plasma(plasma_cost)
-	var/mob/living/carbon/alien/larva/larva_user = user
-	larva_user.cast_larva()
-
 /obj/item/melee/touch_attack/alien/transfer_plasma
 	name = "plasma transfer"
 	desc = "Transfers 50 plasma to another alien."

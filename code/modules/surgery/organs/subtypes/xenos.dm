@@ -71,6 +71,7 @@
 	name = "tiny xeno plasma vessel"
 	icon_state = "plasma_tiny"
 	max_plasma = 100
+	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds)
 
 
 /obj/item/organ/internal/alien/plasmavessel/on_life()

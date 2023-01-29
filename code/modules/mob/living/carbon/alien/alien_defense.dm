@@ -33,26 +33,6 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
 			else
 				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
-	if(!islarva(M))
-		return
-	var/mob/living/carbon/alien/target = src
-	var/mob/living/carbon/alien/larva/transfering_larva = M
-	if(!transfering_larva.already_transfering)
-		return
-	if(target == transfering_larva)
-		to_chat(M, "<span class='notice'>You cannot transfer plasma to yourself.</span>")
-		return
-	if(transfering_larva.get_plasma() < 50) // If you don't have enough plasma, you shouldn't be able to transfer plasma you don't have
-		transfering_larva.already_transfering = FALSE
-		return
-	transfering_larva.do_attack_animation(src, ATTACK_EFFECT_BOOP)
-	playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-	visible_message("<span class='danger'>[transfering_larva.name] transfers some plasma to [target]!</span>", \
-		"<span class='userdanger'>[transfering_larva.name] transfers some plasma to [target]!</span>")
-	transfering_larva.add_plasma(-50)
-	target.add_plasma(50)
-	transfering_larva.already_transfering = FALSE
-	return
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)
