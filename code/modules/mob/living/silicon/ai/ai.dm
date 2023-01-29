@@ -271,7 +271,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
 	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
-	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
@@ -685,7 +685,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		unset_machine()
 		src << browse(null, t1)
 	if(href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
+		switchCamera(locate(href_list["switchcamera"]) in GLOB.cameranet.cameras)
 	if(href_list["showalerts"])
 		ai_alerts()
 	if(href_list["show_paper"])

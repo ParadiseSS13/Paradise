@@ -46,8 +46,8 @@
 	..()
 	add_language("Galactic Common")
 	init_subsystems()
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
@@ -364,7 +364,20 @@
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()
-	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Security", "Medical","Diagnostic","Disable")
+	to_chat(src, "<span class='notice'>Please select sensor type.</span>")
+	var/static/list/sensor_choices = list("Security" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "securityhud"),
+							"Medical" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "healthhud"),
+							"Diagnostic" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "diagnostichud"),
+							"None" = image(icon = 'icons/mob/screen_gen.dmi', icon_state = "x"))
+	var/user_loc
+	if(isAI(src))
+		var/mob/living/silicon/ai/eyeloc = src
+		user_loc = eyeloc.eyeobj
+	else
+		user_loc = src
+	var/sensor_type = show_radial_menu(src, user_loc, sensor_choices)
+	if(!sensor_type)
+		return
 	remove_med_sec_hud()
 	switch(sensor_type)
 		if("Security")
@@ -376,7 +389,7 @@
 		if("Diagnostic")
 			add_diag_hud()
 			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
-		if("Disable")
+		if("None")
 			to_chat(src, "Sensor augmentations disabled.")
 
 /mob/living/silicon/adjustToxLoss(amount)

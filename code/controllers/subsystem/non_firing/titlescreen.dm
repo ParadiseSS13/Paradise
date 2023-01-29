@@ -32,5 +32,3 @@ SUBSYSTEM_DEF(title)
 
 		for(var/turf/simulated/wall/indestructible/splashscreen/splash in world)
 			splash.icon = icon
-
-	return ..()

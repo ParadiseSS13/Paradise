@@ -3,6 +3,7 @@ PROCESSING_SUBSYSTEM_DEF(projectiles)
 	wait = 1
 	flags = SS_NO_INIT|SS_TICKER
 	offline_implications = "Projectiles will no longer move. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	/// Maximum moves a projectile can make per tick.
 	var/global_max_tick_moves = 10
