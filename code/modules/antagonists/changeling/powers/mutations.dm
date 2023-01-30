@@ -368,7 +368,7 @@
 	var/obj/item/shield/changeling/S = ..(user)
 	if(!S)
 		return FALSE
-	S.remaining_uses = round(cling.absorbed_count * 3)
+	S.remaining_uses = round(cling.absorbed_count * 5)
 	return TRUE
 
 /obj/item/shield/changeling
@@ -381,7 +381,7 @@
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 0, _stamina_coefficient = 0, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
@@ -392,10 +392,9 @@
 			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
 			H.unEquip(src, 1)
 		qdel(src)
-		return 0
-	else
-		remaining_uses--
-		return ..()
+		return FALSE
+	remaining_uses--
+	return ..()
 
 
 /***************************************\
