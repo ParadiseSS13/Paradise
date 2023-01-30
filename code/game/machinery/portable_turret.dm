@@ -399,7 +399,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	if(!(stat & BROKEN))
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
-		take_damage(M.melee_damage_upper)
+		..()
 	else
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
