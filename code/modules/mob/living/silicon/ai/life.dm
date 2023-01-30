@@ -141,7 +141,7 @@
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
-	return ((!A.power_equip) && A.requires_power == 1 || isspaceturf(T)) && !isitem(src.loc)
+	return (!A.powernet.equipment_powered && A.requires_power || isspaceturf(T)) && !isitem(loc)
 
 /mob/living/silicon/ai/rejuvenate()
 	..()

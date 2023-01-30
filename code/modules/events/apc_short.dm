@@ -39,7 +39,7 @@
 		var/obj/item/stock_parts/cell/C = A.get_cell()
 		if(C)
 			C.charge = 0
-		current_area.power_change()
+		current_area.powernet.power_change()
 	log_and_message_admins("Power has been drained from all APCs.")
 
 /proc/power_failure(announce = TRUE)
@@ -69,7 +69,7 @@
 			if(A.operating)
 				A.toggle_breaker()
 			// no matter what, ensure the area knows something happened to the power
-			current_area.power_change()
+			current_area.powernet.power_change()
 			affected_apc_count++
 	log_and_message_admins("APC Short Out event has shorted out [affected_apc_count] APCs.")
 
@@ -86,7 +86,7 @@
 			if(!length(A.wires.cut_wires) && A.operating && !A.shorted)
 				A.recharge_apc()
 			affected_apc_count++
-			current_area.power_change()
+			current_area.powernet.power_change()
 		log_and_message_admins("Power has been restored to [affected_apc_count] APCs.")
 	if(power_type == 1)	//Repair without charging
 		if(announce)
@@ -97,7 +97,7 @@
 			if(!is_station_level(A.z))
 				continue
 			A.repair_apc()
-			current_area.power_change()
+			current_area.powernet.power_change()
 		log_and_message_admins("Power has been restored to all APCs.")
 	if(power_type == 2)	//Repair and Power APCs
 		if(announce)
@@ -110,7 +110,7 @@
 				continue
 			A.repair_apc()
 			A.recharge_apc()
-			current_area.power_change()
+			current_area.powernet.power_change()
 		log_and_message_admins("Power has been restored to all APCs.")
 
 /proc/power_restore_quick(announce = TRUE)
