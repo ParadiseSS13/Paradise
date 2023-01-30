@@ -45,6 +45,9 @@
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/organ/internal/cyberimp/arm/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	RegisterSignal(M, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_to_linked_implant))
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -61,6 +64,16 @@
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
+
+/obj/item/organ/internal/cyberimp/arm/proc/retract_to_linked_implant()
+	SIGNAL_HANDLER
+	if(holder && holder == owner.get_active_hand())
+		INVOKE_ASYNC(src, PROC_REF(retract_and_show_radial))
+
+/obj/item/organ/internal/cyberimp/arm/proc/retract_and_show_radial()
+	Retract()
+	if(length(items_list) != 1)
+		radial_menu(owner)
 
 /obj/item/organ/internal/cyberimp/arm/proc/check_cuffs()
 	if(owner.handcuffed)
@@ -104,7 +117,11 @@
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
-		if(!owner.unEquip(arm_item))
+		if(istype(arm_item, /obj/item/twohanded/offhand))
+			var/obj/item/offhand_arm_item = owner.get_active_hand()
+			to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!</span>")
+			return
+		else if(!owner.unEquip(arm_item))
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else
@@ -253,7 +270,7 @@
 	..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
-		F.I = src
+		F.implant = src
 
 /obj/item/organ/internal/cyberimp/arm/baton
 	name = "arm electrification implant"
@@ -271,7 +288,7 @@
 	..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
-		F.I = src
+		F.implant = src
 
 /obj/item/organ/internal/cyberimp/arm/combat/centcom
 	name = "NT specops cybernetics implant"
@@ -451,7 +468,7 @@
 	item_state = "v1_arm"
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
-	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted", "gored")
+	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
 	hitsound = 'sound/effects/bang.ogg'
 	light_power = 3
 	light_range = 0
@@ -516,11 +533,16 @@
 
 	owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
-	if(isitem(hitby)) //Thrown items
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		if(!isitem(hitby))
+			return TRUE
 		var/obj/item/TT = hitby
-		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 15, 15, owner), 0.1 SECONDS) //yeet that shit right back
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
 		return TRUE
-	melee_attack_chain(owner, hitby)
+	if(isitem(hitby))
+		melee_attack_chain(owner, hitby.loc)
+	else
+		melee_attack_chain(owner, hitby)
 	return TRUE
 
 /obj/item/v1_arm_shell

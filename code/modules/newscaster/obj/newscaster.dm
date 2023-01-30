@@ -121,7 +121,8 @@
 			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else

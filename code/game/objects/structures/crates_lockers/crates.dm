@@ -103,7 +103,7 @@
 			to_chat(user, "<span class='notice'>You rig [src].</span>")
 			rigged = TRUE
 		else
-			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
+			to_chat(user, "<span class='warning'>You need at least 15 wires to rig [src]!</span>")
 		return TRUE
 	if(istype(W, /obj/item/electropack))
 		if(rigged)
@@ -148,6 +148,9 @@
 					return
 		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
+
+/obj/structure/closet/crate/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)
@@ -346,6 +349,7 @@
 	var/cooling_power = 40
 
 /obj/structure/closet/crate/freezer/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/gas = (..())
 	if(!gas)	return null
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()

@@ -741,7 +741,7 @@ STATUS EFFECTS
 	if(F)
 		F.duration += amount
 	else if(amount > 0)
-		F = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+		F = apply_status_effect(STATUS_EFFECT_FLOORED, amount)
 	return F
 
 

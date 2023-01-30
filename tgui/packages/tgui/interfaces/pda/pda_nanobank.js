@@ -192,13 +192,15 @@ const AccountActions = (props, context) => {
             icon="user-lock"
             selected={security_level === 1}
             content="Account Number Only"
+            tooltip="Set Account security so that only having the account number is required for transactions"
             onClick={() => act('set_security', {
               new_security_level: 1
             })} />
           <Button
             icon="user-lock"
             selected={security_level === 2}
-            content="Pin Entry Required"
+            content="Require Pin Entry"
+            tooltip="Set Account security so that pin entry is required for transactions"
             onClick={() => act('set_security', {
               new_security_level: 2
             })} />

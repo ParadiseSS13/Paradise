@@ -51,7 +51,8 @@
 		icon_state = "RD-server-on"
 
 /obj/machinery/r_n_d/server/power_change()
-	. = ..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/r_n_d/server/proc/initialize_serv()
