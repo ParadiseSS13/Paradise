@@ -691,7 +691,9 @@
 #define HALLUCINATE_COOLDOWN_MIN 20 SECONDS
 #define HALLUCINATE_COOLDOWN_MAX 50 SECONDS
 /// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
-#define HALLUCINATE_COOLDOWN_FACTOR 0.0015
+#define HALLUCINATE_COOLDOWN_FACTOR 0.003
+/// Percentage defining the chance at which an hallucination may spawn past the cooldown.
+#define HALLUCINATE_CHANCE 80
 // Severity weights, should sum up to 100!
 #define HALLUCINATE_MINOR_WEIGHT 60
 #define HALLUCINATE_MODERATE_WEIGHT 30
@@ -710,6 +712,8 @@
 		return
 
 	next_hallucination = world.time + rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (strength * HALLUCINATE_COOLDOWN_FACTOR)
+	if(!prob(HALLUCINATE_CHANCE))
+		return
 
 	// Pick a severity
 	var/severity = HALLUCINATE_MINOR
@@ -739,6 +743,7 @@
 #undef HALLUCINATE_COOLDOWN_MIN
 #undef HALLUCINATE_COOLDOWN_MAX
 #undef HALLUCINATE_COOLDOWN_FACTOR
+#undef HALLUCINATE_CHANCE
 #undef HALLUCINATE_MINOR_WEIGHT
 #undef HALLUCINATE_MODERATE_WEIGHT
 #undef HALLUCINATE_MAJOR_WEIGHT
