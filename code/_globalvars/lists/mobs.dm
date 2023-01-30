@@ -7,8 +7,7 @@ GLOBAL_LIST_EMPTY(whitelisted_species)
 
 GLOBAL_LIST_EMPTY(clients)							//list of all clients
 GLOBAL_LIST_EMPTY(admins)							//list of all clients whom are admins
-GLOBAL_LIST_EMPTY(de_admins)							//list of all admins who have used the de-admin verb.
-GLOBAL_LIST_EMPTY(de_mentors)							//list of all mentors who have used the de-admin verb.
+GLOBAL_LIST_EMPTY(deadmins)							//list of all clients who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(directory)							//list of all ckeys with associated client
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins
 

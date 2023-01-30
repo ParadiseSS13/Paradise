@@ -49,8 +49,7 @@
 	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
 
 /obj/machinery/recycler/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
@@ -68,7 +67,7 @@
 		return TRUE
 
 /obj/machinery/recycler/wrench_act(mob/user, obj/item/I)
-	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
+	if(default_unfasten_wrench(user, I))
 		return TRUE
 
 

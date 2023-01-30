@@ -20,8 +20,9 @@
 	var/stealthmode = FALSE
 	var/list/victims = list()
 
-	idle_power_consumption = 2
-	active_power_consumption = 500
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 500
 
 /obj/machinery/gibber/Initialize(mapload)
 	. = ..()
@@ -99,7 +100,7 @@
 	if(exchange_parts(user, P))
 		return
 
-	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
+	if(default_unfasten_wrench(user, P))
 		return
 
 	if(default_deconstruction_crowbar(user, P))

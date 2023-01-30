@@ -80,11 +80,11 @@
 	return 0
 
 /obj/machinery/door/firedoor/power_change()
-	. = ..()
-	if(!(stat & NOPOWER))
+	if(powered(power_channel))
+		stat &= ~NOPOWER
 		latetoggle()
-	if(!.)
-		return
+	else
+		stat |= NOPOWER
 	adjust_light()
 	update_icon()
 
@@ -97,7 +97,7 @@
 	else
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
-/obj/machinery/door/firedoor/extinguish_light(force = FALSE)
+/obj/machinery/door/firedoor/extinguish_light()
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
 

@@ -12,8 +12,7 @@
 	severity = MEDIUM
 
 /datum/disease/anxiety/stage_act()
-	if(!..())
-		return FALSE
+	..()
 	switch(stage)
 		if(2) //also changes say, see say.dm
 			if(prob(5))

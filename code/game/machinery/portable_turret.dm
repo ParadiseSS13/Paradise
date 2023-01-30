@@ -9,9 +9,10 @@
 	icon_state = "turretCover"
 	anchored = TRUE
 	density = FALSE
-	idle_power_consumption = 50		//when inactive, this turret takes up constant 50 Equipment power
-	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
-	power_channel = PW_CHANNEL_EQUIPMENT	//drains power from the EQUIPMENT channel
+	use_power = IDLE_POWER_USE				//this turret uses and requires power
+	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
+	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
+	power_channel = EQUIP	//drains power from the EQUIPMENT channel
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
@@ -157,7 +158,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		icon_state = "destroyed_target_prism"
 	else if(raised || raising)
-		if(has_power() && enabled)
+		if(powered() && enabled)
 			if(iconholder)
 				//lasers have a orange icon
 				icon_state = "orange_target_prism"
@@ -316,8 +317,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				one_access = !one_access
 
 /obj/machinery/porta_turret/power_change()
-	if(!..())
-		return
+	if(powered() || !use_power)
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -726,7 +729,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(power_channel, reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
 	if(istype(A))
 		A.original = target
@@ -1019,8 +1022,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	syndicate = TRUE
 	installation = null
 	always_up = TRUE
-	requires_power = FALSE
-	power_state = NO_POWER_USE
+	use_power = NO_POWER_USE
 	has_cover = FALSE
 	raised = TRUE
 	scan_range = 9

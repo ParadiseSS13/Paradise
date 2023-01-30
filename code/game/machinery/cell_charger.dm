@@ -4,9 +4,10 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger0"
 	anchored = TRUE
-	idle_power_consumption = 5
-	active_power_consumption = 60
-	power_channel = PW_CHANNEL_EQUIPMENT
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 5
+	active_power_usage = 60
+	power_channel = EQUIP
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
@@ -57,7 +58,7 @@
 			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
 			if(!isarea(a))
 				return
-			if(!a.powernet.equipment_powered) // There's no APC in this area, don't try to cheat power!
+			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
 				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
 				return
 			if(!user.drop_item())

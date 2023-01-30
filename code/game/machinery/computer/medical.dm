@@ -78,7 +78,7 @@
 /obj/machinery/computer/med_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "MedicalRecords", "Medical Records", 800, 800, master_ui, state)
+		ui = new(user, src, ui_key, "MedicalRecords", "Medical Records", 800, 380, master_ui, state)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -96,13 +96,7 @@
 					var/list/records = list()
 					data["records"] = records
 					for(var/datum/data/record/R in sortRecord(GLOB.data_core.general))
-						records[++records.len] = list(
-							"ref" = "\ref[R]",
-							"name" = R.fields["name"],
-							"id" = R.fields["id"],
-							"rank" = R.fields["rank"],
-							"p_stat" = R.fields["p_stat"],
-							"m_stat" = R.fields["m_stat"])
+						records[++records.len] = list("ref" = "\ref[R]", "id" = R.fields["id"], "name" = R.fields["name"])
 			if(MED_DATA_RECORD)
 				var/list/general = list()
 				data["general"] = general
@@ -133,14 +127,14 @@
 					fields[++fields.len] = MED_FIELD("Blood Type", active2.fields["blood_type"], "blood_type", FALSE)
 					fields[++fields.len] = MED_FIELD("DNA", active2.fields["b_dna"], "b_dna", TRUE)
 					fields[++fields.len] = MED_FIELD("Minor Disabilities", active2.fields["mi_dis"], "mi_dis", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["mi_dis_d"], "mi_dis_d", FALSE)
+					fields[++fields.len] = MED_FIELD("Details", active2.fields["mi_dis_d"], "mi_dis_d", TRUE)
 					fields[++fields.len] = MED_FIELD("Major Disabilities", active2.fields["ma_dis"], "ma_dis", FALSE)
 					fields[++fields.len] = MED_FIELD("Details", active2.fields["ma_dis_d"], "ma_dis_d", TRUE)
 					fields[++fields.len] = MED_FIELD("Allergies", active2.fields["alg"], "alg", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["alg_d"], "alg_d", FALSE)
+					fields[++fields.len] = MED_FIELD("Details", active2.fields["alg_d"], "alg_d", TRUE)
 					fields[++fields.len] = MED_FIELD("Current Diseases", active2.fields["cdi"], "cdi", FALSE)
 					fields[++fields.len] = MED_FIELD("Details", active2.fields["cdi_d"], "cdi_d", TRUE)
-					fields[++fields.len] = MED_FIELD("Important Notes", active2.fields["notes"], "notes", FALSE)
+					fields[++fields.len] = MED_FIELD("Important Notes", active2.fields["notes"], "notes", TRUE)
 					if(!active2.fields["comments"] || !islist(active2.fields["comments"]))
 						active2.fields["comments"] = list()
 					medical["comments"] = active2.fields["comments"]
@@ -155,15 +149,7 @@
 						continue
 					if(!DS.desc)
 						continue
-					if(DS.medical_name)
-						DS.name = "[DS.medical_name] ([DS.name])"
-					var/list/payload = list(
-						"name" = DS.name,
-						"max_stages" = "[DS.max_stages]", // This needs to be a string for sorting
-						"severity" = DS.severity,
-						"D" = D)
-					data["virus"] += list(payload)
-					qdel(DS)
+					data["virus"] += list(list("name" = DS.name, "D" = D))
 			if(MED_DATA_MEDBOT)
 				data["medbots"] = list()
 				for(var/mob/living/simple_animal/bot/medbot/M in GLOB.bots_list)
@@ -228,8 +214,6 @@
 					return
 
 				var/datum/disease/D = new type(0)
-				if(D.medical_name)
-					D.name = "[D.medical_name] ([D.name])"
 				var/list/payload = list(
 					name = D.name,
 					max_stages = D.max_stages,
@@ -240,16 +224,16 @@
 				)
 				ui_modal_message(src, "virus", "", null, payload)
 				qdel(D)
-			if("del_all_med_records")
+			if("del_all")
 				for(var/datum/data/record/R in GLOB.data_core.medical)
 					qdel(R)
 				set_temp("All medical records deleted.")
-			if("del_med_record")
+			if("del_r")
 				if(active2)
 					set_temp("Medical record deleted.")
 					qdel(active2)
-			if("view_record")
-				var/datum/data/record/general_record = locate(params["view_record"] || "")
+			if("d_rec")
+				var/datum/data/record/general_record = locate(params["d_rec"] || "")
 				if(!GLOB.data_core.general.Find(general_record))
 					set_temp("Record not found.", "danger")
 					return
@@ -263,7 +247,7 @@
 				active1 = general_record
 				active2 = medical_record
 				screen = MED_DATA_RECORD
-			if("new_med_record")
+			if("new")
 				if(istype(active1, /datum/data/record) && !istype(active2, /datum/data/record))
 					var/datum/data/record/R = new /datum/data/record()
 					R.fields["name"] = active1.fields["name"]
@@ -284,8 +268,8 @@
 					active2 = R
 					screen = MED_DATA_RECORD
 					set_temp("Medical record created.", "success")
-			if("del_comment")
-				var/index = text2num(params["del_comment"] || "")
+			if("del_c")
+				var/index = text2num(params["del_c"] || "")
 				if(!index || !istype(active2, /datum/data/record))
 					return
 
@@ -293,7 +277,26 @@
 				index = clamp(index, 1, length(comments))
 				if(comments[index])
 					comments.Cut(index, index + 1)
-			if("print_record")
+			if("search")
+				active1 = null
+				active2 = null
+				var/t1 = lowertext(params["t1"] || "")
+				if(!length(t1))
+					return
+
+				for(var/datum/data/record/R in GLOB.data_core.medical)
+					if(t1 == lowertext(R.fields["name"]) || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"]))
+						active2 = R
+						break
+				if(!active2)
+					set_temp("Medical record not found. You must enter the person's exact name, ID or DNA.", "danger")
+					return
+				for(var/datum/data/record/E in GLOB.data_core.general)
+					if(E.fields["name"] == active2.fields["name"] && E.fields["id"] == active2.fields["id"])
+						active1 = E
+						break
+				screen = MED_DATA_RECORD
+			if("print_p")
 				if(!printing)
 					printing = TRUE
 					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
@@ -326,7 +329,7 @@
 						ui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
 					else
 						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
-				if("add_comment")
+				if("add_c")
 					ui_modal_input(src, id, "Please enter your message:")
 				else
 					return FALSE
@@ -352,7 +355,7 @@
 						active2.fields[field] = answer
 					else if(istype(active1) && (field in active1.fields))
 						active1.fields[field] = answer
-				if("add_comment")
+				if("add_c")
 					var/datum/ui_login/state = ui_login_get()
 					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
@@ -385,11 +388,11 @@
 		<br>\nBlood Type: [active2.fields["blood_type"]]
 		<br>\nDNA: [active2.fields["b_dna"]]<br>\n
 		<br>\nMinor Disabilities: [active2.fields["mi_dis"]]
-		<br>\nDetails: [active2.fields["mi_dis_d"]]<br>
+		<br>\nDetails: [active2.fields["mi_dis_d"]]<br>\n
 		<br>\nMajor Disabilities: [active2.fields["ma_dis"]]
 		<br>\nDetails: [active2.fields["ma_dis_d"]]<br>\n
 		<br>\nAllergies: [active2.fields["alg"]]
-		<br>\nDetails: [active2.fields["alg_d"]]<br>
+		<br>\nDetails: [active2.fields["alg_d"]]<br>\n
 		<br>\nCurrent Diseases: [active2.fields["cdi"]] (per disease info placed in log/comment section)
 		<br>\nDetails: [active2.fields["cdi_d"]]<br>\n
 		<br>\nImportant Notes:

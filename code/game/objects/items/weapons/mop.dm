@@ -27,9 +27,7 @@
 /obj/item/mop/proc/wet_mop(obj/o, mob/user)
 	if(o.reagents.total_volume < 1)
 		to_chat(user, "[o] is out of water!</span>")
-		if(istype(o, /obj/structure/mopbucket))
-			mopbucket_insert(user, o)
-		if(istype(o, /obj/structure/janitorialcart))
+		if(!istype(o, /obj/item/reagent_containers/glass/bucket))
 			janicart_insert(user, o)
 		return
 
@@ -80,6 +78,7 @@
 	name = "advanced mop"
 	mopcap = 10
 	icon_state = "advmop"
+	item_state = "mop"
 	origin_tech = "materials=3;engineering=3"
 	force = 6
 	throwforce = 8
@@ -119,7 +118,4 @@
 /obj/item/mop/advanced/cyborg
 
 /obj/item/mop/advanced/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
-
-/obj/item/mop/advanced/cyborg/mopbucket_insert(mob/user, obj/structure/mopbucket/J)
 	return

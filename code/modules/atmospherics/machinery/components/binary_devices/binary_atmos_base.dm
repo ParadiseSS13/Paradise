@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/binary
 	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
-	power_state = IDLE_POWER_USE
+	use_power = IDLE_POWER_USE
 
 	layer = GAS_PUMP_LAYER
 

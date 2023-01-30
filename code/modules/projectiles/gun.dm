@@ -368,11 +368,14 @@
 
 	if(!gun_light)
 		return
-	gun_light.on = !gun_light.on
+
 	var/mob/living/carbon/human/user = usr
-	if(user)
-		to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
-	playsound(src, 'sound/weapons/empty.ogg', 100, 1)
+	if(!isturf(user.loc))
+		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc]!</span>")
+	gun_light.on = !gun_light.on
+	to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
+
+	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_gun_light(user)
 
 /obj/item/gun/proc/update_gun_light(mob/user = null)
@@ -398,7 +401,7 @@
 		knife_overlay = null
 	return TRUE
 
-/obj/item/gun/extinguish_light(force = FALSE)
+/obj/item/gun/extinguish_light()
 	if(gun_light?.on)
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")

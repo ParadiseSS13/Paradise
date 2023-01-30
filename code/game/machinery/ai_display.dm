@@ -39,8 +39,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	..(severity)
 
 /obj/machinery/ai_status_display/power_change()
-	if(!..())
-		return
+	..()
 	if(stat & NOPOWER)
 		set_light(0)
 	else

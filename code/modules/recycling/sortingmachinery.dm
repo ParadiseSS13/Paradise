@@ -8,7 +8,7 @@
 	var/obj/wrapped = null
 	var/init_welded = FALSE
 	var/giftwrapped = FALSE
-	var/sortTag = 1
+	var/sortTag = 0
 
 /obj/structure/bigDelivery/Destroy()
 	var/turf/T = get_turf(src)
@@ -81,7 +81,7 @@
 	icon_state = "deliverycrate2"
 	var/obj/item/wrapped = null
 	var/giftwrapped = FALSE
-	var/sortTag = 1
+	var/sortTag = 0
 
 /obj/item/smallDelivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -237,8 +237,8 @@
 	slot_flags = SLOT_BELT
 	///Value of the tag
 	var/currTag = 1
-	//The whole system for the sort_type var is determined based on the order of this list,
-	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sort_type = list(1) --Superxpdude
+	//The whole system for the sorttype var is determined based on the order of this list,
+	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 	var/datum/ui_module/destination_tagger/destination_tagger
 
 /obj/item/destTagger/Initialize(mapload)
@@ -257,7 +257,7 @@
 	destination_tagger.ui_interact(user)
 
 /obj/machinery/disposal/deliveryChute
-	name = "delivery chute"
+	name = "Delivery chute"
 	desc = "A chute for big and small packages alike!"
 	density = TRUE
 	icon_state = "intake"
@@ -279,8 +279,7 @@
 	return
 
 /obj/machinery/disposal/deliveryChute/Bumped(atom/movable/AM) //Go straight into the chute
-	if(istype(AM, /obj/item/projectile)	|| isAI(AM) || QDELETED(AM))
-		return
+	if(istype(AM, /obj/item/projectile)	|| isAI(AM))  return
 	switch(dir)
 		if(NORTH)
 			if(AM.loc.y != loc.y + 1) return
@@ -307,11 +306,15 @@
 													// travels through the pipes.
 	for(var/obj/structure/bigDelivery/O in src)
 		deliveryCheck = 1
+		if(O.sortTag == 0)
+			O.sortTag = 1
 	for(var/obj/item/smallDelivery/O in src)
 		deliveryCheck = 1
+		if(O.sortTag == 0)
+			O.sortTag = 1
 	for(var/obj/item/shippingPackage/O in src)
 		deliveryCheck = 1
-		if(!O.sealed)		//unsealed shipping packages will default to disposals
+		if(!O.sealed || O.sortTag == 0)		//unsealed or untagged shipping packages will default to disposals
 			O.sortTag = 1
 	if(deliveryCheck == 0)
 		H.destinationTag = 1
@@ -363,7 +366,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "shippack"
 	var/obj/item/wrapped = null
-	var/sortTag = 1
+	var/sortTag = 0
 	var/sealed = 0
 
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)

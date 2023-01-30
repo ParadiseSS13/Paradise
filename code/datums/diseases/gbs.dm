@@ -13,8 +13,7 @@
 	severity = BIOHAZARD
 
 /datum/disease/gbs/stage_act()
-	if(!..())
-		return FALSE
+	..()
 	switch(stage)
 		if(2)
 			if(prob(45))

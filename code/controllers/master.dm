@@ -19,7 +19,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	name = "Master"
 
 	/// Are we processing (higher values increase the processing delay by n ticks)
-	var/processing = 1
+	var/processing = TRUE
 	/// How many times have we ran
 	var/iteration = 0
 
@@ -210,7 +210,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(init_sss)
 		init_subtypes(/datum/controller/subsystem, subsystems)
 
-	log_startup_progress("Initializing subsystems...")
+	to_chat(world, "<span class='boldannounce'>Initializing subsystems...</span>")
 
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, /proc/cmp_subsystem_init)
@@ -221,7 +221,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for(var/datum/controller/subsystem/SS in subsystems)
 		if(SS.flags & SS_NO_INIT)
 			continue
-		SS.call_init(REALTIMEOFDAY)
+		SS.log_startup_progress("Initializing...")
+		SS.Initialize(REALTIMEOFDAY)
 		CHECK_TICK
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10

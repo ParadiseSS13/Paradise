@@ -171,16 +171,16 @@
 	anchored = TRUE
 	layer = 5
 	max_integrity = 100
-	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 2  //when in low power mode
-	active_power_consumption = 20 //when in full power mode
-	power_channel = PW_CHANNEL_LIGHTING //Lights are calc'd via area so they dont need to be in the machine list
+	use_power = ACTIVE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 20
+	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	/// Is the light on or off?
 	var/on = FALSE
 	/// Is the light currently turning on?
 	var/turning_on = FALSE
 	/// If the light state has changed since the last 'update()', also update the power requirements
-	var/light_state = FALSE
+	var/power_state = FALSE
 	/// How much power does it use?
 	var/static_power_used = 0
 	/// Light range (Also used in power calculation)
@@ -317,7 +317,7 @@
   */
 /obj/machinery/light/proc/update(trigger = TRUE, instant = FALSE, play_sound = TRUE)
 	var/area/current_area = get_area(src)
-	UnregisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE)
+	UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 	switch(status)
 		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
 			on = FALSE
@@ -334,17 +334,17 @@
 	else if(!turned_off())
 		set_emergency_lights()
 	else // Turning off
-		change_power_mode(IDLE_POWER_USE)
+		use_power = IDLE_POWER_USE
 		set_light(0)
 	update_icon()
-	active_power_consumption = (brightness_range * 10)
-	if(on != light_state) // Light was turned on/off, so update the power usage
-		light_state = on
+	active_power_usage = (brightness_range * 10)
+	if(on != power_state) // Light was turned on/off, so update the power usage
+		power_state = on
 		if(on)
 			static_power_used = brightness_range * 20 //20W per unit of luminosity
-			add_static_power(PW_CHANNEL_LIGHTING, static_power_used)
+			addStaticPower(static_power_used, STATIC_LIGHT)
 		else
-			remove_static_power(PW_CHANNEL_LIGHTING, static_power_used)
+			removeStaticPower(static_power_used, STATIC_LIGHT)
 
 
 /**
@@ -390,7 +390,7 @@
 			burnout()
 			return
 
-	change_power_mode(ACTIVE_POWER_USE)
+	use_power = ACTIVE_POWER_USE
 	update_icon()
 	set_light(BR, PO, CO)
 	if(play_sound)
@@ -566,14 +566,14 @@
 // returns if the light has power /but/ is manually turned off
 // if a light is turned off, it won't activate emergency power
 /obj/machinery/light/proc/turned_off()
-	var/area/machine_area = get_area(src)
-	return !machine_area.lightswitch && machine_area.powernet.lighting_powered
+	var/area/A = get_area(src)
+	return !A.lightswitch && A.power_light
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
-/obj/machinery/light/has_power()
-	var/area/machine_area = get_area(src)
-	return machine_area.lightswitch && machine_area.powernet.lighting_powered
+/obj/machinery/light/proc/has_power()
+	var/area/A = get_area(src)
+	return A.lightswitch && A.power_light
 
 // attempts to set emergency lights
 /obj/machinery/light/proc/set_emergency_lights()
@@ -592,12 +592,12 @@
 	emergency_mode = TRUE
 	set_light(3, 1.7, bulb_emergency_colour)
 	update_icon()
-	RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
+	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
 /obj/machinery/light/proc/emergency_lights_off(area/current_area, obj/machinery/power/apc/current_apc)
 	set_light(0, 0, 0) //you, sir, are off!
 	if(current_apc)
-		RegisterSignal(machine_powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(update), override = TRUE)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
 /obj/machinery/light/flicker(amount = rand(20, 30))
 	if(flickering)
@@ -755,7 +755,7 @@
 /obj/machinery/light/power_change()
 	var/area/A = get_area(src)
 	if(A)
-		seton(A.lightswitch && A.powernet.lighting_powered)
+		seton(A.lightswitch && A.power_light)
 
 // called when on fire
 
@@ -941,7 +941,7 @@
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
 
-/obj/machinery/light/extinguish_light(force = FALSE)
+/obj/machinery/light/extinguish_light()
 	on = FALSE
 	extinguished = TRUE
 	emergency_mode = FALSE

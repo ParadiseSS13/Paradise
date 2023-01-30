@@ -97,4 +97,4 @@
 		mult++
 	if(isMotion())
 		mult++
-	active_power_consumption = mult * initial(active_power_consumption)
+	active_power_usage = mult*initial(active_power_usage)

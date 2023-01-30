@@ -7,7 +7,8 @@
 /area/lavaland/surface/outdoors)
 "c" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "seedvault_door_int";
+	frequency = 1385;
+	id_tag = "seed_vault_inner";
 	locked = 1
 	},
 /obj/structure/fans/tiny,
@@ -73,12 +74,12 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "m" = (
-/obj/machinery/airlock_controller/access_controller{
-	ext_button_link_id = "seedvault_btn_ext";
-	ext_door_link_id = "seedvault_door_ext";
-	int_button_link_id = "seedvault_btn_int";
-	int_door_link_id = "seedvault_door_int";
-	pixel_y = 25
+/obj/machinery/embedded_controller/radio/airlock/access_controller{
+	frequency = 1385;
+	id_tag = "seed_vault";
+	pixel_y = 25;
+	tag_exterior_door = "seed_vault_outer";
+	tag_interior_door = "seed_vault_inner"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
@@ -168,9 +169,19 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"z" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	frequency = 1385;
+	id_tag = "seed_vault_outer";
+	locked = 1
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
 "A" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "seedvault_door_ext";
+	frequency = 1385;
+	id_tag = "seed_vault_outer";
 	locked = 1
 	},
 /obj/structure/fans/tiny,
@@ -228,10 +239,13 @@
 /area/ruin/powered/seedvault)
 "L" = (
 /obj/machinery/access_button{
-	autolink_id = "seedvault_btn_int";
-	name = "exterior access button";
+	command = "cycle_interior";
+	frequency = 1385;
+	master_tag = "seed_vault";
+	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = -25
+	pixel_y = -25;
+	req_access_txt = null
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
@@ -279,10 +293,13 @@
 /area/ruin/powered/seedvault)
 "T" = (
 /obj/machinery/access_button{
-	autolink_id = "seedvault_btn_ext";
+	command = "cycle_exterior";
+	frequency = 1385;
+	master_tag = "seed_vault";
 	name = "exterior access button";
 	pixel_x = -25;
-	pixel_y = -25
+	pixel_y = -25;
+	req_access_txt = null
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -670,7 +687,7 @@ a
 a
 Q
 A
-A
+z
 Q
 b
 b

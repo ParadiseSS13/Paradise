@@ -69,15 +69,9 @@
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
 
-	if(user)
-		show_off_message(user)
+	show_off_message(user)
 	set_light(0)
 	STOP_PROCESSING(SSobj, src)
-
-/obj/item/lighter/extinguish_light(force)
-	if(!force)
-		return
-	turn_off_lighter()
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
 	to_chat(user, "<span class='notice'>You shut off [src].")
@@ -130,9 +124,6 @@
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
 	. = ..()
-	if(!user)
-		return
-
 	if(world.time > next_off_message)
 		user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
@@ -209,11 +200,6 @@
 /obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	matchignite()
-
-/obj/item/match/extinguish_light(force)
-	if(!force)
-		return
-	matchburnout()
 
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)

@@ -65,7 +65,7 @@
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 10, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-						"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(IS_HORIZONTAL(A) && !IS_HORIZONTAL(D))
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \

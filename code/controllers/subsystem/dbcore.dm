@@ -3,7 +3,6 @@ SUBSYSTEM_DEF(dbcore)
 	flags = SS_BACKGROUND
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
-	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// Is the DB schema valid
 	var/schema_valid = TRUE
@@ -31,8 +30,9 @@ SUBSYSTEM_DEF(dbcore)
 // This is in Initialize() so that its actually seen in chat
 /datum/controller/subsystem/dbcore/Initialize()
 	if(!schema_valid)
-		log_startup_progress("Database schema ([GLOB.configuration.database.version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.")
+		to_chat(world, "<span class='boldannounce'>Database schema ([GLOB.configuration.database.version]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.</span>")
 
+	return ..()
 
 /datum/controller/subsystem/dbcore/fire()
 	for(var/I in active_queries)

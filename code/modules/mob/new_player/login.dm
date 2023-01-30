@@ -26,7 +26,7 @@
 
 	new_player_panel()
 
-	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
+	if(ckey in GLOB.deadmins)
 		verbs += /client/proc/readmin
 
 	client?.playtitlemusic()

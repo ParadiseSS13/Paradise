@@ -14,8 +14,8 @@
 	name = "large passive vent"
 	volume = 1000
 
-/obj/machinery/atmospherics/unary/passive_vent/Initialize(mapload)
-	. = ..()
+/obj/machinery/atmospherics/unary/passive_vent/New()
+	..()
 	air_contents.volume = volume
 
 /obj/machinery/atmospherics/unary/passive_vent/process_atmos()

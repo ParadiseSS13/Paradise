@@ -202,15 +202,7 @@
 			top_layer.layer = 4.1
 			icon_state = "cannon_east"
 	overlays += top_layer
-
-/obj/machinery/bsa/full/Initialize(mapload)
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/bsa/full/LateInitialize(mapload)
-	. = ..()
-	reload() // so we don't try and use the powernet before it initializes
-
+	reload()
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()
@@ -271,7 +263,7 @@
 	var/obj/machinery/bsa/full/cannon
 	var/notice
 	var/target
-	power_state = NO_POWER_USE
+	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"

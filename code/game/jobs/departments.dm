@@ -6,7 +6,7 @@
 	var/account_starting_balance = DEPARTMENT_BALANCE_MEDIUM
 	///The amount this department will be payed every payday at a minimum (unless deducted otherwise)
 	var/account_base_pay = DEPARTMENT_BASE_PAY_MEDIUM
-	///The access need to get into this department account, this is a one req access list, used especialy for supply computer
+	///The access need to get into this department account, this is a one req access list
 	var/account_access = list()
 	///The money account tied to this department
 	var/datum/money_account/department_account
@@ -100,10 +100,6 @@
 		"Research Director",
 		"Scientist",
 		"Xenobiologist",
-		"Xenoarcheologist",
-		"Anomalist",
-		"Plasma Researcher",
-		"Chemical Researcher",
 		"Geneticist",	//Part of both medical and science
 		"Roboticist",
 	)
@@ -142,13 +138,12 @@
 
 	account_starting_balance = DEPARTMENT_BALANCE_LOW
 	account_base_pay = DEPARTMENT_BASE_PAY_LOW
-	account_access = list(ACCESS_HOP, ACCESS_QM, ACCESS_CARGO) //Supply account is a lot less "secure", CT's need to access it aswell on the supply comp
+	account_access = list(ACCESS_HOP, ACCESS_QM)
 	department_roles = list(
 		"Head of Personnel",
 		"Quartermaster",
 		"Cargo Technician",
-		"Shaft Miner",
-		"Spelunker"
+		"Shaft Miner"
 	)
 	head_of_staff = "Head of Personnel"
 
@@ -162,10 +157,6 @@
 		"Chief Engineer",
 		"Station Engineer",
 		"Life Support Specialist",
-		"Atmospheric Technician",
-		"Maintenance Technician",
-		"Engine Technician",
-		"Electrician",
 	)
 	head_of_staff = "Chief Engineer"
 
@@ -178,8 +169,6 @@
 	department_roles = list(
 		"Chief Medical Officer",
 		"Medical Doctor",
-		"Surgeon",
-		"Nurse",
 		"Geneticist",
 		"Psychiatrist",
 		"Chemist",

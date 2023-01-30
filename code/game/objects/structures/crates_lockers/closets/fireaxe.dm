@@ -123,10 +123,6 @@
 		return
 	attack_hand(user)
 
-/obj/structure/closet/fireaxecabinet/shove_impact(mob/living/target, mob/living/attacker)
-	// no, you can't shove people into a fireaxe cabinet either
-	return FALSE
-
 /obj/structure/closet/fireaxecabinet/verb/toggle_openness() //nice name, huh? HUH?! -Erro //YEAH -Agouri
 	set name = "Open/Close"
 	set category = "Object"

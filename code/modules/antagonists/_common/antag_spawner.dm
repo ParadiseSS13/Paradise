@@ -165,7 +165,7 @@
 	var/veil_msg = "<span class='warning'>You sense a dark presence lurking \
 		just beyond the veil...</span>"
 	var/objective_verb = "Kill"
-	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter
+	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
@@ -179,7 +179,7 @@
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
 
 	var/type = "slaughter"
-	if(demon_type == /mob/living/simple_animal/demon/slaughter/laughter)
+	if(demon_type == /mob/living/simple_animal/slaughter/laughter)
 		type = "laughter"
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
@@ -196,27 +196,25 @@
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
-	var/mob/living/simple_animal/demon/D = new demon_type(holder)
-	if(istype(D, /mob/living/simple_animal/demon/slaughter))
-		var/mob/living/simple_animal/demon/slaughter/S = D
-		S.vialspawned = TRUE
-
-	D.key = C.key
-	D.mind.assigned_role = D.name
-	D.mind.special_role = D.name
-	SSticker.mode.traitors += D.mind
+	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
+	S.vialspawned = TRUE
+	S.holder = holder
+	S.key = C.key
+	S.mind.assigned_role = S.name
+	S.mind.special_role = S.name
+	SSticker.mode.traitors += S.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = D.mind
+	KillDaWiz.owner = S.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
-	D.mind.objectives += KillDaWiz
+	S.mind.objectives += KillDaWiz
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = D.mind
+	KillDaCrew.owner = S.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
-	D.mind.objectives += KillDaCrew
-	to_chat(D, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
-	to_chat(D, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")
+	S.mind.objectives += KillDaCrew
+	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
+	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -228,19 +226,7 @@
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and tickle"
-	demon_type = /mob/living/simple_animal/demon/slaughter/laughter
-
-/obj/item/antag_spawner/slaughter_demon/shadow
-	name = "vial of shadow"
-	desc = "A magically infused bottle of pure darkness, distilled from \
-		ground up shadowling bones. Used in dark rituals to attract \
-		dark creatures."
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "vialshadows"
-	veil_msg = "<span class='warning'>You sense a dark presence \
-		lurking in the shadows...</span>"
-	objective_verb = "Kill"
-	demon_type = /mob/living/simple_animal/demon/shadow
+	demon_type = /mob/living/simple_animal/slaughter/laughter
 
 ///////////MORPH
 
@@ -296,58 +282,3 @@
 	M.mind.objectives += KillDaCrew
 	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
-
-///////////Revenant
-
-/obj/item/antag_spawner/revenant
-	name = "vial of ectoplasm"
-	desc = "A magically infused bottle of ectoplasm, effectivly pure salt from the spectral realm."
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "vialectoplasm"
-	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
-		turning back now!</span>"
-	var/veil_msg = "<span class='warning'>The ectoplasm is awake and seeps \
-		away...</span>"
-	var/objective_verb = "Harvest"
-	var/mob/living/revenant = /mob/living/simple_animal/revenant
-
-/obj/item/antag_spawner/revenant/attack_self(mob/user)
-	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a revenant from the Den..
-		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
-		return
-
-	if(used)
-		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
-		return
-	used = TRUE
-	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the salty specter to awaken...</span>")
-
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant awakened by [user.real_name]?", ROLE_REVENANT, 1, 10 SECONDS, source = revenant)
-
-	if(!length(candidates))
-		used = FALSE
-		to_chat(user, "<span class='notice'>The ectoplasm does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
-		return
-		
-	var/mob/C = pick(candidates)
-	spawn_antag(C, get_turf(src), initial(revenant.name), user)
-	to_chat(user, "[shatter_msg]")
-	to_chat(user, "[veil_msg]")
-	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
-	qdel(src)
-
-/obj/item/antag_spawner/revenant/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/revenant/M = new /mob/living/simple_animal/revenant(pick(GLOB.xeno_spawn))
-	M.key = C.key
-	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = M.mind
-	KillDaWiz.target = user.mind
-	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.objectives += KillDaWiz
-	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = M.mind
-	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
-	KillDaCrew.completed = TRUE
-	M.mind.objectives += KillDaCrew
-	to_chat(M, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
-	to_chat(M, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")

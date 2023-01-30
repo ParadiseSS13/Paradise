@@ -50,7 +50,3 @@
 		return
 	imp = new implant_type()
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/implanter/Destroy()
-	QDEL_NULL(imp)
-	. = ..()

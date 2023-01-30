@@ -124,7 +124,7 @@
 	create_reagents(reservoir_volume)
 
 /obj/item/gun/syringe/rapidsyringe/Destroy()
-	QDEL_LIST_CONTENTS(syringes)
+	QDEL_LIST(syringes)
 
 	if(chambered)
 		if(chambered.BB)

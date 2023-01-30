@@ -329,7 +329,7 @@
 		M.emp_act(severity)
 	..()
 
-/obj/item/paicard/extinguish_light(force = FALSE)
+/obj/item/paicard/extinguish_light()
 	if(pai)
 		pai.extinguish_light()
 		set_light(0)

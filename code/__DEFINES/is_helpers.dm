@@ -49,8 +49,6 @@
 
 #define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
 
-#define is_pda(W) (istype(W, /obj/item/pda))
-
 #define isspacecash(W) (istype(W, /obj/item/stack/spacecash))
 
 #define isstorage(A) (istype(A, /obj/item/storage))
@@ -96,8 +94,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
-
-#define is_ancient_rock(A) (istype(A, /turf/simulated/mineral/ancient))
 
 // Areas
 //#define isarea(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are areas

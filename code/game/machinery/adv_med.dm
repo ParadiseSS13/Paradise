@@ -1,28 +1,23 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
-	desc = "A sophisticated device which reports most internal and external injuries."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
 	dir = WEST
 	anchored = TRUE
-	idle_power_consumption = 1250
-	active_power_consumption = 2500
+	idle_power_usage = 1250
+	active_power_usage = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
-
-/obj/machinery/bodyscanner/examine(mob/user)
-	. = ..()
-	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant.</span>"
 
 /obj/machinery/bodyscanner/detailed_examine()
 	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
 			This is useful if you are about to perform surgery.<br>\
 			<br>\
 			Click your target and drag them onto the scanner to place them inside. Click the body scanner in order to operate it. \
-			Alt-Click to remove them, or use the eject button in the interface."
+			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
+			verb."
 
 
 /obj/machinery/bodyscanner/Destroy()
@@ -30,8 +25,7 @@
 	return ..()
 
 /obj/machinery/bodyscanner/power_change()
-	if(!..())
-		return
+	..()
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -173,17 +167,15 @@
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
-/obj/machinery/bodyscanner/AltClick(mob/user)
-	if(issilicon(user))
-		eject()
-		return
-	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-	eject()
+/obj/machinery/bodyscanner/verb/eject()
+	set src in oview(1)
+	set category = "Object"
+	set name = "Eject Body Scanner"
 
-/obj/machinery/bodyscanner/proc/eject(mob/user)
+	if(usr.incapacitated())
+		return
 	go_out()
-	add_fingerprint(user)
+	add_fingerprint(usr)
 
 /obj/machinery/bodyscanner/proc/go_out()
 	if(!occupant)
@@ -230,7 +222,7 @@
 	var/occupantData[0]
 	if(occupant)
 		occupantData["name"] = occupant.name
-		occupantData["stat"] = HAS_TRAIT(occupant, TRAIT_FAKEDEATH) ? DEAD : occupant.stat
+		occupantData["stat"] = occupant.stat
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
 

@@ -378,8 +378,7 @@
 	"})
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/power_change()
-	if(!..())
-		return
+	. = ..()
 	if(!security_lockout && (stat & NOPOWER))
 		security_lockout = TRUE
 		raise_alert("[src] lost power.")
@@ -426,7 +425,7 @@
 /obj/machinery/computer/syndicate_depot/teleporter/proc/findbeacon()
 	if(mybeacon)
 		return TRUE
-	for(var/obj/machinery/bluespace_beacon/syndicate/B in get_area(src))
+	for(var/obj/machinery/bluespace_beacon/syndicate/B in myArea)
 		mybeacon = B
 		B.mycomputer = src
 		return TRUE

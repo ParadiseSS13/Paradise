@@ -244,9 +244,7 @@
 #define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
 #define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
-#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
-#define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
-#define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
+#define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/slaughter))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -296,7 +294,6 @@
 #define HEALTH_HUD_OVERRIDE_DEAD 2
 #define HEALTH_HUD_OVERRIDE_HEALTHY 3
 // Eye protection
-#define FLASH_PROTECTION_VERYVUNERABLE -4
 #define FLASH_PROTECTION_SENSITIVE -1
 #define FLASH_PROTECTION_NONE 0
 #define FLASH_PROTECTION_FLASH 1

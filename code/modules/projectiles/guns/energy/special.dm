@@ -324,7 +324,6 @@
 	var/overloaded = FALSE
 	var/warned = FALSE
 	var/charging = FALSE
-	var/charge_failure = FALSE
 	var/mob/living/carbon/holder = null
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
@@ -355,29 +354,19 @@
 		to_chat(user, "<span class='warning'>[src] does not have enough charge to be overloaded.</span>")
 		return
 	if(charging)
-		to_chat(user, "<span class='warning'>[src] is already charging!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
-	charge_failure = FALSE
-	addtimer(CALLBACK(src, PROC_REF(overload)), 2.5 SECONDS)
-
-/obj/item/gun/energy/plasma_pistol/proc/overload()
-	if(ishuman(loc) && !charge_failure)
-		var/mob/living/carbon/C = loc
-		select_fire(C)
+	if(do_after(user, 2.5 SECONDS, target = src))
+		select_fire(user)
 		overloaded = TRUE
-		cell.use(125)
-		playsound(C.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		cell.charge -= 125
+		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
 		atom_say("Overloading successful.")
 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
-		holder = C
+		holder = user
 		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, PROC_REF(discharge))
-	else
-		atom_say("Overloading failure.")
-		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
 	charging = FALSE
-	charge_failure = FALSE
 
 /obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
 	select_fire()
@@ -401,19 +390,16 @@
 
 /obj/item/gun/energy/plasma_pistol/emp_act(severity)
 	..()
-	charge_failure = TRUE
 	if(prob(100 / severity) && overloaded)
 		discharge()
 
 /obj/item/gun/energy/plasma_pistol/dropped(mob/user)
 	. = ..()
-	charge_failure = TRUE
 	if(overloaded)
 		discharge()
 
 /obj/item/gun/energy/plasma_pistol/equipped(mob/user, slot, initial)
 	. = ..()
-	charge_failure = TRUE
 	if(overloaded)
 		discharge()
 

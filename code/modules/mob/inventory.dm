@@ -10,11 +10,6 @@
 	set name = "quick-equip"
 	set hidden = 1
 
-
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_quick_equip)))
-
-///proc extender of [/mob/verb/quick_equip] used to make the verb queuable if the server is overloaded
-/mob/proc/run_quick_equip()
 	var/obj/item/I = get_active_hand()
 	if(I)
 		I.equip_to_best_slot(src)
@@ -108,7 +103,6 @@
 
 /mob/proc/drop_item_v()		//this is dumb.
 	if(stat == CONSCIOUS && isturf(loc))
-		SEND_SIGNAL(usr, COMSIG_MOB_WILLINGLY_DROP)
 		return drop_item()
 	return 0
 
@@ -131,10 +125,10 @@
 
 /mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
-		return TRUE
+		return 1
 	if((I.flags & NODROP) && !force)
-		return FALSE
-	return TRUE
+		return 0
+	return 1
 
 /mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.

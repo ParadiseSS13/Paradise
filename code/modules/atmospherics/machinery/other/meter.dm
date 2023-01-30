@@ -1,28 +1,31 @@
-GLOBAL_LIST_EMPTY(gas_meters)
-
 /obj/machinery/atmospherics/meter
 	name = "gas flow meter"
-	desc = "A gas flow meter"
+	desc = "It measures something."
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
+
 	layer = GAS_PUMP_LAYER
+
+	var/obj/machinery/atmospherics/pipe/target = null
 	anchored = TRUE
 	max_integrity = 150
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
-	power_channel = PW_CHANNEL_ENVIRONMENT
-	power_state = IDLE_POWER_USE
-	idle_power_consumption = 2
-	active_power_consumption = 5
-	var/obj/machinery/atmospherics/pipe/target = null
+	power_channel = ENVIRON
+	frequency = ATMOS_DISTRO_FREQ
+	var/id_tag
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 5
+	req_one_access_txt = "24;10"
+	Mtoollink = TRUE
+	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/meter/Initialize(mapload)
 	. = ..()
-	GLOB.gas_meters += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 
 /obj/machinery/atmospherics/meter/Destroy()
 	target = null
-	GLOB.gas_meters -= src
 	return ..()
 
 /obj/machinery/atmospherics/meter/detailed_examine()
@@ -39,6 +42,23 @@ GLOBAL_LIST_EMPTY(gas_meters)
 		return
 
 	update_icon(UPDATE_ICON_STATE)
+	var/env_pressure = environment.return_pressure()
+	if(frequency)
+		var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
+
+		if(!radio_connection) return
+
+		var/datum/signal/signal = new
+		signal.source = src
+		signal.transmission_method = 1
+		signal.data = list(
+			"tag" = id_tag,
+			"device" = "AM",
+			"pressure" = round(env_pressure),
+			"sigtype" = "status"
+		)
+		radio_connection.post_signal(src, signal)
+
 
 /obj/machinery/atmospherics/meter/update_icon_state()
 	if(!target)
@@ -69,32 +89,51 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	else
 		icon_state = "meter4"
 
+/obj/machinery/atmospherics/meter/proc/status()
+	var/t = ""
+	if(target)
+		var/datum/gas_mixture/environment = target.return_air()
+		if(environment)
+			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]&deg;K ([round(environment.temperature-T0C,0.01)]&deg;C)"
+		else
+			t += "The sensor error light is blinking."
+	else
+		t += "The connect error light is blinking."
+	return t
+
 /obj/machinery/atmospherics/meter/examine(mob/user)
-	. = ..()
+	var/t = "A gas flow meter. "
+
 	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
-		. += "<span class='boldnotice'>You are too far away to read it.</span>"
+		t += "<span class='boldnotice'>You are too far away to read it.</span>"
 
 	else if(stat & (NOPOWER|BROKEN))
-		. += "<span class='danger'>The display is off.</span>"
+		t += "<span class='danger'>The display is off.</span>"
 
 	else if(target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)
-			. += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
+			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C)"
 		else
-			. += "The sensor error light is blinking."
+			t += "The sensor error light is blinking."
 	else
-		. += "The connect error light is blinking."
+		t += "The connect error light is blinking."
+
+	. = list(t)
 
 /obj/machinery/atmospherics/meter/Click()
 	if(isAI(usr)) // ghosts can call ..() for examine
 		usr.examinate(src)
-		return TRUE
+		return 1
 
 	return ..()
 
 /obj/machinery/atmospherics/meter/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(!iswrench(W))
+	if(istype(W, /obj/item/multitool))
+		update_multitool_menu(user)
+		return 1
+
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 	playsound(loc, W.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
@@ -115,11 +154,10 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
-
-/obj/machinery/atmospherics/meter/multitool_act(mob/living/user, obj/item/I)
-	if(!ismultitool(I))
-		return
-
-	var/obj/item/multitool/M = I
-	M.buffer_uid = UID()
-	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+/obj/machinery/atmospherics/meter/multitool_menu(mob/user, obj/item/multitool/P)
+	return {"
+	<b>Main</b>
+	<ul>
+		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
+		<li>[format_tag("ID Tag","id_tag")]</li>
+	</ul>"}

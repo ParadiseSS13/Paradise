@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	if(!images)
 		return
 	target?.client?.images -= images
-	QDEL_LIST_CONTENTS(images)
+	QDEL_LIST(images)
 
 /**
   * Plays a sound to the target only.

@@ -317,14 +317,15 @@
 	var/loglevel = ATKLOG_MOST
 	if(!isnull(custom_level))
 		loglevel = custom_level
-	var/area/A = get_area(MT)
-	if(A && A.hide_attacklogs)
-		loglevel = ATKLOG_ALL
 	else if(istype(MT))
 		if(istype(MU))
 			if(!MU.ckey && !MT.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
 				loglevel = ATKLOG_ALL
 			else if(!MU.ckey || !MT.ckey || (MU.ckey == MT.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
+				loglevel = ATKLOG_ALMOSTALL
+		else
+			var/area/A = get_area(MT)
+			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob

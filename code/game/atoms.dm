@@ -258,7 +258,6 @@
 	return null
 
 /atom/proc/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
 	if(loc)
 		return loc.return_air()
 	else
@@ -306,7 +305,7 @@
  * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
  */
 /atom/proc/emp_act(severity)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
+	return
 
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return TRUE
@@ -513,8 +512,8 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/emag_act(mob/user)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+/atom/proc/emag_act()
+	return
 
 /atom/proc/unemag()
 	return

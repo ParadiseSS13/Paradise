@@ -20,7 +20,7 @@
 	. += "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
 
 /obj/item/gun/rocketlauncher/Destroy()
-	QDEL_LIST_CONTENTS(rockets)
+	QDEL_LIST(rockets)
 	rockets = null
 	return ..()
 

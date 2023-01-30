@@ -20,9 +20,10 @@ FIRE ALARM
 	max_integrity = 250
 	integrity_failure = 100
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
-	idle_power_consumption = 2
-	active_power_consumption = 6
-	power_channel = PW_CHANNEL_ENVIRONMENT
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 6
+	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
 
 	light_power = LIGHTING_MINIMUM_POWER
@@ -209,7 +210,7 @@ FIRE ALARM
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
-		LAZYREMOVE(get_area(src).firealarms, src)
+		LAZYREMOVE(myArea.firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -238,8 +239,10 @@ FIRE ALARM
 		set_light(l_power = LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/firealarm/power_change()
-	if(!..())
-		return
+	if(powered(ENVIRON))
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
 	update_fire_light()
 	update_icon()
 
@@ -302,7 +305,8 @@ FIRE ALARM
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
-	LAZYADD(get_area(src).firealarms, src)
+	myArea = get_area(src)
+	LAZYADD(myArea.firealarms, src)
 
 /obj/machinery/firealarm/Initialize(mapload)
 	. = ..()
@@ -312,7 +316,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/Destroy()
 	LAZYREMOVE(GLOB.firealarm_soundloop.output_atoms, src)
-	LAZYREMOVE(get_area(src).firealarms, src)
+	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
 
 /*

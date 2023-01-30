@@ -26,7 +26,7 @@
 #define PLANT_WEED_HUD		"21"// Weed level
 #define DIAG_TRACK_HUD		"22"// Mech tracking beacon
 #define DIAG_AIRLOCK_HUD 	"23" // Airlock shock overlay
-//#define DIAG_PATH_HUD 		"24"//Bot path indicators
+#define DIAG_PATH_HUD 		"24"//Bot path indicators
 #define GLAND_HUD 			"25"//Gland indicators for abductors
 
 //by default everything in the hud_list of an atom is an image

@@ -168,7 +168,7 @@
 /turf/simulated/wall,
 /area/ruin/space/derelict/teleporter)
 "B" = (
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	name = "Worn-out APC";
 	pixel_y = -24
 	},

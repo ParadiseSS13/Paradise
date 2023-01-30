@@ -1216,7 +1216,7 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
-	/obj/machinery/computer/security/telescreen, /obj/machinery/airlock_controller,
+	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/airlock,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
 	/obj/structure/sign)))
@@ -1874,19 +1874,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return ghosts
 
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
-
-/// This proc returns every player with a client who is not a ghost or a new_player
-/proc/get_living_players(exclude_nonhuman = FALSE, exclude_offstation = FALSE)
-	var/list/living_players = list()
-
-	for(var/mob/living/M in GLOB.player_list)
-		if(exclude_nonhuman && !ishuman(M))
-			continue
-		if(exclude_offstation && M.mind?.offstation_role)
-			continue
-		living_players += M
-
-	return living_players
 
 /proc/make_bit_triplet()
 	var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)

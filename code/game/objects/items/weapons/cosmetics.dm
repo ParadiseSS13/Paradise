@@ -111,9 +111,6 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ("head")
-		if(!istype(C))
-			to_chat(user, "<span class='warning'>There's nothing to cut, [M] [M.p_are()] missing [M.p_their()] head!</span>")
-			return ..()
 		var/datum/robolimb/robohead = GLOB.all_robolimbs[C.model]
 		if(user.zone_selected == "mouth")
 			if(!get_location_accessible(H, "mouth"))

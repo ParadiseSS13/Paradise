@@ -743,7 +743,15 @@
 	id_tag = "s_docking_airlock";
 	name = "Labor Shuttle Airlock"
 	},
-/obj/docking_port/mobile/labour,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp";
+	name = "labor camp shuttle";
+	rebuildable = 1;
+	width = 9
+	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
 	area_type = /area/lavaland/surface/outdoors;
@@ -1252,7 +1260,9 @@
 /area/lavaland/surface/outdoors)
 "cQ" = (
 /turf/simulated/wall/r_wall,
-/area/mine/comms)
+/area/mine/maintenance{
+	name = "Mining Station Communicatiosns"
+	})
 "cR" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -1974,7 +1984,9 @@
 	dir = 9
 	},
 /turf/simulated/floor/bluegrid,
-/area/mine/comms)
+/area/mine/maintenance{
+	name = "Mining Station Communicatiosns"
+	})
 "ei" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2727,7 +2739,9 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
-/area/mine/comms)
+/area/mine/maintenance{
+	name = "Mining Station Communicatiosns"
+	})
 "fx" = (
 /obj/machinery/light{
 	dir = 4
@@ -2778,7 +2792,9 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/bluegrid,
-/area/mine/comms)
+/area/mine/maintenance{
+	name = "Mining Station Communicatiosns"
+	})
 "fC" = (
 /obj/structure/chair{
 	dir = 4
@@ -2865,7 +2881,15 @@
 	id_tag = "s_docking_airlock";
 	req_access_txt = "48"
 	},
-/obj/docking_port/mobile/mining,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "mining";
+	name = "mining shuttle";
+	rebuildable = 1;
+	width = 7
+	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
 	area_type = /area/lavaland/surface/outdoors;
@@ -2991,7 +3015,7 @@
 /turf/simulated/floor/plating,
 /area/lavaland/surface/outdoors)
 "fY" = (
-/obj/machinery/economy/vending/assist/free,
+/obj/machinery/economy/vending/assist,
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
 "fZ" = (
@@ -3097,7 +3121,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/mine/comms)
+/area/mine/maintenance{
+	name = "Mining Station Communicatiosns"
+	})
 "gi" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -3417,7 +3443,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/mine/comms)
+/area/mine/maintenance{
+	name = "Mining Station Communicatiosns"
+	})
 "gM" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -5264,7 +5292,9 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/mine/comms)
+/area/mine/maintenance{
+	name = "Mining Station Communicatiosns"
+	})
 "AE" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -5483,7 +5513,9 @@
 	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/mine/comms)
+/area/mine/maintenance{
+	name = "Mining Station Communicatiosns"
+	})
 "El" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{

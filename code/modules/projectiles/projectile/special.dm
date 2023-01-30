@@ -220,10 +220,6 @@
 /obj/item/projectile/plasma/on_hit(atom/target)
 	. = ..()
 	if(ismineralturf(target))
-		if(is_ancient_rock(target))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
-			forcedodge = 0
-			return
 		forcedodge = 1
 		var/turf/simulated/mineral/M = target
 		M.gets_drilled(firer)
@@ -244,7 +240,7 @@
 	damage = 0
 	nodamage = 1
 	alwayslog = TRUE
-	var/obj/item/radio/beacon/teleport_target = null
+	var/teleport_target = null
 
 /obj/item/projectile/energy/teleport/New(loc, tele_target)
 	..(loc)
@@ -252,9 +248,8 @@
 		teleport_target = tele_target
 
 /obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
-	var/turf/target_turf = get_turf(teleport_target)
-	if(isliving(target) && istype(target_turf))
-		if(target_turf.z == target.z || teleport_target.emagged)
+	if(isliving(target))
+		if(teleport_target)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.

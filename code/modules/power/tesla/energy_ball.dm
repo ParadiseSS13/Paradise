@@ -63,7 +63,7 @@
 	if(!miniball)
 		GLOB.poi_list -= src
 
-	QDEL_LIST_CONTENTS(orbiting_balls)
+	QDEL_LIST(orbiting_balls)
 	shocked_things.Cut()
 	return ..()
 

@@ -39,7 +39,7 @@
 
 			var/message_input = ""
 			if(params["mod_type"] != "global")
-				message_input = input(ui.user, "Add message (Max 50 Characters):", "If you wish the owner(s) of the account(s) to receive a message, please specify") as null|message
+				message_input = input(ui.user, "Add message (Max 50 Characters):", "If you wish the owner(s) of the account(s) to recieve a message, please specify") as null|message
 			switch(params["mod_type"])
 				if("global")
 					if(num_input > 0)

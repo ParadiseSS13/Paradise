@@ -4,8 +4,7 @@
 	icon = 'icons/obj/autopsy_scanner.dmi'
 	icon_state = ""
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=1;biotech=1"
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/chemtraces = list()

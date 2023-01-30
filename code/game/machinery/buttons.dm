@@ -10,8 +10,9 @@
 	icon_state = "launcherbtt"
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
-	idle_power_consumption = 2
-	active_power_consumption = 4
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	/// ID tag of the driver to hook to
 	var/id_tag = "default"
@@ -131,8 +132,9 @@
 	var/id = null
 	var/active = FALSE
 	anchored = TRUE
-	idle_power_consumption = 2
-	active_power_consumption = 4
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 4
 
 /obj/machinery/ignition_switch/attack_ai(mob/user)
 	return attack_hand(user)

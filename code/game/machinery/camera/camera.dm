@@ -3,9 +3,9 @@
 	desc = "It's used to monitor rooms."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "camera"
-	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 5
-	active_power_consumption = 10
+	use_power = ACTIVE_POWER_USE
+	idle_power_usage = 5
+	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
@@ -45,7 +45,7 @@
 	GLOB.cameranet.cameras += src
 	GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
-		LAZYADD(get_area(src).cameras, UID())
+		LAZYADD(myArea.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.cut_all()
@@ -60,8 +60,8 @@
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
-	if(isarea(get_area(src)))
-		LAZYREMOVE(get_area(src).cameras, UID())
+	if(isarea(myArea))
+		LAZYREMOVE(myArea.cameras, UID())
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
@@ -266,12 +266,15 @@
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
 		if(isturf(loc))
-			LAZYADD(get_area(src).cameras, UID())
+			myArea = get_area(src)
+			LAZYADD(myArea.cameras, UID())
+		else
+			myArea = null
 	else
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
-		if(isarea(get_area(src)))
-			LAZYREMOVE(get_area(src).cameras, UID())
+		if(isarea(myArea))
+			LAZYREMOVE(myArea.cameras, UID())
 	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
 	if(status)

@@ -68,10 +68,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/view_instances,
-	/client/proc/start_vote,
-	/client/proc/toggle_mctabs,
-	/client/proc/ping_all_admins,
-	/client/proc/show_watchlist
+	/client/proc/start_vote
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -164,6 +161,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
+	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
@@ -177,7 +175,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmapi_log,
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
-	/client/proc/force_verb_bypass,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -635,17 +632,14 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	set name = "De-admin self"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN|R_MENTOR))
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 
 	log_admin("[key_name(usr)] deadmined themself.")
 	message_admins("[key_name_admin(usr)] deadmined themself.")
-	if(check_rights(R_ADMIN, FALSE))
-		GLOB.de_admins += ckey
-	else
-		GLOB.de_mentors += ckey
 	deadmin()
 	verbs += /client/proc/readmin
+	GLOB.deadmins += ckey
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -737,15 +731,13 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		D.associate(C)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
-		GLOB.de_admins -= ckey
-		GLOB.de_mentors -= ckey
+		GLOB.deadmins -= ckey
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else
 		to_chat(src, "You are already an admin.")
 		verbs -= /client/proc/readmin
-		GLOB.de_admins -= ckey
-		GLOB.de_mentors -= ckey
+		GLOB.deadmins -= ckey
 		return
 
 /client/proc/toggle_log_hrefs()
@@ -998,12 +990,3 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
-
-/client/proc/show_watchlist()
-	set name = "Show Watchlist"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	watchlist_show()

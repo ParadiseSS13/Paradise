@@ -244,10 +244,6 @@ emp_act
 	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
 	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
 	if(!right_hand_parry && !left_hand_parry)
-		if(l_hand?.flags_2 & RANDOM_BLOCKER_2)
-			return l_hand
-		if(r_hand?.flags_2 & RANDOM_BLOCKER_2)
-			return r_hand
 		return null // no parry component
 
 	if(right_hand_parry && left_hand_parry)

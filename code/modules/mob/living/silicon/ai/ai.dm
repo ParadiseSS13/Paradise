@@ -271,7 +271,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
 	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
-	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
+	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
@@ -346,8 +346,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 */
 /obj/machinery/ai_powersupply
 	name="\improper AI power supply"
-	active_power_consumption = 1000
-	power_state = ACTIVE_POWER_USE
+	active_power_usage=1000
+	use_power = ACTIVE_POWER_USE
+	power_channel = EQUIP
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
 
@@ -368,9 +369,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
-		change_power_mode(NO_POWER_USE)
+		use_power = NO_POWER_USE
 	if(powered_ai.anchored)
-		change_power_mode(ACTIVE_POWER_USE)
+		use_power = ACTIVE_POWER_USE
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
@@ -684,7 +685,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		unset_machine()
 		src << browse(null, t1)
 	if(href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"]) in GLOB.cameranet.cameras)
+		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
 	if(href_list["showalerts"])
 		ai_alerts()
 	if(href_list["show_paper"])

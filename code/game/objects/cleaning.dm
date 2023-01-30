@@ -29,11 +29,10 @@
 	if(!do_after(user, cleanspeed, target = src))
 		return FALSE
 
-	if(!cleaner.can_clean())
-		cleaner.post_clean(src, user)
-		return FALSE
-
 	cleaner.post_clean(src, user)
+
+	if(!cleaner.can_clean())
+		return FALSE
 
 	to_chat(user, "<span class='notice'>You [text_verb] \the [text_targetname][text_description]</span>")
 

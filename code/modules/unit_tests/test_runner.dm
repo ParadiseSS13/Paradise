@@ -44,7 +44,7 @@
 			failed_any_test = TRUE
 			test_logs[test.type] += test.fail_reasons
 
-	QDEL_LIST_CONTENTS(tests)
+	QDEL_LIST(tests)
 
 
 /datum/test_runner/proc/Run()

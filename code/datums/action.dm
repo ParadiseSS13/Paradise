@@ -338,10 +338,6 @@
 /datum/action/item_action/laugh_track
 	name = "Laugh Track"
 
-/datum/action/item_action/floor_buffer
-	name = "Toggle Floor Buffer"
-	desc = "Movement speed is decreased while active."
-
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)
@@ -465,7 +461,7 @@
 
 /datum/action/item_action/gravity_jump
 	name = "Gravity jump"
-	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
+	desc = "Directs a pulse of gravity in front of the user, pulling them foward rapidly."
 
 /datum/action/item_action/gravity_jump/Trigger()
 	if(!IsAvailable())
@@ -495,11 +491,6 @@
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
 	name = "Use [target.name]"
-	button.name = name
-
-/datum/action/item_action/organ_action/use/eyesofgod/New(target)
-	..()
-	name = "See with the Eyes of the Gods"
 	button.name = name
 
 /datum/action/item_action/voice_changer/toggle

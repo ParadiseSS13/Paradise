@@ -82,15 +82,15 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer
 	name = "health analyzer"
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
+	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=200)
@@ -308,22 +308,22 @@ REAGENT SCANNER
 
 /obj/item/healthupgrade
 	name = "Health Analyzer Upgrade"
-	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "healthupgrade"
+	desc = "An upgrade unit that can be installed on a health analyzer for expanded functionality."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/analyzer
-	name = "analyzer"
 	desc = "A hand-held environmental scanner which reports current gas levels."
+	name = "analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
 	item_state = "analyzer"
-	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
+	slot_flags = SLOT_BELT
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
@@ -534,7 +534,6 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=2"
-	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -585,13 +584,13 @@ REAGENT SCANNER
 
 /obj/item/bodyanalyzer
 	name = "handheld body analyzer"
-	desc = "A handheld scanner capable of deep-scanning an entire body."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
 	item_state = "healthanalyser"
+	desc = "A handheld scanner capable of deep-scanning an entire body."
 	slot_flags = SLOT_BELT
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
+	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=6;biotech=6"

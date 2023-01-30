@@ -91,9 +91,9 @@
 		owner.bodyparts_by_name[limb_name] = null
 		owner.splinted_limbs -= src
 
-	QDEL_LIST_CONTENTS(children)
+	QDEL_LIST(children)
 
-	QDEL_LIST_CONTENTS(embedded_objects)
+	QDEL_LIST(embedded_objects)
 
 	QDEL_NULL(hidden)
 
@@ -262,11 +262,10 @@
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
 	//If limb took enough damage, try to cut or tear it off
 	if(owner)
-		if(sharp && !(limb_flags & CANNOT_DISMEMBER))
-			if(brute_dam >= max_damage && prob(brute / 2))
-				droplimb(0, DROPLIMB_SHARP)
-			if(burn_dam >= max_damage && prob(burn / 2))
-				droplimb(0, DROPLIMB_BURN)
+		if(!(limb_flags & CANNOT_DISMEMBER) && brute_dam >= max_damage)
+			if(prob(brute / 2))
+				if(sharp)
+					droplimb(0, DROPLIMB_SHARP)
 
 	if(owner_old)
 		owner_old.updatehealth("limb receive damage")
@@ -494,8 +493,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(!disintegrate)
 		disintegrate = DROPLIMB_SHARP
-	if(disintegrate == DROPLIMB_BURN && istype(src, /obj/item/organ/external/head))
-		disintegrate = DROPLIMB_SHARP //Lets not make sharp burn weapons delete brains.
 
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)

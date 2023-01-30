@@ -29,7 +29,7 @@
 	var/adaptive_damage_bonus = 0
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
-	QDEL_LIST_CONTENTS(trophies)
+	QDEL_LIST(trophies)
 	return ..()
 
 /obj/item/twohanded/kinetic_crusher/examine(mob/living/user)
@@ -203,12 +203,9 @@
 				T.on_mark_application(target, CM, had_effect)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		if(is_ancient_rock(target_turf))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
-		else
-			var/turf/simulated/mineral/M = target_turf
-			new /obj/effect/temp_visual/kinetic_blast(M)
-			M.gets_drilled(firer)
+		var/turf/simulated/mineral/M = target_turf
+		new /obj/effect/temp_visual/kinetic_blast(M)
+		M.gets_drilled(firer)
 	..()
 
 //trophies

@@ -51,9 +51,11 @@ SUBSYSTEM_DEF(tickets)
 	.["custom"] = cust
 
 /datum/controller/subsystem/tickets/Initialize()
-	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-			"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
-			"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
+	if(!close_messages)
+		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
+				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
+				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
+	return ..()
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()

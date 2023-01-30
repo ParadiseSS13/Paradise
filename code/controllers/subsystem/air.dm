@@ -15,7 +15,6 @@ SUBSYSTEM_DEF(air)
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_HIGH
 	var/cost_turfs = 0
 	var/cost_groups = 0
 	var/cost_highpressure = 0
@@ -75,7 +74,7 @@ SUBSYSTEM_DEF(air)
 	cust["hotspots"] = length(hotspots)
 	.["custom"] = cust
 
-/datum/controller/subsystem/air/Initialize()
+/datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
 	if(length(active_turfs))
@@ -85,6 +84,7 @@ SUBSYSTEM_DEF(air)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
+	return ..()
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
@@ -346,6 +346,12 @@ SUBSYSTEM_DEF(air)
 	for(var/obj/machinery/atmospherics/A in machines_to_init)
 		A.atmos_init()
 		count++
+		if(istype(A, /obj/machinery/atmospherics/unary/vent_pump))
+			var/obj/machinery/atmospherics/unary/vent_pump/T = A
+			T.broadcast_status()
+		else if(istype(A, /obj/machinery/atmospherics/unary/vent_scrubber))
+			var/obj/machinery/atmospherics/unary/vent_scrubber/T = A
+			T.broadcast_status()
 	return count
 
 //this can't be done with setup_atmos_machinery() because

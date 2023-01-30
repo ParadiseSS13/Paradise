@@ -11,7 +11,6 @@
 	return 0
 
 /turf/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
 	//Create gas mixture to hold data for passing
 	var/datum/gas_mixture/GM = new
 
@@ -100,7 +99,6 @@
 		air.copy_from(copy)
 
 /turf/simulated/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
 	if(air)
 		return air
 

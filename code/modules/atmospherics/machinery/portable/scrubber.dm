@@ -97,7 +97,6 @@
 			tile.air_update_turf()
 
 /obj/machinery/atmospherics/portable/scrubber/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/machinery/atmospherics/portable/scrubber/attack_ai(mob/user)

@@ -56,7 +56,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		anchored = FALSE
 		WRENCH_UNANCHOR_MESSAGE
 	power_change()
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
@@ -163,18 +162,16 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	for(var/message in messages)
 		atom_say(message)
 
-/obj/machinery/doppler_array/update_icon_state()
+/obj/machinery/doppler_array/power_change()
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
-		icon_state = !(stat & NOPOWER) && anchored ? initial(icon_state) : "[initial(icon_state)]-off"
-
-/// overrides base power_change to check to make sure machine is anchored
-/obj/machinery/doppler_array/power_change()
-	if(has_power(power_channel) && anchored)
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+		if(powered() && anchored)
+			icon_state = initial(icon_state)
+			stat &= ~NOPOWER
+		else
+			icon_state = "[initial(icon_state)]-off"
+			stat |= NOPOWER
 
 /obj/machinery/doppler_array/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -204,7 +201,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		return
 	switch(action)
 		if("delete_logs")
-			QDEL_LIST_CONTENTS(logged_explosions)
+			QDEL_LIST(logged_explosions)
 			to_chat(usr, "<span class='notice'>All logs deleted successfully.</span>")
 		if("delete_record")
 			var/index = text2num(params["index"])

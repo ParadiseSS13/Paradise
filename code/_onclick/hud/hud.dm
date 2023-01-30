@@ -72,18 +72,18 @@
 
 	QDEL_NULL(module_store_icon)
 
-	QDEL_LIST_CONTENTS(static_inventory)
+	QDEL_LIST(static_inventory)
 
 	inv_slots.Cut()
 	action_intent = null
 	zone_select = null
 	move_intent = null
 
-	QDEL_LIST_CONTENTS(toggleable_inventory)
+	QDEL_LIST(toggleable_inventory)
 
-	QDEL_LIST_CONTENTS(hotkeybuttons)
+	QDEL_LIST(hotkeybuttons)
 
-	QDEL_LIST_CONTENTS(infodisplay)
+	QDEL_LIST(infodisplay)
 
 	//clear mob refs to screen objects
 	mymob.throw_icon = null

@@ -55,8 +55,8 @@
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
-	max_w_class = WEIGHT_CLASS_BULKY
-	max_combined_w_class = 28
+	max_w_class = WEIGHT_CLASS_HUGE
+	max_combined_w_class = 35
 	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack, /obj/item/storage/belt/bluespace)
@@ -426,9 +426,6 @@
 	return ..()
 
 /obj/item/storage/backpack/duffel/show_to(mob/user)
-	if(isobserver(user))
-		return ..()
-
 	if(zipped)
 		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
 		return FALSE

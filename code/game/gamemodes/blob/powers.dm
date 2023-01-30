@@ -330,14 +330,7 @@
 
 	var/obj/structure/blob/OB = locate() in circlerange(T, 1)
 	if(!OB)
-		var/obj/structure/blob/DB = locate() in range(T, 1)
-		if(!DB)
-			to_chat(src, "There is no blob adjacent to you.")
-			return
-		if(!can_buy(5))
-			return
-		DB.double_expand(T, 0, blob_reagent_datum.color, src)
-		DB.color = blob_reagent_datum.color
+		to_chat(src, "There is no blob adjacent to you.")
 		return
 
 	if(!can_buy(5))

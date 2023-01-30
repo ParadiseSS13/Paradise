@@ -310,7 +310,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
 	if(key)
-		GLOB.ipintel_manager.vpn_whitelist_panel(key)
+		SSipintel.vpn_whitelist_panel(key)
 
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))

@@ -26,8 +26,7 @@
 
 
 /datum/disease/dna_retrovirus/stage_act()
-	if(!..())
-		return FALSE
+	..()
 	switch(stage)
 		if(1)
 			if(restcure)

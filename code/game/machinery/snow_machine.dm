@@ -37,7 +37,7 @@
 		power_efficiency += L.rating
 
 /obj/machinery/snow_machine/attack_hand(mob/user)
-	if(!has_power() || !anchored)
+	if(!powered() || !anchored)
 		return
 	if(turn_on_or_off(!active))
 		to_chat(user, "<span class='notice'>You [active ? "turn on" : "turn off"] [src].</span>")
@@ -67,7 +67,7 @@
 		power_used_this_cycle = 0
 	if(!active || !anchored)
 		return
-	if(!has_power())
+	if(!powered())
 		return
 	if(!reagents.has_reagent(reagents.get_master_reagent_id(), 3))
 		return //This means you don't need to top it up constantly to keep the nice snowclouds going
@@ -84,9 +84,8 @@
 		make_snowcloud(TF)
 
 /obj/machinery/snow_machine/power_change()
-	if(!..())
-		return
-	if(stat & NOPOWER)
+	..()
+	if(!powered())
 		turn_on_or_off(FALSE, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 

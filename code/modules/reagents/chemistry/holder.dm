@@ -962,9 +962,9 @@
 
 /datum/reagents/Destroy()
 	. = ..()
-	QDEL_LIST_CONTENTS(reagent_list)
+	QDEL_LIST(reagent_list)
 	reagent_list = null
-	QDEL_LIST_CONTENTS(addiction_list)
+	QDEL_LIST(addiction_list)
 	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null

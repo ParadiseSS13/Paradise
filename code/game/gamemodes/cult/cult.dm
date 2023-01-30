@@ -39,11 +39,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE //can't convert machines, that's ratvar's thing
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
-		if(iscultist(G.summoner))
-			return TRUE //can't convert it unless the owner is converted
+		if(!iscultist(G.summoner))
+			return FALSE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
-		return FALSE
-	if(isanimal(mind.current))
 		return FALSE
 	return TRUE
 
@@ -220,8 +218,7 @@ GLOBAL_LIST_EMPTY(all_cults)
   * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
   */
 /datum/game_mode/proc/cult_threshold_check()
-	var/list/living_players = get_living_players(exclude_nonhuman = TRUE, exclude_offstation = TRUE)
-	var/players = length(living_players)
+	var/players = length(GLOB.player_list)
 	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
 	if(players >= CULT_POPULATION_THRESHOLD)
 		// Highpop

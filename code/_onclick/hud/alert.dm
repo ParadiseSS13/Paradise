@@ -252,7 +252,7 @@
 	icon_state = "hot"
 
 /obj/screen/alert/hot/robot
-	desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this environment."
+	desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this enviroment."
 
 /obj/screen/alert/cold
 	name = "Too Cold"
@@ -264,7 +264,7 @@
 	desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
 
 /obj/screen/alert/cold/robot
-	desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this environment."
+	desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this enviroment."
 
 /obj/screen/alert/lowpressure
 	name = "Low Pressure"

@@ -61,8 +61,9 @@
 	icon_state = "scanner_open"
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 50
-	active_power_consumption = 300
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 50
+	active_power_usage = 300
 	interact_offline = TRUE
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
@@ -355,8 +356,9 @@
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
 	anchored = TRUE
-	idle_power_consumption = 10
-	active_power_consumption = 400
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 10
+	active_power_usage = 400
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS

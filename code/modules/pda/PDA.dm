@@ -189,11 +189,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		id = null
 		playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 
-	if(ishuman(loc))
-		var/mob/living/carbon/human/wearing_human = loc
-		if(wearing_human.wear_id == src)
-			wearing_human.sec_hud_set_ID()
-
 /obj/item/pda/verb/verb_remove_id()
 	set category = "Object"
 	set name = "Remove id"
@@ -251,11 +246,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			id = I
 			user.put_in_hands(old_id)
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-
-	if(ishuman(loc))
-		var/mob/living/carbon/human/wearing_human = loc
-		if(wearing_human.wear_id == src)
-			wearing_human.sec_hud_set_ID()
+	return
 
 /obj/item/pda/attackby(obj/item/C, mob/user, params)
 	..()
@@ -360,7 +351,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	current_app = null
 	scanmode = null
 	QDEL_NULL(held_pen)
-	QDEL_LIST_CONTENTS(programs)
+	QDEL_LIST(programs)
 	QDEL_NULL(cartridge)
 	return ..()
 
@@ -399,17 +390,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(current_app)
 		current_app.program_process()
 
-/obj/item/pda/extinguish_light(force = FALSE)
+/obj/item/pda/extinguish_light()
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()
-
-/obj/item/pda/get_ID_assignment(if_no_id = "No id")
-	. = ..()
-	if(. == if_no_id) // We dont have an ID in us, check our cached job
-		return ownjob
-
-/obj/item/pda/get_ID_rank(if_no_id = "No id")
-	. = ..()
-	if(. == if_no_id) // Ditto but rank
-		return ownrank

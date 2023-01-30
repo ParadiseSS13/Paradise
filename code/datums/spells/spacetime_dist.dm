@@ -26,7 +26,7 @@
 	var/list/effects
 
 /obj/effect/proc_holder/spell/spacetime_dist/Destroy()
-	QDEL_LIST_CONTENTS(effects)
+	QDEL_LIST(effects)
 	return ..()
 
 /obj/effect/proc_holder/spell/spacetime_dist/create_new_targeting()
@@ -70,7 +70,7 @@
 
 /// Callback which cleans up our effects list after the duration expires.
 /obj/effect/proc_holder/spell/spacetime_dist/proc/clean_turfs()
-	QDEL_LIST_CONTENTS(effects)
+	QDEL_LIST(effects)
 	ready = TRUE
 
 /obj/effect/cross_action

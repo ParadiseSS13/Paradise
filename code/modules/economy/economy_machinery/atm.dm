@@ -12,7 +12,8 @@
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
 	anchored = TRUE
-	idle_power_consumption = 10
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 10
 	density = FALSE
 	restricted_bypass = TRUE
 
@@ -51,8 +52,7 @@
 	underlays += emissive_appearance(icon, "atm_lightmask")
 
 /obj/machinery/economy/atm/power_change()
-	if(!..())
-		return
+	..()
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -79,12 +79,12 @@
 
 /obj/machinery/economy/atm/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/card/id))
-		if(has_power())
+		if(powered())
 			handle_id_insert(I, user)
 			return TRUE
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
-			if(!has_power())
+			if(!powered())
 				return
 			insert_cash(I, user)
 			return TRUE

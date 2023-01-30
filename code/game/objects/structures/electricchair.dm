@@ -75,9 +75,10 @@
 	var/area/A = get_area(src)
 	if(!isarea(A))
 		return
-	if(!A.powernet.has_power(PW_CHANNEL_EQUIPMENT))
+	if(!A.powered(EQUIP))
 		return
-	A.powernet.use_active_power(PW_CHANNEL_EQUIPMENT, 5000)
+	A.use_power(5000, EQUIP)
+	var/light = A.power_light
 	A.update_icon(UPDATE_ICON_STATE)
 
 	flick("echair_shock", src)
@@ -90,3 +91,5 @@
 			to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
 			spawn(1)
 				buckled_mob.electrocute_act(110, src, 1)
+	A.power_light = light
+	A.update_icon(UPDATE_ICON_STATE)

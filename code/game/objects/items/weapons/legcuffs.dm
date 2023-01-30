@@ -4,7 +4,6 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
-	cuffed_state = "legcuff"
 	flags = CONDUCT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
@@ -21,8 +20,6 @@
 	origin_tech = "engineering=4"
 	var/armed = FALSE
 	var/trap_damage = 20
-	///Do we want the beartrap not to make a visable message on arm? Use when a beartrap is applied by something else.
-	var/silent_arming = FALSE
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
 
@@ -100,9 +97,8 @@
 			armed = FALSE
 			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			if(!silent_arming)
-				L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-						"<span class='userdanger'>You trigger \the [src]!</span>")
+			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
+					"<span class='userdanger'>You trigger \the [src]!</span>")
 
 			if(IED && isturf(src.loc))
 				IED.active = TRUE
