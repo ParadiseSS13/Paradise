@@ -295,7 +295,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	name = "Worn-out APC";
 	pixel_y = -24
 	},
@@ -698,9 +698,7 @@
 	dir = 6
 	},
 /obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1479;
-	master_tag = "dj_station_airlock";
+	autolink_id = "djstation_btn_int";
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = -25
@@ -770,9 +768,8 @@
 /area/ruin/space/djstation)
 "bU" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1479;
 	icon_state = "door_locked";
-	id_tag = "dj_station_inner";
+	id_tag = "djstation_door_int";
 	locked = 1;
 	name = "DJ Station Interior Access"
 	},
@@ -782,23 +779,15 @@
 "bV" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
-	frequency = 1479;
-	id_tag = "dj_station_pump"
+	autolink_id = "djstation_vent"
 	},
-/obj/machinery/airlock_sensor{
-	frequency = 1479;
-	id_tag = "dj_station_sensor";
-	pixel_x = 25;
-	pixel_y = -5
-	},
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	frequency = 1479;
-	id_tag = "dj_station_airlock";
+/obj/machinery/airlock_controller/air_cycler{
+	ext_button_link_id = "djstation_btn_ext";
+	ext_door_link_id = "djstation_door_ext";
+	int_button_link_id = "djstation_btn_int";
+	int_door_link_id = "djstation_door_int";
 	pixel_x = -25;
-	tag_airpump = "dj_station_pump";
-	tag_chamber_sensor = "dj_station_sensor";
-	tag_exterior_door = "dj_station_outer";
-	tag_interior_door = "dj_station_inner"
+	vent_link_id = "djstation_vent"
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -807,9 +796,8 @@
 /area/ruin/space/djstation)
 "bW" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1479;
 	icon_state = "door_locked";
-	id_tag = "dj_station_outer";
+	id_tag = "djstation_door_ext";
 	locked = 1;
 	name = "DJ Station External Access"
 	},
@@ -820,9 +808,7 @@
 /area/ruin/space/djstation)
 "bY" = (
 /obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1479;
-	master_tag = "dj_station_airlock";
+	autolink_id = "djstation_btn_ext";
 	name = "exterior access button";
 	pixel_x = 23;
 	pixel_y = 35

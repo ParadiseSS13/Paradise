@@ -44,10 +44,10 @@
 /obj/item/clothing/head/hardhat/proc/turn_off(mob/user)
 	set_light(0)
 
-/obj/item/clothing/head/hardhat/extinguish_light(mob/living/user)
+/obj/item/clothing/head/hardhat/extinguish_light(force = FALSE)
 	if(on)
 		on = FALSE
-		turn_off(user)
+		turn_off()
 		update_icon(UPDATE_ICON_STATE)
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 

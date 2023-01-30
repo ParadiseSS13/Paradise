@@ -10,9 +10,9 @@
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
+	idle_power_consumption = 20
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = 0
@@ -22,7 +22,6 @@
 	var/patchamount = 10
 	var/bottlesprite = 1
 	var/pillsprite = 1
-	var/client/has_sprites = list()
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
@@ -67,11 +66,11 @@
 		loaded_pill_bottle = null
 
 /obj/machinery/chem_master/update_icon_state()
-	icon_state = "mixer[beaker ? "1" : "0"][powered() ? "" : "_nopower"]"
+	icon_state = "mixer[beaker ? "1" : "0"][has_power() ? "" : "_nopower"]"
 
 /obj/machinery/chem_master/update_overlays()
 	. = ..()
-	if(powered())
+	if(has_power())
 		. += "waitlight"
 
 /obj/machinery/chem_master/blob_act(obj/structure/blob/B)
@@ -79,10 +78,8 @@
 		qdel(src)
 
 /obj/machinery/chem_master/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
@@ -143,7 +140,7 @@
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
 	if(panel_open)
 		return
-	if(default_unfasten_wrench(user, I))
+	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		power_change()
 		return TRUE
 
@@ -550,7 +547,7 @@
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)

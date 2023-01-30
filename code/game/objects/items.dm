@@ -172,7 +172,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)
-	QDEL_LIST(actions)
+	QDEL_LIST_CONTENTS(actions)
 	master = null
 	return ..()
 
@@ -587,7 +587,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 							"<span class='userdanger'>[user] stabs you in the eye with [src]!</span>")
 	else
 		user.visible_message( \
-			"<span class='danger'>[user] has stabbed [user.p_them()]self in the eyes with [src]!</span>", \
+			"<span class='danger'>[user] has stabbed [user.p_themselves()] in the eyes with [src]!</span>", \
 			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
 		)
 
@@ -597,7 +597,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
-			head.receive_damage(rand(10,14), 1)
+			if(head)
+				head.receive_damage(rand(10, 14), 1)
 			return
 		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
@@ -615,7 +616,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
-		if(affecting.receive_damage(7))
+		if(istype(affecting) && affecting.receive_damage(7))
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
@@ -818,3 +819,44 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.
 /obj/item/proc/cyborg_recharge(coeff = 1, emagged = FALSE)
 	return
+
+// Access and Job stuff
+
+/obj/item/proc/get_job_name() //Used in secHUD icon generation
+	var/assignmentName = get_ID_assignment(if_no_id = "Unknown")
+	var/rankName = get_ID_rank(if_no_id = "Unknown")
+
+	var/job_icons = get_all_job_icons()
+	var/centcom = get_all_centcom_jobs()
+	var/solgov = get_all_solgov_jobs()
+
+	if((assignmentName in centcom) || (rankName in centcom)) //Return with the NT logo if it is a Centcom job
+		return "Centcom"
+
+	if((assignmentName in solgov) || (rankName in solgov)) //Return with the SolGov logo if it is a SolGov job
+		return "solgov"
+
+	if(assignmentName in job_icons) //Check if the job has a hud icon
+		return assignmentName
+	if(rankName in job_icons)
+		return rankName
+
+	return "Unknown" //Return unknown if none of the above apply
+
+/obj/item/proc/get_ID_assignment(if_no_id = "No id")
+	var/obj/item/card/id/id = GetID()
+	if(istype(id)) // Make sure its actually an ID
+		return id.assignment
+	return if_no_id
+
+/obj/item/proc/get_ID_rank(if_no_id = "No id")
+	var/obj/item/card/id/id = GetID()
+	if(istype(id)) // Make sure its actually an ID
+		return id.rank
+	return if_no_id
+
+/obj/item/proc/GetAccess()
+	return list()
+
+/obj/item/proc/GetID()
+	return null

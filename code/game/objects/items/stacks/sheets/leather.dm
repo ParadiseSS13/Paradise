@@ -208,6 +208,19 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+	else if(isrobot(target))
+		var/mob/living/silicon/robot/R = target
+		if(istype(R.module, /obj/item/robot_module/miner))
+			var/datum/armor/current_armor = R.armor
+			if(current_armor.getRating(MELEE) < 60)
+				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+				use(1)
+			else
+				to_chat(user, "<span class='warning'>You can't improve [R] any further!</span>")
+		else
+			to_chat(user, "<span class='warning'>[R]'s armor can not be improved!</span>")
+
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"

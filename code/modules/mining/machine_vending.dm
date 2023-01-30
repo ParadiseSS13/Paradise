@@ -94,14 +94,15 @@
 	prize_list["Extra"] = list() // Used in child vendors
 
 /obj/machinery/mineral/equipment_vendor/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !powered())
+	if(inserted_id && !(stat & NOPOWER))
 		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/equipment_vendor/update_icon_state()
-	if(powered())
+	if(has_power())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
@@ -207,12 +208,12 @@
 			default_deconstruction_crowbar(user, I)
 		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
-		if(!powered())
+		if(!has_power())
 			return
 		redeem_voucher(I, user)
 		return
 	if(istype(I, /obj/item/card/id))
-		if(!powered())
+		if(!has_power())
 			return
 		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))

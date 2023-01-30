@@ -6,8 +6,8 @@
 	icon_state = "prize_counter-on"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_consumption = 40
+
 	var/tickets = 0
 
 /obj/machinery/prize_counter/Initialize(mapload)
@@ -41,7 +41,7 @@
 		return
 	if(panel_open)
 		if(istype(O, /obj/item/wrench))
-			default_unfasten_wrench(user, O)
+			default_unfasten_wrench(user, O, time = 6 SECONDS)
 		if(component_parts && istype(O, /obj/item/crowbar))
 			if(tickets)		//save the tickets!
 				print_tickets()

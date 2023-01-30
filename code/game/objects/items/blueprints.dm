@@ -209,9 +209,9 @@
 		return area_created
 	var/area/A = new
 	A.name = str
-	A.power_equip = FALSE
-	A.power_light = FALSE
-	A.power_environ = FALSE
+	A.powernet.equipment_powered = FALSE
+	A.powernet.lighting_powered = FALSE
+	A.powernet.environment_powered = FALSE
 	A.always_unpowered = FALSE
 	A.set_dynamic_lighting()
 
@@ -341,3 +341,7 @@
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 
 /obj/item/areaeditor/blueprints/ce
+
+/obj/item/areaeditor/blueprints/ce/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)

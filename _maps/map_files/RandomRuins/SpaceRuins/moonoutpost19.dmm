@@ -141,7 +141,7 @@
 /area/ruin/space/unpowered)
 "au" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "tube-broken";
 	status = 2
@@ -203,7 +203,7 @@
 /area/ruin/space/unpowered)
 "aB" = (
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "bulb-broken";
 	status = 2
@@ -324,7 +324,7 @@
 /area/ruin/space/unpowered)
 "aP" = (
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 8;
 	icon_state = "bulb-broken";
 	status = 2
@@ -561,7 +561,7 @@
 	layer = 2.9
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -892,15 +892,13 @@
 "bK" = (
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	frequency = 1441;
-	id = "waste_in"
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "bM" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "tube-broken";
 	status = 2
@@ -1194,7 +1192,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	cell_type = 15000;
 	dir = 4;
 	locked = 0;
@@ -1437,14 +1435,13 @@
 /area/ruin/space/unpowered)
 "cO" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station/empty_charge{
 	cell_type = 15000;
 	dir = 4;
 	locked = 0;
 	name = "Research APC";
 	pixel_x = 25;
-	req_access = null;
-	start_charge = 0
+	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -1464,7 +1461,7 @@
 "cQ" = (
 /obj/structure/table,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1477,7 +1474,7 @@
 "cR" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 8;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1598,7 +1595,7 @@
 /area/ruin/space/unpowered)
 "da" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "tube-broken";
 	status = 2
@@ -1702,7 +1699,7 @@
 /area/ruin/space/unpowered)
 "dj" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "tube-broken";
 	status = 2
 	},
@@ -1819,7 +1816,7 @@
 /obj/item/trash/chips,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1881,7 +1878,7 @@
 "dB" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -2027,7 +2024,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},
@@ -2346,7 +2343,7 @@
 "eu" = (
 /obj/structure/closet/l3closet/general,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},
@@ -2603,7 +2600,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},
@@ -2984,7 +2981,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	cell_type = 15000;
 	dir = 1;
 	locked = 0;
