@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(shuttle)
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "Shuttles will no longer function. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
@@ -28,7 +29,7 @@ SUBSYSTEM_DEF(shuttle)
 	/// Default refuel delay
 	var/refuel_delay = 20 MINUTES
 
-/datum/controller/subsystem/shuttle/Initialize(start_timeofday)
+/datum/controller/subsystem/shuttle/Initialize()
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
 	if(!backup_shuttle)
@@ -38,8 +39,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	initial_load()
 	initial_move()
-
-	return ..()
 
 /datum/controller/subsystem/shuttle/get_stat_details()
 	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
@@ -205,6 +204,12 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
+	//check if the shuttle is on lockdown
+	if(M.lockeddown)
+		return 3
+	if(M.uses_lockdown)
+		M.lockeddown = TRUE
+		addtimer(VARSET_CALLBACK(M, lockeddown, FALSE), 15 SECONDS)
 	if(!M)
 		return 1
 	M.last_caller = user // Save the caller of the shuttle for later logging
@@ -270,6 +275,6 @@ SUBSYSTEM_DEF(shuttle)
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/C = V
 		C.update_hidden_docking_ports(remove_images, add_images)
 
-	QDEL_LIST(remove_images)
+	QDEL_LIST_CONTENTS(remove_images)
 
 #undef CALL_SHUTTLE_REASON_LENGTH

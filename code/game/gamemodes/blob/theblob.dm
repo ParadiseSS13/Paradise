@@ -132,7 +132,7 @@
 	if(iswallturf(loc))
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
-/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color, _overmind = null)
+/obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color, _overmind = null, turf/double_target = null)
 	if(prob && !prob(obj_integrity))
 		return
 	if(isspaceturf(T) && prob(75)) 	return
@@ -153,6 +153,13 @@
 	if(T.Enter(B,src))//Attempt to move into the tile
 		B.density = initial(B.density)
 		B.loc = T
+		if(double_target)
+			if(!overmind.can_buy(5))
+				overmind.last_attack = world.time
+				return
+			B.expand(double_target, 0, overmind.blob_reagent_datum.color, overmind)
+			overmind.blob_core.chemical_attack(T)
+			overmind.last_attack = world.time
 	else
 		T.blob_act()//If we cant move in hit the turf
 		B.loc = null //So we don't play the splat sound, see Destroy()
@@ -166,6 +173,14 @@
 			overmind.blob_reagent_datum.send_message(M)
 		A.blob_act(src)
 	return 1
+
+/obj/structure/blob/proc/double_expand(turf/T = null, prob = 1, a_color, _overmind = null)
+	for(var/turf/adjacent in circlerange(T, 1))
+		if(adjacent in circlerange(src, 1))
+			expand(adjacent, 0, overmind.blob_reagent_datum.color, overmind, T)
+			overmind.blob_core.chemical_attack(adjacent)
+			color = overmind.blob_reagent_datum.color
+			return
 
 /obj/structure/blob/Crossed(mob/living/L, oldloc)
 	..()

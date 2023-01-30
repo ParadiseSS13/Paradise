@@ -153,7 +153,7 @@
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Glare"
-	desc = "Your eyes flash, stunning and silencing anyone infront of you. It has lesser effects for those around you."
+	desc = "Your eyes flash, stunning and silencing anyone in front of you. It has lesser effects for those around you."
 	action_icon_state = "vampire_glare"
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS

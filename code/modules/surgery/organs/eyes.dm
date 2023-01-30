@@ -207,3 +207,148 @@
 
 /obj/item/organ/internal/eyes/cybernetic/shield/emp_act(severity)
 	return
+
+#define INTACT 0
+#define ONE_SHATTERED 1
+#define BOTH_SHATTERED 2
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod //no occuline allowed
+	name = "\improper Eyes of the Gods"
+	desc = "Two eyes said to belong to the gods. But such vision comes at a price"
+	icon_state = "eyesofgod"
+	eye_color = "#58a5ec"
+	see_in_dark = 8
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	emp_proof = TRUE //They are crystal artifacts, not metal
+	min_bruised_damage = 30
+	min_broken_damage = 60
+	actions_types = list(/datum/action/item_action/organ_action/use/eyesofgod)
+	var/active = FALSE
+	var/shatter_state = INTACT
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/Destroy()
+	deactivate()
+	return ..()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/remove(mob/living/carbon/human/M, special)
+	owner.cure_nearsighted() //Let's not leave the owner with blindness permamently that only admins / re-adding the eyes can remove
+	owner.cure_blind()
+	deactivate()
+	return ..()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/on_life()
+	. = ..()
+	if(is_mining_level(owner.z)) //More lavaland use cause magic or something. Don't worry about the ash in peoples eyes.
+		heal_internal_damage(1, 1)
+	if(!active)
+		switch(damage)
+			if(0 to 10)
+				heal_internal_damage(1, 1)
+				if(prob(25))
+					owner.cure_nearsighted()
+					owner.cure_blind()
+					unshatter()
+			if(10 to 30)
+				heal_internal_damage(0.5, 1)
+				if(prob(10))
+					owner.cure_blind()
+					unshatter()
+			if(30 to 60)
+				heal_internal_damage(0.33, 1)
+			if(60 to INFINITY)
+				heal_internal_damage(0.25, 1)
+	else
+		owner.mob_light("#58a5ec", 3, _duration = 2 SECONDS)
+		receive_damage(1.5, 1)
+		for(var/obj/O in range(7, owner))
+			var/turf/T = get_turf(O)
+			for(var/mob/M in O.contents)
+				receive_damage(0.25, 1)
+				new /obj/effect/temp_visual/eyesofgod(T)
+				if(prob(25))
+					to_chat(M, "<span class='warning'>You feel like you are being watched...</span>")
+		switch(damage)
+			if(25 to 30)
+				if(prob(50))
+					to_chat(owner, "<span class='warning'>Your eyes are hurting a lot!</span>")
+			if(30 to 54)
+				receive_damage(0.75, 1) //more pain when damaged
+			if(55 to 60)
+				if(prob(50))
+					to_chat(owner, "<span class='warning'>Your eyes feel like they are going to explode!</span>")
+
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/unshatter()
+	if(shatter_state == INTACT)
+		return
+	if(damage <= 10)
+		shatter_state = INTACT
+	else
+		if(shatter_state == ONE_SHATTERED)
+			return
+		shatter_state = ONE_SHATTERED
+	to_chat(owner, "<span class='notice'>Your feel better as your [shatter_state ? "left eye" : "right eye"] fixes itself!</span>")
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/receive_damage(amount, silent)
+	. = ..()
+	if(damage >= 30 && shatter_state == INTACT || damage >= 60 && shatter_state == ONE_SHATTERED)
+		shatter()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/shatter()
+	var/msg = "no eye?"
+	switch(shatter_state)
+		if(ONE_SHATTERED)
+			shatter_state = BOTH_SHATTERED
+			msg = "left eye"
+			owner.become_blind(EYES_OF_GOD)  //Special flag otherwise occuline heals it :gatto:
+		if(INTACT)
+			shatter_state = ONE_SHATTERED
+			msg = "right eye"
+			owner.become_nearsighted(EYES_OF_GOD)
+	to_chat(owner, "<span class='userdanger'>You scream out in pain as your [msg] shatters!</span>")
+	owner.emote("scream")
+	owner.bleed(5)
+	deactivate()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/activate()
+	receive_damage(2, 1) //No flicky flicky on / off to fully negate damage
+	RegisterSignal(owner, COMSIG_CARBON_FLASH_EYES, PROC_REF(got_flashed))
+	active = TRUE
+	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
+	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	flash_protect = FLASH_PROTECTION_VERYVUNERABLE //Flashing is it's weakness. I don't care how many protections you have up
+	owner?.client?.color = LIGHT_COLOR_PURE_CYAN
+	colourmatrix = list(0, 0, 0,\
+						0, 1, 0,\
+						0, 0, 1)
+	owner.update_sight()
+	owner.update_eyes_overlay_layer()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/deactivate()
+	UnregisterSignal(owner, COMSIG_CARBON_FLASH_EYES)
+	active = FALSE
+	see_invisible = initial(see_invisible)
+	vision_flags = initial(vision_flags)
+	lighting_alpha = initial(lighting_alpha)
+	flash_protect = initial(flash_protect)
+	owner?.client?.color = null
+	colourmatrix = null
+	owner.update_sight()
+	owner.update_eyes_overlay_layer()
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/proc/got_flashed(mob/living/carbon/C, laser_pointer)
+	if(active && !laser_pointer) //Should be active but double checking, and no laser pointer memes, since that is ranged flashes with no skill / counter, unlike a more predectable flashbang
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/organ, receive_damage), 22), 0.1 SECONDS)//Enough with base flashing to kick people out of vision in a moment due to damage. Don't want to do it instantly, or it lets people take less damage from the base flash
+
+/obj/item/organ/internal/eyes/cybernetic/eyesofgod/ui_action_click()
+	if(!active && shatter_state < BOTH_SHATTERED)
+		activate()
+		return
+	deactivate()
+
+/obj/effect/temp_visual/eyesofgod
+	name = "eye mark"
+	icon_state = "shield_reversed"
+	duration = 2 SECONDS
+	invisibility = INVISIBILITY_OBSERVER

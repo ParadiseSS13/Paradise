@@ -49,7 +49,7 @@
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Admin Bwoinks"
 	set category = "Preferences"
-	set desc = "Toggle hearing a notification when admin PMs are recieved"
+	set desc = "Toggle hearing a notification when admin PMs are received"
 	if(!check_rights(R_ADMIN))
 		return
 	prefs.sound ^= SOUND_ADMINHELP
@@ -60,7 +60,7 @@
 /client/proc/togglementorhelpsound()
 	set name = "Hear/Silence Mentorhelp Bwoinks"
 	set category = "Preferences"
-	set desc = "Toggle hearing a notification when mentorhelps are recieved"
+	set desc = "Toggle hearing a notification when mentorhelps are received"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	prefs.sound ^= SOUND_MENTORHELP
@@ -357,3 +357,11 @@
 	client.prefs.toggles2 ^= PREFTOGGLE_2_ANON
 	to_chat(src, "Your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "no longer" : "now"] be shown in certain events (end round reports, deadchat, etc).</span>")
 	client.prefs.save_preferences(src)
+
+/client/proc/toggle_mctabs()
+	set name = "Show/Hide MC Tabs"
+	set category = "Preferences"
+	set desc = "Shows or hides the MC tabs."
+	prefs.toggles2 ^= PREFTOGGLE_2_MC_TABS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "now" : "no longer"] see the MC tabs on the top right.")
