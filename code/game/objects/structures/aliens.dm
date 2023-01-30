@@ -254,17 +254,24 @@
 	var/silent_removal = FALSE
 
 /obj/structure/alien/weeds/Initialize(mapload, node)
-	..()
+	. = ..()
 	linked_node = node
 	if(isspaceturf(loc))
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	check_surroundings()
-	START_PROCESSING(SSobj, src)
+
 	RegisterSignal(linked_node, COMSIG_PARENT_QDELETING, PROC_REF(clear_linked_node))
+	RegisterSignal(loc, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change))
+
+	if((istype(linked_node, /obj/structure/alien/resin/door)) || (istype(linked_node, /obj/structure/alien/resin/wall)))
+		return
+
+	if(get_dist(linked_node, src) > linked_node.node_range)
+		return
+
+	addtimer(CALLBACK(src, PROC_REF(initial_spread)), 10 SECONDS)
 
 /obj/structure/alien/weeds/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	QUEUE_SMOOTH_NEIGHBORS(src)
 	if(!silent_removal)
 		playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
@@ -276,17 +283,61 @@
 	SIGNAL_HANDLER
 	UnregisterSignal(linked_node, COMSIG_PARENT_QDELETING)
 	linked_node = null
+	addtimer(CALLBACK(src, PROC_REF(decay)), rand(10 SECONDS, 1 MINUTES))
+
+/obj/structure/alien/weeds/proc/decay()
+	silent_removal = TRUE
+	qdel(src)
+
+/obj/structure/alien/weeds/proc/on_turf_change(turf/new_turf)
+	if(isspaceturf(new_turf))
+		qdel(src)
+
+/obj/structure/alien/weeds/proc/initial_spread()
+	var/turf/T = loc
+	var/list/spreadable_turfs = T.GetAtmosAdjacentTurfs()
+	for(var/turf/possible_spread_turf as anything in T.AdjacentTurfs(cardinal_only = TRUE))
+		var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in possible_spread_turf
+		if(istype(W))
+			if(linked_node == W)
+				continue
+			RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread)) // TODO test this
+			continue
+
+		if(!isspaceturf(possible_spread_turf) && (possible_spread_turf in spreadable_turfs))
+			spread(possible_spread_turf)
+		else
+			//RegisterSignal(T, COMSIG_TURF_CHANGE, PROC_REF(try_spread_new_turf))
+
+/obj/structure/alien/weeds/proc/try_spread_new_turf(turf/oldTurf, turf/newTurf)
+	// TODO Check if unregister is needed here
+	try_delayed_spread(newTurf)
+
+/obj/structure/alien/weeds/proc/try_delayed_spread(atom/A)
+	var/turf/T = get_turf(A)
+	var/turf/own_turf = get_turf(src)
+	var/list/spreadable_turfs = own_turf.GetAtmosAdjacentTurfs()
+	if(!isspaceturf(T) && (T in spreadable_turfs))
+		addtimer(CALLBACK(src, PROC_REF(spread), T), 10 SECONDS)
+	else
+		//RegisterSignal(T, COMSIG_TURF_CHANGE, PROC_REF(try_delayed_spread))
+
+/obj/structure/alien/weeds/proc/spread(turf/T)
+	var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in T
+	//UnregisterSignal(T, COMSIG_TURF_CHANGE)
+	if(W)
+		// Somebody else grew one already
+		RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread)) // TODO test this
+		return
+	W = new /obj/structure/alien/weeds(T, linked_node)
+	// Register to them being destroyed. If so try to regrow
+	RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread)) // TODO test this
+	check_surroundings()
 
 /obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent != INTENT_HARM)
 		return
 	return ..()
-
-/obj/structure/alien/weeds/process()
-	check_counter++
-	if(check_counter >= 5)
-		spread()
-		check_counter = 0
 
 /obj/structure/alien/weeds/proc/clear_wall_weed()
 	if(wall_weed && !QDELETED(wall_weed))
@@ -332,31 +383,6 @@
 		wall_weed = new /obj/structure/alien/wallweed(T, src)
 
 	wall_weed.compare_overlays(wall_dirs)
-
-/obj/structure/alien/weeds/proc/spread()
-	var/turf/U = get_turf(src)
-
-	if(isspaceturf(U))
-		qdel(src)
-		return
-
-	if(!linked_node)
-		if(prob(20))
-			silent_removal = TRUE
-			qdel(src)
-		return
-
-	if((istype(linked_node, /obj/structure/alien/resin/door)) || (istype(linked_node, /obj/structure/alien/resin/wall)))
-		return
-
-	if(get_dist(linked_node, src) > linked_node.node_range) /*!linked_node || */
-		return
-
-	for(var/turf/T in U.GetAtmosAdjacentTurfs())
-		if(locate(/obj/structure/alien/weeds) in T || isspaceturf(T))
-			continue
-		new /obj/structure/alien/weeds(T, linked_node)
-		check_surroundings()
 
 /obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
