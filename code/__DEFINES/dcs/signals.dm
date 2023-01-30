@@ -238,7 +238,7 @@
 
 // /turf signals
 
-///from base of turf/ChangeTurf(): (path, list/new_baseturfs, flags, list/transferring_comps)
+///from base of turf/ChangeTurf(): (path)
 #define COMSIG_TURF_CHANGE "turf_change"
 ///from base of atom/has_gravity(): (atom/asker, list/forced_gravities)
 #define COMSIG_TURF_HAS_GRAVITY "turf_has_gravity"

@@ -289,49 +289,73 @@
 	silent_removal = TRUE
 	qdel(src)
 
-/obj/structure/alien/weeds/proc/on_turf_change(turf/new_turf)
-	if(isspaceturf(new_turf))
+/obj/structure/alien/weeds/proc/on_turf_change(turf/new_turf, new_path)
+	if(ispath(new_path, /turf/space))
 		qdel(src)
 
+/**
+ * Tries to spread to nearby turfs. If it can't then register to those turfs or existing weeds
+ */
 /obj/structure/alien/weeds/proc/initial_spread()
-	var/turf/T = loc
-	var/list/spreadable_turfs = T.GetAtmosAdjacentTurfs()
-	for(var/turf/possible_spread_turf as anything in T.AdjacentTurfs(cardinal_only = TRUE))
+	var/turf/own_turf = loc
+	var/list/spreadable_turfs = own_turf.GetAtmosAdjacentTurfs()
+	for(var/turf/possible_spread_turf as anything in own_turf.AdjacentTurfs(cardinal_only = TRUE))
 		var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in possible_spread_turf
 		if(istype(W))
-			if(linked_node == W)
-				continue
-			RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread)) // TODO test this
+			if(linked_node != W)
+				RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread))
 			continue
 
 		if(!isspaceturf(possible_spread_turf) && (possible_spread_turf in spreadable_turfs))
 			spread(possible_spread_turf)
 		else
-			//RegisterSignal(T, COMSIG_TURF_CHANGE, PROC_REF(try_spread_new_turf))
+			RegisterSignal(possible_spread_turf, COMSIG_TURF_CHANGE, PROC_REF(try_spread_new_turf))
 
-/obj/structure/alien/weeds/proc/try_spread_new_turf(turf/oldTurf, turf/newTurf)
-	// TODO Check if unregister is needed here
-	try_delayed_spread(newTurf)
+/obj/structure/alien/weeds/proc/try_spread_new_turf(turf/T)
+	// UGH! but can't otherwise ensure the turf got changed already
+	// Unless a changeTurf refactor is done so you can send a signal to the old turf containing the new turf somehow.
+	// Or to the new turf using the registers of the old turf
+	addtimer(CALLBACK(src, PROC_REF(try_delayed_spread), T), 0)
 
+/**
+ * Start the timer to do an actual spread if the turf is valid
+ * If the turf is non spreadable then register on the turf changing
+ *
+ * A - The atom changing/deleting triggering the attempt
+ */
 /obj/structure/alien/weeds/proc/try_delayed_spread(atom/A)
+	if(!linked_node)
+		return
 	var/turf/T = get_turf(A)
 	var/turf/own_turf = get_turf(src)
 	var/list/spreadable_turfs = own_turf.GetAtmosAdjacentTurfs()
 	if(!isspaceturf(T) && (T in spreadable_turfs))
 		addtimer(CALLBACK(src, PROC_REF(spread), T), 10 SECONDS)
 	else
-		//RegisterSignal(T, COMSIG_TURF_CHANGE, PROC_REF(try_delayed_spread))
+		RegisterSignal(T, COMSIG_TURF_CHANGE, PROC_REF(try_spread_new_turf))
 
+/**
+ * Do the actual spreading if still possible.
+ * If weeds exist then register on those being destroyed. Else if the turf can't be reached then register on the turf itself
+ *
+ * T - The turf on which we try to spread
+ */
 /obj/structure/alien/weeds/proc/spread(turf/T)
+	if(!linked_node)
+		return
+	var/turf/own_turf = get_turf(src)
+	var/list/spreadable_turfs = own_turf.GetAtmosAdjacentTurfs()
+	if(isspaceturf(T) || !(T in spreadable_turfs))
+		return
 	var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in T
-	//UnregisterSignal(T, COMSIG_TURF_CHANGE)
+	UnregisterSignal(T, COMSIG_TURF_CHANGE)
 	if(W)
 		// Somebody else grew one already
-		RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread)) // TODO test this
+		RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread))
 		return
 	W = new /obj/structure/alien/weeds(T, linked_node)
 	// Register to them being destroyed. If so try to regrow
-	RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread)) // TODO test this
+	RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(try_delayed_spread))
 	check_surroundings()
 
 /obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/user)

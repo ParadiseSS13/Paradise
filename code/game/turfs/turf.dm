@@ -231,6 +231,7 @@
 
 	var/old_baseturf = baseturf
 	changing_turf = TRUE
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path)
 	qdel(src)	//Just get the side effects and call Destroy
 	var/turf/W = new path(src)
 	if(copy_existing_baseturf)
