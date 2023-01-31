@@ -5,7 +5,7 @@
 	name = "Black Terror venom"
 	id = "terror_black_toxin"
 	description = "An incredibly toxic venom injected by the Black Widow spider."
-	color = "#CF3600"
+	color = "#cc00ff"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/terror_black_toxin/on_mob_life(mob/living/M)

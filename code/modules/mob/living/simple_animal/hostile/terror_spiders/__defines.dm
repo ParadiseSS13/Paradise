@@ -8,16 +8,22 @@
 #define TS_DAMAGE_POISON 1
 #define TS_DAMAGE_BRUTE 2
 
-#define TS_DESC_RED "Red - Assault"
-#define TS_DESC_GRAY "Gray - Ambush"
-#define TS_DESC_GREEN "Green - Nurse"
-#define TS_DESC_WHITE "White - Infect"
-#define TS_DESC_BLACK "Black - Poison"
-#define TS_DESC_PURPLE "Purple - Guard"
-#define TS_DESC_BROWN "Brown - Breacher"
+//TIER 1
+#define TS_DESC_KNIGHT "Knight - ASSAULT"
+#define TS_DESC_LURKER "Lurker - AMBUSH"
+#define TS_DESC_HEALER "Healer - NURSE"
+#define TS_DESC_REAPER "Reaper - BRAWL"
+#define TS_DESC_BUILDER "Drone - BUILD"
+//TIER 2
+#define TS_DESC_DEFILER "Defiler - INFECT"
+#define TS_DESC_WIDOW "Widow - POISON"
+#define TS_DESC_GUARDIAN "Guardian - GUARD"
+#define TS_DESC_DESTROYER "Destroyer - BREACHER"
+//TIER 3
 #define TS_DESC_PRINCE "Prince - HERO"
 #define TS_DESC_PRINCESS "Princess - HORDE"
 #define TS_DESC_MOTHER "Mother - SUPPORT"
+//TIER 4
 #define TS_DESC_QUEEN "Queen - LEADER"
 
 #define TS_TIER_1 1

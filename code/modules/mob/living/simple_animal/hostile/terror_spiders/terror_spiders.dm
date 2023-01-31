@@ -14,81 +14,65 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 // Because: http://tvtropes.org/pmwiki/pmwiki.php/Main/SpidersAreScary
 
 /mob/living/simple_animal/hostile/poison/terror_spider
-	// Name / Description
-	name = "terror spider"
+	//COSMETIC
+	name = ""
 	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
 	gender = FEMALE
-
-	// Icons
 	icon = 'icons/mob/terrorspider.dmi'
 	icon_state = "terror_red"
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
+	attacktext = "кусает"
+	attack_sound = 'sound/creatures/terrorspiders/bite.ogg'
+	deathmessage = "Screams in pain and slowly stops moving."
+	death_sound = 'sound/creatures/terrorspiders/death.ogg'
+	var/spider_intro_text = "Если ты это видишь, напиши разрабам"
+	speak_chance = 0 // quiet but deadly
+	speak_emote = list("hisses")
+	emote_hear = list("hisses")
+	tts_seed = "Anubarak"
+	sentience_type = SENTIENCE_OTHER
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	footstep_type = FOOTSTEP_MOB_CLAW
 
-	// Health
+	//HEALTH
 	maxHealth = 120
 	health = 120
+	a_intent = INTENT_HARM
+	var/heal_per_kill = 120 // healing per wrap
+	var/heal_per_jelly = 120 // gain a ton of healing if you eat a jelly
+	var/regeneration = 2 //pure regen on life
+	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
 
-	// Melee attacks
+	//ATTACK
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	attacktext = "кусает"
-	attack_sound = 'sound/weapons/bite.ogg'
-	a_intent = INTENT_HARM
 
-	// Movement
+	//MOVEMENT
 	pass_flags = PASSTABLE
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
+	speed = 0
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
-	// 5 = 4 tiles/sec, 6 = 3.3 tiles/sec. 3 = 6.6 tiles/sec.
 
-	// Player spider movement speed is controlled by the 'speed' var.
-	// Higher numbers mean slower speed. Can be negative for major speed increase. Call movement_delay() on mob to convert this var to into a step delay.
-	// '-1' (default for fast humans) converts to 1.5 or 6.6 tiles/sec
-	// '0' (default for human mobs) converts to 2.5, or 4 tiles/sec.
-	// '1' (default for most simple_mobs, including terror spiders) converts to 3.5, or 2.8 tiles/sec.
-	// '2' converts to 4.5, or 2.2 tiles/sec.
-
-	// Ventcrawling
-	ventcrawler = 1 // allows player ventcrawling
+	//SPECIAL
+	var/list/special_abillity = list()  //has spider unique abillities?
+	var/can_wrap = TRUE   //can spider wrap corpses and objects?
+	var/web_type = /obj/structure/spider/terrorweb
+	ventcrawler = 1 // allows player ventcrawling, set 0 to disallow
+	var/delay_web = 30 // delay between starting to spin web, and finishing
+	faction = list("terrorspiders")
+	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	var/ai_ventcrawls = TRUE
 	var/idle_ventcrawl_chance = 15
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
 	var/freq_ventcrawl_idle =  9000 // 15 minutes
 	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
 	var/ai_ventbreaker = 0
-
 	// AI movement tracking
 	var/spider_steps_taken = 0 // leave at 0, its a counter for ai steps taken.
 	var/spider_max_steps = 15 // after we take X turns trying to do something, give up!
-
-	// Speech
-	speak_chance = 0 // quiet but deadly
-	speak_emote = list("hisses")
-	emote_hear = list("hisses")
-	tts_seed = "Anubarak"
-
-	// Sentience Type
-	sentience_type = SENTIENCE_OTHER
-
-	// Languages are handled in terror_spider/New()
-
-	// Interaction keywords
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-
-	// regeneration settings - overridable by child classes
-	var/regen_points = 0 // number of regen points they have by default
-	var/regen_points_max = 100 // max number of points they can accumulate
-	var/regen_points_per_tick = 1 // gain one regen point per tick
-	var/regen_points_per_kill = 90 // gain extra regen points if you kill something
-	var/regen_points_per_hp = 3 // every X regen points = 1 health point you can regen
-	var/regen_points_per_jelly = 120 // gain a ton of regen points if you eat a jelly
-	// desired: 20hp/minute unmolested, 40hp/min on food boost, assuming one tick every 2 seconds
-	//          90/kill means bonus 30hp/kill regenerated over the next 1-2 minutes
-
-	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
 
 	// Vision
 	vision_range = 10
@@ -110,17 +94,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/ai_spins_webs = TRUE // AI web-spinning behavior
 	var/freq_spins_webs = 600
 	var/last_spins_webs = 0 // leave this, changed by procs.
-	var/delay_web = 40 // delay between starting to spin web, and finishing
 
 	var/freq_cocoon_object = 1200 // two minutes between each attempt
 	var/last_cocoon_object = 0 // leave this, changed by procs.
 
-	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
-	faction = list("terrorspiders")
 	var/spider_awaymission = 0 // if 1, limits certain behavior in away missions
 	var/spider_uo71 = 0 // if 1, spider is in the UO71 away mission
 	var/spider_unlock_id_tag = "" // if defined, unlock awaymission blast doors with this tag on death
-	var/spider_role_summary = "UNDEFINED"
 	var/spider_placed = 0
 
 	// AI variables designed for use in procs
@@ -146,20 +126,17 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/spider_creation_time = 0
 
 	var/datum/action/innate/terrorspider/web/web_action
-	var/web_type = /obj/structure/spider/terrorweb
 	var/datum/action/innate/terrorspider/wrap/wrap_action
 
 	// Breathing - require some oxygen, and no toxins
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	// Temperature
 	heat_damage_per_tick = 5 // Takes 250% normal damage from being in a hot environment ("kill it with fire!")
 
 	// DEBUG OPTIONS & COMMANDS
-	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
+	var/spider_growinstantly = FALSE
 	var/spider_debug = FALSE
-	footstep_type = FOOTSTEP_MOB_CLAW
-
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -224,15 +201,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	L.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/consume_jelly(obj/structure/spider/royaljelly/J)
-	if(regen_points_per_tick >= regen_points_per_hp)
-		to_chat(src, "<span class='warning'>Your spider type would not get any benefit from consuming royal jelly.</span>")
+	if(health == maxHealth)
+		to_chat(src, "<span class='warning'>You don't need healing!</span>")
 		return
-	if(regen_points > 200)
-		to_chat(src, "<span class='warning'>You aren't hungry for jelly right now.</span>")
-		return
-	to_chat(src, "<span class='notice'>You consume the royal jelly! Regeneration speed increased!</span>")
-	regen_points += regen_points_per_jelly
-	fed++
+	to_chat(src, "<span class='notice'>You consume royal jelly to heal yourself!</span>")
+	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, 1)
+	adjustBruteLoss(-heal_per_jelly)
 	qdel(J)
 
 // --------------------------------------------------------------------------------
@@ -254,8 +228,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			. += "<span class='warning'>[p_they(TRUE)] is barely clinging on to life!</span>"
 		if(degenerate)
 			. += "<span class='warning'>[p_they(TRUE)] appears to be dying.</span>"
-		else if(health < maxHealth && regen_points > regen_points_per_kill)
-			. += "<span class='notice'>[p_they(TRUE)] appears to be regenerating quickly.</span>"
 		if(killcount >= 1)
 			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
 
@@ -263,6 +235,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	..()
 	GLOB.ts_spiderlist += src
 	add_language("Spider Hivemind")
+	for(var/spell in special_abillity)
+		src.AddSpell(new spell)
+
 	if(spider_tier >= TS_TIER_2)
 		add_language("Galactic Common")
 	default_language = GLOB.all_languages["Spider Hivemind"]
@@ -270,11 +245,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(web_type)
 		web_action = new()
 		web_action.Grant(src)
-	if(regen_points_per_tick < regen_points_per_hp)
-		// Only grant the Wrap action button to spiders who need to use it to regenerate their health
+	if(can_wrap)
 		wrap_action = new()
 		wrap_action.Grant(src)
-	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
 	if(is_away_level(z))
@@ -321,18 +294,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
 			gib()
 	else
+		if(stat != DEAD)
+			adjustBruteLoss(-regeneration)
 		if(degenerate)
-			adjustToxLoss(rand(1,10))
-		if(regen_points < regen_points_max)
-			regen_points += regen_points_per_tick
-		if(getBruteLoss() || getFireLoss())
-			if(regen_points > regen_points_per_hp)
-				if(getBruteLoss())
-					adjustBruteLoss(-1)
-					regen_points -= regen_points_per_hp
-				else if(getFireLoss())
-					adjustFireLoss(-1)
-					regen_points -= regen_points_per_hp
+			adjustBruteLoss(rand(4,6))
 		if(prob(5))
 			CheckFaction()
 
@@ -345,6 +310,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			GLOB.ts_count_alive_awaymission--
 		else
 			GLOB.ts_count_alive_station--
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/give_intro_text()
+	to_chat(src, "<center><span class='userdanger'>Вы паук ужаса!</span></center>")
+	to_chat(src, "<center>Работайте сообща, помогайте своим братьям и сёстрам, саботируйте станцию, убивайте экипаж, превратите это место в своё гнездо!</center>")
+	to_chat(src, "<center><span class='big'>[spider_intro_text]</span></center><br>")
+	SEND_SOUND(src, sound('sound/ambience/antag/terrorspider.ogg'))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())
@@ -422,23 +393,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(degenerate)
 			stat(null, "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
 			return
-		if(health != maxHealth)
-			var/hp_points_per_second = 0
-			var/ltext = "FAST"
-			var/lcolor = "#fcba03" // orange
-			var/secs_per_tick = (SSmobs.wait / 10) // This uses SSmobs.wait because it must use the same frequency as mobs are processed
-			if(regen_points < (regen_points_per_hp * 2))
-				// Slow regen speed: using regen_points as we get them. Figure out regen_points/sec, then convert that to hp/sec.
-				var/regen_points_per_second = (regen_points_per_tick / secs_per_tick)
-				hp_points_per_second = (regen_points_per_second / regen_points_per_hp)
-				ltext = "SLOW (HUNGRY!)"
-				lcolor = "#eb4034" // red
-			else
-				// Fast regen speed: healing at full 1 hp / tick rate. Just divide 1hp/tick by seconds/tick to get healing/sec.
-				hp_points_per_second = 1 / secs_per_tick
-			if(hp_points_per_second > 0)
-				var/pc_of_max_per_second = round(((hp_points_per_second / maxHealth) * 100), 0.1)
-				stat(null, "Regeneration: [ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
 	if(!isturf(loc))
@@ -470,7 +424,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		reset_perspective()
 	. = ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/movement_delay()
-	. = ..()
-	if(pulling && !ismob(pulling))
-		. += 6 // drastic move speed penalty for dragging anything that is not a mob
+/mob/living/simple_animal/hostile/poison/terror_spider/CanPass(atom/movable/O)
+	if(istype(O, /obj/item/projectile/terrorspider))
+		return TRUE
+	return ..()
+
+/obj/item/projectile/terrorspider
+	name = "basic"
+	damage = 0
+	icon_state = "toxin"
+	damage_type = BURN

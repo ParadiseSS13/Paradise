@@ -1,4 +1,6 @@
 // ---------- ACTIONS FOR ALL SPIDERS
+/datum/action/innate/terrorspider
+	background_icon_state = "bg_terror"
 
 /datum/action/innate/terrorspider/web
 	name = "Web"
@@ -27,7 +29,7 @@
 	button_icon_state = "eggs"
 
 /datum/action/innate/terrorspider/greeneggs/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/green/user = owner
+	var/mob/living/simple_animal/hostile/poison/terror_spider/healer/user = owner
 	user.DoLayGreenEggs()
 
 
@@ -50,36 +52,6 @@
 /datum/action/innate/terrorspider/remoteview/Activate()
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.DoRemoteView()
-
-
-// ---------- MOTHER ACTIONS
-
-/datum/action/innate/terrorspider/mother/royaljelly
-	name = "Lay Royal Jelly"
-	icon_icon = 'icons/mob/actions/actions.dmi'
-	button_icon_state = "spiderjelly"
-
-/datum/action/innate/terrorspider/mother/royaljelly/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.DoCreateJelly()
-
-/datum/action/innate/terrorspider/mother/gatherspiderlings
-	name = "Gather Spiderlings"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "spiderling"
-
-/datum/action/innate/terrorspider/mother/gatherspiderlings/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.PickupSpiderlings()
-
-/datum/action/innate/terrorspider/mother/incubateeggs
-	name = "Incubate Eggs"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "eggs"
-
-/datum/action/innate/terrorspider/mother/incubateeggs/Activate()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/mother/user = owner
-	user.IncubateEggs()
 
 // ---------- QUEEN ACTIONS
 
@@ -142,6 +114,7 @@
 		return
 	var/turf/mylocation = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
+	playsound(src.loc, 'sound/creatures/terrorspiders/web.ogg', 50, 1)
 	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
@@ -173,7 +146,7 @@
 /obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
-	if(istype(mover, /obj/item/projectile/terrorqueenspit))
+	if(istype(mover, /obj/item/projectile/terrorspider))
 		return 1
 	if(isliving(mover))
 		var/mob/living/M = mover
@@ -181,8 +154,8 @@
 			return 1
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			M.Stun(4) // 8 seconds.
-			M.Weaken(4) // 8 seconds.
+			M.Stun(2) // 4 seconds.
+			M.Weaken(2) // 4 seconds.
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover
 				web_special_ability(C)
@@ -244,6 +217,7 @@
 			return
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
+		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, 1)
 		stop_automated_movement = 1
 		walk(src,0)
 		if(do_after(src, 40, target = cocoon_target.loc))
@@ -267,7 +241,7 @@
 						if(!mobIsWrappable(L))
 							continue
 						if(iscarbon(L))
-							regen_points += regen_points_per_kill
+							adjustBruteLoss(-heal_per_kill)
 							fed++
 							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
 							to_chat(src, "<span class='notice'>You feel invigorated!</span>")

@@ -11,26 +11,27 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 	name = "Princess of Terror spider"
 	desc = "An enormous spider. It looks strangely cute and fluffy."
-	spider_role_summary = "Mini-Queen"
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
 	icon_dead = "terror_princess1_dead"
-	maxHealth = 150
-	health = 150
+	melee_damage_lower = 15
+	melee_damage_upper = 20
+	maxHealth = 200
+	health = 200
+	speed = -0.1
+	delay_web = 25
+	deathmessage = "Emits a  piercing screech and slowly falls on the ground."
+	death_sound = 'sound/creatures/terrorspiders/princess_death.ogg'
 	spider_tier = TS_TIER_3
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
-
-	// Unlike queens, no ranged attack.
-	ranged = 0
-	retreat_distance = 0
-	minimum_distance = 0
-	projectilesound = null
-	projectiletype = null
-
+	spider_intro_text = "Будучи Принцессой Ужаса, ваша задача - откладывать яйца и охранять их. Хоть вы и умеете плеваться кислотой, а также обладаете визгом, помогающим в бою, вам не стоит сражаться намеренно, ведь для этого есть другие пауки."
+	ranged = 1
+	projectiletype = /obj/item/projectile/terrorspider/princess
 	canlay = 0
 	hasnested = TRUE
 	spider_spawnfrequency = 300 // 30 seconds
+	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/princess)
 	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
 	var/spider_max_children = 8
 	tts_seed = "Ranger"
@@ -46,24 +47,20 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ListAvailableEggTypes()
-	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
+	var/list/valid_types = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_REAPER)
 
 	// Each princess can also have ONE black/purple/brown. If it dies, they can pick a new spider from the 3 advanced types to lay.
-	var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/brown))
-	if(spider_array["all"] < 1)
-		valid_types |= TS_DESC_BLACK
-		valid_types |= TS_DESC_PURPLE
-		valid_types |= TS_DESC_BROWN
+	var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/guardian, /mob/living/simple_animal/hostile/poison/terror_spider/destroyer))
+	if(spider_array["all"] < 3)
+		valid_types |= TS_DESC_WIDOW
+		valid_types |= TS_DESC_GUARDIAN
+		valid_types |= TS_DESC_DESTROYER
 
 	return valid_types
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_eggs()
 	spider_lastspawn = world.time
-
-	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>You cannot generate eggs while hiding in [loc].</span>")
-		return
 
 	if(!prob(grant_prob))
 		return
@@ -127,3 +124,10 @@
 		return TRUE
 	return FALSE
 
+/obj/item/projectile/terrorspider/princess
+	name = "princess venom"
+	icon_state = "toxin4"
+	damage = 25
+	stamina = 25
+	icon_state = "toxin"
+	damage_type = BURN

@@ -81,22 +81,19 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/process()
 	var/turf/T = get_turf(src)
-	amount_grown += rand(0,2)
-	if(amount_grown >= 100)
-		if(spider_awaymission && !is_away_level(T.z))
-			stillborn = TRUE
-		if(stillborn)
-			if(amount_grown >= 300)
-				// Fake spiderlings stick around for awhile, just to be spooky.
-				qdel(src)
-		else
-			if(!grow_as)
-				grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
-			var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(T)
-			S.spider_myqueen = spider_myqueen
-			S.spider_mymother = spider_mymother
-			S.enemies = enemies
-			qdel(src)
+	if(spider_awaymission && !is_away_level(T.z))
+		stillborn = TRUE
+	if(stillborn)
+		// Fake spiderlings stick around for awhile, just to be spooky.
+		qdel(src)
+	else
+		if(!grow_as)
+			grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(T)
+		S.spider_myqueen = spider_myqueen
+		S.spider_mymother = spider_mymother
+		S.enemies = enemies
+		qdel(src)
 	if(movement_disabled)
 		return
 	if(travelling_in_vent)
@@ -208,18 +205,22 @@
 	spiderling_type = lay_type
 
 	switch(spiderling_type)
-		if(/mob/living/simple_animal/hostile/poison/terror_spider/red)
-			name = "red terror eggs"
-		if(/mob/living/simple_animal/hostile/poison/terror_spider/gray)
-			name = "gray terror eggs"
-		if(/mob/living/simple_animal/hostile/poison/terror_spider/green)
-			name = "green terror eggs"
-		if(/mob/living/simple_animal/hostile/poison/terror_spider/black)
-			name = "black terror eggs"
-		if(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
-			name = "purple terror eggs"
-		if(/mob/living/simple_animal/hostile/poison/terror_spider/white)
-			name = "white terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/knight)
+			name = "knight terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/lurker)
+			name = "lurker terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/healer)
+			name = "healer terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/reaper)
+			name = "reaper terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/builder)
+			name = "builder terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/widow)
+			name = "widow terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/guardian)
+			name = "guardian terror eggs"
+		if(/mob/living/simple_animal/hostile/poison/terror_spider/defiler)
+			name = "defiler terror eggs"
 		if(/mob/living/simple_animal/hostile/poison/terror_spider/mother)
 			name = "mother of terror eggs"
 		if(/mob/living/simple_animal/hostile/poison/terror_spider/prince)
@@ -232,9 +233,10 @@
 	return ..()
 
 /obj/structure/spider/eggcluster/terror_eggcluster/process()
-	amount_grown += rand(0,2)
-	if(amount_grown >= 100)
+	amount_grown += 1
+	if(amount_grown >= 180)  //x2 time for egg process, spiderlings grows instantly
 		var/num = spiderling_number
+		playsound(src, 'sound/creatures/terrorspiders/eggburst.ogg', 100)
 		for(var/i=0, i<num, i++)
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			if(spiderling_type)

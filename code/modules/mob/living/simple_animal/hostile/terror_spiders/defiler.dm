@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: T2 WHITE TERROR ------------------------------
+// ----------------- TERROR SPIDERS: T2 DEFILER TERROR ------------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: stealthy reproduction
 // -------------: AI: injects a venom that makes you grow spiders in your body, then retreats
@@ -7,34 +7,44 @@
 // -------------: TO FIGHT IT: blast it before it can get away
 // -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
-/mob/living/simple_animal/hostile/poison/terror_spider/white
-	name = "White Terror spider"
+/mob/living/simple_animal/hostile/poison/terror_spider/defiler
+	name = "Defiler of Terror"
 	desc = "An ominous-looking white spider, its ghostly eyes and vicious-looking fangs are the stuff of nightmares."
-	spider_role_summary = "Rare, bite-and-run spider that infects hosts with spiderlings"
 	ai_target_method = TS_DAMAGE_POISON
 	icon_state = "terror_white"
 	icon_living = "terror_white"
 	icon_dead = "terror_white_dead"
-	maxHealth = 200
-	health = 200
+	maxHealth = 210
+	health = 210
+	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
+	speed = -0.1
 	melee_damage_lower = 5
-	melee_damage_upper = 15
+	melee_damage_upper = 10
+	spider_opens_doors = 2
 	spider_tier = TS_TIER_2
+	gender = MALE
 	web_type = /obj/structure/spider/terrorweb/white
+	delay_web = 20
+	special_abillity = list(/obj/effect/proc_holder/spell/targeted/terror/smoke,
+							/obj/effect/proc_holder/spell/targeted/terror/parasmoke,
+							/obj/effect/proc_holder/spell/targeted/terror/infest)
+	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их своими яйцами. Вы наносите мало урона, но можете довольно быстро парализовать цель, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых!"
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/white/LoseTarget()
+/mob/living/simple_animal/hostile/poison/terror_spider/defiler/LoseTarget()
 	stop_automated_movement = 0
 	attackstep = 0
 	attackcycles = 0
 	..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/white/death(gibbed)
+/mob/living/simple_animal/hostile/poison/terror_spider/defiler/death(gibbed)
 	if(can_die() && !hasdied && spider_uo71)
 		UnlockBlastDoors("UO71_Bridge")
 	return ..(gibbed)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/white/spider_specialattack(mob/living/carbon/human/L, poisonable)
+/mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
+	L.AdjustSilence(5)
+	L.adjustStaminaLoss(40)
 	if(!poisonable)
 		..()
 		return
@@ -47,10 +57,6 @@
 			if(!ckey)
 				LoseTarget()
 				walk_away(src,L,2,1)
-		else if(prob(25))
-			visible_message("<span class='danger'>[src] pounces on [L]!</span>")
-			L.Weaken(5)
-			L.Stun(5)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))

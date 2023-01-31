@@ -11,17 +11,18 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen
 	name = "Queen of Terror spider"
 	desc = "An enormous, terrifying spider. Its egg sac is almost as big as its body, and teeming with spider eggs!"
-	spider_role_summary = "Commander of the spider forces. Lays eggs, directs the brood."
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
-	maxHealth = 200
-	health = 200
-	regen_points_per_tick = 3
-	melee_damage_lower = 10
-	melee_damage_upper = 20
+	maxHealth = 350
+	health = 350
+	deathmessage = "Emits a  piercing screech that echoes through the hallways, chilling the hearts of those around, as the spider lifelessly falls to the ground."
+	death_sound = 'sound/creatures/terrorspiders/queen_death.ogg'
+	melee_damage_lower = 20
+	melee_damage_upper = 30
 	ventcrawler = 1
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	ai_break_lights = FALSE
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
@@ -31,11 +32,15 @@
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
-	projectilesound = 'sound/weapons/pierce.ogg'
-	projectiletype = /obj/item/projectile/terrorqueenspit
+	projectilesound = 'sound/creatures/terrorspiders/spit.ogg'
+	projectiletype = /obj/item/projectile/terrorspider/queen
 	spider_tier = TS_TIER_4
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
+	delay_web = 15
+	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/queen)
+	can_wrap = FALSE
+	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
 	var/spider_spawnfrequency = 1200 // 120 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
 	var/spider_spawnfrequency_stable = 1200 // 120 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
 	var/spider_lastspawn = 0
@@ -46,7 +51,7 @@
 	var/spider_max_per_nest = 35 // above this, AI queens become stable
 	var/canlay = 5 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
-	var/list/spider_types_standard = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/black)
+	var/list/spider_types_standard = list(/mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/widow)
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
@@ -111,7 +116,7 @@
 				continue
 			if(T.spider_myqueen != src)
 				continue
-			if(prob(50) || T.spider_tier >= spider_tier)
+			if(prob(100) || T.spider_tier >= spider_tier)
 				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!</span>")
 				continue
 			T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
@@ -188,9 +193,9 @@
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
 					spider_lastspawn = world.time
-					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
-					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, 2)
-					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 2)
+					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/guardian, 2)
+					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/defiler, 2)
+					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, 2)
 					neststep = 3
 			if(3)
 				// Create spiders (random types) until nest is full.
@@ -218,12 +223,12 @@
 						else
 							spider_lastspawn = world.time
 							var/list/spider_array = CountSpidersDetailed(FALSE)
-							if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/purple] < 4)
-								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
-							else if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/white] < 2)
-								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, 2)
-							else if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/brown] < 4)
-								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 4)
+							if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/guardian] < 4)
+								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/guardian, 2)
+							else if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/defiler] < 2)
+								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/defiler, 2)
+							else if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/destroyer] < 4)
+								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, 4)
 							else
 								DoLayTerrorEggs(pick(spider_types_standard), 5)
 
@@ -242,6 +247,7 @@
 	queennest_action.Remove(src)
 	hasnested = TRUE
 	ventcrawler = 0
+	speed = 1
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
@@ -258,7 +264,7 @@
 		show_egg_timer()
 		return
 	var/list/eggtypes = ListAvailableEggTypes()
-	var/list/eggtypes_uncapped = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
+	var/list/eggtypes_uncapped = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_BUILDER)
 
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
 	if(canlay < 1)
@@ -281,9 +287,6 @@
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
-	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>Eggs can only be laid while standing on a floor.</span>")
-		return
 	// Actually lay the eggs.
 	if(canlay < numlings)
 		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
@@ -292,18 +295,22 @@
 	canlay -= numlings
 	eggslaid += numlings
 	switch(eggtype)
-		if(TS_DESC_RED)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, numlings)
-		if(TS_DESC_GRAY)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, numlings)
-		if(TS_DESC_GREEN)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, numlings)
-		if(TS_DESC_BLACK)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, numlings)
-		if(TS_DESC_PURPLE)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, numlings)
-		if(TS_DESC_BROWN)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, numlings)
+		if(TS_DESC_KNIGHT)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/knight, numlings)
+		if(TS_DESC_LURKER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, numlings)
+		if(TS_DESC_HEALER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/healer, numlings)
+		if(TS_DESC_REAPER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/reaper, numlings)
+		if(TS_DESC_BUILDER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/builder, numlings)
+		if(TS_DESC_WIDOW)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/widow, numlings)
+		if(TS_DESC_GUARDIAN)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/guardian, numlings)
+		if(TS_DESC_DESTROYER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, numlings)
 		if(TS_DESC_MOTHER)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother, numlings)
 		if(TS_DESC_PRINCE)
@@ -326,19 +333,20 @@
 		if(spider_array["all"] == 0)
 			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_MOTHER)
 
-	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
-	var/list/spider_array = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/brown, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/black))
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/brown] < 2)
-		valid_types += TS_DESC_BROWN
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/purple] < 2)
-		valid_types += TS_DESC_PURPLE
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/black] < 2)
-		valid_types += TS_DESC_BLACK
+	var/list/valid_types = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_BUILDER)
+	var/list/spider_array = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/guardian, /mob/living/simple_animal/hostile/poison/terror_spider/widow))
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/destroyer] < 3)
+		valid_types += TS_DESC_DESTROYER
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/guardian] < 3)
+		valid_types += TS_DESC_GUARDIAN
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/widow] < 4)
+		valid_types += TS_DESC_WIDOW
 	return valid_types
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
 	visible_message("<span class='userdanger'>[src] emits a bone-chilling shriek!</span>")
+	playsound(src.loc, 'sound/creatures/terrorspiders/queen_shriek.ogg', 100, 1)
 	for(var/obj/machinery/light/L in orange(light_range, src))
 		if(L.on && prob(light_chance))
 			L.break_light_tube()
@@ -357,12 +365,13 @@
 	. += "<span class='notice'>[p_they(TRUE)] has lived for [MinutesAlive()] minutes.</span>"
 
 
-/obj/item/projectile/terrorqueenspit
-	name = "acid spit"
+/obj/item/projectile/terrorspider/queen
+	name = "queen venom"
+	icon_state = "toxin3"
 	damage = 40
+	stamina = 40
 	icon_state = "toxin"
 	damage_type = BURN
-
 
 /obj/structure/spider/terrorweb/queen
 	name = "airtight web"

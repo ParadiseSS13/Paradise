@@ -1,6 +1,6 @@
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: T2 BLACK TERROR ------------------------------
+// ----------------- TERROR SPIDERS: T2 WIDOW TERROR ------------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: assassin, poisoner, DoT expert
 // -------------: AI: attacks to inject its venom, then retreats. Will inject its enemies multiple times then hang back to ensure they die.
@@ -8,35 +8,44 @@
 // -------------: TO FIGHT IT: if bitten once, retreat, get charcoal/etc treatment, and come back with a gun.
 // -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
-/mob/living/simple_animal/hostile/poison/terror_spider/black
-	name = "Black Terror spider"
+/mob/living/simple_animal/hostile/poison/terror_spider/widow
+	name = "Widow of Terror"
 	desc = "An ominous-looking spider, black as the darkest night. It has merciless eyes, and a blood-red hourglass pattern on its back."
-	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
 	ai_target_method = TS_DAMAGE_POISON
-
 	icon_state = "terror_widow"
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"
-	maxHealth = 120 // same health as hunter spider, aka, pretty weak.. but its bite will kill you!
-	health = 120
+	speed = -0.1
+	maxHealth = 150
+	health = 150
+	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
+	regeneration = 1
+	ranged = 1
+	rapid = 2
+	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
+	projectiletype = /obj/item/projectile/terrorspider/widow
 	melee_damage_lower = 5
-	melee_damage_upper = 10
-	web_type = /obj/structure/spider/terrorweb/black
+	melee_damage_upper = 5
+	web_type = /obj/structure/spider/terrorweb/widow
+	special_abillity = list(/obj/effect/proc_holder/spell/targeted/click/fireball/terror/smoke,
+							/obj/effect/proc_holder/spell/targeted/click/fireball/terror)
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
+	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель - внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит лезть на вооружённых противников!"
 
-
-/mob/living/simple_animal/hostile/poison/terror_spider/black/spider_specialattack(mob/living/carbon/human/L, poisonable)
+/mob/living/simple_animal/hostile/poison/terror_spider/widow/spider_specialattack(mob/living/carbon/human/L, poisonable)
+	L.AdjustSilence(5)
 	if(!poisonable)
 		return ..()
 	if(L.reagents.has_reagent("terror_black_toxin", 100))
 		return ..()
 	var/inject_target = pick("chest", "head")
 	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
-		L.reagents.add_reagent("terror_black_toxin", 30) // inject our special poison
+		L.reagents.add_reagent("terror_black_toxin", 40)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
-		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!</span>")
+		L.reagents.add_reagent("terror_black_toxin", 25)
+		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	L.attack_animal(src)
 	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
 		step_away(src, L)
@@ -46,7 +55,7 @@
 		visible_message("<span class='notice'>[src] jumps away from [L]!</span>")
 
 
-/obj/structure/spider/terrorweb/black
+/obj/structure/spider/terrorweb/widow
 	name = "sinister web"
 	desc = "This web has beads of a dark fluid on its strands."
 
@@ -56,4 +65,18 @@
 			var/inject_target = pick("chest","head")
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
-				C.reagents.add_reagent("terror_black_toxin", 30)
+				C.reagents.add_reagent("terror_black_toxin", 45)
+
+/obj/item/projectile/terrorspider/widow
+	name = "widow venom"
+	icon_state = "toxin5"
+	damage = 17
+	stamina = 17
+	damage_type = TOX
+
+/obj/item/projectile/terrorspider/widow/on_hit(atom/target, blocked = 0, hit_zone)
+	if((blocked != 100) && iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.slowed = 2
+
+	return ..()

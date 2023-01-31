@@ -1,6 +1,6 @@
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: T2 PURPLE TERROR -----------------------------
+// ----------------- TERROR SPIDERS: T2 GUARDIAN TERROR -----------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: guarding queen nests
 // -------------: AI: dies if too far from queen
@@ -8,51 +8,72 @@
 // -------------: TO FIGHT IT: shoot it from range, bring friends!
 // -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
-/mob/living/simple_animal/hostile/poison/terror_spider/purple
-	name = "Purple Terror spider"
+/mob/living/simple_animal/hostile/poison/terror_spider/guardian
+	name = "Guardian of Terror"
 	desc = "An ominous-looking purple spider. It looks about warily, as if waiting for something."
-	spider_role_summary = "Guards the nest of the Queen of Terror."
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_purple"
 	icon_living = "terror_purple"
 	icon_dead = "terror_purple_dead"
-	maxHealth = 200
-	health = 200
-	melee_damage_lower = 15
-	melee_damage_upper = 25
+	gender = MALE
+	maxHealth = 220
+	health = 220
+	melee_damage_lower = 20
+	melee_damage_upper = 30
+	obj_damage = 70
+	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
+	death_sound = 'sound/creatures/terrorspiders/death6.ogg'
+	armour_penetration = 20
 	spider_tier = TS_TIER_2
 	move_to_delay = 5 // at 20ticks/sec, this is 4 tile/sec movespeed, same as a human. Faster than a normal spider, so it can intercept attacks on queen.
-	speed = 0 // '0' (also the default for human mobs) converts to 2.5 total delay, or 4 tiles/sec.
 	spider_opens_doors = 2
 	ventcrawler = 0
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0 // stick to the queen!
+	sight = SEE_TURFS|SEE_MOBS
 	web_type = /obj/structure/spider/terrorweb/purple
+	can_wrap = FALSE
+	delay_web = 20
+	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/terror/shield)
+	can_wrap = FALSE
+	spider_intro_text = "Будучи Защитником Ужаса, ваша задача - охрана гнезда, яиц, принцесс и королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Если встанет выбор, спасти принцессу, или королеву, при этои обрекая себя на смерть - делайте это."
 	ai_spins_webs = FALSE
 	var/queen_visible = TRUE
 	var/cycles_noqueen = 0
 	var/max_queen_range = 20
 
-/mob/living/simple_animal/hostile/poison/terror_spider/purple/death(gibbed)
+/mob/living/simple_animal/hostile/poison/terror_spider/guardian/spider_specialattack(mob/living/carbon/human/L)
+	L.adjustStaminaLoss(15)
+	if(prob(15))
+		playsound(src, 'sound/creatures/terrorspiders/bite2.ogg', 120, 1)
+		do_attack_animation(L)
+		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
+		L.adjustBruteLoss(20)
+		L.Weaken(1)
+		L.Stun(1)
+	else
+		..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/guardian/death(gibbed)
 	if(can_die() && spider_myqueen)
 		if(spider_myqueen.stat != DEAD && !spider_myqueen.ckey)
 			if(get_dist(src, spider_myqueen) > max_queen_range)
 				if(!degenerate && !spider_myqueen.degenerate)
 					degenerate = TRUE
-					spider_myqueen.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
+					spider_myqueen.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/guardian, 1)
 					visible_message("<span class='notice'>[src] chitters in the direction of [spider_myqueen]!</span>")
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
+/mob/living/simple_animal/hostile/poison/terror_spider/guardian/Life(seconds, times_fired)
 	. = ..()
 	if(stat != DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(!degenerate && spider_myqueen)
 			if(times_fired % 5 == 0)
 				purple_distance_check()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/purple/proc/purple_distance_check()
+/mob/living/simple_animal/hostile/poison/terror_spider/guardian/proc/purple_distance_check()
 	if(spider_myqueen)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
 		if(Q)
@@ -90,7 +111,7 @@
 					melee_damage_lower = 5
 					melee_damage_upper = 10
 
-/mob/living/simple_animal/hostile/poison/terror_spider/purple/Stat()
+/mob/living/simple_animal/hostile/poison/terror_spider/guardian/Stat()
 	..()
 	// Provides a status panel indicator, showing purples how long they can be away from their queen before their hivemind link breaks, and they die.
 	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
@@ -101,13 +122,10 @@
 				stat(null, "Link: <font color='#eb4034'>BROKEN</font>") // color=red
 			else if(queen_visible)
 				stat(null, "Link: <font color='#32a852'>[spider_myqueen] is near</font>") // color=green
-			else if(cycles_noqueen >= 12)
+			else if(cycles_noqueen >= 36)
 				stat(null, "Link: <font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>") // color=red
 			else
 				stat(null, "Link: <font color='#fcba03'>Warning - return to [spider_myqueen] in [A]</font>") // color=orange
-
-
-
 
 /obj/structure/spider/terrorweb/purple
 	name = "thick web"

@@ -2568,7 +2568,7 @@
 	dir = 8;
 	on = 1
 	},
-/mob/living/simple_animal/hostile/poison/terror_spider/gray,
+/mob/living/simple_animal/hostile/poison/terror_spider/lurker,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "gD" = (
@@ -3461,7 +3461,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump,
-/mob/living/simple_animal/hostile/poison/terror_spider/gray,
+/mob/living/simple_animal/hostile/poison/terror_spider/lurker,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4324,7 +4324,7 @@
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
 	},
-/mob/living/simple_animal/hostile/poison/terror_spider/gray,
+/mob/living/simple_animal/hostile/poison/terror_spider/lurker,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	heat_capacity = 1e+006;
@@ -4908,7 +4908,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/poison/terror_spider/red{
+/mob/living/simple_animal/hostile/poison/terror_spider/knight{
 	wander = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -5166,7 +5166,7 @@
 	on = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/poison/terror_spider/gray,
+/mob/living/simple_animal/hostile/poison/terror_spider/lurker,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "mn" = (
@@ -8798,7 +8798,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "sW" = (
-/mob/living/simple_animal/hostile/poison/terror_spider/purple,
+/mob/living/simple_animal/hostile/poison/terror_spider/guardian,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "sX" = (

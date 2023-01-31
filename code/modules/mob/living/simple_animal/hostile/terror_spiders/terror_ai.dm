@@ -86,7 +86,6 @@
 		var/mob/living/T = target
 		if(T.stat > 0)
 			killcount++
-			regen_points += regen_points_per_kill
 	attackstep = 0
 	attackcycles = 0
 	..()

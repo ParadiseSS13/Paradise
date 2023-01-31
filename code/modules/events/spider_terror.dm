@@ -1,7 +1,8 @@
 #define TS_HIGHPOP_TRIGGER 80
+#define TS_MIDPOP_TRIGGER 50
 
 /datum/event/spider_terror
-	announceWhen = 240
+	announceWhen = 300
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
@@ -22,14 +23,16 @@
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
 	var/infestation_type
-	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
-		infestation_type = pick(1, 2, 3, 4)
+	if((length(GLOB.clients)) <= TS_MIDPOP_TRIGGER)
+		infestation_type = pick(1, 2)
+	else if((length(GLOB.clients)) >= TS_HIGHPOP_TRIGGER)
+		infestation_type = 5
 	else
-		infestation_type = pick(2, 3, 4, 5)
+		infestation_type = pick(3, 4)
 	switch(infestation_type)
 		if(1)
 			// Weakest, only used during lowpop.
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/healer
 			spawncount = 5
 		if(2)
 			// Fairly weak. Dangerous in single combat but has little staying power. Always gets whittled down.
@@ -37,12 +40,12 @@
 			spawncount = 1
 		if(3)
 			// Variable. Depends how many they infect.
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/white
-			spawncount = 2
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
+			spawncount = 4
 		if(4)
 			// Pretty strong.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
-			spawncount = 3
+			spawncount = 4
 		if(5)
 			// Strongest, only used during highpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
@@ -56,6 +59,7 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
+		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
 

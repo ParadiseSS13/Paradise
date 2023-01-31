@@ -1,6 +1,6 @@
 
 // --------------------------------------------------------------------------------
-// ----------------- TERROR SPIDERS: T1 GREEN TERROR ------------------------------
+// ----------------- TERROR SPIDERS: T1 HEALER TERROR ------------------------------
 // --------------------------------------------------------------------------------
 // -------------: ROLE: reproduction
 // -------------: AI: after it kills you, it webs you and lays new terror eggs on your body
@@ -8,30 +8,35 @@
 // -------------: TO FIGHT IT: kill it however you like - just don't die to it!
 // -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
-/mob/living/simple_animal/hostile/poison/terror_spider/green
-	name = "Green Terror spider"
+/mob/living/simple_animal/hostile/poison/terror_spider/healer
+	name = "Healer of Terror"
 	desc = "An ominous-looking green spider. It has a small egg-sac attached to it, and dried blood stains on its carapace."
-	spider_role_summary = "Average melee spider that webs its victims and lays more spider eggs"
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_green"
 	icon_living = "terror_green"
 	icon_dead = "terror_green_dead"
-	maxHealth = 150
-	health = 150
+	maxHealth = 140
+	health = 140
+	death_sound = 'sound/creatures/terrorspiders/death4.ogg'
+	regeneration = 1
+	speed = -0.1
+	delay_web = 20
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	web_type = /obj/structure/spider/terrorweb/green
+	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/healing_lesser)
+	spider_intro_text = "Будучи Лекарем Ужаса, ваша задача исцелять других пауков и откладывать яйца. Чем больше трупов вы поглотили, тем эффективнее исцеление, однако, для откладывания яиц, вам также необходимы трупы."
 	var/feedings_to_lay = 2
 	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 	tts_seed = "Mortred"
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/green/New()
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/New()
 	..()
 	greeneggs_action = new()
 	greeneggs_action.Grant(src)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/green/proc/DoLayGreenEggs()
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/proc/DoLayGreenEggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
 		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
@@ -39,12 +44,12 @@
 	if(fed < feedings_to_lay)
 		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
 		return
-	var/list/eggtypes = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
+	var/list/eggtypes = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_BUILDER)
 	var/list/spider_array = CountSpidersDetailed(FALSE)
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/brown] < 2)
-		eggtypes += TS_DESC_BROWN
-	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/black] < 2)
-		eggtypes += TS_DESC_BLACK
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/destroyer] < 2)
+		eggtypes += TS_DESC_DESTROYER
+	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/widow] < 2)
+		eggtypes += TS_DESC_WIDOW
 	var/eggtype = pick(eggtypes)
 	if(client)
 		eggtype = input("What kind of eggs?") as null|anything in eggtypes
@@ -60,22 +65,26 @@
 		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
 		return
 	visible_message("<span class='notice'>[src] lays a cluster of eggs.</span>")
-	if(eggtype == TS_DESC_RED)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 1)
-	else if(eggtype == TS_DESC_GRAY)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/gray, 1)
-	else if(eggtype == TS_DESC_GREEN)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/green, 1)
-	else if(eggtype == TS_DESC_BLACK)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, 1)
-	else if(eggtype == TS_DESC_BROWN)
-		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1)
+	if(eggtype == TS_DESC_KNIGHT)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/knight, 1)
+	else if(eggtype == TS_DESC_LURKER)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, 1)
+	else if(eggtype == TS_DESC_HEALER)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/healer, 1)
+	else if(eggtype == TS_DESC_REAPER)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/reaper, 1)
+	else if(eggtype == TS_DESC_BUILDER)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/builder, 1)
+	else if(eggtype == TS_DESC_WIDOW)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/widow, 1)
+	else if(eggtype == TS_DESC_DESTROYER)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, 1)
 	else
 		to_chat(src, "<span class='warning'>Unrecognized egg type!</span>")
 		fed += feedings_to_lay
 	fed -= feedings_to_lay
 
-/mob/living/simple_animal/hostile/poison/terror_spider/green/spider_special_action()
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/spider_special_action()
 	if(cocoon_target)
 		handle_cocoon_target()
 	else if(fed >= feedings_to_lay)
@@ -83,7 +92,7 @@
 	else if(world.time > (last_cocoon_object + freq_cocoon_object))
 		seek_cocoon_target()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/green/spider_specialattack(mob/living/carbon/human/L, poisonable)
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	if(!poisonable)
 		..()
 		return
@@ -96,6 +105,21 @@
 	else
 		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!</span>")
 	L.attack_animal(src)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/AttackingTarget()
+	. = ..()
+	if(isterrorspider(target) && target != src) //no self healing
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			if(fed <= 1)
+				new /obj/effect/temp_visual/heal(get_turf(L), "#00ff00")
+				L.adjustBruteLoss(-4)
+			if(fed == 2)
+				new /obj/effect/temp_visual/heal(get_turf(L), "#0077ff")
+				L.adjustBruteLoss(-6)
+			if(fed >= 3)
+				new /obj/effect/temp_visual/heal(get_turf(L), "#ff0000")
+				L.adjustBruteLoss(-8)
 
 /obj/structure/spider/terrorweb/green
 	name = "slimy web"

@@ -13,7 +13,7 @@
 		return
 	var/error_on_humanize = ""
 	var/humanize_prompt = "Take direct control of [src]?"
-	humanize_prompt += " Role: [spider_role_summary]"
+	humanize_prompt += " Role: [spider_intro_text]"
 	if(user.ckey in GLOB.ts_ckey_blacklist)
 		error_on_humanize = "You are not able to control any terror spider this round."
 	else if(cannotPossess(user))
@@ -42,5 +42,6 @@
 		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")
 		return
 	key = user.key
+	give_intro_text()
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>A ghost has taken control of <b>[src]</b>. ([ghost_follow_link(src, ghost=G)]).</i>")

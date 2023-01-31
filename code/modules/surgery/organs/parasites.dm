@@ -103,15 +103,15 @@
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/gray
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/lurker
 		if(1) // 2nd
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/knight
 		if(2) // 3rd
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/brown
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/destroyer
 		if(3) // 4th
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/reaper
 		if(4) // 5th
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/green
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/healer
 			infection_completed = TRUE
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
