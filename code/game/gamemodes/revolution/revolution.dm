@@ -85,7 +85,9 @@
 //////////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/transit_z(mob)
 	if(!finished)
-		SSticker.mode.check_win()
+		var/list/heads = get_all_heads()
+		if(mob.mind && ((mob.mind in heads)||(mob.mind in head_revolutionaries)))
+			SSticker.mode.check_win()
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
 	var/list/heads = get_living_heads()
