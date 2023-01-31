@@ -57905,7 +57905,6 @@
 	name = "east bump"
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/item/storage/box/masks{
 	pixel_y = 5
 	},
