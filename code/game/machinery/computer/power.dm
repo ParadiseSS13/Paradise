@@ -3,9 +3,9 @@
 	desc = "Used to monitor power levels across the station."
 	icon_screen = "power"
 	icon_keyboard = "power_key"
-	use_power = ACTIVE_POWER_USE
-	idle_power_usage = 20
-	active_power_usage = 80
+	power_state = ACTIVE_POWER_USE
+	idle_power_consumption = 20
+	active_power_consumption = 80
 	light_color = LIGHT_COLOR_ORANGE
 	circuit = /obj/item/circuitboard/powermonitor
 

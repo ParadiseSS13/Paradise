@@ -8,7 +8,6 @@
 	icon_state = "portgen0_0"
 	density = TRUE
 	anchored = FALSE
-	use_power = NO_POWER_USE
 
 	var/active = FALSE
 	var/power_gen = 5000
@@ -56,7 +55,7 @@
 /obj/machinery/power/port_gen/update_icon_state()
 	icon_state = "[base_icon]_[active]"
 
-/obj/machinery/power/powered()
+/obj/machinery/power/has_power()
 	return TRUE //doesn't require an external power source
 
 /obj/machinery/power/port_gen/emp_act(severity)

@@ -298,7 +298,7 @@
 		if("change_power")
 			var/newPower = text2num(params["change_power"])
 			if(newPower)
-				power_output = clamp(newPower, 1, max_power_output)
+				power_output = clamp(newPower, 1, (emagged ? round(max_power_output * 2.5) : max_power_output))
 
 /obj/machinery/power/port_gen/pacman/super
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type Portable Generator"

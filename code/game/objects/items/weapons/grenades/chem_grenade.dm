@@ -34,7 +34,7 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	QDEL_LIST(beakers)
+	QDEL_LIST_CONTENTS(beakers)
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)
@@ -228,10 +228,6 @@
 	else if(stage == EMPTY)
 		to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
 		return TRUE
-
-//assembly stuff
-/obj/item/grenade/chem_grenade/receive_signal()
-	prime()
 
 /obj/item/grenade/chem_grenade/HasProximity(atom/movable/AM)
 	if(nadeassembly)

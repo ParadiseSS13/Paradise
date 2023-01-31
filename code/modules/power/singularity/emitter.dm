@@ -11,9 +11,9 @@
 	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 
-	use_power = NO_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 300
+	power_state = NO_POWER_USE
+	idle_power_consumption = 10
+	active_power_consumption = 300
 
 	/// Is the emitter turned on
 	var/active = FALSE
@@ -70,7 +70,7 @@
 	fire_delay = firedelay
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		power_usage -= 50 * M.rating
-	active_power_usage = power_usage
+	active_power_consumption = power_usage
 
 /obj/machinery/power/emitter/verb/rotate()
 	set name = "Rotate"
@@ -246,13 +246,13 @@
 /obj/machinery/power/emitter/process()
 	if((stat & BROKEN) || !active)
 		return
-	if(state != EMITTER_WELDED || (!powernet && active_power_usage))
+	if(state != EMITTER_WELDED || (!powernet && active_power_consumption))
 		active = FALSE
 		update_icon()
 		return
 
-	if(!active_power_usage || get_surplus() >= active_power_usage)
-		consume_direct_power(active_power_usage)
+	if(!active_power_consumption || get_surplus() >= active_power_consumption)
+		consume_direct_power(active_power_consumption)
 		if(!powered)
 			powered = TRUE
 			update_icon()

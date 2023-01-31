@@ -82,7 +82,7 @@
 
 	set_light(brightness_on)
 
-/obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
+/obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
 

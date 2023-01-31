@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	icon = 'icons/obj/machines/gravity_generator.dmi'
 	anchored = TRUE
 	density = TRUE
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/gravity_generator/ex_act(severity)
@@ -73,9 +73,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main
 	icon_state = "generator_body"
 	layer = MOB_LAYER + 0.1
-	active_power_usage = 3000
-	power_channel = ENVIRON
-	use_power = IDLE_POWER_USE
+	active_power_consumption = 3000
+	power_channel = PW_CHANNEL_ENVIRONMENT
+	power_state = IDLE_POWER_USE
 	interact_offline = TRUE
 	/// Is the generator producing gravity
 	var/on = TRUE
@@ -238,7 +238,8 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 // Power and Icon States
 
 /obj/machinery/gravity_generator/main/power_change()
-	..()
+	if(!..())
+		return
 	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", "gravity")
 	set_power()
 
@@ -280,7 +281,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	var/alert = FALSE // Sound the alert if gravity was just enabled or disabled.
 	var/area/src_area = get_area(src)
 	on = gravity
-	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
+	change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 
 	if(gravity) // If we turned on
 		if(generators_in_level() == FALSE) // And there's no gravity
@@ -350,7 +351,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 
 /obj/machinery/gravity_generator/main/proc/pulse_radiation()
-	radiation_pulse(src, 200)
+	radiation_pulse(src, 600, 2)
+	for(var/mob/living/L in view(7, src)) //Windows kinda make it a non threat, no matter how much I amp it up, so let us cheat a little
+		radiation_pulse(get_turf(L), 600, 2)
 
 /**
   * Shake everyone on the z level and play an alarm to let them know that gravity was enagaged/disenagaged.

@@ -50,13 +50,21 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 	// Find the nuclear auth code
 	var/nuke_code
+	var/new_nuke = FALSE
 	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+		if(istype(N, /obj/machinery/nuclearbomb/syndicate) || !N.core)
+			continue
 		var/temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
 			break
 	if(!nuke_code)
-		message_admins("No nuclear warheads have been detected, the Deathsquad will not be provided detonation codes.")
+		message_admins("No functional nuclear warheads have been detected, the Deathsquad will be issued a new warhead.")
+		new_nuke = TRUE
+		nuke_code = rand(10000, 99999)
+
+	if(alert("Do you want a new nuclear warhead to be spawned with this team?",, "Yes", "No") == "Yes")
+		new_nuke = TRUE
 
 	// Find ghosts willing to be Deathsquad
 	var/list/commando_ghosts = list()
@@ -73,6 +81,12 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		log_admin("[key_name(proccaller)]'s Deathsquad had no volunteers and was cancelled.")
 		to_chat(src, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
+
+	// Spawns a nuclear warhead for the team
+	if(new_nuke)
+		for(var/obj/effect/landmark/spawner/nuclear_bomb/death_squad/nuke_spawn in GLOB.landmarks_list)
+			var/obj/machinery/nuclearbomb/undeployed/the_bomb = new (get_turf(nuke_spawn))
+			the_bomb.r_code = nuke_code
 
 	// Equips the Deathsquad
 	for(var/mob/ghost_mob in commando_ghosts)

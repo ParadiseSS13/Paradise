@@ -19,7 +19,7 @@
 
 /obj/item/pneumatic_cannon/Destroy()
 	QDEL_NULL(tank)
-	QDEL_LIST(loadedItems)
+	QDEL_LIST_CONTENTS(loadedItems)
 	return ..()
 
 /obj/item/pneumatic_cannon/examine(mob/user)

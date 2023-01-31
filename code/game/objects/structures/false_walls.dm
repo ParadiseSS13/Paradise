@@ -8,7 +8,7 @@
 
 /obj/structure/falsewall
 	name = "wall"
-	desc = "A huge chunk of metal used to seperate rooms."
+	desc = "A huge chunk of metal used to separate rooms."
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall-0"
@@ -163,7 +163,7 @@
 
 /obj/structure/falsewall/reinforced
 	name = "reinforced wall"
-	desc = "A huge chunk of reinforced metal used to seperate rooms."
+	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
@@ -410,3 +410,16 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
+
+/obj/structure/falsewall/rock_ancient
+	name = "ancient rock"
+	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	icon = 'icons/turf/walls/smoothrocks.dmi'
+	icon_state = "smoothrocks-0"
+	base_icon_state = "smoothrocks"
+	color = COLOR_ANCIENT_ROCK
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_ASTEROID_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_ASTEROID_WALLS)
+	mineral = /obj/item/stack/ore/glass/basalt/ancient
+	walltype = /turf/simulated/mineral/ancient

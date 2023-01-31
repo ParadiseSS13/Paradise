@@ -6,9 +6,6 @@
 	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "sp_base"
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
 	var/obscured = FALSE
@@ -273,8 +270,8 @@
 	icon_state = "computer"
 	anchored = TRUE
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 250
+	power_state = IDLE_POWER_USE
+	idle_power_consumption = 250
 	max_integrity = 200
 	integrity_failure = 100
 	var/icon_screen = "solar"
@@ -497,7 +494,8 @@
 
 
 /obj/machinery/power/solar_control/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 

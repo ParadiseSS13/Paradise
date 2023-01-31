@@ -6,8 +6,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pandemic0"
 	circuit = /obj/item/circuitboard/pandemic
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
+	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
 	var/temp_html = ""
 	var/printing = null
@@ -57,7 +56,7 @@
 	if(stat & BROKEN)
 		icon_state = (beaker ? "pandemic1_b" : "pandemic0_b")
 		return
-	icon_state = "pandemic[(beaker)?"1":"0"][(powered()) ? "" : "_nopower"]"
+	icon_state = "pandemic[(beaker)?"1":"0"][(has_power()) ? "" : "_nopower"]"
 
 /obj/machinery/computer/pandemic/update_overlays()
 	. = list()
@@ -321,7 +320,7 @@
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I))
+	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		power_change()
 		return
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
