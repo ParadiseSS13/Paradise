@@ -96,21 +96,21 @@
 	desc = "A 4.6x30mm bullet casing."
 	materials = list(MAT_METAL = 1000)
 	caliber = "4.6x30mm"
-	projectile_type = /obj/item/projectile/bullet/weakbullet3
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/foursix
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c46x30mm/ap
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150)
-	projectile_type = /obj/item/projectile/bullet/armourpiercing
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/foursix/ap
 
 /obj/item/ammo_casing/c46x30mm/tox
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_URANIUM = 200)
-	projectile_type = /obj/item/projectile/bullet/toxinbullet
+	projectile_type = /obj/item/projectile/bullet/weakbullet3/foursix/tox
 
 /obj/item/ammo_casing/c46x30mm/inc
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_PLASMA = 200)
-	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
+	projectile_type = /obj/item/projectile/bullet/incendiary/foursix
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/rubber45

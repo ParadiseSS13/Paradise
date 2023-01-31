@@ -127,8 +127,8 @@
 	fire_delay = 2
 	can_suppress = 0
 	can_flashlight = 1
-	burst_size = 1
 	actions_types = list()
+	burst_size = 2
 	can_bayonet = TRUE
 	knife_x_offset = 25
 	knife_y_offset = 12

@@ -55,6 +55,17 @@
 /obj/item/projectile/bullet/weakbullet3
 	damage = 20
 
+/obj/item/projectile/bullet/weakbullet3/foursix
+	damage = 15
+
+/obj/item/projectile/bullet/weakbullet3/foursix/ap
+	damage = 12
+	armour_penetration = 10
+
+/obj/item/projectile/bullet/weakbullet3/foursix/tox
+	damage = 10
+	damage_type = TOX
+
 /obj/item/projectile/bullet/weakbullet4
 	name = "rubber bullet"
 	damage = 5
@@ -77,9 +88,14 @@
 /obj/item/projectile/bullet/incendiary/firebullet
 	damage = 10
 
+/obj/item/projectile/bullet/incendiary/foursix
+	damage = 6
+
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17
 	armour_penetration = 10
+
+
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
