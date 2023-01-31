@@ -165,7 +165,6 @@
 //Checks if new heads have joined midround//
 ////////////////////////////////////////////
 /datum/game_mode/revolution/proc/latespawn(mob/living/carbon/human/player)
-	..()
 	var/player_mind = player.mind
 	var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
 	if(player_mind && (player_mind.assigned_role in real_command_positions))
