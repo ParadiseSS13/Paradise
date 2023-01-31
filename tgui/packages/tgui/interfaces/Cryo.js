@@ -156,6 +156,7 @@ const CryoContent = (props, context) => {
                 average: [-Infinity, 99],
                 good: [99, Infinity],
               }}
+              color={!isBeakerLoaded && "average"}
               value={cooldownProgress}
               minValue={0}
               maxValue={100}
