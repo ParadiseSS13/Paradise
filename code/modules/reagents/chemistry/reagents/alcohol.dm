@@ -1445,3 +1445,25 @@
 	drink_desc = "A sawed-off cola bottle filled with Fernet Cola. You can hear cuarteto music coming from the inside."
 	taste_description = "low class heaven"
 	remove_nutrition = 1
+
+/datum/reagent/consumable/ethanol/rainbow_sky
+	name = "Rainbow Sky"
+	id = "rainbow_sky"
+	description = "A drink that shimmers with all the colors of the rainbow with notes of the galaxy."
+	color = "#ffffff"
+	dizzy_adj = 10
+	alcohol_perc = 1.5
+	drink_icon = "rainbow_sky"
+	drink_name = "Rainbow Sky"
+	drink_desc = "A drink that shimmers with all the colors of the rainbow with notes of the galaxy."
+	taste_description = "rainbow"
+
+/datum/reagent/consumable/ethanol/rainbow_sky/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBruteLoss(-1, FALSE)
+	update_flags |= M.adjustFireLoss(-1, FALSE)
+	update_flags |= M.Druggy(15, FALSE)
+	M.Jitter(5)
+	M.AdjustHallucinate(10)
+	M.last_hallucinator_log = name
+	return ..() | update_flags

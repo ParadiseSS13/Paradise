@@ -885,3 +885,10 @@
 	result_amount = 3
 	mix_message = "The ingredients mix into a dark brown godly substance"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/rainbow_sky
+	name = "Rainbow Sky"
+	id = "rainbow_sky"
+	result = "rainbow_sky"
+	required_reagents = list("doctorsdelight" = 1, "bananahonk" = 1, "erikasurprise" = 1, "screwdrivercocktail" = 1, "gargleblaster" = 1)
+	result_amount = 5
