@@ -209,7 +209,6 @@
 				/obj/item/stack/nanopaste = 50,
 				/obj/item/clothing/under/costume/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
-				/obj/item/grenade/clusterbuster/smoke = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals
@@ -319,7 +318,6 @@
 
 				// Cluster grenades
 				/obj/item/grenade/clusterbuster = 50, // cluster flashbang
-				/obj/item/grenade/clusterbuster/teargas = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
