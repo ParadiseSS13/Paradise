@@ -33225,6 +33225,12 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock";
+	locked = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit/maint)
 "deA" = (
@@ -116904,6 +116910,12 @@
 "tGb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock";
+	locked = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -126103,6 +126115,12 @@
 "vCC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	name = "Escape Airlock";
+	locked = 1
+	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit/maint)
 "vCL" = (
