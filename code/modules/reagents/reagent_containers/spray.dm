@@ -131,6 +131,7 @@
 	volume = 500
 	spray_maxrange = 3
 	spray_currentrange = 3
+	list_reagents = list("cleaner" = 500)
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
