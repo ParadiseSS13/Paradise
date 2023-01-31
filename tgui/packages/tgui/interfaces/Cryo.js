@@ -217,6 +217,6 @@ const CryoBeaker = (props, context) => {
       </Fragment>
     );
   } else {
-    return <Box color="average">No beaker loaded</Box>;
+    return <Box display="inline" color="bad">No beaker loaded</Box>;
   }
 };
