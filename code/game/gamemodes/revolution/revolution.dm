@@ -83,10 +83,10 @@
 //////////////////////////////////////////////////////////////////////////
 //Check if heads and head revolutionaries are still alive and on Z-level//
 //////////////////////////////////////////////////////////////////////////
-/datum/game_mode/revolution/transit_z(mob)
+/datum/game_mode/revolution/transit_z(mob/living/player)
 	if(!finished)
 		var/list/heads = get_all_heads()
-		if(mob.mind && ((mob.mind in heads)||(mob.mind in head_revolutionaries)))
+		if(player.mind && ((player.mind in heads)||(player.mind in head_revolutionaries)))
 			SSticker.mode.check_win()
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
