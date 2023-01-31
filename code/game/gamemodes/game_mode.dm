@@ -233,6 +233,8 @@
 	return 0
 */
 
+/datum/game_mode/proc/transit_z(mob)
+
 /datum/game_mode/proc/num_players()
 	. = 0
 	for(var/mob/new_player/P in GLOB.player_list)
