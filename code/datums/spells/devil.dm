@@ -97,6 +97,7 @@
 	include_user = TRUE
 	action_icon_state = "jaunt"
 	action_background_icon_state = "bg_demon"
+	phase_allowed = TRUE
 
 /obj/effect/proc_holder/spell/targeted/infernal_jaunt/cast(list/targets, mob/living/user = usr)
 	if(istype(user))
