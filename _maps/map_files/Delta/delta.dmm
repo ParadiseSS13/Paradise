@@ -29661,7 +29661,6 @@
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/grown/bananapeel/bluespace,
 /obj/item/slime_extract/bluespace,
-/obj/item/stack/telecrystal,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "cQW" = (
