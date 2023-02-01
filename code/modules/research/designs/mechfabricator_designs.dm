@@ -1053,7 +1053,7 @@
 	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute"
 	id = "clusterbang_launcher"
 	build_type = MECHFAB
-	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 3)
+	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	materials = list(MAT_METAL=20000,MAT_GOLD=10000,MAT_URANIUM=10000)
 	construction_time = 100
