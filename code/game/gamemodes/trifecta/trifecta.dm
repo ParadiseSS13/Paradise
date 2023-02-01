@@ -22,8 +22,8 @@
 	var/amount_tot = 1
 
 /datum/game_mode/trifecta/announce()
-	to_chat(world, "<B>The current game mode is - Trifecta</B>")
-	to_chat(world, "<B>Vampires, traitors, and changelings, oh my! Stay safe as these forces work to bring down the station.</B>")
+	to_chat(world, "<b>The current game mode is - Trifecta</b>")
+	to_chat(world, "<b>Vampires, traitors, and changelings, oh my! Stay safe as these forces work to bring down the station.</b>")
 
 
 /datum/game_mode/trifecta/pre_setup()
@@ -55,7 +55,7 @@
 		if(length(pre_changelings) >= amount_cling)
 			break
 		var/datum/mind/changeling = pick_n_take(possible_changelings)
-		if((changeling.current.client.prefs.active_character.species in secondary_protected_species) || (changeling.special_role == SPECIAL_ROLE_VAMPIRE))
+		if((changeling.current.client.prefs.active_character.species in secondary_protected_species) || changeling.special_role == SPECIAL_ROLE_VAMPIRE)
 			continue
 		pre_changelings += changeling
 		changeling.restricted_roles = (restricted_jobs + secondary_restricted_jobs)
