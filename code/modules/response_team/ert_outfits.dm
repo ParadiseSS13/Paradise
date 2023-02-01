@@ -95,7 +95,7 @@
 	name = "RT Commander (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander/gamma
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/commander
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
@@ -182,7 +182,7 @@
 	name = "RT Security (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/security/gamma
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/security
 	belt = /obj/item/storage/belt/security/response_team_gamma
 	suit_store = /obj/item/gun/energy/immolator/multi/sibyl
 	glasses = /obj/item/clothing/glasses/night
@@ -246,7 +246,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas
@@ -274,7 +274,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/engineer
 	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -374,7 +374,7 @@
 	name = "RT Medic (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/medical
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/sibyl
@@ -521,7 +521,7 @@
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/combat
 	suit_store = /obj/item/gun/energy/gun/sibyl
