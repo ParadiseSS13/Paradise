@@ -104,6 +104,7 @@
 	duration = 10
 	tick_interval = 0
 	alert_type = /obj/screen/alert/status_effect/blooddrunk
+	var/blooddrunk_damage_mod = 4 // Damage is divided by this at the start of the status effect and multiplied at the end.
 
 /obj/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
@@ -116,12 +117,12 @@
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			H.physiology.brute_mod *= 0.25
-			H.physiology.burn_mod *= 0.25
-			H.physiology.tox_mod *= 0.25
-			H.physiology.oxy_mod *= 0.25
-			H.physiology.clone_mod *= 0.25
-			H.physiology.stamina_mod *= 0.25
+			H.physiology.brute_mod /= blooddrunk_damage_mod
+			H.physiology.burn_mod /= blooddrunk_damage_mod
+			H.physiology.tox_mod /= blooddrunk_damage_mod
+			H.physiology.oxy_mod /= blooddrunk_damage_mod
+			H.physiology.clone_mod /= blooddrunk_damage_mod
+			H.physiology.stamina_mod /= blooddrunk_damage_mod
 		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("blooddrunk", INFINITY, 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
@@ -129,12 +130,12 @@
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.physiology.brute_mod *= 4
-		H.physiology.burn_mod *= 4
-		H.physiology.tox_mod *= 4
-		H.physiology.oxy_mod *= 4
-		H.physiology.clone_mod *= 4
-		H.physiology.stamina_mod *= 4
+		H.physiology.brute_mod *= blooddrunk_damage_mod
+		H.physiology.burn_mod *= blooddrunk_damage_mod
+		H.physiology.tox_mod *= blooddrunk_damage_mod
+		H.physiology.oxy_mod *= blooddrunk_damage_mod
+		H.physiology.clone_mod *= blooddrunk_damage_mod
+		H.physiology.stamina_mod *= blooddrunk_damage_mod
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
