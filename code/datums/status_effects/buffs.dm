@@ -104,6 +104,7 @@
 	duration = 10
 	tick_interval = 0
 	alert_type = /obj/screen/alert/status_effect/blooddrunk
+	var/blooddrunk_damage_mod_remove = 4 // Damage is multiplied by this at the end of the status effect. Modify this one, it changes the _add
 
 /obj/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
@@ -116,12 +117,13 @@
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			H.physiology.brute_mod *= 0.25
-			H.physiology.burn_mod *= 0.25
-			H.physiology.tox_mod *= 0.25
-			H.physiology.oxy_mod *= 0.25
-			H.physiology.clone_mod *= 0.25
-			H.physiology.stamina_mod *= 0.25
+			var/blooddrunk_damage_mod_add = 1 / blooddrunk_damage_mod_remove // Damage is multiplied by this at the start of the status effect. Don't modify this one directly.
+			H.physiology.brute_mod *= blooddrunk_damage_mod_add
+			H.physiology.burn_mod *= blooddrunk_damage_mod_add
+			H.physiology.tox_mod *= blooddrunk_damage_mod_add
+			H.physiology.oxy_mod *= blooddrunk_damage_mod_add
+			H.physiology.clone_mod *= blooddrunk_damage_mod_add
+			H.physiology.stamina_mod *= blooddrunk_damage_mod_add
 		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("blooddrunk", INFINITY, 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
@@ -129,12 +131,12 @@
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.physiology.brute_mod *= 10
-		H.physiology.burn_mod *= 10
-		H.physiology.tox_mod *= 10
-		H.physiology.oxy_mod *= 10
-		H.physiology.clone_mod *= 10
-		H.physiology.stamina_mod *= 10
+		H.physiology.brute_mod *= blooddrunk_damage_mod_remove
+		H.physiology.burn_mod *= blooddrunk_damage_mod_remove
+		H.physiology.tox_mod *= blooddrunk_damage_mod_remove
+		H.physiology.oxy_mod *= blooddrunk_damage_mod_remove
+		H.physiology.clone_mod *= blooddrunk_damage_mod_remove
+		H.physiology.stamina_mod *= blooddrunk_damage_mod_remove
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
