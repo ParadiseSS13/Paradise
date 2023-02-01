@@ -25,6 +25,7 @@
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
 	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
+	var/warps_projectiles = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
@@ -33,7 +34,8 @@
 	admin_investigate_setup()
 
 	energy = starting_energy
-	AddComponent(/datum/component/proximity_monitor/singulo, _radius = 10)
+	if(warps_projectiles)
+		AddComponent(/datum/component/proximity_monitor/singulo, _radius = 10)
 
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -117,6 +119,7 @@
 		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
+		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.5)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
@@ -402,8 +405,6 @@
 
 
 /obj/singularity/proc/mezzer()
-	return // stfu
-	/*
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(isbrain(M)) //Ignore brains
 			continue
@@ -420,7 +421,7 @@
 		M.Stun(6 SECONDS)
 		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
 						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
-	return */
+	return 
 
 
 /obj/singularity/proc/emp_area()
