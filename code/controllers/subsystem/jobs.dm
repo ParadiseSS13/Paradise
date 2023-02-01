@@ -79,6 +79,8 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(job.available_in_playtime(player.client))
 			return 0
+		if(!job.can_novice_play(player.client))
+			return 0
 		if(job.barred_by_disability(player.client))
 			return 0
 		if(!job.character_old_enough(player.client))
@@ -134,6 +136,9 @@ SUBSYSTEM_DEF(jobs)
 		if(job.available_in_playtime(player.client))
 			Debug("FOC player not enough playtime, Player: [player]")
 			continue
+		if(!job.can_novice_play(player.client))
+			Debug("FOC player has too much playtime, Player: [player]")
+			continue
 		if(job.barred_by_disability(player.client))
 			Debug("FOC player has disability rendering them ineligible for job, Player: [player]")
 			continue
@@ -179,6 +184,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(job.available_in_playtime(player.client))
 			Debug("GRJ player not enough playtime, Player: [player]")
+			continue
+
+		if(!job.can_novice_play(player.client))
+			Debug("GRJ player has too much playtime, Player: [player]")
 			continue
 
 		if(job.barred_by_disability(player.client))
@@ -362,6 +371,10 @@ SUBSYSTEM_DEF(jobs)
 
 				if(job.available_in_playtime(player.client))
 					Debug("DO player not enough playtime, Player: [player], Job:[job.title]")
+					continue
+
+				if(!job.can_novice_play(player.client))
+					Debug("DO player has too much playtime, Player: [player], Job:[job.title]")
 					continue
 
 				if(job.barred_by_disability(player.client))
