@@ -16,7 +16,7 @@
 	else
 		to_chat(user, "<span class='notice'>Adrenaline rushes through us.</span>")
 	user.SetSleeping(0)
-	user.stat = 0
+	user.WakeUp()
 	user.SetParalysis(0)
 	user.SetStunned(0)
 	user.SetWeakened(0)
