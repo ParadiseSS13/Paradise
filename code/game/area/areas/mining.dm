@@ -10,9 +10,7 @@
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
-	power_environ = FALSE
-	power_equip = FALSE
-	power_light = FALSE
+	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	flags = NONE
@@ -29,9 +27,7 @@
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
-	power_environ = FALSE
-	power_equip = FALSE
-	power_light = FALSE
+	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	sound_environment = SOUND_AREA_ASTEROID
@@ -139,9 +135,7 @@
 	icon_state = "explored"
 	always_unpowered = TRUE
 	poweralm = FALSE
-	power_environ = FALSE
-	power_equip = FALSE
-	power_light = FALSE
+	apc_starts_off = TRUE
 	requires_power = TRUE
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
@@ -153,9 +147,7 @@
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
-	power_environ = FALSE
-	power_equip = FALSE
-	power_light = FALSE
+	apc_starts_off = TRUE
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS

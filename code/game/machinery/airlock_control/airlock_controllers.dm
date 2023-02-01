@@ -5,8 +5,7 @@
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 
 	// Setup vars
 
@@ -86,7 +85,7 @@
 	ui_interact(user)
 
 /obj/machinery/airlock_controller/update_icon_state()
-	if(powered(power_channel))
+	if(has_power(power_channel))
 		if(state != target_state)
 			icon_state = "airlock_control_process"
 		else
@@ -337,7 +336,7 @@ send an additional command to open the door again.
 	icon_state = "access_control_standby"
 
 /obj/machinery/airlock_controller/access_controller/update_icon_state()
-	if(powered(power_channel))
+	if(has_power(power_channel))
 		if(state != target_state)
 			icon_state = "access_control_process"
 		else

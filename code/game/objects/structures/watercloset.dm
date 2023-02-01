@@ -251,7 +251,7 @@
 	icon_state = "shower"
 	density = FALSE
 	anchored = TRUE
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	///Is the shower on or off?
 	var/on = FALSE
 	///What temperature the shower reagents are set to.

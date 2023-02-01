@@ -378,7 +378,8 @@
 	"})
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/power_change()
-	. = ..()
+	if(!..())
+		return
 	if(!security_lockout && (stat & NOPOWER))
 		security_lockout = TRUE
 		raise_alert("[src] lost power.")
