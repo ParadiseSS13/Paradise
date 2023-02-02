@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	light_color = LIGHT_COLOR_PURE_GREEN
 
 /obj/machinery/clonepod/power_change()
-	..()
+	..() //we don't check return here because we also care about the BROKEN flag
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else

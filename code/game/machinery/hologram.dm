@@ -40,13 +40,13 @@ GLOBAL_LIST_EMPTY(holopads)
 	desc = "It's a floor-mounted device for projecting holographic images."
 	icon_state = "holopad0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	idle_power_consumption = 5
+	active_power_consumption = 100
 	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
 	plane = FLOOR_PLANE
 	max_integrity = 300
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
+
 	var/list/masters = list()//List of living mobs that use the holopad
 	var/list/holorays = list()//Holoray-mob link.
 	var/last_request = 0 //to prevent request spam. ~Carn
@@ -81,14 +81,14 @@ GLOBAL_LIST_EMPTY(holopads)
 	return ..()
 
 /obj/machinery/hologram/holopad/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
 		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/hologram/holopad/update_overlays()
@@ -417,8 +417,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/hologram/holopad/proc/SetLightsAndPower()
 	var/total_users = masters.len + LAZYLEN(holo_calls)
-	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
-	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
+	change_power_mode(total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE)
+	active_power_consumption = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)
 		set_light(2)
 	else

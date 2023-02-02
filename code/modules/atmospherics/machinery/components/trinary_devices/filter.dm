@@ -38,17 +38,21 @@
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
 	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
@@ -60,7 +64,7 @@
 	else
 		icon_state = ""
 
-	if(!powered())
+	if(!has_power())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
 		icon_state += on ? "on" : "off"
@@ -85,10 +89,9 @@
 		add_underlay(T, node3, dir)
 
 /obj/machinery/atmospherics/trinary/filter/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()

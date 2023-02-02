@@ -4,9 +4,9 @@
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_consumption = 40
 	resistance_flags = FIRE_PROOF|ACID_PROOF
+
 	var/obj/item/reagent_containers/beaker = null
 	var/desired_temp = T0C
 	var/on = FALSE
@@ -55,7 +55,7 @@
 		SStgui.update_uis(src)
 
 /obj/machinery/chem_heater/power_change()
-	if(powered())
+	if(has_power())
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER

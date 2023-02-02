@@ -3646,7 +3646,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "syndbaseventing";
 	name = "Venting Bay Door";
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)

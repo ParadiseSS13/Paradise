@@ -4,9 +4,8 @@
 	icon_state = "juicer1"
 	layer = 2.9
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	idle_power_consumption = 5
+	active_power_consumption = 100
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
 	var/operating = FALSE

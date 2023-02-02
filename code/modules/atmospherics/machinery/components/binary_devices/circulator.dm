@@ -155,7 +155,8 @@
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/atmospherics/binary/circulator/update_underlays()
 	. = ..()

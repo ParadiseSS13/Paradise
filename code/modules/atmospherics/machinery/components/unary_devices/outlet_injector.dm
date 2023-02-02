@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(air_injectors)
 /obj/machinery/atmospherics/unary/outlet_injector
 	icon = 'icons/atmos/injector.dmi'
 	icon_state = "map_injector"
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 	layer = GAS_SCRUBBER_LAYER
 
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(air_injectors)
 			A green light on it means it is on."
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
-	if(!powered())
+	if(!has_power())
 		icon_state = "off"
 	else
 		icon_state = "[on ? "on" : "off"]"
@@ -47,10 +47,9 @@ GLOBAL_LIST_EMPTY(air_injectors)
 		add_underlay(T, node, dir)
 
 /obj/machinery/atmospherics/unary/outlet_injector/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
 	..()

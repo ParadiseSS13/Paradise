@@ -58,8 +58,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
-	investigate_reset()
-
 	update_status()
 
 	GLOB.space_manager.initialize() //Before the MC starts up

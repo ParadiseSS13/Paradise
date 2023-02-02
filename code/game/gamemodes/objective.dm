@@ -77,6 +77,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_EVENT
 
 /datum/objective/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
 	for(var/datum/mind/M in get_owners())
 		if(possible_target == M)
 			return TARGET_INVALID_IS_OWNER
@@ -84,7 +87,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return TARGET_INVALID_IS_TARGET
 	if(SEND_SIGNAL(src, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, possible_target) & OBJECTIVE_INVALID_TARGET)
 		return TARGET_INVALID_BLACKLISTED
-	return ..()
 
 
 /datum/objective/proc/find_target(list/target_blacklist)
