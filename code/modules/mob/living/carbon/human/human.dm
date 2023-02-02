@@ -64,7 +64,7 @@
 /mob/living/carbon/human/Destroy()
 	. = ..()
 	SSmobs.cubemonkeys -= src
-	QDEL_LIST(bodyparts)
+	QDEL_LIST_CONTENTS(bodyparts)
 	splinted_limbs.Cut()
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
@@ -139,9 +139,6 @@
 
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
-
-/mob/living/carbon/human/wryn/Initialize(mapload)
-	. = ..(mapload, /datum/species/wryn)
 
 /mob/living/carbon/human/nucleation/Initialize(mapload)
 	. = ..(mapload, /datum/species/nucleation)
@@ -408,7 +405,7 @@
 	if(handcuffed)
 		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><A href='?src=[UID()];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
+		dat += "<tr><td><b>Legcuffed:</b> <a href='?src=[UID()];item=[slot_legcuffed]'>Remove</a></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -433,39 +430,45 @@
 		else
 			return if_no_id
 
-//gets assignment from ID or ID inside PDA or PDA itself
-//Useful when player do something with computers
+//gets assignment from ID, PDA, Wallet, etc.
+//This should not be relied on for authentication, because PDAs show their owner's job, even if an ID is not inserted
 /mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	if(istype(pda))
-		if(pda.id && istype(pda.id, /obj/item/card/id))
-			. = pda.id.assignment
-		else
-			. = pda.ownjob
-	else if(istype(id))
-		. = id.assignment
-	else
+	if(!wear_id)
 		return if_no_id
-	if(!.)
-		. = if_no_job
-	return
+	var/obj/item/card/id/id = wear_id.GetID()
+	if(istype(id)) // Make sure its actually an ID
+		if(!id.assignment)
+			return if_no_job
+		return id.assignment
 
-//gets name from ID or ID inside PDA or PDA itself
-//Useful when player do something with computers
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda = wear_id
+		return pda.ownjob
+
+	return if_no_id
+
+//gets name from ID, PDA, Wallet, etc.
+//This should not be relied on for authentication, because PDAs show their owner's name, even if an ID is not inserted
 /mob/living/carbon/human/proc/get_authentification_name(if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	if(istype(pda))
-		if(pda.id)
-			. = pda.id.registered_name
-		else
-			. = pda.owner
-	else if(istype(id))
-		. = id.registered_name
-	else
+	if(!wear_id)
 		return if_no_id
-	return
+	var/obj/item/card/id/id = wear_id.GetID()
+	if(istype(id) && id.registered_name)
+		return id.registered_name
+
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda = wear_id
+		return pda.owner
+
+	return if_no_id
+
+/mob/living/carbon/human/get_id_card()
+	var/obj/item/card/id/id = wear_id?.GetID()
+	if(istype(id)) // Make sure its actually an ID
+		return id
+	if(get_active_hand())
+		var/obj/item/I = get_active_hand()
+		return I.GetID()
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name(id_override = FALSE)
@@ -491,23 +494,19 @@
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	if(istype(pda))		. = pda.owner
-	else if(istype(id))	. = id.registered_name
-	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
-	return
+	var/obj/item/card/id/id = wear_id?.GetID()
+	if(istype(id))
+		return id.registered_name
+	if(is_pda(wear_id))
+		var/obj/item/pda/pda = wear_id
+		return pda.owner
+	return if_no_id	//to prevent null-names making the mob unclickable
 
 //gets ID card object from special clothes slot or, if applicable, hands as well
-/mob/living/carbon/human/proc/get_idcard(check_hands = FALSE)
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/pda/pda = wear_id
-	if(istype(pda) && pda.id)
-		id = pda.id
-	else
-		pda = wear_pda
-		if(istype(pda) && pda.id)
-			id = pda.id
+/mob/living/carbon/human/proc/get_idcard(check_hands = FALSE) // here
+	var/obj/item/card/id/id = wear_id?.GetID()
+	if(!istype(id)) //We only check for PDAs if there isn't an ID in the ID slot. IDs take priority.
+		id = wear_pda?.GetID()
 
 	if(check_hands)
 		if(istype(get_active_hand(), /obj/item/card/id))
@@ -594,7 +593,7 @@
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
 
-	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags = NONE)
+	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags)
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(!usr.stat && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !usr.restrained() && in_range(src, usr))
@@ -931,6 +930,15 @@
 		rank = "AI"
 	set_criminal_status(user, found_record, new_status, reason, rank)
 
+/mob/living/carbon/human/can_be_flashed(intensity = 1, override_blindness_check = 0)
+
+	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
+	. = ..()
+
+	if((!. || (!E && !(dna.species.bodyflags & NO_EYES))))
+		return FALSE
+
+	return TRUE
 
 ///check_eye_prot()
 ///Returns a number between -1 to 2
@@ -1125,7 +1133,7 @@
 			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
 				continue				 //In an example, this will prevent duplication of the mob's eyes if the mob is a Human and they have Nucleation eyes, since,
-										 //while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
+										//while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
 				I = new organ(H) //Create the organ inside the player.
 				I.insert(H)
@@ -1295,7 +1303,6 @@
 		add_language(dna.species.default_language)
 
 	hunger_drain = dna.species.hunger_drain
-	digestion_ratio = dna.species.digestion_ratio
 
 	if(dna.species.base_color && use_default_color)
 		//Apply colour.
@@ -1390,32 +1397,33 @@
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(dna.species.default_hair)
-		H.h_style = dna.species.default_hair
-	else
-		H.h_style = "Bald"
-	if(dna.species.default_fhair)
-		H.f_style = dna.species.default_fhair
-	else
-		H.f_style = "Shaved"
-	if(dna.species.default_headacc)
-		H.ha_style = dna.species.default_headacc
-	else
-		H.ha_style = "None"
+	if(istype(H))
+		if(dna.species.default_hair)
+			H.h_style = dna.species.default_hair
+		else
+			H.h_style = "Bald"
+		if(dna.species.default_fhair)
+			H.f_style = dna.species.default_fhair
+		else
+			H.f_style = "Shaved"
+		if(dna.species.default_headacc)
+			H.ha_style = dna.species.default_headacc
+		else
+			H.ha_style = "None"
 
-	if(dna.species.default_hair_colour)
-		//Apply colour.
-		H.hair_colour = dna.species.default_hair_colour
-	else
-		H.hair_colour = "#000000"
-	if(dna.species.default_fhair_colour)
-		H.facial_colour = dna.species.default_fhair_colour
-	else
-		H.facial_colour = "#000000"
-	if(dna.species.default_headacc_colour)
-		H.headacc_colour = dna.species.default_headacc_colour
-	else
-		H.headacc_colour = "#000000"
+		if(dna.species.default_hair_colour)
+			//Apply colour.
+			H.hair_colour = dna.species.default_hair_colour
+		else
+			H.hair_colour = "#000000"
+		if(dna.species.default_fhair_colour)
+			H.facial_colour = dna.species.default_fhair_colour
+		else
+			H.facial_colour = "#000000"
+		if(dna.species.default_headacc_colour)
+			H.headacc_colour = dna.species.default_headacc_colour
+		else
+			H.headacc_colour = "#000000"
 
 	m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
@@ -1522,6 +1530,8 @@
 
 /mob/living/carbon/human/proc/get_eye_shine() //Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	if(!istype(head_organ))
+		return
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
@@ -1768,15 +1778,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/can_track(mob/living/user)
 	if(wear_id)
-		var/obj/item/card/id/id = wear_id
+		var/obj/item/card/id/id = wear_id.GetID()
 		if(istype(id) && id.is_untrackable())
 			return 0
 	if(wear_pda)
-		var/obj/item/pda/pda = wear_pda
-		if(istype(pda))
-			var/obj/item/card/id/id = pda.id
-			if(istype(id) && id.is_untrackable())
-				return 0
+		var/obj/item/card/id/id = wear_pda.GetID()
+		if(istype(id) && id.is_untrackable())
+			return 0
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = head
 		if(hat.blockTracking)
@@ -1969,7 +1977,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
 	return TRUE
 
-/mob/living/carbon/human/extinguish_light()
+/mob/living/carbon/human/extinguish_light(force = FALSE)
 	// Parent function handles stuff the human may be holding
 	..()
 

@@ -166,7 +166,7 @@
 
 /datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
 	flick("legion-smash", latest_attacker)
-	addtimer(CALLBACK(latest_attacker, /mob/living/simple_animal/hostile/asteroid/big_legion/.proc/throw_mobs), 1 SECONDS)
+	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/big_legion, throw_mobs)), 1 SECONDS)
 
 /datum/status_effect/stacking/ground_pound/on_remove()
 	latest_attacker = null
@@ -246,6 +246,37 @@
 
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
+
+/datum/status_effect/shadow_boxing
+	id = "shadow barrage"
+	alert_type = null
+	duration = 10 SECONDS
+	tick_interval = 0.4 SECONDS
+	var/damage = 8
+	var/source_UID
+
+/datum/status_effect/shadow_boxing/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+/datum/status_effect/shadow_boxing/tick()
+	var/mob/living/attacker = locateUID(source_UID)
+	if(attacker in view(owner, 2))
+		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
+		owner.apply_damage(damage, BRUTE)
+		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+
+/datum/status_effect/cling_tentacle
+	id = "cling_tentacle"
+	alert_type = null
+	duration = 3 SECONDS
+
+/datum/status_effect/cling_tentacle/on_apply()
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	return ..()
+
+/datum/status_effect/cling_tentacle/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
 // start of `living` level status procs.
 

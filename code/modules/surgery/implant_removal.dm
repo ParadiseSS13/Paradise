@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery/implant_removal
-	name = "Implant Removal"
+	name = "Bio-chip Removal"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -16,7 +16,7 @@
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/implant_removal/synth
-	name = "Implant Removal"
+	name = "Bio-chip Removal"
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
@@ -27,7 +27,7 @@
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/extract_implant
-	name = "extract implant"
+	name = "extract bio-chip"
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
 	time = 6.4 SECONDS
 	repeatable = TRUE

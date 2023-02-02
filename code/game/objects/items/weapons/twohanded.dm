@@ -285,7 +285,6 @@
 	armour_penetration_flat = 10
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
@@ -299,6 +298,7 @@
 	..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(wielded)
@@ -319,7 +319,7 @@
 		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
-		INVOKE_ASYNC(src, .proc/jedi_spin, user)
+		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
@@ -610,6 +610,7 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
+	flags_2 = RANDOM_BLOCKER_2
 
 /obj/item/twohanded/chainsaw/update_icon_state()
 	if(wielded)
@@ -817,12 +818,12 @@
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(wielded)
-			if(istype(A, /turf/simulated/wall))
+			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(istype(A, /obj/structure) || istype(A, /obj/mecha))
+			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
@@ -838,7 +839,6 @@
 	force_wielded = 22
 	damtype = BURN
 	armour_penetration_percentage = 50
-	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -850,6 +850,7 @@
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/required/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -931,7 +932,7 @@
 	user.put_in_hands(W)
 	on_cooldown = TRUE
 	flags |= NODROP
-	addtimer(CALLBACK(src, .proc/reboot), 2 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
 	do_sparks(rand(1,6), 1, loc)
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)

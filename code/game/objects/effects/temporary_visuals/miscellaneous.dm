@@ -1,12 +1,3 @@
-/obj/effect/temp_visual/point
-	name = "arrow"
-	desc = "It's an arrow hanging in mid-air. There may be a wizard about."
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "arrow"
-	layer = POINT_LAYER
-	duration = 20
-	randomdir = FALSE
-
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
 	duration = 5
@@ -372,3 +363,25 @@
 	pixel_x = -32
 	pixel_y = -32
 	duration = 42
+
+/obj/effect/temp_visual/rcd_effect
+	icon = 'icons/effects/effects_rcd.dmi'
+	icon_state = "rcd"
+	duration = 5 SECONDS
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/effect/temp_visual/rcd_effect/short
+	icon_state = "rcd_short"
+	duration = 2 SECONDS
+
+/obj/effect/temp_visual/rcd_effect/end
+	icon_state = "rcd_end"
+	duration = 1.1 SECONDS
+
+/obj/effect/temp_visual/rcd_effect/reverse
+	icon_state = "rcd_reverse"
+	duration = 6.1 SECONDS
+
+/obj/effect/temp_visual/rcd_effect/reverse_short
+	icon_state = "rcd_short_reverse"
+	duration = 3.1 SECONDS

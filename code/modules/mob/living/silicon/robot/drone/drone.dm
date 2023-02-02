@@ -34,8 +34,6 @@
 	var/static/list/allowed_bumpable_objects = list(/obj/machinery/door, /obj/machinery/recharge_station, /obj/machinery/disposal/deliveryChute,
 													/obj/machinery/teleport/hub, /obj/effect/portal, /obj/structure/transit_tube/station)
 
-	//Used for self-mailing.
-	var/mail_destination = 0
 	var/reboot_cooldown = 1 MINUTES
 	var/last_reboot
 	var/list/pullable_drone_items = list(
@@ -122,9 +120,6 @@
 	else
 		overlays -= "eyes"
 
-/mob/living/silicon/robot/drone/choose_icon()
-	return
-
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
@@ -193,6 +188,14 @@
 
 	..()
 
+/mob/living/silicon/robot/drone/Destroy()
+	. = ..()
+	QDEL_NULL(stack_glass)
+	QDEL_NULL(stack_metal)
+	QDEL_NULL(stack_wood)
+	QDEL_NULL(stack_plastic)
+	QDEL_NULL(decompiler)
+
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
 		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
@@ -218,7 +221,7 @@
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
-	addtimer(CALLBACK(src, .proc/shut_down, TRUE), EMAG_TIMER)
+	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
 
 	emagged = TRUE
 	density = TRUE
@@ -340,7 +343,7 @@
 	if(is_type_in_list(AM, pullable_drone_items))
 		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
 
-	else if(istype(AM,/obj/item))
+	else if(isitem(AM))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
 			if(show_message)

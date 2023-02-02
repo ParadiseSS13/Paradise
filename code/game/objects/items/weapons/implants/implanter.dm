@@ -1,6 +1,6 @@
 /obj/item/implanter
-	name = "implanter"
-	desc = "A sterile automatic implant injector."
+	name = "bio-chip implanter"
+	desc = "A sterile automatic bio-chip injector."
 	icon = 'icons/obj/implants.dmi'
 	icon_state = "implanter0"
 	item_state = "syringe_0"
@@ -26,22 +26,22 @@
 		return
 	if(user && imp)
 		if(M != user)
-			M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>")
+			M.visible_message("<span class='warning'>[user] is attempting to bio-chip [M].</span>")
 
 		var/turf/T = get_turf(M)
 		if(T && (M == user || do_after(user, 50 * toolspeed, target = M)))
 			if(user && M && (get_turf(M) == T) && src && imp)
 				if(imp.implant(M, user))
 					if(M == user)
-						to_chat(user, "<span class='notice'>You implant yourself.</span>")
+						to_chat(user, "<span class='notice'>You bio-chip yourself.</span>")
 					else
-						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
+						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] bio-chips you.</span>")
 					imp = null
 					update_icon(UPDATE_ICON_STATE)
 
 /obj/item/implanter/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 
 /obj/item/implanter/Initialize(mapload)
@@ -50,3 +50,7 @@
 		return
 	imp = new implant_type()
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/implanter/Destroy()
+	QDEL_NULL(imp)
+	. = ..()

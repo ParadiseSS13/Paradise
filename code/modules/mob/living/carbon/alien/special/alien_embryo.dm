@@ -7,6 +7,12 @@
 	icon_state = "larva0_dead"
 	var/stage = 0
 	var/polling = FALSE
+	///How long it takes for an alien embryo to advance a stage in it's development
+	var/incubation_time_per_stage = 70 SECONDS
+	///The random deviation for how long the incubation period per stage will take, ranging from -15% to +15. NOTE! If you have a better name for this var, I'd love it
+	var/incubation_deviation = 0
+	///Used to keep track of when incubation progressed to the next stage
+	var/last_stage_progress = 0
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
 	..()
@@ -14,8 +20,7 @@
 		to_chat(finder, "It's small and weak, barely the size of a fetus.")
 	else
 		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
-		if(prob(10))
-			AttemptGrow(burst_on_success = FALSE)
+		AttemptGrow(burst_on_success = FALSE)
 
 /obj/item/organ/internal/body_egg/alien_embryo/prepare_eat()
 	var/obj/S = ..()
@@ -24,7 +29,7 @@
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_life()
 	switch(stage)
-		if(2, 3)
+		if(2)
 			if(prob(2))
 				owner.emote("sneeze")
 			if(prob(2))
@@ -33,7 +38,7 @@
 				to_chat(owner, "<span class='danger'>Your throat feels sore.</span>")
 			if(prob(2))
 				to_chat(owner, "<span class='danger'>Mucous runs down the back of your throat.</span>")
-		if(4)
+		if(3)
 			if(prob(2))
 				owner.emote("sneeze")
 			if(prob(2))
@@ -46,20 +51,21 @@
 				to_chat(owner, "<span class='danger'>Your chest hurts.</span>")
 				if(prob(20))
 					owner.adjustToxLoss(1)
-		if(5)
+		if(4)
 			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your chest...</span>")
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
-	if(stage < 5 && prob(3))
+	if(stage < 4 && world.time > last_stage_progress + incubation_deviation) ///Time for incubation is increased or decreased by a deviation of 15%, then we check to see if we've passed the threshold to goto our next stage of development
 		stage++
-		spawn(0)
-			RefreshInfectionImage()
+		RefreshInfectionImage()
+		incubation_deviation = PERCENT_OF(rand(85, 115), incubation_time_per_stage) ///The actual deviation location, and where the magic happens
+		last_stage_progress = world.time
 
-	if(stage == 5 && prob(50))
+	if(stage == 4)
 		for(var/datum/surgery/S in owner.surgeries)
 			if(S.location == "chest" && S.organ_to_manipulate.open >= ORGAN_ORGANIC_OPEN)
-				AttemptGrow(burst_on_success = FALSE)
+				AttemptGrow(burst_on_success = FALSE) ///If you managed to get this far, you deserve to be rewarded somewhat
 				return
 		AttemptGrow()
 
@@ -110,6 +116,7 @@
 				chest.droplimb()
 			else //If we are discovered mid-surgery
 				owner.adjustBruteLoss(40)
+			SSblackbox.record_feedback("tally", "alien_growth", 1, "hatched_eggs")
 			qdel(src)
 
 /*----------------------------------------

@@ -20,9 +20,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/long_range_enabled = FALSE
 	req_one_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
-	active_power_usage = 200
+	idle_power_consumption = 30
+	active_power_consumption = 200
 
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null
@@ -286,7 +285,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		to_chat(usr, "There is nothing to remove from [src].")
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
-	use_power(active_power_usage)
+	use_power(active_power_consumption)
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
@@ -315,7 +314,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	flick(receive_anim, src)
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-	addtimer(CALLBACK(src, .proc/print_fax, incoming), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(print_fax), incoming), 2 SECONDS)
 	return TRUE
 
 /obj/machinery/photocopier/faxmachine/proc/print_fax(obj/item/incoming)
@@ -328,10 +327,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else
 		return
 
-	use_power(active_power_usage)
+	use_power(active_power_consumption)
 
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
-	use_power(active_power_usage)
+	use_power(active_power_consumption)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
 		visible_message("[src] beeps, \"Error transmitting message.\"")

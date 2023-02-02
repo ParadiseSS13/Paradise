@@ -164,6 +164,7 @@
 	e_cost = 50
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
+	delay = 0.6 SECONDS
 
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
 	e_cost = 250
@@ -329,3 +330,10 @@
 	projectile_type = /obj/item/projectile/beam/laser/detective/overcharged
 	e_cost = 200
 	select_name = "overcharged"
+
+/obj/item/ammo_casing/energy/silencer_ammo
+	projectile_type = /obj/item/projectile/beam/silencer
+	muzzle_flash_effect = null
+	select_name = "silencing dissidents"
+	e_cost = 62.5 // 16 shots
+	fire_sound = 'sound/weapons/silencer_laser.ogg'

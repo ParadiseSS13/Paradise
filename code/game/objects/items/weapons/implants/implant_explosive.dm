@@ -1,10 +1,10 @@
 /obj/item/implant/explosive
-	name = "microbomb implant"
+	name = "microbomb bio-chip"
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
 	origin_tech = "materials=2;combat=3;biotech=4;syndicate=4"
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
-	trigger_causes = IMPLANT_TRIGGER_DEATH_ONCE // Not surviving that
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE // Not surviving that
 	implant_data = /datum/implant_fluff/explosive
 	implant_state = "implant-syndicate"
 
@@ -20,7 +20,7 @@
 /obj/item/implant/explosive/activate(cause)
 	if(!cause || !imp_in)
 		return FALSE
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb implant? This will cause you to explode!", "Microbomb Implant Confirmation", "Yes", "No") != "Yes")
+	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb bio-chip? This will cause you to explode!", "Microbomb Bio-chip Confirmation", "Yes", "No") != "Yes")
 		return FALSE
 	if(detonating)
 		return FALSE
@@ -28,15 +28,44 @@
 	medium = round(medium)
 	weak = round(weak)
 	detonating = TRUE
-	to_chat(imp_in, "<span class='danger'>You activate your microbomb implant.</span>")
+	to_chat(imp_in, "<span class='danger'>You activate your microbomb bio-chip.</span>")
 //If the delay is short, just blow up already jeez
 	if(delay <= 7)
-		explosion(src, heavy, medium, weak, weak, flame_range = weak)
-		if(imp_in)
-			imp_in.gib()
-		qdel(src)
+		self_destruct()
 		return
 	timed_explosion()
+
+/// Gib the implantee and delete their destructible contents.
+/obj/item/implant/explosive/proc/self_destruct()
+	if(!imp_in)
+		return
+
+	explosion(src, heavy, medium, weak, weak, flame_range = weak)
+
+	// In case something happens to the implantee between now and the
+	// self-destruct
+	var/current_location = get_turf(imp_in)
+
+	var/list/destructed_items = list()
+
+	// Iterate over the implantee's contents and take out indestructible
+	// things to avoid having to worry about containers and recursion
+	for(var/obj/item/I in imp_in.get_contents())
+		if(I == src) // Don't delete ourselves prematurely
+			continue
+		// Drop indestructible items on the ground first, to avoid them
+		// getting deleted when destroying the rest of the items, which we
+		// track in a list to qdel afterwards
+		if(I.resistance_flags & INDESTRUCTIBLE)
+			I.forceMove(current_location)
+		else
+			destructed_items += I
+
+	QDEL_LIST_CONTENTS(destructed_items)
+
+	imp_in.gib()
+
+	qdel(src)
 
 /obj/item/implant/explosive/implant(mob/source)
 	var/obj/item/implant/explosive/imp_e = locate(type) in source
@@ -64,13 +93,10 @@
 	sleep(wait_delay)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	sleep(wait_delay)
-	explosion(src, heavy,medium,weak,weak, flame_range = weak)
-	if(imp_in)
-		imp_in.gib()
-	qdel(src)
+	self_destruct()
 
 /obj/item/implant/explosive/macro
-	name = "macrobomb implant"
+	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
 	icon_state = "explosive"
 	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
@@ -83,9 +109,9 @@
 /obj/item/implant/explosive/macro/activate(cause)
 	if(!cause || !imp_in)
 		return FALSE
-	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb implant? This will cause you to explode and gib!", "Macrobomb Implant Confirmation", "Yes", "No") != "Yes")
+	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb bio-chip? This will cause you to explode and gib!", "Macrobomb Bio-chip Confirmation", "Yes", "No") != "Yes")
 		return FALSE
-	to_chat(imp_in, "<span class='notice'>You activate your macrobomb implant.</span>")
+	to_chat(imp_in, "<span class='notice'>You activate your macrobomb bio-chip.</span>")
 	timed_explosion()
 
 /obj/item/implant/explosive/macro/implant(mob/source)
@@ -104,19 +130,19 @@
 
 
 /obj/item/implanter/explosive
-	name = "implanter (explosive)"
+	name = "bio-chip implanter (explosive)"
 	implant_type = /obj/item/implant/explosive
 
 /obj/item/implantcase/explosive
-	name = "implant case - 'Micro Explosive'"
-	desc = "A glass case containing a micro explosive implant."
+	name = "bio-chip case - 'Micro Explosive'"
+	desc = "A glass case containing a micro explosive bio-chip."
 	implant_type = /obj/item/implant/explosive
 
 /obj/item/implanter/explosive_macro
-	name = "implanter (macro-explosive)"
+	name = "bio-chip implanter (macro-explosive)"
 	implant_type = /obj/item/implant/explosive/macro
 
 /obj/item/implantcase/explosive_macro
-	name = "implant case - 'Macro Explosive'"
-	desc = "A glass case containing a macro explosive implant."
+	name = "bio-chip case - 'Macro Explosive'"
+	desc = "A glass case containing a macro explosive bio-chip."
 	implant_type = /obj/item/implant/explosive/macro

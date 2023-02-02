@@ -21,7 +21,7 @@
 		if(T.mob)
 			if(isnewplayer(T.mob))
 				targets["(New Player) - [T]"] = T
-			else if(istype(T.mob, /mob/dead/observer))
+			else if(isobserver(T.mob))
 				targets["[T.mob.name](Ghost) - [T]"] = T
 			else
 				targets["[T.mob.real_name](as [T.mob.name]) - [T]"] = T
@@ -43,7 +43,7 @@
 		if(T.mob)
 			if(isnewplayer(T.mob))
 				targets["[T] - (New Player)"] = T
-			else if(istype(T.mob, /mob/dead/observer))
+			else if(isobserver(T.mob))
 				targets["[T] - [T.mob.name](Ghost)"] = T
 			else
 				targets["[T] - [T.mob.real_name](as [T.mob.name])"] = T
@@ -65,7 +65,7 @@
 	var/client/C
 	if(istext(whom))
 		C = get_client_by_ckey(whom)
-	else if(istype(whom,/client))
+	else if(isclient(whom))
 		C = whom
 
 	if(!C)
@@ -235,7 +235,7 @@
 		to_chat(src, "<span class='notice'>[msg]</span>")
 		return
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
 	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>")
 

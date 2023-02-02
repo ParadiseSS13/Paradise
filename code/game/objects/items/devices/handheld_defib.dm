@@ -52,9 +52,9 @@
 		ADD_TRAIT(H, TRAIT_WAS_BATONNED, user_UID)
 		cooldown = TRUE
 		icon_state = "[icon_base]-shock"
-		addtimer(CALLBACK(src, .proc/allowhit, H, user_UID), attack_cooldown)
-		addtimer(CALLBACK(src, .proc/short_charge), 1 SECONDS)
-		addtimer(CALLBACK(src, .proc/recharge), charge_time)
+		addtimer(CALLBACK(src, PROC_REF(allowhit), H, user_UID), attack_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(short_charge)), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
 		return
 
 	if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
@@ -84,8 +84,8 @@
 
 		cooldown = TRUE
 		icon_state = "[icon_base]-shock"
-		addtimer(CALLBACK(src, .proc/short_charge), 1 SECONDS)
-		addtimer(CALLBACK(src, .proc/recharge), charge_time)
+		addtimer(CALLBACK(src, PROC_REF(short_charge)), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
 
 	else
 		to_chat(user, "<span class='notice'>[src]'s on board medical scanner indicates that no shock is required.</span>")

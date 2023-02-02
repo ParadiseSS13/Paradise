@@ -10,9 +10,8 @@
 	icon_state = "launcherbtt"
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
+	idle_power_consumption = 2
+	active_power_consumption = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	/// ID tag of the driver to hook to
 	var/id_tag = "default"
@@ -85,22 +84,22 @@
 
 	for(var/obj/machinery/door/poddoor/M in range(src, range))
 		if(M.id_tag == id_tag && !M.protected)
-			INVOKE_ASYNC(M, /obj/machinery/door.proc/open)
+			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/door, open))
 
 	// 2 seconds after previous invocation
 
 	for(var/obj/machinery/mass_driver/M in range(src, range))
 		if(M.id_tag == id_tag)
-			addtimer(CALLBACK(M, /obj/machinery/mass_driver.proc/drive), 2 SECONDS)
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/obj/machinery/mass_driver, drive)), 2 SECONDS)
 
 	// We want this 5 seconds after open, so the delay is 7 seconds from this proc
 
 	for(var/obj/machinery/door/poddoor/M in range(src, range))
 		if(M.id_tag == id_tag && !M.protected)
-			addtimer(CALLBACK(M, /obj/machinery/door.proc/close), 7 SECONDS)
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/obj/machinery/door, close)), 7 SECONDS)
 
 	// And rearm us
-	addtimer(CALLBACK(src, .proc/rearm), 7 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(rearm)), 7 SECONDS)
 
 /obj/machinery/driver_button/proc/rearm()
 	icon_state = "launcherbtt"
@@ -132,9 +131,8 @@
 	var/id = null
 	var/active = FALSE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
+	idle_power_consumption = 2
+	active_power_consumption = 4
 
 /obj/machinery/ignition_switch/attack_ai(mob/user)
 	return attack_hand(user)
@@ -157,7 +155,7 @@
 
 	for(var/obj/machinery/sparker/M in GLOB.machines)
 		if(M.id == id)
-			INVOKE_ASYNC(M, /obj/machinery/sparker.proc/spark)
+			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/sparker, spark))
 
 	for(var/obj/machinery/igniter/M in GLOB.machines)
 		if(M.id == id)
@@ -165,7 +163,7 @@
 			M.on = !M.on
 			M.icon_state = "igniter[M.on]"
 
-	addtimer(CALLBACK(src, .proc/rearm), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(rearm)), 5 SECONDS)
 
 /obj/machinery/ignition_switch/proc/rearm()
 	icon_state = "launcherbtt"

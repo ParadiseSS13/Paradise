@@ -1,6 +1,6 @@
 /*
-  Tiny babby plant critter plus procs.
-*/
+ * Tiny babby plant critter plus procs.
+ */
 
 //Mob defines.
 /mob/living/simple_animal/diona
@@ -95,8 +95,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/diona/resist()
-	..()
+/mob/living/simple_animal/diona/run_resist()
 	split()
 
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
@@ -156,7 +155,7 @@
 
 	var/hasMobs = FALSE
 	for(var/atom/A in D.contents)
-		if(istype(A, /mob/) || istype(A, /obj/item/holder))
+		if(ismob(A) || istype(A, /obj/item/holder))
 			hasMobs = TRUE
 	if(!hasMobs)
 		D.status_flags &= ~PASSEMOTES

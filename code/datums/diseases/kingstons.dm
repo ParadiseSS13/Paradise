@@ -12,7 +12,8 @@
 	severity = DANGEROUS
 
 /datum/disease/kingstons/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(10))
@@ -48,6 +49,7 @@
 
 /datum/disease/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
 	name = "Advanced Kingstons Syndrome"
+	medical_name = "Advanced Kingstons Syndrome"
 	max_stages = 4
 	spread_text = "Airborne"
 	cure_text = "Plasma"
@@ -91,7 +93,7 @@
 														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
 						twisted.set_species(chosentype, retain_damage = TRUE)
 					else
-						twisted.visible_message("<span class='danger'>[twisted] scratches at thier skin!</span>", \
+						twisted.visible_message("<span class='danger'>[twisted] scratches at their skin!</span>", \
 														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
 						twisted.adjustBruteLoss(-5)
 						twisted.adjustStaminaLoss(5)

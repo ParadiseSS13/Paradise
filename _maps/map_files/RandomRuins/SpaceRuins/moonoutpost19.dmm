@@ -37,7 +37,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "aj" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -141,7 +141,7 @@
 /area/ruin/space/unpowered)
 "au" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "tube-broken";
 	status = 2
@@ -193,7 +193,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "az" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -203,7 +203,7 @@
 /area/ruin/space/unpowered)
 "aB" = (
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "bulb-broken";
 	status = 2
@@ -256,11 +256,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE"
-	},
+/obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "aG" = (
@@ -328,7 +324,7 @@
 /area/ruin/space/unpowered)
 "aP" = (
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 8;
 	icon_state = "bulb-broken";
 	status = 2
@@ -565,7 +561,7 @@
 	layer = 2.9
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -896,15 +892,13 @@
 "bK" = (
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	frequency = 1441;
-	id = "waste_in"
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "bM" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "tube-broken";
 	status = 2
@@ -1198,7 +1192,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	cell_type = 15000;
 	dir = 4;
 	locked = 0;
@@ -1441,14 +1435,13 @@
 /area/ruin/space/unpowered)
 "cO" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station/empty_charge{
 	cell_type = 15000;
 	dir = 4;
 	locked = 0;
 	name = "Research APC";
 	pixel_x = 25;
-	req_access = null;
-	start_charge = 0
+	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -1468,7 +1461,7 @@
 "cQ" = (
 /obj/structure/table,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1481,7 +1474,7 @@
 "cR" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 8;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1602,7 +1595,7 @@
 /area/ruin/space/unpowered)
 "da" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 4;
 	icon_state = "tube-broken";
 	status = 2
@@ -1706,7 +1699,7 @@
 /area/ruin/space/unpowered)
 "dj" = (
 /obj/machinery/light{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "tube-broken";
 	status = 2
 	},
@@ -1810,7 +1803,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "du" = (
-/obj/machinery/vending/medical{
+/obj/machinery/economy/vending/medical{
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel{
@@ -1823,7 +1816,7 @@
 /obj/item/trash/chips,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -1885,7 +1878,7 @@
 "dB" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	dir = 1;
 	icon_state = "bulb-broken";
 	status = 2
@@ -2031,7 +2024,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},
@@ -2350,7 +2343,7 @@
 "eu" = (
 /obj/structure/closet/l3closet/general,
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},
@@ -2607,7 +2600,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light/small{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	icon_state = "bulb-broken";
 	status = 2
 	},
@@ -2735,7 +2728,7 @@
 /turf/simulated/wall,
 /area/ruin/space/unpowered)
 "fi" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -2803,7 +2796,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "fs" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2934,7 +2927,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "fI" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/structure/sign/poster/official/ue_no{
 	pixel_y = 32
 	},
@@ -2988,7 +2981,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	cell_type = 15000;
 	dir = 1;
 	locked = 0;
@@ -3076,7 +3069,7 @@
 	},
 /area/ruin/space/unpowered)
 "fZ" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -3740,7 +3733,7 @@
 /area/ruin/space/unpowered)
 "hm" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/navy,
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "hn" = (
@@ -3966,7 +3959,7 @@
 	name = "Kitchen Crate"
 	},
 /obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/misc/waiter,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -4303,7 +4296,7 @@
 	},
 /obj/machinery/newscaster{
 	name = "north bump";
-	pixel_y = 32
+	pixel_y = 28
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
@@ -4327,7 +4320,7 @@
 	},
 /area/ruin/space/unpowered)
 "iM" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_y = -32
 	},
@@ -4573,7 +4566,7 @@
 /area/ruin/space/unpowered)
 "jo" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "jp" = (
@@ -4713,7 +4706,7 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /obj/item/clothing/accessory/black,
-/obj/item/clothing/under/lawyer/black,
+/obj/item/clothing/under/rank/civilian/lawyer/black,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "barber";
 	name = "floor"
@@ -4913,7 +4906,7 @@
 /area/ruin/space/unpowered)
 "ke" = (
 /obj/structure/closet/cabinet,
-/obj/item/clothing/under/suit_jacket/burgundy,
+/obj/item/clothing/under/suit/burgundy,
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "kf" = (

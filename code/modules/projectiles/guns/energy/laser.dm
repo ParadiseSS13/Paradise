@@ -21,6 +21,7 @@
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
 	icon_state = "retro"
+	item_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
 
@@ -118,7 +119,7 @@
 	name = "immolator laser gun"
 	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
 	icon_state = "immolator"
-	item_state = "laser"
+	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE
@@ -127,6 +128,7 @@
 	name = "multi lens immolator cannon"
 	desc = "A large laser cannon, similar to the Immolator Laser, with toggleable firemodes. It is frequently used by military-like forces through Nanotrasen."
 	icon_state = "multilensimmolator"
+	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 
@@ -177,8 +179,10 @@
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"
+	item_state = "bluetag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
 
 /obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
+	item_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)

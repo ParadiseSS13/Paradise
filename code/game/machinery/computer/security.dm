@@ -189,7 +189,7 @@
 				return
 			var/datum/data/record/G = new /datum/data/record()
 			G.fields["name"] = "New Record"
-			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7)), 6)]"
+			G.fields["id"] = "[num2hex(rand(1, 1.6777215E7), 6)]"
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
@@ -265,7 +265,7 @@
 				return
 			is_printing = TRUE
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-			addtimer(CALLBACK(src, .proc/print_record_finish), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(print_record_finish)), 5 SECONDS)
 		else
 			return FALSE
 
@@ -377,7 +377,7 @@
 						return
 					is_printing = TRUE
 					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-					addtimer(CALLBACK(src, .proc/print_cell_log_finish, T.name, T.info), 5 SECONDS)
+					addtimer(CALLBACK(src, PROC_REF(print_cell_log_finish), T.name, T.info), 5 SECONDS)
 				else
 					return FALSE
 		else
@@ -442,7 +442,7 @@
 				if(4)
 					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
 				if(5)
-					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
+					R.fields["p_stat"] = pick("*Unconscious*", "Active", "Physically Unfit")
 				if(6)
 					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
 			continue

@@ -71,8 +71,8 @@
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want it checking for these statuses or you are supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(src, /mob/living.proc/IsWeakened)
-		extra_checks += CALLBACK(src, /mob/living.proc/IsStunned)
+		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsWeakened))
+		extra_checks += CALLBACK(src, TYPE_PROC_REF(/mob/living, IsStunned))
 
 	if(stat || HAS_TRAIT_NOT_FROM(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED) || (!ignore_restraints && restrained()) || check_for_true_callbacks(extra_checks))
 		return TRUE

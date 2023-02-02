@@ -26,7 +26,6 @@
 	height = 15;
 	id = "admin";
 	name = "admin";
-	roundstart_move = null;
 	timid = 1;
 	width = 18
 	},
@@ -34,12 +33,14 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "ag" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ah" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/beer,
+/obj/machinery/chem_dispenser/beer{
+	pixel_y = 6
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ai" = (
@@ -49,7 +50,9 @@
 /area/shuttle/administration)
 "aj" = (
 /obj/structure/table/reinforced,
-/obj/machinery/chem_dispenser/soda,
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 6
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "al" = (
@@ -100,7 +103,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "General Access";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -125,18 +127,28 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "av" = (
-/obj/machinery/kitchen_machine/microwave/upgraded,
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	pixel_x = -4;
+	pixel_y = 4
+	},
 /obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aw" = (
 /obj/machinery/door/window/northright{
-	name = "bar"
+	name = "bar";
+	dir = 2
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ax" = (
 /obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ay" = (
@@ -165,7 +177,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "Workshop";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -188,7 +199,9 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
 "aE" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aF" = (
@@ -225,28 +238,32 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aO" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aP" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aQ" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/machinery/light/spot,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aR" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aS" = (
-/obj/machinery/computer/card,
+/obj/machinery/computer/card{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aT" = (
-/obj/machinery/computer/communications,
+/obj/machinery/computer/communications{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aU" = (
@@ -297,7 +314,8 @@
 /area/shuttle/administration)
 "aX" = (
 /obj/machinery/computer/shuttle/admin{
-	name = "NTV Argos shuttle console"
+	name = "NTV Argos shuttle console";
+	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -324,14 +342,14 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "Bridge";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "be" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	name = "NTV Argos shuttle navigation computer"
+	name = "NTV Argos shuttle navigation computer";
+	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -342,7 +360,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "Medbay";
-	opacity = 1;
 	req_access_txt = "101"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -385,7 +402,6 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
 	name = "Holding Cell";
-	opacity = 1;
 	req_access_txt = "104"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -455,7 +471,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bz" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bA" = (
@@ -504,15 +520,15 @@ aa
 aa
 aa
 vg
-vg
+ac
 aD
 aD
+ac
 vg
-vg
-vg
+ac
 aD
 aD
-vg
+ac
 vg
 aa
 aa
@@ -591,7 +607,7 @@ aR
 vg
 aZ
 bg
-bi
+bg
 bn
 bg
 by
@@ -611,7 +627,7 @@ am
 vg
 bc
 bg
-bg
+bi
 bo
 bt
 bz
@@ -621,7 +637,7 @@ aa
 aa
 "}
 (8,1,1) = {"
-vg
+ac
 vg
 vg
 vg
@@ -681,7 +697,7 @@ aa
 aa
 "}
 (11,1,1) = {"
-vg
+ac
 vg
 vg
 aB

@@ -127,7 +127,7 @@
 	var/turf/pull = get_turf(M)
 	var/range_power = clamp(round(volume/5, 1), 1, 5)
 	for(var/atom/movable/X in range(range_power,pull))
-		if(istype(X, /obj/effect))
+		if(iseffect(X))
 			continue
 		if(X.move_resist <= MOVE_FORCE_DEFAULT && !X.anchored)
 			var/distance = get_dist(X, pull)
@@ -151,22 +151,6 @@
 							sleep(2)
 							if(!step_towards(X, pull))
 								break
-
-/datum/reagent/blob/radioactive_gel
-	name = "Radioactive gel"
-	description = "Deals medium toxin damage and a little brute damage, but irradiates those struck."
-	id = "radioactive_gel"
-	color = COLOR_RADIOACTIVE_GEL
-	complementary_color = COMPLEMENTARY_COLOR_RADIOACTIVE_GEL
-	message_living = ", and you feel a strange warmth from within"
-
-/datum/reagent/blob/radioactive_gel/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
-		volume = ..()
-		M.apply_damage(0.3 * volume, TOX)
-		M.apply_damage(0.2 * volume, BRUTE) // lets not have IPC / plasmaman only take 7.5 damage from this
-		if(M.reagents)
-			M.reagents.add_reagent("uranium", 0.3 * volume)
 
 /datum/reagent/blob/teslium_paste
 	name = "Teslium paste"

@@ -42,7 +42,7 @@
 	icon_state = "holosign"
 
 /obj/structure/holosign/wetsign/proc/wet_timer_start(obj/item/holosign_creator/HS_C)
-	addtimer(CALLBACK(src, .proc/wet_timer_finish, HS_C), 82 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(wet_timer_finish), HS_C), 82 SECONDS, TIMER_UNIQUE)
 
 /obj/structure/holosign/wetsign/proc/wet_timer_finish(obj/item/holosign_creator/HS_C)
 	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, 1)
@@ -131,7 +131,7 @@
 			var/mob/living/M = user
 			M.electrocute_act(15, "Energy Barrier")
 			shockcd = TRUE
-			addtimer(CALLBACK(src, .proc/cooldown), 5)
+			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
 	if(shockcd)
@@ -143,4 +143,4 @@
 	var/mob/living/M = AM
 	M.electrocute_act(15, "Energy Barrier")
 	shockcd = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), 5)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)

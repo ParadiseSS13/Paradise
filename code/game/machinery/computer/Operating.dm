@@ -64,7 +64,7 @@
 
 /obj/machinery/computer/operating/ui_data(mob/user)
 	var/list/data = list()
-	var/mob/living/carbon/human/occupant
+	var/mob/living/carbon/occupant
 	if(table)
 		occupant = table.patient
 	data["hasOccupant"] = occupant ? 1 : 0
@@ -100,7 +100,7 @@
 				occupantData["temperatureSuitability"] = 2
 			else if(occupant.bodytemperature > sp.heat_level_1)
 				occupantData["temperatureSuitability"] = 1
-		else if(istype(occupant, /mob/living/simple_animal))
+		else if(isanimal(occupant))
 			var/mob/living/simple_animal/silly = occupant
 			if(silly.bodytemperature < silly.minbodytemp)
 				occupantData["temperatureSuitability"] = -3
@@ -111,11 +111,12 @@
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
+			var/mob/living/carbon/human/H = occupant
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
-			occupantData["bloodMax"] = occupant.max_blood
-			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01) //copy pasta ends here
+			occupantData["bloodMax"] = H.max_blood
+			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/H.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"] = occupant.dna.blood_type
 		if(length(occupant.surgeries))
@@ -198,7 +199,12 @@
 
 	if(isNewPatient)
 		atom_say("New patient detected, loading stats")
-		atom_say("[table.patient], [table.patient.dna.blood_type] blood, [patientStatus]")
+		var/blood_type_msg
+		if(ishuman(table.patient))
+			blood_type_msg = table.patient.dna.blood_type
+		else
+			blood_type_msg = "\[ERROR: UNKNOWN\]"
+		atom_say("[table.patient], [blood_type_msg] blood, [patientStatus]")
 		SStgui.update_uis(src)
 		patientStatusHolder = table.patient.stat
 		currentPatient = table.patient

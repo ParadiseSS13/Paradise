@@ -72,7 +72,18 @@
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize()
 	. = ..()
-	adjustmask()
+	force_adjust_mask()
+
+/obj/item/clothing/mask/gas/explorer/folded/proc/force_adjust_mask()
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	gas_transfer_coefficient = null
+	permeability_coefficient = null
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDEFACE
+	flags &= ~AIRTIGHT
+	w_class = WEIGHT_CLASS_SMALL
+
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
@@ -109,34 +120,52 @@
 
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"
-	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
+	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask. Its form can be changed by using it in your hand."
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
+/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
+	var/list/mask_type = list("True Form" = /obj/item/clothing/mask/gas/clown_hat,
+							"The Feminist" = /obj/item/clothing/mask/gas/clown_hat/sexy,
+							"The Madman" = /obj/item/clothing/mask/gas/clown_hat/joker,
+							"The Rainbow Color" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
+	var/list/mask_icons = list("True Form" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
+							"The Feminist" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
+							"The Madman" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
+							"The Rainbow Color" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
+	var/mask_choice = show_radial_menu(user, src, mask_icons)
+	var/picked_mask = mask_type[mask_choice]
 
-	var/mob/M = usr
-	var/list/options = list()
-	options["True Form"] = "clown"
-	options["The Feminist"] = "sexyclown"
-	options["The Madman"] = "joker"
-	options["The Rainbow Color"] ="rainbow"
-
-	var/choice = input(M,"To what form do you wish to Morph this mask?","Morph Mask") in options
-
-	if(src && choice && !M.stat && in_range(M,src))
-		icon_state = options[choice]
-		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
-		return 1
+	if(QDELETED(src) || !picked_mask)
+		return
+	if(user.stat || !in_range(user, src))
+		return
+	var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
+	qdel(src)
+	user.put_in_active_hand(new_mask)
+	to_chat(user, "<span class='notice'>Your Clown Mask has now morphed into its new form, all praise the Honk Mother!</span>")
+	return TRUE
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
-	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
+	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers. Its form can be changed by using it in your hand."
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
+
+/obj/item/clothing/mask/gas/clown_hat/joker
+	name = "deranged clown wig and mask"
+	desc = "A fiendish clown mask that inspires a deranged mirth. Its form can be changed by using it in your hand."
+	icon_state = "joker"
+	item_state = "joker"
+
+/obj/item/clothing/mask/gas/clown_hat/rainbow
+	name = "rainbow clown wig and mask"
+	desc = "A colorful clown mask for the clown that loves to dazzle and impress. Its form can be changed by using it in your hand."
+	icon_state = "rainbow"
+	item_state = "rainbow"
 
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"
@@ -203,6 +232,13 @@
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
 		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, 1)
 		cooldown = world.time
+
+/obj/item/clothing/mask/gas/navy_officer
+	name = "nanotrasen navy officer gas mask"
+	desc = "A durable gas mask designed for NanoTrasen Navy Officers."
+	icon_state = "navy_officer_gasmask"
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 10, ACID = 50)
+	strip_delay = 6 SECONDS
 
 // ********************************************************************
 
@@ -320,32 +356,34 @@
 				to_chat(user, "<span class='notice'>It's broken.</span>")
 
 /obj/item/clothing/mask/gas/sechailer/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/screwdriver))
-		switch(aggressiveness)
-			if(1)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")
-				aggressiveness = 2
-				phrase = 7
-			if(2)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the third position.</span>")
-				aggressiveness = 3
-				phrase = 13
-			if(3)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the fourth position.</span>")
-				aggressiveness = 4
-				phrase = 1
-			if(4)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the first position.</span>")
-				aggressiveness = 1
-				phrase = 1
-			if(5)
-				to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
-	else if(istype(W, /obj/item/wirecutters))
+	if(istype(W, /obj/item/wirecutters))
 		if(aggressiveness != 5)
 			to_chat(user, "<span class='warning'>You broke it!</span>")
 			aggressiveness = 5
-	else
-		..()
+			return
+	. = ..()
+
+/obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
+	switch(aggressiveness)
+		if(1)
+			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")
+			aggressiveness = 2
+			phrase = 7
+		if(2)
+			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the third position.</span>")
+			aggressiveness = 3
+			phrase = 13
+		if(3)
+			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the fourth position.</span>")
+			aggressiveness = 4
+			phrase = 1
+		if(4)
+			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the first position.</span>")
+			aggressiveness = 1
+			phrase = 1
+		if(5)
+			to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
+	return TRUE
 
 /obj/item/clothing/mask/gas/sechailer/attack_self()
 	halt()

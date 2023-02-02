@@ -6,7 +6,6 @@
 	icon = 'icons/obj/machines/research.dmi'
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	var/busy = FALSE
 	var/obj/machinery/computer/rdconsole/linked_console
 	var/obj/item/loaded_item = null
@@ -16,7 +15,7 @@
 
 /obj/machinery/r_n_d/Initialize(mapload)
 	. = ..()
-	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
+	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, PROC_REF(is_insertion_ready)), CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	materials.precise_insertion = TRUE
 
 /obj/machinery/r_n_d/Destroy()
@@ -65,7 +64,7 @@
 		stack_name = initial(S.name)
 		use_power(min(1000, (amount_inserted / 100)))
 	add_overlay("protolathe_[stack_name]")
-	addtimer(CALLBACK(src, /atom/proc/cut_overlay, "protolathe_[stack_name]"), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), "protolathe_[stack_name]"), 10)
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, M)
 	return 0 // number of copies of design beign_built you can make with material M

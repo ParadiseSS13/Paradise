@@ -45,7 +45,7 @@
 		/obj/item/scalpel/laser/manager  // IMS
 	)
 
-	/// Whether or not we should add ourselves as a step after we run a branch
+	/// Whether or not we should add ourselves as a step after we run a branch. This doesn't apply to failures, those will always add ourselves after.
 	var/insert_self_after = TRUE
 
 /datum/surgery_step/proxy/New()
@@ -63,7 +63,7 @@
 	..()
 
 /datum/surgery_step/proxy/Destroy(force, ...)
-	QDEL_LIST(branches_init)
+	QDEL_LIST_CONTENTS(branches_init)
 	return ..()
 
 /datum/surgery_step/proxy/get_step_information(datum/surgery/surgery)
@@ -133,7 +133,7 @@
 		if(istype(next_surgery_step, /datum/surgery_step/proxy))
 			// It might make sense to support this, and I think the flow could work (just treating them like a single step, sorta)
 			// but I think for simplicity's sake it's better to just say no
-			CRASH("[src] was followed by another proxy surgery step in [surgery].")
+			CRASH("[src] was followed by another proxy surgery step [next_surgery_step] in [surgery].")
 
 		if((SURGERY_TOOL_HAND in starting_tools) && next_surgery_step.accept_hand)
 			CRASH("[src] has a conflict with the next main step [next_surgery_step] in surgery [surgery]: both require an open hand.")
@@ -173,10 +173,8 @@
 		return FALSE
 
 	if(overridden_tool || next_surgery == surgery || !next_surgery)
-		// Continue along with the original surgery
-		surgery.step_number++
-		var/datum/surgery_step/next_step = surgery.get_surgery_step()
-		return next_step.try_op(user, target, target_zone, tool, surgery)
+		// Continue along with the original surgery.
+		return try_next_step(user, target, target_zone, tool, surgery, null, TRUE, TRUE)
 
 	if(!target.can_run_surgery(next_surgery, user))
 		// Make sure the target can support the surgery.
@@ -188,20 +186,66 @@
 		// Let them try other tools if necessary.
 		return TRUE
 
-	// Insert the steps in our intermediate surgery into the current surgery.
-	// This is how we keep our surgeries still technically linear.
-	var/list/steps_to_insert = next_surgery.steps
-	if(insert_self_after)
-		// add ourselves afterwards as well so we can repeat this step
-		steps_to_insert.Add(type)
+	return try_next_step(user, target, target_zone, tool, surgery, next_surgery.steps)
 
-	// Also, bump the status so we skip past this abstract step.
-	surgery.steps.Insert(surgery.step_number + 1, next_surgery.steps)
-	surgery.step_number++
+/**
+ * Test the next step, but don't fully commit to it unless it completes successfully.
+ * If the next step doesn't fully complete (such as being interrupted or failing), we'll insert ourselves again to bring us back
+ * 	to the "base" state.
+ * If it does, we'll add the subsequent steps to the surgery and continue down the expected branch. If you complete the surgery step, it
+ * 	means you've committed to what comes next.
+ * Part of the motivation behind this is that I don't want to mutate a surgery retroactively. We can insert, but we shouldn't be changing anything
+ * 	behind us.
+ *
+ * Arguments:
+ * * next_surgery_steps - the steps for the branching surgery to add to the current surgery. If there's no branching surgery (or this would continue the main surgery) ignore this.
+ * * override_adding_self - If true, then on a successful surgery, regardless of the value of insert_self_after, we won't add ourselves in as another step.
+ * * readd_step_on_fail - If true, when we fail a step we'll add the failed step again after the proxy surgery. This is necessary for main surgeries.
+ * (for other arguments, see try_op())
+ */
+/datum/surgery_step/proxy/proc/try_next_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/running_surgery, list/next_surgery_steps, override_adding_self, readd_step_on_fail)
 
-	// force the next surgery step so we don't have to click again.
-	var/datum/surgery_step/next_step = surgery.get_surgery_step()
-	return next_step.try_op(user, target, target_zone, tool, surgery)
+	var/list/following_steps = list()
+
+	if(length(next_surgery_steps))
+
+		// add the first step from the following surgery into the surgery list, to make it the next step.
+		running_surgery.steps.Insert(running_surgery.step_number + 1, next_surgery_steps[1])
+
+		// grab the remaining steps to possibly insert after this surgery, depending on what we're doing
+		// skip the current step though, since if our try_op works, we've completed it.
+		following_steps = next_surgery_steps.Copy()
+		following_steps.Cut(1, 2)
+
+	running_surgery.step_number++
+
+	var/datum/surgery_step/next_step = running_surgery.get_surgery_step()
+	var/step_status = next_step.try_op(user, target, target_zone, tool, running_surgery)
+
+	if(step_status != SURGERY_INITIATE_SUCCESS)
+		// always add ourselves after a failure so someone can make a different choice.
+		running_surgery.steps.Insert(running_surgery.step_number + 1, type)
+
+		// Since we've already bumped up the step count, if we tried the main branch in the surgery and failed it, we need to add both
+		// the proxy step and the main step to keep them both as options.
+		if(readd_step_on_fail)
+			running_surgery.steps.Insert(running_surgery.step_number + 2, next_step.type)
+
+		running_surgery.step_number++
+
+	else
+		// Insert the steps in our intermediate surgery into the current surgery.
+		// This is how we keep our surgeries still technically linear.
+		if(insert_self_after && !override_adding_self)
+			// add ourselves afterwards as well so we can repeat this step
+			following_steps.Add(type)
+
+		// insert at the current step number since we're not trying to bump it up
+		running_surgery.steps.Insert(running_surgery.step_number, following_steps)
+
+
+	return step_status
+
 
 // Some intermediate surgeries
 /datum/surgery/intermediate/bleeding

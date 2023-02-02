@@ -26,7 +26,7 @@
 /obj/effect/proc_holder/spell/charge_up/Click()
 	if(cast_check(TRUE, FALSE, usr))
 		if(!start_time)
-			INVOKE_ASYNC(src, .proc/StartChargeup, usr)
+			INVOKE_ASYNC(src, PROC_REF(StartChargeup), usr)
 		else
 			if(!try_stop_buildup(usr))
 				return // Don't remove the click intercept
@@ -52,7 +52,7 @@
 	user.add_overlay(charge_up_overlay)
 	playsound(user, charge_sound, 50, FALSE, channel = charge_sound.channel)
 	start_time = world.time
-	if(do_mob(user, user, max_charge_time, extra_checks = list(CALLBACK(src, .proc/stopped_casting)), only_use_extra_checks = TRUE))
+	if(do_mob(user, user, max_charge_time, extra_checks = list(CALLBACK(src, PROC_REF(stopped_casting))), only_use_extra_checks = TRUE))
 		if(start_time)
 			Discharge(user)
 

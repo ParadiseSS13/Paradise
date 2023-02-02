@@ -13,6 +13,7 @@
 	desc = "For shuttle control."
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/auth_need = 3
 	var/list/authorized = list()
 	var/hijack_last_stage_increase = 0 SECONDS
@@ -201,15 +202,7 @@
 	travelDir = 0
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
-	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/eshuttle_dock.ogg'))
-	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/eshuttle_call.ogg'))
-	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/eshuttle_recall.ogg'))
-
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
-
-	var/datum/announcement/priority/crew_shuttle_called = new(0, new_sound = sound('sound/AI/cshuttle.ogg'))
-	var/datum/announcement/priority/crew_shuttle_docked = new(0, new_sound = sound('sound/AI/cshuttle_dock.ogg'))
-
 	///State of the emergency shuttles hijack status.
 	var/hijack_status = NOT_BEGUN
 
@@ -267,9 +260,17 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 	if(canRecall)
-		emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
+		GLOB.major_announcement.Announce(
+			"The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]",
+			new_title = "Priority Announcement",
+			new_sound = sound('sound/AI/eshuttle_call.ogg')
+		)
 	else
-		crew_shuttle_called.Announce("The crew transfer shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason]")
+		GLOB.major_announcement.Announce(
+			"The crew transfer shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason]",
+			new_title = "Priority Announcement",
+			new_sound = sound('sound/AI/cshuttle.ogg')
+		)
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(!canRecall)
@@ -285,7 +286,11 @@
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null
-	emergency_shuttle_recalled.Announce("The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]")
+	GLOB.major_announcement.Announce(
+		"The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]",
+		new_title = "Priority Announcement",
+		new_sound = sound('sound/AI/eshuttle_recall.ogg')
+	)
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked(fullcheck = FALSE)
 	if(hijack_status == HIJACKED && !fullcheck) //Don't even bother if it was done via computer.
@@ -354,10 +359,17 @@
 				mode = SHUTTLE_DOCKED
 				timer = world.time
 				if(canRecall)
-					emergency_shuttle_docked.Announce("The emergency shuttle has docked with the station. You have [timeLeft(600)] minutes to board the emergency shuttle.")
+					GLOB.major_announcement.Announce(
+						"The emergency shuttle has docked with the station. You have [timeLeft(600)] minutes to board the emergency shuttle.",
+						new_title = "Priority Announcement",
+						new_sound = sound('sound/AI/eshuttle_dock.ogg')
+					)
 				else
-					crew_shuttle_docked.Announce("The crew transfer shuttle has docked with the station. You have [timeLeft(600)] minutes to board the crew transfer shuttle.")
-
+					GLOB.major_announcement.Announce(
+						"The crew transfer shuttle has docked with the station. You have [timeLeft(600)] minutes to board the crew transfer shuttle.",
+						new_title = "Priority Announcement",
+						new_sound = sound('sound/AI/cshuttle_dock.ogg')
+					)
 /*
 				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
 				for(var/datum/gang/G in ticker.mode.gangs)
@@ -369,7 +381,10 @@
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
-				GLOB.priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
+				GLOB.major_announcement.Announce(
+					"Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.",
+					new_title = "Priority Announcement"
+				)
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
@@ -391,7 +406,10 @@
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
-				GLOB.priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
+				GLOB.major_announcement.Announce(
+					"The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.",
+					new_title = "Priority Announcement"
+				)
 				for(var/mob/M in GLOB.player_list)
 					if(!isnewplayer(M) && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
 						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
@@ -411,7 +429,10 @@
 				var/destination_dock = "emergency_away"
 				if(is_hijacked())
 					destination_dock = "emergency_syndicate"
-					GLOB.priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
+					GLOB.major_announcement.Announce(
+						"Corruption detected in shuttle navigation protocols. Please contact your supervisor.",
+						new_title = "Priority Announcement"
+					)
 
 				dock_id(destination_dock)
 
@@ -445,33 +466,6 @@
 
 /obj/docking_port/mobile/pod/cancel()
 	return
-
-/*
-	findTransitDock()
-		. = SSshuttle.getDock("[id]_transit")
-		if(.)	return .
-		return ..()
-*/
-
-/obj/machinery/computer/shuttle/pod
-	name = "pod control computer"
-	admin_controlled = 1
-	shuttleId = "pod"
-	possible_destinations = "pod_asteroid"
-	icon = 'icons/obj/terminals.dmi'
-	icon_state = "dorm_available"
-	density = FALSE
-
-/obj/machinery/computer/shuttle/pod/update_icon_state()
-	return
-
-/obj/machinery/computer/shuttle/pod/update_overlays()
-	return list()
-
-/obj/machinery/computer/shuttle/pod/emag_act(mob/user as mob)
-	to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
-	admin_controlled = 0
-	icon_state = "dorm_emag"
 
 /obj/docking_port/stationary/random
 	name = "escape pod"

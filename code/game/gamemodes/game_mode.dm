@@ -37,8 +37,6 @@
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
 
-	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
@@ -80,7 +78,7 @@
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
-	INVOKE_ASYNC(src, .proc/set_mode_in_db) // Async query, dont bother slowing roundstart
+	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query), dont bother slowing roundstart
 
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
@@ -102,49 +100,6 @@
 		// We dont do anything with output. Dont bother wrapping with if()
 		query_round_game_mode.warn_execute()
 		qdel(query_round_game_mode)
-
-//Called by the gameticker
-/datum/game_mode/proc/process_job_tasks()
-	var/obj/machinery/message_server/useMS = null
-	if(GLOB.message_servers)
-		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
-			if(MS.active)
-				useMS = MS
-				break
-	for(var/mob/M in GLOB.player_list)
-		if(M.mind)
-			var/obj/item/pda/P=null
-			for(var/obj/item/pda/check_pda in GLOB.PDAs)
-				if(check_pda.owner==M.name)
-					P=check_pda
-					break
-			var/count=0
-			for(var/datum/job_objective/objective in M.mind.job_objectives)
-				count++
-				var/msg=""
-				var/pay=0
-				if(objective.per_unit && objective.units_compensated<objective.units_completed)
-					var/newunits = objective.units_completed - objective.units_compensated
-					msg="We see that you completed [newunits] new unit[newunits>1?"s":""] for Task #[count]! "
-					pay=objective.completion_payment * newunits
-					objective.units_compensated += newunits
-					objective.is_completed() // So we don't get many messages regarding completion
-				else if(!objective.completed)
-					if(objective.is_completed())
-						pay=objective.completion_payment
-						msg="Task #[count] completed! "
-				if(pay>0)
-					if(M.mind.initial_account)
-						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "NAS Trurl Payroll")
-						msg += "You have been sent the $[pay], as agreed."
-					else
-						msg += "However, we were unable to send you the $[pay] you're entitled."
-					if(useMS && P)
-						useMS.send_pda_message("[P.owner]", "NAS Trurl Payroll", msg)
-
-						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						PM.notify("<b>Message from NAS Trurl (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
-					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
 	if((SSshuttle.emergency && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
@@ -223,7 +178,7 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
 	return 0
 
 
@@ -240,7 +195,7 @@
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.client && player.ready && player.has_valid_preferences())
+		if(player.client && player.ready)
 			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player

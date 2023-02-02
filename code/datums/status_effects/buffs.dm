@@ -98,7 +98,7 @@
 /datum/status_effect/void_price/refresh()
 	price++
 	return ..()
-	
+
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
 	duration = 10
@@ -344,10 +344,12 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		for(var/thing in H.bodyparts)
-			var/obj/item/organ/external/E = thing
-			E.fix_internal_bleeding()
-			E.mend_fracture()
+		if(is_mining_level(H.z))
+			for(var/obj/item/organ/external/E in H.bodyparts)
+				E.fix_internal_bleeding()
+				E.mend_fracture()
+		else
+			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
 	else
 		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
@@ -397,6 +399,22 @@
 			owner.emote("gasp")
 	cling.genetic_damage += stacks
 	cling = null
+
+/datum/status_effect/panacea
+	duration = 20 SECONDS
+	tick_interval = 2 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
+/datum/status_effect/panacea/tick()
+	owner.adjustToxLoss(-5) //Has the same healing as 20 charcoal, but happens faster
+	owner.radiation = max(0, owner.radiation - 70) //Same radiation healing as pentetic
+	owner.adjustBrainLoss(-5)
+	owner.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
+	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		if(!R.harmless)
+			owner.reagents.remove_reagent(R.id, 2)
 
 /datum/status_effect/chainsaw_slaying
 	id = "chainsaw_slaying"
@@ -478,3 +496,60 @@
 	else
 		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
 
+/datum/status_effect/thrall_net
+	id = "thrall_net"
+	tick_interval = 2 SECONDS
+	duration = -1
+	alert_type = null
+	var/blood_cost_per_tick = 5
+	var/list/target_UIDs = list()
+	var/datum/antagonist/vampire/vamp
+
+/datum/status_effect/thrall_net/on_creation(mob/living/new_owner, datum/antagonist/vampire/V, ...)
+	. = ..()
+	vamp = V
+	START_PROCESSING(SSfastprocess, src)
+	target_UIDs += owner.UID()
+	var/list/view_cache = view(7, owner)
+	for(var/datum/mind/M in owner.mind.som.serv)
+		if(!M.has_antag_datum(/datum/antagonist/mindslave/thrall))
+			continue
+		if(!(M.current in view_cache))
+			continue
+		if(M.current.stat == DEAD)
+			continue
+		target_UIDs += M.current.UID()
+		M.current.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)
+
+/datum/status_effect/thrall_net/tick()
+	var/total_damage = 0
+	var/list/view_cache = view(7, owner)
+	for(var/uid in target_UIDs)
+		var/mob/living/L = locateUID(uid)
+		if(!(L in view_cache) || L.stat == DEAD)
+			target_UIDs -= uid
+			continue
+		total_damage += (L.maxHealth - L.health)
+		L.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)
+
+	var/average_damage = total_damage / length(target_UIDs)
+
+	for(var/uid in target_UIDs)
+		var/mob/living/L = locateUID(uid)
+		var/current_damage = L.maxHealth - L.health
+		if(current_damage == average_damage)
+			continue
+		if(current_damage > average_damage)
+			var/heal_amount = current_damage - average_damage
+			L.heal_ordered_damage(heal_amount, list(BRUTE, BURN, TOX, OXY, CLONE))
+		else
+			var/damage_amount = average_damage - current_damage
+			L.adjustFireLoss(damage_amount)
+
+	vamp.bloodusable = max(vamp.bloodusable - blood_cost_per_tick, 0)
+	if(!vamp.bloodusable || length(target_UIDs) <= 1) // if there is one left in the list, its only the vampire.
+		qdel(src)
+
+/datum/status_effect/thrall_net/on_remove()
+	. = ..()
+	vamp = null

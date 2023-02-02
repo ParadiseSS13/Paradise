@@ -39,9 +39,11 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE //can't convert machines, that's ratvar's thing
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
-		if(!iscultist(G.summoner))
-			return FALSE //can't convert it unless the owner is converted
+		if(iscultist(G.summoner))
+			return TRUE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
+		return FALSE
+	if(isanimal(mind.current))
 		return FALSE
 	return TRUE
 
@@ -101,7 +103,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_objs.study(cult_mind.current)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
 	cult_threshold_check()
-	addtimer(CALLBACK(src, .proc/cult_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
+	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
 
 /datum/game_mode/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE)
@@ -218,7 +220,8 @@ GLOBAL_LIST_EMPTY(all_cults)
   * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
   */
 /datum/game_mode/proc/cult_threshold_check()
-	var/players = length(GLOB.player_list)
+	var/list/living_players = get_living_players(exclude_nonhuman = TRUE, exclude_offstation = TRUE)
+	var/players = length(living_players)
 	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
 	if(players >= CULT_POPULATION_THRESHOLD)
 		// Highpop
@@ -264,7 +267,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				continue
 			SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
-			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
 
 	else if(cult_players >= ascend_number)
 		cult_ascendant = TRUE
@@ -273,8 +276,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 				continue
 			SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
-			addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
-		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
+		GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 
 
 /datum/game_mode/proc/rise(cultist)

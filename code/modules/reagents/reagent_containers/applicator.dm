@@ -74,13 +74,12 @@
 
 	if(ignore_flags || M.can_inject(user, TRUE))
 		if(M == user)
-			M.visible_message("[user] begins mending [user.p_them()]self with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
+			M.visible_message("[user] begins mending [user.p_themselves()] with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
 		else
 			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", "<span class='notice'>You begin mending [M] with [src].</span>")
 		if(M.reagents)
 			applying = TRUE
 			update_icon(UPDATE_ICON_STATE)
-			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
 			while(do_after(user, 10, target = M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)

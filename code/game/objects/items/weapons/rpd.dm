@@ -230,7 +230,7 @@
 		RPD_MENU_DELETE = image(icon = 'icons/obj/interface.dmi', icon_state = "rpd_delete"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
-	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/selected_mode = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	if(selected_mode == "UI")
@@ -249,6 +249,10 @@
 
 /obj/item/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
+	if(isstorage(target))
+		var/obj/item/storage/S = target
+		if(!S.can_be_inserted(src, stop_messages = TRUE))
+			return
 	if(loc != user)
 		return
 	if(!proximity && !ranged)
@@ -287,6 +291,11 @@
 			return
 
 	T.rpd_act(user, src)
+
+/obj/item/rpd/attack_obj(obj/O, mob/living/user)
+	if(istype(O, /obj/machinery/atmospherics/pipe) && user.a_intent != INTENT_HARM)
+		return
+	return ..()
 
 #undef RPD_COOLDOWN_TIME
 #undef RPD_WALLBUILD_TIME

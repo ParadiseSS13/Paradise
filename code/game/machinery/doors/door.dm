@@ -7,15 +7,15 @@
 	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	max_integrity = 350
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = TRUE
-	/// Is it currently in the process of opening or closing.
-	var/operating = FALSE
+	/// Is it currently in the process of opening, closing or being tampered
+	var/operating = NONE
 	var/autoclose = FALSE
 	/// Whether the door detects things and mobs in its way and reopen or crushes them.
 	var/safe = TRUE
@@ -45,17 +45,16 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
-/obj/machinery/door/New()
-	..()
-	GLOB.airlocks += src
-	update_freelook_sight()
-
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_dir()
+	update_freelook_sight()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
+	// Yes I know this isnt an airlock but its required because of the dumb reason of
+	// pod doors and shutters similar using this list as well
+	GLOB.airlocks += src
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
@@ -74,7 +73,8 @@
 	update_dir()
 
 /obj/machinery/door/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/door/proc/update_dir()
@@ -144,8 +144,11 @@
 			bound_height = width * world.icon_size
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return !opacity
+	if(istype(mover))
+		if(mover.checkpass(PASSDOOR) && !locked)
+			return TRUE
+		if(mover.checkpass(PASSGLASS))
+			return !opacity
 	return !density
 
 /obj/machinery/door/CanAtmosPass()
@@ -249,27 +252,9 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
-/obj/machinery/door/proc/clean_cmag_ooze(obj/item/I, mob/user) //Emags are Engineering's problem, cmags are the janitor's problem
-	var/cleaning = FALSE
-	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-		var/obj/item/reagent_containers/spray/cleaner/C = I
-		if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
-			cleaning = TRUE
-		else
-			return
-	if(istype(I, /obj/item/soap))
-		cleaning = TRUE
-
-	if(!cleaning)
-		return
-	user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
-	if(do_after(user, 50, target = src))
-		user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
-
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		clean_cmag_ooze(I, user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
+		return
 
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(user, I)
@@ -320,7 +305,7 @@
 		return
 	flick("door_spark", src)
 	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
-	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	return TRUE
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
@@ -383,7 +368,7 @@
 	if(operating)
 		return
 	SEND_SIGNAL(src, COMSIG_DOOR_OPEN)
-	operating = TRUE
+	operating = DOOR_OPENING
 	do_animate("opening")
 	set_opacity(0)
 	sleep(5)
@@ -392,7 +377,7 @@
 	layer = initial(layer)
 	update_icon()
 	set_opacity(0)
-	operating = FALSE
+	operating = NONE
 	air_update_turf(1)
 	update_freelook_sight()
 	if(autoclose)
@@ -413,7 +398,7 @@
 					return
 
 	SEND_SIGNAL(src, COMSIG_DOOR_CLOSE)
-	operating = TRUE
+	operating = DOOR_CLOSING
 
 	do_animate("closing")
 	layer = closingLayer
@@ -423,7 +408,7 @@
 	update_icon()
 	if(!glass || polarized_on)
 		set_opacity(TRUE)
-	operating = FALSE
+	operating = NONE
 	air_update_turf(1)
 	update_freelook_sight()
 	if(safe)
@@ -466,7 +451,7 @@
 		close()
 
 /obj/machinery/door/proc/autoclose_in(wait)
-	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)

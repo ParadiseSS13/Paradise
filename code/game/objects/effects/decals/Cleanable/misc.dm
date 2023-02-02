@@ -15,12 +15,14 @@
 	icon_state = "ash"
 	scoop_reagents = list("ash" = 10)
 	mergeable_decal = FALSE
+	plane = GAME_PLANE
 
 /obj/effect/decal/cleanable/glass
 	name = "tiny shards"
 	desc = "Back to sand."
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "tiny"
+	plane = GAME_PLANE
 
 /obj/effect/decal/cleanable/glass/Initialize(mapload)
 	. = ..()
@@ -104,6 +106,7 @@
 	desc = "Somebody should remove that."
 	density = FALSE
 	layer = OBJ_LAYER
+	plane = GAME_PLANE
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb1"
 	resistance_flags = FLAMMABLE
@@ -113,6 +116,7 @@
 	desc = "It looks like a melted... something."
 	density = FALSE
 	layer = OBJ_LAYER
+	plane = GAME_PLANE
 	gender = NEUTER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
@@ -127,6 +131,7 @@
 	desc = "Somebody should remove that."
 	density = FALSE
 	layer = OBJ_LAYER
+	plane = GAME_PLANE
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb2"
 
@@ -154,6 +159,7 @@
 	desc = "The shredded remains of what appears to be clothing."
 	icon_state = "shreds"
 	gender = PLURAL
+	plane = GAME_PLANE
 	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/shreds/ex_act(severity, target)
@@ -212,6 +218,7 @@
 	name = "confetti"
 	desc = "Party time!"
 	gender = PLURAL
+	plane = GAME_PLANE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")

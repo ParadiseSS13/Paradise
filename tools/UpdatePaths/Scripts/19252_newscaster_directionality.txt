@@ -1,0 +1,8 @@
+/obj/machinery/newscaster {pixel_x=32} : /obj/machinery/newscaster {dir=8;name="east bump";pixel_x=28}
+/obj/machinery/newscaster {pixel_x=-32} : /obj/machinery/newscaster {dir=4;name="west bump";pixel_x=-28}
+/obj/machinery/newscaster {pixel_y=32} : /obj/machinery/newscaster {dir=2;name="north bump";pixel_y=28}
+/obj/machinery/newscaster {pixel_y=-32} : /obj/machinery/newscaster {dir=1;name="south bump";pixel_y=-28}
+/obj/machinery/newscaster/security_unit {pixel_x=32} : /obj/machinery/newscaster/security_unit {dir=8;name="east bump";pixel_x=28}
+/obj/machinery/newscaster/security_unit {pixel_x=-32} : /obj/machinery/newscaster/security_unit {dir=4;name="west bump";pixel_x=-28}
+/obj/machinery/newscaster/security_unit {pixel_y=32} : /obj/machinery/newscaster/security_unit {dir=2;name="north bump";pixel_y=28}
+/obj/machinery/newscaster/security_unit {pixel_y=-32} : /obj/machinery/newscaster/security_unit {dir=1;name="south bump";pixel_y=-28}

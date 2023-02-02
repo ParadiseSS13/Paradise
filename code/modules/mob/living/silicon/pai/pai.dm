@@ -252,7 +252,7 @@
 	visible_message("<span class='notice'>[src] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
 
 /mob/living/silicon/pai/proc/force_fold_out()
-	if(istype(card.loc, /mob))
+	if(ismob(card.loc))
 		var/mob/holder = card.loc
 		holder.unEquip(card)
 	else if(istype(card.loc, /obj/item/pda))
@@ -470,9 +470,10 @@
 		H.icon = 'icons/mob/pai.dmi'
 		H.icon_state = "[chassis]_dead"
 		return
-	if(IS_HORIZONTAL(src))
+	if(resting)
 		icon_state = "[chassis]"
-		stand_up()
+		resting = FALSE
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
@@ -514,7 +515,7 @@
 		CRASH("pAI without card")
 	loc = card
 
-/mob/living/silicon/pai/extinguish_light()
+/mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
 	set_light(0)
 	card.set_light(0)

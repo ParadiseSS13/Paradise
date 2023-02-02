@@ -59,7 +59,7 @@
 
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, .proc/on_step)
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
 
 /obj/item/clothing/shoes/galoshes/dry/proc/on_step()
 	SIGNAL_HANDLER
@@ -290,6 +290,17 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
 
+
+/obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes
+	name = "cursed clown shoes"
+	desc = "Moldering clown flip flops. They're neon green for some reason."
+	icon = 'icons/goonstation/objects/clothing/feet.dmi'
+	icon_state = "cursedclown"
+	item_state = "cclown_shoes"
+	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"
 	desc = "These boots were made for dancing."
@@ -353,16 +364,16 @@
 		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
 
 /obj/item/clothing/shoes/footwraps
- 	name = "cloth footwraps"
- 	desc = "A roll of treated canvas used for wrapping claws or paws."
- 	icon_state = "clothwrap"
- 	item_state = "clothwrap"
- 	force = 0
- 	w_class = WEIGHT_CLASS_SMALL
+	name = "cloth footwraps"
+	desc = "A roll of treated canvas used for wrapping claws or paws."
+	icon_state = "clothwrap"
+	item_state = "clothwrap"
+	force = 0
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
-	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid foward movement."
+	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid forward movement."
 	icon_state = "jetboots"
 	item_state = "jetboots"
 	item_color = "hosred"
@@ -388,8 +399,11 @@
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
-
-	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE))
+	var/do_callback = FALSE
+	if(!user.flying)
+		user.flying = TRUE
+		do_callback  = TRUE
+	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
@@ -398,7 +412,7 @@
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"
-	desc = "These shoes are made for quacking, and thats just what they'll do."
+	desc = "These shoes are made for quacking, and that's just what they'll do."
 	icon_state = "ducky"
 	item_state = "ducky"
 

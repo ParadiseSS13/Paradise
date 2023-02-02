@@ -1,12 +1,12 @@
 /proc/issmall(A)
-	if(A && istype(A, /mob/living/carbon/human))
+	if(A && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
- 	return 0
+	return 0
 
 /proc/ispet(A)
-	if(istype(A, /mob/living/simple_animal))
+	if(isanimal(A))
 		var/mob/living/simple_animal/SA = A
 		if(SA.can_collar)
 			return 1
@@ -38,10 +38,10 @@
 				// Red-green (green weak, deuteranopia)
 				// Below is a colour matrix to account for that
 				. = list(
-					 1.8,  0, -0.14, 0,
+					1.8,  0, -0.14, 0,
 					-1.05, 1,  0.1,  0,
-					 0.3,  0,  1,    0,
-					 0,    0,  0,    1
+					0.3,  0,  1,    0,
+					0,    0,  0,    1
 				) // Time spent creating this matrix: 1 hour 32 minutes
 
 			if(COLOURBLIND_MODE_PROT)
@@ -58,10 +58,10 @@
 				// Blue-yellow (tritanopia)
 				// Below is a colour matrix to account for that
 				. = list(
-					 0.74,  0.07,  0, 0,
+					0.74,  0.07,  0, 0,
 					-0.405, 0.593, 0, 0,
-					 0.665, 0.335, 1, 0,
-					 0,     0,     0, 1
+					0.665, 0.335, 1, 0,
+					0,     0,     0, 1
 				) // Time spent creating this matrix: 34 minutes
 
 	return
@@ -96,7 +96,7 @@
 	if(client?.prefs.colourblind_mode != COLOURBLIND_MODE_NONE)
 		return
 	client.color = flash_color
-	INVOKE_ASYNC(client, /client/.proc/colour_transition, get_screen_colour(), flash_time)
+	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, colour_transition), get_screen_colour(), flash_time)
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/mindshield/L in A)
@@ -145,7 +145,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
@@ -344,9 +344,9 @@
 
 	return returntext
 
-/proc/Gibberish_all(list/message_pieces, p)
+/proc/Gibberish_all(list/message_pieces, p, replace_rate)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
-		S.message = Gibberish(S.message, p)
+		S.message = Gibberish(S.message, p, replace_rate)
 
 
 /proc/muffledspeech(phrase)
@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 	resting = !resting // this happens before the do_mob so that you can stay resting if you are stunned.
 
-	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
+	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
 		return
 
 	if(resting)
@@ -529,7 +529,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
 					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
-				if(istype(subject, /mob/dead/observer))
+				if(isobserver(subject))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) 							// What admins see
 					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
@@ -730,33 +730,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	// Cast to 1/0
 	return !!(client.prefs.toggles & toggleflag)
 
-// Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
-// A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled
-// Prevents "antag rolling" by setting antag prefs on, all jobs to never, and "return to lobby if preferences not availible"
-// Doing so would previously allow you to roll for antag, then send you back to lobby if you didn't get an antag role
-// This also does some admin notification and logging as well
-/mob/proc/has_valid_preferences()
-	if(!client)
-		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
-	if(client.prefs.active_character.alternate_option != RETURN_TO_LOBBY)
-		return TRUE
-	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
-	var/has_antags = FALSE
-	if(client.prefs.be_special.len > 0)
-		has_antags = TRUE
-	if(!client.prefs.active_character.check_any_job())
-		to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
-		if(has_antags)
-			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
-			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
-		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
-	return TRUE
-
 /**
  * Helper proc to determine if a mob can use emotes that make sound or not.
  */
-/mob/proc/can_use_audio_emote()
-	switch(audio_emote_cd_status)
+/mob/proc/can_use_audio_emote(intentional)
+	var/emote_status = intentional ? audio_emote_cd_status : audio_emote_unintentional_cd_status
+	switch(emote_status)
 		if(EMOTE_INFINITE)  // Spam those emotes
 			return TRUE
 		if(EMOTE_ADMIN_BLOCKED)  // Cooldown emotes were disabled by an admin, prevent use
@@ -769,24 +748,37 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	CRASH("Invalid emote type")
 
 /**
- * # Start the cooldown for an emote that plays audio.
+ * Start the cooldown for an emote that plays audio.
  *
- * * cooldown: The amount of time that should be waited before any other audio emote can fire.
+ * Arguments:
+ * * intentional - Whether or not the user deliberately triggered this emote.
+ * * cooldown - The amount of time that should be waited before any other audio emote can fire.
  */
-/mob/proc/start_audio_emote_cooldown(cooldown = AUDIO_EMOTE_COOLDOWN)
-	if(!can_use_audio_emote())
+/mob/proc/start_audio_emote_cooldown(intentional, cooldown = AUDIO_EMOTE_COOLDOWN)
+	if(!can_use_audio_emote(intentional))
 		return FALSE
 
-	if(audio_emote_cd_status == EMOTE_READY)
-		audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
-		addtimer(CALLBACK(src, .proc/on_audio_emote_cooldown_end), cooldown)
+	var/cooldown_source = intentional ? audio_emote_cd_status : audio_emote_unintentional_cd_status
+
+	if(cooldown_source == EMOTE_READY)
+		// we do have to juggle between cooldowns a little bit, but this lets us keep them on separate cooldowns so
+		// a user screaming every five seconds doesn't prevent them from sneezing.
+		if(intentional)
+			audio_emote_cd_status = EMOTE_ON_COOLDOWN	// Starting cooldown
+		else
+			audio_emote_unintentional_cd_status = EMOTE_ON_COOLDOWN
+		addtimer(CALLBACK(src, PROC_REF(on_audio_emote_cooldown_end), intentional), cooldown)
 	return TRUE  // proceed with emote
 
 
-/mob/proc/on_audio_emote_cooldown_end()
-	if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
-		// only reset emotes that probably weren't set by an admin
-		audio_emote_cd_status = EMOTE_READY
+/mob/proc/on_audio_emote_cooldown_end(intentional)
+	if(intentional)
+		if(audio_emote_cd_status == EMOTE_ON_COOLDOWN)
+			// only reset to ready if we're in a cooldown state
+			audio_emote_cd_status = EMOTE_READY
+	else
+		if(audio_emote_unintentional_cd_status == EMOTE_ON_COOLDOWN)
+			audio_emote_unintentional_cd_status = EMOTE_READY
 
 /proc/stat_to_text(stat)
 	switch(stat)

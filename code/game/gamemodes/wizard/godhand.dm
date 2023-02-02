@@ -101,7 +101,7 @@
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
-	s.set_up(5, 0, target)
+	s.set_up(5, FALSE, target)
 	s.start()
 
 	var/mob/living/carbon/human/H = target

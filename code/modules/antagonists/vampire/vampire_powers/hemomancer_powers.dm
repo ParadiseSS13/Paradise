@@ -32,13 +32,12 @@
 	force = 10
 	force_wielded = 10
 	armour_penetration_flat = 20
-	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi')
-	var/durability = 20
+	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
 
@@ -47,6 +46,7 @@
 		return
 
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/mob/living/attacker = user
 
 	if(!V)
 		return
@@ -56,28 +56,15 @@
 		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna.species.species_traits))
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
-	durability--
-	if(durability <= 0)
-		qdel(src)
-		to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+			attacker.adjustStaminaLoss(-20) // security is dead
+			attacker.heal_overall_damage(4, 4) // the station is full
+			attacker.AdjustKnockDown(-1 SECONDS) // blood is fuel
 
-/obj/item/twohanded/required/vamp_claws/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/twohanded/required/vamp_claws/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/twohanded/required/vamp_claws/process()
-	durability--
-	if(durability <= 0)
-		qdel(src)
-
-/obj/item/twohanded/required/vamp_claws/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()
+	if(!V.get_ability(/datum/vampire_passive/blood_spill))
+		durability--
+		if(durability <= 0)
+			qdel(src)
+			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
 /obj/item/twohanded/required/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
@@ -116,7 +103,7 @@
 			continue
 		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
-	addtimer(CALLBACK(src, .proc/apply_slowdown, T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_slowdown), T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
 	for(var/mob/living/L in range(distance, T))
@@ -132,6 +119,101 @@
 
 /obj/effect/temp_visual/blood_tendril/long
 	duration = 2 SECONDS
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier
+	name = "Blood Barrier (40)"
+	desc = "Select two points within 3 tiles of each other and make a barrier between them."
+	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
+	required_blood = 40
+	base_cooldown = 1 MINUTES
+	should_recharge_after_cast = FALSE
+	deduct_blood_on_cast = FALSE
+	action_icon_state = "blood_barrier"
+
+	var/max_walls = 3
+	var/turf/start_turf = null
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.allowed_type = /atom
+	T.try_auto_target = FALSE
+	return T
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier/remove_ranged_ability(mob/user, msg)
+	. = ..()
+	if(msg) // this is only true if the user intentionally turned off the spell
+		start_turf = null
+		should_recharge_after_cast = FALSE
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier/should_remove_click_intercept()
+	if(start_turf)
+		return TRUE
+	return FALSE
+
+/obj/effect/proc_holder/spell/vampire/blood_barrier/cast(list/targets, mob/user)
+	var/turf/target_turf = get_turf(targets[1])
+	if(target_turf == start_turf)
+		to_chat(user, "<span class='notice'>You deselect the targeted turf.</span>")
+		start_turf = null
+		should_recharge_after_cast = FALSE
+		return
+	if(!start_turf)
+		start_turf = target_turf
+		should_recharge_after_cast = TRUE
+		return
+	var/wall_count
+	for(var/turf/T in getline(target_turf, start_turf))
+		if(max_walls <= wall_count)
+			break
+		new /obj/structure/blood_barrier(T)
+		wall_count++
+	var/datum/spell_handler/vampire/V = custom_handler
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/blood_cost = V.calculate_blood_cost(vampire)
+	vampire.bloodusable -= blood_cost
+	start_turf = null
+	should_recharge_after_cast = FALSE
+
+/obj/structure/blood_barrier
+	name = "blood barrier"
+	desc = "a grotesque structure of crystalised blood. It's slowly melting away..."
+	max_integrity = 100
+	icon_state = "blood_barrier"
+	icon = 'icons/effects/vampire_effects.dmi'
+	density = TRUE
+	anchored = TRUE
+	opacity = FALSE
+
+/obj/structure/blood_barrier/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/blood_barrier/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+
+/obj/structure/blood_barrier/process()
+	take_damage(20, sound_effect = FALSE)
+
+/obj/structure/blood_barrier/obj_destruction(damage_flag)
+	new /obj/effect/decal/cleanable/blood(loc)
+	return ..()
+
+
+/obj/structure/blood_barrier/CanPass(atom/movable/mover, turf/target, height)
+	if(!isliving(mover))
+		return FALSE
+	var/mob/living/L = mover
+	if(!L.mind)
+		return FALSE
+	var/datum/antagonist/vampire/V = L.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(!V)
+		return FALSE
+	if(is_type_in_list(V.subclass, list(SUBCLASS_HEMOMANCER, SUBCLASS_ANCIENT)))
+		return TRUE
+
+
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool
 	name = "Sanguine Pool (50)"
@@ -154,6 +236,37 @@
 	var/datum/spell_handler/vampire/H = new
 	H.required_blood = 50
 	return H
+
+/obj/effect/proc_holder/spell/vampire/predator_senses
+	name = "Predator Senses"
+	desc = "Hunt down your prey, there's nowhere to hide..."
+	gain_desc = "Your senses are heightened, nobody can hide from you now."
+	action_icon_state = "predator_sense"
+	base_cooldown = 20 SECONDS
+	create_attack_logs = FALSE
+
+/obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
+	var/datum/spell_targeting/alive_mob_list/A = new()
+	A.allowed_type = /mob/living/carbon/human
+	A.max_targets = 300 // hopefully we never hit this number
+	return A
+
+/obj/effect/proc_holder/spell/vampire/predator_senses/valid_target(mob/target, mob/user)
+	return target.z == user.z && target.mind
+
+/obj/effect/proc_holder/spell/vampire/predator_senses/cast(list/targets, mob/user)
+	var/targets_by_name = list()
+	for(var/mob/living/carbon/human/H as anything in targets)
+		targets_by_name[H.real_name] = H
+
+	var/target_name = input(user, "Person to Locate", "Blood Stench") in targets_by_name
+	if(!target_name)
+		return
+	var/mob/living/carbon/human/target = targets_by_name[target_name]
+	var/message = "[target_name] is in [get_area(target)], [dir2text(get_dir(user, target))] from you."
+	if(target.get_damage_amount() >= 40 || target.bleed_rate)
+		message += "<i> They are wounded...</i>"
+	to_chat(user, "<span class='cultlarge'>[message]</span>")
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption
 	name = "Blood Eruption (100)"
@@ -194,7 +307,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/blood_spill
 	name = "The Blood Bringers Rite"
-	desc = "When toggled, everyone around you begins to bleed profusely."
+	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvenate yourself with it."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
 	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
@@ -221,9 +334,8 @@
 
 /datum/vampire_passive/blood_spill/process()
 	var/beam_number = 0
-	var/turf/T = get_turf(owner)
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
-	for(var/mob/living/carbon/human/H in view(7, T))
+	for(var/mob/living/carbon/human/H in view(7, owner))
 		if(NO_BLOOD in H.dna.species.species_traits)
 			continue
 
@@ -245,6 +357,8 @@
 
 		if(beam_number >= max_beams)
 			break
+
 	V.bloodusable = max(V.bloodusable - 10, 0)
+
 	if(!V.bloodusable || owner.stat == DEAD)
 		V.remove_ability(src)

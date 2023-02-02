@@ -33,7 +33,7 @@
 			by quick repeated use!</span>")
 
 	recent_uses++
-	INVOKE_ASYNC(src, .proc/fleshmend, user)
+	INVOKE_ASYNC(src, PROC_REF(fleshmend), user)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

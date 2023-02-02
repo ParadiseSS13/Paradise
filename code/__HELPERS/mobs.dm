@@ -317,15 +317,14 @@
 	var/loglevel = ATKLOG_MOST
 	if(!isnull(custom_level))
 		loglevel = custom_level
+	var/area/A = get_area(MT)
+	if(A && A.hide_attacklogs)
+		loglevel = ATKLOG_ALL
 	else if(istype(MT))
 		if(istype(MU))
 			if(!MU.ckey && !MT.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
 				loglevel = ATKLOG_ALL
 			else if(!MU.ckey || !MT.ckey || (MU.ckey == MT.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
-				loglevel = ATKLOG_ALMOSTALL
-		else
-			var/area/A = get_area(MT)
-			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
@@ -423,8 +422,8 @@
 	// By default, checks for weakness and stunned get added to the extra_checks list.
 	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
 	if(use_default_checks)
-		extra_checks += CALLBACK(user, /mob/living.proc/IsWeakened)
-		extra_checks += CALLBACK(user, /mob/living.proc/IsStunned)
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsWeakened))
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsStunned))
 
 	while(world.time < endtime)
 		sleep(1)
@@ -475,7 +474,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key)))
+	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)

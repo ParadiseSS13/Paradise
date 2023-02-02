@@ -133,7 +133,7 @@
 	return
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/pen))
+	if(is_pen(P))
 		var/t = rename_interactive(user, P)
 
 		if(isnull(t))
@@ -224,7 +224,8 @@
 			if(!( A.anchored ))
 				A.forceMove(connected)
 		connected.connected = null
-		connected.update_icon(UPDATE_OVERLAYS)
+		connected.update_icon(connected.update_state())
+		playsound(loc, connected.open_sound, 50, 1)
 		add_fingerprint(user)
 		qdel(src)
 		return
@@ -263,7 +264,7 @@
 
 	return FALSE
 
-/obj/structure/tray/m_tray/CanAStarPass(ID, dir, caller)
+/obj/structure/tray/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
@@ -272,6 +273,10 @@
 /*
  * Crematorium
  */
+
+#define CREMATOR_DESTROYED 0
+#define CREMATOR_IN_REPAIR 1
+#define CREMATOR_OPERATIONAL 2
 
 GLOBAL_LIST_EMPTY(crematoriums)
 // These have so much copypasted code from the above that they should really be made into subtypes
@@ -282,10 +287,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema"
 	density = TRUE
+	max_integrity = 1000
+	integrity_failure = 700 // Actual integrity is thus only 300, the max_integrity is so high to prevent it from being destroyed before it's made invincibile once broken
 	var/obj/structure/c_tray/connected = null
 	anchored = TRUE
 	var/cremating = FALSE
 	var/id = 1
+	var/repairstate = CREMATOR_OPERATIONAL // Repairstate 0 is DESTROYED, 1 has the igniter applied but needs welding (IN_REPAIR), 2 is OPERATIONAL
 	var/locked = FALSE
 	var/open_sound = 'sound/items/deconstruct.ogg'
 
@@ -308,31 +316,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(length(contents))
 		. += "crema_full"
 
-/obj/structure/crematorium/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A in src)
-				A.forceMove(loc)
-				ex_act(severity)
-			qdel(src)
-			return
-
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					ex_act(severity)
-				qdel(src)
-				return
-
-		if(3.0)
-			if(prob(5))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					ex_act(severity)
-				qdel(src)
-				return
-
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
 		to_chat(usr, "<span class='warning'>It's locked.</span>")
@@ -353,12 +336,58 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	add_fingerprint(user)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/crematorium/attackby(P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/pen))
+/obj/structure/crematorium/obj_break(damage_flag)
+	if(broken)
+		return
+	visible_message("<span class='warning'>[src] dims as its paneling collapses and it becomes non-functional.</span>")
+	icon_state = "crema_broke" // this will need a proper sprite when possible, as it's just a shitty codersprite
+	resistance_flags = INDESTRUCTIBLE // prevents it from being destroyed instead of just broken
+	name = "broken crematorium"
+	desc = "A broken human incinerator. No longer works well on barbeque nights. It requires a new igniter to be repaired."
+	repairstate = CREMATOR_DESTROYED
+	broken = TRUE
+	cremating = FALSE
+	update_icon(UPDATE_OVERLAYS)
+	GLOB.crematoriums -= src
+
+/obj/structure/crematorium/welder_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM) // if you want to damage it with a welder you should be able to
+		return
+	if(!broken)
+		to_chat(user, "<span class='notice'>The crematorium does not seem to need fixing.</span>")
+		return TRUE
+	if(!I.tool_use_check(user, 0))
+		return TRUE
+	if(repairstate != CREMATOR_IN_REPAIR)
+		to_chat(user, "<span class='notice'>[src] needs a new igniter before you weld the paneling closed.</span>")
+		return TRUE
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return TRUE
+	WELDER_REPAIR_SUCCESS_MESSAGE
+	icon_state = initial(icon_state)
+	resistance_flags = NONE
+	name = initial(name)
+	desc = initial(desc)
+	repairstate = CREMATOR_OPERATIONAL
+	broken = FALSE
+	obj_integrity = max_integrity
+	GLOB.crematoriums += src
+	return TRUE
+
+/obj/structure/crematorium/attackby(obj/item/P, mob/user, params)
+	if(is_pen(P))
 		rename_interactive(user, P)
 		add_fingerprint(user)
 		return
-
+	if(istype(P, /obj/item/assembly/igniter))
+		if(repairstate == CREMATOR_DESTROYED)
+			user.visible_message("<span class='notice'>[user] replaces [src]'s igniter.</span>", "<span class='notice'>You replace [src]'s damaged igniter. Now it just needs its paneling welded.</span>")
+			repairstate = CREMATOR_IN_REPAIR
+			desc = "A broken human incinerator. No longer works well on barbeque nights. It requires its paneling to be welded to function."
+			qdel(P)
+		else
+			to_chat(user, "<span class='notice'>[src] does not need its igniter replaced.</span>")
 	return ..()
 
 /obj/structure/crematorium/relaymove(mob/user as mob)
@@ -469,6 +498,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema_tray"
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE
 	layer = 2.0
 	var/obj/structure/crematorium/connected = null
 	anchored = TRUE
@@ -511,10 +541,11 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
-	power_channel = EQUIP
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 100
-	active_power_usage = 5000
+	resistance_flags = INDESTRUCTIBLE // could use a more elegant solution like being able to be rebuilt, broken and repaired, or by directly attaching the switch to the crematorium
+	power_channel = PW_CHANNEL_EQUIPMENT
+	power_state = IDLE_POWER_USE
+	idle_power_consumption = 100
+	active_power_consumption = 5000
 	anchored = TRUE
 	req_access = list(ACCESS_CREMATORIUM)
 	/// ID of the crematorium to hook into
@@ -525,7 +556,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return attack_hand(user)
 
 /obj/machinery/crema_switch/attack_hand(mob/user)
-	if(!powered(power_channel)) // Do we have power?
+	if(!has_power(power_channel)) // Do we have power?
 		return
 
 	if(!(allowed(usr) || user.can_advanced_admin_interact()))
@@ -556,3 +587,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 #undef REVIVABLE
 #undef NOT_BODY
 #undef GHOST_CONNECTED
+#undef CREMATOR_DESTROYED
+#undef CREMATOR_IN_REPAIR
+#undef CREMATOR_OPERATIONAL

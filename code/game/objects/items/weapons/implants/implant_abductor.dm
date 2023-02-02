@@ -1,9 +1,9 @@
 /obj/item/implant/abductor
-	name = "recall implant"
+	name = "recall bio-chip"
 	desc = "Returns you to the mothership."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "implant" //ew
-	activated = IMPLANT_ACTIVATED_ACTIVE
+	icon_state = "implant"
+	activated = BIOCHIP_ACTIVATED_ACTIVE
 	origin_tech = "materials=2;biotech=7;magnets=4;bluespace=4;abductor=5"
 	implant_data = /datum/implant_fluff/abductor
 	implant_state = "implant-alien"
@@ -50,10 +50,10 @@
 	return console
 
 /obj/item/implanter/abductor
-	name = "implanter (abductor)"
+	name = "bio-chip implanter (abductor)"
 	implant_type = /obj/item/implant/abductor
 
 /obj/item/implantcase/abductor
-	name = "implant case - 'abductor'"
-	desc = "A glass case containing an abductor implant."
+	name = "bio-chip case - 'abductor'"
+	desc = "A glass case containing an abductor bio-chip."
 	implant_type = /obj/item/implant/abductor

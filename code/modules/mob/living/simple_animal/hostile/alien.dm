@@ -36,11 +36,6 @@
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-/mob/living/simple_animal/hostile/alien/xenobio
-	maxHealth = 60
-	health = 60
-	gold_core_spawnable = HOSTILE_SPAWN
-
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
 	icon_state = "aliend_running"
@@ -50,11 +45,6 @@
 	melee_damage_upper = 15
 	var/plant_cooldown = 30
 	var/plants_off = 0
-
-/mob/living/simple_animal/hostile/alien/drone/xenobio
-	maxHealth = 60
-	health = 60
-	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/alien/drone/handle_automated_action()
 	if(!..()) //AIStatus is off
@@ -80,12 +70,6 @@
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 
-
-/mob/living/simple_animal/hostile/alien/sentinel/xenobio
-	health = 75
-	maxHealth = 75
-	gold_core_spawnable = HOSTILE_SPAWN
-
 /mob/living/simple_animal/hostile/alien/queen
 	name = "alien queen"
 	icon_state = "alienq_running"
@@ -107,11 +91,6 @@
 	var/plants_off = 0
 	var/egg_cooldown = 30
 	var/plant_cooldown = 30
-
-/mob/living/simple_animal/hostile/alien/queen/xenobio
-	health = 100
-	maxHealth = 100
-	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/alien/queen/handle_automated_action()
 	if(!..())
@@ -172,14 +151,16 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
+	var/cleanspeed = 15
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
-	if(ismovable(target))
-		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
-			qdel(target)
-			return TRUE
-		var/atom/movable/M = target
-		M.clean_blood()
+	if(ishuman(target))
+		var/atom/movable/H = target
+		H.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
 		return TRUE
+	target.cleaning_act(src, src, cleanspeed, text_description = ".") //LXM is both the user and the cleaning implement itself. Wow!
+
+/mob/living/simple_animal/hostile/alien/maid/can_clean()
+	return TRUE
+

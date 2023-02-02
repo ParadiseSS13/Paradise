@@ -134,7 +134,7 @@
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
-	QDEL_LIST(trackers) //Deletes the beacon so it can't be found easily
+	QDEL_LIST_CONTENTS(trackers) //Deletes the beacon so it can't be found easily
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
@@ -209,8 +209,5 @@
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You slide the card through [src]'s ID slot.</span>")
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
-	else
-		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+	return ..()

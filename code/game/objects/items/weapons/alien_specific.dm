@@ -42,7 +42,7 @@
 			return
 	reagents.remove_reagent(25,"water")
 	var/datum/effect_system/smoke_spread/bad/smoke = new
-	smoke.set_up(5, 0, user.loc)
+	smoke.set_up(5, FALSE, user)
 	smoke.start()
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 2)
 

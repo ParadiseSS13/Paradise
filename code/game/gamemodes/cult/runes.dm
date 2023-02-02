@@ -133,6 +133,14 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/is_cleanable()
 	return TRUE
 
+/obj/effect/rune/cleaning_act(mob/user, atom/cleaner, cleanspeed = 5 SECONDS, text_verb = "scrub out", text_description = " with [cleaner].")
+	if(issimulatedturf(loc))
+		var/turf/simulated/T = get_turf(src)
+		T.cleaning_act(user, cleaner, cleanspeed = cleanspeed, text_verb = text_verb, text_description = text_description, text_targetname = name) //Strings are deliberately "A = A" to avoid overrides
+		return
+	else
+		..()
+
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -486,9 +494,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/atom/movable/A in T)
 		if(ishuman(A))
 			if(A != user) // Teleporting someone else
-				INVOKE_ASYNC(src, .proc/teleport_effect, A, T, target)
+				INVOKE_ASYNC(src, PROC_REF(teleport_effect), A, T, target)
 			else // Teleporting yourself
-				INVOKE_ASYNC(src, .proc/teleport_effect, user, T, target)
+				INVOKE_ASYNC(src, PROC_REF(teleport_effect), user, T, target)
 		if(A.move_resist == INFINITY)
 			continue  //object cant move, shouldnt teleport
 		if(A == user)
@@ -538,7 +546,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	outer_portal = new(T, 60 SECONDS, color)
 	light_range = 4
 	update_light()
-	addtimer(CALLBACK(src, .proc/close_portal), 60 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(close_portal)), 60 SECONDS, TIMER_UNIQUE)
 
 /obj/effect/rune/teleport/proc/close_portal()
 	qdel(inner_portal)
@@ -630,7 +638,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
 	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
-								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
+								"<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
 	rune_in_use = FALSE
 
 /obj/effect/rune/raise_dead/proc/validness_checks(mob/living/target_mob, mob/living/user)
@@ -737,9 +745,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
-									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
+									"<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
-	INVOKE_ASYNC(src, .proc/teleport_effect, cultist_to_summon, get_turf(cultist_to_summon), src)
+	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message("<span class='warning'>[src] begins to bubble and rises into the form of [cultist_to_summon]!</span>")
 	cultist_to_summon.forceMove(get_turf(src))
 	qdel(src)
@@ -940,7 +948,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	ghosts--
 	if(new_human)
 		new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>",
-								  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
+								"<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
 		for(var/obj/item/I in new_human.get_all_slots())
 			new_human.unEquip(I)
 		SSticker.mode.remove_cultist(new_human.mind, FALSE)

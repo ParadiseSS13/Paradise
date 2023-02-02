@@ -6,18 +6,21 @@
 	log_access_in(client)
 	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
 	create_log(MISC_LOG, "Logged in")
-	if(GLOB.configuration.logging.access_logging)
+	if(GLOB.configuration.logging.access_logging && !(client.computer_id in GLOB.configuration.admin.common_cid_map))
 		for(var/mob/M in GLOB.player_list)
-			if(M == src)	continue
-			if( M.key && (M.key != key) )
+			if(M == src)
+				continue
+			if(M.key && (M.key != key))
 				var/matches
-				if( (M.lastKnownIP == client.address) )
+				if(M.lastKnownIP == client.address)
 					matches += "IP ([client.address])"
-				if( (M.computer_id == client.computer_id) )
-					if(matches)	matches += " and "
+				if(M.computer_id == client.computer_id)
+					if(matches)
+						matches += " and "
 					matches += "ID ([client.computer_id])"
 					if(!GLOB.configuration.general.disable_cid_warning_popup)
-						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
+						spawn()
+							alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)
 						message_admins("<font color='red'><B>Notice: </B><font color='#EB4E00'><A href='?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=[M.client.ckey]'>[key_name_admin(M)]</A>.</font>", 1)
@@ -44,12 +47,23 @@
 
 	next_move = 1
 	sight |= SEE_SELF
-	..()
+
+	// DO NOT CALL PARENT HERE
+	// BYOND's internal implementation of login does two things
+	// 1: Set statobj to the mob being logged into (We got this covered)
+	// 2: And I quote "If the mob has no location, place it near (1,1,1) if possible"
+	// See, near is doing an agressive amount of legwork there
+	// What it actually does is takes the area that (1,1,1) is in, and loops through all those turfs
+	// If you successfully move into one, it stops
+	// Because we want Move() to mean standard movements rather then just what byond treats it as (ALL moves)
+	// We don't allow moves from nullspace -> somewhere. This means the loop has to iterate all the turfs in (1,1,1)'s area
+	// For us, (1,1,1) is a space tile. This means roughly 200,000! calls to Move()
+	// You do not want this
 
 	reset_perspective(loc)
 
 
-	if(ckey in GLOB.deadmins)
+	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
 		verbs += /client/proc/readmin
 
 	//Clear ability list and update from mob.

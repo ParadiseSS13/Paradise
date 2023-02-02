@@ -194,7 +194,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCE_DOORS 		"force_doors"
 #define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
 #define TRAIT_REPEATSURGERY		"master_surgeon"  // Lets you automatically repeat surgeries regardless of tool
+#define TRAIT_EDIBLE_BUG		"edible_bug" // Lets lizards and other animals that can eat bugs eat ya
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
+#define TRAIT_SOAPY_MOUTH		"soapy_mouth"
+#define TRAIT_UNREVIVABLE 		"unrevivable" // Prevents changeling revival
+
 
 //***** ITEM TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -227,6 +231,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"
 #define BERSERK_TRAIT "berserk"
+#define EYES_OF_GOD "eyes_of_god"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
@@ -243,6 +248,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRANSFORMING_TRAIT "transforming"
 #define BUCKLING_TRAIT "buckled"
 #define TRAIT_WAS_BATONNED "batonged"
+#define CLOWN_EMAG "clown_emag"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

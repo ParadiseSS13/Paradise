@@ -9,10 +9,8 @@
 
 	anchored = TRUE
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
-	active_power_usage = 200
-	power_channel = EQUIP
+	idle_power_consumption = 30
+	active_power_consumption = 200
 	max_integrity = 300
 	integrity_failure = 100
 	atom_say_verb = "bleeps"
@@ -154,9 +152,9 @@
 	if(ishuman(copymob)) //Suit checks are in check_mob
 		var/mob/living/carbon/human/H = copymob
 		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
-	else if(istype(copymob,/mob/living/silicon/robot/drone))
+	else if(isdrone(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
-	else if(istype(copymob,/mob/living/simple_animal/diona))
+	else if(isnymph(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "nymph")
 	else if(isalien(copymob) || istype(copymob,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
@@ -297,21 +295,21 @@
 			if(!papercopy(C))
 				break
 			toner -= 1
-			use_power(active_power_usage)
+			use_power(active_power_consumption)
 			sleep(PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/photo))
 		for(var/i in copies to 1 step -1)
 			if(!photocopy(C))
 				break
 			toner -= 5
-			use_power(active_power_usage)
+			use_power(active_power_consumption)
 			sleep(PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/B = C
 		for(var/i in copies to 1 step -1)
 			if(!bundlecopy(C, use_toner = TRUE))
 				break
-			use_power(active_power_usage)
+			use_power(active_power_consumption)
 			sleep(PHOTOCOPIER_DELAY * (B.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i in copies to 1 step -1)
@@ -345,12 +343,12 @@
 		to_chat(usr, "<span class='warning'>\The [copyitem] can't be scanned by \the [src].</span>")
 		copying = FALSE
 		return
-	use_power(active_power_usage)
+	use_power(active_power_consumption)
 	sleep(PHOTOCOPIER_DELAY)
 	LAZYADD(saved_documents, O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-	atom_say("Document succesfully scanned!")
+	atom_say("Document successfully scanned!")
 
 /obj/machinery/photocopier/proc/delete_file(uid)
 	var/document = locateUID(uid)
@@ -495,7 +493,7 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target.move_resist > user.pull_force)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || isAI(user) || target.move_resist > user.pull_force)
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return
@@ -517,7 +515,7 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/Destroy()
-	QDEL_LIST(saved_documents)
+	QDEL_LIST_CONTENTS(saved_documents)
 	return ..()
 
 /**

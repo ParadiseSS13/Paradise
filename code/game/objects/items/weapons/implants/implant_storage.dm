@@ -8,7 +8,7 @@
 	silent = TRUE
 
 /obj/item/implant/storage
-	name = "storage implant"
+	name = "storage bio-chip"
 	desc = "Stores up to two big items in a bluespace pocket."
 	icon_state = "storage"
 	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
@@ -60,10 +60,10 @@
 		return storage.contents
 
 /obj/item/implanter/storage
-	name = "implanter (storage)"
+	name = "bio-chip implanter (storage)"
 	implant_type = /obj/item/implant/storage
 
 /obj/item/implantcase/storage
-	name = "implant case - 'Storage'"
-	desc = "A glass case containing a storage implant."
+	name = "bio-chip case - 'Storage'"
+	desc = "A glass case containing a storage bio-chip."
 	implant_type = /obj/item/implant/storage

@@ -1,17 +1,14 @@
 //////////////////////////////Construct Spells/////////////////////////
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser
+/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser
 	base_cooldown = 1800
 	action_icon_state = "artificer"
 	action_background_icon_state = "bg_cult"
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = 0
-	return T
+/obj/effect/proc_holder/spell/aoe/conjure/build
+	aoe_range = 0
 
-
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/floor
+/obj/effect/proc_holder/spell/aoe/conjure/build/floor
 	name = "Summon Cult Floor"
 	desc = "This spell constructs a cult floor"
 	action_icon_state = "floorconstruct"
@@ -25,7 +22,7 @@
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall
+/obj/effect/proc_holder/spell/aoe/conjure/build/wall
 	name = "Summon Cult Wall"
 	desc = "This spell constructs a cult wall"
 	action_icon_state = "cultforcewall"
@@ -39,7 +36,7 @@
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/wall/reinforced
+/obj/effect/proc_holder/spell/aoe/conjure/build/wall/reinforced
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall"
 	school = "conjuration"
@@ -53,7 +50,7 @@
 
 	summon_type = list(/turf/simulated/wall/r_wall)
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone
+/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone
 	name = "Summon Soulstone"
 	desc = "This spell reaches into Redspace, summoning one of the legendary fragments across time and space"
 	action_icon_state = "summonsoulstone"
@@ -67,12 +64,12 @@
 
 	summon_type = list(/obj/item/soulstone)
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/soulstone/holy
+/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy
 	action_icon_state = "summonsoulstone_holy"
 
 	summon_type = list(/obj/item/soulstone/anybody/purified)
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/pylon
+/obj/effect/proc_holder/spell/aoe/conjure/build/pylon
 	name = "Cult Pylon"
 	desc = "This spell conjures a fragile crystal from Redspace. Makes for a convenient light source."
 	action_icon_state = "pylon"
@@ -87,7 +84,7 @@
 	summon_type = list(/obj/structure/cult/functional/pylon)
 
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/lesserforcewall
+/obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall
 	name = "Shield"
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire"
 	action_icon_state = "cultforcewall"
@@ -172,5 +169,5 @@
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	cooldown_min = 20 //25 deciseconds reduction per rank
 
-	smoke_spread = 3
+	smoke_type = SMOKE_SLEEPING
 	smoke_amt = 10

@@ -179,12 +179,15 @@
 		var/turf/T = get_turf(src)
 		if(!T)
 			return FALSE
+		user.unEquip(src, TRUE, TRUE)
 		if(a_left)
 			a_left.holder = null
 			a_left.forceMove(T)
-		if(a_right)
+			user.put_in_active_hand(a_left)
+		if(a_right) // Right object is the secondary item, hence put in inactive hand
 			a_right.holder = null
 			a_right.forceMove(T)
+			user.put_in_inactive_hand(a_right)
 		qdel(src)
 
 
@@ -196,6 +199,5 @@
 			a_right.pulsed(0)
 		if(a_left && a_left != D)  // the right pools might have sent us boom, so `a_left` can be null here
 			a_left.pulsed(0)
-	if(master)
-		master.receive_signal()
+
 	return TRUE

@@ -141,7 +141,7 @@
 	data["cell"] = M.cell
 	if(M.cell)
 		data["cellCharge"] = M.cell.charge
-		data["cellMaxCharge"] = M.cell.charge
+		data["cellMaxCharge"] = M.cell.maxcharge
 	data["airtank"] = M.return_pressure()
 	data["pilot"] = M.occupant
 	data["location"] = get_area(M)
@@ -156,7 +156,7 @@
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_tracking/proc/in_mecha()
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		return loc
 	return FALSE
 

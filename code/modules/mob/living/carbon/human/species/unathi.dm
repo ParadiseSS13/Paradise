@@ -48,7 +48,7 @@
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot)
+								/mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/hostile/poison/bees)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -56,17 +56,15 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	var/datum/action/innate/tail_lash/lash
-
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
-	lash = new
+	var/datum/action/innate/tail_lash/lash = new()
 	lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
-	if(lash)
+	for(var/datum/action/innate/tail_lash/lash in H.actions)
 		lash.Remove(H)
 
 /datum/action/innate/tail_lash

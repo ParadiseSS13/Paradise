@@ -92,6 +92,10 @@ GLOBAL_PROTECT(log_end)
 	if(GLOB.configuration.logging.adminchat_logging)
 		rustg_log_write(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
+/proc/log_ping_all_admins(text, mob/speaker)
+	if(GLOB.configuration.logging.adminchat_logging)
+		rustg_log_write(GLOB.world_game_log, "ALL ADMIN PING: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
 /proc/log_qdel(text)
 	rustg_log_write(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
@@ -182,7 +186,7 @@ GLOBAL_PROTECT(log_end)
 /proc/datum_info_line(datum/d)
 	if(!istype(d))
 		return
-	if(!istype(d, /mob))
+	if(!ismob(d))
 		return "[d] ([d.type])"
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"

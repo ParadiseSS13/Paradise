@@ -1,4 +1,4 @@
-/mob/living/carbon/human
+/mob/living/carbon
 	var/last_pain_message = ""
 	var/next_pain_time = 0
 
@@ -7,7 +7,7 @@
  *
  * Returns TRUE if the mob can feel pain, FALSE otherwise
  */
-/mob/living/carbon/human/proc/can_feel_pain()
+/mob/living/carbon/proc/can_feel_pain()
 	if(stat >= UNCONSCIOUS)
 		return FALSE
 	if(reagents.has_reagent("morphine"))
@@ -21,7 +21,7 @@
 
 // partname is the name of a body part
 // amount is a num from 1 to 100
-/mob/living/carbon/human/proc/pain(partname, amount)
+/mob/living/carbon/proc/pain(partname, amount)
 	if(!can_feel_pain())
 		return
 	if(world.time < next_pain_time)
@@ -41,7 +41,7 @@
 
 
 // message is the custom message to be displayed
-/mob/living/carbon/human/proc/custom_pain(message)
+/mob/living/carbon/proc/custom_pain(message)
 	if(!can_feel_pain())
 		return
 

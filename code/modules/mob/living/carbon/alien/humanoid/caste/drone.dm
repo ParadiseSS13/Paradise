@@ -30,11 +30,11 @@
 
 	if(powerc(500))
 		// Queen check
-		var/no_queen = 1
+		var/no_queen = TRUE
 		for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)
 			if(!Q.key && Q.get_int_organ(/obj/item/organ/internal/brain/))
 				continue
-			no_queen = 0
+			no_queen = FALSE
 
 		if(no_queen)
 			adjustPlasma(-500)
@@ -44,6 +44,7 @@
 			var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(loc)
 			mind.transfer_to(new_xeno)
 			new_xeno.mind.name = new_xeno.name
+			SSblackbox.record_feedback("tally", "alien_growth", 1, "queen")
 			qdel(src)
 		else
 			to_chat(src, "<span class='notice'>We already have an alive queen.</span>")

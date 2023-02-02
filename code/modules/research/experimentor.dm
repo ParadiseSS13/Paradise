@@ -21,10 +21,8 @@
 	icon_state = "h_lathe"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 	var/recentlyExperimented = 0
-	var/mob/trackedIan
-	var/mob/trackedRuntime
 	var/badThingCoeff = 0
 	var/resetTime = 15
 	var/cloneMode = FALSE
@@ -79,13 +77,6 @@
 	RefreshParts()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/r_n_d/experimentor/LateInitialize()
-	..()
-	// GLOB.mob_living_list gets populated in /mob/Initialize()
-	// so we need to delay searching for those until after the Initialize()
-	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
-	trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
-
 /obj/machinery/r_n_d/experimentor/RefreshParts()
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(resetTime > 0 && (resetTime - M.rating) >= 1)
@@ -119,7 +110,7 @@
 		to_chat(user, "<span class='warning'>[src] is already loaded.</span>")
 		return
 
-	if(istype(O, /obj/item))
+	if(isitem(O))
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
@@ -223,7 +214,7 @@
 
 /obj/machinery/r_n_d/experimentor/proc/throwSmoke(turf/where)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	smoke.set_up(1, FALSE, where)
 	smoke.start()
 
 /obj/machinery/r_n_d/experimentor/proc/pickWeighted(list/from)
@@ -433,7 +424,7 @@
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!</span>")
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(1, 0, loc, 0)
+			smoke.set_up(1, FALSE, loc)
 			smoke.start()
 			ejectItem()
 	////////////////////////////////////////////////////////////////////////////////////////////////
@@ -500,9 +491,10 @@
 		if(globalMalf > 16 && globalMalf < 35)
 			visible_message("<span class='warning'>[src] melts [exp_on], ian-izing the air around it!</span>")
 			throwSmoke(loc)
-			if(trackedIan)
-				throwSmoke(trackedIan.loc)
-				trackedIan.loc = loc
+			var/mob/tracked_ian = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
+			if(tracked_ian)
+				throwSmoke(tracked_ian.loc)
+				tracked_ian.loc = loc
 				investigate_log("Experimentor has stolen Ian!", "experimentor") //...if anyone ever fixes it...
 			else
 				new /mob/living/simple_animal/pet/dog/corgi(loc)
@@ -511,9 +503,10 @@
 		if(globalMalf > 36 && globalMalf < 59)
 			visible_message("<span class='warning'>[src] encounters a run-time error!</span>")
 			throwSmoke(loc)
-			if(trackedRuntime)
-				throwSmoke(trackedRuntime.loc)
-				trackedRuntime.loc = loc
+			var/mob/tracked_runtime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
+			if(tracked_runtime)
+				throwSmoke(tracked_runtime.loc)
+				tracked_runtime.loc = loc
 				investigate_log("Experimentor has stolen Runtime!", "experimentor")
 			else
 				new /mob/living/simple_animal/pet/cat(loc)
@@ -647,7 +640,7 @@
 
 /obj/item/relic/proc/throwSmoke(turf/where)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	smoke.set_up(1, FALSE, where)
 	smoke.start()
 
 /obj/item/relic/proc/floofcannon(mob/user)
@@ -722,7 +715,7 @@
 		if(loc == user && is_teleport_allowed(userturf.z)) //Because Nuke Ops bringing this back on their shuttle, then looting the ERT area is 2fun4you!
 			visible_message("<span class='notice'>[src] twists and bends, relocating itself!</span>")
 			throwSmoke(userturf)
-			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')
+			do_teleport(user, userturf, 8, sound_in = 'sound/effects/phasein.ogg')
 			throwSmoke(get_turf(user))
 			warn_admins(user, "Teleport", 0)
 

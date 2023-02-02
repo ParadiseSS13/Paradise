@@ -91,7 +91,7 @@ STATUS EFFECTS
 
 	if(stat == DEAD && !work_when_dead)
 		return
-	if(!instant && !do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, /mob/living/proc/cannot_stand)), only_use_extra_checks = TRUE))
+	if(!instant && !do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
 		return
 	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
 		return
@@ -115,7 +115,7 @@ STATUS EFFECTS
 	pixel_y = PIXEL_Y_OFFSET_LYING
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
 	ADD_TRAIT(src, TRAIT_CANNOT_PULL, LYING_DOWN_TRAIT)
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/orient_crawling)
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(orient_crawling))
 	set_density(FALSE)
 	set_lying_angle(pick(90, 270))
 
@@ -129,13 +129,13 @@ STATUS EFFECTS
 	pixel_y = 0
 
 /* makes sure the crawlers head is pointing in the direction they crawl
-* effectively splits dirs down the middle.
+ * effectively splits dirs down the middle.
 
-									 # | #
-moving this way points the head left # | # moving this way points the head right
-									 # | #
+ *										# | #
+ * moving this way points the head left # | # moving this way points the head right
+ *										# | #
 
-moving up or down retains their old lying angle
+ * moving up or down retains their old lying angle
 
 */
 /mob/living/proc/orient_crawling(datum/source, old_dir, new_dir)
@@ -741,7 +741,7 @@ moving up or down retains their old lying angle
 	if(F)
 		F.duration += amount
 	else if(amount > 0)
-		F = apply_status_effect(STATUS_EFFECT_WEAKENED, amount)
+		F = apply_status_effect(STATUS_EFFECT_FLOORED, amount)
 	return F
 
 

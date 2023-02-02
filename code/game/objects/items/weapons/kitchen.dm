@@ -127,7 +127,6 @@
 	name = "plastic knife"
 	desc = "The bluntest of blades."
 	icon_state = "pknife"
-	item_state = "knife"
 	sharp = FALSE
 
 /obj/item/kitchen/knife/ritual

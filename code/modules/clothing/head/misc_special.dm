@@ -73,12 +73,12 @@
 		return
 
 	var/turf/location = loc
-	if(istype(location, /mob/))
+	if(ismob(location))
 		var/mob/living/carbon/human/M = location
 		if(M.l_hand == src || M.r_hand == src || M.head == src)
 			location = M.loc
 
-	if(istype(location, /turf))
+	if(isturf(location))
 		location.hotspot_expose(700, 1)
 
 /obj/item/clothing/head/cakehat/attack_self(mob/user)
@@ -136,13 +136,17 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	dog_fashion = null
-
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
-
+	light_color = "#fff2bf"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	brightness_on = 2 //luminosity when on
+
+/obj/item/clothing/head/hardhat/pumpkinhead/blumpkin
+	name = "carved blumpkin"
+	desc = "A very blue jack o' lantern! Believed to ward off vengeful chemists."
+	icon_state = "hardhat0_blumpkin"
+	item_state = "hardhat0_blumpkin"
+	item_color = "blumpkin"
+	light_color = "#76ff8e"
 
 
 /obj/item/clothing/head/hardhat/reindeer

@@ -5,18 +5,19 @@
 
 /mob/living/carbon/human/proc/change_gender(new_gender, update_dna = 1)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(gender == new_gender || (gender == PLURAL && dna.species.has_gender))
+	if(gender == new_gender || (gender == PLURAL && !dna.species.has_gender))
 		return
 
 	gender = new_gender
 
-	var/datum/sprite_accessory/hair/current_hair = GLOB.hair_styles_full_list[H.h_style]
-	if(current_hair.gender != NEUTER && current_hair.gender != gender)
-		reset_head_hair()
+	if(istype(H))
+		var/datum/sprite_accessory/hair/current_hair = GLOB.hair_styles_full_list[H.h_style]
+		if(current_hair.gender != NEUTER && current_hair.gender != gender)
+			reset_head_hair()
 
-	var/datum/sprite_accessory/hair/current_fhair = GLOB.facial_hair_styles_list[H.f_style]
-	if(current_fhair.gender != NEUTER && current_fhair.gender != gender)
-		reset_facial_hair()
+		var/datum/sprite_accessory/hair/current_fhair = GLOB.facial_hair_styles_list[H.f_style]
+		if(current_fhair.gender != NEUTER && current_fhair.gender != gender)
+			reset_facial_hair()
 
 	if(update_dna)
 		update_dna()

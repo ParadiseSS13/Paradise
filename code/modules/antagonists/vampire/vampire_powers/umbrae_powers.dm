@@ -26,7 +26,7 @@
 		var/mob/living/carbon/human/H = user
 		if(V.iscloaking)
 			H.physiology.burn_mod *= 1.3
-			user.RegisterSignal(user, COMSIG_LIVING_IGNITED, /mob/living.proc/update_vampire_cloak)
+			user.RegisterSignal(user, COMSIG_LIVING_IGNITED, TYPE_PROC_REF(/mob/living, update_vampire_cloak))
 		else
 			user.UnregisterSignal(user, COMSIG_LIVING_IGNITED)
 			H.physiology.burn_mod /= 1.3
@@ -106,6 +106,96 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/effect/proc_holder/spell/vampire/soul_anchor
+	name = "Soul Anchor (30)"
+	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You are forced back after 2 minutes if you have not cast again."
+	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you are forced back."
+	required_blood = 30
+	centcom_cancast = FALSE
+	base_cooldown = 3 MINUTES
+	action_icon_state = "shadow_anchor"
+	should_recharge_after_cast = FALSE
+	deduct_blood_on_cast = FALSE
+	var/obj/structure/shadow_anchor/anchor
+	/// Are we making an anchor?
+	var/making_anchor = FALSE
+	/// Holds a reference to the timer until the caster is forced to recall
+	var/timer
+
+/obj/effect/proc_holder/spell/vampire/soul_anchor/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/vampire/soul_anchor/cast(list/targets, mob/user)
+	if(making_anchor) // second cast, but we are impatient
+		to_chat(user, "<span class='notice'>Your anchor isn't ready yet!</span>")
+		return
+
+	if(!making_anchor && !anchor) // first cast, setup the anchor
+		var/turf/anchor_turf = get_turf(user)
+		making_anchor = TRUE
+		if(do_mob(user, user, 10 SECONDS, only_use_extra_checks = TRUE)) // no checks, cant fail
+			make_anchor(user, anchor_turf)
+			making_anchor = FALSE
+			return
+
+	if(anchor) // second cast, teleport us back
+		recall(user)
+
+
+/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/make_anchor(mob/user, turf/anchor_turf)
+	anchor = new(anchor_turf)
+	timer = addtimer(CALLBACK(src, PROC_REF(recall), user), 2 MINUTES, TIMER_STOPPABLE)
+	should_recharge_after_cast = TRUE
+
+/obj/effect/proc_holder/spell/vampire/soul_anchor/proc/recall(mob/user)
+	if(timer)
+		deltimer(timer)
+		timer = null
+	var/turf/start_turf = get_turf(user)
+	var/turf/end_turf = get_turf(anchor)
+	QDEL_NULL(anchor)
+	if(end_turf.z != start_turf.z)
+		return
+	if(!is_teleport_allowed(end_turf.z))
+		return
+
+	user.forceMove(end_turf)
+
+	if(end_turf.z == start_turf.z)
+		shadow_to_animation(start_turf, end_turf, user)
+
+	var/datum/spell_handler/vampire/V = custom_handler
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/blood_cost = V.calculate_blood_cost(vampire)
+	vampire.bloodusable -= blood_cost
+	addtimer(VARSET_CALLBACK(src, should_recharge_after_cast, FALSE), 1 SECONDS) // this is needed so that the spell handler knows we casted it properly
+
+/proc/shadow_to_animation(turf/start_turf, turf/end_turf, mob/user)
+	var/x_difference = end_turf.x - start_turf.x
+	var/y_difference = end_turf.y - start_turf.y
+	var/distance = sqrt(x_difference ** 2 + y_difference ** 2) // pythag baby
+
+	var/obj/effect/immortality_talisman/effect = new(start_turf)
+	effect.dir = user.dir
+	effect.can_destroy = TRUE
+
+	var/animation_time = distance
+	animate(effect, time = animation_time, alpha = 0, pixel_x = x_difference * 32, pixel_y = y_difference * 32) //each turf is 32 pixels long
+	QDEL_IN(effect, animation_time)
+
+// an indicator that shows where the vampire will land
+/obj/structure/shadow_anchor
+	name = "shadow anchor"
+	desc = "Looking at this thing makes you feel uneasy..."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "pylon"
+	alpha = 120
+	color = "#545454"
+	density = TRUE
+	opacity = FALSE
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE
+
 /obj/effect/proc_holder/spell/vampire/dark_passage
 	name = "Dark Passage (30)"
 	desc = "You teleport to a targeted turf."
@@ -151,6 +241,26 @@
 		T.extinguish_light()
 		for(var/atom/A in T.contents)
 			A.extinguish_light()
+
+/obj/effect/proc_holder/spell/vampire/shadow_boxing
+	name = "Shadow Boxing (50)"
+	desc = "Target someone to have your shadow beat them up. You must stay within 2 tiles for this to work."
+	gain_desc = "You have gained the ability to make your shadow fight for you."
+	base_cooldown = 30 SECONDS
+	action_icon_state = "shadow_boxing"
+	required_blood = 50
+	var/target_UID
+
+/obj/effect/proc_holder/spell/vampire/shadow_boxing/create_new_targeting()
+	var/datum/spell_targeting/click/C = new
+	C.allowed_type = /mob/living
+	C.range = 2
+	C.try_auto_target = FALSE
+	return C
+
+/obj/effect/proc_holder/spell/vampire/shadow_boxing/cast(list/targets, mob/user)
+	var/mob/living/target = targets[1]
+	target.apply_status_effect(STATUS_EFFECT_SHADOW_BOXING, user)
 
 /obj/effect/proc_holder/spell/vampire/self/eternal_darkness
 	name = "Eternal Darkness"

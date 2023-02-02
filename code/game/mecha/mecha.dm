@@ -40,6 +40,7 @@
 	var/frozen = FALSE
 	var/repairing = FALSE
 	var/emp_proof = FALSE //If it is immune to emps
+	var/emag_proof = FALSE //If it is immune to emagging. Used by CC mechs.
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -107,7 +108,7 @@
 	add_airtank()
 	spark_system.set_up(2, 0, src)
 	spark_system.attach(src)
-	smoke_system.set_up(3, src)
+	smoke_system.set_up(3, FALSE, src)
 	smoke_system.attach(src)
 	add_cell()
 	START_PROCESSING(SSobj, src)
@@ -639,7 +640,7 @@
 	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
+	QDEL_LIST_CONTENTS(trackers)
 	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
@@ -878,8 +879,14 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
-	return
+	if(emag_proof)
+		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+		return
+	user.visible_message("<span class='notice'>[user] slides a card through [src]'s id slot.</span>", "<span class='notice'>You slide the card through [src]'s ID slot, resetting the DNA and access locks.</span>")
+	playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	dna = null
+	operation_req_access = list()
+
 
 
 /////////////////////////////////////
@@ -980,7 +987,7 @@
 	AI.controlled_mech = src
 	AI.remote_control = src
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
-	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
+	to_chat(AI, "[AI.can_dominate_mechs ? "<span class='boldnotice'>Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" \
 	: "<span class='notice'>You have been uploaded to a mech's onboard computer."]")
 	to_chat(AI, "<span class='boldnotice'>Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions.</span>")
 	if(interaction == AI_TRANS_FROM_CARD)
@@ -1006,6 +1013,7 @@
 			return T.remove_air(amount)
 
 /obj/mecha/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(use_internal_tank)
 		return cabin_air
 	return get_turf_air()
@@ -1056,14 +1064,20 @@
 /obj/mecha/portableConnectorReturnAir()
 	return internal_tank.return_air()
 
-/obj/mecha/proc/toggle_lights()
+/obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
 	if(lights)
 		set_light(light_range + lights_power)
 	else
 		set_light(light_range - lights_power)
-	occupant_message("Toggled lights [lights ? "on" : "off"].")
-	log_message("Toggled lights [lights ? "on" : "off"].")
+	if(show_message)
+		occupant_message("Toggled lights [lights ? "on" : "off"].")
+		log_message("Toggled lights [lights ? "on" : "off"].")
+
+/obj/mecha/extinguish_light(force)
+	if(!lights)
+		return
+	toggle_lights(show_message = FALSE)
 
 /obj/mecha/proc/toggle_internal_tank()
 	use_internal_tank = !use_internal_tank
@@ -1202,7 +1216,7 @@
 
 /obj/mecha/proc/pilot_is_mmi()
 	var/atom/movable/mob_container
-	if(istype(occupant, /mob/living/carbon/brain))
+	if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
 	if(istype(mob_container, /obj/item/mmi))
@@ -1477,7 +1491,7 @@
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)
@@ -1538,7 +1552,7 @@
 		choices[MT.name] = MA
 		choices_to_refs[MT.name] = MT
 
-	var/choice = show_radial_menu(L, src, choices, radius = 48, custom_check = CALLBACK(src, .proc/check_menu, L))
+	var/choice = show_radial_menu(L, src, choices, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_menu), L))
 	if(!check_menu(L) || choice == "Cancel / No Change")
 		return
 

@@ -15,7 +15,7 @@
 	Nanotrasen Science Directorate"}
 
 /datum/station_goal/bluespace_tap/on_report()
-	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
+	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_tap/check_completion()
@@ -133,7 +133,7 @@
 		/mob/living/simple_animal/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
 		/mob/living/simple_animal/pet/dog/fox/ = 5,
-		/mob/living/simple_animal/pet/penguin = 5,
+		/mob/living/simple_animal/pet/penguin/baby = 5,
 		/mob/living/simple_animal/pig = 5,
 		/obj/item/slimepotion/sentience = 5,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 3,
@@ -191,7 +191,7 @@
 	pixel_y = -64
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
+	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -222,7 +222,7 @@
 	var/actual_power_usage = 0
 
 
-	// Tweak these and active_power_usage to balance power generation
+	// Tweak these and active_power_consumption to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 20
@@ -255,7 +255,7 @@
 		connect_to_network()
 
 /obj/machinery/power/bluespace_tap/Destroy()
-	QDEL_LIST(fillers)
+	QDEL_LIST_CONTENTS(fillers)
 	return ..()
 
 /**
@@ -326,7 +326,7 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
+		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0

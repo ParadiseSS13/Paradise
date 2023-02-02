@@ -1,6 +1,6 @@
 /obj/item/implantpad
-	name = "implantpad"
-	desc = "Used to modify implants."
+	name = "bio-chip pad"
+	desc = "Used to modify bio-chips."
 	icon = 'icons/obj/implants.dmi'
 	icon_state = "implantpad-off"
 	item_state = "electronic"
@@ -34,7 +34,7 @@
 	if(!user || !C)
 		return
 	if(case)
-		to_chat(user, "<span class='warning'>There's already an implant in the pad!</span>")
+		to_chat(user, "<span class='warning'>There's already a bio-chip in the pad!</span>")
 		return
 	user.unEquip(C)
 	C.forceMove(src)
@@ -58,7 +58,7 @@
 
 /obj/item/implantpad/verb/remove_implant()
 	set category = "Object"
-	set name = "Remove Implant"
+	set name = "Remove Bio-chip"
 	set src in usr
 
 	if(usr.stat || usr.restrained())

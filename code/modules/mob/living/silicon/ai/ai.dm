@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/last_paper_seen = null
 	var/can_shunt = TRUE
 	var/last_announcement = ""
-	var/datum/announcement/priority/announcement
+	var/datum/announcer/announcer
 	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = FALSE //Waypoint mode is for selecting a turf via clicking.
@@ -126,11 +126,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	verbs -= silicon_subsystems
 
 /mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
-	announcement = new()
-	announcement.title = "A.I. Announcement"
-	announcement.announcement_type = "A.I. Announcement"
-	announcement.announcer = name
-	announcement.newscast = 0
+	announcer = new(config_type = /datum/announcement_configuration/ai)
+	announcer.author = name
 
 	var/list/possibleNames = GLOB.ai_names
 
@@ -274,7 +271,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
 	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
-	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
@@ -331,7 +328,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return FALSE
 
 	if(oldname != real_name)
-		announcement.announcer = name
+		announcer.author = name
 
 		if(eyeobj)
 			eyeobj.name = "[newname] (AI Eye)"
@@ -349,9 +346,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 */
 /obj/machinery/ai_powersupply
 	name="\improper AI power supply"
-	active_power_usage=1000
-	use_power = ACTIVE_POWER_USE
-	power_channel = EQUIP
+	active_power_consumption = 1000
+	power_state = ACTIVE_POWER_USE
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
 
@@ -372,9 +368,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
-		use_power = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 	if(powered_ai.anchored)
-		use_power = ACTIVE_POWER_USE
+		change_power_mode(ACTIVE_POWER_USE)
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
@@ -571,7 +567,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	announcement.Announce(input)
+	announcer.Announce(input)
 	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
@@ -688,7 +684,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		unset_machine()
 		src << browse(null, t1)
 	if(href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
+		switchCamera(locate(href_list["switchcamera"]) in GLOB.cameranet.cameras)
 	if(href_list["showalerts"])
 		ai_alerts()
 	if(href_list["show_paper"])
@@ -987,8 +983,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in GLOB.data_core.locked)//Look in data core locked.
-				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
+				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
 
 			if(personnel_list.len)
 				input = input("Select a crew member:") as null|anything in personnel_list

@@ -41,6 +41,9 @@ SUBSYSTEM_DEF(tickets)
 
 	var/ticketCounter = 1
 
+	/// DB ID for these tickets to be logged with
+	var/db_save_id = "ADMIN"
+
 /datum/controller/subsystem/tickets/get_metrics()
 	. = ..()
 	var/list/cust = list()
@@ -48,11 +51,9 @@ SUBSYSTEM_DEF(tickets)
 	.["custom"] = cust
 
 /datum/controller/subsystem/tickets/Initialize()
-	if(!close_messages)
-		close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
-				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
-	return ..()
+	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
+			"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
+			"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()
@@ -140,9 +141,8 @@ SUBSYSTEM_DEF(tickets)
 	var/new_ticket_num = getTicketCounterAndInc()
 	var/url_title = makeUrlMessage(C, title, new_ticket_num)
 
-	var/datum/ticket/T = new(url_title, title, passedContent, new_ticket_num)
+	var/datum/ticket/T = new(url_title, title, passedContent, new_ticket_num, C.ckey)
 	allTickets += T
-	T.client_ckey = C.ckey
 	T.locationSent = C.mob.loc.name
 	T.mobControlled = C.mob
 
@@ -202,7 +202,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/create_other_system_ticket(datum/ticket/T)
 	var/client/C = get_client_by_ckey(T.client_ckey)
-	SSmentor_tickets.newTicket(C, T.content, T.raw_title)
+	SSmentor_tickets.newTicket(C, T.first_raw_response, T.raw_title)
 
 /datum/controller/subsystem/tickets/proc/autoRespond(N)
 	if(!check_rights(rights_needed))
@@ -224,7 +224,7 @@ SUBSYSTEM_DEF(tickets)
 		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
 		"Reject" = "Reject",
 		"Man Up" = "Man Up",
-		)
+	)
 
 	if(GLOB.configuration.url.banappeals_url)
 		response_phrases["Appeal on the Forums"] = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[GLOB.configuration.url.banappeals_url]'>[GLOB.configuration.url.banappeals_url]</a>"
@@ -240,7 +240,7 @@ SUBSYSTEM_DEF(tickets)
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	switch(message_key)
 		if(null) //they cancelled
-			T.staffAssigned = initial(T.staffAssigned) //if they cancel we dont need to hold this ticket anymore
+			T.staffAssigned = null //if they cancel we dont need to hold this ticket anymore
 			return
 		if("Reject")
 			if(!closeTicket(N))
@@ -306,14 +306,16 @@ SUBSYSTEM_DEF(tickets)
 	var/ticketNum
 	/// ckey of the client who opened the ticket.
 	var/client_ckey
-	/// Time the ticket was opened.
-	var/timeOpened
+	/// Real time the ticket was opened.
+	var/real_time_opened
+	/// Ingame time the ticket was opened
+	var/ingame_time_opened
 	/// The initial message with links.
 	var/title
 	/// The title without URLs added.
 	var/raw_title
 	/// Content of the staff help.
-	var/list/content
+	var/list/datum/ticket_response/ticket_responses
 	/// Last staff member who responded.
 	var/lastStaffResponse
 	/// When the staff last responded.
@@ -332,17 +334,37 @@ SUBSYSTEM_DEF(tickets)
 	var/ticketCooldown
 	/// Staff member who has assigned themselves to this ticket.
 	var/client/staffAssigned
+	/// The first raw response. Used for ticket conversions
+	var/first_raw_response
+	/// Staff member ckey who took it
+	var/staff_ckey
+	/// The time the staff member took the ticket
+	var/staff_take_time
+	/// List of adminwho data
+	var/list/adminwho_data = list()
 
-/datum/ticket/New(tit, raw_tit, cont, num)
+
+/datum/ticket/New(tit, raw_tit, cont, num, the_ckey)
 	title = tit
 	raw_title = raw_tit
-	content = list()
-	content += cont
-	timeOpened = worldtime2text()
+	client_ckey = the_ckey
+	first_raw_response = cont
+	ticket_responses = list()
+	ticket_responses += new /datum/ticket_response(cont, the_ckey)
+	real_time_opened = SQLtime()
+	ingame_time_opened = (ROUND_TIME ? time2text(ROUND_TIME, "hh:mm:ss") : 0)
 	timeUntilStale = world.time + TICKET_TIMEOUT
 	setCooldownPeriod()
 	ticketNum = num
 	ticketState = TICKET_OPEN
+
+	var/list/this_data = list()
+	for(var/client/C in GLOB.admins)
+		this_data["ckey"] = C.ckey
+		this_data["rank"] = C.holder.rank
+		this_data["afk"] = C.inactivity
+
+		adminwho_data += list(this_data)
 
 //Set the cooldown period for the ticket. The time when it's created plus the defined cooldown time.
 /datum/ticket/proc/setCooldownPeriod()
@@ -372,17 +394,35 @@ SUBSYSTEM_DEF(tickets)
 	if(!C)
 		return
 	staffAssigned = C
+	staff_ckey = C.ckey
+	staff_take_time = SQLtime()
 	return TRUE
 
 /datum/ticket/proc/addResponse(client/C, msg)
 	if(C.holder)
 		setLastStaffResponse(C)
-	msg = "[C]: [msg]"
-	content += msg
+	ticket_responses += new /datum/ticket_response(msg, C.ckey)
 
 /datum/ticket/proc/makeStale()
 	ticketState = TICKET_STALE
 	return ticketNum
+
+// Staff ticket response
+/datum/ticket_response
+	/// Text of this response
+	var/response_text
+	/// Who made the response
+	var/response_user
+	/// The time of the response
+	var/response_time
+
+/datum/ticket_response/New(the_text, the_ckey)
+	response_text = the_text
+	response_user = the_ckey
+	response_time = SQLtime()
+
+/datum/ticket_response/proc/to_string()
+	return "[response_user]: [response_text]"
 
 /*
 
@@ -412,7 +452,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_OPEN || ticket.ticketState == TICKET_STALE)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.timeOpened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</font>" : ""] </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</font>" : ""] </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
 			else
 				continue
 	else  if(tab == TICKET_RESOLVED)
@@ -420,7 +460,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_RESOLVED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.timeOpened]) </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
 			else
 				continue
 	else if(tab == TICKET_CLOSED)
@@ -428,7 +468,7 @@ UI STUFF
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_CLOSED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.timeOpened]) </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[ticket.title]</td></tr>"
 			else
 				continue
 
@@ -458,14 +498,15 @@ UI STUFF
 
 	dat += "<h2>Ticket #[T.ticketNum]</h2>"
 
-	dat += "<h3>[T.client_ckey] / [T.mobControlled] opened this [ticket_name] at [T.timeOpened] at location [T.locationSent]</h3>"
+	dat += "<h3>[T.client_ckey] / [T.mobControlled] opened this [ticket_name] at [T.ingame_time_opened] at location [T.locationSent]</h3>"
 	dat += "<h4>Ticket Status: [status]"
 	dat += "<table style='width:950px; border: 3px solid;'>"
 	dat += "<tr><td>[T.title]</td></tr>"
 
-	if(T.content.len > 1)
-		for(var/i = 2, i <= T.content.len, i++)
-			dat += "<tr><td>[T.content[i]]</td></tr>"
+	if(length(T.ticket_responses) > 1)
+		for(var/i in 2 to length(T.ticket_responses))
+			var/datum/ticket_response/TR = T.ticket_responses[i]
+			dat += "<tr><td>[TR.to_string()]</td></tr>"
 
 	dat += "</table><br /><br />"
 	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, 0) ? "<a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
@@ -497,8 +538,9 @@ UI STUFF
 	dat += "<table>"
 	for(var/datum/ticket/T in tickets)
 		dat += "<tr><td><h2>Ticket #[T.ticketNum]</h2></td></tr>"
-		for(var/i = 1, i <= T.content.len, i++)
-			dat += "<tr><td>[T.content[i]]</td></tr>"
+		for(var/i in 1 to length(T.ticket_responses))
+			var/datum/ticket_response/TR = T.ticket_responses[i]
+			dat += "<tr><td>[TR.to_string()]</td></tr>"
 	dat += "</table>"
 
 	var/datum/browser/popup = new(user, "[ticket_system_name]userticketsdetail", ticket_system_name, 1000, 600)
@@ -522,7 +564,7 @@ UI STUFF
  * msg - The message being send
  * alt - If an alternative prefix should be used or not. Defaults to TICKET_STAFF_MESSAGE_PREFIX
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ *             send a sound and flash the window. Defaults to FALSE
  */
 /datum/controller/subsystem/tickets/proc/message_staff(msg, prefix_type = TICKET_STAFF_MESSAGE_PREFIX, important = FALSE)
 	switch(prefix_type)
@@ -624,6 +666,59 @@ UI STUFF
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>")
 		else
 			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+
+
+/datum/controller/subsystem/tickets/Shutdown()
+	// Lets get saving these tickets
+	var/list/datum/db_query/all_queries = list()
+
+	for(var/datum/ticket/T in allTickets)
+		var/end_state_txt = "UNKNOWN"
+
+		switch(T.ticketState)
+			if(TICKET_OPEN)
+				end_state_txt = "OPEN"
+			if(TICKET_CLOSED)
+				end_state_txt = "CLOSED"
+			if(TICKET_RESOLVED)
+				end_state_txt = "RESOLVED"
+			if(TICKET_STALE)
+				end_state_txt = "STALE"
+
+		// Lets sort our responses out
+		var/list/raw_responses = list()
+		for(var/datum/ticket_response/TR in T.ticket_responses)
+			var/list/this_response = list()
+			this_response["ckey"] = TR.response_user
+			this_response["text"] = strip_html_tags(TR.response_text) // Dont want to save HTML tags in the thing
+			this_response["time"] = TR.response_time
+
+			raw_responses += list(this_response)
+
+		var/all_responses_txt = json_encode(raw_responses)
+
+		var/datum/db_query/Q = SSdbcore.NewQuery({"INSERT INTO tickets
+			(ticket_num, ticket_type, real_filetime, relative_filetime, ticket_creator, ticket_topic, ticket_taker, ticket_take_time, all_responses, end_round_state, awho)
+			VALUES
+			(:tnum, :ttype, :realt, :relativet, :tcreator, :ttopic, :ttaker, :ttaketime, :allresponses, :endstate, :awho)"},
+			list(
+				"tnum" = T.ticketNum,
+				"ttype" = db_save_id,
+				"realt" = T.real_time_opened,
+				"relativet" = T.ingame_time_opened,
+				"tcreator" = T.client_ckey,
+				"ttopic" = T.raw_title,
+				"ttaker" = T.staff_ckey,
+				"ttaketime" = T.staff_take_time,
+				"allresponses" = all_responses_txt,
+				"endstate" = end_state_txt,
+				"awho" = json_encode(T.adminwho_data),
+			))
+
+		all_queries += Q
+
+	SSdbcore.MassExecute(all_queries, TRUE, TRUE, FALSE, TRUE)
+
 
 #undef TICKET_STAFF_MESSAGE_ADMIN_CHANNEL
 #undef TICKET_STAFF_MESSAGE_PREFIX

@@ -161,7 +161,7 @@
 			I.sprite_sheets = P.sprite_sheets
 			qdel(P)
 
-		if(istype(I, /obj/item/clothing) && istype(picked_item, /obj/item/clothing))
+		if(isclothing(I) && isclothing(picked_item))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
@@ -201,6 +201,15 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
+	icon = 'icons/obj/clothing/under/color.dmi'
+
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/color.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
+		)
+
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)
@@ -208,7 +217,24 @@
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/under
 	chameleon_action.chameleon_name = "Jumpsuit"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/under, /obj/item/clothing/under/color, /obj/item/clothing/under/rank), only_root_path = TRUE)
+	chameleon_action.chameleon_blacklist = typecacheof(list(
+		/obj/item/clothing/under,
+		/obj/item/clothing/under/misc,
+		/obj/item/clothing/under/dress,
+		/obj/item/clothing/under/pants,
+		/obj/item/clothing/under/color,
+		/obj/item/clothing/under/retro,
+		/obj/item/clothing/under/solgov,
+		/obj/item/clothing/under/suit,
+		/obj/item/clothing/under/costume,
+		/obj/item/clothing/under/rank,
+		/obj/item/clothing/under/rank/cargo,
+		/obj/item/clothing/under/rank/civilian,
+		/obj/item/clothing/under/rank/engineering,
+		/obj/item/clothing/under/rank/medical,
+		/obj/item/clothing/under/rank/rnd,
+		/obj/item/clothing/under/rank/security,
+		), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
 /obj/item/clothing/under/chameleon/Destroy()

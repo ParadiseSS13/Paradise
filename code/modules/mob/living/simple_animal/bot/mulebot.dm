@@ -26,7 +26,6 @@
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	req_access = list(ACCESS_CARGO)
-	path_image_color = "#7F5200"
 
 
 	suffix = ""
@@ -71,7 +70,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, .proc/human_squish_check)
+	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(human_squish_check))
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	SStgui.close_uis(wires)
@@ -79,6 +78,9 @@
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	return ..()
+
+/mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
+	return FALSE
 
 /mob/living/simple_animal/bot/mulebot/can_buckle()
 	return FALSE //no ma'am, you cannot buckle mulebots to chairs
@@ -95,12 +97,7 @@
 	reached_target = 0
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		..()
-		if(open)
-			on = FALSE
-		update_controls()
-	else if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
+	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
 		var/obj/item/stock_parts/cell/C = I
@@ -140,6 +137,16 @@
 		..()
 	update_icon()
 	return
+
+/mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(!.)
+		return
+
+	if(open)
+		on = FALSE
+	update_controls()
+	update_icon()
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(emagged < 1)
@@ -368,7 +375,7 @@
 
 	//I'm sure someone will come along and ask why this is here... well people were dragging screen items onto the mule, and that was not cool.
 	//So this is a simple fix that only allows a selection of item types to be considered. Further narrowing-down is below.
-	if(!istype(AM, /obj/item) && !istype(AM, /obj/machinery) && !istype(AM, /obj/structure) && !ismob(AM))
+	if(!isitem(AM) && !ismachinery(AM) && !isstructure(AM) && !ismob(AM))
 		return
 	if(!isturf(AM.loc)) //To prevent the loading from stuff from someone's inventory or screen icons.
 		return
@@ -460,7 +467,7 @@
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()
 	var/area/dest_area
-	if(path && path.len)
+	if(path && length(path))
 		target = ai_waypoint //Target is the end point of the path, the waypoint set by the AI.
 		dest_area = get_area(target)
 		destination = format_text(dest_area.name)
@@ -509,6 +516,7 @@
 				var/turf/next = path[1]
 				reached_target = FALSE
 				if(next == loc)
+					increment_path()
 					path -= next
 					return
 				if(isturf(next))
@@ -516,6 +524,7 @@
 					var/moved = step_towards(src, next) // attempt to move
 					if(moved && oldloc!=loc) // successful move
 						blockcount = 0
+						increment_path()
 						path -= loc
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
@@ -534,7 +543,7 @@
 							buzz(SIGH)
 							mode = BOT_WAIT_FOR_NAV
 							blockcount = 0
-							addtimer(CALLBACK(src, .proc/process_blocked, next), 2 SECONDS)
+							addtimer(CALLBACK(src, PROC_REF(process_blocked), next), 2 SECONDS)
 							return
 						return
 				else
@@ -547,7 +556,7 @@
 
 		if(BOT_NAV) // calculate new path
 			mode = BOT_WAIT_FOR_NAV
-			INVOKE_ASYNC(src, .proc/process_nav)
+			INVOKE_ASYNC(src, PROC_REF(process_nav))
 
 /mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
 	calc_path(avoid=next)
@@ -572,7 +581,7 @@
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
 	check_bot_access()
-	set_path(get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, target, 250, id=access_card, exclude=avoid))
 
 // sets the current destination
 // signals all beacons matching the delivery code
@@ -597,7 +606,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	INVOKE_ASYNC(src, .proc/do_start_home)
+	INVOKE_ASYNC(src, PROC_REF(do_start_home))
 
 /mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)
@@ -682,7 +691,7 @@
 	if(wires.is_cut(WIRE_MOB_AVOIDANCE))	// usually just bumps, but if avoidance disabled knock over mobs
 		var/mob/living/L = obs
 		if(ismob(L))
-			if(istype(L,/mob/living/silicon/robot))
+			if(isrobot(L))
 				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
 			else
 				if(!paicard)
@@ -834,8 +843,8 @@
 	else
 		return null
 
-/mob/living/simple_animal/bot/mulebot/resist()
-	..()
+/mob/living/simple_animal/bot/mulebot/run_resist()
+	. = ..()
 	if(load)
 		unload()
 

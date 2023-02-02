@@ -106,6 +106,12 @@
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
+
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
@@ -118,6 +124,11 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	strip_delay = 80
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/hos/alt
 	name = "armored trenchcoat"
@@ -149,6 +160,11 @@
 	strip_delay = 70
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
@@ -165,7 +181,7 @@
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = 450)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
-	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen)
+	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/gun/projectile)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -217,7 +233,17 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
-	hide_tail_by_species = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
+
+/obj/item/clothing/suit/armor/riot/sec
+	name = "security riot suit"
+	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement. This one has security markings on it."
+	icon_state = "riot-sec"
+	item_state = "swat_suit"
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -225,6 +251,7 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	slowdown = 1
+	sprite_sheets = list()
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
@@ -268,8 +295,18 @@
 	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 35, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 8 SECONDS
 	put_on_delay = 6 SECONDS
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-						 "Grey" = 'icons/mob/clothing/species/grey/suit.dmi')
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		)
+
+
+/obj/item/clothing/suit/armor/bulletproof/sec
+	name = "security bulletproof vest"
+	desc = "A bulletproof vest that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent. This one has security markings on it."
+	icon_state = "bulletproof-sec"
+	item_state = "armor"
+	blood_overlay_type = "armor"
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"
@@ -278,12 +315,19 @@
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 75, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
-	var/hit_reflect_chance = 40
+	var/last_reflect_time
+	var/reflect_cooldown = 5 SECONDS
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	var/mob/living/carbon/human/user = loc
-	if(prob(hit_reflect_chance) && (user.wear_suit == src))
+	if(user.wear_suit != src)
+		return 0
+	if(world.time - last_reflect_time >= reflect_cooldown)
+		last_reflect_time = world.time
 		return 1
+	if(world.time - last_reflect_time <= 1) // This is so if multiple energy projectiles hit at once, they're all reflected
+		return 1
+	return 0
 
 /obj/item/clothing/suit/armor/vest/det_suit
 	name = "armor"
@@ -373,8 +417,8 @@
 	disabled = TRUE
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
-	addtimer(CALLBACK(src, .proc/reboot), disable_time SECONDS)
-	if(istype(loc, /mob/living/carbon/human))
+	addtimer(CALLBACK(src, PROC_REF(reboot)), disable_time SECONDS)
+	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
 
@@ -401,7 +445,7 @@
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"
-	desc = "Someone seperated our Research Director from his own head!"
+	desc = "Someone separated our Research Director from his own head!"
 	energy_cost = 200
 	var/tele_range = 6
 
@@ -461,7 +505,7 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
 		owner.make_invisible()
-		addtimer(CALLBACK(owner, /mob/living/.proc/reset_visibility), 4 SECONDS)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living, reset_visibility)), 4 SECONDS)
 		return TRUE
 
 /obj/item/clothing/suit/armor/reactive/tesla
@@ -524,7 +568,7 @@
 					var/mob/living/M = AM
 					to_chat(M, "<span class='userdanger'>You're thrown back by [owner]'s reactive armor!</span>")
 					add_attack_logs(owner, M, "[M] was thrown by [owner]'s [src]", ATKLOG_ALMOSTALL)
-				INVOKE_ASYNC(AM, /atom/movable/.proc/throw_at, throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
+				INVOKE_ASYNC(AM, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, ((clamp((repulse_power - (clamp(dist_from_user - 2, 0, dist_from_user))), 3, repulse_power))), 1) //So stuff gets tossed around at the same time.
 		disable(rand(2, 5))
 		return TRUE
 

@@ -324,6 +324,7 @@
 	var/overloaded = FALSE
 	var/warned = FALSE
 	var/charging = FALSE
+	var/charge_failure = FALSE
 	var/mob/living/carbon/holder = null
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
@@ -354,19 +355,29 @@
 		to_chat(user, "<span class='warning'>[src] does not have enough charge to be overloaded.</span>")
 		return
 	if(charging)
+		to_chat(user, "<span class='warning'>[src] is already charging!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
 	charging = TRUE
-	if(do_after(user, 2.5 SECONDS, target = src))
-		select_fire(user)
+	charge_failure = FALSE
+	addtimer(CALLBACK(src, PROC_REF(overload)), 2.5 SECONDS)
+
+/obj/item/gun/energy/plasma_pistol/proc/overload()
+	if(ishuman(loc) && !charge_failure)
+		var/mob/living/carbon/C = loc
+		select_fire(C)
 		overloaded = TRUE
-		cell.charge -= 125
-		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		cell.use(125)
+		playsound(C.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
 		atom_say("Overloading successful.")
 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
-		holder = user
-		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, .proc/discharge)
+		holder = C
+		RegisterSignal(holder, COMSIG_CARBON_SWAP_HANDS, PROC_REF(discharge))
+	else
+		atom_say("Overloading failure.")
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
 	charging = FALSE
+	charge_failure = FALSE
 
 /obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
 	select_fire()
@@ -390,16 +401,19 @@
 
 /obj/item/gun/energy/plasma_pistol/emp_act(severity)
 	..()
+	charge_failure = TRUE
 	if(prob(100 / severity) && overloaded)
 		discharge()
 
 /obj/item/gun/energy/plasma_pistol/dropped(mob/user)
 	. = ..()
+	charge_failure = TRUE
 	if(overloaded)
 		discharge()
 
 /obj/item/gun/energy/plasma_pistol/equipped(mob/user, slot, initial)
 	. = ..()
+	charge_failure = TRUE
 	if(overloaded)
 		discharge()
 
@@ -569,16 +583,19 @@
 	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	desc = "A gun that changes the body temperature of its targets."
-	var/temperature = 300
-	var/target_temperature = 300
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
 	selfcharge = TRUE
 
-	var/powercost = ""
-	var/powercostcolor = ""
-	var/dat = ""
+	// Measured in Kelvin
+	var/temperature = T20C
+	var/target_temperature = T20C
+	var/min_temp = 0
+	var/max_temp = 500
+
+	/// How fast the gun recharges
+	var/recharge_multiplier = 1
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -590,105 +607,64 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/gun/energy/temperature/attack_self(mob/living/user as mob)
-	update_dat()
-	user << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x120")
-	onclose(user, "tempgun")
+/obj/item/gun/energy/temperature/attack_self(mob/user)
+	add_fingerprint(user)
+	ui_interact(user)
+
+/obj/item/gun/energy/temperature/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.deep_inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "TempGun", name, 250, 130, master_ui, state)
+		ui.open()
+
+/obj/item/gun/energy/temperature/ui_data(mob/user)
+	var/list/data = list()
+	data["target_temperature"] = target_temperature - T0C // Pass them in as Celcius numbers
+	data["temperature"] = temperature - T0C
+	data["max_temp"] = max_temp - T0C
+	data["min_temp"] = min_temp - T0C
+	return data
+
+/obj/item/gun/energy/temperature/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	if(action == "target_temperature")
+		target_temperature = clamp(text2num(params["target_temperature"]) + T0C, min_temp, max_temp) //Retrieved as a celcius number, convert to kelvin
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
-		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
-
-/obj/item/gun/energy/temperature/Topic(href, href_list)
-	if(..())
-		return
-
-	add_fingerprint(usr)
-
-	if(href_list["temp"])
-		var/amount = text2num(href_list["temp"])
-		if(amount > 0)
-			target_temperature = min((500 + 500*emagged), target_temperature+amount)
-		else
-			target_temperature = max(0, target_temperature+amount)
-
-	if(istype(loc, /mob))
-		attack_self(loc)
-
-	add_fingerprint(usr)
-
+		to_chat(user, "<span class='caution'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+		desc += " Its temperature cap has been removed."
+		max_temp = 1000
+		recharge_multiplier = 5  //so emagged temp guns adjust their temperature much more quickly
 
 /obj/item/gun/energy/temperature/process()
 	..()
-	var/obj/item/ammo_casing/energy/temp/T = ammo_type[select]
-	T.temp = temperature
-	switch(temperature)
-		if(0 to 100)
-			T.e_cost = 300
-			powercost = "High"
-		if(100 to 250)
-			T.e_cost = 200
-			powercost = "Medium"
-		if(251 to 300)
-			T.e_cost = 100
-			powercost = "Low"
-		if(301 to 400)
-			T.e_cost = 200
-			powercost = "Medium"
-		if(401 to 1000)
-			T.e_cost = 300
-			powercost = "High"
-	switch(powercost)
-		if("High")
-			powercostcolor = "orange"
-		if("Medium")
-			powercostcolor = "green"
-		else
-			powercostcolor = "blue"
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
-		if(difference >= (10 + 40*emagged)) //so emagged temp guns adjust their temperature much more quickly
+		if(difference >= (10 * recharge_multiplier))
 			if(target_temperature < temperature)
-				temperature -= (10 + 40*emagged)
+				temperature -= (10 * recharge_multiplier)
 			else
-				temperature += (10 + 40*emagged)
+				temperature += (10 * recharge_multiplier)
 		else
 			temperature = target_temperature
 		update_icon()
-
-		if(istype(loc, /mob/living/carbon))
-			var/mob/living/carbon/M = loc
-			if(src == M.machine)
-				update_dat()
-				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
-	return
-
-/obj/item/gun/energy/temperature/proc/update_dat()
-	dat = ""
-	dat += "Current output temperature: "
-	if(temperature > 500)
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-		dat += "<FONT color=red><B> SEARING!</B></FONT>"
-	else if(temperature > (T0C + 50))
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	else if(temperature > (T0C - 50))
-		dat += "<FONT color=black><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	else
-		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	dat += "<BR>"
-	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<A href='?src=[UID()];temp=-100'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-10'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-1'>-</A> "
-	dat += "[target_temperature] "
-	dat += "<A href='?src=[UID()];temp=1'>+</A> "
-	dat += "<A href='?src=[UID()];temp=10'>+</A> "
-	dat += "<A href='?src=[UID()];temp=100'>+</A>"
-	dat += "<BR>"
-	dat += "Power cost: "
-	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
+		var/obj/item/ammo_casing/energy/temp/T = ammo_type[select]
+		T.temp = temperature
+		switch(temperature)
+			if(0 to 100)
+				T.e_cost = 300
+			if(100 to 250)
+				T.e_cost = 200
+			if(251 to 300)
+				T.e_cost = 100
+			if(301 to 400)
+				T.e_cost = 200
+			if(401 to INFINITY)
+				T.e_cost = 300
 
 /obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
@@ -712,7 +688,7 @@
 			item_state = "tempgun_0"
 	icon_state = item_state
 
-	if(istype(loc,/mob/living/carbon))
+	if(iscarbon(loc))
 		var/mob/living/carbon/M = loc
 		M.update_inv_back()
 		M.update_inv_l_hand()
@@ -772,6 +748,7 @@
 	unique_reskin = TRUE
 	charge_sections = 5
 	inhand_charge_sections = 3
+	overlay_set = "handgun" // Reskins are a different icon_state
 
 /obj/item/gun/energy/detective/Initialize(mapload, ...)
 	. = ..()
@@ -881,7 +858,7 @@
 	var/obj/item/pinpointer/crew/C = locateUID(linked_pinpointer_UID)
 	if(C)
 		C.start_tracking()
-		addtimer(CALLBACK(src, .proc/stop_pointing), 1 MINUTES, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(stop_pointing)), 1 MINUTES, TIMER_UNIQUE)
 
 /obj/item/gun/energy/detective/proc/stop_pointing()
 	if(linked_pinpointer_UID)

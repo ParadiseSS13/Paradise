@@ -35,7 +35,7 @@
 		to_chat(user, "<span class='warning'> You need to open [src] first!</span>")
 		return FALSE
 
-	if(istype(M, /mob/living/carbon))
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
 			return TRUE
@@ -165,6 +165,12 @@
 	materials = list(MAT_METAL=400)
 	volume = 25
 
+/obj/item/reagent_containers/food/drinks/trophy/bronze_cup/toolbox_win //2023 toolbox tournament 3rd place went to paradise station.
+	name = "3rd place toolbox tournament 2567"
+	desc = "Awarded to centcomms elite toolbox warriors raising money for the GBS research institute."
+	icon_state = "reward_cup"
+	force = 10.3
+	throwforce = 10.3
 
 ///////////////////////////////////////////////Drinks
 //Notes by Darem: Drinks are simply containers that start preloaded. Unlike condiments, the contents can be ingested directly

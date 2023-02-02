@@ -2,14 +2,39 @@
 #define isatom(A) (isloc(A))
 
 // Mobs
+
+//#define ismob(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are mobs
+
+#define isliving(A) (istype(A, /mob/living))
+
+#define isbrain(A) (istype(A, /mob/living/carbon/brain))
+
+// Carbon mobs
+#define iscarbon(A) (istype(A, /mob/living/carbon))
+
+#define ishuman(A) (istype(A, /mob/living/carbon/human))
+
+#define isalien(A) (istype(A, /mob/living/carbon/alien))
+
+#define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
+
+#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
+
+#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
+
+#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
+
+// Simple animals
+
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
-//Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
 #define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
 
-//Objects
+#define isslime(A) (istype((A), /mob/living/simple_animal/slime))
+
+// Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
 #define isitem(A) (istype(A, /obj/item))
@@ -22,9 +47,15 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
-#define is_pen(W) (istype(W, /obj/item/pen))
+#define is_pen(W) (istype(W, /obj/item/pen) || istype(W, /obj/item/flashlight/pen))
+
+#define is_pda(W) (istype(W, /obj/item/pda))
+
+#define isspacecash(W) (istype(W, /obj/item/stack/spacecash))
 
 #define isstorage(A) (istype(A, /obj/item/storage))
+
+#define isstack(I) (istype(I, /obj/item/stack))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -44,7 +75,10 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
-//Turfs
+// Turfs
+
+//#define isturf(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are turfs
+
 #define issimulatedturf(A) istype(A, /turf/simulated)
 
 #define isspaceturf(A) istype(A, /turf/space)
@@ -63,30 +97,12 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
-//Mobs
-#define isliving(A) (istype(A, /mob/living))
+#define is_ancient_rock(A) (istype(A, /turf/simulated/mineral/ancient))
 
-#define isbrain(A) (istype(A, /mob/living/carbon/brain))
+// Areas
+//#define isarea(A, B, C...) BYOND proc, can test multiple arguments and only return TRUE if all are areas
 
-//Carbon mobs
-#define iscarbon(A) (istype(A, /mob/living/carbon))
-
-#define ishuman(A) (istype(A, /mob/living/carbon/human))
-
-//more carbon mobs
-#define isalien(A) (istype(A, /mob/living/carbon/alien))
-
-#define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
-
-#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
-
-#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
-
-#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
-
-#define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
-
-//Structures
+// Structures
 #define isstructure(A)	(istype((A), /obj/structure))
 
 // Misc

@@ -42,7 +42,7 @@
 /obj/machinery/computer/robotics/proc/console_shows(mob/living/silicon/robot/R)
 	if(!istype(R))
 		return FALSE
-	if(istype(R, /mob/living/silicon/robot/drone))
+	if(isdrone(R))
 		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
@@ -142,7 +142,7 @@
 			cell_capacity = R.cell ? R.cell.maxcharge : null,
 			module = R.module ? R.module.name : "No Module Detected",
 			synchronization = R.connected_ai,
-			is_hacked =  R.connected_ai && R.emagged,
+			is_hacked =  R.connected_ai && R.emagged && can_hack_any(user),
 			hackable = can_hack(user, R),
 		)
 		data["cyborgs"] += list(cyborg_data)
@@ -155,6 +155,9 @@
 	. = FALSE
 	if(!is_authenticated(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		to_chat(usr, "<span class='warning'>Access denied, borgs are no longer your station's property.</span>")
 		return
 	switch(action)
 		if("arm") // Arms the emergency self-destruct system
@@ -174,7 +177,7 @@
 			message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
 			log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
-				if(istype(R, /mob/living/silicon/robot/drone))
+				if(isdrone(R))
 					continue
 				// Ignore antagonistic cyborgs
 				if(R.scrambledcodes)

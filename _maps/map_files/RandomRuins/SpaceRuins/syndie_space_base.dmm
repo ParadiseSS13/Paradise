@@ -363,7 +363,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "dS" = (
-/obj/structure/closet/crate,
 /obj/item/extinguisher{
 	pixel_x = -5;
 	pixel_y = 5
@@ -387,6 +386,9 @@
 /obj/item/flashlight{
 	pixel_x = 1;
 	pixel_y = -1
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -485,7 +487,7 @@
 /turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "fn" = (
-/obj/machinery/vending/syndichem,
+/obj/machinery/economy/vending/syndichem,
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
 	pixel_x = -5;
@@ -803,7 +805,9 @@
 /turf/template_noop,
 /area/template_noop)
 "id" = (
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/unary/vent_pump{
+	autolink_id = "syndiebase_mix_out"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ii" = (
@@ -879,6 +883,7 @@
 /obj/structure/table,
 /obj/item/pen,
 /obj/item/paper_bin,
+/obj/item/stamp/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -970,7 +975,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "jO" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -987,9 +994,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "jW" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/beer/upgraded{
-	dir = 1
-	},
+/obj/machinery/chem_dispenser/beer/upgraded,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
@@ -1378,7 +1383,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "oj" = (
-/obj/structure/closet/crate,
 /obj/item/storage/box/donkpockets{
 	pixel_x = -2;
 	pixel_y = 6
@@ -1398,6 +1402,9 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1470,7 +1477,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "pp" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1577,7 +1584,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "rp" = (
-/obj/machinery/vending/toyliberationstation{
+/obj/machinery/economy/vending/toyliberationstation{
 	req_access_txt = "150"
 	},
 /obj/structure/cable{
@@ -1700,7 +1707,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "sH" = (
-/obj/machinery/vending/artvend,
+/obj/machinery/economy/vending/artvend,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -1967,9 +1974,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "vv" = (
 /obj/structure/table/wood,
-/obj/machinery/chem_dispenser/soda/upgraded{
-	dir = 1
-	},
+/obj/machinery/chem_dispenser/soda/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2047,7 +2052,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "wf" = (
-/obj/structure/closet/crate,
 /obj/item/vending_refill/snack{
 	pixel_x = -3;
 	pixel_y = 3
@@ -2058,6 +2062,9 @@
 	},
 /obj/item/vending_refill/coffee,
 /obj/item/vending_refill/cola,
+/obj/structure/rack{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -2212,7 +2219,7 @@
 "xm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/economy/vending/medical/syndicate_access,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
@@ -2506,7 +2513,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "AU" = (
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/economy/vending/cigarette/syndicate/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -3162,7 +3169,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "HL" = (
-/obj/structure/closet/crate,
 /obj/item/storage/box/stockparts/deluxe,
 /obj/item/storage/box/stockparts/deluxe,
 /obj/item/stack/sheet/metal/fifty,
@@ -3170,6 +3176,9 @@
 /obj/item/circuitboard/gibber,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3224,7 +3233,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "IA" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3446,7 +3455,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "KB" = (
-/mob/living/simple_animal/pig,
+/mob/living/simple_animal/pig{
+	faction = list("neutral","syndicate")
+	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
 "KH" = (
@@ -3508,7 +3519,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Le" = (
-/obj/structure/reagent_dispensers/beerkeg,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -3590,7 +3601,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "LK" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -3633,7 +3646,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "syndbaseventing";
 	name = "Venting Bay Door";
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -3769,7 +3782,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "NE" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	autolink_id = "syndiebase_mix_in"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "NN" = (
@@ -3908,7 +3923,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "PE" = (
-/obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/economy/vending/medical/syndicate_access,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -4154,7 +4169,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "SU" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4166,18 +4181,21 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "SW" = (
-/mob/living/simple_animal/cow,
+/mob/living/simple_animal/cow{
+	faction = list("neutral","syndicate")
+	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
 "SX" = (
 /obj/structure/window/basic{
 	dir = 4
 	},
-/mob/living/simple_animal/chicken,
+/mob/living/simple_animal/chicken{
+	faction = list("neutral","syndicate")
+	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Tc" = (
-/obj/structure/closet/crate,
 /obj/item/storage/box/donkpockets{
 	pixel_x = -2;
 	pixel_y = 6
@@ -4190,6 +4208,9 @@
 	},
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
+	},
+/obj/structure/rack{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -4237,7 +4258,7 @@
 /obj/structure/window/basic{
 	dir = 4
 	},
-/obj/machinery/vending/hydroseeds,
+/obj/machinery/economy/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -4257,6 +4278,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "Tv" = (
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "syndiebase_mix_sensor"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Tw" = (
@@ -4656,6 +4680,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/rack{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -4704,12 +4731,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Zo" = (
-/obj/machinery/computer/general_air_control{
-	frequency = 1222;
-	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor" = "Burn Mix")
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	inlet_injector_autolink_id = "syndiebase_mix_in";
+	outlet_vent_autolink_id = "syndiebase_mix_out";
+	autolink_sensors = list("syndiebase_mix_sensor" = "Burn Mix")
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Zy" = (

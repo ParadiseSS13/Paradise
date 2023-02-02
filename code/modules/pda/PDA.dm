@@ -49,6 +49,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		new/datum/data/pda/app/notekeeper,
 		new/datum/data/pda/app/messenger,
 		new/datum/data/pda/app/manifest,
+		new/datum/data/pda/app/nanobank,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/utility/flashlight)
 	var/list/shortcut_cache = list()
@@ -60,6 +61,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/ownrank = null // this one is rank, never alt title
 
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
+	// The slot where you can store a pen
+	var/obj/item/held_pen
 	var/retro_mode = 0
 
 
@@ -75,7 +78,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	new /obj/item/pen(src)
+	add_pen(new /obj/item/pen(src))
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -86,7 +89,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/mob/M = loc
 	if(M.incapacitated())
 		return 0
-	if((src in M.contents) || ( istype(loc, /turf) && in_range(src, M) ))
+	if((src in M.contents) || ( isturf(loc) && in_range(src, M) ))
 		return 1
 	else
 		return 0
@@ -186,6 +189,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 		id = null
 		playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 
+	if(ishuman(loc))
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID()
+
 /obj/item/pda/verb/verb_remove_id()
 	set category = "Object"
 	set name = "Remove id"
@@ -214,16 +222,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 
 	if(can_use(user))
-		var/obj/item/pen/O = locate() in src
-		if(O)
-			to_chat(user, "<span class='notice'>You remove [O] from [src].</span>")
+		if(held_pen)
+			to_chat(user, "<span class='notice'>You remove [held_pen] from [src].</span>")
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-			if(istype(loc, /mob))
-				var/mob/M = loc
-				if(M.get_active_hand() == null)
-					M.put_in_hands(O)
-					return
-			O.forceMove(get_turf(src))
+			user.put_in_hands(held_pen)
+			clear_pen()
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
@@ -248,7 +251,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 			id = I
 			user.put_in_hands(old_id)
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	return
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID()
 
 /obj/item/pda/attackby(obj/item/C, mob/user, params)
 	..()
@@ -270,6 +277,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return
 		if(!owner)
+			var/datum/data/pda/app/nanobank/nanobank_program = (locate(/datum/data/pda/app/nanobank) in programs)
+			if(nanobank_program && idcard.associated_account_number)
+				nanobank_program.reconnect_database()
+				nanobank_program.user_account = nanobank_program.account_database?.find_user_account(idcard.associated_account_number)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
 			ownrank = idcard.rank
@@ -280,7 +291,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
+			if(((src in user.contents) && (C in user.contents)) || (isturf(loc) && in_range(src, user) && (C in user.contents)) )
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
@@ -294,21 +305,29 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
 		SStgui.update_uis(src)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	else if(istype(C, /obj/item/pen))
-		var/obj/item/pen/O = locate() in src
-		if(O)
+	else if(is_pen(C))
+		if(held_pen)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
 		else
 			user.drop_item()
-			C.forceMove(src)
+			add_pen(C)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
 			cartridge.attackby(C, user, params)
 
+/obj/item/pda/proc/add_pen(obj/item/P)
+	P.forceMove(src)
+	held_pen = P
+	RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, PROC_REF(clear_pen))
+
+/obj/item/pda/proc/clear_pen()
+	UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
+	held_pen = null
+
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
-	if(istype(C, /mob/living/carbon) && scanmode)
+	if(iscarbon(C) && scanmode)
 		scanmode.scan_mob(C, user)
 
 /obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
@@ -340,7 +359,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		pai.forceMove(T)
 	current_app = null
 	scanmode = null
-	QDEL_LIST(programs)
+	QDEL_NULL(held_pen)
+	QDEL_LIST_CONTENTS(programs)
 	QDEL_NULL(cartridge)
 	return ..()
 
@@ -379,7 +399,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(current_app)
 		current_app.program_process()
 
-/obj/item/pda/extinguish_light()
+/obj/item/pda/extinguish_light(force = FALSE)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()
+
+/obj/item/pda/get_ID_assignment(if_no_id = "No id")
+	. = ..()
+	if(. == if_no_id) // We dont have an ID in us, check our cached job
+		return ownjob
+
+/obj/item/pda/get_ID_rank(if_no_id = "No id")
+	. = ..()
+	if(. == if_no_id) // Ditto but rank
+		return ownrank

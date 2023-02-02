@@ -165,7 +165,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body(rebuild_base = FALSE)
-	remove_overlay(BODY_LAYER)
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
 
@@ -273,8 +272,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
-	overlays_standing[BODY_LAYER] = standing
-	apply_overlay(BODY_LAYER)
 	//tail
 	update_tail_layer()
 	update_wing_layer()
@@ -283,6 +280,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_head_accessory()
 	//markings
 	update_markings()
+	update_hands_layer()
 	//hair
 	update_hair()
 	update_fhair()
@@ -308,7 +306,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			markings_standing.Blend(b_marking_s, ICON_OVERLAY)
 	//Head markings.
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
+	if(istype(head_organ) && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
@@ -327,7 +325,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(HEAD_ACC_OVER_LAYER)
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ)
+	if(!istype(head_organ))
 		return
 
 	//masks and helmets can obscure our head accessory
@@ -344,7 +342,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				if(head_accessory_style.do_colouration)
 					head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
 				head_accessory_standing = head_accessory_s //head_accessory_standing.Blend(head_accessory_s, ICON_OVERLAY)
-														   //Having it this way preserves animations. Useful for animated antennae.
+														//Having it this way preserves animations. Useful for animated antennae.
 
 				if(head_accessory_style.over_hair) //Select which layer to use based on the properties of the head accessory style.
 					overlays_standing[HEAD_ACC_OVER_LAYER] = mutable_appearance(head_accessory_standing, layer = -HEAD_ACC_OVER_LAYER)
@@ -362,7 +360,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(HAIR_LAYER)
 
 	var/obj/item/organ/external/head/O = get_organ("head")
-	if(!O)
+	if(!istype(O))
 		return
 
 	if((head?.flags & BLOCKHAIR) || (wear_mask?.flags & BLOCKHAIR))
@@ -407,6 +405,39 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays_standing[HAIR_LAYER] = MA
 	apply_overlay(HAIR_LAYER)
 
+//HANDS OVERLAY
+//Exists to stop the need to cut holes in jumpsuit sprites
+/mob/living/carbon/human/proc/update_hands_layer()
+	remove_overlay(HANDS_LAYER)
+
+	if(w_uniform?.body_parts_covered & HANDS)
+		return
+
+	var/species_name = ""
+	if(dna.species.name in list("Drask", "Grey", "Vox"))
+		species_name = "_[lowertext(dna.species.name)]"
+
+	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
+
+	if(get_limb_by_name("l_hand"))
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "l_hand_mask[species_name]"), ICON_OVERLAY)
+	if(get_limb_by_name("r_hand"))
+		hands_mask.Blend(icon('icons/mob/clothing/masking_helpers.dmi', "r_hand_mask[species_name]"), ICON_OVERLAY)
+
+	var/mutable_appearance/body_layer = overlays_standing[LIMBS_LAYER][1]
+	var/icon/body_hands = icon(body_layer.icon)
+	body_hands.Blend(hands_mask, ICON_MULTIPLY)
+
+	var/mutable_appearance/markings_layer = overlays_standing[MARKINGS_LAYER]
+	var/icon/markings_hands = icon(markings_layer.icon)
+	markings_hands.Blend(hands_mask, ICON_MULTIPLY)
+
+	var/mutable_appearance/final_sprite = mutable_appearance(body_hands, layer = -HANDS_LAYER)
+	final_sprite.overlays += markings_hands
+
+	overlays_standing[HANDS_LAYER] = final_sprite
+	apply_overlay(HANDS_LAYER)
+
 //FACIAL HAIR OVERLAY
 /mob/living/carbon/human/proc/update_fhair()
 	//Reset our facial hair
@@ -414,7 +445,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(FHAIR_OVER_LAYER)
 
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ)
+	if(!istype(head_organ))
 		return
 
 	//masks and helmets can obscure our facial hair, unless we're a synthetic
@@ -534,6 +565,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_tail_layer()
 	update_wing_layer()
 	update_halo_layer()
+	update_eyes_overlay_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
@@ -559,12 +591,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!t_color)
 			t_color = icon_state
 
-		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/uniform.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
+		var/mutable_appearance/standing = mutable_appearance('icons/mob/clothing/under/misc.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
 
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override
-		else if(w_uniform.sprite_sheets && w_uniform.sprite_sheets[dna.species.name])
-			standing.icon = w_uniform.sprite_sheets[dna.species.name]
+		if(w_uniform.sprite_sheets)
+			standing.icon = w_uniform.sprite_sheets["Human"]
+			if(w_uniform.sprite_sheets[dna.species.name] && icon_exists(w_uniform.sprite_sheets[dna.species.name], "[t_color]_s"))
+				standing.icon = w_uniform.sprite_sheets[dna.species.name]
 
 		if(w_uniform.blood_DNA)
 			var/image/bloodsies	= image("icon" = dna.species.blood_mask, "icon_state" = "uniformblood")
@@ -612,6 +646,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.layer = initial(thing.layer)
 					thing.plane = initial(thing.plane)
 	apply_overlay(UNIFORM_LAYER)
+	update_hands_layer()
 
 /mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)
@@ -953,7 +988,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(wear_mask && (istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/accessory)))
 		if(!(slot_wear_mask in check_obscured_slots()))
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
-			if(!head_organ)
+			if(!istype(head_organ))
 				return // Nothing to update here
 			var/datum/sprite_accessory/alt_heads/alternate_head
 			if(head_organ.alt_head && head_organ.alt_head != "None")
@@ -1011,14 +1046,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
-	clear_alert("legcuffed")
+	. = ..()
 	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "legcuff", layer = -LEGCUFF_LAYER)
-		throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		if(m_intent != MOVE_INTENT_WALK)
-			m_intent = MOVE_INTENT_WALK
-			if(hud_used && hud_used.move_intent)
-				hud_used.move_intent.icon_state = "walking"
+		overlays_standing[LEGCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', legcuffed.cuffed_state, layer = -LEGCUFF_LAYER)
 	apply_overlay(LEGCUFF_LAYER)
 
 
@@ -1331,6 +1361,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(HALO_LAYER)
 
+/mob/living/carbon/human/proc/update_eyes_overlay_layer()
+	remove_overlay(EYES_OVERLAY_LAYER)
+
+	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
+	if(istype(eyes_organ, /obj/item/organ/internal/eyes/cybernetic/eyesofgod))
+		var/obj/item/organ/internal/eyes/cybernetic/eyesofgod/E = eyes_organ
+		if(E.active)
+			var/mutable_appearance/new_eye_overlay = mutable_appearance('icons/effects/32x64.dmi', "eyesofgod", -EYES_OVERLAY_LAYER)
+			overlays_standing[EYES_OVERLAY_LAYER] = new_eye_overlay
+
+	apply_overlay(EYES_OVERLAY_LAYER)
 
 /mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
 	if(..())

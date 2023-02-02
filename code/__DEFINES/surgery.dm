@@ -54,3 +54,21 @@
 /// This surgery step will be conditionally retried, so long as the surgery step's can_repeat() proc returns TRUE.
 /// Otherwise, it'll behave just like SURGERY_STEP_INCOMPLETE.
 #define SURGERY_STEP_RETRY 3
+
+// Return values for surgery_step.initiate().
+// Before you ask, yes, we need another definition for surgery steps here, since these control how we will act on the attack-chain
+// side of things.
+// Unless you're changing the mechanics of the surgery attack chain, you almost surely don't want to use these, and should
+// instead be using the above SURGERY_STEP_X defines.
+
+/// The surgery initiation isn't even going to be started. If you're working with the attack chain, this is probably what you'll be using.
+#define SURGERY_INITIATE_CONTINUE_CHAIN 0
+
+/// The surgery initiaition was a success. We're advancing the current surgery.
+#define SURGERY_INITIATE_SUCCESS 1
+
+/// The surgery initiation was interrupted, or for some reason never completed. We don't want to return FALSE to the attack chain, though.
+#define SURGERY_INITIATE_FAILURE 2
+
+/// The surgery never reached (or finished) the do_after. Go back to the state we were in before this even happened.
+#define SURGERY_INITIATE_INTERRUPTED 3

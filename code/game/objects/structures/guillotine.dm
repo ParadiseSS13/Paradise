@@ -68,13 +68,13 @@
 		if(GUILLOTINE_BLADE_DROPPED)
 			blade_status = GUILLOTINE_BLADE_MOVING
 			icon_state = "guillotine_raise"
-			addtimer(CALLBACK(src, .proc/raise_blade), GUILLOTINE_ANIMATION_LENGTH)
+			addtimer(CALLBACK(src, PROC_REF(raise_blade)), GUILLOTINE_ANIMATION_LENGTH)
 			return
 		if(GUILLOTINE_BLADE_RAISED)
 			if(has_buckled_mobs())
 				if(user.a_intent == INTENT_HARM)
 					user.visible_message("<span class='warning'>[user] begins to pull the lever!</span>",
-						                 "<span class='warning'>You begin to the pull the lever.</span>")
+										"<span class='warning'>You begin to the pull the lever.</span>")
 					current_action = GUILLOTINE_ACTION_INUSE
 
 					if(do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)
@@ -82,7 +82,7 @@
 						blade_status = GUILLOTINE_BLADE_MOVING
 						icon_state = "guillotine_drop"
 						playsound(src, 'sound/items/unsheath.ogg', 100, 1)
-						addtimer(CALLBACK(src, .proc/drop_blade, user), GUILLOTINE_ANIMATION_LENGTH - 2) // Minus two so we play the sound and decap faster
+						addtimer(CALLBACK(src, PROC_REF(drop_blade), user), GUILLOTINE_ANIMATION_LENGTH - 2) // Minus two so we play the sound and decap faster
 					else
 						current_action = 0
 				else
@@ -91,7 +91,7 @@
 				blade_status = GUILLOTINE_BLADE_MOVING
 				icon_state = "guillotine_drop"
 				playsound(src, 'sound/items/unsheath.ogg', 100, 1)
-				addtimer(CALLBACK(src, .proc/drop_blade), GUILLOTINE_ANIMATION_LENGTH)
+				addtimer(CALLBACK(src, PROC_REF(drop_blade)), GUILLOTINE_ANIMATION_LENGTH)
 
 /obj/structure/guillotine/proc/raise_blade()
 	blade_status = GUILLOTINE_BLADE_RAISED
@@ -108,7 +108,7 @@
 
 		var/obj/item/organ/external/head/head = H.get_organ("head")
 
-		if(QDELETED(head))
+		if(QDELETED(head) || !istype(head))
 			blade_status = GUILLOTINE_BLADE_DROPPED
 			icon_state = "guillotine"
 			return
@@ -137,7 +137,7 @@
 				// The delay is to make large crowds have a longer lasting applause
 				var/delay_offset = 0
 				for(var/mob/living/carbon/human/HM in viewers(src, 7))
-					addtimer(CALLBACK(HM, /mob/.proc/emote, "clap"), delay_offset * 0.3)
+					addtimer(CALLBACK(HM, TYPE_PROC_REF(/mob, emote), "clap"), delay_offset * 0.3)
 					delay_offset++
 		else
 			H.apply_damage(15 * blade_sharpness, BRUTE, head)
@@ -162,7 +162,7 @@
 				if(do_after(user, 7, target = src))
 					blade_status = GUILLOTINE_BLADE_RAISED
 					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
-						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
+										"<span class='notice'>You sharpen the large blade of the guillotine.</span>")
 					blade_sharpness += 1
 					playsound(src, 'sound/items/screwdriver.ogg', 100, 1)
 					return

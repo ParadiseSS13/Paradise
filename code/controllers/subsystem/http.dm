@@ -1,10 +1,11 @@
 SUBSYSTEM_DEF(http)
 	name = "HTTP"
-	flags = SS_TICKER | SS_BACKGROUND // Measure in ticks, but also only run if we have the spare CPU. We also dont init.
+	flags = SS_TICKER | SS_BACKGROUND // Measure in ticks, but also only run if we have the spare CPU.
 	wait = 1
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY // All the time
 	// Assuming for the worst, since only discord is hooked into this for now, but that may change
 	offline_implications = "The server is no longer capable of making async HTTP requests. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 	/// List of all async HTTP requests in the processing chain
 	var/list/datum/http_request/active_async_requests
 	/// Variable to define if logging is enabled or not. Disabled by default since we know the requests the server is making. Enable with VV if you need to debug requests
@@ -16,9 +17,8 @@ SUBSYSTEM_DEF(http)
 	. = ..()
 	rustg_create_async_http_client() // Open the door
 
-/datum/controller/subsystem/http/Initialize(start_timeofday)
+/datum/controller/subsystem/http/Initialize()
 	active_async_requests = list()
-	return ..()
 
 /datum/controller/subsystem/http/get_stat_details()
 	return "P: [length(active_async_requests)] | T: [total_requests]"
@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(http)
 /client/verb/testing()
 	set name = "Testing"
 
-	var/datum/callback/cb = CALLBACK(src, /client/.proc/response, usr)
+	var/datum/callback/cb = CALLBACK(src, TYPE_PROC_REF(/client, response), usr)
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://site.domain/page.html", proc_callback=cb)
 
 /client/proc/response(mob/user, datum/http_response/response)
