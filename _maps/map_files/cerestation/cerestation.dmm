@@ -3632,7 +3632,7 @@
 /obj/machinery/door/airlock/hatch/gamma{
 	locked = 1;
 	req_access_txt = "1";
-	use_power = 0
+	power_state = 0
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/orange{
@@ -36809,7 +36809,7 @@
 "dgW" = (
 /obj/machinery/economy/vending/autodrobe{
 	desc = "A vending machine for costumes. The machine seems blessed by some higher power, allowing it to function without power. HONK!";
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/plating,
 /area/clownoffice/secret)
