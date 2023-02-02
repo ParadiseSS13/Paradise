@@ -23,14 +23,25 @@
 	owner.adjustFireLoss(0.1)
 	owner.adjustToxLoss(0.2)
 
-/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
+/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
 	id = "cult_ghost"
 	duration = -1
 	alert_type = null
+	var/damage = 7.5
+	var/source_UID
+
+/datum/status_effect/cultghost/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
 
 /datum/status_effect/cultghost/tick()
 	if(owner.reagents)
 		owner.reagents.del_reagent("holywater") //can't be deconverted
+	var/mob/living/summoner = locateUID(source_UID)
+	if(get_dist_euclidian(summoner, owner) < 21)
+		return
+	owner.adjustBruteLoss(damage)
+	to_chat(owner, "<span class='userdanger'>You are too far away from the summoner!</span>")
 
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
@@ -266,6 +277,17 @@
 		owner.apply_damage(damage, BRUTE)
 		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
 
+/datum/status_effect/cling_tentacle
+	id = "cling_tentacle"
+	alert_type = null
+	duration = 3 SECONDS
+
+/datum/status_effect/cling_tentacle/on_apply()
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	return ..()
+
+/datum/status_effect/cling_tentacle/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
 // start of `living` level status procs.
 

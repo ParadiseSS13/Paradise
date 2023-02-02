@@ -104,6 +104,7 @@
 	duration = 10
 	tick_interval = 0
 	alert_type = /obj/screen/alert/status_effect/blooddrunk
+	var/blooddrunk_damage_mod_remove = 4 // Damage is multiplied by this at the end of the status effect. Modify this one, it changes the _add
 
 /obj/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
@@ -116,12 +117,13 @@
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			H.physiology.brute_mod *= 0.1
-			H.physiology.burn_mod *= 0.1
-			H.physiology.tox_mod *= 0.1
-			H.physiology.oxy_mod *= 0.1
-			H.physiology.clone_mod *= 0.1
-			H.physiology.stamina_mod *= 0.1
+			var/blooddrunk_damage_mod_add = 1 / blooddrunk_damage_mod_remove // Damage is multiplied by this at the start of the status effect. Don't modify this one directly.
+			H.physiology.brute_mod *= blooddrunk_damage_mod_add
+			H.physiology.burn_mod *= blooddrunk_damage_mod_add
+			H.physiology.tox_mod *= blooddrunk_damage_mod_add
+			H.physiology.oxy_mod *= blooddrunk_damage_mod_add
+			H.physiology.clone_mod *= blooddrunk_damage_mod_add
+			H.physiology.stamina_mod *= blooddrunk_damage_mod_add
 		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("blooddrunk", INFINITY, 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
@@ -129,12 +131,12 @@
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.physiology.brute_mod *= 10
-		H.physiology.burn_mod *= 10
-		H.physiology.tox_mod *= 10
-		H.physiology.oxy_mod *= 10
-		H.physiology.clone_mod *= 10
-		H.physiology.stamina_mod *= 10
+		H.physiology.brute_mod *= blooddrunk_damage_mod_remove
+		H.physiology.burn_mod *= blooddrunk_damage_mod_remove
+		H.physiology.tox_mod *= blooddrunk_damage_mod_remove
+		H.physiology.oxy_mod *= blooddrunk_damage_mod_remove
+		H.physiology.clone_mod *= blooddrunk_damage_mod_remove
+		H.physiology.stamina_mod *= blooddrunk_damage_mod_remove
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
@@ -344,10 +346,12 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		for(var/thing in H.bodyparts)
-			var/obj/item/organ/external/E = thing
-			E.fix_internal_bleeding()
-			E.mend_fracture()
+		if(is_mining_level(H.z))
+			for(var/obj/item/organ/external/E in H.bodyparts)
+				E.fix_internal_bleeding()
+				E.mend_fracture()
+		else
+			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
 	else
 		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
@@ -397,6 +401,22 @@
 			owner.emote("gasp")
 	cling.genetic_damage += stacks
 	cling = null
+
+/datum/status_effect/panacea
+	duration = 20 SECONDS
+	tick_interval = 2 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
+/datum/status_effect/panacea/tick()
+	owner.adjustToxLoss(-5) //Has the same healing as 20 charcoal, but happens faster
+	owner.radiation = max(0, owner.radiation - 70) //Same radiation healing as pentetic
+	owner.adjustBrainLoss(-5)
+	owner.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
+	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		if(!R.harmless)
+			owner.reagents.remove_reagent(R.id, 2)
 
 /datum/status_effect/chainsaw_slaying
 	id = "chainsaw_slaying"

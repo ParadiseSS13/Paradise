@@ -427,7 +427,7 @@
 		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but it does not exist in the Database, please investigate further.")
 		return FALSE
 	if(!SSdbcore.IsConnected()) //check our connection to the DB
-		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but the flag was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for [report_type.description] but the flag was not successfully saved to the Database. Please investigate further.")
 		alert("Connection to Archive has been severed. Aborting.")
 		return FALSE
 
@@ -462,7 +462,7 @@
 		"report" = json_encode(flag_json),
 	))
 	if(!query.warn_execute())
-		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for \"[report_type.description]\" but the flag was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: a player has attempted to flag book #[bookid] as inappropriate for \"[report_type.description]\" but the flag was not successfully saved to the Database. Please investigate further.")
 		qdel(query)
 		return FALSE
 	message_admins("[ckey] has flagged book #[bookid] as inappropriate for \"[report_type.description]\".")
@@ -486,7 +486,7 @@
 		return FALSE //it don't exist
 
 	if(!SSdbcore.IsConnected()) //check our connection to the DB
-		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not successfully saved to the Database. Please investigate further.")
 		return FALSE
 
 	//uploading our report to the library
@@ -495,7 +495,7 @@
 		"report" = json_encode(list()),
 	))
 	if(!query.warn_execute())
-		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not succesfully saved to the Database. Please investigate further.")
+		message_admins("WARNING: an admin has attempted to unflag book #[bookid] but it was not successfully saved to the Database. Please investigate further.")
 		qdel(query)
 		return FALSE
 	qdel(query)

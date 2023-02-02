@@ -68,7 +68,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/head/helmet/space/hardsuit/extinguish_light()
+/obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
@@ -411,12 +411,14 @@
 			linkedsuit.slowdown = 1
 			linkedsuit.flags |= STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+			linkedsuit.on = TRUE
 		else
 			linkedsuit.name += " (combat)"
 			linkedsuit.desc = linkedsuit.alt_desc
 			linkedsuit.slowdown = 0
 			linkedsuit.flags &= ~STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection &= ~(UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS)
+			linkedsuit.on = FALSE
 
 		linkedsuit.update_icon()
 		user.update_inv_wear_suit()

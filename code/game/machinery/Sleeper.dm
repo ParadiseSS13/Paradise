@@ -6,6 +6,7 @@
 
 /obj/machinery/sleeper
 	name = "sleeper"
+	desc = "Injects chemicals into the bloodstream of the occupant, can remove chemicals from the bloodstream of the occupant through dialysis."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
@@ -25,10 +26,15 @@
 	var/min_health = -25
 	var/controls_inside = FALSE
 	var/auto_eject_dead = FALSE
-	idle_power_usage = 1250
-	active_power_usage = 2500
+	idle_power_consumption = 1250
+	active_power_consumption = 2500
 
 	light_color = LIGHT_COLOR_CYAN
+
+/obj/machinery/sleeper/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant.</span>"
 
 /obj/machinery/sleeper/detailed_examine()
 	return "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\
@@ -39,11 +45,11 @@
 			<br>\
 			You can also inject common medicines directly into their bloodstream.\
 			<br>\
-			Right-click the cell and click 'Eject Occupant' to remove them. You can enter the cell yourself by right clicking and selecting 'Enter Sleeper'. \
+			Alt-Click the sleeper to remove them. You can enter the cell yourself by right clicking and selecting 'Enter Sleeper'. \
 			Note that you cannot control the sleeper while inside of it."
 
 /obj/machinery/sleeper/power_change()
-	..()
+	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -459,19 +465,17 @@
 	else
 		to_chat(user, "There's no occupant in the sleeper!")
 
-/obj/machinery/sleeper/verb/eject()
-	set name = "Eject Sleeper"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+/obj/machinery/sleeper/AltClick(mob/user)
+	if(issilicon(user))
+		eject()
 		return
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+	eject()
 
+/obj/machinery/sleeper/proc/eject(mob/user)
 	go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/sleeper/verb/remove_beaker()
 	set name = "Remove Beaker"

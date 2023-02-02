@@ -38,8 +38,8 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/supplycomp/proc/has_qm_access(list/access)
-	return (ACCESS_QM in access) ? TRUE : FALSE
+/obj/machinery/computer/supplycomp/proc/has_ct_access(list/access)
+	return (ACCESS_CARGO in access) ? TRUE : FALSE
 
 /obj/machinery/computer/supplycomp/proc/is_authorized(mob/user)
 	if(allowed(user))
@@ -88,16 +88,16 @@
 		if(is_silicon) //robots and admins can do whatever they want
 			can_approve = TRUE
 			can_deny = TRUE
-		if(order.requires_qm_approval)
-			if(C && has_qm_access(C.access)) //if the crate needs QM approval and you have QM access, you get app and deny rights
+		if(order.requires_cargo_approval)
+			if(C && has_ct_access(C.access)) //if the crate needs CT approval and you have CT access, you get app and deny rights
 				can_approve = TRUE
 				can_deny = TRUE
 		else if(order.requires_head_approval)
 			if(C && order.ordered_by_department.has_account_access(C.access, GLOB.station_money_database.find_user_account(C.associated_account_number)))
-				can_approve = TRUE //if the crate DOESN'T need QM approval (or QM already approved it), you get app and deny rights
+				can_approve = TRUE //if the crate DOESN'T need CT approval (or CT already approved it), you get app and deny rights
 				can_deny = TRUE
-			if(C && has_qm_access(C.access))
-				can_deny = TRUE //QM can deny any order at any time
+			if(C && has_ct_access(C.access))
+				can_deny = TRUE //CT can deny any order at any time
 
 		var/list/request_data = list(
 			"ordernum" = order.ordernum,
@@ -106,14 +106,14 @@
 			"department" = order.ordered_by_department?.department_name,
 			"cost" = order.object.cost,
 			"comment" = order.comment,
-			"req_qm_approval" = order.requires_qm_approval,
+			"req_cargo_approval" = order.requires_cargo_approval,
 			"req_head_approval" = order.requires_head_approval,
 			"can_approve" = can_approve,
 			"can_deny" = can_deny
 		)
 		//The way approval rights is determined
-		//If a crate requires QM approval and head approval - Only the QM can approve it for now, heads can still deny it at this point however
-		//If a crate requires head approval - They can approve it as long as they have department account access and the crate doesn't still need QM approval
+		//If a crate requires CT approval and head approval - Only CTs can approve it for now, heads can still deny it at this point however
+		//If a crate requires head approval - They can approve it as long as they have department account access and the crate doesn't still need CT approval
 		requests += list(request_data)
 	return requests
 
@@ -321,19 +321,19 @@
 
 				if(length(order.object.department_restrictions) && !(department.department_name in order.object.department_restrictions))
 					//this crate has a department whitelist description
-					//this department is not in this whitelist, require QM approval
-					order.requires_qm_approval = TRUE
+					//this department is not in this whitelist, require CT approval
+					order.requires_cargo_approval = TRUE
 				break
 	else if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL && length(order.object.department_restrictions))
-		order.requires_qm_approval = TRUE
+		order.requires_cargo_approval = TRUE
 
 	//===Handle Supply Order===
 	if(selected_account.account_type == ACCOUNT_TYPE_PERSONAL)
-		//if the account is a personal account (and doesn't require QM approval), go ahead and pay for it now
+		//if the account is a personal account (and doesn't require CT approval), go ahead and pay for it now
 		order.orderedbyaccount = selected_account
 		if(attempt_account_authentification(selected_account, user))
 			var/paid_for = FALSE
-			if(!order.requires_qm_approval && pay_with_account(selected_account, order.object.cost, "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
+			if(!order.requires_cargo_approval && pay_with_account(selected_account, order.object.cost, "[order.object.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 				paid_for = TRUE
 			SSeconomy.process_supply_order(order, paid_for) //add order to shopping list
 	else //if its a department account with pin or higher security or need QM approval, go ahead and add this to the departments section in request list
@@ -350,10 +350,10 @@
 		var/datum/supply_packs/pack = order.object
 		var/datum/money_account/account = order.orderedbyaccount
 
-		if(order.requires_qm_approval)
-			if(!has_qm_access(user.get_access()))
+		if(order.requires_cargo_approval)
+			if(!has_ct_access(user.get_access()))
 				return FALSE
-			order.requires_qm_approval = FALSE
+			order.requires_cargo_approval = FALSE
 			if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
 				if(pay_with_account(account, order.object.cost, "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 					SSeconomy.process_supply_order(order, TRUE) //send 'er back through
@@ -397,9 +397,9 @@
 			SSeconomy.request_list -= order
 			return
 		// If we arent public, were cargo access. CANCELLATIONS FOR EVERYONE
-		if(order.requires_qm_approval && (ACCESS_QM in C.access))
+		if(order.requires_cargo_approval && (issilicon(user) || (ACCESS_CARGO in C?.access)))
 			SSeconomy.request_list -= order
-		else if(order.requires_head_approval && (order.ordered_by_department.has_account_access(C.access)))
+		else if(order.requires_head_approval && (issilicon(user) || order.ordered_by_department.has_account_access(C?.access)))
 			SSeconomy.request_list -= order
 		else
 			return //how did we get here?

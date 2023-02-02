@@ -184,7 +184,7 @@
 	if(owner.holy_check())
 		return
 	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
-						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
+						"<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
 	owner.emp_act(2)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(empulse), owner, 2, 5, TRUE, "cult")
 	owner.whisper(invocation)
@@ -219,13 +219,13 @@
 /datum/action/innate/cult/blood_spell/dagger/Activate()
 	var/turf/T = get_turf(owner)
 	owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
-						  "<span class='cultitalic'>Red light begins to shimmer and take form within your hand!</span>")
+						"<span class='cultitalic'>Red light begins to shimmer and take form within your hand!</span>")
 	var/obj/item/melee/cultblade/dagger/O = new(T)
 	if(owner.put_in_hands(O))
 		to_chat(owner, "<span class='warning'>A [O.name] appears in your hand!</span>")
 	else
 		owner.visible_message("<span class='warning'>A [O.name] appears at [owner]'s feet!</span>", \
-							  "<span class='cultitalic'>A [O.name] materializes at your feet.</span>")
+							"<span class='cultitalic'>A [O.name] materializes at your feet.</span>")
 	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE)
 	charges--
 	desc = base_desc
@@ -444,7 +444,7 @@
 	var/obj/item/nullrod/N = locate() in target
 	if(N)
 		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
-							   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
+							"<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
 	else
 		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
 
@@ -513,6 +513,11 @@
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
+
+	if(HAS_TRAIT(user, TRAIT_FLOORED))
+		to_chat(user, "<span class='cultitalic'>You cannot cast this spell while knocked down!</span>")
+		return
+
 	uses--
 
 	var/turf/origin = get_turf(teleportee)
@@ -810,7 +815,7 @@
 						user.Beam(H, icon_state = "drainbeam", time = 10)
 						playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50)
 						H.visible_message("<span class='danger'>[user] has drained some of [H]'s blood!</span>",
-										  "<span class='userdanger'>[user] has drained some of your blood!</span>")
+										"<span class='userdanger'>[user] has drained some of your blood!</span>")
 						to_chat(user, "<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
 						new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					else

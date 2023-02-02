@@ -11,12 +11,12 @@
 	return 1
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()
-    // Used for marking where to preview/load shuttles
-    return 0
+	// Used for marking where to preview/load shuttles
+	return 0
 
 /obj/docking_port/onShuttleMove()
-    // Stationary ports shouldn't move, mobile ones move themselves
-    return 0
+	// Stationary ports shouldn't move, mobile ones move themselves
+	return 0
 
 /obj/machinery/door/airlock/onShuttleMove()
 	. = ..()
@@ -33,20 +33,20 @@
 		INVOKE_ASYNC(src, PROC_REF(lock))
 
 /mob/onShuttleMove(turf/oldT, turf/T1, rotation)
-    if(!move_on_shuttle)
-        return 0
-    . = ..()
-    if(!.)
-        return
-    if(!client)
-        return
+	if(!move_on_shuttle)
+		return 0
+	. = ..()
+	if(!.)
+		return
+	if(!client)
+		return
 
-    if(buckled)
-        shake_camera(src, 2, 1) // turn it down a bit come on
-    else
-        shake_camera(src, 7, 1)
+	if(buckled)
+		shake_camera(src, 2, 1) // turn it down a bit come on
+	else
+		shake_camera(src, 7, 1)
 
-    update_parallax_contents()
+	update_parallax_contents()
 
 /mob/living/carbon/onShuttleMove()
 	. = ..()
@@ -73,5 +73,5 @@
 		// simply don't be moved
 		return FALSE
 	disconnect()
-	LateInitialize()
+	LateInitialize() // who the fuck did this
 	return ..()

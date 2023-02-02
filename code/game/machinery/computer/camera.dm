@@ -51,7 +51,7 @@
 
 /obj/machinery/computer/security/Destroy()
 	qdel(cam_screen)
-	QDEL_LIST(cam_plane_masters)
+	QDEL_LIST_CONTENTS(cam_plane_masters)
 	qdel(cam_background)
 	return ..()
 
@@ -72,7 +72,7 @@
 		if(length(watchers) == 1 && is_living)
 			if(!silent_console)
 				playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
-			use_power(active_power_usage)
+			use_power(active_power_consumption)
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
 		for(var/plane in cam_plane_masters)
@@ -214,16 +214,25 @@
 	name = "entertainment monitor"
 	desc = "Damn, they better have Paradise TV on these things."
 	icon_state = "entertainment_console"
-	icon_screen = "entertainment"
+	icon_screen = "entertainment_off"
 	light_color = "#FFEEDB"
 	light_range_on = 0
 	network = list("news")
 	luminosity = 0
 	circuit = null
+	/// Used to detect how many video cameras are active
+	var/feeds_on = 0
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
 	set_light(1, LIGHTING_MINIMUM_POWER) //so byond doesnt cull, and we get an emissive appearance
+
+/obj/machinery/computer/security/telescreen/entertainment/update_overlays()
+	if(feeds_on)
+		icon_screen = "entertainment"
+	else
+		icon_screen = "entertainment_off"
+	return ..()
 
 /obj/machinery/computer/security/telescreen/entertainment/power_change()
 	..()

@@ -24,7 +24,7 @@
 	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
 		return //don't recheck connected clients.
 
-	if((ckey in GLOB.admin_datums) || (ckey in GLOB.deadmins))
+	if((ckey in GLOB.admin_datums) || (ckey in GLOB.de_admins))
 		var/datum/admins/A = GLOB.admin_datums[ckey]
 		if(A && (A.rights & R_ADMIN))
 			admin = 1
@@ -64,7 +64,7 @@
 		// As per my comment 8 or so lines above, we do NOT log failed connections here
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
-	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && SSipintel.ipintel_is_banned(key, address))
+	if(check_ipintel && GLOB.configuration.ipintel.contact_email && GLOB.configuration.ipintel.whitelist_mode && GLOB.ipintel_manager.ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
 		if(GLOB.configuration.url.banappeals_url)

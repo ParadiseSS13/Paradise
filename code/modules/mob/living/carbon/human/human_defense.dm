@@ -32,8 +32,12 @@ emp_act
 			return -1
 
 	//Shields
-	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage))
+	var/shield_check_result = check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage)
+	if(shield_check_result == 1)
 		return 2
+	else if(shield_check_result == -1)
+		P.reflect_back(src)
+		return -1
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!IS_HORIZONTAL(src) && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
@@ -219,9 +223,11 @@ emp_act
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	var/obj/item/shield = get_best_shield()
-
-	if(shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+	var/shield_result = shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type)
+	if(shield_result >= 1)
 		return TRUE
+	if(shield_result == -1)
+		return -1
 
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
@@ -238,6 +244,10 @@ emp_act
 	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
 	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
 	if(!right_hand_parry && !left_hand_parry)
+		if(l_hand?.flags_2 & RANDOM_BLOCKER_2)
+			return l_hand
+		if(r_hand?.flags_2 & RANDOM_BLOCKER_2)
+			return r_hand
 		return null // no parry component
 
 	if(right_hand_parry && left_hand_parry)
