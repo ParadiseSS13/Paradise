@@ -66,10 +66,10 @@
 	AddSpell(pass_airlock_spell)
 
 /mob/living/simple_animal/hostile/morph/Destroy()
-	. = ..()
 	QDEL_NULL(mimic_spell)
 	QDEL_NULL(ambush_spell)
 	QDEL_NULL(pass_airlock_spell)
+	return ..()
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
