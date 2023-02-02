@@ -34,8 +34,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 500
+	idle_power_consumption = 500
 	/// Network ID used for names + auto linkage
 	var/network_id = "None"
 	/// Is the machine active
@@ -149,7 +148,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/proc/log_action(user, msg, adminmsg = FALSE)
 	log_game("NTTC: [key_name(user)] [msg]")
-	log_investigate("[key_name(user)] [msg]", "nttc")
+	investigate_log("[key_name(user)] [msg]", "nttc")
 	if(adminmsg)
 		message_admins("[key_name_admin(user)] [msg]")
 /**
@@ -158,7 +157,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * Proc which ensures icons are updated when machines lose power
   */
 /obj/machinery/tcomms/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 /**

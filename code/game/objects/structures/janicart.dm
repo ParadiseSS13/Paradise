@@ -10,6 +10,7 @@
 	face_while_pulling = FALSE
 	container_type = OPENCONTAINER
 	//copypaste sorry
+	var/maximum_volume = 150
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 	var/obj/item/storage/bag/trash/mybag	= null
 	var/obj/item/mop/mymop = null
@@ -18,10 +19,9 @@
 	var/signs = 0
 	var/const/max_signs = 4
 
-
 /obj/structure/janitorialcart/Initialize(mapload)
 	. = ..()
-	create_reagents(100)
+	create_reagents(150)
 	GLOB.janitorial_equipment += src
 
 /obj/structure/janitorialcart/Destroy()
@@ -37,6 +37,7 @@
 	I.forceMove(src)
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/structure/janitorialcart/on_reagent_change()
@@ -64,9 +65,8 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 			if(!myspray)
+				myspray = I
 				put_in_cart(I, user)
-				myspray=I
-				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/lightreplacer))
@@ -77,9 +77,8 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/caution))
 			if(signs < max_signs)
-				put_in_cart(I, user)
 				signs++
-				update_icon(UPDATE_OVERLAYS)
+				put_in_cart(I, user)
 			else
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(istype(I, /obj/item/crowbar))
@@ -125,7 +124,6 @@
 	popup.set_content(dat)
 	popup.open()
 
-
 /obj/structure/janitorialcart/Topic(href, href_list)
 	if(!in_range(src, usr))
 		return
@@ -166,7 +164,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	updateUsrDialog()
 
-
 /obj/structure/janitorialcart/update_overlays()
 	. = ..()
 	if(mybag)
@@ -182,14 +179,14 @@
 	if(reagents.total_volume > 0)
 		var/image/reagentsImage = image(icon,src,"cart_reagents0")
 		reagentsImage.alpha = 150
-		switch((reagents.total_volume/reagents.maximum_volume)*100)
-			if(1 to 25)
+		switch((reagents.total_volume / maximum_volume) * 100)
+			if(1 to 37)
 				reagentsImage.icon_state = "cart_reagents1"
-			if(26 to 50)
+			if(38 to 75)
 				reagentsImage.icon_state = "cart_reagents2"
-			if(51 to 75)
+			if(76 to 112)
 				reagentsImage.icon_state = "cart_reagents3"
-			if(76 to 100)
+			if(113 to 150)
 				reagentsImage.icon_state = "cart_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += reagentsImage

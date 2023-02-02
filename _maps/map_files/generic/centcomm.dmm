@@ -1256,7 +1256,7 @@
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 32;
-	use_power = 0
+	power_state = 0
 	},
 /obj/item/clipboard,
 /turf/simulated/floor/plasteel/dark,
@@ -3732,6 +3732,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"mV" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/trophy/bronze_cup/toolbox_win,
+/turf/simulated/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "mW" = (
 /obj/machinery/abductor/pad{
 	team = 1
@@ -3799,7 +3804,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "nj" = (
-/obj/structure/mirror{
+/obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
 /obj/structure/sink{
@@ -3836,7 +3841,7 @@
 /area/admin)
 "no" = (
 /obj/item/mop,
-/obj/structure/mirror{
+/obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -6244,6 +6249,7 @@
 /obj/machinery/light/spot,
 /obj/effect/spawner/lootdrop/trade_sol/serv,
 /obj/structure/closet,
+/obj/item/stack/tile/disco_light/thirty,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
 "wb" = (
@@ -39008,7 +39014,7 @@ aN
 aN
 ZT
 gb
-om
+mV
 WO
 ZT
 If

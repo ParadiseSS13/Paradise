@@ -331,15 +331,15 @@
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
 
 // Disable safeties on the borg's defib.
-/obj/item/robot_module/medical/emag_act()
+/obj/item/robot_module/medical/emag_act(mob/user)
 	. = ..()
 	for(var/obj/item/borg_defib/F in modules)
-		F.safety = FALSE
+		F.emag_act()
 
 // Enable safeties on the borg's defib.
 /obj/item/robot_module/medical/unemag()
 	for(var/obj/item/borg_defib/F in modules)
-		F.safety = TRUE
+		F.emag_act()
 	return ..()
 
 // Fluorosulphuric acid spray bottle.
@@ -451,7 +451,7 @@
 /obj/item/robot_module/janitor/proc/on_cyborg_move(mob/living/silicon/robot/R)
 	SIGNAL_HANDLER
 
-	if(R.stat == DEAD || !isturf(R.loc))
+	if(R.stat == DEAD || !isturf(R.loc) || !R.floorbuffer)
 		return
 	var/turf/tile = R.loc
 	for(var/A in tile)
@@ -495,7 +495,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/reagent_scanner/adv,
-		/obj/item/rsf/cyborg,
+		/obj/item/rsf,
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
@@ -507,8 +507,6 @@
 		/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
 	)
 
-/obj/item/rsf/cyborg
-	matter = 30
 
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
 /obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
@@ -651,7 +649,7 @@
 
 // Sydicate engineer/sabotuer cyborg module.
 /obj/item/robot_module/syndicate_saboteur
-	name = "engineering robot module" //to disguise in examine
+	name = "saboteur robot module" // Disguises are handled in the actual cyborg projector
 	module_type = "Malf"
 	basic_modules = list(
 		/obj/item/flash/cyborg,

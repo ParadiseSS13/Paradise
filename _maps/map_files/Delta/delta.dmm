@@ -37743,7 +37743,7 @@
 /obj/machinery/door/airlock/hatch/gamma{
 	locked = 1;
 	req_access_txt = "1";
-	use_power = 0
+	power_state = 0
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -88625,7 +88625,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
 	name = "Toxins Venting Bay Door";
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)

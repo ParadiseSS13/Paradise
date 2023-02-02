@@ -297,7 +297,7 @@
 					H.take_organ_damage(5, 10)
 					H.emote("scream")
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					if(affecting)
+					if(istype(affecting))
 						affecting.disfigure()
 				else
 					H.take_organ_damage(5, 10)
@@ -340,7 +340,7 @@
 			if(volume > 9)
 				if(!H.wear_mask && !H.head)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					if(affecting)
+					if(istype(affecting))
 						affecting.disfigure()
 					H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
 					H.emote("scream")
@@ -380,7 +380,7 @@
 				return
 			if(volume >= 50 && prob(75))
 				var/obj/item/organ/external/affecting = H.get_organ("head")
-				if(affecting)
+				if(istype(affecting))
 					affecting.disfigure()
 				H.adjustBruteLoss(5)
 				H.adjustFireLoss(15)
@@ -717,7 +717,7 @@
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 		M.Weaken(10 SECONDS)
 		M.AdjustJitter(12 SECONDS)
-		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
+		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_themselves()] violently!</span>")
 		M.emote("scream")
 	return ..() | update_flags
 
