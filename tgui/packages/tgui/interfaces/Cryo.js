@@ -151,6 +151,8 @@ const CryoContent = (props, context) => {
           </LabeledList.Item>
           <LabeledList.Item label="Beaker">
             <CryoBeaker />
+          </LabeledList.Item>
+          <LabeledList.Item label="Dosage interval">
             <ProgressBar
               ranges={{
                 average: [-Infinity, 99],
