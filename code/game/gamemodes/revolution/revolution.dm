@@ -19,7 +19,6 @@
 	recommended_enemies = 3
 
 	var/finished = 0
-	var/check_counter = 0
 	var/max_headrevs = 3
 	var/list/datum/mind/heads_to_kill = list()
 	var/list/possible_revolutionaries = list()
