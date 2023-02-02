@@ -158,6 +158,14 @@
 /obj/item/reagent_containers/spray/cleaner/drone/cyborg_recharge(coeff, emagged)
 	reagents.check_and_add("cleaner", volume, 3 * coeff)
 
+/obj/item/reagent_containers/spray/cyborg_lube
+	name = "lube spray"
+	list_reagents = list("lube" = 250)
+
+/obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
+	if(emagged)
+		reagents.check_and_add("lube", volume, 2 * coeff)
+
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"
