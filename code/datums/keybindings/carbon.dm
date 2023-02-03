@@ -22,6 +22,15 @@
 	var/mob/living/carbon/M = C.mob
 	M.throw_mode_off()
 
+/datum/keybinding/carbon/give_item
+	name = "Передать вещь (переключить)"
+	keys = list("V")
+
+/datum/keybinding/carbon/give_item/down(client/C)
+	. = ..()
+	var/mob/living/carbon/M = C.mob
+	M.toggle_give()
+
 /datum/keybinding/carbon/intent
 	/// The intent to switch to.
 	var/intent

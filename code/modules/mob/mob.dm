@@ -8,6 +8,8 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(viruses)
+	for(var/alert in alerts)
+		clear_alert(alert)
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)

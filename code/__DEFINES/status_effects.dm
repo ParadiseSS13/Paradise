@@ -90,3 +90,6 @@
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target
 
 #define STATUS_EFFECT_SYPHONMARK /datum/status_effect/syphon_mark //tracks kills for the KA death syphon module
+
+/// Status effect given when someone uses the Give Item command to offer an item to another player.
+#define STATUS_EFFECT_OFFERING_ITEM /datum/status_effect/offering_item
