@@ -29,7 +29,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	if(delayed)
 		next_event_time += (world.time - last_world_time)
 	else if(world.time > next_event_time)
-		start_event()
+		if(config.allow_random_events)
+			start_event()
 
 	last_world_time = world.time
 
