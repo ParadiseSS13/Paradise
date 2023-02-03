@@ -13693,41 +13693,22 @@
 	icon_opened = "syndicate1open";
 	icon_state = "syndicate1"
 	},
-/obj/item/suppressor,
-/obj/item/gun/projectile/automatic/proto{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
-/obj/item/flashlight/seclite,
-/obj/item/grenade/flashbang,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
-/obj/item/kitchen/knife/combat,
-/obj/item/reagent_containers/food/snacks/candy/donor{
-	apply_type = 3;
-	list_reagents = list("nutriment"=30,"sugar"=3);
-	name = "MRE"
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	name = "SRT bowman headset";
+	desc = null
 	},
-/obj/item/reagent_containers/hypospray/autoinjector/survival,
-/obj/item/storage/belt/security/webbing{
-	name = "SRT webbing"
-	},
-/obj/item/clothing/head/HoS/beret{
+/obj/item/clothing/head/beret/centcom/officer/navy{
 	desc = null;
 	name = "SRT beret"
-	},
-/obj/item/storage/backpack/ert{
-	desc = null;
-	name = "SRT backpack"
-	},
-/obj/item/radio/headset/ert{
-	desc = null;
-	name = "SRT headset"
 	},
 /obj/item/clothing/shoes/combat/swat{
 	name = "SRT special shoes"
@@ -13735,26 +13716,25 @@
 /obj/item/clothing/gloves/combat{
 	name = "Combat gloves"
 	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
 /obj/item/clothing/suit/armor/bulletproof{
 	name = "SRT bulletproof vest"
 	},
-/obj/item/clothing/accessory/holster,
-/obj/item/implanter/mindshield,
-/obj/item/card/id{
-	access = list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,69,70,71,73,74,75,76,77,99,101,102,103,104,105,106);
-	icon_state = "nanotrasen";
-	name = "Special Reaction Team Member ID card";
-	rank = "Blueshield";
-	registered_name = null
-	},
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	name = "SRT uniform"
-	},
+/obj/item/shield/riot/tele,
+/obj/item/suppressor,
 /obj/item/CQC_manual,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/shield/riot/tele{
-	pixel_x = -6;
-	pixel_y = 6
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
+	},
+/obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	name = "SRT uniform";
+	desc = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -36366,41 +36346,25 @@
 	icon_opened = "syndicate1open";
 	icon_state = "syndicate1"
 	},
-/obj/item/suppressor,
-/obj/item/gun/projectile/automatic/proto{
-	pixel_x = 3;
-	pixel_y = -3
+/obj/machinery/light{
+	dir = 4
 	},
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/item/restraints/handcuffs,
-/obj/item/restraints/handcuffs,
-/obj/item/flashlight/seclite,
-/obj/item/grenade/flashbang,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
-/obj/item/kitchen/knife/combat,
-/obj/item/reagent_containers/food/snacks/candy/donor{
-	apply_type = 3;
-	list_reagents = list("nutriment"=30,"sugar"=3);
-	name = "MRE"
+/obj/item/ammo_box/magazine/smgm9mm,
+/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/energy/gun/blueshield,
+/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
+/obj/item/reagent_containers/food/snacks/candy/mre,
+/obj/item/reagent_containers/hypospray/combat,
+/obj/item/radio/headset/ert/alt{
+	name = "SRT bowman headset";
+	desc = null
 	},
-/obj/item/reagent_containers/hypospray/autoinjector/survival,
-/obj/item/storage/belt/security/webbing{
-	name = "SRT webbing"
-	},
-/obj/item/clothing/head/HoS/beret{
+/obj/item/clothing/head/beret/centcom/officer/navy{
 	desc = null;
 	name = "SRT beret"
-	},
-/obj/item/storage/backpack/ert{
-	desc = null;
-	name = "SRT backpack"
-	},
-/obj/item/radio/headset/ert{
-	desc = null;
-	name = "SRT headset"
 	},
 /obj/item/clothing/shoes/combat/swat{
 	name = "SRT special shoes"
@@ -36408,29 +36372,25 @@
 /obj/item/clothing/gloves/combat{
 	name = "Combat gloves"
 	},
+/obj/item/storage/belt/security/webbing/srt/full,
+/obj/item/storage/backpack/satchel_blueshield/srt,
+/obj/item/clothing/suit/storage/blueshield/srt,
 /obj/item/clothing/suit/armor/bulletproof{
 	name = "SRT bulletproof vest"
 	},
-/obj/item/clothing/accessory/holster,
-/obj/item/implanter/mindshield,
-/obj/item/card/id{
-	access = list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,69,70,71,73,74,75,76,77,99,101,102,103,104,105,106);
-	icon_state = "nanotrasen";
-	name = "Special Reaction Team Member ID card";
-	rank = "Blueshield";
-	registered_name = null
-	},
-/obj/item/clothing/under/fluff/jay_turtleneck{
-	name = "SRT uniform"
-	},
+/obj/item/shield/riot/tele,
+/obj/item/suppressor,
 /obj/item/CQC_manual,
-/obj/item/clothing/glasses/hud/security/sunglasses/aviators,
-/obj/item/shield/riot/tele{
-	pixel_x = -6;
-	pixel_y = 6
+/obj/item/implanter/mindshield/ert,
+/obj/item/card/id/centcom{
+	name = "Special Reaction Team Member card";
+	rank = "Special Reaction Team Member";
+	registered_name = "Special Reaction Team Member"
 	},
-/obj/machinery/light{
-	dir = 4
+/obj/item/storage/box/responseteam,
+/obj/item/clothing/under/fluff/jay_turtleneck{
+	name = "SRT uniform";
+	desc = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;

@@ -180,7 +180,8 @@
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/suppressor = 1,
-		/obj/item/CQC_manual = 1
+		/obj/item/CQC_manual = 1,
+		/obj/item/storage/box/responseteam = 1
 	)
 
 	accessories = list(
