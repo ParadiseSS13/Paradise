@@ -23,6 +23,7 @@
 	///Time it takes for a facehugger to become active again after going idle.
 	var/min_active_time = 20 SECONDS
 	var/max_active_time = 40 SECONDS
+	var/organ_to_insert = /obj/item/organ/internal/body_egg/alien_embryo
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
@@ -138,6 +139,10 @@
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
+		if(ismachineperson(target))
+			to_chat(target, "<span class='danger'>[src] jams its embryo implantation tube into your monitor!</span>")
+			target.take_organ_damage(strength, 0) // IPCs get a little extra damage done to them due to the whole "breaking open your face like a peanut" thing
+			organ_to_insert = /obj/item/organ/internal/body_egg/alien_embryo/machine
 
 		src.loc = target
 		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
@@ -162,12 +167,6 @@
 		if(C.wear_mask != src)
 			return
 
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(!H.check_has_mouth())
-			target.show_message("<span class='notice'>[src] relaxes its grip on your head... it seems indifferent to you.</span>")
-			return
-
 	if(!sterile)
 		//target.contract_disease(new /datum/disease/alien_embryo(0)) //so infection chance is same as virus infection chance
 		target.visible_message("<span class='danger'>[src] falls limp after violating [target]'s face!</span>", \
@@ -175,8 +174,8 @@
 		Die()
 		icon_state = "[initial(icon_state)]_impregnated"
 
-		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
-			new /obj/item/organ/internal/body_egg/alien_embryo(target)
+		if(!target.get_int_organ(organ_to_insert))
+			new organ_to_insert(target)
 			SSblackbox.record_feedback("tally", "alien_growth", 1, "people_infected")
 	else
 		target.visible_message("<span class='danger'>[src] violates [target]'s face!</span>", \
