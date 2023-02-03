@@ -86,6 +86,17 @@
 		get_scooped(M)
 	..()
 
+/mob/living/simple_animal/mouse/attack_animal(mob/living/simple_animal/M)
+	if(istype(M, /mob/living/simple_animal/pet/cat))
+		var/mob/living/simple_animal/pet/cat/C = M
+		if(C.friendly && C.eats_mice && C.a_intent == INTENT_HARM)
+			apply_damage(15, BRUTE) //3x от ХП обычной мыши
+			visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>", \
+							"<span class='userdanger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>")
+			return
+	. = ..()
+
+
 /mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
 	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return ..() // Get dem
