@@ -60,7 +60,7 @@
 
 /obj/item/projectile/bullet/weakbullet3/foursix/ap
 	damage = 12
-	armour_penetration = 10
+	armour_penetration = 40
 
 /obj/item/projectile/bullet/weakbullet3/foursix/tox
 	damage = 10
