@@ -32,4 +32,6 @@ This was also the case with the verb implementation, it's just much more obvious
 
 /mob/living/carbon/proc/get_plasma()
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
+	if(!vessel)
+		return 0
 	return vessel.stored_plasma
