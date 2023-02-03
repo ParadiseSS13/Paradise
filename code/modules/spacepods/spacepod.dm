@@ -61,7 +61,7 @@
 
 	var/unlocked = TRUE
 
-	var/move_delay = 2
+	var/move_delay = 1.5
 	var/next_move = 0
 	var/can_paint = TRUE
 
