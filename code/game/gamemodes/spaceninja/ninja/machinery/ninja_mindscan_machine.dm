@@ -181,6 +181,9 @@
 	occupant = null
 	update_state_icon()
 
+/obj/machinery/ninja_mindscan_machine/force_eject_occupant(mob/target)
+	go_out()
+
 //Телепорт из машины на станцию после сканирования
 /obj/machinery/ninja_mindscan_machine/proc/teleport_out()
 	if(!occupant)

@@ -25,8 +25,10 @@
 			a_boost.toggle_button_on_off()
 			a_boost.recharge_action()
 			to_chat(ninja, span_notice("The suit's adrenaline boost is now reloaded."))
-		else if(uranium_stack.amount >= a_transfer && heal_chems.charge_counter < heal_chems.charge_max)
-			uranium_stack.use(a_transfer)
+	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+		var/obj/item/stack/ore/bluespace_crystal/crystal_stack = I
+		if(crystal_stack.amount >= a_transfer && heal_chems.charge_counter < heal_chems.charge_max)
+			crystal_stack.use(a_transfer)
 			heal_chems.action_ready = TRUE
 			heal_chems.toggle_button_on_off()
 			heal_chems.recharge_action()

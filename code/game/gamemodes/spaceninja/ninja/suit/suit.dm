@@ -270,7 +270,7 @@
 	if(locate(/datum/action/item_action/advanced/ninja/ninjaboost) in actions)
 		. += "[a_boost.charge_counter ? "Integrated Adrenaline Injector is available to use.":"There is no adrenaline boost available. Try refilling the suit with uranium sheets."]\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninjaheal) in actions)
-		. += "[heal_chems.charge_counter ? "Integrated Restorative Cocktail Mixer is available to use.":"There is no healing chemicals available. Try refilling the suit with uranium sheets."]\n"
+		. += "[heal_chems.charge_counter ? "Integrated Restorative Cocktail Mixer is available to use. Charges: [heal_chems.charge_counter]/[heal_chems.charge_max]":"There is no healing chemicals available. Try refilling the suit with bluespace crystal sheets."]\n"
 	if(ninja_clonable)
 		. += "You have bought a Second chance for yourself. \n"
 

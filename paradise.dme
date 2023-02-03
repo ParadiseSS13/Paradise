@@ -2436,6 +2436,7 @@
 #include "code\modules\reagents\chemistry\reagents\food.dm"
 #include "code\modules\reagents\chemistry\reagents\medicine.dm"
 #include "code\modules\reagents\chemistry\reagents\misc.dm"
+#include "code\modules\reagents\chemistry\reagents\ninja.dm"
 #include "code\modules\reagents\chemistry\reagents\paint.dm"
 #include "code\modules\reagents\chemistry\reagents\paradise_pop.dm"
 #include "code\modules\reagents\chemistry\reagents\pyrotechnic.dm"
