@@ -60770,7 +60770,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -65729,7 +65728,6 @@
 	},
 /obj/item/storage/box/bodybags,
 /obj/item/pen,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -65811,7 +65809,6 @@
 	pixel_x = 3
 	},
 /obj/item/screwdriver,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay)
@@ -68966,10 +68963,6 @@
 /obj/item/storage/box/gloves{
 	pixel_x = 5;
 	pixel_y = 5
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
