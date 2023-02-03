@@ -1851,7 +1851,10 @@
 		character.body_accessory = GLOB.body_accessory_by_name[body_accessory]
 
 	character.backbag = backbag
-	// MIRA TODO ADD SHOPPERS CARD ATTACHMENT HERE
+
+	// TODO: Add this to their ID automatically?
+	if(shoppers_card != "None")
+		character.put_in_hands(new shoppers_card)
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
 	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))

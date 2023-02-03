@@ -22,3 +22,6 @@
 
 /obj/item/shoppers_card/donkco
 	parent_company = COMPANY_DONKCO
+
+// For character setup
+GLOBAL_LIST_INIT(shoppers_card_loadout_options, list(/obj/item/shoppers_card/nanotrasen, /obj/item/shoppers_card/mrchangs, /obj/item/shoppers_card/donkco))

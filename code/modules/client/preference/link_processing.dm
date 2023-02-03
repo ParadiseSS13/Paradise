@@ -694,6 +694,11 @@
 					if(new_backbag)
 						active_character.backbag = new_backbag
 
+				if("shoppers_card")
+					var/new_shoppers_card = input(user, "Choose your character's shopper's card:", "Character Preference") as null|anything in GLOB.shoppers_card_loadout_options
+					if(new_shoppers_card)
+						active_character.shoppers_card = new_shoppers_card
+
 				if("nt_relation")
 					var/new_relation = input(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
 					if(new_relation)
