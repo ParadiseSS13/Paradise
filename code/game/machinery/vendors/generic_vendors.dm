@@ -715,6 +715,7 @@
 	prices = list(/obj/item/reagent_containers/food/drinks/cans/cola = 45, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 50,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 50, /obj/item/reagent_containers/food/drinks/cans/starkist = 50,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 50, /obj/item/reagent_containers/food/drinks/cans/grape_juice = 50, /obj/item/reagent_containers/glass/beaker/waterbottle = 20)
+	parent_companies = list(/obj/item/reagent_containers/food/drinks/cans/cola = COMPANY_SYNDICATE)	// DEBUG!!! cola is not evil I swear
 	refill_canister = /obj/item/vending_refill/cola
 
 /obj/machinery/economy/vending/cola/free

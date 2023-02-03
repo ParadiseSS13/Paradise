@@ -376,6 +376,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br>"
+			dat += "<b>Shoppers Card:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[active_character.shoppers_card]</a><br>"
 
 			dat += "</td></tr></table>"
 

@@ -11,6 +11,8 @@
 	var/max_amount = 0
 	/// Price to buy one
 	var/price = 0
+	/// Company it is associated with, used for Shoppers Card
+	var/parent_company = null
 
 /obj/machinery/economy/vending
 	name = "\improper Vendomat"
@@ -60,6 +62,8 @@
 	var/list/products	= list()	// For each, use the following pattern:
 	var/list/contraband	= list()	// list(/type/path = amount,/type/path2 = amount2)
 	var/list/prices     = list()	// Prices for each item, list(/type/path = price), items not in the list don't have a price.
+	/// The company the item is associated with, used for Shoppers Card
+	var/list/parent_companies = list()
 
 	// List of vending_product items available.
 	var/list/product_records = list()
@@ -236,6 +240,7 @@
 			R.amount = amount
 		R.max_amount = amount
 		R.price = (typepath in prices) ? prices[typepath] : 0
+		R.parent_company = (typepath in parent_companies) ? parent_companies[typepath] : null
 		recordlist += R
 /**
   * Refill a vending machine from a refill canister
@@ -611,23 +616,31 @@
 
 	var/mob/living/carbon/human/H = user
 	var/obj/item/card/id/C = H.get_idcard(TRUE)
-
 	currently_vending = R
+	var/current_price = currently_vending.price
 	var/paid = FALSE
 
-	if(cash_transaction < currently_vending.price && GLOB.station_money_database.vendor_account?.suspended)
+	// We calculate the adjusted price if the person has the right Shoppers Card for the item
+	// It can never go below 5 because capitalism
+	if(R.parent_company && length(C.contents))
+		for(var/obj/item/shoppers_card/shoppers_card in C.contents)
+			if(shoppers_card.parent_company == R.parent_company)
+				current_price = max(5, round(current_price * 0.9))
+				break
+
+	if(cash_transaction < current_price && GLOB.station_money_database.vendor_account?.suspended)
 		to_chat(user, "Vendor account offline. Unable to process transaction.")
 		flick(icon_deny, src)
 		vend_ready = TRUE
 		return
 
-	if(cash_transaction >= currently_vending.price)
-		paid = pay_with_cash(currently_vending.price, "Vendor Transaction", name, user, GLOB.station_money_database.vendor_account)
+	if(cash_transaction >= current_price)
+		paid = pay_with_cash(current_price, "Vendor Transaction", name, user, GLOB.station_money_database.vendor_account)
 	else if(istype(C, /obj/item/card))
 		// Because this uses H.get_idcard(TRUE), it will attempt to use:
 		// active hand, inactive hand, pda.id, and then wear_id ID in that order
 		// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-		paid = pay_with_card(C, currently_vending.price, "Vendor transaction", name, user, GLOB.station_money_database.vendor_account)
+		paid = pay_with_card(C, current_price, "Vendor transaction", name, user, GLOB.station_money_database.vendor_account)
 	else if(user.can_advanced_admin_interact())
 		to_chat(user, "<span class='notice'>Vending object due to admin interaction.</span>")
 		paid = TRUE
@@ -639,6 +652,8 @@
 		return
 	if(paid)
 		SSeconomy.total_vendor_transactions++
+		if(R.parent_company)
+			SSblackbox.record_feedback("nested_tally", "shoppers_card_purchase", 1, list("[R.parent_company], [current_price]"))
 		vend(currently_vending, user)
 		. = TRUE
 	else
@@ -661,9 +676,14 @@
 
 	R.amount--
 
-	if(last_reply + vend_delay + 200 <= world.time && vend_reply)
-		speak(vend_reply)
-		last_reply = world.time
+	// Thank you for your patronage! Only thank them once
+	if((R.parent_company || vend_reply) && (last_reply + vend_delay + 20 SECONDS <= world.time))
+		if(R.parent_company)
+			speak("Thank you for choosing [R.parent_company]!")
+			last_reply = world.time
+		else if(vend_reply)
+			speak(vend_reply)
+			last_reply = world.time
 
 	use_power(vend_power_usage)	//actuators and stuff
 	if(icon_vend) //Show the vending animation if needed

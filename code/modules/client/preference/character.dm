@@ -101,6 +101,9 @@
 	/// Custom emote text ("name" = "emote text")
 	var/list/custom_emotes = list()
 
+	/// Attached to ID, used for discount purchases
+	var/shoppers_card = "None"
+
 // Fuckery to prevent null characters
 /datum/character_save/New()
 	real_name = random_name(gender, species)
@@ -185,7 +188,8 @@
 					hair_gradient_offset=:h_grad_offset,
 					hair_gradient_colour=:h_grad_colour,
 					hair_gradient_alpha=:h_grad_alpha,
-					custom_emotes=:custom_emotes
+					custom_emotes=:custom_emotes,
+					shoppers_card=.shoppers_card,
 					WHERE ckey=:ckey
 					AND slot=:slot"}, list(
 						// OH GOD SO MANY PARAMETERS
@@ -243,6 +247,7 @@
 						"h_grad_colour" = h_grad_colour,
 						"h_grad_alpha" = h_grad_alpha,
 						"custom_emotes" = json_encode(custom_emotes),
+						"shoppers_card" = shoppers_card,
 						"ckey" = C.ckey,
 						"slot" = slot_number
 					))
@@ -283,7 +288,7 @@
 			player_alt_titles,
 			disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 			socks, body_accessory, gear, autohiss,
-			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes)
+			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, shoppers_card)
 		VALUES
 			(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
 			:age, :species, :language,
@@ -310,7 +315,7 @@
 			:playertitlelist,
 			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
-			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes)
+			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :shoppers_card)
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
 		"ckey" = C.ckey,
@@ -369,6 +374,7 @@
 		"h_grad_colour" = h_grad_colour,
 		"h_grad_alpha" = h_grad_alpha,
 		"custom_emotes" = json_encode(custom_emotes),
+		"shoppers_card" = shoppers_card
 	))
 
 	if(!query.warn_execute())
@@ -454,6 +460,7 @@
 	h_grad_colour = query.item[53]
 	h_grad_alpha = query.item[54]
 	var/custom_emotes_tmp = query.item[55]
+	shoppers_card = query.item[56]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -528,6 +535,7 @@
 	loadout_gear = sanitize_json(loadout_gear)
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
+	shoppers_card = sanitize_text(shoppers_card, initial(shoppers_card))
 
 	if(!player_alt_titles)
 		player_alt_titles = new()
@@ -1843,6 +1851,7 @@
 		character.body_accessory = GLOB.body_accessory_by_name[body_accessory]
 
 	character.backbag = backbag
+	// MIRA TODO ADD SHOPPERS CARD ATTACHMENT HERE
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
 	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))

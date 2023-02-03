@@ -270,21 +270,22 @@
 		qdel(W)
 		return
 
-	else if(istype(W, /obj/item/barcodescanner))
+	if(istype(W, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/B = W
 		B.scanID(src, user)
 		return
 
-	else if(istype (W,/obj/item/stamp))
-		if(!stamped)
-			dat+="<img src=large_[W.icon_state].png>"
-			stamped = 1
-			to_chat(user, "You stamp the ID card!")
-			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-		else
+	if(istype (W,/obj/item/stamp))
+		if(stamped)
 			to_chat(user, "This ID has already been stamped!")
+			return
+		dat += "<img src=large_[W.icon_state].png>"
+		stamped = 1
+		to_chat(user, "You stamp the ID card!")
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+		return
 
-	else if(istype(W, /obj/item/card/id/guest))
+	if(istype(W, /obj/item/card/id/guest))
 		if(istype(src, /obj/item/card/id/guest))
 			return
 		var/obj/item/card/id/guest/G = W
@@ -301,21 +302,46 @@
 			return
 		G.loc = src
 		guest_pass = G
+		return
 
-/obj/item/card/id/verb/remove_guest_pass()
-	set name = "Remove Guest Pass"
+	if(istype(W, /obj/item/shoppers_card))
+		var/obj/item/shoppers_card/shoppers_card = W
+
+		// This should only happen due to bad adminspawn
+		if(!shoppers_card.parent_company)
+			to_chat(user, "This shoppers card has no associated company, tell a coder!")
+			return
+		// We already have this card
+		if(contents && (shoppers_card in contents))
+			to_chat(user, "<span class='warning'>This ID card already has \a [shoppers_card] attached to it.</span>")
+			return
+		// No other issues, let's add it
+		user.drop_item()
+		shoppers_card.forceMove(src)
+		to_chat(user, "<span class='notice'>You attach [shoppers_card] to the ID.</span>")
+
+/obj/item/card/id/verb/remove_attachment()
+	set name = "Remove Attachment"
 	set category = "Object"
 	set src in range(0)
 
 	if(usr.stat || HAS_TRAIT(usr, TRAIT_UI_BLOCKED) || usr.restrained())
 		return
 
-	if(guest_pass)
-		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
-		guest_pass.forceMove(get_turf(src))
+	if(!contents)
+		to_chat(usr, "<span class='warning'>There is nothing attached to this ID.</span>")
+		return
+
+	var/item_to_remove = input(usr, "Select an item to remove.", "Remove Attachments") as null|anything in contents
+
+	if(!item_to_remove)
+		return
+
+	to_chat(usr, "<span class='notice'>You remove [item_to_remove] from this ID.</span>")
+	usr.put_in_hands(item_to_remove)
+
+	if(istype(item_to_remove, /obj/item/card/id/guest))
 		guest_pass = null
-	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID</span>")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()

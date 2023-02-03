@@ -219,7 +219,6 @@
 	icon_state = "dr_gibb"
 	list_reagents = list("dr_gibb" = 30)
 
-
 /obj/item/reagent_containers/food/drinks/cans/starkist
 	name = "Star-kist"
 	desc = "The taste of a star in liquid form. And, a bit of tuna...?"

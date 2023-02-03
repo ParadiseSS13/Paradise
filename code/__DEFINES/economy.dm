@@ -60,3 +60,9 @@
 #define SUPPLY_MATERIALS 	7
 #define SUPPLY_MISC 		8
 #define SUPPLY_VEND 		9
+
+/// A company associated with a product, used for Shoppers Cards
+#define COMPANY_NANOTRASEN	"NanoTrasen"
+#define COMPANY_SYNDICATE	"The Syndicate"
+#define COMPANY_MRCHANGS	"Mr. Chang's"
+#define COMPANY_DONKCO		"Donk Corporation"
