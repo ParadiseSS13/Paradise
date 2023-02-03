@@ -32,7 +32,8 @@
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes/wryn, //3 darksight.
 		"appendix" = /obj/item/organ/internal/appendix,
-		"antennae" =    /obj/item/organ/internal/wryn/hivenode
+		"antennae" = /obj/item/organ/internal/wryn/hivenode,
+		"glands" = 	 /obj/item/organ/internal/wryn/glands
 		)
 
 	has_limbs = list(
@@ -190,3 +191,24 @@
 				..()
 	else
 		..()
+
+/mob/living/carbon/human/proc/adjustWax(amount)
+ 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+ 	if(!glands) return
+ 	glands.wax = clamp(glands.wax + amount, 0, 75)
+ 	return 1
+
+/mob/living/carbon/human/proc/getWax()
+ 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+ 	if(!glands) return 0
+ 	return glands.wax
+
+/mob/living/carbon/human/proc/toggle_producing()
+	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+	if(glands)
+		to_chat(usr, "<span class='notice'>Вы [glands.producing ? "расслабляете" : "напрягаете"] восковые железы</span>")
+		glands.producing = !glands.producing
+
+/mob/living/carbon/human/proc/get_producing()
+ 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+ 	return glands ? glands.producing : FALSE
