@@ -31,14 +31,15 @@
 	var/turf/T = user.loc
 	if(!new_xeno)
 		return
+	var/to_spawn
 	switch(new_xeno)
 		if("Hunter")
-			new_xeno = new /mob/living/carbon/alien/humanoid/hunter(T)
+			to_spawn = new /mob/living/carbon/alien/humanoid/hunter(T)
 		if("Sentinel")
-			new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(T)
+			to_spawn = new /mob/living/carbon/alien/humanoid/sentinel(T)
 		if("Drone")
-			new_xeno = new /mob/living/carbon/alien/humanoid/drone(T)
+			to_spawn = new /mob/living/carbon/alien/humanoid/drone(T)
 	if(user.mind)
-		user.mind.transfer_to(new_xeno)
+		user.mind.transfer_to(to_spawn)
 	SSblackbox.record_feedback("tally", "alien_growth", 1, "[lowertext(new_xeno)]")
 	qdel(user)
