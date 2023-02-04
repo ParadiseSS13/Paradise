@@ -212,13 +212,13 @@
 	return
 
 /obj/item/pen/multi/poison
-	var/current_poison
+	var/current_poison = "charcoal"
 
 /obj/item/pen/multi/poison/attack_self(mob/living/user)
 	. = ..()
 	switch(colour)
 		if("black")
-			current_poison = null
+			current_poison = "charcoal"
 		if("red")
 			current_poison = "amanitin"
 		if("green")
