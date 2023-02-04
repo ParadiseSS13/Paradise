@@ -26,9 +26,7 @@
 /area/maintenance/disposal/external/north)
 "aaf" = (
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "AI Asteroid"
-	})
+/area/mine/unexplored/cere/ai)
 "aaj" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -203,9 +201,7 @@
 /area/maintenance/disposal/external/north)
 "abE" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "abG" = (
 /obj/structure/cable/orange{
 	d2 = 4;
@@ -312,9 +308,7 @@
 /area/maintenance/disposal/external/north)
 "abW" = (
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "abY" = (
 /obj/structure/disposaloutlet,
 /obj/structure/disposalpipe/trunk{
@@ -553,9 +547,7 @@
 "adh" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "adm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -767,9 +759,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "aeM" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -1068,9 +1058,7 @@
 /area/turret_protected/ai)
 "ahF" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "AI Asteroid"
-	})
+/area/mine/unexplored/cere/ai)
 "ahH" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -1380,17 +1368,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "ajI" = (
 /obj/structure/rack,
 /obj/item/shovel,
 /obj/item/shovel,
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "ajJ" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "cell1";
@@ -1498,9 +1482,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "akc" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -1707,17 +1689,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "akE" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "akF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/flasher{
@@ -1772,9 +1750,7 @@
 /area/turret_protected/ai)
 "alc" = (
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "ale" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -1821,17 +1797,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "alj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "alk" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -1845,9 +1817,7 @@
 "all" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/wall/r_wall,
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "aln" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2178,9 +2148,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "amN" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -2196,9 +2164,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "amO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -2207,9 +2173,7 @@
 /area/security/permabrig)
 "amP" = (
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "amQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2262,9 +2226,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "amX" = (
 /obj/structure/disposalpipe/junction,
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -2771,9 +2733,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "apI" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -4426,9 +4386,7 @@
 /area/maintenance/fore2)
 "ayb" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "ayc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -5568,9 +5526,7 @@
 "aGx" = (
 /obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "aGy" = (
 /obj/structure/closet/crate,
 /obj/item/flashlight/lantern,
@@ -8778,9 +8734,7 @@
 /area/maintenance/gambling_den)
 "aXn" = (
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Civilian Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "aXr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -8815,9 +8769,7 @@
 /area/quartermaster/office)
 "aXD" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Engineering Asteroid"
-	})
+/area/mine/unexplored/cere/engineering)
 "aXG" = (
 /obj/machinery/camera{
 	c_tag = "Mini Satellite Teleporter";
@@ -8832,45 +8784,28 @@
 "aXN" = (
 /obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aXO" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aXP" = (
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aXQ" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aXR" = (
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Engineering Asteroid"
-	})
+/area/mine/unexplored/cere/engineering)
 "aYa" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYb" = (
 /obj/structure/table/wood,
 /obj/item/seeds/apple,
@@ -8884,10 +8819,7 @@
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/plantbgone,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYc" = (
 /obj/structure/table/wood,
 /obj/item/cultivator,
@@ -8896,17 +8828,11 @@
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYd" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYe" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/alarm{
@@ -8919,15 +8845,10 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYg" = (
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Engineering Asteroid"
-	})
+/area/mine/unexplored/cere/engineering)
 "aYk" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -8944,27 +8865,18 @@
 	c_tag = "Rehabilitation Dome North"
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYn" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYp" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYq" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/firealarm{
@@ -8974,10 +8886,7 @@
 	},
 /mob/living/simple_animal/butterfly,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYt" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -9015,34 +8924,22 @@
 "aYD" = (
 /mob/living/simple_animal/butterfly,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYH" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYI" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aYJ" = (
 /turf/simulated/wall,
 /area/hallway/primary/central)
@@ -9174,39 +9071,24 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aZg" = (
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aZh" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aZi" = (
 /obj/structure/flora/junglebush/large,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aZj" = (
 /obj/structure/flora/ausbushes/reedbush,
 /mob/living/simple_animal/butterfly,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aZk" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -9260,9 +9142,7 @@
 /area/quartermaster/office)
 "aZu" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "aZD" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -9286,26 +9166,17 @@
 "aZH" = (
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aZI" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aZJ" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "aZK" = (
 /turf/simulated/mineral/ancient,
 /area/hallway/primary/central)
@@ -9335,14 +9206,10 @@
 /area/turret_protected/aisat_interior/secondary)
 "aZM" = (
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "aZN" = (
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "aZQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -9410,10 +9277,7 @@
 "bag" = (
 /obj/machinery/light,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bah" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/hallway/primary/central)
@@ -9587,10 +9451,7 @@
 "baI" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "baJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
@@ -9599,10 +9460,7 @@
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "baK" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -9614,10 +9472,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "baL" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -9752,10 +9607,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bbo" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -9847,10 +9699,7 @@
 	name = "Rehabilitation Dome"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bbO" = (
 /obj/machinery/camera{
 	c_tag = "Rehabilitation Dome Lobby East";
@@ -10055,10 +9904,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bcy" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
@@ -10237,30 +10083,21 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bdl" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bdm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bdn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10271,10 +10108,7 @@
 	},
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bdr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -10454,10 +10288,7 @@
 "beb" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bec" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10668,10 +10499,7 @@
 "beR" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "beS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10949,10 +10777,7 @@
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bfR" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -10961,27 +10786,18 @@
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bfS" = (
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bfT" = (
 /obj/machinery/light,
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bfU" = (
 /obj/structure/sign/poster/random{
 	name = "random official poster";
@@ -10990,10 +10806,7 @@
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "bfV" = (
 /obj/machinery/camera{
 	c_tag = "Rehabilitation Dome Lobby South";
@@ -11661,9 +11474,7 @@
 /area/crew_quarters/kitchen)
 "bhO" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Civilian Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "bhP" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
@@ -13063,9 +12874,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "bnv" = (
 /obj/structure/closet,
 /obj/structure/window/reinforced{
@@ -14347,9 +14156,7 @@
 "brX" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "brY" = (
 /obj/structure/bed/dogbed,
 /obj/item/radio/intercom{
@@ -24867,11 +24674,6 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
-"cbV" = (
-/turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
 "cbW" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4;
@@ -24885,10 +24687,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cca" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -25106,9 +24905,7 @@
 /area/maintenance/fore2)
 "ccW" = (
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Research Asteroid"
-	})
+/area/mine/unexplored/cere/research)
 "ccZ" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -25141,9 +24938,7 @@
 /area/crew_quarters/locker)
 "cdb" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Research Asteroid"
-	})
+/area/mine/unexplored/cere/research)
 "cdc" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/mineral/ancient/outer,
@@ -28333,10 +28128,7 @@
 "ctw" = (
 /obj/structure/flora/tree/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "ctA" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -30413,10 +30205,7 @@
 	random_basetype = /obj/structure/sign/poster/official
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cFc" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/newscaster{
@@ -30425,10 +30214,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cFe" = (
 /obj/machinery/door/window/westright{
 	dir = 2;
@@ -30472,10 +30258,7 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cFi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -30851,10 +30634,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cGr" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots,
@@ -31188,10 +30968,7 @@
 	},
 /mob/living/simple_animal/butterfly,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cHY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -31218,10 +30995,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cIe" = (
 /turf/simulated/floor/plasteel{
 	dir = 5
@@ -31248,19 +31022,13 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cIh" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cIm" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/engine{
@@ -31360,10 +31128,7 @@
 	},
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cIF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -31407,10 +31172,7 @@
 	},
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "cIS" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -31943,9 +31705,7 @@
 "cKA" = (
 /obj/item/clothing/head/sombrero/shamebrero,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "cKG" = (
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -33683,9 +33443,7 @@
 /area/bridge)
 "cRv" = (
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "cRz" = (
 /turf/simulated/floor/plating,
 /area/clownoffice/secret)
@@ -35588,9 +35346,7 @@
 /obj/item/pickaxe,
 /obj/structure/rack,
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "cYu" = (
 /obj/structure/statue/bananium/clown,
 /obj/machinery/camera{
@@ -37468,9 +37224,7 @@
 "dlb" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "dlc" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced,
@@ -37883,9 +37637,7 @@
 	total_amount = 20
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "dnC" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -37981,9 +37733,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "doH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -38016,9 +37766,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "doO" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security SMES Access";
@@ -38038,9 +37786,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "doZ" = (
 /obj/machinery/light{
 	dir = 8
@@ -38101,9 +37847,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "dpl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -38338,9 +38082,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "dqz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -38554,9 +38296,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "drA" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -40875,9 +40615,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "dCv" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
@@ -41399,9 +41137,7 @@
 "dLo" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "dLQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -41483,9 +41219,7 @@
 "dMG" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "dMN" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -42432,9 +42166,7 @@
 /area/maintenance/fsmaint)
 "egm" = (
 /turf/simulated/wall/r_wall,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "egq" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -42651,12 +42383,6 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
-"ekY" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
 "ell" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/orange{
@@ -43264,9 +42990,7 @@
 "eyx" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Civilian Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "eyA" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -43994,9 +43718,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "eNW" = (
 /obj/effect/turf_decal/stripes/end,
 /obj/structure/cable/orange{
@@ -44463,9 +44185,7 @@
 	layer = 4
 	},
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "eWS" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
@@ -44494,9 +44214,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Civilian Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "eYr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -45173,10 +44891,7 @@
 "fph" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "fpm" = (
 /obj/machinery/light{
 	dir = 1
@@ -45819,9 +45534,7 @@
 "fDu" = (
 /obj/structure/lattice,
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "fDw" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -46283,9 +45996,7 @@
 /area/crew_quarters/locker)
 "fMl" = (
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "fMG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -48673,10 +48384,7 @@
 "gID" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "gIG" = (
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -50329,10 +50037,7 @@
 "hqg" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "hqL" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fsmaint)
@@ -50565,9 +50270,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "huF" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
@@ -51907,9 +51610,7 @@
 /area/maintenance/disposal/east)
 "hUU" = (
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Civilian Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "hVb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -51958,10 +51659,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "hVP" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -52058,9 +51756,7 @@
 	layer = 4
 	},
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "hYW" = (
 /turf/simulated/mineral/ancient,
 /area/medical/paramedic)
@@ -52579,15 +52275,11 @@
 "imt" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "imE" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "imG" = (
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/asmaint)
@@ -52774,10 +52466,7 @@
 	name = "south bump"
 	},
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "iqZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -53027,9 +52716,7 @@
 /area/toxins/misc_lab)
 "ivS" = (
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "iwn" = (
 /obj/machinery/newscaster{
 	name = "north bump";
@@ -53101,9 +52788,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "ixh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -53133,10 +52818,7 @@
 "ixW" = (
 /obj/machinery/biogenerator,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "iys" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -53446,9 +53128,7 @@
 /area/crew_quarters/fitness)
 "iFs" = (
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Research Asteroid"
-	})
+/area/mine/unexplored/cere/research)
 "iFv" = (
 /obj/machinery/door/window/westleft{
 	name = "Monkey Pen";
@@ -54043,9 +53723,7 @@
 "iSn" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "iSo" = (
 /obj/machinery/door_control{
 	id = "mixvent";
@@ -54348,9 +54026,7 @@
 /area/medical/genetics)
 "iXD" = (
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "iXO" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -54368,9 +54044,7 @@
 /area/hallway/primary/central)
 "iYg" = (
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "iYr" = (
 /obj/effect/spawner/airlock/s_to_n,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -54390,9 +54064,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "iZd" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -54483,9 +54155,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "jaR" = (
 /obj/structure/sign/evac,
 /turf/simulated/wall,
@@ -54672,9 +54342,7 @@
 /area/maintenance/asmaint)
 "jft" = (
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "jfM" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
@@ -56302,9 +55970,7 @@
 "jKO" = (
 /obj/structure/mineral_door/iron,
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "jLv" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -56405,9 +56071,7 @@
 /area/hallway/primary/fore/east)
 "jNX" = (
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "jNZ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Cargo SMES Access";
@@ -56569,9 +56233,7 @@
 /obj/machinery/door/airlock/glass,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "jQH" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -57763,17 +57425,13 @@
 "koT" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "kpb" = (
 /obj/structure/sign/poster/contraband/rip_badger{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "kpd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -58699,9 +58357,7 @@
 	total_amount = 20
 	},
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "kFK" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -58716,9 +58372,7 @@
 "kGr" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "kGE" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -58952,10 +58606,7 @@
 "kMs" = (
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "kMZ" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -59567,9 +59218,7 @@
 "kYe" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "kYz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -59623,10 +59272,7 @@
 "kZW" = (
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "lai" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel{
@@ -59708,16 +59354,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "lcv" = (
 /obj/structure/table,
 /obj/item/pen,
 /turf/simulated/floor/plating,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "lcR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -60602,9 +60244,7 @@
 "lrS" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Engineering Asteroid"
-	})
+/area/mine/unexplored/cere/engineering)
 "lsg" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
@@ -60779,10 +60419,7 @@
 "lwc" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "lwr" = (
 /obj/item/transfer_valve{
 	pixel_x = -5
@@ -61099,9 +60736,7 @@
 /area/maintenance/starboard)
 "lCC" = (
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "lCJ" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/trinary/filter{
@@ -61301,9 +60936,7 @@
 /area/security/vacantoffice)
 "lGk" = (
 /turf/space,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "lHa" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -61729,9 +61362,7 @@
 /area/maintenance/fore2)
 "lRR" = (
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Near Station Asteroids"
-	})
+/area/mine/unexplored/cere/orbiting)
 "lRU" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -61953,10 +61584,7 @@
 /area/crew_quarters/sleep)
 "lWT" = (
 /turf/simulated/wall,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "lXe" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62519,9 +62147,7 @@
 /area/hallway/spacebridge/sercom)
 "mic" = (
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Civilian Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "mix" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -63259,9 +62885,7 @@
 /area/maintenance/disposal/westalt)
 "mCL" = (
 /turf/simulated/wall/r_wall,
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "mCM" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -63517,9 +63141,7 @@
 /area/hallway/primary/aft/west)
 "mKK" = (
 /turf/simulated/wall/r_wall,
-/area/mine/unexplored{
-	name = "Research Asteroid"
-	})
+/area/mine/unexplored/cere/research)
 "mKO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -63806,9 +63428,7 @@
 /area/storage/primary)
 "mPI" = (
 /turf/simulated/wall/r_wall,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "mPT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
@@ -64617,10 +64237,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 5
 	},
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "ngA" = (
 /obj/structure/chair/office/light,
 /turf/simulated/floor/plasteel{
@@ -67168,9 +66785,7 @@
 "ocw" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "ocA" = (
 /obj/machinery/light{
 	dir = 8
@@ -67730,10 +67345,7 @@
 "ooA" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "ooF" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -70707,10 +70319,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "pwt" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -71107,9 +70716,7 @@
 "pFc" = (
 /obj/structure/railing,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "AI Asteroid"
-	})
+/area/mine/unexplored/cere/ai)
 "pFm" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/orange{
@@ -73773,11 +73380,6 @@
 	},
 /turf/simulated/wall,
 /area/hallway/primary/fore)
-"qBg" = (
-/turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
 "qBl" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers,
@@ -74354,9 +73956,7 @@
 "qKh" = (
 /obj/structure/railing,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Civilian Asteroid"
-	})
+/area/mine/unexplored/cere/civilian)
 "qKE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -76065,9 +75665,7 @@
 /area/maintenance/apmaint)
 "rzh" = (
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Cargo Asteroid"
-	})
+/area/mine/unexplored/cere/cargo)
 "rzr" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -76258,9 +75856,7 @@
 /area/maintenance/disposal/southwest)
 "rBH" = (
 /turf/simulated/wall/r_wall,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "rBO" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -76865,11 +76461,6 @@
 	icon_state = "dark"
 	},
 /area/medical/cmo)
-"rOU" = (
-/turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
 "rOX" = (
 /obj/structure/closet/secure_closet/CMO,
 /obj/machinery/alarm{
@@ -77277,9 +76868,7 @@
 /area/hallway/primary/aft/east)
 "rWw" = (
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Research Asteroid"
-	})
+/area/mine/unexplored/cere/research)
 "rWC" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
@@ -78239,9 +77828,7 @@
 "smT" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/mineral/ancient,
-/area/mine/unexplored{
-	name = "Medical Asteroid"
-	})
+/area/mine/unexplored/cere/medical)
 "smX" = (
 /obj/machinery/door/window/northleft{
 	name = "Bar"
@@ -78650,9 +78237,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/mine/unexplored{
-	name = "Engineering Asteroid"
-	})
+/area/mine/unexplored/cere/engineering)
 "svr" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -78727,9 +78312,7 @@
 "sxa" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "sxb" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -81059,9 +80642,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/security/execution{
-	name = "Prisoner Transfer Lounge"
-	})
+/area/security/execution)
 "ttU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81311,10 +80892,7 @@
 	layer = 4
 	},
 /turf/simulated/mineral/ancient,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "tyF" = (
 /obj/machinery/requests_console{
 	department = "Science";
@@ -81678,9 +81256,7 @@
 "tFY" = (
 /obj/structure/railing,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Engineering Asteroid"
-	})
+/area/mine/unexplored/cere/engineering)
 "tFZ" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment/corner{
@@ -84294,10 +83870,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "uMQ" = (
 /obj/structure/table,
 /obj/structure/cable/orange{
@@ -85940,9 +85513,7 @@
 /area/hallway/primary/fore)
 "vva" = (
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "vvf" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -88046,11 +87617,6 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"wlG" = (
-/turf/simulated/floor/plating/asteroid/ancient/airless,
-/area/mine/unexplored{
-	name = "Docking Asteroid"
-	})
 "wlV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -88184,9 +87750,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "woU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/bluespace_beacon,
@@ -88293,9 +87857,7 @@
 "wqx" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/mine/unexplored{
-	name = "Research Asteroid"
-	})
+/area/mine/unexplored/cere/research)
 "wqE" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
@@ -89315,9 +88877,7 @@
 /area/hallway/primary/starboard/south)
 "wIp" = (
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "AI Asteroid"
-	})
+/area/mine/unexplored/cere/ai)
 "wIq" = (
 /turf/simulated/mineral/ancient,
 /area/maintenance/apmaint)
@@ -90020,10 +89580,7 @@
 /area/maintenance/disposal/southwest)
 "wWC" = (
 /turf/simulated/mineral/ancient,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "wWP" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/orange{
@@ -90339,9 +89896,7 @@
 /area/shuttle/arrival/station)
 "xbO" = (
 /turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored{
-	name = "Engineering Asteroid"
-	})
+/area/mine/unexplored/cere/engineering)
 "xbX" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/weightmachine/weightlifter,
@@ -91039,10 +90594,7 @@
 /area/clownoffice/secret)
 "xut" = (
 /turf/simulated/floor/carpet/blue,
-/area/hallway/secondary/construction{
-	name = "\improper Garden";
-	sound_environment = 15
-	})
+/area/hallway/secondary/garden)
 "xuC" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/light{
@@ -92008,9 +91560,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/mine/unexplored{
-	name = "Command Asteroid"
-	})
+/area/mine/unexplored/cere/command)
 "xNq" = (
 /obj/machinery/camera{
 	c_tag = "Bar";
@@ -131000,14 +130550,14 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 rNK
 rNK
 rNK
-wlG
-wlG
+bhO
+bhO
 nFW
 jqW
 koo
@@ -131253,18 +130803,18 @@ rNK
 nhh
 vUb
 kJS
-wlG
-wlG
-wlG
-wlG
-wlG
-wlG
-qBg
-qBg
-wlG
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
+bhO
+bhO
+bhO
+hUU
+hUU
+bhO
+bhO
+bhO
+bhO
 nFW
 abZ
 tuh
@@ -131510,13 +131060,13 @@ rNK
 nhh
 vUb
 nhh
-wlG
-wlG
-wlG
-qBg
-qBg
-qBg
-qBg
+bhO
+bhO
+bhO
+hUU
+hUU
+hUU
+hUU
 nFW
 pLr
 pLr
@@ -131762,18 +131312,18 @@ rNK
 rNK
 rNK
 rNK
-wlG
+bhO
 nhh
 nhh
 vUb
 nhh
 nhh
-wlG
-qBg
-qBg
-cbV
-cbV
-cbV
+bhO
+hUU
+hUU
+aXn
+aXn
+aXn
 nFW
 cfh
 pxm
@@ -132018,8 +131568,8 @@ rNK
 rNK
 rNK
 rNK
-cbV
-wlG
+aXn
+bhO
 dGU
 eVY
 dLb
@@ -132027,10 +131577,10 @@ nKY
 plQ
 wLr
 vpJ
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
 nFW
 pQS
 cfG
@@ -132274,9 +131824,9 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 plQ
 ccB
 pyl
@@ -132528,12 +132078,12 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
+bhO
+bhO
+bhO
 dGU
 pnb
 eLX
@@ -132785,12 +132335,12 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
+bhO
+bhO
+bhO
 dGU
 dGU
 plQ
@@ -133042,14 +132592,14 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
-wlG
-wlG
-wlG
-qBg
-cbV
+bhO
+bhO
+bhO
+bhO
+bhO
+bhO
+hUU
+aXn
 kDn
 mBq
 rIn
@@ -133297,23 +132847,23 @@ rNK
 rNK
 rNK
 rNK
-cbV
-wlG
-wlG
-wlG
-wlG
-wlG
-wlG
-qBg
-qBg
-cbV
+aXn
+bhO
+bhO
+bhO
+bhO
+bhO
+bhO
+hUU
+hUU
+aXn
 daS
 imG
 cdG
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
 vpJ
 wLr
 wLr
@@ -133554,26 +133104,26 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
-wlG
-wlG
-wlG
-wlG
-qBg
-cbV
-cbV
+bhO
+bhO
+bhO
+bhO
+bhO
+bhO
+bhO
+hUU
+aXn
+aXn
 gLj
 imG
 htH
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 yep
 imG
 gge
@@ -133810,27 +133360,27 @@ rNK
 rNK
 rNK
 rNK
-cbV
-wlG
-wlG
-wlG
+aXn
+bhO
+bhO
+bhO
 nHI
 nHI
 nHI
 nHI
-qBg
-cbV
-cbV
+hUU
+aXn
+aXn
 fdD
 vRX
 cdG
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 yep
 jfo
 wLr
@@ -134067,10 +133617,10 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
+bhO
 nHI
 gMv
 uCy
@@ -134081,7 +133631,7 @@ imG
 imG
 rIn
 xTS
-cbV
+aXn
 mpB
 wLr
 wLr
@@ -134322,12 +133872,12 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
+bhO
+bhO
+bhO
 nHI
 sif
 xrN
@@ -134338,7 +133888,7 @@ tqb
 mJk
 wgq
 lnF
-cbV
+aXn
 mpB
 pVm
 cdF
@@ -134579,13 +134129,13 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
-qBg
-qBg
-qBg
-qBg
+bhO
+bhO
+bhO
+hUU
+hUU
+hUU
+hUU
 qqd
 lkA
 neh
@@ -134595,7 +134145,7 @@ goH
 piO
 imG
 imG
-cbV
+aXn
 wLr
 dQc
 tSs
@@ -134836,13 +134386,13 @@ rNK
 rNK
 rNK
 rNK
-wlG
-qBg
-qBg
-qBg
-cbV
-cbV
-cbV
+bhO
+hUU
+hUU
+hUU
+aXn
+aXn
+aXn
 fuH
 mGK
 mGK
@@ -134852,7 +134402,7 @@ fbs
 imG
 lJL
 hAJ
-cbV
+aXn
 wLr
 vSy
 lhA
@@ -135093,13 +134643,13 @@ rNK
 rNK
 rNK
 rNK
-wlG
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
+bhO
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
 sPp
 hhs
 qkF
@@ -135109,7 +134659,7 @@ lJL
 nca
 per
 jty
-cbV
+aXn
 wLr
 mpB
 ftG
@@ -135350,13 +134900,13 @@ rNK
 rNK
 jft
 jft
-wlG
-qBg
-qBg
-cbV
-cbV
-cbV
-cbV
+bhO
+hUU
+hUU
+aXn
+aXn
+aXn
+aXn
 gpZ
 kzq
 kzq
@@ -135366,8 +134916,8 @@ kzq
 smX
 fbs
 fwd
-cbV
-cbV
+aXn
+aXn
 mpB
 mpB
 mpB
@@ -135608,12 +135158,12 @@ rNK
 rNK
 rNK
 rNK
-wlG
-qBg
-cbV
-cbV
-cbV
-cbV
+bhO
+hUU
+aXn
+aXn
+aXn
+aXn
 pAD
 vjB
 tWA
@@ -135623,11 +135173,11 @@ yhf
 rNo
 bDF
 opD
-cbV
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
+aXn
 wLr
 imG
 wZA
@@ -135865,26 +135415,26 @@ lzH
 lzH
 lzH
 lzH
-rOU
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+mic
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 wLr
 uir
 wZA
@@ -136122,27 +135672,27 @@ rNK
 rNK
 rNK
 rNK
-qBg
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 uir
 eST
 sSj
@@ -136380,26 +135930,26 @@ rNK
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 vpJ
 eST
 yep
@@ -136637,15 +136187,15 @@ rNK
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 tZz
 tZz
 tZz
@@ -136654,10 +136204,10 @@ gzv
 gzv
 tZz
 tZz
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
 eST
 yep
 xSo
@@ -136894,15 +136444,15 @@ lzH
 lzH
 lzH
 lzH
-rOU
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+mic
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 gzv
 mNG
 bJX
@@ -136911,9 +136461,9 @@ tCc
 oKS
 oIS
 tZz
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
 wLr
 eST
 ihT
@@ -137152,14 +136702,14 @@ rNK
 rNK
 rNK
 rNK
-qBg
+hUU
 wPr
 xbr
 oRW
 cbU
 nqO
 hPZ
-cbV
+aXn
 gzv
 tHv
 tHv
@@ -137168,9 +136718,9 @@ vPZ
 kBo
 vPy
 gzv
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
 wLr
 fka
 pXf
@@ -137416,7 +136966,7 @@ mAZ
 olv
 lvk
 diY
-cbV
+aXn
 gzv
 tHv
 tHv
@@ -137427,7 +136977,7 @@ sJs
 gzv
 dhm
 diY
-cbV
+aXn
 vpJ
 wLr
 wIS
@@ -137684,8 +137234,8 @@ nQr
 gzv
 diY
 iNr
-cbV
-cbV
+aXn
+aXn
 rpW
 eST
 yep
@@ -137941,8 +137491,8 @@ gzv
 gzv
 qet
 wPr
-cbV
-cbV
+aXn
+aXn
 vpJ
 uOe
 sju
@@ -138961,10 +138511,10 @@ wPr
 wPr
 lmF
 wPr
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
 vpJ
 vpJ
 vpJ
@@ -139217,13 +138767,13 @@ squ
 afX
 afX
 eDQ
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 vpJ
 vpJ
 xdy
@@ -139472,15 +139022,15 @@ aoO
 diY
 diY
 diY
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 wLr
 xXq
 cAU
@@ -139721,23 +139271,23 @@ rNK
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
 qPU
 fWs
 vPD
 dJA
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 vpJ
 xXq
 yep
@@ -139978,23 +139528,23 @@ xcc
 xcc
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 wLr
 xdy
 cdG
@@ -140234,24 +139784,24 @@ rNK
 rNK
 rNK
 rNK
-qBg
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 wLr
 cdx
 cdG
@@ -140491,24 +140041,24 @@ lzH
 lzH
 lzH
 lzH
-rOU
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+mic
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 vWF
 vRX
 nff
@@ -140748,24 +140298,24 @@ rNK
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 vWF
 vRX
 cdG
@@ -141005,24 +140555,24 @@ aZu
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 yev
 qZT
 qfX
@@ -141262,22 +140812,22 @@ aZu
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
 wLr
 wLr
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 vpJ
 vpJ
 pXP
@@ -141519,22 +141069,22 @@ aZu
 aZu
 rNK
 rNK
-qBg
-qBg
-cbV
-cbV
-cbV
-cbV
+hUU
+hUU
+aXn
+aXn
+aXn
+aXn
 wLr
 xvx
 nKr
 wLr
-cbV
+aXn
 vpJ
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
 tVf
 djo
 djo
@@ -141553,7 +141103,7 @@ xro
 djw
 wby
 csG
-wlG
+bhO
 rNK
 rNK
 rNK
@@ -141776,20 +141326,20 @@ aZu
 rNK
 rNK
 rNK
-aZu
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
+bhO
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
 xyo
 iJa
 imG
 imG
 imG
 imG
-cbV
+aXn
 imG
 vRX
 tVf
@@ -141810,7 +141360,7 @@ cjF
 djw
 wby
 csG
-wlG
+bhO
 rNK
 rNK
 rNK
@@ -142033,14 +141583,14 @@ fMl
 aZu
 rNK
 rNK
-aZu
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+bhO
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 qlb
 vRX
 imG
@@ -142049,9 +141599,9 @@ vRX
 imG
 imG
 frV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
 nyL
 yep
 vpJ
@@ -142067,7 +141617,7 @@ daX
 djw
 wby
 csG
-wlG
+bhO
 rNK
 rNK
 rNK
@@ -142290,24 +141840,24 @@ fMl
 aZu
 rNK
 rNK
-aZu
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+bhO
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 wLr
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
 hIi
 jeA
 yep
@@ -142324,7 +141874,7 @@ vMR
 djw
 wby
 csG
-wlG
+bhO
 rNK
 rNK
 rNK
@@ -142548,22 +142098,22 @@ aZu
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 xdy
 nyL
 xdy
@@ -142581,7 +142131,7 @@ ckv
 kzz
 wby
 csG
-wlG
+bhO
 rNK
 rNK
 rNK
@@ -142805,22 +142355,22 @@ aZu
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 xdy
 nyL
 xdy
@@ -142838,8 +142388,8 @@ daX
 djw
 roj
 xMQ
-wlG
-wlG
+bhO
+bhO
 rNK
 rNK
 rNK
@@ -143062,20 +142612,20 @@ aZu
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 cdT
-cbV
+aXn
 jpk
 cdT
 pez
@@ -143095,9 +142645,9 @@ qct
 lkg
 fYb
 xMQ
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 rNK
 rNK
 rNK
@@ -143319,13 +142869,13 @@ aZu
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 eWL
 ehC
 gdn
@@ -143352,9 +142902,9 @@ xjc
 rns
 pJX
 dMG
-qBg
-qBg
-qBg
+hUU
+hUU
+hUU
 rNK
 rNK
 rNK
@@ -143576,14 +143126,14 @@ aZu
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 dif
 hiI
 jah
@@ -143608,12 +143158,12 @@ jvl
 qoU
 jvl
 gJV
-cbV
-cbV
-cbV
-qBg
-qBg
-qBg
+aXn
+aXn
+aXn
+hUU
+hUU
+hUU
 rNK
 rNK
 rNK
@@ -143833,14 +143383,14 @@ aZu
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 jby
 ceQ
 qot
@@ -143868,10 +143418,10 @@ tDr
 lmS
 uut
 wCU
-cbV
-cbV
-qBg
-wlG
+aXn
+aXn
+hUU
+bhO
 rNK
 rNK
 rNK
@@ -144089,15 +143639,15 @@ fMl
 aZu
 rNK
 rNK
-aZu
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+bhO
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 hud
 ceQ
 qot
@@ -144122,17 +143672,17 @@ awH
 cpX
 ceQ
 cZu
-cbV
-cbV
+aXn
+aXn
 ske
 wCU
-cbV
-qBg
-wlG
-wlG
-wlG
+aXn
+hUU
+bhO
+bhO
+bhO
 rNK
-cbV
+aXn
 rNK
 rNK
 rNK
@@ -144346,15 +143896,15 @@ fMl
 aZu
 rNK
 rNK
-wlG
-qBg
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+bhO
+hUU
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 iXO
 rTV
 njn
@@ -144379,17 +143929,17 @@ qwt
 cRQ
 ceQ
 iCf
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
 qqL
-cbV
-qBg
-qBg
-qBg
-wlG
-wlG
-cbV
+aXn
+hUU
+hUU
+hUU
+bhO
+bhO
+aXn
 rNK
 rNK
 rNK
@@ -144605,13 +144155,13 @@ rNK
 rNK
 rNK
 rNK
-qBg
-cbV
-cbV
-cbV
-cbV
-cbV
-cbV
+hUU
+aXn
+aXn
+aXn
+aXn
+aXn
+aXn
 lts
 ceQ
 lvj
@@ -144636,17 +144186,17 @@ aRZ
 cHj
 ceQ
 vuF
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
 hDL
-cbV
-cbV
-cbV
-qBg
-wlG
-cbV
-cbV
+aXn
+aXn
+aXn
+hUU
+bhO
+aXn
+aXn
 rNK
 rNK
 rNK
@@ -144862,12 +144412,12 @@ rNK
 rNK
 rNK
 rNK
-qBg
-cbV
-qBg
-qBg
-qBg
-qBg
+hUU
+aXn
+hUU
+hUU
+hUU
+hUU
 cdT
 hsj
 eAj
@@ -144893,12 +144443,12 @@ ciX
 iaA
 eAj
 pDE
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
 ske
 wCU
-cbV
+aXn
 sqc
 cdT
 cdT
@@ -145119,12 +144669,12 @@ rNK
 rNK
 rNK
 rNK
-qBg
-cbV
-qBg
-wlG
-wlG
-qBg
+hUU
+aXn
+hUU
+bhO
+bhO
+hUU
 cdT
 iXO
 ceQ
@@ -145150,10 +144700,10 @@ cpm
 chg
 ceQ
 ckw
-cbV
-cbV
-cbV
-ekY
+aXn
+aXn
+aXn
+eyx
 pWu
 uut
 fJJ
@@ -145376,12 +144926,12 @@ rNK
 rNK
 rNK
 rNK
-qBg
-qBg
-qBg
-wlG
-wlG
-wlG
+hUU
+hUU
+hUU
+bhO
+bhO
+bhO
 cdT
 hud
 ceQ
@@ -145407,13 +144957,13 @@ ceQ
 ceQ
 ceQ
 uYU
-cbV
-cbV
-cbV
-cbV
+aXn
+aXn
+aXn
+aXn
 jNX
 ocw
-cbV
+aXn
 cdT
 cdT
 cdT
@@ -145638,7 +145188,7 @@ rNK
 rNK
 rNK
 rNK
-wlG
+bhO
 cdT
 gOC
 ceQ
@@ -145664,13 +145214,13 @@ cpF
 hcB
 hiI
 iTR
-cbV
-cbV
-cbV
-cbV
-cbV
-qBg
-qBg
+aXn
+aXn
+aXn
+aXn
+aXn
+hUU
+hUU
 rNK
 rNK
 lzH
@@ -145895,7 +145445,7 @@ lzH
 lzH
 lzH
 lzH
-rOU
+mic
 cdT
 qxj
 nLR
@@ -145920,13 +145470,13 @@ cdT
 cdT
 cdT
 cdT
-cbV
-cbV
-cbV
-cbV
-cbV
-rOU
-qBg
+aXn
+aXn
+aXn
+aXn
+aXn
+mic
+hUU
 rNK
 rNK
 rNK
@@ -146174,15 +145724,15 @@ vgt
 vgt
 cdT
 cdT
-wlG
-wlG
-wlG
-qBg
-cbV
-cbV
-cbV
-cbV
-qBg
+bhO
+bhO
+bhO
+hUU
+aXn
+aXn
+aXn
+aXn
+hUU
 rNK
 rNK
 rNK
@@ -146418,9 +145968,9 @@ wTg
 vgt
 chk
 vgt
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 vgt
 chk
 vgt
@@ -146430,16 +145980,16 @@ veA
 veA
 veA
 veA
-wlG
-wlG
-wlG
-wlG
-qBg
-qBg
-qBg
-qBg
-qBg
-qBg
+bhO
+bhO
+bhO
+bhO
+hUU
+hUU
+hUU
+hUU
+hUU
+hUU
 rNK
 rNK
 rNK
@@ -146667,17 +146217,17 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 vgt
 chk
 vgt
 nhx
 vgt
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 vgt
 nhx
 vgt
@@ -146687,9 +146237,9 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 rNK
 rNK
 rNK
@@ -146924,17 +146474,17 @@ rNK
 rNK
 rNK
 rNK
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 vgt
 nhx
 vgt
 eFI
 vgt
-wlG
-wlG
-wlG
+bhO
+bhO
+bhO
 vgt
 eFI
 vgt
@@ -146944,7 +146494,7 @@ rNK
 rNK
 rNK
 rNK
-wlG
+bhO
 rNK
 rNK
 rNK
@@ -147181,7 +146731,7 @@ rNK
 rNK
 rNK
 rNK
-wlG
+bhO
 rNK
 rNK
 vgt
@@ -147189,7 +146739,7 @@ eFI
 vgt
 nhx
 vgt
-wlG
+bhO
 rNK
 rNK
 vgt
