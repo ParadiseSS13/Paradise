@@ -1,2 +1,5 @@
 ## Merger hooks, run tools/hooks/install.bat or install.sh to set up
 *.dmm text eol=lf merge=dmm
+*.dm text eol=lf
+*.md text eol=lf
+*LICENSE text eol=lf
