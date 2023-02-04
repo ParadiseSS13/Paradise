@@ -22,7 +22,7 @@
 
 // #define FIND_REF_NO_CHECK_TICK	//Sets world.loop_checks to false and prevents find references from sleeping
 
-// #define FIND_REF_NOTIFY_ON_COMPLETE	// Throw a windows notificatioh toast when the ref finding process is done
+// #define FIND_REF_NOTIFY_ON_COMPLETE	// Throw a windows notification toast when the ref finding process is done
 
 /***** End toggles for the GC ref finder *****/
 
