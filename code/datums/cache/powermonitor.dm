@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(powermonitor_repository, /datum/repository/powermonitor, new()
 
 	for(var/obj/machinery/computer/monitor/pMon in GLOB.power_monitors)
 		if( !(pMon.stat & (NOPOWER|BROKEN)) && !pMon.is_secret_monitor  )
-			pMonData[++pMonData.len] = list ("Name" = pMon.name, "uid" = "[pMon.UID()]")
+			pMonData[++pMonData.len] = list ("Name" = get_area_name(pMon), "uid" = "[pMon.UID()]")
 
 	cache_entry.timestamp = world.time //+ 30 SECONDS
 	cache_entry.data = pMonData
