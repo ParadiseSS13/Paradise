@@ -40,7 +40,6 @@
 
 	var/list/alive = list()
 	var/list/antagonists = list()
-	var/list/other_antags = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
@@ -77,6 +76,7 @@
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
+				var/list/other_antags = list()
 
 				if(GLOB.ts_spiderlist.len && M.ckey)
 					var/list/spider_minds = list()
@@ -84,7 +84,7 @@
 						if(S.key)
 							spider_minds += S.mind
 					other_antags += list(
-						"Terror Spiders ([spider_minds.len])" = GLOB.ts_spiderlist.Find(mind.current),
+						"Terror Spiders ([spider_minds.len])" = (mind.current in GLOB.ts_spiderlist),
 					)
 
 				if(user.antagHUD)
