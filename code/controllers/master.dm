@@ -19,7 +19,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	name = "Master"
 
 	/// Are we processing (higher values increase the processing delay by n ticks)
-	var/processing = TRUE
+	var/processing = 1
 	/// How many times have we ran
 	var/iteration = 0
 
@@ -210,7 +210,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(init_sss)
 		init_subtypes(/datum/controller/subsystem, subsystems)
 
-	to_chat(world, "<span class='boldannounce'>Initializing subsystems...</span>")
+	log_startup_progress("Initializing subsystems...")
 
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, /proc/cmp_subsystem_init)
@@ -221,13 +221,15 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for(var/datum/controller/subsystem/SS in subsystems)
 		if(SS.flags & SS_NO_INIT)
 			continue
-		SS.log_startup_progress("Initializing...")
-		SS.Initialize(REALTIMEOFDAY)
+		SS.call_init(REALTIMEOFDAY)
 		CHECK_TICK
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
 	log_startup_progress("Initializations complete within [time] second[time == 1 ? "" : "s"]!")
+
+	if(GLOB.configuration.system.toast_on_init_complete)
+		rustg_create_toast("Paradise SS13", "Server initialization complete")
 
 	if(GLOB.configuration.general.developer_express_start)
 		SSticker.force_start = TRUE

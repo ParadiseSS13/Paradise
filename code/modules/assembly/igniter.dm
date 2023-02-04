@@ -56,5 +56,6 @@
 
 
 /obj/item/assembly/igniter/attack_self(mob/user)
-	activate()
+	if(!istype(loc, /obj/item/assembly_holder))
+		activate()
 	add_fingerprint(user)
