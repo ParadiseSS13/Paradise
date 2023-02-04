@@ -22,19 +22,20 @@
 	delay_web = 10
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	obj_damage = 50
+	environment_smash = 2
 	spider_opens_doors = 2
 	ranged = 1
 	rapid = 2
 	ranged_cooldown_time = 40
-	speed = 1.2
+	speed = 1.4
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
 	projectiletype = /obj/item/projectile/terrorspider/builder
 	web_type = /obj/structure/spider/terrorweb/queen/builder
-	sight = SEE_TURFS|SEE_MOBS
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	ventcrawler = 0
 	can_wrap = FALSE
-	spider_intro_text = "Будучи Дроном Ужаса, ваша задача - постройка и защита гнезда. Бесконечно плетите паутину, используйте свои замедляющие плевки и замораживающие укусы для защиты яиц и яйцекладущих пауков."
-	var/enrage = 0
+	spider_intro_text = "Будучи Дроном Ужаса, ваша задача - постройка и защита гнезда. Плетите паутину, используйте свои замедляющие плевки и замораживающие укусы для защиты яиц и гнезда. Помните, вы не регенерируете и двигаетесь медленно вне паутины!."
 
 /mob/living/simple_animal/hostile/poison/terror_spider/builder/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.slowed = 2
@@ -60,10 +61,10 @@
 			regeneration = 3
 	else if(speed != 1.2)
 		regeneration = 0
-		speed = 1.2
+		speed = 1.4
 
 /obj/structure/spider/terrorweb/queen/builder
-	max_integrity = 40
+	max_integrity = 30
 	opacity = 1
 	name = "drone web"
 	desc = "Extremely thick web."
@@ -71,7 +72,7 @@
 /obj/item/projectile/terrorspider/builder
 	name = "drone venom"
 	icon_state = "toxin2"
-	damage = 5
+	damage = 10
 	stamina = 17
 
 /obj/item/projectile/terrorspider/drone/on_hit(atom/target, blocked = 0, hit_zone)

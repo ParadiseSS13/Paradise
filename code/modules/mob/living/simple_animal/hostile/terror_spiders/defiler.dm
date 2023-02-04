@@ -14,12 +14,12 @@
 	icon_state = "terror_white"
 	icon_living = "terror_white"
 	icon_dead = "terror_white_dead"
-	maxHealth = 210
-	health = 210
+	maxHealth = 220
+	health = 220
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	speed = -0.1
-	melee_damage_lower = 5
-	melee_damage_upper = 10
+	melee_damage_lower = 2
+	melee_damage_upper = 5
 	spider_opens_doors = 2
 	spider_tier = TS_TIER_2
 	gender = MALE
@@ -28,7 +28,7 @@
 	special_abillity = list(/obj/effect/proc_holder/spell/targeted/terror/smoke,
 							/obj/effect/proc_holder/spell/targeted/terror/parasmoke,
 							/obj/effect/proc_holder/spell/targeted/terror/infest)
-	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их своими яйцами. Вы наносите мало урона, но можете довольно быстро парализовать цель, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых!"
+	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за два укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/LoseTarget()
@@ -44,7 +44,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.AdjustSilence(5)
-	L.adjustStaminaLoss(40)
+	L.adjustStaminaLoss(50)
 	if(!poisonable)
 		..()
 		return

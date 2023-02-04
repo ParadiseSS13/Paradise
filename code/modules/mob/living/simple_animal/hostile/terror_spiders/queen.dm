@@ -15,12 +15,13 @@
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
-	maxHealth = 350
-	health = 350
+	maxHealth = 310
+	health = 310
 	deathmessage = "Emits a  piercing screech that echoes through the hallways, chilling the hearts of those around, as the spider lifelessly falls to the ground."
 	death_sound = 'sound/creatures/terrorspiders/queen_death.ogg'
 	melee_damage_lower = 20
 	melee_damage_upper = 30
+	obj_damage = 75
 	ventcrawler = 1
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	ai_break_lights = FALSE
@@ -41,8 +42,8 @@
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/queen)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
-	var/spider_spawnfrequency = 1200 // 120 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
-	var/spider_spawnfrequency_stable = 1200 // 120 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
+	var/spider_spawnfrequency = 1400 // 140 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
+	var/spider_spawnfrequency_stable = 1400 // 140 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
 	var/spider_lastspawn = 0
 	var/nestfrequency = 300 // 30 seconds
 	var/lastnestsetup = 0
@@ -116,12 +117,10 @@
 				continue
 			if(T.spider_myqueen != src)
 				continue
-			if(prob(100) || T.spider_tier >= spider_tier)
-				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!</span>")
-				continue
-			T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
-			to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
-			T.degenerate = TRUE
+			if(T.spider_tier < spider_tier)
+				T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
+				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
+				T.degenerate = TRUE
 		for(var/thing in GLOB.ts_spiderling_list)
 			var/obj/structure/spider/spiderling/terror_spiderling/T = thing
 			if(T.spider_myqueen && T.spider_myqueen == src)
@@ -249,7 +248,7 @@
 	ventcrawler = 0
 	speed = 1
 	ai_ventcrawls = FALSE
-	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	environment_smash = 2
 	DoQueenScreech(8, 100, 8, 100)
 	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl.</span>")
 
@@ -369,7 +368,7 @@
 	name = "queen venom"
 	icon_state = "toxin3"
 	damage = 40
-	stamina = 40
+	stamina = 50
 	icon_state = "toxin"
 	damage_type = BURN
 

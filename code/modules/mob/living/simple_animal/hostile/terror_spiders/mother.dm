@@ -15,19 +15,18 @@
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
 	icon_dead = "terror_mother_dead"
-	maxHealth = 150
-	health = 150
+	maxHealth = 170
+	health = 170
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	can_wrap = FALSE
 	melee_damage_lower = 10
 	melee_damage_upper = 15
-	idle_ventcrawl_chance = 5
+	ventcrawler = 0
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
-	can_wrap = FALSE
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/terror/jelly,
 							/obj/effect/proc_holder/spell/aoe_turf/terror/healing)
-	spider_intro_text = "Будучи Матерью Ужаса, ваша задача - массовое исцеление пауков. Вы пассивно исцеляете всех пауков вокруг вас, и можете создавать желе, которое мгновенно их исцеляет, а также мгновенно исцелять пауков вокруг себя используя вашу способность."
+	spider_intro_text = "Будучи Матерью Ужаса, ваша задача - массовое исцеление пауков. Вы пассивно исцеляете всех пауков вокруг вас и наносите наносите урон гуманоидам. Вы также можете создавать желе, употребив которое, пауки быстро исцеляются. Ваша вторая способность действует аналогично желе, но работает по области для всех пауков в радиусе вашей видимости!"
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Maiev"
@@ -55,6 +54,9 @@
 			if(isterrorspider(S) && S != src) //still no self healing
 				S.adjustBruteLoss(-2)
 				new /obj/effect/temp_visual/heal(get_turf(S), "#8c00ff")
+	for(var/mob/living/carbon/human/L in view(7, src))  //deadly toxic aura
+		if(L.stat != DEAD)
+			L.adjustToxLoss(1)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/consume_jelly(obj/structure/spider/royaljelly/J)
 	to_chat(src, "<span class='warning'>Mothers cannot consume royal jelly.</span>")

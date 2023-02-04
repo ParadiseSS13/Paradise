@@ -19,14 +19,14 @@
 	health = 150
 	speed = -0.1
 	melee_damage_lower = 15
-	melee_damage_upper = 25
+	melee_damage_upper = 20
 	obj_damage = 100 //for effective breaching
 	move_to_delay = 20
 	spider_opens_doors = 2 // Breach specialist.
-	environment_smash = ENVIRONMENT_SMASH_RWALLS // Breaks anything.
+	environment_smash = 2
 	spider_tier = TS_TIER_2
 	ai_ventbreaker = 1
-	sight = SEE_TURFS|SEE_MOBS
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	freq_ventcrawl_combat = 600 // Ventcrawls very frequently, breaking open vents as it goes.
 	freq_ventcrawl_idle =  1800
 	can_wrap = FALSE

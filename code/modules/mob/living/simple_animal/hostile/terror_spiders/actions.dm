@@ -32,6 +32,33 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/healer/user = owner
 	user.DoLayGreenEggs()
 
+// ---------- KNIGHT ACTIONS
+/datum/action/innate/terrorspider/knight/defaultm
+	name = "Default"
+	icon_icon = 'icons/mob/terrorspider.dmi'
+	button_icon_state = "terror_princess1"
+
+/datum/action/innate/terrorspider/knight/defaultm/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(0)
+
+/datum/action/innate/terrorspider/knight/attackm
+	name = "Attack"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "attack"
+
+/datum/action/innate/terrorspider/knight/attackm/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(1)
+
+/datum/action/innate/terrorspider/knight/defencem
+	name = "Defence"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "defence"
+
+/datum/action/innate/terrorspider/knight/defencem/Activate()
+	var/mob/living/simple_animal/hostile/poison/terror_spider/knight/user = owner
+	user.activate_mode(2)
 
 // ---------- BOSS ACTIONS
 
@@ -154,8 +181,9 @@
 			return 1
 		if(prob(80))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			M.Stun(2) // 4 seconds.
-			M.Weaken(2) // 4 seconds.
+			M.Stun(1) // 2 seconds.
+			M.Weaken(1) // 2 seconds.
+			M.slowed = 3
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover
 				web_special_ability(C)
@@ -241,10 +269,10 @@
 						if(!mobIsWrappable(L))
 							continue
 						if(iscarbon(L))
-							adjustBruteLoss(-heal_per_kill)
+							apply_status_effect(STATUS_EFFECT_TERROR_FOOD_REGEN)
 							fed++
 							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
-							to_chat(src, "<span class='notice'>You feel invigorated!</span>")
+							to_chat(src, "<span class='notice'>You begin to regenerate quickly!</span>")
 						else
 							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
 						large_cocoon = 1

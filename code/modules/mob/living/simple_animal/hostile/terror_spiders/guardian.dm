@@ -19,26 +19,26 @@
 	maxHealth = 220
 	health = 220
 	melee_damage_lower = 20
-	melee_damage_upper = 30
+	melee_damage_upper = 25
 	obj_damage = 70
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
 	death_sound = 'sound/creatures/terrorspiders/death6.ogg'
-	armour_penetration = 20
+	armour_penetration = 10
 	spider_tier = TS_TIER_2
 	move_to_delay = 5 // at 20ticks/sec, this is 4 tile/sec movespeed, same as a human. Faster than a normal spider, so it can intercept attacks on queen.
 	spider_opens_doors = 2
 	ventcrawler = 0
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	ai_ventcrawls = FALSE
-	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	environment_smash = 2
 	idle_ventcrawl_chance = 0 // stick to the queen!
-	sight = SEE_TURFS|SEE_MOBS
+	sight = SEE_MOBS
 	web_type = /obj/structure/spider/terrorweb/purple
 	can_wrap = FALSE
 	delay_web = 20
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/terror/shield)
 	can_wrap = FALSE
-	spider_intro_text = "Будучи Защитником Ужаса, ваша задача - охрана гнезда, яиц, принцесс и королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Если встанет выбор, спасти принцессу, или королеву, при этои обрекая себя на смерть - делайте это."
+	spider_intro_text = "Будучи Защитником Ужаса, ваша задача - охрана гнезда, яиц, принцесс и королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Ваша активная способность создает временный неразрушимый барьер, через который могут пройти только пауки. Если встанет выбор, спасти принцессу, или королеву, при этои обрекая себя на смерть - делайте это без раздумий!."
 	ai_spins_webs = FALSE
 	var/queen_visible = TRUE
 	var/cycles_noqueen = 0
@@ -122,7 +122,7 @@
 				stat(null, "Link: <font color='#eb4034'>BROKEN</font>") // color=red
 			else if(queen_visible)
 				stat(null, "Link: <font color='#32a852'>[spider_myqueen] is near</font>") // color=green
-			else if(cycles_noqueen >= 36)
+			else if(cycles_noqueen >= 18)
 				stat(null, "Link: <font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>") // color=red
 			else
 				stat(null, "Link: <font color='#fcba03'>Warning - return to [spider_myqueen] in [A]</font>") // color=orange

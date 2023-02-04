@@ -17,9 +17,8 @@
 	icon_dead = "terror_princess1_dead"
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	maxHealth = 200
-	health = 200
-	speed = -0.1
+	maxHealth = 180
+	health = 180
 	delay_web = 25
 	deathmessage = "Emits a  piercing screech and slowly falls on the ground."
 	death_sound = 'sound/creatures/terrorspiders/princess_death.ogg'
@@ -128,6 +127,6 @@
 	name = "princess venom"
 	icon_state = "toxin4"
 	damage = 25
-	stamina = 25
+	stamina = 33
 	icon_state = "toxin"
 	damage_type = BURN
