@@ -40,6 +40,7 @@
 
 	var/list/alive = list()
 	var/list/antagonists = list()
+	var/list/other_antags = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
@@ -76,6 +77,16 @@
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
+
+				if(GLOB.ts_spiderlist.len && M.ckey)
+					var/list/spider_minds = list()
+					for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
+						if(S.key)
+							spider_minds += S.mind
+					other_antags += list(
+						"Terror Spiders ([spider_minds.len])" = GLOB.ts_spiderlist.Find(mind.current),
+					)
+
 				if(user.antagHUD)
 					// If a mind is many antags at once, we'll display all of them, each
 					// under their own antag sub-section.
@@ -90,31 +101,36 @@
 
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
-					var/other_antags = list(
-						"Changeling" = (mind.changeling != null),
-						"Vampire" = (mind.vampire != null),
-					)
 					if(SSticker && SSticker.mode)
 						other_antags += list(
-							"Clockwork cultist" = (mind in SSticker.mode.clockwork_cult),
-							"Cultist" = (mind in SSticker.mode.cult),
-							"Wizard" = (mind in SSticker.mode.wizards),
-							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
-							"Spider Clan" = (mind in SSticker.mode.space_ninjas),
-							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Shadowling" = (mind in SSticker.mode.shadows),
-							"Shadowling Thrall" = (mind in SSticker.mode.shadowling_thralls),
-							"Abductor" = (mind in SSticker.mode.abductors),
-							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
+							"Abductees — ([SSticker.mode.abductees.len])" = (mind in SSticker.mode.abductees),
+							"Abductors — ([SSticker.mode.abductors.len])" = (mind in SSticker.mode.abductors),
+							"Changelings — ([SSticker.mode.changelings.len])" = (mind.changeling != null),
+							"Devils — ([SSticker.mode.devils.len])" = (mind in SSticker.mode.devils),
+							"Event Roles — ([SSticker.mode.eventmiscs.len])" = (mind in SSticker.mode.eventmiscs),
+							"Nar’Sie Cultists — ([SSticker.mode.cult.len])" = (mind in SSticker.mode.cult),
+							"Nuclear Operatives — ([SSticker.mode.syndicates.len])" = (mind in SSticker.mode.syndicates),
+							"Ratvar Cultists — ([SSticker.mode.clockwork_cult.len])" = (mind in SSticker.mode.clockwork_cult),
+							"Revolutionary Comrades — ([SSticker.mode.revolutionaries.len])" = (mind in SSticker.mode.revolutionaries),
+							"Revolutionary Heads — ([SSticker.mode.head_revolutionaries.len])" = (mind in SSticker.mode.head_revolutionaries),
+							"Shadowling Thralls — ([SSticker.mode.shadowling_thralls.len])" = (mind in SSticker.mode.shadowling_thralls),
+							"Shadowlings — ([SSticker.mode.shadows.len])" = (mind in SSticker.mode.shadows),
+							"Sintouched — ([SSticker.mode.sintouched.len])" = (mind in SSticker.mode.sintouched),
+							"Spider Clan — ([SSticker.mode.space_ninjas.len])" = (mind in SSticker.mode.space_ninjas),
+							"Vampire Thralls — ([SSticker.mode.vampire_enthralled.len])" = (mind in SSticker.mode.vampire_enthralled),
+							"Vampires — ([SSticker.mode.vampires.len])" = (mind.vampire != null),
+							"Wizards — ([SSticker.mode.wizards.len])" = (mind in SSticker.mode.wizards),
+							"Wizard’s Apprentices — ([SSticker.mode.apprentices.len])" = (mind in SSticker.mode.apprentices),
+							"Xenomorphs — ([SSticker.mode.xenos.len])" = (mind in SSticker.mode.xenos),
 						)
 
-					for(var/antag_name in other_antags)
-						var/is_antag = other_antags[antag_name]
-						if(!is_antag)
-							continue
-						var/antag_serialized = serialized.Copy()
-						antag_serialized["antag"] = antag_name
-						antagonists += list(antag_serialized)
+				for(var/antag_name in other_antags)
+					var/is_antag = other_antags[antag_name]
+					if(!is_antag)
+						continue
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = antag_name
+					antagonists += list(antag_serialized)
 
 		else
 			misc += list(serialized)
