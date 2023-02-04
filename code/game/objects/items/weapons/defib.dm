@@ -228,7 +228,6 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
 	combat = TRUE
 	safety = FALSE
-	heart_attack_probability = 100
 
 /obj/item/defibrillator/compact/combat/loaded/Initialize(mapload)
 	. = ..()
