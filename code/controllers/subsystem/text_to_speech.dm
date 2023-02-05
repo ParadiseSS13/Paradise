@@ -419,11 +419,10 @@ SUBSYSTEM_DEF(tts)
 	SEND_SOUND(listener, output)
 
 /datum/controller/subsystem/tts/proc/get_local_channel_by_owner(owner)
-	var/owner_ref = "\ref[owner]"
-	var/channel = tts_local_channels_by_owner[owner_ref]
+	var/channel = tts_local_channels_by_owner[owner]
 	if(isnull(channel))
 		channel = SSsounds.reserve_sound_channel_datumless()
-		tts_local_channels_by_owner[owner_ref] = channel
+		tts_local_channels_by_owner[owner] = channel
 	return channel
 
 /datum/controller/subsystem/tts/proc/cleanup_tts_file(filename)
