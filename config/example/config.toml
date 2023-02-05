@@ -751,6 +751,8 @@ external_tos_handler = false
 regional_servers = [
 	#{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
 ]
+# Send a toast on server init completion. You probably dont need this on in production
+toast_on_init_complete = true
 
 
 ################################################################
