@@ -575,6 +575,7 @@
 	if(component_id == "KA modkits")
 		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
 			D.crowbar_act(user, W)
+		to_chat(user, "You remove the KPA modkits.")
 		return TRUE
 	return ..()
 
