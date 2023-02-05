@@ -107,10 +107,10 @@
 							var/atom/a = t
 
 							if(a.x)
-								text += ": [t] at ([a.x], [a.y], [a.z])<br>"
+								text += ": [t] at [ADMIN_COORDJMP(a)] ([ADMIN_FLW(a, "FLW")])<br>"
 
 							else if(a.loc && a.loc.x)
-								text += ": [t] in [a.loc] at ([a.loc.x], [a.loc.y], [a.loc.z])<br>"
+								text += ": [t] in [a.loc] at [ADMIN_COORDJMP(a.loc)] ([ADMIN_FLW(a.loc, "FLW")])<br>"
 
 							else
 								text += ": [t]<br>"
