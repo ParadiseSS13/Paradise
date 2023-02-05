@@ -19,7 +19,7 @@
 
 /datum/tgs_api/v5/ApiVersion()
 	return new /datum/tgs_version(
-		#include "interop_version.dm"
+		#include "v5_interop_version.dm"
 	)
 
 /datum/tgs_api/v5/OnWorldNew(minimum_required_security_level)

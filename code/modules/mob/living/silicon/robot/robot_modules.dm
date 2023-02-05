@@ -474,14 +474,6 @@
 			cleaned_human.clean_blood()
 			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 
-/obj/item/reagent_containers/spray/cyborg_lube
-	name = "Lube spray"
-	list_reagents = list("lube" = 250)
-
-/obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
-	if(emagged)
-		reagents.check_and_add("lube", volume, 2 * coeff)
-
 // Service cyborg module.
 /obj/item/robot_module/butler
 	name = "service robot module"

@@ -491,7 +491,7 @@
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/reagent_containers/spray/cleaner/advanced = 1,
 		/obj/item/storage/bag/trash = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1)
@@ -533,7 +533,7 @@
 		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
-		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/reagent_containers/spray/cleaner/advanced = 1,
 		/obj/item/melee/flyswatter = 1
 	)
 

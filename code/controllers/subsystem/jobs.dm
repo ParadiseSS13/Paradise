@@ -678,7 +678,7 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/job/tgt_job = GetJob(jobtitle)
 	if(!tgt_job)
 		return
-	if(!tgt_job.department_head[1])
+	if(!length(tgt_job.department_head))
 		return
 	var/boss_title = tgt_job.department_head[1]
 	var/obj/item/pda/target_pda
