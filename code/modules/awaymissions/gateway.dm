@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation
 	density = TRUE
 	icon_state = "offcenter"
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 
 	//warping vars
 	var/list/linked = list()
@@ -93,7 +93,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 	if(linked.len != 8)
 		return
-	if(!powered())
+	if(!has_power())
 		return
 	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
@@ -163,7 +163,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centeraway
 	density = TRUE
 	icon_state = "offcenter"
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
+
 	var/calibrated = 1
 	var/list/linked = list()	//a list of the connected gateway chunks
 	var/ready = FALSE

@@ -20,9 +20,8 @@
 	var/stealthmode = FALSE
 	var/list/victims = list()
 
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 500
+	idle_power_consumption = 2
+	active_power_consumption = 500
 
 /obj/machinery/gibber/Initialize(mapload)
 	. = ..()

@@ -23,6 +23,8 @@
 		icon_state = on_icon
 
 /obj/machinery/holosign/power_change()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		lit = FALSE
 	update_icon(UPDATE_ICON_STATE)
@@ -41,9 +43,8 @@
 	var/id = null
 	var/active = FALSE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
+	idle_power_consumption = 2
+	active_power_consumption = 4
 
 /obj/machinery/holosign_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
