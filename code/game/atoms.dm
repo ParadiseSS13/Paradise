@@ -923,10 +923,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	for(var/_seed in SStts.tts_seeds)
 		var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
 		tts_seeds += _tts_seed.name
-	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference") as null|anything in sortTim(tts_seeds, /proc/cmp_text_asc)
+	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference", tts_seed) as null|anything in sortTim(tts_seeds, /proc/cmp_text_asc)
 	if(!new_tts_seed)
 		return null
-	if(!silent_target && ismob(src))
+	if(!silent_target && ismob(src) && src != user)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, src, tts_test_str, new_tts_seed, FALSE)
 	if(user)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, new_tts_seed, FALSE)
