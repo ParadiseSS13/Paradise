@@ -1954,7 +1954,6 @@
 #include "code\modules\mob\living\carbon\alien\alien_life.dm"
 #include "code\modules\mob\living\carbon\alien\alien_login.dm"
 #include "code\modules\mob\living\carbon\alien\alien_logout.dm"
-#include "code\modules\mob\living\carbon\alien\humanoid\alien_powers.dm"
 #include "code\modules\mob\living\carbon\alien\humanoid\empress.dm"
 #include "code\modules\mob\living\carbon\alien\humanoid\humanoid.dm"
 #include "code\modules\mob\living\carbon\alien\humanoid\humanoid_defense.dm"
