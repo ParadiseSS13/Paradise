@@ -227,10 +227,11 @@
 ///from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
 
-// /area signals
 
-///from base of area/proc/power_change(): ()
-#define COMSIG_AREA_POWER_CHANGE "area_power_change"
+///from base of /datum/local_powernet/proc/power_change()
+#define COMSIG_POWERNET_POWER_CHANGE "powernet_power_change"
+
+// /area signals
 ///from base of area/Entered(): (atom/movable/M)
 #define COMSIG_AREA_ENTERED "area_entered"
 ///from base of area/Exited(): (atom/movable/M)
@@ -473,6 +474,8 @@
 #define COMSIG_CARBON_TOGGLE_THROW "carbon_toggle_throw"
 /// From /mob/living/carbon/human/hitby()
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
+/// From /mob/living/carbon/flash_eyes()
+#define COMSIG_CARBON_FLASH_EYES "carbon_flash_eyes"
 
 
 // /mob/living/simple_animal/hostile signals
@@ -682,6 +685,8 @@
 	#define COMSIG_HUMAN_NO_CHANGE_APPEARANCE (1<<0)
 /// From mob/living/carbon/human/change_head_accessory(): (mob/living/carbon/human/H, head_accessory_style)
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
+//sent from living mobs when they parry
+#define COMSIG_HUMAN_PARRY "human_parry"
 
 // /datum/species signals
 
@@ -837,9 +842,9 @@
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
 
-///SSalarm signals
-#define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
-#define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"
+/// Alarm manager signals
+#define COMSIG_TRIGGERED_ALARM "alarmmanager_triggered"
+#define COMSIG_CANCELLED_ALARM "alarmmanager_cancelled"
 
 // /obj/machinery/door signals
 #define COMSIG_DOOR_OPEN "door_open"

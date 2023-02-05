@@ -20,7 +20,8 @@
 	var/job_role = null
 
 /datum/disease/transformation/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(stage_prob) && stage1)

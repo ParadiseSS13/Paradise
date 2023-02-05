@@ -36,6 +36,10 @@
 	..()
 	return TRUE
 
+
+/obj/structure/closet/critter/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
+
 /obj/structure/closet/critter/random
 	name = "unmarked crate"
 	desc = "A crate designed for safe transport of animals. The contents are a mystery."

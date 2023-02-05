@@ -30,7 +30,7 @@
 	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
 	var/obj/item/I = parent
 	if(ismob(I.loc))
-		UnregisterSignal(I.loc, COMSIG_LIVING_RESIST)
+		UnregisterSignal(I.loc, COMSIG_HUMAN_PARRY)
 
 /datum/component/parry/Initialize(_stamina_constant = 0, _stamina_coefficient = 0, _parry_time_out_time = PARRY_DEFAULT_TIMEOUT, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = 2 SECONDS, _no_parry_sound = FALSE)
 	if(!isitem(parent))
@@ -62,13 +62,13 @@
 /datum/component/parry/proc/equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 	if(slot in list(slot_l_hand, slot_r_hand))
-		RegisterSignal(user, COMSIG_LIVING_RESIST, PROC_REF(start_parry))
+		RegisterSignal(user, COMSIG_HUMAN_PARRY, PROC_REF(start_parry))
 	else
-		UnregisterSignal(user, COMSIG_LIVING_RESIST)
+		UnregisterSignal(user, COMSIG_HUMAN_PARRY)
 
 /datum/component/parry/proc/dropped(datum/source, mob/user)
 	SIGNAL_HANDLER
-	UnregisterSignal(user, COMSIG_LIVING_RESIST)
+	UnregisterSignal(user, COMSIG_HUMAN_PARRY)
 
 /datum/component/parry/proc/start_parry(mob/living/L)
 	SIGNAL_HANDLER
@@ -77,6 +77,7 @@
 		return
 
 	time_parried = world.time
+	L.changeNext_move(CLICK_CD_PARRY)
 	L.do_attack_animation(L, used_item = parent)
 
 /datum/component/parry/proc/attempt_parry(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_type = MELEE_ATTACK)
