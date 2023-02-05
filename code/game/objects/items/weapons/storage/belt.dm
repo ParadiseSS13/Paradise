@@ -438,7 +438,8 @@
 		/obj/item/soap,
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
-		/obj/item/storage/bag/trash
+		/obj/item/storage/bag/trash,
+		/obj/item/twohanded/push_broom
 		)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
