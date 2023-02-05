@@ -10,24 +10,30 @@
 	possible_transfer_amounts = null
 	/// It doesn't matter what reagent is used in the autohypos, so we don't!
 	var/total_reagents = 100
+	/// Maximum reagents that the base autohypo can store
 	var/maximum_reagents = 100
 	var/charge_cost = 50
+	/// Used for delay with the recharge time, each charge tick is worth 2 seconds of real time
 	var/charge_tick = 0
-	var/recharge_time = 2 //Time it takes for shots to recharge (in seconds)
-	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
+	/// Time it takes for reagents to recharge, *2 and you get how many seconds it will additionally take from 2
+	var/recharge_time = 2
+	/// Can the autohypo inject through thick materials?
+	var/bypass_protection = 0
 	var/choosen_reagent = "salglu_solution"
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone", "mannitol", "salbutamol")
 	var/static/list/reagent_icons = list("salglu_solution" = image(icon = 'icons/goonstation/objects/iv.dmi', icon_state = "ivbag"),
 							"epinephrine" = image(icon = 'icons/obj/hypo.dmi', icon_state = "autoinjector"),
 							"spaceacillin" = image(icon = 'icons/obj/decals.dmi', icon_state = "bio"),
-							"charcoal" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill11"),
+							"charcoal" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill17"),
 							"hydrocodone" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bottle19"),
 							"styptic_powder" = image(icon = 'icons/obj/chemical.dmi', icon_state = "bandaid_brute"),
 							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
 							"sal_acid" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill4"),
 							"syndicate_nanites" = image(icon = 'icons/obj/decals.dmi', icon_state = "greencross"),
-							"potass_iodide" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill17"))
+							"potass_iodide" = image(icon = 'icons/obj/decals.dmi', icon_state = "radiation"),
+							"mannitol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill19"),
+							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"))
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
@@ -72,7 +78,6 @@
 	if(istype(robot))
 		robot.cell.use(charge_cost)
 	total_reagents = min((total_reagents + BORGHYPO_REFILL_VALUE), maximum_reagents)
-	return
 
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
 	if(!total_reagents)
@@ -97,12 +102,12 @@
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, 0)
-	var/selected_reagent = show_radial_menu(user, src, get_radial_contents())
+	var/selected_reagent = show_radial_menu(user, src, get_radial_contents(), radius = 48)
 	if(!selected_reagent)
 		return
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = GLOB.chemical_reagents_list[selected_reagent]
-	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
+	to_chat(user, "<span class='notice'>Synthesizer is now producing [R.name].</span>")
 	choosen_reagent = selected_reagent
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
