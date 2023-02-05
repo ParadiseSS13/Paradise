@@ -62,21 +62,33 @@
 
 
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
+	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+
 	if(istype(I, /obj/item/storage/bag/trash))
-		if(!user.drop_item())
+		if(!mybag)
+			if(!user.drop_item())
+				return
+			to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
+			I.forceMove(src)
+			mybag = I
+			update_icon(UPDATE_OVERLAYS)
 			return
-		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
-		I.forceMove(src)
-		mybag = I
-		update_icon(UPDATE_OVERLAYS)
-		return
+		else
+			to_chat(user, fail_msg)
 	if(istype(I, /obj/item/janiupgrade))
-		floorbuffer = TRUE
-		qdel(I)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
-		update_icon(UPDATE_OVERLAYS)
-		return
-	return ..()
+		if(!floorbuffer)
+			floorbuffer = TRUE
+			qdel(I)
+			to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+			update_icon(UPDATE_OVERLAYS)
+			return
+		else
+			to_chat(user, fail_msg)
+	if(istype(I, /obj/item/key/janitor))
+		..()
+	if(mybag && user.a_intent == INTENT_HELP)
+		mybag.attackby(I, user)
+	return
 
 /obj/vehicle/janicart/update_overlays()
 	. = ..()
