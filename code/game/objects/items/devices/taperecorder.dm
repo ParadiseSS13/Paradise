@@ -94,24 +94,41 @@
 	if(mytape && recording)
 		var/ending = copytext(msg, length(msg))
 		mytape.timestamp += mytape.used_capacity
+		var/datum/tape_piece/piece = new()
+		piece.time = mytape.used_capacity
+		piece.speaker_name = M.name
+		piece.message = msg
+		piece.message_verb = "says"
+		piece.tts_seed = M.tts_seed
+
 		if(M.stuttering)
-			mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] stammers, \"[msg]\""
-			return
-		if(M.getBrainLoss() >= 60)
-			mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] gibbers, \"[msg]\""
-			return
-		if(ending == "?")
-			mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] asks, \"[msg]\""
-			return
+			piece.message_verb = "stammers"
+		else if(M.getBrainLoss() >= 60)
+			piece.message_verb = "gibbers"
+		else if(ending == "?")
+			piece.message_verb = "asks"
 		else if(ending == "!")
-			mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] exclaims, \"[msg]\""
-			return
-		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] says, \"[msg]\""
+			piece.message_verb = "exclaims"
+		mytape.storedinfo += piece
 
 /obj/item/taperecorder/hear_message(mob/living/M as mob, msg)
 	if(mytape && recording)
 		mytape.timestamp += mytape.used_capacity
-		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] [msg]"
+		var/datum/tape_piece/piece = new()
+		piece.time = mytape.used_capacity
+		piece.speaker_name = M.name
+		piece.message = msg
+		piece.message_verb = null
+		piece.tts_seed = null
+		mytape.storedinfo += piece
+
+/datum/tape_piece
+	var/time
+	var/speaker_name
+	var/message
+	var/message_verb
+	var/tts_seed
+	var/transcript
 
 /obj/item/taperecorder/verb/record()
 	set name = "Start Recording"
@@ -131,7 +148,13 @@
 		recording = 1
 		update_icon()
 		mytape.timestamp += mytape.used_capacity
-		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] Recording started."
+		var/datum/tape_piece/piece = new()
+		piece.time = mytape.used_capacity
+		piece.speaker_name = null
+		piece.message = "Запись началась."
+		piece.message_verb = null
+		piece.tts_seed = null
+		mytape.storedinfo += piece
 		var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
 		var/max = mytape.max_capacity
 		for(used, used < max)
@@ -156,11 +179,19 @@
 	if(recording)
 		recording = 0
 		mytape.timestamp += mytape.used_capacity
-		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] Recording stopped."
+		var/datum/tape_piece/piece = new()
+		piece.time = mytape.used_capacity
+		piece.speaker_name = null
+		piece.message = "Запись остановлена."
+		piece.message_verb = null
+		piece.tts_seed = null
+		mytape.storedinfo += piece
 		to_chat(usr, "<span class='notice'>Recording stopped.</span>")
 		return
 	else if(playing)
 		playing = 0
+		tts_seed = null
+		atom_say_verb = "says"
 		atom_say("Проигрывание остановлено.")
 	update_icon()
 
@@ -183,6 +214,7 @@
 	to_chat(usr, "<span class='notice'>Playing started.</span>")
 	var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
 	var/max = mytape.max_capacity
+	var/datum/tape_piece/piece
 	for(var/i = 1, used < max, sleep(10 * playsleepseconds))
 		if(!mytape)
 			break
@@ -190,15 +222,23 @@
 			break
 		if(mytape.storedinfo.len < i)
 			break
-		atom_say("[mytape.storedinfo[i]]")
+		piece = mytape.storedinfo[i]
+		tts_seed = piece.tts_seed
+		atom_say_verb = piece.message_verb || "says"
+		atom_say("[piece.message]")
+
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(10)
+			tts_seed = null
+			atom_say_verb = "says"
 			atom_say("Конец записи.")
 		else
 			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
 		if(playsleepseconds > 14)
 			sleep(10)
+			tts_seed = null
+			atom_say_verb = "says"
 			atom_say("Пропуск [playsleepseconds] секунд тишины.")
 			playsleepseconds = 1
 		i++
@@ -234,8 +274,17 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
+	var/datum/tape_piece/piece
 	for(var/i = 1, mytape.storedinfo.len >= i, i++)
-		t1 += "[mytape.storedinfo[i]]<BR>"
+		// mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] stammers, \"[msg]\""
+		piece = mytape.storedinfo[i]
+		t1 += "\[[time2text(piece.time * 10,"mm:ss")]\] "
+		if(piece.speaker_name)
+			t1 += "[piece.speaker_name] "
+		if(piece.message_verb)
+			t1 += "[piece.message_verb], \"[piece.message]\"<BR>"
+		else
+			t1 += "[piece.message]<BR>"
 	P.info = t1
 	P.name = "paper- 'Transcript'"
 	usr.put_in_hands(P)
