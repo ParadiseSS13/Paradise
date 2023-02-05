@@ -33,12 +33,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/space
 	icon_state = "space"
-	requires_power = TRUE
+	requires_power = FALSE
 	always_unpowered = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	power_light = FALSE
-	power_equip = FALSE
-	power_environ = FALSE
 	valid_territory = FALSE
 	outdoors = TRUE
 	ambientsounds = SPACE_SOUNDS
@@ -719,9 +716,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/abandonedbar
 	name = "Maintenance Bar"
 	icon_state = "oldbar"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	apc_starts_off = TRUE
 
 /area/maintenance/library
 	name = "Abandoned Library"
@@ -730,9 +725,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/spacehut
 	name = "Space Hut"
 	icon_state = "spacehut"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	apc_starts_off = TRUE
 
 /area/maintenance/electrical_shop
 	name ="Electronics Den"
@@ -897,6 +890,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "meeting"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
+/area/bridge/hall
+	name = "\improper Command Hallway"
+
 /area/crew_quarters/captain
 	name = "\improper Captain's Office"
 	icon_state = "captainoffice"
@@ -988,6 +984,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/crew_quarters/toilet/aux
+	name = "\improper Auxiliary Toilets"
+
 /area/crew_quarters/sleep
 	name = "\improper Primary Cyrogenic Dormitories"
 	icon_state = "Sleep"
@@ -1009,6 +1008,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
 
+/area/crew_quarters/recreation
+	name = "\improper Recreation Area"
+
 /area/crew_quarters/dorms
 	name = "\improper Dorms"
 	icon_state = "dorms"
@@ -1017,8 +1019,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Arcade"
 	icon_state = "arcade"
 
-/area/crew_quarters/cafeteria
-	name = "\improper Cafeteria"
+/area/crew_quarters/cafe
+	name = "\improper Cafe"
 	icon_state = "cafeteria"
 
 /area/crew_quarters/kitchen
@@ -1269,9 +1271,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/assembly/assembly_line //Derelict Assembly Line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	apc_starts_off = TRUE
 
 //Teleporter
 
@@ -1639,14 +1639,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "quart"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
-///////////WORK IN PROGRESS//////////
+/area/quartermaster/lobby
+	name = "\improper Cargo Lobby"
+	icon_state = "cargooffice"
 
 /area/quartermaster/sorting
 	name = "\improper Delivery Office"
 	icon_state = "cargobay"
 	sound_environment = SOUND_AREA_STANDARD_STATION
-
-////////////WORK IN PROGRESS//////////
 
 /area/quartermaster/office
 	name = "\improper Cargo Office"
@@ -1723,7 +1723,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "scilab"
 
 /area/toxins/storage
-	name = "Toxins Storage"
+	name = "\improper Science Toxins Storage"
 	icon_state = "toxstorage"
 
 /area/toxins/test_area
@@ -2058,10 +2058,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Telecoms Control Room"
 	icon_state = "tcomms"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
-
-/area/tcommsat/server
-	name = "\improper Telecoms Server Room"
-	icon_state = "tcomms"
 
 // Away Missions
 /area/awaymission

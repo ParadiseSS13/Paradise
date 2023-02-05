@@ -4,9 +4,8 @@
 	icon_state = "borgcharger0"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 1000
+	idle_power_consumption = 5
+	active_power_consumption = 1000
 	/// A reference to the occupant currently sitting inside the recharger.
 	var/mob/occupant = null
 	/// What type of circuit board is required to build this machine.
@@ -165,7 +164,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
-	use_power = IDLE_POWER_USE
+	change_power_mode(IDLE_POWER_USE)
 	return
 
 /obj/machinery/recharge_station/force_eject_occupant(mob/target)
@@ -235,5 +234,5 @@
 
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
-	update_use_power(1)
+	change_power_mode(IDLE_POWER_USE)
 	return
