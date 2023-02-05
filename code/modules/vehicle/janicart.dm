@@ -88,7 +88,7 @@
 		..()
 	if(mybag && user.a_intent == INTENT_HELP)
 		mybag.attackby(I, user)
-	return
+	return ..()
 
 /obj/vehicle/janicart/update_overlays()
 	. = ..()
